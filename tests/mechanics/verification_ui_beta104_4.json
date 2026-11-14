@@ -1,0 +1,54 @@
+{
+  "date": "2026-11-14",
+  "version": "1.0.4-beta.4",
+  "profile": "runs\\ui_audit_beta104_4",
+  "launch_manifest_sha256": "14eda9665603a227c4879d238cdca31c9942c7fd44e2a8d903848da4b4d58194",
+  "resolution": "1920x1080",
+  "scales": [
+    100,
+    120
+  ],
+  "countries": [
+    "GBR",
+    "FRA"
+  ],
+  "dates": "1840-01-01 through 1840-02-25",
+  "observations": [
+    "Banking credit row and tooltip both show 2.07M after monthly updates; tooltip income 679K is consistent with rounded leverage 3.0 months.",
+    "Military category plus Feverish yields explicit empty state; toggling Feverish restores three military goods at 120%.",
+    "Clearing military category restores other goods.",
+    "Pressure/risk rows remain centered at 120%.",
+    "Ranking rows remain readable at 100% and 120%; long names truncate within their buttons.",
+    "Switching player GBR to FRA updates confidence from 51 to 76 and Exchange from London to Paris (score 48, trust 86%).",
+    "Exited isolated game without saving."
+  ],
+  "limitations": [
+    "English only.",
+    "No CMF enabled.",
+    "Country-switch check covers immediate UI refresh, not later journal insertion.",
+    "No new shortcut changes or exhaustive shortcut retest in this session."
+  ],
+  "error_log_sha256": "2524481789a28ba8e42073c32bcd904a11d806cb5637c0fca59d1a473b89cf16",
+  "error_gate": {
+    "error_logs_checked": [
+      "runs\\ui_audit_beta104_4\\logs\\error.log"
+    ],
+    "error_categories": {
+      "engine_or_basegame_other": 94,
+      "mod_variable_load_warnings": 16
+    },
+    "blocking_error_count": 0,
+    "blocking_error_examples": []
+  },
+  "screenshots": {
+    "runs\\ui_audit_beta104_4\\evidence\\banking_credit.jpg": "b0f1e09940b1c819fefee8d77aafca83ea1771146a80d7580caa949ae3b35901",
+    "runs\\ui_audit_beta104_4\\evidence\\category_reset_120.jpg": "a9aca7ff00195e0ddfdb405909bfb8c1317b292a5a43489e30fe947a91b780ff",
+    "runs\\ui_audit_beta104_4\\evidence\\empty_filters_120.jpg": "56c2ef9873a935293be94b2135c034c9e3aef62038b0fe3da980f1774f6a64c7",
+    "runs\\ui_audit_beta104_4\\evidence\\france_exchange_120.jpg": "25b4b5ebdc26b4529a114d5438acb402f458460e83bc638858f5603635efabbf",
+    "runs\\ui_audit_beta104_4\\evidence\\france_switch_120.jpg": "317873b58a8b5588a9c869e6801cd6fbf47b756e6d56fecbd13d4285a80c8fc7",
+    "runs\\ui_audit_beta104_4\\evidence\\pressures_120.jpg": "44c5f2630bd62e3da3b2e0ceccdc8f82bac034d26a7e92b133a5b691dd252db6",
+    "runs\\ui_audit_beta104_4\\evidence\\rankings.jpg": "5fa6b7cc260c6125197c28b066f83645b3e71608dd40d236dadd8162e97ce2f5",
+    "runs\\ui_audit_beta104_4\\evidence\\rankings_120.jpg": "7b8758764c1ad0f3dc8b447b13ce806d133e12ba4d206eb44b803c5723604172",
+    "runs\\ui_audit_beta104_4\\evidence\\restored_filters_120.jpg": "01dd0c7438be6519983dd78318d67826d875f19ddfa700eb997dd5532a23e9d2"
+  }
+}

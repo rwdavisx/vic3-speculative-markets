@@ -58,6 +58,9 @@ spec_mechanics_start = {{
 }}
 '''
     (out / "common/on_actions/zz_spec_mechanics_start.txt").write_text(action, encoding="utf-8-sig")
+    hooks = fixture.with_suffix(".on_actions.txt")
+    if hooks.exists():
+        (out / "common/on_actions/zz_spec_mechanics_hooks.txt").write_text(hooks.read_text(encoding="utf-8-sig"), encoding="utf-8-sig")
     # Helpers only expose otherwise embedded production blocks. Read the actual
     # beta files, never a second implementation of a mechanic.
     helper_file = ROOT / "tests/mechanics" / f"{suite}.helpers.json"
@@ -78,6 +81,8 @@ spec_mechanics_start = {{
     manifest = {"kind": KIND, "suite": suite, "source": str(source), "source_version": metadata["version"],
                 "expected_assertions": expected, "source_sha256": hashes, "fixture_sha256": digest(fixture),
                 "helpers": helpers, "warning": "TEST ONLY. Never package or upload this build."}
+    if hooks.exists():
+        manifest["hooks_sha256"] = digest(hooks)
     (out / "mechanics-test-manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
     print(f"Prepared {suite}: {len(expected)} assertions in {out}")
 

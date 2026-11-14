@@ -1,0 +1,53 @@
+namespace = spec_mechanics_renown_score
+spec_mechanics_renown_score.1 = { type = country_event hidden = yes immediate = { c:SOK = {
+if = { limit = { spec_xs_fdm = 1 spec_xs_com = 1 spec_xs_tech = 1 spec_xs_rank = 1 } debug_log = "HOTFIX PASS score_fixture_no_external_multipliers" }
+else = { debug_log = "HOTFIX FAIL score_fixture_no_external_multipliers" }
+set_variable = { name = spec_xs_size_v value = 100 }
+set_variable = { name = spec_xs_wealth_v value = 1 }
+remove_variable = spec_centre_trust
+remove_variable = spec_issue
+activate_law = law_type:law_interventionism
+if = { limit = { spec_centre_size = 52.5 } debug_log = "HOTFIX PASS missing_trust_half_weight" }
+else = { debug_log = "HOTFIX FAIL missing_trust_half_weight" }
+set_variable = { name = spec_centre_trust value = 0 }
+if = { limit = { spec_centre_size = 52.5 } debug_log = "HOTFIX PASS trust_0_score" }
+else = { debug_log = "HOTFIX FAIL trust_0_score" }
+set_variable = { name = spec_centre_trust value = 60 }
+if = { limit = { spec_centre_size = 105 } debug_log = "HOTFIX PASS trust_60_score" }
+else = { debug_log = "HOTFIX FAIL trust_60_score" }
+set_variable = { name = spec_centre_trust value = 120 }
+if = { limit = { spec_centre_size = 157.5 } debug_log = "HOTFIX PASS trust_120_score" }
+else = { debug_log = "HOTFIX FAIL trust_120_score" }
+set_variable = { name = spec_centre_trust value = 180 }
+if = { limit = { spec_centre_size = 157.5 } debug_log = "HOTFIX PASS trust_180_score" }
+else = { debug_log = "HOTFIX FAIL trust_180_score" }
+set_variable = spec_issue
+if = { limit = { spec_centre_size = 196.875 } debug_log = "HOTFIX PASS great_issue_quarter_bonus" }
+else = { debug_log = "HOTFIX FAIL great_issue_quarter_bonus" }
+remove_variable = spec_issue
+if = { limit = { spec_centre_size = 157.5 } debug_log = "HOTFIX PASS ending_issue_removes_bonus" }
+else = { debug_log = "HOTFIX FAIL ending_issue_removes_bonus" }
+set_variable = { name = spec_xs_wealth_v value = 2 }
+if = { limit = { spec_centre_size = 315 } debug_log = "HOTFIX PASS wealth_multiplier_applied_once" }
+else = { debug_log = "HOTFIX FAIL wealth_multiplier_applied_once" }
+set_variable = { name = spec_xs_size_v value = 0 }
+if = { limit = { spec_centre_size = 0 } debug_log = "HOTFIX PASS zero_size_zero_score" }
+else = { debug_log = "HOTFIX FAIL zero_size_zero_score" }
+set_variable = { name = spec_xs_size_v value = 100 }
+set_variable = { name = spec_xs_wealth_v value = 1 }
+activate_law = law_type:law_laissez_faire
+if = { limit = { spec_centre_size = 172.5 } debug_log = "HOTFIX PASS laissez_faire_score_factor" }
+else = { debug_log = "HOTFIX FAIL laissez_faire_score_factor" }
+activate_law = law_type:law_agrarianism
+if = { limit = { spec_centre_size = 142.5 } debug_log = "HOTFIX PASS agrarianism_score_factor" }
+else = { debug_log = "HOTFIX FAIL agrarianism_score_factor" }
+activate_law = law_type:law_traditionalism
+if = { limit = { spec_centre_size = 135 } debug_log = "HOTFIX PASS traditionalism_score_factor" }
+else = { debug_log = "HOTFIX FAIL traditionalism_score_factor" }
+activate_law = law_type:law_command_economy
+if = { limit = { spec_centre_size = 112.5 } debug_log = "HOTFIX PASS command_economy_score_factor" }
+else = { debug_log = "HOTFIX FAIL command_economy_score_factor" }
+activate_law = law_type:law_cooperative_ownership
+if = { limit = { spec_centre_size = 90 } debug_log = "HOTFIX PASS cooperative_ownership_score_factor" }
+else = { debug_log = "HOTFIX FAIL cooperative_ownership_score_factor" }
+} debug_log = "HOTFIX SUITE COMPLETE" } }

@@ -58,6 +58,7 @@ class Mirror:
         # old): skip it, and start over when the game rotates the file
         self.src, self.dst, self.since = src, dst, since
         self.pos = src.stat().st_size if src.exists() else None
+        self.identity = (src.stat().st_dev, src.stat().st_ino) if src.exists() else None
 
     def poll(self):
         try:
@@ -68,9 +69,32 @@ class Mirror:
             if st.st_mtime < self.since:  # the previous session's file, before the game rotates it
                 return ""
             self.pos = 0
+        identity = (st.st_dev, st.st_ino)
+        tail = b""
+        if self.identity is not None and identity != self.identity:
+            # Drain the old file after its rename. Comparing sizes alone loses
+            # the unread tail, or misses rotation when the new file is larger.
+            rotated = []
+            for path in self.src.parent.glob(f"{self.src.stem}.*{self.src.suffix}"):
+                number = path.name[len(self.src.stem) + 1:-len(self.src.suffix)]
+                if number.isdigit():
+                    rotated.append((int(number), path))
+            for number, path in sorted(rotated, reverse=True):
+                try:
+                    old = path.stat()
+                    if (old.st_dev, old.st_ino) == self.identity:
+                        tail = path.read_bytes()[self.pos:]
+                        for newer, newer_path in sorted(rotated, reverse=True):
+                            if newer < number:
+                                tail += newer_path.read_bytes()
+                        break
+                except OSError:
+                    continue
+            self.pos = 0
+        self.identity = identity
         if st.st_size < self.pos:  # rotated: the new file starts over
             self.pos = 0
-        if st.st_size == self.pos:
+        if st.st_size == self.pos and not tail:
             return ""
         try:
             with open(self.src, "rb") as f:
@@ -79,7 +103,7 @@ class Mirror:
         except OSError:
             return ""
         self.pos += len(data)
-        text = data.decode("utf-8", "replace")
+        text = (tail + data).decode("utf-8", "replace")
         with open(self.dst, "a", encoding="utf-8") as out:
             out.write(text)
         return text

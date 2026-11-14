@@ -1,0 +1,49 @@
+namespace = spec_mechanics_rival_network
+spec_mechanics_rival_network.1 = { type = country_event hidden = yes immediate = {
+every_country = { remove_variable = spec_rival }
+c:GBR = { set_variable = { name = spec_centre_score value = 300 } set_variable = { name = spec_centre_trust value = 60 } set_variable = { name = spec_rival value = c:FRA } remove_variable = spec_exch_known }
+c:FRA = { set_variable = { name = spec_centre_score value = 200 } set_variable = { name = spec_centre_trust value = 60 } set_variable = { name = spec_rival value = c:PRU } remove_variable = spec_exch_known }
+c:PRU = { set_variable = { name = spec_centre_score value = 100 } set_variable = { name = spec_centre_trust value = 60 } set_variable = { name = spec_rival value = c:GBR } remove_variable = spec_exch_known }
+c:GBR = { remove_variable = spec_exch_known
+remove_variable = spec_pw_floor
+remove_variable = spec_pw_pockets
+remove_variable = spec_pw_price
+remove_variable = spec_pw_sound
+}
+c:FRA = { remove_variable = spec_exch_known
+remove_variable = spec_pw_floor
+remove_variable = spec_pw_pockets
+remove_variable = spec_pw_price
+remove_variable = spec_pw_sound
+}
+c:PRU = { remove_variable = spec_exch_known
+remove_variable = spec_pw_floor
+remove_variable = spec_pw_pockets
+remove_variable = spec_pw_price
+remove_variable = spec_pw_sound
+}
+set_relations = { country = c:FRA value = 0 }
+set_relations = { country = c:PRU value = 0 }
+c:FRA = { set_relations = { country = c:PRU value = 0 } }
+spec_mechanics_rival_year = yes
+if = { limit = { c:GBR = { var:spec_centre_trust = 72 } } debug_log = "HOTFIX PASS cycle_neutral_gbr" }
+else = { debug_log = "HOTFIX FAIL cycle_neutral_gbr" }
+if = { limit = { c:FRA = { var:spec_centre_trust = 60 } } debug_log = "HOTFIX PASS cycle_neutral_fra" }
+else = { debug_log = "HOTFIX FAIL cycle_neutral_fra" }
+if = { limit = { c:PRU = { var:spec_centre_trust = 48 } } debug_log = "HOTFIX PASS cycle_neutral_pru" }
+else = { debug_log = "HOTFIX FAIL cycle_neutral_pru" }
+c:GBR = { set_variable = { name = spec_centre_trust value = 60 } }
+c:FRA = { set_variable = { name = spec_centre_trust value = 60 } }
+c:PRU = { set_variable = { name = spec_centre_trust value = 60 } }
+set_relations = { country = c:FRA value = -100 }
+set_relations = { country = c:PRU value = -100 }
+c:FRA = { set_relations = { country = c:PRU value = -100 } }
+spec_mechanics_rival_year = yes
+if = { limit = { c:GBR = { var:spec_centre_trust = 72 } } debug_log = "HOTFIX PASS cycle_hostile_gbr" }
+else = { debug_log = "HOTFIX FAIL cycle_hostile_gbr" }
+if = { limit = { c:FRA = { var:spec_centre_trust = 57 } } debug_log = "HOTFIX PASS cycle_hostile_fra" }
+else = { debug_log = "HOTFIX FAIL cycle_hostile_fra" }
+if = { limit = { c:PRU = { var:spec_centre_trust = 42 } } debug_log = "HOTFIX PASS cycle_hostile_pru" }
+else = { debug_log = "HOTFIX FAIL cycle_hostile_pru" }
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

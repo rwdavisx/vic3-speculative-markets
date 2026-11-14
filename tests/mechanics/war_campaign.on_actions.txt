@@ -1,0 +1,15 @@
+on_lost_war = { on_actions = { spec_mechanics_capture_loss } }
+spec_mechanics_capture_loss = { effect = {
+set_variable = { name = spec_test_peace_loss value = var:spec_c_warend }
+debug_log = "HOTFIX INFO loss_war_hook country=[THIS.GetCountry.GetTagName] jump=[THIS.Var('spec_c_warend').GetValue]"
+} }
+on_won_war = { on_actions = { spec_mechanics_capture_win } }
+spec_mechanics_capture_win = { effect = {
+set_variable = { name = spec_test_peace_win value = var:spec_c_warend }
+debug_log = "HOTFIX INFO win_war_hook country=[THIS.GetCountry.GetTagName] jump=[THIS.Var('spec_c_warend').GetValue]"
+} }
+on_inconclusive_war = { on_actions = { spec_mechanics_capture_draw } }
+spec_mechanics_capture_draw = { effect = {
+set_variable = { name = spec_test_peace_draw value = var:spec_c_warend }
+debug_log = "HOTFIX INFO draw_war_hook country=[THIS.GetCountry.GetTagName] jump=[THIS.Var('spec_c_warend').GetValue]"
+} }

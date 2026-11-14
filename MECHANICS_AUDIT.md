@@ -1,7 +1,7 @@
 # Mechanics correctness audit
 
-Balance is frozen at 1.0.3. The isolated passes now have **420 passing engine
-assertions in 38 suites**, plus **39 Python tests** and **9 CMF source tests**.
+Balance is frozen at 1.0.3. The isolated passes now have **463 passing engine
+assertions in 43 suites**, plus **42 Python tests** and **9 CMF source tests**.
 These are contract results, not a claim that every possible campaign works.
 The open checks below remain prerequisites to the broader balance pass.
 
@@ -262,3 +262,21 @@ The 37 confidence/credit-cycle/bank-display regression assertions passed the ful
 error gate on this exact beta. Stable remains 1.0.4; no CMF GUI files changed.
 Pledged-rescue save/reload and actual war fixtures are still under investigation;
 they are excluded from the coverage count.
+
+The pledged-rescue save/reload suite now passes three assertions: the payment occurs
+before the actual January 1837 autosave, pledge/rescue state survives loading, and
+rechecking the rescue cannot charge again. Both full logs pass. The earlier fixture
+scheduled its rescue after the save and checked after normal panic expiration; it is
+rejected rather than counted as a save test.
+
+The runner's debug-log reader now drains unread rotated files before reading their
+replacement. A real war run proved that three assertion lines existed in debug.1.log
+but were missing from the saved report. A rotation regression covers an unread tail
+and a replacement larger than the previous read offset. Forty Python tests pass.
+The old incomplete war runs remain rejected; no missing assertion is counted as pass.
+
+Recovery/law overlap: six checks pass on the published beta4. Open-market law changes preserve an active collapse recovery; command-economy shutdown removes its state; reopening does not resurrect it, while the lender-of-last-resort reform survives. Six three-country rivalry checks also pass: each pair transfers the expected trust once, including the 1.5 hostile-loss multiplier. These cases avoid the trust floor/cap, whose multi-pair ordering is still untested.
+
+Fifteen Exchange score checks pass for trust weighting/cap, missing trust, Great Issue bonus/removal, wealth multiplication, zero size and economic-law factors. This does not yet cover the upstream square-root/reach calculation. Live English UI checks passed at 100% and 120% scale, including empty/reset filters, credit tooltip agreement and immediate GBR-to-FRA panel refresh; screenshots and full log gate are recorded in `tests/mechanics/verification_ui_beta104_4.json`. The real-war fixture remains experimental: its imposed war-support loss does not reliably end the war by the asserted deadline. Its peace assertions are not accepted coverage or a proven mod defect.
+
+Thirteen inquiry contracts pass: 119/120-month eligibility, active-panic exclusion, fresh/used aftermath, the four reform option effects and their IG modifiers, completion counting, actual Sound Finance event reward, and no further inquiry once all reforms exist. The option effects are extracted unchanged from production; this does not claim live event-button or random AI-frequency coverage.

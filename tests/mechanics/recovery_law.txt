@@ -1,0 +1,43 @@
+namespace = spec_mechanics_recovery_law
+spec_mechanics_recovery_law.1 = { type = country_event hidden = yes immediate = {
+activate_law = law_type:law_interventionism
+set_variable = spec_llr
+remove_variable = spec_glut_steel
+remove_variable = spec_encourage_steel
+remove_variable = spec_restrain_steel
+set_variable = { name = spec_fast_steel value = -1 }
+set_variable = { name = spec_slow_steel value = 1 }
+set_variable = { name = spec_peak_steel value = 7 }
+set_variable = { name = spec_c_crash value = 0 }
+set_variable = { name = spec_c_boom value = 0 }
+set_variable = { name = spec_c_restrain value = 0 }
+spec_mechanics_steel_month = yes
+if = { limit = { var:spec_glut_steel = 3 } debug_log = "HOTFIX PASS collapse_starts_year_recovery" }
+else = { debug_log = "HOTFIX FAIL collapse_starts_year_recovery" }
+activate_law = law_type:law_laissez_faire
+trigger_event = { on_action = spec_monthly }
+trigger_event = { id = spec_mechanics_recovery_law.2 days = 1 }
+} }
+spec_mechanics_recovery_law.2 = { type = country_event hidden = yes immediate = {
+if = { limit = { var:spec_glut_steel = 3 has_variable = spec_llr } debug_log = "HOTFIX PASS open_law_keeps_recovery" }
+else = { debug_log = "HOTFIX FAIL open_law_keeps_recovery" }
+if = { limit = { NOT = { spec_lever_fits_encourage = { G = steel } } } debug_log = "HOTFIX PASS recovery_still_blocks_encouragement" }
+else = { debug_log = "HOTFIX FAIL recovery_still_blocks_encouragement" }
+activate_law = law_type:law_command_economy
+trigger_event = { on_action = spec_monthly }
+trigger_event = { id = spec_mechanics_recovery_law.3 days = 1 }
+} }
+spec_mechanics_recovery_law.3 = { type = country_event hidden = yes immediate = {
+if = { limit = { NOR = { has_variable = spec_glut_steel has_variable = spec_fast_steel has_variable = spec_ui_crash_steel } } debug_log = "HOTFIX PASS closed_law_clears_recovery" }
+else = { debug_log = "HOTFIX FAIL closed_law_clears_recovery" }
+if = { limit = { has_variable = spec_llr } debug_log = "HOTFIX PASS closed_law_preserves_reform" }
+else = { debug_log = "HOTFIX FAIL closed_law_preserves_reform" }
+activate_law = law_type:law_interventionism
+trigger_event = { on_action = spec_monthly }
+trigger_event = { id = spec_mechanics_recovery_law.4 days = 1 }
+} }
+spec_mechanics_recovery_law.4 = { type = country_event hidden = yes immediate = {
+if = { limit = { has_variable = spec_conf has_variable = spec_fast_steel NOT = { has_variable = spec_glut_steel } has_variable = spec_llr } debug_log = "HOTFIX PASS reopened_economy_has_no_stale_recovery" }
+else = { debug_log = "HOTFIX FAIL reopened_economy_has_no_stale_recovery" }
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

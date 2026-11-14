@@ -1,0 +1,57 @@
+namespace = spec_mechanics_inquiry
+spec_mechanics_inquiry.1 = { type = country_event hidden = yes immediate = {
+remove_variable = spec_note
+remove_variable = spec_llr
+remove_variable = spec_company_law
+remove_variable = spec_panic
+remove_variable = spec_panic_cooldown
+remove_variable = spec_inquired
+remove_variable = spec_sound
+add_technology_researched = banking
+add_technology_researched = central_banking
+add_technology_researched = joint_stock_companies
+set_variable = { name = spec_calm value = 119 }
+if = { limit = { NOT = { spec_can_inquire = yes } } debug_log = "HOTFIX PASS calm_119_blocks_inquiry" }
+else = { debug_log = "HOTFIX FAIL calm_119_blocks_inquiry" }
+set_variable = { name = spec_calm value = 120 }
+if = { limit = { spec_can_inquire = yes } debug_log = "HOTFIX PASS calm_120_allows_inquiry" }
+else = { debug_log = "HOTFIX FAIL calm_120_allows_inquiry" }
+set_variable = spec_panic
+if = { limit = { NOT = { spec_can_inquire = yes } } debug_log = "HOTFIX PASS active_panic_blocks_inquiry" }
+else = { debug_log = "HOTFIX FAIL active_panic_blocks_inquiry" }
+remove_variable = spec_panic
+set_variable = { name = spec_calm value = 0 }
+set_variable = spec_panic_cooldown
+if = { limit = { spec_can_inquire = yes } debug_log = "HOTFIX PASS fresh_aftermath_allows_inquiry" }
+else = { debug_log = "HOTFIX FAIL fresh_aftermath_allows_inquiry" }
+set_variable = spec_inquired
+if = { limit = { NOT = { spec_can_inquire = yes } } debug_log = "HOTFIX PASS used_aftermath_blocks_repeat" }
+else = { debug_log = "HOTFIX FAIL used_aftermath_blocks_repeat" }
+spec_mechanics_inquiry_a = yes
+if = { limit = { var:spec_note = 1 var:spec_reforms = 1 ig:ig_industrialists = { has_modifier = spec_dear_money } } debug_log = "HOTFIX PASS currency_option_sets_institution_and_ig" }
+else = { debug_log = "HOTFIX FAIL currency_option_sets_institution_and_ig" }
+remove_variable = spec_note
+spec_mechanics_inquiry_b = yes
+if = { limit = { var:spec_note = 2 var:spec_reforms = 1 ig:ig_industrialists = { has_modifier = spec_free_issue } } debug_log = "HOTFIX PASS free_option_sets_institution_and_ig" }
+else = { debug_log = "HOTFIX FAIL free_option_sets_institution_and_ig" }
+spec_mechanics_inquiry_c = yes
+if = { limit = { has_variable = spec_llr var:spec_reforms = 2 NOT = { has_variable = spec_sound } } debug_log = "HOTFIX PASS lender_option_counts_second_reform" }
+else = { debug_log = "HOTFIX FAIL lender_option_counts_second_reform" }
+spec_mechanics_inquiry_d = yes
+if = { limit = { has_variable = spec_company_law var:spec_reforms = 3 has_variable = spec_sound } debug_log = "HOTFIX PASS company_option_counts_three_and_sound" }
+else = { debug_log = "HOTFIX FAIL company_option_counts_three_and_sound" }
+if = { limit = { ig:ig_industrialists = { has_modifier = spec_disclosure_burden } ig:ig_intelligentsia = { has_modifier = spec_disclosure_welcomed } } debug_log = "HOTFIX PASS company_option_affects_both_groups" }
+else = { debug_log = "HOTFIX FAIL company_option_affects_both_groups" }
+set_variable = { name = spec_calm value = 120 }
+if = { limit = { NOT = { spec_can_inquire = yes } } debug_log = "HOTFIX PASS all_reforms_block_further_inquiries" }
+else = { debug_log = "HOTFIX FAIL all_reforms_block_further_inquiries" }
+trigger_event = { id = spec_mechanics_inquiry.2 days = 5 }
+} }
+spec_mechanics_inquiry.2 = { type = country_event hidden = yes immediate = {
+if = { limit = { has_modifier = spec_sound_finance } debug_log = "HOTFIX PASS sound_finance_event_grants_modifier" }
+else = { debug_log = "HOTFIX FAIL sound_finance_event_grants_modifier" }
+spec_reform_done = yes
+if = { limit = { var:spec_reforms = 3 has_variable = spec_sound } debug_log = "HOTFIX PASS rechecking_completion_keeps_three" }
+else = { debug_log = "HOTFIX FAIL rechecking_completion_keeps_three" }
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

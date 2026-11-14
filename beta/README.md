@@ -2,9 +2,9 @@
 
 This is the separate testing distribution of Speculative Markets. Enable **either Speculative Markets or Speculative Markets - Beta, never both**. The two distributions intentionally use the same gameplay definitions. Beta is a complete mod, not an add-on to stable.
 
-The published beta, **1.0.3-beta.2**, contains the verified boom-notification crash fix subsequently promoted to stable **1.0.3**. See [validation notes](../HOTFIX_1.0.3.md). Future beta revisions test changes before they reach the main release. Keep a separate playset and save copies when trying those revisions; returning an experimental save to an older version is not guaranteed.
+The published beta and local `beta/mod/` are **1.0.4-beta.4**, verified on Steam on November 14, 2026. Stable remains **1.0.4**. Beta includes the later Exchange tie, bank-tooltip and confidence-floor accounting fixes. Balance is unchanged. See [release evidence](../HOTFIX_1.0.4.md) and [the coverage ledger](../MECHANICS_AUDIT.md) for passed contracts and remaining checks.
 
-The local `beta/mod/` is now **1.0.3-beta.5**, an **unpublished** mechanics-audit candidate. It corrects journal confidence labels, prevents duplicate journal insertion in older saves, and centers the Pressures/Risks rows. Balance is unchanged. Revisions 3 and 4 are retained intermediate audit artifacts; they were not uploaded. See [the coverage ledger](../MECHANICS_AUDIT.md) for verified behavior and remaining checks.
+Use a separate playset and save copies when trying beta revisions; returning a beta save to an older version is not guaranteed. Older versioned archives remain immutable and do not indicate the currently published version.
 
 **Do not use 1.0.3-beta.1.** It failed runtime verification because notification multipliers were blank. Its archive remains immutable; only revision 2 was published.
 

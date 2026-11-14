@@ -3,7 +3,7 @@
   "game_version": "1.15.1",
   "beta_candidate": "1.0.4-beta.4",
   "published": true,
-  "new_assertion_count": 126,
+  "new_assertion_count": 169,
   "suites": [
     {
       "suite": "confidence_accounting",
@@ -561,6 +561,232 @@
         "blocking_error_count": 0,
         "blocking_error_examples": []
       }
+    },
+    {
+      "suite": "pledge_reload",
+      "build": "runs\\mechanics\\pledge_reload_beta104_r2",
+      "runs": [
+        "runs\\sweep_mechanics_pledge_save_beta104_r2\\pledge_01",
+        "runs\\sweep_mechanics_pledge_reload_beta104_r2\\pledge_01"
+      ],
+      "source_version": "1.0.4-beta.4",
+      "source_manifest_sha256": "3fbedbbdf6a7edbea7b122e550f507e9f0f5b42be6229e6b3ad1a85bd2967c8e",
+      "fixture_sha256": "ed2aab210c8c1c2d216d4a80904fefd58e9585a7525c68af5c2a18fa1cbdb096",
+      "logs": [
+        {
+          "assertions_sha256": "90bbf9621256760a1a95173e802685468f03a2739309155e91b98634c887770a",
+          "errors_sha256": "2ca0c0fb48db9c60c20d64453b38aaac2d0fbe6f1c04e81c14431fcb84036d92"
+        },
+        {
+          "assertions_sha256": "85d0b35f5a47e41dc2c160260ac95fad71b7aea5e4bfe90491fe345486611206",
+          "errors_sha256": "d9d37aae01c6f3111217e1e6153046ae2415cd9baf22481230006012db589500"
+        }
+      ],
+      "save": "G:\\GameDev\\_claude_scratch\\vic\\saves\\mechanics_pledge_save_beta104_r2_pledge_1_1837.v3",
+      "save_sha256": "30f7db2118d3cc4f1d3ec9e4b921c399a524005b68a045d357301fe340a97963",
+      "result": {
+        "suite": "pledge_reload",
+        "passed": [
+          "loaded_rescue_cannot_charge_twice",
+          "pledge_and_rescue_survive_reload",
+          "pledged_rescue_paid_before_save"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_pledge_save_beta104_r2\\pledge_01\\error.log",
+          "runs\\sweep_mechanics_pledge_reload_beta104_r2\\pledge_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 2715,
+          "mod_variable_load_warnings": 30
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "recovery_law",
+      "build": "runs\\mechanics\\recovery_law_beta104",
+      "runs": [
+        "runs\\sweep_mechanics_recovery_law_beta104\\law_01"
+      ],
+      "source_version": "1.0.4-beta.4",
+      "source_manifest_sha256": "4e4fedc1a24667db328953622735644c1d6c232a527d7d57c4006c7efa7041d6",
+      "fixture_sha256": "c843f3220944d39b1975685ffb396b65cf116aa505e7bfafe983b36b67bdca74",
+      "logs": [
+        {
+          "assertions_sha256": "22ac5457b77d1c369b10fb1417fd634a636a9cb2bf812560e987ff6bc85f146a",
+          "errors_sha256": "b020bfd0f96dcfe804be8ac1b7caf8f8a64d1e01c0d1026b7505cd49580b8104"
+        }
+      ],
+      "result": {
+        "suite": "recovery_law",
+        "passed": [
+          "closed_law_clears_recovery",
+          "closed_law_preserves_reform",
+          "collapse_starts_year_recovery",
+          "open_law_keeps_recovery",
+          "recovery_still_blocks_encouragement",
+          "reopened_economy_has_no_stale_recovery"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_recovery_law_beta104\\law_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "rival_network",
+      "build": "runs\\mechanics\\rival_network_beta104",
+      "runs": [
+        "runs\\sweep_mechanics_rival_network_beta104\\rivals_01"
+      ],
+      "source_version": "1.0.4-beta.4",
+      "source_manifest_sha256": "ed5e1ec4e0bf0af929466bb5139be5952a9349d64e135613f9dccf88dc750fd4",
+      "fixture_sha256": "2336af6891dfef13044dfd0daf5e492f71afa7c674527ad06a181d0a63582b8b",
+      "logs": [
+        {
+          "assertions_sha256": "99294b305889b1b91c144dc4eda5b2bceb7d2cbc6619f4d9cd0224e1bc47ee73",
+          "errors_sha256": "6b04e2d2f6ed4647cada44282bbb34109f395974cf6965da45ac83facdf4e257"
+        }
+      ],
+      "result": {
+        "suite": "rival_network",
+        "passed": [
+          "cycle_hostile_fra",
+          "cycle_hostile_gbr",
+          "cycle_hostile_pru",
+          "cycle_neutral_fra",
+          "cycle_neutral_gbr",
+          "cycle_neutral_pru"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_rival_network_beta104\\rivals_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "renown_score",
+      "build": "runs\\mechanics\\renown_score_beta104",
+      "runs": [
+        "runs\\sweep_mechanics_renown_score_beta104\\score_01"
+      ],
+      "source_version": "1.0.4-beta.4",
+      "source_manifest_sha256": "8da31b5768cc05440b7cd8f5ce1c1d5b48093680bd6b403efdc650274d48011a",
+      "fixture_sha256": "6b63cb6468692e1aa38396fdbdf4839480c3463d42a9c652c74f4fd046489d6f",
+      "logs": [
+        {
+          "assertions_sha256": "6845b369507c273a8ed852d2782fdd76c0fec5c9968bcc3faa9976d89b016eb6",
+          "errors_sha256": "b65657bb4340c253fc6b28dd328a11b2f0c2f23a71b5aaa255c32896c34a508a"
+        }
+      ],
+      "result": {
+        "suite": "renown_score",
+        "passed": [
+          "agrarianism_score_factor",
+          "command_economy_score_factor",
+          "cooperative_ownership_score_factor",
+          "ending_issue_removes_bonus",
+          "great_issue_quarter_bonus",
+          "laissez_faire_score_factor",
+          "missing_trust_half_weight",
+          "score_fixture_no_external_multipliers",
+          "traditionalism_score_factor",
+          "trust_0_score",
+          "trust_120_score",
+          "trust_180_score",
+          "trust_60_score",
+          "wealth_multiplier_applied_once",
+          "zero_size_zero_score"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_renown_score_beta104\\score_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 4,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "inquiry",
+      "build": "runs\\mechanics\\inquiry_beta104",
+      "runs": [
+        "runs\\sweep_mechanics_inquiry_beta104\\inquiry_01"
+      ],
+      "source_version": "1.0.4-beta.4",
+      "source_manifest_sha256": "6f12c928c468a356e38657f61e7db4081478955ae80cc8edc9fbd37b7b785d43",
+      "fixture_sha256": "450be4ae033fb17befb0506244dee1b25d3c1b1ecf13136b598e55c58462c3fd",
+      "logs": [
+        {
+          "assertions_sha256": "6dbc201461d7a6144e6472c7e9daefd42d991a8cbce4bc7297880a80469bc116",
+          "errors_sha256": "7c84352423641bcc912fbabf48ae0b159ac3907fd7095bd7def09faee4eb313a"
+        }
+      ],
+      "result": {
+        "suite": "inquiry",
+        "passed": [
+          "active_panic_blocks_inquiry",
+          "all_reforms_block_further_inquiries",
+          "calm_119_blocks_inquiry",
+          "calm_120_allows_inquiry",
+          "company_option_affects_both_groups",
+          "company_option_counts_three_and_sound",
+          "currency_option_sets_institution_and_ig",
+          "free_option_sets_institution_and_ig",
+          "fresh_aftermath_allows_inquiry",
+          "lender_option_counts_second_reform",
+          "rechecking_completion_keeps_three",
+          "sound_finance_event_grants_modifier",
+          "used_aftermath_blocks_repeat"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_inquiry_beta104\\inquiry_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
     }
   ],
   "coverage_correction": "The stricter harness-path gate invalidates the original final_beta4/contagion run (invalid inline arithmetic trigger). A corrected fixture passes all four contracts on beta4; this replaces, rather than adds to, its previous assertion count.",
@@ -569,8 +795,8 @@
     "Treaty chain uses real investment-rights treaties but controlled manual crisis ticks.",
     "These tests do not certify arbitrary mod combinations or multiplayer."
   ],
-  "cumulative_contract_assertions": 420,
-  "cumulative_suites": 38,
+  "cumulative_contract_assertions": 423,
+  "cumulative_suites": 39,
   "regressions": [
     {
       "suite": "confidence",

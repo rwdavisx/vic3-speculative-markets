@@ -55,6 +55,17 @@ class MechanicsHarnessTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "beta distribution"):
             testbed.prepare(self.source, self.root / "runs/new", "sample")
 
+    def test_optional_engine_hooks_are_copied_and_fingerprinted(self):
+        hooks = self.fixture.with_suffix(".on_actions.txt")
+        hooks.write_text("on_lost_war = { on_actions = { test_hook } }\n")
+        before = self.original.read_bytes()
+        self.prepare()
+        copied = self.out / "common/on_actions/zz_spec_mechanics_hooks.txt"
+        self.assertEqual(copied.read_text(encoding="utf-8-sig"), hooks.read_text())
+        manifest = json.loads((self.out / "mechanics-test-manifest.json").read_text())
+        self.assertEqual(manifest["hooks_sha256"], testbed.digest(hooks))
+        self.assertEqual(before, (self.out / "common/on_actions/production.txt").read_bytes())
+
     def test_refuses_malformed_assertion_even_alongside_valid_ones(self):
         with self.fixture.open("a") as target:
             target.write('\ndebug_log = "HOTFIX PASS_silently_missing"')
