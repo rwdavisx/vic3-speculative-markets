@@ -56,7 +56,7 @@ FLIGHT_FROM = 40            # only at Steady or better
 # Centre Exchange receives flight without being a Great Power
 SAFE = ("OR = {\n\t\t\t\tcountry_rank = rank_value:great_power\n\t\t\t\tAND = {\n\t\t\t\t\thas_variable = spec_exch_stand\n"
         "\t\t\t\t\tvar:spec_exch_stand >= 2\n\t\t\t\t}\n\t\t\t}" if tuning.get("EXCHANGE_ON", 1) else "country_rank = rank_value:great_power")
-WAR_VARS = [f"spec_war{n}{s}" for n in WAR_SLOTS for s in ["", "_c", "_killed", "_total"] + [f"_{key}{r}" for key in WAR_ROWS for r in ("", "_r")]]
+WAR_VARS = [f"spec_war{n}{s}" for n in WAR_SLOTS for s in ["", "_c", "_killed", "_total", "_play"] + [f"_{key}{r}" for key in WAR_ROWS for r in ("", "_r")]]
 STATE_VARS = (["spec_flight_pending", "spec_war_more", "spec_war_n", "spec_war_cost", "spec_war_sum", "spec_war_end", "spec_war_stakes_now", "spec_c_warend", "spec_c_flight", "spec_war_prev"]
               + WAR_VARS + [f"spec_wp{n}{s}" for n in WAR_SLOTS for s in ("", "_k")] + [f"spec_f{p}{n}" for p in "ps" for n in range(1, SOURCES + 1)])
 
@@ -154,6 +154,7 @@ def _slot(n):
                    f"\t\t\t\t\t\tset_variable = {{ name = spec_war{n}_{key}_r value = spec_wv_{key} }}\n" for key in WAR_ROWS)
     return (f"\t\t\t\t\t{'if' if n == 1 else 'else_if'} = {{\n\t\t\t\t\t\tlimit = {{ var:spec_war_n = {n} }}\n"
             f"\t\t\t\t\t\tset_variable = {{ name = spec_war{n} value = scope:spec_enemy }}\n"
+            f"\t\t\t\t\t\tset_variable = {{ name = spec_war{n}_play value = scope:war.diplomatic_play }}\n"
             f"\t\t\t\t\t\tset_variable = {{ name = spec_war{n}_c value = var:spec_war_cost }}\n"
             f"\t\t\t\t\t\tset_variable = {{ name = spec_war{n}_killed value = spec_war_killed }}\n"
             f"\t\t\t\t\t\tset_variable = {{ name = spec_war{n}_total value = spec_war_total }}\n{rows}\t\t\t\t\t}}\n")
@@ -258,9 +259,66 @@ def war_actions(log):
                 if scope else f"\t\t\tchange_variable = {{ name = spec_war_end multiply = {full} }}\n")
         note = (f"\t\t\tdebug_log = \"SPECWAREND tag=[THIS.GetCountry.GetTagName] date=[TimeKeeper.GetCurrentDate.GetString] kind={kind} "
                 "end=[THIS.Var('spec_war_end').GetValue] stakes=[THIS.Var('spec_war_stakes_now').GetValue]\"\n") if log else ""
-        out += (f"spec_war_{kind} = {{\n\teffect = {{\n\t\tif = {{\n\t\t\tlimit = {{ has_variable = spec_conf }}\n"
-                f"{STAKES}{size}{note}\t\t\tspec_war_jump = yes\n\t\t}}\n\t}}\n}}\n\n")
-    return out
+        out += (f"spec_war_{kind} = {{\n\teffect = {{\n\t\tif = {{\n\t\t\tlimit = {{ has_variable = spec_conf {UNSETTLED} }}\n"
+                f"{STAKES}{size}{note}\t\t\tspec_war_jump = yes\n{SETTLED}\t\t}}\n\t}}\n}}\n\n")
+    return out + capitulation_actions()
+
+
+# Capitulation does not fire on_lost_war in 1.15.1. Its only named scope is the
+# diplomatic play; cache that identity with each monthly war row, rather than
+# borrowing casualties from an unrelated simultaneous war. Enforcement callbacks
+# precede capitulation and identify the actual victims, including allied targets.
+UNSETTLED = """NOT = {
+    scope:diplomatic_play ?= {
+        root = { is_target_in_variable_list = { name = spec_settled_plays target = prev } }
+    }
+}"""
+SETTLED = """            if = {
+                limit = { exists = scope:diplomatic_play }
+                add_to_variable_list = { name = spec_settled_plays target = scope:diplomatic_play days = 2 }
+            }
+"""
+
+
+def capitulation_actions():
+    cached = "".join(f"""            if = {{
+                limit = {{ var:spec_war{n}_play ?= scope:diplomatic_play has_variable = spec_war{n}_total }}
+                set_variable = {{ name = spec_war_end value = var:spec_war{n}_total }}
+            }}
+""" for n in WAR_SLOTS)
+    full, plain = WAR_END["lost"]
+    return f"""on_wargoal_enforced = {{ on_actions = {{ spec_record_defeat_goal }} }}
+spec_record_defeat_goal = {{
+    effect = {{
+        if = {{
+            limit = {{ exists = scope:diplomatic_play exists = scope:target }}
+            scope:target = {{
+                if = {{
+                    limit = {{ has_variable = spec_conf }}
+                    add_to_variable_list = {{ name = spec_defeat_goal_plays target = scope:diplomatic_play days = 2 }}
+                }}
+            }}
+        }}
+    }}
+}}
+on_capitulation = {{ on_actions = {{ spec_war_capitulated }} }}
+spec_war_capitulated = {{
+    effect = {{
+        if = {{
+            limit = {{ has_variable = spec_conf exists = scope:diplomatic_play {UNSETTLED} }}
+            set_variable = {{ name = spec_war_end value = 0 }}
+{cached}            set_variable = {{ name = spec_war_end value = spec_war_stakes }}
+            set_variable = {{ name = spec_war_stakes_now value = var:spec_war_end }}
+            if = {{
+                limit = {{ is_target_in_variable_list = {{ name = spec_defeat_goal_plays target = scope:diplomatic_play }} }}
+                change_variable = {{ name = spec_war_end multiply = {full} }}
+            }}
+            else = {{ change_variable = {{ name = spec_war_end multiply = {plain} }} }}
+            spec_war_jump = yes
+{SETTLED}        }}
+    }}
+}}
+"""
 
 
 def build(write, log):

@@ -1229,6 +1229,7 @@ def effects(log=False):
                          "\t\tremove_variable = spec_own_log\n\t}\n}\n\n")
     clear = "".join(f"\tremove_variable = {v}\n" for v in state_vars())
     clear += "".join(f"\tclear_variable_list = {l}\n" for l in charts.LISTS)
+    clear += "\tclear_variable_list = spec_settled_plays\n\tclear_variable_list = spec_defeat_goal_plays\n"
     clear += "".join(f"\tclear_variable_list = spec_goods_w{w}\n" + "".join(f"\tclear_variable_list = spec_goods_w{w}_{c}\n" for c in market_tab.CATEGORIES)
                      for w in range(1, 7))  # the goods board's lists
     clear += "\tspec_update_levers = yes\n"  # levers are cleared above, so this removes their modifiers

@@ -1,0 +1,82 @@
+namespace = spec_mechanics_capitulation
+spec_mechanics_capitulation.1 = { type = country_event hidden = yes immediate = {
+create_diplomatic_play = { target_country = c:FRA type = dp_humiliation war = yes }
+every_scope_war = { limit = { is_war_participant = c:FRA } diplomatic_play = { save_scope_as = diplomatic_play } }
+c:FRA = { save_scope_as = target }
+trigger_event = { on_action = spec_record_defeat_goal }
+c:FRA = {
+set_variable = { name = spec_conf value = 55 }
+set_variable = { name = spec_c_total value = 0 }
+set_variable = { name = spec_c_warend value = 0 }
+set_variable = { name = spec_war1_play value = scope:diplomatic_play }
+set_variable = { name = spec_war1_total value = 0.125 }
+set_variable = { name = spec_war2_total value = 1 }
+trigger_event = { on_action = spec_war_capitulated }
+if = { limit = { var:spec_conf = 51 var:spec_c_warend = -4 var:spec_c_total = -4 } debug_log = "HOTFIX PASS capitulation_scaled_victim_penalty" }
+else = { debug_log = "HOTFIX FAIL capitulation_scaled_victim_penalty" }
+trigger_event = { on_action = spec_war_capitulated }
+if = { limit = { var:spec_conf = 51 var:spec_c_warend = -4 } debug_log = "HOTFIX PASS duplicate_capitulation_not_charged" }
+else = { debug_log = "HOTFIX FAIL duplicate_capitulation_not_charged" }
+trigger_event = { on_action = spec_war_lost }
+if = { limit = { var:spec_conf = 51 var:spec_c_warend = -4 } debug_log = "HOTFIX PASS defeat_after_capitulation_not_charged" }
+else = { debug_log = "HOTFIX FAIL defeat_after_capitulation_not_charged" }
+clear_variable_list = spec_settled_plays
+clear_variable_list = spec_defeat_goal_plays
+trigger_event = { on_action = spec_war_capitulated }
+if = { limit = { var:spec_conf = 50 var:spec_c_warend = -5 } debug_log = "HOTFIX PASS ally_without_goal_has_smaller_penalty" }
+else = { debug_log = "HOTFIX FAIL ally_without_goal_has_smaller_penalty" }
+clear_variable_list = spec_settled_plays
+remove_variable = spec_war1_play
+trigger_event = { on_action = spec_war_capitulated }
+if = { limit = { var:spec_conf = 49.5 var:spec_war_stakes_now = 0.25 } debug_log = "HOTFIX PASS uncached_war_uses_minimum_stakes" }
+else = { debug_log = "HOTFIX FAIL uncached_war_uses_minimum_stakes" }
+clear_variable_list = spec_settled_plays
+set_variable = { name = spec_conf value = 0.1 }
+set_variable = { name = spec_c_warend value = 0 }
+set_variable = { name = spec_c_total value = 0 }
+trigger_event = { on_action = spec_war_capitulated }
+if = { limit = { var:spec_conf = 0 var:spec_c_warend = -0.1 var:spec_c_total = -0.1 } debug_log = "HOTFIX PASS capitulation_floor_accounting" }
+else = { debug_log = "HOTFIX FAIL capitulation_floor_accounting" }
+clear_variable_list = spec_settled_plays
+set_variable = { name = spec_conf value = 55 }
+set_variable = { name = spec_c_warend value = 0 }
+trigger_event = { on_action = spec_war_lost }
+if = { limit = { var:spec_conf = 54.5 var:spec_c_warend = -0.5 } debug_log = "HOTFIX PASS ordinary_defeat_still_applies" }
+else = { debug_log = "HOTFIX FAIL ordinary_defeat_still_applies" }
+trigger_event = { on_action = spec_war_capitulated }
+if = { limit = { var:spec_conf = 54.5 var:spec_c_warend = -0.5 } debug_log = "HOTFIX PASS capitulation_after_defeat_not_charged" }
+else = { debug_log = "HOTFIX FAIL capitulation_after_defeat_not_charged" }
+clear_variable_list = spec_settled_plays
+remove_variable = spec_conf
+set_variable = { name = spec_c_warend value = 0 }
+trigger_event = { on_action = spec_war_capitulated }
+if = { limit = { NOT = { has_variable = spec_conf } var:spec_c_warend = 0 } debug_log = "HOTFIX PASS closed_system_skips_capitulation" }
+else = { debug_log = "HOTFIX FAIL closed_system_skips_capitulation" }
+}
+scope:diplomatic_play = { save_scope_as = spec_original_play }
+create_diplomatic_play = { target_country = c:BEL type = dp_humiliation war = yes }
+every_scope_war = { limit = { is_war_participant = c:BEL } diplomatic_play = { save_scope_as = diplomatic_play } }
+c:FRA = {
+set_variable = { name = spec_conf value = 55 }
+set_variable = { name = spec_c_warend value = 0 }
+set_variable = { name = spec_c_total value = 0 }
+clear_variable_list = spec_settled_plays
+add_to_variable_list = { name = spec_defeat_goal_plays target = scope:diplomatic_play days = 2 }
+add_to_variable_list = { name = spec_defeat_goal_plays target = scope:spec_original_play days = 2 }
+set_variable = { name = spec_war1_play value = scope:spec_original_play }
+set_variable = { name = spec_war1_total value = 0.125 }
+set_variable = { name = spec_war2_play value = scope:diplomatic_play }
+set_variable = { name = spec_war2_total value = 0.25 }
+trigger_event = { on_action = spec_war_capitulated }
+if = { limit = { var:spec_conf = 47 var:spec_c_warend = -8 } debug_log = "HOTFIX PASS second_war_uses_its_own_stakes" }
+else = { debug_log = "HOTFIX FAIL second_war_uses_its_own_stakes" }
+scope:spec_original_play = { save_scope_as = diplomatic_play }
+trigger_event = { on_action = spec_war_capitulated }
+if = { limit = { var:spec_conf = 43 var:spec_c_warend = -12 } debug_log = "HOTFIX PASS distinct_same_day_settlements_both_apply" }
+else = { debug_log = "HOTFIX FAIL distinct_same_day_settlements_both_apply" }
+trigger_event = { on_action = spec_war_capitulated }
+if = { limit = { var:spec_conf = 43 var:spec_c_warend = -12 } debug_log = "HOTFIX PASS same_day_settlement_list_blocks_repeat" }
+else = { debug_log = "HOTFIX FAIL same_day_settlement_list_blocks_repeat" }
+}
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

@@ -1,0 +1,136 @@
+{
+  "date": "2026-11-14",
+  "candidate": "1.0.4-beta.5",
+  "published": true,
+  "new_assertion_count": 18,
+  "suites": [
+    {
+      "build": "runs\\mechanics\\capitulation_beta104_5_r2",
+      "run": "runs\\sweep_mechanics_capitulation_beta104_5_r2\\cap_01",
+      "method": "Controlled callbacks with two real diplomatic-play identities; isolated accounting and deduplication contracts. Does not replace live surrender test.",
+      "result": {
+        "suite": "capitulation",
+        "passed": [
+          "ally_without_goal_has_smaller_penalty",
+          "capitulation_after_defeat_not_charged",
+          "capitulation_floor_accounting",
+          "capitulation_scaled_victim_penalty",
+          "closed_system_skips_capitulation",
+          "defeat_after_capitulation_not_charged",
+          "distinct_same_day_settlements_both_apply",
+          "duplicate_capitulation_not_charged",
+          "ordinary_defeat_still_applies",
+          "same_day_settlement_list_blocks_repeat",
+          "second_war_uses_its_own_stakes",
+          "uncached_war_uses_minimum_stakes"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_capitulation_beta104_5_r2\\cap_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      },
+      "fixture_sha256": "329c2dfe45db97eac22ae40d12444a18544f372b842346ae7205b9fed9efd9b8",
+      "sha256": {
+        "runs\\mechanics\\capitulation_beta104_5_r2\\mechanics-test-manifest.json": "4bf90aa6fa523c5f6e3dee54f939be8c9a5732cc27572f2a8cc87ab3d39ddca2",
+        "runs\\sweep_mechanics_capitulation_beta104_5_r2\\cap_01\\assertions.log": "f95f44ad5611051c2c8bffaf23d3c1cef0eea7f1e81b89a32920d84b4bac2bfc",
+        "runs\\sweep_mechanics_capitulation_beta104_5_r2\\cap_01\\error.log": "55c0dbc97a5c32e9fedeef423225971562fc6e82f68f701dc4785984ec015fef"
+      }
+    },
+    {
+      "build": "runs/mechanics/war_campaign_beta104_5",
+      "run": "runs/ui_war_beta104_5",
+      "method": "Live France surrender March 27, 1836 from the same prewar seed as the beta4 reproduction. Visible confidence 55 to 53; all six war and postwar assertions pass. Exited without saving.",
+      "result": {
+        "suite": "war_campaign",
+        "passed": [
+          "active_war_has_confidence_cost",
+          "loser_receives_low_stakes_goal_penalty",
+          "monthly_war_cache_tracks_opponent",
+          "real_war_ended",
+          "real_war_started",
+          "winner_receives_low_stakes_goal_reward"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\ui_war_beta104_5\\logs\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 5,
+          "mod_variable_load_warnings": 17
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      },
+      "sha256": {
+        "runs/mechanics/war_campaign_beta104_5/mechanics-test-manifest.json": "22b94417e9799ee53e63912e056806a5394686369e1f83dc9162e4121efcc90d",
+        "runs/ui_war_beta104_5/launch.json": "9e76ec49f3e87d26e53c592b4709cf17eaf95a123fd359b6661b2dd437f231e4",
+        "runs/ui_war_beta104_5/logs/debug.log": "56827a6e8edb0a8f07d08d2369d64e735eee7e558c601621b276c2ee8371251d",
+        "runs/ui_war_beta104_5/logs/error.log": "e11a6f3ff310c2f28fcfe84adedf9532ad8dfc799e3b2e0e196c838ea99c98c2",
+        "runs/ui_war_beta104_5/evidence/capitulation.jpg": "2f47690f0bac1697195c81026677b950020e21db23269f0a2e1dc05e6e7f1716",
+        "runs/ui_war_beta104_5/evidence/confidence_after_surrender.jpg": "0d16e38b301bd730881ca49e07918d401adf557a8684a7c0a2bdd76c2041f4a3"
+      }
+    }
+  ],
+  "regression": {
+    "build": "runs\\hotfix_capitulation_beta104_5",
+    "run": "runs\\sweep_hotfix_capitulation_beta104_5\\regress_01",
+    "result": {
+      "passed": [
+        "company_sweep_repairs_stable_goods",
+        "company_sweep_waits_until_due",
+        "exchange_annexed_leader_recovers",
+        "exchange_annexed_rival_cleared",
+        "exchange_annexed_seat_cleared",
+        "exchange_clear_immediate",
+        "exchange_foreign_seat_cleared_after_annexation",
+        "exchange_missing_leader_recovers",
+        "exchange_seat_search_precondition",
+        "exchange_seats_owned_domestically",
+        "exchange_two_country_ranking",
+        "journal_delayed_story",
+        "journal_legacy_cleanup",
+        "journal_shutdown",
+        "legacy_relief",
+        "panic_minimum",
+        "panic_recovery",
+        "shutdown_relief",
+        "story_missing_foreign_source_safe",
+        "war_end_live_opponent_stakes",
+        "war_end_missing_slots_safe"
+      ],
+      "failed": [],
+      "missing": [],
+      "suite_complete": true,
+      "error_logs_checked": [
+        "runs\\sweep_hotfix_capitulation_beta104_5\\regress_01\\error.log"
+      ],
+      "error_categories": {
+        "basegame_script_errors": 2,
+        "engine_or_basegame_other": 1355,
+        "mod_variable_load_warnings": 17
+      },
+      "blocking_error_count": 0,
+      "blocking_error_examples": []
+    },
+    "sha256": {
+      "runs\\sweep_hotfix_capitulation_beta104_5\\regress_01\\assertions.log": "2195ddedf49639663cf4a6f048ea18d2f630e339b18e8a5b7264d6357246a6e5",
+      "runs\\sweep_hotfix_capitulation_beta104_5\\regress_01\\error.log": "7457aecb108de640bb75d7fd8cfdfd29e48999d5194a56e784a78bc3aa728082"
+    }
+  },
+  "archive_sha256": "6a290434d15df8335d74da6d3a1deceb9a35702dafbcc44e86b407792168ced8",
+  "publication_receipt": "workshop/upload_receipts/20261114T153405.356081Z_beta_update_verified_08697ab8.json"
+}

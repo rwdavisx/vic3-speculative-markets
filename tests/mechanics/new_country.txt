@@ -1,0 +1,38 @@
+namespace = spec_mechanics_new_country
+spec_mechanics_new_country.1 = { type = country_event hidden = yes immediate = {
+activate_law = law_type:law_interventionism
+set_variable = { name = spec_debt value = 87654321 }
+set_variable = { name = spec_conf value = 12 }
+set_variable = { name = spec_panic value = 12 }
+set_variable = { name = spec_panic_len value = 12 }
+set_variable = { name = spec_panic_elapsed value = 0 }
+set_variable = spec_llr
+set_variable = { name = spec_note value = 1 }
+set_variable = { name = spec_stance_cooldown value = 12 }
+create_country = { tag = IRE origin = this state = s:STATE_LEINSTER.region_state:GBR on_created = { save_scope_as = spec_new_country } }
+if = { limit = { exists = c:IRE c:IRE = { is_country_alive = yes owns_entire_state_region = STATE_LEINSTER } } debug_log = "HOTFIX PASS release_created_real_country" }
+else = { debug_log = "HOTFIX FAIL release_created_real_country" }
+c:IRE = {
+if = { limit = { NOT = { has_variable = spec_debt } } debug_log = "HOTFIX PASS new_country_does_not_clone_debt" }
+else = { debug_log = "HOTFIX FAIL new_country_does_not_clone_debt" }
+if = { limit = { NOR = { has_variable = spec_conf has_variable = spec_panic has_variable = spec_stance_cooldown } } debug_log = "HOTFIX PASS new_country_does_not_clone_crisis" }
+else = { debug_log = "HOTFIX FAIL new_country_does_not_clone_crisis" }
+if = { limit = { NOR = { has_variable = spec_llr has_variable = spec_note } } debug_log = "HOTFIX PASS new_country_does_not_clone_reforms" }
+else = { debug_log = "HOTFIX FAIL new_country_does_not_clone_reforms" }
+activate_law = law_type:law_interventionism
+}
+if = { limit = { var:spec_debt = 87654321 } debug_log = "HOTFIX PASS release_preserves_origin_debt" }
+else = { debug_log = "HOTFIX FAIL release_preserves_origin_debt" }
+trigger_event = { id = spec_mechanics_new_country.2 days = 35 }
+} }
+spec_mechanics_new_country.2 = { type = country_event hidden = yes immediate = {
+c:IRE = {
+if = { limit = { has_variable = spec_conf var:spec_conf >= 0 var:spec_conf <= 100 has_variable = spec_debt var:spec_debt >= 0 } debug_log = "HOTFIX PASS new_country_monthly_initializes_finance" }
+else = { debug_log = "HOTFIX FAIL new_country_monthly_initializes_finance" }
+if = { limit = { has_variable = spec_fast_steel has_variable = spec_fast_grain has_variable = spec_stance } debug_log = "HOTFIX PASS new_country_monthly_initializes_goods" }
+else = { debug_log = "HOTFIX FAIL new_country_monthly_initializes_goods" }
+if = { limit = { exists = je:je_spec_markets } debug_log = "HOTFIX PASS new_country_monthly_adds_journal" }
+else = { debug_log = "HOTFIX FAIL new_country_monthly_adds_journal" }
+}
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

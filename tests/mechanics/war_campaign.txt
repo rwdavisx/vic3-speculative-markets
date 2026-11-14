@@ -1,4 +1,6 @@
-# EXPERIMENTAL: peace deadline is unreliable; not accepted audit coverage.
+# Integration test: manually capitulate France after the three wartime PASS markers
+# and before the 20-day postwar assertion deadline. War-support loss alone is not
+# reliable. The untouched beta4 fails the actual capitulation penalty check.
 namespace = spec_mechanics_war_campaign
 spec_mechanics_war_campaign.1 = { type = country_event hidden = yes immediate = {
 trigger_event = { id = spec_mechanics_war_campaign.2 days = 10 }

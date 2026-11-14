@@ -1,11 +1,11 @@
 # Mechanics correctness audit
 
-Balance is frozen at 1.0.3. The isolated and integration passes now have **522 passing engine
-assertions in 49 suites**, plus **42 Python tests** and **9 CMF source tests**.
+Balance is frozen at 1.0.3. The isolated and integration passes now have **548 passing engine
+assertions in 52 suites**, plus **42 Python tests** and **9 CMF source tests**.
 These are contract results, not a claim that every possible campaign works.
 The open checks below remain prerequisites to the broader balance pass.
 
-**Published:** Stable 1.0.4 at 06:11 UTC and Beta 1.0.4-beta.4 at 14:23 UTC on November 14.
+**Published:** Stable 1.0.4 at 06:11 UTC and Beta 1.0.4-beta.5 at 15:34 UTC on November 14.
 Stable matches the earlier tested beta5. The newer beta adds the rivalry-tie, bank-tooltip and confidence-accounting fixes below.
 See `HOTFIX_1.0.4.md` for receipts and hashes.
 [Machine-readable results](tests/mechanics/verification_2026-11-14.json) record
@@ -286,3 +286,11 @@ Eleven Renown reach/size checks pass (real investment-rights treaty, equal/large
 The continued beta campaign completed through December 31, 1849 with zero blocking mod diagnostics (one campaign, not a universal crash guarantee). Seven integration assertions pass across the active countries in its 1842 checkpoint: confidence, debt, lending standards, each goods exposure, exposure totals and severity remain in bounds. The first invariant run ended before its delayed event and is rejected. Campaign provenance, the intentional telemetry restart, and full error counts are in `tests/mechanics/verification_campaign_beta104_4.json`.
 
 Six government-turnover checks pass after actually replacing the ruling IGs and running the complete monthly action. Temperament, enacted reforms and the active credit-policy cooldown survive both transitions. Probabilistic AI rescue frequency and revolution-created successor countries are separate open checks.
+
+The subsequent live war test **does reproduce a defect**: France manually capitulated on March 25, 1836 after all three wartime checks passed. Britain received its +1 confidence reward, but France never fired `on_lost_war` and received no defeat penalty. Five of six assertions passed; this suite is not added to accepted coverage. The full log has zero blocking diagnostics. Evidence is in `tests/mechanics/verification_capitulation_beta104_4.json`. A separate diagnostic run confirms France instead fires `on_capitulation`, with a diplomatic-play scope but no enemy-country, war or victim-of-wargoal scopes. A fix is under investigation; stable and published beta are unchanged.
+
+Candidate beta5 fixes the confirmed surrender defect using the engine capitulation callback, matched diplomatic-play identity and cached casualty stakes. Goal-target tracking distinguishes the defeated target from an ally; a short settlement list prevents duplicate charges. Twelve isolated accounting/routing checks and all six real-war replay assertions pass, with zero blocking diagnostics. France now falls from 55 to 53 on surrender. Twenty-one existing hotfix assertions also pass. Final logs, screenshots, fixture hashes and archive hash are in `tests/mechanics/verification_capitulation_beta104_5.json`. Stable remains unchanged. Late settlement after an ally leaves an ongoing war remains a separate open case.
+
+Beta5 publication verified at 15:34:05 UTC November 14: `workshop/upload_receipts/20261114T153405.356081Z_beta_update_verified_08697ab8.json`. Archive SHA256 `6a290434d15df8335d74da6d3a1deceb9a35702dafbcc44e86b407792168ced8`.
+
+Eight new-country checks pass after actually releasing Ireland from Britain. Custom debt, confidence/crisis flags, policy cooldown and reforms are not cloned; Britain retains its debt. The next normal monthly pulse initializes Irish finance, goods and the journal. Full error gate passes. This is a release-country test, not a revolution test. The first fixture used boolean values for countdowns and is rejected. Evidence: `tests/mechanics/verification_new_country_beta104_5.json`.

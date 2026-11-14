@@ -1,0 +1,45 @@
+{
+  "date": "2026-11-14",
+  "version": "1.0.4-beta.5",
+  "new_assertion_count": 8,
+  "rejected_run": "runs/sweep_mechanics_new_country_beta104_5/new_01: fixture incorrectly used boolean panic and stance countdowns; not a production defect.",
+  "suites": [
+    {
+      "build": "runs/mechanics/new_country_beta104_5_r2",
+      "run": "runs/sweep_mechanics_new_country_beta104_5_r2/new_01",
+      "method": "Actual create_country release of Ireland with Leinster from Britain; next normal monthly pulse initializes the new country. Not a revolution or player tag-switch test.",
+      "result": {
+        "suite": "new_country",
+        "passed": [
+          "new_country_does_not_clone_crisis",
+          "new_country_does_not_clone_debt",
+          "new_country_does_not_clone_reforms",
+          "new_country_monthly_adds_journal",
+          "new_country_monthly_initializes_finance",
+          "new_country_monthly_initializes_goods",
+          "release_created_real_country",
+          "release_preserves_origin_debt"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_new_country_beta104_5_r2\\new_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      },
+      "sha256": {
+        "runs/mechanics/new_country_beta104_5_r2/mechanics-test-manifest.json": "3172dfe40b12ec48ee31330a11481060d9990497f0de31632820ac68f69a00a8",
+        "runs/sweep_mechanics_new_country_beta104_5_r2/new_01/assertions.log": "94b1641aa4743233de993c74a7ef3066f7aa781fc1053f4a8043e718614fb6cc",
+        "runs/sweep_mechanics_new_country_beta104_5_r2/new_01/error.log": "325f69e949fecdb71d31b1b26cb9227f5f35665e3d30291017fdd5c8aa96806a"
+      }
+    }
+  ]
+}

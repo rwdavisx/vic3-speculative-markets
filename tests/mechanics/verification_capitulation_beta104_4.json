@@ -1,0 +1,42 @@
+{
+  "date": "2026-11-14",
+  "beta": "1.0.4-beta.4",
+  "status": "reproduced_defect",
+  "build": "runs\\mechanics\\war_campaign_beta104_r7",
+  "run": "runs\\ui_war_beta104_4",
+  "method": "France manually capitulated through the peace UI on 25 March 1836 after all three wartime assertions passed. Separate private profile, original seed preserved. No mod changes during run.",
+  "finding": "Britain receives +1; France never fires the on_lost_war test hook and receives no defeat jump. Five pass, one fails. Investigating separate on_capitulation callback.",
+  "result": {
+    "suite": "war_campaign",
+    "passed": [
+      "active_war_has_confidence_cost",
+      "monthly_war_cache_tracks_opponent",
+      "real_war_ended",
+      "real_war_started",
+      "winner_receives_low_stakes_goal_reward"
+    ],
+    "failed": [
+      "loser_receives_low_stakes_goal_penalty"
+    ],
+    "missing": [],
+    "unexpected": [],
+    "complete": true,
+    "error_logs_checked": [
+      "runs\\ui_war_beta104_4\\logs\\error.log"
+    ],
+    "error_categories": {
+      "basegame_script_errors": 2,
+      "engine_or_basegame_other": 145,
+      "mod_variable_load_warnings": 17
+    },
+    "blocking_error_count": 0,
+    "blocking_error_examples": []
+  },
+  "sha256": {
+    "runs\\mechanics\\war_campaign_beta104_r7\\mechanics-test-manifest.json": "15dc1fa5d4ddd4d2367e5ef03b05aca9eff571a8af80504f6875bd9ad752bb0f",
+    "runs\\ui_war_beta104_4\\logs\\debug.log": "235cf5e91f1048ace2c1308ec932a6aeadc01cd8ba7ab8d09ecf06106ee9d8ca",
+    "runs\\ui_war_beta104_4\\logs\\error.log": "288fed7d57138570256fcf7d674b6039d5ee26fe2f7e3bb1abd3d717f3aaa235",
+    "runs\\ui_war_beta104_4\\evidence\\capitulation.jpg": "632707bc5b6659297af448a9dc4ecf5fe08c58ac60c7ccbe821f08f949aeaaae",
+    "runs\\ui_war_beta104_4\\launch.json": "35eec61bf6db611ee3448960255f924f175867ba283513bdf1671acb2547001d"
+  }
+}

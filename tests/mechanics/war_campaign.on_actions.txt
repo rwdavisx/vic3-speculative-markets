@@ -13,3 +13,21 @@ spec_mechanics_capture_draw = { effect = {
 set_variable = { name = spec_test_peace_draw value = var:spec_c_warend }
 debug_log = "HOTFIX INFO draw_war_hook country=[THIS.GetCountry.GetTagName] jump=[THIS.Var('spec_c_warend').GetValue]"
 } }
+on_capitulation = { on_actions = { spec_mechanics_capture_capitulation } }
+spec_mechanics_capture_capitulation = { effect = {
+set_variable = { name = spec_test_peace_loss value = 0 }
+if = { limit = { has_variable = spec_c_warend }
+set_variable = { name = spec_test_peace_loss value = var:spec_c_warend }
+}
+debug_log = "HOTFIX INFO capitulation_hook country=[THIS.GetCountry.GetTagName]"
+debug_log_scopes = yes
+if = { limit = { exists = scope:enemy_country } debug_log = "HOTFIX INFO capitulation_has_enemy" }
+if = { limit = { exists = scope:war } debug_log = "HOTFIX INFO capitulation_has_war" }
+if = { limit = { exists = scope:victim_of_wargoal } debug_log = "HOTFIX INFO capitulation_has_victim" }
+if = { limit = { exists = scope:diplomatic_play } debug_log = "HOTFIX INFO capitulation_has_play" }
+} }
+on_wargoal_enforced = { on_actions = { spec_mechanics_capture_goal } }
+spec_mechanics_capture_goal = { effect = {
+debug_log = "HOTFIX INFO enforced_goal_hook"
+debug_log_scopes = yes
+} }
