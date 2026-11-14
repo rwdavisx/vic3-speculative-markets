@@ -1,7 +1,7 @@
 # Mechanics correctness audit
 
-Balance is frozen at 1.0.3. The isolated passes now have **463 passing engine
-assertions in 43 suites**, plus **42 Python tests** and **9 CMF source tests**.
+Balance is frozen at 1.0.3. The isolated and integration passes now have **522 passing engine
+assertions in 49 suites**, plus **42 Python tests** and **9 CMF source tests**.
 These are contract results, not a claim that every possible campaign works.
 The open checks below remain prerequisites to the broader balance pass.
 
@@ -48,21 +48,21 @@ limits it; untested behavior is not being classified as either correct or broken
 | Market lifecycle | command/cooperative shutdown, full monthly reopening, idempotent cleanup, reforms survive, second-month bounds | tag switches and more legacy saves |
 | Confidence | 20/40/60/80 bands, clamps, story deltas, panic modifier exclusivity | additional campaign interactions beyond calm/tight/floor/ceiling/simultaneous-shock cases |
 | Investor Interest | trend direction, reciprocal response, clamps, severity thresholds, peak decay, one ending per boom, all 49 collapse paths together | building and production-method combinations beyond the goods-state paths |
-| Recovery | actual 90/180/360-day expiration, checks before and after each deadline in GBR/FRA/PRU, actual save/reload across all three durations | recovery during law changes and other overlapping interventions |
+| Recovery | actual 90/180/360-day expiration, checks before and after each deadline in GBR/FRA/PRU, actual save/reload across all three durations | overlapping interventions beyond the tested open/closed/reopened law sequence |
 | Lending | safe/stressed leverage boundaries, policy ceilings, repayment bounds, zero credit, panic/Bad Debts blocks, exact repayment/new-credit pool transfers | longer crisis chains beyond the tested panic/depression overlaps |
-| Bank exposure | 60% new-loan allocation cap, dilution, conservation, empty/new credit, write-off once, restrained share, simultaneous endings, post-lending tooltip consistency | loan transfers through war/secession and manual live tooltip inspection |
+| Bank exposure | 60% new-loan allocation cap, dilution, conservation, empty/new credit, write-off once, restrained share, simultaneous endings, post-lending tooltip consistency | loan transfers through war/secession; live credit tooltip agreement now checked |
 | Lending standards | drift gates, crisis-loss floor, upper/lower bounds, action multipliers | long-run combinations of overlapping interventions |
 | Overbuilding / construction / owners | supply-loss neutrality, doubled-supply amplification cap, construction tiers 4/5/6, small-boom exclusion, bonus removal | each building group and PM beyond the tested steel-collapse population strata |
 | Leverage / Bad Debts | ramp/fade/expiry, bailout lock cleanup, old-loan land-loss relief, repeated loss, new-loan exclusion, relief expiry | real secession/peace-deal integration beyond the controlled population cache |
-| Financial Panic | minimum elapsed age, deadline, recovery, no repeated rescue, cooldown state, legacy clock migration | save/reload during a pledged rescue; overlapping crisis cash flows |
+| Financial Panic | minimum elapsed age, deadline, recovery, no repeated rescue, cooldown state, legacy clock migration | longer chains beyond the tested pledged-rescue reload and panic/depression cash flows |
 | Credit policy / AI | same stance actions and cooldown, mania tightening, debt tightening, low-confidence loosening, recovery, fever/panic gates | government turnover and probabilistic rescue frequency |
 | Goods interventions / Great Issues | eligibility, mutual exclusion, toggle/cancellation, shutdown, issue cooldown | additional combinations beyond tested actual costs and saved Great Issue deadlines |
-| Exchanges | actions/charters, pursuit ordering, pledge notice, monthly trust gates/cap, Bad Debts prevents promotion, seat ownership, annexed/missing ranks and rivals | Renown weight accounting, complete score/standing boundaries, hostile-relation loss amounts and multi-rival ordering |
+| Exchanges | actions/charters, pursuit ordering, pledge notice, monthly trust gates/cap, Bad Debts prevents promotion, seat ownership, annexed/missing ranks and rivals | upstream Renown calculation extremes, multi-rival ordering at the trust floor/cap; score factors, standing boundaries and ordinary/hostile three-way transfers now covered |
 | Domestic economy / politics | growth bounds and stagnation, depth/trade multipliers, fixed AI temperament, mania goodwill, panic blame, cooling/cleanup | revolutions, government changes and exact affected pop totals |
-| Foreign transmission / wars | real GBR-to-FRA hit, weaker hit cannot stack, stronger replaces, closed economy ignores; war-end live/missing opponent safety | multi-hop recursion/capital flight and actual war start-to-end campaign |
+| Foreign transmission / wars | real GBR-to-FRA hit, weaker hit cannot stack, stronger replaces, closed economy ignores; war-end live/missing opponent safety | actual war start-to-end campaign; treaty-chain recursion and capital-flight exclusions now covered |
 | Long Depression | join/tie gates, repeat join, crash phase deadline, own/world recovery, clamps, cleanup/history, delayed safety | more treaty/trade networks and exact IG/population effects of depression options |
-| Journal / reforms / stories | stage priority, reform combinations, debt conversion and lock, delayed missing-source/shutdown safety, journal insertion | every inquiry/political movement branch and player tag switching |
-| UI / notifications / localization | native beta5 and CMF beta4 journal/goods shortcuts select Speculation; native transitions; numeric posts; row alignment; static localization checks | filters/empty states at different UI scales and all translated languages live |
+| Journal / reforms / stories | stage priority, reform combinations, debt conversion and lock, delayed missing-source/shutdown safety, journal insertion | political movement decay, player-tag journal persistence and live inquiry choices; inquiry eligibility/options and immediate player-switch UI refresh covered |
+| UI / notifications / localization | native beta5 and CMF beta4 journal/goods shortcuts select Speculation; native transitions; numeric posts; row alignment; static localization checks | scales beyond tested 100%/120% and all translated languages live; English filters and empty/reset states verified |
 | Distribution | distinct IDs, frozen-source hashes, fixture exclusion, immutable beta archives, beta4/5 gameplay equality, regenerated CMF patch byte equality | beta-first promotion verified; see release receipts |
 
 ## Engine suites
@@ -280,3 +280,9 @@ Recovery/law overlap: six checks pass on the published beta4. Open-market law ch
 Fifteen Exchange score checks pass for trust weighting/cap, missing trust, Great Issue bonus/removal, wealth multiplication, zero size and economic-law factors. This does not yet cover the upstream square-root/reach calculation. Live English UI checks passed at 100% and 120% scale, including empty/reset filters, credit tooltip agreement and immediate GBR-to-FRA panel refresh; screenshots and full log gate are recorded in `tests/mechanics/verification_ui_beta104_4.json`. The real-war fixture remains experimental: its imposed war-support loss does not reliably end the war by the asserted deadline. Its peace assertions are not accepted coverage or a proven mod defect.
 
 Thirteen inquiry contracts pass: 119/120-month eligibility, active-panic exclusion, fresh/used aftermath, the four reform option effects and their IG modifiers, completion counting, actual Sound Finance event reward, and no further inquiry once all reforms exist. The option effects are extracted unchanged from production; this does not claim live event-button or random AI-frequency coverage.
+
+Eleven Renown reach/size checks pass (real investment-rights treaty, equal/larger partner exclusion, square-root size, wealth bounds, zero income). Six movement-support checks verify the actual inherited state modifiers, no double application, one-year decay and five-year expiration. Six actual state-transfer checks pass after transferring non-capital states and allowing eight days for engine updates. Earlier smaller/one-day fixtures did not establish the required population loss and are rejected. Twenty-three output-basket checks cover all ten multi-output building baskets and their technology gates. These baskets intentionally follow unlocked technologies, not each building's currently selected PM; changing that would be a design/balance change.
+
+The continued beta campaign completed through December 31, 1849 with zero blocking mod diagnostics (one campaign, not a universal crash guarantee). Seven integration assertions pass across the active countries in its 1842 checkpoint: confidence, debt, lending standards, each goods exposure, exposure totals and severity remain in bounds. The first invariant run ended before its delayed event and is rejected. Campaign provenance, the intentional telemetry restart, and full error counts are in `tests/mechanics/verification_campaign_beta104_4.json`.
+
+Six government-turnover checks pass after actually replacing the ruling IGs and running the complete monthly action. Temperament, enacted reforms and the active credit-policy cooldown survive both transitions. Probabilistic AI rescue frequency and revolution-created successor countries are separate open checks.

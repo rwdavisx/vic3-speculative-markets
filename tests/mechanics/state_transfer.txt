@@ -1,0 +1,33 @@
+namespace = spec_mechanics_state_transfer
+spec_mechanics_state_transfer.1 = { type = country_event hidden = yes immediate = { trigger_event = { id = spec_mechanics_state_transfer.2 days = 10 } } }
+spec_mechanics_state_transfer.2 = { type = country_event hidden = yes immediate = {
+remove_variable = spec_lev_old
+remove_variable = spec_lev_ref
+remove_variable = spec_lev_fade
+set_variable = { name = spec_lev_avg value = 10000000 }
+set_variable = { name = spec_debt value = 80000000 }
+set_variable = { name = spec_lev_pop value = total_population }
+random_scope_state = { limit = { is_capital = no } save_scope_as = spec_test_state }
+set_variable = { name = spec_test_state value = scope:spec_test_state }
+every_scope_state = { limit = { is_capital = no } set_state_owner = c:FRA }
+trigger_event = { id = spec_mechanics_state_transfer.3 days = 8 }
+} }
+spec_mechanics_state_transfer.3 = { type = country_event hidden = yes immediate = {
+debug_log = "HOTFIX INFO transfer_kept=[THIS.ScriptValue('spec_pop_kept')]"
+if = { limit = { var:spec_test_state = { owner = c:FRA } } debug_log = "HOTFIX PASS state_really_transferred" }
+else = { debug_log = "HOTFIX FAIL state_really_transferred" }
+if = { limit = { spec_pop_kept <= 0.9 } debug_log = "HOTFIX PASS actual_population_loss_exceeds_ten_percent" }
+else = { debug_log = "HOTFIX FAIL actual_population_loss_exceeds_ten_percent" }
+set_local_variable = { name = spec_lent value = 0 }
+spec_mechanics_leverage = yes
+if = { limit = { var:spec_debt = 80000000 } debug_log = "HOTFIX PASS actual_cession_preserves_debt" }
+else = { debug_log = "HOTFIX FAIL actual_cession_preserves_debt" }
+if = { limit = { var:spec_lev_old ?= 80000000 var:spec_lev_ref ?= 10000000 var:spec_lev_fade ?= 60 } debug_log = "HOTFIX PASS actual_cession_rebases_old_loans" }
+else = { debug_log = "HOTFIX FAIL actual_cession_rebases_old_loans" }
+if = { limit = { var:spec_lev_pop = total_population } debug_log = "HOTFIX PASS population_cache_updates_after_cession" }
+else = { debug_log = "HOTFIX FAIL population_cache_updates_after_cession" }
+spec_mechanics_leverage = yes
+if = { limit = { var:spec_lev_fade ?= 59 var:spec_lev_old ?= 80000000 } debug_log = "HOTFIX PASS next_check_does_not_restart_relief" }
+else = { debug_log = "HOTFIX FAIL next_check_does_not_restart_relief" }
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

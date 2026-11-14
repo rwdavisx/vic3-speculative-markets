@@ -3,7 +3,7 @@
   "game_version": "1.15.1",
   "beta_candidate": "1.0.4-beta.4",
   "published": true,
-  "new_assertion_count": 169,
+  "new_assertion_count": 228,
   "suites": [
     {
       "suite": "confidence_accounting",
@@ -778,6 +778,276 @@
         "complete": true,
         "error_logs_checked": [
           "runs\\sweep_mechanics_inquiry_beta104\\inquiry_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "renown_reach",
+      "build": "runs\\mechanics\\renown_reach_beta104",
+      "runs": [
+        "runs\\sweep_mechanics_renown_reach_beta104\\reach_01"
+      ],
+      "source_version": "1.0.4-beta.4",
+      "source_manifest_sha256": "8d6d23b9bfc6f9e031245e75cc8b8e238731064743847c97aeefabec202b5739",
+      "fixture_sha256": "cb1064d42c0b85105ddf5053191a402adf8135a40774c6e05763a05004199d69",
+      "logs": [
+        {
+          "assertions_sha256": "cbd59e1d023270eeb1bf748c755d2ea4188b16d34d2cf20a3cab51f7a9132272",
+          "errors_sha256": "39f1a7a0567fd4e0bb976c85482d18e63aeb2c38941f903a5a64bd4693510c9f"
+        }
+      ],
+      "result": {
+        "suite": "renown_reach",
+        "passed": [
+          "equal_partner_excluded",
+          "investment_rights_add_quarter_capital",
+          "larger_partner_excluded",
+          "linked_size_sqrt_42",
+          "own_capital_six_months_in_thousands",
+          "square_root_size_36",
+          "unlinked_country_contributes_nothing",
+          "wealth_ceiling_two",
+          "world_average_wealth_is_one",
+          "zero_income_has_negligible_size",
+          "zero_world_average_uses_wealth_floor"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_renown_reach_beta104\\reach_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "movement_decay",
+      "build": "runs\\mechanics\\movement_decay_beta104",
+      "runs": [
+        "runs\\sweep_mechanics_movement_decay_beta104\\movement_01"
+      ],
+      "source_version": "1.0.4-beta.4",
+      "source_manifest_sha256": "835a6d757449bd1da6f0cd59d554e0e3f50b383f9c76c142a4bceb26e3c7a0f0",
+      "fixture_sha256": "d9d0b70f069c3205f5ac44711377fd4ded881b29758bbf7bc7e585eee5867dcb",
+      "logs": [
+        {
+          "assertions_sha256": "ede358b36084e95b10a0918ac9f91ace87583d7f8a6f9adf921ae91da2b2c00b",
+          "errors_sha256": "a4a1b6c91e4a2231c30055578249cbb7e96770cdb5ce1e6be510481301c91baf"
+        }
+      ],
+      "result": {
+        "suite": "movement_decay",
+        "passed": [
+          "modifier_exists_before_five_year_deadline",
+          "modifier_expires_after_five_year_deadline",
+          "panic_labor_support_reaches_state",
+          "panic_socialist_support_reaches_state",
+          "repeat_panic_does_not_double_support",
+          "year_one_support_has_decayed"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_movement_decay_beta104\\movement_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 74,
+          "engine_or_basegame_other": 1373,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "state_transfer",
+      "build": "runs\\mechanics\\state_transfer_beta104_r3",
+      "runs": [
+        "runs\\sweep_mechanics_state_transfer_beta104_r3\\transfer_01"
+      ],
+      "source_version": "1.0.4-beta.4",
+      "source_manifest_sha256": "b01b9ce7280955e7bb6bfb92043432db15be261cd1c0fdc2b32653231c1f89af",
+      "fixture_sha256": "e7f3fa3acc3af085e3c9fa9b16a95107c156fd04f7d0cb0e2ddf5f80009079fc",
+      "logs": [
+        {
+          "assertions_sha256": "66b3fca90e2d0b50c9df0f4b79c19abb7017ce058d055dfb197f97c073c0ea56",
+          "errors_sha256": "a937460a8828c98ee0fe461f403ba393412018e68366de4009b0164d24ca2fd3"
+        }
+      ],
+      "result": {
+        "suite": "state_transfer",
+        "passed": [
+          "actual_cession_preserves_debt",
+          "actual_cession_rebases_old_loans",
+          "actual_population_loss_exceeds_ten_percent",
+          "next_check_does_not_restart_relief",
+          "population_cache_updates_after_cession",
+          "state_really_transferred"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_state_transfer_beta104_r3\\transfer_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "output_baskets",
+      "build": "runs\\mechanics\\output_baskets_beta104",
+      "runs": [
+        "runs\\sweep_mechanics_output_baskets_beta104\\baskets_01"
+      ],
+      "source_version": "1.0.4-beta.4",
+      "source_manifest_sha256": "f5b06819aee10f1911b747241090d2f396eb187c7ba573ac168c6901fd36fae6",
+      "fixture_sha256": "a6dc7ba17a24771e5360bd9ab1e8fd588d8eb1276d14380bf2e6f10a9ed4979d",
+      "logs": [
+        {
+          "assertions_sha256": "35c6041ae9bddb005dd63a2565fda17aa95404af662ad9236a6ad2e40a2a3034",
+          "errors_sha256": "c807e5792274706be6b956497fc4f705a502d4a0b9652fe1646df19e5da31ffc"
+        }
+      ],
+      "result": {
+        "suite": "output_baskets",
+        "passed": [
+          "always_available_furniture_manufactory",
+          "always_available_glassworks",
+          "always_available_logging_camp",
+          "always_available_textile_mill",
+          "always_available_whaling_station",
+          "fixture_locked_automotive_industry",
+          "fixture_locked_electrics_industry",
+          "fixture_locked_shipyard",
+          "fixture_locked_synthetics_plant",
+          "locked_automotive_industry",
+          "locked_electrics_industry",
+          "locked_shipyard",
+          "locked_synthetics_plant",
+          "unlocked_automotive_industry",
+          "unlocked_electrics_industry",
+          "unlocked_food_industry",
+          "unlocked_furniture_manufactory",
+          "unlocked_glassworks",
+          "unlocked_logging_camp",
+          "unlocked_shipyard",
+          "unlocked_synthetics_plant",
+          "unlocked_textile_mill",
+          "unlocked_whaling_station"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_output_baskets_beta104\\baskets_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "campaign_invariants",
+      "build": "runs\\mechanics\\campaign_invariants_beta104",
+      "runs": [
+        "runs\\sweep_mechanics_campaign_invariants_beta104_r2\\invariant_01"
+      ],
+      "source_version": "1.0.4-beta.4",
+      "source_manifest_sha256": "2044f39b1193dbb38ec0f0d60d192d1f566482507d1aa8d7f456f7fe637c2de8",
+      "fixture_sha256": "df21ae84ec797465d814f05eba7bb4e06822e64560da18a5ca34c570504de526",
+      "logs": [
+        {
+          "assertions_sha256": "1e46e7e75a3157ab248c3eb5012dfb670fdf15af0bc4f5485fe24b0bddf25dca",
+          "errors_sha256": "dde5ba3815c724831e7b8464517d91eb4aac74c7f4fc3d4fd6517a8e09f550db"
+        }
+      ],
+      "result": {
+        "suite": "campaign_invariants",
+        "passed": [
+          "confidence_valid_in_live_countries",
+          "covers_many_live_countries",
+          "debt_valid_in_live_countries",
+          "exposure_each_valid_in_live_countries",
+          "exposure_total_valid_in_live_countries",
+          "severity_valid_in_live_countries",
+          "standards_valid_in_live_countries"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_campaign_invariants_beta104_r2\\invariant_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1470,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      },
+      "scope": "Integration checks across active countries in the 1842 campaign checkpoint; not isolated formula proofs."
+    },
+    {
+      "suite": "government_change",
+      "build": "runs\\mechanics\\government_change_beta104",
+      "runs": [
+        "runs\\sweep_mechanics_government_change_beta104\\government_01"
+      ],
+      "source_version": "1.0.4-beta.4",
+      "source_manifest_sha256": "e18802eae75d3d8c08968ddfe64cf5deb928e8f4000cf73defb6e5e82461003e",
+      "fixture_sha256": "d944fa115e8fde95843768d27781414350ceaa01e41771a3fde45ccbfaeede84",
+      "logs": [
+        {
+          "assertions_sha256": "848250923751268c8e490c5f0438a5291713b71d5a28ae36f608b1a4f152ca19",
+          "errors_sha256": "e9dce7c5823e5b2802324dc28fa5bff54d65829cf7b0a03fbdc5c6e6482fc9b1"
+        }
+      ],
+      "result": {
+        "suite": "government_change",
+        "passed": [
+          "industrialists_really_entered_government",
+          "landowners_really_returned_to_government",
+          "second_turnover_keeps_financial_state",
+          "turnover_keeps_country_temperament",
+          "turnover_keeps_existing_reforms",
+          "turnover_respects_policy_cooldown"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_government_change_beta104\\government_01\\error.log"
         ],
         "error_categories": {
           "basegame_script_errors": 2,

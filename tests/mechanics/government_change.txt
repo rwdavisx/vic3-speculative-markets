@@ -1,0 +1,35 @@
+namespace = spec_mechanics_government_change
+spec_mechanics_government_change.1 = { type = country_event hidden = yes immediate = {
+activate_law = law_type:law_interventionism
+add_technology_researched = central_banking
+set_variable = { name = spec_temper value = -1 }
+set_variable = { name = spec_note value = 1 }
+set_variable = spec_llr
+remove_variable = spec_company_law
+remove_variable = spec_panic
+set_variable = { name = spec_conf value = 55 }
+spec_stance_to_tight = yes
+set_ruling_interest_groups = { ig_industrialists }
+trigger_event = { on_action = spec_monthly }
+trigger_event = { id = spec_mechanics_government_change.2 days = 1 }
+} }
+spec_mechanics_government_change.2 = { type = country_event hidden = yes immediate = {
+if = { limit = { ig:ig_industrialists = { is_in_government = yes } ig:ig_landowners = { is_in_government = no } } debug_log = "HOTFIX PASS industrialists_really_entered_government" }
+else = { debug_log = "HOTFIX FAIL industrialists_really_entered_government" }
+if = { limit = { var:spec_temper = -1 } debug_log = "HOTFIX PASS turnover_keeps_country_temperament" }
+else = { debug_log = "HOTFIX FAIL turnover_keeps_country_temperament" }
+if = { limit = { var:spec_note = 1 has_variable = spec_llr spec_reform_count = 2 } debug_log = "HOTFIX PASS turnover_keeps_existing_reforms" }
+else = { debug_log = "HOTFIX FAIL turnover_keeps_existing_reforms" }
+if = { limit = { spec_stance_value = -1 has_variable = spec_stance_cooldown } debug_log = "HOTFIX PASS turnover_respects_policy_cooldown" }
+else = { debug_log = "HOTFIX FAIL turnover_respects_policy_cooldown" }
+set_ruling_interest_groups = { ig_landowners }
+trigger_event = { on_action = spec_monthly }
+trigger_event = { id = spec_mechanics_government_change.3 days = 1 }
+} }
+spec_mechanics_government_change.3 = { type = country_event hidden = yes immediate = {
+if = { limit = { ig:ig_landowners = { is_in_government = yes } ig:ig_industrialists = { is_in_government = no } } debug_log = "HOTFIX PASS landowners_really_returned_to_government" }
+else = { debug_log = "HOTFIX FAIL landowners_really_returned_to_government" }
+if = { limit = { var:spec_temper = -1 spec_reform_count = 2 spec_stance_value = -1 has_variable = spec_stance_cooldown } debug_log = "HOTFIX PASS second_turnover_keeps_financial_state" }
+else = { debug_log = "HOTFIX FAIL second_turnover_keeps_financial_state" }
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

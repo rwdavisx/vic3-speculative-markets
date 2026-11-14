@@ -1,0 +1,46 @@
+namespace = spec_mechanics_movement_decay
+spec_mechanics_movement_decay.1 = { type = country_event hidden = yes immediate = { c:SOK = {
+activate_law = law_type:law_command_economy
+remove_modifier = spec_panic_movements
+remove_modifier = spec_mania_movements
+trigger_event = { id = spec_mechanics_movement_decay.2 days = 1 }
+} } }
+spec_mechanics_movement_decay.2 = { type = country_event hidden = yes immediate = { c:SOK = {
+capital = { set_variable = { name = spec_test_labor_base value = modifier:state_pop_support_movement_labor_mult } set_variable = { name = spec_test_social_base value = modifier:state_pop_support_movement_socialist_mult } }
+spec_panic_movements = yes
+trigger_event = { id = spec_mechanics_movement_decay.3 days = 1 }
+} } }
+spec_mechanics_movement_decay.3 = { type = country_event hidden = yes immediate = { c:SOK = {
+capital = { set_variable = { name = spec_test_labor_delta value = { value = modifier:state_pop_support_movement_labor_mult subtract = var:spec_test_labor_base } } set_variable = { name = spec_test_social_delta value = { value = modifier:state_pop_support_movement_socialist_mult subtract = var:spec_test_social_base } } }
+if = { limit = { capital = { var:spec_test_labor_delta >= 0.199 var:spec_test_labor_delta <= 0.201 } } debug_log = "HOTFIX PASS panic_labor_support_reaches_state" }
+else = { debug_log = "HOTFIX FAIL panic_labor_support_reaches_state" }
+if = { limit = { capital = { var:spec_test_social_delta >= 0.099 var:spec_test_social_delta <= 0.101 } } debug_log = "HOTFIX PASS panic_socialist_support_reaches_state" }
+else = { debug_log = "HOTFIX FAIL panic_socialist_support_reaches_state" }
+spec_panic_movements = yes
+trigger_event = { id = spec_mechanics_movement_decay.4 days = 1 }
+trigger_event = { id = spec_mechanics_movement_decay.5 days = 365 }
+trigger_event = { id = spec_mechanics_movement_decay.6 days = 1824 }
+trigger_event = { id = spec_mechanics_movement_decay.7 days = 1826 }
+} } }
+spec_mechanics_movement_decay.4 = { type = country_event hidden = yes immediate = { c:SOK = {
+capital = { set_variable = { name = spec_test_labor_delta value = { value = modifier:state_pop_support_movement_labor_mult subtract = var:spec_test_labor_base } } set_variable = { name = spec_test_social_delta value = { value = modifier:state_pop_support_movement_socialist_mult subtract = var:spec_test_social_base } } }
+if = { limit = { capital = { var:spec_test_labor_delta >= 0.199 var:spec_test_labor_delta <= 0.201 } } debug_log = "HOTFIX PASS repeat_panic_does_not_double_support" }
+else = { debug_log = "HOTFIX FAIL repeat_panic_does_not_double_support" }
+
+} } }
+spec_mechanics_movement_decay.5 = { type = country_event hidden = yes immediate = { c:SOK = {
+capital = { set_variable = { name = spec_test_labor_delta value = { value = modifier:state_pop_support_movement_labor_mult subtract = var:spec_test_labor_base } } set_variable = { name = spec_test_social_delta value = { value = modifier:state_pop_support_movement_socialist_mult subtract = var:spec_test_social_base } } }
+if = { limit = { capital = { var:spec_test_labor_delta >= 0.158 var:spec_test_labor_delta <= 0.162 } } debug_log = "HOTFIX PASS year_one_support_has_decayed" }
+else = { debug_log = "HOTFIX FAIL year_one_support_has_decayed" }
+
+} } }
+spec_mechanics_movement_decay.6 = { type = country_event hidden = yes immediate = { c:SOK = {
+if = { limit = { has_modifier = spec_panic_movements } debug_log = "HOTFIX PASS modifier_exists_before_five_year_deadline" }
+else = { debug_log = "HOTFIX FAIL modifier_exists_before_five_year_deadline" }
+
+} } }
+spec_mechanics_movement_decay.7 = { type = country_event hidden = yes immediate = { c:SOK = {
+if = { limit = { NOT = { has_modifier = spec_panic_movements } } debug_log = "HOTFIX PASS modifier_expires_after_five_year_deadline" }
+else = { debug_log = "HOTFIX FAIL modifier_expires_after_five_year_deadline" }
+debug_log = "HOTFIX SUITE COMPLETE"
+} } }

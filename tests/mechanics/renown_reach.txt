@@ -1,0 +1,44 @@
+namespace = spec_mechanics_renown_reach
+spec_mechanics_renown_reach.1 = { type = country_event hidden = yes immediate = {
+every_country = { remove_variable = spec_xs_inc }
+set_variable = { name = spec_xs_inc value = 6000 }
+set_global_variable = { name = spec_xs_world_pc value = { value = 6000 divide = { value = total_population divide = 1000000 } } }
+spec_mechanics_score_parts = yes
+if = { limit = { var:spec_xs_own_v = 36 var:spec_xs_reach_v = 0 } debug_log = "HOTFIX PASS own_capital_six_months_in_thousands" }
+else = { debug_log = "HOTFIX FAIL own_capital_six_months_in_thousands" }
+if = { limit = { var:spec_xs_size_v >= 59.99 var:spec_xs_size_v <= 60.01 } debug_log = "HOTFIX PASS square_root_size_36" }
+else = { debug_log = "HOTFIX FAIL square_root_size_36" }
+if = { limit = { var:spec_xs_wealth_v >= 0.999 var:spec_xs_wealth_v <= 1.001 } debug_log = "HOTFIX PASS world_average_wealth_is_one" }
+else = { debug_log = "HOTFIX FAIL world_average_wealth_is_one" }
+c:SOK = { set_variable = { name = spec_xs_inc value = 4000 } }
+spec_mechanics_score_parts = yes
+if = { limit = { var:spec_xs_reach_v = 0 } debug_log = "HOTFIX PASS unlinked_country_contributes_nothing" }
+else = { debug_log = "HOTFIX FAIL unlinked_country_contributes_nothing" }
+create_treaty = { first_country = c:SOK second_country = c:GBR is_draft = no binding_period = { years = 10 } articles_to_create = { { article = foreign_investment_rights source_country = c:SOK target_country = c:GBR } } }
+spec_mechanics_score_parts = yes
+if = { limit = { var:spec_xs_reach_v = 6 } debug_log = "HOTFIX PASS investment_rights_add_quarter_capital" }
+else = { debug_log = "HOTFIX FAIL investment_rights_add_quarter_capital" }
+if = { limit = { var:spec_xs_size_v >= 64.79 var:spec_xs_size_v <= 64.82 } debug_log = "HOTFIX PASS linked_size_sqrt_42" }
+else = { debug_log = "HOTFIX FAIL linked_size_sqrt_42" }
+c:SOK = { set_variable = { name = spec_xs_inc value = 6000 } }
+spec_mechanics_score_parts = yes
+if = { limit = { var:spec_xs_reach_v = 0 } debug_log = "HOTFIX PASS equal_partner_excluded" }
+else = { debug_log = "HOTFIX FAIL equal_partner_excluded" }
+c:SOK = { set_variable = { name = spec_xs_inc value = 12000 } }
+spec_mechanics_score_parts = yes
+if = { limit = { var:spec_xs_reach_v = 0 } debug_log = "HOTFIX PASS larger_partner_excluded" }
+else = { debug_log = "HOTFIX FAIL larger_partner_excluded" }
+set_global_variable = { name = spec_xs_world_pc value = 0 }
+spec_mechanics_score_parts = yes
+if = { limit = { var:spec_xs_wealth_v = 0.5 } debug_log = "HOTFIX PASS zero_world_average_uses_wealth_floor" }
+else = { debug_log = "HOTFIX FAIL zero_world_average_uses_wealth_floor" }
+set_global_variable = { name = spec_xs_world_pc value = 0.001 }
+spec_mechanics_score_parts = yes
+if = { limit = { var:spec_xs_wealth_v = 2 } debug_log = "HOTFIX PASS wealth_ceiling_two" }
+else = { debug_log = "HOTFIX FAIL wealth_ceiling_two" }
+set_variable = { name = spec_xs_inc value = 0 }
+spec_mechanics_score_parts = yes
+if = { limit = { var:spec_xs_size_v >= 0 var:spec_xs_size_v <= 0.02 var:spec_xs_wealth_v = 0.5 } debug_log = "HOTFIX PASS zero_income_has_negligible_size" }
+else = { debug_log = "HOTFIX FAIL zero_income_has_negligible_size" }
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

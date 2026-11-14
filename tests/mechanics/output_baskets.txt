@@ -1,0 +1,97 @@
+namespace = spec_mechanics_output_baskets
+spec_mechanics_output_baskets.1 = { type = country_event hidden = yes immediate = { c:SOK = {
+set_variable = { name = spec_hype_clippers value = 2 }
+set_variable = { name = spec_hype_steamers value = 8 }
+if = { limit = { NOT = { has_technology_researched = gantry_cranes } } debug_log = "HOTFIX PASS fixture_locked_shipyard" }
+else = { debug_log = "HOTFIX FAIL fixture_locked_shipyard" }
+if = { limit = { spec_bhype_next_shipyard = 2 } debug_log = "HOTFIX PASS locked_shipyard" }
+else = { debug_log = "HOTFIX FAIL locked_shipyard" }
+set_variable = { name = spec_hype_telephones value = 2 }
+set_variable = { name = spec_hype_radios value = 8 }
+if = { limit = { NOT = { has_technology_researched = radio } } debug_log = "HOTFIX PASS fixture_locked_electrics_industry" }
+else = { debug_log = "HOTFIX FAIL fixture_locked_electrics_industry" }
+if = { limit = { spec_bhype_next_electrics_industry = 2 } debug_log = "HOTFIX PASS locked_electrics_industry" }
+else = { debug_log = "HOTFIX FAIL locked_electrics_industry" }
+set_variable = { name = spec_hype_automobiles value = 2 }
+set_variable = { name = spec_hype_aeroplanes value = 8 }
+set_variable = { name = spec_hype_tanks value = 14 }
+if = { limit = { NOT = { has_technology_researched = military_aviation } NOT = { has_technology_researched = mobile_armor } } debug_log = "HOTFIX PASS fixture_locked_automotive_industry" }
+else = { debug_log = "HOTFIX FAIL fixture_locked_automotive_industry" }
+if = { limit = { spec_bhype_next_automotive_industry = 2 } debug_log = "HOTFIX PASS locked_automotive_industry" }
+else = { debug_log = "HOTFIX FAIL locked_automotive_industry" }
+set_variable = { name = spec_hype_groceries value = 2 }
+set_variable = { name = spec_hype_liquor value = 8 }
+set_variable = { name = spec_hype_wood value = 2 }
+set_variable = { name = spec_hype_hardwood value = 8 }
+if = { limit = { spec_bhype_next_logging_camp = 5 } debug_log = "HOTFIX PASS always_available_logging_camp" }
+else = { debug_log = "HOTFIX FAIL always_available_logging_camp" }
+set_variable = { name = spec_hype_clothes value = 2 }
+set_variable = { name = spec_hype_luxury_clothes value = 8 }
+if = { limit = { spec_bhype_next_textile_mill = 5 } debug_log = "HOTFIX PASS always_available_textile_mill" }
+else = { debug_log = "HOTFIX FAIL always_available_textile_mill" }
+set_variable = { name = spec_hype_furniture value = 2 }
+set_variable = { name = spec_hype_luxury_furniture value = 8 }
+if = { limit = { spec_bhype_next_furniture_manufactory = 5 } debug_log = "HOTFIX PASS always_available_furniture_manufactory" }
+else = { debug_log = "HOTFIX FAIL always_available_furniture_manufactory" }
+set_variable = { name = spec_hype_glass value = 2 }
+set_variable = { name = spec_hype_porcelain value = 8 }
+if = { limit = { spec_bhype_next_glassworks = 5 } debug_log = "HOTFIX PASS always_available_glassworks" }
+else = { debug_log = "HOTFIX FAIL always_available_glassworks" }
+set_variable = { name = spec_hype_dye value = 2 }
+set_variable = { name = spec_hype_silk value = 8 }
+if = { limit = { NOT = { has_technology_researched = art_silk } } debug_log = "HOTFIX PASS fixture_locked_synthetics_plant" }
+else = { debug_log = "HOTFIX FAIL fixture_locked_synthetics_plant" }
+if = { limit = { spec_bhype_next_synthetics_plant = 2 } debug_log = "HOTFIX PASS locked_synthetics_plant" }
+else = { debug_log = "HOTFIX FAIL locked_synthetics_plant" }
+set_variable = { name = spec_hype_oil value = 2 }
+set_variable = { name = spec_hype_meat value = 8 }
+if = { limit = { spec_bhype_next_whaling_station = 5 } debug_log = "HOTFIX PASS always_available_whaling_station" }
+else = { debug_log = "HOTFIX FAIL always_available_whaling_station" }
+set_variable = { name = spec_hype_clippers value = 2 }
+set_variable = { name = spec_hype_steamers value = 8 }
+add_technology_researched = gantry_cranes
+if = { limit = { spec_bhype_next_shipyard = 5 } debug_log = "HOTFIX PASS unlocked_shipyard" }
+else = { debug_log = "HOTFIX FAIL unlocked_shipyard" }
+set_variable = { name = spec_hype_telephones value = 2 }
+set_variable = { name = spec_hype_radios value = 8 }
+add_technology_researched = radio
+if = { limit = { spec_bhype_next_electrics_industry = 5 } debug_log = "HOTFIX PASS unlocked_electrics_industry" }
+else = { debug_log = "HOTFIX FAIL unlocked_electrics_industry" }
+set_variable = { name = spec_hype_automobiles value = 2 }
+set_variable = { name = spec_hype_aeroplanes value = 8 }
+add_technology_researched = military_aviation
+set_variable = { name = spec_hype_tanks value = 14 }
+add_technology_researched = mobile_armor
+if = { limit = { spec_bhype_next_automotive_industry = 8 } debug_log = "HOTFIX PASS unlocked_automotive_industry" }
+else = { debug_log = "HOTFIX FAIL unlocked_automotive_industry" }
+set_variable = { name = spec_hype_groceries value = 2 }
+set_variable = { name = spec_hype_liquor value = 8 }
+add_technology_researched = distillation
+if = { limit = { spec_bhype_next_food_industry = 5 } debug_log = "HOTFIX PASS unlocked_food_industry" }
+else = { debug_log = "HOTFIX FAIL unlocked_food_industry" }
+set_variable = { name = spec_hype_wood value = 2 }
+set_variable = { name = spec_hype_hardwood value = 8 }
+if = { limit = { spec_bhype_next_logging_camp = 5 } debug_log = "HOTFIX PASS unlocked_logging_camp" }
+else = { debug_log = "HOTFIX FAIL unlocked_logging_camp" }
+set_variable = { name = spec_hype_clothes value = 2 }
+set_variable = { name = spec_hype_luxury_clothes value = 8 }
+if = { limit = { spec_bhype_next_textile_mill = 5 } debug_log = "HOTFIX PASS unlocked_textile_mill" }
+else = { debug_log = "HOTFIX FAIL unlocked_textile_mill" }
+set_variable = { name = spec_hype_furniture value = 2 }
+set_variable = { name = spec_hype_luxury_furniture value = 8 }
+if = { limit = { spec_bhype_next_furniture_manufactory = 5 } debug_log = "HOTFIX PASS unlocked_furniture_manufactory" }
+else = { debug_log = "HOTFIX FAIL unlocked_furniture_manufactory" }
+set_variable = { name = spec_hype_glass value = 2 }
+set_variable = { name = spec_hype_porcelain value = 8 }
+if = { limit = { spec_bhype_next_glassworks = 5 } debug_log = "HOTFIX PASS unlocked_glassworks" }
+else = { debug_log = "HOTFIX FAIL unlocked_glassworks" }
+set_variable = { name = spec_hype_dye value = 2 }
+set_variable = { name = spec_hype_silk value = 8 }
+add_technology_researched = art_silk
+if = { limit = { spec_bhype_next_synthetics_plant = 5 } debug_log = "HOTFIX PASS unlocked_synthetics_plant" }
+else = { debug_log = "HOTFIX FAIL unlocked_synthetics_plant" }
+set_variable = { name = spec_hype_oil value = 2 }
+set_variable = { name = spec_hype_meat value = 8 }
+if = { limit = { spec_bhype_next_whaling_station = 5 } debug_log = "HOTFIX PASS unlocked_whaling_station" }
+else = { debug_log = "HOTFIX FAIL unlocked_whaling_station" }
+} debug_log = "HOTFIX SUITE COMPLETE" } }

@@ -1,0 +1,7 @@
+{
+  "spec_mechanics_leverage": {
+    "path": "common/on_actions/spec_on_actions.txt",
+    "start": "# land lost: the average income is the income these loans were taken on. A repeat loss during the relief adds nothing\n",
+    "end": "# Leverage History and the bank chart's goods: after this month's repayment and lending, so they match the Leverage bar and the shares shown"
+  }
+}

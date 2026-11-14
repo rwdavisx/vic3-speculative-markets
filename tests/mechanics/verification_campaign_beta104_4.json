@@ -1,0 +1,39 @@
+{
+  "version": "1.0.4-beta.4",
+  "build_manifest": "runs\\mechanics\\beta104_campaign_probe\\campaign-test-manifest.json",
+  "build_manifest_sha256": "4aab34e8cc6b7c185d6154bc1599e9f25882c52042277d020c2b0f4632a36b03",
+  "run": "runs\\sweep_mechanics_beta104_campaign_observed\\beta_01",
+  "status": {
+    "state": "done",
+    "build": "beta104_campaign_probe",
+    "save": "beta104_campaign_checkpoint",
+    "user": "G:\\GameDev\\_claude_scratch\\vic\\g1794667925417150200",
+    "date": "December 31, 1849"
+  },
+  "observed_dates": "January 2, 1842 through December 31, 1849",
+  "error_gate": {
+    "error_logs_checked": [
+      "runs\\sweep_mechanics_beta104_campaign_observed\\beta_01\\error.log"
+    ],
+    "error_categories": {
+      "basegame_script_errors": 60,
+      "engine_or_basegame_other": 1801,
+      "mod_variable_load_warnings": 16
+    },
+    "blocking_error_count": 0,
+    "blocking_error_examples": []
+  },
+  "logs_sha256": {
+    "error.log": "5597fd0793870ca3200d4acbb798b2b35315f1cc573d06e158c95d72c848e527",
+    "probe.log": "fcb3bb07c5ec4ddb3048a7fc8108d452277e2435fbc47e0511d86416e7655128"
+  },
+  "earlier_run": {
+    "path": "runs/sweep_mechanics_beta104_long_campaign",
+    "note": "Manually stopped its verified private game process after preserving an annual checkpoint. Runner labels this crashed; it was an intentional test-setup restart to add read-only progress telemetry, not an observed game crash."
+  },
+  "limitations": [
+    "One campaign, not a crash-free guarantee for every save.",
+    "Final error gate includes base-game diagnostics; they are not empty logs.",
+    "No gameplay files changed in the probe copy."
+  ]
+}
