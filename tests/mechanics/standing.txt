@@ -1,0 +1,169 @@
+namespace = spec_mechanics_standing
+spec_mechanics_standing.1 = { type = country_event hidden = yes immediate = {
+if = { limit = { NOT = { has_technology_researched = central_banking } } add_technology_researched = central_banking }
+if = { limit = { NOT = { has_technology_researched = stock_exchange } } add_technology_researched = stock_exchange }
+set_variable = { name = spec_centre_score value = 14.999 }
+set_variable = { name = spec_xs_regshare value = 0 }
+set_variable = { name = spec_exch_stand value = 0 }
+set_variable = { name = spec_centre_trust value = 60 }
+remove_variable = spec_centre_new
+remove_variable = spec_exch_hold
+remove_variable = spec_xs_regtop
+remove_variable = spec_crunch
+spec_mechanics_standing = yes
+if = { limit = { var:spec_exch_stand = 0 } debug_log = "HOTFIX PASS below_national" }
+else = { debug_log = "HOTFIX FAIL below_national" }
+set_variable = { name = spec_centre_score value = 15 }
+set_variable = { name = spec_xs_regshare value = 0 }
+set_variable = { name = spec_exch_stand value = 0 }
+set_variable = { name = spec_centre_trust value = 60 }
+remove_variable = spec_centre_new
+remove_variable = spec_exch_hold
+remove_variable = spec_xs_regtop
+remove_variable = spec_crunch
+spec_mechanics_standing = yes
+if = { limit = { var:spec_exch_stand = 1 } debug_log = "HOTFIX PASS at_national" }
+else = { debug_log = "HOTFIX FAIL at_national" }
+set_variable = { name = spec_centre_score value = 13 }
+set_variable = { name = spec_xs_regshare value = 0 }
+set_variable = { name = spec_exch_stand value = 1 }
+set_variable = { name = spec_centre_trust value = 60 }
+remove_variable = spec_centre_new
+remove_variable = spec_exch_hold
+remove_variable = spec_xs_regtop
+remove_variable = spec_crunch
+spec_mechanics_standing = yes
+if = { limit = { var:spec_exch_stand = 1 } debug_log = "HOTFIX PASS national_holds_at_13" }
+else = { debug_log = "HOTFIX FAIL national_holds_at_13" }
+set_variable = { name = spec_centre_score value = 12.999 }
+set_variable = { name = spec_xs_regshare value = 0 }
+set_variable = { name = spec_exch_stand value = 1 }
+set_variable = { name = spec_centre_trust value = 60 }
+remove_variable = spec_centre_new
+remove_variable = spec_exch_hold
+remove_variable = spec_xs_regtop
+remove_variable = spec_crunch
+spec_mechanics_standing = yes
+if = { limit = { var:spec_exch_stand = 0 } debug_log = "HOTFIX PASS national_falls_below_13" }
+else = { debug_log = "HOTFIX FAIL national_falls_below_13" }
+set_variable = { name = spec_centre_score value = 0 }
+set_variable = { name = spec_xs_regshare value = 34.999 }
+set_variable = { name = spec_exch_stand value = 0 }
+set_variable = { name = spec_centre_trust value = 60 }
+remove_variable = spec_centre_new
+remove_variable = spec_exch_hold
+remove_variable = spec_xs_regtop
+remove_variable = spec_crunch
+spec_mechanics_standing = yes
+if = { limit = { var:spec_exch_stand = 0 } debug_log = "HOTFIX PASS regional_below_35" }
+else = { debug_log = "HOTFIX FAIL regional_below_35" }
+set_variable = { name = spec_centre_score value = 0 }
+set_variable = { name = spec_xs_regshare value = 35 }
+set_variable = { name = spec_exch_stand value = 0 }
+set_variable = { name = spec_centre_trust value = 60 }
+remove_variable = spec_centre_new
+remove_variable = spec_exch_hold
+remove_variable = spec_xs_regtop
+remove_variable = spec_crunch
+spec_mechanics_standing = yes
+if = { limit = { var:spec_exch_stand = 1 } debug_log = "HOTFIX PASS regional_at_35" }
+else = { debug_log = "HOTFIX FAIL regional_at_35" }
+set_variable = { name = spec_centre_score value = 0 }
+set_variable = { name = spec_xs_regshare value = 30 }
+set_variable = { name = spec_exch_stand value = 1 }
+set_variable = { name = spec_centre_trust value = 60 }
+remove_variable = spec_centre_new
+remove_variable = spec_exch_hold
+remove_variable = spec_xs_regtop
+remove_variable = spec_crunch
+spec_mechanics_standing = yes
+if = { limit = { var:spec_exch_stand = 1 } debug_log = "HOTFIX PASS regional_holds_at_30" }
+else = { debug_log = "HOTFIX FAIL regional_holds_at_30" }
+set_variable = { name = spec_centre_score value = 0 }
+set_variable = { name = spec_xs_regshare value = 29.999 }
+set_variable = { name = spec_exch_stand value = 1 }
+set_variable = { name = spec_centre_trust value = 60 }
+remove_variable = spec_centre_new
+remove_variable = spec_exch_hold
+remove_variable = spec_xs_regtop
+remove_variable = spec_crunch
+spec_mechanics_standing = yes
+if = { limit = { var:spec_exch_stand = 0 } debug_log = "HOTFIX PASS regional_falls_below_30" }
+else = { debug_log = "HOTFIX FAIL regional_falls_below_30" }
+set_variable = { name = spec_centre_score value = 100 }
+set_variable = { name = spec_xs_regshare value = 0 }
+set_variable = { name = spec_exch_stand value = 0 }
+set_variable = { name = spec_centre_trust value = 60 }
+set_variable = { name = spec_centre_new value = 1 }
+remove_variable = spec_exch_hold
+remove_variable = spec_xs_regtop
+remove_variable = spec_crunch
+spec_mechanics_standing = yes
+if = { limit = { var:spec_exch_stand = 3 } debug_log = "HOTFIX PASS rank_one_world" }
+else = { debug_log = "HOTFIX FAIL rank_one_world" }
+set_variable = { name = spec_centre_score value = 20 }
+set_variable = { name = spec_xs_regshare value = 0 }
+set_variable = { name = spec_exch_stand value = 0 }
+set_variable = { name = spec_centre_trust value = 60 }
+set_variable = { name = spec_centre_new value = 5 }
+remove_variable = spec_exch_hold
+remove_variable = spec_xs_regtop
+remove_variable = spec_crunch
+spec_mechanics_standing = yes
+if = { limit = { var:spec_exch_stand = 2 } debug_log = "HOTFIX PASS rank_five_international" }
+else = { debug_log = "HOTFIX FAIL rank_five_international" }
+set_variable = { name = spec_centre_score value = 0 }
+set_variable = { name = spec_xs_regshare value = 0 }
+set_variable = { name = spec_exch_stand value = 2 }
+set_variable = { name = spec_centre_trust value = 60 }
+remove_variable = spec_centre_new
+set_variable = { name = spec_exch_hold value = 1 }
+remove_variable = spec_xs_regtop
+remove_variable = spec_crunch
+spec_mechanics_standing = yes
+if = { limit = { var:spec_exch_stand = 2 } debug_log = "HOTFIX PASS grace_preserves_international" }
+else = { debug_log = "HOTFIX FAIL grace_preserves_international" }
+set_variable = { name = spec_centre_score value = 0 }
+set_variable = { name = spec_xs_regshare value = 100 }
+set_variable = { name = spec_exch_stand value = 0 }
+set_variable = { name = spec_centre_trust value = 60 }
+remove_variable = spec_centre_new
+remove_variable = spec_exch_hold
+set_variable = { name = spec_xs_regtop value = 1 }
+remove_variable = spec_crunch
+spec_mechanics_standing = yes
+if = { limit = { var:spec_exch_stand = 2 } debug_log = "HOTFIX PASS regional_leader_international" }
+else = { debug_log = "HOTFIX FAIL regional_leader_international" }
+set_variable = { name = spec_centre_score value = 100 }
+set_variable = { name = spec_xs_regshare value = 0 }
+set_variable = { name = spec_exch_stand value = 0 }
+set_variable = { name = spec_centre_trust value = 60 }
+set_variable = { name = spec_centre_new value = 1 }
+remove_variable = spec_exch_hold
+remove_variable = spec_xs_regtop
+set_variable = { name = spec_crunch value = 1 }
+spec_mechanics_standing = yes
+if = { limit = { var:spec_exch_stand = 0 } debug_log = "HOTFIX PASS bad_debts_block_new_world" }
+else = { debug_log = "HOTFIX FAIL bad_debts_block_new_world" }
+c:SOK = {
+set_variable = { name = spec_centre_score value = 100 }
+set_variable = { name = spec_xs_regshare value = 100 }
+set_variable = { name = spec_centre_new value = 1 }
+set_variable = { name = spec_exch_stand value = 0 }
+remove_variable = spec_crunch
+if = { limit = { NOR = { has_technology_researched = stock_exchange has_technology_researched = central_banking } } debug_log = "HOTFIX PASS fixture_standing_no_advanced_banking" }
+else = { debug_log = "HOTFIX FAIL fixture_standing_no_advanced_banking" }
+spec_mechanics_standing = yes
+if = { limit = { var:spec_exch_stand = 1 } debug_log = "HOTFIX PASS rank_one_without_tech_stays_national" }
+else = { debug_log = "HOTFIX FAIL rank_one_without_tech_stays_national" }
+add_technology_researched = stock_exchange
+spec_mechanics_standing = yes
+if = { limit = { var:spec_exch_stand = 2 } debug_log = "HOTFIX PASS stock_exchange_unlocks_international" }
+else = { debug_log = "HOTFIX FAIL stock_exchange_unlocks_international" }
+add_technology_researched = central_banking
+spec_mechanics_standing = yes
+if = { limit = { var:spec_exch_stand = 3 } debug_log = "HOTFIX PASS central_banking_unlocks_world_centre" }
+else = { debug_log = "HOTFIX FAIL central_banking_unlocks_world_centre" }
+}
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

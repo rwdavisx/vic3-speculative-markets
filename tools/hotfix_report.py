@@ -28,7 +28,7 @@ LINE = re.compile(r"\b(SPEC|PROBE) tag=(\S+) date=([A-Za-z]+ \d{1,2}, \d{4}) (.*
 STAMP = re.compile(r"^\[\d\d:\d\d:\d\d\]")
 MOD_PATH = re.compile(r"(?:common|events|gui|localization)[/\\][^\n]*?[/\\][^/\\\s:]*spec_[^/\\\s:]*", re.I)
 MOD_NAME = re.compile(r"\b(?:je_|notification_|concept_)?spec_[A-Za-z0-9_.]+")
-TEST_PATH = re.compile(r"(?:events|common)/[^\n]*zz_(?:spec_)?hotfix_[^\s:]*\.txt", re.I)
+TEST_PATH = re.compile(r"(?:events|common)/[^\n]*zz_(?:spec_)?(?:hotfix|mechanics)_[^\s:]*\.txt", re.I)
 METHOD = [
     "Descriptive observations from these saved worlds, not independent randomized replicates or statistical confidence intervals.",
     "Country identity uses observe.streams: a tag plus its monthly reporting cadence. Detected shared/colliding tags are excluded from paired cohorts in both arms; undetected tag reuse cannot be ruled out.",
@@ -150,6 +150,8 @@ def error_records(text):
 
 def classify(record):
     own = bool(MOD_PATH.search(record) or MOD_NAME.search(record))
+    if TEST_PATH.search(record.replace("\\", "/")):
+        return "test_harness_script_errors"
     if ".metadata/metadata.json" in record.replace("\\", "/"):
         return "build_metadata_issues"
     if own and ("is set but is never used" in record or "is used but is never set" in record):

@@ -1,0 +1,30 @@
+namespace = spec_mechanics_issue_reload
+spec_mechanics_issue_reload.1 = { type = country_event hidden = yes immediate = {
+trigger_event = { id = spec_mechanics_issue_reload.2 days = 300 }
+} }
+spec_mechanics_issue_reload.2 = { type = country_event hidden = yes immediate = {
+spec_issue_float = { G = aeroplanes }
+if = { limit = { has_variable = spec_issue_aeroplanes has_variable = spec_issue has_variable = spec_issue_cool } debug_log = "HOTFIX PASS issue_started_before_save" }
+else = { debug_log = "HOTFIX FAIL issue_started_before_save" }
+trigger_event = { id = spec_mechanics_issue_reload.3 days = 729 }
+trigger_event = { id = spec_mechanics_issue_reload.4 days = 731 }
+trigger_event = { id = spec_mechanics_issue_reload.5 days = 1094 }
+trigger_event = { id = spec_mechanics_issue_reload.6 days = 1096 }
+} }
+spec_mechanics_issue_reload.3 = { type = country_event hidden = yes immediate = {
+if = { limit = { has_variable = spec_issue_aeroplanes has_variable = spec_issue has_variable = spec_issue_cool } debug_log = "HOTFIX PASS issue_active_day_729" }
+else = { debug_log = "HOTFIX FAIL issue_active_day_729" }
+} }
+spec_mechanics_issue_reload.4 = { type = country_event hidden = yes immediate = {
+if = { limit = { NOR = { has_variable = spec_issue_aeroplanes has_variable = spec_issue } has_variable = spec_issue_cool } debug_log = "HOTFIX PASS issue_expires_day_731_cooldown_remains" }
+else = { debug_log = "HOTFIX FAIL issue_expires_day_731_cooldown_remains" }
+} }
+spec_mechanics_issue_reload.5 = { type = country_event hidden = yes immediate = {
+if = { limit = { has_variable = spec_issue_cool } debug_log = "HOTFIX PASS issue_cooldown_present_day_1094" }
+else = { debug_log = "HOTFIX FAIL issue_cooldown_present_day_1094" }
+} }
+spec_mechanics_issue_reload.6 = { type = country_event hidden = yes immediate = {
+if = { limit = { NOT = { has_variable = spec_issue_cool } } debug_log = "HOTFIX PASS issue_cooldown_expires_day_1096" }
+else = { debug_log = "HOTFIX FAIL issue_cooldown_expires_day_1096" }
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

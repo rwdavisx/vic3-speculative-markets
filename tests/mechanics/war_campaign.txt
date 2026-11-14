@@ -1,0 +1,29 @@
+namespace = spec_mechanics_war_campaign
+spec_mechanics_war_campaign.1 = { type = country_event hidden = yes immediate = {
+trigger_event = { id = spec_mechanics_war_campaign.2 days = 10 }
+} }
+spec_mechanics_war_campaign.2 = { type = country_event hidden = yes immediate = {
+create_diplomatic_play = { target_country = c:FRA type = dp_humiliation war = yes }
+trigger_event = { id = spec_mechanics_war_campaign.3 days = 40 }
+} }
+spec_mechanics_war_campaign.3 = { type = country_event hidden = yes immediate = {
+if = { limit = { has_war_with = c:FRA } debug_log = "HOTFIX PASS real_war_started" }
+else = { debug_log = "HOTFIX FAIL real_war_started" }
+if = { limit = { var:spec_war_n > 0 OR = { var:spec_war1 ?= c:FRA var:spec_war2 ?= c:FRA var:spec_war3 ?= c:FRA } } debug_log = "HOTFIX PASS monthly_war_cache_tracks_opponent" }
+else = { debug_log = "HOTFIX FAIL monthly_war_cache_tracks_opponent" }
+if = { limit = { var:spec_war_sum < 0 } debug_log = "HOTFIX PASS active_war_has_confidence_cost" }
+else = { debug_log = "HOTFIX FAIL active_war_has_confidence_cost" }
+remove_variable = spec_c_warend
+c:FRA = { remove_variable = spec_c_warend }
+every_scope_war = { limit = { is_war_participant = c:FRA } add_war_war_support = { target = c:FRA value = -200 } }
+trigger_event = { id = spec_mechanics_war_campaign.4 days = 20 }
+} }
+spec_mechanics_war_campaign.4 = { type = country_event hidden = yes immediate = {
+if = { limit = { NOT = { has_war_with = c:FRA } } debug_log = "HOTFIX PASS real_war_ended" }
+else = { debug_log = "HOTFIX FAIL real_war_ended" }
+if = { limit = { var:spec_c_warend ?= 1 } debug_log = "HOTFIX PASS winner_receives_low_stakes_goal_reward" }
+else = { debug_log = "HOTFIX FAIL winner_receives_low_stakes_goal_reward" }
+if = { limit = { c:FRA = { var:spec_c_warend ?= -2 } } debug_log = "HOTFIX PASS loser_receives_low_stakes_goal_penalty" }
+else = { debug_log = "HOTFIX FAIL loser_receives_low_stakes_goal_penalty" }
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

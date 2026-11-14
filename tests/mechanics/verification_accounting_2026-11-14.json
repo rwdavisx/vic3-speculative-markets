@@ -1,0 +1,796 @@
+{
+  "date": "2026-11-14",
+  "game_version": "1.15.1",
+  "beta_candidate": "1.0.4-beta.4",
+  "published": true,
+  "new_assertion_count": 126,
+  "suites": [
+    {
+      "suite": "confidence_accounting",
+      "build": "runs\\mechanics\\confidence_accounting_beta104_green",
+      "runs": [
+        "runs\\sweep_mechanics_burst_fix_beta104\\confidence_01"
+      ],
+      "source_version": "1.0.4-beta.4",
+      "source_manifest_sha256": "4ead7574388c35b3c2c9bbbdb08caa63edcb9182f28a2b07379981322f6fef54",
+      "fixture_sha256": "417a66f1c660c04887bdf394119b421673a76dfe8e0c3c6730f76584f2959b58",
+      "logs": [
+        {
+          "assertions_sha256": "fb73852747c021389a594a0ca91d03fe114f87783292330c11b8bfa24b8b4e36",
+          "errors_sha256": "b1254766fefc1e1f3e7978c6c4c8b413fef37eb586236ef7c2c74836929a604f"
+        }
+      ],
+      "result": {
+        "suite": "confidence_accounting",
+        "passed": [
+          "calm_actual_change",
+          "calm_driver_sum",
+          "ceiling_actual_change",
+          "ceiling_driver_sum",
+          "floor_actual_change",
+          "floor_driver_sum",
+          "foreign_shock_actual_change",
+          "foreign_shock_driver_sum",
+          "simultaneous_shocks_actual_change",
+          "simultaneous_shocks_driver_sum",
+          "tight_actual_change",
+          "tight_driver_sum"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_burst_fix_beta104\\confidence_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "burst_accounting",
+      "build": "runs\\mechanics\\burst_accounting_beta104_green",
+      "runs": [
+        "runs\\sweep_mechanics_burst_fix_beta104\\burst_01"
+      ],
+      "source_version": "1.0.4-beta.4",
+      "source_manifest_sha256": "8bf11ad060d80f4533bf323a8cdd471bf5ffce4f52388c62775bd4395e41917a",
+      "fixture_sha256": "3838756350304ca8be80ff191ad12bb54000afd183c209d0e9ef3f61fb10c081",
+      "logs": [
+        {
+          "assertions_sha256": "35b8aacf55ddc00f2a9187e4561da3e5a68cd33877d529208c13349ce7d5f223",
+          "errors_sha256": "32ad0350e1bf719cde9f55915b1a6210f975d19a0bfa836c343d0299c88ee208"
+        }
+      ],
+      "result": {
+        "suite": "burst_accounting",
+        "passed": [
+          "burst_at_zero_driver_matches_actual_loss",
+          "burst_at_zero_total_matches_actual_loss",
+          "burst_near_zero_driver_matches_actual_loss",
+          "burst_near_zero_total_matches_actual_loss",
+          "burst_unclipped_driver_matches_actual_loss",
+          "burst_unclipped_total_matches_actual_loss"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_burst_fix_beta104\\burst_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "lever_costs",
+      "build": "runs\\mechanics\\lever_costs_beta104_r2",
+      "runs": [
+        "runs\\sweep_mechanics_lever_costs_beta104_r2\\costs_01"
+      ],
+      "source_version": "1.0.4-beta.3",
+      "source_manifest_sha256": "c32960d28b3e025a12e57b2901266df0eb79f25b923edfbf5feb5f66b5466d6a",
+      "fixture_sha256": "0f620714fd3c4b39953d3ae715b22a37842b33951c3d4b8caf381205e6e2a4fa",
+      "logs": [
+        {
+          "assertions_sha256": "f48f6eaf0842a16fc5a90c7dbba708d46c5a17166eae15675c7c6857c53a2932",
+          "errors_sha256": "377a5614fd66c6dcfd8066933ec9ff56eba771162bb47fe0726e936ee2c87951"
+        }
+      ],
+      "result": {
+        "suite": "lever_costs",
+        "passed": [
+          "cancelling_levers_removes_all_added_costs",
+          "encouragement_cost_matches_actual_expense_modifier",
+          "lever_authority_matches_actual_cost",
+          "lever_throughput_modifiers_present",
+          "repeated_lever_update_does_not_stack_cost",
+          "restraint_income_matches_actual_tax_modifier"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_lever_costs_beta104_r2\\costs_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1355,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "issue_reload",
+      "build": "runs\\mechanics\\issue_reload_beta104",
+      "runs": [
+        "runs\\sweep_mechanics_issue_save_beta104\\issue_01",
+        "runs\\sweep_mechanics_issue_reload_beta104\\issue_01"
+      ],
+      "source_version": "1.0.4-beta.3",
+      "source_manifest_sha256": "2e675bb535b6e3d5bb3fd69e65b340902a62ddb670da1c0c98184e99dad98974",
+      "fixture_sha256": "f93748337feb88e4110181930e9bbb2b051d22a1ac47f5cf8735c31bbf8fd1c9",
+      "logs": [
+        {
+          "assertions_sha256": "e75b9d53e06aa6e002ba71d9a88460d7f0cb7e6f9a2672ed53b40cd3c34e4524",
+          "errors_sha256": "018f35bb93d3896188b47682cb7965f816092d1c1b2503eaebb0207eed88c8bc"
+        },
+        {
+          "assertions_sha256": "2fa60fdd5ec3966d7124f7c49ae65926d91911c799e0e9d51cad852052b1fb7c",
+          "errors_sha256": "cda045330abb44ba1b03d2cd36a5dfc96201cb057af71aa1e554caf3aa52d9e1"
+        }
+      ],
+      "result": {
+        "suite": "issue_reload",
+        "passed": [
+          "issue_active_day_729",
+          "issue_cooldown_expires_day_1096",
+          "issue_cooldown_present_day_1094",
+          "issue_expires_day_731_cooldown_remains",
+          "issue_started_before_save"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_issue_save_beta104\\issue_01\\error.log",
+          "runs\\sweep_mechanics_issue_reload_beta104\\issue_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 10,
+          "engine_or_basegame_other": 2731,
+          "mod_variable_load_warnings": 32
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "standing",
+      "build": "runs\\mechanics\\standing_beta104",
+      "runs": [
+        "runs\\sweep_mechanics_standing_beta104\\standing_01"
+      ],
+      "source_version": "1.0.4-beta.4",
+      "source_manifest_sha256": "61ae19b9748f6db46edb0f6d3296209d7a2552a3227a1bd6b7eec6f7501d6245",
+      "fixture_sha256": "b1beac99f75990f49a609e037f70cd2c29a439811bd2ceaf64338936936b5b78",
+      "logs": [
+        {
+          "assertions_sha256": "801c679995abeffba84c1deb5e7367e7de9415e3c5599f287bb58ae059851c6b",
+          "errors_sha256": "8d4387b75d52d227aed231824c0075c1d5b827d9907701cc1acd3b93962a8ba1"
+        }
+      ],
+      "result": {
+        "suite": "standing",
+        "passed": [
+          "at_national",
+          "bad_debts_block_new_world",
+          "below_national",
+          "central_banking_unlocks_world_centre",
+          "fixture_standing_no_advanced_banking",
+          "grace_preserves_international",
+          "national_falls_below_13",
+          "national_holds_at_13",
+          "rank_five_international",
+          "rank_one_without_tech_stays_national",
+          "rank_one_world",
+          "regional_at_35",
+          "regional_below_35",
+          "regional_falls_below_30",
+          "regional_holds_at_30",
+          "regional_leader_international",
+          "stock_exchange_unlocks_international"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_standing_beta104\\standing_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 3,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "pursuit_weights",
+      "build": "runs\\mechanics\\pursuit_weights_beta104",
+      "runs": [
+        "runs\\sweep_mechanics_pursuit_weights_beta104\\pursuit_01"
+      ],
+      "source_version": "1.0.4-beta.4",
+      "source_manifest_sha256": "4172154d2a99cc0120f035493a1ff573c2cc998a62782b21257e36b4b6aa418e",
+      "fixture_sha256": "03a39e0926da48d75996bedd36aaf652469ab62147e7568ccb039ad9b04d6847",
+      "logs": [
+        {
+          "assertions_sha256": "44313d922b8f463c824576e57fd1b914fb6100805051d304ce352c6fe247156d",
+          "errors_sha256": "e97e97eebf163de0626946b141c06f87011b83807727a0b8235f5cfb910f0265"
+        }
+      ],
+      "result": {
+        "suite": "pursuit_weights",
+        "passed": [
+          "dropped_specialities_fade_without_immediate_loss",
+          "dropped_weights_and_modifiers_expire",
+          "first_place_selects_strongest_modifier",
+          "pursuit_weights_do_not_exceed_one",
+          "pursuits_build_equal_weight_first_month",
+          "pursuits_reach_full_weight_after_twelve_months",
+          "ranking_demotion_replaces_old_modifier",
+          "standing_loss_drops_last_choices_first",
+          "unranked_speciality_retains_only_base_modifier"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_pursuit_weights_beta104\\pursuit_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "crisis_overlap",
+      "build": "runs\\mechanics\\crisis_overlap_beta104",
+      "runs": [
+        "runs\\sweep_mechanics_crisis_overlap_beta104\\crisis_01"
+      ],
+      "source_version": "1.0.4-beta.4",
+      "source_manifest_sha256": "4bb809a6a71108fe2b01ccd27af11499b71fb12f3e736161b8c36c3386371179",
+      "fixture_sha256": "70502eb86d8fbf97dc3e4247274d5156f43c4efc3fc04f3c5accac943a076d83",
+      "logs": [
+        {
+          "assertions_sha256": "2173592a7318a48deee03082c70785ca462cbd323aca7a2a050d498c0cb2ca39",
+          "errors_sha256": "7f5f2466cae0ca76334dc2db3039e49b03e9b806708e3a195c687a9eac661a7e"
+        }
+      ],
+      "result": {
+        "suite": "crisis_overlap",
+        "passed": [
+          "active_panic_prevents_additional_depression_recall",
+          "depression_recall_cannot_overdraw_pool",
+          "depression_recalls_half_credit_once",
+          "first_crisis_starts_with_eligible_gp",
+          "later_panic_recalls_half_remaining_credit",
+          "recent_panic_prevents_additional_depression_recall",
+          "repeat_depression_join_does_not_recall_again",
+          "second_crisis_uses_new_origin",
+          "third_world_crisis_is_blocked",
+          "world_cooldown_blocks_second_crisis"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_crisis_overlap_beta104\\crisis_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1354,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "depression_options",
+      "build": "runs\\mechanics\\depression_options_beta104_r2",
+      "runs": [
+        "runs\\sweep_mechanics_depression_options_beta104_r2\\options_01"
+      ],
+      "source_version": "1.0.4-beta.4",
+      "source_manifest_sha256": "c5eee5388eba33119e5b1586ca4565caa89ee816ef4ce817b67484c61ebfa7f3",
+      "fixture_sha256": "c94955588ebe06549f7ed90f3b1ea88e33bd37c79ccd279b75bae457167f1220",
+      "logs": [
+        {
+          "assertions_sha256": "46a02ba388dcd399e7e11994f91ae9e80e4fb2da44f4ad69dc0a11d9b6b1ecbb",
+          "errors_sha256": "6a17ac4e15e14140a0943dd353ca7f4cb2a1c52a4f797a5ae1e8dacc74a560e5"
+        }
+      ],
+      "result": {
+        "suite": "depression_options",
+        "passed": [
+          "fixture_gbr_rank",
+          "fixture_sok_rank",
+          "option_1_a_gbr_contract",
+          "option_1_a_sok_contract",
+          "option_1_b_gbr_contract",
+          "option_1_b_sok_contract",
+          "option_2_a_gbr_contract",
+          "option_2_a_sok_contract",
+          "option_2_b_gbr_contract",
+          "option_2_b_sok_contract",
+          "option_3_a_gbr_contract",
+          "option_3_a_sok_contract",
+          "option_3_b_gbr_contract",
+          "option_3_b_sok_contract",
+          "option_4_a_gbr_contract",
+          "option_4_a_sok_contract",
+          "option_4_b_gbr_contract",
+          "option_4_b_sok_contract",
+          "option_4_c_gbr_contract",
+          "option_4_c_sok_contract",
+          "option_5_a_gbr_contract",
+          "option_5_a_sok_contract",
+          "option_5_b_gbr_contract",
+          "option_5_b_sok_contract",
+          "option_6_a_gbr_contract",
+          "option_6_a_sok_contract",
+          "option_6_b_gbr_contract",
+          "option_6_b_sok_contract",
+          "option_7_a_gbr_contract",
+          "option_7_a_sok_contract",
+          "option_7_b_gbr_contract",
+          "option_7_b_sok_contract",
+          "option_8_a_gbr_contract",
+          "option_8_a_sok_contract",
+          "option_8_b_gbr_contract",
+          "option_8_b_sok_contract"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_depression_options_beta104_r2\\options_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "contagion",
+      "build": "runs\\mechanics\\contagion_beta104_r2",
+      "runs": [
+        "runs\\sweep_mechanics_contagion_beta104_r2\\contagion_01"
+      ],
+      "source_version": "1.0.4-beta.4",
+      "source_manifest_sha256": "ad60eec9cc6a519c6176657b1d8d2a4bbf9d72ca260e61babb74d7bd56488fcf",
+      "fixture_sha256": "5273f64a82e0a612c4ef8ffe2462a24bd16092163b013306f9149a6e893beda4",
+      "logs": [
+        {
+          "assertions_sha256": "c91b265834f24af684184ec3cc59083afd11391a5d9ba93cacd1dedb209224af",
+          "errors_sha256": "e4f3e4e9e629bc37a8f4c6542f1b5d05384d1d97e87504752ceeb1bc1afed214"
+        }
+      ],
+      "result": {
+        "suite": "contagion",
+        "passed": [
+          "closed_market_ignores_foreign_panic",
+          "contagion_uses_receiver_exposure_and_source_identity",
+          "stronger_tie_replaces_pending_hit",
+          "weaker_tie_does_not_stack_same_panic"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_contagion_beta104_r2\\contagion_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1355,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      },
+      "replacement": true
+    },
+    {
+      "suite": "owner_strata",
+      "build": "runs\\mechanics\\owner_strata_beta104_r6",
+      "runs": [
+        "runs\\sweep_mechanics_owner_strata_beta104_r6\\owners_01"
+      ],
+      "source_version": "1.0.4-beta.4",
+      "source_manifest_sha256": "3c9101324cf3fd2447079950d5cbba85e250df63da08ba0c50b3d9c46e7de781",
+      "fixture_sha256": "09bbfa79f736db6e14d0e6510b2dc5064b0f0a56d36efb261b458a94b0b72f49",
+      "logs": [
+        {
+          "assertions_sha256": "9fefa4e1b7d7fd2ec029b48e902cf4a039442dbeb2d9cb929b3a29d0a4707f0f",
+          "errors_sha256": "ecf4a162529dc091b733b536d3b4d631206fe7123a2067aebf469268c19253c5"
+        }
+      ],
+      "result": {
+        "suite": "owner_strata",
+        "passed": [
+          "command_lower_matches_engine_population_effect",
+          "command_middle_matches_engine_population_effect",
+          "command_upper_matches_engine_population_effect",
+          "cooperative_lower_matches_engine_population_effect",
+          "cooperative_middle_matches_engine_population_effect",
+          "cooperative_upper_matches_engine_population_effect",
+          "fixture_has_steel_exposure_and_all_strata",
+          "private_lower_matches_engine_population_effect",
+          "private_middle_matches_engine_population_effect",
+          "private_upper_matches_engine_population_effect"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_owner_strata_beta104_r6\\owners_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 4,
+          "engine_or_basegame_other": 1355,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "spread_chain",
+      "build": "runs\\mechanics\\spread_chain_beta104_r3",
+      "runs": [
+        "runs\\sweep_mechanics_spread_chain_beta104_r3\\spread_01"
+      ],
+      "source_version": "1.0.4-beta.4",
+      "source_manifest_sha256": "6a690751d79ec1d60af72280a8b8b34e1e1d2dddedb0d25eb706de5af5640f17",
+      "fixture_sha256": "fd79da129e4bef62678170cf3fd8a2f3ce89ec9744374e708bc33d29911554ca",
+      "logs": [
+        {
+          "assertions_sha256": "d2e08267166750f6f799c6a0614756df61da303867fd5a4c6992d597a1b21f44",
+          "errors_sha256": "3289ce676c2c95d5e763139d913c130cd8a42337daaba72ec45b57b7fad018db"
+        }
+      ],
+      "result": {
+        "suite": "spread_chain",
+        "passed": [
+          "completed_chain_does_not_echo",
+          "first_hop_reached_by_real_treaty",
+          "fixture_separate_markets",
+          "origin_does_not_restart_spreading",
+          "second_hop_reached_next_tick",
+          "second_hop_waits_for_next_tick"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_spread_chain_beta104_r3\\spread_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "capital_flight",
+      "build": "runs\\mechanics\\capital_flight_beta104",
+      "runs": [
+        "runs\\sweep_mechanics_capital_flight_beta104\\flight_01"
+      ],
+      "source_version": "1.0.4-beta.4",
+      "source_manifest_sha256": "5ceb1728cbd7b995bfeaf96995b84717762c8d79c09dac5f41a17942fe9220b1",
+      "fixture_sha256": "133115e12f9a5d6a45806e2b0a9d3f3da2a5658c9306b0ee08bea886c63c3062",
+      "logs": [
+        {
+          "assertions_sha256": "c712c59f8f723caace1aa9051e565162ed547884d07b3f38b8798db2f6ef9cc7",
+          "errors_sha256": "5a7d0b1818746d5eac91b1e73a3534d5102a7b38134a31ea2fa437a4eec027a4"
+        }
+      ],
+      "result": {
+        "suite": "capital_flight",
+        "passed": [
+          "closed_market_prevents_capital_flight",
+          "foreign_panic_prevents_capital_flight",
+          "incoming_rival_gets_same_bonus",
+          "low_confidence_prevents_capital_flight",
+          "outgoing_rival_gets_fifty_percent_bonus",
+          "own_panic_prevents_capital_flight",
+          "safe_great_power_receives_expected_flight",
+          "source_does_not_receive_own_flight",
+          "source_size_ratio_capped_at_one"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_capital_flight_beta104\\flight_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    }
+  ],
+  "coverage_correction": "The stricter harness-path gate invalidates the original final_beta4/contagion run (invalid inline arithmetic trigger). A corrected fixture passes all four contracts on beta4; this replaces, rather than adds to, its previous assertion count.",
+  "limitations": [
+    "Owner-strata test covers the steel collapse branch in the British capital, not all buildings/PM combinations. Cooperative branch is exercised directly; this does not imply naturally occurring speculation under a closed-market law.",
+    "Treaty chain uses real investment-rights treaties but controlled manual crisis ticks.",
+    "These tests do not certify arbitrary mod combinations or multiplayer."
+  ],
+  "cumulative_contract_assertions": 420,
+  "cumulative_suites": 38,
+  "regressions": [
+    {
+      "suite": "confidence",
+      "build": "runs\\mechanics\\confidence_beta104_regression",
+      "runs": [
+        "runs\\sweep_mechanics_accounting_regression_beta104\\confidence_01"
+      ],
+      "source_version": "1.0.4-beta.4",
+      "source_manifest_sha256": "389128b50018be50c18d87a19453a9df66975558bcc2f69381c13aac82fec491",
+      "fixture_sha256": "e75866ad32ad274d56f572f02437cb00b23ba82463db9aa901e99aa7c887da1d",
+      "logs": [
+        {
+          "assertions_sha256": "20c66e3bb170e8e5eb918fb39c6c4c62a337d1522b384bf4773cc9d39c278ca4",
+          "errors_sha256": "0344e6ec66e9d0a137974d7d2661f32a9730af4b17c590617ad7b5494a7870ed"
+        }
+      ],
+      "result": {
+        "suite": "confidence",
+        "passed": [
+          "caution_lower_bound_actual_delta",
+          "conf_below_twenty",
+          "conf_eighty",
+          "conf_forty",
+          "conf_sixty",
+          "conf_twenty",
+          "delayed_responses_do_not_reopen",
+          "panic_band_restored",
+          "panic_does_not_double_investment_penalty",
+          "shutdown_idempotent",
+          "shutdown_preserves_reforms",
+          "shutdown_removes_current_state",
+          "story_lower_bound_actual_delta",
+          "story_upper_bound_actual_delta"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_accounting_regression_beta104\\confidence_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "credit_cycle",
+      "build": "runs\\mechanics\\credit_cycle_beta104_regression",
+      "runs": [
+        "runs\\sweep_mechanics_accounting_regression_beta104\\credit_01"
+      ],
+      "source_version": "1.0.4-beta.4",
+      "source_manifest_sha256": "ff49298b746622105db2366b319b149e543fc027550d648c07057ac0f5202dcb",
+      "fixture_sha256": "d8b64006dee3c6777948cd33b9cf4d6ac34e12120c7812c2cee1302e5ed543a3",
+      "logs": [
+        {
+          "assertions_sha256": "72c1c118b911ee79b86e1ed7f9647f031bf4d735c056bd316ff28e24e0303233",
+          "errors_sha256": "2eed0a26b1fa57e5ff71e868ad0df41885e5b857d9a1fcf643730beb78fe825b"
+        }
+      ],
+      "result": {
+        "suite": "credit_cycle",
+        "passed": [
+          "bad_debts_expiry_cleans_state_and_bailout_lock",
+          "bad_debts_fade_while_bite_ramps",
+          "bad_debts_stop_standards_drift",
+          "boom_losses_tighten_standards",
+          "calm_goods_draw_no_speculative_loans",
+          "general_loans_dilute_existing_boom_share",
+          "land_loss_crunch_relief_expires",
+          "land_loss_rebases_old_loans_without_forgiving_debt",
+          "mixed_loans_conserve_prior_and_new_exposure",
+          "new_loans_boom_share_sixty_percent_cap",
+          "new_loans_do_not_inherit_land_loss_relief",
+          "panic_stops_standards_drift",
+          "quiet_month_relaxes_standards",
+          "repeated_land_loss_does_not_restart_relief",
+          "restraint_halves_lending_pull",
+          "standards_ceiling",
+          "standards_floor",
+          "tight_month_stops_standards_drift",
+          "zero_new_credit_preserves_exposure"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_accounting_regression_beta104\\credit_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 4,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "bank_display",
+      "build": "runs\\mechanics\\bank_display_beta104_regression",
+      "runs": [
+        "runs\\sweep_mechanics_accounting_regression_beta104\\display_01"
+      ],
+      "source_version": "1.0.4-beta.4",
+      "source_manifest_sha256": "ed50c85aaef0f642da4b76712de0a77b43d719c2ed64a36ea40f271f55b3472d",
+      "fixture_sha256": "0a71d44fa1dce82f0181c3d2b04fb62922175d5c3b6a3ddc1d0e9a9412113abd",
+      "logs": [
+        {
+          "assertions_sha256": "80bbd1c270c1f3bc084b28c145736697dd0112c750595c144d2a43ad74049cd1",
+          "errors_sha256": "e9d96099d830f37a3a124a2bcdd93fde2f711737ed71afb042eecf92526be4ad"
+        }
+      ],
+      "result": {
+        "suite": "bank_display",
+        "passed": [
+          "bank_tooltip_months_match_post_lending_loans",
+          "bank_tooltip_months_match_post_repayment_loans",
+          "bank_tooltip_multiplier_matches_post_lending_loans",
+          "bank_tooltip_multiplier_matches_post_repayment_loans"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_accounting_regression_beta104\\display_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1354,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    }
+  ],
+  "archive_sha256": "b0c66b01bbcb99f60e65a8d8246de86a126335014c516a85ffb9d8e10a4d2f82",
+  "upload_verified_receipt": "workshop/upload_receipts/20261114T142352.503370Z_beta_update_verified_48d4f209.json",
+  "red_runs": [
+    {
+      "build": "runs\\mechanics\\confidence_accounting_beta104",
+      "run": "runs\\sweep_mechanics_confidence_accounting_beta104\\confidence_01",
+      "source_version": "1.0.4-beta.3",
+      "source_manifest_sha256": "2d6ec22ceb36248dd44880cb06560386d98cd98aa2a85ea21869d85cb13c70d9",
+      "assertions_sha256": "e948f7bdab61dcbd197007d739844d673c86b0d38d4cce03c2d540ae2b976bfc",
+      "errors_sha256": "fb3b7324ccc26c112a67e920f5cf84abeef25ae6038bd333fa06b822c67ae4ce",
+      "result": {
+        "suite": "confidence_accounting",
+        "passed": [
+          "calm_actual_change",
+          "calm_driver_sum",
+          "ceiling_actual_change",
+          "ceiling_driver_sum",
+          "floor_driver_sum",
+          "foreign_shock_actual_change",
+          "foreign_shock_driver_sum",
+          "simultaneous_shocks_actual_change",
+          "simultaneous_shocks_driver_sum",
+          "tight_actual_change",
+          "tight_driver_sum"
+        ],
+        "failed": [
+          "floor_actual_change"
+        ],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_confidence_accounting_beta104\\confidence_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1355,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "build": "runs\\mechanics\\burst_accounting_beta104_red",
+      "run": "runs\\sweep_mechanics_burst_accounting_beta104_red\\burst_01",
+      "source_version": "1.0.4-beta.3",
+      "source_manifest_sha256": "b148259ee899ff9ae1c112ef3dd0df12553595da4bc293dad6b8a336f73ceba2",
+      "assertions_sha256": "da28e7726734b8bc3b9edc63bcda279a34c94c1daf7cc4965ca57d7c65b17d3f",
+      "errors_sha256": "fc03818419ec1b6f6313205cbec82e9d7fa8adf7e65f86144afe69b687b40f79",
+      "result": {
+        "suite": "burst_accounting",
+        "passed": [
+          "burst_unclipped_driver_matches_actual_loss",
+          "burst_unclipped_total_matches_actual_loss"
+        ],
+        "failed": [
+          "burst_at_zero_driver_matches_actual_loss",
+          "burst_at_zero_total_matches_actual_loss",
+          "burst_near_zero_driver_matches_actual_loss",
+          "burst_near_zero_total_matches_actual_loss"
+        ],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_burst_accounting_beta104_red\\burst_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    }
+  ]
+}

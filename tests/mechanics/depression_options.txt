@@ -1,0 +1,394 @@
+namespace = spec_mechanics_depression_options
+spec_mechanics_depression_options.1 = { type = country_event hidden = yes immediate = {
+c:GBR = {
+activate_law = law_type:law_interventionism
+if = { limit = { spec_ld_is_gp = yes } debug_log = "HOTFIX PASS fixture_gbr_rank" }
+else = { debug_log = "HOTFIX FAIL fixture_gbr_rank" }
+set_global_variable = { name = spec_ld_phase value = 2 }
+set_global_variable = { name = spec_ld_months value = 60 }
+set_global_variable = { name = spec_ld_progress value = 50 }
+set_variable = { name = spec_ld value = 2 }
+set_variable = { name = spec_ld_own value = 50 }
+set_variable = { name = spec_conf value = 50 }
+set_variable = { name = spec_c_total value = 0 }
+set_variable = { name = spec_c_caution value = 0 }
+spec_mechanics_ld_1_a = yes
+if = { limit = { var:spec_conf = 50 var:spec_ld_own = 60 global_var:spec_ld_progress = 50 } debug_log = "HOTFIX PASS option_1_a_gbr_contract" }
+else = { debug_log = "HOTFIX FAIL option_1_a_gbr_contract" }
+set_global_variable = { name = spec_ld_phase value = 2 }
+set_global_variable = { name = spec_ld_months value = 60 }
+set_global_variable = { name = spec_ld_progress value = 50 }
+set_variable = { name = spec_ld value = 2 }
+set_variable = { name = spec_ld_own value = 50 }
+set_variable = { name = spec_conf value = 50 }
+set_variable = { name = spec_c_total value = 0 }
+set_variable = { name = spec_c_caution value = 0 }
+spec_mechanics_ld_1_b = yes
+if = { limit = { var:spec_conf = 56 var:spec_ld_own = 50 global_var:spec_ld_progress = 53 has_modifier = spec_ld_exchange_support } debug_log = "HOTFIX PASS option_1_b_gbr_contract" }
+else = { debug_log = "HOTFIX FAIL option_1_b_gbr_contract" }
+set_global_variable = { name = spec_ld_phase value = 2 }
+set_global_variable = { name = spec_ld_months value = 60 }
+set_global_variable = { name = spec_ld_progress value = 50 }
+set_variable = { name = spec_ld value = 2 }
+set_variable = { name = spec_ld_own value = 50 }
+set_variable = { name = spec_conf value = 50 }
+set_variable = { name = spec_c_total value = 0 }
+set_variable = { name = spec_c_caution value = 0 }
+spec_mechanics_ld_2_a = yes
+if = { limit = { var:spec_conf = 50 var:spec_ld_own = 70 global_var:spec_ld_progress = 47 } debug_log = "HOTFIX PASS option_2_a_gbr_contract" }
+else = { debug_log = "HOTFIX FAIL option_2_a_gbr_contract" }
+set_global_variable = { name = spec_ld_phase value = 2 }
+set_global_variable = { name = spec_ld_months value = 60 }
+set_global_variable = { name = spec_ld_progress value = 50 }
+set_variable = { name = spec_ld value = 2 }
+set_variable = { name = spec_ld_own value = 50 }
+set_variable = { name = spec_conf value = 50 }
+set_variable = { name = spec_c_total value = 0 }
+set_variable = { name = spec_c_caution value = 0 }
+spec_mechanics_ld_2_b = yes
+if = { limit = { var:spec_conf = 47 var:spec_ld_own = 50 global_var:spec_ld_progress = 56 } debug_log = "HOTFIX PASS option_2_b_gbr_contract" }
+else = { debug_log = "HOTFIX FAIL option_2_b_gbr_contract" }
+set_global_variable = { name = spec_ld_phase value = 2 }
+set_global_variable = { name = spec_ld_months value = 60 }
+set_global_variable = { name = spec_ld_progress value = 50 }
+set_variable = { name = spec_ld value = 2 }
+set_variable = { name = spec_ld_own value = 50 }
+set_variable = { name = spec_conf value = 50 }
+set_variable = { name = spec_c_total value = 0 }
+set_variable = { name = spec_c_caution value = 0 }
+spec_mechanics_ld_3_a = yes
+if = { limit = { var:spec_conf = 50 var:spec_ld_own = 62 global_var:spec_ld_progress = 53 has_modifier = spec_ld_relief_works } debug_log = "HOTFIX PASS option_3_a_gbr_contract" }
+else = { debug_log = "HOTFIX FAIL option_3_a_gbr_contract" }
+set_global_variable = { name = spec_ld_phase value = 2 }
+set_global_variable = { name = spec_ld_months value = 60 }
+set_global_variable = { name = spec_ld_progress value = 50 }
+set_variable = { name = spec_ld value = 2 }
+set_variable = { name = spec_ld_own value = 50 }
+set_variable = { name = spec_conf value = 50 }
+set_variable = { name = spec_c_total value = 0 }
+set_variable = { name = spec_c_caution value = 0 }
+spec_mechanics_ld_3_b = yes
+if = { limit = { var:spec_conf = 50 var:spec_ld_own = 50 global_var:spec_ld_progress = 50 } debug_log = "HOTFIX PASS option_3_b_gbr_contract" }
+else = { debug_log = "HOTFIX FAIL option_3_b_gbr_contract" }
+set_global_variable = { name = spec_ld_phase value = 2 }
+set_global_variable = { name = spec_ld_months value = 60 }
+set_global_variable = { name = spec_ld_progress value = 50 }
+set_variable = { name = spec_ld value = 2 }
+set_variable = { name = spec_ld_own value = 50 }
+set_variable = { name = spec_conf value = 50 }
+set_variable = { name = spec_c_total value = 0 }
+set_variable = { name = spec_c_caution value = 0 }
+spec_mechanics_ld_4_a = yes
+if = { limit = { var:spec_conf = 54 var:spec_ld_own = 55 global_var:spec_ld_progress = 50 } debug_log = "HOTFIX PASS option_4_a_gbr_contract" }
+else = { debug_log = "HOTFIX FAIL option_4_a_gbr_contract" }
+set_global_variable = { name = spec_ld_phase value = 2 }
+set_global_variable = { name = spec_ld_months value = 60 }
+set_global_variable = { name = spec_ld_progress value = 50 }
+set_variable = { name = spec_ld value = 2 }
+set_variable = { name = spec_ld_own value = 50 }
+set_variable = { name = spec_conf value = 50 }
+set_variable = { name = spec_c_total value = 0 }
+set_variable = { name = spec_c_caution value = 0 }
+add_treasury = 10000000
+set_variable = { name = spec_test_cash value = gold_reserves }
+change_variable = { name = spec_test_cash subtract = spec_rescue_cost }
+spec_mechanics_ld_4_b = yes
+if = { limit = { var:spec_conf = 60 var:spec_ld_own = 60 global_var:spec_ld_progress = 53 gold_reserves = var:spec_test_cash } debug_log = "HOTFIX PASS option_4_b_gbr_contract" }
+else = { debug_log = "HOTFIX FAIL option_4_b_gbr_contract" }
+set_global_variable = { name = spec_ld_phase value = 2 }
+set_global_variable = { name = spec_ld_months value = 60 }
+set_global_variable = { name = spec_ld_progress value = 50 }
+set_variable = { name = spec_ld value = 2 }
+set_variable = { name = spec_ld_own value = 50 }
+set_variable = { name = spec_conf value = 50 }
+set_variable = { name = spec_c_total value = 0 }
+set_variable = { name = spec_c_caution value = 0 }
+spec_mechanics_ld_4_c = yes
+if = { limit = { var:spec_conf = 44 var:spec_ld_own = 54 global_var:spec_ld_progress = 50 } debug_log = "HOTFIX PASS option_4_c_gbr_contract" }
+else = { debug_log = "HOTFIX FAIL option_4_c_gbr_contract" }
+set_global_variable = { name = spec_ld_phase value = 2 }
+set_global_variable = { name = spec_ld_months value = 60 }
+set_global_variable = { name = spec_ld_progress value = 50 }
+set_variable = { name = spec_ld value = 2 }
+set_variable = { name = spec_ld_own value = 50 }
+set_variable = { name = spec_conf value = 50 }
+set_variable = { name = spec_c_total value = 0 }
+set_variable = { name = spec_c_caution value = 0 }
+spec_mechanics_ld_5_a = yes
+if = { limit = { var:spec_conf = 55 var:spec_ld_own = 45 global_var:spec_ld_progress = 53 } debug_log = "HOTFIX PASS option_5_a_gbr_contract" }
+else = { debug_log = "HOTFIX FAIL option_5_a_gbr_contract" }
+set_global_variable = { name = spec_ld_phase value = 2 }
+set_global_variable = { name = spec_ld_months value = 60 }
+set_global_variable = { name = spec_ld_progress value = 50 }
+set_variable = { name = spec_ld value = 2 }
+set_variable = { name = spec_ld_own value = 50 }
+set_variable = { name = spec_conf value = 50 }
+set_variable = { name = spec_c_total value = 0 }
+set_variable = { name = spec_c_caution value = 0 }
+spec_mechanics_ld_5_b = yes
+if = { limit = { var:spec_conf = 45 var:spec_ld_own = 65 global_var:spec_ld_progress = 47 } debug_log = "HOTFIX PASS option_5_b_gbr_contract" }
+else = { debug_log = "HOTFIX FAIL option_5_b_gbr_contract" }
+set_global_variable = { name = spec_ld_phase value = 2 }
+set_global_variable = { name = spec_ld_months value = 60 }
+set_global_variable = { name = spec_ld_progress value = 50 }
+set_variable = { name = spec_ld value = 2 }
+set_variable = { name = spec_ld_own value = 50 }
+set_variable = { name = spec_conf value = 50 }
+set_variable = { name = spec_c_total value = 0 }
+set_variable = { name = spec_c_caution value = 0 }
+spec_mechanics_ld_6_a = yes
+if = { limit = { var:spec_conf = 50 var:spec_ld_own = 50 global_var:spec_ld_progress = 50 } debug_log = "HOTFIX PASS option_6_a_gbr_contract" }
+else = { debug_log = "HOTFIX FAIL option_6_a_gbr_contract" }
+set_global_variable = { name = spec_ld_phase value = 2 }
+set_global_variable = { name = spec_ld_months value = 60 }
+set_global_variable = { name = spec_ld_progress value = 50 }
+set_variable = { name = spec_ld value = 2 }
+set_variable = { name = spec_ld_own value = 50 }
+set_variable = { name = spec_conf value = 50 }
+set_variable = { name = spec_c_total value = 0 }
+set_variable = { name = spec_c_caution value = 0 }
+spec_mechanics_ld_6_b = yes
+if = { limit = { var:spec_conf = 50 var:spec_ld_own = 55 global_var:spec_ld_progress = 50 has_modifier = spec_ld_petition_relief } debug_log = "HOTFIX PASS option_6_b_gbr_contract" }
+else = { debug_log = "HOTFIX FAIL option_6_b_gbr_contract" }
+set_global_variable = { name = spec_ld_phase value = 2 }
+set_global_variable = { name = spec_ld_months value = 60 }
+set_global_variable = { name = spec_ld_progress value = 50 }
+set_variable = { name = spec_ld value = 2 }
+set_variable = { name = spec_ld_own value = 50 }
+set_variable = { name = spec_conf value = 50 }
+set_variable = { name = spec_c_total value = 0 }
+set_variable = { name = spec_c_caution value = 0 }
+spec_mechanics_ld_7_a = yes
+if = { limit = { var:spec_conf = 50 var:spec_ld_own = 55 global_var:spec_ld_progress = 50 has_modifier = spec_ld_inquiry } debug_log = "HOTFIX PASS option_7_a_gbr_contract" }
+else = { debug_log = "HOTFIX FAIL option_7_a_gbr_contract" }
+set_global_variable = { name = spec_ld_phase value = 2 }
+set_global_variable = { name = spec_ld_months value = 60 }
+set_global_variable = { name = spec_ld_progress value = 50 }
+set_variable = { name = spec_ld value = 2 }
+set_variable = { name = spec_ld_own value = 50 }
+set_variable = { name = spec_conf value = 50 }
+set_variable = { name = spec_c_total value = 0 }
+set_variable = { name = spec_c_caution value = 0 }
+spec_mechanics_ld_7_b = yes
+if = { limit = { var:spec_conf = 53 var:spec_ld_own = 50 global_var:spec_ld_progress = 50 } debug_log = "HOTFIX PASS option_7_b_gbr_contract" }
+else = { debug_log = "HOTFIX FAIL option_7_b_gbr_contract" }
+set_global_variable = { name = spec_ld_phase value = 2 }
+set_global_variable = { name = spec_ld_months value = 60 }
+set_global_variable = { name = spec_ld_progress value = 50 }
+set_variable = { name = spec_ld value = 2 }
+set_variable = { name = spec_ld_own value = 50 }
+set_variable = { name = spec_conf value = 50 }
+set_variable = { name = spec_c_total value = 0 }
+set_variable = { name = spec_c_caution value = 0 }
+spec_mechanics_ld_8_a = yes
+if = { limit = { var:spec_conf = 53 var:spec_ld_own = 50 global_var:spec_ld_progress = 50 } debug_log = "HOTFIX PASS option_8_a_gbr_contract" }
+else = { debug_log = "HOTFIX FAIL option_8_a_gbr_contract" }
+set_global_variable = { name = spec_ld_phase value = 2 }
+set_global_variable = { name = spec_ld_months value = 60 }
+set_global_variable = { name = spec_ld_progress value = 50 }
+set_variable = { name = spec_ld value = 2 }
+set_variable = { name = spec_ld_own value = 50 }
+set_variable = { name = spec_conf value = 50 }
+set_variable = { name = spec_c_total value = 0 }
+set_variable = { name = spec_c_caution value = 0 }
+spec_mechanics_ld_8_b = yes
+if = { limit = { var:spec_conf = 58 var:spec_ld_own = 50 global_var:spec_ld_progress = 50 } debug_log = "HOTFIX PASS option_8_b_gbr_contract" }
+else = { debug_log = "HOTFIX FAIL option_8_b_gbr_contract" }
+}
+c:SOK = {
+activate_law = law_type:law_interventionism
+if = { limit = { spec_ld_is_gp = no } debug_log = "HOTFIX PASS fixture_sok_rank" }
+else = { debug_log = "HOTFIX FAIL fixture_sok_rank" }
+set_global_variable = { name = spec_ld_phase value = 2 }
+set_global_variable = { name = spec_ld_months value = 60 }
+set_global_variable = { name = spec_ld_progress value = 50 }
+set_variable = { name = spec_ld value = 2 }
+set_variable = { name = spec_ld_own value = 50 }
+set_variable = { name = spec_conf value = 50 }
+set_variable = { name = spec_c_total value = 0 }
+set_variable = { name = spec_c_caution value = 0 }
+spec_mechanics_ld_1_a = yes
+if = { limit = { var:spec_conf = 50 var:spec_ld_own = 60 global_var:spec_ld_progress = 50 } debug_log = "HOTFIX PASS option_1_a_sok_contract" }
+else = { debug_log = "HOTFIX FAIL option_1_a_sok_contract" }
+set_global_variable = { name = spec_ld_phase value = 2 }
+set_global_variable = { name = spec_ld_months value = 60 }
+set_global_variable = { name = spec_ld_progress value = 50 }
+set_variable = { name = spec_ld value = 2 }
+set_variable = { name = spec_ld_own value = 50 }
+set_variable = { name = spec_conf value = 50 }
+set_variable = { name = spec_c_total value = 0 }
+set_variable = { name = spec_c_caution value = 0 }
+spec_mechanics_ld_1_b = yes
+if = { limit = { var:spec_conf = 56 var:spec_ld_own = 50 global_var:spec_ld_progress = 50.1 has_modifier = spec_ld_exchange_support } debug_log = "HOTFIX PASS option_1_b_sok_contract" }
+else = { debug_log = "HOTFIX FAIL option_1_b_sok_contract" }
+set_global_variable = { name = spec_ld_phase value = 2 }
+set_global_variable = { name = spec_ld_months value = 60 }
+set_global_variable = { name = spec_ld_progress value = 50 }
+set_variable = { name = spec_ld value = 2 }
+set_variable = { name = spec_ld_own value = 50 }
+set_variable = { name = spec_conf value = 50 }
+set_variable = { name = spec_c_total value = 0 }
+set_variable = { name = spec_c_caution value = 0 }
+spec_mechanics_ld_2_a = yes
+if = { limit = { var:spec_conf = 50 var:spec_ld_own = 70 global_var:spec_ld_progress = 49.9 } debug_log = "HOTFIX PASS option_2_a_sok_contract" }
+else = { debug_log = "HOTFIX FAIL option_2_a_sok_contract" }
+set_global_variable = { name = spec_ld_phase value = 2 }
+set_global_variable = { name = spec_ld_months value = 60 }
+set_global_variable = { name = spec_ld_progress value = 50 }
+set_variable = { name = spec_ld value = 2 }
+set_variable = { name = spec_ld_own value = 50 }
+set_variable = { name = spec_conf value = 50 }
+set_variable = { name = spec_c_total value = 0 }
+set_variable = { name = spec_c_caution value = 0 }
+spec_mechanics_ld_2_b = yes
+if = { limit = { var:spec_conf = 47 var:spec_ld_own = 50 global_var:spec_ld_progress = 50.2 } debug_log = "HOTFIX PASS option_2_b_sok_contract" }
+else = { debug_log = "HOTFIX FAIL option_2_b_sok_contract" }
+set_global_variable = { name = spec_ld_phase value = 2 }
+set_global_variable = { name = spec_ld_months value = 60 }
+set_global_variable = { name = spec_ld_progress value = 50 }
+set_variable = { name = spec_ld value = 2 }
+set_variable = { name = spec_ld_own value = 50 }
+set_variable = { name = spec_conf value = 50 }
+set_variable = { name = spec_c_total value = 0 }
+set_variable = { name = spec_c_caution value = 0 }
+spec_mechanics_ld_3_a = yes
+if = { limit = { var:spec_conf = 50 var:spec_ld_own = 62 global_var:spec_ld_progress = 50.1 has_modifier = spec_ld_relief_works } debug_log = "HOTFIX PASS option_3_a_sok_contract" }
+else = { debug_log = "HOTFIX FAIL option_3_a_sok_contract" }
+set_global_variable = { name = spec_ld_phase value = 2 }
+set_global_variable = { name = spec_ld_months value = 60 }
+set_global_variable = { name = spec_ld_progress value = 50 }
+set_variable = { name = spec_ld value = 2 }
+set_variable = { name = spec_ld_own value = 50 }
+set_variable = { name = spec_conf value = 50 }
+set_variable = { name = spec_c_total value = 0 }
+set_variable = { name = spec_c_caution value = 0 }
+spec_mechanics_ld_3_b = yes
+if = { limit = { var:spec_conf = 50 var:spec_ld_own = 50 global_var:spec_ld_progress = 50 } debug_log = "HOTFIX PASS option_3_b_sok_contract" }
+else = { debug_log = "HOTFIX FAIL option_3_b_sok_contract" }
+set_global_variable = { name = spec_ld_phase value = 2 }
+set_global_variable = { name = spec_ld_months value = 60 }
+set_global_variable = { name = spec_ld_progress value = 50 }
+set_variable = { name = spec_ld value = 2 }
+set_variable = { name = spec_ld_own value = 50 }
+set_variable = { name = spec_conf value = 50 }
+set_variable = { name = spec_c_total value = 0 }
+set_variable = { name = spec_c_caution value = 0 }
+spec_mechanics_ld_4_a = yes
+if = { limit = { var:spec_conf = 54 var:spec_ld_own = 55 global_var:spec_ld_progress = 50 } debug_log = "HOTFIX PASS option_4_a_sok_contract" }
+else = { debug_log = "HOTFIX FAIL option_4_a_sok_contract" }
+set_global_variable = { name = spec_ld_phase value = 2 }
+set_global_variable = { name = spec_ld_months value = 60 }
+set_global_variable = { name = spec_ld_progress value = 50 }
+set_variable = { name = spec_ld value = 2 }
+set_variable = { name = spec_ld_own value = 50 }
+set_variable = { name = spec_conf value = 50 }
+set_variable = { name = spec_c_total value = 0 }
+set_variable = { name = spec_c_caution value = 0 }
+add_treasury = 10000000
+set_variable = { name = spec_test_cash value = gold_reserves }
+change_variable = { name = spec_test_cash subtract = spec_rescue_cost }
+spec_mechanics_ld_4_b = yes
+if = { limit = { var:spec_conf = 60 var:spec_ld_own = 60 global_var:spec_ld_progress = 50.1 gold_reserves = var:spec_test_cash } debug_log = "HOTFIX PASS option_4_b_sok_contract" }
+else = { debug_log = "HOTFIX FAIL option_4_b_sok_contract" }
+set_global_variable = { name = spec_ld_phase value = 2 }
+set_global_variable = { name = spec_ld_months value = 60 }
+set_global_variable = { name = spec_ld_progress value = 50 }
+set_variable = { name = spec_ld value = 2 }
+set_variable = { name = spec_ld_own value = 50 }
+set_variable = { name = spec_conf value = 50 }
+set_variable = { name = spec_c_total value = 0 }
+set_variable = { name = spec_c_caution value = 0 }
+spec_mechanics_ld_4_c = yes
+if = { limit = { var:spec_conf = 44 var:spec_ld_own = 54 global_var:spec_ld_progress = 50 } debug_log = "HOTFIX PASS option_4_c_sok_contract" }
+else = { debug_log = "HOTFIX FAIL option_4_c_sok_contract" }
+set_global_variable = { name = spec_ld_phase value = 2 }
+set_global_variable = { name = spec_ld_months value = 60 }
+set_global_variable = { name = spec_ld_progress value = 50 }
+set_variable = { name = spec_ld value = 2 }
+set_variable = { name = spec_ld_own value = 50 }
+set_variable = { name = spec_conf value = 50 }
+set_variable = { name = spec_c_total value = 0 }
+set_variable = { name = spec_c_caution value = 0 }
+spec_mechanics_ld_5_a = yes
+if = { limit = { var:spec_conf = 55 var:spec_ld_own = 45 global_var:spec_ld_progress = 50.1 } debug_log = "HOTFIX PASS option_5_a_sok_contract" }
+else = { debug_log = "HOTFIX FAIL option_5_a_sok_contract" }
+set_global_variable = { name = spec_ld_phase value = 2 }
+set_global_variable = { name = spec_ld_months value = 60 }
+set_global_variable = { name = spec_ld_progress value = 50 }
+set_variable = { name = spec_ld value = 2 }
+set_variable = { name = spec_ld_own value = 50 }
+set_variable = { name = spec_conf value = 50 }
+set_variable = { name = spec_c_total value = 0 }
+set_variable = { name = spec_c_caution value = 0 }
+spec_mechanics_ld_5_b = yes
+if = { limit = { var:spec_conf = 45 var:spec_ld_own = 65 global_var:spec_ld_progress = 49.9 } debug_log = "HOTFIX PASS option_5_b_sok_contract" }
+else = { debug_log = "HOTFIX FAIL option_5_b_sok_contract" }
+set_global_variable = { name = spec_ld_phase value = 2 }
+set_global_variable = { name = spec_ld_months value = 60 }
+set_global_variable = { name = spec_ld_progress value = 50 }
+set_variable = { name = spec_ld value = 2 }
+set_variable = { name = spec_ld_own value = 50 }
+set_variable = { name = spec_conf value = 50 }
+set_variable = { name = spec_c_total value = 0 }
+set_variable = { name = spec_c_caution value = 0 }
+spec_mechanics_ld_6_a = yes
+if = { limit = { var:spec_conf = 50 var:spec_ld_own = 50 global_var:spec_ld_progress = 50 } debug_log = "HOTFIX PASS option_6_a_sok_contract" }
+else = { debug_log = "HOTFIX FAIL option_6_a_sok_contract" }
+set_global_variable = { name = spec_ld_phase value = 2 }
+set_global_variable = { name = spec_ld_months value = 60 }
+set_global_variable = { name = spec_ld_progress value = 50 }
+set_variable = { name = spec_ld value = 2 }
+set_variable = { name = spec_ld_own value = 50 }
+set_variable = { name = spec_conf value = 50 }
+set_variable = { name = spec_c_total value = 0 }
+set_variable = { name = spec_c_caution value = 0 }
+spec_mechanics_ld_6_b = yes
+if = { limit = { var:spec_conf = 50 var:spec_ld_own = 55 global_var:spec_ld_progress = 50 has_modifier = spec_ld_petition_relief } debug_log = "HOTFIX PASS option_6_b_sok_contract" }
+else = { debug_log = "HOTFIX FAIL option_6_b_sok_contract" }
+set_global_variable = { name = spec_ld_phase value = 2 }
+set_global_variable = { name = spec_ld_months value = 60 }
+set_global_variable = { name = spec_ld_progress value = 50 }
+set_variable = { name = spec_ld value = 2 }
+set_variable = { name = spec_ld_own value = 50 }
+set_variable = { name = spec_conf value = 50 }
+set_variable = { name = spec_c_total value = 0 }
+set_variable = { name = spec_c_caution value = 0 }
+spec_mechanics_ld_7_a = yes
+if = { limit = { var:spec_conf = 50 var:spec_ld_own = 55 global_var:spec_ld_progress = 50 has_modifier = spec_ld_inquiry } debug_log = "HOTFIX PASS option_7_a_sok_contract" }
+else = { debug_log = "HOTFIX FAIL option_7_a_sok_contract" }
+set_global_variable = { name = spec_ld_phase value = 2 }
+set_global_variable = { name = spec_ld_months value = 60 }
+set_global_variable = { name = spec_ld_progress value = 50 }
+set_variable = { name = spec_ld value = 2 }
+set_variable = { name = spec_ld_own value = 50 }
+set_variable = { name = spec_conf value = 50 }
+set_variable = { name = spec_c_total value = 0 }
+set_variable = { name = spec_c_caution value = 0 }
+spec_mechanics_ld_7_b = yes
+if = { limit = { var:spec_conf = 53 var:spec_ld_own = 50 global_var:spec_ld_progress = 50 } debug_log = "HOTFIX PASS option_7_b_sok_contract" }
+else = { debug_log = "HOTFIX FAIL option_7_b_sok_contract" }
+set_global_variable = { name = spec_ld_phase value = 2 }
+set_global_variable = { name = spec_ld_months value = 60 }
+set_global_variable = { name = spec_ld_progress value = 50 }
+set_variable = { name = spec_ld value = 2 }
+set_variable = { name = spec_ld_own value = 50 }
+set_variable = { name = spec_conf value = 50 }
+set_variable = { name = spec_c_total value = 0 }
+set_variable = { name = spec_c_caution value = 0 }
+spec_mechanics_ld_8_a = yes
+if = { limit = { var:spec_conf = 53 var:spec_ld_own = 50 global_var:spec_ld_progress = 50 } debug_log = "HOTFIX PASS option_8_a_sok_contract" }
+else = { debug_log = "HOTFIX FAIL option_8_a_sok_contract" }
+set_global_variable = { name = spec_ld_phase value = 2 }
+set_global_variable = { name = spec_ld_months value = 60 }
+set_global_variable = { name = spec_ld_progress value = 50 }
+set_variable = { name = spec_ld value = 2 }
+set_variable = { name = spec_ld_own value = 50 }
+set_variable = { name = spec_conf value = 50 }
+set_variable = { name = spec_c_total value = 0 }
+set_variable = { name = spec_c_caution value = 0 }
+spec_mechanics_ld_8_b = yes
+if = { limit = { var:spec_conf = 58 var:spec_ld_own = 50 global_var:spec_ld_progress = 50 } debug_log = "HOTFIX PASS option_8_b_sok_contract" }
+else = { debug_log = "HOTFIX FAIL option_8_b_sok_contract" }
+}
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

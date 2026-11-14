@@ -51,3 +51,14 @@ engine assertions pass after moving the unchanged cache block alongside the bank
 Cash flow, 49 goods endings, and credit-cycle regression gates pass; 38 Python tests pass.
 A separate frozen-beta2 save/reload check passed all recovery deadlines. No new live GUI
 session is claimed. No economic formulas, GUI layout or navigation changed. Stable untouched.
+
+## Follow-up Beta 1.0.4-beta.4
+
+Published and verified public at 14:23:52 UTC, November 14, item 3839275304.
+Receipt: `workshop/upload_receipts/20261114T142352.503370Z_beta_update_verified_48d4f209.json`.
+Archive SHA256: `b0c66b01bbcb99f60e65a8d8246de86a126335014c516a85ffb9d8e10a4d2f82`.
+Fixes burst losses overstated in the confidence breakdown when confidence hits zero.
+The resulting confidence and balance are unchanged. Red/green accounting tests and
+37 related regression assertions pass full log gates. Description lists the latest
+version and concise change bullets. Stable and CMF are unchanged. Detailed evidence:
+`tests/mechanics/verification_accounting_2026-11-14.json`; open checks remain in the audit.

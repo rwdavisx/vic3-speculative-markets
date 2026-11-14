@@ -83,6 +83,15 @@ class MechanicsHarnessTests(unittest.TestCase):
         error.write_text("[00:00:00][journal_entry_manager.cpp:372]: Great Britain already has a journal entry of type je_spec_markets")
         self.assertEqual(testbed.hotfix_testbed.check_error_logs([error])["blocking_error_count"], 1)
 
+    def test_mechanics_event_errors_block_even_without_mod_symbol(self):
+        error = self.root / "fixture.log"
+        error.write_text("[00:00:00][jomini_effect.cpp:142]: Script system error!\n"
+                         "  Error: create_building effect [ Invalid building ]\n"
+                         "  Script location: events/zz_spec_mechanics_tests.txt:4\n"
+                         "[00:00:01][jomini_effect.cpp:142]: PostValidate of effect 'create_building' "
+                         "returned false at events/zz_spec_mechanics_tests.txt:4")
+        self.assertEqual(testbed.hotfix_testbed.check_error_logs([error])["blocking_error_count"], 2)
+
 
 if __name__ == "__main__":
     unittest.main()

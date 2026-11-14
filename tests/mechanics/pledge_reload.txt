@@ -1,0 +1,34 @@
+namespace = spec_mechanics_pledge_reload
+spec_mechanics_pledge_reload.1 = { type = country_event hidden = yes immediate = {
+trigger_event = { id = spec_mechanics_pledge_reload.2 days = 320 }
+} }
+spec_mechanics_pledge_reload.2 = { type = country_event hidden = yes immediate = {
+activate_law = law_type:law_interventionism
+if = { limit = { NOT = { has_technology_researched = central_banking } } add_technology_researched = central_banking }
+remove_variable = spec_rescued
+remove_variable = spec_pledge_unmet
+remove_variable = spec_pledge_leave
+set_variable = spec_pledge
+set_variable = { name = spec_panic value = 6 }
+set_variable = { name = spec_panic_len value = 6 }
+set_variable = { name = spec_panic_elapsed value = 0 }
+set_variable = { name = spec_conf value = 19 }
+set_variable = { name = spec_c_total value = 0 }
+add_treasury = 10000000
+set_variable = { name = spec_test_before value = gold_reserves }
+set_variable = { name = spec_test_cost value = spec_rescue_cost }
+spec_mechanics_pledge_rescue = yes
+set_variable = { name = spec_test_paid value = { value = var:spec_test_before subtract = gold_reserves } }
+if = { limit = { has_variable = spec_rescued var:spec_test_paid = var:spec_test_cost } debug_log = "HOTFIX PASS pledged_rescue_paid_before_save" }
+else = { debug_log = "HOTFIX FAIL pledged_rescue_paid_before_save" }
+trigger_event = { id = spec_mechanics_pledge_reload.3 days = 30 }
+} }
+spec_mechanics_pledge_reload.3 = { type = country_event hidden = yes immediate = {
+if = { limit = { has_variable = spec_rescued has_variable = spec_pledge } debug_log = "HOTFIX PASS pledge_and_rescue_survive_reload" }
+else = { debug_log = "HOTFIX FAIL pledge_and_rescue_survive_reload" }
+set_variable = { name = spec_test_before value = gold_reserves }
+spec_mechanics_pledge_rescue = yes
+if = { limit = { gold_reserves = var:spec_test_before } debug_log = "HOTFIX PASS loaded_rescue_cannot_charge_twice" }
+else = { debug_log = "HOTFIX FAIL loaded_rescue_cannot_charge_twice" }
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

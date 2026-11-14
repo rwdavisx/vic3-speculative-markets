@@ -1,0 +1,227 @@
+namespace = spec_mechanics_confidence_accounting
+spec_mechanics_confidence_accounting.1 = { type = country_event hidden = yes immediate = {
+ activate_law = law_type:law_interventionism
+remove_variable = spec_panic
+remove_variable = spec_rescued
+remove_variable = spec_crunch
+set_variable = { name = spec_panic_cooldown value = 12 }
+set_variable = { name = spec_conf value = 55 }
+set_variable = { name = spec_stance value = 0 }
+set_variable = { name = spec_stance_cooldown value = 12 }
+set_variable = { name = spec_foreign_pending value = 0 }
+set_variable = { name = spec_test_before value = var:spec_conf }
+spec_mechanics_full_month = yes
+set_variable = { name = spec_test_actual value = var:spec_conf }
+change_variable = { name = spec_test_actual subtract = var:spec_test_before }
+change_variable = { name = spec_test_actual subtract = var:spec_c_total }
+set_variable = { name = spec_test_sum value = 0 }
+if = { limit = { has_variable = spec_c_boom } change_variable = { name = spec_test_sum add = var:spec_c_boom } }
+if = { limit = { has_variable = spec_c_crash } change_variable = { name = spec_test_sum add = var:spec_c_crash } }
+if = { limit = { has_variable = spec_c_restrain } change_variable = { name = spec_test_sum add = var:spec_c_restrain } }
+if = { limit = { has_variable = spec_c_foreign } change_variable = { name = spec_test_sum add = var:spec_c_foreign } }
+if = { limit = { has_variable = spec_c_world } change_variable = { name = spec_test_sum add = var:spec_c_world } }
+if = { limit = { has_variable = spec_c_turmoil } change_variable = { name = spec_test_sum add = var:spec_c_turmoil } }
+if = { limit = { has_variable = spec_c_debt } change_variable = { name = spec_test_sum add = var:spec_c_debt } }
+if = { limit = { has_variable = spec_c_mood } change_variable = { name = spec_test_sum add = var:spec_c_mood } }
+if = { limit = { has_variable = spec_c_recover } change_variable = { name = spec_test_sum add = var:spec_c_recover } }
+if = { limit = { has_variable = spec_c_tight } change_variable = { name = spec_test_sum add = var:spec_c_tight } }
+if = { limit = { has_variable = spec_c_rescue } change_variable = { name = spec_test_sum add = var:spec_c_rescue } }
+if = { limit = { has_variable = spec_c_warend } change_variable = { name = spec_test_sum add = var:spec_c_warend } }
+if = { limit = { has_variable = spec_c_burst } change_variable = { name = spec_test_sum add = var:spec_c_burst } }
+if = { limit = { has_variable = spec_c_caution } change_variable = { name = spec_test_sum add = var:spec_c_caution } }
+if = { limit = { has_variable = spec_c_limit } change_variable = { name = spec_test_sum add = var:spec_c_limit } }
+if = { limit = { has_variable = spec_c_growth } change_variable = { name = spec_test_sum add = var:spec_c_growth } }
+if = { limit = { has_variable = spec_c_business } change_variable = { name = spec_test_sum add = var:spec_c_business } }
+if = { limit = { has_variable = spec_c_drop } change_variable = { name = spec_test_sum add = var:spec_c_drop } }
+change_variable = { name = spec_test_sum subtract = var:spec_c_total }
+if = { limit = { var:spec_test_actual >= -0.002 var:spec_test_actual <= 0.002 } debug_log = "HOTFIX PASS calm_actual_change" }
+else = { debug_log = "HOTFIX FAIL calm_actual_change" }
+if = { limit = { var:spec_test_sum >= -0.002 var:spec_test_sum <= 0.002 } debug_log = "HOTFIX PASS calm_driver_sum" }
+else = { debug_log = "HOTFIX FAIL calm_driver_sum" }
+remove_variable = spec_panic
+remove_variable = spec_rescued
+remove_variable = spec_crunch
+set_variable = { name = spec_panic_cooldown value = 12 }
+set_variable = { name = spec_conf value = 75 }
+set_variable = { name = spec_stance value = -1 }
+set_variable = { name = spec_stance_cooldown value = 12 }
+set_variable = { name = spec_foreign_pending value = 0 }
+set_variable = { name = spec_test_before value = var:spec_conf }
+spec_mechanics_full_month = yes
+set_variable = { name = spec_test_actual value = var:spec_conf }
+change_variable = { name = spec_test_actual subtract = var:spec_test_before }
+change_variable = { name = spec_test_actual subtract = var:spec_c_total }
+set_variable = { name = spec_test_sum value = 0 }
+if = { limit = { has_variable = spec_c_boom } change_variable = { name = spec_test_sum add = var:spec_c_boom } }
+if = { limit = { has_variable = spec_c_crash } change_variable = { name = spec_test_sum add = var:spec_c_crash } }
+if = { limit = { has_variable = spec_c_restrain } change_variable = { name = spec_test_sum add = var:spec_c_restrain } }
+if = { limit = { has_variable = spec_c_foreign } change_variable = { name = spec_test_sum add = var:spec_c_foreign } }
+if = { limit = { has_variable = spec_c_world } change_variable = { name = spec_test_sum add = var:spec_c_world } }
+if = { limit = { has_variable = spec_c_turmoil } change_variable = { name = spec_test_sum add = var:spec_c_turmoil } }
+if = { limit = { has_variable = spec_c_debt } change_variable = { name = spec_test_sum add = var:spec_c_debt } }
+if = { limit = { has_variable = spec_c_mood } change_variable = { name = spec_test_sum add = var:spec_c_mood } }
+if = { limit = { has_variable = spec_c_recover } change_variable = { name = spec_test_sum add = var:spec_c_recover } }
+if = { limit = { has_variable = spec_c_tight } change_variable = { name = spec_test_sum add = var:spec_c_tight } }
+if = { limit = { has_variable = spec_c_rescue } change_variable = { name = spec_test_sum add = var:spec_c_rescue } }
+if = { limit = { has_variable = spec_c_warend } change_variable = { name = spec_test_sum add = var:spec_c_warend } }
+if = { limit = { has_variable = spec_c_burst } change_variable = { name = spec_test_sum add = var:spec_c_burst } }
+if = { limit = { has_variable = spec_c_caution } change_variable = { name = spec_test_sum add = var:spec_c_caution } }
+if = { limit = { has_variable = spec_c_limit } change_variable = { name = spec_test_sum add = var:spec_c_limit } }
+if = { limit = { has_variable = spec_c_growth } change_variable = { name = spec_test_sum add = var:spec_c_growth } }
+if = { limit = { has_variable = spec_c_business } change_variable = { name = spec_test_sum add = var:spec_c_business } }
+if = { limit = { has_variable = spec_c_drop } change_variable = { name = spec_test_sum add = var:spec_c_drop } }
+change_variable = { name = spec_test_sum subtract = var:spec_c_total }
+if = { limit = { var:spec_test_actual >= -0.002 var:spec_test_actual <= 0.002 } debug_log = "HOTFIX PASS tight_actual_change" }
+else = { debug_log = "HOTFIX FAIL tight_actual_change" }
+if = { limit = { var:spec_test_sum >= -0.002 var:spec_test_sum <= 0.002 } debug_log = "HOTFIX PASS tight_driver_sum" }
+else = { debug_log = "HOTFIX FAIL tight_driver_sum" }
+remove_variable = spec_panic
+remove_variable = spec_rescued
+remove_variable = spec_crunch
+set_variable = { name = spec_panic_cooldown value = 12 }
+set_variable = { name = spec_conf value = 100 }
+set_variable = { name = spec_stance value = 0 }
+set_variable = { name = spec_stance_cooldown value = 12 }
+set_variable = { name = spec_foreign_pending value = 0 }
+set_variable = { name = spec_test_before value = var:spec_conf }
+spec_mechanics_full_month = yes
+set_variable = { name = spec_test_actual value = var:spec_conf }
+change_variable = { name = spec_test_actual subtract = var:spec_test_before }
+change_variable = { name = spec_test_actual subtract = var:spec_c_total }
+set_variable = { name = spec_test_sum value = 0 }
+if = { limit = { has_variable = spec_c_boom } change_variable = { name = spec_test_sum add = var:spec_c_boom } }
+if = { limit = { has_variable = spec_c_crash } change_variable = { name = spec_test_sum add = var:spec_c_crash } }
+if = { limit = { has_variable = spec_c_restrain } change_variable = { name = spec_test_sum add = var:spec_c_restrain } }
+if = { limit = { has_variable = spec_c_foreign } change_variable = { name = spec_test_sum add = var:spec_c_foreign } }
+if = { limit = { has_variable = spec_c_world } change_variable = { name = spec_test_sum add = var:spec_c_world } }
+if = { limit = { has_variable = spec_c_turmoil } change_variable = { name = spec_test_sum add = var:spec_c_turmoil } }
+if = { limit = { has_variable = spec_c_debt } change_variable = { name = spec_test_sum add = var:spec_c_debt } }
+if = { limit = { has_variable = spec_c_mood } change_variable = { name = spec_test_sum add = var:spec_c_mood } }
+if = { limit = { has_variable = spec_c_recover } change_variable = { name = spec_test_sum add = var:spec_c_recover } }
+if = { limit = { has_variable = spec_c_tight } change_variable = { name = spec_test_sum add = var:spec_c_tight } }
+if = { limit = { has_variable = spec_c_rescue } change_variable = { name = spec_test_sum add = var:spec_c_rescue } }
+if = { limit = { has_variable = spec_c_warend } change_variable = { name = spec_test_sum add = var:spec_c_warend } }
+if = { limit = { has_variable = spec_c_burst } change_variable = { name = spec_test_sum add = var:spec_c_burst } }
+if = { limit = { has_variable = spec_c_caution } change_variable = { name = spec_test_sum add = var:spec_c_caution } }
+if = { limit = { has_variable = spec_c_limit } change_variable = { name = spec_test_sum add = var:spec_c_limit } }
+if = { limit = { has_variable = spec_c_growth } change_variable = { name = spec_test_sum add = var:spec_c_growth } }
+if = { limit = { has_variable = spec_c_business } change_variable = { name = spec_test_sum add = var:spec_c_business } }
+if = { limit = { has_variable = spec_c_drop } change_variable = { name = spec_test_sum add = var:spec_c_drop } }
+change_variable = { name = spec_test_sum subtract = var:spec_c_total }
+if = { limit = { var:spec_test_actual >= -0.002 var:spec_test_actual <= 0.002 } debug_log = "HOTFIX PASS ceiling_actual_change" }
+else = { debug_log = "HOTFIX FAIL ceiling_actual_change" }
+if = { limit = { var:spec_test_sum >= -0.002 var:spec_test_sum <= 0.002 } debug_log = "HOTFIX PASS ceiling_driver_sum" }
+else = { debug_log = "HOTFIX FAIL ceiling_driver_sum" }
+remove_variable = spec_panic
+remove_variable = spec_rescued
+remove_variable = spec_crunch
+set_variable = { name = spec_panic_cooldown value = 12 }
+set_variable = { name = spec_conf value = 0 }
+set_variable = { name = spec_stance value = 0 }
+set_variable = { name = spec_stance_cooldown value = 12 }
+set_variable = { name = spec_foreign_pending value = 0 }
+set_variable = { name = spec_test_before value = var:spec_conf }
+spec_mechanics_full_month = yes
+set_variable = { name = spec_test_actual value = var:spec_conf }
+change_variable = { name = spec_test_actual subtract = var:spec_test_before }
+change_variable = { name = spec_test_actual subtract = var:spec_c_total }
+set_variable = { name = spec_test_sum value = 0 }
+if = { limit = { has_variable = spec_c_boom } change_variable = { name = spec_test_sum add = var:spec_c_boom } }
+if = { limit = { has_variable = spec_c_crash } change_variable = { name = spec_test_sum add = var:spec_c_crash } }
+if = { limit = { has_variable = spec_c_restrain } change_variable = { name = spec_test_sum add = var:spec_c_restrain } }
+if = { limit = { has_variable = spec_c_foreign } change_variable = { name = spec_test_sum add = var:spec_c_foreign } }
+if = { limit = { has_variable = spec_c_world } change_variable = { name = spec_test_sum add = var:spec_c_world } }
+if = { limit = { has_variable = spec_c_turmoil } change_variable = { name = spec_test_sum add = var:spec_c_turmoil } }
+if = { limit = { has_variable = spec_c_debt } change_variable = { name = spec_test_sum add = var:spec_c_debt } }
+if = { limit = { has_variable = spec_c_mood } change_variable = { name = spec_test_sum add = var:spec_c_mood } }
+if = { limit = { has_variable = spec_c_recover } change_variable = { name = spec_test_sum add = var:spec_c_recover } }
+if = { limit = { has_variable = spec_c_tight } change_variable = { name = spec_test_sum add = var:spec_c_tight } }
+if = { limit = { has_variable = spec_c_rescue } change_variable = { name = spec_test_sum add = var:spec_c_rescue } }
+if = { limit = { has_variable = spec_c_warend } change_variable = { name = spec_test_sum add = var:spec_c_warend } }
+if = { limit = { has_variable = spec_c_burst } change_variable = { name = spec_test_sum add = var:spec_c_burst } }
+if = { limit = { has_variable = spec_c_caution } change_variable = { name = spec_test_sum add = var:spec_c_caution } }
+if = { limit = { has_variable = spec_c_limit } change_variable = { name = spec_test_sum add = var:spec_c_limit } }
+if = { limit = { has_variable = spec_c_growth } change_variable = { name = spec_test_sum add = var:spec_c_growth } }
+if = { limit = { has_variable = spec_c_business } change_variable = { name = spec_test_sum add = var:spec_c_business } }
+if = { limit = { has_variable = spec_c_drop } change_variable = { name = spec_test_sum add = var:spec_c_drop } }
+change_variable = { name = spec_test_sum subtract = var:spec_c_total }
+if = { limit = { var:spec_test_actual >= -0.002 var:spec_test_actual <= 0.002 } debug_log = "HOTFIX PASS floor_actual_change" }
+else = { debug_log = "HOTFIX FAIL floor_actual_change" }
+if = { limit = { var:spec_test_sum >= -0.002 var:spec_test_sum <= 0.002 } debug_log = "HOTFIX PASS floor_driver_sum" }
+else = { debug_log = "HOTFIX FAIL floor_driver_sum" }
+remove_variable = spec_panic
+remove_variable = spec_rescued
+remove_variable = spec_crunch
+set_variable = { name = spec_panic_cooldown value = 12 }
+set_variable = { name = spec_conf value = 70 }
+set_variable = { name = spec_stance value = 0 }
+set_variable = { name = spec_stance_cooldown value = 12 }
+set_variable = { name = spec_foreign_pending value = 30 }
+set_variable = { name = spec_test_before value = var:spec_conf }
+spec_mechanics_full_month = yes
+set_variable = { name = spec_test_actual value = var:spec_conf }
+change_variable = { name = spec_test_actual subtract = var:spec_test_before }
+change_variable = { name = spec_test_actual subtract = var:spec_c_total }
+set_variable = { name = spec_test_sum value = 0 }
+if = { limit = { has_variable = spec_c_boom } change_variable = { name = spec_test_sum add = var:spec_c_boom } }
+if = { limit = { has_variable = spec_c_crash } change_variable = { name = spec_test_sum add = var:spec_c_crash } }
+if = { limit = { has_variable = spec_c_restrain } change_variable = { name = spec_test_sum add = var:spec_c_restrain } }
+if = { limit = { has_variable = spec_c_foreign } change_variable = { name = spec_test_sum add = var:spec_c_foreign } }
+if = { limit = { has_variable = spec_c_world } change_variable = { name = spec_test_sum add = var:spec_c_world } }
+if = { limit = { has_variable = spec_c_turmoil } change_variable = { name = spec_test_sum add = var:spec_c_turmoil } }
+if = { limit = { has_variable = spec_c_debt } change_variable = { name = spec_test_sum add = var:spec_c_debt } }
+if = { limit = { has_variable = spec_c_mood } change_variable = { name = spec_test_sum add = var:spec_c_mood } }
+if = { limit = { has_variable = spec_c_recover } change_variable = { name = spec_test_sum add = var:spec_c_recover } }
+if = { limit = { has_variable = spec_c_tight } change_variable = { name = spec_test_sum add = var:spec_c_tight } }
+if = { limit = { has_variable = spec_c_rescue } change_variable = { name = spec_test_sum add = var:spec_c_rescue } }
+if = { limit = { has_variable = spec_c_warend } change_variable = { name = spec_test_sum add = var:spec_c_warend } }
+if = { limit = { has_variable = spec_c_burst } change_variable = { name = spec_test_sum add = var:spec_c_burst } }
+if = { limit = { has_variable = spec_c_caution } change_variable = { name = spec_test_sum add = var:spec_c_caution } }
+if = { limit = { has_variable = spec_c_limit } change_variable = { name = spec_test_sum add = var:spec_c_limit } }
+if = { limit = { has_variable = spec_c_growth } change_variable = { name = spec_test_sum add = var:spec_c_growth } }
+if = { limit = { has_variable = spec_c_business } change_variable = { name = spec_test_sum add = var:spec_c_business } }
+if = { limit = { has_variable = spec_c_drop } change_variable = { name = spec_test_sum add = var:spec_c_drop } }
+change_variable = { name = spec_test_sum subtract = var:spec_c_total }
+if = { limit = { var:spec_test_actual >= -0.002 var:spec_test_actual <= 0.002 } debug_log = "HOTFIX PASS foreign_shock_actual_change" }
+else = { debug_log = "HOTFIX FAIL foreign_shock_actual_change" }
+if = { limit = { var:spec_test_sum >= -0.002 var:spec_test_sum <= 0.002 } debug_log = "HOTFIX PASS foreign_shock_driver_sum" }
+else = { debug_log = "HOTFIX FAIL foreign_shock_driver_sum" }
+remove_variable = spec_panic
+remove_variable = spec_rescued
+remove_variable = spec_crunch
+set_variable = { name = spec_panic_cooldown value = 12 }
+set_variable = { name = spec_conf value = 20 }
+set_variable = { name = spec_stance value = 0 }
+set_variable = { name = spec_stance_cooldown value = 12 }
+set_variable = { name = spec_foreign_pending value = 100 }
+set_variable = { name = spec_test_before value = var:spec_conf }
+spec_mechanics_full_month = yes
+set_variable = { name = spec_test_actual value = var:spec_conf }
+change_variable = { name = spec_test_actual subtract = var:spec_test_before }
+change_variable = { name = spec_test_actual subtract = var:spec_c_total }
+set_variable = { name = spec_test_sum value = 0 }
+if = { limit = { has_variable = spec_c_boom } change_variable = { name = spec_test_sum add = var:spec_c_boom } }
+if = { limit = { has_variable = spec_c_crash } change_variable = { name = spec_test_sum add = var:spec_c_crash } }
+if = { limit = { has_variable = spec_c_restrain } change_variable = { name = spec_test_sum add = var:spec_c_restrain } }
+if = { limit = { has_variable = spec_c_foreign } change_variable = { name = spec_test_sum add = var:spec_c_foreign } }
+if = { limit = { has_variable = spec_c_world } change_variable = { name = spec_test_sum add = var:spec_c_world } }
+if = { limit = { has_variable = spec_c_turmoil } change_variable = { name = spec_test_sum add = var:spec_c_turmoil } }
+if = { limit = { has_variable = spec_c_debt } change_variable = { name = spec_test_sum add = var:spec_c_debt } }
+if = { limit = { has_variable = spec_c_mood } change_variable = { name = spec_test_sum add = var:spec_c_mood } }
+if = { limit = { has_variable = spec_c_recover } change_variable = { name = spec_test_sum add = var:spec_c_recover } }
+if = { limit = { has_variable = spec_c_tight } change_variable = { name = spec_test_sum add = var:spec_c_tight } }
+if = { limit = { has_variable = spec_c_rescue } change_variable = { name = spec_test_sum add = var:spec_c_rescue } }
+if = { limit = { has_variable = spec_c_warend } change_variable = { name = spec_test_sum add = var:spec_c_warend } }
+if = { limit = { has_variable = spec_c_burst } change_variable = { name = spec_test_sum add = var:spec_c_burst } }
+if = { limit = { has_variable = spec_c_caution } change_variable = { name = spec_test_sum add = var:spec_c_caution } }
+if = { limit = { has_variable = spec_c_limit } change_variable = { name = spec_test_sum add = var:spec_c_limit } }
+if = { limit = { has_variable = spec_c_growth } change_variable = { name = spec_test_sum add = var:spec_c_growth } }
+if = { limit = { has_variable = spec_c_business } change_variable = { name = spec_test_sum add = var:spec_c_business } }
+if = { limit = { has_variable = spec_c_drop } change_variable = { name = spec_test_sum add = var:spec_c_drop } }
+change_variable = { name = spec_test_sum subtract = var:spec_c_total }
+if = { limit = { var:spec_test_actual >= -0.002 var:spec_test_actual <= 0.002 } debug_log = "HOTFIX PASS simultaneous_shocks_actual_change" }
+else = { debug_log = "HOTFIX FAIL simultaneous_shocks_actual_change" }
+if = { limit = { var:spec_test_sum >= -0.002 var:spec_test_sum <= 0.002 } debug_log = "HOTFIX PASS simultaneous_shocks_driver_sum" }
+else = { debug_log = "HOTFIX FAIL simultaneous_shocks_driver_sum" }
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

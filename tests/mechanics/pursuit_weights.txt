@@ -1,0 +1,59 @@
+namespace = spec_mechanics_pursuit_weights
+spec_mechanics_pursuit_weights.1 = { type = country_event hidden = yes immediate = {
+spec_exch_clear = yes
+set_variable = { name = spec_exch_stand value = 3 }
+spec_pursue_to_harbour = yes
+spec_pursue_to_floor = yes
+spec_pursue_to_sound = yes
+spec_mechanics_pursuit_month = yes
+if = { limit = { var:spec_pw_harbour = 0.084 var:spec_pw_floor = 0.084 var:spec_pw_sound = 0.084 var:spec_pw_sum = 0.252 } debug_log = "HOTFIX PASS pursuits_build_equal_weight_first_month" }
+else = { debug_log = "HOTFIX FAIL pursuits_build_equal_weight_first_month" }
+spec_mechanics_pursuit_month = yes
+spec_mechanics_pursuit_month = yes
+spec_mechanics_pursuit_month = yes
+spec_mechanics_pursuit_month = yes
+spec_mechanics_pursuit_month = yes
+spec_mechanics_pursuit_month = yes
+spec_mechanics_pursuit_month = yes
+spec_mechanics_pursuit_month = yes
+spec_mechanics_pursuit_month = yes
+spec_mechanics_pursuit_month = yes
+spec_mechanics_pursuit_month = yes
+if = { limit = { var:spec_pw_harbour = 1 var:spec_pw_floor = 1 var:spec_pw_sound = 1 var:spec_pw_sum = 3 } debug_log = "HOTFIX PASS pursuits_reach_full_weight_after_twelve_months" }
+else = { debug_log = "HOTFIX FAIL pursuits_reach_full_weight_after_twelve_months" }
+spec_mechanics_pursuit_month = yes
+if = { limit = { var:spec_pw_sum = 3 var:spec_pw_harbour = 1 } debug_log = "HOTFIX PASS pursuit_weights_do_not_exceed_one" }
+else = { debug_log = "HOTFIX FAIL pursuit_weights_do_not_exceed_one" }
+set_variable = { name = spec_exch_stand value = 0 }
+spec_mechanics_pursuit_month = yes
+if = { limit = { var:spec_pursue_n = 1 var:spec_pu_harbour = 1 NOR = { has_variable = spec_pu_floor has_variable = spec_pu_sound } } debug_log = "HOTFIX PASS standing_loss_drops_last_choices_first" }
+else = { debug_log = "HOTFIX FAIL standing_loss_drops_last_choices_first" }
+if = { limit = { var:spec_pw_harbour = 1 var:spec_pw_floor = 0.916 var:spec_pw_sound = 0.916 var:spec_pw_sum = 2.832 } debug_log = "HOTFIX PASS dropped_specialities_fade_without_immediate_loss" }
+else = { debug_log = "HOTFIX FAIL dropped_specialities_fade_without_immediate_loss" }
+spec_mechanics_pursuit_month = yes
+spec_mechanics_pursuit_month = yes
+spec_mechanics_pursuit_month = yes
+spec_mechanics_pursuit_month = yes
+spec_mechanics_pursuit_month = yes
+spec_mechanics_pursuit_month = yes
+spec_mechanics_pursuit_month = yes
+spec_mechanics_pursuit_month = yes
+spec_mechanics_pursuit_month = yes
+spec_mechanics_pursuit_month = yes
+spec_mechanics_pursuit_month = yes
+if = { limit = { var:spec_pw_floor = 0 var:spec_pw_sound = 0 var:spec_pw_sum = 1 NOR = { has_modifier = spec_pursue_floor_0 has_modifier = spec_pursue_sound_0 } } debug_log = "HOTFIX PASS dropped_weights_and_modifiers_expire" }
+else = { debug_log = "HOTFIX FAIL dropped_weights_and_modifiers_expire" }
+set_variable = { name = spec_lead_harbour value = 1 }
+spec_mechanics_pursuit_month = yes
+if = { limit = { has_modifier = spec_pursue_harbour_3 NOT = { has_modifier = spec_pursue_harbour_0 } } debug_log = "HOTFIX PASS first_place_selects_strongest_modifier" }
+else = { debug_log = "HOTFIX FAIL first_place_selects_strongest_modifier" }
+set_variable = { name = spec_lead_harbour value = 3 }
+spec_mechanics_pursuit_month = yes
+if = { limit = { has_modifier = spec_pursue_harbour_1 NOT = { has_modifier = spec_pursue_harbour_3 } } debug_log = "HOTFIX PASS ranking_demotion_replaces_old_modifier" }
+else = { debug_log = "HOTFIX FAIL ranking_demotion_replaces_old_modifier" }
+remove_variable = spec_lead_harbour
+spec_mechanics_pursuit_month = yes
+if = { limit = { has_modifier = spec_pursue_harbour_0 NOT = { has_modifier = spec_pursue_harbour_1 } } debug_log = "HOTFIX PASS unranked_speciality_retains_only_base_modifier" }
+else = { debug_log = "HOTFIX FAIL unranked_speciality_retains_only_base_modifier" }
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

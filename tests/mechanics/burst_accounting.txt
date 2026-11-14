@@ -1,0 +1,40 @@
+namespace = spec_mechanics_burst_accounting
+spec_mechanics_burst_accounting.1 = { type = country_event hidden = yes immediate = {
+set_variable = { name = spec_conf value = 0 }
+set_variable = { name = spec_heat value = 10000 }
+set_variable = { name = spec_c_total value = 3 }
+spec_mechanics_burst = yes
+set_variable = { name = spec_test_delta value = var:spec_conf }
+change_variable = { name = spec_test_delta subtract = 0 }
+set_variable = { name = spec_test_total value = var:spec_c_total }
+change_variable = { name = spec_test_total subtract = 3 }
+if = { limit = { var:spec_test_delta = var:spec_c_burst } debug_log = "HOTFIX PASS burst_at_zero_driver_matches_actual_loss" }
+else = { debug_log = "HOTFIX FAIL burst_at_zero_driver_matches_actual_loss" }
+if = { limit = { var:spec_test_delta = var:spec_test_total NOT = { has_variable = spec_heat } } debug_log = "HOTFIX PASS burst_at_zero_total_matches_actual_loss" }
+else = { debug_log = "HOTFIX FAIL burst_at_zero_total_matches_actual_loss" }
+set_variable = { name = spec_conf value = 1 }
+set_variable = { name = spec_heat value = 10000 }
+set_variable = { name = spec_c_total value = 3 }
+spec_mechanics_burst = yes
+set_variable = { name = spec_test_delta value = var:spec_conf }
+change_variable = { name = spec_test_delta subtract = 1 }
+set_variable = { name = spec_test_total value = var:spec_c_total }
+change_variable = { name = spec_test_total subtract = 3 }
+if = { limit = { var:spec_test_delta = var:spec_c_burst } debug_log = "HOTFIX PASS burst_near_zero_driver_matches_actual_loss" }
+else = { debug_log = "HOTFIX FAIL burst_near_zero_driver_matches_actual_loss" }
+if = { limit = { var:spec_test_delta = var:spec_test_total NOT = { has_variable = spec_heat } } debug_log = "HOTFIX PASS burst_near_zero_total_matches_actual_loss" }
+else = { debug_log = "HOTFIX FAIL burst_near_zero_total_matches_actual_loss" }
+set_variable = { name = spec_conf value = 40 }
+set_variable = { name = spec_heat value = 1 }
+set_variable = { name = spec_c_total value = 3 }
+spec_mechanics_burst = yes
+set_variable = { name = spec_test_delta value = var:spec_conf }
+change_variable = { name = spec_test_delta subtract = 40 }
+set_variable = { name = spec_test_total value = var:spec_c_total }
+change_variable = { name = spec_test_total subtract = 3 }
+if = { limit = { var:spec_test_delta = var:spec_c_burst } debug_log = "HOTFIX PASS burst_unclipped_driver_matches_actual_loss" }
+else = { debug_log = "HOTFIX FAIL burst_unclipped_driver_matches_actual_loss" }
+if = { limit = { var:spec_test_delta = var:spec_test_total NOT = { has_variable = spec_heat } } debug_log = "HOTFIX PASS burst_unclipped_total_matches_actual_loss" }
+else = { debug_log = "HOTFIX FAIL burst_unclipped_total_matches_actual_loss" }
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

@@ -1064,7 +1064,7 @@ spec_monthly = {{
 					var:spec_conf < {BURST_BELOW}
 				}}
 				# a one-off jump, shown in the tab until the next monthly update
-				set_variable = {{ name = spec_c_burst value = {{ value = var:spec_heat multiply = spec_burst_per_heat multiply = -1 min = spec_burst_floor }} }}
+				set_variable = {{ name = spec_c_burst value = {{ value = var:spec_heat multiply = spec_burst_per_heat multiply = -1 min = spec_burst_floor min = {{ value = var:spec_conf multiply = -1 }} }} }}
 				set_variable = {{ name = spec_conf value = {{ value = var:spec_conf add = var:spec_c_burst min = 0 }} }}
 				change_variable = {{ name = spec_c_total add = var:spec_c_burst }}
 				remove_variable = spec_heat

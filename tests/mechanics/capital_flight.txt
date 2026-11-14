@@ -1,0 +1,48 @@
+namespace = spec_mechanics_capital_flight
+spec_mechanics_capital_flight.1 = { type = country_event hidden = yes immediate = {
+remove_variable = spec_rival
+remove_variable = spec_flight_pending
+set_variable = { name = spec_conf value = 55 }
+set_variable = { name = spec_src_gdp value = c:FRA.gdp }
+c:FRA = { remove_variable = spec_rival remove_variable = spec_panic remove_variable = spec_foreign_pending remove_variable = spec_flight_pending set_variable = { name = spec_conf value = 40 } set_variable = { name = spec_test_flight value = { value = 2 multiply = spec_flight_mult } } }
+spec_capital_flight = yes
+if = { limit = { c:FRA = { var:spec_flight_pending = var:spec_test_flight var:spec_foreign_src = c:GBR } } debug_log = "HOTFIX PASS safe_great_power_receives_expected_flight" }
+else = { debug_log = "HOTFIX FAIL safe_great_power_receives_expected_flight" }
+if = { limit = { NOT = { has_variable = spec_flight_pending } } debug_log = "HOTFIX PASS source_does_not_receive_own_flight" }
+else = { debug_log = "HOTFIX FAIL source_does_not_receive_own_flight" }
+set_variable = { name = spec_src_gdp value = { value = c:FRA.gdp multiply = 2 } }
+spec_capital_flight = yes
+if = { limit = { c:FRA = { var:spec_flight_pending = var:spec_test_flight } } debug_log = "HOTFIX PASS source_size_ratio_capped_at_one" }
+else = { debug_log = "HOTFIX FAIL source_size_ratio_capped_at_one" }
+set_variable = { name = spec_rival value = c:FRA }
+c:FRA = { set_variable = { name = spec_test_rival value = { value = var:spec_test_flight multiply = 1.5 } } }
+spec_capital_flight = yes
+if = { limit = { c:FRA = { var:spec_flight_pending = var:spec_test_rival } } debug_log = "HOTFIX PASS outgoing_rival_gets_fifty_percent_bonus" }
+else = { debug_log = "HOTFIX FAIL outgoing_rival_gets_fifty_percent_bonus" }
+remove_variable = spec_rival
+c:FRA = { set_variable = { name = spec_rival value = c:GBR } }
+spec_capital_flight = yes
+if = { limit = { c:FRA = { var:spec_flight_pending = var:spec_test_rival } } debug_log = "HOTFIX PASS incoming_rival_gets_same_bonus" }
+else = { debug_log = "HOTFIX FAIL incoming_rival_gets_same_bonus" }
+c:FRA = { remove_variable = spec_flight_pending set_variable = { name = spec_conf value = 39.999 } }
+spec_capital_flight = yes
+if = { limit = { c:FRA = { NOT = { has_variable = spec_flight_pending } } } debug_log = "HOTFIX PASS low_confidence_prevents_capital_flight" }
+else = { debug_log = "HOTFIX FAIL low_confidence_prevents_capital_flight" }
+c:FRA = { set_variable = { name = spec_conf value = 40 } }
+c:FRA = { remove_variable = spec_flight_pending set_variable = spec_panic }
+spec_capital_flight = yes
+if = { limit = { c:FRA = { NOT = { has_variable = spec_flight_pending } } } debug_log = "HOTFIX PASS own_panic_prevents_capital_flight" }
+else = { debug_log = "HOTFIX FAIL own_panic_prevents_capital_flight" }
+c:FRA = { remove_variable = spec_panic }
+c:FRA = { remove_variable = spec_flight_pending set_variable = { name = spec_foreign_pending value = 5 } }
+spec_capital_flight = yes
+if = { limit = { c:FRA = { NOT = { has_variable = spec_flight_pending } } } debug_log = "HOTFIX PASS foreign_panic_prevents_capital_flight" }
+else = { debug_log = "HOTFIX FAIL foreign_panic_prevents_capital_flight" }
+c:FRA = { remove_variable = spec_foreign_pending }
+c:FRA = { remove_variable = spec_flight_pending remove_variable = spec_conf }
+spec_capital_flight = yes
+if = { limit = { c:FRA = { NOT = { has_variable = spec_flight_pending } } } debug_log = "HOTFIX PASS closed_market_prevents_capital_flight" }
+else = { debug_log = "HOTFIX FAIL closed_market_prevents_capital_flight" }
+c:FRA = { set_variable = { name = spec_conf value = 40 } }
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

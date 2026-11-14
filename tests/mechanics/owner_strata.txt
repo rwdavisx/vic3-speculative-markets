@@ -1,0 +1,54 @@
+namespace = spec_mechanics_owner_strata
+spec_mechanics_owner_strata.1 = { type = country_event hidden = yes immediate = {
+activate_law = law_type:law_interventionism
+capital = { create_building = { building = building_steel_mill level = 3 } }
+trigger_event = { id = spec_mechanics_owner_strata.2 days = 1 }
+} }
+spec_mechanics_owner_strata.2 = { type = country_event hidden = yes immediate = {
+set_variable = { name = spec_mv_total value = spec_mv_steel }
+if = { limit = { spec_weight_steel >= 0.333 capital = { b:building_steel_mill.level >= 3 any_scope_pop = { strata = upper } any_scope_pop = { strata = middle } any_scope_pop = { strata = lower } } } debug_log = "HOTFIX PASS fixture_has_steel_exposure_and_all_strata" }
+else = { debug_log = "HOTFIX FAIL fixture_has_steel_exposure_and_all_strata" }
+activate_law = law_type:law_interventionism
+add_radicals = { value = -1 }
+add_loyalists = { value = -1 }
+capital = { add_radicals_in_state = { value = 0.2 strata = upper } add_radicals_in_state = { value = 0.1 strata = middle } set_variable = { name = spec_test_expected_upper value = { value = 0 every_scope_pop = { limit = { strata = upper } add = { value = pop_radical_fraction multiply = total_size } } } } set_variable = { name = spec_test_expected_middle value = { value = 0 every_scope_pop = { limit = { strata = middle } add = { value = pop_radical_fraction multiply = total_size } } } } set_variable = { name = spec_test_expected_lower value = { value = 0 every_scope_pop = { limit = { strata = lower } add = { value = pop_radical_fraction multiply = total_size } } } } }
+add_radicals = { value = -1 }
+add_loyalists = { value = -1 }
+spec_mechanics_steel_owners = yes
+capital = { set_variable = { name = spec_test_actual_upper value = { value = 0 every_scope_pop = { limit = { strata = upper } add = { value = pop_radical_fraction multiply = total_size } } } } set_variable = { name = spec_test_actual_middle value = { value = 0 every_scope_pop = { limit = { strata = middle } add = { value = pop_radical_fraction multiply = total_size } } } } set_variable = { name = spec_test_actual_lower value = { value = 0 every_scope_pop = { limit = { strata = lower } add = { value = pop_radical_fraction multiply = total_size } } } } }
+if = { limit = { capital = { var:spec_test_actual_upper = var:spec_test_expected_upper } } debug_log = "HOTFIX PASS private_upper_matches_engine_population_effect" }
+else = { debug_log = "HOTFIX FAIL private_upper_matches_engine_population_effect" }
+if = { limit = { capital = { var:spec_test_actual_middle = var:spec_test_expected_middle } } debug_log = "HOTFIX PASS private_middle_matches_engine_population_effect" }
+else = { debug_log = "HOTFIX FAIL private_middle_matches_engine_population_effect" }
+if = { limit = { capital = { var:spec_test_actual_lower = var:spec_test_expected_lower } } debug_log = "HOTFIX PASS private_lower_matches_engine_population_effect" }
+else = { debug_log = "HOTFIX FAIL private_lower_matches_engine_population_effect" }
+activate_law = law_type:law_command_economy
+add_radicals = { value = -1 }
+add_loyalists = { value = -1 }
+capital = {  set_variable = { name = spec_test_expected_upper value = { value = 0 every_scope_pop = { limit = { strata = upper } add = { value = pop_radical_fraction multiply = total_size } } } } set_variable = { name = spec_test_expected_middle value = { value = 0 every_scope_pop = { limit = { strata = middle } add = { value = pop_radical_fraction multiply = total_size } } } } set_variable = { name = spec_test_expected_lower value = { value = 0 every_scope_pop = { limit = { strata = lower } add = { value = pop_radical_fraction multiply = total_size } } } } }
+add_radicals = { value = -1 }
+add_loyalists = { value = -1 }
+spec_mechanics_steel_owners = yes
+capital = { set_variable = { name = spec_test_actual_upper value = { value = 0 every_scope_pop = { limit = { strata = upper } add = { value = pop_radical_fraction multiply = total_size } } } } set_variable = { name = spec_test_actual_middle value = { value = 0 every_scope_pop = { limit = { strata = middle } add = { value = pop_radical_fraction multiply = total_size } } } } set_variable = { name = spec_test_actual_lower value = { value = 0 every_scope_pop = { limit = { strata = lower } add = { value = pop_radical_fraction multiply = total_size } } } } }
+if = { limit = { capital = { var:spec_test_actual_upper = var:spec_test_expected_upper } } debug_log = "HOTFIX PASS command_upper_matches_engine_population_effect" }
+else = { debug_log = "HOTFIX FAIL command_upper_matches_engine_population_effect" }
+if = { limit = { capital = { var:spec_test_actual_middle = var:spec_test_expected_middle } } debug_log = "HOTFIX PASS command_middle_matches_engine_population_effect" }
+else = { debug_log = "HOTFIX FAIL command_middle_matches_engine_population_effect" }
+if = { limit = { capital = { var:spec_test_actual_lower = var:spec_test_expected_lower } } debug_log = "HOTFIX PASS command_lower_matches_engine_population_effect" }
+else = { debug_log = "HOTFIX FAIL command_lower_matches_engine_population_effect" }
+activate_law = law_type:law_cooperative_ownership
+add_radicals = { value = -1 }
+add_loyalists = { value = -1 }
+capital = { add_radicals_in_state = { value = 0.2 strata = lower } set_variable = { name = spec_test_expected_upper value = { value = 0 every_scope_pop = { limit = { strata = upper } add = { value = pop_radical_fraction multiply = total_size } } } } set_variable = { name = spec_test_expected_middle value = { value = 0 every_scope_pop = { limit = { strata = middle } add = { value = pop_radical_fraction multiply = total_size } } } } set_variable = { name = spec_test_expected_lower value = { value = 0 every_scope_pop = { limit = { strata = lower } add = { value = pop_radical_fraction multiply = total_size } } } } }
+add_radicals = { value = -1 }
+add_loyalists = { value = -1 }
+spec_mechanics_steel_owners = yes
+capital = { set_variable = { name = spec_test_actual_upper value = { value = 0 every_scope_pop = { limit = { strata = upper } add = { value = pop_radical_fraction multiply = total_size } } } } set_variable = { name = spec_test_actual_middle value = { value = 0 every_scope_pop = { limit = { strata = middle } add = { value = pop_radical_fraction multiply = total_size } } } } set_variable = { name = spec_test_actual_lower value = { value = 0 every_scope_pop = { limit = { strata = lower } add = { value = pop_radical_fraction multiply = total_size } } } } }
+if = { limit = { capital = { var:spec_test_actual_upper = var:spec_test_expected_upper } } debug_log = "HOTFIX PASS cooperative_upper_matches_engine_population_effect" }
+else = { debug_log = "HOTFIX FAIL cooperative_upper_matches_engine_population_effect" }
+if = { limit = { capital = { var:spec_test_actual_middle = var:spec_test_expected_middle } } debug_log = "HOTFIX PASS cooperative_middle_matches_engine_population_effect" }
+else = { debug_log = "HOTFIX FAIL cooperative_middle_matches_engine_population_effect" }
+if = { limit = { capital = { var:spec_test_actual_lower = var:spec_test_expected_lower } } debug_log = "HOTFIX PASS cooperative_lower_matches_engine_population_effect" }
+else = { debug_log = "HOTFIX FAIL cooperative_lower_matches_engine_population_effect" }
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

@@ -16,7 +16,8 @@ spec_mechanics_contagion.1 = {
             if = { limit = { var:spec_foreign_pending = var:spec_mechanics_hit } debug_log = "HOTFIX PASS weaker_tie_does_not_stack_same_panic" }
             else = { debug_log = "HOTFIX FAIL weaker_tie_does_not_stack_same_panic" }
             spec_catch_panic = { WEIGHT = 1 }
-            if = { limit = { var:spec_foreign_pending = { value = var:spec_mechanics_hit multiply = 2 } } debug_log = "HOTFIX PASS stronger_tie_replaces_pending_hit" }
+            set_variable = { name = spec_mechanics_stronger value = { value = var:spec_mechanics_hit multiply = 2 } }
+            if = { limit = { var:spec_foreign_pending = var:spec_mechanics_stronger } debug_log = "HOTFIX PASS stronger_tie_replaces_pending_hit" }
             else = { debug_log = "HOTFIX FAIL stronger_tie_replaces_pending_hit" }
             remove_variable = spec_conf
             remove_variable = spec_foreign_pending

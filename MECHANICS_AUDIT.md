@@ -1,12 +1,12 @@
 # Mechanics correctness audit
 
-Balance is frozen at 1.0.3. The isolated passes now have **294 passing engine
-assertions in 27 suites**, plus **38 Python tests** and **9 CMF source tests**.
+Balance is frozen at 1.0.3. The isolated passes now have **420 passing engine
+assertions in 38 suites**, plus **39 Python tests** and **9 CMF source tests**.
 These are contract results, not a claim that every possible campaign works.
 The open checks below remain prerequisites to the broader balance pass.
 
-**Published:** Stable 1.0.4 at 06:11 UTC and Beta 1.0.4-beta.3 at 13:52 UTC on November 14.
-Stable matches the earlier tested beta5. The newer beta adds the rivalry-tie and bank-tooltip fixes below.
+**Published:** Stable 1.0.4 at 06:11 UTC and Beta 1.0.4-beta.4 at 14:23 UTC on November 14.
+Stable matches the earlier tested beta5. The newer beta adds the rivalry-tie, bank-tooltip and confidence-accounting fixes below.
 See `HOTFIX_1.0.4.md` for receipts and hashes.
 [Machine-readable results](tests/mechanics/verification_2026-11-14.json) record
 assertion names, fixture/build manifests, log hashes, and error classifications.
@@ -46,21 +46,21 @@ limits it; untested behavior is not being classified as either correct or broken
 | System | Passed contracts | Still needs coverage |
 | --- | --- | --- |
 | Market lifecycle | command/cooperative shutdown, full monthly reopening, idempotent cleanup, reforms survive, second-month bounds | tag switches and more legacy saves |
-| Confidence | 20/40/60/80 bands, clamps, story deltas, panic modifier exclusivity | complete driver sum and monthly ordering under simultaneous shocks |
+| Confidence | 20/40/60/80 bands, clamps, story deltas, panic modifier exclusivity | additional campaign interactions beyond calm/tight/floor/ceiling/simultaneous-shock cases |
 | Investor Interest | trend direction, reciprocal response, clamps, severity thresholds, peak decay, one ending per boom, all 49 collapse paths together | building and production-method combinations beyond the goods-state paths |
 | Recovery | actual 90/180/360-day expiration, checks before and after each deadline in GBR/FRA/PRU, actual save/reload across all three durations | recovery during law changes and other overlapping interventions |
-| Lending | safe/stressed leverage boundaries, policy ceilings, repayment bounds, zero credit, panic/Bad Debts blocks, exact repayment/new-credit pool transfers | panic/depression cash recall interactions and longer crisis chains |
+| Lending | safe/stressed leverage boundaries, policy ceilings, repayment bounds, zero credit, panic/Bad Debts blocks, exact repayment/new-credit pool transfers | longer crisis chains beyond the tested panic/depression overlaps |
 | Bank exposure | 60% new-loan allocation cap, dilution, conservation, empty/new credit, write-off once, restrained share, simultaneous endings, post-lending tooltip consistency | loan transfers through war/secession and manual live tooltip inspection |
 | Lending standards | drift gates, crisis-loss floor, upper/lower bounds, action multipliers | long-run combinations of overlapping interventions |
-| Overbuilding / construction / owners | supply-loss neutrality, doubled-supply amplification cap, construction tiers 4/5/6, small-boom exclusion, bonus removal | actual ownership-stratum radical counts, each building group and PM |
+| Overbuilding / construction / owners | supply-loss neutrality, doubled-supply amplification cap, construction tiers 4/5/6, small-boom exclusion, bonus removal | each building group and PM beyond the tested steel-collapse population strata |
 | Leverage / Bad Debts | ramp/fade/expiry, bailout lock cleanup, old-loan land-loss relief, repeated loss, new-loan exclusion, relief expiry | real secession/peace-deal integration beyond the controlled population cache |
 | Financial Panic | minimum elapsed age, deadline, recovery, no repeated rescue, cooldown state, legacy clock migration | save/reload during a pledged rescue; overlapping crisis cash flows |
 | Credit policy / AI | same stance actions and cooldown, mania tightening, debt tightening, low-confidence loosening, recovery, fever/panic gates | government turnover and probabilistic rescue frequency |
-| Goods interventions / Great Issues | eligibility, mutual exclusion, toggle/cancellation, shutdown, issue cooldown | actual cash cost and modifier duration through save/reload |
+| Goods interventions / Great Issues | eligibility, mutual exclusion, toggle/cancellation, shutdown, issue cooldown | additional combinations beyond tested actual costs and saved Great Issue deadlines |
 | Exchanges | actions/charters, pursuit ordering, pledge notice, monthly trust gates/cap, Bad Debts prevents promotion, seat ownership, annexed/missing ranks and rivals | Renown weight accounting, complete score/standing boundaries, hostile-relation loss amounts and multi-rival ordering |
 | Domestic economy / politics | growth bounds and stagnation, depth/trade multipliers, fixed AI temperament, mania goodwill, panic blame, cooling/cleanup | revolutions, government changes and exact affected pop totals |
 | Foreign transmission / wars | real GBR-to-FRA hit, weaker hit cannot stack, stronger replaces, closed economy ignores; war-end live/missing opponent safety | multi-hop recursion/capital flight and actual war start-to-end campaign |
-| Long Depression | join/tie gates, repeat join, crash phase deadline, own/world recovery, clamps, cleanup/history, delayed safety | spread chains, second crisis and all event-option paths |
+| Long Depression | join/tie gates, repeat join, crash phase deadline, own/world recovery, clamps, cleanup/history, delayed safety | more treaty/trade networks and exact IG/population effects of depression options |
 | Journal / reforms / stories | stage priority, reform combinations, debt conversion and lock, delayed missing-source/shutdown safety, journal insertion | every inquiry/political movement branch and player tag switching |
 | UI / notifications / localization | native beta5 and CMF beta4 journal/goods shortcuts select Speculation; native transitions; numeric posts; row alignment; static localization checks | filters/empty states at different UI scales and all translated languages live |
 | Distribution | distinct IDs, frozen-source hashes, fixture exclusion, immutable beta archives, beta4/5 gameplay equality, regenerated CMF patch byte equality | beta-first promotion verified; see release receipts |
@@ -71,7 +71,7 @@ limits it; untested behavior is not being classified as either correct or broken
 | --- | ---: | --- |
 | banking | 13 | final_beta4/banking |
 | confidence | 14 | final_beta4/confidence |
-| contagion | 4 | final_beta4/contagion |
+| contagion | 4 | mechanics_contagion_beta104_r2/contagion (replaces invalid original fixture) |
 | credit_cycle | 19 | final_beta4/credit_cycle |
 | depression | 12 | final_beta4/depression |
 | economy | 10 | final_beta4/economy |
@@ -213,3 +213,52 @@ verification record. Do not replace these runs with a fresh-game-only expiry cla
 Beta 1.0.4-beta.3 was published and verified at 13:52:58 UTC on November 14.
 Stable remains 1.0.4 and does not yet include either later beta fix. No CMF patch GUI
 changed. Balance stays frozen; the ledger retains the remaining interaction checks.
+
+## Accounting and extended contracts (beta4)
+
+101 new assertions pass across eight additional suites. The candidate fixes one
+proven display-accounting bug: at zero or near-zero confidence, a burst reported
+more confidence loss than was actually possible. Four targeted assertions and the
+full-month floor assertion failed on unchanged beta3. The generator now caps the
+reported burst contribution to available confidence. The resulting confidence and
+balance formulas are unchanged. Twelve full-month accounting checks and six
+focused burst checks pass on the candidate.
+
+Other accepted checks: six real expense/Authority/modifier contracts; five Great
+Issue duration/cooldown checks across an actual save/reload; seventeen standing
+boundaries; nine pursuit buildup/fade/modifier checks; ten overlapping crisis and
+second-crisis contracts; and thirty-six depression-option/rank checks. Event-option
+coverage checks confidence, recovery, selected modifiers and treasury costs, not
+all political-group/population consequences. Evidence and hashes:
+`tests/mechanics/verification_accounting_2026-11-14.json`.
+
+The stricter error gate now recognizes mechanics event paths even when an error
+contains no mod symbol. Rechecking all 33 previously archived error logs exposed
+one invalid arithmetic comparison in the old contagion fixture. Its old pass is
+withdrawn; the corrected four-assertion suite passed on local beta4 with no blocking
+errors. Historical evidence remains intact. Owner-population and treaty-chain
+fixtures remain under investigation and are not included in the passing count.
+
+Rejected fixtures are retained: the first lever-cost fixture read engine modifiers
+before their update tick; the first depression-option fixture omitted the world
+clock; early owner fixtures used an invalid building name, ignored engine radical
+gain modifiers, or attempted unsupported pop variables. These are test defects,
+not proven gameplay bugs. Stable and published beta remain unchanged.
+
+Population and transmission follow-up: ten steel-collapse strata checks now pass,
+comparing affected population totals with direct engine effects under identical
+citizenship/loyalty conditions. Private ownership targets upper/middle strata;
+cooperative ownership targets lower strata; command ownership leaves all unchanged.
+This exercises the branch directly, not natural booms under closed-market laws.
+Six treaty-chain checks pass after moving the fixture away from the normal monthly
+pulse: Sokoto reaches Zulu first, Madagascar waits for the next controlled tick,
+and the chain does not echo. Nine capital-flight checks pass for source-size caps,
+both directions of rivalry, and closed/panicking/low-confidence recipients.
+
+Beta 1.0.4-beta.4 published and verified at **14:23:52 UTC** November 14.
+Receipt: `workshop/upload_receipts/20261114T142352.503370Z_beta_update_verified_48d4f209.json`.
+Archive SHA256: `b0c66b01bbcb99f60e65a8d8246de86a126335014c516a85ffb9d8e10a4d2f82`.
+The 37 confidence/credit-cycle/bank-display regression assertions passed the full
+error gate on this exact beta. Stable remains 1.0.4; no CMF GUI files changed.
+Pledged-rescue save/reload and actual war fixtures are still under investigation;
+they are excluded from the coverage count.

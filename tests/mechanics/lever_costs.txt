@@ -1,0 +1,152 @@
+namespace = spec_mechanics_lever_costs
+spec_mechanics_lever_costs.1 = { type = country_event hidden = yes immediate = {
+activate_law = law_type:law_interventionism
+remove_variable = spec_encourage_aeroplanes
+remove_variable = spec_restrain_aeroplanes
+remove_variable = spec_encourage_ammunition
+remove_variable = spec_restrain_ammunition
+remove_variable = spec_encourage_artillery
+remove_variable = spec_restrain_artillery
+remove_variable = spec_encourage_automobiles
+remove_variable = spec_restrain_automobiles
+remove_variable = spec_encourage_clippers
+remove_variable = spec_restrain_clippers
+remove_variable = spec_encourage_clothes
+remove_variable = spec_restrain_clothes
+remove_variable = spec_encourage_coal
+remove_variable = spec_restrain_coal
+remove_variable = spec_encourage_coffee
+remove_variable = spec_restrain_coffee
+remove_variable = spec_encourage_copper
+remove_variable = spec_restrain_copper
+remove_variable = spec_encourage_dye
+remove_variable = spec_restrain_dye
+remove_variable = spec_encourage_electricity
+remove_variable = spec_restrain_electricity
+remove_variable = spec_encourage_engines
+remove_variable = spec_restrain_engines
+remove_variable = spec_encourage_explosives
+remove_variable = spec_restrain_explosives
+remove_variable = spec_encourage_fabric
+remove_variable = spec_restrain_fabric
+remove_variable = spec_encourage_fertilizer
+remove_variable = spec_restrain_fertilizer
+remove_variable = spec_encourage_fine_art
+remove_variable = spec_restrain_fine_art
+remove_variable = spec_encourage_fish
+remove_variable = spec_restrain_fish
+remove_variable = spec_encourage_fruit
+remove_variable = spec_restrain_fruit
+remove_variable = spec_encourage_furniture
+remove_variable = spec_restrain_furniture
+remove_variable = spec_encourage_glass
+remove_variable = spec_restrain_glass
+remove_variable = spec_encourage_grain
+remove_variable = spec_restrain_grain
+remove_variable = spec_encourage_groceries
+remove_variable = spec_restrain_groceries
+remove_variable = spec_encourage_hardwood
+remove_variable = spec_restrain_hardwood
+remove_variable = spec_encourage_iron
+remove_variable = spec_restrain_iron
+remove_variable = spec_encourage_lead
+remove_variable = spec_restrain_lead
+remove_variable = spec_encourage_liquor
+remove_variable = spec_restrain_liquor
+remove_variable = spec_encourage_luxury_clothes
+remove_variable = spec_restrain_luxury_clothes
+remove_variable = spec_encourage_luxury_furniture
+remove_variable = spec_restrain_luxury_furniture
+remove_variable = spec_encourage_meat
+remove_variable = spec_restrain_meat
+remove_variable = spec_encourage_merchant_marine
+remove_variable = spec_restrain_merchant_marine
+remove_variable = spec_encourage_oil
+remove_variable = spec_restrain_oil
+remove_variable = spec_encourage_opium
+remove_variable = spec_restrain_opium
+remove_variable = spec_encourage_paper
+remove_variable = spec_restrain_paper
+remove_variable = spec_encourage_porcelain
+remove_variable = spec_restrain_porcelain
+remove_variable = spec_encourage_radios
+remove_variable = spec_restrain_radios
+remove_variable = spec_encourage_rubber
+remove_variable = spec_restrain_rubber
+remove_variable = spec_encourage_silk
+remove_variable = spec_restrain_silk
+remove_variable = spec_encourage_small_arms
+remove_variable = spec_restrain_small_arms
+remove_variable = spec_encourage_steamers
+remove_variable = spec_restrain_steamers
+remove_variable = spec_encourage_steel
+remove_variable = spec_restrain_steel
+remove_variable = spec_encourage_sugar
+remove_variable = spec_restrain_sugar
+remove_variable = spec_encourage_sulfur
+remove_variable = spec_restrain_sulfur
+remove_variable = spec_encourage_tanks
+remove_variable = spec_restrain_tanks
+remove_variable = spec_encourage_tea
+remove_variable = spec_restrain_tea
+remove_variable = spec_encourage_telephones
+remove_variable = spec_restrain_telephones
+remove_variable = spec_encourage_tobacco
+remove_variable = spec_restrain_tobacco
+remove_variable = spec_encourage_tools
+remove_variable = spec_restrain_tools
+remove_variable = spec_encourage_wine
+remove_variable = spec_restrain_wine
+remove_variable = spec_encourage_wood
+remove_variable = spec_restrain_wood
+spec_update_levers = yes
+trigger_event = { id = spec_mechanics_lever_costs.2 days = 1 }
+} }
+spec_mechanics_lever_costs.2 = { type = country_event hidden = yes immediate = {
+set_variable = { name = spec_test_expense_base value = modifier:country_expenses_add }
+set_variable = { name = spec_test_tax_base value = modifier:country_tax_income_add }
+set_variable = { name = spec_test_auth_base value = modifier:country_authority_add }
+set_variable = spec_encourage_steel
+set_variable = spec_restrain_coal
+spec_update_levers = yes
+set_variable = { name = spec_test_expected_expense value = spec_lever_subsidy_steel }
+set_variable = { name = spec_test_expected_tax value = spec_lever_levy_coal }
+set_variable = { name = spec_test_expected_auth value = spec_lever_authority }
+trigger_event = { id = spec_mechanics_lever_costs.3 days = 1 }
+} }
+spec_mechanics_lever_costs.3 = { type = country_event hidden = yes immediate = {
+set_variable = { name = spec_test_expense value = modifier:country_expenses_add }
+change_variable = { name = spec_test_expense subtract = var:spec_test_expense_base }
+set_variable = { name = spec_test_tax value = modifier:country_tax_income_add }
+change_variable = { name = spec_test_tax subtract = var:spec_test_tax_base }
+set_variable = { name = spec_test_auth value = var:spec_test_auth_base }
+change_variable = { name = spec_test_auth subtract = modifier:country_authority_add }
+if = { limit = { spec_lever_subsidy_steel > 0 var:spec_test_expense = var:spec_test_expected_expense } debug_log = "HOTFIX PASS encouragement_cost_matches_actual_expense_modifier" }
+else = { debug_log = "HOTFIX FAIL encouragement_cost_matches_actual_expense_modifier" }
+if = { limit = { spec_lever_levy_coal > 0 var:spec_test_tax = var:spec_test_expected_tax } debug_log = "HOTFIX PASS restraint_income_matches_actual_tax_modifier" }
+else = { debug_log = "HOTFIX FAIL restraint_income_matches_actual_tax_modifier" }
+if = { limit = { var:spec_test_auth = var:spec_test_expected_auth } debug_log = "HOTFIX PASS lever_authority_matches_actual_cost" }
+else = { debug_log = "HOTFIX FAIL lever_authority_matches_actual_cost" }
+if = { limit = { has_modifier = spec_lever_encourage_steel has_modifier = spec_lever_restrain_coal } debug_log = "HOTFIX PASS lever_throughput_modifiers_present" }
+else = { debug_log = "HOTFIX FAIL lever_throughput_modifiers_present" }
+
+spec_update_levers = yes
+set_variable = { name = spec_test_expected_expense value = spec_lever_subsidy_steel }
+trigger_event = { id = spec_mechanics_lever_costs.4 days = 1 }
+} }
+spec_mechanics_lever_costs.4 = { type = country_event hidden = yes immediate = {
+set_variable = { name = spec_test_repeat value = modifier:country_expenses_add }
+change_variable = { name = spec_test_repeat subtract = var:spec_test_expense_base }
+if = { limit = { var:spec_test_repeat = var:spec_test_expected_expense } debug_log = "HOTFIX PASS repeated_lever_update_does_not_stack_cost" }
+else = { debug_log = "HOTFIX FAIL repeated_lever_update_does_not_stack_cost" }
+
+remove_variable = spec_encourage_steel
+remove_variable = spec_restrain_coal
+spec_update_levers = yes
+trigger_event = { id = spec_mechanics_lever_costs.5 days = 1 }
+} }
+spec_mechanics_lever_costs.5 = { type = country_event hidden = yes immediate = {
+if = { limit = { modifier:country_expenses_add = var:spec_test_expense_base modifier:country_tax_income_add = var:spec_test_tax_base modifier:country_authority_add = var:spec_test_auth_base NOR = { has_modifier = spec_lever_encourage_steel has_modifier = spec_lever_restrain_coal } } debug_log = "HOTFIX PASS cancelling_levers_removes_all_added_costs" }
+else = { debug_log = "HOTFIX FAIL cancelling_levers_removes_all_added_costs" }
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

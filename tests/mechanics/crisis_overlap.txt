@@ -1,0 +1,88 @@
+namespace = spec_mechanics_crisis_overlap
+spec_mechanics_crisis_overlap.1 = { type = country_event hidden = yes immediate = {
+activate_law = law_type:law_interventionism
+remove_variable = spec_ld
+remove_variable = spec_panic
+remove_variable = spec_panic_cooldown
+remove_variable = spec_pledge
+set_variable = { name = spec_conf value = 55 }
+set_variable = { name = spec_c_total value = 0 }
+set_variable = { name = spec_debt value = 1000 }
+add_investment_pool = { value = investment_pool multiply = -1 }
+add_investment_pool = 1000
+set_global_variable = { name = spec_ld_phase value = 1 }
+spec_ld_join = yes
+if = { limit = { investment_pool = 500 var:spec_debt = 500 } debug_log = "HOTFIX PASS depression_recalls_half_credit_once" }
+else = { debug_log = "HOTFIX FAIL depression_recalls_half_credit_once" }
+spec_ld_join = yes
+if = { limit = { investment_pool = 500 var:spec_debt = 500 } debug_log = "HOTFIX PASS repeat_depression_join_does_not_recall_again" }
+else = { debug_log = "HOTFIX FAIL repeat_depression_join_does_not_recall_again" }
+
+spec_start_panic = yes
+if = { limit = { investment_pool = 250 var:spec_debt = 250 has_variable = spec_ld_half } debug_log = "HOTFIX PASS later_panic_recalls_half_remaining_credit" }
+else = { debug_log = "HOTFIX FAIL later_panic_recalls_half_remaining_credit" }
+
+spec_ld_leave = yes
+spec_end_panic = yes
+set_variable = { name = spec_debt value = 1000 }
+add_investment_pool = { value = investment_pool multiply = -1 }
+add_investment_pool = 1000
+spec_ld_join = yes
+if = { limit = { investment_pool = 1000 var:spec_debt = 1000 } debug_log = "HOTFIX PASS recent_panic_prevents_additional_depression_recall" }
+else = { debug_log = "HOTFIX FAIL recent_panic_prevents_additional_depression_recall" }
+
+spec_ld_leave = yes
+remove_variable = spec_panic_cooldown
+spec_start_panic = yes
+set_variable = { name = spec_test_pool value = investment_pool }
+set_variable = { name = spec_test_debt value = var:spec_debt }
+spec_ld_join = yes
+if = { limit = { investment_pool = var:spec_test_pool var:spec_debt = var:spec_test_debt } debug_log = "HOTFIX PASS active_panic_prevents_additional_depression_recall" }
+else = { debug_log = "HOTFIX FAIL active_panic_prevents_additional_depression_recall" }
+
+spec_ld_leave = yes
+remove_variable = spec_panic
+remove_variable = spec_panic_cooldown
+set_variable = { name = spec_debt value = 1000 }
+add_investment_pool = { value = investment_pool multiply = -1 }
+add_investment_pool = 100
+spec_ld_join = yes
+if = { limit = { investment_pool = 0 var:spec_debt = 900 } debug_log = "HOTFIX PASS depression_recall_cannot_overdraw_pool" }
+else = { debug_log = "HOTFIX FAIL depression_recall_cannot_overdraw_pool" }
+
+every_country = { spec_ld_leave = yes remove_variable = spec_panic remove_variable = spec_ld_origin }
+remove_global_variable = spec_ld_phase
+remove_global_variable = spec_ld_count
+remove_global_variable = spec_ld_cooldown
+remove_global_variable = spec_ld_second
+set_global_variable = spec_ld_open
+set_variable = { name = spec_panic value = 6 }
+spec_ld_tick = yes
+if = { limit = { global_var:spec_ld_count = 1 global_var:spec_ld_phase = 1 has_variable = spec_ld_origin } debug_log = "HOTFIX PASS first_crisis_starts_with_eligible_gp" }
+else = { debug_log = "HOTFIX FAIL first_crisis_starts_with_eligible_gp" }
+
+spec_ld_next_phase = yes
+spec_ld_next_phase = yes
+spec_ld_next_phase = yes
+set_global_variable = spec_ld_second
+c:FRA = { set_variable = { name = spec_panic value = 6 } }
+spec_ld_tick = yes
+if = { limit = { global_var:spec_ld_count = 1 NOT = { has_global_variable = spec_ld_phase } } debug_log = "HOTFIX PASS world_cooldown_blocks_second_crisis" }
+else = { debug_log = "HOTFIX FAIL world_cooldown_blocks_second_crisis" }
+
+remove_global_variable = spec_ld_cooldown
+spec_ld_tick = yes
+if = { limit = { global_var:spec_ld_count = 2 global_var:spec_ld_phase = 1 c:FRA = { has_variable = spec_ld_origin } } debug_log = "HOTFIX PASS second_crisis_uses_new_origin" }
+else = { debug_log = "HOTFIX FAIL second_crisis_uses_new_origin" }
+
+spec_ld_next_phase = yes
+spec_ld_next_phase = yes
+spec_ld_next_phase = yes
+remove_global_variable = spec_ld_cooldown
+set_global_variable = spec_ld_second
+c:PRU = { set_variable = { name = spec_panic value = 6 } }
+spec_ld_tick = yes
+if = { limit = { global_var:spec_ld_count = 2 NOT = { has_global_variable = spec_ld_phase } } debug_log = "HOTFIX PASS third_world_crisis_is_blocked" }
+else = { debug_log = "HOTFIX FAIL third_world_crisis_is_blocked" }
+debug_log = "HOTFIX SUITE COMPLETE"
+} }
