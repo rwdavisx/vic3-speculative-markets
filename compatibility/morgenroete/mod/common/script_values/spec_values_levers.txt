@@ -1,0 +1,2936 @@
+﻿spec_lever_base_aeroplanes = 50
+spec_lever_cost_aeroplanes = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_aeroplanes
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 5
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_ammunition = 50
+spec_lever_cost_ammunition = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_ammunition
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 5
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_artillery = 50
+spec_lever_cost_artillery = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_artillery
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 5
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_automobiles = 50
+spec_lever_cost_automobiles = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_automobiles
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 5
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_clippers = 50
+spec_lever_cost_clippers = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_clippers
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 5
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_clothes = 150
+spec_lever_cost_clothes = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_clothes
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 15
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_coal = 75
+spec_lever_cost_coal = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_coal
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 7.5
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_coffee = 50
+spec_lever_cost_coffee = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_coffee
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 5
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_copper = 50
+spec_lever_cost_copper = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_copper
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 5
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_dye = 50
+spec_lever_cost_dye = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_dye
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 5
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_electricity = 100
+spec_lever_cost_electricity = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_electricity
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 10
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_elgar_instruments = 50
+spec_lever_cost_elgar_instruments = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_elgar_instruments
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 5
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_engines = 50
+spec_lever_cost_engines = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_engines
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 5
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_explosives = 50
+spec_lever_cost_explosives = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_explosives
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 5
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_fabric = 150
+spec_lever_cost_fabric = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_fabric
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 15
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_fertilizer = 50
+spec_lever_cost_fertilizer = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_fertilizer
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 5
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_fine_art = 50
+spec_lever_cost_fine_art = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_fine_art
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 5
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_fish = 150
+spec_lever_cost_fish = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_fish
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 15
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_fruit = 100
+spec_lever_cost_fruit = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_fruit
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 10
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_furniture = 150
+spec_lever_cost_furniture = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_furniture
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 15
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_glass = 50
+spec_lever_cost_glass = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_glass
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 5
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_good_uranium = 50
+spec_lever_cost_good_uranium = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_good_uranium
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 5
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_grain = 250
+spec_lever_cost_grain = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_grain
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 25
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_groceries = 150
+spec_lever_cost_groceries = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_groceries
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 15
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_hardwood = 50
+spec_lever_cost_hardwood = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_hardwood
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 5
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_iron = 50
+spec_lever_cost_iron = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_iron
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 5
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_lead = 50
+spec_lever_cost_lead = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_lead
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 5
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_liquor = 50
+spec_lever_cost_liquor = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_liquor
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 5
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_luxury_clothes = 50
+spec_lever_cost_luxury_clothes = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_luxury_clothes
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 5
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_luxury_furniture = 50
+spec_lever_cost_luxury_furniture = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_luxury_furniture
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 5
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_manzoni_prints = 50
+spec_lever_cost_manzoni_prints = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_manzoni_prints
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 5
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_meat = 100
+spec_lever_cost_meat = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_meat
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 10
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_merchant_marine = 50
+spec_lever_cost_merchant_marine = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_merchant_marine
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 5
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_oil = 100
+spec_lever_cost_oil = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_oil
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 10
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_opium = 50
+spec_lever_cost_opium = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_opium
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 5
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_paper = 100
+spec_lever_cost_paper = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_paper
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 10
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_porcelain = 50
+spec_lever_cost_porcelain = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_porcelain
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 5
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_radios = 50
+spec_lever_cost_radios = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_radios
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 5
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_rubber = 50
+spec_lever_cost_rubber = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_rubber
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 5
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_silk = 50
+spec_lever_cost_silk = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_silk
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 5
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_small_arms = 50
+spec_lever_cost_small_arms = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_small_arms
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 5
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_steamers = 50
+spec_lever_cost_steamers = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_steamers
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 5
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_steel = 50
+spec_lever_cost_steel = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_steel
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 5
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_sugar = 50
+spec_lever_cost_sugar = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_sugar
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 5
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_sulfur = 50
+spec_lever_cost_sulfur = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_sulfur
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 5
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_tanks = 50
+spec_lever_cost_tanks = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_tanks
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 5
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_tea = 50
+spec_lever_cost_tea = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_tea
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 5
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_telephones = 50
+spec_lever_cost_telephones = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_telephones
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 5
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_tobacco = 50
+spec_lever_cost_tobacco = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_tobacco
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 5
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_tools = 50
+spec_lever_cost_tools = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_tools
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 5
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_wine = 50
+spec_lever_cost_wine = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_wine
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 5
+	round = yes
+	multiply = 10
+}
+
+spec_lever_base_wood = 150
+spec_lever_cost_wood = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = spec_weight_wood
+	}
+	multiply = 0.5
+	add = 0.5
+	multiply = 15
+	round = yes
+	multiply = 10
+}
+
+spec_lever_output_aeroplanes = {
+	value = 0
+	every_scope_state = {
+		sg:aeroplanes ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 80
+}
+
+spec_lever_subsidy_aeroplanes = {
+	value = spec_lever_output_aeroplanes
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_aeroplanes = {
+	value = spec_lever_output_aeroplanes
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_ammunition = {
+	value = 0
+	every_scope_state = {
+		sg:ammunition ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 50
+}
+
+spec_lever_subsidy_ammunition = {
+	value = spec_lever_output_ammunition
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_ammunition = {
+	value = spec_lever_output_ammunition
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_artillery = {
+	value = 0
+	every_scope_state = {
+		sg:artillery ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 70
+}
+
+spec_lever_subsidy_artillery = {
+	value = spec_lever_output_artillery
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_artillery = {
+	value = spec_lever_output_artillery
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_automobiles = {
+	value = 0
+	every_scope_state = {
+		sg:automobiles ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 100
+}
+
+spec_lever_subsidy_automobiles = {
+	value = spec_lever_output_automobiles
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_automobiles = {
+	value = spec_lever_output_automobiles
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_clippers = {
+	value = 0
+	every_scope_state = {
+		sg:clippers ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 60
+}
+
+spec_lever_subsidy_clippers = {
+	value = spec_lever_output_clippers
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_clippers = {
+	value = spec_lever_output_clippers
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_clothes = {
+	value = 0
+	every_scope_state = {
+		sg:clothes ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 30
+}
+
+spec_lever_subsidy_clothes = {
+	value = spec_lever_output_clothes
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_clothes = {
+	value = spec_lever_output_clothes
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_coal = {
+	value = 0
+	every_scope_state = {
+		sg:coal ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 30
+}
+
+spec_lever_subsidy_coal = {
+	value = spec_lever_output_coal
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_coal = {
+	value = spec_lever_output_coal
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_coffee = {
+	value = 0
+	every_scope_state = {
+		sg:coffee ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 50
+}
+
+spec_lever_subsidy_coffee = {
+	value = spec_lever_output_coffee
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_coffee = {
+	value = spec_lever_output_coffee
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_copper = {
+	value = 0
+	every_scope_state = {
+		sg:copper ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 40
+}
+
+spec_lever_subsidy_copper = {
+	value = spec_lever_output_copper
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_copper = {
+	value = spec_lever_output_copper
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_dye = {
+	value = 0
+	every_scope_state = {
+		sg:dye ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 40
+}
+
+spec_lever_subsidy_dye = {
+	value = spec_lever_output_dye
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_dye = {
+	value = spec_lever_output_dye
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_electricity = {
+	value = 0
+	every_scope_state = {
+		sg:electricity ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 30
+}
+
+spec_lever_subsidy_electricity = {
+	value = spec_lever_output_electricity
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_electricity = {
+	value = spec_lever_output_electricity
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_elgar_instruments = {
+	value = 0
+	every_scope_state = {
+		sg:elgar_instruments ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 40
+}
+
+spec_lever_subsidy_elgar_instruments = {
+	value = spec_lever_output_elgar_instruments
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_elgar_instruments = {
+	value = spec_lever_output_elgar_instruments
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_engines = {
+	value = 0
+	every_scope_state = {
+		sg:engines ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 60
+}
+
+spec_lever_subsidy_engines = {
+	value = spec_lever_output_engines
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_engines = {
+	value = spec_lever_output_engines
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_explosives = {
+	value = 0
+	every_scope_state = {
+		sg:explosives ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 50
+}
+
+spec_lever_subsidy_explosives = {
+	value = spec_lever_output_explosives
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_explosives = {
+	value = spec_lever_output_explosives
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_fabric = {
+	value = 0
+	every_scope_state = {
+		sg:fabric ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 20
+}
+
+spec_lever_subsidy_fabric = {
+	value = spec_lever_output_fabric
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_fabric = {
+	value = spec_lever_output_fabric
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_fertilizer = {
+	value = 0
+	every_scope_state = {
+		sg:fertilizer ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 30
+}
+
+spec_lever_subsidy_fertilizer = {
+	value = spec_lever_output_fertilizer
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_fertilizer = {
+	value = spec_lever_output_fertilizer
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_fine_art = {
+	value = 0
+	every_scope_state = {
+		sg:fine_art ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 200
+}
+
+spec_lever_subsidy_fine_art = {
+	value = spec_lever_output_fine_art
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_fine_art = {
+	value = spec_lever_output_fine_art
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_fish = {
+	value = 0
+	every_scope_state = {
+		sg:fish ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 20
+}
+
+spec_lever_subsidy_fish = {
+	value = spec_lever_output_fish
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_fish = {
+	value = spec_lever_output_fish
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_fruit = {
+	value = 0
+	every_scope_state = {
+		sg:fruit ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 30
+}
+
+spec_lever_subsidy_fruit = {
+	value = spec_lever_output_fruit
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_fruit = {
+	value = spec_lever_output_fruit
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_furniture = {
+	value = 0
+	every_scope_state = {
+		sg:furniture ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 30
+}
+
+spec_lever_subsidy_furniture = {
+	value = spec_lever_output_furniture
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_furniture = {
+	value = spec_lever_output_furniture
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_glass = {
+	value = 0
+	every_scope_state = {
+		sg:glass ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 40
+}
+
+spec_lever_subsidy_glass = {
+	value = spec_lever_output_glass
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_glass = {
+	value = spec_lever_output_glass
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_good_uranium = {
+	value = 0
+	every_scope_state = {
+		sg:good_uranium ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 40
+}
+
+spec_lever_subsidy_good_uranium = {
+	value = spec_lever_output_good_uranium
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_good_uranium = {
+	value = spec_lever_output_good_uranium
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_grain = {
+	value = 0
+	every_scope_state = {
+		sg:grain ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 20
+}
+
+spec_lever_subsidy_grain = {
+	value = spec_lever_output_grain
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_grain = {
+	value = spec_lever_output_grain
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_groceries = {
+	value = 0
+	every_scope_state = {
+		sg:groceries ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 30
+}
+
+spec_lever_subsidy_groceries = {
+	value = spec_lever_output_groceries
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_groceries = {
+	value = spec_lever_output_groceries
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_hardwood = {
+	value = 0
+	every_scope_state = {
+		sg:hardwood ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 40
+}
+
+spec_lever_subsidy_hardwood = {
+	value = spec_lever_output_hardwood
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_hardwood = {
+	value = spec_lever_output_hardwood
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_iron = {
+	value = 0
+	every_scope_state = {
+		sg:iron ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 40
+}
+
+spec_lever_subsidy_iron = {
+	value = spec_lever_output_iron
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_iron = {
+	value = spec_lever_output_iron
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_lead = {
+	value = 0
+	every_scope_state = {
+		sg:lead ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 40
+}
+
+spec_lever_subsidy_lead = {
+	value = spec_lever_output_lead
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_lead = {
+	value = spec_lever_output_lead
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_liquor = {
+	value = 0
+	every_scope_state = {
+		sg:liquor ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 30
+}
+
+spec_lever_subsidy_liquor = {
+	value = spec_lever_output_liquor
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_liquor = {
+	value = spec_lever_output_liquor
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_luxury_clothes = {
+	value = 0
+	every_scope_state = {
+		sg:luxury_clothes ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 60
+}
+
+spec_lever_subsidy_luxury_clothes = {
+	value = spec_lever_output_luxury_clothes
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_luxury_clothes = {
+	value = spec_lever_output_luxury_clothes
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_luxury_furniture = {
+	value = 0
+	every_scope_state = {
+		sg:luxury_furniture ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 60
+}
+
+spec_lever_subsidy_luxury_furniture = {
+	value = spec_lever_output_luxury_furniture
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_luxury_furniture = {
+	value = spec_lever_output_luxury_furniture
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_manzoni_prints = {
+	value = 0
+	every_scope_state = {
+		sg:manzoni_prints ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 60
+}
+
+spec_lever_subsidy_manzoni_prints = {
+	value = spec_lever_output_manzoni_prints
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_manzoni_prints = {
+	value = spec_lever_output_manzoni_prints
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_meat = {
+	value = 0
+	every_scope_state = {
+		sg:meat ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 30
+}
+
+spec_lever_subsidy_meat = {
+	value = spec_lever_output_meat
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_meat = {
+	value = spec_lever_output_meat
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_merchant_marine = {
+	value = 0
+	every_scope_state = {
+		sg:merchant_marine ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 50
+}
+
+spec_lever_subsidy_merchant_marine = {
+	value = spec_lever_output_merchant_marine
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_merchant_marine = {
+	value = spec_lever_output_merchant_marine
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_oil = {
+	value = 0
+	every_scope_state = {
+		sg:oil ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 40
+}
+
+spec_lever_subsidy_oil = {
+	value = spec_lever_output_oil
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_oil = {
+	value = spec_lever_output_oil
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_opium = {
+	value = 0
+	every_scope_state = {
+		sg:opium ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 50
+}
+
+spec_lever_subsidy_opium = {
+	value = spec_lever_output_opium
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_opium = {
+	value = spec_lever_output_opium
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_paper = {
+	value = 0
+	every_scope_state = {
+		sg:paper ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 30
+}
+
+spec_lever_subsidy_paper = {
+	value = spec_lever_output_paper
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_paper = {
+	value = spec_lever_output_paper
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_porcelain = {
+	value = 0
+	every_scope_state = {
+		sg:porcelain ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 70
+}
+
+spec_lever_subsidy_porcelain = {
+	value = spec_lever_output_porcelain
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_porcelain = {
+	value = spec_lever_output_porcelain
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_radios = {
+	value = 0
+	every_scope_state = {
+		sg:radios ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 80
+}
+
+spec_lever_subsidy_radios = {
+	value = spec_lever_output_radios
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_radios = {
+	value = spec_lever_output_radios
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_rubber = {
+	value = 0
+	every_scope_state = {
+		sg:rubber ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 40
+}
+
+spec_lever_subsidy_rubber = {
+	value = spec_lever_output_rubber
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_rubber = {
+	value = spec_lever_output_rubber
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_silk = {
+	value = 0
+	every_scope_state = {
+		sg:silk ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 40
+}
+
+spec_lever_subsidy_silk = {
+	value = spec_lever_output_silk
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_silk = {
+	value = spec_lever_output_silk
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_small_arms = {
+	value = 0
+	every_scope_state = {
+		sg:small_arms ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 60
+}
+
+spec_lever_subsidy_small_arms = {
+	value = spec_lever_output_small_arms
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_small_arms = {
+	value = spec_lever_output_small_arms
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_steamers = {
+	value = 0
+	every_scope_state = {
+		sg:steamers ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 70
+}
+
+spec_lever_subsidy_steamers = {
+	value = spec_lever_output_steamers
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_steamers = {
+	value = spec_lever_output_steamers
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_steel = {
+	value = 0
+	every_scope_state = {
+		sg:steel ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 50
+}
+
+spec_lever_subsidy_steel = {
+	value = spec_lever_output_steel
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_steel = {
+	value = spec_lever_output_steel
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_sugar = {
+	value = 0
+	every_scope_state = {
+		sg:sugar ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 30
+}
+
+spec_lever_subsidy_sugar = {
+	value = spec_lever_output_sugar
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_sugar = {
+	value = spec_lever_output_sugar
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_sulfur = {
+	value = 0
+	every_scope_state = {
+		sg:sulfur ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 50
+}
+
+spec_lever_subsidy_sulfur = {
+	value = spec_lever_output_sulfur
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_sulfur = {
+	value = spec_lever_output_sulfur
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_tanks = {
+	value = 0
+	every_scope_state = {
+		sg:tanks ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 80
+}
+
+spec_lever_subsidy_tanks = {
+	value = spec_lever_output_tanks
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_tanks = {
+	value = spec_lever_output_tanks
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_tea = {
+	value = 0
+	every_scope_state = {
+		sg:tea ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 50
+}
+
+spec_lever_subsidy_tea = {
+	value = spec_lever_output_tea
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_tea = {
+	value = spec_lever_output_tea
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_telephones = {
+	value = 0
+	every_scope_state = {
+		sg:telephones ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 70
+}
+
+spec_lever_subsidy_telephones = {
+	value = spec_lever_output_telephones
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_telephones = {
+	value = spec_lever_output_telephones
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_tobacco = {
+	value = 0
+	every_scope_state = {
+		sg:tobacco ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 40
+}
+
+spec_lever_subsidy_tobacco = {
+	value = spec_lever_output_tobacco
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_tobacco = {
+	value = spec_lever_output_tobacco
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_tools = {
+	value = 0
+	every_scope_state = {
+		sg:tools ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 40
+}
+
+spec_lever_subsidy_tools = {
+	value = spec_lever_output_tools
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_tools = {
+	value = spec_lever_output_tools
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_wine = {
+	value = 0
+	every_scope_state = {
+		sg:wine ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 50
+}
+
+spec_lever_subsidy_wine = {
+	value = spec_lever_output_wine
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_wine = {
+	value = spec_lever_output_wine
+	multiply = 0.1
+	round = yes
+}
+
+spec_lever_output_wood = {
+	value = 0
+	every_scope_state = {
+		sg:wood ?= {
+			add = state_goods_production
+		}
+	}
+	multiply = 20
+}
+
+spec_lever_subsidy_wood = {
+	value = spec_lever_output_wood
+	multiply = 0.2
+	round = yes
+}
+
+spec_lever_levy_wood = {
+	value = spec_lever_output_wood
+	multiply = 0.1
+	round = yes
+}
+
+spec_n_restrain = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_restrain_aeroplanes }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_ammunition }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_artillery }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_automobiles }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_clippers }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_clothes }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_coal }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_coffee }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_copper }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_dye }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_electricity }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_elgar_instruments }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_engines }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_explosives }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_fabric }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_fertilizer }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_fine_art }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_fish }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_fruit }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_furniture }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_glass }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_good_uranium }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_grain }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_groceries }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_hardwood }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_iron }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_lead }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_liquor }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_luxury_clothes }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_luxury_furniture }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_manzoni_prints }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_meat }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_merchant_marine }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_oil }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_opium }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_paper }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_porcelain }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_radios }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_rubber }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_silk }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_small_arms }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_steamers }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_steel }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_sugar }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_sulfur }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_tanks }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_tea }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_telephones }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_tobacco }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_tools }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_wine }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_restrain_wood }
+		add = 1
+	}
+}
+
+spec_n_encourage = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_encourage_aeroplanes }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_ammunition }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_artillery }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_automobiles }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_clippers }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_clothes }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_coal }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_coffee }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_copper }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_dye }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_electricity }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_elgar_instruments }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_engines }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_explosives }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_fabric }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_fertilizer }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_fine_art }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_fish }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_fruit }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_furniture }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_glass }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_good_uranium }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_grain }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_groceries }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_hardwood }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_iron }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_lead }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_liquor }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_luxury_clothes }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_luxury_furniture }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_manzoni_prints }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_meat }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_merchant_marine }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_oil }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_opium }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_paper }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_porcelain }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_radios }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_rubber }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_silk }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_small_arms }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_steamers }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_steel }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_sugar }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_sulfur }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_tanks }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_tea }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_telephones }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_tobacco }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_tools }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_wine }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_encourage_wood }
+		add = 1
+	}
+}
+
+spec_levers_used = {
+	value = spec_n_restrain
+	add = spec_n_encourage
+}
+
+spec_lever_levy = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_restrain_aeroplanes }
+		add = spec_lever_levy_aeroplanes
+	}
+	if = {
+		limit = { has_variable = spec_restrain_ammunition }
+		add = spec_lever_levy_ammunition
+	}
+	if = {
+		limit = { has_variable = spec_restrain_artillery }
+		add = spec_lever_levy_artillery
+	}
+	if = {
+		limit = { has_variable = spec_restrain_automobiles }
+		add = spec_lever_levy_automobiles
+	}
+	if = {
+		limit = { has_variable = spec_restrain_clippers }
+		add = spec_lever_levy_clippers
+	}
+	if = {
+		limit = { has_variable = spec_restrain_clothes }
+		add = spec_lever_levy_clothes
+	}
+	if = {
+		limit = { has_variable = spec_restrain_coal }
+		add = spec_lever_levy_coal
+	}
+	if = {
+		limit = { has_variable = spec_restrain_coffee }
+		add = spec_lever_levy_coffee
+	}
+	if = {
+		limit = { has_variable = spec_restrain_copper }
+		add = spec_lever_levy_copper
+	}
+	if = {
+		limit = { has_variable = spec_restrain_dye }
+		add = spec_lever_levy_dye
+	}
+	if = {
+		limit = { has_variable = spec_restrain_electricity }
+		add = spec_lever_levy_electricity
+	}
+	if = {
+		limit = { has_variable = spec_restrain_elgar_instruments }
+		add = spec_lever_levy_elgar_instruments
+	}
+	if = {
+		limit = { has_variable = spec_restrain_engines }
+		add = spec_lever_levy_engines
+	}
+	if = {
+		limit = { has_variable = spec_restrain_explosives }
+		add = spec_lever_levy_explosives
+	}
+	if = {
+		limit = { has_variable = spec_restrain_fabric }
+		add = spec_lever_levy_fabric
+	}
+	if = {
+		limit = { has_variable = spec_restrain_fertilizer }
+		add = spec_lever_levy_fertilizer
+	}
+	if = {
+		limit = { has_variable = spec_restrain_fine_art }
+		add = spec_lever_levy_fine_art
+	}
+	if = {
+		limit = { has_variable = spec_restrain_fish }
+		add = spec_lever_levy_fish
+	}
+	if = {
+		limit = { has_variable = spec_restrain_fruit }
+		add = spec_lever_levy_fruit
+	}
+	if = {
+		limit = { has_variable = spec_restrain_furniture }
+		add = spec_lever_levy_furniture
+	}
+	if = {
+		limit = { has_variable = spec_restrain_glass }
+		add = spec_lever_levy_glass
+	}
+	if = {
+		limit = { has_variable = spec_restrain_good_uranium }
+		add = spec_lever_levy_good_uranium
+	}
+	if = {
+		limit = { has_variable = spec_restrain_grain }
+		add = spec_lever_levy_grain
+	}
+	if = {
+		limit = { has_variable = spec_restrain_groceries }
+		add = spec_lever_levy_groceries
+	}
+	if = {
+		limit = { has_variable = spec_restrain_hardwood }
+		add = spec_lever_levy_hardwood
+	}
+	if = {
+		limit = { has_variable = spec_restrain_iron }
+		add = spec_lever_levy_iron
+	}
+	if = {
+		limit = { has_variable = spec_restrain_lead }
+		add = spec_lever_levy_lead
+	}
+	if = {
+		limit = { has_variable = spec_restrain_liquor }
+		add = spec_lever_levy_liquor
+	}
+	if = {
+		limit = { has_variable = spec_restrain_luxury_clothes }
+		add = spec_lever_levy_luxury_clothes
+	}
+	if = {
+		limit = { has_variable = spec_restrain_luxury_furniture }
+		add = spec_lever_levy_luxury_furniture
+	}
+	if = {
+		limit = { has_variable = spec_restrain_manzoni_prints }
+		add = spec_lever_levy_manzoni_prints
+	}
+	if = {
+		limit = { has_variable = spec_restrain_meat }
+		add = spec_lever_levy_meat
+	}
+	if = {
+		limit = { has_variable = spec_restrain_merchant_marine }
+		add = spec_lever_levy_merchant_marine
+	}
+	if = {
+		limit = { has_variable = spec_restrain_oil }
+		add = spec_lever_levy_oil
+	}
+	if = {
+		limit = { has_variable = spec_restrain_opium }
+		add = spec_lever_levy_opium
+	}
+	if = {
+		limit = { has_variable = spec_restrain_paper }
+		add = spec_lever_levy_paper
+	}
+	if = {
+		limit = { has_variable = spec_restrain_porcelain }
+		add = spec_lever_levy_porcelain
+	}
+	if = {
+		limit = { has_variable = spec_restrain_radios }
+		add = spec_lever_levy_radios
+	}
+	if = {
+		limit = { has_variable = spec_restrain_rubber }
+		add = spec_lever_levy_rubber
+	}
+	if = {
+		limit = { has_variable = spec_restrain_silk }
+		add = spec_lever_levy_silk
+	}
+	if = {
+		limit = { has_variable = spec_restrain_small_arms }
+		add = spec_lever_levy_small_arms
+	}
+	if = {
+		limit = { has_variable = spec_restrain_steamers }
+		add = spec_lever_levy_steamers
+	}
+	if = {
+		limit = { has_variable = spec_restrain_steel }
+		add = spec_lever_levy_steel
+	}
+	if = {
+		limit = { has_variable = spec_restrain_sugar }
+		add = spec_lever_levy_sugar
+	}
+	if = {
+		limit = { has_variable = spec_restrain_sulfur }
+		add = spec_lever_levy_sulfur
+	}
+	if = {
+		limit = { has_variable = spec_restrain_tanks }
+		add = spec_lever_levy_tanks
+	}
+	if = {
+		limit = { has_variable = spec_restrain_tea }
+		add = spec_lever_levy_tea
+	}
+	if = {
+		limit = { has_variable = spec_restrain_telephones }
+		add = spec_lever_levy_telephones
+	}
+	if = {
+		limit = { has_variable = spec_restrain_tobacco }
+		add = spec_lever_levy_tobacco
+	}
+	if = {
+		limit = { has_variable = spec_restrain_tools }
+		add = spec_lever_levy_tools
+	}
+	if = {
+		limit = { has_variable = spec_restrain_wine }
+		add = spec_lever_levy_wine
+	}
+	if = {
+		limit = { has_variable = spec_restrain_wood }
+		add = spec_lever_levy_wood
+	}
+}
+
+spec_lever_spend = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_encourage_aeroplanes }
+		add = spec_lever_subsidy_aeroplanes
+	}
+	if = {
+		limit = { has_variable = spec_encourage_ammunition }
+		add = spec_lever_subsidy_ammunition
+	}
+	if = {
+		limit = { has_variable = spec_encourage_artillery }
+		add = spec_lever_subsidy_artillery
+	}
+	if = {
+		limit = { has_variable = spec_encourage_automobiles }
+		add = spec_lever_subsidy_automobiles
+	}
+	if = {
+		limit = { has_variable = spec_encourage_clippers }
+		add = spec_lever_subsidy_clippers
+	}
+	if = {
+		limit = { has_variable = spec_encourage_clothes }
+		add = spec_lever_subsidy_clothes
+	}
+	if = {
+		limit = { has_variable = spec_encourage_coal }
+		add = spec_lever_subsidy_coal
+	}
+	if = {
+		limit = { has_variable = spec_encourage_coffee }
+		add = spec_lever_subsidy_coffee
+	}
+	if = {
+		limit = { has_variable = spec_encourage_copper }
+		add = spec_lever_subsidy_copper
+	}
+	if = {
+		limit = { has_variable = spec_encourage_dye }
+		add = spec_lever_subsidy_dye
+	}
+	if = {
+		limit = { has_variable = spec_encourage_electricity }
+		add = spec_lever_subsidy_electricity
+	}
+	if = {
+		limit = { has_variable = spec_encourage_elgar_instruments }
+		add = spec_lever_subsidy_elgar_instruments
+	}
+	if = {
+		limit = { has_variable = spec_encourage_engines }
+		add = spec_lever_subsidy_engines
+	}
+	if = {
+		limit = { has_variable = spec_encourage_explosives }
+		add = spec_lever_subsidy_explosives
+	}
+	if = {
+		limit = { has_variable = spec_encourage_fabric }
+		add = spec_lever_subsidy_fabric
+	}
+	if = {
+		limit = { has_variable = spec_encourage_fertilizer }
+		add = spec_lever_subsidy_fertilizer
+	}
+	if = {
+		limit = { has_variable = spec_encourage_fine_art }
+		add = spec_lever_subsidy_fine_art
+	}
+	if = {
+		limit = { has_variable = spec_encourage_fish }
+		add = spec_lever_subsidy_fish
+	}
+	if = {
+		limit = { has_variable = spec_encourage_fruit }
+		add = spec_lever_subsidy_fruit
+	}
+	if = {
+		limit = { has_variable = spec_encourage_furniture }
+		add = spec_lever_subsidy_furniture
+	}
+	if = {
+		limit = { has_variable = spec_encourage_glass }
+		add = spec_lever_subsidy_glass
+	}
+	if = {
+		limit = { has_variable = spec_encourage_good_uranium }
+		add = spec_lever_subsidy_good_uranium
+	}
+	if = {
+		limit = { has_variable = spec_encourage_grain }
+		add = spec_lever_subsidy_grain
+	}
+	if = {
+		limit = { has_variable = spec_encourage_groceries }
+		add = spec_lever_subsidy_groceries
+	}
+	if = {
+		limit = { has_variable = spec_encourage_hardwood }
+		add = spec_lever_subsidy_hardwood
+	}
+	if = {
+		limit = { has_variable = spec_encourage_iron }
+		add = spec_lever_subsidy_iron
+	}
+	if = {
+		limit = { has_variable = spec_encourage_lead }
+		add = spec_lever_subsidy_lead
+	}
+	if = {
+		limit = { has_variable = spec_encourage_liquor }
+		add = spec_lever_subsidy_liquor
+	}
+	if = {
+		limit = { has_variable = spec_encourage_luxury_clothes }
+		add = spec_lever_subsidy_luxury_clothes
+	}
+	if = {
+		limit = { has_variable = spec_encourage_luxury_furniture }
+		add = spec_lever_subsidy_luxury_furniture
+	}
+	if = {
+		limit = { has_variable = spec_encourage_manzoni_prints }
+		add = spec_lever_subsidy_manzoni_prints
+	}
+	if = {
+		limit = { has_variable = spec_encourage_meat }
+		add = spec_lever_subsidy_meat
+	}
+	if = {
+		limit = { has_variable = spec_encourage_merchant_marine }
+		add = spec_lever_subsidy_merchant_marine
+	}
+	if = {
+		limit = { has_variable = spec_encourage_oil }
+		add = spec_lever_subsidy_oil
+	}
+	if = {
+		limit = { has_variable = spec_encourage_opium }
+		add = spec_lever_subsidy_opium
+	}
+	if = {
+		limit = { has_variable = spec_encourage_paper }
+		add = spec_lever_subsidy_paper
+	}
+	if = {
+		limit = { has_variable = spec_encourage_porcelain }
+		add = spec_lever_subsidy_porcelain
+	}
+	if = {
+		limit = { has_variable = spec_encourage_radios }
+		add = spec_lever_subsidy_radios
+	}
+	if = {
+		limit = { has_variable = spec_encourage_rubber }
+		add = spec_lever_subsidy_rubber
+	}
+	if = {
+		limit = { has_variable = spec_encourage_silk }
+		add = spec_lever_subsidy_silk
+	}
+	if = {
+		limit = { has_variable = spec_encourage_small_arms }
+		add = spec_lever_subsidy_small_arms
+	}
+	if = {
+		limit = { has_variable = spec_encourage_steamers }
+		add = spec_lever_subsidy_steamers
+	}
+	if = {
+		limit = { has_variable = spec_encourage_steel }
+		add = spec_lever_subsidy_steel
+	}
+	if = {
+		limit = { has_variable = spec_encourage_sugar }
+		add = spec_lever_subsidy_sugar
+	}
+	if = {
+		limit = { has_variable = spec_encourage_sulfur }
+		add = spec_lever_subsidy_sulfur
+	}
+	if = {
+		limit = { has_variable = spec_encourage_tanks }
+		add = spec_lever_subsidy_tanks
+	}
+	if = {
+		limit = { has_variable = spec_encourage_tea }
+		add = spec_lever_subsidy_tea
+	}
+	if = {
+		limit = { has_variable = spec_encourage_telephones }
+		add = spec_lever_subsidy_telephones
+	}
+	if = {
+		limit = { has_variable = spec_encourage_tobacco }
+		add = spec_lever_subsidy_tobacco
+	}
+	if = {
+		limit = { has_variable = spec_encourage_tools }
+		add = spec_lever_subsidy_tools
+	}
+	if = {
+		limit = { has_variable = spec_encourage_wine }
+		add = spec_lever_subsidy_wine
+	}
+	if = {
+		limit = { has_variable = spec_encourage_wood }
+		add = spec_lever_subsidy_wood
+	}
+}
+
+spec_lever_authority = {
+	value = 0
+	if = {
+		limit = { OR = { has_variable = spec_restrain_aeroplanes has_variable = spec_encourage_aeroplanes } }
+		add = spec_lever_cost_aeroplanes
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_ammunition has_variable = spec_encourage_ammunition } }
+		add = spec_lever_cost_ammunition
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_artillery has_variable = spec_encourage_artillery } }
+		add = spec_lever_cost_artillery
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_automobiles has_variable = spec_encourage_automobiles } }
+		add = spec_lever_cost_automobiles
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_clippers has_variable = spec_encourage_clippers } }
+		add = spec_lever_cost_clippers
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_clothes has_variable = spec_encourage_clothes } }
+		add = spec_lever_cost_clothes
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_coal has_variable = spec_encourage_coal } }
+		add = spec_lever_cost_coal
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_coffee has_variable = spec_encourage_coffee } }
+		add = spec_lever_cost_coffee
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_copper has_variable = spec_encourage_copper } }
+		add = spec_lever_cost_copper
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_dye has_variable = spec_encourage_dye } }
+		add = spec_lever_cost_dye
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_electricity has_variable = spec_encourage_electricity } }
+		add = spec_lever_cost_electricity
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_elgar_instruments has_variable = spec_encourage_elgar_instruments } }
+		add = spec_lever_cost_elgar_instruments
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_engines has_variable = spec_encourage_engines } }
+		add = spec_lever_cost_engines
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_explosives has_variable = spec_encourage_explosives } }
+		add = spec_lever_cost_explosives
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_fabric has_variable = spec_encourage_fabric } }
+		add = spec_lever_cost_fabric
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_fertilizer has_variable = spec_encourage_fertilizer } }
+		add = spec_lever_cost_fertilizer
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_fine_art has_variable = spec_encourage_fine_art } }
+		add = spec_lever_cost_fine_art
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_fish has_variable = spec_encourage_fish } }
+		add = spec_lever_cost_fish
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_fruit has_variable = spec_encourage_fruit } }
+		add = spec_lever_cost_fruit
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_furniture has_variable = spec_encourage_furniture } }
+		add = spec_lever_cost_furniture
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_glass has_variable = spec_encourage_glass } }
+		add = spec_lever_cost_glass
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_good_uranium has_variable = spec_encourage_good_uranium } }
+		add = spec_lever_cost_good_uranium
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_grain has_variable = spec_encourage_grain } }
+		add = spec_lever_cost_grain
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_groceries has_variable = spec_encourage_groceries } }
+		add = spec_lever_cost_groceries
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_hardwood has_variable = spec_encourage_hardwood } }
+		add = spec_lever_cost_hardwood
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_iron has_variable = spec_encourage_iron } }
+		add = spec_lever_cost_iron
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_lead has_variable = spec_encourage_lead } }
+		add = spec_lever_cost_lead
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_liquor has_variable = spec_encourage_liquor } }
+		add = spec_lever_cost_liquor
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_luxury_clothes has_variable = spec_encourage_luxury_clothes } }
+		add = spec_lever_cost_luxury_clothes
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_luxury_furniture has_variable = spec_encourage_luxury_furniture } }
+		add = spec_lever_cost_luxury_furniture
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_manzoni_prints has_variable = spec_encourage_manzoni_prints } }
+		add = spec_lever_cost_manzoni_prints
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_meat has_variable = spec_encourage_meat } }
+		add = spec_lever_cost_meat
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_merchant_marine has_variable = spec_encourage_merchant_marine } }
+		add = spec_lever_cost_merchant_marine
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_oil has_variable = spec_encourage_oil } }
+		add = spec_lever_cost_oil
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_opium has_variable = spec_encourage_opium } }
+		add = spec_lever_cost_opium
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_paper has_variable = spec_encourage_paper } }
+		add = spec_lever_cost_paper
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_porcelain has_variable = spec_encourage_porcelain } }
+		add = spec_lever_cost_porcelain
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_radios has_variable = spec_encourage_radios } }
+		add = spec_lever_cost_radios
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_rubber has_variable = spec_encourage_rubber } }
+		add = spec_lever_cost_rubber
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_silk has_variable = spec_encourage_silk } }
+		add = spec_lever_cost_silk
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_small_arms has_variable = spec_encourage_small_arms } }
+		add = spec_lever_cost_small_arms
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_steamers has_variable = spec_encourage_steamers } }
+		add = spec_lever_cost_steamers
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_steel has_variable = spec_encourage_steel } }
+		add = spec_lever_cost_steel
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_sugar has_variable = spec_encourage_sugar } }
+		add = spec_lever_cost_sugar
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_sulfur has_variable = spec_encourage_sulfur } }
+		add = spec_lever_cost_sulfur
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_tanks has_variable = spec_encourage_tanks } }
+		add = spec_lever_cost_tanks
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_tea has_variable = spec_encourage_tea } }
+		add = spec_lever_cost_tea
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_telephones has_variable = spec_encourage_telephones } }
+		add = spec_lever_cost_telephones
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_tobacco has_variable = spec_encourage_tobacco } }
+		add = spec_lever_cost_tobacco
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_tools has_variable = spec_encourage_tools } }
+		add = spec_lever_cost_tools
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_wine has_variable = spec_encourage_wine } }
+		add = spec_lever_cost_wine
+	}
+	if = {
+		limit = { OR = { has_variable = spec_restrain_wood has_variable = spec_encourage_wood } }
+		add = spec_lever_cost_wood
+	}
+}

@@ -1,14 +1,13 @@
 {
   "beta_id": "speculative_markets_beta",
-  "beta_version": "1.0.4-beta.6",
-  "source_version": "1.0.4",
-  "source": "G:\\GameDev\\speculative-markets\\runs\\goods_navigation\\source",
-  "built_at_utc": "2026-11-14T16:27:03.490604+00:00",
-  "archive": "G:\\GameDev\\speculative-markets\\beta\\releases\\Speculative_Markets_Beta_1.0.4-beta.6.zip",
-  "archive_sha256": "5a5589cc9213e900e7c3f1b6d891bac042b3b970f09f3c136f6008b7f728e6c2",
+  "beta_version": "1.0.5-beta.1",
+  "source_version": "1.0.5",
+  "source": "G:\\GameDev\\speculative-markets\\mod",
+  "built_at_utc": "2026-11-14T16:37:45.378524+00:00",
+  "archive": "G:\\GameDev\\speculative-markets\\beta\\releases\\Speculative_Markets_Beta_1.0.5-beta.1.zip",
+  "archive_sha256": "4150e11eb99cb017a5772443639d12edab7b7f4300360f3a1e9e1d61c98eb58a",
   "source_files_sha256": {
-    ".metadata/built_against.txt": "9599debae673b5bcb946c2845e7f783d1b8e8f01289cadfa0e82cd44e9b54285",
-    ".metadata/metadata.json": "f026a6e3e83bf8d9a5f7d1744907da714e2cc937d60dc3d7cf3654fdf55062c4",
+    ".metadata/metadata.json": "2af0b30a4dd796c70357afe7f9fefc9ef69b3673bc38c794dc7f2c5f43564994",
     "common/alert_types/spec_alert_types.txt": "24e757703501fac3a182d2ee30bbb912b1349177655961d1e8420cab232afab9",
     "common/buildings/zzz_spec_investors.txt": "43170716aeecc78ef5eb858841316e27e5fa06434b411e02b919b308f254f06a",
     "common/game_concepts/spec_concepts.txt": "04a3741fa10763a99745f954696aaf4741b2ca15ea4d7d7f609696e8e6c70187",
@@ -165,8 +164,7 @@
     "thumbnail.png": "a26bd11718c351627863cb953fd0df4c8dabb01d697d5e726e119112cee26737"
   },
   "files_sha256": {
-    ".metadata/built_against.txt": "9599debae673b5bcb946c2845e7f783d1b8e8f01289cadfa0e82cd44e9b54285",
-    ".metadata/metadata.json": "fe7db7595abeea878fa11ce0d9f6193c5ebd95538b1ae9d251d8a1c856754a63",
+    ".metadata/metadata.json": "b562892b0a6ed05618bd3736a93ac498460cbc96e982b834619ec50928555fbc",
     "common/alert_types/spec_alert_types.txt": "24e757703501fac3a182d2ee30bbb912b1349177655961d1e8420cab232afab9",
     "common/buildings/zzz_spec_investors.txt": "43170716aeecc78ef5eb858841316e27e5fa06434b411e02b919b308f254f06a",
     "common/game_concepts/spec_concepts.txt": "04a3741fa10763a99745f954696aaf4741b2ca15ea4d7d7f609696e8e6c70187",

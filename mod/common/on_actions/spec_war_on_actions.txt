@@ -13,7 +13,11 @@ on_inconclusive_war = {
 spec_war_won = {
 	effect = {
 		if = {
-			limit = { has_variable = spec_conf }
+			limit = { has_variable = spec_conf NOT = {
+    scope:diplomatic_play ?= {
+        root = { is_target_in_variable_list = { name = spec_settled_plays target = prev } }
+    }
+} }
 			set_variable = { name = spec_war_end value = 0 }
 			if = {
 				limit = {
@@ -58,6 +62,10 @@ spec_war_won = {
 				change_variable = { name = spec_war_end multiply = 1 }
 			}
 			spec_war_jump = yes
+            if = {
+                limit = { exists = scope:diplomatic_play }
+                add_to_variable_list = { name = spec_settled_plays target = scope:diplomatic_play days = 2 }
+            }
 		}
 	}
 }
@@ -65,7 +73,11 @@ spec_war_won = {
 spec_war_lost = {
 	effect = {
 		if = {
-			limit = { has_variable = spec_conf }
+			limit = { has_variable = spec_conf NOT = {
+    scope:diplomatic_play ?= {
+        root = { is_target_in_variable_list = { name = spec_settled_plays target = prev } }
+    }
+} }
 			set_variable = { name = spec_war_end value = 0 }
 			if = {
 				limit = {
@@ -110,6 +122,10 @@ spec_war_lost = {
 				change_variable = { name = spec_war_end multiply = -2 }
 			}
 			spec_war_jump = yes
+            if = {
+                limit = { exists = scope:diplomatic_play }
+                add_to_variable_list = { name = spec_settled_plays target = scope:diplomatic_play days = 2 }
+            }
 		}
 	}
 }
@@ -117,7 +133,11 @@ spec_war_lost = {
 spec_war_drawn = {
 	effect = {
 		if = {
-			limit = { has_variable = spec_conf }
+			limit = { has_variable = spec_conf NOT = {
+    scope:diplomatic_play ?= {
+        root = { is_target_in_variable_list = { name = spec_settled_plays target = prev } }
+    }
+} }
 			set_variable = { name = spec_war_end value = 0 }
 			if = {
 				limit = {
@@ -156,7 +176,62 @@ spec_war_drawn = {
 			set_variable = { name = spec_war_stakes_now value = var:spec_war_end }
 			change_variable = { name = spec_war_end multiply = -1 }
 			spec_war_jump = yes
+            if = {
+                limit = { exists = scope:diplomatic_play }
+                add_to_variable_list = { name = spec_settled_plays target = scope:diplomatic_play days = 2 }
+            }
 		}
 	}
 }
 
+on_wargoal_enforced = { on_actions = { spec_record_defeat_goal } }
+spec_record_defeat_goal = {
+    effect = {
+        if = {
+            limit = { exists = scope:diplomatic_play exists = scope:target }
+            scope:target = {
+                if = {
+                    limit = { has_variable = spec_conf }
+                    add_to_variable_list = { name = spec_defeat_goal_plays target = scope:diplomatic_play days = 2 }
+                }
+            }
+        }
+    }
+}
+on_capitulation = { on_actions = { spec_war_capitulated } }
+spec_war_capitulated = {
+    effect = {
+        if = {
+            limit = { has_variable = spec_conf exists = scope:diplomatic_play NOT = {
+    scope:diplomatic_play ?= {
+        root = { is_target_in_variable_list = { name = spec_settled_plays target = prev } }
+    }
+} }
+            set_variable = { name = spec_war_end value = 0 }
+            if = {
+                limit = { var:spec_war1_play ?= scope:diplomatic_play has_variable = spec_war1_total }
+                set_variable = { name = spec_war_end value = var:spec_war1_total }
+            }
+            if = {
+                limit = { var:spec_war2_play ?= scope:diplomatic_play has_variable = spec_war2_total }
+                set_variable = { name = spec_war_end value = var:spec_war2_total }
+            }
+            if = {
+                limit = { var:spec_war3_play ?= scope:diplomatic_play has_variable = spec_war3_total }
+                set_variable = { name = spec_war_end value = var:spec_war3_total }
+            }
+            set_variable = { name = spec_war_end value = spec_war_stakes }
+            set_variable = { name = spec_war_stakes_now value = var:spec_war_end }
+            if = {
+                limit = { is_target_in_variable_list = { name = spec_defeat_goal_plays target = scope:diplomatic_play } }
+                change_variable = { name = spec_war_end multiply = -8 }
+            }
+            else = { change_variable = { name = spec_war_end multiply = -2 } }
+            spec_war_jump = yes
+            if = {
+                limit = { exists = scope:diplomatic_play }
+                add_to_variable_list = { name = spec_settled_plays target = scope:diplomatic_play days = 2 }
+            }
+        }
+    }
+}

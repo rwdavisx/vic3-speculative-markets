@@ -1,0 +1,588 @@
+﻿# investors favour building what is booming: each building's ai_value grows with its good's hype
+INJECT:building_food_industry = {
+	ai_value = {
+		value = pmr_ai_value_food_industry
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_bhype_food_industry }
+			}
+			multiply = owner.var:spec_bhype_food_industry
+		}
+	}
+}
+
+INJECT:building_textile_mill = {
+	ai_value = {
+		value = pmr_ai_value_textile_mill
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_bhype_textile_mill }
+			}
+			multiply = owner.var:spec_bhype_textile_mill
+		}
+	}
+}
+
+INJECT:building_furniture_manufactory = {
+	ai_value = {
+		value = pmr_ai_value_furniture_manufactory
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_bhype_furniture_manufactory }
+			}
+			multiply = owner.var:spec_bhype_furniture_manufactory
+		}
+	}
+}
+
+INJECT:building_glassworks = {
+	ai_value = {
+		value = pmr_ai_value_glassworks
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_bhype_glassworks }
+			}
+			multiply = owner.var:spec_bhype_glassworks
+		}
+	}
+}
+
+INJECT:building_tooling_workshop = {
+	ai_value = {
+		value = pmr_ai_value_tooling_workshop
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_hype_tools }
+			}
+			multiply = owner.var:spec_hype_tools
+		}
+	}
+}
+
+INJECT:building_paper_mill = {
+	ai_value = {
+		value = pmr_ai_value_paper_mill
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_hype_paper }
+			}
+			multiply = owner.var:spec_hype_paper
+		}
+	}
+}
+
+INJECT:building_chemical_plant = {
+	ai_value = {
+		value = pmr_ai_value_chemical_plant
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_hype_fertilizer }
+			}
+			multiply = owner.var:spec_hype_fertilizer
+		}
+	}
+}
+
+INJECT:building_explosives_factory = {
+	ai_value = {
+		value = pmr_ai_value_explosives_factory
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_hype_explosives }
+			}
+			multiply = owner.var:spec_hype_explosives
+		}
+	}
+}
+
+INJECT:building_steel_mill = {
+	ai_value = {
+		value = pmr_ai_value_steel_mill
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_hype_steel }
+			}
+			multiply = owner.var:spec_hype_steel
+		}
+	}
+}
+
+INJECT:building_motor_industry = {
+	ai_value = {
+		value = pmr_ai_value_motor_industry
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_hype_engines }
+			}
+			multiply = owner.var:spec_hype_engines
+		}
+	}
+}
+
+INJECT:building_shipyard = {
+	ai_value = {
+		value = pmr_ai_value_shipyard
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_bhype_shipyard }
+			}
+			multiply = owner.var:spec_bhype_shipyard
+		}
+	}
+}
+
+INJECT:building_automotive_industry = {
+	ai_value = {
+		value = pmr_ai_value_automotive_industry
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_bhype_automotive_industry }
+			}
+			multiply = owner.var:spec_bhype_automotive_industry
+		}
+	}
+}
+
+INJECT:building_electrics_industry = {
+	ai_value = {
+		value = pmr_ai_value_electrics_industry
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_bhype_electrics_industry }
+			}
+			multiply = owner.var:spec_bhype_electrics_industry
+		}
+	}
+}
+
+INJECT:building_arms_industry = {
+	ai_value = {
+		value = pmr_ai_value_arms_industry
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_hype_small_arms }
+			}
+			multiply = owner.var:spec_hype_small_arms
+		}
+	}
+}
+
+INJECT:building_artillery_foundry = {
+	ai_value = {
+		value = pmr_ai_value_artillery_foundry
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_hype_artillery }
+			}
+			multiply = owner.var:spec_hype_artillery
+		}
+	}
+}
+
+INJECT:building_munition_plant = {
+	ai_value = {
+		value = pmr_ai_value_munition_plant
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_hype_ammunition }
+			}
+			multiply = owner.var:spec_hype_ammunition
+		}
+	}
+}
+
+INJECT:building_synthetics_plant = {
+	ai_value = {
+		value = pmr_ai_value_synthetics_plant
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_bhype_synthetics_plant }
+			}
+			multiply = owner.var:spec_bhype_synthetics_plant
+		}
+	}
+}
+
+INJECT:building_rye_farm = {
+	ai_value = {
+		value = pmr_ai_value_rye_farm
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_hype_grain }
+			}
+			multiply = owner.var:spec_hype_grain
+		}
+	}
+}
+
+INJECT:building_wheat_farm = {
+	ai_value = {
+		value = pmr_ai_value_wheat_farm
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_hype_grain }
+			}
+			multiply = owner.var:spec_hype_grain
+		}
+	}
+}
+
+INJECT:building_rice_farm = {
+	ai_value = {
+		value = pmr_ai_value_rice_farm
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_hype_grain }
+			}
+			multiply = owner.var:spec_hype_grain
+		}
+	}
+}
+
+INJECT:building_maize_farm = {
+	ai_value = {
+		value = pmr_ai_value_maize_farm
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_hype_grain }
+			}
+			multiply = owner.var:spec_hype_grain
+		}
+	}
+}
+
+INJECT:building_millet_farm = {
+	ai_value = {
+		value = pmr_ai_value_millet_farm
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_hype_grain }
+			}
+			multiply = owner.var:spec_hype_grain
+		}
+	}
+}
+
+INJECT:building_livestock_ranch = {
+	ai_value = {
+		value = pmr_ai_value_livestock_ranch
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_hype_meat }
+			}
+			multiply = owner.var:spec_hype_meat
+		}
+	}
+}
+
+INJECT:building_vineyard = {
+	ai_value = {
+		value = pmr_ai_value_vineyard
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_hype_wine }
+			}
+			multiply = owner.var:spec_hype_wine
+		}
+	}
+}
+
+INJECT:building_coal_mine = {
+	ai_value = {
+		value = pmr_ai_value_coal_mine
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_hype_coal }
+			}
+			multiply = owner.var:spec_hype_coal
+		}
+	}
+}
+
+INJECT:building_copper_mine = {
+	ai_value = {
+		value = pmr_ai_value_copper_mine
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_hype_copper }
+			}
+			multiply = owner.var:spec_hype_copper
+		}
+	}
+}
+
+INJECT:building_iron_mine = {
+	ai_value = {
+		value = pmr_ai_value_iron_mine
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_hype_iron }
+			}
+			multiply = owner.var:spec_hype_iron
+		}
+	}
+}
+
+INJECT:building_lead_mine = {
+	ai_value = {
+		value = pmr_ai_value_lead_mine
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_hype_lead }
+			}
+			multiply = owner.var:spec_hype_lead
+		}
+	}
+}
+
+INJECT:building_sulfur_mine = {
+	ai_value = {
+		value = pmr_ai_value_sulfur_mine
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_hype_sulfur }
+			}
+			multiply = owner.var:spec_hype_sulfur
+		}
+	}
+}
+
+INJECT:building_coffee_plantation = {
+	ai_value = {
+		value = pmr_ai_value_coffee_plantation
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_hype_coffee }
+			}
+			multiply = owner.var:spec_hype_coffee
+		}
+	}
+}
+
+INJECT:building_cotton_plantation = {
+	ai_value = {
+		value = pmr_ai_value_cotton_plantation
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_hype_fabric }
+			}
+			multiply = owner.var:spec_hype_fabric
+		}
+	}
+}
+
+INJECT:building_dye_plantation = {
+	ai_value = {
+		value = pmr_ai_value_dye_plantation
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_hype_dye }
+			}
+			multiply = owner.var:spec_hype_dye
+		}
+	}
+}
+
+INJECT:building_opium_plantation = {
+	ai_value = {
+		value = pmr_ai_value_opium_plantation
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_hype_opium }
+			}
+			multiply = owner.var:spec_hype_opium
+		}
+	}
+}
+
+INJECT:building_tea_plantation = {
+	ai_value = {
+		value = pmr_ai_value_tea_plantation
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_hype_tea }
+			}
+			multiply = owner.var:spec_hype_tea
+		}
+	}
+}
+
+INJECT:building_tobacco_plantation = {
+	ai_value = {
+		value = pmr_ai_value_tobacco_plantation
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_hype_tobacco }
+			}
+			multiply = owner.var:spec_hype_tobacco
+		}
+	}
+}
+
+INJECT:building_sugar_plantation = {
+	ai_value = {
+		value = pmr_ai_value_sugar_plantation
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_hype_sugar }
+			}
+			multiply = owner.var:spec_hype_sugar
+		}
+	}
+}
+
+INJECT:building_banana_plantation = {
+	ai_value = {
+		value = pmr_ai_value_banana_plantation
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_hype_fruit }
+			}
+			multiply = owner.var:spec_hype_fruit
+		}
+	}
+}
+
+INJECT:building_silk_plantation = {
+	ai_value = {
+		value = pmr_ai_value_silk_plantation
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_hype_silk }
+			}
+			multiply = owner.var:spec_hype_silk
+		}
+	}
+}
+
+INJECT:building_logging_camp = {
+	ai_value = {
+		value = pmr_ai_value_logging_camp
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_bhype_logging_camp }
+			}
+			multiply = owner.var:spec_bhype_logging_camp
+		}
+	}
+}
+
+INJECT:building_rubber_plantation = {
+	ai_value = {
+		value = pmr_ai_value_rubber_plantation
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_hype_rubber }
+			}
+			multiply = owner.var:spec_hype_rubber
+		}
+	}
+}
+
+INJECT:building_fishing_wharf = {
+	ai_value = {
+		value = pmr_ai_value_fishing_wharf
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_hype_fish }
+			}
+			multiply = owner.var:spec_hype_fish
+		}
+	}
+}
+
+INJECT:building_oil_rig = {
+	ai_value = {
+		value = pmr_ai_value_oil_rig
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_hype_oil }
+			}
+			multiply = owner.var:spec_hype_oil
+		}
+	}
+}
+
+INJECT:building_whaling_station = {
+	ai_value = {
+		value = pmr_ai_value_whaling_station
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_bhype_whaling_station }
+			}
+			multiply = owner.var:spec_bhype_whaling_station
+		}
+	}
+}
+
+INJECT:building_art_academy = {
+	ai_value = {
+		value = pmr_ai_value_art_academy
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_hype_fine_art }
+			}
+			multiply = owner.var:spec_hype_fine_art
+		}
+	}
+}
+
+INJECT:building_power_plant = {
+	ai_value = {
+		value = pmr_ai_value_power_plant
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_hype_electricity }
+			}
+			multiply = owner.var:spec_hype_electricity
+		}
+	}
+}
+
+INJECT:building_port = {
+	ai_value = {
+		value = pmr_ai_value_port
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_hype_merchant_marine }
+			}
+			multiply = owner.var:spec_hype_merchant_marine
+		}
+	}
+}
+
+INJECT:building_instrument_workshops = {
+	ai_value = {
+		value = pmr_ai_value_instrument_workshops
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_hype_elgar_instruments }
+			}
+			multiply = owner.var:spec_hype_elgar_instruments
+		}
+	}
+}
+
+INJECT:building_uranium_mine = {
+	ai_value = {
+		value = pmr_ai_value_uranium_mine
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_hype_good_uranium }
+			}
+			multiply = owner.var:spec_hype_good_uranium
+		}
+	}
+}
+
+INJECT:building_manzoni_publishing_industry = {
+	ai_value = {
+		value = pmr_ai_value_manzoni_publishing_industry
+		if = {
+			limit = {
+				owner ?= { has_variable = spec_hype_manzoni_prints }
+			}
+			multiply = owner.var:spec_hype_manzoni_prints
+		}
+	}
+}

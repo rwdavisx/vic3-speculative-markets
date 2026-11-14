@@ -1,0 +1,723 @@
+﻿# vanilla's ai_value under Production Method Rework's names; PMR's own definitions load later and win
+pmr_ai_value_food_industry = {
+	value = 1000
+
+	if = {
+		limit = {
+			owner ?= {
+				has_journal_entry = je_five_year_plan
+				je:je_five_year_plan ?= {
+					has_variable = five_year_plan_light_industry_var
+				}
+				five_year_plan_light_industry_goal_met = no
+			}
+		}
+		add = 2500
+	}
+}
+
+pmr_ai_value_textile_mill = {
+	value = 1000
+
+	if = {
+		limit = {
+			owner ?= {
+				has_journal_entry = je_five_year_plan
+				je:je_five_year_plan ?= {
+					has_variable = five_year_plan_light_industry_var
+				}
+				five_year_plan_light_industry_goal_met = no
+			}
+		}
+		add = 2500
+	}
+}
+
+pmr_ai_value_furniture_manufactory = {
+	value = 1000
+
+	if = {
+		limit = {
+			owner ?= {
+				has_journal_entry = je_five_year_plan
+				je:je_five_year_plan ?= {
+					has_variable = five_year_plan_light_industry_var
+				}
+				five_year_plan_light_industry_goal_met = no
+			}
+		}
+		add = 2500
+	}
+}
+
+pmr_ai_value_glassworks = {
+	value = 1000
+
+	if = {
+		limit = {
+			owner ?= {
+				has_journal_entry = je_five_year_plan
+				je:je_five_year_plan ?= {
+					has_variable = five_year_plan_light_industry_var
+				}
+				five_year_plan_light_industry_goal_met = no
+			}
+		}
+		add = 2500
+	}
+}
+
+pmr_ai_value_tooling_workshop = {
+	value = 2000 # Tools are very important
+
+	if = {
+		limit = {
+			owner ?= {
+				has_journal_entry = je_five_year_plan
+				je:je_five_year_plan ?= {
+					has_variable = five_year_plan_light_industry_var
+				}
+				five_year_plan_light_industry_goal_met = no
+			}
+		}
+		add = 2500
+	}
+}
+
+pmr_ai_value_paper_mill = {
+	value = 1000
+
+	if = {
+		limit = {
+			owner ?= {
+				has_journal_entry = je_five_year_plan
+				je:je_five_year_plan ?= {
+					has_variable = five_year_plan_light_industry_var
+				}
+				five_year_plan_light_industry_goal_met = no
+			}
+		}
+		add = 2500
+	}
+
+	if = {
+		limit = {
+			owner ?= {
+				has_journal_entry = je_tp_pool_bureaucratic_reform
+				is_target_in_variable_list = {
+					name = tp_bureaucratic_reform_states
+					target = prev
+				}
+			}
+		}
+		add = 250
+	}
+}
+
+pmr_ai_value_chemical_plant = {
+	value = 1000
+
+	if = {
+		limit = {
+			owner ?= {
+				has_journal_entry = je_five_year_plan
+				je:je_five_year_plan ?= {
+					has_variable = five_year_plan_heavy_industry_var
+				}
+				five_year_plan_heavy_industry_goal_met = no
+			}
+		}
+		add = 2500
+	}
+}
+
+pmr_ai_value_explosives_factory = {
+	value = 1000
+
+	if = {
+		limit = {
+			owner ?= {
+				has_journal_entry = je_five_year_plan
+				je:je_five_year_plan ?= {
+					has_variable = five_year_plan_heavy_industry_var
+				}
+				five_year_plan_heavy_industry_goal_met = no
+			}
+		}
+		add = 2500
+	}
+}
+
+pmr_ai_value_steel_mill = {
+	value = 1000
+
+	if = {
+		limit = {
+			owner ?= {
+				has_journal_entry = je_five_year_plan
+				je:je_five_year_plan ?= {
+					has_variable = five_year_plan_heavy_industry_var
+				}
+				five_year_plan_heavy_industry_goal_met = no
+			}
+		}
+		add = 2500
+	}
+}
+
+pmr_ai_value_motor_industry = {
+	value = 1000
+
+	if = {
+		limit = {
+			owner ?= {
+				has_journal_entry = je_five_year_plan
+				je:je_five_year_plan ?= {
+					has_variable = five_year_plan_heavy_industry_var
+				}
+				five_year_plan_heavy_industry_goal_met = no
+			}
+		}
+		add = 2500
+	}
+}
+
+pmr_ai_value_shipyard = {
+	value = 1000
+
+	if = {
+		limit = {
+			owner ?= {
+				has_journal_entry = je_five_year_plan
+				je:je_five_year_plan ?= {
+					has_variable = five_year_plan_light_industry_var
+				}
+				five_year_plan_light_industry_goal_met = no
+			}
+		}
+		add = 2500
+	}
+}
+
+pmr_ai_value_automotive_industry = {
+	value = 1000
+
+	if = {
+		limit = {
+			owner ?= {
+				has_journal_entry = je_five_year_plan
+				je:je_five_year_plan ?= {
+					has_variable = five_year_plan_heavy_industry_var
+				}
+				five_year_plan_heavy_industry_goal_met = no
+			}
+		}
+		add = 2500
+	}
+}
+
+pmr_ai_value_electrics_industry = {
+	value = 1000
+
+	if = {
+		limit = {
+			owner ?= {
+				has_journal_entry = je_five_year_plan
+				je:je_five_year_plan ?= {
+					has_variable = five_year_plan_heavy_industry_var
+				}
+				five_year_plan_heavy_industry_goal_met = no
+			}
+		}
+		add = 2500
+	}
+}
+
+pmr_ai_value_arms_industry = {
+	value = 1000
+}
+
+pmr_ai_value_artillery_foundry = {
+	value = 1000
+}
+
+pmr_ai_value_munition_plant = {
+	value = 1000
+
+	if = { # The Great Reforms - military modernization
+		limit = {
+			owner ?= {
+				has_journal_entry = je_tp_tsar_great_reform
+				NOT = { has_variable = je_great_reforms_military_complete }
+				NOT = {
+					any_scope_building = {
+						is_building_type = building_munition_plant
+						level >= 3
+					}
+				}
+			}
+		}
+		add = 2000
+
+		if = {
+			limit = {
+				any_scope_building = {
+					is_building_type = building_munition_plant
+					level >= 1
+				}
+			}
+			add = 3000
+		}
+	}
+}
+
+pmr_ai_value_synthetics_plant = {
+	value = 1000
+
+	if = {
+		limit = {
+			owner ?= {
+				has_journal_entry = je_five_year_plan
+				je:je_five_year_plan ?= {
+					has_variable = five_year_plan_heavy_industry_var
+				}
+				five_year_plan_heavy_industry_goal_met = no
+			}
+		}
+		add = 2500
+	}
+}
+
+pmr_ai_value_rye_farm = {
+	value = 1000
+
+	if = {
+		limit = {
+			owner ?= {
+				has_journal_entry = je_five_year_plan
+				je:je_five_year_plan ?= {
+					has_variable = five_year_plan_agriculture_var
+				}
+				five_year_plan_agriculture_goal_met = no
+			}
+		}
+		add = 2500
+	}
+}
+
+pmr_ai_value_wheat_farm = {
+	value = 1000
+
+	if = {
+		limit = {
+			owner ?= {
+				has_journal_entry = je_five_year_plan
+				je:je_five_year_plan ?= {
+					has_variable = five_year_plan_agriculture_var
+				}
+				five_year_plan_agriculture_goal_met = no
+			}
+		}
+		add = 2500
+	}
+}
+
+pmr_ai_value_rice_farm = {
+	value = 1000
+
+	if = {
+		limit = {
+			owner ?= {
+				has_journal_entry = je_five_year_plan
+				je:je_five_year_plan ?= {
+					has_variable = five_year_plan_agriculture_var
+				}
+				five_year_plan_agriculture_goal_met = no
+			}
+		}
+		add = 2500
+	}
+}
+
+pmr_ai_value_maize_farm = {
+	value = 1000
+
+	if = {
+		limit = {
+			owner ?= {
+				has_journal_entry = je_five_year_plan
+				je:je_five_year_plan ?= {
+					has_variable = five_year_plan_agriculture_var
+				}
+				five_year_plan_agriculture_goal_met = no
+			}
+		}
+		add = 2500
+	}
+}
+
+pmr_ai_value_millet_farm = {
+	value = 1000
+
+	if = {
+		limit = {
+			owner ?= {
+				has_journal_entry = je_five_year_plan
+				je:je_five_year_plan ?= {
+					has_variable = five_year_plan_agriculture_var
+				}
+				five_year_plan_agriculture_goal_met = no
+			}
+		}
+		add = 2500
+	}
+}
+
+pmr_ai_value_livestock_ranch = {
+	value = 1000
+}
+
+pmr_ai_value_vineyard = {
+	value = 1000
+
+	if = {
+		limit = {
+			owner ?= {
+				has_journal_entry = je_five_year_plan
+				je:je_five_year_plan ?= {
+					has_variable = five_year_plan_agriculture_var
+				}
+				five_year_plan_agriculture_goal_met = no
+			}
+		}
+		add = 2500
+	}
+}
+
+pmr_ai_value_coal_mine = {
+	value = 1000
+
+	if = { # Colonisation of Korea
+		limit = {
+			owner ?= {
+				c:JAP ?= this
+				has_journal_entry = je_colonize_korea
+			}
+			is_in_geographic_region = geographic_region_korea
+		}
+		add = 2000
+	}
+}
+
+pmr_ai_value_copper_mine = {
+	value = 1000
+}
+
+pmr_ai_value_iron_mine = {
+	value = 1000
+
+	if = { # Colonisation of Korea
+		limit = {
+			owner ?= {
+				c:JAP ?= this
+				has_journal_entry = je_colonize_korea
+			}
+			is_in_geographic_region = geographic_region_korea
+		}
+		add = 2000
+	}
+}
+
+pmr_ai_value_lead_mine = {
+	value = 1000
+
+	if = { # Colonisation of Korea
+		limit = {
+			owner ?= {
+				c:JAP ?= this
+				has_journal_entry = je_colonize_korea
+			}
+			is_in_geographic_region = geographic_region_korea
+		}
+		add = 2000
+	}
+}
+
+pmr_ai_value_sulfur_mine = {
+	value = 1000
+
+	if = { # Colonisation of Korea
+		limit = {
+			owner ?= {
+				c:JAP ?= this
+				has_journal_entry = je_colonize_korea
+			}
+			is_in_geographic_region = geographic_region_korea
+		}
+		add = 2000
+	}
+}
+
+pmr_ai_value_coffee_plantation = {
+	value = 1000
+}
+
+pmr_ai_value_cotton_plantation = {
+	value = 1000
+
+	if = { # British dictates
+		limit = {
+			exists = owner
+			owner ?= {
+				has_journal_entry = je_british_dictate_plantations
+				var:dictate_plantation_type ?= 4
+			}
+		}
+		add = 2000
+	}
+
+	if = { # Colonisation of Korea
+		limit = {
+			owner ?= {
+				c:JAP ?= this
+				has_journal_entry = je_colonize_korea
+			}
+			is_in_geographic_region = geographic_region_korea
+		}
+		add = 2000
+	}
+}
+
+pmr_ai_value_dye_plantation = {
+	value = 1000
+
+	if = { # British dictates
+		limit = {
+			exists = owner
+			owner ?= {
+				has_journal_entry = je_british_dictate_plantations
+				var:dictate_plantation_type ?= 3
+			}
+		}
+		add = 2000
+	}
+}
+
+pmr_ai_value_opium_plantation = {
+	value = 1000
+
+	if = { # British dictates
+		limit = {
+			exists = owner
+			owner ?= {
+				has_journal_entry = je_british_dictate_plantations
+				var:dictate_plantation_type ?= 1
+			}
+		}
+		add = 2000
+	}
+
+	if = { # Colonisation of Korea
+		limit = {
+			owner ?= {
+				c:JAP ?= this
+				has_journal_entry = je_colonize_korea
+			}
+			is_in_geographic_region = geographic_region_korea
+		}
+		add = 2000
+	}
+}
+
+pmr_ai_value_tea_plantation = {
+	value = 1000
+
+	if = { # British dictates
+		limit = {
+			exists = owner
+			owner ?= {
+				has_journal_entry = je_british_dictate_plantations
+				var:dictate_plantation_type ?= 2
+			}
+		}
+		add = 2000
+	}
+
+	if = { # Colonisation of Korea
+		limit = {
+			owner ?= {
+				c:JAP ?= this
+				has_journal_entry = je_colonize_korea
+			}
+			is_in_geographic_region = geographic_region_korea
+		}
+		add = 2000
+	}
+}
+
+pmr_ai_value_tobacco_plantation = {
+	value = 1000
+
+	if = { # British dictates
+		limit = {
+			exists = owner
+			owner ?= {
+				has_journal_entry = je_british_dictate_plantations
+				var:dictate_plantation_type ?= 5
+			}
+		}
+		add = 2000
+	}
+
+	if = { # Colonisation of Korea
+		limit = {
+			owner ?= {
+				c:JAP ?= this
+				has_journal_entry = je_colonize_korea
+			}
+			is_in_geographic_region = geographic_region_korea
+		}
+		add = 2000
+	}
+}
+
+pmr_ai_value_sugar_plantation = {
+	value = 1000
+}
+
+pmr_ai_value_banana_plantation = {
+	value = 1000
+}
+
+pmr_ai_value_silk_plantation = {
+	value = 1000
+
+	if = { # Colonisation of Korea
+		limit = {
+			owner ?= {
+				c:JAP ?= this
+				has_journal_entry = je_colonize_korea
+			}
+			is_in_geographic_region = geographic_region_korea
+		}
+		add = 2000
+	}
+}
+
+pmr_ai_value_logging_camp = {
+	value = 1000
+}
+
+pmr_ai_value_rubber_plantation = {
+	value = 1000
+}
+
+pmr_ai_value_fishing_wharf = {
+	value = 1000
+}
+
+pmr_ai_value_oil_rig = {
+	value = 1000
+}
+
+pmr_ai_value_whaling_station = {
+	value = 1000
+}
+
+pmr_ai_value_art_academy = {
+	value = 1000
+	if = { # AI Metternich really wants arts academies
+		limit = {
+			owner ?= {
+				c:AUS ?= this
+				has_journal_entry = je_metternich
+			}
+		}
+            add = 500
+	}
+	if = {
+		limit = {
+			OR = {
+				AND = {
+					owner ?= { has_variable = ai_ukraine_renaissance_accelerate }
+					state_region = { is_homeland = cu:ukrainian }
+				}
+				AND = {
+					owner ?= { has_variable = ai_belarus_renaissance_accelerate }
+					state_region = { is_homeland = cu:byelorussian }
+				}
+			}
+		}
+		add = 1000
+	}
+	if = { # Crown of Perfection agenda - patronage of the arts in the capital
+		limit = {
+			owner ?= {
+				has_journal_entry = je_tp_tsar_crown_of_perfection
+				NOT = { has_variable = je_tp_tsar_crown_of_perfection_button_1_complete }
+			}
+			is_capital = yes
+		}
+		add = 1000
+	}
+}
+
+pmr_ai_value_power_plant = {
+	value = 1000
+
+	# Need 1 level of Power Plants everywhere as its a local good and a prerequisite to enabling electricity PMs to begin with
+	if = {
+		limit = {
+			NOR = {
+				has_building = building_power_plant
+				any_scope_building = {
+					is_building_type = building_power_plant
+					is_under_construction = yes
+				}
+			}
+		}
+		add = 4000
+	}
+
+	if = {
+		limit = {
+			owner ?= {
+				has_journal_entry = je_five_year_plan
+				je:je_five_year_plan ?= {
+					has_variable = five_year_plan_electrification_var
+				}
+				five_year_plan_electrification_goal_met = no
+			}
+		}
+		add = 2500
+	}
+}
+
+pmr_ai_value_port = {
+	if = { # Russification
+		limit = {
+			owner ?= {
+				c:RUS ?= this
+				has_journal_entry = je_russification
+			}
+			is_in_geographic_region = geographic_region_baltic_states_old
+			any_scope_building = {
+				is_building_type = building_port
+				level < 5
+			}
+		}
+		add = 2000
+	}
+}
+
+pmr_ai_value_instrument_workshops = {
+	value = 1000
+}
+
+pmr_ai_value_uranium_mine = {
+	value = 1000
+}
+
+pmr_ai_value_manzoni_publishing_industry = {
+	value = 1000
+}

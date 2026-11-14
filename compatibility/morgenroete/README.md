@@ -1,8 +1,9 @@
 # Speculative Markets - Morgenroete Compatibility
 
 An independently generated compatibility patch maintained with Speculative Markets.
-**In development; not published.** The first candidate targets **1.0.4-beta.5** and
-Morgenroete **2.9.0e Curie** on Victoria 3 **1.15.1**. It is not a stable-channel release.
+**Published 1.0.0**, Workshop [3839705018](https://steamcommunity.com/sharedfiles/filedetails/?id=3839705018), for stable **1.0.5** or matching **1.0.5-beta.1**, Morgenroete **2.9.0e Curie**, Victoria 3 **1.15.1**.
+
+Release verification: `tests/mechanics/verification_release_105.json`. All 85 focused engine assertions passed (76 inherited, 9 new migration), and the release UI renders all three added goods. The historical candidate notes below retain their original scope; individual-goods navigation and existing-Morgenroete-save migration are now checked. Full reporter playset and long campaigns remain untested.
 
 The patch adds musical instruments, uranium, and printed publications to our price
 trends, bank exposure, boom/bust cycle, industry interventions, building investment
@@ -11,15 +12,15 @@ the goods, buildings, icons, production methods, and translated goods names.
 Air travel and orchestral music remain outside this tradable-goods integration.
 No base-game balance constants change.
 
-Use a separate test playset, in this order:
+Load in this order:
 
 1. Community Mod Framework
 2. Morgenroete - Dawn of Flavor (Workshop 2889925770)
-3. Speculative Markets - Beta, matching the patch's recorded parent version
+3. Speculative Markets 1.0.5 OR Beta 1.0.5-beta.1 (exactly one)
 4. This Morgenroete compatibility patch
 5. Speculative Markets - Community Mod Framework Compatibility
 
-Disable stable and the older third-party **Speculative Markets+Morgenroete**
+Disable the unselected SM channel and the older third-party **Speculative Markets+Morgenroete**
 (Workshop 3836657389). Our patch replaces that bridge; the two must not be combined.
 The CMF patch remains separate because it merges the sidebar, while this patch adds
 goods to Speculative Markets. Test existing saves on copies.
@@ -29,7 +30,7 @@ goods to Speculative Markets. Test existing saves on copies.
 From the repository root:
 
 ```powershell
-py -3 -B tools/morgenroete_build.py --parent beta/mod --out runs/morgenroete/candidate_02
+py -3 -B tools/morgenroete_build.py --parent mod --out runs/morgenroete/next_candidate --version 1.0.0
 py -3 -B -m unittest discover -s tests -p "test_*.py"
 ```
 
@@ -52,11 +53,11 @@ Only publish a package for a precisely identified, tested parent. Do not claim t
 the beta-targeted patch supports the older stable output.
 
 Before release, verify the three goods in the engine, old-save initialization,
-Finance sidebar/journal/goods shortcuts and selected tabs, native/CMF panel
+Finance sidebar/journal shortcuts and selected tabs; verify the individual-goods shortcut remains absent, native/CMF panel
 transitions, and full logs. Preserve candidate hashes and test evidence. The
 reported player's entire modlist and long-term campaigns are separate coverage.
 
-## Candidate validation — November 14, 2026
+## Historical candidate validation — November 14, 2026
 
 The beta5 candidate passed 24 focused engine assertions for the three added goods
 and 52 collapse/recovery assertions covering the entire goods registry. Both runs

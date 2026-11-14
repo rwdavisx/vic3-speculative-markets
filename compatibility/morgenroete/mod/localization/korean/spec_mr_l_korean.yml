@@ -1,0 +1,3 @@
+﻿l_korean:
+ building_instrument_workshops_throughput_add: "$building_instrument_workshops$ Throughput"
+ building_instrument_workshops_throughput_add_desc: "A bonus or penalty to the input and output of $building_instrument_workshops$."

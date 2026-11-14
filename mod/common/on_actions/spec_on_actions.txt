@@ -25542,447 +25542,6 @@ spec_monthly = {
 				spec_ui_good = { G = wine CAT = 3 }
 				spec_ui_good = { G = wood CAT = 1 }
 				if = {
-					limit = { spec_exp_share_aeroplanes >= 0.01 }
-					set_variable = { name = spec_ui_expm_aeroplanes value = spec_exp_months_aeroplanes }
-					set_variable = { name = spec_ui_expx_aeroplanes value = spec_exp_mult_aeroplanes }
-				}
-				else = {
-					remove_variable = spec_ui_expm_aeroplanes
-					remove_variable = spec_ui_expx_aeroplanes
-				}
-				if = {
-					limit = { spec_exp_share_ammunition >= 0.01 }
-					set_variable = { name = spec_ui_expm_ammunition value = spec_exp_months_ammunition }
-					set_variable = { name = spec_ui_expx_ammunition value = spec_exp_mult_ammunition }
-				}
-				else = {
-					remove_variable = spec_ui_expm_ammunition
-					remove_variable = spec_ui_expx_ammunition
-				}
-				if = {
-					limit = { spec_exp_share_artillery >= 0.01 }
-					set_variable = { name = spec_ui_expm_artillery value = spec_exp_months_artillery }
-					set_variable = { name = spec_ui_expx_artillery value = spec_exp_mult_artillery }
-				}
-				else = {
-					remove_variable = spec_ui_expm_artillery
-					remove_variable = spec_ui_expx_artillery
-				}
-				if = {
-					limit = { spec_exp_share_automobiles >= 0.01 }
-					set_variable = { name = spec_ui_expm_automobiles value = spec_exp_months_automobiles }
-					set_variable = { name = spec_ui_expx_automobiles value = spec_exp_mult_automobiles }
-				}
-				else = {
-					remove_variable = spec_ui_expm_automobiles
-					remove_variable = spec_ui_expx_automobiles
-				}
-				if = {
-					limit = { spec_exp_share_clippers >= 0.01 }
-					set_variable = { name = spec_ui_expm_clippers value = spec_exp_months_clippers }
-					set_variable = { name = spec_ui_expx_clippers value = spec_exp_mult_clippers }
-				}
-				else = {
-					remove_variable = spec_ui_expm_clippers
-					remove_variable = spec_ui_expx_clippers
-				}
-				if = {
-					limit = { spec_exp_share_clothes >= 0.01 }
-					set_variable = { name = spec_ui_expm_clothes value = spec_exp_months_clothes }
-					set_variable = { name = spec_ui_expx_clothes value = spec_exp_mult_clothes }
-				}
-				else = {
-					remove_variable = spec_ui_expm_clothes
-					remove_variable = spec_ui_expx_clothes
-				}
-				if = {
-					limit = { spec_exp_share_coal >= 0.01 }
-					set_variable = { name = spec_ui_expm_coal value = spec_exp_months_coal }
-					set_variable = { name = spec_ui_expx_coal value = spec_exp_mult_coal }
-				}
-				else = {
-					remove_variable = spec_ui_expm_coal
-					remove_variable = spec_ui_expx_coal
-				}
-				if = {
-					limit = { spec_exp_share_coffee >= 0.01 }
-					set_variable = { name = spec_ui_expm_coffee value = spec_exp_months_coffee }
-					set_variable = { name = spec_ui_expx_coffee value = spec_exp_mult_coffee }
-				}
-				else = {
-					remove_variable = spec_ui_expm_coffee
-					remove_variable = spec_ui_expx_coffee
-				}
-				if = {
-					limit = { spec_exp_share_copper >= 0.01 }
-					set_variable = { name = spec_ui_expm_copper value = spec_exp_months_copper }
-					set_variable = { name = spec_ui_expx_copper value = spec_exp_mult_copper }
-				}
-				else = {
-					remove_variable = spec_ui_expm_copper
-					remove_variable = spec_ui_expx_copper
-				}
-				if = {
-					limit = { spec_exp_share_dye >= 0.01 }
-					set_variable = { name = spec_ui_expm_dye value = spec_exp_months_dye }
-					set_variable = { name = spec_ui_expx_dye value = spec_exp_mult_dye }
-				}
-				else = {
-					remove_variable = spec_ui_expm_dye
-					remove_variable = spec_ui_expx_dye
-				}
-				if = {
-					limit = { spec_exp_share_electricity >= 0.01 }
-					set_variable = { name = spec_ui_expm_electricity value = spec_exp_months_electricity }
-					set_variable = { name = spec_ui_expx_electricity value = spec_exp_mult_electricity }
-				}
-				else = {
-					remove_variable = spec_ui_expm_electricity
-					remove_variable = spec_ui_expx_electricity
-				}
-				if = {
-					limit = { spec_exp_share_engines >= 0.01 }
-					set_variable = { name = spec_ui_expm_engines value = spec_exp_months_engines }
-					set_variable = { name = spec_ui_expx_engines value = spec_exp_mult_engines }
-				}
-				else = {
-					remove_variable = spec_ui_expm_engines
-					remove_variable = spec_ui_expx_engines
-				}
-				if = {
-					limit = { spec_exp_share_explosives >= 0.01 }
-					set_variable = { name = spec_ui_expm_explosives value = spec_exp_months_explosives }
-					set_variable = { name = spec_ui_expx_explosives value = spec_exp_mult_explosives }
-				}
-				else = {
-					remove_variable = spec_ui_expm_explosives
-					remove_variable = spec_ui_expx_explosives
-				}
-				if = {
-					limit = { spec_exp_share_fabric >= 0.01 }
-					set_variable = { name = spec_ui_expm_fabric value = spec_exp_months_fabric }
-					set_variable = { name = spec_ui_expx_fabric value = spec_exp_mult_fabric }
-				}
-				else = {
-					remove_variable = spec_ui_expm_fabric
-					remove_variable = spec_ui_expx_fabric
-				}
-				if = {
-					limit = { spec_exp_share_fertilizer >= 0.01 }
-					set_variable = { name = spec_ui_expm_fertilizer value = spec_exp_months_fertilizer }
-					set_variable = { name = spec_ui_expx_fertilizer value = spec_exp_mult_fertilizer }
-				}
-				else = {
-					remove_variable = spec_ui_expm_fertilizer
-					remove_variable = spec_ui_expx_fertilizer
-				}
-				if = {
-					limit = { spec_exp_share_fine_art >= 0.01 }
-					set_variable = { name = spec_ui_expm_fine_art value = spec_exp_months_fine_art }
-					set_variable = { name = spec_ui_expx_fine_art value = spec_exp_mult_fine_art }
-				}
-				else = {
-					remove_variable = spec_ui_expm_fine_art
-					remove_variable = spec_ui_expx_fine_art
-				}
-				if = {
-					limit = { spec_exp_share_fish >= 0.01 }
-					set_variable = { name = spec_ui_expm_fish value = spec_exp_months_fish }
-					set_variable = { name = spec_ui_expx_fish value = spec_exp_mult_fish }
-				}
-				else = {
-					remove_variable = spec_ui_expm_fish
-					remove_variable = spec_ui_expx_fish
-				}
-				if = {
-					limit = { spec_exp_share_fruit >= 0.01 }
-					set_variable = { name = spec_ui_expm_fruit value = spec_exp_months_fruit }
-					set_variable = { name = spec_ui_expx_fruit value = spec_exp_mult_fruit }
-				}
-				else = {
-					remove_variable = spec_ui_expm_fruit
-					remove_variable = spec_ui_expx_fruit
-				}
-				if = {
-					limit = { spec_exp_share_furniture >= 0.01 }
-					set_variable = { name = spec_ui_expm_furniture value = spec_exp_months_furniture }
-					set_variable = { name = spec_ui_expx_furniture value = spec_exp_mult_furniture }
-				}
-				else = {
-					remove_variable = spec_ui_expm_furniture
-					remove_variable = spec_ui_expx_furniture
-				}
-				if = {
-					limit = { spec_exp_share_glass >= 0.01 }
-					set_variable = { name = spec_ui_expm_glass value = spec_exp_months_glass }
-					set_variable = { name = spec_ui_expx_glass value = spec_exp_mult_glass }
-				}
-				else = {
-					remove_variable = spec_ui_expm_glass
-					remove_variable = spec_ui_expx_glass
-				}
-				if = {
-					limit = { spec_exp_share_grain >= 0.01 }
-					set_variable = { name = spec_ui_expm_grain value = spec_exp_months_grain }
-					set_variable = { name = spec_ui_expx_grain value = spec_exp_mult_grain }
-				}
-				else = {
-					remove_variable = spec_ui_expm_grain
-					remove_variable = spec_ui_expx_grain
-				}
-				if = {
-					limit = { spec_exp_share_groceries >= 0.01 }
-					set_variable = { name = spec_ui_expm_groceries value = spec_exp_months_groceries }
-					set_variable = { name = spec_ui_expx_groceries value = spec_exp_mult_groceries }
-				}
-				else = {
-					remove_variable = spec_ui_expm_groceries
-					remove_variable = spec_ui_expx_groceries
-				}
-				if = {
-					limit = { spec_exp_share_hardwood >= 0.01 }
-					set_variable = { name = spec_ui_expm_hardwood value = spec_exp_months_hardwood }
-					set_variable = { name = spec_ui_expx_hardwood value = spec_exp_mult_hardwood }
-				}
-				else = {
-					remove_variable = spec_ui_expm_hardwood
-					remove_variable = spec_ui_expx_hardwood
-				}
-				if = {
-					limit = { spec_exp_share_iron >= 0.01 }
-					set_variable = { name = spec_ui_expm_iron value = spec_exp_months_iron }
-					set_variable = { name = spec_ui_expx_iron value = spec_exp_mult_iron }
-				}
-				else = {
-					remove_variable = spec_ui_expm_iron
-					remove_variable = spec_ui_expx_iron
-				}
-				if = {
-					limit = { spec_exp_share_lead >= 0.01 }
-					set_variable = { name = spec_ui_expm_lead value = spec_exp_months_lead }
-					set_variable = { name = spec_ui_expx_lead value = spec_exp_mult_lead }
-				}
-				else = {
-					remove_variable = spec_ui_expm_lead
-					remove_variable = spec_ui_expx_lead
-				}
-				if = {
-					limit = { spec_exp_share_liquor >= 0.01 }
-					set_variable = { name = spec_ui_expm_liquor value = spec_exp_months_liquor }
-					set_variable = { name = spec_ui_expx_liquor value = spec_exp_mult_liquor }
-				}
-				else = {
-					remove_variable = spec_ui_expm_liquor
-					remove_variable = spec_ui_expx_liquor
-				}
-				if = {
-					limit = { spec_exp_share_luxury_clothes >= 0.01 }
-					set_variable = { name = spec_ui_expm_luxury_clothes value = spec_exp_months_luxury_clothes }
-					set_variable = { name = spec_ui_expx_luxury_clothes value = spec_exp_mult_luxury_clothes }
-				}
-				else = {
-					remove_variable = spec_ui_expm_luxury_clothes
-					remove_variable = spec_ui_expx_luxury_clothes
-				}
-				if = {
-					limit = { spec_exp_share_luxury_furniture >= 0.01 }
-					set_variable = { name = spec_ui_expm_luxury_furniture value = spec_exp_months_luxury_furniture }
-					set_variable = { name = spec_ui_expx_luxury_furniture value = spec_exp_mult_luxury_furniture }
-				}
-				else = {
-					remove_variable = spec_ui_expm_luxury_furniture
-					remove_variable = spec_ui_expx_luxury_furniture
-				}
-				if = {
-					limit = { spec_exp_share_meat >= 0.01 }
-					set_variable = { name = spec_ui_expm_meat value = spec_exp_months_meat }
-					set_variable = { name = spec_ui_expx_meat value = spec_exp_mult_meat }
-				}
-				else = {
-					remove_variable = spec_ui_expm_meat
-					remove_variable = spec_ui_expx_meat
-				}
-				if = {
-					limit = { spec_exp_share_merchant_marine >= 0.01 }
-					set_variable = { name = spec_ui_expm_merchant_marine value = spec_exp_months_merchant_marine }
-					set_variable = { name = spec_ui_expx_merchant_marine value = spec_exp_mult_merchant_marine }
-				}
-				else = {
-					remove_variable = spec_ui_expm_merchant_marine
-					remove_variable = spec_ui_expx_merchant_marine
-				}
-				if = {
-					limit = { spec_exp_share_oil >= 0.01 }
-					set_variable = { name = spec_ui_expm_oil value = spec_exp_months_oil }
-					set_variable = { name = spec_ui_expx_oil value = spec_exp_mult_oil }
-				}
-				else = {
-					remove_variable = spec_ui_expm_oil
-					remove_variable = spec_ui_expx_oil
-				}
-				if = {
-					limit = { spec_exp_share_opium >= 0.01 }
-					set_variable = { name = spec_ui_expm_opium value = spec_exp_months_opium }
-					set_variable = { name = spec_ui_expx_opium value = spec_exp_mult_opium }
-				}
-				else = {
-					remove_variable = spec_ui_expm_opium
-					remove_variable = spec_ui_expx_opium
-				}
-				if = {
-					limit = { spec_exp_share_paper >= 0.01 }
-					set_variable = { name = spec_ui_expm_paper value = spec_exp_months_paper }
-					set_variable = { name = spec_ui_expx_paper value = spec_exp_mult_paper }
-				}
-				else = {
-					remove_variable = spec_ui_expm_paper
-					remove_variable = spec_ui_expx_paper
-				}
-				if = {
-					limit = { spec_exp_share_porcelain >= 0.01 }
-					set_variable = { name = spec_ui_expm_porcelain value = spec_exp_months_porcelain }
-					set_variable = { name = spec_ui_expx_porcelain value = spec_exp_mult_porcelain }
-				}
-				else = {
-					remove_variable = spec_ui_expm_porcelain
-					remove_variable = spec_ui_expx_porcelain
-				}
-				if = {
-					limit = { spec_exp_share_radios >= 0.01 }
-					set_variable = { name = spec_ui_expm_radios value = spec_exp_months_radios }
-					set_variable = { name = spec_ui_expx_radios value = spec_exp_mult_radios }
-				}
-				else = {
-					remove_variable = spec_ui_expm_radios
-					remove_variable = spec_ui_expx_radios
-				}
-				if = {
-					limit = { spec_exp_share_rubber >= 0.01 }
-					set_variable = { name = spec_ui_expm_rubber value = spec_exp_months_rubber }
-					set_variable = { name = spec_ui_expx_rubber value = spec_exp_mult_rubber }
-				}
-				else = {
-					remove_variable = spec_ui_expm_rubber
-					remove_variable = spec_ui_expx_rubber
-				}
-				if = {
-					limit = { spec_exp_share_silk >= 0.01 }
-					set_variable = { name = spec_ui_expm_silk value = spec_exp_months_silk }
-					set_variable = { name = spec_ui_expx_silk value = spec_exp_mult_silk }
-				}
-				else = {
-					remove_variable = spec_ui_expm_silk
-					remove_variable = spec_ui_expx_silk
-				}
-				if = {
-					limit = { spec_exp_share_small_arms >= 0.01 }
-					set_variable = { name = spec_ui_expm_small_arms value = spec_exp_months_small_arms }
-					set_variable = { name = spec_ui_expx_small_arms value = spec_exp_mult_small_arms }
-				}
-				else = {
-					remove_variable = spec_ui_expm_small_arms
-					remove_variable = spec_ui_expx_small_arms
-				}
-				if = {
-					limit = { spec_exp_share_steamers >= 0.01 }
-					set_variable = { name = spec_ui_expm_steamers value = spec_exp_months_steamers }
-					set_variable = { name = spec_ui_expx_steamers value = spec_exp_mult_steamers }
-				}
-				else = {
-					remove_variable = spec_ui_expm_steamers
-					remove_variable = spec_ui_expx_steamers
-				}
-				if = {
-					limit = { spec_exp_share_steel >= 0.01 }
-					set_variable = { name = spec_ui_expm_steel value = spec_exp_months_steel }
-					set_variable = { name = spec_ui_expx_steel value = spec_exp_mult_steel }
-				}
-				else = {
-					remove_variable = spec_ui_expm_steel
-					remove_variable = spec_ui_expx_steel
-				}
-				if = {
-					limit = { spec_exp_share_sugar >= 0.01 }
-					set_variable = { name = spec_ui_expm_sugar value = spec_exp_months_sugar }
-					set_variable = { name = spec_ui_expx_sugar value = spec_exp_mult_sugar }
-				}
-				else = {
-					remove_variable = spec_ui_expm_sugar
-					remove_variable = spec_ui_expx_sugar
-				}
-				if = {
-					limit = { spec_exp_share_sulfur >= 0.01 }
-					set_variable = { name = spec_ui_expm_sulfur value = spec_exp_months_sulfur }
-					set_variable = { name = spec_ui_expx_sulfur value = spec_exp_mult_sulfur }
-				}
-				else = {
-					remove_variable = spec_ui_expm_sulfur
-					remove_variable = spec_ui_expx_sulfur
-				}
-				if = {
-					limit = { spec_exp_share_tanks >= 0.01 }
-					set_variable = { name = spec_ui_expm_tanks value = spec_exp_months_tanks }
-					set_variable = { name = spec_ui_expx_tanks value = spec_exp_mult_tanks }
-				}
-				else = {
-					remove_variable = spec_ui_expm_tanks
-					remove_variable = spec_ui_expx_tanks
-				}
-				if = {
-					limit = { spec_exp_share_tea >= 0.01 }
-					set_variable = { name = spec_ui_expm_tea value = spec_exp_months_tea }
-					set_variable = { name = spec_ui_expx_tea value = spec_exp_mult_tea }
-				}
-				else = {
-					remove_variable = spec_ui_expm_tea
-					remove_variable = spec_ui_expx_tea
-				}
-				if = {
-					limit = { spec_exp_share_telephones >= 0.01 }
-					set_variable = { name = spec_ui_expm_telephones value = spec_exp_months_telephones }
-					set_variable = { name = spec_ui_expx_telephones value = spec_exp_mult_telephones }
-				}
-				else = {
-					remove_variable = spec_ui_expm_telephones
-					remove_variable = spec_ui_expx_telephones
-				}
-				if = {
-					limit = { spec_exp_share_tobacco >= 0.01 }
-					set_variable = { name = spec_ui_expm_tobacco value = spec_exp_months_tobacco }
-					set_variable = { name = spec_ui_expx_tobacco value = spec_exp_mult_tobacco }
-				}
-				else = {
-					remove_variable = spec_ui_expm_tobacco
-					remove_variable = spec_ui_expx_tobacco
-				}
-				if = {
-					limit = { spec_exp_share_tools >= 0.01 }
-					set_variable = { name = spec_ui_expm_tools value = spec_exp_months_tools }
-					set_variable = { name = spec_ui_expx_tools value = spec_exp_mult_tools }
-				}
-				else = {
-					remove_variable = spec_ui_expm_tools
-					remove_variable = spec_ui_expx_tools
-				}
-				if = {
-					limit = { spec_exp_share_wine >= 0.01 }
-					set_variable = { name = spec_ui_expm_wine value = spec_exp_months_wine }
-					set_variable = { name = spec_ui_expx_wine value = spec_exp_mult_wine }
-				}
-				else = {
-					remove_variable = spec_ui_expm_wine
-					remove_variable = spec_ui_expx_wine
-				}
-				if = {
-					limit = { spec_exp_share_wood >= 0.01 }
-					set_variable = { name = spec_ui_expm_wood value = spec_exp_months_wood }
-					set_variable = { name = spec_ui_expx_wood value = spec_exp_mult_wood }
-				}
-				else = {
-					remove_variable = spec_ui_expm_wood
-					remove_variable = spec_ui_expx_wood
-				}
-				if = {
 					limit = { spec_over_aeroplanes >= 0.05 }
 					set_variable = { name = spec_ui_over_aeroplanes value = spec_over_aeroplanes }
 					set_variable = { name = spec_ui_overx_aeroplanes value = spec_over_mult_aeroplanes }
@@ -31886,6 +31445,7 @@ spec_monthly = {
 			remove_variable = spec_war1_c
 			remove_variable = spec_war1_killed
 			remove_variable = spec_war1_total
+			remove_variable = spec_war1_play
 			remove_variable = spec_war1_casualties
 			remove_variable = spec_war1_casualties_r
 			remove_variable = spec_war1_blockade
@@ -31910,6 +31470,7 @@ spec_monthly = {
 			remove_variable = spec_war2_c
 			remove_variable = spec_war2_killed
 			remove_variable = spec_war2_total
+			remove_variable = spec_war2_play
 			remove_variable = spec_war2_casualties
 			remove_variable = spec_war2_casualties_r
 			remove_variable = spec_war2_blockade
@@ -31934,6 +31495,7 @@ spec_monthly = {
 			remove_variable = spec_war3_c
 			remove_variable = spec_war3_killed
 			remove_variable = spec_war3_total
+			remove_variable = spec_war3_play
 			remove_variable = spec_war3_casualties
 			remove_variable = spec_war3_casualties_r
 			remove_variable = spec_war3_blockade
@@ -32010,6 +31572,7 @@ spec_monthly = {
 					if = {
 						limit = { var:spec_war_n = 1 }
 						set_variable = { name = spec_war1 value = scope:spec_enemy }
+						set_variable = { name = spec_war1_play value = scope:war.diplomatic_play }
 						set_variable = { name = spec_war1_c value = var:spec_war_cost }
 						set_variable = { name = spec_war1_killed value = spec_war_killed }
 						set_variable = { name = spec_war1_total value = spec_war_total }
@@ -32037,6 +31600,7 @@ spec_monthly = {
 					else_if = {
 						limit = { var:spec_war_n = 2 }
 						set_variable = { name = spec_war2 value = scope:spec_enemy }
+						set_variable = { name = spec_war2_play value = scope:war.diplomatic_play }
 						set_variable = { name = spec_war2_c value = var:spec_war_cost }
 						set_variable = { name = spec_war2_killed value = spec_war_killed }
 						set_variable = { name = spec_war2_total value = spec_war_total }
@@ -32064,6 +31628,7 @@ spec_monthly = {
 					else_if = {
 						limit = { var:spec_war_n = 3 }
 						set_variable = { name = spec_war3 value = scope:spec_enemy }
+						set_variable = { name = spec_war3_play value = scope:war.diplomatic_play }
 						set_variable = { name = spec_war3_c value = var:spec_war_cost }
 						set_variable = { name = spec_war3_killed value = spec_war_killed }
 						set_variable = { name = spec_war3_total value = spec_war_total }
@@ -33598,6 +33163,447 @@ add_modifier = {
 						is_player = yes
 						market ?= { owner ?= root }
 					}
+				}
+				if = {
+					limit = { spec_exp_share_aeroplanes >= 0.01 }
+					set_variable = { name = spec_ui_expm_aeroplanes value = spec_exp_months_aeroplanes }
+					set_variable = { name = spec_ui_expx_aeroplanes value = spec_exp_mult_aeroplanes }
+				}
+				else = {
+					remove_variable = spec_ui_expm_aeroplanes
+					remove_variable = spec_ui_expx_aeroplanes
+				}
+				if = {
+					limit = { spec_exp_share_ammunition >= 0.01 }
+					set_variable = { name = spec_ui_expm_ammunition value = spec_exp_months_ammunition }
+					set_variable = { name = spec_ui_expx_ammunition value = spec_exp_mult_ammunition }
+				}
+				else = {
+					remove_variable = spec_ui_expm_ammunition
+					remove_variable = spec_ui_expx_ammunition
+				}
+				if = {
+					limit = { spec_exp_share_artillery >= 0.01 }
+					set_variable = { name = spec_ui_expm_artillery value = spec_exp_months_artillery }
+					set_variable = { name = spec_ui_expx_artillery value = spec_exp_mult_artillery }
+				}
+				else = {
+					remove_variable = spec_ui_expm_artillery
+					remove_variable = spec_ui_expx_artillery
+				}
+				if = {
+					limit = { spec_exp_share_automobiles >= 0.01 }
+					set_variable = { name = spec_ui_expm_automobiles value = spec_exp_months_automobiles }
+					set_variable = { name = spec_ui_expx_automobiles value = spec_exp_mult_automobiles }
+				}
+				else = {
+					remove_variable = spec_ui_expm_automobiles
+					remove_variable = spec_ui_expx_automobiles
+				}
+				if = {
+					limit = { spec_exp_share_clippers >= 0.01 }
+					set_variable = { name = spec_ui_expm_clippers value = spec_exp_months_clippers }
+					set_variable = { name = spec_ui_expx_clippers value = spec_exp_mult_clippers }
+				}
+				else = {
+					remove_variable = spec_ui_expm_clippers
+					remove_variable = spec_ui_expx_clippers
+				}
+				if = {
+					limit = { spec_exp_share_clothes >= 0.01 }
+					set_variable = { name = spec_ui_expm_clothes value = spec_exp_months_clothes }
+					set_variable = { name = spec_ui_expx_clothes value = spec_exp_mult_clothes }
+				}
+				else = {
+					remove_variable = spec_ui_expm_clothes
+					remove_variable = spec_ui_expx_clothes
+				}
+				if = {
+					limit = { spec_exp_share_coal >= 0.01 }
+					set_variable = { name = spec_ui_expm_coal value = spec_exp_months_coal }
+					set_variable = { name = spec_ui_expx_coal value = spec_exp_mult_coal }
+				}
+				else = {
+					remove_variable = spec_ui_expm_coal
+					remove_variable = spec_ui_expx_coal
+				}
+				if = {
+					limit = { spec_exp_share_coffee >= 0.01 }
+					set_variable = { name = spec_ui_expm_coffee value = spec_exp_months_coffee }
+					set_variable = { name = spec_ui_expx_coffee value = spec_exp_mult_coffee }
+				}
+				else = {
+					remove_variable = spec_ui_expm_coffee
+					remove_variable = spec_ui_expx_coffee
+				}
+				if = {
+					limit = { spec_exp_share_copper >= 0.01 }
+					set_variable = { name = spec_ui_expm_copper value = spec_exp_months_copper }
+					set_variable = { name = spec_ui_expx_copper value = spec_exp_mult_copper }
+				}
+				else = {
+					remove_variable = spec_ui_expm_copper
+					remove_variable = spec_ui_expx_copper
+				}
+				if = {
+					limit = { spec_exp_share_dye >= 0.01 }
+					set_variable = { name = spec_ui_expm_dye value = spec_exp_months_dye }
+					set_variable = { name = spec_ui_expx_dye value = spec_exp_mult_dye }
+				}
+				else = {
+					remove_variable = spec_ui_expm_dye
+					remove_variable = spec_ui_expx_dye
+				}
+				if = {
+					limit = { spec_exp_share_electricity >= 0.01 }
+					set_variable = { name = spec_ui_expm_electricity value = spec_exp_months_electricity }
+					set_variable = { name = spec_ui_expx_electricity value = spec_exp_mult_electricity }
+				}
+				else = {
+					remove_variable = spec_ui_expm_electricity
+					remove_variable = spec_ui_expx_electricity
+				}
+				if = {
+					limit = { spec_exp_share_engines >= 0.01 }
+					set_variable = { name = spec_ui_expm_engines value = spec_exp_months_engines }
+					set_variable = { name = spec_ui_expx_engines value = spec_exp_mult_engines }
+				}
+				else = {
+					remove_variable = spec_ui_expm_engines
+					remove_variable = spec_ui_expx_engines
+				}
+				if = {
+					limit = { spec_exp_share_explosives >= 0.01 }
+					set_variable = { name = spec_ui_expm_explosives value = spec_exp_months_explosives }
+					set_variable = { name = spec_ui_expx_explosives value = spec_exp_mult_explosives }
+				}
+				else = {
+					remove_variable = spec_ui_expm_explosives
+					remove_variable = spec_ui_expx_explosives
+				}
+				if = {
+					limit = { spec_exp_share_fabric >= 0.01 }
+					set_variable = { name = spec_ui_expm_fabric value = spec_exp_months_fabric }
+					set_variable = { name = spec_ui_expx_fabric value = spec_exp_mult_fabric }
+				}
+				else = {
+					remove_variable = spec_ui_expm_fabric
+					remove_variable = spec_ui_expx_fabric
+				}
+				if = {
+					limit = { spec_exp_share_fertilizer >= 0.01 }
+					set_variable = { name = spec_ui_expm_fertilizer value = spec_exp_months_fertilizer }
+					set_variable = { name = spec_ui_expx_fertilizer value = spec_exp_mult_fertilizer }
+				}
+				else = {
+					remove_variable = spec_ui_expm_fertilizer
+					remove_variable = spec_ui_expx_fertilizer
+				}
+				if = {
+					limit = { spec_exp_share_fine_art >= 0.01 }
+					set_variable = { name = spec_ui_expm_fine_art value = spec_exp_months_fine_art }
+					set_variable = { name = spec_ui_expx_fine_art value = spec_exp_mult_fine_art }
+				}
+				else = {
+					remove_variable = spec_ui_expm_fine_art
+					remove_variable = spec_ui_expx_fine_art
+				}
+				if = {
+					limit = { spec_exp_share_fish >= 0.01 }
+					set_variable = { name = spec_ui_expm_fish value = spec_exp_months_fish }
+					set_variable = { name = spec_ui_expx_fish value = spec_exp_mult_fish }
+				}
+				else = {
+					remove_variable = spec_ui_expm_fish
+					remove_variable = spec_ui_expx_fish
+				}
+				if = {
+					limit = { spec_exp_share_fruit >= 0.01 }
+					set_variable = { name = spec_ui_expm_fruit value = spec_exp_months_fruit }
+					set_variable = { name = spec_ui_expx_fruit value = spec_exp_mult_fruit }
+				}
+				else = {
+					remove_variable = spec_ui_expm_fruit
+					remove_variable = spec_ui_expx_fruit
+				}
+				if = {
+					limit = { spec_exp_share_furniture >= 0.01 }
+					set_variable = { name = spec_ui_expm_furniture value = spec_exp_months_furniture }
+					set_variable = { name = spec_ui_expx_furniture value = spec_exp_mult_furniture }
+				}
+				else = {
+					remove_variable = spec_ui_expm_furniture
+					remove_variable = spec_ui_expx_furniture
+				}
+				if = {
+					limit = { spec_exp_share_glass >= 0.01 }
+					set_variable = { name = spec_ui_expm_glass value = spec_exp_months_glass }
+					set_variable = { name = spec_ui_expx_glass value = spec_exp_mult_glass }
+				}
+				else = {
+					remove_variable = spec_ui_expm_glass
+					remove_variable = spec_ui_expx_glass
+				}
+				if = {
+					limit = { spec_exp_share_grain >= 0.01 }
+					set_variable = { name = spec_ui_expm_grain value = spec_exp_months_grain }
+					set_variable = { name = spec_ui_expx_grain value = spec_exp_mult_grain }
+				}
+				else = {
+					remove_variable = spec_ui_expm_grain
+					remove_variable = spec_ui_expx_grain
+				}
+				if = {
+					limit = { spec_exp_share_groceries >= 0.01 }
+					set_variable = { name = spec_ui_expm_groceries value = spec_exp_months_groceries }
+					set_variable = { name = spec_ui_expx_groceries value = spec_exp_mult_groceries }
+				}
+				else = {
+					remove_variable = spec_ui_expm_groceries
+					remove_variable = spec_ui_expx_groceries
+				}
+				if = {
+					limit = { spec_exp_share_hardwood >= 0.01 }
+					set_variable = { name = spec_ui_expm_hardwood value = spec_exp_months_hardwood }
+					set_variable = { name = spec_ui_expx_hardwood value = spec_exp_mult_hardwood }
+				}
+				else = {
+					remove_variable = spec_ui_expm_hardwood
+					remove_variable = spec_ui_expx_hardwood
+				}
+				if = {
+					limit = { spec_exp_share_iron >= 0.01 }
+					set_variable = { name = spec_ui_expm_iron value = spec_exp_months_iron }
+					set_variable = { name = spec_ui_expx_iron value = spec_exp_mult_iron }
+				}
+				else = {
+					remove_variable = spec_ui_expm_iron
+					remove_variable = spec_ui_expx_iron
+				}
+				if = {
+					limit = { spec_exp_share_lead >= 0.01 }
+					set_variable = { name = spec_ui_expm_lead value = spec_exp_months_lead }
+					set_variable = { name = spec_ui_expx_lead value = spec_exp_mult_lead }
+				}
+				else = {
+					remove_variable = spec_ui_expm_lead
+					remove_variable = spec_ui_expx_lead
+				}
+				if = {
+					limit = { spec_exp_share_liquor >= 0.01 }
+					set_variable = { name = spec_ui_expm_liquor value = spec_exp_months_liquor }
+					set_variable = { name = spec_ui_expx_liquor value = spec_exp_mult_liquor }
+				}
+				else = {
+					remove_variable = spec_ui_expm_liquor
+					remove_variable = spec_ui_expx_liquor
+				}
+				if = {
+					limit = { spec_exp_share_luxury_clothes >= 0.01 }
+					set_variable = { name = spec_ui_expm_luxury_clothes value = spec_exp_months_luxury_clothes }
+					set_variable = { name = spec_ui_expx_luxury_clothes value = spec_exp_mult_luxury_clothes }
+				}
+				else = {
+					remove_variable = spec_ui_expm_luxury_clothes
+					remove_variable = spec_ui_expx_luxury_clothes
+				}
+				if = {
+					limit = { spec_exp_share_luxury_furniture >= 0.01 }
+					set_variable = { name = spec_ui_expm_luxury_furniture value = spec_exp_months_luxury_furniture }
+					set_variable = { name = spec_ui_expx_luxury_furniture value = spec_exp_mult_luxury_furniture }
+				}
+				else = {
+					remove_variable = spec_ui_expm_luxury_furniture
+					remove_variable = spec_ui_expx_luxury_furniture
+				}
+				if = {
+					limit = { spec_exp_share_meat >= 0.01 }
+					set_variable = { name = spec_ui_expm_meat value = spec_exp_months_meat }
+					set_variable = { name = spec_ui_expx_meat value = spec_exp_mult_meat }
+				}
+				else = {
+					remove_variable = spec_ui_expm_meat
+					remove_variable = spec_ui_expx_meat
+				}
+				if = {
+					limit = { spec_exp_share_merchant_marine >= 0.01 }
+					set_variable = { name = spec_ui_expm_merchant_marine value = spec_exp_months_merchant_marine }
+					set_variable = { name = spec_ui_expx_merchant_marine value = spec_exp_mult_merchant_marine }
+				}
+				else = {
+					remove_variable = spec_ui_expm_merchant_marine
+					remove_variable = spec_ui_expx_merchant_marine
+				}
+				if = {
+					limit = { spec_exp_share_oil >= 0.01 }
+					set_variable = { name = spec_ui_expm_oil value = spec_exp_months_oil }
+					set_variable = { name = spec_ui_expx_oil value = spec_exp_mult_oil }
+				}
+				else = {
+					remove_variable = spec_ui_expm_oil
+					remove_variable = spec_ui_expx_oil
+				}
+				if = {
+					limit = { spec_exp_share_opium >= 0.01 }
+					set_variable = { name = spec_ui_expm_opium value = spec_exp_months_opium }
+					set_variable = { name = spec_ui_expx_opium value = spec_exp_mult_opium }
+				}
+				else = {
+					remove_variable = spec_ui_expm_opium
+					remove_variable = spec_ui_expx_opium
+				}
+				if = {
+					limit = { spec_exp_share_paper >= 0.01 }
+					set_variable = { name = spec_ui_expm_paper value = spec_exp_months_paper }
+					set_variable = { name = spec_ui_expx_paper value = spec_exp_mult_paper }
+				}
+				else = {
+					remove_variable = spec_ui_expm_paper
+					remove_variable = spec_ui_expx_paper
+				}
+				if = {
+					limit = { spec_exp_share_porcelain >= 0.01 }
+					set_variable = { name = spec_ui_expm_porcelain value = spec_exp_months_porcelain }
+					set_variable = { name = spec_ui_expx_porcelain value = spec_exp_mult_porcelain }
+				}
+				else = {
+					remove_variable = spec_ui_expm_porcelain
+					remove_variable = spec_ui_expx_porcelain
+				}
+				if = {
+					limit = { spec_exp_share_radios >= 0.01 }
+					set_variable = { name = spec_ui_expm_radios value = spec_exp_months_radios }
+					set_variable = { name = spec_ui_expx_radios value = spec_exp_mult_radios }
+				}
+				else = {
+					remove_variable = spec_ui_expm_radios
+					remove_variable = spec_ui_expx_radios
+				}
+				if = {
+					limit = { spec_exp_share_rubber >= 0.01 }
+					set_variable = { name = spec_ui_expm_rubber value = spec_exp_months_rubber }
+					set_variable = { name = spec_ui_expx_rubber value = spec_exp_mult_rubber }
+				}
+				else = {
+					remove_variable = spec_ui_expm_rubber
+					remove_variable = spec_ui_expx_rubber
+				}
+				if = {
+					limit = { spec_exp_share_silk >= 0.01 }
+					set_variable = { name = spec_ui_expm_silk value = spec_exp_months_silk }
+					set_variable = { name = spec_ui_expx_silk value = spec_exp_mult_silk }
+				}
+				else = {
+					remove_variable = spec_ui_expm_silk
+					remove_variable = spec_ui_expx_silk
+				}
+				if = {
+					limit = { spec_exp_share_small_arms >= 0.01 }
+					set_variable = { name = spec_ui_expm_small_arms value = spec_exp_months_small_arms }
+					set_variable = { name = spec_ui_expx_small_arms value = spec_exp_mult_small_arms }
+				}
+				else = {
+					remove_variable = spec_ui_expm_small_arms
+					remove_variable = spec_ui_expx_small_arms
+				}
+				if = {
+					limit = { spec_exp_share_steamers >= 0.01 }
+					set_variable = { name = spec_ui_expm_steamers value = spec_exp_months_steamers }
+					set_variable = { name = spec_ui_expx_steamers value = spec_exp_mult_steamers }
+				}
+				else = {
+					remove_variable = spec_ui_expm_steamers
+					remove_variable = spec_ui_expx_steamers
+				}
+				if = {
+					limit = { spec_exp_share_steel >= 0.01 }
+					set_variable = { name = spec_ui_expm_steel value = spec_exp_months_steel }
+					set_variable = { name = spec_ui_expx_steel value = spec_exp_mult_steel }
+				}
+				else = {
+					remove_variable = spec_ui_expm_steel
+					remove_variable = spec_ui_expx_steel
+				}
+				if = {
+					limit = { spec_exp_share_sugar >= 0.01 }
+					set_variable = { name = spec_ui_expm_sugar value = spec_exp_months_sugar }
+					set_variable = { name = spec_ui_expx_sugar value = spec_exp_mult_sugar }
+				}
+				else = {
+					remove_variable = spec_ui_expm_sugar
+					remove_variable = spec_ui_expx_sugar
+				}
+				if = {
+					limit = { spec_exp_share_sulfur >= 0.01 }
+					set_variable = { name = spec_ui_expm_sulfur value = spec_exp_months_sulfur }
+					set_variable = { name = spec_ui_expx_sulfur value = spec_exp_mult_sulfur }
+				}
+				else = {
+					remove_variable = spec_ui_expm_sulfur
+					remove_variable = spec_ui_expx_sulfur
+				}
+				if = {
+					limit = { spec_exp_share_tanks >= 0.01 }
+					set_variable = { name = spec_ui_expm_tanks value = spec_exp_months_tanks }
+					set_variable = { name = spec_ui_expx_tanks value = spec_exp_mult_tanks }
+				}
+				else = {
+					remove_variable = spec_ui_expm_tanks
+					remove_variable = spec_ui_expx_tanks
+				}
+				if = {
+					limit = { spec_exp_share_tea >= 0.01 }
+					set_variable = { name = spec_ui_expm_tea value = spec_exp_months_tea }
+					set_variable = { name = spec_ui_expx_tea value = spec_exp_mult_tea }
+				}
+				else = {
+					remove_variable = spec_ui_expm_tea
+					remove_variable = spec_ui_expx_tea
+				}
+				if = {
+					limit = { spec_exp_share_telephones >= 0.01 }
+					set_variable = { name = spec_ui_expm_telephones value = spec_exp_months_telephones }
+					set_variable = { name = spec_ui_expx_telephones value = spec_exp_mult_telephones }
+				}
+				else = {
+					remove_variable = spec_ui_expm_telephones
+					remove_variable = spec_ui_expx_telephones
+				}
+				if = {
+					limit = { spec_exp_share_tobacco >= 0.01 }
+					set_variable = { name = spec_ui_expm_tobacco value = spec_exp_months_tobacco }
+					set_variable = { name = spec_ui_expx_tobacco value = spec_exp_mult_tobacco }
+				}
+				else = {
+					remove_variable = spec_ui_expm_tobacco
+					remove_variable = spec_ui_expx_tobacco
+				}
+				if = {
+					limit = { spec_exp_share_tools >= 0.01 }
+					set_variable = { name = spec_ui_expm_tools value = spec_exp_months_tools }
+					set_variable = { name = spec_ui_expx_tools value = spec_exp_mult_tools }
+				}
+				else = {
+					remove_variable = spec_ui_expm_tools
+					remove_variable = spec_ui_expx_tools
+				}
+				if = {
+					limit = { spec_exp_share_wine >= 0.01 }
+					set_variable = { name = spec_ui_expm_wine value = spec_exp_months_wine }
+					set_variable = { name = spec_ui_expx_wine value = spec_exp_mult_wine }
+				}
+				else = {
+					remove_variable = spec_ui_expm_wine
+					remove_variable = spec_ui_expx_wine
+				}
+				if = {
+					limit = { spec_exp_share_wood >= 0.01 }
+					set_variable = { name = spec_ui_expm_wood value = spec_exp_months_wood }
+					set_variable = { name = spec_ui_expx_wood value = spec_exp_mult_wood }
+				}
+				else = {
+					remove_variable = spec_ui_expm_wood
+					remove_variable = spec_ui_expx_wood
 				}
 				if = { limit = { has_variable = spec_lhist35 } set_variable = { name = spec_lhist36 value = var:spec_lhist35 } }
 				if = { limit = { has_variable = spec_lhist34 } set_variable = { name = spec_lhist35 value = var:spec_lhist34 } }
@@ -36350,7 +36356,7 @@ add_modifier = {
 					var:spec_conf < 60
 				}
 				# a one-off jump, shown in the tab until the next monthly update
-				set_variable = { name = spec_c_burst value = { value = var:spec_heat multiply = spec_burst_per_heat multiply = -1 min = spec_burst_floor } }
+				set_variable = { name = spec_c_burst value = { value = var:spec_heat multiply = spec_burst_per_heat multiply = -1 min = spec_burst_floor min = { value = var:spec_conf multiply = -1 } } }
 				set_variable = { name = spec_conf value = { value = var:spec_conf add = var:spec_c_burst min = 0 } }
 				change_variable = { name = spec_c_total add = var:spec_c_burst }
 				remove_variable = spec_heat

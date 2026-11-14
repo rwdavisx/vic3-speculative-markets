@@ -4767,6 +4767,9 @@ spec_rank_centres = {
 					}
 				}
 			}
+			else = {
+				set_variable = { name = spec_rival_last value = 0 }
+			}
 		}
 	}
 	set_global_variable = { name = spec_exch_n_0 value = 0 }

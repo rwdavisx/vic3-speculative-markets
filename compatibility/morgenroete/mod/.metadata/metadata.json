@@ -1,0 +1,22 @@
+{
+  "name": "Speculative Markets - Morgenroete Compatibility",
+  "id": "speculative_markets_morgenroete",
+  "version": "1.0.0",
+  "supported_game_version": "1.15.*",
+  "short_description": "Requires the matching Speculative Markets build and Morgenroete.",
+  "tags": [
+    "Utilities"
+  ],
+  "relationships": [
+    {
+      "rel_type": "dependency",
+      "id": "2889925770",
+      "display_name": "Morgenroete - Dawn of Flavor",
+      "resource_type": "mod",
+      "version": "*"
+    }
+  ],
+  "game_custom_data": {
+    "multiplayer_synchronized": true
+  }
+}

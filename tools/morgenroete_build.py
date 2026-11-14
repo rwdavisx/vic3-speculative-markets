@@ -36,7 +36,9 @@ def verify_parent(base, parent):
         raise ValueError(f'Generator does not match chosen parent; rebuild/rebase first: {mismatches}')
 
 
-def build(parent, mr, out):
+def build(parent, mr, out, version='0.1.0-test'):
+    if not re.fullmatch(r'\d+\.\d+\.\d+(?:-test)?', version):
+        raise ValueError('Invalid patch version')
     parent, mr, out = (p.resolve() for p in (parent, mr, out))
     if out.exists():
         raise ValueError('Use a new output folder; previous candidates are immutable')
@@ -75,10 +77,10 @@ def build(parent, mr, out):
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_text(f'l_{language}:\n {key}: "$building_instrument_workshops$ Throughput"\n {key}_desc: "A bonus or penalty to the input and output of $building_instrument_workshops$."\n', encoding='utf-8-sig')
     meta = json.loads((parent / '.metadata/metadata.json').read_text(encoding='utf-8-sig'))
-    metadata = {'name': 'Speculative Markets - Morgenroete Compatibility (Test)',
-                'id': 'speculative_markets_morgenroete', 'version': '0.1.0-test',
+    metadata = {'name': 'Speculative Markets - Morgenroete Compatibility' + (' (Test)' if version.endswith('-test') else ''),
+                'id': 'speculative_markets_morgenroete', 'version': version,
                 'supported_game_version': '1.15.*', 'short_description': 'Requires the matching Speculative Markets build and Morgenroete.',
-                'tags': ['Gameplay'], 'relationships': [{'rel_type': 'dependency', 'id': '2889925770',
+                'tags': ['Utilities'], 'relationships': [{'rel_type': 'dependency', 'id': '2889925770',
                 'display_name': 'Morgenroete - Dawn of Flavor', 'resource_type': 'mod', 'version': '*'}],
                 'game_custom_data': {'multiplayer_synchronized': True}}
     (patch / '.metadata').mkdir(parents=True)
@@ -104,5 +106,6 @@ if __name__ == '__main__':
     parser.add_argument('--parent', type=Path, default=ROOT / 'beta/mod')
     parser.add_argument('--morgenroete', type=Path, default=Path('G:/SteamLibrary/steamapps/workshop/content/529340/2889925770'))
     parser.add_argument('--out', type=Path, required=True)
+    parser.add_argument('--version', default='0.1.0-test')
     args = parser.parse_args()
-    build(args.parent, args.morgenroete, args.out)
+    build(args.parent, args.morgenroete, args.out, args.version)

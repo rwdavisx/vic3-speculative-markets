@@ -21,6 +21,7 @@ RELEASES = ROOT / "releases"
 PREFIXES = {
     "speculative_markets": "Speculative_Markets",
     "speculative_markets_cmf_compat": "Speculative_Markets_CMF_Compatibility",
+    "speculative_markets_morgenroete": "Speculative_Markets_Morgenroete_Compatibility",
 }
 
 

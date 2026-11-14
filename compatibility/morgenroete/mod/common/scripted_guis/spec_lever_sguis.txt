@@ -1,0 +1,252 @@
+﻿spec_sgui_restrain = {
+	scope = country
+	saved_scopes = { spec_good }
+	is_valid = { spec_can_lever = { KIND = restrain OTHER = encourage } }
+	# the button's enabled state is spec_ui_r_<g>, which can lag a month behind Authority: check again
+	effect = {
+		if = {
+			limit = { spec_can_lever = { KIND = restrain OTHER = encourage } }
+			hidden_effect = { spec_lever_toggle = { KIND = restrain } }
+		}
+	}
+}
+
+spec_sgui_encourage = {
+	scope = country
+	saved_scopes = { spec_good }
+	is_valid = { spec_can_lever = { KIND = encourage OTHER = restrain } }
+	# the button's enabled state is spec_ui_e_<g>, which can lag a month behind Authority: check again
+	effect = {
+		if = {
+			limit = { spec_can_lever = { KIND = encourage OTHER = restrain } }
+			hidden_effect = { spec_lever_toggle = { KIND = encourage } }
+		}
+	}
+}
+
+# for the tab: a lever on scope:spec_good changes its producers' throughput
+spec_sgui_lever_producers = {
+	scope = country
+	saved_scopes = { spec_good }
+	is_valid = { scope:spec_good = { spec_lever_producers = yes } }
+}
+
+spec_sgui_issue = {
+	scope = country
+	saved_scopes = { spec_good }
+	is_valid = { spec_can_issue = yes }
+	effect = {
+		if = {
+			limit = { spec_can_issue = yes }
+	if = {
+		limit = { scope:spec_good = { this = g:aeroplanes } }
+		spec_issue_float = { G = aeroplanes }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:ammunition } }
+		spec_issue_float = { G = ammunition }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:artillery } }
+		spec_issue_float = { G = artillery }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:automobiles } }
+		spec_issue_float = { G = automobiles }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:clippers } }
+		spec_issue_float = { G = clippers }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:clothes } }
+		spec_issue_float = { G = clothes }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:coal } }
+		spec_issue_float = { G = coal }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:coffee } }
+		spec_issue_float = { G = coffee }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:copper } }
+		spec_issue_float = { G = copper }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:dye } }
+		spec_issue_float = { G = dye }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:electricity } }
+		spec_issue_float = { G = electricity }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:elgar_instruments } }
+		spec_issue_float = { G = elgar_instruments }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:engines } }
+		spec_issue_float = { G = engines }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:explosives } }
+		spec_issue_float = { G = explosives }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:fabric } }
+		spec_issue_float = { G = fabric }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:fertilizer } }
+		spec_issue_float = { G = fertilizer }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:fine_art } }
+		spec_issue_float = { G = fine_art }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:fish } }
+		spec_issue_float = { G = fish }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:fruit } }
+		spec_issue_float = { G = fruit }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:furniture } }
+		spec_issue_float = { G = furniture }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:glass } }
+		spec_issue_float = { G = glass }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:good_uranium } }
+		spec_issue_float = { G = good_uranium }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:grain } }
+		spec_issue_float = { G = grain }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:groceries } }
+		spec_issue_float = { G = groceries }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:hardwood } }
+		spec_issue_float = { G = hardwood }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:iron } }
+		spec_issue_float = { G = iron }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:lead } }
+		spec_issue_float = { G = lead }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:liquor } }
+		spec_issue_float = { G = liquor }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:luxury_clothes } }
+		spec_issue_float = { G = luxury_clothes }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:luxury_furniture } }
+		spec_issue_float = { G = luxury_furniture }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:manzoni_prints } }
+		spec_issue_float = { G = manzoni_prints }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:meat } }
+		spec_issue_float = { G = meat }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:merchant_marine } }
+		spec_issue_float = { G = merchant_marine }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:oil } }
+		spec_issue_float = { G = oil }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:opium } }
+		spec_issue_float = { G = opium }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:paper } }
+		spec_issue_float = { G = paper }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:porcelain } }
+		spec_issue_float = { G = porcelain }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:radios } }
+		spec_issue_float = { G = radios }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:rubber } }
+		spec_issue_float = { G = rubber }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:silk } }
+		spec_issue_float = { G = silk }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:small_arms } }
+		spec_issue_float = { G = small_arms }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:steamers } }
+		spec_issue_float = { G = steamers }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:steel } }
+		spec_issue_float = { G = steel }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:sugar } }
+		spec_issue_float = { G = sugar }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:sulfur } }
+		spec_issue_float = { G = sulfur }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:tanks } }
+		spec_issue_float = { G = tanks }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:tea } }
+		spec_issue_float = { G = tea }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:telephones } }
+		spec_issue_float = { G = telephones }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:tobacco } }
+		spec_issue_float = { G = tobacco }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:tools } }
+		spec_issue_float = { G = tools }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:wine } }
+		spec_issue_float = { G = wine }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:wood } }
+		spec_issue_float = { G = wood }
+	}
+			spec_update_levers = yes
+		}
+	}
+}

@@ -1,0 +1,76 @@
+﻿namespace = spec_mechanics_morgenroete_migration
+spec_mechanics_morgenroete_migration.1 = { type = country_event hidden = yes immediate = {
+if = {
+	limit = {
+		has_variable = spec_fast_elgar_instruments
+		has_variable = spec_slow_elgar_instruments
+		has_variable = spec_word_elgar_instruments
+		has_variable = spec_hype_elgar_instruments
+	}
+	debug_log = "HOTFIX PASS elgar_instruments_old_save_initialized"
+}
+else = { debug_log = "HOTFIX FAIL elgar_instruments_old_save_initialized" }
+if = {
+	limit = {
+		global_var:spec_bt_g1_building_instrument_workshops = g:elgar_instruments
+	}
+	debug_log = "HOTFIX PASS elgar_instruments_old_save_mapping"
+}
+else = { debug_log = "HOTFIX FAIL elgar_instruments_old_save_mapping" }
+if = {
+	limit = {
+		any_scope_building = { is_building_type = building_instrument_workshops level >= 3 }
+	}
+	debug_log = "HOTFIX PASS elgar_instruments_old_save_building_preserved"
+}
+else = { debug_log = "HOTFIX FAIL elgar_instruments_old_save_building_preserved" }
+if = {
+	limit = {
+		has_variable = spec_fast_good_uranium
+		has_variable = spec_slow_good_uranium
+		has_variable = spec_word_good_uranium
+		has_variable = spec_hype_good_uranium
+	}
+	debug_log = "HOTFIX PASS good_uranium_old_save_initialized"
+}
+else = { debug_log = "HOTFIX FAIL good_uranium_old_save_initialized" }
+if = {
+	limit = {
+		global_var:spec_bt_g1_building_uranium_mine = g:good_uranium
+	}
+	debug_log = "HOTFIX PASS good_uranium_old_save_mapping"
+}
+else = { debug_log = "HOTFIX FAIL good_uranium_old_save_mapping" }
+if = {
+	limit = {
+		any_scope_building = { is_building_type = building_uranium_mine level >= 3 }
+	}
+	debug_log = "HOTFIX PASS good_uranium_old_save_building_preserved"
+}
+else = { debug_log = "HOTFIX FAIL good_uranium_old_save_building_preserved" }
+if = {
+	limit = {
+		has_variable = spec_fast_manzoni_prints
+		has_variable = spec_slow_manzoni_prints
+		has_variable = spec_word_manzoni_prints
+		has_variable = spec_hype_manzoni_prints
+	}
+	debug_log = "HOTFIX PASS manzoni_prints_old_save_initialized"
+}
+else = { debug_log = "HOTFIX FAIL manzoni_prints_old_save_initialized" }
+if = {
+	limit = {
+		global_var:spec_bt_g1_building_manzoni_publishing_industry = g:manzoni_prints
+	}
+	debug_log = "HOTFIX PASS manzoni_prints_old_save_mapping"
+}
+else = { debug_log = "HOTFIX FAIL manzoni_prints_old_save_mapping" }
+if = {
+	limit = {
+		any_scope_building = { is_building_type = building_manzoni_publishing_industry level >= 3 }
+	}
+	debug_log = "HOTFIX PASS manzoni_prints_old_save_building_preserved"
+}
+else = { debug_log = "HOTFIX FAIL manzoni_prints_old_save_building_preserved" }
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

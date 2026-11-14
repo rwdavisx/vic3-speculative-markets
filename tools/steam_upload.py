@@ -1,6 +1,6 @@
 """Scoped Steam Workshop uploader; defaults to a read-only plan.
 
-Only the three fingerprinted workshop/upload_staging/ folders are accepted.
+Only the registered, fingerprinted workshop/upload_staging/ folders are accepted.
 Uses the installed game's Valve steam_api64.dll and the current Steam session.
 No credentials, launcher DB changes, or legal-agreement acceptance are involved.
 Mutating commands require --execute and a separately reviewed invocation.
@@ -35,6 +35,7 @@ CHANNELS = {
     "stable": ("speculative_markets", "Speculative Markets", "workshop/description.bbcode"),
     "beta": ("speculative_markets_beta", "Speculative Markets - Beta", "beta/workshop_description.bbcode"),
     "cmf": ("speculative_markets_cmf_compat", "Speculative Markets - CMF Compatibility", "compatibility/cmf/workshop_description.bbcode"),
+    "morgenroete": ("speculative_markets_morgenroete", "Speculative Markets - Morgenroete Compatibility", "compatibility/morgenroete/workshop_description.bbcode"),
 }
 U64, U32, I32, PTR = C.c_uint64, C.c_uint32, C.c_int32, C.c_void_p
 
@@ -138,7 +139,7 @@ def description(channel):
 
 
 def changelog(plan):
-    folder = {"stable": "workshop", "beta": "beta", "cmf": "compatibility/cmf"}[plan['channel']]
+    folder = {"stable": "workshop", "beta": "beta", "cmf": "compatibility/cmf", "morgenroete": "compatibility/morgenroete"}[plan['channel']]
     path = ROOT / folder / f"changelog_{plan['version']}.bbcode"
     text = path.read_text(encoding="utf-8").strip()
     if not text or "\0" in text or len(text.encode("utf-8")) >= 8000:
@@ -311,7 +312,10 @@ def main(argv=None):
     parser.add_argument("channel", nargs="?", choices=CHANNELS, default="stable")
     parser.add_argument("--execute", action="store_true", help="Explicitly perform a reviewed create/update")
     parser.add_argument("--public", action="store_true", help="Publish update publicly; otherwise keep private")
+    parser.add_argument("--description-only", action="store_true", help="Update listing metadata without replacing content or preview")
     args = parser.parse_args(argv)
+    if args.description_only and args.command != "update":
+        parser.error("--description-only requires update")
     steam = None
     try:
         plan = inspect_stage(args.channel)
@@ -320,6 +324,7 @@ def main(argv=None):
         item = known_id(args.channel)
         summary = {k: v for k, v in plan.items() if k != "files_sha256"}
         summary.update(command=args.command, item_id=item, execute=args.execute, visibility=0 if args.public else 2)
+        summary["description_only"] = args.description_only
         if args.command in ("plan", "update"):
             body, body_hash = description(args.channel)
             summary["description_sha256"] = body_hash
@@ -328,7 +333,7 @@ def main(argv=None):
             emit({"dry_run": True, "message": "No Steam mutation performed"})
             return
         if args.command == "create" and (args.channel == "stable" or item is not None or args.public):
-            raise ValueError("Create is only for unbound beta/CMF items and must remain private")
+            raise ValueError("Create is only for unbound separate items and must remain private")
         if args.command == "update" and args.channel == "stable" and not args.public:
             raise ValueError("Stable updates require --public; refuse accidental unpublication")
         if args.command in ("query", "update") and item is None:
@@ -378,8 +383,9 @@ def main(argv=None):
             # Preserve the current published spelling of existing tags.
             submit_plan["tags"] = [tag for tag in before["tags"].split(",") if tag]
         receipt("update_intent", args.channel, {"item_id": item, "before": before, "plan": submit_plan,
-                "description": body, "description_sha256": body_hash, "visibility": 0 if args.public else 2})
-        result = steam.submit(item, submit_plan, body, 0 if args.public else 2)
+                "description": body, "description_sha256": body_hash, "visibility": 0 if args.public else 2,
+                "description_only": args.description_only})
+        result = steam.submit(item, submit_plan, body, 0 if args.public else 2, content=not args.description_only)
         receipt("update_result", args.channel, result)
         after = steam.query(item)
         if after["title"] != plan["title"] or after["description_sha256"] != body_hash or after["visibility"] != (0 if args.public else 2):

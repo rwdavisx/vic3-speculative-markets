@@ -5,9 +5,8 @@ assertions in 55 suites**, plus **42 Python tests** and **9 CMF source tests**.
 These are contract results, not a claim that every possible campaign works.
 The open checks below remain prerequisites to the broader balance pass.
 
-**Published:** Stable 1.0.4 at 06:11 UTC and Beta 1.0.4-beta.5 at 15:34 UTC on November 14.
-Stable matches the earlier tested beta5. The newer beta adds the rivalry-tie, bank-tooltip and confidence-accounting fixes below.
-See `HOTFIX_1.0.4.md` for receipts and hashes.
+**Published:** Stable **1.0.5**, Beta **1.0.5-beta.1**, and Morgenroete patch **1.0.0** on November 14. Stable now includes the tested beta fixes. The patch has 76 inherited engine assertions plus 9 passing existing-Morgenroete-save migration assertions; all three added goods passed release UI checks. Current Python checks: 45 plus 9 CMF checks. See `HOTFIX_1.0.5.md` and `tests/mechanics/verification_release_105.json`. Full reporter playset and long campaigns remain outside coverage.
+
 [Machine-readable results](tests/mechanics/verification_2026-11-14.json) record
 assertion names, fixture/build manifests, log hashes, and error classifications.
 Raw evidence stays in `runs/` and is not committed.

@@ -1,0 +1,221 @@
+{
+  "date": "2026-11-14",
+  "status": "PUBLISHED; Steam API verified public uploads",
+  "stable": "1.0.5",
+  "beta": "1.0.5-beta.1",
+  "morgenroete_patch": "1.0.0",
+  "game": "1.15.1",
+  "morgenroete": "2.9.0e Curie",
+  "python_tests": 45,
+  "cmf_tests": 9,
+  "inherited_engine_evidence": "tests/mechanics/verification_morgenroete_beta104_5.json",
+  "inherited_engine_assertions": 76,
+  "migration": {
+    "suite": "morgenroete_migration",
+    "passed": [
+      "elgar_instruments_old_save_building_preserved",
+      "elgar_instruments_old_save_initialized",
+      "elgar_instruments_old_save_mapping",
+      "good_uranium_old_save_building_preserved",
+      "good_uranium_old_save_initialized",
+      "good_uranium_old_save_mapping",
+      "manzoni_prints_old_save_building_preserved",
+      "manzoni_prints_old_save_initialized",
+      "manzoni_prints_old_save_mapping"
+    ],
+    "failed": [],
+    "missing": [],
+    "unexpected": [],
+    "complete": true,
+    "error_logs_checked": [
+      "runs\\morgenroete\\migration_01\\error_mirror.log"
+    ],
+    "error_categories": {
+      "engine_or_basegame_other": 1454,
+      "mod_variable_load_warnings": 16
+    },
+    "blocking_error_count": 0,
+    "blocking_error_examples": []
+  },
+  "migration_scope": "CMF+Morgenroete July 1836 save created without SM; test fixture supplied three existing industries. Not migration from the obsolete third-party bridge.",
+  "migration_logs": {
+    "debug_mirror.log": "f50814ba43fa73ae05051ca1661ba434a77a1e24a9d9860ddfd49a9fdeeb2831",
+    "error_mirror.log": "021a16842e76d1a3c607cf66e81ec7799395f5e07c5207be667b053bcc79bdda",
+    "logs\\ai.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "logs\\checksum.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "logs\\code_revisions.log": "1bd277ac5029d66d2568480fe9bce036664d8f858ee7735430a7ad2750d0620b",
+    "logs\\custom_automated_stats.log": "cb99ad6f714c213ed842ce0a0124294984990ef8999bed8771be4c1d43ab2954",
+    "logs\\database_conflicts.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "logs\\debug.log": "937d9363fbf511bbeccc3fde617898bfc7cd3018c8ef3f10175ac82efc7e9a2e",
+    "logs\\dedicated_server.log": "bc79de490074a74a93c2117b572b5889a7a39fa052b88954fd01a96c431679c9",
+    "logs\\ecs.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "logs\\error.log": "4ba471f5ff4f130d0732b72bb85feb30f1027c04895e8dd91b1aa16d4a0bf681",
+    "logs\\game.log": "328c3095205f359dfc2896ae46bd3e518e076738b781a97f7f46999f82419f0a",
+    "logs\\graphics.log": "0072e448c6624ecd287f0061bcd818ef77077f1d2621e750b51ef645616d0bce",
+    "logs\\gui.log": "b72e782ae07d4edf6acac0f7619fe7a4e615237ba349784d66c271cdda89b184",
+    "logs\\memory.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "logs\\message.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "logs\\multiplayer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "logs\\pdxsdk.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "logs\\setup.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "logs\\system.log": "7de4213ce3ee047977eeae445f4c4c81b409ac03015c7ab8d1a6fb558640be26",
+    "logs\\ui_animation_stats.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "logs\\warning.log": "c81a6c7fd59b9b4dad22ace3af59a794b892c7faa7bb7b9410ab0f316f6507b5"
+  },
+  "ui": {
+    "playset": [
+      "CMF",
+      "Morgenroete",
+      "stable 1.0.5",
+      "Morgenroete patch 1.0.0",
+      "CMF compatibility 1.0.1"
+    ],
+    "passed": [
+      "Finance sidebar and Speculation",
+      "All three added goods render icons, names and interest bars",
+      "All three goods open native panels with interest/risk/intervention controls and without Open Finance",
+      "Instrument restraint tooltip targets correct good and explains disabled eligibility",
+      "Native goods/Finance transitions",
+      "Pause hides custom Finance"
+    ],
+    "evidence": {
+      "evidence\\instruments_good.jpg": "50c038f7c68667ef0a82da704493ab0fbf77ea2c96c544bf0ccbd264c3ca9028",
+      "evidence\\instruments_publications_rows.jpg": "26c4440aa31525311b79b4e5b7f4ca09c31f47deae5b3ee0e3ec4dad527746f7",
+      "evidence\\instruments_restraint_tooltip.jpg": "0586e6d995acb51332a7688e626de02ed68c92c7c84f6742b91df006e5240e35",
+      "evidence\\publications_good.jpg": "cce4a1a863e972021f01165ab376624f854482822008a9e3fb74d795458c01f1",
+      "evidence\\uranium_good.jpg": "38c48411ddd47e43e8a885f9a2b738177e5dff9b6bf19b1a7a48efc5b15108fe",
+      "evidence\\uranium_publications_rows.jpg": "98a0ac2100a063e0112a1b6b47bee51bb60251e2503b912adce6d8bc5cf59e24",
+      "logs\\ai.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "logs\\checksum.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "logs\\code_revisions.log": "7d6269fde7f237102b09b48949ce8e8d6c681108cda139af445bc4f5cfae5886",
+      "logs\\custom_automated_stats.log": "e2a516b4726a92321706224e643d9a3793d5e8f99835be18546b205f2961a850",
+      "logs\\database_conflicts.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "logs\\debug.log": "211dfd0959bf3f89f646fcd7b02fcaa6abda5f7cd36a9e4660286faeb88397b1",
+      "logs\\dedicated_server.log": "699b1109f0ab626c9b645ed734278a9d21bfb852bc16048fd47c4c3f667c3cef",
+      "logs\\ecs.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "logs\\error.log": "bad633b78a50528fc4a36b9626f22a418ed83a227305b0946490f4158ae22611",
+      "logs\\game.log": "4b1807f3010068f39551f870cf339505557432fb44a5941f9f4713e73edbca60",
+      "logs\\graphics.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "logs\\gui.log": "1ddf8ec1e1cdd7f3ccc80f6e9516909d23d094f98962ce252de695a742fb040a",
+      "logs\\memory.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "logs\\message.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "logs\\multiplayer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "logs\\pdxsdk.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "logs\\setup.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "logs\\system.log": "d760f0557d7357daab057bdd2f64638473c44c76f1a3fcc693798bb0b0ccb6d9",
+      "logs\\ui_animation_stats.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "logs\\warning.log": "a530c67c1463715dce2edf16ec0edf9df6636e8f6cb28739d1ce06790433b78f"
+    },
+    "error_gate": {
+      "error_logs_checked": [
+        "G:\\GameDev\\speculative-markets\\runs\\morgenroete\\release_ui\\logs\\error.log"
+      ],
+      "error_categories": {
+        "engine_or_basegame_other": 253,
+        "mod_variable_load_warnings": 16
+      },
+      "blocking_error_count": 0,
+      "blocking_error_examples": []
+    }
+  },
+  "navigation_inheritance": "tests/mechanics/verification_goods_navigation_beta104_6.json; stable gameplay/UI byte-identical to tested beta6",
+  "limits": [
+    "Reporter full modlist and long campaigns not tested.",
+    "Initial unpatched MR+SM seed attempt crashed on January 2 with unsymbolized access violation; root cause unestablished. No claim that this patch fixes that crash. Clean MR-only seed, patched migration and release UI completed.",
+    "Existing upstream/engine warnings remain."
+  ],
+  "uploads": {
+    "stable": {
+      "path": "workshop\\upload_receipts\\20261114T164712.118190Z_stable_update_verified_59f288b9.json",
+      "sha256": "cdcade714f0f7bba839db821be34316512a0f73232219c6b098049b999b829a9",
+      "receipt": {
+        "utc": "20261114T164712.118190Z",
+        "action": "update_verified",
+        "channel": "stable",
+        "item_id": 3831434383,
+        "consumer_app": 529340,
+        "creator_app": 529340,
+        "owned_by_current_user": true,
+        "title": "Speculative Markets",
+        "visibility": 0,
+        "file_size": 19457408,
+        "preview_size": 711638,
+        "updated": 1794674832,
+        "description_sha256": "674f68944b3070123dcfefb250a106759dc62c1c7b5048a14613af4a92b25a87",
+        "tags": "Economy and Buildings,Events,Journal Entries",
+        "children": 0,
+        "child_ids": []
+      }
+    },
+    "beta": {
+      "path": "workshop\\upload_receipts\\20261114T164729.813046Z_beta_update_verified_a23a2673.json",
+      "sha256": "64cb7c4fa6b9a1e5c1d2ea847a328d6f04861df73464c44116b665888000f989",
+      "receipt": {
+        "utc": "20261114T164729.813046Z",
+        "action": "update_verified",
+        "channel": "beta",
+        "item_id": 3839275304,
+        "consumer_app": 529340,
+        "creator_app": 529340,
+        "owned_by_current_user": true,
+        "title": "Speculative Markets - Beta",
+        "visibility": 0,
+        "file_size": 19018653,
+        "preview_size": 272841,
+        "updated": 1794674850,
+        "description_sha256": "2675f0815cae7379cbae93888558456f0a5d46ac893491f5986d5b6475391cb3",
+        "tags": "Economy and Buildings,Events,Journal Entries",
+        "children": 0,
+        "child_ids": []
+      }
+    },
+    "morgenroete": {
+      "path": "workshop\\upload_receipts\\20261114T164742.768305Z_morgenroete_update_verified_4b396701.json",
+      "sha256": "5b53368f6f8fd78ec82f1a3d498e7733c2dee8e915f5eeeee0aeee4d5cd62f94",
+      "receipt": {
+        "utc": "20261114T164742.768305Z",
+        "action": "update_verified",
+        "channel": "morgenroete",
+        "item_id": 3839705018,
+        "consumer_app": 529340,
+        "creator_app": 529340,
+        "owned_by_current_user": true,
+        "title": "Speculative Markets - Morgenroete Compatibility",
+        "visibility": 0,
+        "file_size": 15624752,
+        "preview_size": 40598,
+        "updated": 1794674863,
+        "description_sha256": "5406ccbead00985c19095fff61e52a66362b13f20e3b76bea10cb05ffc544f3e",
+        "tags": "Utilities",
+        "children": 1,
+        "child_ids": [
+          2889925770
+        ]
+      }
+    },
+    "cmf": {
+      "path": "workshop\\upload_receipts\\20261114T164743.912504Z_cmf_update_verified_4c4f142d.json",
+      "sha256": "c831c28100ec10d76f66b6e4260021ac0766d0f5a9edc0b8fe79527789875539",
+      "receipt": {
+        "utc": "20261114T164743.912504Z",
+        "action": "update_verified",
+        "channel": "cmf",
+        "item_id": 3839275348,
+        "consumer_app": 529340,
+        "creator_app": 529340,
+        "owned_by_current_user": true,
+        "title": "Speculative Markets - CMF Compatibility",
+        "visibility": 0,
+        "file_size": 303634,
+        "preview_size": 263341,
+        "updated": 1794616088,
+        "description_sha256": "8ee823ea1386d7fedbcf8d2140865b21b4f38a75058d34c461921e0a8ce12842",
+        "tags": "Utilities",
+        "children": 1,
+        "child_ids": [
+          3385002128
+        ]
+      }
+    }
+  }
+}

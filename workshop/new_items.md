@@ -1,4 +1,17 @@
-# Current releases and separate Workshop items
+# Current releases
+
+Published and API-verified public on November 14, 2026. Stable is now aligned with the tested beta. Descriptions for stable, beta and CMF link the new Morgenroete patch. CMF content remains 1.0.1; only its description changed.
+
+| Item | Version | Verification receipt |
+| --- | --- | --- |
+| [stable](https://steamcommunity.com/sharedfiles/filedetails/?id=3831434383) | 1.0.5 | `workshop\upload_receipts\20261114T164712.118190Z_stable_update_verified_59f288b9.json` |
+| [beta](https://steamcommunity.com/sharedfiles/filedetails/?id=3839275304) | 1.0.5-beta.1 | `workshop\upload_receipts\20261114T164729.813046Z_beta_update_verified_a23a2673.json` |
+| [morgenroete](https://steamcommunity.com/sharedfiles/filedetails/?id=3839705018) | 1.0.0 | `workshop\upload_receipts\20261114T164742.768305Z_morgenroete_update_verified_4b396701.json` |
+| [cmf](https://steamcommunity.com/sharedfiles/filedetails/?id=3839275348) | 1.0.1 | `workshop\upload_receipts\20261114T164743.912504Z_cmf_update_verified_4c4f142d.json` |
+
+Morgenroete is the new patch's Workshop Required Item. Enable exactly one SM channel, and disable the old third-party bridge. Full load order and release hashes: `HOTFIX_1.0.5.md`. Historical records follow and do not identify the current release.
+
+# Historical release records and separate Workshop items
 
 Stable 1.0.4 and Beta 1.0.4-beta.5 were uploaded successfully and verified **public** on November 14, 2026 at 06:11 and 15:34 UTC respectively. CMF remains 1.0.1. The rejected CMF 1.0.0 and Beta 1.0.2-beta.1 archives are for audit only. The compatibility item's sole Workshop Required Item, Community Mod Framework, was saved and verified at 19:33 EST; [API receipt](G:/GameDev/speculative-markets/workshop/upload_receipts/20261114T003313.752779Z_cmf_query_f5aa4cb9.json).
 
