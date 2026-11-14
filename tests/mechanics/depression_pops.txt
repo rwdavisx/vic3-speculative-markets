@@ -1,0 +1,29 @@
+namespace = spec_mechanics_depression_pops
+spec_mechanics_depression_pops.1 = { type = country_event hidden = yes immediate = {
+activate_law = law_type:law_interventionism
+set_variable = { name = spec_conf value = 55 }
+set_variable = { name = spec_debt value = 0 }
+remove_variable = spec_ld
+set_global_variable = { name = spec_ld_phase value = 1 }
+set_global_variable = { name = spec_ld_months value = 60 }
+set_global_variable = { name = spec_ld_progress value = 0 }
+add_radicals = { value = -1 }
+add_loyalists = { value = -1 }
+add_radicals = { value = small_radicals pop_type = capitalists }
+every_scope_state = { set_variable = { name = spec_test_expected_cap value = { value = 0 every_scope_pop = { limit = { is_pop_type = capitalists } add = { value = pop_radical_fraction multiply = total_size } } } } set_variable = { name = spec_test_expected_other value = { value = 0 every_scope_pop = { limit = { NOT = { is_pop_type = capitalists } } add = { value = pop_radical_fraction multiply = total_size } } } } }
+if = { limit = { any_scope_state = { var:spec_test_expected_cap > 0 } } debug_log = "HOTFIX PASS depression_has_affected_capitalists" }
+else = { debug_log = "HOTFIX FAIL depression_has_affected_capitalists" }
+add_radicals = { value = -1 }
+add_loyalists = { value = -1 }
+spec_ld_join = yes
+every_scope_state = { set_variable = { name = spec_test_actual_cap value = { value = 0 every_scope_pop = { limit = { is_pop_type = capitalists } add = { value = pop_radical_fraction multiply = total_size } } } } set_variable = { name = spec_test_actual_other value = { value = 0 every_scope_pop = { limit = { NOT = { is_pop_type = capitalists } } add = { value = pop_radical_fraction multiply = total_size } } } } }
+if = { limit = { NOT = { any_scope_state = { NOT = { var:spec_test_actual_cap = var:spec_test_expected_cap } } } } debug_log = "HOTFIX PASS depression_capitalist_totals_match_engine_effect" }
+else = { debug_log = "HOTFIX FAIL depression_capitalist_totals_match_engine_effect" }
+if = { limit = { NOT = { any_scope_state = { NOT = { var:spec_test_actual_other = var:spec_test_expected_other } } } } debug_log = "HOTFIX PASS depression_leaves_other_pop_types_unchanged" }
+else = { debug_log = "HOTFIX FAIL depression_leaves_other_pop_types_unchanged" }
+spec_ld_join = yes
+every_scope_state = { set_variable = { name = spec_test_repeat_cap value = { value = 0 every_scope_pop = { limit = { is_pop_type = capitalists } add = { value = pop_radical_fraction multiply = total_size } } } } set_variable = { name = spec_test_repeat_other value = { value = 0 every_scope_pop = { limit = { NOT = { is_pop_type = capitalists } } add = { value = pop_radical_fraction multiply = total_size } } } } }
+if = { limit = { NOT = { any_scope_state = { OR = { NOT = { var:spec_test_repeat_cap = var:spec_test_actual_cap } NOT = { var:spec_test_repeat_other = var:spec_test_actual_other } } } } } debug_log = "HOTFIX PASS depression_repeat_join_does_not_repeat_radicals" }
+else = { debug_log = "HOTFIX FAIL depression_repeat_join_does_not_repeat_radicals" }
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

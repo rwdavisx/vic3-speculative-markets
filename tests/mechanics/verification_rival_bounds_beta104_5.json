@@ -1,0 +1,47 @@
+{
+  "date": "2026-11-14",
+  "version": "1.0.4-beta.5",
+  "new_assertion_count": 12,
+  "suites": [
+    {
+      "build": "runs/mechanics/rival_bounds_beta104_5",
+      "run": "runs/sweep_mechanics_rival_bounds_beta104_5/rival_01",
+      "method": "Three-country rivalry cycle at trust 0 and 120, neutral and hostile relations. Winner/loser exact amounts; mixed result accepts the interval implied by per-pair clipping, not order independence.",
+      "result": {
+        "suite": "rival_bounds",
+        "passed": [
+          "ceiling_loser",
+          "ceiling_mixed_clipping",
+          "ceiling_winner",
+          "floor_loser",
+          "floor_mixed_clipping",
+          "floor_winner",
+          "hostile_ceiling_loser",
+          "hostile_ceiling_mixed_clipping",
+          "hostile_ceiling_winner",
+          "hostile_floor_loser",
+          "hostile_floor_mixed_clipping",
+          "hostile_floor_winner"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_rival_bounds_beta104_5\\rival_01\\error.log"
+        ],
+        "error_categories": {
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      },
+      "sha256": {
+        "runs/mechanics/rival_bounds_beta104_5/mechanics-test-manifest.json": "f4e66e9b777a1d6902cd73a88f50cf4896976a72fbe8c6cc0f65ee9b4571ddc2",
+        "runs/sweep_mechanics_rival_bounds_beta104_5/rival_01/assertions.log": "03f9d60199ede21c8e416158d7077762947bc3721ee92eea3c6991ead32dcdf2",
+        "runs/sweep_mechanics_rival_bounds_beta104_5/rival_01/error.log": "c35332d18ea8bd46bc32f9f717b7f8161bc608e7227acc938db6e0bdd0c21fb5"
+      }
+    }
+  ]
+}

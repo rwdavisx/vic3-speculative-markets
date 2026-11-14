@@ -1,0 +1,38 @@
+namespace = spec_mechanics_war_reload
+spec_mechanics_war_reload.1 = { type = country_event hidden = yes immediate = { trigger_event = { id = spec_mechanics_war_reload.2 days = 300 } } }
+spec_mechanics_war_reload.2 = { type = country_event hidden = yes immediate = {
+create_diplomatic_play = { target_country = c:FRA type = dp_humiliation war = yes add_war_goal = { holder = c:GBR type = humiliation target_country = c:FRA primary_demand = yes } }
+trigger_event = { id = spec_mechanics_war_reload.4 days = 2 }
+} }
+spec_mechanics_war_reload.4 = { type = country_event hidden = yes immediate = {
+every_scope_war = { limit = { is_war_participant = c:FRA } diplomatic_play = { save_scope_as = diplomatic_play } }
+set_variable = { name = spec_test_saved_play value = scope:diplomatic_play }
+if = { limit = { has_war_with = c:FRA exists = var:spec_test_saved_play } debug_log = "HOTFIX PASS war_identity_stored_before_save" }
+else = { debug_log = "HOTFIX FAIL war_identity_stored_before_save" }
+trigger_event = { id = spec_mechanics_war_reload.3 days = 80 }
+} }
+spec_mechanics_war_reload.3 = { type = country_event hidden = yes immediate = {
+if = { limit = { has_war_with = c:FRA exists = var:spec_test_saved_play } debug_log = "HOTFIX PASS war_identity_survives_reload" }
+else = { debug_log = "HOTFIX FAIL war_identity_survives_reload" }
+var:spec_test_saved_play = { save_scope_as = diplomatic_play }
+c:FRA = {
+if = { limit = { OR = { var:spec_war1_play ?= scope:diplomatic_play var:spec_war2_play ?= scope:diplomatic_play var:spec_war3_play ?= scope:diplomatic_play } } debug_log = "HOTFIX PASS monthly_cache_matches_reloaded_play" }
+else = { debug_log = "HOTFIX FAIL monthly_cache_matches_reloaded_play" }
+# Controlled casualty inputs isolate settlement routing after loading. The war itself stays active.
+set_variable = { name = spec_war1_play value = scope:diplomatic_play }
+set_variable = { name = spec_war1_total value = 0.125 }
+remove_variable = spec_war2_play
+remove_variable = spec_war3_play
+set_variable = { name = spec_conf value = 55 }
+set_variable = { name = spec_c_total value = 0 }
+set_variable = { name = spec_c_warend value = 0 }
+add_to_variable_list = { name = spec_defeat_goal_plays target = scope:diplomatic_play days = 2 }
+trigger_event = { on_action = spec_war_capitulated }
+if = { limit = { var:spec_conf = 51 var:spec_c_warend = -4 } debug_log = "HOTFIX PASS reloaded_play_routes_settlement" }
+else = { debug_log = "HOTFIX FAIL reloaded_play_routes_settlement" }
+trigger_event = { on_action = spec_war_capitulated }
+if = { limit = { var:spec_conf = 51 var:spec_c_warend = -4 } debug_log = "HOTFIX PASS reloaded_play_blocks_duplicate" }
+else = { debug_log = "HOTFIX FAIL reloaded_play_blocks_duplicate" }
+}
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

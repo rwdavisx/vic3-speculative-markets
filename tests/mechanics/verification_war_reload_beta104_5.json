@@ -1,0 +1,48 @@
+{
+  "date": "2026-11-14",
+  "version": "1.0.4-beta.5",
+  "new_assertion_count": 5,
+  "suites": [
+    {
+      "build": "runs/mechanics/war_reload_beta104_5_r2",
+      "runs": [
+        "runs/sweep_mechanics_war_reload_seed_beta104_5_r2/war_01",
+        "runs/sweep_mechanics_war_reloaded_beta104_5_r2/war_01"
+      ],
+      "method": "Actual yearly save/reload during GBR-FRA war; identity/cache persist and controlled settlement routes and deduplicates. Not an actual surrender after loading. Initial same-tick war-presence fixture is rejected.",
+      "result": {
+        "suite": "war_reload",
+        "passed": [
+          "monthly_cache_matches_reloaded_play",
+          "reloaded_play_blocks_duplicate",
+          "reloaded_play_routes_settlement",
+          "war_identity_stored_before_save",
+          "war_identity_survives_reload"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_war_reload_seed_beta104_5_r2\\war_01\\error.log",
+          "runs\\sweep_mechanics_war_reloaded_beta104_5_r2\\war_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 4,
+          "engine_or_basegame_other": 2718,
+          "mod_variable_load_warnings": 32
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      },
+      "sha256": {
+        "runs/mechanics/war_reload_beta104_5_r2/mechanics-test-manifest.json": "83352d8abf94aca1996742c48963a1931c962d3b503efc2203567979f48545ff",
+        "runs/sweep_mechanics_war_reload_seed_beta104_5_r2/war_01/assertions.log": "d8767f656d57aa2b20877d5305b26798ebcc60ee3812a59c1e9f75430559607e",
+        "runs/sweep_mechanics_war_reloaded_beta104_5_r2/war_01/assertions.log": "7a96b38a01a3dcfd96310b3ca5df272cc429e5b483433cb0009056825270fc3d",
+        "runs/sweep_mechanics_war_reload_seed_beta104_5_r2/war_01/error.log": "6b57151bf3527bd4b274ad4c849c4e0fbd120dcbafb8ac982e2cad425e83adfc",
+        "runs/sweep_mechanics_war_reloaded_beta104_5_r2/war_01/error.log": "9e82a874e9db10c0b6835bb1ea36547731db2dd0fcd6b0c603422e8c5fdfdb71",
+        "G:/GameDev/_claude_scratch/vic/saves/mechanics_war_reload_seed_beta104_5_r2_war_1_1837.v3": "44b9558af3cd653ddbde8e0b01c71908b19e1b5edc5c8b0b1dc9589e0c6d35f3"
+      }
+    }
+  ]
+}

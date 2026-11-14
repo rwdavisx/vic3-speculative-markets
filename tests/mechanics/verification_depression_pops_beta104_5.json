@@ -1,0 +1,41 @@
+{
+  "date": "2026-11-14",
+  "version": "1.0.4-beta.5",
+  "new_assertion_count": 4,
+  "suites": [
+    {
+      "build": "runs/mechanics/depression_pops_beta104_5_r2",
+      "runs": [
+        "runs/sweep_mechanics_depression_pops_beta104_5_r2/pops_01"
+      ],
+      "method": "Full-country capitalist and other-pop radical totals against direct engine effect, plus repeat-join idempotence. Initial fixture used invalid pop_type trigger and is rejected.",
+      "result": {
+        "suite": "depression_pops",
+        "passed": [
+          "depression_capitalist_totals_match_engine_effect",
+          "depression_has_affected_capitalists",
+          "depression_leaves_other_pop_types_unchanged",
+          "depression_repeat_join_does_not_repeat_radicals"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_depression_pops_beta104_5_r2\\pops_01\\error.log"
+        ],
+        "error_categories": {
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      },
+      "sha256": {
+        "runs/mechanics/depression_pops_beta104_5_r2/mechanics-test-manifest.json": "a13c80304d702d57d27ed9923e89aec468408d264691b08bf6366126a5ce30f6",
+        "runs/sweep_mechanics_depression_pops_beta104_5_r2/pops_01/assertions.log": "0900b7d58ba6104da1806a4e2e3b87f547c984073d2d6e55c4373c5efa9861b6",
+        "runs/sweep_mechanics_depression_pops_beta104_5_r2/pops_01/error.log": "02e819c5437e371e8d3e45f6a89f817a45503f87f1ea4794e618a6537a845ed2"
+      }
+    }
+  ]
+}
