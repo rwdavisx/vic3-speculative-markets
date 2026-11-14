@@ -1,0 +1,5 @@
+on_capitulation = { on_actions = { spec_mechanics_late_capitulation } }
+spec_mechanics_late_capitulation = { trigger = { has_variable = spec_test_war_tracking } effect = {
+if = { limit = { c:PRU ?= this } c:GBR = { trigger_event = { id = spec_mechanics_late_peace.3 days = 7 } } }
+if = { limit = { c:FRA ?= this } c:GBR = { trigger_event = { id = spec_mechanics_late_peace.4 days = 3 } } }
+} }

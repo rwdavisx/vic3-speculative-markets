@@ -72,6 +72,16 @@ class MechanicsHarnessTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Malformed"):
             self.prepare()
 
+    def test_fixture_modifiers_stay_in_test_output(self):
+        modifiers = self.fixture.with_suffix(".static_modifiers.txt")
+        modifiers.write_text("test_pressure = { political_movement_radicalism_add = 3 }\n")
+        self.prepare()
+        copied = self.out / "common/static_modifiers/zz_spec_mechanics_modifiers.txt"
+        self.assertEqual(copied.read_text(encoding="utf-8-sig"), modifiers.read_text())
+        self.assertFalse((self.source / "common/static_modifiers").exists())
+        manifest = json.loads((self.out / "mechanics-test-manifest.json").read_text())
+        self.assertEqual(manifest["test_modifiers_sha256"], testbed.digest(modifiers))
+
     def test_report_fails_missing_failed_and_error_records(self):
         self.prepare()
         assertions = self.root / "assertions.log"

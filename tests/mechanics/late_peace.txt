@@ -1,0 +1,31 @@
+namespace = spec_mechanics_late_peace
+# Manual beta integration test: trigger .1, wait for .2, capitulate PRU,
+# wait for .3 (> 2-day dedup period), then capitulate FRA, wait for .4.
+spec_mechanics_late_peace.1 = { type = country_event hidden = yes immediate = {
+set_variable = spec_test_war_tracking
+set_variable = { name = spec_test_jump_count value = 0 }
+c:PRU = { set_variable = spec_test_war_tracking set_variable = { name = spec_test_jump_count value = 0 } }
+c:FRA = { set_variable = spec_test_war_tracking set_variable = { name = spec_test_jump_count value = 0 } }
+create_diplomatic_play = { target_country = c:FRA type = dp_conquer_state war = yes add_target_backers = { c:PRU } add_war_goal = { holder = c:GBR type = conquer_state target_country = c:FRA target_state = s:STATE_NORMANDY.region_state:FRA primary_demand = yes } }
+trigger_event = { id = spec_mechanics_late_peace.2 days = 35 }
+} }
+spec_mechanics_late_peace.2 = { type = country_event hidden = yes immediate = {
+if = { limit = { has_war_with = c:FRA has_war_with = c:PRU } debug_log = "HOTFIX PASS war_has_both_opponents" } else = { debug_log = "HOTFIX FAIL war_has_both_opponents" }
+if = { limit = { c:PRU = { var:spec_war_n > 0 } } debug_log = "HOTFIX PASS ally_monthly_cache_populated" } else = { debug_log = "HOTFIX FAIL ally_monthly_cache_populated" }
+debug_log = "HOTFIX INFO READY TO CAPITULATE PRU"
+} }
+spec_mechanics_late_peace.3 = { type = country_event hidden = yes immediate = {
+if = { limit = { has_war_with = c:FRA NOT = { has_war_with = c:PRU } } debug_log = "HOTFIX PASS ally_left_main_war_continues" } else = { debug_log = "HOTFIX FAIL ally_left_main_war_continues" }
+if = { limit = { c:PRU = { var:spec_test_jump_count = 1 var:spec_test_last_jump < 0 } } debug_log = "HOTFIX PASS ally_charged_once" } else = { debug_log = "HOTFIX FAIL ally_charged_once" }
+set_variable = { name = spec_test_before_debt value = var:spec_debt }
+c:FRA = { set_variable = { name = spec_test_before_debt value = var:spec_debt } }
+debug_log = "HOTFIX INFO READY TO CAPITULATE FRA"
+} }
+spec_mechanics_late_peace.4 = { type = country_event hidden = yes immediate = {
+if = { limit = { NOR = { has_war_with = c:FRA has_war_with = c:PRU } } debug_log = "HOTFIX PASS later_main_peace_ends_war" } else = { debug_log = "HOTFIX FAIL later_main_peace_ends_war" }
+if = { limit = { c:PRU = { var:spec_test_jump_count = 1 } } debug_log = "HOTFIX PASS later_peace_does_not_recharge_departed_ally" } else = { debug_log = "HOTFIX FAIL later_peace_does_not_recharge_departed_ally" }
+if = { limit = { c:FRA = { var:spec_test_jump_count = 1 var:spec_test_last_jump < 0 } } debug_log = "HOTFIX PASS main_defeat_charged_once" } else = { debug_log = "HOTFIX FAIL main_defeat_charged_once" }
+if = { limit = { owns_entire_state_region = STATE_NORMANDY } debug_log = "HOTFIX PASS actual_peace_transfers_territory" } else = { debug_log = "HOTFIX FAIL actual_peace_transfers_territory" }
+if = { limit = { var:spec_debt >= 0 c:FRA = { var:spec_debt >= 0 has_variable = spec_conf } } debug_log = "HOTFIX PASS territorial_peace_keeps_valid_finance" } else = { debug_log = "HOTFIX FAIL territorial_peace_keeps_valid_finance" }
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

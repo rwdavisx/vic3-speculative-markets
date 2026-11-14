@@ -1,0 +1,14 @@
+on_revolution_start = { on_actions = { spec_mechanics_capture_revolution } }
+spec_mechanics_capture_revolution = { trigger = { c:FRA ?= this NOT = { has_global_variable = spec_test_revolution_started } } effect = {
+set_global_variable = spec_test_revolution_started
+scope:target = {
+trigger_event = { id = spec_mechanics_successors.4 }
+}
+} }
+on_secession_start = { on_actions = { spec_mechanics_capture_secession } }
+spec_mechanics_capture_secession = { trigger = { c:TUR ?= this NOT = { has_global_variable = spec_test_secession_started } } effect = {
+set_global_variable = spec_test_secession_started
+scope:target = {
+trigger_event = { id = spec_mechanics_successors.5 }
+}
+} }

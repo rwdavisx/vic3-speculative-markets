@@ -1,0 +1,139 @@
+namespace = spec_mechanics_building_groups
+spec_mechanics_building_groups.1 = { type = country_event hidden = yes immediate = {
+activate_law = law_type:law_interventionism
+capital = { create_building = { building = building_wheat_farm level = 3 } create_building = { building = building_coffee_plantation level = 3 } create_building = { building = building_coal_mine level = 3 } create_building = { building = building_port level = 3 } create_building = { building = building_whaling_station level = 3 } create_building = { building = building_art_academy level = 3 } create_building = { building = building_textile_mill level = 3 } }
+set_variable = { name = spec_word_aeroplanes value = 3 }
+set_variable = { name = spec_word_ammunition value = 3 }
+set_variable = { name = spec_word_artillery value = 3 }
+set_variable = { name = spec_word_automobiles value = 3 }
+set_variable = { name = spec_word_clippers value = 3 }
+set_variable = { name = spec_word_clothes value = 3 }
+set_variable = { name = spec_word_coal value = 3 }
+set_variable = { name = spec_word_coffee value = 3 }
+set_variable = { name = spec_word_copper value = 3 }
+set_variable = { name = spec_word_dye value = 3 }
+set_variable = { name = spec_word_electricity value = 3 }
+set_variable = { name = spec_word_engines value = 3 }
+set_variable = { name = spec_word_explosives value = 3 }
+set_variable = { name = spec_word_fabric value = 3 }
+set_variable = { name = spec_word_fertilizer value = 3 }
+set_variable = { name = spec_word_fine_art value = 3 }
+set_variable = { name = spec_word_fish value = 3 }
+set_variable = { name = spec_word_fruit value = 3 }
+set_variable = { name = spec_word_furniture value = 3 }
+set_variable = { name = spec_word_glass value = 3 }
+set_variable = { name = spec_word_grain value = 3 }
+set_variable = { name = spec_word_groceries value = 3 }
+set_variable = { name = spec_word_hardwood value = 3 }
+set_variable = { name = spec_word_iron value = 3 }
+set_variable = { name = spec_word_lead value = 3 }
+set_variable = { name = spec_word_liquor value = 3 }
+set_variable = { name = spec_word_luxury_clothes value = 3 }
+set_variable = { name = spec_word_luxury_furniture value = 3 }
+set_variable = { name = spec_word_meat value = 3 }
+set_variable = { name = spec_word_merchant_marine value = 3 }
+set_variable = { name = spec_word_oil value = 3 }
+set_variable = { name = spec_word_opium value = 3 }
+set_variable = { name = spec_word_paper value = 3 }
+set_variable = { name = spec_word_porcelain value = 3 }
+set_variable = { name = spec_word_radios value = 3 }
+set_variable = { name = spec_word_rubber value = 3 }
+set_variable = { name = spec_word_silk value = 3 }
+set_variable = { name = spec_word_small_arms value = 3 }
+set_variable = { name = spec_word_steamers value = 3 }
+set_variable = { name = spec_word_steel value = 3 }
+set_variable = { name = spec_word_sugar value = 3 }
+set_variable = { name = spec_word_sulfur value = 3 }
+set_variable = { name = spec_word_tanks value = 3 }
+set_variable = { name = spec_word_tea value = 3 }
+set_variable = { name = spec_word_telephones value = 3 }
+set_variable = { name = spec_word_tobacco value = 3 }
+set_variable = { name = spec_word_tools value = 3 }
+set_variable = { name = spec_word_wine value = 3 }
+set_variable = { name = spec_word_wood value = 3 }
+spec_update_companies = yes
+trigger_event = { id = spec_mechanics_building_groups.2 days = 10 }
+} }
+spec_mechanics_building_groups.2 = { type = country_event hidden = yes immediate = {
+if = { limit = { capital = { b:building_wheat_farm = { level >= 3 } } } debug_log = "HOTFIX PASS wheat_farm_exists" } else = { debug_log = "HOTFIX FAIL wheat_farm_exists" }
+capital = { b:building_wheat_farm = { owner = { set_variable = { name = spec_test_expected_wheat_farm value = { value = prev.modifier:building_throughput_add add = 0.05 } } } } }
+set_variable = { name = spec_word_grain value = 5 }
+if = { limit = { capital = { b:building_coffee_plantation = { level >= 3 } } } debug_log = "HOTFIX PASS coffee_plantation_exists" } else = { debug_log = "HOTFIX FAIL coffee_plantation_exists" }
+capital = { b:building_coffee_plantation = { owner = { set_variable = { name = spec_test_expected_coffee_plantation value = { value = prev.modifier:building_throughput_add add = 0.05 } } } } }
+set_variable = { name = spec_word_coffee value = 5 }
+if = { limit = { capital = { b:building_coal_mine = { level >= 3 } } } debug_log = "HOTFIX PASS coal_mine_exists" } else = { debug_log = "HOTFIX FAIL coal_mine_exists" }
+capital = { b:building_coal_mine = { owner = { set_variable = { name = spec_test_expected_coal_mine value = { value = prev.modifier:building_throughput_add add = 0.05 } } } } }
+set_variable = { name = spec_word_coal value = 5 }
+if = { limit = { capital = { b:building_port = { level >= 3 } } } debug_log = "HOTFIX PASS port_exists" } else = { debug_log = "HOTFIX FAIL port_exists" }
+capital = { b:building_port = { owner = { set_variable = { name = spec_test_expected_port value = { value = prev.modifier:building_throughput_add add = 0.05 } } } } }
+set_variable = { name = spec_word_merchant_marine value = 5 }
+if = { limit = { capital = { b:building_whaling_station = { level >= 3 } } } debug_log = "HOTFIX PASS whaling_station_exists" } else = { debug_log = "HOTFIX FAIL whaling_station_exists" }
+capital = { b:building_whaling_station = { owner = { set_variable = { name = spec_test_expected_whaling_station value = { value = prev.modifier:building_throughput_add add = 0.05 } } } } }
+set_variable = { name = spec_word_oil value = 5 }
+if = { limit = { capital = { b:building_art_academy = { level >= 3 } } } debug_log = "HOTFIX PASS art_academy_exists" } else = { debug_log = "HOTFIX FAIL art_academy_exists" }
+capital = { b:building_art_academy = { owner = { set_variable = { name = spec_test_expected_art_academy value = { value = prev.modifier:building_throughput_add add = 0.05 } } } } }
+set_variable = { name = spec_word_fine_art value = 5 }
+if = { limit = { capital = { b:building_textile_mill = { level >= 3 } } } debug_log = "HOTFIX PASS textile_mill_exists" } else = { debug_log = "HOTFIX FAIL textile_mill_exists" }
+capital = { b:building_textile_mill = { owner = { set_variable = { name = spec_test_expected_textile_mill value = { value = prev.modifier:building_throughput_add add = 0.05 } } } } }
+set_variable = { name = spec_word_clothes value = 5 }
+spec_update_companies = yes
+trigger_event = { id = spec_mechanics_building_groups.3 days = 1 }
+} }
+spec_mechanics_building_groups.3 = { type = country_event hidden = yes immediate = {
+capital = { b:building_wheat_farm = { owner = { set_variable = { name = spec_test_actual_wheat_farm value = prev.modifier:building_throughput_add } }
+if = { limit = { has_modifier = spec_investor_grain_5 } debug_log = "HOTFIX INFO wheat_farm has eager modifier" }
+} }
+debug_log = "HOTFIX INFO wheat_farm actual=[THIS.Var('spec_test_actual_wheat_farm').GetValue] expected=[THIS.Var('spec_test_expected_wheat_farm').GetValue]"
+capital = { b:building_coffee_plantation = { owner = { set_variable = { name = spec_test_actual_coffee_plantation value = prev.modifier:building_throughput_add } }
+if = { limit = { has_modifier = spec_investor_coffee_5 } debug_log = "HOTFIX INFO coffee_plantation has eager modifier" }
+} }
+debug_log = "HOTFIX INFO coffee_plantation actual=[THIS.Var('spec_test_actual_coffee_plantation').GetValue] expected=[THIS.Var('spec_test_expected_coffee_plantation').GetValue]"
+capital = { b:building_coal_mine = { owner = { set_variable = { name = spec_test_actual_coal_mine value = prev.modifier:building_throughput_add } }
+if = { limit = { has_modifier = spec_investor_coal_5 } debug_log = "HOTFIX INFO coal_mine has eager modifier" }
+} }
+debug_log = "HOTFIX INFO coal_mine actual=[THIS.Var('spec_test_actual_coal_mine').GetValue] expected=[THIS.Var('spec_test_expected_coal_mine').GetValue]"
+capital = { b:building_port = { owner = { set_variable = { name = spec_test_actual_port value = prev.modifier:building_throughput_add } }
+if = { limit = { has_modifier = spec_investor_merchant_marine_5 } debug_log = "HOTFIX INFO port has eager modifier" }
+} }
+debug_log = "HOTFIX INFO port actual=[THIS.Var('spec_test_actual_port').GetValue] expected=[THIS.Var('spec_test_expected_port').GetValue]"
+capital = { b:building_whaling_station = { owner = { set_variable = { name = spec_test_actual_whaling_station value = prev.modifier:building_throughput_add } }
+if = { limit = { has_modifier = spec_investor_oil_5 } debug_log = "HOTFIX INFO whaling_station has eager modifier" }
+} }
+debug_log = "HOTFIX INFO whaling_station actual=[THIS.Var('spec_test_actual_whaling_station').GetValue] expected=[THIS.Var('spec_test_expected_whaling_station').GetValue]"
+capital = { b:building_art_academy = { owner = { set_variable = { name = spec_test_actual_art_academy value = prev.modifier:building_throughput_add } }
+if = { limit = { has_modifier = spec_investor_fine_art_5 } debug_log = "HOTFIX INFO art_academy has eager modifier" }
+} }
+debug_log = "HOTFIX INFO art_academy actual=[THIS.Var('spec_test_actual_art_academy').GetValue] expected=[THIS.Var('spec_test_expected_art_academy').GetValue]"
+capital = { b:building_textile_mill = { owner = { set_variable = { name = spec_test_actual_textile_mill value = prev.modifier:building_throughput_add } }
+if = { limit = { has_modifier = spec_investor_clothes_5 } debug_log = "HOTFIX INFO textile_mill has eager modifier" }
+} }
+debug_log = "HOTFIX INFO textile_mill actual=[THIS.Var('spec_test_actual_textile_mill').GetValue] expected=[THIS.Var('spec_test_expected_textile_mill').GetValue]"
+
+if = { limit = { capital = { b:building_wheat_farm = { has_modifier = spec_investor_grain_5 modifier:building_throughput_add = owner.var:spec_test_expected_wheat_farm } } } debug_log = "HOTFIX PASS wheat_farm_eager_throughput" } else = { debug_log = "HOTFIX FAIL wheat_farm_eager_throughput" }
+if = { limit = { capital = { b:building_coffee_plantation = { has_modifier = spec_investor_coffee_5 modifier:building_throughput_add = owner.var:spec_test_expected_coffee_plantation } } } debug_log = "HOTFIX PASS coffee_plantation_eager_throughput" } else = { debug_log = "HOTFIX FAIL coffee_plantation_eager_throughput" }
+if = { limit = { capital = { b:building_coal_mine = { has_modifier = spec_investor_coal_5 modifier:building_throughput_add = owner.var:spec_test_expected_coal_mine } } } debug_log = "HOTFIX PASS coal_mine_eager_throughput" } else = { debug_log = "HOTFIX FAIL coal_mine_eager_throughput" }
+if = { limit = { capital = { b:building_port = { has_modifier = spec_investor_merchant_marine_5 modifier:building_throughput_add = owner.var:spec_test_expected_port } } } debug_log = "HOTFIX PASS port_eager_throughput" } else = { debug_log = "HOTFIX FAIL port_eager_throughput" }
+if = { limit = { capital = { b:building_whaling_station = { has_modifier = spec_investor_oil_5 modifier:building_throughput_add = owner.var:spec_test_expected_whaling_station } } } debug_log = "HOTFIX PASS whaling_station_eager_throughput" } else = { debug_log = "HOTFIX FAIL whaling_station_eager_throughput" }
+if = { limit = { capital = { b:building_art_academy = { has_modifier = spec_investor_fine_art_5 modifier:building_throughput_add = owner.var:spec_test_expected_art_academy } } } debug_log = "HOTFIX PASS art_academy_eager_throughput" } else = { debug_log = "HOTFIX FAIL art_academy_eager_throughput" }
+if = { limit = { capital = { b:building_textile_mill = { has_modifier = spec_investor_clothes_5 modifier:building_throughput_add = owner.var:spec_test_expected_textile_mill } } } debug_log = "HOTFIX PASS textile_mill_eager_throughput" } else = { debug_log = "HOTFIX FAIL textile_mill_eager_throughput" }
+add_technology_researched = intensive_agriculture
+add_technology_researched = watertube_boiler
+activate_production_method = { building_type = building_wheat_farm production_method = pm_soil_enriching_farming }
+activate_production_method = { building_type = building_coal_mine production_method = pm_condensing_engine_pump_building_coal_mine }
+spec_update_companies = yes
+trigger_event = { id = spec_mechanics_building_groups.4 days = 1 }
+} }
+spec_mechanics_building_groups.4 = { type = country_event hidden = yes immediate = {
+if = { limit = { capital = { b:building_wheat_farm = { has_active_production_method = pm_soil_enriching_farming has_modifier = spec_investor_grain_5 } } } debug_log = "HOTFIX PASS wheat_farm_pm_change_keeps_interest" } else = { debug_log = "HOTFIX FAIL wheat_farm_pm_change_keeps_interest" }
+if = { limit = { capital = { b:building_coal_mine = { has_active_production_method = pm_condensing_engine_pump_building_coal_mine has_modifier = spec_investor_coal_5 } } } debug_log = "HOTFIX PASS coal_mine_pm_change_keeps_interest" } else = { debug_log = "HOTFIX FAIL coal_mine_pm_change_keeps_interest" }
+activate_law = law_type:law_command_economy
+spec_shut_down = yes
+if = { limit = { capital = { b:building_wheat_farm = { NOT = { has_modifier = spec_investor_grain_5 } } } } debug_log = "HOTFIX PASS wheat_farm_command_clears_interest" } else = { debug_log = "HOTFIX FAIL wheat_farm_command_clears_interest" }
+if = { limit = { capital = { b:building_coffee_plantation = { NOT = { has_modifier = spec_investor_coffee_5 } } } } debug_log = "HOTFIX PASS coffee_plantation_command_clears_interest" } else = { debug_log = "HOTFIX FAIL coffee_plantation_command_clears_interest" }
+if = { limit = { capital = { b:building_coal_mine = { NOT = { has_modifier = spec_investor_coal_5 } } } } debug_log = "HOTFIX PASS coal_mine_command_clears_interest" } else = { debug_log = "HOTFIX FAIL coal_mine_command_clears_interest" }
+if = { limit = { capital = { b:building_port = { NOT = { has_modifier = spec_investor_merchant_marine_5 } } } } debug_log = "HOTFIX PASS port_command_clears_interest" } else = { debug_log = "HOTFIX FAIL port_command_clears_interest" }
+if = { limit = { capital = { b:building_whaling_station = { NOT = { has_modifier = spec_investor_oil_5 } } } } debug_log = "HOTFIX PASS whaling_station_command_clears_interest" } else = { debug_log = "HOTFIX FAIL whaling_station_command_clears_interest" }
+if = { limit = { capital = { b:building_art_academy = { NOT = { has_modifier = spec_investor_fine_art_5 } } } } debug_log = "HOTFIX PASS art_academy_command_clears_interest" } else = { debug_log = "HOTFIX FAIL art_academy_command_clears_interest" }
+if = { limit = { capital = { b:building_textile_mill = { NOT = { has_modifier = spec_investor_clothes_5 } } } } debug_log = "HOTFIX PASS textile_mill_command_clears_interest" } else = { debug_log = "HOTFIX FAIL textile_mill_command_clears_interest" }
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

@@ -1,0 +1,16 @@
+namespace = spec_mechanics_tag_persistence
+spec_mechanics_tag_persistence.1 = { type = country_event hidden = yes immediate = {
+set_variable = { name = spec_debt value = 87654321 }
+set_variable = spec_llr
+set_variable = { name = spec_note value = 1 }
+change_tag = ENG
+if = { limit = { this = c:ENG exists = je:je_spec_markets var:spec_debt = 87654321 has_variable = spec_llr var:spec_note = 1 } debug_log = "HOTFIX PASS tag_change_keeps_finance_reforms_journal" }
+else = { debug_log = "HOTFIX FAIL tag_change_keeps_finance_reforms_journal" }
+trigger_event = { id = spec_mechanics_tag_persistence.2 days = 40 }
+} }
+spec_mechanics_tag_persistence.2 = { type = country_event hidden = yes immediate = {
+# AI may form Britain again; test the persistent country object, not its label.
+if = { limit = { has_variable = spec_conf var:spec_conf >= 0 var:spec_conf <= 100 var:spec_debt >= 0 exists = je:je_spec_markets has_variable = spec_llr var:spec_note = 1 } debug_log = "HOTFIX PASS tag_change_survives_monthly_update" }
+else = { debug_log = "HOTFIX FAIL tag_change_survives_monthly_update" }
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

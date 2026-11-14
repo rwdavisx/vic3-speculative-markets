@@ -1,0 +1,1 @@
+spec_test_secession_pressure = { political_movement_radicalism_add = 3 political_movement_activism_growth_mult = 100 political_movement_pop_attraction_mult = 100 }

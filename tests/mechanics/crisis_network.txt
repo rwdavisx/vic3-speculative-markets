@@ -1,0 +1,101 @@
+namespace = spec_mechanics_crisis_network
+spec_mechanics_crisis_network.1 = { type = country_event hidden = yes immediate = { trigger_event = { id = spec_mechanics_crisis_network.2 days = 10 } } }
+spec_mechanics_crisis_network.2 = { type = country_event hidden = yes immediate = {
+every_country = { remove_variable = spec_ld_spreading remove_variable = spec_ld_spread_now }
+set_global_variable = { name = spec_ld_phase value = 1 }
+set_global_variable = { name = spec_ld_months value = 60 }
+set_global_variable = { name = spec_ld_progress value = 0 }
+c:SOK = { activate_law = law_type:law_interventionism spec_ld_leave = yes remove_variable = spec_panic remove_variable = spec_panic_cooldown remove_variable = spec_ld_half set_variable = { name = spec_conf value = 55 } set_variable = { name = spec_c_total value = 0 } set_variable = { name = spec_debt value = 1000 } add_investment_pool = { value = investment_pool multiply = -1 } add_investment_pool = 1000 }
+c:ZUL = { activate_law = law_type:law_interventionism spec_ld_leave = yes remove_variable = spec_panic remove_variable = spec_panic_cooldown remove_variable = spec_ld_half set_variable = { name = spec_conf value = 55 } set_variable = { name = spec_c_total value = 0 } set_variable = { name = spec_debt value = 1000 } add_investment_pool = { value = investment_pool multiply = -1 } add_investment_pool = 1000 }
+c:MAD = { activate_law = law_type:law_interventionism spec_ld_leave = yes remove_variable = spec_panic remove_variable = spec_panic_cooldown remove_variable = spec_ld_half set_variable = { name = spec_conf value = 55 } set_variable = { name = spec_c_total value = 0 } set_variable = { name = spec_debt value = 1000 } add_investment_pool = { value = investment_pool multiply = -1 } add_investment_pool = 1000 }
+c:DAI = { activate_law = law_type:law_interventionism spec_ld_leave = yes remove_variable = spec_panic remove_variable = spec_panic_cooldown remove_variable = spec_ld_half set_variable = { name = spec_conf value = 55 } set_variable = { name = spec_c_total value = 0 } set_variable = { name = spec_debt value = 1000 } add_investment_pool = { value = investment_pool multiply = -1 } add_investment_pool = 1000 }
+c:KOR = { activate_law = law_type:law_interventionism spec_ld_leave = yes remove_variable = spec_panic remove_variable = spec_panic_cooldown remove_variable = spec_ld_half set_variable = { name = spec_conf value = 55 } set_variable = { name = spec_c_total value = 0 } set_variable = { name = spec_debt value = 1000 } add_investment_pool = { value = investment_pool multiply = -1 } add_investment_pool = 1000 }
+create_treaty = { first_country = c:SOK second_country = c:ZUL is_draft = no binding_period = { years = 10 } articles_to_create = { { article = foreign_investment_rights source_country = c:SOK target_country = c:ZUL } } }
+create_treaty = { first_country = c:SOK second_country = c:DAI is_draft = no binding_period = { years = 10 } articles_to_create = { { article = foreign_investment_rights source_country = c:SOK target_country = c:DAI } } }
+create_treaty = { first_country = c:ZUL second_country = c:MAD is_draft = no binding_period = { years = 10 } articles_to_create = { { article = foreign_investment_rights source_country = c:ZUL target_country = c:MAD } } }
+create_treaty = { first_country = c:DAI second_country = c:MAD is_draft = no binding_period = { years = 10 } articles_to_create = { { article = foreign_investment_rights source_country = c:DAI target_country = c:MAD } } }
+create_treaty = { first_country = c:SOK second_country = c:KOR is_draft = no binding_period = { years = 10 } articles_to_create = { { article = foreign_investment_rights source_country = c:SOK target_country = c:KOR } } }
+c:KOR = { activate_law = law_type:law_command_economy }
+c:SOK = { spec_ld_join = yes }
+spec_ld_tick = yes
+trigger_event = { id = spec_mechanics_crisis_network.3 days = 1 }
+} }
+spec_mechanics_crisis_network.3 = { type = country_event hidden = yes immediate = {
+if = { limit = { c:ZUL = { has_variable = spec_ld } c:DAI = { has_variable = spec_ld } } debug_log = "HOTFIX PASS branch_first_hop_reaches_both" } else = { debug_log = "HOTFIX FAIL branch_first_hop_reaches_both" }
+if = { limit = { c:MAD = { NOT = { has_variable = spec_ld } } } debug_log = "HOTFIX PASS branch_second_hop_waits" } else = { debug_log = "HOTFIX FAIL branch_second_hop_waits" }
+if = { limit = { c:KOR = { NOT = { has_variable = spec_ld } var:spec_debt = 1000 } } debug_log = "HOTFIX PASS branch_closed_recipient_ignored" } else = { debug_log = "HOTFIX FAIL branch_closed_recipient_ignored" }
+spec_ld_tick = yes
+trigger_event = { id = spec_mechanics_crisis_network.4 days = 1 }
+} }
+spec_mechanics_crisis_network.4 = { type = country_event hidden = yes immediate = {
+if = { limit = { c:MAD = { has_variable = spec_ld var:spec_debt = 500 } } debug_log = "HOTFIX PASS diamond_recipient_hit_once" } else = { debug_log = "HOTFIX FAIL diamond_recipient_hit_once" }
+if = { limit = { c:SOK = { var:spec_debt = 500 NOT = { has_variable = spec_ld_spreading } } } debug_log = "HOTFIX PASS branch_origin_not_recharged" } else = { debug_log = "HOTFIX FAIL branch_origin_not_recharged" }
+spec_ld_tick = yes
+trigger_event = { id = spec_mechanics_crisis_network.5 days = 1 }
+} }
+spec_mechanics_crisis_network.5 = { type = country_event hidden = yes immediate = {
+if = { limit = { c:SOK = { var:spec_debt = 500 NOT = { has_variable = spec_ld_spreading } } c:ZUL = { var:spec_debt = 500 NOT = { has_variable = spec_ld_spreading } } c:DAI = { var:spec_debt = 500 NOT = { has_variable = spec_ld_spreading } } c:MAD = { var:spec_debt = 500 NOT = { has_variable = spec_ld_spreading } } } debug_log = "HOTFIX PASS branch_network_drains_without_echo" } else = { debug_log = "HOTFIX FAIL branch_network_drains_without_echo" }
+c:GBR = { activate_law = law_type:law_interventionism
+spec_ld_leave = yes
+remove_variable = spec_panic
+remove_variable = spec_panic_cooldown
+remove_variable = spec_rescued
+set_variable = { name = spec_conf value = 55 }
+set_variable = { name = spec_debt value = 1000 }
+add_investment_pool = { value = investment_pool multiply = -1 }
+add_investment_pool = 1000
+spec_start_panic = yes
+spec_ld_join = yes
+if = { limit = { investment_pool = 500 var:spec_debt = 500 has_variable = spec_panic has_variable = spec_ld } debug_log = "HOTFIX PASS crisis_1_overlap_does_not_double_recall" } else = { debug_log = "HOTFIX FAIL crisis_1_overlap_does_not_double_recall" }
+spec_rescue = yes
+spec_end_panic = yes
+spec_ld_leave = yes
+if = { limit = { NOR = { has_variable = spec_panic has_variable = spec_ld } has_variable = spec_panic_cooldown var:spec_debt = 500 } debug_log = "HOTFIX PASS crisis_1_ends_cleanly" } else = { debug_log = "HOTFIX FAIL crisis_1_ends_cleanly" }
+spec_ld_leave = yes
+remove_variable = spec_panic
+remove_variable = spec_panic_cooldown
+remove_variable = spec_rescued
+set_variable = { name = spec_conf value = 55 }
+set_variable = { name = spec_debt value = 1000 }
+add_investment_pool = { value = investment_pool multiply = -1 }
+add_investment_pool = 1000
+spec_start_panic = yes
+spec_ld_join = yes
+if = { limit = { investment_pool = 500 var:spec_debt = 500 has_variable = spec_panic has_variable = spec_ld } debug_log = "HOTFIX PASS crisis_2_overlap_does_not_double_recall" } else = { debug_log = "HOTFIX FAIL crisis_2_overlap_does_not_double_recall" }
+spec_rescue = yes
+spec_end_panic = yes
+spec_ld_leave = yes
+if = { limit = { NOR = { has_variable = spec_panic has_variable = spec_ld } has_variable = spec_panic_cooldown var:spec_debt = 500 } debug_log = "HOTFIX PASS crisis_2_ends_cleanly" } else = { debug_log = "HOTFIX FAIL crisis_2_ends_cleanly" }
+spec_ld_leave = yes
+remove_variable = spec_panic
+remove_variable = spec_panic_cooldown
+remove_variable = spec_rescued
+set_variable = { name = spec_conf value = 55 }
+set_variable = { name = spec_debt value = 1000 }
+add_investment_pool = { value = investment_pool multiply = -1 }
+add_investment_pool = 1000
+spec_start_panic = yes
+spec_ld_join = yes
+if = { limit = { investment_pool = 500 var:spec_debt = 500 has_variable = spec_panic has_variable = spec_ld } debug_log = "HOTFIX PASS crisis_3_overlap_does_not_double_recall" } else = { debug_log = "HOTFIX FAIL crisis_3_overlap_does_not_double_recall" }
+spec_rescue = yes
+spec_end_panic = yes
+spec_ld_leave = yes
+if = { limit = { NOR = { has_variable = spec_panic has_variable = spec_ld } has_variable = spec_panic_cooldown var:spec_debt = 500 } debug_log = "HOTFIX PASS crisis_3_ends_cleanly" } else = { debug_log = "HOTFIX FAIL crisis_3_ends_cleanly" }
+spec_ld_leave = yes
+remove_variable = spec_panic
+remove_variable = spec_panic_cooldown
+remove_variable = spec_rescued
+set_variable = { name = spec_conf value = 55 }
+set_variable = { name = spec_debt value = 1000 }
+add_investment_pool = { value = investment_pool multiply = -1 }
+add_investment_pool = 1000
+spec_start_panic = yes
+spec_ld_join = yes
+if = { limit = { investment_pool = 500 var:spec_debt = 500 has_variable = spec_panic has_variable = spec_ld } debug_log = "HOTFIX PASS crisis_4_overlap_does_not_double_recall" } else = { debug_log = "HOTFIX FAIL crisis_4_overlap_does_not_double_recall" }
+spec_rescue = yes
+spec_end_panic = yes
+spec_ld_leave = yes
+if = { limit = { NOR = { has_variable = spec_panic has_variable = spec_ld } has_variable = spec_panic_cooldown var:spec_debt = 500 } debug_log = "HOTFIX PASS crisis_4_ends_cleanly" } else = { debug_log = "HOTFIX FAIL crisis_4_ends_cleanly" }
+}
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

@@ -1,0 +1,44 @@
+namespace = spec_mechanics_depression_duration
+spec_mechanics_depression_duration.1 = { type = country_event hidden = yes immediate = {
+activate_law = law_type:law_interventionism
+set_variable = { name = spec_ld value = 2 }
+set_variable = { name = spec_ld_own value = 10 }
+set_global_variable = { name = spec_ld_phase value = 2 }
+set_global_variable = { name = spec_ld_progress value = 10 }
+set_global_variable = { name = spec_ld_months value = 60 }
+ig:ig_trade_unions = { remove_modifier = spec_ld_relief_granted remove_modifier = spec_ld_relief_refused }
+ig:ig_petty_bourgeoisie = { remove_modifier = spec_ld_rates_spared }
+trigger_event = { id = spec_mechanics_depression_duration.2 days = 1 }
+} }
+spec_mechanics_depression_duration.2 = { type = country_event hidden = yes immediate = {
+ig:ig_trade_unions = { set_variable = { name = spec_test_approval value = modifier:interest_group_approval_add } set_variable = { name = spec_test_plus_two value = { value = modifier:interest_group_approval_add add = 2 } } }
+ig:ig_petty_bourgeoisie = { set_variable = { name = spec_test_plus_one value = { value = modifier:interest_group_approval_add add = 1 } } }
+spec_mechanics_ld_3_a = yes
+trigger_event = { id = spec_mechanics_depression_duration.3 days = 1 }
+trigger_event = { id = spec_mechanics_depression_duration.5 days = 912 }
+trigger_event = { id = spec_mechanics_depression_duration.6 days = 915 }
+} }
+spec_mechanics_depression_duration.3 = { type = country_event hidden = yes immediate = {
+if = { limit = { ig:ig_trade_unions = { modifier:interest_group_approval_add = var:spec_test_plus_two } } debug_log = "HOTFIX PASS relief_approval_is_exactly_plus_two" }
+else = { debug_log = "HOTFIX FAIL relief_approval_is_exactly_plus_two" }
+spec_mechanics_ld_3_b = yes
+trigger_event = { id = spec_mechanics_depression_duration.4 days = 1 }
+} }
+spec_mechanics_depression_duration.4 = { type = country_event hidden = yes immediate = {
+if = { limit = { ig:ig_trade_unions = { modifier:interest_group_approval_add = var:spec_test_approval has_modifier = spec_ld_relief_granted has_modifier = spec_ld_relief_refused } } debug_log = "HOTFIX PASS refusal_subtracts_exactly_two" }
+else = { debug_log = "HOTFIX FAIL refusal_subtracts_exactly_two" }
+if = { limit = { ig:ig_petty_bourgeoisie = { modifier:interest_group_approval_add = var:spec_test_plus_one } } debug_log = "HOTFIX PASS rates_spared_approval_is_exactly_plus_one" }
+else = { debug_log = "HOTFIX FAIL rates_spared_approval_is_exactly_plus_one" }
+# Stop new random Depression events from refreshing the exact timers under test.
+remove_variable = spec_ld
+remove_global_variable = spec_ld_phase
+} }
+spec_mechanics_depression_duration.5 = { type = country_event hidden = yes immediate = {
+if = { limit = { ig:ig_trade_unions = { has_modifier = spec_ld_relief_granted has_modifier = spec_ld_relief_refused } ig:ig_petty_bourgeoisie = { has_modifier = spec_ld_rates_spared } } debug_log = "HOTFIX PASS political_modifiers_present_before_913_days" }
+else = { debug_log = "HOTFIX FAIL political_modifiers_present_before_913_days" }
+} }
+spec_mechanics_depression_duration.6 = { type = country_event hidden = yes immediate = {
+if = { limit = { ig:ig_trade_unions = { NOR = { has_modifier = spec_ld_relief_granted has_modifier = spec_ld_relief_refused } } ig:ig_petty_bourgeoisie = { NOT = { has_modifier = spec_ld_rates_spared } } NOT = { has_modifier = spec_ld_relief_works } } debug_log = "HOTFIX PASS political_and_relief_modifiers_expire" }
+else = { debug_log = "HOTFIX FAIL political_and_relief_modifiers_expire" }
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

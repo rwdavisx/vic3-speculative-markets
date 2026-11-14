@@ -1,0 +1,37 @@
+{
+  "spec_mechanics_grain_owners": {
+    "path": "common/on_actions/spec_on_actions.txt",
+    "start": " company_type:company_uniao_fabril } } }\n\t\t\t\t\t\tif = {\n\t\t\t\t\t\t\tlimit = { has_modifier = spec_company_bust_grain }\n\t\t\t\t\t\t\tremove_modifier = spec_company_bust_grain\n\t\t\t\t\t\t}\n\t\t\t\t\t\tadd_modifier = {\n\t\t\t\t\t\t\tname = spec_company_bust_grain\n\t\t\t\t\t\t\tdays = 365\n\t\t\t\t\t\t\tmultiplier = spec_company_tie\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n",
+    "end": "\n\t\t\t\t\tif = {\n\t\t\t\t\t\tlimit = { has_variable = spec_centre_trust spec_weight_grain >= 0.333 }\n\t\t\t\t\t\tset_variable = { name = spec_centre_trust value = { value = var:spec_centre_trust subtract = { value = 18 multiply = spec_exch_loss } min = 0 } }\n\t\t\t\t\t\tif = {\n\t\t\t\t\t\t\tlimit = { has_variable = spec_issue_g"
+  },
+  "spec_mechanics_coffee_owners": {
+    "path": "common/on_actions/spec_on_actions.txt",
+    "start": "type = company_type:company_nhm } } }\n\t\t\t\t\t\tif = {\n\t\t\t\t\t\t\tlimit = { has_modifier = spec_company_bust_coffee }\n\t\t\t\t\t\t\tremove_modifier = spec_company_bust_coffee\n\t\t\t\t\t\t}\n\t\t\t\t\t\tadd_modifier = {\n\t\t\t\t\t\t\tname = spec_company_bust_coffee\n\t\t\t\t\t\t\tdays = 365\n\t\t\t\t\t\t\tmultiplier = spec_company_tie\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n",
+    "end": "\n\t\t\t\t\tif = {\n\t\t\t\t\t\tlimit = { has_variable = spec_centre_trust spec_weight_coffee >= 0.333 }\n\t\t\t\t\t\tset_variable = { name = spec_centre_trust value = { value = var:spec_centre_trust subtract = { value = 18 multiply = spec_exch_loss } min = 0 } }\n\t\t\t\t\t\tif = {\n\t\t\t\t\t\t\tlimit = { has_variable = spec_issue_"
+  },
+  "spec_mechanics_coal_owners": {
+    "path": "common/on_actions/spec_on_actions.txt",
+    "start": "witzer_bergbau_und_huttengewerkschaft } } }\n\t\t\t\t\t\tif = {\n\t\t\t\t\t\t\tlimit = { has_modifier = spec_company_bust_coal }\n\t\t\t\t\t\t\tremove_modifier = spec_company_bust_coal\n\t\t\t\t\t\t}\n\t\t\t\t\t\tadd_modifier = {\n\t\t\t\t\t\t\tname = spec_company_bust_coal\n\t\t\t\t\t\t\tdays = 365\n\t\t\t\t\t\t\tmultiplier = spec_company_tie\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n",
+    "end": "\n\t\t\t\t\tif = {\n\t\t\t\t\t\tlimit = { has_variable = spec_centre_trust spec_weight_coal >= 0.333 }\n\t\t\t\t\t\tset_variable = { name = spec_centre_trust value = { value = var:spec_centre_trust subtract = { value = 18 multiply = spec_exch_loss } min = 0 } }\n\t\t\t\t\t\tif = {\n\t\t\t\t\t\t\tlimit = { has_variable = spec_issue_co"
+  },
+  "spec_mechanics_merchant_marine_owners": {
+    "path": "common/on_actions/spec_on_actions.txt",
+    "start": "ania } } }\n\t\t\t\t\t\tif = {\n\t\t\t\t\t\t\tlimit = { has_modifier = spec_company_bust_merchant_marine }\n\t\t\t\t\t\t\tremove_modifier = spec_company_bust_merchant_marine\n\t\t\t\t\t\t}\n\t\t\t\t\t\tadd_modifier = {\n\t\t\t\t\t\t\tname = spec_company_bust_merchant_marine\n\t\t\t\t\t\t\tdays = 365\n\t\t\t\t\t\t\tmultiplier = spec_company_tie\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n",
+    "end": "\n\t\t\t\t\tif = {\n\t\t\t\t\t\tlimit = { has_variable = spec_centre_trust spec_weight_merchant_marine >= 0.333 }\n\t\t\t\t\t\tset_variable = { name = spec_centre_trust value = { value = var:spec_centre_trust subtract = { value = 18 multiply = spec_exch_loss } min = 0 } }\n\t\t\t\t\t\tif = {\n\t\t\t\t\t\t\tlimit = { has_variable = sp"
+  },
+  "spec_mechanics_oil_owners": {
+    "path": "common/on_actions/spec_on_actions.txt",
+    "start": "ny_type:company_russian_american_company } } }\n\t\t\t\t\t\tif = {\n\t\t\t\t\t\t\tlimit = { has_modifier = spec_company_bust_oil }\n\t\t\t\t\t\t\tremove_modifier = spec_company_bust_oil\n\t\t\t\t\t\t}\n\t\t\t\t\t\tadd_modifier = {\n\t\t\t\t\t\t\tname = spec_company_bust_oil\n\t\t\t\t\t\t\tdays = 365\n\t\t\t\t\t\t\tmultiplier = spec_company_tie\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n",
+    "end": "\n\t\t\t\t\tif = {\n\t\t\t\t\t\tlimit = { has_variable = spec_centre_trust spec_weight_oil >= 0.333 }\n\t\t\t\t\t\tset_variable = { name = spec_centre_trust value = { value = var:spec_centre_trust subtract = { value = 18 multiply = spec_exch_loss } min = 0 } }\n\t\t\t\t\t\tif = {\n\t\t\t\t\t\t\tlimit = { has_variable = spec_issue_oil"
+  },
+  "spec_mechanics_fine_art_owners": {
+    "path": "common/on_actions/spec_on_actions.txt",
+    "start": "pany_type:company_ricordi } } }\n\t\t\t\t\t\tif = {\n\t\t\t\t\t\t\tlimit = { has_modifier = spec_company_bust_fine_art }\n\t\t\t\t\t\t\tremove_modifier = spec_company_bust_fine_art\n\t\t\t\t\t\t}\n\t\t\t\t\t\tadd_modifier = {\n\t\t\t\t\t\t\tname = spec_company_bust_fine_art\n\t\t\t\t\t\t\tdays = 365\n\t\t\t\t\t\t\tmultiplier = spec_company_tie\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n",
+    "end": "\n\t\t\t\t\tif = {\n\t\t\t\t\t\tlimit = { has_variable = spec_centre_trust spec_weight_fine_art >= 0.333 }\n\t\t\t\t\t\tset_variable = { name = spec_centre_trust value = { value = var:spec_centre_trust subtract = { value = 18 multiply = spec_exch_loss } min = 0 } }\n\t\t\t\t\t\tif = {\n\t\t\t\t\t\t\tlimit = { has_variable = spec_issu"
+  },
+  "spec_mechanics_clothes_owners": {
+    "path": "common/on_actions/spec_on_actions.txt",
+    "start": " = company_type:company_tata } } }\n\t\t\t\t\t\tif = {\n\t\t\t\t\t\t\tlimit = { has_modifier = spec_company_bust_clothes }\n\t\t\t\t\t\t\tremove_modifier = spec_company_bust_clothes\n\t\t\t\t\t\t}\n\t\t\t\t\t\tadd_modifier = {\n\t\t\t\t\t\t\tname = spec_company_bust_clothes\n\t\t\t\t\t\t\tdays = 365\n\t\t\t\t\t\t\tmultiplier = spec_company_tie\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n",
+    "end": "\n\t\t\t\t\tif = {\n\t\t\t\t\t\tlimit = { has_variable = spec_centre_trust spec_weight_clothes >= 0.333 }\n\t\t\t\t\t\tset_variable = { name = spec_centre_trust value = { value = var:spec_centre_trust subtract = { value = 18 multiply = spec_exch_loss } min = 0 } }\n\t\t\t\t\t\tif = {\n\t\t\t\t\t\t\tlimit = { has_variable = spec_issue"
+  }
+}

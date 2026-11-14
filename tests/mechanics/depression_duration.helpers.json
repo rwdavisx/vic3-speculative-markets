@@ -1,0 +1,12 @@
+{
+  "spec_mechanics_ld_3_a": {
+    "path": "events/spec_depression_events.txt",
+    "start": "name = spec_depression.3.a\n",
+    "end": "\n\t\tai_chance = {\n\t\t\tbase = 40\n\t\t\tmodifier = {\n\t\t\t\ttrigger = { var:spec_temper ?= 1 }\n\t\t\t\tadd = 30\n\t\t\t}\n\t\t}\n\t}\n\toption = {\n\t\tname = spec_depression.3.b\n\t\tdefault_option = yes\n\t\tadd_radicals = { value = small_radicals strata = lower }\n\t\tig:ig_trade_unions ?= {\n\t\t\tadd_modifier = {\n\t\t\t\tname = spec_ld_relief_refused\n\t\t\t\tdays = short_modifier_time\n\t\t\t}\n\t\t}\n\t\tig:ig_petty_bourgeoisie ?= {\n\t\t\tadd_modifier = {\n\t\t\t\tname = spec_ld_rates_spared\n\t\t\t\tdays = short_modifier_time\n\t\t\t}\n\t\t}\n\t\tai_chance = {\n\t\t\tbase = 40\n\t\t\tmodifier = {\n\t\t\t\ttrigger = { var:spec_temper ?= -1 }\n\t\t\t\tadd = 30\n\t\t\t}\n\t\t}\n\t}\n}\n\nspec_depres"
+  },
+  "spec_mechanics_ld_3_b": {
+    "path": "events/spec_depression_events.txt",
+    "start": "name = spec_depression.3.b\n\t\tdefault_option = yes\n",
+    "end": "\n\t\tai_chance = {\n\t\t\tbase = 40\n\t\t\tmodifier = {\n\t\t\t\ttrigger = { var:spec_temper ?= -1 }\n\t\t\t\tadd = 30\n\t\t\t}\n\t\t}\n\t}\n}\n\nspec_depression.4 = {\n\ttype = country_event\n\tplacement = root\n\ttitle = spec_depression.4.t\n\tdesc = spec_depression.4.d\n\tflavor = spec_depression.4.f\n\tduration = 3\n\tevent_image = {\n\t\ttrigger = { spec_pic_mideast = yes }\n\t\tvideo = \"middleeast_police_breaking_door\"\n\t}\n\tevent_image = {\n\t\ttrigger = { spec_pic_africa = yes }\n\t\tvideo = \"africa_public_protest\"\n\t}\n\tevent_image = {\n\t\ttrigger = { spec_pic_asia = yes }\n\t\tvideo = \"unspecific_vandalized_storefront\"\n\t}\n\tevent_image = {\n\t\ttrigger "
+  }
+}

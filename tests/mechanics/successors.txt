@@ -1,0 +1,60 @@
+﻿namespace = spec_mechanics_successors
+spec_mechanics_successors.1 = { type = country_event hidden = yes immediate = {
+c:FRA = {
+activate_law = law_type:law_interventionism
+set_variable = { name = spec_debt value = 87654321 }
+set_variable = spec_llr
+set_variable = { name = spec_note value = 1 }
+add_radicals = { value = 1 }
+create_political_movement = { type = movement_liberal }
+start_enactment = law_type:law_autocracy
+every_political_movement = { limit = { is_political_movement_type = movement_liberal } add_modifier = { name = modifier_enraged_restorationists_debug } }
+}
+c:TUR = {
+add_technology_researched = nationalism
+add_technology_researched = pan-nationalism
+activate_law = law_type:law_interventionism
+set_variable = { name = spec_debt value = 87654321 }
+set_variable = spec_llr
+set_variable = { name = spec_note value = 1 }
+add_radicals = { value = 1 }
+create_political_movement = { type = movement_cultural_minority culture = cu:bulgarian }
+every_political_movement = { limit = { is_political_movement_type = movement_cultural_minority } add_modifier = { name = modifier_enraged_restorationists_debug } }
+}
+trigger_event = { id = spec_mechanics_successors.2 days = 7 }
+trigger_event = { id = spec_mechanics_successors.3 days = 400 }
+} }
+spec_mechanics_successors.2 = { type = country_event hidden = yes immediate = {
+c:FRA = { every_civil_war = { add_civil_war_progress = 1 } }
+c:TUR = { add_radicals = { value = 1 } every_political_movement = { limit = { is_political_movement_type = movement_cultural_minority } add_modifier = { name = spec_test_secession_pressure } } every_civil_war = { add_civil_war_progress = 1 } }
+if = { limit = { NOT = { AND = { has_global_variable = spec_test_revolution_done has_global_variable = spec_test_secession_done } } } trigger_event = { id = spec_mechanics_successors.2 days = 7 } }
+} }
+spec_mechanics_successors.3 = { type = country_event hidden = yes immediate = {
+if = { limit = { has_global_variable = spec_test_revolution_started } debug_log = "HOTFIX PASS revolution_actually_started" } else = { debug_log = "HOTFIX FAIL revolution_actually_started" }
+if = { limit = { has_global_variable = spec_test_revolution_done } debug_log = "HOTFIX PASS revolution_monthly_initialization_completed" } else = { debug_log = "HOTFIX FAIL revolution_monthly_initialization_completed" }
+if = { limit = { has_global_variable = spec_test_secession_started } debug_log = "HOTFIX PASS secession_actually_started" } else = { debug_log = "HOTFIX FAIL secession_actually_started" }
+if = { limit = { has_global_variable = spec_test_secession_done } debug_log = "HOTFIX PASS secession_monthly_initialization_completed" } else = { debug_log = "HOTFIX FAIL secession_monthly_initialization_completed" }
+debug_log = "HOTFIX SUITE COMPLETE"
+} }
+spec_mechanics_successors.4 = { type = country_event hidden = yes immediate = {
+if = { limit = { OR = { NOT = { has_variable = spec_debt } var:spec_debt ?= 0 } } debug_log = "HOTFIX PASS revolution_successor_has_no_inherited_debt" } else = { debug_log = "HOTFIX FAIL revolution_successor_has_no_inherited_debt" }
+if = { limit = { NOR = { has_variable = spec_llr has_variable = spec_note } } debug_log = "HOTFIX PASS revolution_successor_does_not_clone_reforms" } else = { debug_log = "HOTFIX FAIL revolution_successor_does_not_clone_reforms" }
+activate_law = law_type:law_interventionism
+trigger_event = { id = spec_mechanics_successors.6 days = 40 }
+} }
+spec_mechanics_successors.6 = { type = country_event hidden = yes immediate = {
+if = { limit = { has_variable = spec_conf var:spec_conf >= 0 var:spec_conf <= 100 has_variable = spec_debt var:spec_debt >= 0 has_variable = spec_fast_steel has_variable = spec_stance } debug_log = "HOTFIX PASS revolution_finance_initialized" } else = { debug_log = "HOTFIX FAIL revolution_finance_initialized" }
+if = { limit = { is_player = no NOT = { has_variable = spec_je_added } } debug_log = "HOTFIX PASS revolution_ai_does_not_claim_player_journal" } else = { debug_log = "HOTFIX FAIL revolution_ai_does_not_claim_player_journal" }
+set_global_variable = spec_test_revolution_done
+} }
+spec_mechanics_successors.5 = { type = country_event hidden = yes immediate = {
+if = { limit = { OR = { NOT = { has_variable = spec_debt } var:spec_debt ?= 0 } } debug_log = "HOTFIX PASS secession_successor_has_no_inherited_debt" } else = { debug_log = "HOTFIX FAIL secession_successor_has_no_inherited_debt" }
+if = { limit = { NOR = { has_variable = spec_llr has_variable = spec_note } } debug_log = "HOTFIX PASS secession_successor_does_not_clone_reforms" } else = { debug_log = "HOTFIX FAIL secession_successor_does_not_clone_reforms" }
+activate_law = law_type:law_interventionism
+trigger_event = { id = spec_mechanics_successors.7 days = 40 }
+} }
+spec_mechanics_successors.7 = { type = country_event hidden = yes immediate = {
+if = { limit = { has_variable = spec_conf var:spec_conf >= 0 var:spec_conf <= 100 has_variable = spec_debt var:spec_debt >= 0 has_variable = spec_fast_steel has_variable = spec_stance } debug_log = "HOTFIX PASS secession_finance_initialized" } else = { debug_log = "HOTFIX FAIL secession_finance_initialized" }
+if = { limit = { is_player = no NOT = { has_variable = spec_je_added } } debug_log = "HOTFIX PASS secession_ai_does_not_claim_player_journal" } else = { debug_log = "HOTFIX FAIL secession_ai_does_not_claim_player_journal" }
+set_global_variable = spec_test_secession_done
+} }

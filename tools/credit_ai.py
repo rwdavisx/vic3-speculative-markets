@@ -53,6 +53,9 @@ def script(k):
     picks = "".join(_weight(base, adds) + f"\t\t\tset_variable = {{ name = spec_temper value = {t} }}\n\t\t}}\n"
                     for t, (base, adds) in TEMPERS.items())
     rescue_adds = [(f"var:spec_temper = {t}", c - RESCUE_CHANCE[0]) for t, c in RESCUE_CHANCE.items() if t]
+    # random_list entries are relative weights. Keep both branches summing to
+    # 100 so RESCUE_CHANCE remains a percentage for every temperament.
+    skip_adds = [(trigger, -delta) for trigger, delta in rescue_adds]
     clear = lambda ig, pref: "".join(f"\t\tif = {{\n\t\t\tlimit = {{ has_modifier = spec_{s}_credit }}\n\t\t\tremove_modifier = spec_{s}_credit\n\t\t}}\n"
                                      for s in ("loose", "tight"))
     add = lambda n, s: lambda ig, pref: (f"\t\tif = {{\n\t\t\tlimit = {{ is_in_government = yes }}\n"
@@ -76,7 +79,7 @@ spec_ai_rescue_roll = {{
 	random_list = {{
 {_weight(RESCUE_CHANCE[0], rescue_adds)}			spec_rescue = yes
 		}}
-		{100 - RESCUE_CHANCE[0]} = {{ }}
+{_weight(100 - RESCUE_CHANCE[0], skip_adds)}		}}
 	}}
 }}
 

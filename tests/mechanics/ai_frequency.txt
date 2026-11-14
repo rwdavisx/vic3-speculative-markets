@@ -1,0 +1,65 @@
+namespace = spec_mechanics_ai_frequency
+spec_mechanics_ai_frequency.1 = { type = country_event hidden = yes immediate = {
+activate_law = law_type:law_interventionism
+add_technology_researched = banking
+add_technology_researched = central_banking
+set_variable = { name = spec_debt value = 0 }
+set_variable = { name = spec_temper value = -1 }
+set_variable = { name = spec_test_hits value = 0 }
+set_variable = { name = spec_test_draws value = 0 }
+add_treasury = 1000000000
+while = { count = 10
+ while = { count = 1000
+  remove_variable = spec_rescued
+  set_variable = { name = spec_panic value = 12 }
+  set_variable = { name = spec_conf value = 55 }
+  set_variable = { name = spec_c_total value = 0 }
+  set_variable = { name = spec_ls value = 0 }
+  spec_ai_rescue_roll = yes
+  change_variable = { name = spec_test_draws add = 1 }
+  if = { limit = { has_variable = spec_rescued } change_variable = { name = spec_test_hits add = 1 } }
+ }
+}
+debug_log = "HOTFIX SAMPLE cautious hits=[THIS.Var('spec_test_hits').GetValue] draws=[THIS.Var('spec_test_draws').GetValue]"
+if = { limit = { var:spec_test_draws = 10000 } debug_log = "HOTFIX PASS cautious_ten_thousand_draws" } else = { debug_log = "HOTFIX FAIL cautious_ten_thousand_draws" }
+if = { limit = { var:spec_test_hits >= 1320 var:spec_test_hits <= 1680 } debug_log = "HOTFIX PASS cautious_rescue_frequency" } else = { debug_log = "HOTFIX FAIL cautious_rescue_frequency" }
+set_variable = { name = spec_temper value = 0 }
+set_variable = { name = spec_test_hits value = 0 }
+set_variable = { name = spec_test_draws value = 0 }
+add_treasury = 1000000000
+while = { count = 10
+ while = { count = 1000
+  remove_variable = spec_rescued
+  set_variable = { name = spec_panic value = 12 }
+  set_variable = { name = spec_conf value = 55 }
+  set_variable = { name = spec_c_total value = 0 }
+  set_variable = { name = spec_ls value = 0 }
+  spec_ai_rescue_roll = yes
+  change_variable = { name = spec_test_draws add = 1 }
+  if = { limit = { has_variable = spec_rescued } change_variable = { name = spec_test_hits add = 1 } }
+ }
+}
+debug_log = "HOTFIX SAMPLE balanced hits=[THIS.Var('spec_test_hits').GetValue] draws=[THIS.Var('spec_test_draws').GetValue]"
+if = { limit = { var:spec_test_draws = 10000 } debug_log = "HOTFIX PASS balanced_ten_thousand_draws" } else = { debug_log = "HOTFIX FAIL balanced_ten_thousand_draws" }
+if = { limit = { var:spec_test_hits >= 2770 var:spec_test_hits <= 3230 } debug_log = "HOTFIX PASS balanced_rescue_frequency" } else = { debug_log = "HOTFIX FAIL balanced_rescue_frequency" }
+set_variable = { name = spec_temper value = 1 }
+set_variable = { name = spec_test_hits value = 0 }
+set_variable = { name = spec_test_draws value = 0 }
+add_treasury = 1000000000
+while = { count = 10
+ while = { count = 1000
+  remove_variable = spec_rescued
+  set_variable = { name = spec_panic value = 12 }
+  set_variable = { name = spec_conf value = 55 }
+  set_variable = { name = spec_c_total value = 0 }
+  set_variable = { name = spec_ls value = 0 }
+  spec_ai_rescue_roll = yes
+  change_variable = { name = spec_test_draws add = 1 }
+  if = { limit = { has_variable = spec_rescued } change_variable = { name = spec_test_hits add = 1 } }
+ }
+}
+debug_log = "HOTFIX SAMPLE bold hits=[THIS.Var('spec_test_hits').GetValue] draws=[THIS.Var('spec_test_draws').GetValue]"
+if = { limit = { var:spec_test_draws = 10000 } debug_log = "HOTFIX PASS bold_ten_thousand_draws" } else = { debug_log = "HOTFIX FAIL bold_ten_thousand_draws" }
+if = { limit = { var:spec_test_hits >= 4750 var:spec_test_hits <= 5250 } debug_log = "HOTFIX PASS bold_rescue_frequency" } else = { debug_log = "HOTFIX FAIL bold_rescue_frequency" }
+debug_log = "HOTFIX SUITE COMPLETE"
+} }
