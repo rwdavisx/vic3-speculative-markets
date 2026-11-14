@@ -1,0 +1,55 @@
+{
+  "version": "1.0.4-beta.6",
+  "status": "LOCAL TESTED CANDIDATE - NOT PUBLISHED",
+  "archive_sha256": "5a5589cc9213e900e7c3f1b6d891bac042b3b970f09f3c136f6008b7f728e6c2",
+  "change": "Remove Open Finance button and spacer from individual goods views; retain journal/sidebar",
+  "ui_passed": [
+    "Grain panel retains interest/risk/intervention row and graph with no Open Finance button",
+    "Sidebar opens Finance",
+    "Finance yields to native Market",
+    "Journal Open Finance opens Speculation tab",
+    "Pause menu hides Finance"
+  ],
+  "playset": {
+    "enabledMods": [
+      {
+        "path": "G:\\SteamLibrary\\steamapps\\workshop\\content\\529340\\3385002128"
+      },
+      {
+        "path": "G:\\GameDev\\speculative-markets\\beta\\mod"
+      },
+      {
+        "path": "G:\\GameDev\\speculative-markets\\runs\\goods_navigation\\cmf\\mod"
+      }
+    ],
+    "disabledDLC": [],
+    "enabledUGC": []
+  },
+  "screenshots_sha256": {
+    "grain_no_button.jpg": "1e3dfb9a4e60795484029bb4076a2160d7037b7045b398e83e8f431f2098d192",
+    "journal_speculation.jpg": "d6268fd5c34187ef3449354537cdc7a5a0557dc7436bdaa6dbb85e9b0825a9d0",
+    "sidebar.jpg": "8962165482e9f0b259ba5d0eeaadae927a78cadaa06b9c39289249fd7de76122"
+  },
+  "logs_sha256": {
+    "error.log": "741a7dcd6f33786ef27c5a13d9a49db3de2b762edf60cf834491608d85aa04de"
+  },
+  "error_gate": {
+    "error_logs_checked": [
+      "runs\\goods_navigation\\ui\\logs\\error.log"
+    ],
+    "error_categories": {
+      "engine_or_basegame_other": 216,
+      "mod_variable_load_warnings": 16
+    },
+    "blocking_error_count": 0,
+    "blocking_error_examples": []
+  },
+  "tests": {
+    "python": 45,
+    "cmf": 9,
+    "note": "Removed obsolete goods-button test; retained journal destruction regression"
+  },
+  "cmf_rebuild_identical": true,
+  "morgenroete_candidate_03_patch_identical": true,
+  "scope": "English UI at 100 percent, CMF plus beta6, copied GBR 1840 save. No new gameplay assertions or full Morgenroete integration claim."
+}

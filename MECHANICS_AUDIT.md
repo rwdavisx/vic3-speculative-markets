@@ -325,3 +325,14 @@ Candidate archive SHA256:
 Not published; targets beta 1.0.4-beta.5 only. Build/maintenance instructions are
 in `compatibility/morgenroete/README.md`; exact results and rejected fixtures are
 in `tests/mechanics/verification_morgenroete_beta104_5.json`.
+
+User-requested navigation cleanup: local unpublished beta 1.0.4-beta.6 removes
+the Open Finance button and its spacer from individual goods views. Live CMF
+checks confirm the Grain panel retains its interest/risk/intervention row above
+the chart, the sidebar opens Finance, native Market replaces Finance, and the
+journal shortcut still selects Speculation. Full logs have zero blocking mod
+diagnostics. The 45 remaining Python tests and nine CMF checks pass; the obsolete
+goods-button test was removed. Rebuilt CMF and Morgenroete patch files are
+byte-identical to their prior versions. No gameplay or balance changes, stable
+output unchanged, no Workshop upload. Evidence:
+`tests/mechanics/verification_goods_navigation_beta104_6.json`.

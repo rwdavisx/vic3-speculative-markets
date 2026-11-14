@@ -291,19 +291,6 @@ types goods_panel_types
 						datacontext = "[Goods.GetMarket.GetOwner]"
 						visible = "[And(Not(ObjectsEqual(GetPlayer.GetCapital.GetMarket, Goods.GetMarket)), GreaterThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0'))]"
 					}
-					button = {
-						using = default_button
-						size = { 280 30 }
-						parentanchor = hcenter
-						text = "SPEC_OPEN_TAB"
-						tooltip = "SPEC_OPEN_TAB_TT"
-						onclick = "[GetVariableSystem.Clear('spec_pick_slot')]"
-		onclick = "[GetVariableSystem.Set('spec_finance_tab', 'booms')]"
-		onclick = "[GetVariableSystem.Set('spec_finance', 'open')]"
-		onclick = "[InformationPanelBar.ClosePanel]"
-					}
-					widget = { size = { 5 5 } }
-
 					### GRAPH LINE
 					v3_plotline = {
 						using = default_list_position

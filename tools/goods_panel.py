@@ -164,7 +164,7 @@ def block_type():
 """
 
 
-# people could not find the tab: the side menu's Market button cycles vanilla's four tabs only, so link it from where they already look
+# Shared Finance destination for the journal shortcut.
 # ponytail: four onclicks through the one onclick = "{OPEN_TAB}" its users write
 # Closing the native panel destroys its custom widgets and can stop the remaining
 # onclicks. Prepare the destination first; ClosePanel must be the final action.
@@ -187,16 +187,6 @@ def patch(gui):
 						datacontext = "[Goods.GetMarket.GetOwner]"
 						visible = "[And(Not({OWN}), {HAS_DATA})]"
 					}}
-					button = {{
-						using = default_button
-						size = {{ 280 30 }}
-						parentanchor = hcenter
-						text = "SPEC_OPEN_TAB"
-						tooltip = "SPEC_OPEN_TAB_TT"
-						onclick = "{OPEN_TAB}"
-					}}
-					widget = {{ size = {{ 5 5 }} }}
-
 """
     return gui.replace(anchor, blocks + anchor)
 

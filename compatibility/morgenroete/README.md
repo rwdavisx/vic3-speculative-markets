@@ -68,6 +68,12 @@ Finance sidebar opening; journal and native goods shortcuts selecting Speculatio
 Finance/native Market transitions; and Finance/Morgenroete Sports transitions.
 The regenerated candidate_02 patch is byte-identical to the tested candidate_01.
 
+Candidate_03 was subsequently rebuilt against local **1.0.4-beta.6** after the
+user requested removal of individual goods' Open Finance buttons. Its patch files
+are byte-identical to candidate_02: the bridge does not replace `goods_panel.gui`,
+so it inherits that change from its parent. This rebuild is not a new Workshop
+release or completion of the remaining integration checks below.
+
 This is still an unpublished candidate, not a general save-compatibility claim.
 The UI seed predates Morgenroete and produces missing Morgenroete variables in
 its logs (including `elgar_music_tradition`). Our log classifier's historical

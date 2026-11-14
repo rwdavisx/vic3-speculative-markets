@@ -1,7 +1,7 @@
 """Finance links must prepare their destination before closing their own panel.
 
 The JE's custom widget can be destroyed by ClosePanel before later onclicks run.
-Exercise the actual generated JE and goods buttons with that observed lifetime,
+Exercise the actual generated JE button with that observed lifetime,
 not an assertion about how the shared OPEN_TAB string happens to be assembled.
 """
 import re
@@ -10,8 +10,6 @@ import unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
-import generate
-import goods_panel
 import journal
 import market_tab
 
@@ -56,11 +54,6 @@ class FinanceOpenTests(unittest.TestCase):
 
     def test_journal_entry_link_survives_closing_its_own_panel(self):
         self.assert_open_survives_widget_destruction(journal.widgets())
-
-    def test_goods_link_survives_closing_its_own_panel(self):
-        vanilla = (generate.GAME / "gui/goods_panel.gui").read_text(encoding="utf-8-sig")
-        self.assert_open_survives_widget_destruction(goods_panel.patch(vanilla))
-
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
