@@ -1,4 +1,4 @@
-# Baseline coverage pass — November 14, 2026
+# Baseline coverage pass â€” November 14, 2026
 
 User requested one basic test for every remaining audit gap. This is a work ledger, not a pass certificate. Scope updated by the user: continue with Speculative Markets alone; stop Morgenroete/CMF/full-playset testing. Earlier compatibility evidence is retained separately. Balance remains frozen. Production fixes require a failing beta reproduction and a passing rerun.
 
@@ -25,3 +25,5 @@ The fix is packaged as local **1.0.5-beta.2** under `beta/audit_baseline/`. It h
 Evidence: `tests/mechanics/verification_baseline_105.json` records accepted run reports, manifests, hashes, rejected fixtures and UI evidence. Raw logs/screenshots remain under `runs/baseline/` and the named `runs/sweep_baseline_*` directories.
 
 Limits: baseline coverage is not exhaustive. The successor test controls AI countries; player takeover of a revolution/secession is not covered. Every translated tooltip, every event button, every building/PM combination, multiple random seeds and full-length campaigns remain broader testing opportunities. An earlier successor run (`successors_r2`) exited unexpectedly on October 27, 1836. Its cause is unresolved; the completed corrected run reached March 31, 1837 without reproducing it. Rejected fixture failures are not production bugs.
+
+Release follow-up: these tested fixes were promoted to stable 1.0.6 and beta 1.0.6-beta.1 and published November 14, 2026. See `HOTFIX_1.0.6.md`.

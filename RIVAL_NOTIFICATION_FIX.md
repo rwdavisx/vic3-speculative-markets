@@ -1,4 +1,4 @@
-# Repeated rival notifications — November 14, 2026
+# Repeated rival notifications â€” November 14, 2026
 
 The reported repeated rival-surpassed popup has a standalone reproduction. A player can name one rival while several AI exchanges name that player. Each distinct pair used to post the same generic notification. Reciprocal pairs already avoided double rewards; multiple incoming rivals were the missing notification case.
 
@@ -19,3 +19,5 @@ Candidate **1.0.5-beta.3** is under `beta/rival_notifications/`. Archive SHA-256
 Compared with local beta.2, only channel version metadata and `common/scripted_effects/spec_centre_effects.txt` differ. It retains the previously tested AI rescue correction from beta.2. The package contains 155 verified files. Generator syntax/localization checks and all 46 Python tests pass.
 
 Stable `mod/` and published `beta/mod/` are unchanged. This candidate has not been uploaded to Workshop or promoted to stable.
+
+Release follow-up: these tested fixes were promoted to stable 1.0.6 and beta 1.0.6-beta.1 and published November 14, 2026. See `HOTFIX_1.0.6.md`.

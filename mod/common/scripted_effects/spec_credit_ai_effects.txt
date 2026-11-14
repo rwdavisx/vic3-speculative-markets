@@ -74,7 +74,18 @@ spec_ai_rescue_roll = {
 			}
 			spec_rescue = yes
 		}
-		70 = { }
+		70 = {
+			modifier = {
+				if = {
+					limit = { var:spec_temper = -1 }
+					add = 15
+				}
+				if = {
+					limit = { var:spec_temper = 1 }
+					add = -20
+				}
+			}
+		}
 	}
 }
 

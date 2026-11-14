@@ -1,5 +1,5 @@
 {
-  "built_at_utc": "2026-11-14T00:05:54.959333+00:00",
+  "built_at_utc": "2026-11-14T20:15:16.592042+00:00",
   "builder_version": "1.0.1",
   "output": "G:\\GameDev\\speculative-markets\\compatibility\\cmf\\mod",
   "parents": {
@@ -8,7 +8,7 @@
       "metadata": {
         "name": "Speculative Markets",
         "id": "speculative_markets",
-        "version": "1.0.2",
+        "version": "1.0.6",
         "supported_game_version": "1.15.*",
         "short_description": "Investors chase rising prices, booms turn to panics, and you set credit policy.",
         "tags": [
@@ -23,7 +23,7 @@
       },
       "files": {
         "gui/information_panel_bar.gui": "3188097a97c3118f45e8c258dd57529f259ccb3dcedbe97f108f502fcd98612c",
-        ".metadata/metadata.json": "2b471d5558daffd1d26f76cbed210f0349cc070c51434f2680f2bba8acd540fc"
+        ".metadata/metadata.json": "2ca09d69f8e0ab1ee170a7ae3c2bb1f5fa68da70e7ee3a697e642c5b32cb53ad"
       }
     },
     "community_mod_framework": {
@@ -62,7 +62,7 @@
   ],
   "notes": [
     "The two parents may be swapped; this patch must follow both.",
-    "Built from Speculative Markets 1.0.2; enable either stable or the matching beta, never both.",
+    "Built from Speculative Markets 1.0.6; enable either stable or the matching beta, never both.",
     "Only CMF is a mandatory metadata dependency; the required SM channel choice is documented for players.",
     "Set load order manually: the 1.15.1 game rejects launcher-only load_after metadata.",
     "No parent files are modified. Runtime compatibility is validated separately.",

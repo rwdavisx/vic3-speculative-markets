@@ -2,7 +2,7 @@
 
 This is the separate testing distribution of Speculative Markets. Enable **either Speculative Markets or Speculative Markets - Beta, never both**. The two distributions intentionally use the same gameplay definitions. Beta is a complete mod, not an add-on to stable.
 
-Published on November 14, 2026: **1.0.5-beta.1**, aligned with stable **1.0.5**. Gameplay/UI files match; channel metadata differs. Both include the tested Exchange tie, bank-tooltip, confidence-floor accounting, surrender fixes and removal of the individual-goods Open Finance button. Balance is unchanged. See [release evidence](../HOTFIX_1.0.5.md).
+Published on November 14, 2026: **1.0.6-beta.1**, aligned with stable **1.0.6**. Both fix duplicate rivalry notifications and AI rescue probability weights. Gameplay/UI files match the tested local beta.3 candidate. See [release evidence](../HOTFIX_1.0.6.md).
 
 Use a separate playset and save copies when trying beta revisions; returning a beta save to an older version is not guaranteed. Older versioned archives remain immutable and do not indicate the currently published version.
 

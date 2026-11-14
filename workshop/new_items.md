@@ -1,15 +1,15 @@
 # Current releases
 
-Published and API-verified public on November 14, 2026. Stable is now aligned with the tested beta. Descriptions for stable, beta and CMF link the new Morgenroete patch. CMF content remains 1.0.1; only its description changed.
+Published and API-verified public November 14, 2026. Stable **1.0.6** and beta **1.0.6-beta.1** include the rivalry notification and AI rescue fixes. CMF **1.0.1** and Morgenroete **1.0.0** retain byte-identical patch content; their descriptions now identify the matching parent versions.
 
 | Item | Version | Verification receipt |
 | --- | --- | --- |
-| [stable](https://steamcommunity.com/sharedfiles/filedetails/?id=3831434383) | 1.0.5 | `workshop\upload_receipts\20261114T164712.118190Z_stable_update_verified_59f288b9.json` |
-| [beta](https://steamcommunity.com/sharedfiles/filedetails/?id=3839275304) | 1.0.5-beta.1 | `workshop\upload_receipts\20261114T164729.813046Z_beta_update_verified_a23a2673.json` |
-| [morgenroete](https://steamcommunity.com/sharedfiles/filedetails/?id=3839705018) | 1.0.0 | `workshop\upload_receipts\20261114T164742.768305Z_morgenroete_update_verified_4b396701.json` |
-| [cmf](https://steamcommunity.com/sharedfiles/filedetails/?id=3839275348) | 1.0.1 | `workshop\upload_receipts\20261114T164743.912504Z_cmf_update_verified_4c4f142d.json` |
+| [stable](https://steamcommunity.com/sharedfiles/filedetails/?id=3831434383) | 1.0.6 | `workshop\upload_receipts\20261114T201625.340346Z_stable_update_verified_0d9479cf.json` |
+| [beta](https://steamcommunity.com/sharedfiles/filedetails/?id=3839275304) | 1.0.6-beta.1 | `workshop\upload_receipts\20261114T201612.828807Z_beta_update_verified_1a59152d.json` |
+| [cmf](https://steamcommunity.com/sharedfiles/filedetails/?id=3839275348) | 1.0.1 | `workshop\upload_receipts\20261114T201626.541512Z_cmf_update_verified_36bc8034.json` |
+| [morgenroete](https://steamcommunity.com/sharedfiles/filedetails/?id=3839705018) | 1.0.0 | `workshop\upload_receipts\20261114T201627.789819Z_morgenroete_update_verified_9d0cfd0f.json` |
 
-Morgenroete is the new patch's Workshop Required Item. Enable exactly one SM channel, and disable the old third-party bridge. Full load order and release hashes: `HOTFIX_1.0.5.md`. Historical records follow and do not identify the current release.
+See `HOTFIX_1.0.6.md` and `tests/mechanics/verification_release_106.json`. Historical records below are retained for reference.
 
 # Historical release records and separate Workshop items
 

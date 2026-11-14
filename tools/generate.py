@@ -171,7 +171,7 @@ CREDIT_FROM = tuning.get("CREDIT_FROM", 55)            # credit flows above this
 # ponytail: credit was 0.05% of GDP a month, about 1% of the investment pool's income in a 1836-1842 run (runs/
 # 20261103_005410_credit_sev): flavour only. Now sized on the pool: at Mania (80) banks add about 15% of a month's
 # pool income, a long boom builds up about 5 months of it owed, and a panic recalls half of that at once
-VERSION = "1.0.5"
+VERSION = "1.0.6"
 CREDIT_SHARE = tuning.get("CREDIT_SHARE", 1.5)         # monthly credit at full confidence, as a share of a month's pool income
 CREDIT_FLOW_MAX = tuning.get("CREDIT_FLOW_MAX", 0.4)       # confidence's part of a month's credit is at most this share of a month's pool income
 CREDIT_CEILING = tuning.get("CREDIT_CEILING", 0.6)        # then times the lending rate (stance, laws, techs...), and never more than this share
