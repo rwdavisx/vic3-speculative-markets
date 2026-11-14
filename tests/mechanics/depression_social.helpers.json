@@ -1,0 +1,87 @@
+{
+  "spec_mechanics_ld_1_a": {
+    "path": "events/spec_depression_events.txt",
+    "start": "name = spec_depression.1.a\n\t\tdefault_option = yes\n",
+    "end": "\n\t\tai_chance = {\n\t\t\tbase = 50\n\t\t\tmodifier = {\n\t\t\t\ttrigger = { var:spec_temper ?= -1 }\n\t\t\t\tadd = 30\n\t\t\t}\n\t\t}\n\t}\n\toption = {\n\t\tname = spec_depression.1.b\n\t\tcustom_tooltip = {\n\t\t\ttext = spec_story_conf_up_6\n\t\t\tspec_story_conf = { AMOUNT = 6 }\n\t\t}\n\t\tif = {\n\t\t\tlimit = { spec_ld_is_gp = yes }\n\t\t\tcustom_tooltip = {\n\t\t\t\ttext = spec_ld_world_up_3\n\t\t\t\tspec_ld_world = { AMOUNT = 3 }\n\t\t\t}\n\t\t}\n\t\telse = {\n\t\t\tcustom_tooltip = {\n\t\t\t\ttext = spec_ld_world_up_0_1\n\t\t\t\tspec_ld_world = { AMOUNT = 0.1 }\n\t\t\t}\n\t\t}\n\t\tadd_modifier = {\n\t\t\tname = spec_ld_exchange_support\n\t\t\tdays = very_short_modifier_time\n\t\t\tmultiplier = "
+  },
+  "spec_mechanics_ld_1_b": {
+    "path": "events/spec_depression_events.txt",
+    "start": "name = spec_depression.1.b\n",
+    "end": "\n\t\tai_chance = {\n\t\t\tbase = 50\n\t\t\tmodifier = {\n\t\t\t\ttrigger = { var:spec_temper ?= 1 }\n\t\t\t\tadd = 30\n\t\t\t}\n\t\t}\n\t}\n}\n\nspec_depression.2 = {\n\ttype = country_event\n\tplacement = root\n\ttitle = spec_depression.2.t\n\tdesc = spec_depression.2.d\n\tflavor = spec_depression.2.f\n\tduration = 3\n\tevent_image = {\n\t\ttrigger = { spec_pic_mideast = yes }\n\t\tvideo = \"unspecific_steam_ship\"\n\t}\n\tevent_image = {\n\t\ttrigger = { spec_pic_africa = yes }\n\t\tvideo = \"unspecific_steam_ship\"\n\t}\n\tevent_image = {\n\t\ttrigger = { spec_pic_asia = yes }\n\t\tvideo = \"asia_westerners_arriving\"\n\t}\n\tevent_image = {\n\t\ttrigger = { spec_pic_latam "
+  },
+  "spec_mechanics_ld_2_a": {
+    "path": "events/spec_depression_events.txt",
+    "start": "name = spec_depression.2.a\n",
+    "end": "\n\t\tai_chance = {\n\t\t\tbase = 40\n\t\t\tmodifier = {\n\t\t\t\ttrigger = { var:spec_temper ?= -1 }\n\t\t\t\tadd = 30\n\t\t\t}\n\t\t}\n\t}\n\toption = {\n\t\tname = spec_depression.2.b\n\t\tdefault_option = yes\n\t\tif = {\n\t\t\tlimit = { spec_ld_is_gp = yes }\n\t\t\tcustom_tooltip = {\n\t\t\t\ttext = spec_ld_world_up_6\n\t\t\t\tspec_ld_world = { AMOUNT = 6 }\n\t\t\t}\n\t\t}\n\t\telse = {\n\t\t\tcustom_tooltip = {\n\t\t\t\ttext = spec_ld_world_up_0_2\n\t\t\t\tspec_ld_world = { AMOUNT = 0.2 }\n\t\t\t}\n\t\t}\n\t\tcustom_tooltip = {\n\t\t\ttext = spec_story_conf_down_3\n\t\t\tspec_story_conf = { AMOUNT = -3 }\n\t\t}\n\t\tig:ig_industrialists ?= {\n\t\t\tadd_modifier = {\n\t\t\t\tname = spec_ld_protection_d"
+  },
+  "spec_mechanics_ld_2_b": {
+    "path": "events/spec_depression_events.txt",
+    "start": "name = spec_depression.2.b\n\t\tdefault_option = yes\n",
+    "end": "\n\t\tai_chance = {\n\t\t\tbase = 40\n\t\t\tmodifier = {\n\t\t\t\ttrigger = { var:spec_temper ?= 1 }\n\t\t\t\tadd = 30\n\t\t\t}\n\t\t}\n\t}\n}\n\nspec_depression.3 = {\n\ttype = country_event\n\tplacement = root\n\ttitle = spec_depression.3.t\n\tdesc = spec_depression.3.d\n\tflavor = spec_depression.3.f\n\tduration = 3\n\tevent_image = {\n\t\ttrigger = { spec_pic_mideast = yes }\n\t\tvideo = \"middleeast_engineer_blueprint\"\n\t}\n\tevent_image = {\n\t\ttrigger = { spec_pic_africa = yes }\n\t\tvideo = \"africa_construction_colony\"\n\t}\n\tevent_image = {\n\t\ttrigger = { spec_pic_asia = yes }\n\t\tvideo = \"unspecific_trains\"\n\t}\n\tevent_image = {\n\t\ttrigger = { spec_pic_"
+  },
+  "spec_mechanics_ld_3_a": {
+    "path": "events/spec_depression_events.txt",
+    "start": "name = spec_depression.3.a\n",
+    "end": "\n\t\tai_chance = {\n\t\t\tbase = 40\n\t\t\tmodifier = {\n\t\t\t\ttrigger = { var:spec_temper ?= 1 }\n\t\t\t\tadd = 30\n\t\t\t}\n\t\t}\n\t}\n\toption = {\n\t\tname = spec_depression.3.b\n\t\tdefault_option = yes\n\t\tadd_radicals = { value = small_radicals strata = lower }\n\t\tig:ig_trade_unions ?= {\n\t\t\tadd_modifier = {\n\t\t\t\tname = spec_ld_relief_refused\n\t\t\t\tdays = short_modifier_time\n\t\t\t}\n\t\t}\n\t\tig:ig_petty_bourgeoisie ?= {\n\t\t\tadd_modifier = {\n\t\t\t\tname = spec_ld_rates_spared\n\t\t\t\tdays = short_modifier_time\n\t\t\t}\n\t\t}\n\t\tai_chance = {\n\t\t\tbase = 40\n\t\t\tmodifier = {\n\t\t\t\ttrigger = { var:spec_temper ?= -1 }\n\t\t\t\tadd = 30\n\t\t\t}\n\t\t}\n\t}\n}\n\nspec_depres"
+  },
+  "spec_mechanics_ld_3_b": {
+    "path": "events/spec_depression_events.txt",
+    "start": "name = spec_depression.3.b\n\t\tdefault_option = yes\n",
+    "end": "\n\t\tai_chance = {\n\t\t\tbase = 40\n\t\t\tmodifier = {\n\t\t\t\ttrigger = { var:spec_temper ?= -1 }\n\t\t\t\tadd = 30\n\t\t\t}\n\t\t}\n\t}\n}\n\nspec_depression.4 = {\n\ttype = country_event\n\tplacement = root\n\ttitle = spec_depression.4.t\n\tdesc = spec_depression.4.d\n\tflavor = spec_depression.4.f\n\tduration = 3\n\tevent_image = {\n\t\ttrigger = { spec_pic_mideast = yes }\n\t\tvideo = \"middleeast_police_breaking_door\"\n\t}\n\tevent_image = {\n\t\ttrigger = { spec_pic_africa = yes }\n\t\tvideo = \"africa_public_protest\"\n\t}\n\tevent_image = {\n\t\ttrigger = { spec_pic_asia = yes }\n\t\tvideo = \"unspecific_vandalized_storefront\"\n\t}\n\tevent_image = {\n\t\ttrigger "
+  },
+  "spec_mechanics_ld_4_a": {
+    "path": "events/spec_depression_events.txt",
+    "start": "name = spec_depression.4.a\n\t\tdefault_option = yes\n",
+    "end": "\n\t\tai_chance = {\n\t\t\tbase = 40\n\t\t}\n\t}\n\toption = {\n\t\tname = spec_depression.4.b\n\t\tcustom_tooltip = {\n\t\t\ttext = spec_rescue_cost_tt\n\t\t\tadd_treasury = { value = spec_rescue_cost multiply = -1 }\n\t\t}\n\t\tcustom_tooltip = {\n\t\t\ttext = spec_story_conf_up_10\n\t\t\tspec_story_conf = { AMOUNT = 10 }\n\t\t}\n\t\tcustom_tooltip = {\n\t\t\ttext = spec_ld_own_up_10\n\t\t\tspec_ld_own = { AMOUNT = 10 }\n\t\t}\n\t\tif = {\n\t\t\tlimit = { spec_ld_is_gp = yes }\n\t\t\tcustom_tooltip = {\n\t\t\t\ttext = spec_ld_world_up_3\n\t\t\t\tspec_ld_world = { AMOUNT = 3 }\n\t\t\t}\n\t\t}\n\t\telse = {\n\t\t\tcustom_tooltip = {\n\t\t\t\ttext = spec_ld_world_up_0_1\n\t\t\t\tspec_ld_world = {"
+  },
+  "spec_mechanics_ld_4_b": {
+    "path": "events/spec_depression_events.txt",
+    "start": "name = spec_depression.4.b\n",
+    "end": "\n\t\tai_chance = {\n\t\t\tbase = 30\n\t\t\tmodifier = {\n\t\t\t\ttrigger = { var:spec_temper ?= 1 }\n\t\t\t\tadd = 30\n\t\t\t}\n\t\t}\n\t}\n\toption = {\n\t\tname = spec_depression.4.c\n\t\tcustom_tooltip = {\n\t\t\ttext = spec_story_conf_down_6\n\t\t\tspec_story_conf = { AMOUNT = -6 }\n\t\t}\n\t\tcustom_tooltip = {\n\t\t\ttext = spec_ld_own_up_4\n\t\t\tspec_ld_own = { AMOUNT = 4 }\n\t\t}\n\t\tadd_radicals = { value = small_radicals strata = middle }\n\t\tig:ig_petty_bourgeoisie ?= {\n\t\t\tadd_modifier = {\n\t\t\t\tname = spec_ld_savings_lost\n\t\t\t\tdays = short_modifier_time\n\t\t\t}\n\t\t}\n\t\tig:ig_intelligentsia ?= {\n\t\t\tadd_modifier = {\n\t\t\t\tname = spec_story_sound_finance\n\t\t\t"
+  },
+  "spec_mechanics_ld_4_c": {
+    "path": "events/spec_depression_events.txt",
+    "start": "name = spec_depression.4.c\n",
+    "end": "\n\t\tai_chance = {\n\t\t\tbase = 30\n\t\t\tmodifier = {\n\t\t\t\ttrigger = { var:spec_temper ?= -1 }\n\t\t\t\tadd = 30\n\t\t\t}\n\t\t}\n\t}\n}\n\nspec_depression.5 = {\n\ttype = country_event\n\tplacement = root\n\ttitle = spec_depression.5.t\n\tdesc = spec_depression.5.d\n\tflavor = spec_depression.5.f\n\tduration = 3\n\tevent_image = {\n\t\ttrigger = { spec_pic_mideast = yes }\n\t\tvideo = \"unspecific_politicians_arguing\"\n\t}\n\tevent_image = {\n\t\ttrigger = { spec_pic_africa = yes }\n\t\tvideo = \"africa_leader_arguing\"\n\t}\n\tevent_image = {\n\t\ttrigger = { spec_pic_asia = yes }\n\t\tvideo = \"asia_politician_parliament_motion\"\n\t}\n\tevent_image = {\n\t\ttrigger "
+  },
+  "spec_mechanics_ld_5_a": {
+    "path": "events/spec_depression_events.txt",
+    "start": "name = spec_depression.5.a\n\t\tdefault_option = yes\n",
+    "end": "\n\t\tai_chance = {\n\t\t\tbase = 50\n\t\t\tmodifier = {\n\t\t\t\ttrigger = { var:spec_temper ?= -1 }\n\t\t\t\tadd = 30\n\t\t\t}\n\t\t}\n\t}\n\toption = {\n\t\tname = spec_depression.5.b\n\t\tcustom_tooltip = {\n\t\t\ttext = spec_ld_own_up_15\n\t\t\tspec_ld_own = { AMOUNT = 15 }\n\t\t}\n\t\tcustom_tooltip = {\n\t\t\ttext = spec_story_conf_down_5\n\t\t\tspec_story_conf = { AMOUNT = -5 }\n\t\t}\n\t\tif = {\n\t\t\tlimit = { spec_ld_is_gp = yes }\n\t\t\tcustom_tooltip = {\n\t\t\t\ttext = spec_ld_world_down_3\n\t\t\t\tspec_ld_world = { AMOUNT = -3 }\n\t\t\t}\n\t\t}\n\t\telse = {\n\t\t\tcustom_tooltip = {\n\t\t\t\ttext = spec_ld_world_down_0_1\n\t\t\t\tspec_ld_world = { AMOUNT = -0.1 }\n\t\t\t}\n\t\t}\n\t\tig:ig_ru"
+  },
+  "spec_mechanics_ld_5_b": {
+    "path": "events/spec_depression_events.txt",
+    "start": "name = spec_depression.5.b\n",
+    "end": "\n\t\tai_chance = {\n\t\t\tbase = 50\n\t\t\tmodifier = {\n\t\t\t\ttrigger = { var:spec_temper ?= 1 }\n\t\t\t\tadd = 30\n\t\t\t}\n\t\t}\n\t}\n}\n\nspec_depression.6 = {\n\ttype = country_event\n\tplacement = root\n\ttitle = spec_depression.6.t\n\tdesc = spec_depression.6.d\n\tflavor = spec_depression.6.f\n\tduration = 3\n\tevent_image = {\n\t\ttrigger = { spec_pic_mideast = yes }\n\t\tvideo = \"middleeast_police_breaking_door\"\n\t}\n\tevent_image = {\n\t\ttrigger = { spec_pic_africa = yes }\n\t\tvideo = \"africa_soldiers_breaking_protest\"\n\t}\n\tevent_image = {\n\t\ttrigger = { spec_pic_asia = yes }\n\t\tvideo = \"asia_union_leader\"\n\t}\n\tevent_image = {\n\t\ttrigger = { s"
+  },
+  "spec_mechanics_ld_6_a": {
+    "path": "events/spec_depression_events.txt",
+    "start": "name = spec_depression.6.a\n\t\tdefault_option = yes\n",
+    "end": "\n\t\tai_chance = {\n\t\t\tbase = 40\n\t\t\tmodifier = {\n\t\t\t\ttrigger = { var:spec_temper ?= -1 }\n\t\t\t\tadd = 20\n\t\t\t}\n\t\t}\n\t}\n\toption = {\n\t\tname = spec_depression.6.b\n\t\tadd_modifier = {\n\t\t\tname = spec_ld_petition_relief\n\t\t\tdays = very_short_modifier_time\n\t\t\tmultiplier = money_amount_multiplier_small\n\t\t}\n\t\tcustom_tooltip = {\n\t\t\ttext = spec_ld_own_up_5\n\t\t\tspec_ld_own = { AMOUNT = 5 }\n\t\t}\n\t\tadd_loyalists = { value = small_radicals strata = lower }\n\t\tig:ig_trade_unions ?= {\n\t\t\tadd_modifier = {\n\t\t\t\tname = spec_ld_marchers_heard\n\t\t\t\tdays = short_modifier_time\n\t\t\t}\n\t\t}\n\t\tai_chance = {\n\t\t\tbase = 40\n\t\t\tmodifier = {\n\t"
+  },
+  "spec_mechanics_ld_6_b": {
+    "path": "events/spec_depression_events.txt",
+    "start": "name = spec_depression.6.b\n",
+    "end": "\n\t\tai_chance = {\n\t\t\tbase = 40\n\t\t\tmodifier = {\n\t\t\t\ttrigger = { var:spec_temper ?= 1 }\n\t\t\t\tadd = 20\n\t\t\t}\n\t\t}\n\t}\n}\n\nspec_depression.7 = {\n\ttype = country_event\n\tplacement = root\n\ttitle = spec_depression.7.t\n\tdesc = spec_depression.7.d\n\tflavor = spec_depression.7.f\n\tduration = 3\n\tevent_image = {\n\t\ttrigger = { spec_pic_mideast = yes }\n\t\tvideo = \"unspecific_politicians_arguing\"\n\t}\n\tevent_image = {\n\t\ttrigger = { spec_pic_africa = yes }\n\t\tvideo = \"africa_leader_arguing\"\n\t}\n\tevent_image = {\n\t\ttrigger = { spec_pic_asia = yes }\n\t\tvideo = \"asia_politician_parliament_motion\"\n\t}\n\tevent_image = {\n\t\ttrigger ="
+  },
+  "spec_mechanics_ld_7_a": {
+    "path": "events/spec_depression_events.txt",
+    "start": "name = spec_depression.7.a\n\t\tdefault_option = yes\n",
+    "end": "\n\t\tai_chance = {\n\t\t\tbase = 50\n\t\t\tmodifier = {\n\t\t\t\ttrigger = { var:spec_temper ?= -1 }\n\t\t\t\tadd = 20\n\t\t\t}\n\t\t}\n\t}\n\toption = {\n\t\tname = spec_depression.7.b\n\t\tcustom_tooltip = {\n\t\t\ttext = spec_story_conf_up_3\n\t\t\tspec_story_conf = { AMOUNT = 3 }\n\t\t}\n\t\tadd_radicals = { value = small_radicals strata = middle }\n\t\tig:ig_industrialists ?= {\n\t\t\tadd_modifier = {\n\t\t\t\tname = spec_ld_system_defended\n\t\t\t\tdays = short_modifier_time\n\t\t\t}\n\t\t}\n\t\tig:ig_intelligentsia ?= {\n\t\t\tadd_modifier = {\n\t\t\t\tname = spec_ld_reform_refused\n\t\t\t\tdays = short_modifier_time\n\t\t\t}\n\t\t}\n\t\tai_chance = {\n\t\t\tbase = 50\n\t\t\tmodifier = {\n\t\t\t\ttr"
+  },
+  "spec_mechanics_ld_7_b": {
+    "path": "events/spec_depression_events.txt",
+    "start": "name = spec_depression.7.b\n",
+    "end": "\n\t\tai_chance = {\n\t\t\tbase = 50\n\t\t\tmodifier = {\n\t\t\t\ttrigger = { var:spec_temper ?= 1 }\n\t\t\t\tadd = 20\n\t\t\t}\n\t\t}\n\t}\n}\n\nspec_depression.8 = {\n\ttype = country_event\n\tplacement = root\n\ttitle = spec_depression.8.t\n\tdesc = spec_depression.8.d\n\tflavor = spec_depression.8.f\n\tduration = 3\n\tevent_image = {\n\t\ttrigger = { spec_pic_mideast = yes }\n\t\tvideo = \"middleeast_engineer_blueprint\"\n\t}\n\tevent_image = {\n\t\ttrigger = { spec_pic_africa = yes }\n\t\tvideo = \"africa_city_center\"\n\t}\n\tevent_image = {\n\t\ttrigger = { spec_pic_asia = yes }\n\t\tvideo = \"asia_farmers_market\"\n\t}\n\tevent_image = {\n\t\ttrigger = { spec_pic_latam "
+  },
+  "spec_mechanics_ld_8_a": {
+    "path": "events/spec_depression_events.txt",
+    "start": "name = spec_depression.8.a\n\t\tdefault_option = yes\n",
+    "end": "\n\t\tai_chance = {\n\t\t\tbase = 50\n\t\t\tmodifier = {\n\t\t\t\ttrigger = { var:spec_temper ?= -1 }\n\t\t\t\tadd = 30\n\t\t\t}\n\t\t}\n\t}\n\toption = {\n\t\tname = spec_depression.8.b\n\t\tcustom_tooltip = {\n\t\t\ttext = spec_story_conf_up_8\n\t\t\tspec_story_conf = { AMOUNT = 8 }\n\t\t}\n\t\tig:ig_industrialists ?= {\n\t\t\tadd_modifier = {\n\t\t\t\tname = spec_boom_riding\n\t\t\t\tdays = short_modifier_time\n\t\t\t}\n\t\t}\n\t\tig:ig_intelligentsia ?= {\n\t\t\tadd_modifier = {\n\t\t\t\tname = spec_story_lessons_unlearned\n\t\t\t\tdays = short_modifier_time\n\t\t\t}\n\t\t}\n\t\tai_chance = {\n\t\t\tbase = 50\n\t\t\tmodifier = {\n\t\t\t\ttrigger = { var:spec_temper ?= 1 }\n\t\t\t\tadd = 30\n\t\t\t}\n\t\t}\n\t}\n}\n\n"
+  },
+  "spec_mechanics_ld_8_b": {
+    "path": "events/spec_depression_events.txt",
+    "start": "name = spec_depression.8.b\n",
+    "end": "\n\t\tai_chance = {\n\t\t\tbase = 50\n\t\t\tmodifier = {\n\t\t\t\ttrigger = { var:spec_temper ?= 1 }\n\t\t\t\tadd = 30\n\t\t\t}\n\t\t}\n\t}\n}\n\nspec_depression.99 = {\n\ttype = country_event\n\thidden = yes\n\timmediate = { if = { limit = { global_var:spec_ld_phase ?= 1 has_variable = spec_conf spec_law_mult > 0 } remove_variable = spec_ld_spreading spec_every_tied = { EFFECT = spec_ld_tied_join } } }\n}\n"
+  }
+}

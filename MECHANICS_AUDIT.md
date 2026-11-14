@@ -1,7 +1,7 @@
 # Mechanics correctness audit
 
-Balance is frozen at 1.0.3. The isolated and integration passes now have **569 passing engine
-assertions in 55 suites**, plus **42 Python tests** and **9 CMF source tests**.
+Balance is frozen at 1.0.3. The isolated and integration passes now have **644 passing engine
+assertions in 56 suites**, plus **45 Python tests** and **9 CMF source tests**.
 These are contract results, not a claim that every possible campaign works.
 The open checks below remain prerequisites to the broader balance pass.
 
@@ -59,7 +59,7 @@ limits it; untested behavior is not being classified as either correct or broken
 | Exchanges | actions/charters, pursuit ordering, pledge notice, monthly trust gates/cap, Bad Debts prevents promotion, seat ownership, annexed/missing ranks and rivals | larger networks and repeat-year interactions; reach/size, score factors, standing boundaries and ordinary/hostile three-way transfers including floor/cap now covered |
 | Domestic economy / politics | growth bounds and stagnation, depth/trade multipliers, fixed AI temperament, mania goodwill, panic blame, cooling/cleanup | revolutions and additional building strata; ruling-IG changes and steel-owner population totals now covered |
 | Foreign transmission / wars | real GBR-to-FRA hit, weaker hit cannot stack, stronger replaces, closed economy ignores; war-end live/missing opponent safety | actual war start-to-end campaign; treaty-chain recursion and capital-flight exclusions now covered |
-| Long Depression | join/tie gates, repeat join, crash phase deadline, own/world recovery, clamps, cleanup/history, delayed safety | more treaty/trade networks and exact IG/population effects of depression options |
+| Long Depression | join/tie gates, repeat join, crash phase deadline, own/world recovery, clamps, cleanup/history, delayed safety | more treaty/trade networks; option population totals and IG modifier routing now covered, modifier magnitude/duration and live event buttons remain |
 | Journal / reforms / stories | stage priority, reform combinations, debt conversion and lock, delayed missing-source/shutdown safety, journal insertion | player-tag journal persistence and live inquiry choices; actual one/five-year movement decay now covered; inquiry eligibility/options and immediate player-switch UI refresh covered |
 | UI / notifications / localization | native beta5 and CMF beta4 journal/goods shortcuts select Speculation; native transitions; numeric posts; row alignment; static localization checks | scales beyond tested 100%/120% and all translated languages live; English filters and empty/reset states verified |
 | Distribution | distinct IDs, frozen-source hashes, fixture exclusion, immutable beta archives, beta4/5 gameplay equality, regenerated CMF patch byte equality | beta-first promotion verified; see release receipts |
@@ -335,3 +335,12 @@ goods-button test was removed. Rebuilt CMF and Morgenroete patch files are
 byte-identical to their prior versions. No gameplay or balance changes, stable
 output unchanged, no Workshop upload. Evidence:
 `tests/mechanics/verification_goods_navigation_beta104_6.json`.
+
+
+## Depression choice population and political effects (1.0.5 beta)
+
+75 new engine assertions pass on unchanged **1.0.5-beta.1**, bringing the base audit to **644 assertions in 56 suites**. This is separate from the Morgenroete integration count. All 17 option bodies were extracted unchanged from the frozen beta. The suite compares radicals and loyalists in every state and each stratum against direct native-engine effects, including unaffected populations. It checks all intended political modifiers and their absence on the other seven interest groups. Six nonzero oracle checks prevent empty-population passes.
+
+A deliberate mutation in a disposable test copy rerouted relief-work loyalists from lower to middle strata and its IG modifier from Trade Unions to Armed Forces. Exactly the expected three assertions failed; the other 72 passed. Both complete logs have zero blocking mod/harness errors. This confirms detection of those injected faults; it is not a production bug. No gameplay change, beta rebuild or Workshop upload was needed. The 45 Python tests also pass.
+
+Evidence: `tests/mechanics/verification_depression_social_105.json`. Raw runs: `runs/sweep_depression_social_105_r1` and `runs/sweep_depression_social_105_mutation`. Option-button UI, random event frequency, aggregate IG approval values and modifier expiry remain outside this suite.
