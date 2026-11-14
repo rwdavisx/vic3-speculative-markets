@@ -40,3 +40,14 @@ change bullets. Description-only updates verified at 06:21:25 (stable) and 06:21
 with unchanged content sizes. Receipts:
 `20261114T062125.208476Z_stable_description_verified_2d13f41a.json` and
 `20261114T062126.402501Z_beta_description_verified_731742d9.json` in the receipt directory.
+
+## Follow-up Beta 1.0.4-beta.3
+
+Published and verified public at 13:52:58 UTC, item 3839275304.
+Receipt: `workshop/upload_receipts/20261114T135258.987066Z_beta_update_verified_ea4c134a.json`.
+Archive SHA256: `f0a15d5b5f568a4d708073d3388a7105e427c7bf347a5277c9fb9ce858fdc7e4`.
+Fixes bank tooltip values cached before the month's repayment and lending. Four red
+engine assertions pass after moving the unchanged cache block alongside the bank chart.
+Cash flow, 49 goods endings, and credit-cycle regression gates pass; 38 Python tests pass.
+A separate frozen-beta2 save/reload check passed all recovery deadlines. No new live GUI
+session is claimed. No economic formulas, GUI layout or navigation changed. Stable untouched.

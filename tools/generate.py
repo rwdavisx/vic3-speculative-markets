@@ -686,7 +686,6 @@ def monthly(log):
                       for w in range(1, 7)) for g in GOODS]
     # the tab's per-frame figures, worked out once a month: each band's tile rows and each tile's bar, move and badge
     shown.append(interest_board.monthly(GOODS, categories()))
-    shown.append(exposure.ui(GOODS))
     shown.append(cycle.ui(GOODS, TOAST_SHARE / EXPOSURE_FULL))
     # D4: the country-wide interest multipliers, worked out once here instead of twice for each good
     goods = ["\t\t\tset_variable = { name = spec_hm value = spec_hype_mult }\n"
@@ -1013,7 +1012,7 @@ spec_monthly = {{
 						market ?= {{ owner ?= root }}
 					}}
 				}}
-{charts.history_shift()}{charts.script(GOODS, chr(9) * 4)}			}}
+{exposure.ui(GOODS, chr(9) * 4)}{charts.history_shift()}{charts.script(GOODS, chr(9) * 4)}			}}
 			# mania warning, once per boom
 			if = {{
 				limit = {{

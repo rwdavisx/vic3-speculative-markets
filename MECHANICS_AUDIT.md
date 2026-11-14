@@ -1,12 +1,12 @@
 # Mechanics correctness audit
 
-Balance is frozen at 1.0.3. The isolated passes now have **226 passing engine
-assertions in 23 suites**, plus **38 Python tests** and **9 CMF source tests**.
+Balance is frozen at 1.0.3. The isolated passes now have **294 passing engine
+assertions in 27 suites**, plus **38 Python tests** and **9 CMF source tests**.
 These are contract results, not a claim that every possible campaign works.
 The open checks below remain prerequisites to the broader balance pass.
 
-**Published:** Stable 1.0.4 at 06:11 UTC and Beta 1.0.4-beta.2 at 06:20 UTC on November 14.
-Stable matches the earlier tested beta5. The newer beta adds the rivalry-tie fix below.
+**Published:** Stable 1.0.4 at 06:11 UTC and Beta 1.0.4-beta.3 at 13:52 UTC on November 14.
+Stable matches the earlier tested beta5. The newer beta adds the rivalry-tie and bank-tooltip fixes below.
 See `HOTFIX_1.0.4.md` for receipts and hashes.
 [Machine-readable results](tests/mechanics/verification_2026-11-14.json) record
 assertion names, fixture/build manifests, log hashes, and error classifications.
@@ -47,10 +47,10 @@ limits it; untested behavior is not being classified as either correct or broken
 | --- | --- | --- |
 | Market lifecycle | command/cooperative shutdown, full monthly reopening, idempotent cleanup, reforms survive, second-month bounds | tag switches and more legacy saves |
 | Confidence | 20/40/60/80 bands, clamps, story deltas, panic modifier exclusivity | complete driver sum and monthly ordering under simultaneous shocks |
-| Investor Interest | trend direction, reciprocal response, clamps, severity thresholds, peak decay, one ending per boom | all 49 goods and production-method combinations |
-| Recovery | actual 90/180/360-day expiration, checks before and after each deadline in GBR/FRA/PRU | save/reload during recovery |
-| Lending | safe/stressed leverage boundaries, policy ceilings, repayment bounds, zero credit, panic/Bad Debts blocks | exact pool cash transfers during simultaneous crises |
-| Bank exposure | 60% new-loan allocation cap, dilution, conservation, empty/new credit, write-off once, restrained share | simultaneous endings in several goods and UI reconciliation |
+| Investor Interest | trend direction, reciprocal response, clamps, severity thresholds, peak decay, one ending per boom, all 49 collapse paths together | building and production-method combinations beyond the goods-state paths |
+| Recovery | actual 90/180/360-day expiration, checks before and after each deadline in GBR/FRA/PRU, actual save/reload across all three durations | recovery during law changes and other overlapping interventions |
+| Lending | safe/stressed leverage boundaries, policy ceilings, repayment bounds, zero credit, panic/Bad Debts blocks, exact repayment/new-credit pool transfers | panic/depression cash recall interactions and longer crisis chains |
+| Bank exposure | 60% new-loan allocation cap, dilution, conservation, empty/new credit, write-off once, restrained share, simultaneous endings, post-lending tooltip consistency | loan transfers through war/secession and manual live tooltip inspection |
 | Lending standards | drift gates, crisis-loss floor, upper/lower bounds, action multipliers | long-run combinations of overlapping interventions |
 | Overbuilding / construction / owners | supply-loss neutrality, doubled-supply amplification cap, construction tiers 4/5/6, small-boom exclusion, bonus removal | actual ownership-stratum radical counts, each building group and PM |
 | Leverage / Bad Debts | ramp/fade/expiry, bailout lock cleanup, old-loan land-loss relief, repeated loss, new-loan exclusion, relief expiry | real secession/peace-deal integration beyond the controlled population cache |
@@ -92,6 +92,10 @@ limits it; untested behavior is not being classified as either correct or broken
 | pledge_default | 5 | rival_fix_beta104/default |
 | rival_year | 7 | rival_final_beta104/rival |
 | technology | 7 | technology_beta104/tech |
+| bank_display | 4 | bank_fix_beta104/display |
+| cashflow | 6 | bank_fix_beta104/cash |
+| recovery_reload | 9 | recovery_save_beta104/recovery + recovery_reload_beta104/recovery |
+| all_goods_endings | 49 | all_goods_endings_beta104/goods |
 
 Evidence abbreviations expand to `runs/sweep_mechanics_<batch>/<arm>_01`.
 All accepted runs completed their assertion sequence and had **zero blocking
@@ -180,3 +184,32 @@ standards fixed the fixture without a production change. Internal beta1 was not 
 it lacked the source preview and had English fallback for the new label. Final beta2
 restores the preview and translates the label in all ten additional languages; gameplay
 and English UI bytes match beta1. Immutable artifacts and failed evidence are retained.
+
+## Cash flow, bank display, and save/reload follow-up
+
+68 new assertions bring coverage to 294 assertions across 27 suites. Including the
+19-case credit-cycle regression, this batch passed 87 assertions with zero blocking
+mod/harness diagnostics. Evidence: `tests/mechanics/verification_cashflow_2026-11-14.json`.
+
+**Proven bug:** goods/bank tooltip months-of-income and loss multipliers were cached
+before the monthly repayment/lending, while the share and Banking chart were current.
+All four full-month data-consistency assertions failed on published beta2. The generator
+now caches those values alongside the chart after credit and leverage updates. The four
+assertions pass on beta3. Removing that same 49-good cache block from the old and new
+monthly files leaves byte-identical logic: no economic formulas or balance changed.
+This verifies the values the GUI reads, not a new live visual inspection.
+
+Cash-flow assertions pass for exact funded repayments, unpaid runoff written off when
+the pool is exhausted, matching new-credit pool/debt increases, two simultaneous endings,
+and no repeated losses. All 49 supported goods also pass collapse/recovery/exposure
+assertions in a single full monthly update; this is not every building/PM/population test.
+
+An actual annual autosave captured the three 90/180/360-day recovery timers after they
+started in late 1836. A separate game loaded it, ran through January 1838, and passed all
+before/after deadline assertions. Both complete error logs passed the gate. This test
+uses frozen beta2; beta3 only moves the bank display cache. Save hash and paths are in the
+verification record. Do not replace these runs with a fresh-game-only expiry claim.
+
+Beta 1.0.4-beta.3 was published and verified at 13:52:58 UTC on November 14.
+Stable remains 1.0.4 and does not yet include either later beta fix. No CMF patch GUI
+changed. Balance stays frozen; the ledger retains the remaining interaction checks.

@@ -94,7 +94,7 @@ def state_vars(goods):
 
 def loc():
     from market_tab import fx, good_var
-    # the figures are this month's (ui() runs before lending), so test them, not spec_exp: a good first past SHOWN read x0.00
+    # Cache after repayment/lending with the chart; use its presence to avoid reading missing tooltip values.
     has = f"GreaterThanOrEqualTo_CFixedPoint({good_var('spec_ui_expx')}, {fx(1)})"
     # Captured in the notification's event chain, not resolved through a country's Var argument.
     note = "SCOPE.GetValue('spec_note_bank')"

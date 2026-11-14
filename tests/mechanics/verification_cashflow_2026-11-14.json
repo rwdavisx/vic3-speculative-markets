@@ -1,0 +1,290 @@
+{
+  "date": "2026-11-14",
+  "game_version": "1.15.1",
+  "beta_candidate": "1.0.4-beta.3",
+  "published": true,
+  "archive_sha256": "f0a15d5b5f568a4d708073d3388a7105e427c7bf347a5277c9fb9ce858fdc7e4",
+  "new_assertion_count": 68,
+  "cumulative_contract_assertions": 294,
+  "cumulative_suites": 27,
+  "batch_assertions": 87,
+  "suites": [
+    {
+      "suite": "bank_display",
+      "build": "runs\\mechanics\\bank_display_beta104_green",
+      "runs": [
+        "runs\\sweep_mechanics_bank_fix_beta104\\display_01"
+      ],
+      "source_version": "1.0.4-beta.3",
+      "source_manifest_sha256": "b9eb0dc6650c4f67dd69914736c3c6cb4a24af3181a8a20348dd5a37e0250744",
+      "fixture_sha256": "0a71d44fa1dce82f0181c3d2b04fb62922175d5c3b6a3ddc1d0e9a9412113abd",
+      "logs": [
+        {
+          "assertions_sha256": "5c303321aebcee6d22f4ffe81654b0b5fbcb4470c12c4f8bdb326acec931cf40",
+          "errors_sha256": "27f5c06661716679e9174e736267ffd614ee567081fc0c6fcaf5cc89eacff57c"
+        }
+      ],
+      "result": {
+        "suite": "bank_display",
+        "passed": [
+          "bank_tooltip_months_match_post_lending_loans",
+          "bank_tooltip_months_match_post_repayment_loans",
+          "bank_tooltip_multiplier_matches_post_lending_loans",
+          "bank_tooltip_multiplier_matches_post_repayment_loans"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_bank_fix_beta104\\display_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "cashflow",
+      "build": "runs\\mechanics\\cashflow_beta104_green",
+      "runs": [
+        "runs\\sweep_mechanics_bank_fix_beta104\\cash_01"
+      ],
+      "source_version": "1.0.4-beta.3",
+      "source_manifest_sha256": "f81d8bc764bb4ee4c0c6549f8c8dff9efa05069511f6ee326f58c3cdae71edeb",
+      "fixture_sha256": "795cfe4971ab43341db09c90d870c0f10edc54cbaa1e3b109951e514a5cdd7d0",
+      "logs": [
+        {
+          "assertions_sha256": "86a6e24179eea45fa4f03b63adb86b2fe82f3dc905cafaf96739307b79c28d7d",
+          "errors_sha256": "4786a152cfb3201ab16048a1188c6e4cd4b30c35bf41f8011d8825b7836c5c20"
+        }
+      ],
+      "result": {
+        "suite": "cashflow",
+        "passed": [
+          "goods_endings_do_not_duplicate_cash_recall",
+          "insufficient_pool_writes_off_unpaid_runoff",
+          "new_credit_adds_same_amount_to_pool_and_debt",
+          "repayment_removes_exact_pool_cash_and_debt",
+          "simultaneous_endings_do_not_repeat_losses",
+          "simultaneous_endings_reduce_each_exposure_once"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_bank_fix_beta104\\cash_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "credit_cycle",
+      "build": "runs\\mechanics\\credit_cycle_beta104_green",
+      "runs": [
+        "runs\\sweep_mechanics_bank_fix_beta104\\cycle_01"
+      ],
+      "source_version": "1.0.4-beta.3",
+      "source_manifest_sha256": "5ace97f49834d5755e2d242ea665785fd02b07a1fa20539c854e36ac50f7446f",
+      "fixture_sha256": "d8b64006dee3c6777948cd33b9cf4d6ac34e12120c7812c2cee1302e5ed543a3",
+      "logs": [
+        {
+          "assertions_sha256": "63d765a196e3560c43e069a6f71da420005c8d4b057a47ac0ebb1b6bf7864c7e",
+          "errors_sha256": "72ed56ed28e7c64d38acee34c05e65a2986da47e1c217d5cd1005983ca188326"
+        }
+      ],
+      "result": {
+        "suite": "credit_cycle",
+        "passed": [
+          "bad_debts_expiry_cleans_state_and_bailout_lock",
+          "bad_debts_fade_while_bite_ramps",
+          "bad_debts_stop_standards_drift",
+          "boom_losses_tighten_standards",
+          "calm_goods_draw_no_speculative_loans",
+          "general_loans_dilute_existing_boom_share",
+          "land_loss_crunch_relief_expires",
+          "land_loss_rebases_old_loans_without_forgiving_debt",
+          "mixed_loans_conserve_prior_and_new_exposure",
+          "new_loans_boom_share_sixty_percent_cap",
+          "new_loans_do_not_inherit_land_loss_relief",
+          "panic_stops_standards_drift",
+          "quiet_month_relaxes_standards",
+          "repeated_land_loss_does_not_restart_relief",
+          "restraint_halves_lending_pull",
+          "standards_ceiling",
+          "standards_floor",
+          "tight_month_stops_standards_drift",
+          "zero_new_credit_preserves_exposure"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_bank_fix_beta104\\cycle_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "recovery_reload",
+      "build": "runs\\mechanics\\recovery_reload_beta104",
+      "runs": [
+        "runs\\sweep_mechanics_recovery_save_beta104\\recovery_01",
+        "runs\\sweep_mechanics_recovery_reload_beta104\\recovery_01"
+      ],
+      "source_version": "1.0.4-beta.2",
+      "source_manifest_sha256": "4cc893b3c61b5c95dc09c1fc73b04b69dfb87b28768027cec3463152c73a9388",
+      "fixture_sha256": "56443e5acf9d867d0d84bc898d12ad79d2ac7735a99834d0c6a9e9c402987aa1",
+      "logs": [
+        {
+          "assertions_sha256": "b0f7e221d6448c6252105afff4170511acfdd7356a6880487281d774b62918ea",
+          "errors_sha256": "fd3d606251acc73627a051243783b8e831e55bcbea07076df097c0d0246029d0"
+        },
+        {
+          "assertions_sha256": "b92a6e71984f1abffaa2f654242af230ea2eb8fe531e5595cf39018b3e7e846f",
+          "errors_sha256": "4a198c69e58efada07891e50afd03fb1566a483fb05ac8aa5a3b49f61b88ba96"
+        }
+      ],
+      "result": {
+        "suite": "recovery_reload",
+        "passed": [
+          "recovery_day_179",
+          "recovery_day_181",
+          "recovery_day_359",
+          "recovery_day_361",
+          "recovery_day_89",
+          "recovery_day_91",
+          "recovery_started_fra",
+          "recovery_started_gbr",
+          "recovery_started_pru"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_recovery_save_beta104\\recovery_01\\error.log",
+          "runs\\sweep_mechanics_recovery_reload_beta104\\recovery_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 5,
+          "engine_or_basegame_other": 2714,
+          "mod_variable_load_warnings": 32
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "all_goods_endings",
+      "build": "runs\\mechanics\\all_goods_endings_beta104",
+      "runs": [
+        "runs\\sweep_mechanics_all_goods_endings_beta104\\goods_01"
+      ],
+      "source_version": "1.0.4-beta.3",
+      "source_manifest_sha256": "a837907cb7764d2253256960bd92822e3eab02d2c2d0cdb27108cda282e39920",
+      "fixture_sha256": "7664feb5c48e2b18a632a5627b11ff6c458ab2330727912cf8ac8a6113c8bbab",
+      "logs": [
+        {
+          "assertions_sha256": "554fbd031350dcacae92ca98a5a3ceb99d259c0357930cd8e08c04524777191c",
+          "errors_sha256": "79892bdb57eaf96ec6339e36df575e85a9c42a69539be014d0403698246d3faa"
+        }
+      ],
+      "result": {
+        "suite": "all_goods_endings",
+        "passed": [
+          "collapse_aeroplanes_recovers_and_reduces_exposure",
+          "collapse_ammunition_recovers_and_reduces_exposure",
+          "collapse_artillery_recovers_and_reduces_exposure",
+          "collapse_automobiles_recovers_and_reduces_exposure",
+          "collapse_clippers_recovers_and_reduces_exposure",
+          "collapse_clothes_recovers_and_reduces_exposure",
+          "collapse_coal_recovers_and_reduces_exposure",
+          "collapse_coffee_recovers_and_reduces_exposure",
+          "collapse_copper_recovers_and_reduces_exposure",
+          "collapse_dye_recovers_and_reduces_exposure",
+          "collapse_electricity_recovers_and_reduces_exposure",
+          "collapse_engines_recovers_and_reduces_exposure",
+          "collapse_explosives_recovers_and_reduces_exposure",
+          "collapse_fabric_recovers_and_reduces_exposure",
+          "collapse_fertilizer_recovers_and_reduces_exposure",
+          "collapse_fine_art_recovers_and_reduces_exposure",
+          "collapse_fish_recovers_and_reduces_exposure",
+          "collapse_fruit_recovers_and_reduces_exposure",
+          "collapse_furniture_recovers_and_reduces_exposure",
+          "collapse_glass_recovers_and_reduces_exposure",
+          "collapse_grain_recovers_and_reduces_exposure",
+          "collapse_groceries_recovers_and_reduces_exposure",
+          "collapse_hardwood_recovers_and_reduces_exposure",
+          "collapse_iron_recovers_and_reduces_exposure",
+          "collapse_lead_recovers_and_reduces_exposure",
+          "collapse_liquor_recovers_and_reduces_exposure",
+          "collapse_luxury_clothes_recovers_and_reduces_exposure",
+          "collapse_luxury_furniture_recovers_and_reduces_exposure",
+          "collapse_meat_recovers_and_reduces_exposure",
+          "collapse_merchant_marine_recovers_and_reduces_exposure",
+          "collapse_oil_recovers_and_reduces_exposure",
+          "collapse_opium_recovers_and_reduces_exposure",
+          "collapse_paper_recovers_and_reduces_exposure",
+          "collapse_porcelain_recovers_and_reduces_exposure",
+          "collapse_radios_recovers_and_reduces_exposure",
+          "collapse_rubber_recovers_and_reduces_exposure",
+          "collapse_silk_recovers_and_reduces_exposure",
+          "collapse_small_arms_recovers_and_reduces_exposure",
+          "collapse_steamers_recovers_and_reduces_exposure",
+          "collapse_steel_recovers_and_reduces_exposure",
+          "collapse_sugar_recovers_and_reduces_exposure",
+          "collapse_sulfur_recovers_and_reduces_exposure",
+          "collapse_tanks_recovers_and_reduces_exposure",
+          "collapse_tea_recovers_and_reduces_exposure",
+          "collapse_telephones_recovers_and_reduces_exposure",
+          "collapse_tobacco_recovers_and_reduces_exposure",
+          "collapse_tools_recovers_and_reduces_exposure",
+          "collapse_wine_recovers_and_reduces_exposure",
+          "collapse_wood_recovers_and_reduces_exposure"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_all_goods_endings_beta104\\goods_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    }
+  ],
+  "recovery_save": {
+    "path": "G:\\GameDev\\_claude_scratch\\vic\\saves\\mechanics_recovery_save_beta104_recovery_1_1837.v3",
+    "sha256": "8102869d5fa2f1dae62c72ed416a10b09d7978463e580aeadd3253381a0180b0",
+    "before_until": "1837.1.10",
+    "reload_until": "1838.2.1",
+    "source_beta": "1.0.4-beta.2"
+  },
+  "red_evidence": "runs/sweep_mechanics_bank_display_beta104_red/display_01",
+  "limits": "Data-cache consistency tested using the full production monthly effect, not a new live GUI session. Recovery crosses an actual saved/reloaded game on beta2. This batch does not certify all building PMs, actual pop counts, foreign multi-hop shocks or war campaign integration."
+}

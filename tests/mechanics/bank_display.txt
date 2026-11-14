@@ -1,0 +1,34 @@
+namespace = spec_mechanics_bank_display
+spec_mechanics_bank_display.1 = { type = country_event hidden = yes immediate = {
+ activate_law = law_type:law_interventionism
+ remove_variable = spec_panic
+ remove_variable = spec_crunch
+ set_variable = { name = spec_conf value = 75 }
+ set_variable = { name = spec_stance value = -1 }
+ set_variable = { name = spec_stance_cooldown value = 12 }
+ set_variable = { name = spec_debt value = { value = spec_lev_income multiply = 2 } }
+ set_variable = { name = spec_exp_steel value = 0.4 }
+ spec_mechanics_full_month = yes
+ set_variable = { name = spec_test_display_months value = var:spec_ui_expm_steel }
+ change_variable = { name = spec_test_display_months subtract = spec_exp_months_steel }
+ set_variable = { name = spec_test_display_mult value = var:spec_ui_expx_steel }
+ change_variable = { name = spec_test_display_mult subtract = spec_exp_mult_steel }
+if = { limit = { var:spec_test_display_months >= -0.001 var:spec_test_display_months <= 0.001 } debug_log = "HOTFIX PASS bank_tooltip_months_match_post_repayment_loans" }
+else = { debug_log = "HOTFIX FAIL bank_tooltip_months_match_post_repayment_loans" }
+if = { limit = { var:spec_test_display_mult >= -0.001 var:spec_test_display_mult <= 0.001 } debug_log = "HOTFIX PASS bank_tooltip_multiplier_matches_post_repayment_loans" }
+else = { debug_log = "HOTFIX FAIL bank_tooltip_multiplier_matches_post_repayment_loans" }
+
+ set_variable = { name = spec_stance value = 1 }
+ set_variable = { name = spec_stance_cooldown value = 12 }
+ set_variable = { name = spec_conf value = 75 }
+ spec_mechanics_full_month = yes
+ set_variable = { name = spec_test_display_months value = var:spec_ui_expm_steel }
+ change_variable = { name = spec_test_display_months subtract = spec_exp_months_steel }
+ set_variable = { name = spec_test_display_mult value = var:spec_ui_expx_steel }
+ change_variable = { name = spec_test_display_mult subtract = spec_exp_mult_steel }
+if = { limit = { var:spec_test_display_months >= -0.001 var:spec_test_display_months <= 0.001 } debug_log = "HOTFIX PASS bank_tooltip_months_match_post_lending_loans" }
+else = { debug_log = "HOTFIX FAIL bank_tooltip_months_match_post_lending_loans" }
+if = { limit = { var:spec_test_display_mult >= -0.001 var:spec_test_display_mult <= 0.001 } debug_log = "HOTFIX PASS bank_tooltip_multiplier_matches_post_lending_loans" }
+else = { debug_log = "HOTFIX FAIL bank_tooltip_multiplier_matches_post_lending_loans" }
+ debug_log = "HOTFIX SUITE COMPLETE"
+} }

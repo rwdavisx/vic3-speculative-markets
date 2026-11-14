@@ -1,0 +1,120 @@
+# Actual calendar expiry around the 90/180/360-day recovery periods.
+namespace = spec_mechanics_recovery_reload
+spec_mechanics_recovery_reload.2 = {
+type = country_event
+hidden = yes
+immediate = {
+c:GBR = {
+ remove_variable = spec_glut_steel
+ remove_variable = spec_encourage_steel
+ remove_variable = spec_restrain_steel
+ set_variable = { name = spec_fast_steel value = -1 }
+ set_variable = { name = spec_slow_steel value = 1 }
+ set_variable = { name = spec_peak_steel value = 2.5 }
+ set_variable = { name = spec_c_crash value = 0 }
+ set_variable = { name = spec_c_boom value = 0 }
+ set_variable = { name = spec_c_restrain value = 0 }
+ spec_mechanics_steel_month = yes
+ if = { limit = { var:spec_glut_steel = 1 } debug_log = "HOTFIX PASS recovery_started_gbr" }
+else = { debug_log = "HOTFIX FAIL recovery_started_gbr" }
+
+}
+c:FRA = {
+ remove_variable = spec_glut_steel
+ remove_variable = spec_encourage_steel
+ remove_variable = spec_restrain_steel
+ set_variable = { name = spec_fast_steel value = -1 }
+ set_variable = { name = spec_slow_steel value = 1 }
+ set_variable = { name = spec_peak_steel value = 4 }
+ set_variable = { name = spec_c_crash value = 0 }
+ set_variable = { name = spec_c_boom value = 0 }
+ set_variable = { name = spec_c_restrain value = 0 }
+ spec_mechanics_steel_month = yes
+ if = { limit = { var:spec_glut_steel = 2 } debug_log = "HOTFIX PASS recovery_started_fra" }
+else = { debug_log = "HOTFIX FAIL recovery_started_fra" }
+
+}
+c:PRU = {
+ remove_variable = spec_glut_steel
+ remove_variable = spec_encourage_steel
+ remove_variable = spec_restrain_steel
+ set_variable = { name = spec_fast_steel value = -1 }
+ set_variable = { name = spec_slow_steel value = 1 }
+ set_variable = { name = spec_peak_steel value = 7 }
+ set_variable = { name = spec_c_crash value = 0 }
+ set_variable = { name = spec_c_boom value = 0 }
+ set_variable = { name = spec_c_restrain value = 0 }
+ spec_mechanics_steel_month = yes
+ if = { limit = { var:spec_glut_steel = 3 } debug_log = "HOTFIX PASS recovery_started_pru" }
+else = { debug_log = "HOTFIX FAIL recovery_started_pru" }
+
+}
+trigger_event = { id = spec_mechanics_recovery_reload.3 days = 89 }
+trigger_event = { id = spec_mechanics_recovery_reload.4 days = 91 }
+trigger_event = { id = spec_mechanics_recovery_reload.5 days = 179 }
+trigger_event = { id = spec_mechanics_recovery_reload.6 days = 181 }
+trigger_event = { id = spec_mechanics_recovery_reload.7 days = 359 }
+trigger_event = { id = spec_mechanics_recovery_reload.8 days = 361 }
+
+}
+}
+spec_mechanics_recovery_reload.3 = {
+type = country_event
+hidden = yes
+immediate = {
+c:GBR = { if = { limit = { has_variable = spec_glut_steel } debug_log = "HOTFIX PASS recovery_day_89" }
+else = { debug_log = "HOTFIX FAIL recovery_day_89" }
+ }
+}
+}
+spec_mechanics_recovery_reload.4 = {
+type = country_event
+hidden = yes
+immediate = {
+c:GBR = { if = { limit = { NOT = { has_variable = spec_glut_steel } } debug_log = "HOTFIX PASS recovery_day_91" }
+else = { debug_log = "HOTFIX FAIL recovery_day_91" }
+ }
+}
+}
+spec_mechanics_recovery_reload.5 = {
+type = country_event
+hidden = yes
+immediate = {
+c:FRA = { if = { limit = { has_variable = spec_glut_steel } debug_log = "HOTFIX PASS recovery_day_179" }
+else = { debug_log = "HOTFIX FAIL recovery_day_179" }
+ }
+}
+}
+spec_mechanics_recovery_reload.6 = {
+type = country_event
+hidden = yes
+immediate = {
+c:FRA = { if = { limit = { NOT = { has_variable = spec_glut_steel } } debug_log = "HOTFIX PASS recovery_day_181" }
+else = { debug_log = "HOTFIX FAIL recovery_day_181" }
+ }
+}
+}
+spec_mechanics_recovery_reload.7 = {
+type = country_event
+hidden = yes
+immediate = {
+c:PRU = { if = { limit = { has_variable = spec_glut_steel } debug_log = "HOTFIX PASS recovery_day_359" }
+else = { debug_log = "HOTFIX FAIL recovery_day_359" }
+ }
+}
+}
+spec_mechanics_recovery_reload.8 = {
+type = country_event
+hidden = yes
+immediate = {
+c:PRU = { if = { limit = { NOT = { has_variable = spec_glut_steel } } debug_log = "HOTFIX PASS recovery_day_361" }
+else = { debug_log = "HOTFIX FAIL recovery_day_361" }
+ }
+debug_log = "HOTFIX SUITE COMPLETE"
+}
+}
+
+spec_mechanics_recovery_reload.1 = {
+ type = country_event hidden = yes
+ immediate = { trigger_event = { id = spec_mechanics_recovery_reload.2 days = 300 } }
+}

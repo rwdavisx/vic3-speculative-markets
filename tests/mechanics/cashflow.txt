@@ -1,0 +1,61 @@
+namespace = spec_mechanics_cashflow
+spec_mechanics_cashflow.1 = { type = country_event hidden = yes immediate = {
+ activate_law = law_type:law_interventionism
+ remove_variable = spec_panic
+ remove_variable = spec_crunch
+ set_variable = { name = spec_conf value = 55 }
+ set_variable = { name = spec_debt value = 10000 }
+ set_variable = { name = spec_stance value = -1 }
+ add_investment_pool = { value = investment_pool multiply = -1 }
+ add_investment_pool = 5000
+ spec_mechanics_cashflow = yes
+if = { limit = { investment_pool = 4800 var:spec_debt = 9800 } debug_log = "HOTFIX PASS repayment_removes_exact_pool_cash_and_debt" }
+else = { debug_log = "HOTFIX FAIL repayment_removes_exact_pool_cash_and_debt" }
+
+ add_investment_pool = { value = investment_pool multiply = -1 }
+ add_investment_pool = 10
+ set_variable = { name = spec_debt value = 10000 }
+ spec_mechanics_cashflow = yes
+if = { limit = { investment_pool = 0 var:spec_debt = 9800 } debug_log = "HOTFIX PASS insufficient_pool_writes_off_unpaid_runoff" }
+else = { debug_log = "HOTFIX FAIL insufficient_pool_writes_off_unpaid_runoff" }
+
+ set_variable = { name = spec_debt value = 0 }
+ set_variable = { name = spec_stance value = 1 }
+ set_variable = { name = spec_conf value = 75 }
+ spec_mechanics_cashflow = yes
+if = { limit = { var:spec_credit_given > 0 investment_pool = var:spec_credit_given var:spec_debt = var:spec_credit_given } debug_log = "HOTFIX PASS new_credit_adds_same_amount_to_pool_and_debt" }
+else = { debug_log = "HOTFIX FAIL new_credit_adds_same_amount_to_pool_and_debt" }
+
+ set_variable = { name = spec_c_crash value = 0 }
+ set_variable = { name = spec_c_boom value = 0 }
+ set_variable = { name = spec_c_restrain value = 0 }
+ set_variable = { name = spec_exp_steel value = 0.4 }
+ set_variable = { name = spec_exp_coal value = 0.2 }
+ set_variable = { name = spec_test_pool value = investment_pool }
+ set_variable = { name = spec_test_debt value = var:spec_debt }
+remove_variable = spec_glut_coal
+remove_variable = spec_restrain_coal
+remove_variable = spec_encourage_coal
+set_variable = { name = spec_fast_coal value = -1 }
+set_variable = { name = spec_slow_coal value = 1 }
+set_variable = { name = spec_peak_coal value = 7 }
+spec_mechanics_coal_month = yes
+remove_variable = spec_glut_steel
+remove_variable = spec_restrain_steel
+remove_variable = spec_encourage_steel
+set_variable = { name = spec_fast_steel value = -1 }
+set_variable = { name = spec_slow_steel value = 1 }
+set_variable = { name = spec_peak_steel value = 7 }
+spec_mechanics_steel_month = yes
+if = { limit = { var:spec_exp_steel = 0.2 var:spec_exp_coal = 0.1 var:spec_glut_steel = 3 var:spec_glut_coal = 3 } debug_log = "HOTFIX PASS simultaneous_endings_reduce_each_exposure_once" }
+else = { debug_log = "HOTFIX FAIL simultaneous_endings_reduce_each_exposure_once" }
+if = { limit = { investment_pool = var:spec_test_pool var:spec_debt = var:spec_test_debt } debug_log = "HOTFIX PASS goods_endings_do_not_duplicate_cash_recall" }
+else = { debug_log = "HOTFIX FAIL goods_endings_do_not_duplicate_cash_recall" }
+
+set_variable = { name = spec_test_loss value = var:spec_c_crash }
+spec_mechanics_coal_month = yes
+spec_mechanics_steel_month = yes
+if = { limit = { var:spec_exp_steel = 0.2 var:spec_exp_coal = 0.1 var:spec_c_crash = var:spec_test_loss } debug_log = "HOTFIX PASS simultaneous_endings_do_not_repeat_losses" }
+else = { debug_log = "HOTFIX FAIL simultaneous_endings_do_not_repeat_losses" }
+ debug_log = "HOTFIX SUITE COMPLETE"
+} }

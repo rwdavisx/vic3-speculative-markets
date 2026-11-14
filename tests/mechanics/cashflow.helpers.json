@@ -1,0 +1,17 @@
+{
+  "spec_mechanics_steel_month": {
+    "path": "common/on_actions/spec_on_actions.txt",
+    "start": "set_variable = { name = spec_risk_steamers value = spec_risk_next_steamers }\n\t\t\t}",
+    "end": "\t\t\tif = {\n\t\t\t\tlimit = {\n\t\t\t\t\tNOT = {\n\t\t\t\t\t\tAND = {\n\t\t\t\t\t\t\thas_variable = spec_word_sugar"
+  },
+  "spec_mechanics_coal_month": {
+    "path": "common/on_actions/spec_on_actions.txt",
+    "start": "set_variable = { name = spec_risk_clothes value = spec_risk_next_clothes }\n\t\t\t}",
+    "end": "\t\t\tif = {\n\t\t\t\tlimit = {\n\t\t\t\t\tNOT = {\n\t\t\t\t\t\tAND = {\n\t\t\t\t\t\t\thas_variable = spec_word_coffee"
+  },
+  "spec_mechanics_cashflow": {
+    "path": "common/on_actions/spec_on_actions.txt",
+    "start": "# credit: high confidence pours money into the investment pool; it runs off slowly, repaid out of the pool\n\t\t\t# as far as the pool can, and what the pool cannot cover this month is written off\n",
+    "end": "# lending standards and boom construction (cycle.py)"
+  }
+}
