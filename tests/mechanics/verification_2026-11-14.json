@@ -1,0 +1,799 @@
+{
+  "date": "2026-11-14",
+  "game_version": "1.15.1",
+  "beta_candidate": "1.0.3-beta.5",
+  "published": false,
+  "archive_sha256": "6c28e23d1fdd6fb5110f775b3f8f045bb76584ebb9b3e31ae624ddaf31cd14c4",
+  "assertion_count": 201,
+  "suites": [
+    {
+      "suite": "banking",
+      "build": "runs/mechanics/final_beta4/banking",
+      "run": "runs/sweep_mechanics_final_beta4/banking_01",
+      "source_version": "1.0.3-beta.4",
+      "source_manifest_sha256": "eb52e97d97f5c0fb082ae00dd8a3e3e98645334614ba92d89dfc6881822a7ae6",
+      "fixture_sha256": "e4962685fe0421d4c65035e5056d7ad462b671c76418a08588a2ecf509255421",
+      "assertions_log_sha256": "e49fcf0f9fe5874289758006591f6dad6239e73a72d6e0d0b7d2f1386dcff102",
+      "error_log_sha256": "329777e033078f65b7b9a66a183e2153991835bf6e776ac285a7334bbe62c69c",
+      "result": {
+        "suite": "banking",
+        "passed": [
+          "bad_debts_block_reward_and_preview",
+          "bailout_cuts_debt_caps_bite_and_repeats",
+          "debt_repayments_bounded_by_balance",
+          "leverage_caps_and_no_credit_room",
+          "leverage_ruin_boundary",
+          "leverage_safe_boundary",
+          "loose_credit_within_limits",
+          "missing_standards_neutral",
+          "normal_credit_within_limits",
+          "panic_blocks_reward_and_preview",
+          "reckless_standards_multipliers",
+          "strict_standards_multipliers",
+          "tight_stops_new_credit"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_final_beta4\\banking_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1355,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "confidence",
+      "build": "runs/mechanics/final_beta4/confidence",
+      "run": "runs/sweep_mechanics_final_beta4/confidence_01",
+      "source_version": "1.0.3-beta.4",
+      "source_manifest_sha256": "2aaaf47cb2d3d42be7a8c98333f2d2c867a6e3317298a936a011f01fbb258ce3",
+      "fixture_sha256": "e75866ad32ad274d56f572f02437cb00b23ba82463db9aa901e99aa7c887da1d",
+      "assertions_log_sha256": "c9c02473235c5668686bba35628a6764b8af42e7494e1d16f2dce3f47cc01a5f",
+      "error_log_sha256": "083156f5f67dd6dd14760400120e791bc9193d65fdcea9307e551407736b08b6",
+      "result": {
+        "suite": "confidence",
+        "passed": [
+          "caution_lower_bound_actual_delta",
+          "conf_below_twenty",
+          "conf_eighty",
+          "conf_forty",
+          "conf_sixty",
+          "conf_twenty",
+          "delayed_responses_do_not_reopen",
+          "panic_band_restored",
+          "panic_does_not_double_investment_penalty",
+          "shutdown_idempotent",
+          "shutdown_preserves_reforms",
+          "shutdown_removes_current_state",
+          "story_lower_bound_actual_delta",
+          "story_upper_bound_actual_delta"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_final_beta4\\confidence_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "contagion",
+      "build": "runs/mechanics/final_beta4/contagion",
+      "run": "runs/sweep_mechanics_final_beta4/contagion_01",
+      "source_version": "1.0.3-beta.4",
+      "source_manifest_sha256": "29092ab3ebb2e360c450c2b59b15e6448f3bbe2b10ba33738c14639ed22fcf9d",
+      "fixture_sha256": "f41b54a559eef7f8b09dffeafb2942ef0af21fdd3689abc8bcf255c765747999",
+      "assertions_log_sha256": "045634b0ab7043746637f78c145a9a02fffa6a1bd5db1575a26a491c33fee4ba",
+      "error_log_sha256": "a7e64966e013ae04f578ec4faa3800236977d24bf4473e0cfc74be4c3aa538de",
+      "result": {
+        "suite": "contagion",
+        "passed": [
+          "closed_market_ignores_foreign_panic",
+          "contagion_uses_receiver_exposure_and_source_identity",
+          "stronger_tie_replaces_pending_hit",
+          "weaker_tie_does_not_stack_same_panic"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_final_beta4\\contagion_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 4,
+          "engine_or_basegame_other": 1354,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "credit_cycle",
+      "build": "runs/mechanics/final_beta4/credit_cycle",
+      "run": "runs/sweep_mechanics_final_beta4/credit_cycle_01",
+      "source_version": "1.0.3-beta.4",
+      "source_manifest_sha256": "9630b2f3f287a4ac25566ee3a1f77910f2b99e649be5c1c245b5efb571525009",
+      "fixture_sha256": "d8b64006dee3c6777948cd33b9cf4d6ac34e12120c7812c2cee1302e5ed543a3",
+      "assertions_log_sha256": "c936b3c565ed45422c8eea839d259872710423c19bf035c772dea3c05234d3c0",
+      "error_log_sha256": "2c91b369344d4d9a5be433cba4790c1fd887bb6b0771abf9e62b41a63d3dfc34",
+      "result": {
+        "suite": "credit_cycle",
+        "passed": [
+          "bad_debts_expiry_cleans_state_and_bailout_lock",
+          "bad_debts_fade_while_bite_ramps",
+          "bad_debts_stop_standards_drift",
+          "boom_losses_tighten_standards",
+          "calm_goods_draw_no_speculative_loans",
+          "general_loans_dilute_existing_boom_share",
+          "land_loss_crunch_relief_expires",
+          "land_loss_rebases_old_loans_without_forgiving_debt",
+          "mixed_loans_conserve_prior_and_new_exposure",
+          "new_loans_boom_share_sixty_percent_cap",
+          "new_loans_do_not_inherit_land_loss_relief",
+          "panic_stops_standards_drift",
+          "quiet_month_relaxes_standards",
+          "repeated_land_loss_does_not_restart_relief",
+          "restraint_halves_lending_pull",
+          "standards_ceiling",
+          "standards_floor",
+          "tight_month_stops_standards_drift",
+          "zero_new_credit_preserves_exposure"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_final_beta4\\credit_cycle_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "depression",
+      "build": "runs/mechanics/final_beta4/depression",
+      "run": "runs/sweep_mechanics_final_beta4/depression_01",
+      "source_version": "1.0.3-beta.4",
+      "source_manifest_sha256": "6355816f176e993ea2d5bec6fe57fb631986b07f0d70358d6972c563319a3011",
+      "fixture_sha256": "89d9ae6acc1c0694c9a5d96cb0e07a9cd4ec9dbad06623dbf5cddf7a8e0eaeb9",
+      "assertions_log_sha256": "bf2a8ef664ee1791701de0f84dd9dc2aeabc1add121f4ac29472711b9e08c8a4",
+      "error_log_sha256": "c4a966afd20c8cb6a667a008b5ce2cdc429fff0641c04f7be934fca3a3b4db3c",
+      "result": {
+        "suite": "depression",
+        "passed": [
+          "cannot_join_absent_world_crisis",
+          "closed_economy_cannot_join_crisis",
+          "country_can_recover_before_world",
+          "crash_deadline_enters_depression",
+          "crisis_end_cleans_current_effects_keeps_history",
+          "delayed_recovery_cannot_restart_crisis",
+          "qualifying_tie_joins_crash",
+          "repeated_join_does_not_reset_recovery",
+          "weak_tie_does_not_spread_world_crisis",
+          "world_recovery_ends_depression_early",
+          "world_recovery_lower_bound",
+          "world_recovery_upper_bound"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_final_beta4\\depression_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "economy",
+      "build": "runs/mechanics/final_beta4/economy",
+      "run": "runs/sweep_mechanics_final_beta4/economy_01",
+      "source_version": "1.0.3-beta.4",
+      "source_manifest_sha256": "92751b80e0d5fc02ad5a8b44b0366a20f4cd8ded02176ee180a4440177d197e9",
+      "fixture_sha256": "04fd08103d27e22f2d13de9f18798619051ced75c1bf54cda045008b49b3c744",
+      "assertions_log_sha256": "1f6913d4934ca66e03d096f06fa827c959245a26c0fddcc8d99874db45d801ea",
+      "error_log_sha256": "51791fb6500045d22be8ac2ec1fd9153d7a769687c30dd387ae4e1ec96abb5e2",
+      "result": {
+        "suite": "economy",
+        "passed": [
+          "absent_financial_depth_neutral",
+          "ai_temperament_drawn_once",
+          "contraction_confidence_capped",
+          "empty_growth_history_avoids_division_by_zero",
+          "financial_depth_ceiling",
+          "free_trade_strengthens_contagion_tie",
+          "isolationism_weakens_contagion_tie",
+          "no_financial_districts_shallow_floor",
+          "rapid_growth_confidence_capped",
+          "stagnation_below_normal_growth"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_final_beta4\\economy_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "exchange",
+      "build": "runs/mechanics/final_beta4/exchange",
+      "run": "runs/sweep_mechanics_final_beta4/exchange_01",
+      "source_version": "1.0.3-beta.4",
+      "source_manifest_sha256": "b324e8ab32069c2346636b79dd8e0c1922306e9758a201499ac3f93923822c46",
+      "fixture_sha256": "ad8c895189f74eddadf2c486c29a435af78ed1222d3919a9f945e67c7705d965",
+      "assertions_log_sha256": "db5c5b739f3001579dc725da20651199ed0929f6c9bc32414fb78ce842f98483",
+      "error_log_sha256": "4c800fa65c1f885d30201518576f916b40098d8272caa1a0f494c9e7934cf7e0",
+      "result": {
+        "suite": "exchange",
+        "passed": [
+          "charter_change_clears_incompatible_pursuit",
+          "charter_change_halves_trust",
+          "exchange_shutdown_clears_actions",
+          "first_charter_free_and_locked",
+          "pledge_withdrawal_has_notice_period",
+          "pursuit_reorder_preserves_unique_priorities",
+          "pursuits_allocate_unique_priorities_and_lock",
+          "rescue_pledge_can_only_be_made_once",
+          "stopping_pursuit_compacts_order"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_final_beta4\\exchange_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "goods",
+      "build": "runs/mechanics/final_beta4/goods",
+      "run": "runs/sweep_mechanics_final_beta4/goods_01",
+      "source_version": "1.0.3-beta.4",
+      "source_manifest_sha256": "c77d9c59f25c27031a15de07e8d4f061b18683f97e0c496335a70b8ad5cf59fc",
+      "fixture_sha256": "9987e9b6a4f6cefe981ac93c028a99616939422ad32933c7fbea5bfa05a185ef",
+      "assertions_log_sha256": "a6aa40053a8106bb87997d877dae29f25765f5c1cb067394a13c5913b2565439",
+      "error_log_sha256": "3b5c71582761537f40adcba340adbbf9956961562bfe0efdb777afe7d4c5e351",
+      "result": {
+        "suite": "goods",
+        "passed": [
+          "bust_marks_recovery_and_writeoff",
+          "bust_peak_boundary",
+          "collapse_applies_loss_recovery_and_writeoff",
+          "collapse_peak_boundary",
+          "correction_marks_recovery_and_writeoff",
+          "correction_peak_boundary",
+          "doubled_supply_caps_overbuilding",
+          "ended_boom_does_not_crash_twice",
+          "falling_trend_reciprocal_interest",
+          "flat_price_trend_neutral",
+          "interest_lower_bound",
+          "interest_upper_bound",
+          "no_boom_below_keen",
+          "old_peak_decays_towards_neutral",
+          "recovering_good_ignores_new_price_boom",
+          "rising_trend_interest",
+          "supply_loss_does_not_amplify"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_final_beta4\\goods_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "interventions",
+      "build": "runs/mechanics/final_beta4/interventions",
+      "run": "runs/sweep_mechanics_final_beta4/interventions_01",
+      "source_version": "1.0.3-beta.4",
+      "source_manifest_sha256": "3d7a9aabd80ec56869763df3c4b480cfd24267d0cb0087f3c1d66c0250977c4c",
+      "fixture_sha256": "377ba99a4ce095a0987c0be395b24c57cacce2c450e1686e1a220d305d20ee5c",
+      "assertions_log_sha256": "35a9e6a2ae92ea9c3f0f655f922bc0fa9eefb44840043591e82a95c4fe528aa1",
+      "error_log_sha256": "dbb90b6b9d8eeca2d29e7ec0d24007f3a9b0c864edf74f6a622ce2493dea5100",
+      "result": {
+        "suite": "interventions",
+        "passed": [
+          "active_lever_can_always_be_cancelled",
+          "calm_good_fits_encouragement",
+          "cannot_encourage_recovery",
+          "cannot_prop_up_bust_risk",
+          "eager_good_fits_restraint",
+          "issue_cooldown_outlasts_active_issue",
+          "issue_excludes_intervention",
+          "issue_starts_exclusive_cooldown",
+          "lever_cancel_removes_flag",
+          "lever_targets_selected_good",
+          "national_exchange_can_float_hot_good",
+          "opposite_lever_blocked",
+          "provincial_exchange_cannot_float_issue"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_final_beta4\\interventions_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "journal",
+      "build": "runs/mechanics/final_beta4/journal",
+      "run": "runs/sweep_mechanics_final_beta4/journal_01",
+      "source_version": "1.0.3-beta.4",
+      "source_manifest_sha256": "bcd9346be53b2f6f08042b6e887f377090abb5799a732d287941e2ab95d6578d",
+      "fixture_sha256": "c29f1b565297c7e66c650e01ab4736c1f2c729211b1730645715f1fca5647886",
+      "assertions_log_sha256": "091cc1bb0c0041adc56854f6352555d56dc654f574e4fd957a1c11866268d54c",
+      "error_log_sha256": "884ca352b620239d1665f2b5882fc46f7fc5e4b951cf96c1bb63740c732ea463",
+      "result": {
+        "suite": "journal",
+        "passed": [
+          "absent_reforms_neutral",
+          "currency_school_tradeoff",
+          "debt_conversion_cost_and_lock",
+          "free_banking_tradeoff",
+          "journal_aftermath_priority",
+          "journal_buoyant_at_sixty",
+          "journal_depression_priority",
+          "journal_mania_at_eighty",
+          "journal_panic_priority",
+          "journal_steady_at_fiftyfive",
+          "journal_steady_below_sixty",
+          "recovered_depression_restores_panic_stage",
+          "reforms_combine_once"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_final_beta4\\journal_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "journal_presence",
+      "build": "runs/mechanics/final_beta4/journal_presence",
+      "run": "runs/sweep_mechanics_final_beta4/journal_presence_01",
+      "source_version": "1.0.3-beta.4",
+      "source_manifest_sha256": "cca765df52319c514ec250a38a7281b3fa5627631f4c59f3ae03acc7fa693cdd",
+      "fixture_sha256": "43bce2ac92d8347a7501eaafd8b2d70939801b9c76cc3f98336fddff93e1c4d5",
+      "assertions_log_sha256": "1c675f6d60e0f24b663da6ddbc94428910516de284191b842bed5e9379af76ac",
+      "error_log_sha256": "db140e66a8582ceda65e1836d1309c4e018577aaeea4da8bd936a93243eb05a2",
+      "result": {
+        "suite": "journal_presence",
+        "passed": [
+          "active_journal_trigger_cannot_detect_inactive_entry",
+          "inactive_journal_pointer_exists_immediately",
+          "inactive_journal_pointer_survives_daily_update",
+          "legacy_journal_preserved_without_duplicate_error"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_final_beta4\\journal_presence_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "lifecycle",
+      "build": "runs/mechanics/final_beta4/lifecycle",
+      "run": "runs/sweep_mechanics_final_beta4/lifecycle_01",
+      "source_version": "1.0.3-beta.4",
+      "source_manifest_sha256": "1ed6b96fc385d6d5fe9f125fc36f977ecf1725913e3de014b09a314e49e054c0",
+      "fixture_sha256": "b2f8318ba891e8afd46bc81e26037da234285cb284eb24fce55bde5119e4255c",
+      "assertions_log_sha256": "df700581f41b67f885bfe75c4678bc6c008f665043060e6e7bea9a7106e6ac2e",
+      "error_log_sha256": "c35b1aaa43f228e7e260182384678940e5fbad4b524d710ec616acec63e441a1",
+      "result": {
+        "suite": "lifecycle",
+        "passed": [
+          "cooperative_economy_stays_closed",
+          "monthly_closes_command_economy",
+          "monthly_shutdown_keeps_institutions",
+          "reopening_initializes_current_state_preserves_reforms",
+          "second_month_preserves_bounds"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_final_beta4\\lifecycle_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "panic",
+      "build": "runs/mechanics/final_beta4/panic",
+      "run": "runs/sweep_mechanics_final_beta4/panic_01",
+      "source_version": "1.0.3-beta.4",
+      "source_manifest_sha256": "b07ad0fec88ae380210a626e8fe7a6773042fba872111e01b66a9cc86bf786a5",
+      "fixture_sha256": "508c3e196d781096246ed87bd95f5f075e3b1603b79d952c3c961cc07e04f978",
+      "assertions_log_sha256": "6293541c8ee39ee00a66efa34705e79ac678618155d206cf6af5bc473f4ae128",
+      "error_log_sha256": "9c6ef3b8c239a0493b0464a3ea047a5acfdc3f9d6ebb791308024ad317f5e703",
+      "result": {
+        "suite": "panic",
+        "passed": [
+          "cooldown_prevents_immediate_new_panic",
+          "legacy_panic_clock_migrates",
+          "legacy_panic_elapsed_fallback",
+          "panic_deadline_ends_even_low_confidence",
+          "panic_minimum_not_bypassed_by_rescue",
+          "panic_start_initializes_clock_and_effects",
+          "rescue_shortens_deadline_not_elapsed_age",
+          "rescued_panic_ends_without_resetting_confidence",
+          "stance_change_requires_different_stance",
+          "stance_change_starts_six_month_lock",
+          "stance_lock_expires",
+          "unrescued_recovery_sobers_banks_floor_zero"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_final_beta4\\panic_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 4,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "politics",
+      "build": "runs/mechanics/final_beta4/politics",
+      "run": "runs/sweep_mechanics_final_beta4/politics_01",
+      "source_version": "1.0.3-beta.4",
+      "source_manifest_sha256": "76d8ce03b4960153cf022fcb0a7a27129ac2ce29c5bb902ee8353715eae93575",
+      "fixture_sha256": "509c2fc79b3a03a16384bde085d47b988fc0dc6eb4dcde0a3d45006bccb60216",
+      "assertions_log_sha256": "6e9019de82519ed9f492ebca86893915f29ac4bfc7a6d95eb05d720e12fd928e",
+      "error_log_sha256": "94f730d4cd67bbf7913b348ccd53924aa2c9f96aaf2fb1cf3702aa13bd277294",
+      "result": {
+        "suite": "politics",
+        "passed": [
+          "cooling_mania_does_not_accumulate_heat",
+          "ended_mania_clears_unspent_heat",
+          "mania_support_requires_sustained_heat",
+          "panic_replaces_mania_goodwill",
+          "sustained_mania_awards_support_once"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_final_beta4\\politics_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "construction",
+      "build": "runs/mechanics/construction_beta5",
+      "run": "runs/sweep_mechanics_extended_beta5/construction_01",
+      "source_version": "1.0.3-beta.5",
+      "source_manifest_sha256": "bd48a3a8b642c0f615a89617fa03ce1e7ac3bcfa425a5da3cc967d4ed9b2c55b",
+      "fixture_sha256": "d03cf2e3fbe33250ef2265b77ae147a175872b8966dbc5732da1ac520f1e98d0",
+      "assertions_log_sha256": "89c3d57aea35dad125db37236a98bdc19f5914da7e37afced99cf9f11da1b179",
+      "error_log_sha256": "6ed5ab3b1005fa2b6390eae113f7a1d2834ec9d8aac7b23b0d1feb8205369a8e",
+      "result": {
+        "suite": "construction",
+        "passed": [
+          "construction_word_3",
+          "construction_word_4",
+          "construction_word_5",
+          "construction_word_6",
+          "tiny_boom_cannot_accelerate_whole_construction_group"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_extended_beta5\\construction_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "recovery",
+      "build": "runs/mechanics/recovery_beta5",
+      "run": "runs/sweep_mechanics_recovery_beta5/recovery_01",
+      "source_version": "1.0.3-beta.5",
+      "source_manifest_sha256": "18bf66685930cf26bf87ee4dd56e5f95177326ff233e3680bc1f9041bb140411",
+      "fixture_sha256": "bec1ffaff0332afbbcc9d4b193d0a1b39177f0f99e3a7f8d193a978e010f8f5e",
+      "assertions_log_sha256": "23823ae0cbe09a410480b99713f754d3d499d1affce437a53879242462a5d1a7",
+      "error_log_sha256": "4b24aaf021e2f8a7d5d3246a82b0ac7db5504caa50e62499fc650dffd39faaa1",
+      "result": {
+        "suite": "recovery",
+        "passed": [
+          "recovery_day_179",
+          "recovery_day_181",
+          "recovery_day_359",
+          "recovery_day_361",
+          "recovery_day_89",
+          "recovery_day_91",
+          "recovery_started_fra",
+          "recovery_started_gbr",
+          "recovery_started_pru"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_recovery_beta5\\recovery_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1356,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "exchange_monthly",
+      "build": "runs/mechanics/exchange_monthly_beta5_final",
+      "run": "runs/sweep_mechanics_policy_final_beta5/exchange_01",
+      "source_version": "1.0.3-beta.5",
+      "source_manifest_sha256": "ba25a97d0e5b98117e663a588bda7e6535abd24db576445b77796e8ae9af6b2c",
+      "fixture_sha256": "9f5232921cb299ced55ce5cfe5a3b0fd6fa5f54274b3c5c349405908c4369c8c",
+      "assertions_log_sha256": "516511091c522c8755209be52cb5e44ab71d0e98fdd8b79995ffa8aa51b57cdf",
+      "error_log_sha256": "45673f0e505395204e5d6e5d4128c94739b1292415a464dd4179805c16b90c5d",
+      "result": {
+        "suite": "exchange_monthly",
+        "passed": [
+          "bad_debts_lose_trust_and_prevent_promotion",
+          "middling_standards_hold_trust",
+          "panic_stops_quiet_month_trust_recovery",
+          "pledge_notice_expires",
+          "pledge_notice_penultimate_month",
+          "reckless_month_loses_trust",
+          "sound_month_adds_one_trust",
+          "trust_ceiling"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_policy_final_beta5\\exchange_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "ai_policy",
+      "build": "runs/mechanics/ai_policy_beta5",
+      "run": "runs/sweep_mechanics_policy_final_beta5/ai_01",
+      "source_version": "1.0.3-beta.5",
+      "source_manifest_sha256": "f790cc97aac3c0e6bd034797f2453e4bb2644b6b72ef05eb272a5c6b12b29831",
+      "fixture_sha256": "67e122f41523663b6428bc5d49e4c8473a1ecbb01d3cf485ec13e62e8ebb121a",
+      "assertions_log_sha256": "c7b61ad1e8b8fd99241596689ce52713fe1e7ac832d4f6383f859e443a701b51",
+      "error_log_sha256": "5732c3c737ac64b314071323b925f4506e6d0c5563aef70066595c91ad086ff9",
+      "result": {
+        "suite": "ai_policy",
+        "passed": [
+          "ai_cools_mania_with_shared_stance_action",
+          "ai_does_not_loosen_during_panic",
+          "ai_fever_prevents_tightening",
+          "ai_leaves_tight_after_cooling",
+          "ai_loosens_in_low_confidence",
+          "ai_obeys_policy_cooldown",
+          "ai_stops_loosening_after_recovery",
+          "ai_tightens_for_excessive_leverage"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_policy_final_beta5\\ai_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "legacy_hotfix",
+      "build": "runs/mechanics/legacy_beta5",
+      "run": "runs/sweep_mechanics_legacy_beta5/legacy_01",
+      "source_version": "1.0.3-beta.5",
+      "assertions_log_sha256": "1fa59c38eb905bffa071a194ebd491959a4dddc5096240123a7ca5bc1ebd066b",
+      "error_log_sha256": "dda7ee1e606f0317eabcb50ced1ecf523274698dc03d30ffcdcbc2657b5f1c88",
+      "result": {
+        "passed": [
+          "company_sweep_repairs_stable_goods",
+          "company_sweep_waits_until_due",
+          "exchange_annexed_leader_recovers",
+          "exchange_annexed_rival_cleared",
+          "exchange_annexed_seat_cleared",
+          "exchange_clear_immediate",
+          "exchange_foreign_seat_cleared_after_annexation",
+          "exchange_missing_leader_recovers",
+          "exchange_seat_search_precondition",
+          "exchange_seats_owned_domestically",
+          "exchange_two_country_ranking",
+          "journal_delayed_story",
+          "journal_legacy_cleanup",
+          "journal_shutdown",
+          "legacy_relief",
+          "panic_minimum",
+          "panic_recovery",
+          "shutdown_relief",
+          "story_missing_foreign_source_safe",
+          "war_end_live_opponent_stakes",
+          "war_end_missing_slots_safe"
+        ],
+        "failed": [],
+        "missing": [],
+        "suite_complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_legacy_beta5\\legacy_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 4,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 17
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    }
+  ],
+  "ui_runs": [
+    {
+      "run": "runs/notification_scope_repro/mechanics_beta4_cmf",
+      "launch_manifest_sha256": "7d3596b3e35faad7134c38d49c5be575d738fcd9670621fee5847cb1a46f886c",
+      "error_log_sha256": "9c1d548cc1b100a694e5d147417f647c36fa647abfebf468824abd1cda4b0c58",
+      "error_gate": {
+        "error_logs_checked": [
+          "runs\\notification_scope_repro\\mechanics_beta4_cmf\\logs\\error.log"
+        ],
+        "error_categories": {
+          "engine_or_basegame_other": 146,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "run": "runs/notification_scope_repro/mechanics_beta5_native",
+      "launch_manifest_sha256": "d8d40ea4012fcc160674f62cd36b22a0cd2efd63ab0ecb39646e116f9c4a74aa",
+      "error_log_sha256": "b6cf9f0ff21278309f1a22e63dab74552c93b1cf302287890b69688424a7e482",
+      "error_gate": {
+        "error_logs_checked": [
+          "runs\\notification_scope_repro\\mechanics_beta5_native\\logs\\error.log"
+        ],
+        "error_categories": {
+          "engine_or_basegame_other": 146,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    }
+  ],
+  "scope": "Passing cases certify these contracts only; see MECHANICS_AUDIT.md for uncovered interactions.",
+  "beta4_to_beta5_changes": [
+    ".metadata/metadata.json",
+    "gui/spec_market_tab.gui"
+  ],
+  "python_tests_passed": 38,
+  "cmf_source_tests_passed": 9
+}

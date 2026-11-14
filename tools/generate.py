@@ -1133,7 +1133,11 @@ spec_monthly = {{
 				}}
 				# has_journal_entry misses an entry that is shown but not active, so remember adding it
 				set_variable = spec_je_added
-				add_journal_entry = {{ type = je_spec_markets }}
+				# The journal reference also finds inactive entries in older saves.
+				if = {{
+					limit = {{ NOT = {{ exists = je:je_spec_markets }} }}
+					add_journal_entry = {{ type = je_spec_markets }}
+				}}
 			}}
 {leverage.FEVER_END}			# AI countries use the same tools by rule: cool a mania, stop cooling once it has passed,
 			# loosen when wary, and stop loosening once confidence is back

@@ -524,18 +524,22 @@ def mood_card():
 		}}
 	}}
 """
-    row = lambda label, tt, chips: f"""tax_exp_frame = {{
+    # Budget rows raise their labels with a bottom margin. These compact rows
+    # need the label, icons and values on the same vertical centre instead.
+    row = lambda label, tt, chips: f"""widget = {{
 	size = {{ {W - 2 * CARD_X} 36 }}
 	parentanchor = hcenter
 	tooltip = "{tt}"
-	blockoverride "text" {{
+	divider_clean = {{}}
+	textbox = {{
 		text = "{label}"
 		size = {{ {LABEL_W} 30 }}
+		parentanchor = vcenter
+		align = left|nobaseline
+		elide = right
 	}}
-	blockoverride "text_2" {{}}
-	### the chips start after the label, raised as the label is by its margin
 	flowcontainer = {{
-		position = {{ 110 -3 }}
+		position = {{ 110 0 }}
 		parentanchor = vcenter
 		spacing = 6
 {ind(chips, 1)}	}}

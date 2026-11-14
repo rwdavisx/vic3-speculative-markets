@@ -1,0 +1,62 @@
+# Full production monthly on_action, with a day between dispatch and assertions.
+namespace = spec_mechanics_lifecycle
+spec_mechanics_lifecycle.1 = {
+    type = country_event
+    hidden = yes
+    immediate = {
+        set_variable = { name = spec_note value = 1 }
+        set_variable = spec_llr
+        set_variable = spec_company_law
+        set_variable = { name = spec_debt value = 1000 }
+        set_variable = { name = spec_conf value = 55 }
+        set_variable = { name = spec_panic value = 6 }
+        set_variable = { name = spec_lax value = 0.7 }
+        add_modifier = { name = spec_panic_relief multiplier = 100 }
+        activate_law = law_type:law_command_economy
+        trigger_event = { on_action = spec_monthly }
+        trigger_event = { id = spec_mechanics_lifecycle.2 days = 1 }
+    }
+}
+spec_mechanics_lifecycle.2 = {
+    type = country_event
+    hidden = yes
+    immediate = {
+        if = { limit = { NOR = { has_variable = spec_conf has_variable = spec_debt has_variable = spec_lax has_variable = spec_panic has_modifier = spec_panic_relief } } debug_log = "HOTFIX PASS monthly_closes_command_economy" }
+        else = { debug_log = "HOTFIX FAIL monthly_closes_command_economy" }
+        if = { limit = { spec_reform_count = 3 } debug_log = "HOTFIX PASS monthly_shutdown_keeps_institutions" }
+        else = { debug_log = "HOTFIX FAIL monthly_shutdown_keeps_institutions" }
+        activate_law = law_type:law_cooperative_ownership
+        trigger_event = { on_action = spec_monthly }
+        trigger_event = { id = spec_mechanics_lifecycle.3 days = 1 }
+    }
+}
+spec_mechanics_lifecycle.3 = {
+    type = country_event
+    hidden = yes
+    immediate = {
+        if = { limit = { NOT = { has_variable = spec_conf } spec_law_mult = 0 } debug_log = "HOTFIX PASS cooperative_economy_stays_closed" }
+        else = { debug_log = "HOTFIX FAIL cooperative_economy_stays_closed" }
+        activate_law = law_type:law_interventionism
+        trigger_event = { on_action = spec_monthly }
+        trigger_event = { id = spec_mechanics_lifecycle.4 days = 1 }
+    }
+}
+spec_mechanics_lifecycle.4 = {
+    type = country_event
+    hidden = yes
+    immediate = {
+        if = { limit = { has_variable = spec_conf var:spec_conf >= 0 var:spec_conf <= 100 has_variable = spec_debt has_variable = spec_lax has_variable = spec_fast_steel has_variable = spec_word_steel has_variable = spec_fast_grain spec_reform_count = 3 } debug_log = "HOTFIX PASS reopening_initializes_current_state_preserves_reforms" }
+        else = { debug_log = "HOTFIX FAIL reopening_initializes_current_state_preserves_reforms" }
+        trigger_event = { on_action = spec_monthly }
+        trigger_event = { id = spec_mechanics_lifecycle.5 days = 1 }
+    }
+}
+spec_mechanics_lifecycle.5 = {
+    type = country_event
+    hidden = yes
+    immediate = {
+        if = { limit = { var:spec_conf >= 0 var:spec_conf <= 100 var:spec_debt >= 0 var:spec_lax >= 0 var:spec_lax <= 1 } debug_log = "HOTFIX PASS second_month_preserves_bounds" }
+        else = { debug_log = "HOTFIX FAIL second_month_preserves_bounds" }
+        debug_log = "HOTFIX SUITE COMPLETE"
+    }
+}

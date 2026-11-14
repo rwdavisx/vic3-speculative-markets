@@ -1,0 +1,60 @@
+namespace = spec_mechanics_journal
+spec_mechanics_journal.1 = {
+    type = country_event
+    hidden = yes
+    immediate = {
+        remove_variable = spec_ld
+        remove_variable = spec_panic
+        remove_variable = spec_panic_cooldown
+        set_variable = { name = spec_conf value = 55 }
+        spec_update_band = yes
+        if = { limit = { spec_stage = 1 has_modifier = spec_conf_steady } debug_log = "HOTFIX PASS journal_steady_at_fiftyfive" }
+        else = { debug_log = "HOTFIX FAIL journal_steady_at_fiftyfive" }
+        set_variable = { name = spec_conf value = 59.99 }
+        if = { limit = { spec_stage = 1 } debug_log = "HOTFIX PASS journal_steady_below_sixty" }
+        else = { debug_log = "HOTFIX FAIL journal_steady_below_sixty" }
+        set_variable = { name = spec_conf value = 60 }
+        if = { limit = { spec_stage = 2 } debug_log = "HOTFIX PASS journal_buoyant_at_sixty" }
+        else = { debug_log = "HOTFIX FAIL journal_buoyant_at_sixty" }
+        set_variable = { name = spec_conf value = 80 }
+        if = { limit = { spec_stage = 3 } debug_log = "HOTFIX PASS journal_mania_at_eighty" }
+        else = { debug_log = "HOTFIX FAIL journal_mania_at_eighty" }
+        set_variable = { name = spec_panic_cooldown value = 12 }
+        if = { limit = { spec_stage = 4 } debug_log = "HOTFIX PASS journal_aftermath_priority" }
+        else = { debug_log = "HOTFIX FAIL journal_aftermath_priority" }
+        set_variable = { name = spec_panic value = 6 }
+        if = { limit = { spec_stage = 5 } debug_log = "HOTFIX PASS journal_panic_priority" }
+        else = { debug_log = "HOTFIX FAIL journal_panic_priority" }
+        set_variable = { name = spec_ld value = 2 }
+        if = { limit = { spec_stage = 6 } debug_log = "HOTFIX PASS journal_depression_priority" }
+        else = { debug_log = "HOTFIX FAIL journal_depression_priority" }
+        set_variable = { name = spec_ld value = 3 }
+        if = { limit = { spec_stage = 5 } debug_log = "HOTFIX PASS recovered_depression_restores_panic_stage" }
+        else = { debug_log = "HOTFIX FAIL recovered_depression_restores_panic_stage" }
+        remove_variable = spec_panic
+        remove_variable = spec_ld
+        remove_variable = spec_panic_cooldown
+        remove_variable = spec_note
+        remove_variable = spec_llr
+        remove_variable = spec_company_law
+        remove_variable = spec_hazard
+        if = { limit = { spec_reform_count = 0 spec_reform_credit = 1 spec_reform_risk = 1 } debug_log = "HOTFIX PASS absent_reforms_neutral" }
+        else = { debug_log = "HOTFIX FAIL absent_reforms_neutral" }
+        set_variable = { name = spec_note value = 1 }
+        if = { limit = { spec_reform_count = 1 spec_reform_credit = 0.75 spec_reform_heat = 0.75 spec_reform_panic_len = 1.25 } debug_log = "HOTFIX PASS currency_school_tradeoff" }
+        else = { debug_log = "HOTFIX FAIL currency_school_tradeoff" }
+        set_variable = { name = spec_note value = 2 }
+        if = { limit = { spec_reform_count = 1 spec_reform_credit = 1.25 spec_reform_boom = 1.1 spec_reform_risk = 1.1 } debug_log = "HOTFIX PASS free_banking_tradeoff" }
+        else = { debug_log = "HOTFIX FAIL free_banking_tradeoff" }
+        set_variable = spec_llr
+        set_variable = spec_company_law
+        if = { limit = { spec_reform_count = 3 spec_reform_rescue = 0.5 spec_reform_rescue_months = -1 spec_reform_risk = 0.77 } debug_log = "HOTFIX PASS reforms_combine_once" }
+        else = { debug_log = "HOTFIX FAIL reforms_combine_once" }
+        set_variable = { name = spec_conf value = 80 }
+        set_variable = { name = spec_c_total value = 0 }
+        spec_do_convert = yes
+        if = { limit = { var:spec_conf = 75 has_modifier = spec_debt_converted has_variable = spec_converted NOT = { spec_can_convert = yes } } debug_log = "HOTFIX PASS debt_conversion_cost_and_lock" }
+        else = { debug_log = "HOTFIX FAIL debt_conversion_cost_and_lock" }
+        debug_log = "HOTFIX SUITE COMPLETE"
+    }
+}

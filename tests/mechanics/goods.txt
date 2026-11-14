@@ -1,0 +1,86 @@
+namespace = spec_mechanics_goods
+spec_mechanics_goods.1 = {
+    type = country_event
+    hidden = yes
+    immediate = {
+        set_variable = { name = spec_hm value = 1 }
+        set_variable = { name = spec_hmd value = 1 }
+        set_variable = { name = spec_fast_steel value = 0 }
+        set_variable = { name = spec_slow_steel value = 0 }
+        remove_variable = spec_glut_steel
+        remove_variable = spec_encourage_steel
+        remove_variable = spec_restrain_steel
+        if = { limit = { spec_hype_raw_steel = 1 } debug_log = "HOTFIX PASS flat_price_trend_neutral" }
+        else = { debug_log = "HOTFIX FAIL flat_price_trend_neutral" }
+        set_variable = { name = spec_fast_steel value = 0.05 }
+        if = { limit = { spec_hype_raw_steel = 4 } debug_log = "HOTFIX PASS rising_trend_interest" }
+        else = { debug_log = "HOTFIX FAIL rising_trend_interest" }
+        set_variable = { name = spec_fast_steel value = -0.05 }
+        if = { limit = { spec_hype_raw_steel = 0.25 } debug_log = "HOTFIX PASS falling_trend_reciprocal_interest" }
+        else = { debug_log = "HOTFIX FAIL falling_trend_reciprocal_interest" }
+        set_variable = { name = spec_fast_steel value = -100 }
+        if = { limit = { spec_hype_raw_steel = 0.05 } debug_log = "HOTFIX PASS interest_lower_bound" }
+        else = { debug_log = "HOTFIX FAIL interest_lower_bound" }
+        set_variable = { name = spec_fast_steel value = 100 }
+        if = { limit = { spec_hype_raw_steel = 20 } debug_log = "HOTFIX PASS interest_upper_bound" }
+        else = { debug_log = "HOTFIX FAIL interest_upper_bound" }
+        set_variable = { name = spec_glut_steel value = 6 }
+        if = { limit = { spec_hype_next_steel = 0.4 } debug_log = "HOTFIX PASS recovering_good_ignores_new_price_boom" }
+        else = { debug_log = "HOTFIX FAIL recovering_good_ignores_new_price_boom" }
+        remove_variable = spec_glut_steel
+        set_variable = { name = spec_hype_steel value = 1 }
+        set_variable = { name = spec_peak_steel value = 1.999 }
+        if = { limit = { spec_sev_next_steel = 0 } debug_log = "HOTFIX PASS no_boom_below_keen" }
+        else = { debug_log = "HOTFIX FAIL no_boom_below_keen" }
+        set_variable = { name = spec_peak_steel value = 2 }
+        if = { limit = { spec_sev_next_steel = 1 } debug_log = "HOTFIX PASS correction_peak_boundary" }
+        else = { debug_log = "HOTFIX FAIL correction_peak_boundary" }
+        set_variable = { name = spec_peak_steel value = 3 }
+        if = { limit = { spec_sev_next_steel = 2 } debug_log = "HOTFIX PASS bust_peak_boundary" }
+        else = { debug_log = "HOTFIX FAIL bust_peak_boundary" }
+        set_variable = { name = spec_peak_steel value = 6 }
+        if = { limit = { spec_sev_next_steel = 3 } debug_log = "HOTFIX PASS collapse_peak_boundary" }
+        else = { debug_log = "HOTFIX FAIL collapse_peak_boundary" }
+        set_variable = { name = spec_peak_steel value = 4 }
+        if = { limit = { spec_peak_next_steel = 3.91 } debug_log = "HOTFIX PASS old_peak_decays_towards_neutral" }
+        else = { debug_log = "HOTFIX FAIL old_peak_decays_towards_neutral" }
+        set_variable = { name = spec_sup_steel value = { value = spec_mv_steel divide = 2 } }
+        if = { limit = { spec_mv_steel > 0 spec_over_steel >= 0.999 spec_over_mult_steel >= 1.499 spec_over_mult_steel <= 1.5 } debug_log = "HOTFIX PASS doubled_supply_caps_overbuilding" }
+        else = { debug_log = "HOTFIX FAIL doubled_supply_caps_overbuilding" }
+        set_variable = { name = spec_sup_steel value = { value = spec_mv_steel multiply = 2 } }
+        if = { limit = { spec_over_steel = 0 spec_over_mult_steel = 1 } debug_log = "HOTFIX PASS supply_loss_does_not_amplify" }
+        else = { debug_log = "HOTFIX FAIL supply_loss_does_not_amplify" }
+
+        # Execute the exact production monthly block for steel in isolation.
+        set_variable = { name = spec_fast_steel value = -1 }
+        set_variable = { name = spec_slow_steel value = 1 }
+        set_variable = { name = spec_peak_steel value = 7 }
+        set_variable = { name = spec_exp_steel value = 0.4 }
+        set_variable = { name = spec_c_crash value = 0 }
+        set_variable = { name = spec_c_boom value = 0 }
+        set_variable = { name = spec_c_restrain value = 0 }
+        set_variable = { name = spec_n_end_3 value = 0 }
+        spec_mechanics_steel_month = yes
+        if = { limit = { var:spec_peak_steel = 1 var:spec_sev_steel = 0 var:spec_glut_steel = 3 var:spec_exp_steel = 0.2 var:spec_c_crash < 0 NOT = { has_variable = spec_sup_steel } } debug_log = "HOTFIX PASS collapse_applies_loss_recovery_and_writeoff" }
+        else = { debug_log = "HOTFIX FAIL collapse_applies_loss_recovery_and_writeoff" }
+        set_variable = { name = spec_mechanics_loss value = var:spec_c_crash }
+        spec_mechanics_steel_month = yes
+        if = { limit = { var:spec_c_crash = var:spec_mechanics_loss var:spec_exp_steel = 0.2 } debug_log = "HOTFIX PASS ended_boom_does_not_crash_twice" }
+        else = { debug_log = "HOTFIX FAIL ended_boom_does_not_crash_twice" }
+        remove_variable = spec_glut_steel
+        set_variable = { name = spec_peak_steel value = 4 }
+        set_variable = { name = spec_fast_steel value = -1 }
+        set_variable = { name = spec_slow_steel value = 1 }
+        spec_mechanics_steel_month = yes
+        if = { limit = { var:spec_peak_steel = 1 var:spec_glut_steel = 2 var:spec_exp_steel = 0.1 } debug_log = "HOTFIX PASS bust_marks_recovery_and_writeoff" }
+        else = { debug_log = "HOTFIX FAIL bust_marks_recovery_and_writeoff" }
+        remove_variable = spec_glut_steel
+        set_variable = { name = spec_peak_steel value = 2.5 }
+        set_variable = { name = spec_fast_steel value = -1 }
+        set_variable = { name = spec_slow_steel value = 1 }
+        spec_mechanics_steel_month = yes
+        if = { limit = { var:spec_peak_steel = 1 var:spec_glut_steel = 1 var:spec_exp_steel = 0.05 } debug_log = "HOTFIX PASS correction_marks_recovery_and_writeoff" }
+        else = { debug_log = "HOTFIX FAIL correction_marks_recovery_and_writeoff" }
+        debug_log = "HOTFIX SUITE COMPLETE"
+    }
+}

@@ -1,0 +1,45 @@
+namespace = spec_mechanics_economy
+spec_mechanics_economy.1 = {
+    type = country_event
+    hidden = yes
+    immediate = {
+        set_variable = { name = spec_gdp_avg value = { value = gdp divide = 2 } }
+        spec_mechanics_growth = yes
+        if = { limit = { var:spec_c_growth = 0.6 var:spec_growth >= 0.999 } debug_log = "HOTFIX PASS rapid_growth_confidence_capped" }
+        else = { debug_log = "HOTFIX FAIL rapid_growth_confidence_capped" }
+        set_variable = { name = spec_gdp_avg value = { value = gdp multiply = 2 } }
+        spec_mechanics_growth = yes
+        if = { limit = { var:spec_c_growth = -0.6 var:spec_growth <= -0.499 } debug_log = "HOTFIX PASS contraction_confidence_capped" }
+        else = { debug_log = "HOTFIX FAIL contraction_confidence_capped" }
+        set_variable = { name = spec_gdp_avg value = gdp }
+        spec_mechanics_growth = yes
+        if = { limit = { var:spec_c_growth = -0.2 var:spec_growth = 0 } debug_log = "HOTFIX PASS stagnation_below_normal_growth" }
+        else = { debug_log = "HOTFIX FAIL stagnation_below_normal_growth" }
+        set_variable = { name = spec_gdp_avg value = 0 }
+        spec_mechanics_growth = yes
+        if = { limit = { var:spec_c_growth = 0 var:spec_gdp_avg > 0 } debug_log = "HOTFIX PASS empty_growth_history_avoids_division_by_zero" }
+        else = { debug_log = "HOTFIX FAIL empty_growth_history_avoids_division_by_zero" }
+        remove_variable = spec_fd
+        if = { limit = { spec_depth = 1 } debug_log = "HOTFIX PASS absent_financial_depth_neutral" }
+        else = { debug_log = "HOTFIX FAIL absent_financial_depth_neutral" }
+        set_variable = { name = spec_fd value = 0 }
+        if = { limit = { spec_depth = 0.8 spec_shallow >= 0.999 } debug_log = "HOTFIX PASS no_financial_districts_shallow_floor" }
+        else = { debug_log = "HOTFIX FAIL no_financial_districts_shallow_floor" }
+        set_variable = { name = spec_fd value = building_levels }
+        if = { limit = { spec_depth = 1.2 spec_shallow = 0 } debug_log = "HOTFIX PASS financial_depth_ceiling" }
+        else = { debug_log = "HOTFIX FAIL financial_depth_ceiling" }
+        activate_law = law_type:law_free_trade
+        if = { limit = { spec_tie_trade = 0.6 } debug_log = "HOTFIX PASS free_trade_strengthens_contagion_tie" }
+        else = { debug_log = "HOTFIX FAIL free_trade_strengthens_contagion_tie" }
+        activate_law = law_type:law_isolationism
+        if = { limit = { spec_tie_trade = 0.04 } debug_log = "HOTFIX PASS isolationism_weakens_contagion_tie" }
+        else = { debug_log = "HOTFIX FAIL isolationism_weakens_contagion_tie" }
+        remove_variable = spec_temper
+        spec_ai_temper = yes
+        set_variable = { name = spec_mechanics_temper value = var:spec_temper }
+        spec_ai_temper = yes
+        if = { limit = { var:spec_temper >= -1 var:spec_temper <= 1 var:spec_temper = var:spec_mechanics_temper } debug_log = "HOTFIX PASS ai_temperament_drawn_once" }
+        else = { debug_log = "HOTFIX FAIL ai_temperament_drawn_once" }
+        debug_log = "HOTFIX SUITE COMPLETE"
+    }
+}

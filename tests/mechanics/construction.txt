@@ -1,0 +1,31 @@
+namespace = spec_mechanics_construction
+spec_mechanics_construction.1 = { type = country_event hidden = yes immediate = {
+spec_shut_down = yes
+set_variable = { name = spec_conf value = 55 }
+set_variable = { name = spec_c_crash value = 0 }
+set_variable = { name = spec_c_restrain value = 0 }
+set_variable = { name = spec_mv_total value = { value = spec_mv_steel multiply = 2 } }
+set_variable = { name = spec_word_steel value = 4 }
+spec_mechanics_standards = yes
+if = { limit = { var:spec_bbv_heavy_industry = 0 NOT = { has_modifier = spec_boom_build_heavy_industry } } debug_log = "HOTFIX PASS construction_word_4" }
+else = { debug_log = "HOTFIX FAIL construction_word_4" }
+set_variable = { name = spec_word_steel value = 5 }
+spec_mechanics_standards = yes
+if = { limit = { var:spec_bbv_heavy_industry = 1 has_modifier = spec_boom_build_heavy_industry } debug_log = "HOTFIX PASS construction_word_5" }
+else = { debug_log = "HOTFIX FAIL construction_word_5" }
+set_variable = { name = spec_word_steel value = 6 }
+spec_mechanics_standards = yes
+if = { limit = { var:spec_bbv_heavy_industry = 2 has_modifier = spec_boom_build_heavy_industry } debug_log = "HOTFIX PASS construction_word_6" }
+else = { debug_log = "HOTFIX FAIL construction_word_6" }
+set_variable = { name = spec_word_steel value = 3 }
+spec_mechanics_standards = yes
+if = { limit = { var:spec_bbv_heavy_industry = 0 NOT = { has_modifier = spec_boom_build_heavy_industry } } debug_log = "HOTFIX PASS construction_word_3" }
+else = { debug_log = "HOTFIX FAIL construction_word_3" }
+set_variable = { name = spec_word_steel value = 6 }
+set_variable = { name = spec_mv_total value = { value = spec_mv_steel multiply = 1000 } }
+spec_mechanics_standards = yes
+if = { limit = { var:spec_bbv_heavy_industry = 0 NOT = { has_modifier = spec_boom_build_heavy_industry } } debug_log = "HOTFIX PASS tiny_boom_cannot_accelerate_whole_construction_group" }
+else = { debug_log = "HOTFIX FAIL tiny_boom_cannot_accelerate_whole_construction_group" }
+
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

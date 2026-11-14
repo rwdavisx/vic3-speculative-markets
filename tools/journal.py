@@ -74,7 +74,8 @@ def values(k):
     stage = "".join(f"\telse_if = {{\n\t\tlimit = {{ {cond} }}\n\t\tvalue = {n}\n\t}}\n" for n, cond in [
         (5, "has_variable = spec_panic"), (4, "has_variable = spec_panic_cooldown"),
         (3, f"has_variable = spec_conf var:spec_conf >= {k['MANIA']}"),
-        (2, f"has_variable = spec_conf var:spec_conf >= {k['CREDIT_FROM']}"), (0, "has_variable = spec_conf var:spec_conf < 40")])
+        # Journal/map labels follow the confidence bands, not the lending threshold.
+        (2, f"has_variable = spec_conf var:spec_conf >= {mt.TIERS[3][1]}"), (0, "has_variable = spec_conf var:spec_conf < 40")])
     flag = lambda name, trigger: f"{name} = {{\n\tvalue = 0\n\tif = {{\n\t\tlimit = {{ {trigger} }}\n\t\tvalue = 1\n\t}}\n}}\n"
     count = "".join(f"\tif = {{\n\t\tlimit = {{ {c} }}\n\t\tadd = 1\n\t}}\n"
                     for c in ("has_variable = spec_note", HAS["llr"], HAS["company"]))

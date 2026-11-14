@@ -1,0 +1,60 @@
+namespace = spec_mechanics_interventions
+spec_mechanics_interventions.1 = {
+    type = country_event
+    hidden = yes
+    immediate = {
+        activate_law = law_type:law_interventionism
+        remove_variable = spec_restrain_steel
+        remove_variable = spec_encourage_steel
+        remove_variable = spec_glut_steel
+        remove_variable = spec_issue_steel
+        remove_variable = spec_issue
+        remove_variable = spec_issue_cool
+        set_variable = { name = spec_word_steel value = 3 }
+        set_variable = { name = spec_sev_steel value = 0 }
+        set_variable = { name = spec_risk_steel value = 0 }
+        if = { limit = { spec_lever_fits_encourage = { G = steel } NOT = { spec_lever_fits_restrain = { G = steel } } } debug_log = "HOTFIX PASS calm_good_fits_encouragement" }
+        else = { debug_log = "HOTFIX FAIL calm_good_fits_encouragement" }
+        set_variable = { name = spec_glut_steel value = 1 }
+        if = { limit = { NOT = { spec_lever_fits_encourage = { G = steel } } } debug_log = "HOTFIX PASS cannot_encourage_recovery" }
+        else = { debug_log = "HOTFIX FAIL cannot_encourage_recovery" }
+        remove_variable = spec_glut_steel
+        set_variable = { name = spec_sev_steel value = 2 }
+        if = { limit = { NOT = { spec_lever_fits_encourage = { G = steel } } } debug_log = "HOTFIX PASS cannot_prop_up_bust_risk" }
+        else = { debug_log = "HOTFIX FAIL cannot_prop_up_bust_risk" }
+        set_variable = { name = spec_sev_steel value = 0 }
+        set_variable = { name = spec_word_steel value = 5 }
+        if = { limit = { spec_lever_fits_restrain = { G = steel } NOT = { spec_lever_fits_encourage = { G = steel } } } debug_log = "HOTFIX PASS eager_good_fits_restraint" }
+        else = { debug_log = "HOTFIX FAIL eager_good_fits_restraint" }
+        g:steel = { save_scope_as = spec_good }
+        spec_lever_toggle = { KIND = restrain }
+        if = { limit = { has_variable = spec_restrain_steel NOR = { has_variable = spec_restrain_coal has_variable = spec_encourage_steel } } debug_log = "HOTFIX PASS lever_targets_selected_good" }
+        else = { debug_log = "HOTFIX FAIL lever_targets_selected_good" }
+        if = { limit = { NOT = { spec_lever_free = { KIND = encourage OTHER = restrain G = steel } } } debug_log = "HOTFIX PASS opposite_lever_blocked" }
+        else = { debug_log = "HOTFIX FAIL opposite_lever_blocked" }
+        activate_law = law_type:law_command_economy
+        if = { limit = { spec_lever_free = { KIND = restrain OTHER = encourage G = steel } } debug_log = "HOTFIX PASS active_lever_can_always_be_cancelled" }
+        else = { debug_log = "HOTFIX FAIL active_lever_can_always_be_cancelled" }
+        spec_lever_toggle = { KIND = restrain }
+        if = { limit = { NOT = { has_variable = spec_restrain_steel } } debug_log = "HOTFIX PASS lever_cancel_removes_flag" }
+        else = { debug_log = "HOTFIX FAIL lever_cancel_removes_flag" }
+        activate_law = law_type:law_interventionism
+        set_variable = { name = spec_exch_stand value = 0 }
+        if = { limit = { NOT = { spec_issue_free = { G = steel } } } debug_log = "HOTFIX PASS provincial_exchange_cannot_float_issue" }
+        else = { debug_log = "HOTFIX FAIL provincial_exchange_cannot_float_issue" }
+        set_variable = { name = spec_exch_stand value = 1 }
+        if = { limit = { spec_issue_free = { G = steel } } debug_log = "HOTFIX PASS national_exchange_can_float_hot_good" }
+        else = { debug_log = "HOTFIX FAIL national_exchange_can_float_hot_good" }
+        set_variable = spec_restrain_steel
+        if = { limit = { NOT = { spec_issue_free = { G = steel } } } debug_log = "HOTFIX PASS issue_excludes_intervention" }
+        else = { debug_log = "HOTFIX FAIL issue_excludes_intervention" }
+        remove_variable = spec_restrain_steel
+        spec_issue_float = { G = steel }
+        if = { limit = { has_variable = spec_issue_steel has_variable = spec_issue has_variable = spec_issue_cool NOT = { spec_issue_free = { G = steel } } } debug_log = "HOTFIX PASS issue_starts_exclusive_cooldown" }
+        else = { debug_log = "HOTFIX FAIL issue_starts_exclusive_cooldown" }
+        remove_variable = spec_issue
+        if = { limit = { NOT = { spec_issue_free = { G = steel } } } debug_log = "HOTFIX PASS issue_cooldown_outlasts_active_issue" }
+        else = { debug_log = "HOTFIX FAIL issue_cooldown_outlasts_active_issue" }
+        debug_log = "HOTFIX SUITE COMPLETE"
+    }
+}

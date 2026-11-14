@@ -27,7 +27,7 @@ ACTIVE = {"running", "waiting"}
 LINE = re.compile(r"\b(SPEC|PROBE) tag=(\S+) date=([A-Za-z]+ \d{1,2}, \d{4}) (.*)")
 STAMP = re.compile(r"^\[\d\d:\d\d:\d\d\]")
 MOD_PATH = re.compile(r"(?:common|events|gui|localization)[/\\][^\n]*?[/\\][^/\\\s:]*spec_[^/\\\s:]*", re.I)
-MOD_NAME = re.compile(r"\bspec_[A-Za-z0-9_.]+")
+MOD_NAME = re.compile(r"\b(?:je_|notification_|concept_)?spec_[A-Za-z0-9_.]+")
 TEST_PATH = re.compile(r"(?:events|common)/[^\n]*zz_(?:spec_)?hotfix_[^\s:]*\.txt", re.I)
 METHOD = [
     "Descriptive observations from these saved worlds, not independent randomized replicates or statistical confidence intervals.",

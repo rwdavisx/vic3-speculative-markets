@@ -1,0 +1,31 @@
+# Regression for the legacy save's duplicate JE warning. The helper is the
+# production insertion body, after the player/old-save flag guard; an observer
+# invokes it explicitly so this case also exercises the inactive-entry path.
+# Observer Britain is not a player: the JE is deliberately inactive/hidden.
+namespace = spec_mechanics_journal_presence
+spec_mechanics_journal_presence.1 = {
+    type = country_event
+    hidden = yes
+    immediate = {
+        activate_law = law_type:law_interventionism
+        if = { limit = { NOT = { exists = je:je_spec_markets } } add_journal_entry = { type = je_spec_markets } }
+        if = { limit = { exists = je:je_spec_markets } debug_log = "HOTFIX PASS inactive_journal_pointer_exists_immediately" }
+        else = { debug_log = "HOTFIX FAIL inactive_journal_pointer_exists_immediately" }
+        trigger_event = { id = spec_mechanics_journal_presence.2 days = 1 }
+    }
+}
+spec_mechanics_journal_presence.2 = {
+    type = country_event
+    hidden = yes
+    immediate = {
+        if = { limit = { exists = je:je_spec_markets } debug_log = "HOTFIX PASS inactive_journal_pointer_survives_daily_update" }
+        else = { debug_log = "HOTFIX FAIL inactive_journal_pointer_survives_daily_update" }
+        if = { limit = { NOT = { has_journal_entry = je_spec_markets } } debug_log = "HOTFIX PASS active_journal_trigger_cannot_detect_inactive_entry" }
+        else = { debug_log = "HOTFIX FAIL active_journal_trigger_cannot_detect_inactive_entry" }
+        remove_variable = spec_je_added
+        spec_mechanics_add_journal = yes
+        if = { limit = { exists = je:je_spec_markets } debug_log = "HOTFIX PASS legacy_journal_preserved_without_duplicate_error" }
+        else = { debug_log = "HOTFIX FAIL legacy_journal_preserved_without_duplicate_error" }
+        debug_log = "HOTFIX SUITE COMPLETE"
+    }
+}

@@ -15,6 +15,7 @@ import json
 import os
 from pathlib import Path
 import re
+import shutil
 import subprocess
 import sys
 
@@ -187,8 +188,15 @@ def cases():
     return files
 
 
-def prepare(path):
+def prepare(path, source=None):
     out = destination(path)
+    if source is not None:
+        source = Path(source).resolve()
+        metadata = json.loads((source / ".metadata/metadata.json").read_text(encoding="utf-8-sig"))
+        if metadata["id"] != "speculative_markets_beta":
+            raise ValueError("--source requires the beta distribution")
+        if out.exists() and any(out.iterdir()):
+            raise ValueError("Use a fresh output directory for a frozen beta test")
     suites = cases()
     economy_ids = [event_id for suite in suites if "economy" in suite["source"].name for event_id in suite["ids"]]
     diplomacy_ids = [event_id for suite in suites if "diplomacy" in suite["source"].name for event_id in suite["ids"]]
@@ -211,12 +219,21 @@ def prepare(path):
     out.mkdir(parents=True, exist_ok=True)
     marker = out / MANIFEST
     marker.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
-    env = {**os.environ, "SPEC_MOD_OUT": str(out), "PYTHONDONTWRITEBYTECODE": "1"}
-    result = subprocess.run([sys.executable, "-B", str(ROOT / "tools/generate.py"), "--log"], cwd=ROOT, env=env)
-    if result.returncode:
-        manifest["status"] = "build_failed"
-        marker.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
-        raise RuntimeError(f"Debug generator exited {result.returncode}; no game was launched")
+    if source is not None:
+        import probe
+        manifest["beta_source"] = str(source)
+        manifest["beta_source_sha256"] = {p.relative_to(source).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
+                                          for p in sorted(source.rglob("*")) if p.is_file()}
+        shutil.copytree(source, out, dirs_exist_ok=True)
+        for rel, content in probe.files().items():
+            (out / rel).write_text(content, encoding="utf-8-sig")
+    else:
+        env = {**os.environ, "SPEC_MOD_OUT": str(out), "PYTHONDONTWRITEBYTECODE": "1"}
+        result = subprocess.run([sys.executable, "-B", str(ROOT / "tools/generate.py"), "--log"], cwd=ROOT, env=env)
+        if result.returncode:
+            manifest["status"] = "build_failed"
+            marker.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+            raise RuntimeError(f"Debug generator exited {result.returncode}; no game was launched")
     # Write tests only after generation, which removes stale files in generated directories.
     (out / "events/zz_spec_hotfix_core.txt").write_text(core, encoding="utf-8-sig")
     (out / "common/on_actions/zz_spec_hotfix_start.txt").write_text(actions, encoding="utf-8-sig")
@@ -227,7 +244,13 @@ def prepare(path):
         # Exercise the exact production seat update on an annexed country. The normal
         # world ranking visits active countries and cannot supply that edge-case scope.
         import centres
-        helper = "spec_hotfix_update_seat = {\n" + centres._seat("\t") + "}\n"
+        seat = centres._seat("\t")
+        if source is not None:
+            production = (source / "common/scripted_effects/spec_centre_effects.txt").read_text(encoding="utf-8-sig")
+            normalize = lambda text: "\n".join(line.strip() for line in text.strip().splitlines())
+            if normalize(seat) not in normalize(production):
+                raise ValueError("Seat helper does not match frozen beta production code")
+        helper = "spec_hotfix_update_seat = {\n" + seat + "}\n"
         helper_path = "common/scripted_effects/zz_spec_hotfix_helpers.txt"
         (out / helper_path).write_text(helper, encoding="utf-8-sig")
         manifest["generated_test_helpers"] = [helper_path]
@@ -287,6 +310,7 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT, help="Isolated output under workspace/runs/")
     parser.add_argument("--prepare-only", action="store_true", help="Prepare the build (the default; never launches a game)")
+    parser.add_argument("--source", type=Path, help="Copy this frozen beta instead of regenerating production scripts")
     parser.add_argument("--report", type=Path, nargs="+", metavar="LOG", help="Read logs and fail on missing/failed assertions")
     parser.add_argument("--error-log", type=Path, nargs="+", default=[], metavar="LOG",
                         help="With --report, also fail on mod/harness runtime errors and unrecognized mod diagnostics")
@@ -294,7 +318,7 @@ def main(argv=None):
     if args.error_log and not args.report:
         parser.error("--error-log requires --report")
     try:
-        return report(args.out, args.report, args.error_log) if args.report else prepare(args.out)
+        return report(args.out, args.report, args.error_log) if args.report else prepare(args.out, args.source)
     except (ValueError, OSError, RuntimeError) as error:
         print(f"ERROR: {error}", file=sys.stderr)
         return 2

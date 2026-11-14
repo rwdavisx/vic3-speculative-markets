@@ -1,0 +1,62 @@
+namespace = spec_mechanics_depression
+spec_mechanics_depression.1 = {
+    type = country_event
+    hidden = yes
+    immediate = {
+        activate_law = law_type:law_interventionism
+        set_variable = { name = spec_conf value = 55 }
+        remove_variable = spec_ld
+        remove_global_variable = spec_ld_phase
+        spec_ld_join = yes
+        if = { limit = { NOT = { has_variable = spec_ld } } debug_log = "HOTFIX PASS cannot_join_absent_world_crisis" }
+        else = { debug_log = "HOTFIX FAIL cannot_join_absent_world_crisis" }
+        set_global_variable = { name = spec_ld_phase value = 1 }
+        set_global_variable = { name = spec_ld_months value = 4 }
+        set_global_variable = { name = spec_ld_progress value = 0 }
+        set_variable = { name = spec_panic_cooldown value = 12 }
+        spec_ld_tied_join = { WEIGHT = 0.499 }
+        if = { limit = { NOT = { has_variable = spec_ld } } debug_log = "HOTFIX PASS weak_tie_does_not_spread_world_crisis" }
+        else = { debug_log = "HOTFIX FAIL weak_tie_does_not_spread_world_crisis" }
+        spec_ld_tied_join = { WEIGHT = 0.5 }
+        if = { limit = { var:spec_ld = 1 var:spec_ld_own = 0 has_modifier = spec_ld_crash has_variable = spec_ld_spreading } debug_log = "HOTFIX PASS qualifying_tie_joins_crash" }
+        else = { debug_log = "HOTFIX FAIL qualifying_tie_joins_crash" }
+        set_variable = { name = spec_ld_own value = 40 }
+        spec_ld_join = yes
+        if = { limit = { var:spec_ld_own = 40 } debug_log = "HOTFIX PASS repeated_join_does_not_reset_recovery" }
+        else = { debug_log = "HOTFIX FAIL repeated_join_does_not_reset_recovery" }
+        remove_variable = spec_ld_spreading
+        set_global_variable = { name = spec_ld_months value = 1 }
+        spec_ld_tick = yes
+        if = { limit = { global_var:spec_ld_phase = 2 global_var:spec_ld_months = 60 var:spec_ld = 2 has_modifier = spec_ld_depression NOT = { has_modifier = spec_ld_crash } } debug_log = "HOTFIX PASS crash_deadline_enters_depression" }
+        else = { debug_log = "HOTFIX FAIL crash_deadline_enters_depression" }
+        spec_ld_own = { AMOUNT = 100 }
+        if = { limit = { var:spec_ld_own = 100 var:spec_ld = 3 global_var:spec_ld_phase = 2 NOR = { has_modifier = spec_ld_crash has_modifier = spec_ld_depression } } debug_log = "HOTFIX PASS country_can_recover_before_world" }
+        else = { debug_log = "HOTFIX FAIL country_can_recover_before_world" }
+        set_global_variable = { name = spec_ld_progress value = 98 }
+        spec_ld_tick = yes
+        if = { limit = { global_var:spec_ld_phase = 3 global_var:spec_ld_progress = 100 global_var:spec_ld_months = 12 } debug_log = "HOTFIX PASS world_recovery_ends_depression_early" }
+        else = { debug_log = "HOTFIX FAIL world_recovery_ends_depression_early" }
+        spec_ld_world = { AMOUNT = 50 }
+        if = { limit = { global_var:spec_ld_progress = 100 } debug_log = "HOTFIX PASS world_recovery_upper_bound" }
+        else = { debug_log = "HOTFIX FAIL world_recovery_upper_bound" }
+        spec_ld_world = { AMOUNT = -200 }
+        if = { limit = { global_var:spec_ld_progress = 0 } debug_log = "HOTFIX PASS world_recovery_lower_bound" }
+        else = { debug_log = "HOTFIX FAIL world_recovery_lower_bound" }
+        set_variable = spec_ld_origin
+        set_global_variable = { name = spec_ld_months value = 1 }
+        spec_ld_tick = yes
+        if = { limit = { has_global_variable = spec_ld_cooldown has_variable = spec_ld_origin NOR = { has_global_variable = spec_ld_phase has_global_variable = spec_ld_progress has_variable = spec_ld has_variable = spec_ld_own has_modifier = spec_ld_crash has_modifier = spec_ld_depression } } debug_log = "HOTFIX PASS crisis_end_cleans_current_effects_keeps_history" }
+        else = { debug_log = "HOTFIX FAIL crisis_end_cleans_current_effects_keeps_history" }
+        spec_ld_own = { AMOUNT = 10 }
+        spec_ld_world = { AMOUNT = 10 }
+        if = { limit = { NOR = { has_variable = spec_ld_own has_global_variable = spec_ld_progress } } debug_log = "HOTFIX PASS delayed_recovery_cannot_restart_crisis" }
+        else = { debug_log = "HOTFIX FAIL delayed_recovery_cannot_restart_crisis" }
+        set_global_variable = { name = spec_ld_phase value = 2 }
+        activate_law = law_type:law_command_economy
+        spec_ld_join = yes
+        if = { limit = { NOT = { has_variable = spec_ld } } debug_log = "HOTFIX PASS closed_economy_cannot_join_crisis" }
+        else = { debug_log = "HOTFIX FAIL closed_economy_cannot_join_crisis" }
+        remove_global_variable = spec_ld_phase
+        debug_log = "HOTFIX SUITE COMPLETE"
+    }
+}

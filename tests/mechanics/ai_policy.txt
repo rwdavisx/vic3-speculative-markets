@@ -1,0 +1,52 @@
+namespace = spec_mechanics_ai_policy
+spec_mechanics_ai_policy.1 = { type = country_event hidden = yes immediate = {
+activate_law = law_type:law_interventionism
+if = { limit = { NOT = { has_technology_researched = central_banking } } add_technology_researched = central_banking }
+set_variable = { name = spec_temper value = 0 }
+set_variable = { name = spec_debt value = 0 }
+remove_variable = spec_panic
+remove_variable = spec_ai_fever
+remove_variable = spec_stance_cooldown
+spec_stance_to_normal = yes
+remove_variable = spec_stance_cooldown
+set_variable = { name = spec_conf value = 100 }
+spec_mechanics_ai_policy = yes
+if = { limit = { spec_stance_value = -1 has_variable = spec_stance_cooldown } debug_log = "HOTFIX PASS ai_cools_mania_with_shared_stance_action" }
+else = { debug_log = "HOTFIX FAIL ai_cools_mania_with_shared_stance_action" }
+set_variable = { name = spec_conf value = 0 }
+spec_mechanics_ai_policy = yes
+if = { limit = { spec_stance_value = -1 } debug_log = "HOTFIX PASS ai_obeys_policy_cooldown" }
+else = { debug_log = "HOTFIX FAIL ai_obeys_policy_cooldown" }
+remove_variable = spec_stance_cooldown
+spec_mechanics_ai_policy = yes
+if = { limit = { spec_stance_value = 0 } debug_log = "HOTFIX PASS ai_leaves_tight_after_cooling" }
+else = { debug_log = "HOTFIX FAIL ai_leaves_tight_after_cooling" }
+remove_variable = spec_stance_cooldown
+spec_mechanics_ai_policy = yes
+if = { limit = { spec_stance_value = 1 } debug_log = "HOTFIX PASS ai_loosens_in_low_confidence" }
+else = { debug_log = "HOTFIX FAIL ai_loosens_in_low_confidence" }
+remove_variable = spec_stance_cooldown
+set_variable = { name = spec_conf value = 55 }
+spec_mechanics_ai_policy = yes
+if = { limit = { spec_stance_value = 0 } debug_log = "HOTFIX PASS ai_stops_loosening_after_recovery" }
+else = { debug_log = "HOTFIX FAIL ai_stops_loosening_after_recovery" }
+remove_variable = spec_stance_cooldown
+set_variable = { name = spec_conf value = 0 }
+set_variable = { name = spec_panic value = 6 }
+spec_mechanics_ai_policy = yes
+if = { limit = { spec_stance_value = 0 } debug_log = "HOTFIX PASS ai_does_not_loosen_during_panic" }
+else = { debug_log = "HOTFIX FAIL ai_does_not_loosen_during_panic" }
+remove_variable = spec_panic
+set_variable = spec_ai_fever
+set_variable = { name = spec_conf value = 100 }
+spec_mechanics_ai_policy = yes
+if = { limit = { spec_stance_value = 0 } debug_log = "HOTFIX PASS ai_fever_prevents_tightening" }
+else = { debug_log = "HOTFIX FAIL ai_fever_prevents_tightening" }
+remove_variable = spec_ai_fever
+set_variable = { name = spec_conf value = 55 }
+set_variable = { name = spec_debt value = { value = spec_lev_income multiply = 100 } }
+spec_mechanics_ai_policy = yes
+if = { limit = { spec_stance_value = -1 } debug_log = "HOTFIX PASS ai_tightens_for_excessive_leverage" }
+else = { debug_log = "HOTFIX FAIL ai_tightens_for_excessive_leverage" }
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

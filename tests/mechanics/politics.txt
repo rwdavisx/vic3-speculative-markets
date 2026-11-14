@@ -1,0 +1,32 @@
+namespace = spec_mechanics_politics
+spec_mechanics_politics.1 = {
+    type = country_event
+    hidden = yes
+    immediate = {
+        remove_modifier = spec_mania_movements
+        remove_modifier = spec_panic_movements
+        remove_variable = spec_mania_heat
+        set_variable = spec_mania
+        set_variable = { name = spec_conf value = 80 }
+        spec_update_movements = yes
+        if = { limit = { var:spec_mania_heat = 10 NOT = { has_modifier = spec_mania_movements } } debug_log = "HOTFIX PASS mania_support_requires_sustained_heat" }
+        else = { debug_log = "HOTFIX FAIL mania_support_requires_sustained_heat" }
+        set_variable = { name = spec_mania_heat value = 110 }
+        spec_update_movements = yes
+        if = { limit = { has_modifier = spec_mania_movements NOT = { has_variable = spec_mania_heat } } debug_log = "HOTFIX PASS sustained_mania_awards_support_once" }
+        else = { debug_log = "HOTFIX FAIL sustained_mania_awards_support_once" }
+        spec_panic_movements = yes
+        if = { limit = { has_modifier = spec_panic_movements NOT = { has_modifier = spec_mania_movements } } debug_log = "HOTFIX PASS panic_replaces_mania_goodwill" }
+        else = { debug_log = "HOTFIX FAIL panic_replaces_mania_goodwill" }
+        set_variable = { name = spec_conf value = 79 }
+        set_variable = { name = spec_mania_heat value = 40 }
+        spec_update_movements = yes
+        if = { limit = { var:spec_mania_heat = 40 } debug_log = "HOTFIX PASS cooling_mania_does_not_accumulate_heat" }
+        else = { debug_log = "HOTFIX FAIL cooling_mania_does_not_accumulate_heat" }
+        remove_variable = spec_mania
+        spec_update_movements = yes
+        if = { limit = { NOT = { has_variable = spec_mania_heat } } debug_log = "HOTFIX PASS ended_mania_clears_unspent_heat" }
+        else = { debug_log = "HOTFIX FAIL ended_mania_clears_unspent_heat" }
+        debug_log = "HOTFIX SUITE COMPLETE"
+    }
+}

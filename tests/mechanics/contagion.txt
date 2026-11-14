@@ -1,0 +1,29 @@
+namespace = spec_mechanics_contagion
+spec_mechanics_contagion.1 = {
+    type = country_event
+    hidden = yes
+    immediate = {
+        # Britain is root; the response runs on France. Equal-size source isolates tie weight.
+        set_variable = { name = spec_src_gdp value = c:FRA.gdp }
+        c:FRA = {
+            set_variable = { name = spec_conf value = 55 }
+            remove_variable = spec_foreign_pending
+            set_variable = { name = spec_mechanics_hit value = { value = 10 multiply = spec_foreign_loss_mult } }
+            spec_catch_panic = { WEIGHT = 0.5 }
+            if = { limit = { var:spec_foreign_pending = var:spec_mechanics_hit var:spec_foreign_src = c:GBR NOT = { has_variable = spec_foreign_hit } } debug_log = "HOTFIX PASS contagion_uses_receiver_exposure_and_source_identity" }
+            else = { debug_log = "HOTFIX FAIL contagion_uses_receiver_exposure_and_source_identity" }
+            spec_catch_panic = { WEIGHT = 0.25 }
+            if = { limit = { var:spec_foreign_pending = var:spec_mechanics_hit } debug_log = "HOTFIX PASS weaker_tie_does_not_stack_same_panic" }
+            else = { debug_log = "HOTFIX FAIL weaker_tie_does_not_stack_same_panic" }
+            spec_catch_panic = { WEIGHT = 1 }
+            if = { limit = { var:spec_foreign_pending = { value = var:spec_mechanics_hit multiply = 2 } } debug_log = "HOTFIX PASS stronger_tie_replaces_pending_hit" }
+            else = { debug_log = "HOTFIX FAIL stronger_tie_replaces_pending_hit" }
+            remove_variable = spec_conf
+            remove_variable = spec_foreign_pending
+            spec_catch_panic = { WEIGHT = 1 }
+            if = { limit = { NOR = { has_variable = spec_conf has_variable = spec_foreign_pending } } debug_log = "HOTFIX PASS closed_market_ignores_foreign_panic" }
+            else = { debug_log = "HOTFIX FAIL closed_market_ignores_foreign_panic" }
+        }
+        debug_log = "HOTFIX SUITE COMPLETE"
+    }
+}

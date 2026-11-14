@@ -1,0 +1,115 @@
+namespace = spec_mechanics_credit_cycle
+spec_mechanics_credit_cycle.1 = {
+    type = country_event
+    hidden = yes
+    immediate = {
+        spec_shut_down = yes
+        set_variable = { name = spec_conf value = 55 }
+        set_variable = { name = spec_debt value = 0 }
+        set_variable = { name = spec_credit_given value = 100 }
+        set_variable = { name = spec_lax value = 0.5 }
+        set_variable = { name = spec_mv_total value = { value = spec_mv_steel multiply = 2 } }
+        set_variable = { name = spec_hype_steel value = 6 }
+        spec_mechanics_lend = yes
+        if = { limit = { spec_mv_steel > 0 var:spec_exp_steel = 0.6 spec_exp_booms = 0.6 } debug_log = "HOTFIX PASS new_loans_boom_share_sixty_percent_cap" }
+        else = { debug_log = "HOTFIX FAIL new_loans_boom_share_sixty_percent_cap" }
+        set_variable = { name = spec_debt value = 100 }
+        set_variable = { name = spec_hype_steel value = 1 }
+        spec_mechanics_lend = yes
+        if = { limit = { var:spec_exp_steel = 0.3 } debug_log = "HOTFIX PASS general_loans_dilute_existing_boom_share" }
+        else = { debug_log = "HOTFIX FAIL general_loans_dilute_existing_boom_share" }
+        set_variable = { name = spec_debt value = 200 }
+        set_variable = { name = spec_hype_steel value = 6 }
+        spec_mechanics_lend = yes
+        if = { limit = { var:spec_exp_steel >= 0.399 var:spec_exp_steel <= 0.401 } debug_log = "HOTFIX PASS mixed_loans_conserve_prior_and_new_exposure" }
+        else = { debug_log = "HOTFIX FAIL mixed_loans_conserve_prior_and_new_exposure" }
+        set_variable = { name = spec_credit_given value = 0 }
+        set_variable = { name = spec_debt value = 300 }
+        spec_mechanics_lend = yes
+        if = { limit = { var:spec_exp_steel >= 0.399 var:spec_exp_steel <= 0.401 } debug_log = "HOTFIX PASS zero_new_credit_preserves_exposure" }
+        else = { debug_log = "HOTFIX FAIL zero_new_credit_preserves_exposure" }
+        set_variable = { name = spec_hype_steel value = 1 }
+        if = { limit = { spec_pull_total = 0 spec_boom_share = 0 } debug_log = "HOTFIX PASS calm_goods_draw_no_speculative_loans" }
+        else = { debug_log = "HOTFIX FAIL calm_goods_draw_no_speculative_loans" }
+        set_variable = { name = spec_hype_steel value = 6 }
+        set_variable = spec_restrain_steel
+        if = { limit = { spec_pull_steel = 0.25 } debug_log = "HOTFIX PASS restraint_halves_lending_pull" }
+        else = { debug_log = "HOTFIX FAIL restraint_halves_lending_pull" }
+
+        set_variable = { name = spec_c_crash value = 0 }
+        set_variable = { name = spec_c_restrain value = 0 }
+        set_variable = { name = spec_stance value = 0 }
+        set_variable = { name = spec_lax value = 0.5 }
+        spec_mechanics_standards = yes
+        if = { limit = { var:spec_lax > 0.5 var:spec_lax < 0.505 } debug_log = "HOTFIX PASS quiet_month_relaxes_standards" }
+        else = { debug_log = "HOTFIX FAIL quiet_month_relaxes_standards" }
+        set_variable = { name = spec_lax value = 0.5 }
+        set_variable = { name = spec_stance value = -1 }
+        spec_mechanics_standards = yes
+        if = { limit = { var:spec_lax = 0.5 } debug_log = "HOTFIX PASS tight_month_stops_standards_drift" }
+        else = { debug_log = "HOTFIX FAIL tight_month_stops_standards_drift" }
+        set_variable = { name = spec_stance value = 0 }
+        set_variable = { name = spec_panic value = 6 }
+        spec_mechanics_standards = yes
+        if = { limit = { var:spec_lax = 0.5 } debug_log = "HOTFIX PASS panic_stops_standards_drift" }
+        else = { debug_log = "HOTFIX FAIL panic_stops_standards_drift" }
+        remove_variable = spec_panic
+        set_variable = { name = spec_crunch value = 20 }
+        spec_mechanics_standards = yes
+        if = { limit = { var:spec_lax = 0.5 } debug_log = "HOTFIX PASS bad_debts_stop_standards_drift" }
+        else = { debug_log = "HOTFIX FAIL bad_debts_stop_standards_drift" }
+        set_variable = { name = spec_c_crash value = -10 }
+        set_variable = { name = spec_c_restrain value = -5 }
+        spec_mechanics_standards = yes
+        if = { limit = { var:spec_lax >= 0.199 var:spec_lax <= 0.201 } debug_log = "HOTFIX PASS boom_losses_tighten_standards" }
+        else = { debug_log = "HOTFIX FAIL boom_losses_tighten_standards" }
+        spec_mechanics_standards = yes
+        if = { limit = { var:spec_lax = 0 } debug_log = "HOTFIX PASS standards_floor" }
+        else = { debug_log = "HOTFIX FAIL standards_floor" }
+        remove_variable = spec_crunch
+        set_variable = { name = spec_c_crash value = 0 }
+        set_variable = { name = spec_c_restrain value = 0 }
+        set_variable = { name = spec_lax value = 1 }
+        spec_mechanics_standards = yes
+        if = { limit = { var:spec_lax = 1 } debug_log = "HOTFIX PASS standards_ceiling" }
+        else = { debug_log = "HOTFIX FAIL standards_ceiling" }
+
+        set_local_variable = { name = spec_lent value = 0 }
+        set_variable = spec_lev_ready
+        set_variable = { name = spec_crunch value = 20 }
+        set_variable = { name = spec_crunch_bite value = 3 }
+        spec_mechanics_leverage = yes
+        if = { limit = { var:spec_crunch >= 19.399 var:spec_crunch <= 19.401 var:spec_crunch_bite = 6 has_modifier = spec_credit_crunch } debug_log = "HOTFIX PASS bad_debts_fade_while_bite_ramps" }
+        else = { debug_log = "HOTFIX FAIL bad_debts_fade_while_bite_ramps" }
+        set_variable = { name = spec_crunch value = 0.6 }
+        set_variable = { name = spec_crunch_bite value = 0.6 }
+        set_variable = spec_bailed
+        spec_mechanics_leverage = yes
+        if = { limit = { NOR = { has_variable = spec_crunch has_variable = spec_crunch_bite has_variable = spec_bailed has_modifier = spec_credit_crunch } } debug_log = "HOTFIX PASS bad_debts_expiry_cleans_state_and_bailout_lock" }
+        else = { debug_log = "HOTFIX FAIL bad_debts_expiry_cleans_state_and_bailout_lock" }
+        # Feed the same cached population change a peace deal or secession produces.
+        remove_variable = spec_lev_old
+        remove_variable = spec_lev_fade
+        set_variable = { name = spec_lev_avg value = 100000000 }
+        set_variable = { name = spec_debt value = 800000000 }
+        set_variable = { name = spec_lev_pop value = { value = total_population multiply = 2 } }
+        spec_mechanics_leverage = yes
+        if = { limit = { var:spec_debt = 800000000 var:spec_lev_old = 800000000 var:spec_lev_ref = 100000000 var:spec_lev_fade = 60 spec_lev_adj <= spec_lev } debug_log = "HOTFIX PASS land_loss_rebases_old_loans_without_forgiving_debt" }
+        else = { debug_log = "HOTFIX FAIL land_loss_rebases_old_loans_without_forgiving_debt" }
+        set_variable = { name = spec_debt value = 400000000 }
+        set_variable = { name = spec_lev_pop value = { value = total_population multiply = 2 } }
+        spec_mechanics_leverage = yes
+        if = { limit = { var:spec_lev_old = 400000000 var:spec_lev_ref = 100000000 var:spec_lev_fade = 59 } debug_log = "HOTFIX PASS repeated_land_loss_does_not_restart_relief" }
+        else = { debug_log = "HOTFIX FAIL repeated_land_loss_does_not_restart_relief" }
+        set_variable = { name = spec_debt value = 500000000 }
+        set_local_variable = { name = spec_lent value = 100000000 }
+        spec_mechanics_leverage = yes
+        if = { limit = { var:spec_lev_old = 400000000 var:spec_lev_fade = 58 } debug_log = "HOTFIX PASS new_loans_do_not_inherit_land_loss_relief" }
+        else = { debug_log = "HOTFIX FAIL new_loans_do_not_inherit_land_loss_relief" }
+        set_variable = { name = spec_lev_fade value = 1 }
+        spec_mechanics_leverage = yes
+        if = { limit = { NOT = { has_variable = spec_lev_fade } spec_lev_bad = spec_lev } debug_log = "HOTFIX PASS land_loss_crunch_relief_expires" }
+        else = { debug_log = "HOTFIX FAIL land_loss_crunch_relief_expires" }
+        debug_log = "HOTFIX SUITE COMPLETE"
+    }
+}

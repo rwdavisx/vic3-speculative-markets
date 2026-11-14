@@ -1,0 +1,17 @@
+{
+  "spec_mechanics_lend": {
+    "path": "common/on_actions/spec_on_actions.txt",
+    "start": "# bank exposure: where this month's credit goes (exposure.py)\n",
+    "end": "\t\t\t\tchange_variable = { name = spec_debt add = var:spec_credit_given }"
+  },
+  "spec_mechanics_standards": {
+    "path": "common/on_actions/spec_on_actions.txt",
+    "start": "# lending standards and boom construction (cycle.py)\n",
+    "end": "# land lost: the average income is the income these loans were taken on. A repeat loss during the relief adds nothing"
+  },
+  "spec_mechanics_leverage": {
+    "path": "common/on_actions/spec_on_actions.txt",
+    "start": "# land lost: the average income is the income these loans were taken on. A repeat loss during the relief adds nothing\n",
+    "end": "# Leverage History and the bank chart's goods: after this month's repayment and lending, so they match the Leverage bar and the shares shown"
+  }
+}

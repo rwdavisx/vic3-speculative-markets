@@ -18,7 +18,7 @@ spec_stage = {
 		value = 3
 	}
 	else_if = {
-		limit = { has_variable = spec_conf var:spec_conf >= 55 }
+		limit = { has_variable = spec_conf var:spec_conf >= 60 }
 		value = 2
 	}
 	else_if = {

@@ -1,0 +1,77 @@
+namespace = spec_mechanics_panic
+spec_mechanics_panic.1 = {
+    type = country_event
+    hidden = yes
+    immediate = {
+        activate_law = law_type:law_interventionism
+        if = { limit = { NOT = { has_technology_researched = central_banking } } add_technology_researched = central_banking }
+        remove_variable = spec_llr
+        remove_variable = spec_rescued
+        remove_variable = spec_panic_cooldown
+        remove_variable = spec_crunch
+        set_variable = { name = spec_conf value = 19 }
+        set_variable = { name = spec_debt value = 0 }
+        set_variable = { name = spec_c_total value = 0 }
+        set_variable = { name = spec_lax value = 0.5 }
+        spec_start_panic = yes
+        if = { limit = { var:spec_panic > 0 var:spec_panic = var:spec_panic_len var:spec_panic_elapsed = 0 has_modifier = spec_panic has_modifier = spec_panic_crunch has_modifier = spec_panic_relief spec_can_rescue = yes } debug_log = "HOTFIX PASS panic_start_initializes_clock_and_effects" }
+        else = { debug_log = "HOTFIX FAIL panic_start_initializes_clock_and_effects" }
+        set_variable = { name = spec_panic value = 6 }
+        set_variable = { name = spec_panic_len value = 6 }
+        spec_rescue = yes
+        if = { limit = { var:spec_panic = 2 spec_panic_run = 0 var:spec_conf = 39 var:spec_lax = 0.75 has_modifier = spec_panic_relief NOT = { spec_can_rescue = yes } } debug_log = "HOTFIX PASS rescue_shortens_deadline_not_elapsed_age" }
+        else = { debug_log = "HOTFIX FAIL rescue_shortens_deadline_not_elapsed_age" }
+        set_variable = { name = spec_conf value = 80 }
+        spec_mechanics_clocks = yes
+        if = { limit = { has_variable = spec_panic spec_panic_run = 1 } debug_log = "HOTFIX PASS panic_minimum_not_bypassed_by_rescue" }
+        else = { debug_log = "HOTFIX FAIL panic_minimum_not_bypassed_by_rescue" }
+        spec_mechanics_clocks = yes
+        if = { limit = { var:spec_conf = 80 var:spec_lax = 0.75 var:spec_panic_cooldown = 12 NOR = { has_variable = spec_panic has_variable = spec_panic_elapsed has_variable = spec_rescued has_modifier = spec_panic has_modifier = spec_panic_crunch has_modifier = spec_panic_relief } } debug_log = "HOTFIX PASS rescued_panic_ends_without_resetting_confidence" }
+        else = { debug_log = "HOTFIX FAIL rescued_panic_ends_without_resetting_confidence" }
+
+        set_variable = { name = spec_panic value = 5 }
+        set_variable = { name = spec_panic_len value = 6 }
+        set_variable = { name = spec_panic_elapsed value = 1 }
+        set_variable = { name = spec_conf value = 40 }
+        set_variable = { name = spec_lax value = 0.3 }
+        remove_variable = spec_rescued
+        spec_mechanics_clocks = yes
+        if = { limit = { NOT = { has_variable = spec_panic } var:spec_conf = 40 var:spec_lax = 0 } debug_log = "HOTFIX PASS unrescued_recovery_sobers_banks_floor_zero" }
+        else = { debug_log = "HOTFIX FAIL unrescued_recovery_sobers_banks_floor_zero" }
+        set_variable = { name = spec_panic value = 1 }
+        set_variable = { name = spec_panic_len value = 6 }
+        set_variable = { name = spec_panic_elapsed value = 5 }
+        set_variable = { name = spec_conf value = 1 }
+        spec_mechanics_clocks = yes
+        if = { limit = { NOT = { has_variable = spec_panic } var:spec_conf = 1 } debug_log = "HOTFIX PASS panic_deadline_ends_even_low_confidence" }
+        else = { debug_log = "HOTFIX FAIL panic_deadline_ends_even_low_confidence" }
+        spec_mechanics_clocks = yes
+        if = { limit = { NOT = { has_variable = spec_panic } var:spec_panic_cooldown = 11 } debug_log = "HOTFIX PASS cooldown_prevents_immediate_new_panic" }
+        else = { debug_log = "HOTFIX FAIL cooldown_prevents_immediate_new_panic" }
+
+        set_variable = { name = spec_panic value = 4 }
+        set_variable = { name = spec_panic_len value = 6 }
+        remove_variable = spec_panic_elapsed
+        if = { limit = { spec_panic_run = 2 } debug_log = "HOTFIX PASS legacy_panic_elapsed_fallback" }
+        else = { debug_log = "HOTFIX FAIL legacy_panic_elapsed_fallback" }
+        set_variable = { name = spec_conf value = 10 }
+        spec_mechanics_clocks = yes
+        if = { limit = { var:spec_panic = 3 var:spec_panic_elapsed = 3 } debug_log = "HOTFIX PASS legacy_panic_clock_migrates" }
+        else = { debug_log = "HOTFIX FAIL legacy_panic_clock_migrates" }
+        remove_variable = spec_panic
+        remove_variable = spec_panic_elapsed
+        set_variable = { name = spec_conf value = 55 }
+        remove_variable = spec_stance_cooldown
+        set_variable = { name = spec_stance value = 0 }
+        if = { limit = { spec_can_stance_tight = yes spec_can_stance_loose = yes NOT = { spec_can_stance_normal = yes } } debug_log = "HOTFIX PASS stance_change_requires_different_stance" }
+        else = { debug_log = "HOTFIX FAIL stance_change_requires_different_stance" }
+        spec_stance_to_tight = yes
+        if = { limit = { var:spec_stance = -1 var:spec_stance_cooldown = 6 NOT = { spec_can_stance_normal = yes } } debug_log = "HOTFIX PASS stance_change_starts_six_month_lock" }
+        else = { debug_log = "HOTFIX FAIL stance_change_starts_six_month_lock" }
+        set_variable = { name = spec_stance_cooldown value = 1 }
+        spec_mechanics_clocks = yes
+        if = { limit = { NOT = { has_variable = spec_stance_cooldown } spec_can_stance_normal = yes } debug_log = "HOTFIX PASS stance_lock_expires" }
+        else = { debug_log = "HOTFIX FAIL stance_lock_expires" }
+        debug_log = "HOTFIX SUITE COMPLETE"
+    }
+}

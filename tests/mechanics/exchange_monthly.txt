@@ -1,0 +1,49 @@
+# Isolate exact monthly trust/notice blocks from annual rival scoring and AI pursuits.
+namespace = spec_mechanics_exchange_monthly
+spec_mechanics_exchange_monthly.1 = { type = country_event hidden = yes immediate = {
+spec_exch_clear = yes
+remove_variable = spec_panic
+remove_variable = spec_crunch
+set_variable = { name = spec_lax value = 0.5 }
+set_variable = { name = spec_centre_trust value = 60 }
+spec_mechanics_exchange_trust = yes
+if = { limit = { var:spec_centre_trust = 61 } debug_log = "HOTFIX PASS sound_month_adds_one_trust" }
+else = { debug_log = "HOTFIX FAIL sound_month_adds_one_trust" }
+set_variable = { name = spec_lax value = 0.7 }
+spec_mechanics_exchange_trust = yes
+if = { limit = { var:spec_centre_trust = 61 } debug_log = "HOTFIX PASS middling_standards_hold_trust" }
+else = { debug_log = "HOTFIX FAIL middling_standards_hold_trust" }
+set_variable = { name = spec_exch_known value = 1 }
+set_variable = { name = spec_lax value = 0.8 }
+spec_mechanics_exchange_trust = yes
+if = { limit = { var:spec_centre_trust = 60 } debug_log = "HOTFIX PASS reckless_month_loses_trust" }
+else = { debug_log = "HOTFIX FAIL reckless_month_loses_trust" }
+set_variable = { name = spec_lax value = 0.5 }
+set_variable = { name = spec_centre_trust value = 120 }
+spec_mechanics_exchange_trust = yes
+if = { limit = { var:spec_centre_trust = 120 } debug_log = "HOTFIX PASS trust_ceiling" }
+else = { debug_log = "HOTFIX FAIL trust_ceiling" }
+set_variable = { name = spec_panic value = 6 }
+set_variable = { name = spec_centre_trust value = 50 }
+spec_mechanics_exchange_trust = yes
+if = { limit = { var:spec_centre_trust = 50 } debug_log = "HOTFIX PASS panic_stops_quiet_month_trust_recovery" }
+else = { debug_log = "HOTFIX FAIL panic_stops_quiet_month_trust_recovery" }
+remove_variable = spec_panic
+set_variable = { name = spec_crunch value = 10 }
+set_variable = { name = spec_exch_stand value = 3 }
+set_local_variable = { name = spec_exch_was value = 0 }
+spec_mechanics_exchange_crunch = yes
+if = { limit = { var:spec_centre_trust = 49 var:spec_exch_stand = 0 } debug_log = "HOTFIX PASS bad_debts_lose_trust_and_prevent_promotion" }
+else = { debug_log = "HOTFIX FAIL bad_debts_lose_trust_and_prevent_promotion" }
+remove_variable = spec_crunch
+set_variable = spec_pledge
+set_variable = { name = spec_pledge_leave value = 2 }
+spec_mechanics_exchange_trust = yes
+if = { limit = { has_variable = spec_pledge var:spec_pledge_leave = 1 } debug_log = "HOTFIX PASS pledge_notice_penultimate_month" }
+else = { debug_log = "HOTFIX FAIL pledge_notice_penultimate_month" }
+spec_mechanics_exchange_trust = yes
+if = { limit = { NOT = { has_variable = spec_pledge_leave } } debug_log = "HOTFIX PASS pledge_notice_expires" }
+else = { debug_log = "HOTFIX FAIL pledge_notice_expires" }
+
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

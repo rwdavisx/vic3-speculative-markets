@@ -1,0 +1,82 @@
+# Hand-specified contracts: boundaries, accounting, law shutdown and event safety.
+namespace = spec_mechanics_confidence
+spec_mechanics_confidence.1 = {
+    type = country_event
+    hidden = yes
+    immediate = {
+        activate_law = law_type:law_interventionism
+        remove_modifier = spec_panic
+        set_variable = { name = spec_conf value = 19.99 }
+        spec_update_band = yes
+        if = { limit = { has_modifier = spec_conf_panic NOT = { has_modifier = spec_conf_wary } } debug_log = "HOTFIX PASS conf_below_twenty" }
+        else = { debug_log = "HOTFIX FAIL conf_below_twenty" }
+        set_variable = { name = spec_conf value = 20 }
+        spec_update_band = yes
+        if = { limit = { has_modifier = spec_conf_wary NOT = { has_modifier = spec_conf_panic } } debug_log = "HOTFIX PASS conf_twenty" }
+        else = { debug_log = "HOTFIX FAIL conf_twenty" }
+        set_variable = { name = spec_conf value = 40 }
+        spec_update_band = yes
+        if = { limit = { has_modifier = spec_conf_steady NOT = { has_modifier = spec_conf_wary } } debug_log = "HOTFIX PASS conf_forty" }
+        else = { debug_log = "HOTFIX FAIL conf_forty" }
+        set_variable = { name = spec_conf value = 60 }
+        spec_update_band = yes
+        if = { limit = { has_modifier = spec_conf_buoyant NOT = { has_modifier = spec_conf_steady } } debug_log = "HOTFIX PASS conf_sixty" }
+        else = { debug_log = "HOTFIX FAIL conf_sixty" }
+        set_variable = { name = spec_conf value = 80 }
+        spec_update_band = yes
+        if = { limit = { has_modifier = spec_conf_mania NOT = { has_modifier = spec_conf_buoyant } } debug_log = "HOTFIX PASS conf_eighty" }
+        else = { debug_log = "HOTFIX FAIL conf_eighty" }
+        set_variable = { name = spec_conf value = 10 }
+        add_modifier = { name = spec_panic }
+        spec_update_band = yes
+        if = { limit = { has_modifier = spec_conf_panic_held NOR = { has_modifier = spec_conf_panic has_modifier = spec_conf_mania } } debug_log = "HOTFIX PASS panic_does_not_double_investment_penalty" }
+        else = { debug_log = "HOTFIX FAIL panic_does_not_double_investment_penalty" }
+        remove_modifier = spec_panic
+        spec_update_band = yes
+        if = { limit = { has_modifier = spec_conf_panic NOT = { has_modifier = spec_conf_panic_held } } debug_log = "HOTFIX PASS panic_band_restored" }
+        else = { debug_log = "HOTFIX FAIL panic_band_restored" }
+
+        set_variable = { name = spec_conf value = 97 }
+        set_variable = { name = spec_c_total value = 4 }
+        set_variable = { name = spec_c_caution value = 1 }
+        spec_story_conf = { AMOUNT = 10 }
+        if = { limit = { var:spec_conf = 100 var:spec_c_total = 7 var:spec_c_caution = 4 } debug_log = "HOTFIX PASS story_upper_bound_actual_delta" }
+        else = { debug_log = "HOTFIX FAIL story_upper_bound_actual_delta" }
+        set_variable = { name = spec_conf value = 3 }
+        set_variable = { name = spec_c_total value = 4 }
+        set_variable = { name = spec_c_caution value = 1 }
+        spec_story_conf = { AMOUNT = -10 }
+        if = { limit = { var:spec_conf = 0 var:spec_c_total = 1 var:spec_c_caution = -2 } debug_log = "HOTFIX PASS story_lower_bound_actual_delta" }
+        else = { debug_log = "HOTFIX FAIL story_lower_bound_actual_delta" }
+        set_variable = { name = spec_conf value = 3 }
+        set_variable = { name = spec_c_total value = 4 }
+        spec_cool_conf = { AMOUNT = 10 }
+        if = { limit = { var:spec_conf = 0 var:spec_c_total = 1 var:spec_c_caution = -3 } debug_log = "HOTFIX PASS caution_lower_bound_actual_delta" }
+        else = { debug_log = "HOTFIX FAIL caution_lower_bound_actual_delta" }
+
+        # Reforms persist through a closed economy; current speculative effects do not.
+        set_variable = { name = spec_note value = 1 }
+        set_variable = spec_llr
+        set_variable = spec_company_law
+        set_variable = { name = spec_panic value = 6 }
+        set_variable = { name = spec_debt value = 100 }
+        set_variable = { name = spec_lax value = 0.8 }
+        set_variable = spec_encourage_steel
+        add_modifier = { name = spec_panic_relief multiplier = 100 }
+        add_modifier = { name = spec_credit_crunch multiplier = 5 }
+        activate_law = law_type:law_command_economy
+        spec_shut_down = yes
+        if = { limit = { spec_law_mult = 0 NOR = { has_variable = spec_conf has_variable = spec_debt has_variable = spec_lax has_variable = spec_panic has_variable = spec_encourage_steel has_modifier = spec_panic_relief has_modifier = spec_credit_crunch has_modifier = spec_conf_panic } } debug_log = "HOTFIX PASS shutdown_removes_current_state" }
+        else = { debug_log = "HOTFIX FAIL shutdown_removes_current_state" }
+        if = { limit = { var:spec_note = 1 has_variable = spec_llr has_variable = spec_company_law } debug_log = "HOTFIX PASS shutdown_preserves_reforms" }
+        else = { debug_log = "HOTFIX FAIL shutdown_preserves_reforms" }
+        spec_story_conf = { AMOUNT = 10 }
+        spec_cool_conf = { AMOUNT = 10 }
+        if = { limit = { NOT = { has_variable = spec_conf } } debug_log = "HOTFIX PASS delayed_responses_do_not_reopen" }
+        else = { debug_log = "HOTFIX FAIL delayed_responses_do_not_reopen" }
+        spec_shut_down = yes
+        if = { limit = { NOT = { has_variable = spec_conf } has_variable = spec_llr } debug_log = "HOTFIX PASS shutdown_idempotent" }
+        else = { debug_log = "HOTFIX FAIL shutdown_idempotent" }
+        debug_log = "HOTFIX SUITE COMPLETE"
+    }
+}

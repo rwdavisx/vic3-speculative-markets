@@ -36435,7 +36435,11 @@ add_modifier = {
 				}
 				# has_journal_entry misses an entry that is shown but not active, so remember adding it
 				set_variable = spec_je_added
-				add_journal_entry = { type = je_spec_markets }
+				# The journal reference also finds inactive entries in older saves.
+				if = {
+					limit = { NOT = { exists = je:je_spec_markets } }
+					add_journal_entry = { type = je_spec_markets }
+				}
 			}
 				if = {
 					limit = {

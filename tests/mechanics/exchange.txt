@@ -1,0 +1,47 @@
+namespace = spec_mechanics_exchange
+spec_mechanics_exchange.1 = {
+    type = country_event
+    hidden = yes
+    immediate = {
+        spec_exch_clear = yes
+        remove_variable = spec_exch_known
+        remove_variable = spec_charter_lock
+        set_variable = { name = spec_centre_trust value = 100 }
+        spec_charter_to_1 = yes
+        if = { limit = { var:spec_exch_known = 1 var:spec_centre_trust = 100 has_variable = spec_charter_lock NOT = { spec_can_charter_2 = yes } } debug_log = "HOTFIX PASS first_charter_free_and_locked" }
+        else = { debug_log = "HOTFIX FAIL first_charter_free_and_locked" }
+        remove_variable = spec_charter_lock
+        spec_charter_to_2 = yes
+        if = { limit = { var:spec_exch_known = 2 var:spec_centre_trust = 50 } debug_log = "HOTFIX PASS charter_change_halves_trust" }
+        else = { debug_log = "HOTFIX FAIL charter_change_halves_trust" }
+        set_variable = { name = spec_exch_stand value = 3 }
+        remove_variable = spec_pw_sum
+        spec_pursue_to_harbour = yes
+        spec_pursue_to_floor = yes
+        if = { limit = { var:spec_pursue_n = 2 var:spec_pu_harbour = 1 var:spec_pu_floor = 2 has_variable = spec_has_harbour has_variable = spec_pu_lock_harbour NOT = { spec_can_pursue_stop_harbour = yes } } debug_log = "HOTFIX PASS pursuits_allocate_unique_priorities_and_lock" }
+        else = { debug_log = "HOTFIX FAIL pursuits_allocate_unique_priorities_and_lock" }
+        spec_pursue_left_floor = yes
+        if = { limit = { var:spec_pu_floor = 1 var:spec_pu_harbour = 2 var:spec_pursue_n = 2 } debug_log = "HOTFIX PASS pursuit_reorder_preserves_unique_priorities" }
+        else = { debug_log = "HOTFIX FAIL pursuit_reorder_preserves_unique_priorities" }
+        remove_variable = spec_pu_lock_floor
+        spec_pursue_stop_floor = yes
+        if = { limit = { var:spec_pursue_n = 1 var:spec_pu_harbour = 1 NOR = { has_variable = spec_pu_floor has_variable = spec_has_floor has_global_variable = spec_pu_was } } debug_log = "HOTFIX PASS stopping_pursuit_compacts_order" }
+        else = { debug_log = "HOTFIX FAIL stopping_pursuit_compacts_order" }
+        remove_variable = spec_charter_lock
+        spec_charter_to_1 = yes
+        if = { limit = { var:spec_pursue_n = 0 NOR = { has_variable = spec_pu_harbour has_variable = spec_has_harbour } } debug_log = "HOTFIX PASS charter_change_clears_incompatible_pursuit" }
+        else = { debug_log = "HOTFIX FAIL charter_change_clears_incompatible_pursuit" }
+        remove_variable = spec_panic
+        remove_variable = spec_pledge
+        spec_pledge_make = yes
+        if = { limit = { has_variable = spec_pledge NOT = { spec_can_pledge = yes } spec_can_pledge_leave = yes } debug_log = "HOTFIX PASS rescue_pledge_can_only_be_made_once" }
+        else = { debug_log = "HOTFIX FAIL rescue_pledge_can_only_be_made_once" }
+        spec_pledge_withdraw = yes
+        if = { limit = { has_variable = spec_pledge var:spec_pledge_leave = 24 NOT = { spec_can_pledge_leave = yes } } debug_log = "HOTFIX PASS pledge_withdrawal_has_notice_period" }
+        else = { debug_log = "HOTFIX FAIL pledge_withdrawal_has_notice_period" }
+        spec_exch_clear = yes
+        if = { limit = { NOR = { has_variable = spec_pledge has_variable = spec_pledge_leave has_variable = spec_pursue_n has_variable = spec_pw_sum has_variable = spec_exch_stand has_variable = spec_exch_seat } } debug_log = "HOTFIX PASS exchange_shutdown_clears_actions" }
+        else = { debug_log = "HOTFIX FAIL exchange_shutdown_clears_actions" }
+        debug_log = "HOTFIX SUITE COMPLETE"
+    }
+}
