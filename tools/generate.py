@@ -52,6 +52,7 @@ import probe
 import stories
 import tech_ties
 import tuning
+import mod_sources
 import vanilla_ties
 
 GAME =Path("G:/SteamLibrary/steamapps/common/Victoria 3/game")
@@ -266,6 +267,11 @@ UPGRADES = {"shipyard": [("steamers", "gantry_cranes")], "electrics_industry": [
             "textile_mill": [("luxury_clothes", None)], "furniture_manufactory": [("luxury_furniture", None)],
             "glassworks": [("porcelain", None)], "synthetics_plant": [("silk", "art_silk")],
             "whaling_station": [("meat", None)]}
+if mod_sources.MR:
+    if MOD.resolve() == (Path(__file__).resolve().parent.parent / "mod").resolve():
+        raise ValueError("Morgenroete builds require a separate SPEC_MOD_OUT directory")
+    mod_sources.validate()
+    SELLS.update(mod_sources.SELLS)
 cycle.setup(GAME, SELLS, UPGRADES)
 GOODS = sorted({g for m in SELLS.values() for g in m.values()} | {g for u in UPGRADES.values() for g, _ in u})
 BUILDINGS = [b for m in SELLS.values() for b in m]
@@ -302,7 +308,7 @@ def block_end(s, open_at):
 
 
 def vanilla_block(path, key):
-    s = (GAME / path).read_text(encoding="utf-8-sig")
+    s = mod_sources.source(GAME, path, key).read_text(encoding="utf-8-sig")
     start = s.index(f"\n{key} = {{") + 1
     return s[start:block_end(s, s.index("{", start))]
 
@@ -2126,7 +2132,7 @@ def main(log=False):
     injects = []
     for fname, sells in SELLS.items():
         (MOD / f"common/buildings/{fname}.txt").unlink(missing_ok=True)  # was a copy of the vanilla file
-        s = (GAME / f"common/buildings/{fname}.txt").read_text(encoding="utf-8-sig")
+        s = mod_sources.source(GAME, f"common/buildings/{fname}.txt").read_text(encoding="utf-8-sig")
         injects += [building_inject(s, name, good) for name, good in sells.items()]
     write(BUILDINGS_FILE, "# investors favour building what is booming: each building's ai_value grows with its good's hype\n"
           + "\n".join(i for i, _ in injects))

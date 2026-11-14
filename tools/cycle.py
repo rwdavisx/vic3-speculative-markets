@@ -12,6 +12,7 @@ C  Busts land on people: a Bust or Collapse makes radicals in the states where t
 import re
 
 import tuning
+import mod_sources
 
 ON = tuning.get("CYCLE_ON", 1)
 
@@ -51,7 +52,7 @@ def setup(game, sells, upgrades):
     """Reads vanilla's buildings for each good's building group. Called once, where generate defines its goods."""
     def blocks(d):  # top-level name -> its text, up to the next name (vanilla's closing braces are not all at column 0)
         parts = re.split(r"^(\w+)\s*=\s*\{", "\n".join(
-            f.read_text(encoding="utf-8-sig") for f in sorted((game / d).glob("*.txt"))), flags=re.M)
+            f.read_text(encoding="utf-8-sig") for f in mod_sources.files(game, d)), flags=re.M)
         return zip(parts[1::2], parts[2::2])
     field = lambda body, key: (re.search(rf"^\t{key}\s*=\s*(\w+)", body, re.M) or [None, None])[1]
     parent = {name: field(body, "parent_group") for name, body in blocks("common/building_groups")}

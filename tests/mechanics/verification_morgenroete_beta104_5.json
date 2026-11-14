@@ -1,0 +1,249 @@
+{
+  "date": "2026-11-14",
+  "status": "TESTED CANDIDATE - NOT PUBLISHED - RELEASE CHECKS REMAIN",
+  "game": "1.15.1",
+  "parent": "1.0.4-beta.5",
+  "morgenroete": "2.9.0e Curie",
+  "archive": "compatibility/morgenroete/releases/Speculative_Markets_Morgenroete_0.1.0-test_beta104_5.zip",
+  "archive_sha256": "63f0399db4a0866480ca19556cf6ad165685265d96b8024b9aefde3003e25c08",
+  "downloads": [
+    {
+      "item": 2889925770,
+      "folder": "G:\\SteamLibrary\\steamapps\\workshop\\content\\529340\\2889925770",
+      "bytes": 2468670517,
+      "timestamp": 1794426796
+    },
+    {
+      "item": 3836657389,
+      "folder": "G:\\SteamLibrary\\steamapps\\workshop\\content\\529340\\3836657389",
+      "bytes": 4665393,
+      "timestamp": 1794223395
+    }
+  ],
+  "build": {
+    "candidate": "runs/morgenroete/candidate_02",
+    "tested_candidate": "runs/morgenroete/candidate_01",
+    "patch_bytes_identical": true,
+    "default_generation_matches_beta5": true,
+    "stable_and_published_beta_unchanged": true,
+    "python_tests_passed": 46
+  },
+  "engine": [
+    {
+      "suite": "morgenroete",
+      "passed": [
+        "elgar_instruments_building_interest",
+        "elgar_instruments_building_map",
+        "elgar_instruments_falling_interest",
+        "elgar_instruments_monthly_init",
+        "elgar_instruments_restraint_cancels",
+        "elgar_instruments_restraint_targets_good",
+        "elgar_instruments_rising_interest",
+        "elgar_instruments_shutdown",
+        "good_uranium_building_interest",
+        "good_uranium_building_map",
+        "good_uranium_falling_interest",
+        "good_uranium_monthly_init",
+        "good_uranium_restraint_cancels",
+        "good_uranium_restraint_targets_good",
+        "good_uranium_rising_interest",
+        "good_uranium_shutdown",
+        "manzoni_prints_building_interest",
+        "manzoni_prints_building_map",
+        "manzoni_prints_falling_interest",
+        "manzoni_prints_monthly_init",
+        "manzoni_prints_restraint_cancels",
+        "manzoni_prints_restraint_targets_good",
+        "manzoni_prints_rising_interest",
+        "manzoni_prints_shutdown"
+      ],
+      "failed": [],
+      "missing": [],
+      "unexpected": [],
+      "complete": true,
+      "error_logs_checked": [
+        "G:\\GameDev\\speculative-markets\\runs\\morgenroete\\engine_02\\error_mirror.log"
+      ],
+      "error_categories": {
+        "basegame_script_errors": 3,
+        "engine_or_basegame_other": 1445,
+        "mod_variable_load_warnings": 16
+      },
+      "blocking_error_count": 0,
+      "blocking_error_examples": [],
+      "evidence_sha256": {
+        "debug_mirror.log": "c2fb23d6202b3ed078575ef4b65f0320769e3fe8ae64b5750cc09f80a88686a5",
+        "error_mirror.log": "6025e934ad5038efed17da6cc6b20735c986d8047f00e013d90b70c7e73a9187",
+        "launch.json": "0762a90f23f77c490f917b33d920df9d3e667b5709527bc472ceb3d5902d2644",
+        "content_load.json": "9749c4c411a288722b4b4af482cd5d4baae61d3542dd78d65d9dbb0e48292538"
+      },
+      "test_manifest_sha256": "6bacc08ba10c1622c45cf11e58c85100da1a255f0e0f499833fa15f9b3c8b10f"
+    },
+    {
+      "suite": "morgenroete_endings",
+      "passed": [
+        "collapse_aeroplanes_recovers_and_reduces_exposure",
+        "collapse_ammunition_recovers_and_reduces_exposure",
+        "collapse_artillery_recovers_and_reduces_exposure",
+        "collapse_automobiles_recovers_and_reduces_exposure",
+        "collapse_clippers_recovers_and_reduces_exposure",
+        "collapse_clothes_recovers_and_reduces_exposure",
+        "collapse_coal_recovers_and_reduces_exposure",
+        "collapse_coffee_recovers_and_reduces_exposure",
+        "collapse_copper_recovers_and_reduces_exposure",
+        "collapse_dye_recovers_and_reduces_exposure",
+        "collapse_electricity_recovers_and_reduces_exposure",
+        "collapse_elgar_instruments_recovers_and_reduces_exposure",
+        "collapse_engines_recovers_and_reduces_exposure",
+        "collapse_explosives_recovers_and_reduces_exposure",
+        "collapse_fabric_recovers_and_reduces_exposure",
+        "collapse_fertilizer_recovers_and_reduces_exposure",
+        "collapse_fine_art_recovers_and_reduces_exposure",
+        "collapse_fish_recovers_and_reduces_exposure",
+        "collapse_fruit_recovers_and_reduces_exposure",
+        "collapse_furniture_recovers_and_reduces_exposure",
+        "collapse_glass_recovers_and_reduces_exposure",
+        "collapse_good_uranium_recovers_and_reduces_exposure",
+        "collapse_grain_recovers_and_reduces_exposure",
+        "collapse_groceries_recovers_and_reduces_exposure",
+        "collapse_hardwood_recovers_and_reduces_exposure",
+        "collapse_iron_recovers_and_reduces_exposure",
+        "collapse_lead_recovers_and_reduces_exposure",
+        "collapse_liquor_recovers_and_reduces_exposure",
+        "collapse_luxury_clothes_recovers_and_reduces_exposure",
+        "collapse_luxury_furniture_recovers_and_reduces_exposure",
+        "collapse_manzoni_prints_recovers_and_reduces_exposure",
+        "collapse_meat_recovers_and_reduces_exposure",
+        "collapse_merchant_marine_recovers_and_reduces_exposure",
+        "collapse_oil_recovers_and_reduces_exposure",
+        "collapse_opium_recovers_and_reduces_exposure",
+        "collapse_paper_recovers_and_reduces_exposure",
+        "collapse_porcelain_recovers_and_reduces_exposure",
+        "collapse_radios_recovers_and_reduces_exposure",
+        "collapse_rubber_recovers_and_reduces_exposure",
+        "collapse_silk_recovers_and_reduces_exposure",
+        "collapse_small_arms_recovers_and_reduces_exposure",
+        "collapse_steamers_recovers_and_reduces_exposure",
+        "collapse_steel_recovers_and_reduces_exposure",
+        "collapse_sugar_recovers_and_reduces_exposure",
+        "collapse_sulfur_recovers_and_reduces_exposure",
+        "collapse_tanks_recovers_and_reduces_exposure",
+        "collapse_tea_recovers_and_reduces_exposure",
+        "collapse_telephones_recovers_and_reduces_exposure",
+        "collapse_tobacco_recovers_and_reduces_exposure",
+        "collapse_tools_recovers_and_reduces_exposure",
+        "collapse_wine_recovers_and_reduces_exposure",
+        "collapse_wood_recovers_and_reduces_exposure"
+      ],
+      "failed": [],
+      "missing": [],
+      "unexpected": [],
+      "complete": true,
+      "error_logs_checked": [
+        "G:\\GameDev\\speculative-markets\\runs\\morgenroete\\engine_endings_01\\error_mirror.log"
+      ],
+      "error_categories": {
+        "basegame_script_errors": 3,
+        "engine_or_basegame_other": 1445,
+        "mod_variable_load_warnings": 16
+      },
+      "blocking_error_count": 0,
+      "blocking_error_examples": [],
+      "evidence_sha256": {
+        "debug_mirror.log": "66abe7edfbcf9b8c4cc6bfd9a0acba3de217d007f671f802799a90cd0981589f",
+        "error_mirror.log": "996942116041b8178aa845380c28e59ca92089b594ffcfabb457f478f78a042e",
+        "launch.json": "46b1debd0cebec7e41581b39c1e486b2f1f7846ae8234a5518647f826cd41ab5",
+        "content_load.json": "64cacf8e77dd8cd3bf902c56c6a62c9a3f71735aef9c3dcb5d02e0fb65b9b3d2"
+      },
+      "test_manifest_sha256": "fa62716df36b07559b3a27acdf61556f8ed791b506df66023a4ac171bae5b034"
+    }
+  ],
+  "ui": {
+    "playset": {
+      "enabledMods": [
+        {
+          "path": "G:\\SteamLibrary\\steamapps\\workshop\\content\\529340\\3385002128"
+        },
+        {
+          "path": "G:\\SteamLibrary\\steamapps\\workshop\\content\\529340\\2889925770"
+        },
+        {
+          "path": "G:\\GameDev\\speculative-markets\\beta\\mod"
+        },
+        {
+          "path": "G:\\GameDev\\speculative-markets\\runs\\morgenroete\\candidate_01\\mod"
+        },
+        {
+          "path": "G:\\GameDev\\speculative-markets\\compatibility\\cmf\\mod"
+        }
+      ],
+      "disabledDLC": [],
+      "enabledUGC": []
+    },
+    "source_save": "runs/cmf_compat/stable_102/save games/cmf_ui_1840.v3",
+    "source_save_sha256": "fd0209d9d17f64d67dafe1755c7e726d5712e4c26340cf3443f942d13ec7ab6d",
+    "passed": [
+      "sidebar opens Finance",
+      "journal Open Finance selects Speculation",
+      "native Tools Open Finance selects Speculation",
+      "Finance to native Market closes Finance",
+      "Finance to Morgenroete Sports and back replaces previous panel",
+      "pause menu hides Finance"
+    ],
+    "evidence_sha256": {
+      "finance_sidebar.jpg": "a5c1d4b27d59fa13f9289ecf4f0143734c171c44bdce3166301b0d1b19f9e3b2",
+      "finance_to_mr_sports.jpg": "16978e82a2395a37d5afd5b5cef3a6d31dc85b57aa327645c963f57e3f2522b5",
+      "goods_opens_speculation.jpg": "d742f8f9891a621d4b72c77733c890c774b44c6a53c5c10be53b29699ae17c07",
+      "journal_opens_speculation.jpg": "ea9c75e7d7d46b261822335099048bd94332f9b2f503393f6b06f0eefd3506fb",
+      "mr_sports_to_finance.jpg": "a30b38c6c19691bc18cbe3ca9fa98eb61dee243586e658f4c395e0a3dc9eac41"
+    },
+    "error_gate": {
+      "error_logs_checked": [
+        "G:\\GameDev\\speculative-markets\\runs\\morgenroete\\ui_02\\logs\\error.1.log",
+        "G:\\GameDev\\speculative-markets\\runs\\morgenroete\\ui_02\\logs\\error.log"
+      ],
+      "error_categories": {
+        "basegame_script_errors": 3660,
+        "engine_or_basegame_other": 256,
+        "mod_variable_load_warnings": 16
+      },
+      "blocking_error_count": 0,
+      "blocking_error_examples": []
+    },
+    "error_log_sha256": {
+      "error.1.log": "efe2858279746230ed6a04fe75ed2352ebe9172eab13fb73f0649374b2353a0c",
+      "error.log": "5a82bfdd5ad90faeb45addc47e938374e2f600f13e3098beb5d87f3f77d2c65d"
+    },
+    "limitations": [
+      "UI seed predates Morgenroete; not an existing Morgenroete-save migration test.",
+      "Historical basegame_script_errors classifier includes upstream mod errors. UI logs contain missing Morgenroete variables including elgar_music_tradition; these are not fixed or attributed to vanilla.",
+      "UI launch.json inherited override_source/hash fields from earlier A/B setup; these are stale provenance fields, NOT enabled content. content_load.json records the actual new patch playset."
+    ]
+  },
+  "rejected_runs": [
+    {
+      "path": "runs/morgenroete/engine_01",
+      "reason": "Fixture omitted Radioactivity technology required to create uranium mine; 23/24 pass with one harness error. Corrected engine_02 passes all 24."
+    },
+    {
+      "path": "runs/morgenroete/ui_01",
+      "reason": "Map failed to render with reused pre-Morgenroete shader cache. Fresh private cache in ui_02 rendered correctly. Not counted as a proven mod defect or UI pass."
+    }
+  ],
+  "remaining_release_checks": [
+    "Visual rows and interactions for each new good",
+    "Existing Morgenroete save initialization/migration",
+    "Matching stable parent build and validation before stable support",
+    "Long-term integration and reporter full playset remain outside this focused validation"
+  ],
+  "scope": [
+    "elgar_instruments",
+    "good_uranium",
+    "manzoni_prints"
+  ],
+  "excluded": {
+    "air_travel": "Local service; outside the tradable-goods bridge scope.",
+    "elgar_music": "Non-tradable service; outside the tradable-goods bridge scope."
+  },
+  "publication": "No Workshop item created or uploaded."
+}

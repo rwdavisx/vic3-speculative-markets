@@ -1,0 +1,636 @@
+namespace = spec_mechanics_morgenroete_endings
+spec_mechanics_morgenroete_endings.1 = { type = country_event hidden = yes immediate = {
+ activate_law = law_type:law_interventionism
+ remove_variable = spec_panic
+ remove_variable = spec_crunch
+ set_variable = { name = spec_conf value = 75 }
+ set_variable = { name = spec_stance value = -1 }
+ set_variable = { name = spec_stance_cooldown value = 12 }
+ set_variable = { name = spec_debt value = { value = spec_lev_income multiply = 2 } }
+ remove_variable = spec_glut_aeroplanes
+ remove_variable = spec_restrain_aeroplanes
+ remove_variable = spec_encourage_aeroplanes
+ remove_variable = spec_word_aeroplanes
+ remove_variable = spec_issue_aeroplanes
+ remove_variable = spec_sup_aeroplanes
+ set_variable = { name = spec_fast_aeroplanes value = -1 }
+ set_variable = { name = spec_slow_aeroplanes value = 1 }
+ set_variable = { name = spec_peak_aeroplanes value = 7 }
+ set_variable = { name = spec_exp_aeroplanes value = 0.01 }
+ remove_variable = spec_glut_ammunition
+ remove_variable = spec_restrain_ammunition
+ remove_variable = spec_encourage_ammunition
+ remove_variable = spec_word_ammunition
+ remove_variable = spec_issue_ammunition
+ remove_variable = spec_sup_ammunition
+ set_variable = { name = spec_fast_ammunition value = -1 }
+ set_variable = { name = spec_slow_ammunition value = 1 }
+ set_variable = { name = spec_peak_ammunition value = 7 }
+ set_variable = { name = spec_exp_ammunition value = 0.01 }
+ remove_variable = spec_glut_artillery
+ remove_variable = spec_restrain_artillery
+ remove_variable = spec_encourage_artillery
+ remove_variable = spec_word_artillery
+ remove_variable = spec_issue_artillery
+ remove_variable = spec_sup_artillery
+ set_variable = { name = spec_fast_artillery value = -1 }
+ set_variable = { name = spec_slow_artillery value = 1 }
+ set_variable = { name = spec_peak_artillery value = 7 }
+ set_variable = { name = spec_exp_artillery value = 0.01 }
+ remove_variable = spec_glut_automobiles
+ remove_variable = spec_restrain_automobiles
+ remove_variable = spec_encourage_automobiles
+ remove_variable = spec_word_automobiles
+ remove_variable = spec_issue_automobiles
+ remove_variable = spec_sup_automobiles
+ set_variable = { name = spec_fast_automobiles value = -1 }
+ set_variable = { name = spec_slow_automobiles value = 1 }
+ set_variable = { name = spec_peak_automobiles value = 7 }
+ set_variable = { name = spec_exp_automobiles value = 0.01 }
+ remove_variable = spec_glut_clippers
+ remove_variable = spec_restrain_clippers
+ remove_variable = spec_encourage_clippers
+ remove_variable = spec_word_clippers
+ remove_variable = spec_issue_clippers
+ remove_variable = spec_sup_clippers
+ set_variable = { name = spec_fast_clippers value = -1 }
+ set_variable = { name = spec_slow_clippers value = 1 }
+ set_variable = { name = spec_peak_clippers value = 7 }
+ set_variable = { name = spec_exp_clippers value = 0.01 }
+ remove_variable = spec_glut_clothes
+ remove_variable = spec_restrain_clothes
+ remove_variable = spec_encourage_clothes
+ remove_variable = spec_word_clothes
+ remove_variable = spec_issue_clothes
+ remove_variable = spec_sup_clothes
+ set_variable = { name = spec_fast_clothes value = -1 }
+ set_variable = { name = spec_slow_clothes value = 1 }
+ set_variable = { name = spec_peak_clothes value = 7 }
+ set_variable = { name = spec_exp_clothes value = 0.01 }
+ remove_variable = spec_glut_coal
+ remove_variable = spec_restrain_coal
+ remove_variable = spec_encourage_coal
+ remove_variable = spec_word_coal
+ remove_variable = spec_issue_coal
+ remove_variable = spec_sup_coal
+ set_variable = { name = spec_fast_coal value = -1 }
+ set_variable = { name = spec_slow_coal value = 1 }
+ set_variable = { name = spec_peak_coal value = 7 }
+ set_variable = { name = spec_exp_coal value = 0.01 }
+ remove_variable = spec_glut_coffee
+ remove_variable = spec_restrain_coffee
+ remove_variable = spec_encourage_coffee
+ remove_variable = spec_word_coffee
+ remove_variable = spec_issue_coffee
+ remove_variable = spec_sup_coffee
+ set_variable = { name = spec_fast_coffee value = -1 }
+ set_variable = { name = spec_slow_coffee value = 1 }
+ set_variable = { name = spec_peak_coffee value = 7 }
+ set_variable = { name = spec_exp_coffee value = 0.01 }
+ remove_variable = spec_glut_copper
+ remove_variable = spec_restrain_copper
+ remove_variable = spec_encourage_copper
+ remove_variable = spec_word_copper
+ remove_variable = spec_issue_copper
+ remove_variable = spec_sup_copper
+ set_variable = { name = spec_fast_copper value = -1 }
+ set_variable = { name = spec_slow_copper value = 1 }
+ set_variable = { name = spec_peak_copper value = 7 }
+ set_variable = { name = spec_exp_copper value = 0.01 }
+ remove_variable = spec_glut_dye
+ remove_variable = spec_restrain_dye
+ remove_variable = spec_encourage_dye
+ remove_variable = spec_word_dye
+ remove_variable = spec_issue_dye
+ remove_variable = spec_sup_dye
+ set_variable = { name = spec_fast_dye value = -1 }
+ set_variable = { name = spec_slow_dye value = 1 }
+ set_variable = { name = spec_peak_dye value = 7 }
+ set_variable = { name = spec_exp_dye value = 0.01 }
+ remove_variable = spec_glut_electricity
+ remove_variable = spec_restrain_electricity
+ remove_variable = spec_encourage_electricity
+ remove_variable = spec_word_electricity
+ remove_variable = spec_issue_electricity
+ remove_variable = spec_sup_electricity
+ set_variable = { name = spec_fast_electricity value = -1 }
+ set_variable = { name = spec_slow_electricity value = 1 }
+ set_variable = { name = spec_peak_electricity value = 7 }
+ set_variable = { name = spec_exp_electricity value = 0.01 }
+ remove_variable = spec_glut_engines
+ remove_variable = spec_restrain_engines
+ remove_variable = spec_encourage_engines
+ remove_variable = spec_word_engines
+ remove_variable = spec_issue_engines
+ remove_variable = spec_sup_engines
+ set_variable = { name = spec_fast_engines value = -1 }
+ set_variable = { name = spec_slow_engines value = 1 }
+ set_variable = { name = spec_peak_engines value = 7 }
+ set_variable = { name = spec_exp_engines value = 0.01 }
+ remove_variable = spec_glut_explosives
+ remove_variable = spec_restrain_explosives
+ remove_variable = spec_encourage_explosives
+ remove_variable = spec_word_explosives
+ remove_variable = spec_issue_explosives
+ remove_variable = spec_sup_explosives
+ set_variable = { name = spec_fast_explosives value = -1 }
+ set_variable = { name = spec_slow_explosives value = 1 }
+ set_variable = { name = spec_peak_explosives value = 7 }
+ set_variable = { name = spec_exp_explosives value = 0.01 }
+ remove_variable = spec_glut_fabric
+ remove_variable = spec_restrain_fabric
+ remove_variable = spec_encourage_fabric
+ remove_variable = spec_word_fabric
+ remove_variable = spec_issue_fabric
+ remove_variable = spec_sup_fabric
+ set_variable = { name = spec_fast_fabric value = -1 }
+ set_variable = { name = spec_slow_fabric value = 1 }
+ set_variable = { name = spec_peak_fabric value = 7 }
+ set_variable = { name = spec_exp_fabric value = 0.01 }
+ remove_variable = spec_glut_fertilizer
+ remove_variable = spec_restrain_fertilizer
+ remove_variable = spec_encourage_fertilizer
+ remove_variable = spec_word_fertilizer
+ remove_variable = spec_issue_fertilizer
+ remove_variable = spec_sup_fertilizer
+ set_variable = { name = spec_fast_fertilizer value = -1 }
+ set_variable = { name = spec_slow_fertilizer value = 1 }
+ set_variable = { name = spec_peak_fertilizer value = 7 }
+ set_variable = { name = spec_exp_fertilizer value = 0.01 }
+ remove_variable = spec_glut_fine_art
+ remove_variable = spec_restrain_fine_art
+ remove_variable = spec_encourage_fine_art
+ remove_variable = spec_word_fine_art
+ remove_variable = spec_issue_fine_art
+ remove_variable = spec_sup_fine_art
+ set_variable = { name = spec_fast_fine_art value = -1 }
+ set_variable = { name = spec_slow_fine_art value = 1 }
+ set_variable = { name = spec_peak_fine_art value = 7 }
+ set_variable = { name = spec_exp_fine_art value = 0.01 }
+ remove_variable = spec_glut_fish
+ remove_variable = spec_restrain_fish
+ remove_variable = spec_encourage_fish
+ remove_variable = spec_word_fish
+ remove_variable = spec_issue_fish
+ remove_variable = spec_sup_fish
+ set_variable = { name = spec_fast_fish value = -1 }
+ set_variable = { name = spec_slow_fish value = 1 }
+ set_variable = { name = spec_peak_fish value = 7 }
+ set_variable = { name = spec_exp_fish value = 0.01 }
+ remove_variable = spec_glut_fruit
+ remove_variable = spec_restrain_fruit
+ remove_variable = spec_encourage_fruit
+ remove_variable = spec_word_fruit
+ remove_variable = spec_issue_fruit
+ remove_variable = spec_sup_fruit
+ set_variable = { name = spec_fast_fruit value = -1 }
+ set_variable = { name = spec_slow_fruit value = 1 }
+ set_variable = { name = spec_peak_fruit value = 7 }
+ set_variable = { name = spec_exp_fruit value = 0.01 }
+ remove_variable = spec_glut_furniture
+ remove_variable = spec_restrain_furniture
+ remove_variable = spec_encourage_furniture
+ remove_variable = spec_word_furniture
+ remove_variable = spec_issue_furniture
+ remove_variable = spec_sup_furniture
+ set_variable = { name = spec_fast_furniture value = -1 }
+ set_variable = { name = spec_slow_furniture value = 1 }
+ set_variable = { name = spec_peak_furniture value = 7 }
+ set_variable = { name = spec_exp_furniture value = 0.01 }
+ remove_variable = spec_glut_glass
+ remove_variable = spec_restrain_glass
+ remove_variable = spec_encourage_glass
+ remove_variable = spec_word_glass
+ remove_variable = spec_issue_glass
+ remove_variable = spec_sup_glass
+ set_variable = { name = spec_fast_glass value = -1 }
+ set_variable = { name = spec_slow_glass value = 1 }
+ set_variable = { name = spec_peak_glass value = 7 }
+ set_variable = { name = spec_exp_glass value = 0.01 }
+ remove_variable = spec_glut_grain
+ remove_variable = spec_restrain_grain
+ remove_variable = spec_encourage_grain
+ remove_variable = spec_word_grain
+ remove_variable = spec_issue_grain
+ remove_variable = spec_sup_grain
+ set_variable = { name = spec_fast_grain value = -1 }
+ set_variable = { name = spec_slow_grain value = 1 }
+ set_variable = { name = spec_peak_grain value = 7 }
+ set_variable = { name = spec_exp_grain value = 0.01 }
+ remove_variable = spec_glut_groceries
+ remove_variable = spec_restrain_groceries
+ remove_variable = spec_encourage_groceries
+ remove_variable = spec_word_groceries
+ remove_variable = spec_issue_groceries
+ remove_variable = spec_sup_groceries
+ set_variable = { name = spec_fast_groceries value = -1 }
+ set_variable = { name = spec_slow_groceries value = 1 }
+ set_variable = { name = spec_peak_groceries value = 7 }
+ set_variable = { name = spec_exp_groceries value = 0.01 }
+ remove_variable = spec_glut_hardwood
+ remove_variable = spec_restrain_hardwood
+ remove_variable = spec_encourage_hardwood
+ remove_variable = spec_word_hardwood
+ remove_variable = spec_issue_hardwood
+ remove_variable = spec_sup_hardwood
+ set_variable = { name = spec_fast_hardwood value = -1 }
+ set_variable = { name = spec_slow_hardwood value = 1 }
+ set_variable = { name = spec_peak_hardwood value = 7 }
+ set_variable = { name = spec_exp_hardwood value = 0.01 }
+ remove_variable = spec_glut_iron
+ remove_variable = spec_restrain_iron
+ remove_variable = spec_encourage_iron
+ remove_variable = spec_word_iron
+ remove_variable = spec_issue_iron
+ remove_variable = spec_sup_iron
+ set_variable = { name = spec_fast_iron value = -1 }
+ set_variable = { name = spec_slow_iron value = 1 }
+ set_variable = { name = spec_peak_iron value = 7 }
+ set_variable = { name = spec_exp_iron value = 0.01 }
+ remove_variable = spec_glut_lead
+ remove_variable = spec_restrain_lead
+ remove_variable = spec_encourage_lead
+ remove_variable = spec_word_lead
+ remove_variable = spec_issue_lead
+ remove_variable = spec_sup_lead
+ set_variable = { name = spec_fast_lead value = -1 }
+ set_variable = { name = spec_slow_lead value = 1 }
+ set_variable = { name = spec_peak_lead value = 7 }
+ set_variable = { name = spec_exp_lead value = 0.01 }
+ remove_variable = spec_glut_liquor
+ remove_variable = spec_restrain_liquor
+ remove_variable = spec_encourage_liquor
+ remove_variable = spec_word_liquor
+ remove_variable = spec_issue_liquor
+ remove_variable = spec_sup_liquor
+ set_variable = { name = spec_fast_liquor value = -1 }
+ set_variable = { name = spec_slow_liquor value = 1 }
+ set_variable = { name = spec_peak_liquor value = 7 }
+ set_variable = { name = spec_exp_liquor value = 0.01 }
+ remove_variable = spec_glut_luxury_clothes
+ remove_variable = spec_restrain_luxury_clothes
+ remove_variable = spec_encourage_luxury_clothes
+ remove_variable = spec_word_luxury_clothes
+ remove_variable = spec_issue_luxury_clothes
+ remove_variable = spec_sup_luxury_clothes
+ set_variable = { name = spec_fast_luxury_clothes value = -1 }
+ set_variable = { name = spec_slow_luxury_clothes value = 1 }
+ set_variable = { name = spec_peak_luxury_clothes value = 7 }
+ set_variable = { name = spec_exp_luxury_clothes value = 0.01 }
+ remove_variable = spec_glut_luxury_furniture
+ remove_variable = spec_restrain_luxury_furniture
+ remove_variable = spec_encourage_luxury_furniture
+ remove_variable = spec_word_luxury_furniture
+ remove_variable = spec_issue_luxury_furniture
+ remove_variable = spec_sup_luxury_furniture
+ set_variable = { name = spec_fast_luxury_furniture value = -1 }
+ set_variable = { name = spec_slow_luxury_furniture value = 1 }
+ set_variable = { name = spec_peak_luxury_furniture value = 7 }
+ set_variable = { name = spec_exp_luxury_furniture value = 0.01 }
+ remove_variable = spec_glut_meat
+ remove_variable = spec_restrain_meat
+ remove_variable = spec_encourage_meat
+ remove_variable = spec_word_meat
+ remove_variable = spec_issue_meat
+ remove_variable = spec_sup_meat
+ set_variable = { name = spec_fast_meat value = -1 }
+ set_variable = { name = spec_slow_meat value = 1 }
+ set_variable = { name = spec_peak_meat value = 7 }
+ set_variable = { name = spec_exp_meat value = 0.01 }
+ remove_variable = spec_glut_merchant_marine
+ remove_variable = spec_restrain_merchant_marine
+ remove_variable = spec_encourage_merchant_marine
+ remove_variable = spec_word_merchant_marine
+ remove_variable = spec_issue_merchant_marine
+ remove_variable = spec_sup_merchant_marine
+ set_variable = { name = spec_fast_merchant_marine value = -1 }
+ set_variable = { name = spec_slow_merchant_marine value = 1 }
+ set_variable = { name = spec_peak_merchant_marine value = 7 }
+ set_variable = { name = spec_exp_merchant_marine value = 0.01 }
+ remove_variable = spec_glut_oil
+ remove_variable = spec_restrain_oil
+ remove_variable = spec_encourage_oil
+ remove_variable = spec_word_oil
+ remove_variable = spec_issue_oil
+ remove_variable = spec_sup_oil
+ set_variable = { name = spec_fast_oil value = -1 }
+ set_variable = { name = spec_slow_oil value = 1 }
+ set_variable = { name = spec_peak_oil value = 7 }
+ set_variable = { name = spec_exp_oil value = 0.01 }
+ remove_variable = spec_glut_opium
+ remove_variable = spec_restrain_opium
+ remove_variable = spec_encourage_opium
+ remove_variable = spec_word_opium
+ remove_variable = spec_issue_opium
+ remove_variable = spec_sup_opium
+ set_variable = { name = spec_fast_opium value = -1 }
+ set_variable = { name = spec_slow_opium value = 1 }
+ set_variable = { name = spec_peak_opium value = 7 }
+ set_variable = { name = spec_exp_opium value = 0.01 }
+ remove_variable = spec_glut_paper
+ remove_variable = spec_restrain_paper
+ remove_variable = spec_encourage_paper
+ remove_variable = spec_word_paper
+ remove_variable = spec_issue_paper
+ remove_variable = spec_sup_paper
+ set_variable = { name = spec_fast_paper value = -1 }
+ set_variable = { name = spec_slow_paper value = 1 }
+ set_variable = { name = spec_peak_paper value = 7 }
+ set_variable = { name = spec_exp_paper value = 0.01 }
+ remove_variable = spec_glut_porcelain
+ remove_variable = spec_restrain_porcelain
+ remove_variable = spec_encourage_porcelain
+ remove_variable = spec_word_porcelain
+ remove_variable = spec_issue_porcelain
+ remove_variable = spec_sup_porcelain
+ set_variable = { name = spec_fast_porcelain value = -1 }
+ set_variable = { name = spec_slow_porcelain value = 1 }
+ set_variable = { name = spec_peak_porcelain value = 7 }
+ set_variable = { name = spec_exp_porcelain value = 0.01 }
+ remove_variable = spec_glut_radios
+ remove_variable = spec_restrain_radios
+ remove_variable = spec_encourage_radios
+ remove_variable = spec_word_radios
+ remove_variable = spec_issue_radios
+ remove_variable = spec_sup_radios
+ set_variable = { name = spec_fast_radios value = -1 }
+ set_variable = { name = spec_slow_radios value = 1 }
+ set_variable = { name = spec_peak_radios value = 7 }
+ set_variable = { name = spec_exp_radios value = 0.01 }
+ remove_variable = spec_glut_rubber
+ remove_variable = spec_restrain_rubber
+ remove_variable = spec_encourage_rubber
+ remove_variable = spec_word_rubber
+ remove_variable = spec_issue_rubber
+ remove_variable = spec_sup_rubber
+ set_variable = { name = spec_fast_rubber value = -1 }
+ set_variable = { name = spec_slow_rubber value = 1 }
+ set_variable = { name = spec_peak_rubber value = 7 }
+ set_variable = { name = spec_exp_rubber value = 0.01 }
+ remove_variable = spec_glut_silk
+ remove_variable = spec_restrain_silk
+ remove_variable = spec_encourage_silk
+ remove_variable = spec_word_silk
+ remove_variable = spec_issue_silk
+ remove_variable = spec_sup_silk
+ set_variable = { name = spec_fast_silk value = -1 }
+ set_variable = { name = spec_slow_silk value = 1 }
+ set_variable = { name = spec_peak_silk value = 7 }
+ set_variable = { name = spec_exp_silk value = 0.01 }
+ remove_variable = spec_glut_small_arms
+ remove_variable = spec_restrain_small_arms
+ remove_variable = spec_encourage_small_arms
+ remove_variable = spec_word_small_arms
+ remove_variable = spec_issue_small_arms
+ remove_variable = spec_sup_small_arms
+ set_variable = { name = spec_fast_small_arms value = -1 }
+ set_variable = { name = spec_slow_small_arms value = 1 }
+ set_variable = { name = spec_peak_small_arms value = 7 }
+ set_variable = { name = spec_exp_small_arms value = 0.01 }
+ remove_variable = spec_glut_steamers
+ remove_variable = spec_restrain_steamers
+ remove_variable = spec_encourage_steamers
+ remove_variable = spec_word_steamers
+ remove_variable = spec_issue_steamers
+ remove_variable = spec_sup_steamers
+ set_variable = { name = spec_fast_steamers value = -1 }
+ set_variable = { name = spec_slow_steamers value = 1 }
+ set_variable = { name = spec_peak_steamers value = 7 }
+ set_variable = { name = spec_exp_steamers value = 0.01 }
+ remove_variable = spec_glut_steel
+ remove_variable = spec_restrain_steel
+ remove_variable = spec_encourage_steel
+ remove_variable = spec_word_steel
+ remove_variable = spec_issue_steel
+ remove_variable = spec_sup_steel
+ set_variable = { name = spec_fast_steel value = -1 }
+ set_variable = { name = spec_slow_steel value = 1 }
+ set_variable = { name = spec_peak_steel value = 7 }
+ set_variable = { name = spec_exp_steel value = 0.01 }
+ remove_variable = spec_glut_sugar
+ remove_variable = spec_restrain_sugar
+ remove_variable = spec_encourage_sugar
+ remove_variable = spec_word_sugar
+ remove_variable = spec_issue_sugar
+ remove_variable = spec_sup_sugar
+ set_variable = { name = spec_fast_sugar value = -1 }
+ set_variable = { name = spec_slow_sugar value = 1 }
+ set_variable = { name = spec_peak_sugar value = 7 }
+ set_variable = { name = spec_exp_sugar value = 0.01 }
+ remove_variable = spec_glut_sulfur
+ remove_variable = spec_restrain_sulfur
+ remove_variable = spec_encourage_sulfur
+ remove_variable = spec_word_sulfur
+ remove_variable = spec_issue_sulfur
+ remove_variable = spec_sup_sulfur
+ set_variable = { name = spec_fast_sulfur value = -1 }
+ set_variable = { name = spec_slow_sulfur value = 1 }
+ set_variable = { name = spec_peak_sulfur value = 7 }
+ set_variable = { name = spec_exp_sulfur value = 0.01 }
+ remove_variable = spec_glut_tanks
+ remove_variable = spec_restrain_tanks
+ remove_variable = spec_encourage_tanks
+ remove_variable = spec_word_tanks
+ remove_variable = spec_issue_tanks
+ remove_variable = spec_sup_tanks
+ set_variable = { name = spec_fast_tanks value = -1 }
+ set_variable = { name = spec_slow_tanks value = 1 }
+ set_variable = { name = spec_peak_tanks value = 7 }
+ set_variable = { name = spec_exp_tanks value = 0.01 }
+ remove_variable = spec_glut_tea
+ remove_variable = spec_restrain_tea
+ remove_variable = spec_encourage_tea
+ remove_variable = spec_word_tea
+ remove_variable = spec_issue_tea
+ remove_variable = spec_sup_tea
+ set_variable = { name = spec_fast_tea value = -1 }
+ set_variable = { name = spec_slow_tea value = 1 }
+ set_variable = { name = spec_peak_tea value = 7 }
+ set_variable = { name = spec_exp_tea value = 0.01 }
+ remove_variable = spec_glut_telephones
+ remove_variable = spec_restrain_telephones
+ remove_variable = spec_encourage_telephones
+ remove_variable = spec_word_telephones
+ remove_variable = spec_issue_telephones
+ remove_variable = spec_sup_telephones
+ set_variable = { name = spec_fast_telephones value = -1 }
+ set_variable = { name = spec_slow_telephones value = 1 }
+ set_variable = { name = spec_peak_telephones value = 7 }
+ set_variable = { name = spec_exp_telephones value = 0.01 }
+ remove_variable = spec_glut_tobacco
+ remove_variable = spec_restrain_tobacco
+ remove_variable = spec_encourage_tobacco
+ remove_variable = spec_word_tobacco
+ remove_variable = spec_issue_tobacco
+ remove_variable = spec_sup_tobacco
+ set_variable = { name = spec_fast_tobacco value = -1 }
+ set_variable = { name = spec_slow_tobacco value = 1 }
+ set_variable = { name = spec_peak_tobacco value = 7 }
+ set_variable = { name = spec_exp_tobacco value = 0.01 }
+ remove_variable = spec_glut_tools
+ remove_variable = spec_restrain_tools
+ remove_variable = spec_encourage_tools
+ remove_variable = spec_word_tools
+ remove_variable = spec_issue_tools
+ remove_variable = spec_sup_tools
+ set_variable = { name = spec_fast_tools value = -1 }
+ set_variable = { name = spec_slow_tools value = 1 }
+ set_variable = { name = spec_peak_tools value = 7 }
+ set_variable = { name = spec_exp_tools value = 0.01 }
+ remove_variable = spec_glut_wine
+ remove_variable = spec_restrain_wine
+ remove_variable = spec_encourage_wine
+ remove_variable = spec_word_wine
+ remove_variable = spec_issue_wine
+ remove_variable = spec_sup_wine
+ set_variable = { name = spec_fast_wine value = -1 }
+ set_variable = { name = spec_slow_wine value = 1 }
+ set_variable = { name = spec_peak_wine value = 7 }
+ set_variable = { name = spec_exp_wine value = 0.01 }
+ remove_variable = spec_glut_wood
+ remove_variable = spec_restrain_wood
+ remove_variable = spec_encourage_wood
+ remove_variable = spec_word_wood
+ remove_variable = spec_issue_wood
+ remove_variable = spec_sup_wood
+ set_variable = { name = spec_fast_wood value = -1 }
+ set_variable = { name = spec_slow_wood value = 1 }
+ set_variable = { name = spec_peak_wood value = 7 }
+ set_variable = { name = spec_exp_wood value = 0.01 }
+ remove_variable = spec_glut_elgar_instruments
+ remove_variable = spec_restrain_elgar_instruments
+ remove_variable = spec_encourage_elgar_instruments
+ remove_variable = spec_word_elgar_instruments
+ remove_variable = spec_issue_elgar_instruments
+ remove_variable = spec_sup_elgar_instruments
+ set_variable = { name = spec_fast_elgar_instruments value = -1 }
+ set_variable = { name = spec_slow_elgar_instruments value = 1 }
+ set_variable = { name = spec_peak_elgar_instruments value = 7 }
+ set_variable = { name = spec_exp_elgar_instruments value = 0.01 }
+ remove_variable = spec_glut_good_uranium
+ remove_variable = spec_restrain_good_uranium
+ remove_variable = spec_encourage_good_uranium
+ remove_variable = spec_word_good_uranium
+ remove_variable = spec_issue_good_uranium
+ remove_variable = spec_sup_good_uranium
+ set_variable = { name = spec_fast_good_uranium value = -1 }
+ set_variable = { name = spec_slow_good_uranium value = 1 }
+ set_variable = { name = spec_peak_good_uranium value = 7 }
+ set_variable = { name = spec_exp_good_uranium value = 0.01 }
+ remove_variable = spec_glut_manzoni_prints
+ remove_variable = spec_restrain_manzoni_prints
+ remove_variable = spec_encourage_manzoni_prints
+ remove_variable = spec_word_manzoni_prints
+ remove_variable = spec_issue_manzoni_prints
+ remove_variable = spec_sup_manzoni_prints
+ set_variable = { name = spec_fast_manzoni_prints value = -1 }
+ set_variable = { name = spec_slow_manzoni_prints value = 1 }
+ set_variable = { name = spec_peak_manzoni_prints value = 7 }
+ set_variable = { name = spec_exp_manzoni_prints value = 0.01 }
+spec_mechanics_full_month = yes
+if = { limit = { var:spec_glut_aeroplanes = 3 var:spec_peak_aeroplanes = 1 var:spec_exp_aeroplanes = 0.005 } debug_log = "HOTFIX PASS collapse_aeroplanes_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_aeroplanes_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_ammunition = 3 var:spec_peak_ammunition = 1 var:spec_exp_ammunition = 0.005 } debug_log = "HOTFIX PASS collapse_ammunition_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_ammunition_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_artillery = 3 var:spec_peak_artillery = 1 var:spec_exp_artillery = 0.005 } debug_log = "HOTFIX PASS collapse_artillery_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_artillery_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_automobiles = 3 var:spec_peak_automobiles = 1 var:spec_exp_automobiles = 0.005 } debug_log = "HOTFIX PASS collapse_automobiles_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_automobiles_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_clippers = 3 var:spec_peak_clippers = 1 var:spec_exp_clippers = 0.005 } debug_log = "HOTFIX PASS collapse_clippers_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_clippers_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_clothes = 3 var:spec_peak_clothes = 1 var:spec_exp_clothes = 0.005 } debug_log = "HOTFIX PASS collapse_clothes_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_clothes_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_coal = 3 var:spec_peak_coal = 1 var:spec_exp_coal = 0.005 } debug_log = "HOTFIX PASS collapse_coal_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_coal_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_coffee = 3 var:spec_peak_coffee = 1 var:spec_exp_coffee = 0.005 } debug_log = "HOTFIX PASS collapse_coffee_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_coffee_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_copper = 3 var:spec_peak_copper = 1 var:spec_exp_copper = 0.005 } debug_log = "HOTFIX PASS collapse_copper_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_copper_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_dye = 3 var:spec_peak_dye = 1 var:spec_exp_dye = 0.005 } debug_log = "HOTFIX PASS collapse_dye_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_dye_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_electricity = 3 var:spec_peak_electricity = 1 var:spec_exp_electricity = 0.005 } debug_log = "HOTFIX PASS collapse_electricity_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_electricity_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_engines = 3 var:spec_peak_engines = 1 var:spec_exp_engines = 0.005 } debug_log = "HOTFIX PASS collapse_engines_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_engines_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_explosives = 3 var:spec_peak_explosives = 1 var:spec_exp_explosives = 0.005 } debug_log = "HOTFIX PASS collapse_explosives_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_explosives_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_fabric = 3 var:spec_peak_fabric = 1 var:spec_exp_fabric = 0.005 } debug_log = "HOTFIX PASS collapse_fabric_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_fabric_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_fertilizer = 3 var:spec_peak_fertilizer = 1 var:spec_exp_fertilizer = 0.005 } debug_log = "HOTFIX PASS collapse_fertilizer_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_fertilizer_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_fine_art = 3 var:spec_peak_fine_art = 1 var:spec_exp_fine_art = 0.005 } debug_log = "HOTFIX PASS collapse_fine_art_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_fine_art_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_fish = 3 var:spec_peak_fish = 1 var:spec_exp_fish = 0.005 } debug_log = "HOTFIX PASS collapse_fish_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_fish_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_fruit = 3 var:spec_peak_fruit = 1 var:spec_exp_fruit = 0.005 } debug_log = "HOTFIX PASS collapse_fruit_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_fruit_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_furniture = 3 var:spec_peak_furniture = 1 var:spec_exp_furniture = 0.005 } debug_log = "HOTFIX PASS collapse_furniture_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_furniture_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_glass = 3 var:spec_peak_glass = 1 var:spec_exp_glass = 0.005 } debug_log = "HOTFIX PASS collapse_glass_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_glass_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_grain = 3 var:spec_peak_grain = 1 var:spec_exp_grain = 0.005 } debug_log = "HOTFIX PASS collapse_grain_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_grain_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_groceries = 3 var:spec_peak_groceries = 1 var:spec_exp_groceries = 0.005 } debug_log = "HOTFIX PASS collapse_groceries_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_groceries_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_hardwood = 3 var:spec_peak_hardwood = 1 var:spec_exp_hardwood = 0.005 } debug_log = "HOTFIX PASS collapse_hardwood_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_hardwood_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_iron = 3 var:spec_peak_iron = 1 var:spec_exp_iron = 0.005 } debug_log = "HOTFIX PASS collapse_iron_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_iron_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_lead = 3 var:spec_peak_lead = 1 var:spec_exp_lead = 0.005 } debug_log = "HOTFIX PASS collapse_lead_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_lead_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_liquor = 3 var:spec_peak_liquor = 1 var:spec_exp_liquor = 0.005 } debug_log = "HOTFIX PASS collapse_liquor_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_liquor_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_luxury_clothes = 3 var:spec_peak_luxury_clothes = 1 var:spec_exp_luxury_clothes = 0.005 } debug_log = "HOTFIX PASS collapse_luxury_clothes_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_luxury_clothes_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_luxury_furniture = 3 var:spec_peak_luxury_furniture = 1 var:spec_exp_luxury_furniture = 0.005 } debug_log = "HOTFIX PASS collapse_luxury_furniture_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_luxury_furniture_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_meat = 3 var:spec_peak_meat = 1 var:spec_exp_meat = 0.005 } debug_log = "HOTFIX PASS collapse_meat_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_meat_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_merchant_marine = 3 var:spec_peak_merchant_marine = 1 var:spec_exp_merchant_marine = 0.005 } debug_log = "HOTFIX PASS collapse_merchant_marine_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_merchant_marine_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_oil = 3 var:spec_peak_oil = 1 var:spec_exp_oil = 0.005 } debug_log = "HOTFIX PASS collapse_oil_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_oil_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_opium = 3 var:spec_peak_opium = 1 var:spec_exp_opium = 0.005 } debug_log = "HOTFIX PASS collapse_opium_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_opium_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_paper = 3 var:spec_peak_paper = 1 var:spec_exp_paper = 0.005 } debug_log = "HOTFIX PASS collapse_paper_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_paper_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_porcelain = 3 var:spec_peak_porcelain = 1 var:spec_exp_porcelain = 0.005 } debug_log = "HOTFIX PASS collapse_porcelain_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_porcelain_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_radios = 3 var:spec_peak_radios = 1 var:spec_exp_radios = 0.005 } debug_log = "HOTFIX PASS collapse_radios_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_radios_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_rubber = 3 var:spec_peak_rubber = 1 var:spec_exp_rubber = 0.005 } debug_log = "HOTFIX PASS collapse_rubber_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_rubber_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_silk = 3 var:spec_peak_silk = 1 var:spec_exp_silk = 0.005 } debug_log = "HOTFIX PASS collapse_silk_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_silk_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_small_arms = 3 var:spec_peak_small_arms = 1 var:spec_exp_small_arms = 0.005 } debug_log = "HOTFIX PASS collapse_small_arms_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_small_arms_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_steamers = 3 var:spec_peak_steamers = 1 var:spec_exp_steamers = 0.005 } debug_log = "HOTFIX PASS collapse_steamers_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_steamers_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_steel = 3 var:spec_peak_steel = 1 var:spec_exp_steel = 0.005 } debug_log = "HOTFIX PASS collapse_steel_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_steel_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_sugar = 3 var:spec_peak_sugar = 1 var:spec_exp_sugar = 0.005 } debug_log = "HOTFIX PASS collapse_sugar_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_sugar_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_sulfur = 3 var:spec_peak_sulfur = 1 var:spec_exp_sulfur = 0.005 } debug_log = "HOTFIX PASS collapse_sulfur_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_sulfur_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_tanks = 3 var:spec_peak_tanks = 1 var:spec_exp_tanks = 0.005 } debug_log = "HOTFIX PASS collapse_tanks_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_tanks_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_tea = 3 var:spec_peak_tea = 1 var:spec_exp_tea = 0.005 } debug_log = "HOTFIX PASS collapse_tea_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_tea_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_telephones = 3 var:spec_peak_telephones = 1 var:spec_exp_telephones = 0.005 } debug_log = "HOTFIX PASS collapse_telephones_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_telephones_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_tobacco = 3 var:spec_peak_tobacco = 1 var:spec_exp_tobacco = 0.005 } debug_log = "HOTFIX PASS collapse_tobacco_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_tobacco_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_tools = 3 var:spec_peak_tools = 1 var:spec_exp_tools = 0.005 } debug_log = "HOTFIX PASS collapse_tools_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_tools_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_wine = 3 var:spec_peak_wine = 1 var:spec_exp_wine = 0.005 } debug_log = "HOTFIX PASS collapse_wine_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_wine_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_wood = 3 var:spec_peak_wood = 1 var:spec_exp_wood = 0.005 } debug_log = "HOTFIX PASS collapse_wood_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_wood_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_elgar_instruments = 3 var:spec_peak_elgar_instruments = 1 var:spec_exp_elgar_instruments = 0.005 } debug_log = "HOTFIX PASS collapse_elgar_instruments_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_elgar_instruments_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_good_uranium = 3 var:spec_peak_good_uranium = 1 var:spec_exp_good_uranium = 0.005 } debug_log = "HOTFIX PASS collapse_good_uranium_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_good_uranium_recovers_and_reduces_exposure" }
+if = { limit = { var:spec_glut_manzoni_prints = 3 var:spec_peak_manzoni_prints = 1 var:spec_exp_manzoni_prints = 0.005 } debug_log = "HOTFIX PASS collapse_manzoni_prints_recovers_and_reduces_exposure" }
+else = { debug_log = "HOTFIX FAIL collapse_manzoni_prints_recovers_and_reduces_exposure" }
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

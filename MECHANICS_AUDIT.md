@@ -300,3 +300,28 @@ Twelve three-way rivalry boundary checks pass at trust 0/120 with neutral and ho
 Four depression population contracts pass: all states match the engine capitalist radicalism effect, other pop types stay unchanged, and repeat joining does not repeat the hit. Five war save/reload checks pass across an actual yearly autosave: diplomatic-play identity and monthly cache survive, and controlled settlement still routes and deduplicates. Full logs pass. Evidence: `tests/mechanics/verification_depression_pops_beta104_5.json` and `tests/mechanics/verification_war_reload_beta104_5.json`. Rejected fixture versions are recorded in each evidence file.
 
 Finance compatibility report: a matched live A/B test on game 1.15.1 confirms that the third-party Speculative Markets+Morgenroete patch (Workshop 3836657389) replaces spec_market_tab.gui with an obsolete copy missing both Finance widget types. With its exact GUI override, the sidebar highlights but never opens; removing only that override restores Finance with CMF and our official CMF patch on the same paused 1840 save. The bridge also replaces nine gameplay files. This is a minimal sufficient reproduction, not verification of the reporter's entire playset or journal shortcut. Their 108 investment-pool missing references do not directly identify Finance. No production changes or new upload. Evidence: `tests/mechanics/verification_mr_gui_conflict_20261114.json`.
+
+Morgenroete replacement candidate: downloaded current Morgenroete 2.9.0e Curie and
+the third-party bridge, then generated a separate beta5 compatibility delta from
+our maintained source. It adds instruments, uranium and publications, preserves
+the current Finance interface, and retains electricity (absent from the old
+bridge's 51-good registry). It defines the missing instrument-workshop throughput
+modifier type and uses a separate building-map initialization key. No balance
+constants, stable output or published beta files changed.
+
+This integration has **76 passing engine assertions across two additional suites**:
+24 focused checks and 52 goods-collapse/recovery checks. Keep this count separate
+from the base-mod audit total. All 46 Python tests pass. Default generation exactly
+matches beta5; candidate_02's patch bytes exactly match tested candidate_01. Live
+sidebar, journal and native goods Finance navigation passed, including selected
+tabs, native Market transitions and Morgenroete's CMF Sports panel transitions.
+The UI seed predates Morgenroete and emits missing Morgenroete-variable errors;
+the classifier's upstream-error labels do not establish vanilla responsibility.
+The new goods' individual UI rows and an existing Morgenroete-save migration
+remain release checks. This does not verify the reporter's full playset.
+
+Candidate archive SHA256:
+`63f0399db4a0866480ca19556cf6ad165685265d96b8024b9aefde3003e25c08`.
+Not published; targets beta 1.0.4-beta.5 only. Build/maintenance instructions are
+in `compatibility/morgenroete/README.md`; exact results and rejected fixtures are
+in `tests/mechanics/verification_morgenroete_beta104_5.json`.

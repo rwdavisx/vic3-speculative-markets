@@ -1,0 +1,93 @@
+namespace = spec_mechanics_morgenroete
+spec_mechanics_morgenroete.1 = { type = country_event hidden = yes immediate = {
+activate_law = law_type:law_interventionism
+if = { limit = { has_variable = spec_fast_elgar_instruments has_variable = spec_hype_elgar_instruments has_variable = spec_word_elgar_instruments } debug_log = "HOTFIX PASS elgar_instruments_monthly_init" }
+else = { debug_log = "HOTFIX FAIL elgar_instruments_monthly_init" }
+if = { limit = { global_var:spec_bt_g1_building_instrument_workshops = g:elgar_instruments } debug_log = "HOTFIX PASS elgar_instruments_building_map" }
+else = { debug_log = "HOTFIX FAIL elgar_instruments_building_map" }
+set_variable = { name = spec_hm value = 1 }
+set_variable = { name = spec_hmd value = 1 }
+set_variable = { name = spec_fast_elgar_instruments value = 0.05 }
+set_variable = { name = spec_slow_elgar_instruments value = 0 }
+if = { limit = { spec_hype_raw_elgar_instruments = 4 } debug_log = "HOTFIX PASS elgar_instruments_rising_interest" }
+else = { debug_log = "HOTFIX FAIL elgar_instruments_rising_interest" }
+set_variable = { name = spec_fast_elgar_instruments value = -0.05 }
+if = { limit = { spec_hype_raw_elgar_instruments = 0.25 } debug_log = "HOTFIX PASS elgar_instruments_falling_interest" }
+else = { debug_log = "HOTFIX FAIL elgar_instruments_falling_interest" }
+set_variable = { name = spec_word_elgar_instruments value = 5 }
+set_variable = { name = spec_hype_elgar_instruments value = 4 }
+g:elgar_instruments = { save_scope_as = spec_good }
+spec_lever_toggle = { KIND = restrain }
+if = { limit = { has_variable = spec_restrain_elgar_instruments has_modifier = spec_lever_restrain_elgar_instruments } debug_log = "HOTFIX PASS elgar_instruments_restraint_targets_good" }
+else = { debug_log = "HOTFIX FAIL elgar_instruments_restraint_targets_good" }
+spec_lever_toggle = { KIND = restrain }
+if = { limit = { NOT = { has_variable = spec_restrain_elgar_instruments } NOT = { has_modifier = spec_lever_restrain_elgar_instruments } } debug_log = "HOTFIX PASS elgar_instruments_restraint_cancels" }
+else = { debug_log = "HOTFIX FAIL elgar_instruments_restraint_cancels" }
+capital = { create_building = { building = building_instrument_workshops level = 3 } }
+if = { limit = { has_variable = spec_fast_good_uranium has_variable = spec_hype_good_uranium has_variable = spec_word_good_uranium } debug_log = "HOTFIX PASS good_uranium_monthly_init" }
+else = { debug_log = "HOTFIX FAIL good_uranium_monthly_init" }
+if = { limit = { global_var:spec_bt_g1_building_uranium_mine = g:good_uranium } debug_log = "HOTFIX PASS good_uranium_building_map" }
+else = { debug_log = "HOTFIX FAIL good_uranium_building_map" }
+set_variable = { name = spec_hm value = 1 }
+set_variable = { name = spec_hmd value = 1 }
+set_variable = { name = spec_fast_good_uranium value = 0.05 }
+set_variable = { name = spec_slow_good_uranium value = 0 }
+if = { limit = { spec_hype_raw_good_uranium = 4 } debug_log = "HOTFIX PASS good_uranium_rising_interest" }
+else = { debug_log = "HOTFIX FAIL good_uranium_rising_interest" }
+set_variable = { name = spec_fast_good_uranium value = -0.05 }
+if = { limit = { spec_hype_raw_good_uranium = 0.25 } debug_log = "HOTFIX PASS good_uranium_falling_interest" }
+else = { debug_log = "HOTFIX FAIL good_uranium_falling_interest" }
+set_variable = { name = spec_word_good_uranium value = 5 }
+set_variable = { name = spec_hype_good_uranium value = 4 }
+g:good_uranium = { save_scope_as = spec_good }
+spec_lever_toggle = { KIND = restrain }
+if = { limit = { has_variable = spec_restrain_good_uranium has_modifier = spec_lever_restrain_good_uranium } debug_log = "HOTFIX PASS good_uranium_restraint_targets_good" }
+else = { debug_log = "HOTFIX FAIL good_uranium_restraint_targets_good" }
+spec_lever_toggle = { KIND = restrain }
+if = { limit = { NOT = { has_variable = spec_restrain_good_uranium } NOT = { has_modifier = spec_lever_restrain_good_uranium } } debug_log = "HOTFIX PASS good_uranium_restraint_cancels" }
+else = { debug_log = "HOTFIX FAIL good_uranium_restraint_cancels" }
+add_technology_researched = verrier_radioactivity_tech
+capital = { create_building = { building = building_uranium_mine level = 3 } }
+if = { limit = { has_variable = spec_fast_manzoni_prints has_variable = spec_hype_manzoni_prints has_variable = spec_word_manzoni_prints } debug_log = "HOTFIX PASS manzoni_prints_monthly_init" }
+else = { debug_log = "HOTFIX FAIL manzoni_prints_monthly_init" }
+if = { limit = { global_var:spec_bt_g1_building_manzoni_publishing_industry = g:manzoni_prints } debug_log = "HOTFIX PASS manzoni_prints_building_map" }
+else = { debug_log = "HOTFIX FAIL manzoni_prints_building_map" }
+set_variable = { name = spec_hm value = 1 }
+set_variable = { name = spec_hmd value = 1 }
+set_variable = { name = spec_fast_manzoni_prints value = 0.05 }
+set_variable = { name = spec_slow_manzoni_prints value = 0 }
+if = { limit = { spec_hype_raw_manzoni_prints = 4 } debug_log = "HOTFIX PASS manzoni_prints_rising_interest" }
+else = { debug_log = "HOTFIX FAIL manzoni_prints_rising_interest" }
+set_variable = { name = spec_fast_manzoni_prints value = -0.05 }
+if = { limit = { spec_hype_raw_manzoni_prints = 0.25 } debug_log = "HOTFIX PASS manzoni_prints_falling_interest" }
+else = { debug_log = "HOTFIX FAIL manzoni_prints_falling_interest" }
+set_variable = { name = spec_word_manzoni_prints value = 5 }
+set_variable = { name = spec_hype_manzoni_prints value = 4 }
+g:manzoni_prints = { save_scope_as = spec_good }
+spec_lever_toggle = { KIND = restrain }
+if = { limit = { has_variable = spec_restrain_manzoni_prints has_modifier = spec_lever_restrain_manzoni_prints } debug_log = "HOTFIX PASS manzoni_prints_restraint_targets_good" }
+else = { debug_log = "HOTFIX FAIL manzoni_prints_restraint_targets_good" }
+spec_lever_toggle = { KIND = restrain }
+if = { limit = { NOT = { has_variable = spec_restrain_manzoni_prints } NOT = { has_modifier = spec_lever_restrain_manzoni_prints } } debug_log = "HOTFIX PASS manzoni_prints_restraint_cancels" }
+else = { debug_log = "HOTFIX FAIL manzoni_prints_restraint_cancels" }
+capital = { create_building = { building = building_manzoni_publishing_industry level = 3 } }
+trigger_event = { id = spec_mechanics_morgenroete.2 days = 3 }
+} }
+spec_mechanics_morgenroete.2 = { type = country_event hidden = yes immediate = {
+spec_update_companies = yes
+if = { limit = { any_scope_building = { is_building_type = building_instrument_workshops has_modifier = spec_investor_elgar_instruments_5 } } debug_log = "HOTFIX PASS elgar_instruments_building_interest" }
+else = { debug_log = "HOTFIX FAIL elgar_instruments_building_interest" }
+if = { limit = { any_scope_building = { is_building_type = building_uranium_mine has_modifier = spec_investor_good_uranium_5 } } debug_log = "HOTFIX PASS good_uranium_building_interest" }
+else = { debug_log = "HOTFIX FAIL good_uranium_building_interest" }
+if = { limit = { any_scope_building = { is_building_type = building_manzoni_publishing_industry has_modifier = spec_investor_manzoni_prints_5 } } debug_log = "HOTFIX PASS manzoni_prints_building_interest" }
+else = { debug_log = "HOTFIX FAIL manzoni_prints_building_interest" }
+activate_law = law_type:law_command_economy
+spec_shut_down = yes
+if = { limit = { NOT = { has_variable = spec_hype_elgar_instruments } NOT = { has_variable = spec_fast_elgar_instruments } NOT = { any_scope_building = { is_building_type = building_instrument_workshops has_modifier = spec_investor_elgar_instruments_5 } } } debug_log = "HOTFIX PASS elgar_instruments_shutdown" }
+else = { debug_log = "HOTFIX FAIL elgar_instruments_shutdown" }
+if = { limit = { NOT = { has_variable = spec_hype_good_uranium } NOT = { has_variable = spec_fast_good_uranium } NOT = { any_scope_building = { is_building_type = building_uranium_mine has_modifier = spec_investor_good_uranium_5 } } } debug_log = "HOTFIX PASS good_uranium_shutdown" }
+else = { debug_log = "HOTFIX FAIL good_uranium_shutdown" }
+if = { limit = { NOT = { has_variable = spec_hype_manzoni_prints } NOT = { has_variable = spec_fast_manzoni_prints } NOT = { any_scope_building = { is_building_type = building_manzoni_publishing_industry has_modifier = spec_investor_manzoni_prints_5 } } } debug_log = "HOTFIX PASS manzoni_prints_shutdown" }
+else = { debug_log = "HOTFIX FAIL manzoni_prints_shutdown" }
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

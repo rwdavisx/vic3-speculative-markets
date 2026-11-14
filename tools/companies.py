@@ -30,6 +30,7 @@ import re
 
 import icons
 import tuning
+import mod_sources
 
 # interest word (1 Fleeing to 6 Feverish) -> throughput of the good's buildings, in percent
 INTEREST_THROUGHPUT = tuning.get("INTEREST_THROUGHPUT", {1: -10, 2: -5, 3: 0, 4: 3, 5: 5, 6: 8})
@@ -62,7 +63,7 @@ def band_tip(t):
 def _companies(game):
     """company type -> its building types, from vanilla."""
     out = {}
-    for f in sorted((game / COMPANY_DIR).glob("*.txt")):
+    for f in mod_sources.files(game, COMPANY_DIR):
         for m in re.finditer(r"^(\w+)\s*=\s*\{(.*?)^\}", f.read_text(encoding="utf-8-sig"), re.M | re.S):
             bt = re.search(r"\n\tbuilding_types\s*=\s*\{([^}]*)\}", m.group(2))
             if bt:
@@ -88,6 +89,8 @@ def _industry(sells, upgrades):
 # its buildings make, the main good first; the GUI has no way from a building type to its goods.
 # ponytail: set once under BT_MAP; bump its number when the mapping changes (a dropped slot would stay set)
 BT_MAP = "spec_bt_map_1"
+if mod_sources.MR:
+    BT_MAP = "spec_bt_map_morgenroete_1"  # populate extra building mappings in existing saves too
 BT_SLOT = "spec_bt_g{}_"
 BT_SLOTS = 3  # the most goods one building type makes (automotive industry)
 
