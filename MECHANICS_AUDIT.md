@@ -1,11 +1,13 @@
 # Mechanics correctness audit
 
-Balance is frozen at 1.0.3. The isolated and integration passes now have **644 passing engine
-assertions in 56 suites**, plus **45 Python tests** and **9 CMF source tests**.
+Balance is frozen at 1.0.3. The isolated and integration passes now have **793 passing engine
+assertions in 66 base suites**, plus **46 Python tests** and **9 CMF source tests**.
 These are contract results, not a claim that every possible campaign works.
 The open checks below remain prerequisites to the broader balance pass.
 
-**Published:** Stable **1.0.5**, Beta **1.0.5-beta.1**, and Morgenroete patch **1.0.0** on November 14. Stable now includes the tested beta fixes. The patch has 76 inherited engine assertions plus 9 passing existing-Morgenroete-save migration assertions; all three added goods passed release UI checks. Current Python checks: 45 plus 9 CMF checks. See `HOTFIX_1.0.5.md` and `tests/mechanics/verification_release_105.json`. Full reporter playset and long campaigns remain outside coverage.
+**Published:** Stable **1.0.6** and Beta **1.0.6-beta.1** on November 14; CMF **1.0.1** and Morgenroete **1.0.0** remain unchanged. See `HOTFIX_1.0.6.md` and `tests/mechanics/verification_release_106.json`. Current audit scope is Speculative Markets alone. Historical compatibility evidence is retained separately.
+
+The original coverage ledger below describes its earlier checkpoint. Later sections and `AUDIT_BASELINE.md` record the completed baseline extension, including AI rescue frequency, building groups, uprising initialization, event-modifier expiry, live inquiry choices and additional languages/UI scale. Baseline coverage is not exhaustive; repeated campaigns, player takeover of successor countries, remaining event buttons, tooltips and building/PM combinations remain open.
 
 [Machine-readable results](tests/mechanics/verification_2026-11-14.json) record
 assertion names, fixture/build manifests, log hashes, and error classifications.
@@ -358,3 +360,15 @@ The only production change is a proved AI rescue-weight correction, tested in lo
 A standalone engine reproduction proves that multiple incoming rivals dispatch identical annual notices. The original beta fails four of seven notification assertions. Local 1.0.5-beta.3 consolidates notices per player/outcome after scoring, preserving every trust adjustment. All seven new checks and 25 rivalry regressions pass, with zero blocking errors in the four cumulative log gates. This adds seven unique assertions: **792 in 65 base suites**. All 46 Python tests also pass.
 
 These checks instrument actual notification call sites in an extracted production helper; they do not count rendered popup windows. The reporter's playset and live popup UI remain untested. Stable and published beta are unchanged; no Workshop upload. See `RIVAL_NOTIFICATION_FIX.md` and `tests/mechanics/verification_rival_notifications_105.json`.
+
+## Standalone repeated runs on 1.0.6
+
+Three fresh games using the corrected successor fixture completed through March 31, 1837. All 12 uprising-initialization assertions pass in each game, for 36 observations. All cumulative mod/harness error gates pass. The earlier October 27, 1836 process exit did not recur; its cause is still unknown. These are AI uprisings, not player takeover tests. The games initialize independently; no explicit numeric RNG seed was selected.
+
+A separate fresh campaign completed through March 31, 1841. The new `campaign_repeated` fixture samples seven existing invariants plus cleared rivalry-notification flags every 90 days. Every assertion passed exactly 21 times: **168 observations**, with zero blocking mod/harness errors. The seven reused contracts check coverage of many countries, confidence, debt, lending standards, individual and total bank exposure, and boom severity. One new unique assertion checks for leftover notification flags, bringing the base total to **793 in 66 suites**; repeated observations are not counted as unique contracts.
+
+A negative-control fixture deliberately leaves a notification flag on GBR immediately before inspection. Exactly that new assertion fails; the other seven pass and the error gate remains clear. The first campaign fixture used an unsupported `current_date` trigger and was intentionally stopped; that invalid run is rejected, not a production defect. The corrected fixture uses a 21-sample counter.
+
+All 46 Python tests pass. No production code, balance, release package or Workshop listing changed in this audit pass. Full results, manifests, occurrence counts, rejected-run evidence and log hashes: `tests/mechanics/verification_repeat_106.json`.
+
+Limits: one five-year campaign does not cover a full game or every random sequence, and 90-day samples can miss transient states. Player takeover, remaining event buttons/tooltips, and broader building/PM combinations remain open. The historical unexplained crash is not marked fixed.

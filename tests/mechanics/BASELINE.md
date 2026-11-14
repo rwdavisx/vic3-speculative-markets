@@ -1,5 +1,7 @@
 # Standalone baseline tests
 
+For repeated campaign checks on the published beta, prepare `campaign_repeated` and run until **1841.4.1**. It samples the seven existing campaign invariants plus cleared rivalry-notification flags every 90 days, for 21 samples. Accept only a complete run with all eight assertion names appearing 21 times, no FAIL markers and a passing cumulative error-log gate. The extra samples are repeated observations, not new unique assertions. Unlike `successors`, this fixture does not force political unrest or alter economic variables.
+
 Results and limits are in `verification_baseline_105.json` and `../../AUDIT_BASELINE.md`. Use a standalone beta build; do not enable stable or compatibility mods. All test outputs belong under a new `runs/` directory.
 
 Prepare `ai_frequency`, `crisis_network`, `tag_persistence`, `depression_duration`, `building_groups`, `owner_groups` or `successors` with:
