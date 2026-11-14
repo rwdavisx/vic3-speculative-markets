@@ -4,6 +4,7 @@ The user requested a separate beta distribution on November 13, 2026 to reduce d
 
 - Keep `mod/` as the stable release output. Generate experiments into a separate `SPEC_MOD_OUT` directory and package them with `beta/build.py`.
 - Test changes in the beta distribution before promoting them to stable. A focused, verified stable hotfix is appropriate for a reported broken feature.
+- Before every stable/beta content upload, run the complete automated inventory with `tools/release_gate.py` against the intended beta and provide its passing report to `tools/steam_upload.py --gate`. Subset runs do not satisfy this requirement. See `RELEASE_TESTING.md`; relevant live UI/war checks remain separate and must not be described as automated passes.
 - Stable uses `speculative_markets`; beta uses `speculative_markets_beta`. Enable exactly one. Never upload beta content to the stable Workshop item.
 - The optional Community Mod Framework compatibility mod is separate under `compatibility/cmf/`. It loads after CMF and whichever Speculative Markets channel is enabled. Rebuild and retest it when either parent's GUI changes.
 - Edit generators under `tools/`, then regenerate; do not maintain divergent handwritten copies of generated gameplay files.

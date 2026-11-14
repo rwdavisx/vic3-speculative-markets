@@ -1,7 +1,7 @@
 # Mechanics correctness audit
 
 Balance is frozen at 1.0.3. The isolated and integration passes now have **793 passing engine
-assertions in 66 base suites**, plus **46 Python tests** and **9 CMF source tests**.
+assertions in 66 base suites**, plus **60 Python tests** and **9 CMF source tests**.
 These are contract results, not a claim that every possible campaign works.
 The open checks below remain prerequisites to the broader balance pass.
 
@@ -372,3 +372,15 @@ A negative-control fixture deliberately leaves a notification flag on GBR immedi
 All 46 Python tests pass. No production code, balance, release package or Workshop listing changed in this audit pass. Full results, manifests, occurrence counts, rejected-run evidence and log hashes: `tests/mechanics/verification_repeat_106.json`.
 
 Limits: one five-year campaign does not cover a full game or every random sequence, and 90-day samples can miss transient states. Player takeover, remaining event buttons/tooltips, and broader building/PM combinations remain open. The historical unexplained crash is not marked fixed.
+
+## Full automated release gate
+
+The full standalone automated inventory was run against frozen **1.0.6-beta.1**. Accepted results cover **64 automated suites and 945 passing observations**, including 21 campaign samples and four actual save/reload cases. All accepted cumulative mod/harness error gates pass. All **60 Python tests** pass, including 14 new gate tests for missing evidence, short/crashed runs, repeated observations, stale inputs, changed release bytes and refusal to upload without a gate.
+
+The initial inquiry run passed its 13 assertions but failed the error-log gate: its fixture created `spec_panic_cooldown` as a boolean, which later monthly updates tried to decrement. Production creates a numeric cooldown. The fixture now uses a numeric month counter, and its rerun passes both assertions and logs. This is a test correction, not a production bug or balance change. The original failed run remains preserved.
+
+The accepted report combines the unchanged 63 passing suites with that corrected inquiry run. Collection verified that inquiry.txt was the only changed test input, every accepted fixture hash matches the current fixture, and all runs used exactly the same frozen beta bytes. Verification then reread the raw logs and checked the full report against both current beta and stable gameplay/UI files. No earlier-version engine results were substituted.
+
+Evidence: `tests/mechanics/verification_release_gate_106.json`; original run under `runs/release_gate/full_106_r1/`, corrected inquiry under `runs/release_gate/inquiry_fixture_106/`, accepted report under `runs/release_gate/full_106_verified/`. No production output or Workshop listing changed in this pass.
+
+`tools/release_gate.py` now runs the explicit inventory in `tests/release_suites.json`. Stable/beta content uploads require a complete verified report via `--gate`; a selected subset cannot certify a release. The two live war fixtures, other relevant UI checks, and excluded compatibility tests remain separate and are not reported as automated passes. See `RELEASE_TESTING.md` for commands and limits. Passing these contracts is not proof that no bugs remain.

@@ -21,7 +21,7 @@ if = { limit = { NOT = { spec_can_inquire = yes } } debug_log = "HOTFIX PASS act
 else = { debug_log = "HOTFIX FAIL active_panic_blocks_inquiry" }
 remove_variable = spec_panic
 set_variable = { name = spec_calm value = 0 }
-set_variable = spec_panic_cooldown
+set_variable = { name = spec_panic_cooldown value = 24 }
 if = { limit = { spec_can_inquire = yes } debug_log = "HOTFIX PASS fresh_aftermath_allows_inquiry" }
 else = { debug_log = "HOTFIX FAIL fresh_aftermath_allows_inquiry" }
 set_variable = spec_inquired

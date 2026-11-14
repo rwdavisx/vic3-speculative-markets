@@ -64,13 +64,15 @@ For a future release, first build and validate a new immutable archive and manif
 From the repository root, run the intended update without `--execute` first. This example plans a public update of the **existing Beta item**:
 
 ```powershell
-py -3 -B tools/steam_upload.py update beta --public
+py -3 -B tools/steam_upload.py update beta --public --gate runs/release_gate/validated_run/report.json
 ```
+
+Stable/beta content updates require the full automated report described in `RELEASE_TESTING.md`; subset runs are rejected. Relevant live UI checks remain required. Description-only updates do not need a gameplay rerun.
 
 Check that the plan names item `3839275304`, the intended version, source archive hash, description hash, and public visibility. When the upload is authorized and that exact plan has been reviewed, execute the same update:
 
 ```powershell
-py -3 -B tools/steam_upload.py update beta --public --execute
+py -3 -B tools/steam_upload.py update beta --public --gate runs/release_gate/validated_run/report.json --execute
 ```
 
 Use channel `cmf` for item `3839275348`, or `stable` for item `3831434383`, with the same plan-then-execute sequence. Keep `--public` on updates to these public listings; without it, the helper defaults to private visibility for Beta and CMF. Afterward, inspect the new `update_verified` receipt and live page, including description links and Required Items. If an upload is ambiguous or fails, reconcile its existing receipts and item state before retrying; never create a replacement listing as a shortcut.
