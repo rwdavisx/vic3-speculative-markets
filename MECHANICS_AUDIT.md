@@ -1,13 +1,19 @@
 # Mechanics correctness audit
 
-Balance is frozen at 1.0.3. The isolated and integration passes now have **793 passing engine
-assertions in 66 base suites**, plus **60 Python tests** and **9 CMF source tests**.
+Balance is frozen at 1.0.3. The isolated and integration passes now have **806 passing engine
+contracts in 68 base suites**, plus **60 Python tests** and **9 historical CMF source tests**.
 These are contract results, not a claim that every possible campaign works.
 The open checks below remain prerequisites to the broader balance pass.
 
 **Published:** Stable **1.0.6** and Beta **1.0.6-beta.1** on November 14; CMF **1.0.1** and Morgenroete **1.0.0** remain unchanged. See `HOTFIX_1.0.6.md` and `tests/mechanics/verification_release_106.json`. Current audit scope is Speculative Markets alone. Historical compatibility evidence is retained separately.
 
-The original coverage ledger below describes its earlier checkpoint. Later sections and `AUDIT_BASELINE.md` record the completed baseline extension, including AI rescue frequency, building groups, uprising initialization, event-modifier expiry, live inquiry choices and additional languages/UI scale. Baseline coverage is not exhaustive; repeated campaigns, player takeover of successor countries, remaining event buttons, tooltips and building/PM combinations remain open.
+The original coverage ledger below describes its earlier checkpoint. Later sections record the baseline extension, live war repeats, player takeover and revolutionary victory, all 17 depression buttons, and matched five-year campaign controls. These passes span recorded versions; they are not a certificate for the current candidate. Beta.2 remains unpublished with an unexplained campaign crash in its release gate.
+
+Still open: the crash's cause, full-length campaigns and more random histories,
+remaining story/notification UI paths, every translated tooltip, and broader
+building/production-method combinations. Compatibility is outside this audit's
+current scope. Passing finite tests cannot establish that nothing possible is
+left to test.
 
 [Machine-readable results](tests/mechanics/verification_2026-11-14.json) record
 assertion names, fixture/build manifests, log hashes, and error classifications.
@@ -384,3 +390,85 @@ The accepted report combines the unchanged 63 passing suites with that corrected
 Evidence: `tests/mechanics/verification_release_gate_106.json`; original run under `runs/release_gate/full_106_r1/`, corrected inquiry under `runs/release_gate/inquiry_fixture_106/`, accepted report under `runs/release_gate/full_106_verified/`. No production output or Workshop listing changed in this pass.
 
 `tools/release_gate.py` now runs the explicit inventory in `tests/release_suites.json`. Stable/beta content uploads require a complete verified report via `--gate`; a selected subset cannot certify a release. The two live war fixtures, other relevant UI checks, and excluded compatibility tests remain separate and are not reported as automated passes. See `RELEASE_TESTING.md` for commands and limits. Passing these contracts is not proof that no bugs remain.
+
+## Live war repeats on 1.0.6
+
+Both manual war suites have now been repeated on standalone 1.0.6-beta.1 using native capitulation buttons. All **15 assertions pass** and both accepted cumulative error-log gates have zero blocking mod/harness diagnostics. The late-peace run has Prussia exit on April 8, then France on April 18, 1836: the departed ally is not charged again, France is charged once, Normandy transfers, and finance remains valid. The humiliation-war run captures the expected +1 winner reward and -2 loser penalty after France capitulates on March 30.
+
+The first humiliation-war attempt is rejected: at speed five the operator missed its 20-game-day surrender deadline. Its three wartime checks passed and its three postwar checks failed before surrender. The unchanged test passed on a fresh speed-three repeat. This is not a production defect. Base-game diagnostics and nonblocking variable-load warnings remain separately recorded.
+
+Evidence, source fingerprints, full log hashes, screenshots and the rejected run: `tests/mechanics/verification_manual_106.json`. These are reruns of existing contracts, not 15 new unique assertions. No production or balance changes.
+
+## Player takeover and revolution victory
+
+A new disposable live fixture adds eight player-takeover assertions to the twelve
+AI successor checks. Original beta.1 passed all twenty but failed its cumulative
+log gate: victorious French rebels already had Financial Markets when the engine
+tried to inherit the defeated parent's copy. The local beta.2 candidate disables
+inheritance of this entry; each country keeps its own. No balance changes.
+
+The candidate repeat passes all twenty assertions and the cumulative mod error
+gate. Both uprising countries' journal shortcuts open populated Speculation.
+After the French rebels win, reunited France has one Financial Markets row and
+its shortcut still works. Evidence and limits:
+`tests/mechanics/verification_journal_inheritance_106.json`. Two invalid setup
+attempts and the original diagnostic remain preserved, not counted as passes.
+
+This candidate is **not release-certified**. Its full automated gate completed
+with one failure: the repeated campaign crashed with an access violation on January
+10, 1840 after sixteen successful samples. The dump is preserved and a fresh
+repeat passed. No causal connection to the inheritance change has been
+established. Stable and the published beta are unchanged.
+
+AI-victor follow-up: all 17 assertions pass when the original French parent first
+receives a player journal, returns to AI, loses naturally, and the player then
+takes over the victorious rebels. On July 24, 1837, reunited France has one
+Financial Markets row and Open Finance selects populated Speculation. The
+cumulative mod/harness error gate passes. Evidence:
+`tests/mechanics/verification_ai_victory_106.json`. This adds five distinct
+contracts, not seventeen; twelve reuse the successor checks. Together with the
+eight earlier takeover contracts, this extends accepted individual coverage to
+806 contracts in 68 suites. It does not certify the candidate release or resolve
+the intermittent campaign crash.
+
+## Live depression choices and matched crash controls
+
+All 17 depression choices now pass through their visible English buttons on
+the beta.2 candidate, with immediate numerical effects checked and zero
+blocking mod/harness diagnostics. These reuse existing Great Power contracts;
+they do not add seventeen unique assertions. Separate test event IDs bypass
+repeat cooldowns, and test setup restores the baseline immediately before the
+unchanged option effects. Natural scheduling and every locale remain outside
+this run. Two earlier attempts exposed test setup errors (baseline drift and
+an uninitialized expected cash balance); both rejected runs remain preserved.
+Evidence: `tests/mechanics/verification_depression_buttons_106.json`.
+
+Two independently initialized native saves were each run with vanilla, published
+beta.1 and candidate beta.2. All six completed normally through May 31, 1841.
+Each of the four modded arms passed all 168 observations and its cumulative
+error gate. The separate fresh campaign repeat also passed. These results do
+not reproduce or explain the original January 1840 access violation, and do
+not replace that failed release-gate result. The original dump and logs remain
+preserved. Evidence: `tests/mechanics/verification_campaign_controls_106.json`
+and `tests/mechanics/verification_campaign_exit_106.json`.
+
+The reported rivalry-win path also has a standalone live UI observation: one
+filled London Exchange win toast was seen for three scripted rivalry wins.
+The dispatch count is exactly one, all three trust rewards remain, and the
+cumulative error gate passes. Following observed toasts were unrelated vanilla
+notices. Screenshots are sampled observations, not a continuous window count;
+the reporter's playset remains outside scope. Evidence:
+`tests/mechanics/verification_rival_popup_106.json`. No additional unique contracts.
+
+## Candidate full-gate result
+
+The beta.2 run completed all 64 automated suites: **63 passed**, containing
+777 passing observations; `campaign_repeated` failed because it crashed before
+its scheduled end. All 60 Python tests passed. Raw evidence and manifests were
+reread after completion, and both candidate bytes and test inputs still match
+their starting hashes. The release verifier correctly rejects this report.
+No failed campaign evidence was replaced by a later passing run.
+
+Full result: `tests/mechanics/verification_journal_gate_106.json`. The frozen
+archive matches all 156 tested candidate files and contains no test fixtures.
+The journal fix remains local and unpublished pending crash investigation.

@@ -1,0 +1,132 @@
+{
+  "date": "2026-11-14",
+  "cause": "Unresolved",
+  "initial_run": "runs\\sweep_gate_journal_inheritance_106_r1_campaign_repeated_run\\test_01",
+  "initial_status": {
+    "status": "crashed",
+    "date": "January 10, 1840",
+    "minutes": 4.51,
+    "our_errors": 16,
+    "build": "campaign_repeated",
+    "save": null,
+    "error_log_cumulative": true
+  },
+  "exception": "C0000005 EXCEPTION_ACCESS_VIOLATION; unsymbolized game stack",
+  "repeat_report": "runs\\release_gate\\journal_campaign_repeat_r2\\report.json",
+  "repeat_campaign_result": {
+    "passed": true,
+    "problems": [],
+    "pass_occurrences": {
+      "covers_many_live_countries": 21,
+      "confidence_valid_in_live_countries": 21,
+      "debt_valid_in_live_countries": 21,
+      "standards_valid_in_live_countries": 21,
+      "exposure_each_valid_in_live_countries": 21,
+      "exposure_total_valid_in_live_countries": 21,
+      "severity_valid_in_live_countries": 21,
+      "rivalry_notification_flags_cleared": 21
+    },
+    "failed_assertions": [],
+    "error_gate": {
+      "error_logs_checked": [
+        "G:\\GameDev\\speculative-markets\\runs\\sweep_gate_journal_campaign_repeat_r2_campaign_repeated_run\\test_01\\error.log"
+      ],
+      "error_categories": {
+        "basegame_script_errors": 808,
+        "engine_or_basegame_other": 1387,
+        "mod_variable_load_warnings": 16
+      },
+      "blocking_error_count": 0,
+      "blocking_error_examples": []
+    },
+    "evidence_sha256": {
+      "G:\\GameDev\\speculative-markets\\runs\\sweep_gate_journal_campaign_repeat_r2_campaign_repeated_run\\test_01\\meta.json": "aa40fea51c9e0f52d1130a653a46b15bdc46957fc4f528872a5432c4532a5303",
+      "G:\\GameDev\\speculative-markets\\runs\\sweep_gate_journal_campaign_repeat_r2_campaign_repeated_run\\test_01\\assertions.log": "ff683d9fe601f7a93e51aba68eaf4e918a08d731aa1e3556d7d6512c3c17b6ff",
+      "G:\\GameDev\\speculative-markets\\runs\\sweep_gate_journal_campaign_repeat_r2_campaign_repeated_run\\test_01\\error.log": "ee70721198b798743db7d63353d2a678c0fd2fa4f246782c3442a5996d75dd27"
+    },
+    "runs": [
+      "G:\\GameDev\\speculative-markets\\runs\\sweep_gate_journal_campaign_repeat_r2_campaign_repeated_run\\test_01"
+    ],
+    "checkpoint": null,
+    "manifest": "G:\\GameDev\\speculative-markets\\runs\\release_gate\\journal_campaign_repeat_r2\\fixtures\\campaign_repeated\\mechanics-test-manifest.json",
+    "manifest_sha256": "8539cede57aae1d7c11895e1510b63caaf138310bf30cd3fd3dfd0e057e90af1",
+    "expected": [
+      "covers_many_live_countries",
+      "confidence_valid_in_live_countries",
+      "debt_valid_in_live_countries",
+      "standards_valid_in_live_countries",
+      "exposure_each_valid_in_live_countries",
+      "exposure_total_valid_in_live_countries",
+      "severity_valid_in_live_countries",
+      "rivalry_notification_flags_cleared"
+    ]
+  },
+  "evidence_sha256": {
+    "runs\\sweep_gate_journal_inheritance_106_r1_campaign_repeated_run\\test_01\\meta.json": "94fd56bd6f924508d4047ffc6a4cf82bc5b85dd7f4a66f1c2e6b396a68dd1cf2",
+    "runs\\sweep_gate_journal_inheritance_106_r1_campaign_repeated_run\\test_01\\assertions.log": "d129bb97f4121819ae7e943baeb4b6e74444e2c6e19743ae70069248aa953810",
+    "runs\\sweep_gate_journal_inheritance_106_r1_campaign_repeated_run\\test_01\\error.log": "ae01c9469989d0daa1f25b18f32a3b4621d21f8e283e9fe1b7350315a5286897",
+    "runs\\sweep_gate_journal_inheritance_106_r1_campaign_repeated_run\\test_01\\crash\\exception.txt": "419b5013649f98c7749d126163d319d9062d186c9e3d57650ad340cea24c9dc4",
+    "runs\\sweep_gate_journal_inheritance_106_r1_campaign_repeated_run\\test_01\\crash\\logs\\debug.log": "4387e566f143cf64847133916bf719e30d92798d8c94f39b85aacc834476d48c",
+    "runs\\sweep_gate_journal_inheritance_106_r1_campaign_repeated_run\\test_01\\crash\\logs\\error.log": "8ecd2d3171f2f8ce885ea17357a9c083fd3622c5020adff5a2bfdb25ea764848",
+    "runs\\sweep_gate_journal_inheritance_106_r1_campaign_repeated_run\\test_01\\crash\\logs\\game.log": "33a41b373b8ce6de89cfe125709ec5ba50fcc57c06b1c4f48d899c16062ec7a5",
+    "runs\\sweep_gate_journal_inheritance_106_r1_campaign_repeated_run\\test_01\\crash\\logs\\system.log": "d4a54e8215a714be1d8e7a57da27c6ebb688c52df5e0b3be29608a974ab53f6c",
+    "runs\\sweep_gate_journal_inheritance_106_r1_campaign_repeated_run\\test_01\\crash\\meta.yml": "5cafcf308c2d158709b5404d4ef4ccb2abfc8d4ac1238df0fda93050dba30797",
+    "runs\\sweep_gate_journal_inheritance_106_r1_campaign_repeated_run\\test_01\\crash\\minidump.dmp": "65e196fd45071567fd9242c1ce3ec2366688ae44683e9d23af513e017cb5d2c2",
+    "runs\\sweep_gate_journal_inheritance_106_r1_campaign_repeated_run\\test_01\\crash\\pdx_settings.json": "6845ff4c3eec619632467b6f5f16163f35b7b7daeabddd92ad64ee3999a2e49b"
+  },
+  "repeat_report_sha256": "ef349299087cb9ed581b3e3670280b198a7aa905567ecb8b1a81ae921677f0d0",
+  "notes": [
+    "Original crashed after sixteen samples; no failed invariants or blocking mod diagnostics before exit.",
+    "Fresh repeat completed 21 samples (168 observations). This is not proof of a fixed crash.",
+    "Same-save vanilla/original/candidate controls are running under runs/crash_controls_106_r1.",
+    "No original pre-crash save survived the sweep cleanup; fresh-repeat results are not an exact replay."
+  ],
+  "dump_comparison": [
+    {
+      "dump": "runs\\sweep_gate_journal_inheritance_106_r1_campaign_repeated_run\\test_01\\crash\\minidump.dmp",
+      "code": "0xc0000005",
+      "instruction": "0x7ff66a3319ab",
+      "parameters": [
+        "0x0",
+        "0x4ebc9eb4010"
+      ],
+      "module": [
+        {
+          "module": "G:\\SteamLibrary\\steamapps\\common\\Victoria 3\\binaries\\victoria3.exe",
+          "base": "0x7ff669c00000",
+          "offset": "0x7319ab",
+          "size": 101691392,
+          "timestamp": 1794312527
+        }
+      ]
+    },
+    {
+      "dump": "runs\\notification_scope_repro\\profile_scheduled\\crashes\\victoria3_01261013_232432\\minidump.dmp",
+      "code": "0xc0000005",
+      "instruction": "0x7ff66d17f236",
+      "parameters": [
+        "0x0",
+        "0x10"
+      ],
+      "module": [
+        {
+          "module": "G:\\SteamLibrary\\steamapps\\common\\Victoria 3\\binaries\\victoria3.exe",
+          "base": "0x7ff669c00000",
+          "offset": "0x357f236",
+          "size": 101691392,
+          "timestamp": 1794312527
+        }
+      ]
+    }
+  ],
+  "dump_comparison_notes": [
+    "Both dumps identify the same executable size and timestamp. The campaign failed reading 0x4ebc9eb4010 at executable offset 0x7319ab; the old notification reproduction failed reading 0x10 at offset 0x357f236.",
+    "Different fault locations do not establish different root causes. No symbols or exact pre-crash replay are available.",
+    "Parsed documented MINIDUMP_HEADER, MINIDUMP_MODULE and MINIDUMP_EXCEPTION streams locally; no dump uploaded."
+  ],
+  "format_references": [
+    "https://learn.microsoft.com/en-us/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_header",
+    "https://learn.microsoft.com/en-us/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_module",
+    "https://learn.microsoft.com/en-us/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_exception"
+  ]
+}

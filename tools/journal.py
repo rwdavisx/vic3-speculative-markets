@@ -419,6 +419,9 @@ def entry(stances):
     return f"""je_spec_markets = {{
 	icon = "{icons.path('je_markets')}"
 	group = je_group_internal_affairs
+	# Each country already has its own finance entry. A victorious revolution
+	# must not copy the defeated parent's entry over that existing instance.
+	can_revolution_inherit = no
 
 	# players get it from spec_monthly; AI countries follow scripted rules instead of buttons (journal.MONTHLY_AI).
 	# Shown (and so activated) for a player whenever investors are let in: an entry left inactive, as one was for
