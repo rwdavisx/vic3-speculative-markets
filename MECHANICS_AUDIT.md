@@ -5,8 +5,8 @@ assertions in 19 suites**, plus **38 Python tests** and **9 CMF source tests**.
 These are contract results, not a claim that every possible campaign works.
 The open checks below remain prerequisites to the broader balance pass.
 
-The local candidate is **1.0.3-beta.5, not published**. Stable `mod/` and the
-published Workshop distributions were not changed during this audit.
+**Published:** Beta 1.0.3-beta.5 at 06:10 UTC and stable 1.0.4 at 06:11 UTC on November 14.
+Stable gameplay and UI bytes match the tested beta. See `HOTFIX_1.0.4.md` for receipts and hashes.
 [Machine-readable results](tests/mechanics/verification_2026-11-14.json) record
 assertion names, fixture/build manifests, log hashes, and error classifications.
 Raw evidence stays in `runs/` and is not committed.
@@ -62,7 +62,7 @@ limits it; untested behavior is not being classified as either correct or broken
 | Long Depression | join/tie gates, repeat join, crash phase deadline, own/world recovery, clamps, cleanup/history, delayed safety | spread chains, second crisis and all event-option paths |
 | Journal / reforms / stories | stage priority, reform combinations, debt conversion and lock, delayed missing-source/shutdown safety, journal insertion | every inquiry/political movement branch and player tag switching |
 | UI / notifications / localization | native beta5 and CMF beta4 journal/goods shortcuts select Speculation; native transitions; numeric posts; row alignment; static localization checks | filters/empty states at different UI scales and all translated languages live |
-| Distribution | distinct IDs, frozen-source hashes, fixture exclusion, immutable beta archives, beta4/5 gameplay equality, regenerated CMF patch byte equality | promotion remains separate from this audit; no new Workshop upload observed |
+| Distribution | distinct IDs, frozen-source hashes, fixture exclusion, immutable beta archives, beta4/5 gameplay equality, regenerated CMF patch byte equality | beta-first promotion verified; see release receipts |
 
 ## Engine suites
 

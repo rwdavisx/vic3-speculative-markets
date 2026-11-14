@@ -9336,18 +9336,20 @@
 									}
 								}
 							}
-							tax_exp_frame = {
+							widget = {
 								size = { 500 36 }
 								parentanchor = hcenter
 								tooltip = "SPEC_PRESSURES_TT"
-								blockoverride "text" {
+								divider_clean = {}
+								textbox = {
 									text = "SPEC_PRESSURES"
 									size = { 104 30 }
+									parentanchor = vcenter
+									align = left|nobaseline
+									elide = right
 								}
-								blockoverride "text_2" {}
-								### the chips start after the label, raised as the label is by its margin
 								flowcontainer = {
-									position = { 110 -3 }
+									position = { 110 0 }
 									parentanchor = vcenter
 									spacing = 6
 									widget = {
@@ -9437,18 +9439,20 @@
 									}
 								}
 							}
-							tax_exp_frame = {
+							widget = {
 								size = { 500 36 }
 								parentanchor = hcenter
 								tooltip = "SPEC_RISKS_TT"
-								blockoverride "text" {
+								divider_clean = {}
+								textbox = {
 									text = "SPEC_RISKS"
 									size = { 104 30 }
+									parentanchor = vcenter
+									align = left|nobaseline
+									elide = right
 								}
-								blockoverride "text_2" {}
-								### the chips start after the label, raised as the label is by its margin
 								flowcontainer = {
-									position = { 110 -3 }
+									position = { 110 0 }
 									parentanchor = vcenter
 									spacing = 6
 									widget = {
