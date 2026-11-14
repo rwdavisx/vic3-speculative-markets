@@ -1672,6 +1672,9 @@ def _rivals(t="\t"):
 {T(3)}limit = {{ var:spec_centre_score < var:spec_rival.var:spec_centre_score }}
 {T(3)}set_variable = {{ name = spec_rival_last value = -1 }}
 {_lose(RIVAL_TRUST, T(3))}{bitter(3, "var:spec_rival = { " + sore + " }")}{note("lost", 3)}{them(True)}{T(2)}}}
+{T(2)}else = {{
+{T(3)}set_variable = {{ name = spec_rival_last value = 0 }}
+{T(2)}}}
 {T(1)}}}
 {t}}}
 """
@@ -1819,9 +1822,11 @@ def _rival_loc():
             ' SPEC_CENTRE_RIVAL: "\\nRival Exchange: #v [Country.MakeScope.Var(\'spec_rival\').GetCountry.GetName]#!"\n'
             f" SPEC_RIVAL_LAST: \"[SelectLocalization(Not({RIVAL}.GetCountry.IsValid), '', SelectLocalization(Not(GetPlayer.MakeScope.Var('spec_rival_last').IsSet), "
             f"'SPEC_RIVAL_LAST_0', SelectLocalization(GreaterThan_CFixedPoint(GetPlayer.MakeScope.Var('spec_rival_last').GetValue, {fx(0)}), "
-            f"'SPEC_RIVAL_LAST_W', 'SPEC_RIVAL_LAST_L')))]\"\n"
+            f"'SPEC_RIVAL_LAST_W', SelectLocalization(LessThan_CFixedPoint(GetPlayer.MakeScope.Var('spec_rival_last').GetValue, {fx(0)}), "
+            f"'SPEC_RIVAL_LAST_L', 'SPEC_RIVAL_LAST_T'))))]\"\n"
             ' SPEC_RIVAL_LAST_0: "No result yet"\n SPEC_RIVAL_LAST_W: "#P Won last year#!"\n'
             ' SPEC_RIVAL_LAST_L: "#N Lost last year#!"\n'
+            ' SPEC_RIVAL_LAST_T: "Tied last year"\n'
             ' SPEC_RIVAL_G_US: "Our score"\n'
             f' SPEC_RIVAL_US: "#v [{v("spec_centre_score")}|0]#!"\n'
             ' SPEC_RIVAL_G_THEM: "Their score"\n'

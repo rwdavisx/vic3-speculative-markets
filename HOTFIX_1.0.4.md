@@ -25,3 +25,18 @@ The immutable stable archive passed integrity/output verification. Both Steam up
 returned success and the subsequent query verified public visibility and description hashes.
 The stable description includes the user's earlier natural-language rewrite and links
 to beta and CMF. No fixture/debug files were packaged.
+
+## Follow-up Beta 1.0.4-beta.2
+
+Published and verified public at 06:20:30 UTC, item 3839275304.
+Receipt: `workshop/upload_receipts/20261114T062030.542158Z_beta_update_verified_c212b285.json`.
+Archive SHA256: `1adcffce14ac96c1901137f18ac1ed40fff9c06895813ddc3f71b7a280748e50`.
+Fixes an annual tie retaining a previous win/loss. Red: two engine assertions on beta5;
+green: seven rivalry assertions on the final beta2, plus related Exchange/pledge regressions.
+Stable remains 1.0.4; this follow-up is beta-only. No GUI structure or navigation changed.
+
+At the user's request, both descriptions were shortened to current version plus plain
+change bullets. Description-only updates verified at 06:21:25 (stable) and 06:21:26 (beta),
+with unchanged content sizes. Receipts:
+`20261114T062125.208476Z_stable_description_verified_2d13f41a.json` and
+`20261114T062126.402501Z_beta_description_verified_731742d9.json` in the receipt directory.

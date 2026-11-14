@@ -1,0 +1,41 @@
+namespace = spec_mechanics_rival_year
+spec_mechanics_rival_year.1 = { type = country_event hidden = yes immediate = {
+ every_country = { remove_variable = spec_rival }
+ set_variable = { name = spec_rival value = c:FRA }
+ set_variable = { name = spec_centre_score value = 200 }
+ set_variable = { name = spec_centre_trust value = 60 }
+ c:FRA = { set_variable = { name = spec_centre_score value = 100 } set_variable = { name = spec_centre_trust value = 60 } }
+ spec_mechanics_rival_year = yes
+if = { limit = { var:spec_centre_trust = 66 var:spec_rival_last = 1 } debug_log = "HOTFIX PASS rival_winner_gets_six_trust" }
+else = { debug_log = "HOTFIX FAIL rival_winner_gets_six_trust" }
+
+ c:FRA = { set_variable = { name = spec_centre_score value = 200 } }
+ set_variable = { name = spec_test_trust value = var:spec_centre_trust }
+ spec_mechanics_rival_year = yes
+if = { limit = { var:spec_centre_trust = var:spec_test_trust } debug_log = "HOTFIX PASS rival_tie_does_not_transfer_trust" }
+else = { debug_log = "HOTFIX FAIL rival_tie_does_not_transfer_trust" }
+if = { limit = { var:spec_rival_last = 0 } debug_log = "HOTFIX PASS rival_tie_replaces_previous_win" }
+else = { debug_log = "HOTFIX FAIL rival_tie_replaces_previous_win" }
+
+ c:FRA = { set_variable = { name = spec_centre_score value = 300 } }
+ spec_mechanics_rival_year = yes
+if = { limit = { var:spec_rival_last = -1 var:spec_centre_trust < var:spec_test_trust } debug_log = "HOTFIX PASS rival_loss_records_current_result" }
+else = { debug_log = "HOTFIX FAIL rival_loss_records_current_result" }
+
+ c:FRA = { set_variable = { name = spec_centre_score value = 200 } }
+ spec_mechanics_rival_year = yes
+if = { limit = { var:spec_rival_last = 0 } debug_log = "HOTFIX PASS rival_tie_replaces_previous_loss" }
+else = { debug_log = "HOTFIX FAIL rival_tie_replaces_previous_loss" }
+
+ c:FRA = { set_variable = { name = spec_centre_score value = 100 } set_variable = { name = spec_rival value = c:GBR } }
+ set_variable = { name = spec_centre_trust value = 60 }
+ spec_mechanics_rival_year = yes
+if = { limit = { var:spec_centre_trust = 66 } debug_log = "HOTFIX PASS mutual_rivals_do_not_double_winner_reward" }
+else = { debug_log = "HOTFIX FAIL mutual_rivals_do_not_double_winner_reward" }
+
+ set_variable = { name = spec_centre_trust value = 119 }
+ spec_mechanics_rival_year = yes
+if = { limit = { var:spec_centre_trust = 120 } debug_log = "HOTFIX PASS rival_reward_capped_at_120" }
+else = { debug_log = "HOTFIX FAIL rival_reward_capped_at_120" }
+ debug_log = "HOTFIX SUITE COMPLETE"
+} }

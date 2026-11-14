@@ -10,7 +10,7 @@
   },
   "name": "Speculative Markets - Beta",
   "id": "speculative_markets_beta",
-  "version": "1.0.3-beta.5",
+  "version": "1.0.4-beta.2",
   "short_description": "Testing branch. Enable either Speculative Markets or Speculative Markets - Beta, never both.",
   "relationships": []
 }

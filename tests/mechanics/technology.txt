@@ -1,0 +1,48 @@
+namespace = spec_mechanics_technology
+spec_mechanics_technology.1 = { type = country_event hidden = yes immediate = {
+c:SOK = {
+if = { limit = { NOT = { has_technology_researched = banking } NOT = { has_technology_researched = central_banking } } debug_log = "HOTFIX PASS fixture_sokoto_lacks_banking" }
+else = { debug_log = "HOTFIX FAIL fixture_sokoto_lacks_banking" }
+
+ activate_law = law_type:law_interventionism
+ set_variable = { name = spec_conf value = 100 }
+ set_variable = { name = spec_temper value = 0 }
+ set_variable = { name = spec_debt value = 0 }
+ remove_variable = spec_ai_fever
+ remove_variable = spec_stance_cooldown
+ remove_variable = spec_panic
+ spec_stance_to_normal = yes
+ remove_variable = spec_stance_cooldown
+ spec_mechanics_ai_policy = yes
+if = { limit = { spec_stance_value = 0 NOT = { spec_can_stance_tight = yes } } debug_log = "HOTFIX PASS no_central_bank_prevents_ai_tightening" }
+else = { debug_log = "HOTFIX FAIL no_central_bank_prevents_ai_tightening" }
+
+ set_variable = { name = spec_conf value = 0 }
+ spec_mechanics_ai_policy = yes
+if = { limit = { spec_stance_value = 0 NOT = { spec_can_stance_loose = yes } } debug_log = "HOTFIX PASS no_central_bank_prevents_ai_loosening" }
+else = { debug_log = "HOTFIX FAIL no_central_bank_prevents_ai_loosening" }
+
+ set_variable = { name = spec_panic value = 6 }
+ set_variable = { name = spec_crunch value = 10 }
+ remove_variable = spec_rescued
+ remove_variable = spec_bailed
+if = { limit = { NOR = { spec_can_rescue = yes spec_can_bailout = yes } } debug_log = "HOTFIX PASS no_banking_blocks_rescue_and_bailout" }
+else = { debug_log = "HOTFIX FAIL no_banking_blocks_rescue_and_bailout" }
+
+ add_technology_researched = banking
+if = { limit = { spec_can_rescue = yes spec_can_bailout = yes } debug_log = "HOTFIX PASS banking_unlocks_rescue_and_bailout" }
+else = { debug_log = "HOTFIX FAIL banking_unlocks_rescue_and_bailout" }
+
+ remove_variable = spec_panic
+ set_variable = { name = spec_conf value = 100 }
+ spec_mechanics_ai_policy = yes
+if = { limit = { spec_stance_value = 0 } debug_log = "HOTFIX PASS banking_alone_does_not_unlock_stance" }
+else = { debug_log = "HOTFIX FAIL banking_alone_does_not_unlock_stance" }
+
+ add_technology_researched = central_banking
+ spec_mechanics_ai_policy = yes
+if = { limit = { spec_stance_value = -1 has_variable = spec_stance_cooldown } debug_log = "HOTFIX PASS central_banking_unlocks_ai_tightening" }
+else = { debug_log = "HOTFIX FAIL central_banking_unlocks_ai_tightening" }
+ }
+ debug_log = "HOTFIX SUITE COMPLETE"
+} }

@@ -1,11 +1,11 @@
 # Current releases and separate Workshop items
 
-Stable 1.0.4 and Beta 1.0.3-beta.5 were uploaded successfully and verified **public** on November 14, 2026 at 06:11 and 06:10 UTC respectively. CMF remains 1.0.1. The rejected CMF 1.0.0 and Beta 1.0.2-beta.1 archives are for audit only. The compatibility item's sole Workshop Required Item, Community Mod Framework, was saved and verified at 19:33 EST; [API receipt](G:/GameDev/speculative-markets/workshop/upload_receipts/20261114T003313.752779Z_cmf_query_f5aa4cb9.json).
+Stable 1.0.4 and Beta 1.0.4-beta.2 were uploaded successfully and verified **public** on November 14, 2026 at 06:11 and 06:20 UTC respectively. CMF remains 1.0.1. The rejected CMF 1.0.0 and Beta 1.0.2-beta.1 archives are for audit only. The compatibility item's sole Workshop Required Item, Community Mod Framework, was saved and verified at 19:33 EST; [API receipt](G:/GameDev/speculative-markets/workshop/upload_receipts/20261114T003313.752779Z_cmf_query_f5aa4cb9.json).
 
 | Public Workshop item | Version | Successful upload verification |
 | --- | --- | --- |
 | [Speculative Markets](https://steamcommunity.com/sharedfiles/filedetails/?id=3831434383) | 1.0.4 | [Stable receipt](G:/GameDev/speculative-markets/workshop/upload_receipts/20261114T061128.512707Z_stable_update_verified_15683ca1.json) |
-| [Speculative Markets - Beta](https://steamcommunity.com/sharedfiles/filedetails/?id=3839275304) | 1.0.3-beta.5 | [Beta receipt](G:/GameDev/speculative-markets/workshop/upload_receipts/20261114T061025.742628Z_beta_update_verified_87802156.json) |
+| [Speculative Markets - Beta](https://steamcommunity.com/sharedfiles/filedetails/?id=3839275304) | 1.0.4-beta.2 | [Beta receipt](G:/GameDev/speculative-markets/workshop/upload_receipts/20261114T062030.542158Z_beta_update_verified_c212b285.json) |
 | [Speculative Markets - CMF Compatibility](https://steamcommunity.com/sharedfiles/filedetails/?id=3839275348) | 1.0.1 | [CMF patch receipt](G:/GameDev/speculative-markets/workshop/upload_receipts/20261114T002808.860527Z_cmf_update_verified_f8b6379e.json) |
 
 The Steam API receipts confirm public visibility, nonzero content, the selected preview sizes, and description text matching the canonical local drafts. Each description links the other relevant releases; none asks players to enable stable and beta together.
@@ -16,7 +16,7 @@ The Steam API receipts confirm public visibility, nonzero content, the selected 
 | --- | --- | --- |
 | Stable 1.0.4 | [Speculative Markets 1.0.4](G:/GameDev/speculative-markets/releases/Speculative_Markets_1.0.4.zip) | [Manifest](G:/GameDev/speculative-markets/releases/Speculative_Markets_1.0.4.manifest.json) |
 | CMF patch 1.0.1 | [CMF Compatibility 1.0.1](G:/GameDev/speculative-markets/releases/Speculative_Markets_CMF_Compatibility_1.0.1.zip) | [Manifest](G:/GameDev/speculative-markets/releases/Speculative_Markets_CMF_Compatibility_1.0.1.manifest.json) |
-| Beta 1.0.3-beta.5 | [Speculative Markets Beta](G:/GameDev/speculative-markets/beta/releases/Speculative_Markets_Beta_1.0.3-beta.5.zip) | [Manifest](G:/GameDev/speculative-markets/beta/releases/Speculative_Markets_Beta_1.0.3-beta.5.manifest.json) |
+| Beta 1.0.4-beta.2 | [Speculative Markets Beta](G:/GameDev/speculative-markets/beta/releases/Speculative_Markets_Beta_1.0.4-beta.2.zip) | [Manifest](G:/GameDev/speculative-markets/beta/releases/Speculative_Markets_Beta_1.0.4-beta.2.manifest.json) |
 
 All three archives pass integrity and output-byte checks. The corrected beta/CMF metadata and Finance transitions passed a fresh game run and final log review on Victoria 3 1.15.1; known existing engine warnings remain. See the [release review](G:/GameDev/speculative-markets/HOTFIX_1.0.2.md) for the exact validation scope. Do not select an older candidate merely because its ZIP is still present in a release directory.
 
@@ -26,7 +26,7 @@ All three archives pass integrity and output-byte checks. The corrected beta/CMF
 | --- | --- | --- |
 | Title | **Speculative Markets - Beta** | **Speculative Markets - CMF Compatibility** |
 | Local mod folder | [beta/mod](G:/GameDev/speculative-markets/beta/mod) | [compatibility/cmf/mod](G:/GameDev/speculative-markets/compatibility/cmf/mod) |
-| Current version | 1.0.3-beta.5 | 1.0.1 |
+| Current version | 1.0.4-beta.2 | 1.0.1 |
 | Metadata ID | `speculative_markets_beta` | `speculative_markets_cmf_compat` |
 | Listing description | [Beta BBCode](G:/GameDev/speculative-markets/beta/workshop_description.bbcode) | [CMF patch BBCode](G:/GameDev/speculative-markets/compatibility/cmf/workshop_description.bbcode) |
 | Preview | [Beta PNG](G:/GameDev/speculative-markets/workshop/new_items/beta_preview.png) / [SVG source](G:/GameDev/speculative-markets/workshop/new_items/beta_preview.svg) | [CMF patch PNG](G:/GameDev/speculative-markets/workshop/new_items/cmf_preview.png) / [SVG source](G:/GameDev/speculative-markets/workshop/new_items/cmf_preview.svg) |

@@ -1,0 +1,58 @@
+namespace = spec_mechanics_pledge_cash
+spec_mechanics_pledge_cash.1 = {
+ type = country_event
+ hidden = yes
+ immediate = {
+ activate_law = law_type:law_interventionism
+ if = { limit = { NOT = { has_technology_researched = central_banking } } add_technology_researched = central_banking }
+ remove_variable = spec_llr
+ remove_variable = spec_rescued
+ remove_variable = spec_pledge_unmet
+ remove_variable = spec_pledge
+ set_variable = { name = spec_panic value = 6 }
+ set_variable = { name = spec_panic_len value = 6 }
+ set_variable = { name = spec_panic_elapsed value = 0 }
+ set_variable = { name = spec_conf value = 19 }
+ set_variable = { name = spec_c_total value = 0 }
+ set_variable = { name = spec_lax value = 0 }
+ add_treasury = { value = gold_reserves multiply = -1 }
+ add_treasury = 10000000
+ set_variable = { name = spec_test_before value = gold_reserves }
+ set_variable = { name = spec_test_cost value = spec_rescue_cost }
+ spec_rescue = yes
+ set_variable = { name = spec_test_paid value = var:spec_test_before }
+ change_variable = { name = spec_test_paid subtract = gold_reserves }
+ if = { limit = { var:spec_test_paid = var:spec_test_cost has_variable = spec_rescued } debug_log = "HOTFIX PASS manual_rescue_exact_treasury_cost" }
+ else = { debug_log = "HOTFIX FAIL manual_rescue_exact_treasury_cost" }
+ remove_variable = spec_rescued
+ set_variable = { name = spec_panic value = 6 }
+ set_variable = { name = spec_lax value = 0 }
+ set_variable = spec_pledge
+ set_variable = { name = spec_test_pledged_cost value = spec_rescue_cost }
+ if = { limit = { spec_rescue_cost < var:spec_test_cost } debug_log = "HOTFIX PASS pledge_cost_discount" }
+ else = { debug_log = "HOTFIX FAIL pledge_cost_discount" }
+ set_variable = { name = spec_test_before value = gold_reserves }
+ spec_mechanics_pledge_rescue = yes
+ set_variable = { name = spec_test_paid value = var:spec_test_before }
+ change_variable = { name = spec_test_paid subtract = gold_reserves }
+ if = { limit = { has_variable = spec_rescued has_variable = spec_pledge NOT = { has_variable = spec_pledge_unmet } var:spec_test_paid = var:spec_test_pledged_cost } debug_log = "HOTFIX PASS funded_pledge_rescues_exact_cost" }
+ else = { debug_log = "HOTFIX FAIL funded_pledge_rescues_exact_cost" }
+ set_variable = { name = spec_test_before value = gold_reserves }
+ spec_mechanics_pledge_rescue = yes
+ if = { limit = { gold_reserves = var:spec_test_before } debug_log = "HOTFIX PASS pledge_cannot_pay_twice" }
+ else = { debug_log = "HOTFIX FAIL pledge_cannot_pay_twice" }
+ remove_variable = spec_rescued
+ remove_variable = spec_pledge_unmet
+ set_variable = { name = spec_panic value = 6 }
+ add_treasury = { value = gold_reserves multiply = -1 }
+ set_variable = { name = spec_test_before value = gold_reserves }
+ spec_mechanics_pledge_rescue = yes
+ if = { limit = { has_variable = spec_pledge has_variable = spec_pledge_unmet NOT = { has_variable = spec_rescued } gold_reserves = var:spec_test_before var:spec_panic = 6 } debug_log = "HOTFIX PASS unfunded_pledge_preserves_promise_without_payment" }
+ else = { debug_log = "HOTFIX FAIL unfunded_pledge_preserves_promise_without_payment" }
+ add_treasury = 10000000
+ spec_mechanics_pledge_rescue = yes
+ if = { limit = { has_variable = spec_rescued has_variable = spec_pledge } debug_log = "HOTFIX PASS funding_later_permits_rescue" }
+ else = { debug_log = "HOTFIX FAIL funding_later_permits_rescue" }
+ debug_log = "HOTFIX SUITE COMPLETE"
+ }
+}

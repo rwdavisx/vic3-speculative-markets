@@ -1,0 +1,12 @@
+{
+  "spec_mechanics_pledge_rescue": {
+    "path": "common/scripted_effects/spec_effects.txt",
+    "start": "\tif = {\n\t\tlimit = { has_variable = spec_lev_old }\n\t\tchange_variable = { name = spec_lev_old multiply = 0.5 }\n\t}\n",
+    "end": "\ttrigger_event = { id = spec_markets.2 popup = yes }"
+  },
+  "spec_mechanics_pledge_month": {
+    "path": "common/scripted_effects/spec_centre_effects.txt",
+    "start": "\t\t\t\t\tset_variable = { name = spec_exch_sound value = { value = spec_log_ksnd add = 1 } }\n\t\t\t\t}\n\t\t\t}\n",
+    "end": "\t\t\tif = {\n\t\t\t\tlimit = { is_player = no }\n\t\t\t\tif = {\n\t\t\t\t\tlimit = {\n\t\t\t\t\t\tspec_can_pledge = yes"
+  }
+}

@@ -1,0 +1,231 @@
+{
+  "date": "2026-11-14",
+  "game_version": "1.15.1",
+  "beta_candidate": "1.0.4-beta.2",
+  "published": true,
+  "archive_sha256": "1adcffce14ac96c1901137f18ac1ed40fff9c06895813ddc3f71b7a280748e50",
+  "new_assertion_count": 25,
+  "cumulative_contract_assertions": 226,
+  "cumulative_suites": 23,
+  "followup_run_assertions": 42,
+  "suites": [
+    {
+      "suite": "rival_year",
+      "build": "runs\\mechanics\\rival_year_beta104_final",
+      "run": "runs\\sweep_mechanics_rival_final_beta104\\rival_01",
+      "source_version": "1.0.4-beta.2",
+      "source_manifest_sha256": "36c2fbd11477f647d7adb89615dcc3318b88c1a212badb5151bba1309011f5e7",
+      "fixture_sha256": "ae1f3e09a74e16691a432a05b800a0ca8092f38717460aaa06ce2122bb1e0ff5",
+      "assertions_log_sha256": "dfca7717431889bcf446c7c5aee3119020e40582ce3c74b5125065d43b573590",
+      "error_log_sha256": "8ba00090b22031777952f4d1abae361bcdc7c056c6c30d1712ca774a96572e92",
+      "result": {
+        "suite": "rival_year",
+        "passed": [
+          "mutual_rivals_do_not_double_winner_reward",
+          "rival_loss_records_current_result",
+          "rival_reward_capped_at_120",
+          "rival_tie_does_not_transfer_trust",
+          "rival_tie_replaces_previous_loss",
+          "rival_tie_replaces_previous_win",
+          "rival_winner_gets_six_trust"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_rival_final_beta104\\rival_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "exchange",
+      "build": "runs\\mechanics\\exchange_beta104",
+      "run": "runs\\sweep_mechanics_rival_fix_beta104\\exchange_01",
+      "source_version": "1.0.4-beta.1",
+      "source_manifest_sha256": "a9de1bf91f40afc83ecea1582ec947ffa6b81adc5b0336515b0f84b2eb51e36c",
+      "fixture_sha256": "ad8c895189f74eddadf2c486c29a435af78ed1222d3919a9f945e67c7705d965",
+      "assertions_log_sha256": "b5b759de826740252b8c5d4299659c13fdee06aead59a843e5101c40d49fb0ae",
+      "error_log_sha256": "cd7a6c8054f9dd679a3464cbf02ca2b7ee444fa33f2d05846874e2c0bd63f9a5",
+      "result": {
+        "suite": "exchange",
+        "passed": [
+          "charter_change_clears_incompatible_pursuit",
+          "charter_change_halves_trust",
+          "exchange_shutdown_clears_actions",
+          "first_charter_free_and_locked",
+          "pledge_withdrawal_has_notice_period",
+          "pursuit_reorder_preserves_unique_priorities",
+          "pursuits_allocate_unique_priorities_and_lock",
+          "rescue_pledge_can_only_be_made_once",
+          "stopping_pursuit_compacts_order"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_rival_fix_beta104\\exchange_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "exchange_monthly",
+      "build": "runs\\mechanics\\exchange_monthly_beta104",
+      "run": "runs\\sweep_mechanics_rival_fix_beta104\\monthly_01",
+      "source_version": "1.0.4-beta.1",
+      "source_manifest_sha256": "86753212593efd8bc5a25050c65279b10506de7d172b111032cc12358c15c078",
+      "fixture_sha256": "9f5232921cb299ced55ce5cfe5a3b0fd6fa5f54274b3c5c349405908c4369c8c",
+      "assertions_log_sha256": "644e740a798637789494628bf44ab0a055808620c0382b8c54aaeba62b23f8e7",
+      "error_log_sha256": "fd102dee792620f76e708425b88f6cd36e254e302f87ce2652e2d71756b5792f",
+      "result": {
+        "suite": "exchange_monthly",
+        "passed": [
+          "bad_debts_lose_trust_and_prevent_promotion",
+          "middling_standards_hold_trust",
+          "panic_stops_quiet_month_trust_recovery",
+          "pledge_notice_expires",
+          "pledge_notice_penultimate_month",
+          "reckless_month_loses_trust",
+          "sound_month_adds_one_trust",
+          "trust_ceiling"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_rival_fix_beta104\\monthly_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 4,
+          "engine_or_basegame_other": 1355,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "pledge_cash",
+      "build": "runs\\mechanics\\pledge_cash_beta104",
+      "run": "runs\\sweep_mechanics_rival_fix_beta104\\cash_01",
+      "source_version": "1.0.4-beta.1",
+      "source_manifest_sha256": "5c4ff755544fb7e8ee629dcdcec3bfa9cb1c005afe231d6ae1234ff31d5a3cd3",
+      "fixture_sha256": "809dc6c3b44335a3b347ca4b33bca36c82459f20113ada286c18777fa4ab11b1",
+      "assertions_log_sha256": "8492bd0cf8ad212e815c96d21012c3c19d1a229d9d44e0d629527b468c14c5e3",
+      "error_log_sha256": "828f6ace3b67a9646a20697f4738d9a7ac407f311d5be938fd28a82daaf523a8",
+      "result": {
+        "suite": "pledge_cash",
+        "passed": [
+          "funded_pledge_rescues_exact_cost",
+          "funding_later_permits_rescue",
+          "manual_rescue_exact_treasury_cost",
+          "pledge_cannot_pay_twice",
+          "pledge_cost_discount",
+          "unfunded_pledge_preserves_promise_without_payment"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_rival_fix_beta104\\cash_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 4,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 15
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "pledge_default",
+      "build": "runs\\mechanics\\pledge_default_beta104",
+      "run": "runs\\sweep_mechanics_rival_fix_beta104\\default_01",
+      "source_version": "1.0.4-beta.1",
+      "source_manifest_sha256": "cda2a040d3b273201b583fbb540dc645cf72241b72d404252ef96df1db2c820f",
+      "fixture_sha256": "205b201062dd5ab5bd4d0a6e591af4a4126a13ffbbddba2a33f8b53c68c199a5",
+      "assertions_log_sha256": "f65d00cfe608dfab8559a159a8fb28aef4984baa35e5047299b07e2b2c51dcdd",
+      "error_log_sha256": "3dbebd64f613a6b9306f11b8b2541e0a1aea9dd22bae0db97363a3c261195b10",
+      "result": {
+        "suite": "pledge_default",
+        "passed": [
+          "default_blocks_pledged_rescue",
+          "default_breaks_pledge_and_notice",
+          "default_destroys_trust_and_costs_confidence",
+          "default_penalty_only_once",
+          "fixture_country_in_default"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_rival_fix_beta104\\default_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 15
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    },
+    {
+      "suite": "technology",
+      "build": "runs\\mechanics\\technology_beta104_final",
+      "run": "runs\\sweep_mechanics_technology_beta104\\tech_01",
+      "source_version": "1.0.4-beta.2",
+      "source_manifest_sha256": "61e1c87c582629b99486f4dfd6a36823d8ad1e9d3731823a7c80ac0b39d04bdf",
+      "fixture_sha256": "7678f59374db85d089c9005d596a1df17cc53aa67863bdb35bdae71ce9e8d281",
+      "assertions_log_sha256": "7457d3ed622df778fcac32a7b591cdc182cd0d216169bd118f5870aef1790795",
+      "error_log_sha256": "0523517566e32d8be84487718d47c9dfee1aff97ef939e32f0ba227e325b7438",
+      "result": {
+        "suite": "technology",
+        "passed": [
+          "banking_alone_does_not_unlock_stance",
+          "banking_unlocks_rescue_and_bailout",
+          "central_banking_unlocks_ai_tightening",
+          "fixture_sokoto_lacks_banking",
+          "no_banking_blocks_rescue_and_bailout",
+          "no_central_bank_prevents_ai_loosening",
+          "no_central_bank_prevents_ai_tightening"
+        ],
+        "failed": [],
+        "missing": [],
+        "unexpected": [],
+        "complete": true,
+        "error_logs_checked": [
+          "runs\\sweep_mechanics_technology_beta104\\tech_01\\error.log"
+        ],
+        "error_categories": {
+          "basegame_script_errors": 4,
+          "engine_or_basegame_other": 1353,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      }
+    }
+  ],
+  "red_evidence": "runs/sweep_mechanics_rival_year_beta5_red/rival_01",
+  "limits": "Rival result state is engine-tested. New localization passed static checks in all languages, not a live UI rendering check. Remaining campaign interactions are in MECHANICS_AUDIT.md."
+}

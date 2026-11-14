@@ -1,0 +1,42 @@
+namespace = spec_mechanics_pledge_default
+spec_mechanics_pledge_default.1 = {
+ type = country_event
+ hidden = yes
+ immediate = {
+ activate_law = law_type:law_interventionism
+ add_treasury = -1000000000
+ trigger_event = { id = spec_mechanics_pledge_default.2 days = 2 }
+ }
+}
+spec_mechanics_pledge_default.2 = {
+ type = country_event
+ hidden = yes
+ immediate = {
+if = { limit = { in_default = yes } debug_log = "HOTFIX PASS fixture_country_in_default" }
+else = { debug_log = "HOTFIX FAIL fixture_country_in_default" }
+
+ set_variable = spec_pledge
+ set_variable = { name = spec_pledge_leave value = 3 }
+ remove_variable = spec_pledge_broken
+ remove_variable = spec_rescued
+ set_variable = { name = spec_panic value = 6 }
+ set_variable = { name = spec_centre_trust value = 100 }
+ set_variable = { name = spec_conf value = 70 }
+ set_variable = { name = spec_c_total value = 0 }
+ spec_mechanics_pledge_rescue = yes
+if = { limit = { has_variable = spec_pledge_unmet NOT = { has_variable = spec_rescued } } debug_log = "HOTFIX PASS default_blocks_pledged_rescue" }
+else = { debug_log = "HOTFIX FAIL default_blocks_pledged_rescue" }
+
+ spec_mechanics_pledge_month = yes
+if = { limit = { NOR = { has_variable = spec_pledge has_variable = spec_pledge_leave } has_modifier = spec_pledge_broken var:spec_pledge_broken = 1 } debug_log = "HOTFIX PASS default_breaks_pledge_and_notice" }
+else = { debug_log = "HOTFIX FAIL default_breaks_pledge_and_notice" }
+if = { limit = { var:spec_centre_trust = 0 var:spec_conf = 55 } debug_log = "HOTFIX PASS default_destroys_trust_and_costs_confidence" }
+else = { debug_log = "HOTFIX FAIL default_destroys_trust_and_costs_confidence" }
+
+ spec_mechanics_pledge_month = yes
+if = { limit = { var:spec_pledge_broken = 1 var:spec_conf = 55 } debug_log = "HOTFIX PASS default_penalty_only_once" }
+else = { debug_log = "HOTFIX FAIL default_penalty_only_once" }
+
+ debug_log = "HOTFIX SUITE COMPLETE"
+ }
+}

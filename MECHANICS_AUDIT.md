@@ -1,12 +1,13 @@
 # Mechanics correctness audit
 
-Balance is frozen at 1.0.3. The first isolated pass now has **201 passing engine
-assertions in 19 suites**, plus **38 Python tests** and **9 CMF source tests**.
+Balance is frozen at 1.0.3. The isolated passes now have **226 passing engine
+assertions in 23 suites**, plus **38 Python tests** and **9 CMF source tests**.
 These are contract results, not a claim that every possible campaign works.
 The open checks below remain prerequisites to the broader balance pass.
 
-**Published:** Beta 1.0.3-beta.5 at 06:10 UTC and stable 1.0.4 at 06:11 UTC on November 14.
-Stable gameplay and UI bytes match the tested beta. See `HOTFIX_1.0.4.md` for receipts and hashes.
+**Published:** Stable 1.0.4 at 06:11 UTC and Beta 1.0.4-beta.2 at 06:20 UTC on November 14.
+Stable matches the earlier tested beta5. The newer beta adds the rivalry-tie fix below.
+See `HOTFIX_1.0.4.md` for receipts and hashes.
 [Machine-readable results](tests/mechanics/verification_2026-11-14.json) record
 assertion names, fixture/build manifests, log hashes, and error classifications.
 Raw evidence stays in `runs/` and is not committed.
@@ -53,10 +54,10 @@ limits it; untested behavior is not being classified as either correct or broken
 | Lending standards | drift gates, crisis-loss floor, upper/lower bounds, action multipliers | long-run combinations of overlapping interventions |
 | Overbuilding / construction / owners | supply-loss neutrality, doubled-supply amplification cap, construction tiers 4/5/6, small-boom exclusion, bonus removal | actual ownership-stratum radical counts, each building group and PM |
 | Leverage / Bad Debts | ramp/fade/expiry, bailout lock cleanup, old-loan land-loss relief, repeated loss, new-loan exclusion, relief expiry | real secession/peace-deal integration beyond the controlled population cache |
-| Financial Panic | minimum elapsed age, deadline, recovery, no repeated rescue, cooldown state, legacy clock migration | exact treasury cost and pledged-rescue/default paths |
-| Credit policy / AI | same stance actions and cooldown, mania tightening, debt tightening, low-confidence loosening, recovery, fever/panic gates | technology-negative cases, government turnover and probabilistic rescue frequency |
+| Financial Panic | minimum elapsed age, deadline, recovery, no repeated rescue, cooldown state, legacy clock migration | save/reload during a pledged rescue; overlapping crisis cash flows |
+| Credit policy / AI | same stance actions and cooldown, mania tightening, debt tightening, low-confidence loosening, recovery, fever/panic gates | government turnover and probabilistic rescue frequency |
 | Goods interventions / Great Issues | eligibility, mutual exclusion, toggle/cancellation, shutdown, issue cooldown | actual cash cost and modifier duration through save/reload |
-| Exchanges | actions/charters, pursuit ordering, pledge notice, monthly trust gates/cap, Bad Debts prevents promotion, seat ownership, annexed/missing ranks and rivals | Renown weight accounting, annual rival rewards, complete score/standing boundaries, pledge funding/default |
+| Exchanges | actions/charters, pursuit ordering, pledge notice, monthly trust gates/cap, Bad Debts prevents promotion, seat ownership, annexed/missing ranks and rivals | Renown weight accounting, complete score/standing boundaries, hostile-relation loss amounts and multi-rival ordering |
 | Domestic economy / politics | growth bounds and stagnation, depth/trade multipliers, fixed AI temperament, mania goodwill, panic blame, cooling/cleanup | revolutions, government changes and exact affected pop totals |
 | Foreign transmission / wars | real GBR-to-FRA hit, weaker hit cannot stack, stronger replaces, closed economy ignores; war-end live/missing opponent safety | multi-hop recursion/capital flight and actual war start-to-end campaign |
 | Long Depression | join/tie gates, repeat join, crash phase deadline, own/world recovery, clamps, cleanup/history, delayed safety | spread chains, second crisis and all event-option paths |
@@ -87,6 +88,10 @@ limits it; untested behavior is not being classified as either correct or broken
 | exchange_monthly | 8 | policy_final_beta5/exchange |
 | ai_policy | 8 | policy_final_beta5/ai |
 | legacy_hotfix | 21 | legacy_beta5/legacy |
+| pledge_cash | 6 | rival_fix_beta104/cash |
+| pledge_default | 5 | rival_fix_beta104/default |
+| rival_year | 7 | rival_final_beta104/rival |
+| technology | 7 | technology_beta104/tech |
 
 Evidence abbreviations expand to `runs/sweep_mechanics_<batch>/<arm>_01`.
 All accepted runs completed their assertion sequence and had **zero blocking
@@ -150,3 +155,28 @@ multiplayer or arbitrary third-party mod combinations.
 For a new bug: write the expectation, reproduce red on unchanged beta, fix the
 generator, package a new beta revision, rerun that contract and related suites,
 then check interactions/live UI before promotion. Keep balance work separate.
+
+## Follow-up after stable 1.0.4 publication
+
+Four new suites add 25 distinct assertions, for 226 across 23 suites. Six follow-up
+runs (including Exchange action/monthly regressions) passed 42 assertions with zero
+blocking mod/harness diagnostics. Details: `tests/mechanics/verification_followup_2026-11-14.json`.
+
+- Rescue cash: exact manual/pledged treasury charges, pledge discount with identical
+  lending standards, no double charge, an unfunded promise remains in force, later funding.
+- Default: real treasury deficit put the test country into default; pledge rescue refused,
+  trust cleared, confidence fell by 15, notice ended and the penalty applied only once.
+- Technology: Sokoto began without Banking/Central Banking. Rescue/bailout and AI policy
+  gates stayed closed, Banking unlocked rescue/bailout, and Central Banking unlocked policy.
+- Annual rivalry: winner reward, mutual-rival deduplication, cap, loss and tie cases.
+  Both tie-after-win and tie-after-loss failed on unchanged beta5: the old result remained.
+  The generator now stores zero for a tie and selects a translated "Tied last year" label.
+  No trust changes on ties. All seven cases pass in the final beta2. Stable does not yet
+  include this new fix. Localized text passed static validation, not live rendering.
+
+The first cash fixture compared a pledge against a pre-rescue price while leaving the
+rescue's lending-standard increase in place. That invalid comparison failed; resetting
+standards fixed the fixture without a production change. Internal beta1 was not uploaded:
+it lacked the source preview and had English fallback for the new label. Final beta2
+restores the preview and translates the label in all ten additional languages; gameplay
+and English UI bytes match beta1. Immutable artifacts and failed evidence are retained.
