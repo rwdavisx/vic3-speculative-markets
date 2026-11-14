@@ -1,0 +1,210 @@
+﻿
+spec_sgui_pledge = {
+	scope = country
+	is_valid = { spec_can_pledge = yes }
+	effect = { spec_pledge_make = yes }
+}
+
+spec_sgui_pledge_leave = {
+	scope = country
+	is_valid = { spec_can_pledge_leave = yes }
+	effect = { spec_pledge_withdraw = yes }
+}
+
+spec_sgui_charter_1 = {
+	scope = country
+	is_valid = { spec_can_charter_1 = yes }
+	effect = { spec_charter_to_1 = yes }
+}
+
+spec_sgui_charter_2 = {
+	scope = country
+	is_valid = { spec_can_charter_2 = yes }
+	effect = { spec_charter_to_2 = yes }
+}
+
+spec_sgui_charter_3 = {
+	scope = country
+	is_valid = { spec_can_charter_3 = yes }
+	effect = { spec_charter_to_3 = yes }
+}
+
+spec_sgui_pursue_price = {
+	scope = country
+	is_valid = { spec_can_pursue_price = yes }
+	effect = { spec_pursue_to_price = yes }
+}
+
+spec_sgui_pursue_harbour = {
+	scope = country
+	is_valid = { spec_can_pursue_harbour = yes }
+	effect = { spec_pursue_to_harbour = yes }
+}
+
+spec_sgui_pursue_companies = {
+	scope = country
+	is_valid = { spec_can_pursue_companies = yes }
+	effect = { spec_pursue_to_companies = yes }
+}
+
+spec_sgui_pursue_floor = {
+	scope = country
+	is_valid = { spec_can_pursue_floor = yes }
+	effect = { spec_pursue_to_floor = yes }
+}
+
+spec_sgui_pursue_sound = {
+	scope = country
+	is_valid = { spec_can_pursue_sound = yes }
+	effect = { spec_pursue_to_sound = yes }
+}
+
+spec_sgui_pursue_pockets = {
+	scope = country
+	is_valid = { spec_can_pursue_pockets = yes }
+	effect = { spec_pursue_to_pockets = yes }
+}
+
+spec_sgui_pursue_door = {
+	scope = country
+	is_valid = { spec_can_pursue_door = yes }
+	effect = { spec_pursue_to_door = yes }
+}
+
+spec_sgui_pursue_stop_price = {
+	scope = country
+	is_valid = { spec_can_pursue_stop_price = yes }
+	effect = { spec_pursue_stop_price = yes }
+}
+
+spec_sgui_pursue_stop_harbour = {
+	scope = country
+	is_valid = { spec_can_pursue_stop_harbour = yes }
+	effect = { spec_pursue_stop_harbour = yes }
+}
+
+spec_sgui_pursue_stop_companies = {
+	scope = country
+	is_valid = { spec_can_pursue_stop_companies = yes }
+	effect = { spec_pursue_stop_companies = yes }
+}
+
+spec_sgui_pursue_stop_floor = {
+	scope = country
+	is_valid = { spec_can_pursue_stop_floor = yes }
+	effect = { spec_pursue_stop_floor = yes }
+}
+
+spec_sgui_pursue_stop_sound = {
+	scope = country
+	is_valid = { spec_can_pursue_stop_sound = yes }
+	effect = { spec_pursue_stop_sound = yes }
+}
+
+spec_sgui_pursue_stop_pockets = {
+	scope = country
+	is_valid = { spec_can_pursue_stop_pockets = yes }
+	effect = { spec_pursue_stop_pockets = yes }
+}
+
+spec_sgui_pursue_stop_door = {
+	scope = country
+	is_valid = { spec_can_pursue_stop_door = yes }
+	effect = { spec_pursue_stop_door = yes }
+}
+
+spec_sgui_pursue_left_price = {
+	scope = country
+	is_valid = { spec_can_pursue_left_price = yes }
+	effect = { spec_pursue_left_price = yes }
+}
+
+spec_sgui_pursue_right_price = {
+	scope = country
+	is_valid = { spec_can_pursue_right_price = yes }
+	effect = { spec_pursue_right_price = yes }
+}
+
+spec_sgui_pursue_left_harbour = {
+	scope = country
+	is_valid = { spec_can_pursue_left_harbour = yes }
+	effect = { spec_pursue_left_harbour = yes }
+}
+
+spec_sgui_pursue_right_harbour = {
+	scope = country
+	is_valid = { spec_can_pursue_right_harbour = yes }
+	effect = { spec_pursue_right_harbour = yes }
+}
+
+spec_sgui_pursue_left_companies = {
+	scope = country
+	is_valid = { spec_can_pursue_left_companies = yes }
+	effect = { spec_pursue_left_companies = yes }
+}
+
+spec_sgui_pursue_right_companies = {
+	scope = country
+	is_valid = { spec_can_pursue_right_companies = yes }
+	effect = { spec_pursue_right_companies = yes }
+}
+
+spec_sgui_pursue_left_floor = {
+	scope = country
+	is_valid = { spec_can_pursue_left_floor = yes }
+	effect = { spec_pursue_left_floor = yes }
+}
+
+spec_sgui_pursue_right_floor = {
+	scope = country
+	is_valid = { spec_can_pursue_right_floor = yes }
+	effect = { spec_pursue_right_floor = yes }
+}
+
+spec_sgui_pursue_left_sound = {
+	scope = country
+	is_valid = { spec_can_pursue_left_sound = yes }
+	effect = { spec_pursue_left_sound = yes }
+}
+
+spec_sgui_pursue_right_sound = {
+	scope = country
+	is_valid = { spec_can_pursue_right_sound = yes }
+	effect = { spec_pursue_right_sound = yes }
+}
+
+spec_sgui_pursue_left_pockets = {
+	scope = country
+	is_valid = { spec_can_pursue_left_pockets = yes }
+	effect = { spec_pursue_left_pockets = yes }
+}
+
+spec_sgui_pursue_right_pockets = {
+	scope = country
+	is_valid = { spec_can_pursue_right_pockets = yes }
+	effect = { spec_pursue_right_pockets = yes }
+}
+
+spec_sgui_pursue_left_door = {
+	scope = country
+	is_valid = { spec_can_pursue_left_door = yes }
+	effect = { spec_pursue_left_door = yes }
+}
+
+spec_sgui_pursue_right_door = {
+	scope = country
+	is_valid = { spec_can_pursue_right_door = yes }
+	effect = { spec_pursue_right_door = yes }
+}
+
+spec_sgui_rival = {
+	scope = country
+	is_valid = { spec_can_rival = yes }
+	effect = { spec_rival_pick = yes }
+}
+
+spec_sgui_rival_end = {
+	scope = country
+	is_valid = { spec_can_rival_end = yes }
+	effect = { spec_rival_end = yes }
+}

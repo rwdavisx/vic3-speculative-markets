@@ -1,0 +1,52 @@
+﻿je_spec_depression = {
+	icon = "gfx/interface/icons/spec_markets/event_panic.dds"
+	group = je_group_internal_affairs
+
+	# added to affected players by spec_ld_join; AI countries decide through the events. Shown (and so activated)
+	# for an affected player, so an entry left inactive comes back by itself (generate.py's je_spec_markets)
+	is_shown_when_inactive = {
+		is_player = yes
+		has_variable = spec_ld
+	}
+	activation_description = {
+		always = yes
+	}
+	outcome = {
+		header = je_standard_completion_header
+		effect_header = je_standard_on_completion_header
+		color = "gold_positive"
+		conclusion_desc = je_standard_completion_conclusion_desc
+		trigger = {
+			custom_tooltip = {
+				text = spec_ld_complete_tt
+				NOR = {
+					global_var:spec_ld_phase ?= 1
+					global_var:spec_ld_phase ?= 2
+				}
+			}
+		}
+	}
+	outcome = {
+		flags = { hidden invalid_outcome }
+		conclusion_desc = je_standard_failure_conclusion_desc
+		trigger = { NOT = { has_variable = spec_ld } }
+	}
+
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = spec_ld_status_1
+				trigger = { global_var:spec_ld_phase ?= 1 }
+			}
+			triggered_desc = {
+				desc = spec_ld_status_2
+				trigger = { global_var:spec_ld_phase ?= 2 }
+			}
+		}
+	}
+
+	scripted_progress_bar = spec_ld_world_bar
+	scripted_progress_bar = spec_ld_own_bar
+
+	weight = 10
+}

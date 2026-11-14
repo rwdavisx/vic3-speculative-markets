@@ -1,0 +1,1726 @@
+﻿spec_lever_ui = {
+	if = {
+		limit = { has_variable = spec_restrain_$G$ }
+		set_variable = { name = spec_ui_r_$G$ value = 2 }
+	}
+	else_if = {
+		limit = {
+			is_player = yes
+			spec_lever_free = { KIND = restrain OTHER = encourage G = $G$ }
+		}
+		set_variable = { name = spec_ui_r_$G$ value = 1 }
+	}
+	else = {
+		set_variable = { name = spec_ui_r_$G$ value = 0 }
+	}
+	if = {
+		limit = { has_variable = spec_encourage_$G$ }
+		set_variable = { name = spec_ui_e_$G$ value = 2 }
+	}
+	else_if = {
+		limit = {
+			is_player = yes
+			spec_lever_free = { KIND = encourage OTHER = restrain G = $G$ }
+		}
+		set_variable = { name = spec_ui_e_$G$ value = 1 }
+	}
+	else = {
+		set_variable = { name = spec_ui_e_$G$ value = 0 }
+	}
+	set_variable = { name = spec_ui_co_$G$ value = 0 }
+	if = {
+		limit = { var:spec_word_$G$ ?= 1 }
+		set_variable = { name = spec_ui_co_$G$ value = -10 }
+	}
+	else_if = {
+		limit = { var:spec_word_$G$ ?= 2 }
+		set_variable = { name = spec_ui_co_$G$ value = -5 }
+	}
+	else_if = {
+		limit = { var:spec_word_$G$ ?= 4 }
+		set_variable = { name = spec_ui_co_$G$ value = 3 }
+	}
+	else_if = {
+		limit = { var:spec_word_$G$ ?= 5 }
+		set_variable = { name = spec_ui_co_$G$ value = 5 }
+	}
+	else_if = {
+		limit = { var:spec_word_$G$ ?= 6 }
+		set_variable = { name = spec_ui_co_$G$ value = 8 }
+	}
+	if = {
+		limit = { has_variable = spec_restrain_$G$ }
+		change_variable = { name = spec_ui_co_$G$ add = -10 }
+	}
+	else_if = {
+		limit = { has_variable = spec_encourage_$G$ }
+		change_variable = { name = spec_ui_co_$G$ add = 10 }
+	}
+}
+
+# the levers' modifiers: the money and Authority ones with their amount as the multiplier, and each lever's
+# throughput on its good's producers; then the tab's figures
+spec_update_levers = {
+	if = {
+		limit = { has_modifier = spec_lever_restrain }
+		remove_modifier = spec_lever_restrain
+	}
+	set_local_variable = { name = spec_lever_n value = spec_lever_levy }
+	if = {
+		limit = { local_var:spec_lever_n > 0 }
+		add_modifier = {
+			name = spec_lever_restrain
+			multiplier = local_var:spec_lever_n
+		}
+	}
+	if = {
+		limit = { has_modifier = spec_lever_encourage }
+		remove_modifier = spec_lever_encourage
+	}
+	set_local_variable = { name = spec_lever_n value = spec_lever_spend }
+	if = {
+		limit = { local_var:spec_lever_n > 0 }
+		add_modifier = {
+			name = spec_lever_encourage
+			multiplier = local_var:spec_lever_n
+		}
+	}
+	if = {
+		limit = { has_modifier = spec_levers }
+		remove_modifier = spec_levers
+	}
+	set_local_variable = { name = spec_lever_n value = spec_lever_authority }
+	if = {
+		limit = { local_var:spec_lever_n > 0 }
+		add_modifier = {
+			name = spec_levers
+			multiplier = local_var:spec_lever_n
+		}
+	}
+	if = {
+		limit = { has_modifier = spec_lever_encourage_industry }
+		remove_modifier = spec_lever_encourage_industry
+	}
+	if = {
+		limit = { has_modifier = spec_lever_encourage_land }
+		remove_modifier = spec_lever_encourage_land
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_aeroplanes
+			NOT = { has_modifier = spec_lever_restrain_aeroplanes }
+		}
+		add_modifier = { name = spec_lever_restrain_aeroplanes }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_aeroplanes }
+			has_modifier = spec_lever_restrain_aeroplanes
+		}
+		remove_modifier = spec_lever_restrain_aeroplanes
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_aeroplanes
+			NOT = { has_modifier = spec_lever_encourage_aeroplanes }
+		}
+		add_modifier = { name = spec_lever_encourage_aeroplanes }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_aeroplanes }
+			has_modifier = spec_lever_encourage_aeroplanes
+		}
+		remove_modifier = spec_lever_encourage_aeroplanes
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_ammunition
+			NOT = { has_modifier = spec_lever_restrain_ammunition }
+		}
+		add_modifier = { name = spec_lever_restrain_ammunition }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_ammunition }
+			has_modifier = spec_lever_restrain_ammunition
+		}
+		remove_modifier = spec_lever_restrain_ammunition
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_ammunition
+			NOT = { has_modifier = spec_lever_encourage_ammunition }
+		}
+		add_modifier = { name = spec_lever_encourage_ammunition }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_ammunition }
+			has_modifier = spec_lever_encourage_ammunition
+		}
+		remove_modifier = spec_lever_encourage_ammunition
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_artillery
+			NOT = { has_modifier = spec_lever_restrain_artillery }
+		}
+		add_modifier = { name = spec_lever_restrain_artillery }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_artillery }
+			has_modifier = spec_lever_restrain_artillery
+		}
+		remove_modifier = spec_lever_restrain_artillery
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_artillery
+			NOT = { has_modifier = spec_lever_encourage_artillery }
+		}
+		add_modifier = { name = spec_lever_encourage_artillery }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_artillery }
+			has_modifier = spec_lever_encourage_artillery
+		}
+		remove_modifier = spec_lever_encourage_artillery
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_automobiles
+			NOT = { has_modifier = spec_lever_restrain_automobiles }
+		}
+		add_modifier = { name = spec_lever_restrain_automobiles }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_automobiles }
+			has_modifier = spec_lever_restrain_automobiles
+		}
+		remove_modifier = spec_lever_restrain_automobiles
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_automobiles
+			NOT = { has_modifier = spec_lever_encourage_automobiles }
+		}
+		add_modifier = { name = spec_lever_encourage_automobiles }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_automobiles }
+			has_modifier = spec_lever_encourage_automobiles
+		}
+		remove_modifier = spec_lever_encourage_automobiles
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_clippers
+			NOT = { has_modifier = spec_lever_restrain_clippers }
+		}
+		add_modifier = { name = spec_lever_restrain_clippers }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_clippers }
+			has_modifier = spec_lever_restrain_clippers
+		}
+		remove_modifier = spec_lever_restrain_clippers
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_clippers
+			NOT = { has_modifier = spec_lever_encourage_clippers }
+		}
+		add_modifier = { name = spec_lever_encourage_clippers }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_clippers }
+			has_modifier = spec_lever_encourage_clippers
+		}
+		remove_modifier = spec_lever_encourage_clippers
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_clothes
+			NOT = { has_modifier = spec_lever_restrain_clothes }
+		}
+		add_modifier = { name = spec_lever_restrain_clothes }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_clothes }
+			has_modifier = spec_lever_restrain_clothes
+		}
+		remove_modifier = spec_lever_restrain_clothes
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_clothes
+			NOT = { has_modifier = spec_lever_encourage_clothes }
+		}
+		add_modifier = { name = spec_lever_encourage_clothes }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_clothes }
+			has_modifier = spec_lever_encourage_clothes
+		}
+		remove_modifier = spec_lever_encourage_clothes
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_coal
+			NOT = { has_modifier = spec_lever_restrain_coal }
+		}
+		add_modifier = { name = spec_lever_restrain_coal }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_coal }
+			has_modifier = spec_lever_restrain_coal
+		}
+		remove_modifier = spec_lever_restrain_coal
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_coal
+			NOT = { has_modifier = spec_lever_encourage_coal }
+		}
+		add_modifier = { name = spec_lever_encourage_coal }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_coal }
+			has_modifier = spec_lever_encourage_coal
+		}
+		remove_modifier = spec_lever_encourage_coal
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_coffee
+			NOT = { has_modifier = spec_lever_restrain_coffee }
+		}
+		add_modifier = { name = spec_lever_restrain_coffee }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_coffee }
+			has_modifier = spec_lever_restrain_coffee
+		}
+		remove_modifier = spec_lever_restrain_coffee
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_coffee
+			NOT = { has_modifier = spec_lever_encourage_coffee }
+		}
+		add_modifier = { name = spec_lever_encourage_coffee }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_coffee }
+			has_modifier = spec_lever_encourage_coffee
+		}
+		remove_modifier = spec_lever_encourage_coffee
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_copper
+			NOT = { has_modifier = spec_lever_restrain_copper }
+		}
+		add_modifier = { name = spec_lever_restrain_copper }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_copper }
+			has_modifier = spec_lever_restrain_copper
+		}
+		remove_modifier = spec_lever_restrain_copper
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_copper
+			NOT = { has_modifier = spec_lever_encourage_copper }
+		}
+		add_modifier = { name = spec_lever_encourage_copper }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_copper }
+			has_modifier = spec_lever_encourage_copper
+		}
+		remove_modifier = spec_lever_encourage_copper
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_dye
+			NOT = { has_modifier = spec_lever_restrain_dye }
+		}
+		add_modifier = { name = spec_lever_restrain_dye }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_dye }
+			has_modifier = spec_lever_restrain_dye
+		}
+		remove_modifier = spec_lever_restrain_dye
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_dye
+			NOT = { has_modifier = spec_lever_encourage_dye }
+		}
+		add_modifier = { name = spec_lever_encourage_dye }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_dye }
+			has_modifier = spec_lever_encourage_dye
+		}
+		remove_modifier = spec_lever_encourage_dye
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_electricity
+			NOT = { has_modifier = spec_lever_restrain_electricity }
+		}
+		add_modifier = { name = spec_lever_restrain_electricity }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_electricity }
+			has_modifier = spec_lever_restrain_electricity
+		}
+		remove_modifier = spec_lever_restrain_electricity
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_electricity
+			NOT = { has_modifier = spec_lever_encourage_electricity }
+		}
+		add_modifier = { name = spec_lever_encourage_electricity }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_electricity }
+			has_modifier = spec_lever_encourage_electricity
+		}
+		remove_modifier = spec_lever_encourage_electricity
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_engines
+			NOT = { has_modifier = spec_lever_restrain_engines }
+		}
+		add_modifier = { name = spec_lever_restrain_engines }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_engines }
+			has_modifier = spec_lever_restrain_engines
+		}
+		remove_modifier = spec_lever_restrain_engines
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_engines
+			NOT = { has_modifier = spec_lever_encourage_engines }
+		}
+		add_modifier = { name = spec_lever_encourage_engines }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_engines }
+			has_modifier = spec_lever_encourage_engines
+		}
+		remove_modifier = spec_lever_encourage_engines
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_explosives
+			NOT = { has_modifier = spec_lever_restrain_explosives }
+		}
+		add_modifier = { name = spec_lever_restrain_explosives }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_explosives }
+			has_modifier = spec_lever_restrain_explosives
+		}
+		remove_modifier = spec_lever_restrain_explosives
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_explosives
+			NOT = { has_modifier = spec_lever_encourage_explosives }
+		}
+		add_modifier = { name = spec_lever_encourage_explosives }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_explosives }
+			has_modifier = spec_lever_encourage_explosives
+		}
+		remove_modifier = spec_lever_encourage_explosives
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_fabric
+			NOT = { has_modifier = spec_lever_restrain_fabric }
+		}
+		add_modifier = { name = spec_lever_restrain_fabric }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_fabric }
+			has_modifier = spec_lever_restrain_fabric
+		}
+		remove_modifier = spec_lever_restrain_fabric
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_fabric
+			NOT = { has_modifier = spec_lever_encourage_fabric }
+		}
+		add_modifier = { name = spec_lever_encourage_fabric }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_fabric }
+			has_modifier = spec_lever_encourage_fabric
+		}
+		remove_modifier = spec_lever_encourage_fabric
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_fertilizer
+			NOT = { has_modifier = spec_lever_restrain_fertilizer }
+		}
+		add_modifier = { name = spec_lever_restrain_fertilizer }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_fertilizer }
+			has_modifier = spec_lever_restrain_fertilizer
+		}
+		remove_modifier = spec_lever_restrain_fertilizer
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_fertilizer
+			NOT = { has_modifier = spec_lever_encourage_fertilizer }
+		}
+		add_modifier = { name = spec_lever_encourage_fertilizer }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_fertilizer }
+			has_modifier = spec_lever_encourage_fertilizer
+		}
+		remove_modifier = spec_lever_encourage_fertilizer
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_fine_art
+			NOT = { has_modifier = spec_lever_restrain_fine_art }
+		}
+		add_modifier = { name = spec_lever_restrain_fine_art }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_fine_art }
+			has_modifier = spec_lever_restrain_fine_art
+		}
+		remove_modifier = spec_lever_restrain_fine_art
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_fine_art
+			NOT = { has_modifier = spec_lever_encourage_fine_art }
+		}
+		add_modifier = { name = spec_lever_encourage_fine_art }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_fine_art }
+			has_modifier = spec_lever_encourage_fine_art
+		}
+		remove_modifier = spec_lever_encourage_fine_art
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_fish
+			NOT = { has_modifier = spec_lever_restrain_fish }
+		}
+		add_modifier = { name = spec_lever_restrain_fish }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_fish }
+			has_modifier = spec_lever_restrain_fish
+		}
+		remove_modifier = spec_lever_restrain_fish
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_fish
+			NOT = { has_modifier = spec_lever_encourage_fish }
+		}
+		add_modifier = { name = spec_lever_encourage_fish }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_fish }
+			has_modifier = spec_lever_encourage_fish
+		}
+		remove_modifier = spec_lever_encourage_fish
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_furniture
+			NOT = { has_modifier = spec_lever_restrain_furniture }
+		}
+		add_modifier = { name = spec_lever_restrain_furniture }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_furniture }
+			has_modifier = spec_lever_restrain_furniture
+		}
+		remove_modifier = spec_lever_restrain_furniture
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_furniture
+			NOT = { has_modifier = spec_lever_encourage_furniture }
+		}
+		add_modifier = { name = spec_lever_encourage_furniture }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_furniture }
+			has_modifier = spec_lever_encourage_furniture
+		}
+		remove_modifier = spec_lever_encourage_furniture
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_glass
+			NOT = { has_modifier = spec_lever_restrain_glass }
+		}
+		add_modifier = { name = spec_lever_restrain_glass }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_glass }
+			has_modifier = spec_lever_restrain_glass
+		}
+		remove_modifier = spec_lever_restrain_glass
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_glass
+			NOT = { has_modifier = spec_lever_encourage_glass }
+		}
+		add_modifier = { name = spec_lever_encourage_glass }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_glass }
+			has_modifier = spec_lever_encourage_glass
+		}
+		remove_modifier = spec_lever_encourage_glass
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_grain
+			NOT = { has_modifier = spec_lever_restrain_grain }
+		}
+		add_modifier = { name = spec_lever_restrain_grain }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_grain }
+			has_modifier = spec_lever_restrain_grain
+		}
+		remove_modifier = spec_lever_restrain_grain
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_grain
+			NOT = { has_modifier = spec_lever_encourage_grain }
+		}
+		add_modifier = { name = spec_lever_encourage_grain }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_grain }
+			has_modifier = spec_lever_encourage_grain
+		}
+		remove_modifier = spec_lever_encourage_grain
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_groceries
+			NOT = { has_modifier = spec_lever_restrain_groceries }
+		}
+		add_modifier = { name = spec_lever_restrain_groceries }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_groceries }
+			has_modifier = spec_lever_restrain_groceries
+		}
+		remove_modifier = spec_lever_restrain_groceries
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_groceries
+			NOT = { has_modifier = spec_lever_encourage_groceries }
+		}
+		add_modifier = { name = spec_lever_encourage_groceries }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_groceries }
+			has_modifier = spec_lever_encourage_groceries
+		}
+		remove_modifier = spec_lever_encourage_groceries
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_hardwood
+			NOT = { has_modifier = spec_lever_restrain_hardwood }
+		}
+		add_modifier = { name = spec_lever_restrain_hardwood }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_hardwood }
+			has_modifier = spec_lever_restrain_hardwood
+		}
+		remove_modifier = spec_lever_restrain_hardwood
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_hardwood
+			NOT = { has_modifier = spec_lever_encourage_hardwood }
+		}
+		add_modifier = { name = spec_lever_encourage_hardwood }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_hardwood }
+			has_modifier = spec_lever_encourage_hardwood
+		}
+		remove_modifier = spec_lever_encourage_hardwood
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_iron
+			NOT = { has_modifier = spec_lever_restrain_iron }
+		}
+		add_modifier = { name = spec_lever_restrain_iron }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_iron }
+			has_modifier = spec_lever_restrain_iron
+		}
+		remove_modifier = spec_lever_restrain_iron
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_iron
+			NOT = { has_modifier = spec_lever_encourage_iron }
+		}
+		add_modifier = { name = spec_lever_encourage_iron }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_iron }
+			has_modifier = spec_lever_encourage_iron
+		}
+		remove_modifier = spec_lever_encourage_iron
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_lead
+			NOT = { has_modifier = spec_lever_restrain_lead }
+		}
+		add_modifier = { name = spec_lever_restrain_lead }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_lead }
+			has_modifier = spec_lever_restrain_lead
+		}
+		remove_modifier = spec_lever_restrain_lead
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_lead
+			NOT = { has_modifier = spec_lever_encourage_lead }
+		}
+		add_modifier = { name = spec_lever_encourage_lead }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_lead }
+			has_modifier = spec_lever_encourage_lead
+		}
+		remove_modifier = spec_lever_encourage_lead
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_liquor
+			NOT = { has_modifier = spec_lever_restrain_liquor }
+		}
+		add_modifier = { name = spec_lever_restrain_liquor }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_liquor }
+			has_modifier = spec_lever_restrain_liquor
+		}
+		remove_modifier = spec_lever_restrain_liquor
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_liquor
+			NOT = { has_modifier = spec_lever_encourage_liquor }
+		}
+		add_modifier = { name = spec_lever_encourage_liquor }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_liquor }
+			has_modifier = spec_lever_encourage_liquor
+		}
+		remove_modifier = spec_lever_encourage_liquor
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_luxury_clothes
+			NOT = { has_modifier = spec_lever_restrain_luxury_clothes }
+		}
+		add_modifier = { name = spec_lever_restrain_luxury_clothes }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_luxury_clothes }
+			has_modifier = spec_lever_restrain_luxury_clothes
+		}
+		remove_modifier = spec_lever_restrain_luxury_clothes
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_luxury_clothes
+			NOT = { has_modifier = spec_lever_encourage_luxury_clothes }
+		}
+		add_modifier = { name = spec_lever_encourage_luxury_clothes }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_luxury_clothes }
+			has_modifier = spec_lever_encourage_luxury_clothes
+		}
+		remove_modifier = spec_lever_encourage_luxury_clothes
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_luxury_furniture
+			NOT = { has_modifier = spec_lever_restrain_luxury_furniture }
+		}
+		add_modifier = { name = spec_lever_restrain_luxury_furniture }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_luxury_furniture }
+			has_modifier = spec_lever_restrain_luxury_furniture
+		}
+		remove_modifier = spec_lever_restrain_luxury_furniture
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_luxury_furniture
+			NOT = { has_modifier = spec_lever_encourage_luxury_furniture }
+		}
+		add_modifier = { name = spec_lever_encourage_luxury_furniture }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_luxury_furniture }
+			has_modifier = spec_lever_encourage_luxury_furniture
+		}
+		remove_modifier = spec_lever_encourage_luxury_furniture
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_meat
+			NOT = { has_modifier = spec_lever_restrain_meat }
+		}
+		add_modifier = { name = spec_lever_restrain_meat }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_meat }
+			has_modifier = spec_lever_restrain_meat
+		}
+		remove_modifier = spec_lever_restrain_meat
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_meat
+			NOT = { has_modifier = spec_lever_encourage_meat }
+		}
+		add_modifier = { name = spec_lever_encourage_meat }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_meat }
+			has_modifier = spec_lever_encourage_meat
+		}
+		remove_modifier = spec_lever_encourage_meat
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_merchant_marine
+			NOT = { has_modifier = spec_lever_restrain_merchant_marine }
+		}
+		add_modifier = { name = spec_lever_restrain_merchant_marine }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_merchant_marine }
+			has_modifier = spec_lever_restrain_merchant_marine
+		}
+		remove_modifier = spec_lever_restrain_merchant_marine
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_merchant_marine
+			NOT = { has_modifier = spec_lever_encourage_merchant_marine }
+		}
+		add_modifier = { name = spec_lever_encourage_merchant_marine }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_merchant_marine }
+			has_modifier = spec_lever_encourage_merchant_marine
+		}
+		remove_modifier = spec_lever_encourage_merchant_marine
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_oil
+			NOT = { has_modifier = spec_lever_restrain_oil }
+		}
+		add_modifier = { name = spec_lever_restrain_oil }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_oil }
+			has_modifier = spec_lever_restrain_oil
+		}
+		remove_modifier = spec_lever_restrain_oil
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_oil
+			NOT = { has_modifier = spec_lever_encourage_oil }
+		}
+		add_modifier = { name = spec_lever_encourage_oil }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_oil }
+			has_modifier = spec_lever_encourage_oil
+		}
+		remove_modifier = spec_lever_encourage_oil
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_opium
+			NOT = { has_modifier = spec_lever_restrain_opium }
+		}
+		add_modifier = { name = spec_lever_restrain_opium }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_opium }
+			has_modifier = spec_lever_restrain_opium
+		}
+		remove_modifier = spec_lever_restrain_opium
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_opium
+			NOT = { has_modifier = spec_lever_encourage_opium }
+		}
+		add_modifier = { name = spec_lever_encourage_opium }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_opium }
+			has_modifier = spec_lever_encourage_opium
+		}
+		remove_modifier = spec_lever_encourage_opium
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_paper
+			NOT = { has_modifier = spec_lever_restrain_paper }
+		}
+		add_modifier = { name = spec_lever_restrain_paper }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_paper }
+			has_modifier = spec_lever_restrain_paper
+		}
+		remove_modifier = spec_lever_restrain_paper
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_paper
+			NOT = { has_modifier = spec_lever_encourage_paper }
+		}
+		add_modifier = { name = spec_lever_encourage_paper }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_paper }
+			has_modifier = spec_lever_encourage_paper
+		}
+		remove_modifier = spec_lever_encourage_paper
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_porcelain
+			NOT = { has_modifier = spec_lever_restrain_porcelain }
+		}
+		add_modifier = { name = spec_lever_restrain_porcelain }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_porcelain }
+			has_modifier = spec_lever_restrain_porcelain
+		}
+		remove_modifier = spec_lever_restrain_porcelain
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_porcelain
+			NOT = { has_modifier = spec_lever_encourage_porcelain }
+		}
+		add_modifier = { name = spec_lever_encourage_porcelain }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_porcelain }
+			has_modifier = spec_lever_encourage_porcelain
+		}
+		remove_modifier = spec_lever_encourage_porcelain
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_radios
+			NOT = { has_modifier = spec_lever_restrain_radios }
+		}
+		add_modifier = { name = spec_lever_restrain_radios }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_radios }
+			has_modifier = spec_lever_restrain_radios
+		}
+		remove_modifier = spec_lever_restrain_radios
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_radios
+			NOT = { has_modifier = spec_lever_encourage_radios }
+		}
+		add_modifier = { name = spec_lever_encourage_radios }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_radios }
+			has_modifier = spec_lever_encourage_radios
+		}
+		remove_modifier = spec_lever_encourage_radios
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_rubber
+			NOT = { has_modifier = spec_lever_restrain_rubber }
+		}
+		add_modifier = { name = spec_lever_restrain_rubber }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_rubber }
+			has_modifier = spec_lever_restrain_rubber
+		}
+		remove_modifier = spec_lever_restrain_rubber
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_rubber
+			NOT = { has_modifier = spec_lever_encourage_rubber }
+		}
+		add_modifier = { name = spec_lever_encourage_rubber }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_rubber }
+			has_modifier = spec_lever_encourage_rubber
+		}
+		remove_modifier = spec_lever_encourage_rubber
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_silk
+			NOT = { has_modifier = spec_lever_restrain_silk }
+		}
+		add_modifier = { name = spec_lever_restrain_silk }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_silk }
+			has_modifier = spec_lever_restrain_silk
+		}
+		remove_modifier = spec_lever_restrain_silk
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_silk
+			NOT = { has_modifier = spec_lever_encourage_silk }
+		}
+		add_modifier = { name = spec_lever_encourage_silk }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_silk }
+			has_modifier = spec_lever_encourage_silk
+		}
+		remove_modifier = spec_lever_encourage_silk
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_small_arms
+			NOT = { has_modifier = spec_lever_restrain_small_arms }
+		}
+		add_modifier = { name = spec_lever_restrain_small_arms }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_small_arms }
+			has_modifier = spec_lever_restrain_small_arms
+		}
+		remove_modifier = spec_lever_restrain_small_arms
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_small_arms
+			NOT = { has_modifier = spec_lever_encourage_small_arms }
+		}
+		add_modifier = { name = spec_lever_encourage_small_arms }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_small_arms }
+			has_modifier = spec_lever_encourage_small_arms
+		}
+		remove_modifier = spec_lever_encourage_small_arms
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_steamers
+			NOT = { has_modifier = spec_lever_restrain_steamers }
+		}
+		add_modifier = { name = spec_lever_restrain_steamers }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_steamers }
+			has_modifier = spec_lever_restrain_steamers
+		}
+		remove_modifier = spec_lever_restrain_steamers
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_steamers
+			NOT = { has_modifier = spec_lever_encourage_steamers }
+		}
+		add_modifier = { name = spec_lever_encourage_steamers }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_steamers }
+			has_modifier = spec_lever_encourage_steamers
+		}
+		remove_modifier = spec_lever_encourage_steamers
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_steel
+			NOT = { has_modifier = spec_lever_restrain_steel }
+		}
+		add_modifier = { name = spec_lever_restrain_steel }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_steel }
+			has_modifier = spec_lever_restrain_steel
+		}
+		remove_modifier = spec_lever_restrain_steel
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_steel
+			NOT = { has_modifier = spec_lever_encourage_steel }
+		}
+		add_modifier = { name = spec_lever_encourage_steel }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_steel }
+			has_modifier = spec_lever_encourage_steel
+		}
+		remove_modifier = spec_lever_encourage_steel
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_sugar
+			NOT = { has_modifier = spec_lever_restrain_sugar }
+		}
+		add_modifier = { name = spec_lever_restrain_sugar }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_sugar }
+			has_modifier = spec_lever_restrain_sugar
+		}
+		remove_modifier = spec_lever_restrain_sugar
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_sugar
+			NOT = { has_modifier = spec_lever_encourage_sugar }
+		}
+		add_modifier = { name = spec_lever_encourage_sugar }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_sugar }
+			has_modifier = spec_lever_encourage_sugar
+		}
+		remove_modifier = spec_lever_encourage_sugar
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_sulfur
+			NOT = { has_modifier = spec_lever_restrain_sulfur }
+		}
+		add_modifier = { name = spec_lever_restrain_sulfur }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_sulfur }
+			has_modifier = spec_lever_restrain_sulfur
+		}
+		remove_modifier = spec_lever_restrain_sulfur
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_sulfur
+			NOT = { has_modifier = spec_lever_encourage_sulfur }
+		}
+		add_modifier = { name = spec_lever_encourage_sulfur }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_sulfur }
+			has_modifier = spec_lever_encourage_sulfur
+		}
+		remove_modifier = spec_lever_encourage_sulfur
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_tanks
+			NOT = { has_modifier = spec_lever_restrain_tanks }
+		}
+		add_modifier = { name = spec_lever_restrain_tanks }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_tanks }
+			has_modifier = spec_lever_restrain_tanks
+		}
+		remove_modifier = spec_lever_restrain_tanks
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_tanks
+			NOT = { has_modifier = spec_lever_encourage_tanks }
+		}
+		add_modifier = { name = spec_lever_encourage_tanks }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_tanks }
+			has_modifier = spec_lever_encourage_tanks
+		}
+		remove_modifier = spec_lever_encourage_tanks
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_tea
+			NOT = { has_modifier = spec_lever_restrain_tea }
+		}
+		add_modifier = { name = spec_lever_restrain_tea }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_tea }
+			has_modifier = spec_lever_restrain_tea
+		}
+		remove_modifier = spec_lever_restrain_tea
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_tea
+			NOT = { has_modifier = spec_lever_encourage_tea }
+		}
+		add_modifier = { name = spec_lever_encourage_tea }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_tea }
+			has_modifier = spec_lever_encourage_tea
+		}
+		remove_modifier = spec_lever_encourage_tea
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_telephones
+			NOT = { has_modifier = spec_lever_restrain_telephones }
+		}
+		add_modifier = { name = spec_lever_restrain_telephones }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_telephones }
+			has_modifier = spec_lever_restrain_telephones
+		}
+		remove_modifier = spec_lever_restrain_telephones
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_telephones
+			NOT = { has_modifier = spec_lever_encourage_telephones }
+		}
+		add_modifier = { name = spec_lever_encourage_telephones }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_telephones }
+			has_modifier = spec_lever_encourage_telephones
+		}
+		remove_modifier = spec_lever_encourage_telephones
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_tobacco
+			NOT = { has_modifier = spec_lever_restrain_tobacco }
+		}
+		add_modifier = { name = spec_lever_restrain_tobacco }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_tobacco }
+			has_modifier = spec_lever_restrain_tobacco
+		}
+		remove_modifier = spec_lever_restrain_tobacco
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_tobacco
+			NOT = { has_modifier = spec_lever_encourage_tobacco }
+		}
+		add_modifier = { name = spec_lever_encourage_tobacco }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_tobacco }
+			has_modifier = spec_lever_encourage_tobacco
+		}
+		remove_modifier = spec_lever_encourage_tobacco
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_tools
+			NOT = { has_modifier = spec_lever_restrain_tools }
+		}
+		add_modifier = { name = spec_lever_restrain_tools }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_tools }
+			has_modifier = spec_lever_restrain_tools
+		}
+		remove_modifier = spec_lever_restrain_tools
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_tools
+			NOT = { has_modifier = spec_lever_encourage_tools }
+		}
+		add_modifier = { name = spec_lever_encourage_tools }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_tools }
+			has_modifier = spec_lever_encourage_tools
+		}
+		remove_modifier = spec_lever_encourage_tools
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_wine
+			NOT = { has_modifier = spec_lever_restrain_wine }
+		}
+		add_modifier = { name = spec_lever_restrain_wine }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_wine }
+			has_modifier = spec_lever_restrain_wine
+		}
+		remove_modifier = spec_lever_restrain_wine
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_wine
+			NOT = { has_modifier = spec_lever_encourage_wine }
+		}
+		add_modifier = { name = spec_lever_encourage_wine }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_wine }
+			has_modifier = spec_lever_encourage_wine
+		}
+		remove_modifier = spec_lever_encourage_wine
+	}
+	if = {
+		limit = {
+			has_variable = spec_restrain_wood
+			NOT = { has_modifier = spec_lever_restrain_wood }
+		}
+		add_modifier = { name = spec_lever_restrain_wood }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_restrain_wood }
+			has_modifier = spec_lever_restrain_wood
+		}
+		remove_modifier = spec_lever_restrain_wood
+	}
+	if = {
+		limit = {
+			has_variable = spec_encourage_wood
+			NOT = { has_modifier = spec_lever_encourage_wood }
+		}
+		add_modifier = { name = spec_lever_encourage_wood }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_encourage_wood }
+			has_modifier = spec_lever_encourage_wood
+		}
+		remove_modifier = spec_lever_encourage_wood
+	}
+	if = {
+		limit = {
+			OR = {
+				is_player = yes
+				market ?= { owner ?= root }
+			}
+		}
+		spec_lever_ui = { G = aeroplanes }
+		spec_lever_ui = { G = ammunition }
+		spec_lever_ui = { G = artillery }
+		spec_lever_ui = { G = automobiles }
+		spec_lever_ui = { G = clippers }
+		spec_lever_ui = { G = clothes }
+		spec_lever_ui = { G = coal }
+		spec_lever_ui = { G = coffee }
+		spec_lever_ui = { G = copper }
+		spec_lever_ui = { G = dye }
+		spec_lever_ui = { G = electricity }
+		spec_lever_ui = { G = engines }
+		spec_lever_ui = { G = explosives }
+		spec_lever_ui = { G = fabric }
+		spec_lever_ui = { G = fertilizer }
+		spec_lever_ui = { G = fine_art }
+		spec_lever_ui = { G = fish }
+		spec_lever_ui = { G = fruit }
+		spec_lever_ui = { G = furniture }
+		spec_lever_ui = { G = glass }
+		spec_lever_ui = { G = grain }
+		spec_lever_ui = { G = groceries }
+		spec_lever_ui = { G = hardwood }
+		spec_lever_ui = { G = iron }
+		spec_lever_ui = { G = lead }
+		spec_lever_ui = { G = liquor }
+		spec_lever_ui = { G = luxury_clothes }
+		spec_lever_ui = { G = luxury_furniture }
+		spec_lever_ui = { G = meat }
+		spec_lever_ui = { G = merchant_marine }
+		spec_lever_ui = { G = oil }
+		spec_lever_ui = { G = opium }
+		spec_lever_ui = { G = paper }
+		spec_lever_ui = { G = porcelain }
+		spec_lever_ui = { G = radios }
+		spec_lever_ui = { G = rubber }
+		spec_lever_ui = { G = silk }
+		spec_lever_ui = { G = small_arms }
+		spec_lever_ui = { G = steamers }
+		spec_lever_ui = { G = steel }
+		spec_lever_ui = { G = sugar }
+		spec_lever_ui = { G = sulfur }
+		spec_lever_ui = { G = tanks }
+		spec_lever_ui = { G = tea }
+		spec_lever_ui = { G = telephones }
+		spec_lever_ui = { G = tobacco }
+		spec_lever_ui = { G = tools }
+		spec_lever_ui = { G = wine }
+		spec_lever_ui = { G = wood }
+	}
+}
+
+spec_lever_flip = {
+	if = {
+		limit = { has_variable = spec_$KIND$_$G$ }
+		remove_variable = spec_$KIND$_$G$
+	}
+	else = {
+		set_variable = { name = spec_$KIND$_$G$ value = 1 }
+	}
+}
+
+# from the scripted GUIs: switch lever KIND on or off for scope:spec_good
+spec_lever_toggle = {
+	if = {
+		limit = { scope:spec_good = { this = g:aeroplanes } }
+		spec_lever_flip = { KIND = $KIND$ G = aeroplanes }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:ammunition } }
+		spec_lever_flip = { KIND = $KIND$ G = ammunition }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:artillery } }
+		spec_lever_flip = { KIND = $KIND$ G = artillery }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:automobiles } }
+		spec_lever_flip = { KIND = $KIND$ G = automobiles }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:clippers } }
+		spec_lever_flip = { KIND = $KIND$ G = clippers }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:clothes } }
+		spec_lever_flip = { KIND = $KIND$ G = clothes }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:coal } }
+		spec_lever_flip = { KIND = $KIND$ G = coal }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:coffee } }
+		spec_lever_flip = { KIND = $KIND$ G = coffee }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:copper } }
+		spec_lever_flip = { KIND = $KIND$ G = copper }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:dye } }
+		spec_lever_flip = { KIND = $KIND$ G = dye }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:electricity } }
+		spec_lever_flip = { KIND = $KIND$ G = electricity }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:engines } }
+		spec_lever_flip = { KIND = $KIND$ G = engines }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:explosives } }
+		spec_lever_flip = { KIND = $KIND$ G = explosives }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:fabric } }
+		spec_lever_flip = { KIND = $KIND$ G = fabric }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:fertilizer } }
+		spec_lever_flip = { KIND = $KIND$ G = fertilizer }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:fine_art } }
+		spec_lever_flip = { KIND = $KIND$ G = fine_art }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:fish } }
+		spec_lever_flip = { KIND = $KIND$ G = fish }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:fruit } }
+		spec_lever_flip = { KIND = $KIND$ G = fruit }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:furniture } }
+		spec_lever_flip = { KIND = $KIND$ G = furniture }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:glass } }
+		spec_lever_flip = { KIND = $KIND$ G = glass }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:grain } }
+		spec_lever_flip = { KIND = $KIND$ G = grain }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:groceries } }
+		spec_lever_flip = { KIND = $KIND$ G = groceries }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:hardwood } }
+		spec_lever_flip = { KIND = $KIND$ G = hardwood }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:iron } }
+		spec_lever_flip = { KIND = $KIND$ G = iron }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:lead } }
+		spec_lever_flip = { KIND = $KIND$ G = lead }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:liquor } }
+		spec_lever_flip = { KIND = $KIND$ G = liquor }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:luxury_clothes } }
+		spec_lever_flip = { KIND = $KIND$ G = luxury_clothes }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:luxury_furniture } }
+		spec_lever_flip = { KIND = $KIND$ G = luxury_furniture }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:meat } }
+		spec_lever_flip = { KIND = $KIND$ G = meat }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:merchant_marine } }
+		spec_lever_flip = { KIND = $KIND$ G = merchant_marine }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:oil } }
+		spec_lever_flip = { KIND = $KIND$ G = oil }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:opium } }
+		spec_lever_flip = { KIND = $KIND$ G = opium }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:paper } }
+		spec_lever_flip = { KIND = $KIND$ G = paper }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:porcelain } }
+		spec_lever_flip = { KIND = $KIND$ G = porcelain }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:radios } }
+		spec_lever_flip = { KIND = $KIND$ G = radios }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:rubber } }
+		spec_lever_flip = { KIND = $KIND$ G = rubber }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:silk } }
+		spec_lever_flip = { KIND = $KIND$ G = silk }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:small_arms } }
+		spec_lever_flip = { KIND = $KIND$ G = small_arms }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:steamers } }
+		spec_lever_flip = { KIND = $KIND$ G = steamers }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:steel } }
+		spec_lever_flip = { KIND = $KIND$ G = steel }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:sugar } }
+		spec_lever_flip = { KIND = $KIND$ G = sugar }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:sulfur } }
+		spec_lever_flip = { KIND = $KIND$ G = sulfur }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:tanks } }
+		spec_lever_flip = { KIND = $KIND$ G = tanks }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:tea } }
+		spec_lever_flip = { KIND = $KIND$ G = tea }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:telephones } }
+		spec_lever_flip = { KIND = $KIND$ G = telephones }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:tobacco } }
+		spec_lever_flip = { KIND = $KIND$ G = tobacco }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:tools } }
+		spec_lever_flip = { KIND = $KIND$ G = tools }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:wine } }
+		spec_lever_flip = { KIND = $KIND$ G = wine }
+	}
+	else_if = {
+		limit = { scope:spec_good = { this = g:wood } }
+		spec_lever_flip = { KIND = $KIND$ G = wood }
+	}
+	spec_update_levers = yes
+}
+
+spec_issue_float = {
+	set_variable = { name = spec_issue_$G$ value = 1 days = 730 }
+	set_variable = { name = spec_issue value = 1 days = 730 }
+	set_variable = { name = spec_issue_cool value = 1 days = 1095 }
+}

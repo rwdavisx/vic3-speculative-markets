@@ -1,0 +1,8 @@
+﻿spec_market_volatility = {
+	default = spec_volatility_historical
+
+	spec_volatility_historical = {
+	}
+	spec_volatility_heightened = {
+	}
+}

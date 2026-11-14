@@ -1,0 +1,1 @@
+state_panic state_wary state_buoyant state_mania mod_panic mod_crunch mod_tight mod_loose je_markets event_mania event_panic crash_risk driver_boom driver_crash driver_turmoil driver_drift driver_tight

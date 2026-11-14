@@ -1,0 +1,67 @@
+# TEST BUILD ONLY. The harness dispatches these in order, one day apart, before core/journal tests.
+# These cases preserve live-opponent stakes and cover missing cached slots. Destroyed-country links are
+# additionally exercised by the real 1916 saved-world run; missing variables alone do not reproduce those links.
+namespace = spec_hotfix_diplomacy
+
+spec_hotfix_diplomacy.1 = {
+    type = country_event
+    hidden = yes
+    immediate = {
+        set_variable = { name = spec_conf value = 55 }
+        set_variable = { name = spec_c_total value = 0 }
+        set_variable = { name = spec_c_warend value = 0 }
+        set_variable = { name = spec_war1 value = c:FRA }
+        set_variable = { name = spec_war1_total value = 0.125 }
+        set_variable = { name = spec_war2 value = c:BEL }
+        set_variable = { name = spec_war2_total value = 1 }
+        remove_variable = spec_war3
+        remove_variable = spec_war3_total
+        c:FRA = { save_scope_as = enemy_country }
+        save_scope_as = benefitted_from_wargoal
+        trigger_event = { on_action = spec_war_won }
+    }
+}
+
+spec_hotfix_diplomacy.2 = {
+    type = country_event
+    hidden = yes
+    immediate = {
+        if = {
+            limit = {
+                var:spec_war_stakes_now = 0.5
+                var:spec_conf = 57
+                var:spec_c_warend = 2
+            }
+            debug_log = "HOTFIX PASS war_end_live_opponent_stakes"
+        }
+        else = { debug_log = "HOTFIX FAIL war_end_live_opponent_stakes" }
+        set_variable = { name = spec_conf value = 55 }
+        set_variable = { name = spec_c_total value = 0 }
+        set_variable = { name = spec_c_warend value = 0 }
+        remove_variable = spec_war1
+        remove_variable = spec_war1_total
+        remove_variable = spec_war2
+        remove_variable = spec_war2_total
+        remove_variable = spec_war3
+        remove_variable = spec_war3_total
+        c:FRA = { save_scope_as = enemy_country }
+        save_scope_as = benefitted_from_wargoal
+        trigger_event = { on_action = spec_war_won }
+    }
+}
+
+spec_hotfix_diplomacy.3 = {
+    type = country_event
+    hidden = yes
+    immediate = {
+        if = {
+            limit = {
+                var:spec_war_stakes_now = 0.25
+                var:spec_conf = 56
+                var:spec_c_warend = 1
+            }
+            debug_log = "HOTFIX PASS war_end_missing_slots_safe"
+        }
+        else = { debug_log = "HOTFIX FAIL war_end_missing_slots_safe" }
+    }
+}

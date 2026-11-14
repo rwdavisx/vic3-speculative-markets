@@ -1,0 +1,390 @@
+﻿
+spec_can_pledge = {
+	has_technology_researched = banking
+	custom_tooltip = {
+		text = spec_pledge_stand_tt
+		AND = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+		}
+	}
+	custom_tooltip = {
+		text = spec_pledge_debt_tt
+		scaled_debt <= 0.5
+	}
+	custom_tooltip = {
+		text = spec_pledge_panic_tt
+		NOT = { has_variable = spec_panic }
+	}
+	custom_tooltip = {
+		text = spec_pledge_made_tt
+		NOT = { has_variable = spec_pledge }
+	}
+}
+
+spec_can_pledge_leave = {
+	custom_tooltip = {
+		text = spec_pledge_none_tt
+		has_variable = spec_pledge
+	}
+	custom_tooltip = {
+		text = spec_pledge_leaving_tt
+		NOT = { has_variable = spec_pledge_leave }
+	}
+}
+
+spec_can_charter_1 = {
+	has_technology_researched = banking
+	custom_tooltip = {
+		text = spec_charter_current_tt
+		NOT = { var:spec_exch_known ?= 1 }
+	}
+	custom_tooltip = {
+		text = spec_charter_locked_tt
+		NOT = { has_variable = spec_charter_lock }
+	}
+}
+
+spec_can_charter_2 = {
+	has_technology_researched = banking
+	custom_tooltip = {
+		text = spec_charter_current_tt
+		NOT = { var:spec_exch_known ?= 2 }
+	}
+	custom_tooltip = {
+		text = spec_charter_locked_tt
+		NOT = { has_variable = spec_charter_lock }
+	}
+}
+
+spec_can_charter_3 = {
+	has_technology_researched = banking
+	has_technology_researched = stock_exchange
+	custom_tooltip = {
+		text = spec_charter_current_tt
+		NOT = { var:spec_exch_known ?= 3 }
+	}
+	custom_tooltip = {
+		text = spec_charter_locked_tt
+		NOT = { has_variable = spec_charter_lock }
+	}
+}
+
+spec_can_pursue_price = {
+	custom_tooltip = {
+		text = spec_pursue_current_tt
+		NOT = { has_variable = spec_pu_price }
+	}
+	custom_tooltip = {
+		text = spec_pursue_room_tt
+		OR = {
+			NOT = { has_variable = spec_pursue_n }
+			spec_pursue_slots > var:spec_pursue_n
+		}
+	}
+	custom_tooltip = {
+		text = spec_pursue_charter_tt_1
+		var:spec_exch_known ?= 1
+	}
+}
+
+spec_can_pursue_stop_price = {
+	has_variable = spec_pu_price
+	custom_tooltip = {
+		text = spec_pursue_locked_tt
+		NOT = { has_variable = spec_pu_lock_price }
+	}
+}
+
+spec_can_pursue_left_price = {
+	has_variable = spec_pu_price
+	custom_tooltip = {
+		text = spec_pursue_first_tt
+		var:spec_pu_price > 1
+	}
+}
+
+spec_can_pursue_right_price = {
+	has_variable = spec_pu_price
+	custom_tooltip = {
+		text = spec_pursue_last_tt
+		var:spec_pu_price < var:spec_pursue_n
+	}
+}
+
+spec_can_pursue_harbour = {
+	custom_tooltip = {
+		text = spec_pursue_current_tt
+		NOT = { has_variable = spec_pu_harbour }
+	}
+	custom_tooltip = {
+		text = spec_pursue_room_tt
+		OR = {
+			NOT = { has_variable = spec_pursue_n }
+			spec_pursue_slots > var:spec_pursue_n
+		}
+	}
+	custom_tooltip = {
+		text = spec_pursue_charter_tt_2
+		var:spec_exch_known ?= 2
+	}
+}
+
+spec_can_pursue_stop_harbour = {
+	has_variable = spec_pu_harbour
+	custom_tooltip = {
+		text = spec_pursue_locked_tt
+		NOT = { has_variable = spec_pu_lock_harbour }
+	}
+}
+
+spec_can_pursue_left_harbour = {
+	has_variable = spec_pu_harbour
+	custom_tooltip = {
+		text = spec_pursue_first_tt
+		var:spec_pu_harbour > 1
+	}
+}
+
+spec_can_pursue_right_harbour = {
+	has_variable = spec_pu_harbour
+	custom_tooltip = {
+		text = spec_pursue_last_tt
+		var:spec_pu_harbour < var:spec_pursue_n
+	}
+}
+
+spec_can_pursue_companies = {
+	custom_tooltip = {
+		text = spec_pursue_current_tt
+		NOT = { has_variable = spec_pu_companies }
+	}
+	custom_tooltip = {
+		text = spec_pursue_room_tt
+		OR = {
+			NOT = { has_variable = spec_pursue_n }
+			spec_pursue_slots > var:spec_pursue_n
+		}
+	}
+	custom_tooltip = {
+		text = spec_pursue_charter_tt_3
+		var:spec_exch_known ?= 3
+	}
+}
+
+spec_can_pursue_stop_companies = {
+	has_variable = spec_pu_companies
+	custom_tooltip = {
+		text = spec_pursue_locked_tt
+		NOT = { has_variable = spec_pu_lock_companies }
+	}
+}
+
+spec_can_pursue_left_companies = {
+	has_variable = spec_pu_companies
+	custom_tooltip = {
+		text = spec_pursue_first_tt
+		var:spec_pu_companies > 1
+	}
+}
+
+spec_can_pursue_right_companies = {
+	has_variable = spec_pu_companies
+	custom_tooltip = {
+		text = spec_pursue_last_tt
+		var:spec_pu_companies < var:spec_pursue_n
+	}
+}
+
+spec_can_pursue_floor = {
+	custom_tooltip = {
+		text = spec_pursue_current_tt
+		NOT = { has_variable = spec_pu_floor }
+	}
+	custom_tooltip = {
+		text = spec_pursue_room_tt
+		OR = {
+			NOT = { has_variable = spec_pursue_n }
+			spec_pursue_slots > var:spec_pursue_n
+		}
+	}
+}
+
+spec_can_pursue_stop_floor = {
+	has_variable = spec_pu_floor
+	custom_tooltip = {
+		text = spec_pursue_locked_tt
+		NOT = { has_variable = spec_pu_lock_floor }
+	}
+}
+
+spec_can_pursue_left_floor = {
+	has_variable = spec_pu_floor
+	custom_tooltip = {
+		text = spec_pursue_first_tt
+		var:spec_pu_floor > 1
+	}
+}
+
+spec_can_pursue_right_floor = {
+	has_variable = spec_pu_floor
+	custom_tooltip = {
+		text = spec_pursue_last_tt
+		var:spec_pu_floor < var:spec_pursue_n
+	}
+}
+
+spec_can_pursue_sound = {
+	custom_tooltip = {
+		text = spec_pursue_current_tt
+		NOT = { has_variable = spec_pu_sound }
+	}
+	custom_tooltip = {
+		text = spec_pursue_room_tt
+		OR = {
+			NOT = { has_variable = spec_pursue_n }
+			spec_pursue_slots > var:spec_pursue_n
+		}
+	}
+}
+
+spec_can_pursue_stop_sound = {
+	has_variable = spec_pu_sound
+	custom_tooltip = {
+		text = spec_pursue_locked_tt
+		NOT = { has_variable = spec_pu_lock_sound }
+	}
+}
+
+spec_can_pursue_left_sound = {
+	has_variable = spec_pu_sound
+	custom_tooltip = {
+		text = spec_pursue_first_tt
+		var:spec_pu_sound > 1
+	}
+}
+
+spec_can_pursue_right_sound = {
+	has_variable = spec_pu_sound
+	custom_tooltip = {
+		text = spec_pursue_last_tt
+		var:spec_pu_sound < var:spec_pursue_n
+	}
+}
+
+spec_can_pursue_pockets = {
+	custom_tooltip = {
+		text = spec_pursue_current_tt
+		NOT = { has_variable = spec_pu_pockets }
+	}
+	custom_tooltip = {
+		text = spec_pursue_room_tt
+		OR = {
+			NOT = { has_variable = spec_pursue_n }
+			spec_pursue_slots > var:spec_pursue_n
+		}
+	}
+}
+
+spec_can_pursue_stop_pockets = {
+	has_variable = spec_pu_pockets
+	custom_tooltip = {
+		text = spec_pursue_locked_tt
+		NOT = { has_variable = spec_pu_lock_pockets }
+	}
+}
+
+spec_can_pursue_left_pockets = {
+	has_variable = spec_pu_pockets
+	custom_tooltip = {
+		text = spec_pursue_first_tt
+		var:spec_pu_pockets > 1
+	}
+}
+
+spec_can_pursue_right_pockets = {
+	has_variable = spec_pu_pockets
+	custom_tooltip = {
+		text = spec_pursue_last_tt
+		var:spec_pu_pockets < var:spec_pursue_n
+	}
+}
+
+spec_can_pursue_door = {
+	custom_tooltip = {
+		text = spec_pursue_current_tt
+		NOT = { has_variable = spec_pu_door }
+	}
+	custom_tooltip = {
+		text = spec_pursue_room_tt
+		OR = {
+			NOT = { has_variable = spec_pursue_n }
+			spec_pursue_slots > var:spec_pursue_n
+		}
+	}
+}
+
+spec_can_pursue_stop_door = {
+	has_variable = spec_pu_door
+	custom_tooltip = {
+		text = spec_pursue_locked_tt
+		NOT = { has_variable = spec_pu_lock_door }
+	}
+}
+
+spec_can_pursue_left_door = {
+	has_variable = spec_pu_door
+	custom_tooltip = {
+		text = spec_pursue_first_tt
+		var:spec_pu_door > 1
+	}
+}
+
+spec_can_pursue_right_door = {
+	has_variable = spec_pu_door
+	custom_tooltip = {
+		text = spec_pursue_last_tt
+		var:spec_pu_door < var:spec_pursue_n
+	}
+}
+
+spec_can_rival = {
+	has_technology_researched = banking
+	custom_tooltip = {
+		text = spec_rival_stand_tt
+		has_variable = spec_exch_stand
+		var:spec_exch_stand >= 1
+	}
+	custom_tooltip = {
+		text = spec_rival_reach_tt
+		NOT = { scope:target = this }
+		scope:target = { has_variable = spec_exch_stand }
+		OR = { AND = { this.var:spec_exch_stand = 1 scope:target.var:spec_exch_stand >= 1 scope:target.var:spec_exch_stand <= 2 } AND = { this.var:spec_exch_stand = 2 scope:target.var:spec_exch_stand >= 2 scope:target.var:spec_exch_stand <= 3 } AND = { this.var:spec_exch_stand = 3 scope:target.var:spec_exch_stand >= 3 scope:target.var:spec_exch_stand <= 3 } }
+	}
+	custom_tooltip = {
+		text = spec_rival_score_tt
+		has_variable = spec_centre_score
+		scope:target = { has_variable = spec_centre_score }
+		scope:target.var:spec_centre_score >= var:spec_centre_score
+	}
+	custom_tooltip = {
+		text = spec_rival_current_tt
+		NOT = { var:spec_rival ?= scope:target }
+	}
+	custom_tooltip = {
+		text = spec_rival_locked_tt
+		NOT = { has_variable = spec_rival_lock }
+	}
+	custom_tooltip = {
+		text = spec_rival_trade_tt
+		NOT = { any_scope_treaty = { binds = scope:target any_scope_article = { OR = { has_type = alliance has_type = defensive_pact has_type = foreign_investment_rights } } } }
+	}
+}
+
+spec_can_rival_end = {
+	has_variable = spec_rival
+	custom_tooltip = {
+		text = spec_rival_locked_tt
+		NOT = { has_variable = spec_rival_lock }
+	}
+}

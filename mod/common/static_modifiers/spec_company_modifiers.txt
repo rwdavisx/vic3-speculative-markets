@@ -1,0 +1,1756 @@
+﻿# a good's buildings by investor interest in it, added with the tier's percent as the multiplier; for a while
+# after its boom ends, added with spec_company_tie; and the old boom modifiers, kept empty for older saves
+spec_company_bust_aeroplanes = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_automotive_industry_throughput_add = -0.1
+}
+
+spec_company_boom_aeroplanes = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_ammunition = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_munition_plant_throughput_add = -0.1
+}
+
+spec_company_boom_ammunition = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_artillery = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_artillery_foundry_throughput_add = -0.1
+}
+
+spec_company_boom_artillery = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_automobiles = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_automotive_industry_throughput_add = -0.1
+}
+
+spec_company_boom_automobiles = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_clippers = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_shipyard_throughput_add = -0.1
+}
+
+spec_company_boom_clippers = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_clothes = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_textile_mill_throughput_add = -0.1
+}
+
+spec_company_boom_clothes = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_coal = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_coal_mine_throughput_add = -0.1
+}
+
+spec_company_boom_coal = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_coffee = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_coffee_plantation_throughput_add = -0.1
+}
+
+spec_company_boom_coffee = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_copper = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_copper_mine_throughput_add = -0.1
+}
+
+spec_company_boom_copper = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_dye = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_synthetics_plant_throughput_add = -0.1
+	building_dye_plantation_throughput_add = -0.1
+}
+
+spec_company_boom_dye = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_electricity = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_power_plant_throughput_add = -0.1
+}
+
+spec_company_boom_electricity = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_engines = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_motor_industry_throughput_add = -0.1
+}
+
+spec_company_boom_engines = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_explosives = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_explosives_factory_throughput_add = -0.1
+}
+
+spec_company_boom_explosives = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_fabric = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_cotton_plantation_throughput_add = -0.1
+}
+
+spec_company_boom_fabric = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_fertilizer = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_chemical_plant_throughput_add = -0.1
+}
+
+spec_company_boom_fertilizer = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_fine_art = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_art_academy_throughput_add = -0.1
+}
+
+spec_company_boom_fine_art = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_fish = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_fishing_wharf_throughput_add = -0.1
+}
+
+spec_company_boom_fish = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_furniture = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_furniture_manufactory_throughput_add = -0.1
+}
+
+spec_company_boom_furniture = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_glass = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_glassworks_throughput_add = -0.1
+}
+
+spec_company_boom_glass = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_grain = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_rye_farm_throughput_add = -0.1
+	building_wheat_farm_throughput_add = -0.1
+	building_rice_farm_throughput_add = -0.1
+	building_maize_farm_throughput_add = -0.1
+	building_millet_farm_throughput_add = -0.1
+}
+
+spec_company_boom_grain = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_groceries = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_food_industry_throughput_add = -0.1
+}
+
+spec_company_boom_groceries = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_iron = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_iron_mine_throughput_add = -0.1
+}
+
+spec_company_boom_iron = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_lead = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_lead_mine_throughput_add = -0.1
+}
+
+spec_company_boom_lead = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_liquor = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_food_industry_throughput_add = -0.1
+}
+
+spec_company_boom_liquor = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_luxury_clothes = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_textile_mill_throughput_add = -0.1
+}
+
+spec_company_boom_luxury_clothes = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_luxury_furniture = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_furniture_manufactory_throughput_add = -0.1
+}
+
+spec_company_boom_luxury_furniture = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_meat = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_livestock_ranch_throughput_add = -0.1
+	building_whaling_station_throughput_add = -0.1
+}
+
+spec_company_boom_meat = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_merchant_marine = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_port_throughput_add = -0.1
+}
+
+spec_company_boom_merchant_marine = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_oil = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_whaling_station_throughput_add = -0.1
+}
+
+spec_company_boom_oil = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_opium = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_opium_plantation_throughput_add = -0.1
+}
+
+spec_company_boom_opium = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_paper = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_paper_mill_throughput_add = -0.1
+}
+
+spec_company_boom_paper = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_porcelain = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_glassworks_throughput_add = -0.1
+}
+
+spec_company_boom_porcelain = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_radios = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_electrics_industry_throughput_add = -0.1
+}
+
+spec_company_boom_radios = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_rubber = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_rubber_plantation_throughput_add = -0.1
+}
+
+spec_company_boom_rubber = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_silk = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_silk_plantation_throughput_add = -0.1
+	building_synthetics_plant_throughput_add = -0.1
+}
+
+spec_company_boom_silk = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_small_arms = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_arms_industry_throughput_add = -0.1
+}
+
+spec_company_boom_small_arms = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_steamers = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_shipyard_throughput_add = -0.1
+}
+
+spec_company_boom_steamers = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_steel = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_steel_mill_throughput_add = -0.1
+}
+
+spec_company_boom_steel = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_sugar = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_sugar_plantation_throughput_add = -0.1
+}
+
+spec_company_boom_sugar = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_sulfur = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_sulfur_mine_throughput_add = -0.1
+}
+
+spec_company_boom_sulfur = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_tanks = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_automotive_industry_throughput_add = -0.1
+}
+
+spec_company_boom_tanks = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_tea = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_tea_plantation_throughput_add = -0.1
+}
+
+spec_company_boom_tea = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_telephones = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_electrics_industry_throughput_add = -0.1
+}
+
+spec_company_boom_telephones = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_tobacco = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_tobacco_plantation_throughput_add = -0.1
+}
+
+spec_company_boom_tobacco = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_tools = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_tooling_workshop_throughput_add = -0.1
+}
+
+spec_company_boom_tools = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_company_bust_wine = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_negative.dds
+	building_vineyard_throughput_add = -0.1
+}
+
+spec_company_boom_wine = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
+}
+
+spec_investor_aeroplanes = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_aeroplanes_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_aeroplanes_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_aeroplanes_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_aeroplanes_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_aeroplanes_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_ammunition = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_ammunition_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_ammunition_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_ammunition_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_ammunition_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_ammunition_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_artillery = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_artillery_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_artillery_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_artillery_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_artillery_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_artillery_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_automobiles = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_automobiles_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_automobiles_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_automobiles_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_automobiles_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_automobiles_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_clippers = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_clippers_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_clippers_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_clippers_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_clippers_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_clippers_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_clothes = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_clothes_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_clothes_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_clothes_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_clothes_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_clothes_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_coal = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_coal_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_coal_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_coal_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_coal_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_coal_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_coffee = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_coffee_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_coffee_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_coffee_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_coffee_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_coffee_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_copper = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_copper_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_copper_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_copper_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_copper_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_copper_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_dye = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_dye_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_dye_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_dye_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_dye_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_dye_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_electricity = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_electricity_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_electricity_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_electricity_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_electricity_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_electricity_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_engines = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_engines_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_engines_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_engines_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_engines_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_engines_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_explosives = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_explosives_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_explosives_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_explosives_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_explosives_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_explosives_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_fabric = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_fabric_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_fabric_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_fabric_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_fabric_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_fabric_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_fertilizer = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_fertilizer_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_fertilizer_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_fertilizer_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_fertilizer_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_fertilizer_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_fine_art = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_fine_art_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_fine_art_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_fine_art_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_fine_art_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_fine_art_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_fish = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_fish_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_fish_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_fish_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_fish_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_fish_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_furniture = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_furniture_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_furniture_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_furniture_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_furniture_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_furniture_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_glass = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_glass_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_glass_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_glass_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_glass_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_glass_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_grain = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_grain_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_grain_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_grain_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_grain_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_grain_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_groceries = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_groceries_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_groceries_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_groceries_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_groceries_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_groceries_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_iron = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_iron_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_iron_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_iron_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_iron_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_iron_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_lead = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_lead_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_lead_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_lead_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_lead_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_lead_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_liquor = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_liquor_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_liquor_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_liquor_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_liquor_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_liquor_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_luxury_clothes = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_luxury_clothes_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_luxury_clothes_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_luxury_clothes_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_luxury_clothes_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_luxury_clothes_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_luxury_furniture = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_luxury_furniture_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_luxury_furniture_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_luxury_furniture_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_luxury_furniture_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_luxury_furniture_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_meat = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_meat_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_meat_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_meat_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_meat_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_meat_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_merchant_marine = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_merchant_marine_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_merchant_marine_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_merchant_marine_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_merchant_marine_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_merchant_marine_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_oil = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_oil_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_oil_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_oil_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_oil_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_oil_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_opium = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_opium_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_opium_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_opium_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_opium_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_opium_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_paper = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_paper_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_paper_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_paper_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_paper_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_paper_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_porcelain = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_porcelain_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_porcelain_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_porcelain_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_porcelain_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_porcelain_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_radios = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_radios_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_radios_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_radios_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_radios_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_radios_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_rubber = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_rubber_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_rubber_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_rubber_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_rubber_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_rubber_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_silk = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_silk_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_silk_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_silk_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_silk_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_silk_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_small_arms = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_small_arms_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_small_arms_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_small_arms_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_small_arms_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_small_arms_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_steamers = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_steamers_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_steamers_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_steamers_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_steamers_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_steamers_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_steel = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_steel_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_steel_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_steel_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_steel_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_steel_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_sugar = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_sugar_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_sugar_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_sugar_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_sugar_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_sugar_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_sulfur = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_sulfur_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_sulfur_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_sulfur_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_sulfur_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_sulfur_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_tanks = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_tanks_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_tanks_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_tanks_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_tanks_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_tanks_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_tea = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_tea_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_tea_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_tea_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_tea_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_tea_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_telephones = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_telephones_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_telephones_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_telephones_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_telephones_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_telephones_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_tobacco = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_tobacco_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_tobacco_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_tobacco_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_tobacco_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_tobacco_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_tools = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_tools_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_tools_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_tools_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_tools_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_tools_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}
+
+spec_investor_wine = {
+	icon = gfx/interface/icons/spec_markets/interest_calm.dds
+}
+
+spec_investor_wine_1 = {
+	icon = gfx/interface/icons/spec_markets/interest_fleeing.dds
+	building_throughput_add = -0.1
+}
+
+spec_investor_wine_2 = {
+	icon = gfx/interface/icons/spec_markets/interest_doubtful.dds
+	building_throughput_add = -0.05
+}
+
+spec_investor_wine_4 = {
+	icon = gfx/interface/icons/spec_markets/interest_keen.dds
+	building_throughput_add = 0.03
+}
+
+spec_investor_wine_5 = {
+	icon = gfx/interface/icons/spec_markets/interest_eager.dds
+	building_throughput_add = 0.05
+}
+
+spec_investor_wine_6 = {
+	icon = gfx/interface/icons/spec_markets/interest_feverish.dds
+	building_throughput_add = 0.08
+}

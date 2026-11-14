@@ -1,0 +1,10 @@
+{
+  "name": "Speculative Markets",
+  "id": "speculative_markets",
+  "version": "1.0.3",
+  "supported_game_version": "1.15.*",
+  "short_description": "Investors chase rising prices, booms turn to panics, and you set credit policy.",
+  "tags": [ "Economy And Buildings", "Events", "Journal Entries" ],
+  "relationships": [],
+  "game_custom_data": { "multiplayer_synchronized": true }
+}

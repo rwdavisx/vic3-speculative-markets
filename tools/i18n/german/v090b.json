@@ -1,0 +1,9 @@
+{
+  "02cdee371e": "\\n\\n#title Bankkredite:#! #v {1}#! von [concept_spec_outstanding_credit], #v {2}#! Monatseinkommen des Pools\\nWürde sein Boom enden, fiele [concept_spec_market_confidence] #v x{3}#! so stark wie bei einem Boom, in den keine Bank Kredit gegeben hat",
+  "2523e47c00": "Wohin die Banken Kredit gegeben haben",
+  "57da154fe8": "#header Letzter Monat#!\\n[concept_spec_leverage]: #v {1}#! Monate",
+  "599efded61": " Die Banken hatten viel Kredit hineingegeben, daher fiel der Einbruch #N x{1}#! so hart aus.",
+  "99f6f8b6fa": "#header Dieser Monat#!\\n[concept_spec_leverage]: #v {1}#! Monate",
+  "c866d03845": "#header Vor {1} Monaten#!\\n[concept_spec_leverage]: #v {2}#! Monate",
+  "d52746e9ce": "Verlauf der Verschuldung"
+}

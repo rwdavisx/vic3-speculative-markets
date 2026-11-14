@@ -1,0 +1,252 @@
+﻿namespace = spec_markets
+
+# mania warning
+spec_markets.1 = {
+	type = country_event
+	placement = root
+	title = spec_markets.1.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = spec_markets.1.d
+				trigger = { has_variable = spec_top1 has_variable = spec_top2 has_variable = spec_top3 }
+			}
+			triggered_desc = {
+				desc = spec_markets.1.d_generic
+				trigger = { always = yes }
+			}
+		}
+	}
+	flavor = spec_markets.1.f
+	duration = 3
+	event_image = {
+		trigger = { spec_pic_mideast = yes }
+		video = "middleeast_upperclass_party"
+	}
+	event_image = {
+		trigger = { spec_pic_africa = yes }
+		video = "africa_city_center"
+	}
+	event_image = {
+		trigger = { spec_pic_asia = yes }
+		video = "unspecific_world_fair"
+	}
+	event_image = {
+		trigger = { spec_pic_latam = yes }
+		video = "southamerica_aristocrats"
+	}
+	event_image = {
+		trigger = { spec_pic_west = yes }
+		video = "europenorthamerica_london_center"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/spec_markets/event_mania.dds"
+
+	option = {
+		name = spec_markets.1.a
+		default_option = yes
+		ig:ig_industrialists ?= {
+			add_modifier = {
+				name = spec_boom_riding
+				days = short_modifier_time
+			}
+		}
+		ai_chance = {
+			base = 50
+			modifier = {
+				trigger = { var:spec_temper ?= 1 }
+				add = 30
+			}
+		}
+	}
+	option = {
+		name = spec_markets.1.b
+		custom_tooltip = {
+			text = spec_markets.1.b.tt
+			spec_cool_conf = { AMOUNT = 10 }
+		}
+		ig:ig_industrialists ?= {
+			add_modifier = {
+				name = spec_boom_warning
+				days = short_modifier_time
+			}
+		}
+		ig:ig_intelligentsia ?= {
+			add_modifier = {
+				name = spec_prudent_counsel
+				days = short_modifier_time
+			}
+		}
+		ai_chance = {
+			base = 30
+			modifier = {
+				trigger = { var:spec_temper ?= -1 }
+				add = 30
+			}
+		}
+	}
+	option = {
+		name = spec_markets.1.c
+		custom_tooltip = {
+			text = spec_levy_tt
+			add_treasury = spec_speculator_tax
+		}
+		custom_tooltip = {
+			text = spec_markets.1.c.tt
+			spec_cool_conf = { AMOUNT = 5 }
+		}
+		ig:ig_industrialists ?= {
+			add_modifier = {
+				name = spec_speculation_levy
+				days = normal_modifier_time
+			}
+		}
+		ai_chance = {
+			base = 20
+			modifier = {
+				trigger = { var:spec_temper ?= -1 }
+				add = 20
+			}
+		}
+	}
+}
+
+# panic
+spec_markets.2 = {
+	type = country_event
+	placement = root
+	title = spec_markets.2.t
+	# what broke confidence this month, and whether the banks had loans to call in
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = spec_markets.2.d_crash_bad
+				trigger = { has_variable = spec_crashed var:spec_c_crash < 0 var:spec_clawed > 0 has_variable = spec_crunch }
+			}
+			triggered_desc = {
+				desc = spec_markets.2.d_crash_no_loans_bad
+				trigger = { has_variable = spec_crashed var:spec_c_crash < 0 always = yes has_variable = spec_crunch }
+			}
+			triggered_desc = {
+				desc = spec_markets.2.d_foreign_bad
+				trigger = { exists = var:spec_foreign_src var:spec_c_foreign < 0 var:spec_clawed > 0 has_variable = spec_crunch }
+			}
+			triggered_desc = {
+				desc = spec_markets.2.d_foreign_no_loans_bad
+				trigger = { exists = var:spec_foreign_src var:spec_c_foreign < 0 always = yes has_variable = spec_crunch }
+			}
+			triggered_desc = {
+				desc = spec_markets.2.d_other_bad
+				trigger = {  var:spec_clawed > 0 has_variable = spec_crunch }
+			}
+			triggered_desc = {
+				desc = spec_markets.2.d_other_no_loans_bad
+				trigger = {  always = yes has_variable = spec_crunch }
+			}
+			triggered_desc = {
+				desc = spec_markets.2.d_crash
+				trigger = { has_variable = spec_crashed var:spec_c_crash < 0 var:spec_clawed > 0  }
+			}
+			triggered_desc = {
+				desc = spec_markets.2.d_crash_no_loans
+				trigger = { has_variable = spec_crashed var:spec_c_crash < 0 always = yes  }
+			}
+			triggered_desc = {
+				desc = spec_markets.2.d_foreign
+				trigger = { exists = var:spec_foreign_src var:spec_c_foreign < 0 var:spec_clawed > 0  }
+			}
+			triggered_desc = {
+				desc = spec_markets.2.d_foreign_no_loans
+				trigger = { exists = var:spec_foreign_src var:spec_c_foreign < 0 always = yes  }
+			}
+			triggered_desc = {
+				desc = spec_markets.2.d_other
+				trigger = {  var:spec_clawed > 0  }
+			}
+			triggered_desc = {
+				desc = spec_markets.2.d_other_no_loans
+				trigger = {  always = yes  }
+			}
+		}
+	}
+	flavor = spec_markets.2.f
+	duration = 3
+	event_image = {
+		trigger = { spec_pic_mideast = yes }
+		video = "unspecific_factory_closed"
+	}
+	event_image = {
+		trigger = { spec_pic_africa = yes }
+		video = "africa_public_protest"
+	}
+	event_image = {
+		trigger = { spec_pic_asia = yes }
+		video = "asia_poor_people_moving"
+	}
+	event_image = {
+		trigger = { spec_pic_latam = yes }
+		video = "unspecific_factory_closed"
+	}
+	event_image = {
+		trigger = { spec_pic_west = yes }
+		video = "unspecific_factory_closed"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/spec_markets/event_panic.dds"
+
+	option = {
+		name = spec_markets.2.a
+		trigger = { NOT = { has_variable = spec_rescued } }  # the pledged rescue came with the panic (centres.PLEDGE_RESCUE)
+		default_option = yes
+		custom_tooltip = spec_markets.2.a.tt
+		ig:ig_industrialists ?= {
+			add_modifier = {
+				name = spec_market_left_alone
+				days = short_modifier_time
+			}
+		}
+		ai_chance = {
+			base = 50
+		}
+	}
+	option = {
+		name = spec_markets.2.b
+		trigger = { spec_can_rescue = yes }
+		custom_tooltip = spec_rescue_cost_tt
+		custom_tooltip = {
+			text = spec_markets.2.b.tt
+			spec_rescue = yes
+		}
+		custom_tooltip = spec_bank_bailout_tt
+		# the AI rescues later, by its own roll (credit_ai.py)
+		ai_chance = {
+			base = 0
+		}
+	}
+	option = {
+		name = spec_markets.2.c
+		ig:ig_industrialists ?= {
+			add_modifier = {
+				name = spec_blamed_for_panic
+				days = normal_modifier_time
+			}
+		}
+		ig:ig_trade_unions ?= {
+			add_modifier = {
+				name = spec_speculators_blamed
+				days = short_modifier_time
+			}
+		}
+		ig:ig_intelligentsia ?= {
+			add_modifier = {
+				name = spec_speculators_blamed
+				days = short_modifier_time
+			}
+		}
+		# workers who feared for their jobs welcome a government that takes their side
+		add_loyalists = { value = 0.05 strata = lower }
+		ai_chance = {
+			base = 20
+		}
+	}
+}

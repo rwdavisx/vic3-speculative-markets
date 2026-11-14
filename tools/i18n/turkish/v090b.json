@@ -1,0 +1,9 @@
+{
+  "02cdee371e": "\\n\\n#title Banka Kredileri:#! [concept_spec_outstanding_credit] içinde #v {1}#!, havuz gelirinin #v {2}#! aylığı\\nYükselişi sona erseydi, hiçbir bankanın kredi vermediği bir yükselişe göre [concept_spec_market_confidence] #v x{3}#! kat fazla düşerdi",
+  "2523e47c00": "Bankalar Nereye Kredi Verdi",
+  "57da154fe8": "#header Geçen Ay#!\\n[concept_spec_leverage]: #v {1}#! ay",
+  "599efded61": " Bankalar buraya bolca kredi vermişti, bu yüzden düşüş #N x{1}#! kat sert oldu.",
+  "99f6f8b6fa": "#header Bu Ay#!\\n[concept_spec_leverage]: #v {1}#! ay",
+  "c866d03845": "#header {1} Ay Önce#!\\n[concept_spec_leverage]: #v {2}#! ay",
+  "d52746e9ce": "Kaldıraç Geçmişi"
+}

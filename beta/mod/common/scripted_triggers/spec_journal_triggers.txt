@@ -1,0 +1,95 @@
+﻿# a Sound Finance institution its technology allows and the country has not yet made
+spec_reform_open = {
+	OR = {
+		AND = {
+			has_technology_researched = banking
+			NOT = { has_variable = spec_note }
+		}
+		AND = {
+			has_technology_researched = central_banking
+			NOT = { has_variable = spec_llr }
+		}
+		AND = {
+			has_technology_researched = joint_stock_companies
+			NOT = { has_variable = spec_company_law }
+		}
+	}
+}
+
+spec_can_inquire = {
+	custom_tooltip = {
+		text = spec_inquiry_reform_tt
+		spec_reform_open = yes
+	}
+	custom_tooltip = {
+		text = spec_inquiry_no_panic_tt
+		NOT = { has_variable = spec_panic }
+	}
+	custom_tooltip = {
+		text = spec_inquiry_when_tt
+		OR = {
+			AND = {
+				has_variable = spec_panic_cooldown
+				NOT = { has_variable = spec_inquired }
+			}
+			AND = {
+				has_variable = spec_calm
+				var:spec_calm >= 120
+			}
+		}
+	}
+}
+
+spec_can_convert = {
+	custom_tooltip = {
+		text = spec_convert_conf_tt
+		NOT = { has_variable = spec_panic }
+		has_variable = spec_conf
+		var:spec_conf >= 60
+	}
+	custom_tooltip = {
+		text = spec_convert_debt_tt
+		scaled_debt >= 0.2
+	}
+	custom_tooltip = {
+		text = spec_convert_cd_tt
+		NOT = { has_variable = spec_converted }
+	}
+}
+
+spec_in_slump = {
+	OR = {
+		has_variable = spec_panic
+		AND = {
+			has_variable = spec_ld
+			var:spec_ld < 3
+		}
+	}
+}
+
+spec_can_relief = {
+	custom_tooltip = {
+		text = spec_relief_when_tt
+		spec_in_slump = yes
+	}
+	custom_tooltip = {
+		text = spec_relief_cd_tt
+		NOT = { has_variable = spec_relief }
+	}
+	in_default = no
+}
+
+spec_can_suspend = {
+	custom_tooltip = {
+		text = spec_suspend_panic_tt
+		has_variable = spec_panic
+	}
+	custom_tooltip = {
+		text = spec_suspend_note_tt
+		var:spec_note ?= 1
+	}
+	custom_tooltip = {
+		text = spec_rescued_tt
+		NOT = { has_variable = spec_rescued }
+	}
+}

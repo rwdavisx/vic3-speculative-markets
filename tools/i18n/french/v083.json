@@ -1,0 +1,14 @@
+{
+  "de9b342187": "Le crédit bancaire augmente le [concept_throughput] de #P {1} %#! par mois entier de [concept_spec_leverage], jusqu’à #P {2} %#!.",
+  "f25f653c3a": "Sous #v $SPEC_PANIC_AT$#!, une [concept_spec_financial_panic] peut éclater ; à #v {1}#!, le marché passe au niveau #v Stabilité#!.",
+  "94db779f7e": "[concept_spec_bad_debts] : #N -{1} %#! de [concept_throughput] actuellement, avec un effet qui s’estompe sur #v {2}#! mois supplémentaires\\n",
+  "3adf5cdd86": "Après une perte de territoire, les [concept_spec_bad_debts] sont calculées sur #v {1}#! mois de [concept_spec_leverage]. L’allègement s’estompe sur #v {2}#! mois supplémentaires\\n",
+  "3cafce71a4": "[concept_spec_bad_debts] : #N -{1} %#! de [concept_throughput] actuellement, avec un effet qui s’estompe sur #v {2}#! mois supplémentaires. Elles peuvent survivre à la panique.\\n\\n",
+  "6f91445225": "#header Début de la panique : {1}#!\\n$TOOLTIP_DELIMITER$\\nUne [concept_spec_financial_panic] qui éclate avec un [concept_spec_leverage] élevé fait tomber la [concept_spec_market_confidence] directement sous #v {2}#!.",
+  "6a698868e0": "#P Sûr#!",
+  "53a64a4fa4": "#N Risqué#!",
+  "d91b722d1b": "#N Dangereux#!",
+  "bd5d2d08d9": "Sûr jusqu’à #v {1}#! mois",
+  "46852e02d5": "Limite de sécurité de #v {1}#! mois dépassée",
+  "bc99612baf": "[concept_spec_outstanding_credit] : #v @money!{1}#!\\nRevenus mensuels du fonds : #v @money!{2}#!\\n$TOOLTIP_DELIMITER$\\nLe plus élevé des revenus du [concept_investment_pool] ce mois-ci et de leur moyenne sur environ un an."
+}

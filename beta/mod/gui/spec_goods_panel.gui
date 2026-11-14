@@ -1,0 +1,1713 @@
+﻿types spec_goods_panel {
+	type spec_goods_interest = widget {
+		size = { 540 128 }
+		parentanchor = hcenter
+		hbox = {
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = expanding
+			margin = { 16 14 }
+			background = {
+				using = entry_bg_simple
+			}
+			vbox = {
+				layoutpolicy_horizontal = expanding
+				spacing = 8
+				widget = {
+					size = { 273 24 }
+					textbox = {
+						position = { 72 0 }
+						size = { 195 24 }
+						text = "SPEC_GP_TITLE"
+						align = center|nobaseline
+					}
+				}
+				widget = {
+					size = { 273 60 }
+					widget = {
+						size = { 195 22 }
+						position = { 72 36 }
+						tooltip = "SPEC_IB_HEAT_TT"
+						background = {
+							texture = "gfx/interface/progressbar/progressbar_empty.dds"
+							spriteType = Corneredtiled
+							spriteborder = { 4 4 }
+							texture_density = 2
+							alpha = 0.8
+							using = progressbar_texture_properties
+						}
+						background = {
+							texture = "gfx/interface/progressbar/progressbar_frame.dds"
+							spriteType = Corneredstretched
+							spriteborder = { 6 6 }
+							texture_density = 2
+							margin = { 3 3 }
+						}
+						icon = {
+							position = { 30 1 }
+							size = { 3 20 }
+							texture = "gfx/interface/progressbar/progressbar_center_divider.dds"
+							texture_density = 2
+						}
+						icon = {
+							position = { 63 1 }
+							size = { 3 20 }
+							texture = "gfx/interface/progressbar/progressbar_center_divider.dds"
+							texture_density = 2
+						}
+						icon = {
+							position = { 96 1 }
+							size = { 3 20 }
+							texture = "gfx/interface/progressbar/progressbar_center_divider.dds"
+							texture_density = 2
+						}
+						icon = {
+							position = { 129 1 }
+							size = { 3 20 }
+							texture = "gfx/interface/progressbar/progressbar_center_divider.dds"
+							texture_density = 2
+						}
+						icon = {
+							position = { 162 1 }
+							size = { 3 20 }
+							texture = "gfx/interface/progressbar/progressbar_center_divider.dds"
+							texture_density = 2
+						}
+					}
+					widget = {
+						size = { 56 56 }
+						position = { 6 2 }
+						### the bar's overlay for the good's tier, once for every state; in a glut the fills drop to half alpha, so a
+						### recovering good reads as muted
+						widget = {
+							size = { 100% 100% }
+							alpha = "[Select_float(EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_state_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3'), '(float)0.5', '(float)1.0')]"
+							widget = {
+								size = { 100% 100% }
+								visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)1')]"
+								widget = {
+									position = { 66 34 }
+									size = { 195 22 }
+									widget = {
+										position = { 0 0 }
+										size = { 30 100% }
+										scissor = yes
+										progressbar = {
+											size = { 100% 100% }
+											progresstexture = "gfx/interface/progressbar/progressbar_white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											spriteType = Corneredtiled
+											spriteborder = { 4 4 }
+											texture_density = 2
+											color = { 0.28 0.34 0.68 1 }
+											using = progressbar_texture_properties
+											skip_initial_animation = yes
+											animate_negative_changes = yes
+											state = {
+												name = progress_changed
+												using = Animation_Curve_Default
+												duration = 1.5
+											}
+											min = 0
+											max = 1
+											value = "[FixedPointToFloat(Country.MakeScope.Var(Concatenate('spec_ui_pos_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'))]"
+											marker = {
+												widget = {
+													size = { 100% 100% }
+													icon = {
+														size = { 30 100% }
+														widgetanchor = right
+														alpha = 0.7
+														texture = "gfx/interface/progressbar/progressbar_white_glow.dds"
+														shaderfile = "gfx/FX/pdxgui_repeat_texture.shader"
+														color = { 0.28 0.34 0.68 1 }
+														icon = {
+															size = { 3 100% }
+															parentanchor = right
+															texture = "gfx/interface/progressbar/progressbar_white_glow_line.dds"
+															spriteType = Corneredtiled
+															spriteborder = { 0 0 }
+														}
+													}
+													icon = {
+														size = { 100% 100% }
+														widgetanchor = right
+														visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_move_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)1')]"
+														texture = "gfx/interface/graph/white.dds"
+														color = { 1 1 1 0.45 }
+														shaderfile = "gfx/FX/pdxgui_repeat_texture.shader"
+														modify_texture = {
+															name = arrow_animation
+															texture = "gfx/interface/progressbar/progressbar_arrow.dds"
+															spriteType = Corneredtiled
+															spriteborder = { 0 0 }
+															texture_density = 10
+															translate_uv = { 0 0 }
+															blend_mode = alphamultiply
+														}
+														state = {
+															trigger_on_create = yes
+															name = arrow_animation_1
+															next = arrow_animation_2
+															duration = 1
+															modify_texture = {
+																name = arrow_animation
+																translate_uv = { -1 0 }
+															}
+														}
+														state = {
+															name = arrow_animation_2
+															next = arrow_animation_1
+															duration = 0
+															modify_texture = {
+																name = arrow_animation
+																translate_uv = { 0 0 }
+															}
+														}
+													}
+													icon = {
+														size = { 100% 100% }
+														widgetanchor = right
+														visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_move_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)-1')]"
+														texture = "gfx/interface/graph/white.dds"
+														color = { 1 1 1 0.45 }
+														shaderfile = "gfx/FX/pdxgui_repeat_texture.shader"
+														modify_texture = {
+															name = arrow_animation
+															texture = "gfx/interface/progressbar/progressbar_arrow.dds"
+															spriteType = Corneredtiled
+															spriteborder = { 0 0 }
+															texture_density = 10
+															translate_uv = { 0 0 }
+															blend_mode = alphamultiply
+															mirror = horizontal
+														}
+														state = {
+															trigger_on_create = yes
+															name = arrow_animation_1
+															next = arrow_animation_2
+															duration = 1
+															modify_texture = {
+																name = arrow_animation
+																translate_uv = { -1 0 }
+															}
+														}
+														state = {
+															name = arrow_animation_2
+															next = arrow_animation_1
+															duration = 0
+															modify_texture = {
+																name = arrow_animation
+																translate_uv = { 0 0 }
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+									icon = {
+										position = { 0 0 }
+										size = { 30 100% }
+										texture = "gfx/interface/progressbar/progressbar_active_level.dds"
+										spriteType = Corneredstretched
+										spriteborder = { 6 6 }
+										texture_density = 2
+									}
+								}
+							}
+							widget = {
+								size = { 100% 100% }
+								visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)2')]"
+								widget = {
+									position = { 66 34 }
+									size = { 195 22 }
+									icon = {
+										position = { 0 0 }
+										size = { 30 100% }
+										texture = "gfx/interface/progressbar/progressbar_white.dds"
+										spriteType = Corneredtiled
+										spriteborder = { 4 4 }
+										texture_density = 2
+										color = { 0.28 0.34 0.68 1 }
+										using = progressbar_texture_properties
+									}
+									widget = {
+										position = { 33 0 }
+										size = { 30 100% }
+										scissor = yes
+										progressbar = {
+											size = { 100% 100% }
+											progresstexture = "gfx/interface/progressbar/progressbar_white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											spriteType = Corneredtiled
+											spriteborder = { 4 4 }
+											texture_density = 2
+											color = { 0.34 0.48 0.64 1 }
+											using = progressbar_texture_properties
+											skip_initial_animation = yes
+											animate_negative_changes = yes
+											state = {
+												name = progress_changed
+												using = Animation_Curve_Default
+												duration = 1.5
+											}
+											min = 1
+											max = 2
+											value = "[FixedPointToFloat(Country.MakeScope.Var(Concatenate('spec_ui_pos_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'))]"
+											marker = {
+												widget = {
+													size = { 100% 100% }
+													icon = {
+														size = { 30 100% }
+														widgetanchor = right
+														alpha = 0.7
+														texture = "gfx/interface/progressbar/progressbar_white_glow.dds"
+														shaderfile = "gfx/FX/pdxgui_repeat_texture.shader"
+														color = { 0.34 0.48 0.64 1 }
+														icon = {
+															size = { 3 100% }
+															parentanchor = right
+															texture = "gfx/interface/progressbar/progressbar_white_glow_line.dds"
+															spriteType = Corneredtiled
+															spriteborder = { 0 0 }
+														}
+													}
+													icon = {
+														size = { 100% 100% }
+														widgetanchor = right
+														visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_move_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)1')]"
+														texture = "gfx/interface/graph/white.dds"
+														color = { 1 1 1 0.45 }
+														shaderfile = "gfx/FX/pdxgui_repeat_texture.shader"
+														modify_texture = {
+															name = arrow_animation
+															texture = "gfx/interface/progressbar/progressbar_arrow.dds"
+															spriteType = Corneredtiled
+															spriteborder = { 0 0 }
+															texture_density = 10
+															translate_uv = { 0 0 }
+															blend_mode = alphamultiply
+														}
+														state = {
+															trigger_on_create = yes
+															name = arrow_animation_1
+															next = arrow_animation_2
+															duration = 1
+															modify_texture = {
+																name = arrow_animation
+																translate_uv = { -1 0 }
+															}
+														}
+														state = {
+															name = arrow_animation_2
+															next = arrow_animation_1
+															duration = 0
+															modify_texture = {
+																name = arrow_animation
+																translate_uv = { 0 0 }
+															}
+														}
+													}
+													icon = {
+														size = { 100% 100% }
+														widgetanchor = right
+														visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_move_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)-1')]"
+														texture = "gfx/interface/graph/white.dds"
+														color = { 1 1 1 0.45 }
+														shaderfile = "gfx/FX/pdxgui_repeat_texture.shader"
+														modify_texture = {
+															name = arrow_animation
+															texture = "gfx/interface/progressbar/progressbar_arrow.dds"
+															spriteType = Corneredtiled
+															spriteborder = { 0 0 }
+															texture_density = 10
+															translate_uv = { 0 0 }
+															blend_mode = alphamultiply
+															mirror = horizontal
+														}
+														state = {
+															trigger_on_create = yes
+															name = arrow_animation_1
+															next = arrow_animation_2
+															duration = 1
+															modify_texture = {
+																name = arrow_animation
+																translate_uv = { -1 0 }
+															}
+														}
+														state = {
+															name = arrow_animation_2
+															next = arrow_animation_1
+															duration = 0
+															modify_texture = {
+																name = arrow_animation
+																translate_uv = { 0 0 }
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+									icon = {
+										position = { 33 0 }
+										size = { 30 100% }
+										texture = "gfx/interface/progressbar/progressbar_active_level.dds"
+										spriteType = Corneredstretched
+										spriteborder = { 6 6 }
+										texture_density = 2
+									}
+								}
+							}
+							widget = {
+								size = { 100% 100% }
+								visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+								widget = {
+									position = { 66 34 }
+									size = { 195 22 }
+									icon = {
+										position = { 0 0 }
+										size = { 30 100% }
+										texture = "gfx/interface/progressbar/progressbar_white.dds"
+										spriteType = Corneredtiled
+										spriteborder = { 4 4 }
+										texture_density = 2
+										color = { 0.28 0.34 0.68 1 }
+										using = progressbar_texture_properties
+									}
+									icon = {
+										position = { 33 0 }
+										size = { 30 100% }
+										texture = "gfx/interface/progressbar/progressbar_white.dds"
+										spriteType = Corneredtiled
+										spriteborder = { 4 4 }
+										texture_density = 2
+										color = { 0.34 0.48 0.64 1 }
+										using = progressbar_texture_properties
+									}
+									widget = {
+										position = { 66 0 }
+										size = { 30 100% }
+										scissor = yes
+										progressbar = {
+											size = { 100% 100% }
+											progresstexture = "gfx/interface/progressbar/progressbar_white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											spriteType = Corneredtiled
+											spriteborder = { 4 4 }
+											texture_density = 2
+											color = { 0.55 0.55 0.55 1 }
+											using = progressbar_texture_properties
+											skip_initial_animation = yes
+											animate_negative_changes = yes
+											state = {
+												name = progress_changed
+												using = Animation_Curve_Default
+												duration = 1.5
+											}
+											min = 2
+											max = 3
+											value = "[FixedPointToFloat(Country.MakeScope.Var(Concatenate('spec_ui_pos_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'))]"
+											marker = {
+												widget = {
+													size = { 100% 100% }
+													icon = {
+														size = { 30 100% }
+														widgetanchor = right
+														alpha = 0.7
+														texture = "gfx/interface/progressbar/progressbar_white_glow.dds"
+														shaderfile = "gfx/FX/pdxgui_repeat_texture.shader"
+														color = { 0.55 0.55 0.55 1 }
+														icon = {
+															size = { 3 100% }
+															parentanchor = right
+															texture = "gfx/interface/progressbar/progressbar_white_glow_line.dds"
+															spriteType = Corneredtiled
+															spriteborder = { 0 0 }
+														}
+													}
+													icon = {
+														size = { 100% 100% }
+														widgetanchor = right
+														visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_move_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)1')]"
+														texture = "gfx/interface/graph/white.dds"
+														color = { 1 1 1 0.45 }
+														shaderfile = "gfx/FX/pdxgui_repeat_texture.shader"
+														modify_texture = {
+															name = arrow_animation
+															texture = "gfx/interface/progressbar/progressbar_arrow.dds"
+															spriteType = Corneredtiled
+															spriteborder = { 0 0 }
+															texture_density = 10
+															translate_uv = { 0 0 }
+															blend_mode = alphamultiply
+														}
+														state = {
+															trigger_on_create = yes
+															name = arrow_animation_1
+															next = arrow_animation_2
+															duration = 1
+															modify_texture = {
+																name = arrow_animation
+																translate_uv = { -1 0 }
+															}
+														}
+														state = {
+															name = arrow_animation_2
+															next = arrow_animation_1
+															duration = 0
+															modify_texture = {
+																name = arrow_animation
+																translate_uv = { 0 0 }
+															}
+														}
+													}
+													icon = {
+														size = { 100% 100% }
+														widgetanchor = right
+														visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_move_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)-1')]"
+														texture = "gfx/interface/graph/white.dds"
+														color = { 1 1 1 0.45 }
+														shaderfile = "gfx/FX/pdxgui_repeat_texture.shader"
+														modify_texture = {
+															name = arrow_animation
+															texture = "gfx/interface/progressbar/progressbar_arrow.dds"
+															spriteType = Corneredtiled
+															spriteborder = { 0 0 }
+															texture_density = 10
+															translate_uv = { 0 0 }
+															blend_mode = alphamultiply
+															mirror = horizontal
+														}
+														state = {
+															trigger_on_create = yes
+															name = arrow_animation_1
+															next = arrow_animation_2
+															duration = 1
+															modify_texture = {
+																name = arrow_animation
+																translate_uv = { -1 0 }
+															}
+														}
+														state = {
+															name = arrow_animation_2
+															next = arrow_animation_1
+															duration = 0
+															modify_texture = {
+																name = arrow_animation
+																translate_uv = { 0 0 }
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+									icon = {
+										position = { 66 0 }
+										size = { 30 100% }
+										texture = "gfx/interface/progressbar/progressbar_active_level.dds"
+										spriteType = Corneredstretched
+										spriteborder = { 6 6 }
+										texture_density = 2
+									}
+								}
+							}
+							widget = {
+								size = { 100% 100% }
+								visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)4')]"
+								widget = {
+									position = { 66 34 }
+									size = { 195 22 }
+									icon = {
+										position = { 0 0 }
+										size = { 30 100% }
+										texture = "gfx/interface/progressbar/progressbar_white.dds"
+										spriteType = Corneredtiled
+										spriteborder = { 4 4 }
+										texture_density = 2
+										color = { 0.28 0.34 0.68 1 }
+										using = progressbar_texture_properties
+									}
+									icon = {
+										position = { 33 0 }
+										size = { 30 100% }
+										texture = "gfx/interface/progressbar/progressbar_white.dds"
+										spriteType = Corneredtiled
+										spriteborder = { 4 4 }
+										texture_density = 2
+										color = { 0.34 0.48 0.64 1 }
+										using = progressbar_texture_properties
+									}
+									icon = {
+										position = { 66 0 }
+										size = { 30 100% }
+										texture = "gfx/interface/progressbar/progressbar_white.dds"
+										spriteType = Corneredtiled
+										spriteborder = { 4 4 }
+										texture_density = 2
+										color = { 0.55 0.55 0.55 1 }
+										using = progressbar_texture_properties
+									}
+									widget = {
+										position = { 99 0 }
+										size = { 30 100% }
+										scissor = yes
+										progressbar = {
+											size = { 100% 100% }
+											progresstexture = "gfx/interface/progressbar/progressbar_white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											spriteType = Corneredtiled
+											spriteborder = { 4 4 }
+											texture_density = 2
+											color = { 0.70 0.64 0.36 1 }
+											using = progressbar_texture_properties
+											skip_initial_animation = yes
+											animate_negative_changes = yes
+											state = {
+												name = progress_changed
+												using = Animation_Curve_Default
+												duration = 1.5
+											}
+											min = 3
+											max = 4
+											value = "[FixedPointToFloat(Country.MakeScope.Var(Concatenate('spec_ui_pos_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'))]"
+											marker = {
+												widget = {
+													size = { 100% 100% }
+													icon = {
+														size = { 30 100% }
+														widgetanchor = right
+														alpha = 0.7
+														texture = "gfx/interface/progressbar/progressbar_white_glow.dds"
+														shaderfile = "gfx/FX/pdxgui_repeat_texture.shader"
+														color = { 0.70 0.64 0.36 1 }
+														icon = {
+															size = { 3 100% }
+															parentanchor = right
+															texture = "gfx/interface/progressbar/progressbar_white_glow_line.dds"
+															spriteType = Corneredtiled
+															spriteborder = { 0 0 }
+														}
+													}
+													icon = {
+														size = { 100% 100% }
+														widgetanchor = right
+														visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_move_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)1')]"
+														texture = "gfx/interface/graph/white.dds"
+														color = { 1 1 1 0.45 }
+														shaderfile = "gfx/FX/pdxgui_repeat_texture.shader"
+														modify_texture = {
+															name = arrow_animation
+															texture = "gfx/interface/progressbar/progressbar_arrow.dds"
+															spriteType = Corneredtiled
+															spriteborder = { 0 0 }
+															texture_density = 10
+															translate_uv = { 0 0 }
+															blend_mode = alphamultiply
+														}
+														state = {
+															trigger_on_create = yes
+															name = arrow_animation_1
+															next = arrow_animation_2
+															duration = 1
+															modify_texture = {
+																name = arrow_animation
+																translate_uv = { -1 0 }
+															}
+														}
+														state = {
+															name = arrow_animation_2
+															next = arrow_animation_1
+															duration = 0
+															modify_texture = {
+																name = arrow_animation
+																translate_uv = { 0 0 }
+															}
+														}
+													}
+													icon = {
+														size = { 100% 100% }
+														widgetanchor = right
+														visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_move_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)-1')]"
+														texture = "gfx/interface/graph/white.dds"
+														color = { 1 1 1 0.45 }
+														shaderfile = "gfx/FX/pdxgui_repeat_texture.shader"
+														modify_texture = {
+															name = arrow_animation
+															texture = "gfx/interface/progressbar/progressbar_arrow.dds"
+															spriteType = Corneredtiled
+															spriteborder = { 0 0 }
+															texture_density = 10
+															translate_uv = { 0 0 }
+															blend_mode = alphamultiply
+															mirror = horizontal
+														}
+														state = {
+															trigger_on_create = yes
+															name = arrow_animation_1
+															next = arrow_animation_2
+															duration = 1
+															modify_texture = {
+																name = arrow_animation
+																translate_uv = { -1 0 }
+															}
+														}
+														state = {
+															name = arrow_animation_2
+															next = arrow_animation_1
+															duration = 0
+															modify_texture = {
+																name = arrow_animation
+																translate_uv = { 0 0 }
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+									icon = {
+										position = { 99 0 }
+										size = { 30 100% }
+										texture = "gfx/interface/progressbar/progressbar_active_level.dds"
+										spriteType = Corneredstretched
+										spriteborder = { 6 6 }
+										texture_density = 2
+									}
+								}
+							}
+							widget = {
+								size = { 100% 100% }
+								visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)5')]"
+								widget = {
+									position = { 66 34 }
+									size = { 195 22 }
+									icon = {
+										position = { 0 0 }
+										size = { 30 100% }
+										texture = "gfx/interface/progressbar/progressbar_white.dds"
+										spriteType = Corneredtiled
+										spriteborder = { 4 4 }
+										texture_density = 2
+										color = { 0.28 0.34 0.68 1 }
+										using = progressbar_texture_properties
+									}
+									icon = {
+										position = { 33 0 }
+										size = { 30 100% }
+										texture = "gfx/interface/progressbar/progressbar_white.dds"
+										spriteType = Corneredtiled
+										spriteborder = { 4 4 }
+										texture_density = 2
+										color = { 0.34 0.48 0.64 1 }
+										using = progressbar_texture_properties
+									}
+									icon = {
+										position = { 66 0 }
+										size = { 30 100% }
+										texture = "gfx/interface/progressbar/progressbar_white.dds"
+										spriteType = Corneredtiled
+										spriteborder = { 4 4 }
+										texture_density = 2
+										color = { 0.55 0.55 0.55 1 }
+										using = progressbar_texture_properties
+									}
+									icon = {
+										position = { 99 0 }
+										size = { 30 100% }
+										texture = "gfx/interface/progressbar/progressbar_white.dds"
+										spriteType = Corneredtiled
+										spriteborder = { 4 4 }
+										texture_density = 2
+										color = { 0.70 0.64 0.36 1 }
+										using = progressbar_texture_properties
+									}
+									widget = {
+										position = { 132 0 }
+										size = { 30 100% }
+										scissor = yes
+										progressbar = {
+											size = { 100% 100% }
+											progresstexture = "gfx/interface/progressbar/progressbar_white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											spriteType = Corneredtiled
+											spriteborder = { 4 4 }
+											texture_density = 2
+											color = { 0.78 0.52 0.24 1 }
+											using = progressbar_texture_properties
+											skip_initial_animation = yes
+											animate_negative_changes = yes
+											state = {
+												name = progress_changed
+												using = Animation_Curve_Default
+												duration = 1.5
+											}
+											min = 4
+											max = 5
+											value = "[FixedPointToFloat(Country.MakeScope.Var(Concatenate('spec_ui_pos_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'))]"
+											marker = {
+												widget = {
+													size = { 100% 100% }
+													icon = {
+														size = { 30 100% }
+														widgetanchor = right
+														alpha = 0.7
+														texture = "gfx/interface/progressbar/progressbar_white_glow.dds"
+														shaderfile = "gfx/FX/pdxgui_repeat_texture.shader"
+														color = { 0.78 0.52 0.24 1 }
+														icon = {
+															size = { 3 100% }
+															parentanchor = right
+															texture = "gfx/interface/progressbar/progressbar_white_glow_line.dds"
+															spriteType = Corneredtiled
+															spriteborder = { 0 0 }
+														}
+													}
+													icon = {
+														size = { 100% 100% }
+														widgetanchor = right
+														visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_move_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)1')]"
+														texture = "gfx/interface/graph/white.dds"
+														color = { 1 1 1 0.45 }
+														shaderfile = "gfx/FX/pdxgui_repeat_texture.shader"
+														modify_texture = {
+															name = arrow_animation
+															texture = "gfx/interface/progressbar/progressbar_arrow.dds"
+															spriteType = Corneredtiled
+															spriteborder = { 0 0 }
+															texture_density = 10
+															translate_uv = { 0 0 }
+															blend_mode = alphamultiply
+														}
+														state = {
+															trigger_on_create = yes
+															name = arrow_animation_1
+															next = arrow_animation_2
+															duration = 1
+															modify_texture = {
+																name = arrow_animation
+																translate_uv = { -1 0 }
+															}
+														}
+														state = {
+															name = arrow_animation_2
+															next = arrow_animation_1
+															duration = 0
+															modify_texture = {
+																name = arrow_animation
+																translate_uv = { 0 0 }
+															}
+														}
+													}
+													icon = {
+														size = { 100% 100% }
+														widgetanchor = right
+														visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_move_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)-1')]"
+														texture = "gfx/interface/graph/white.dds"
+														color = { 1 1 1 0.45 }
+														shaderfile = "gfx/FX/pdxgui_repeat_texture.shader"
+														modify_texture = {
+															name = arrow_animation
+															texture = "gfx/interface/progressbar/progressbar_arrow.dds"
+															spriteType = Corneredtiled
+															spriteborder = { 0 0 }
+															texture_density = 10
+															translate_uv = { 0 0 }
+															blend_mode = alphamultiply
+															mirror = horizontal
+														}
+														state = {
+															trigger_on_create = yes
+															name = arrow_animation_1
+															next = arrow_animation_2
+															duration = 1
+															modify_texture = {
+																name = arrow_animation
+																translate_uv = { -1 0 }
+															}
+														}
+														state = {
+															name = arrow_animation_2
+															next = arrow_animation_1
+															duration = 0
+															modify_texture = {
+																name = arrow_animation
+																translate_uv = { 0 0 }
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+									icon = {
+										position = { 132 0 }
+										size = { 30 100% }
+										texture = "gfx/interface/progressbar/progressbar_active_level.dds"
+										spriteType = Corneredstretched
+										spriteborder = { 6 6 }
+										texture_density = 2
+									}
+								}
+							}
+							widget = {
+								size = { 100% 100% }
+								visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)6')]"
+								widget = {
+									position = { 66 34 }
+									size = { 195 22 }
+									icon = {
+										position = { 0 0 }
+										size = { 30 100% }
+										texture = "gfx/interface/progressbar/progressbar_white.dds"
+										spriteType = Corneredtiled
+										spriteborder = { 4 4 }
+										texture_density = 2
+										color = { 0.28 0.34 0.68 1 }
+										using = progressbar_texture_properties
+									}
+									icon = {
+										position = { 33 0 }
+										size = { 30 100% }
+										texture = "gfx/interface/progressbar/progressbar_white.dds"
+										spriteType = Corneredtiled
+										spriteborder = { 4 4 }
+										texture_density = 2
+										color = { 0.34 0.48 0.64 1 }
+										using = progressbar_texture_properties
+									}
+									icon = {
+										position = { 66 0 }
+										size = { 30 100% }
+										texture = "gfx/interface/progressbar/progressbar_white.dds"
+										spriteType = Corneredtiled
+										spriteborder = { 4 4 }
+										texture_density = 2
+										color = { 0.55 0.55 0.55 1 }
+										using = progressbar_texture_properties
+									}
+									icon = {
+										position = { 99 0 }
+										size = { 30 100% }
+										texture = "gfx/interface/progressbar/progressbar_white.dds"
+										spriteType = Corneredtiled
+										spriteborder = { 4 4 }
+										texture_density = 2
+										color = { 0.70 0.64 0.36 1 }
+										using = progressbar_texture_properties
+									}
+									icon = {
+										position = { 132 0 }
+										size = { 30 100% }
+										texture = "gfx/interface/progressbar/progressbar_white.dds"
+										spriteType = Corneredtiled
+										spriteborder = { 4 4 }
+										texture_density = 2
+										color = { 0.78 0.52 0.24 1 }
+										using = progressbar_texture_properties
+									}
+									widget = {
+										position = { 165 0 }
+										size = { 30 100% }
+										scissor = yes
+										progressbar = {
+											size = { 100% 100% }
+											progresstexture = "gfx/interface/progressbar/progressbar_white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											spriteType = Corneredtiled
+											spriteborder = { 4 4 }
+											texture_density = 2
+											color = { 0.80 0.32 0.22 1 }
+											using = progressbar_texture_properties
+											skip_initial_animation = yes
+											animate_negative_changes = yes
+											state = {
+												name = progress_changed
+												using = Animation_Curve_Default
+												duration = 1.5
+											}
+											min = 5
+											max = 6
+											value = "[FixedPointToFloat(Country.MakeScope.Var(Concatenate('spec_ui_pos_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'))]"
+											marker = {
+												widget = {
+													size = { 100% 100% }
+													icon = {
+														size = { 30 100% }
+														widgetanchor = right
+														alpha = 0.7
+														texture = "gfx/interface/progressbar/progressbar_white_glow.dds"
+														shaderfile = "gfx/FX/pdxgui_repeat_texture.shader"
+														color = { 0.80 0.32 0.22 1 }
+														icon = {
+															size = { 3 100% }
+															parentanchor = right
+															texture = "gfx/interface/progressbar/progressbar_white_glow_line.dds"
+															spriteType = Corneredtiled
+															spriteborder = { 0 0 }
+														}
+													}
+													icon = {
+														size = { 100% 100% }
+														widgetanchor = right
+														visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_move_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)1')]"
+														texture = "gfx/interface/graph/white.dds"
+														color = { 1 1 1 0.45 }
+														shaderfile = "gfx/FX/pdxgui_repeat_texture.shader"
+														modify_texture = {
+															name = arrow_animation
+															texture = "gfx/interface/progressbar/progressbar_arrow.dds"
+															spriteType = Corneredtiled
+															spriteborder = { 0 0 }
+															texture_density = 10
+															translate_uv = { 0 0 }
+															blend_mode = alphamultiply
+														}
+														state = {
+															trigger_on_create = yes
+															name = arrow_animation_1
+															next = arrow_animation_2
+															duration = 1
+															modify_texture = {
+																name = arrow_animation
+																translate_uv = { -1 0 }
+															}
+														}
+														state = {
+															name = arrow_animation_2
+															next = arrow_animation_1
+															duration = 0
+															modify_texture = {
+																name = arrow_animation
+																translate_uv = { 0 0 }
+															}
+														}
+													}
+													icon = {
+														size = { 100% 100% }
+														widgetanchor = right
+														visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_move_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)-1')]"
+														texture = "gfx/interface/graph/white.dds"
+														color = { 1 1 1 0.45 }
+														shaderfile = "gfx/FX/pdxgui_repeat_texture.shader"
+														modify_texture = {
+															name = arrow_animation
+															texture = "gfx/interface/progressbar/progressbar_arrow.dds"
+															spriteType = Corneredtiled
+															spriteborder = { 0 0 }
+															texture_density = 10
+															translate_uv = { 0 0 }
+															blend_mode = alphamultiply
+															mirror = horizontal
+														}
+														state = {
+															trigger_on_create = yes
+															name = arrow_animation_1
+															next = arrow_animation_2
+															duration = 1
+															modify_texture = {
+																name = arrow_animation
+																translate_uv = { -1 0 }
+															}
+														}
+														state = {
+															name = arrow_animation_2
+															next = arrow_animation_1
+															duration = 0
+															modify_texture = {
+																name = arrow_animation
+																translate_uv = { 0 0 }
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+									icon = {
+										position = { 165 0 }
+										size = { 30 100% }
+										texture = "gfx/interface/progressbar/progressbar_active_level.dds"
+										spriteType = Corneredstretched
+										spriteborder = { 6 6 }
+										texture_density = 2
+									}
+								}
+							}
+						}
+						### turning: the Fleeing step pulses red, where the boom would end
+						widget = {
+							position = { 66 34 }
+							size = { 30 22 }
+							visible = "[And(EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_state_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)1'), GreaterThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)1'))]"
+							### the collapse zone
+							icon = {
+								position = { 0 0 }
+								size = { 30 100% }
+								texture = "gfx/interface/progressbar/progressbar_bad.dds"
+								spriteType = Corneredtiled
+								spriteborder = { 4 4 }
+								texture_density = 2
+								tooltip = "SPEC_IL_DANGER_TT"
+								state = {
+									name = 1
+									next = 2
+									alpha = 0.1
+									duration = 1.4
+									using = Animation_Curve_Default
+									trigger_on_create = yes
+								}
+								state = {
+									name = 2
+									next = 1
+									alpha = 0.35
+									duration = 1.4
+									using = Animation_Curve_Default
+								}
+							}
+						}
+						widget = {
+							size = { 100% 100% }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_state_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+							tooltip = "SPEC_IB_HEAT_TT"
+							widget = {
+								size = { 100% 100% }
+								visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)1')]"
+								icon = {
+									size = { 100% 100% }
+									texture = "gfx/interface/icons/spec_markets/interest_fleeing.dds"
+								}
+							}
+							widget = {
+								size = { 100% 100% }
+								visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)2')]"
+								icon = {
+									size = { 100% 100% }
+									texture = "gfx/interface/icons/spec_markets/interest_doubtful.dds"
+								}
+							}
+							widget = {
+								size = { 100% 100% }
+								visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+								icon = {
+									size = { 100% 100% }
+									texture = "gfx/interface/icons/spec_markets/interest_calm.dds"
+								}
+							}
+							widget = {
+								size = { 100% 100% }
+								visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)4')]"
+								icon = {
+									size = { 100% 100% }
+									texture = "gfx/interface/icons/spec_markets/interest_keen.dds"
+								}
+							}
+							widget = {
+								size = { 100% 100% }
+								visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)5')]"
+								icon = {
+									size = { 100% 100% }
+									texture = "gfx/interface/icons/spec_markets/interest_eager.dds"
+								}
+							}
+							widget = {
+								size = { 100% 100% }
+								visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)6')]"
+								icon = {
+									size = { 100% 100% }
+									texture = "gfx/interface/icons/spec_markets/interest_feverish.dds"
+								}
+							}
+						}
+						widget = {
+							size = { 100% 100% }
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_state_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)1')]"
+							tooltip = "SPEC_IB_TURNING_TT"
+							widget = {
+								size = { 100% 100% }
+								visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)1')]"
+								icon = {
+									size = { 100% 100% }
+									texture = "gfx/interface/icons/spec_markets/interest_fleeing.dds"
+									state = {
+										name = 1
+										next = 2
+										alpha = 0.4
+										duration = 1.4
+										using = Animation_Curve_Default
+										trigger_on_create = yes
+									}
+									state = {
+										name = 2
+										next = 1
+										alpha = 1
+										duration = 1.4
+										using = Animation_Curve_Default
+									}
+								}
+							}
+							widget = {
+								size = { 100% 100% }
+								visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)2')]"
+								icon = {
+									size = { 100% 100% }
+									texture = "gfx/interface/icons/spec_markets/interest_doubtful.dds"
+									state = {
+										name = 1
+										next = 2
+										alpha = 0.4
+										duration = 1.4
+										using = Animation_Curve_Default
+										trigger_on_create = yes
+									}
+									state = {
+										name = 2
+										next = 1
+										alpha = 1
+										duration = 1.4
+										using = Animation_Curve_Default
+									}
+								}
+							}
+							widget = {
+								size = { 100% 100% }
+								visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+								icon = {
+									size = { 100% 100% }
+									texture = "gfx/interface/icons/spec_markets/interest_calm.dds"
+									state = {
+										name = 1
+										next = 2
+										alpha = 0.4
+										duration = 1.4
+										using = Animation_Curve_Default
+										trigger_on_create = yes
+									}
+									state = {
+										name = 2
+										next = 1
+										alpha = 1
+										duration = 1.4
+										using = Animation_Curve_Default
+									}
+								}
+							}
+							widget = {
+								size = { 100% 100% }
+								visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)4')]"
+								icon = {
+									size = { 100% 100% }
+									texture = "gfx/interface/icons/spec_markets/interest_keen.dds"
+									state = {
+										name = 1
+										next = 2
+										alpha = 0.4
+										duration = 1.4
+										using = Animation_Curve_Default
+										trigger_on_create = yes
+									}
+									state = {
+										name = 2
+										next = 1
+										alpha = 1
+										duration = 1.4
+										using = Animation_Curve_Default
+									}
+								}
+							}
+							widget = {
+								size = { 100% 100% }
+								visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)5')]"
+								icon = {
+									size = { 100% 100% }
+									texture = "gfx/interface/icons/spec_markets/interest_eager.dds"
+									state = {
+										name = 1
+										next = 2
+										alpha = 0.4
+										duration = 1.4
+										using = Animation_Curve_Default
+										trigger_on_create = yes
+									}
+									state = {
+										name = 2
+										next = 1
+										alpha = 1
+										duration = 1.4
+										using = Animation_Curve_Default
+									}
+								}
+							}
+							widget = {
+								size = { 100% 100% }
+								visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)6')]"
+								icon = {
+									size = { 100% 100% }
+									texture = "gfx/interface/icons/spec_markets/interest_feverish.dds"
+									state = {
+										name = 1
+										next = 2
+										alpha = 0.4
+										duration = 1.4
+										using = Animation_Curve_Default
+										trigger_on_create = yes
+									}
+									state = {
+										name = 2
+										next = 1
+										alpha = 1
+										duration = 1.4
+										using = Animation_Curve_Default
+									}
+								}
+							}
+						}
+						widget = {
+							size = { 100% 100% }
+							visible = "[Or(EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_state_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0'), EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_state_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)1'))]"
+							alwaystransparent = yes
+							widget = {
+								size = { 100% 100% }
+								visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)1')]"
+								flowcontainer = {
+									position = { 66 0 }
+									spacing = 8
+									textbox = {
+										size = { -1 28 }
+										autoresize = yes
+										align = left|nobaseline
+										using = fontsize_large
+										text = "SPEC_IL_TIER_1"
+									}
+									textbox = {
+										size = { -1 28 }
+										autoresize = yes
+										align = left|nobaseline
+										visible = "[Or(GreaterThanOrEqualTo_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)0.01'), LessThanOrEqualTo_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)-0.01'))]"
+										raw_text = "[Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'))|=+%0]"
+										tooltip = "SPEC_IB_HEAT_TT"
+									}
+								}
+							}
+							widget = {
+								size = { 100% 100% }
+								visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)2')]"
+								flowcontainer = {
+									position = { 66 0 }
+									spacing = 8
+									textbox = {
+										size = { -1 28 }
+										autoresize = yes
+										align = left|nobaseline
+										using = fontsize_large
+										text = "SPEC_IL_TIER_2"
+									}
+									textbox = {
+										size = { -1 28 }
+										autoresize = yes
+										align = left|nobaseline
+										visible = "[Or(GreaterThanOrEqualTo_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)0.01'), LessThanOrEqualTo_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)-0.01'))]"
+										raw_text = "[Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'))|=+%0]"
+										tooltip = "SPEC_IB_HEAT_TT"
+									}
+								}
+							}
+							widget = {
+								size = { 100% 100% }
+								visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+								flowcontainer = {
+									position = { 66 0 }
+									spacing = 8
+									textbox = {
+										size = { -1 28 }
+										autoresize = yes
+										align = left|nobaseline
+										using = fontsize_large
+										text = "SPEC_IL_TIER_3"
+									}
+									textbox = {
+										size = { -1 28 }
+										autoresize = yes
+										align = left|nobaseline
+										visible = "[Or(GreaterThanOrEqualTo_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)0.01'), LessThanOrEqualTo_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)-0.01'))]"
+										raw_text = "[Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'))|=+%0]"
+										tooltip = "SPEC_IB_HEAT_TT"
+									}
+								}
+							}
+							widget = {
+								size = { 100% 100% }
+								visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)4')]"
+								flowcontainer = {
+									position = { 66 0 }
+									spacing = 8
+									textbox = {
+										size = { -1 28 }
+										autoresize = yes
+										align = left|nobaseline
+										using = fontsize_large
+										text = "SPEC_IL_TIER_4"
+									}
+									textbox = {
+										size = { -1 28 }
+										autoresize = yes
+										align = left|nobaseline
+										visible = "[Or(GreaterThanOrEqualTo_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)0.01'), LessThanOrEqualTo_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)-0.01'))]"
+										raw_text = "[Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'))|=+%0]"
+										tooltip = "SPEC_IB_HEAT_TT"
+									}
+								}
+							}
+							widget = {
+								size = { 100% 100% }
+								visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)5')]"
+								flowcontainer = {
+									position = { 66 0 }
+									spacing = 8
+									textbox = {
+										size = { -1 28 }
+										autoresize = yes
+										align = left|nobaseline
+										using = fontsize_large
+										text = "SPEC_IL_TIER_5"
+									}
+									textbox = {
+										size = { -1 28 }
+										autoresize = yes
+										align = left|nobaseline
+										visible = "[Or(GreaterThanOrEqualTo_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)0.01'), LessThanOrEqualTo_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)-0.01'))]"
+										raw_text = "[Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'))|=+%0]"
+										tooltip = "SPEC_IB_HEAT_TT"
+									}
+								}
+							}
+							widget = {
+								size = { 100% 100% }
+								visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)6')]"
+								flowcontainer = {
+									position = { 66 0 }
+									spacing = 8
+									textbox = {
+										size = { -1 28 }
+										autoresize = yes
+										align = left|nobaseline
+										using = fontsize_large
+										text = "SPEC_IL_TIER_6"
+									}
+									textbox = {
+										size = { -1 28 }
+										autoresize = yes
+										align = left|nobaseline
+										visible = "[Or(GreaterThanOrEqualTo_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)0.01'), LessThanOrEqualTo_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)-0.01'))]"
+										raw_text = "[Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'))|=+%0]"
+										tooltip = "SPEC_IB_HEAT_TT"
+									}
+								}
+							}
+						}
+						widget = {
+							size = { 100% 100% }
+							visible = "[GreaterThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_state_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)1')]"
+							icon = {
+								size = { 40 40 }
+								parentanchor = center
+								visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_state_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)2')]"
+								texture = "gfx/interface/icons/spec_markets/crash_risk.dds"
+								tooltip = "SPEC_IL_CRASHED_TT"
+								state = {
+									name = _show
+									next = settle
+									alpha = 0
+									duration = 0
+								}
+								state = {
+									name = settle
+									next = shake_1
+									alpha = 1
+									duration = 0.25
+									using = Animation_Curve_EaseOut
+								}
+								state = {
+									name = shake_1
+									next = shake_2
+									position = { -3 0 }
+									duration = 0.06
+								}
+								state = {
+									name = shake_2
+									next = shake_3
+									position = { 3 0 }
+									duration = 0.06
+								}
+								state = {
+									name = shake_3
+									next = shake_4
+									position = { -2 0 }
+									duration = 0.06
+								}
+								state = {
+									name = shake_4
+									position = { 0 0 }
+									duration = 0.06
+								}
+							}
+							icon = {
+								size = { 40 40 }
+								parentanchor = center
+								visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_state_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+								texture = "gfx/interface/icons/spec_markets/crash_risk.dds"
+								tooltip = "SPEC_IL_GLUT_TT"
+							}
+							### the name stays put while the crash icon pops and shakes
+							widget = {
+								size = { 100% 100% }
+								visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_state_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)2')]"
+								flowcontainer = {
+									position = { 66 0 }
+									spacing = 8
+									textbox = {
+										size = { -1 28 }
+										autoresize = yes
+										align = left|nobaseline
+										using = fontsize_large
+										text = "SPEC_IL_WORD_CRASHED"
+									}
+								}
+							}
+							widget = {
+								size = { 100% 100% }
+								visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_state_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+								flowcontainer = {
+									position = { 66 0 }
+									spacing = 8
+									textbox = {
+										size = { -1 28 }
+										autoresize = yes
+										align = left|nobaseline
+										using = fontsize_large
+										text = "SPEC_IL_WORD_GLUT"
+									}
+								}
+							}
+						}
+					}
+					icon = {
+						position = { 72 36 }
+						size = { 195 22 }
+						visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_state_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)2')]"
+						texture = "gfx/interface/progressbar/progressbar_bad.dds"
+						spriteType = Corneredtiled
+						spriteborder = { 4 4 }
+						texture_density = 2
+						alwaystransparent = yes
+						state = {
+							name = _show
+							next = fade
+							alpha = 0.5
+							duration = 0
+						}
+						state = {
+							name = fade
+							alpha = 0
+							duration = 1
+							using = Animation_Curve_EaseOut
+						}
+					}
+					widget = {
+						position = { 72 33 }
+						size = { 30 28 }
+						tooltip = "SPEC_IL_LEVEL_1_TT"
+						using = tooltip_ws
+					}
+					widget = {
+						position = { 105 33 }
+						size = { 30 28 }
+						tooltip = "SPEC_IL_LEVEL_2_TT"
+						using = tooltip_ws
+					}
+					widget = {
+						position = { 138 33 }
+						size = { 30 28 }
+						tooltip = "SPEC_IL_LEVEL_3_TT"
+						using = tooltip_ws
+					}
+					widget = {
+						position = { 171 33 }
+						size = { 30 28 }
+						tooltip = "SPEC_IL_LEVEL_4_TT"
+						using = tooltip_ws
+					}
+					widget = {
+						position = { 204 33 }
+						size = { 30 28 }
+						tooltip = "SPEC_IL_LEVEL_5_TT"
+						using = tooltip_ws
+					}
+					widget = {
+						position = { 237 33 }
+						size = { 30 28 }
+						tooltip = "SPEC_IL_LEVEL_6_TT"
+						using = tooltip_ws
+					}
+				}
+			}
+			widget = {
+				size = { 8 5 }
+			}
+			vertical_divider_full = {
+				blockoverride "size" {
+					size = { 0 100 }
+				}
+			}
+			widget = {
+				size = { 8 5 }
+			}
+			vbox = {
+				minimumsize = { 80 -1 }
+				spacing = 2
+				tooltip = "[SelectLocalization(GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_risk_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0.5'), 'SPEC_RISK_TT', 'SPEC_RISK_NONE_TT')]"
+				using = tooltip_ws
+				textbox = {
+					text = "SPEC_GP_RISK_TITLE"
+					autoresize = yes
+					align = center|nobaseline
+				}
+				widget = {
+					size = { 80 50 }
+					icon = {
+						visible = "[Not(Or(GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_sev_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)1'), GreaterThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_glut_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')))]"
+						size = { 50 50 }
+						parentanchor = hcenter
+						texture = "gfx/interface/icons/spec_markets/ending_0.dds"
+					}
+					icon = {
+						visible = "[And(Or(GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_sev_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)1'), GreaterThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_glut_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), EqualTo_CFixedPoint(Max_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_sev_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_glut_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)1'))]"
+						size = { 50 50 }
+						parentanchor = hcenter
+						texture = "gfx/interface/icons/spec_markets/ending_1.dds"
+						alpha = "[Select_float(GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_sev_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)1'), '(float)1.0', '(float)0.6')]"
+					}
+					icon = {
+						visible = "[And(Or(GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_sev_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)1'), GreaterThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_glut_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), EqualTo_CFixedPoint(Max_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_sev_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_glut_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)2'))]"
+						size = { 50 50 }
+						parentanchor = hcenter
+						texture = "gfx/interface/icons/spec_markets/ending_2.dds"
+						alpha = "[Select_float(GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_sev_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)1'), '(float)1.0', '(float)0.6')]"
+					}
+					icon = {
+						visible = "[And(Or(GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_sev_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)1'), GreaterThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_glut_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), EqualTo_CFixedPoint(Max_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_sev_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_glut_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)3'))]"
+						size = { 50 50 }
+						parentanchor = hcenter
+						texture = "gfx/interface/icons/spec_markets/ending_3.dds"
+						alpha = "[Select_float(GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_sev_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)1'), '(float)1.0', '(float)0.6')]"
+					}
+				}
+				textbox = {
+					size = { 80 22 }
+					text = "SPEC_GP_RISK_TEXT"
+					align = center|nobaseline
+					using = elide_fontsize_min
+				}
+				expand = {}
+			}
+			widget = {
+				visible = "[ObjectsEqual(GetPlayer.GetCapital.GetMarket, Goods.GetMarket)]"
+				size = { 8 5 }
+			}
+			vertical_divider_full = {
+				visible = "[ObjectsEqual(GetPlayer.GetCapital.GetMarket, Goods.GetMarket)]"
+				blockoverride "size" {
+					size = { 0 100 }
+				}
+			}
+			widget = {
+				visible = "[ObjectsEqual(GetPlayer.GetCapital.GetMarket, Goods.GetMarket)]"
+				size = { 8 5 }
+			}
+			vbox = {
+				visible = "[ObjectsEqual(GetPlayer.GetCapital.GetMarket, Goods.GetMarket)]"
+				layoutpolicy_horizontal = expanding
+				layoutpolicy_vertical = expanding
+				spacing = 8
+				textbox = {
+					text = "SPEC_GP_LEVERS"
+					autoresize = yes
+					align = center|nobaseline
+				}
+				flowcontainer = {
+					using = set_level_bar_background
+					ignoreinvisible = yes
+					set_level_bar_item = {
+						tooltip = "SPEC_LEVER_RESTRAIN_TT"
+						blockoverride "button_texture" {
+							texture = "gfx/interface/icons/spec_markets/lever_restrain.dds"
+						}
+						blockoverride "click" {
+							enabled = "[GreaterThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_r_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Select_CFixedPoint(Country.IsLocalPlayer, '(CFixedPoint)0', '(CFixedPoint)1'))]"
+							onclick = "[GetScriptedGui('spec_sgui_restrain').Execute(GuiScope.SetRoot(Country.MakeScope).AddScope('spec_good', Goods.MakeScope).End)]"
+							using = decrease_button_sound
+						}
+						blockoverride "is_selected_visibility" {
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_r_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)2')]"
+						}
+						# vanilla draws the selected icon as a button on top with no click, which would swallow the click that lifts it
+						blockoverride "selected_texture_size" {
+							size = { 28 28 }
+							onclick = "[GetScriptedGui('spec_sgui_restrain').Execute(GuiScope.SetRoot(Country.MakeScope).AddScope('spec_good', Goods.MakeScope).End)]"
+							using = decrease_button_sound
+						}
+						blockoverride "is_clickable_alpha" {
+							alpha = "[TransparentIfFalse(GreaterThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_r_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Select_CFixedPoint(Country.IsLocalPlayer, '(CFixedPoint)0', '(CFixedPoint)1')))]"
+						}
+					}
+					set_level_bar_item = {
+						tooltip = "SPEC_LEVER_ENCOURAGE_TT"
+						blockoverride "button_texture" {
+							texture = "gfx/interface/icons/spec_markets/lever_encourage.dds"
+						}
+						blockoverride "click" {
+							enabled = "[GreaterThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_e_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Select_CFixedPoint(Country.IsLocalPlayer, '(CFixedPoint)0', '(CFixedPoint)1'))]"
+							onclick = "[GetScriptedGui('spec_sgui_encourage').Execute(GuiScope.SetRoot(Country.MakeScope).AddScope('spec_good', Goods.MakeScope).End)]"
+							using = increase_button_sound
+						}
+						blockoverride "is_selected_visibility" {
+							visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_e_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)2')]"
+						}
+						# vanilla draws the selected icon as a button on top with no click, which would swallow the click that lifts it
+						blockoverride "selected_texture_size" {
+							size = { 28 28 }
+							onclick = "[GetScriptedGui('spec_sgui_encourage').Execute(GuiScope.SetRoot(Country.MakeScope).AddScope('spec_good', Goods.MakeScope).End)]"
+							using = increase_button_sound
+						}
+						blockoverride "is_clickable_alpha" {
+							alpha = "[TransparentIfFalse(GreaterThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_e_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Select_CFixedPoint(Country.IsLocalPlayer, '(CFixedPoint)0', '(CFixedPoint)1')))]"
+						}
+					}
+					set_level_bar_item = {
+						tooltip = "SPEC_LEVER_ISSUE_TT"
+						blockoverride "button_texture" {
+							texture = "gfx/interface/icons/spec_markets/lever_issue.dds"
+						}
+						blockoverride "click" {
+							enabled = "[And(Country.IsLocalPlayer, And(Not(Country.MakeScope.Var('spec_issue').IsSet), And(Not(Country.MakeScope.Var('spec_issue_cool').IsSet), And(GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var('spec_exch_stand').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)1'), And(GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)5'), And(Not(EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_r_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)2')), Not(EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_e_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)2'))))))))]"
+							onclick = "[GetScriptedGui('spec_sgui_issue').Execute(GuiScope.SetRoot(Country.MakeScope).AddScope('spec_good', Goods.MakeScope).End)]"
+							using = increase_button_sound
+						}
+						blockoverride "is_selected_visibility" {
+							visible = "[GreaterThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_issue_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+						}
+						# vanilla draws the selected icon as a button on top with no click, which would swallow the click that lifts it
+						blockoverride "selected_texture_size" {
+							size = { 28 28 }
+						}
+						blockoverride "is_clickable_alpha" {
+							alpha = "[TransparentIfFalse(And(Country.IsLocalPlayer, And(Not(Country.MakeScope.Var('spec_issue').IsSet), And(Not(Country.MakeScope.Var('spec_issue_cool').IsSet), And(GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var('spec_exch_stand').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)1'), And(GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)5'), And(Not(EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_r_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)2')), Not(EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_e_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)2')))))))))]"
+						}
+					}
+				}
+				expand = {}
+			}
+		}
+	}
+}

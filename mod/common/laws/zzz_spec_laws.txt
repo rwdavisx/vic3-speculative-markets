@@ -1,0 +1,82 @@
+﻿INJECT:law_free_trade = {
+	modifier = {
+		country_spec_trade_tie_mult = 0.5
+	}
+}
+
+INJECT:law_protectionism = {
+	modifier = {
+		country_spec_trade_tie_mult = -0.3
+	}
+}
+
+INJECT:law_mercantilism = {
+	modifier = {
+		country_spec_trade_tie_mult = -0.3
+	}
+}
+
+INJECT:law_isolationism = {
+	modifier = {
+		country_spec_trade_tie_mult = -0.9
+	}
+}
+
+INJECT:law_laissez_faire = {
+	modifier = {
+		country_spec_interest_response_mult = 0.5
+		country_spec_bank_lending_mult = 0.5
+		country_spec_panic_length_mult = 0.2
+	}
+}
+
+INJECT:law_interventionism = {
+	modifier = {
+		country_spec_interest_response_mult = -0.3
+		country_spec_bank_lending_mult = -0.3
+		country_spec_panic_length_mult = -0.3
+	}
+}
+
+INJECT:law_extraction_economy = {
+	modifier = {
+		country_spec_panic_length_mult = -0.2
+	}
+}
+
+INJECT:law_agrarianism = {
+	modifier = {
+		country_spec_interest_response_mult = -0.5
+		country_spec_bank_lending_mult = -0.5
+		country_spec_panic_length_mult = -0.4
+	}
+}
+
+INJECT:law_traditionalism = {
+	modifier = {
+		country_spec_interest_response_mult = -0.5
+		country_spec_bank_lending_mult = -0.5
+		country_spec_panic_length_mult = -0.4
+	}
+}
+
+INJECT:law_industry_banned = {
+	modifier = {
+		country_spec_interest_response_mult = -0.7
+		country_spec_bank_lending_mult = -0.7
+		country_spec_panic_length_mult = -0.4
+	}
+}
+
+INJECT:law_command_economy = {
+	modifier = {
+		country_spec_off_bool = yes
+	}
+}
+
+INJECT:law_cooperative_ownership = {
+	modifier = {
+		country_spec_off_bool = yes
+	}
+}
+

@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Slow Levers: design for approval</title>
+<style>
+:root { --bg:#191614; --panel:#25201c; --row:#2e2823; --line:#5d4f38; --gold:#c9a961; --text:#e8dfcc; --muted:#a2957f;
+        --good:#86c06c; --bad:#d9705a; --new:#ffb347; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--text); font:16px/1.5 Georgia, "Times New Roman", serif; }
+main { max-width:760px; margin:0 auto; padding:20px 16px 48px; }
+h1 { font-size:1.6rem; margin:0 0 4px; color:var(--gold); }
+h2 { font-size:1.2rem; margin:32px 0 8px; color:var(--gold); border-bottom:1px solid var(--line); padding-bottom:4px; }
+h3 { font-size:1.05rem; margin:0 0 6px; }
+p { margin:8px 0; }
+.status { color:var(--muted); font-size:.9rem; }
+.n { display:inline-flex; align-items:center; justify-content:center; width:1.5em; height:1.5em; border-radius:50%;
+     background:var(--new); color:#1b1500; font:bold .85rem/1 Arial, sans-serif; flex:none; }
+.card { background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:12px 14px; margin:12px 0; }
+.card h3 { display:flex; gap:8px; align-items:center; }
+dl { margin:6px 0 0; display:grid; grid-template-columns:7.5em 1fr; gap:6px 10px; font-size:.95rem; }
+dt { color:var(--muted); }
+dd { margin:0; }
+table { width:100%; border-collapse:collapse; font-size:.93rem; margin:8px 0; }
+th, td { text-align:left; vertical-align:top; padding:6px 8px; border-bottom:1px solid var(--line); }
+th { color:var(--muted); font-weight:normal; }
+.scroll { overflow-x:auto; }
+ul { margin:6px 0; padding-left:20px; }
+li { margin:3px 0; }
+.good { color:var(--good); } .bad { color:var(--bad); } .muted { color:var(--muted); }
+
+/* the tab mock-up */
+.tab { max-width:430px; margin:14px auto; background:#1f1b18; border:2px solid var(--line); border-radius:4px;
+       font:14px/1.35 Georgia, serif; }
+.tabs { display:flex; border-bottom:2px solid var(--line); font-size:.78rem; color:var(--muted); }
+.tabs span { flex:1; text-align:center; padding:6px 2px; border-right:1px solid var(--line); }
+.tabs .on { color:var(--text); background:var(--row); font-weight:bold; }
+.sec { padding:8px 10px; border-bottom:1px solid var(--line); }
+.head { display:flex; justify-content:space-between; color:var(--gold); font-size:.95rem; margin-bottom:6px; }
+.head small { color:var(--text); }
+.bands { display:flex; gap:2px; margin:6px 0; font-size:.68rem; text-align:center; color:var(--muted); }
+.bands span { flex:1; padding:3px 0; background:var(--row); }
+.bands .on { background:#3c5a7a; color:#fff; }
+.line { display:flex; gap:8px; align-items:center; margin:5px 0; font-size:.85rem; }
+.line .lab { color:var(--muted); min-width:5.4em; flex:none; }
+.new { border:1px dashed var(--new); border-radius:4px; padding:5px 6px; margin:6px 0; background:#2b2416; }
+.btns { display:flex; gap:4px; }
+.btns span { flex:1; text-align:center; padding:6px 2px; background:var(--row); border:1px solid var(--line); border-radius:3px; }
+.btns .on { border-color:var(--gold); color:var(--gold); }
+.btns .off { opacity:.45; }
+.good-row { display:flex; align-items:center; gap:8px; background:var(--row); padding:6px 8px; margin:3px 0; border-radius:3px; }
+.good-row b { width:5.6em; flex:none; font-weight:normal; }
+.bar { flex:1; height:9px; background:#15120f; border:1px solid var(--line); position:relative; }
+.bar i { position:absolute; left:0; top:0; bottom:0; background:#b98a2f; }
+.mini { display:flex; gap:3px; }
+.mini span { width:18px; height:18px; border-radius:50%; background:#3a332c; border:1px solid var(--line); }
+.tip { margin:2px 0 4px 18px; border-left:2px solid var(--new); padding:4px 8px; font-size:.8rem; background:#2b2416; }
+.same { color:var(--muted); font-size:.82rem; padding:8px 10px; border-bottom:1px solid var(--line); }
+.key { display:flex; gap:14px; flex-wrap:wrap; font-size:.85rem; color:var(--muted); justify-content:center; }
+.key .box { display:inline-block; width:1.6em; height:.9em; border:1px dashed var(--new); background:#2b2416; vertical-align:middle; }
+</style>
+</head>
+<body>
+<main>
+<h1>Slow Levers</h1>
+<p class="status">Speculative Markets, design for approval. Draft 1, 10 November 2026. Nothing here is built yet.</p>
+
+<p><b>Today</b> you watch the confidence gauge and react when it reaches an extreme.
+<b>After this change</b> you decide what kind of money market you want your country to have, and you steer it there
+over years with tools the base game already gives you: laws, buildings, technology and who sits in government.</p>
+
+<h2>Where each change sits in the Speculation tab</h2>
+<p class="key"><span><span class="box"></span> new or changed</span><span>everything else stays as it is today</span></p>
+
+<div class="tab" role="img" aria-label="Mock-up of the Speculation tab with the four changes marked">
+  <div class="tabs"><span>Goods</span><span>Trade</span><span>Food Security</span><span>Members</span><span class="on">Speculation</span></div>
+
+  <div class="sec">
+    <div class="head"><span>Market Confidence</span><small>62 Steady</small></div>
+    <div class="bands"><span>Panic</span><span>Wary</span><span class="on">Steady</span><span>Buoyant</span><span>Mania</span></div>
+    <div class="new line"><span class="n">3</span><span class="lab">Temperament</span><span><b>Lively</b> <span class="muted">booms ×1.3, endings ×1.1</span></span></div>
+    <div class="line"><span class="lab">Pressures</span><span class="good">+4.3</span><span class="bad">−2.7</span><span class="good">+1.2</span></div>
+    <div class="line"><span class="lab">Risks</span><span class="bad">−3.4</span><span class="bad">−1.2</span></div>
+  </div>
+
+  <div class="sec">
+    <div class="head"><span>Credit Policy</span><small>+£12.4K this month</small></div>
+    <div class="btns"><span class="on">Tight</span><span>Normal</span><span class="off">Loose</span></div>
+    <div class="new line"><span class="n">2</span><span>Tight is backed by <b>Landowners</b>. Loose has no backer in government.</span></div>
+  </div>
+
+  <div class="sec">
+    <div class="head"><span>Bank Rescue</span><small></small></div>
+    <div class="new line"><span class="n">1</span><span>Moral Hazard <b>2</b> of 4. Banks lend <span class="bad">+20%</span>, the next rescue costs <span class="bad">+50%</span>. One point fades in 5 years.</span></div>
+  </div>
+
+  <div class="sec">
+    <div class="head"><span>Investor Interest</span><small></small></div>
+    <div class="good-row"><b>Iron</b><span>Eager <span class="good">+3%</span></span><span class="bar"><i style="width:72%"></i></span><span class="mini"><span></span><span></span></span></div>
+    <div class="tip new"><span class="n">4</span> If the boom ended now: Bust, <span class="bad">−6</span> confidence.<br>
+      A boom that cools slowly ends about a third softer each year.<br>More supply cools it: build Iron Mines.</div>
+    <div class="good-row"><b>Wine</b><span>Keen <span class="good">+2%</span></span><span class="bar"><i style="width:55%"></i></span><span class="mini"><span></span><span></span></span></div>
+    <div class="good-row"><b>Tea</b><span>Calm</span><span class="bar"><i style="width:40%"></i></span><span class="mini"><span></span><span></span></span></div>
+  </div>
+  <div class="same">Financial Centres: unchanged. This ranking is the long-run score the levers aim at.</div>
+  <div class="same" style="border-bottom:0">Companies: unchanged.</div>
+</div>
+
+<h2>The four changes</h2>
+
+<div class="card">
+  <h3><span class="n">1</span> Banks remember rescues (Moral Hazard)</h3>
+  <dl>
+    <dt>Today</dt><dd>A rescue costs money and angers two interest groups. When the panic ends, nothing remains of it.</dd>
+    <dt>Change</dt><dd>Each rescue adds one point, up to four. Each point makes banks lend more, put more of it into goods that are already hot, and makes the next rescue dearer.</dd>
+    <dt>Your levers</dt><dd>Let a panic run its course: one point goes at once. Wait: one point fades every few years. Pass Company Law: points fade twice as fast.</dd>
+    <dt>The choice</dt><dd>Rescue every time and you get fast growth on borrowed money, with each rescue costing more than the last. Refuse and you take a longer, harder panic now for steadier banks later.</dd>
+  </dl>
+</div>
+
+<div class="card">
+  <h3><span class="n">2</span> Credit Policy goes through politics</h3>
+  <dl>
+    <dt>Today</dt><dd>Needs Central Banking. Then it is an instant three-way switch. Industrialists in government like Loose, Intelligentsia like Tight (2 approval each way).</dd>
+    <dt>Change</dt><dd>Available from the first day at half strength. Before Central Banking, Tight or Loose needs an interest group in government that wants it, the same rule the base game uses for proposing laws. With Central Banking the bank can act alone at full strength, and groups in government that dislike the stance lose approval.</dd>
+    <dt>Wider</dt><dd>Two more groups take a side, so most governments lean one way: Rural Folk want Loose (they are in debt), Landowners want Tight (they live on rents and bonds).</dd>
+    <dt>Your levers</dt><dd>Who you bring into government. When you research Central Banking.</dd>
+    <dt>The rhythm</dt><dd>When a government changes and a stance loses its backer, you are told, and it returns to Normal after six months unless you restore the backing.</dd>
+  </dl>
+</div>
+
+<div class="card">
+  <h3><span class="n">3</span> One line for the market's temperament</h3>
+  <dl>
+    <dt>Today</dt><dd>Your economic law, Financial Districts, Manor Houses and finance technologies already set how big booms grow and how hard they end. The figures are spread over several tooltips, under the name Market Conditions.</dd>
+    <dt>Change</dt><dd>One word on the card: Cautious, Steady, Lively or Wild. Its tooltip lists each cause with the base-game action that moves it. No rule changes: this only shows what is already there.</dd>
+    <dt>Your levers</dt><dd>The Economic System law. Who owns your buildings (Financial Districts against Manor Houses). Finance technologies.</dd>
+    <dt>Replaces</dt><dd>Market Conditions.</dd>
+  </dl>
+</div>
+
+<div class="card">
+  <h3><span class="n">4</span> Booms show the patient route</h3>
+  <dl>
+    <dt>Today</dt><dd>A boom that cools slowly already ends softer, by about a third for each year it takes. Nothing in the game tells you so. The row offers only Restrain and Encourage.</dd>
+    <dt>Change</dt><dd>The row's tooltip says what the ending would cost now, that slow cooling shrinks it, and which buildings add supply. No rule changes.</dd>
+    <dt>Your levers</dt><dd>Build supply early and let the price settle: free, but slow. Or Restrain: fast, and it costs authority every month.</dd>
+  </dl>
+</div>
+
+<h2>Three places you can steer toward</h2>
+<div class="scroll"><table>
+<tr><th>Destination</th><th>How you get there</th><th>What you gain</th><th>What it costs</th></tr>
+<tr><td><b>Deep financial centre</b></td><td>Financial Districts, finance technologies, long calm, few rescues</td><td>Top Financial Centre rank: prestige and cheaper loans</td><td>Big booms; one panic halves your score</td></tr>
+<tr><td><b>Hard-money economy</b></td><td>Tight credit backed by Landowners or Intelligentsia, Currency School reform, no rescues</td><td>Small booms, rare panics, low Moral Hazard</td><td>Less bank lending, slower growth</td></tr>
+<tr><td><b>Boom economy</b></td><td>Laissez-Faire, Loose credit backed by Industrialists or Rural Folk, rescue every time</td><td>Most lending and the largest throughput bonus</td><td>Frequent crashes; each rescue dearer than the last</td></tr>
+</table></div>
+
+<h2>What stays the same</h2>
+<ul>
+<li>The confidence gauge, Investor Interest levels, booms, panics, the Long Depression, Banking Reforms and Financial Centres.</li>
+<li>No new tab, no new window, no new buttons. Each piece sits inside a section the tab already has.</li>
+<li>Named concepts go from 25 to 23: Moral Hazard and Temperament come in; Market Conditions goes out; Correction, Bust and Collapse share the Boom End tooltip (the three words stay on screen).</li>
+<li>Foreign lending and hot money are not touched.</li>
+</ul>
+
+<h2>Two corrections to what I told you before</h2>
+<ul>
+<li>I said political cost was new. Credit Policy already moves the approval of two interest groups. Change 2 widens that and adds the backing rule.</li>
+<li>I said the patient route had to be added. The rule already exists; it is only invisible. Change 4 shows it.</li>
+</ul>
+<p>So changes 3 and 4 only display what exists and cannot upset the balance. Changes 1 and 2 alter the rules and need test games.</p>
+
+<h2>Numbers that test games must settle</h2>
+<p class="muted">All of these are first guesses.</p>
+<ul>
+<li>Moral Hazard: +10% lending and +25% rescue cost per point; one point fades every 5 years.</li>
+<li>Credit Policy before Central Banking: half the strength of today's Tight and Loose.</li>
+<li>Where the lines fall between Cautious, Steady, Lively and Wild.</li>
+<li>Whether panics stay near today's 7 to 8 per 100 country-years, and whether computer-run countries still behave sensibly.</li>
+<li>The target: about one decision worth making per game year, counted in test games.</li>
+</ul>
+
+<h2>Order of building</h2>
+<ol>
+<li>Changes 3 and 4 (display only), then a look in the game.</li>
+<li>Change 2, then change 1, each with test games before and after.</li>
+<li>Translations for the 10 languages once the wording is fixed.</li>
+</ol>
+</main>
+</body>
+</html>

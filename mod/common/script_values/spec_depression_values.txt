@@ -1,0 +1,24 @@
+﻿# confidence a month from the phase the country is in
+spec_ld_pressure = {
+	value = 0
+	if = {
+		limit = { var:spec_ld ?= 1 }
+		value = -4
+	}
+	else_if = {
+		limit = { var:spec_ld ?= 2 }
+		value = -0.6
+	}
+	else_if = {
+		limit = { var:spec_ld ?= 3 }
+		value = 1
+	}
+}
+# the phase modifier's strength: half during a Financial Panic (spec_ld_apply)
+spec_ld_strength = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_ld_half }
+		value = 0.5
+	}
+}

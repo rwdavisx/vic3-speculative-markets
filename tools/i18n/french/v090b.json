@@ -1,0 +1,9 @@
+{
+  "02cdee371e": "\\n\\n#title Prêts bancaires :#! #v {1}#! de [concept_spec_outstanding_credit], #v {2}#! mois de revenu du pool\\nSi son essor prenait fin, la [concept_spec_market_confidence] chuterait #v x{3}#! fois plus que pour un essor où aucune banque n'a prêté",
+  "2523e47c00": "Où les banques ont prêté",
+  "57da154fe8": "#header Mois dernier#!\\n[concept_spec_leverage] : #v {1}#! mois",
+  "599efded61": " Les banques y avaient beaucoup prêté, la chute a donc été #N x{1}#! plus dure.",
+  "99f6f8b6fa": "#header Ce mois-ci#!\\n[concept_spec_leverage] : #v {1}#! mois",
+  "c866d03845": "#header Il y a {1} mois#!\\n[concept_spec_leverage] : #v {2}#! mois",
+  "d52746e9ce": "Historique de l'endettement"
+}

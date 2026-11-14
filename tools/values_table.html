@@ -1,0 +1,93 @@
+<title>Speculative Markets Values</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;700&family=IBM+Plex+Mono&display=swap">
+<style>
+/* one long ledger in the mod's dark and gold: a jump bar, then a table per system */
+:root {
+  --bg: #0f1218; --panel: #161a22; --line: #2c3240; --ink: #f6efdc; --dim: #c9bc9c; --gold: #d3ad63; --red: #e07060; --new: #3a2c12;
+  --body: "EB Garamond", Georgia, serif; --mono: "IBM Plex Mono", Consolas, monospace;
+  color-scheme: dark;
+}
+body { background: var(--bg); color: var(--ink); font: 500 18px/1.4 var(--body); }
+main { max-width: 1120px; margin: 0 auto; padding-block: 28px 56px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 28px; }
+h1 { font-size: 40px; line-height: 1.1; color: var(--gold); margin: 0; text-wrap: balance; }
+header p { margin: 8px 0 0; color: var(--dim); max-width: 68ch; }
+.plan { border: 1px solid var(--gold); background: var(--panel); padding: 16px 18px; }
+.plan h2 { margin-bottom: 6px; }
+.plan p { margin: 0 0 10px; color: var(--dim); max-width: 68ch; }
+.tools { display: grid; gap: 10px; position: sticky; top: env(safe-area-inset-top, 0px); background: var(--bg); padding-block: 10px; z-index: 5; border-bottom: 1px solid var(--line); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+label { color: var(--dim); font-size: 16px; display: grid; gap: 4px; }
+input { font: 500 18px var(--body); color: var(--ink); background: var(--panel); border: 1px solid var(--line); padding: 8px 10px; width: 100%; box-sizing: border-box; }
+input:focus-visible, a:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+nav { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 16px; }
+nav a { color: var(--gold); text-decoration: none; }
+nav a:hover { text-decoration: underline; }
+section { display: grid; gap: 6px; scroll-margin-top: 150px; min-width: 0; }
+h2 { font-size: 26px; color: var(--gold); margin: 0; }
+h2 small { font-size: 16px; color: var(--dim); font-weight: 500; }
+section > p { margin: 0; color: var(--dim); }
+.wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; min-width: 720px; font-variant-numeric: tabular-nums; }
+thead th { text-align: left; font-size: 15px; color: var(--dim); font-weight: 500; letter-spacing: .03em; border-bottom: 1px solid var(--gold); padding: 4px 10px 4px 0; }
+tbody th, td { text-align: left; vertical-align: top; padding: 7px 10px 7px 0; border-bottom: 1px solid var(--line); font-weight: 500; }
+tbody th { width: 25%; font-weight: 700; }
+td.v { width: 25%; color: var(--ink); font-weight: 700; }
+td.c { width: 14%; font: 12px/1.5 var(--mono); color: var(--dim); overflow-wrap: anywhere; }
+.tag { display: inline-block; margin-left: 6px; font: 11px/1.5 var(--mono); padding: 0 4px; border: 1px solid var(--line); color: var(--dim); vertical-align: 1px; }
+.tag.new { border-color: var(--gold); background: var(--new); color: var(--ink); }
+.plan table { min-width: 460px; }
+.none { color: var(--dim); }
+footer { color: var(--dim); font-size: 16px; max-width: 68ch; }
+main > * { min-width: 0; }
+@media (max-width: 700px) {
+  nav { flex-wrap: nowrap; overflow-x: auto; white-space: nowrap; padding-bottom: 4px; }
+  section { scroll-margin-top: 130px; }
+  h1 { font-size: 32px; }
+}
+</style>
+<main>
+  <header>
+    <h1>Speculative Markets Values</h1>
+    <p>{{ROWS}} gameplay settings in {{GROUPS}} systems, read straight from the code. A tag of 0.8 marks what is new or changed since 0.7. A tag of tuner marks what can be changed without touching code.</p>
+  </header>
+  <div class="plan">
+    <h2>The phased credit limit</h2>
+    <p>In the mod. The bonus and the danger both run to 12 months, so every step raises the stakes.</p>
+    <div class="wrap"><table>
+      <thead><tr><th scope="col">Tech</th><th scope="col">Credit limit</th><th scope="col">Biggest bonus</th><th scope="col">Monthly lending cap</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">None</th><td>3 months</td><td>+6%</td><td>40%</td></tr>
+        <tr><th scope="row">Central Banking</th><td>6 months</td><td>+12%</td><td>40%</td></tr>
+        <tr><th scope="row">Investment Banks</th><td>9 months</td><td>+18%</td><td>40%</td></tr>
+        <tr><th scope="row">International Exchange Standards</th><td>12 months</td><td>+24%</td><td>40%</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="tools">
+    <label for="find">Find a setting
+      <input id="find" type="search" placeholder="Try panic, lending or 12" autocomplete="off">
+    </label>
+    <nav aria-label="Systems">{{NAV}}</nav>
+  </div>
+  <p class="none" id="none" hidden>No setting matches that.</p>
+  {{SECTIONS}}
+  <footer>Left out: screen layout, wording, art, the approval and timed modifiers on individual event choices, and the fixed parts of formulas, such as the 40 in lending's (confidence - 60) / 40.</footer>
+</main>
+<script>
+const find = document.getElementById("find"), none = document.getElementById("none");
+find.addEventListener("input", () => {
+  const q = find.value.trim().toLowerCase();
+  let shown = 0;
+  for (const s of document.querySelectorAll("section")) {
+    let n = 0;
+    for (const r of s.querySelectorAll("tbody tr")) {
+      r.hidden = !!q && !r.textContent.toLowerCase().includes(q);
+      n += !r.hidden;
+    }
+    s.hidden = !n;
+    shown += n;
+  }
+  none.hidden = !!shown;
+});
+</script>

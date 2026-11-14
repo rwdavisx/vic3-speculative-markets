@@ -1,0 +1,7 @@
+{
+  "d977d9e3db": "$concept_spec_foreign_panic$は、[concept_market]の共有、従属関係、投資権、盛んな貿易、経済の所有によって結びついた国で[concept_spec_financial_panic]が始まると、[concept_country]の[concept_spec_market_confidence]を低下させます。関係が密接なほど損失は大きくなります。{1}は貿易関係を強め、その他の貿易政策は弱めます。[concept_embargo]は貿易関係を断ちます。",
+  "12f147d1f2": "$concept_spec_long_depression$は世界的な経済危機です。[concept_great_power]が[concept_spec_financial_panic]に陥ると始まります。恐慌中のすべての国に及び、暴落の間は、[concept_market]の共有、従属国と宗主国、投資権、盛んな貿易、経済の所有といった密接な関係を通じて国から国へと広がります。こうした関係が少ない国は免れることがあります。暴落は数か月続き、融資を凍結させ、[concept_spec_market_confidence]を奪います。その後、最長#v {1}#!年の不況が続き、投資、建設、貿易が鈍化し、一部のPOPが{2}になります。政府の選択、とりわけ列強の選択が世界の回復を早め、その後1年間にわたって信頼度が戻っていきます。",
+  "5ad860c432": "#v {1}#!は我が国の経済の大部分を所有しています。",
+  "c1a7b43e69": "#v {1}#!の[concept_spec_financial_panic]の打撃を受けています",
+  "c4b01705fe": "余波"
+}

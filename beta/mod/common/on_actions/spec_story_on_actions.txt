@@ -1,0 +1,32 @@
+﻿on_monthly_pulse_country = {
+	on_actions = { spec_story_pulse }
+}
+
+spec_story_pulse = {
+	trigger = {
+		is_player = yes
+		has_variable = spec_conf
+	}
+	effect = {
+		spec_story_track = yes
+	}
+	on_actions = { spec_story_pick }
+}
+
+spec_story_pick = {
+	trigger = {
+		NOT = { has_variable = spec_story_cd }
+	}
+	random_events = {
+		chance_to_happen = 8
+		delay = { days = 12 }
+		100 = spec_story.1
+		100 = spec_story.2
+		100 = spec_story.3
+		100 = spec_story.4
+		100 = spec_story.5
+		100 = spec_story.6
+		100 = spec_story.7
+		100 = spec_story.8
+	}
+}

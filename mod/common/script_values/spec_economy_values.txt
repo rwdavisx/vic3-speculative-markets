@@ -1,0 +1,18 @@
+﻿spec_ind_approval = {
+	value = 0
+	if = {
+		limit = { exists = ig:ig_industrialists }
+		add = ig:ig_industrialists.ig_approval
+	}
+}
+spec_broke_weeks = {
+	value = weeks_until_bankruptcy
+}
+spec_broke_cost = {
+	value = 20
+	subtract = weeks_until_bankruptcy
+	divide = 20
+	min = 0
+	max = 1
+	multiply = -3
+}

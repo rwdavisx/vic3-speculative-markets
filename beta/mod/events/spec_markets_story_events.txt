@@ -1,0 +1,961 @@
+﻿namespace = spec_story
+
+spec_story.1 = {
+	type = country_event
+	placement = root
+	title = {
+		first_valid = {
+			triggered_desc = {
+				desc = spec_story.1.t
+				trigger = { has_variable = spec_story_crashed }
+			}
+			triggered_desc = {
+				desc = spec_story.1.t_generic
+				trigger = { always = yes }
+			}
+		}
+	}
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = spec_story.1.d
+				trigger = { has_variable = spec_story_crashed }
+			}
+			triggered_desc = {
+				desc = spec_story.1.d_generic
+				trigger = { always = yes }
+			}
+		}
+	}
+	flavor = {
+		first_valid = {
+			triggered_desc = {
+				desc = spec_story.1.f
+				trigger = { has_variable = spec_story_crashed }
+			}
+			triggered_desc = {
+				desc = spec_story.1.f_generic
+				trigger = { always = yes }
+			}
+		}
+	}
+	duration = 3
+	event_image = {
+		trigger = { spec_pic_mideast = yes }
+		video = "middleeast_police_breaking_door"
+	}
+	event_image = {
+		trigger = { spec_pic_africa = yes }
+		video = "unspecific_factory_closed"
+	}
+	event_image = {
+		trigger = { spec_pic_asia = yes }
+		video = "asia_poor_people_moving"
+	}
+	event_image = {
+		trigger = { spec_pic_latam = yes }
+		video = "unspecific_factory_closed"
+	}
+	event_image = {
+		trigger = { spec_pic_west = yes }
+		video = "europenorthamerica_rich_and_poor"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_trade.dds"
+	cooldown = { days = short_modifier_time }
+
+	trigger = {
+		spec_story_quiet = yes
+		has_variable = spec_story_crash
+		has_variable = spec_story_crashed
+		NOT = { has_variable = spec_panic }
+	}
+
+	immediate = {
+		set_variable = { name = spec_story_cd value = yes days = 730 }
+		remove_variable = spec_story_crash
+	}
+
+	option = {
+		name = spec_story.1.a
+		add_modifier = {
+			name = spec_story_producer_relief
+			days = short_modifier_time
+			multiplier = money_amount_multiplier_small
+		}
+		custom_tooltip = {
+			text = spec_story_conf_up_6
+			spec_story_conf = { AMOUNT = 6 }
+		}
+		ig:ig_industrialists ?= {
+			add_modifier = {
+				name = spec_story_relief_welcomed
+				days = short_modifier_time
+			}
+		}
+		ig:ig_trade_unions ?= {
+			add_modifier = {
+				name = spec_story_public_money
+				days = short_modifier_time
+			}
+		}
+		ai_chance = {
+			base = 25
+		}
+	}
+	option = {
+		name = spec_story.1.b
+		default_option = yes
+		custom_tooltip = {
+			text = spec_story_conf_down_4
+			spec_story_conf = { AMOUNT = -4 }
+		}
+		add_radicals = { value = small_radicals pop_type = capitalists }
+		ig:ig_intelligentsia ?= {
+			add_modifier = {
+				name = spec_story_sound_finance
+				days = short_modifier_time
+			}
+		}
+		ai_chance = {
+			base = 50
+		}
+	}
+	option = {
+		name = spec_story.1.c
+		custom_tooltip = {
+			text = spec_story_conf_down_2
+			spec_story_conf = { AMOUNT = -2 }
+		}
+		ig:ig_industrialists ?= {
+			add_modifier = {
+				name = spec_story_promoters_hounded
+				days = short_modifier_time
+			}
+		}
+		add_loyalists = { value = small_radicals strata = lower }
+		ai_chance = {
+			base = 25
+		}
+	}
+}
+
+spec_story.2 = {
+	type = country_event
+	placement = root
+	title = spec_story.2.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = spec_story.2.d
+				trigger = { has_variable = spec_story_good }
+			}
+			triggered_desc = {
+				desc = spec_story.2.d_generic
+				trigger = { always = yes }
+			}
+		}
+	}
+	flavor = {
+		first_valid = {
+			triggered_desc = {
+				desc = spec_story.2.f
+				trigger = { has_variable = spec_story_good }
+			}
+			triggered_desc = {
+				desc = spec_story.2.f_generic
+				trigger = { always = yes }
+			}
+		}
+	}
+	duration = 3
+	event_image = {
+		trigger = { spec_pic_mideast = yes }
+		video = "middleeast_courtroom_upheaval"
+	}
+	event_image = {
+		trigger = { spec_pic_africa = yes }
+		video = "unspecific_signed_contract"
+	}
+	event_image = {
+		trigger = { spec_pic_asia = yes }
+		video = "unspecific_signed_contract"
+	}
+	event_image = {
+		trigger = { spec_pic_latam = yes }
+		video = "unspecific_signed_contract"
+	}
+	event_image = {
+		trigger = { spec_pic_west = yes }
+		video = "unspecific_signed_contract"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+	cooldown = { days = normal_modifier_time }
+
+	trigger = {
+		spec_story_quiet = yes
+		var:spec_conf >= 60
+		trigger_if = {
+			limit = { has_variable = spec_top1_v }
+			var:spec_top1_v >= 3
+		}
+		trigger_else = {
+			always = no
+		}
+		NOT = { has_variable = spec_panic }
+	}
+
+	immediate = {
+		set_variable = { name = spec_story_cd value = yes days = 730 }
+		if = {
+			limit = { has_variable = spec_top1 }
+			set_variable = { name = spec_story_good value = var:spec_top1 }
+		}
+		else = {
+			remove_variable = spec_story_good
+		}
+	}
+
+	option = {
+		name = spec_story.2.a
+		default_option = yes
+		custom_tooltip = {
+			text = spec_story_conf_down_8
+			spec_story_conf = { AMOUNT = -8 }
+		}
+		add_modifier = {
+			name = spec_story_fraud_trial
+			days = short_modifier_time
+		}
+		ig:ig_petty_bourgeoisie ?= {
+			add_modifier = {
+				name = spec_story_justice_done
+				days = short_modifier_time
+			}
+		}
+		ig:ig_industrialists ?= {
+			add_modifier = {
+				name = spec_story_promoters_hounded
+				days = short_modifier_time
+			}
+		}
+		ai_chance = {
+			base = 50
+		}
+	}
+	option = {
+		name = spec_story.2.b
+		custom_tooltip = {
+			text = spec_story_conf_down_2
+			spec_story_conf = { AMOUNT = -2 }
+		}
+		add_radicals = { value = small_radicals strata = middle }
+		ig:ig_petty_bourgeoisie ?= {
+			add_modifier = {
+				name = spec_story_cover_up
+				days = short_modifier_time
+			}
+		}
+		ig:ig_industrialists ?= {
+			add_modifier = {
+				name = spec_story_quiet_kept
+				days = short_modifier_time
+			}
+		}
+		ai_chance = {
+			base = 30
+		}
+	}
+	option = {
+		name = spec_story.2.c
+		add_modifier = {
+			name = spec_story_compensation
+			days = very_short_modifier_time
+			multiplier = money_amount_multiplier_small
+		}
+		custom_tooltip = {
+			text = spec_story_conf_down_4
+			spec_story_conf = { AMOUNT = -4 }
+		}
+		add_loyalists = { value = small_radicals strata = middle }
+		ig:ig_petty_bourgeoisie ?= {
+			add_modifier = {
+				name = spec_story_investors_repaid
+				days = short_modifier_time
+			}
+		}
+		ai_chance = {
+			base = 20
+		}
+	}
+}
+
+spec_story.3 = {
+	type = country_event
+	placement = root
+	title = spec_story.3.t
+	desc = spec_story.3.d
+	flavor = spec_story.3.f
+	duration = 3
+	event_image = {
+		trigger = { spec_pic_mideast = yes }
+		video = "unspecific_vandalized_storefront"
+	}
+	event_image = {
+		trigger = { spec_pic_africa = yes }
+		video = "africa_public_protest"
+	}
+	event_image = {
+		trigger = { spec_pic_asia = yes }
+		video = "unspecific_vandalized_storefront"
+	}
+	event_image = {
+		trigger = { spec_pic_latam = yes }
+		video = "unspecific_vandalized_storefront"
+	}
+	event_image = {
+		trigger = { spec_pic_west = yes }
+		video = "unspecific_vandalized_storefront"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+	cooldown = { days = normal_modifier_time }
+
+	trigger = {
+		spec_story_quiet = yes
+		NOT = { has_variable = spec_rescued }
+		trigger_if = {
+			limit = { has_variable = spec_panic }
+			var:spec_panic >= 3
+		}
+		trigger_else = {
+			always = no
+		}
+	}
+
+	immediate = {
+		set_variable = { name = spec_story_cd value = yes days = 730 }
+	}
+
+	option = {
+		name = spec_story.3.a
+		add_modifier = {
+			name = spec_story_deposit_guarantee
+			days = very_short_modifier_time
+			multiplier = money_amount_multiplier_medium
+		}
+		custom_tooltip = {
+			text = spec_story_conf_up_5
+			spec_story_conf = { AMOUNT = 5 }
+		}
+		add_loyalists = { value = small_radicals strata = middle }
+		ig:ig_petty_bourgeoisie ?= {
+			add_modifier = {
+				name = spec_story_depositors_saved
+				days = short_modifier_time
+			}
+		}
+		ai_chance = {
+			base = 30
+		}
+	}
+	option = {
+		name = spec_story.3.b
+		default_option = yes
+		custom_tooltip = {
+			text = spec_story_conf_down_5
+			spec_story_conf = { AMOUNT = -5 }
+		}
+		add_radicals = { value = small_radicals strata = middle }
+		ig:ig_petty_bourgeoisie ?= {
+			add_modifier = {
+				name = spec_story_depositors_abandoned
+				days = short_modifier_time
+			}
+		}
+		ai_chance = {
+			base = 50
+		}
+	}
+	option = {
+		name = spec_story.3.c
+		trigger = { spec_can_rescue = yes }
+		custom_tooltip = spec_rescue_cost_tt
+		custom_tooltip = {
+			text = spec_markets.2.b.tt
+			spec_rescue = yes
+		}
+		custom_tooltip = spec_bank_bailout_tt
+		ai_chance = {
+			base = 20
+		}
+	}
+}
+
+spec_story.4 = {
+	type = country_event
+	placement = root
+	title = {
+		first_valid = {
+			triggered_desc = {
+				desc = spec_story.4.t
+				trigger = { exists = var:spec_story_src }
+			}
+			triggered_desc = {
+				desc = spec_story.4.t_generic
+				trigger = { always = yes }
+			}
+		}
+	}
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = spec_story.4.d
+				trigger = { exists = var:spec_story_src }
+			}
+			triggered_desc = {
+				desc = spec_story.4.d_generic
+				trigger = { always = yes }
+			}
+		}
+	}
+	flavor = {
+		first_valid = {
+			triggered_desc = {
+				desc = spec_story.4.f
+				trigger = { exists = var:spec_story_src }
+			}
+			triggered_desc = {
+				desc = spec_story.4.f_generic
+				trigger = { always = yes }
+			}
+		}
+	}
+	duration = 3
+	event_image = {
+		trigger = { spec_pic_mideast = yes }
+		video = "unspecific_steam_ship"
+	}
+	event_image = {
+		trigger = { spec_pic_africa = yes }
+		video = "unspecific_steam_ship"
+	}
+	event_image = {
+		trigger = { spec_pic_asia = yes }
+		video = "asia_westerners_arriving"
+	}
+	event_image = {
+		trigger = { spec_pic_latam = yes }
+		video = "unspecific_steam_ship"
+	}
+	event_image = {
+		trigger = { spec_pic_west = yes }
+		video = "unspecific_steam_ship"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_map.dds"
+	cooldown = { days = normal_modifier_time }
+
+	trigger = {
+		spec_story_quiet = yes
+		has_variable = spec_story_foreign
+		exists = var:spec_story_src
+		NOT = { has_variable = spec_panic }
+	}
+
+	immediate = {
+		set_variable = { name = spec_story_cd value = yes days = 730 }
+		remove_variable = spec_story_foreign
+	}
+
+	option = {
+		name = spec_story.4.a
+		add_modifier = {
+			name = spec_story_merchant_loans
+			days = very_short_modifier_time
+			multiplier = money_amount_multiplier_small
+		}
+		custom_tooltip = {
+			text = spec_story_conf_up_6
+			spec_story_conf = { AMOUNT = 6 }
+		}
+		ig:ig_industrialists ?= {
+			add_modifier = {
+				name = spec_story_merchants_backed
+				days = short_modifier_time
+			}
+		}
+		ai_chance = {
+			base = 30
+		}
+	}
+	option = {
+		name = spec_story.4.b
+		default_option = yes
+		custom_tooltip = {
+			text = spec_story_conf_down_3
+			spec_story_conf = { AMOUNT = -3 }
+		}
+		ai_chance = {
+			base = 50
+		}
+	}
+	option = {
+		name = spec_story.4.c
+		trigger = { exists = var:spec_story_src }
+		spec_story_blame_foreign = yes
+		ai_chance = {
+			base = 20
+		}
+	}
+}
+
+spec_story.5 = {
+	type = country_event
+	placement = root
+	title = spec_story.5.t
+	desc = spec_story.5.d
+	flavor = spec_story.5.f
+	duration = 3
+	event_image = {
+		trigger = { spec_pic_mideast = yes }
+		video = "middleeast_engineer_blueprint"
+	}
+	event_image = {
+		trigger = { spec_pic_africa = yes }
+		video = "africa_construction_colony"
+	}
+	event_image = {
+		trigger = { spec_pic_asia = yes }
+		video = "asia_farmers_market"
+	}
+	event_image = {
+		trigger = { spec_pic_latam = yes }
+		video = "southamerica_factory_opening"
+	}
+	event_image = {
+		trigger = { spec_pic_west = yes }
+		video = "unspecific_trains"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+	cooldown = { days = normal_modifier_time }
+
+	trigger = {
+		spec_story_quiet = yes
+		NOT = { has_variable = spec_panic }
+		trigger_if = {
+			limit = { has_variable = spec_panic_cooldown }
+			var:spec_panic_cooldown >= 9
+		}
+		trigger_else = {
+			always = no
+		}
+		var:spec_conf >= 40
+	}
+
+	immediate = {
+		set_variable = { name = spec_story_cd value = yes days = 730 }
+	}
+
+	option = {
+		name = spec_story.5.a
+		custom_tooltip = {
+			text = spec_story_conf_up_8
+			spec_story_conf = { AMOUNT = 8 }
+		}
+		ig:ig_industrialists ?= {
+			add_modifier = {
+				name = spec_story_revival_backed
+				days = short_modifier_time
+			}
+		}
+		ig:ig_intelligentsia ?= {
+			add_modifier = {
+				name = spec_story_lessons_unlearned
+				days = short_modifier_time
+			}
+		}
+		ai_chance = {
+			base = 50
+		}
+	}
+	option = {
+		name = spec_story.5.b
+		default_option = yes
+		custom_tooltip = {
+			text = spec_story_conf_up_3
+			spec_story_conf = { AMOUNT = 3 }
+		}
+		ig:ig_intelligentsia ?= {
+			add_modifier = {
+				name = spec_prudent_counsel
+				days = short_modifier_time
+			}
+		}
+		ai_chance = {
+			base = 50
+		}
+	}
+}
+
+spec_story.6 = {
+	type = country_event
+	placement = root
+	title = spec_story.6.t
+	desc = spec_story.6.d
+	flavor = spec_story.6.f
+	duration = 3
+	event_image = {
+		trigger = { spec_pic_mideast = yes }
+		video = "unspecific_politicians_arguing"
+	}
+	event_image = {
+		trigger = { spec_pic_africa = yes }
+		video = "africa_leader_arguing"
+	}
+	event_image = {
+		trigger = { spec_pic_asia = yes }
+		video = "asia_politician_parliament_motion"
+	}
+	event_image = {
+		trigger = { spec_pic_latam = yes }
+		video = "southamerica_aristocrats"
+	}
+	event_image = {
+		trigger = { spec_pic_west = yes }
+		video = "europenorthamerica_capitalists_meeting"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+	cooldown = { days = normal_modifier_time }
+
+	trigger = {
+		spec_story_quiet = yes
+		spec_stance_value = -1
+		NOT = { has_variable = spec_stance_cooldown }
+		exists = ig:ig_industrialists
+		NOT = { has_variable = spec_panic }
+	}
+
+	immediate = {
+		set_variable = { name = spec_story_cd value = yes days = 730 }
+	}
+
+	option = {
+		name = spec_story.6.a
+		trigger = { spec_can_stance_normal = yes }
+		custom_tooltip = {
+			text = spec_story.6.a.tt
+			spec_stance_to_normal = yes
+		}
+		ig:ig_industrialists ?= {
+			add_modifier = {
+				name = spec_story_lobby_heard
+				days = short_modifier_time
+			}
+		}
+		ai_chance = {
+			base = 40
+		}
+	}
+	option = {
+		name = spec_story.6.b
+		default_option = yes
+		ig:ig_industrialists ?= {
+			add_modifier = {
+				name = spec_story_lobby_rebuffed
+				days = short_modifier_time
+			}
+		}
+		ig:ig_intelligentsia ?= {
+			add_modifier = {
+				name = spec_prudent_counsel
+				days = short_modifier_time
+			}
+		}
+		ai_chance = {
+			base = 40
+		}
+	}
+	option = {
+		name = spec_story.6.c
+		add_modifier = {
+			name = spec_story_industry_subsidy
+			days = short_modifier_time
+			multiplier = money_amount_multiplier_small
+		}
+		ig:ig_industrialists ?= {
+			add_modifier = {
+				name = spec_story_subsidy
+				days = short_modifier_time
+			}
+		}
+		ai_chance = {
+			base = 20
+		}
+	}
+}
+
+spec_story.7 = {
+	type = country_event
+	placement = root
+	title = spec_story.7.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = spec_story.7.d
+				trigger = { has_variable = spec_story_good }
+			}
+			triggered_desc = {
+				desc = spec_story.7.d_generic
+				trigger = { always = yes }
+			}
+		}
+	}
+	flavor = {
+		first_valid = {
+			triggered_desc = {
+				desc = spec_story.7.f
+				trigger = { has_variable = spec_story_good }
+			}
+			triggered_desc = {
+				desc = spec_story.7.f_generic
+				trigger = { always = yes }
+			}
+		}
+	}
+	duration = 3
+	event_image = {
+		trigger = { spec_pic_mideast = yes }
+		video = "middleeast_middleclass_cafe"
+	}
+	event_image = {
+		trigger = { spec_pic_africa = yes }
+		video = "africa_city_center"
+	}
+	event_image = {
+		trigger = { spec_pic_asia = yes }
+		video = "asia_farmers_market"
+	}
+	event_image = {
+		trigger = { spec_pic_latam = yes }
+		video = "unspecific_world_fair"
+	}
+	event_image = {
+		trigger = { spec_pic_west = yes }
+		video = "unspecific_world_fair"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_trade.dds"
+	cooldown = { days = normal_modifier_time }
+
+	trigger = {
+		spec_story_quiet = yes
+		has_variable = spec_mania
+		var:spec_conf >= 80
+		NOT = { has_variable = spec_panic }
+	}
+
+	immediate = {
+		set_variable = { name = spec_story_cd value = yes days = 730 }
+		if = {
+			limit = { has_variable = spec_top1 }
+			set_variable = { name = spec_story_good value = var:spec_top1 }
+		}
+		else = {
+			remove_variable = spec_story_good
+		}
+	}
+
+	option = {
+		name = spec_story.7.a
+		default_option = yes
+		custom_tooltip = {
+			text = spec_story_conf_up_3
+			spec_story_conf = { AMOUNT = 3 }
+		}
+		add_loyalists = { value = small_radicals strata = middle }
+		ig:ig_petty_bourgeoisie ?= {
+			add_modifier = {
+				name = spec_boom_riding
+				days = short_modifier_time
+			}
+		}
+		ai_chance = {
+			base = 50
+		}
+	}
+	option = {
+		name = spec_story.7.b
+		custom_tooltip = {
+			text = spec_story_conf_down_6
+			spec_story_conf = { AMOUNT = -6 }
+		}
+		ig:ig_petty_bourgeoisie ?= {
+			add_modifier = {
+				name = spec_story_trading_curbed
+				days = short_modifier_time
+			}
+		}
+		ig:ig_intelligentsia ?= {
+			add_modifier = {
+				name = spec_prudent_counsel
+				days = short_modifier_time
+			}
+		}
+		ai_chance = {
+			base = 30
+		}
+	}
+	option = {
+		name = spec_story.7.c
+		add_modifier = {
+			name = spec_story_share_duty
+			days = very_short_modifier_time
+			multiplier = money_amount_multiplier_small
+		}
+		custom_tooltip = {
+			text = spec_story_conf_down_4
+			spec_story_conf = { AMOUNT = -4 }
+		}
+		ig:ig_petty_bourgeoisie ?= {
+			add_modifier = {
+				name = spec_story_stamp_duty
+				days = short_modifier_time
+			}
+		}
+		ai_chance = {
+			base = 20
+		}
+	}
+}
+
+spec_story.8 = {
+	type = country_event
+	placement = root
+	title = spec_story.8.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = spec_story.8.d
+				trigger = { has_variable = spec_story_good has_variable = spec_story_good2 }
+			}
+			triggered_desc = {
+				desc = spec_story.8.d_generic
+				trigger = { always = yes }
+			}
+		}
+	}
+	flavor = spec_story.8.f
+	duration = 3
+	event_image = {
+		trigger = { spec_pic_mideast = yes }
+		video = "unspecific_politicians_arguing"
+	}
+	event_image = {
+		trigger = { spec_pic_africa = yes }
+		video = "africa_leader_arguing"
+	}
+	event_image = {
+		trigger = { spec_pic_asia = yes }
+		video = "asia_politician_parliament_motion"
+	}
+	event_image = {
+		trigger = { spec_pic_latam = yes }
+		video = "southamerica_election"
+	}
+	event_image = {
+		trigger = { spec_pic_west = yes }
+		video = "unspecific_politicians_arguing"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	cooldown = { days = normal_modifier_time }
+
+	trigger = {
+		spec_story_quiet = yes
+		NOT = { has_variable = spec_mania }
+		var:spec_conf >= 60
+		trigger_if = {
+			limit = { has_variable = spec_top1_v }
+			var:spec_top1_v >= 3
+		}
+		trigger_else = {
+			always = no
+		}
+		trigger_if = {
+			limit = { has_variable = spec_exposure }
+			var:spec_exposure >= 10
+		}
+		trigger_else = {
+			always = no
+		}
+		NOT = { has_variable = spec_panic }
+	}
+
+	immediate = {
+		set_variable = { name = spec_story_cd value = yes days = 730 }
+		if = {
+			limit = { has_variable = spec_top1 }
+			set_variable = { name = spec_story_good value = var:spec_top1 }
+		}
+		else = {
+			remove_variable = spec_story_good
+		}
+		if = {
+			limit = { has_variable = spec_top2 }
+			set_variable = { name = spec_story_good2 value = var:spec_top2 }
+		}
+		else = {
+			remove_variable = spec_story_good2
+		}
+	}
+
+	option = {
+		name = spec_story.8.a
+		custom_tooltip = {
+			text = spec_story_conf_down_6
+			spec_story_conf = { AMOUNT = -6 }
+		}
+		ig:ig_intelligentsia ?= {
+			add_modifier = {
+				name = spec_prudent_counsel
+				days = short_modifier_time
+			}
+		}
+		ig:ig_industrialists ?= {
+			add_modifier = {
+				name = spec_boom_warning
+				days = short_modifier_time
+			}
+		}
+		ai_chance = {
+			base = 30
+		}
+	}
+	option = {
+		name = spec_story.8.b
+		default_option = yes
+		custom_tooltip = {
+			text = spec_story_conf_up_2
+			spec_story_conf = { AMOUNT = 2 }
+		}
+		ig:ig_industrialists ?= {
+			add_modifier = {
+				name = spec_boom_riding
+				days = short_modifier_time
+			}
+		}
+		ig:ig_intelligentsia ?= {
+			add_modifier = {
+				name = spec_story_warning_dismissed
+				days = short_modifier_time
+			}
+		}
+		ai_chance = {
+			base = 50
+		}
+	}
+}

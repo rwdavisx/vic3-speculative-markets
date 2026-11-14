@@ -1,0 +1,5 @@
+{
+  "53ce523b31": "\\n{1}{2}#!#! en raison du $SPEC_DRIVER_DROP$",
+  "e56cdea362": "$SPEC_GAUGE_HEAD$\\n$SPEC_PANIC_LEFT$\\n$SPEC_GAUGE_CHANGE$\\n$TOOLTIP_DELIMITER$\\n#title Effets :#!#indent_newline:3 \\n{1}\\n$SPEC_PANIC_SUB$.\\n$SPEC_GAUGE_LEND$#!\\n\\n{2}{3}$SPEC_PANIC_TT_END$",
+  "c18a7e148f": "Début de la panique"
+}

@@ -1,0 +1,9 @@
+{
+  "02cdee371e": "\\n\\n#title Préstamos bancarios:#! #v {1}#! de [concept_spec_outstanding_credit], #v {2}#! meses de ingresos del fondo\\nSi su auge terminara, la [concept_spec_market_confidence] caería #v x{3}#! veces más que con un auge en el que ningún banco hubiera prestado",
+  "2523e47c00": "Dónde han prestado los bancos",
+  "57da154fe8": "#header Mes pasado#!\\n[concept_spec_leverage]: #v {1}#! meses",
+  "599efded61": " Los bancos habían prestado mucho en él, así que la caída fue #N x{1}#! más dura.",
+  "99f6f8b6fa": "#header Este mes#!\\n[concept_spec_leverage]: #v {1}#! meses",
+  "c866d03845": "#header Hace {1} meses#!\\n[concept_spec_leverage]: #v {2}#! meses",
+  "d52746e9ce": "Historial de apalancamiento"
+}

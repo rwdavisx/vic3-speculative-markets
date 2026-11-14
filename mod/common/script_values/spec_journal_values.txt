@@ -1,0 +1,174 @@
+﻿# the journal entry's stage: 6 Long Depression, 5 Panic, 4 Aftermath, 3 Mania, 2 Buoyant, 1 Steady, 0 Wary
+spec_stage = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_ld var:spec_ld < 3 }
+		value = 6
+	}
+	else_if = {
+		limit = { has_variable = spec_panic }
+		value = 5
+	}
+	else_if = {
+		limit = { has_variable = spec_panic_cooldown }
+		value = 4
+	}
+	else_if = {
+		limit = { has_variable = spec_conf var:spec_conf >= 80 }
+		value = 3
+	}
+	else_if = {
+		limit = { has_variable = spec_conf var:spec_conf >= 55 }
+		value = 2
+	}
+	else_if = {
+		limit = { has_variable = spec_conf var:spec_conf < 40 }
+		value = 0
+	}
+}
+
+# the Sound Finance institutions' multipliers, read by generate.py
+spec_reform_credit = {
+	value = 1
+	if = {
+		limit = { var:spec_note ?= 1 }
+		multiply = 0.75
+	}
+	if = {
+		limit = { var:spec_note ?= 2 }
+		multiply = 1.25
+	}
+}
+spec_reform_heat = {
+	value = 1
+	if = {
+		limit = { var:spec_note ?= 1 }
+		multiply = 0.75
+	}
+	if = {
+		limit = { has_variable = spec_hazard }
+		multiply = 1.5
+	}
+}
+spec_reform_boom = {
+	value = 1
+	if = {
+		limit = { var:spec_note ?= 2 }
+		multiply = 1.1
+	}
+}
+spec_reform_risk = {
+	value = 1
+	if = {
+		limit = { var:spec_note ?= 2 }
+		multiply = 1.1
+	}
+	if = {
+		limit = { has_variable = spec_company_law }
+		multiply = 0.7
+	}
+}
+spec_reform_panic_len = {
+	value = 1
+	if = {
+		limit = { var:spec_note ?= 1 }
+		multiply = 1.25
+	}
+}
+spec_reform_rescue = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_llr }
+		multiply = 0.5
+	}
+}
+spec_reform_rescue_months = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_llr }
+		value = -1
+	}
+}
+spec_reform_count = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_note }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_llr }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_company_law }
+		add = 1
+	}
+}
+spec_burst_now = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_heat }
+		value = var:spec_heat
+		multiply = spec_burst_per_heat
+		max = spec_burst_max
+	}
+}
+spec_calm_left = {
+	value = 120
+	if = {
+		limit = { has_variable = spec_calm }
+		subtract = var:spec_calm
+	}
+	min = 0
+}
+spec_reform_open_v = {
+	value = 0
+	if = {
+		limit = { spec_reform_open = yes }
+		value = 1
+	}
+}
+spec_currency_v = {
+	value = 0
+	if = {
+		limit = { var:spec_note ?= 1 }
+		value = 1
+	}
+}
+spec_free_v = {
+	value = 0
+	if = {
+		limit = { var:spec_note ?= 2 }
+		value = 1
+	}
+}
+spec_llr_v = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_llr }
+		value = 1
+	}
+}
+spec_company_v = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_company_law }
+		value = 1
+	}
+}
+spec_has_stock_exchange = {
+	value = 0
+	if = {
+		limit = { has_technology_researched = stock_exchange }
+		value = 1
+	}
+}
+spec_after_collapse = {
+	value = 100
+	if = {
+		limit = { has_variable = spec_conf has_variable = spec_exposure }
+		value = var:spec_conf
+		subtract = var:spec_exposure
+		min = 0
+	}
+}

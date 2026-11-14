@@ -1,0 +1,5 @@
+{
+  "version": "1.0.3-beta.1",
+  "published": false,
+  "reason": "Runtime rejected: SelectLocalization still removed SCOPE from selected banking/overbuilding sentences, leaving blank multipliers. Superseded by verified 1.0.3-beta.2. Original ZIP and manifest preserved."
+}

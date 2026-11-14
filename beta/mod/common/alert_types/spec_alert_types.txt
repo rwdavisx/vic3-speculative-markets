@@ -1,0 +1,58 @@
+﻿spec_panic_risk_alert = {
+	script_context = player_country
+	texture = "gfx/interface/icons/alert_icons/company_losing_prosperity.dds"
+
+	valid = {
+		has_variable = spec_exposure
+		var:spec_exposure > 0
+		NOT = { has_variable = spec_panic }
+		NOT = { has_variable = spec_panic_cooldown }
+		spec_after_collapse < spec_panic_at
+	}
+
+	# an alert can only open a vanilla panel: the journal entry, whose header opens the Finance window
+	open_panel = journal
+	type = alert
+	color = red
+}
+
+spec_bubble_alert = {
+	script_context = player_country
+	texture = "gfx/interface/icons/alert_icons/expensive_goods.dds"
+
+	valid = {
+		NOT = { has_variable = spec_panic }
+		spec_burst_now >= 10
+	}
+
+	open_panel = journal
+	type = alert
+	color = yellow
+}
+
+# something the player can do now: both buttons are on the Finance window's Banking tab, reached from the journal entry
+spec_rescue_alert = {
+	script_context = player_country
+	texture = "gfx/interface/icons/alert_icons/can_establish_company.dds"
+
+	valid = {
+		spec_can_rescue = yes
+	}
+
+	open_panel = journal
+	type = alert
+	color = yellow
+}
+
+spec_bailout_alert = {
+	script_context = player_country
+	texture = "gfx/interface/icons/alert_icons/market_over_capacity.dds"
+
+	valid = {
+		spec_can_bailout = yes
+	}
+
+	open_panel = journal
+	type = alert
+	color = yellow
+}

@@ -1,0 +1,10 @@
+{
+  "05fa6cd4d5": "Outros bens",
+  "28a6891ce7": "$SPEC_INTEREST_0$: #v {1}#! do comércio do mercado, em #v {2}#! bens",
+  "eeb2be2e02": "$SPEC_INTEREST_1$: #v {1}#! do comércio do mercado, em #v {2}#! bens",
+  "27d5160117": "$SPEC_INTEREST_2$: #v {1}#! do comércio do mercado, em #v {2}#! bens",
+  "4d49c6c22b": "$SPEC_INTEREST_3$: #v {1}#! do comércio do mercado, em #v {2}#! bens",
+  "b3ab9f2b6e": "$SPEC_INTEREST_4$: #v {1}#! do comércio do mercado, em #v {2}#! bens",
+  "ee82dd90e3": "$SPEC_INTEREST_5$: #v {1}#! do comércio do mercado, em #v {2}#! bens",
+  "ff02941358": "#header $SPEC_BANK_OTHER$#!\\n$TOOLTIP_DELIMITER$\\n#v {1}#! de [concept_spec_outstanding_credit] está emprestado nas expansões de todos os outros bens."
+}

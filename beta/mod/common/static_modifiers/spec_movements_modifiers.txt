@@ -1,0 +1,15 @@
+﻿spec_panic_movements = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_fist_negative.dds
+	state_pop_support_movement_labor_mult = 0.2
+	state_pop_support_movement_socialist_mult = 0.1
+	state_pop_support_movement_communist_mult = 0.1
+	state_pop_support_movement_corporatist_mult = 0.1
+	state_pop_support_movement_bonapartist_mult = 0.1
+}
+
+spec_mania_movements = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+	state_pop_support_movement_orleanist_mult = 0.15
+	state_pop_support_movement_labor_mult = -0.1
+	state_pop_support_movement_socialist_mult = -0.1
+}

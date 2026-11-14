@@ -1,0 +1,49 @@
+﻿spec_ld_started = {
+	type = country
+	group = "spec_ld_notification_group"
+
+	texture = "gfx/interface/icons/notification_icons/rank_down.dds"
+
+	notification_type = toast
+	color = bad
+}
+
+spec_ld_deepens = {
+	type = country
+	group = "spec_ld_notification_group"
+
+	texture = "gfx/interface/icons/notification_icons/rank_down.dds"
+
+	notification_type = toast
+	color = bad
+}
+
+spec_ld_lifts = {
+	type = country
+	group = "spec_ld_notification_group"
+
+	texture = "gfx/interface/icons/notification_icons/rank_up.dds"
+
+	notification_type = toast
+	color = good
+}
+
+spec_ld_over = {
+	type = country
+	group = "spec_ld_notification_group"
+
+	texture = "gfx/interface/icons/notification_icons/rank_up.dds"
+
+	notification_type = toast
+	color = neutral
+}
+
+spec_ld_recovered = {
+	type = country
+	group = "spec_ld_notification_group"
+
+	texture = "gfx/interface/icons/notification_icons/rank_up.dds"
+
+	notification_type = toast
+	color = good
+}

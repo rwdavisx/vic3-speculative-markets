@@ -1,0 +1,10 @@
+{
+  "05fa6cd4d5": "其他商品",
+  "28a6891ce7": "$SPEC_INTEREST_0$: 占市场贸易的#v {1}#!，涉及#v {2}#!种商品",
+  "eeb2be2e02": "$SPEC_INTEREST_1$: 占市场贸易的#v {1}#!，涉及#v {2}#!种商品",
+  "27d5160117": "$SPEC_INTEREST_2$: 占市场贸易的#v {1}#!，涉及#v {2}#!种商品",
+  "4d49c6c22b": "$SPEC_INTEREST_3$: 占市场贸易的#v {1}#!，涉及#v {2}#!种商品",
+  "b3ab9f2b6e": "$SPEC_INTEREST_4$: 占市场贸易的#v {1}#!，涉及#v {2}#!种商品",
+  "ee82dd90e3": "$SPEC_INTEREST_5$: 占市场贸易的#v {1}#!，涉及#v {2}#!种商品",
+  "ff02941358": "#header $SPEC_BANK_OTHER$#!\\n$TOOLTIP_DELIMITER$\\n[concept_spec_outstanding_credit]的#v {1}#!贷入了所有其他商品的热潮。"
+}

@@ -1,0 +1,2846 @@
+﻿# the investment modifier of the confidence band the country is in, and no other
+spec_update_band = {
+	if = {
+		limit = { NOT = { has_modifier = spec_conf_panic } var:spec_conf < 20 NOT = { has_modifier = spec_panic } }
+		add_modifier = { name = spec_conf_panic }
+	}
+	else_if = {
+		limit = { has_modifier = spec_conf_panic NOT = { AND = { var:spec_conf < 20 NOT = { has_modifier = spec_panic } } } }
+		remove_modifier = spec_conf_panic
+	}
+	if = {
+		limit = { NOT = { has_modifier = spec_conf_panic_held } var:spec_conf < 20 has_modifier = spec_panic }
+		add_modifier = { name = spec_conf_panic_held }
+	}
+	else_if = {
+		limit = { has_modifier = spec_conf_panic_held NOT = { AND = { var:spec_conf < 20 has_modifier = spec_panic } } }
+		remove_modifier = spec_conf_panic_held
+	}
+	if = {
+		limit = { NOT = { has_modifier = spec_conf_wary } var:spec_conf >= 20 var:spec_conf < 40  }
+		add_modifier = { name = spec_conf_wary }
+	}
+	else_if = {
+		limit = { has_modifier = spec_conf_wary NOT = { AND = { var:spec_conf >= 20 var:spec_conf < 40  } } }
+		remove_modifier = spec_conf_wary
+	}
+	if = {
+		limit = { NOT = { has_modifier = spec_conf_steady } var:spec_conf >= 40 var:spec_conf < 60  }
+		add_modifier = { name = spec_conf_steady }
+	}
+	else_if = {
+		limit = { has_modifier = spec_conf_steady NOT = { AND = { var:spec_conf >= 40 var:spec_conf < 60  } } }
+		remove_modifier = spec_conf_steady
+	}
+	if = {
+		limit = { NOT = { has_modifier = spec_conf_buoyant } var:spec_conf >= 60 var:spec_conf < 80  }
+		add_modifier = { name = spec_conf_buoyant }
+	}
+	else_if = {
+		limit = { has_modifier = spec_conf_buoyant NOT = { AND = { var:spec_conf >= 60 var:spec_conf < 80  } } }
+		remove_modifier = spec_conf_buoyant
+	}
+	if = {
+		limit = { NOT = { has_modifier = spec_conf_mania } var:spec_conf >= 80  }
+		add_modifier = { name = spec_conf_mania }
+	}
+	else_if = {
+		limit = { has_modifier = spec_conf_mania NOT = { AND = { var:spec_conf >= 80  } } }
+		remove_modifier = spec_conf_mania
+	}
+}
+
+spec_start_panic = {
+	# months left, counted down monthly; the one clock for the panic
+	set_variable = { name = spec_panic value = spec_panic_months_trust }
+	set_variable = { name = spec_panic_len value = var:spec_panic }
+	set_variable = { name = spec_panic_elapsed value = 0 }
+	# a panic that starts high up still falls to the bottom, and the tab shows the fall. Just under the line: on it is the Wary band
+	if = {
+		limit = { var:spec_conf >= 25 }
+		set_variable = { name = spec_c_drop value = { value = 24.9 subtract = var:spec_conf } }
+		change_variable = { name = spec_c_total add = var:spec_c_drop }
+		set_variable = { name = spec_conf value = 24.9 }
+		if = {
+			limit = { has_variable = spec_hist1 }
+			set_variable = { name = spec_hist1 value = var:spec_conf }
+		}
+	}
+	if = {
+		limit = { spec_crunch_if > 0 }
+		if = {
+			limit = { has_variable = spec_crunch }
+			remove_modifier = spec_credit_crunch
+		}
+		# the bailout's button comes back only for Bad Debts larger than the ones it bought up
+		if = {
+			limit = { spec_crunch_if > spec_crunch_sv }
+			remove_variable = spec_bailed
+		}
+		set_variable = { name = spec_crunch value = spec_crunch_if }
+		if = {
+			limit = { NOT = { has_variable = spec_crunch_bite } }
+			set_variable = { name = spec_crunch_bite value = 0 }
+		}
+		change_variable = { name = spec_crunch_bite add = 3 }
+if = {
+	limit = { var:spec_crunch_bite > var:spec_crunch }
+	set_variable = { name = spec_crunch_bite value = var:spec_crunch }
+}
+add_modifier = {
+	name = spec_credit_crunch
+	multiplier = var:spec_crunch_bite
+}
+
+	}
+	set_variable = { name = spec_ld_recent value = yes days = 365 }
+	if = {
+		limit = {
+			has_variable = spec_ld
+			has_global_variable = spec_ld_phase
+		}
+		spec_ld_apply = yes
+	}
+	add_modifier = { name = spec_panic }
+	add_modifier = {
+		name = spec_panic_crunch
+		multiplier = spec_alloc_half
+	}
+	add_modifier = {
+		name = spec_panic_relief
+		multiplier = spec_panic_relief_week
+	}
+	spec_update_band = yes
+	# ruined investors turn on the government; workers radicalize through vanilla's loss of living standards
+	add_radicals = { value = 0.1 pop_type = capitalists }
+	add_radicals = { value = 0.05 pop_type = aristocrats }
+	add_radicals = { value = 0.05 pop_type = shopkeepers }
+	# banks call in part of the credit they lent
+	set_variable = { name = spec_clawed value = spec_clawback }
+	add_investment_pool = { value = var:spec_clawed multiply = -1 }
+	change_variable = { name = spec_debt subtract = var:spec_clawed }
+	set_variable = { name = spec_centre_calm value = 0 }  # centres.py: a rescued panic can end before its monthly pass sees it
+	if = {
+		limit = { has_variable = spec_centre_trust }
+		set_variable = { name = spec_centre_trust value = { value = var:spec_centre_trust subtract = { value = var:spec_centre_trust multiply = spec_exch_panic_cut multiply = spec_exch_loss } min = 0 } }
+	}
+	set_variable = { name = spec_debt value = { value = var:spec_debt add = var:spec_clawed multiply = 0.5 } }
+	if = {
+		limit = { has_variable = spec_lev_old }
+		change_variable = { name = spec_lev_old multiply = 0.5 }
+	}
+	if = {
+		limit = { has_variable = spec_pledge }
+		if = {
+			limit = {
+				spec_can_rescue = yes
+				in_default = no
+				gold_reserves >= spec_rescue_cost
+			}
+			spec_rescue = yes
+		}
+		else = {
+			set_variable = { name = spec_pledge_unmet days = 30 }
+		}
+	}
+	trigger_event = { id = spec_markets.2 popup = yes }
+	# contagion: countries tied to this one lose confidence, the closer the tie and the bigger this economy
+	# compared with theirs, the more
+	set_variable = { name = spec_src_gdp value = gdp }
+	if = {
+		limit = { NOT = { has_variable = spec_caught } }
+		spec_every_tied = { EFFECT = spec_catch_panic }
+		spec_notify_tied = { TYPE = spec_tied_panic }
+	}
+	spec_capital_flight = yes
+	spec_panic_movements = yes
+}
+
+# runs $EFFECT$ = { WEIGHT = tie weight } on each country tied to root, once per tie, so a country with two ties
+# gets it twice. scope:spec_tie_src is the country whose ownership spec_owned_share measures
+spec_every_tied = {
+	root = { save_scope_as = spec_tie_src }
+	market ?= {
+		every_scope_country = {
+			limit = { NOT = { this = root } }
+			$EFFECT$ = { WEIGHT = spec_tie_market }
+		}
+	}
+	every_subject_or_below = {
+		$EFFECT$ = { WEIGHT = 0.8 }
+	}
+	every_overlord_or_above = {
+		$EFFECT$ = { WEIGHT = 0.8 }
+	}
+	every_country = {
+		limit = {
+			NOT = { this = root }
+			any_scope_treaty = {
+				binds = root
+				any_scope_article = { has_type = foreign_investment_rights }
+			}
+		}
+		$EFFECT$ = { WEIGHT = spec_tie_investment }
+	}
+	every_country = {
+		limit = {
+			NOT = { this = root }
+			spec_owned_share >= 0.1
+		}
+		$EFFECT$ = { WEIGHT = spec_tie_owned }
+	}
+	every_market = {
+		limit = {
+			NOT = { this = root.market }
+			market_trade_reliance = { target = root.market value > 0.2 }
+		}
+		every_scope_country = {
+			limit = { spec_no_embargo_with_root = yes }
+			$EFFECT$ = { WEIGHT = spec_tie_trade }
+		}
+	}
+}
+
+# on a country tied to root, which has just panicked: keep the biggest hit until its next monthly update
+spec_catch_panic = {
+	if = {
+		limit = {
+			has_variable = spec_conf
+			gdp > 0
+		}
+		set_variable = {
+			name = spec_foreign_hit
+			value = {
+				value = root.var:spec_src_gdp
+				divide = gdp
+				max = 1
+				multiply = 20
+				multiply = $WEIGHT$
+				multiply = root.spec_reach
+				multiply = spec_foreign_loss_mult
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable = spec_foreign_pending }
+					var:spec_foreign_hit > var:spec_foreign_pending
+				}
+			}
+			set_variable = { name = spec_foreign_pending value = var:spec_foreign_hit }
+			set_variable = { name = spec_foreign_src value = root }
+			# the largest hit's parts, for the calculator
+			set_variable = { name = spec_fh_size value = { value = root.var:spec_src_gdp divide = gdp max = 1 } }
+			set_variable = { name = spec_fh_tie value = $WEIGHT$ }
+			set_variable = { name = spec_fh_reach value = root.spec_reach }
+		}
+		if = {
+			limit = {
+				NOT = { has_variable = spec_fp1 }
+			}
+			set_variable = { name = spec_fp1 value = root }
+		}
+		else_if = {
+			limit = {
+				NOT = { var:spec_fp1 ?= root }
+				NOT = { has_variable = spec_fp2 }
+			}
+			set_variable = { name = spec_fp2 value = root }
+		}
+		else_if = {
+			limit = {
+				NOT = { var:spec_fp1 ?= root }
+				NOT = { var:spec_fp2 ?= root }
+				NOT = { has_variable = spec_fp3 }
+			}
+			set_variable = { name = spec_fp3 value = root }
+		}
+
+		remove_variable = spec_foreign_hit
+	}
+}
+
+# for the tab, on a player: the tied country whose panic would cost the most, among those near one (Wary and
+# below) or in a mania. The ties mirror spec_start_panic's, seen from the country that would catch it.
+spec_find_risk_src = {
+	remove_variable = spec_risk_src
+	remove_variable = spec_risk_src_tie
+	set_variable = { name = spec_risk_src_hit value = 0 }
+	market ?= {
+		every_scope_country = {
+			limit = { NOT = { this = root } }
+			spec_rate_risk_src = { WEIGHT = root.spec_tie_market TIE = 1 }
+		}
+	}
+	every_subject_or_below = {
+		spec_rate_risk_src = { WEIGHT = 0.8 TIE = 2 }
+	}
+	every_overlord_or_above = {
+		spec_rate_risk_src = { WEIGHT = 0.8 TIE = 2 }
+	}
+	every_country = {
+		limit = {
+			NOT = { this = root }
+			any_scope_treaty = {
+				binds = root
+				any_scope_article = { has_type = foreign_investment_rights }
+			}
+		}
+		spec_rate_risk_src = { WEIGHT = root.spec_tie_investment TIE = 3 }
+	}
+	every_country = {
+		limit = { NOT = { this = root } }
+		save_scope_as = spec_tie_src
+		if = {
+			limit = { root = { spec_owned_share >= 0.1 } }
+			spec_rate_risk_src = { WEIGHT = root.spec_tie_owned TIE = 5 }
+		}
+	}
+	every_market = {
+		limit = {
+			NOT = { this = root.market }
+			root.market = { market_trade_reliance = { target = prev value > 0.2 } }
+		}
+		every_scope_country = {
+			limit = { spec_no_embargo_with_root = yes }
+			spec_rate_risk_src = { WEIGHT = root.spec_tie_trade TIE = 4 }
+		}
+	}
+	if = {
+		limit = { NOT = { has_variable = spec_risk_src } }
+		remove_variable = spec_risk_src_hit
+	}
+}
+
+# on a country tied to root: keep it as root's outside risk if its panic would hit root hardest so far
+spec_rate_risk_src = {
+	if = {
+		limit = {
+			has_variable = spec_conf
+			NOT = { has_variable = spec_panic }
+			NOT = { has_variable = spec_panic_cooldown }
+			OR = {
+				var:spec_conf < 40
+				var:spec_conf >= 80
+			}
+			root.gdp > 0
+		}
+		set_variable = {
+			name = spec_risk_try
+			value = {
+				value = gdp
+				divide = root.gdp
+				max = 1
+				multiply = 20
+				multiply = $WEIGHT$
+				multiply = spec_reach
+			}
+		}
+		if = {
+			limit = { var:spec_risk_try > root.var:spec_risk_src_hit }
+			# its parts, for the calculator, read here: the tie's weight belongs to this country
+			set_variable = { name = spec_risk_w value = $WEIGHT$ }
+			set_variable = { name = spec_risk_r value = spec_reach }
+			set_variable = { name = spec_risk_s value = { value = gdp divide = root.gdp max = 1 } }
+			root = {
+				set_variable = { name = spec_risk_src_hit value = prev.var:spec_risk_try }
+				set_variable = { name = spec_risk_src value = prev }
+				set_variable = { name = spec_risk_src_tie value = $TIE$ }
+				set_variable = { name = spec_risk_src_w value = prev.var:spec_risk_w }
+				set_variable = { name = spec_risk_src_reach value = prev.var:spec_risk_r }
+				set_variable = { name = spec_risk_src_size value = prev.var:spec_risk_s }
+			}
+			remove_variable = spec_risk_w
+			remove_variable = spec_risk_r
+			remove_variable = spec_risk_s
+		}
+		remove_variable = spec_risk_try
+	}
+}
+
+# the card's pressure chips (market_tab.DRIVERS), before the effects that call it
+spec_pick_driver = {
+	set_variable = { name = spec_p1 value = 0 }
+	if = {
+		limit = { has_variable = spec_c_boom }
+		change_variable = { name = spec_p1 add = var:spec_c_boom }
+	}
+	if = {
+		limit = { has_variable = spec_c_crash }
+		change_variable = { name = spec_p1 add = var:spec_c_crash }
+	}
+	if = {
+		limit = { has_variable = spec_c_restrain }
+		change_variable = { name = spec_p1 add = var:spec_c_restrain }
+	}
+	if = {
+		limit = { has_variable = spec_c_burst }
+		change_variable = { name = spec_p1 add = var:spec_c_burst }
+	}
+	if = {
+		limit = { has_variable = spec_c_growth }
+		change_variable = { name = spec_p1 add = var:spec_c_growth }
+	}
+	set_variable = { name = spec_p2 value = 0 }
+	if = {
+		limit = { has_variable = spec_c_foreign }
+		change_variable = { name = spec_p2 add = var:spec_c_foreign }
+	}
+	if = {
+		limit = { has_variable = spec_c_world }
+		change_variable = { name = spec_p2 add = var:spec_c_world }
+	}
+	set_variable = { name = spec_p3 value = 0 }
+	if = {
+		limit = { has_variable = spec_c_turmoil }
+		change_variable = { name = spec_p3 add = var:spec_c_turmoil }
+	}
+	if = {
+		limit = { has_variable = spec_c_debt }
+		change_variable = { name = spec_p3 add = var:spec_c_debt }
+	}
+	if = {
+		limit = { has_variable = spec_c_caution }
+		change_variable = { name = spec_p3 add = var:spec_c_caution }
+	}
+	if = {
+		limit = { has_variable = spec_c_rescue }
+		change_variable = { name = spec_p3 add = var:spec_c_rescue }
+	}
+	if = {
+		limit = { has_variable = spec_c_warend }
+		change_variable = { name = spec_p3 add = var:spec_c_warend }
+	}
+	set_variable = { name = spec_p4 value = 0 }
+	if = {
+		limit = { has_variable = spec_c_mood }
+		change_variable = { name = spec_p4 add = var:spec_c_mood }
+	}
+	if = {
+		limit = { has_variable = spec_c_business }
+		change_variable = { name = spec_p4 add = var:spec_c_business }
+	}
+	if = {
+		limit = { has_variable = spec_c_recover }
+		change_variable = { name = spec_p4 add = var:spec_c_recover }
+	}
+	set_variable = { name = spec_p5 value = 0 }
+	if = {
+		limit = { has_variable = spec_c_tight }
+		change_variable = { name = spec_p5 add = var:spec_c_tight }
+	}
+	if = {
+		limit = { has_variable = spec_c_limit }
+		change_variable = { name = spec_p5 add = var:spec_c_limit }
+	}
+	if = {
+		limit = { has_variable = spec_c_drop }
+		change_variable = { name = spec_p5 add = var:spec_c_drop }
+	}
+}
+
+spec_end_panic = {
+	if = {
+		limit = { is_player = yes }
+		post_notification = spec_panic_over
+	}
+	if = {
+		limit = {
+			has_variable = spec_lax
+			NOT = { has_variable = spec_rescued }
+		}
+		set_variable = { name = spec_lax value = { value = var:spec_lax subtract = 0.4 min = 0 } }
+	}
+	if = {
+		limit = {
+			has_variable = spec_centre_trust
+			NOT = { has_variable = spec_rescued }
+			var:spec_panic <= 0
+		}
+		set_variable = { name = spec_centre_trust value = { value = var:spec_centre_trust subtract = { value = var:spec_centre_trust multiply = 0.5 multiply = spec_exch_loss } min = 0 } }
+		set_variable = { name = spec_exch_sound value = 0 }
+	}
+	remove_variable = spec_panic
+	remove_variable = spec_panic_len
+	remove_variable = spec_panic_elapsed
+	remove_variable = spec_rescued
+	remove_modifier = spec_panic
+	remove_modifier = spec_panic_crunch
+	remove_modifier = spec_panic_relief
+	set_variable = { name = spec_panic_cooldown value = 12 }
+	spec_update_band = yes
+}
+
+# the bank rescue, once per panic, from the tab, the journal entry or the panic event
+spec_rescue = {
+		custom_tooltip = {
+			text = spec_rescue_cost_tt
+			add_treasury = { value = spec_rescue_cost multiply = -1 }
+		}
+		custom_tooltip = {
+			text = spec_bank_bailout_tt
+			ig:ig_trade_unions ?= {
+				add_modifier = {
+					name = spec_bank_bailout
+					days = short_modifier_time
+				}
+			}
+			ig:ig_rural_folk ?= {
+				add_modifier = {
+					name = spec_bank_bailout
+					days = short_modifier_time
+				}
+			}
+		}
+
+	# the tab's button and the events say what this does in words (SPEC_RESCUE_TT): the swap is not listed
+	hidden_effect = {
+		# the Industrialists approved of leaving the market alone (the panic event's first option): a rescue ends that
+		ig:ig_industrialists ?= { remove_modifier = spec_market_left_alone }
+		remove_modifier = spec_panic
+		remove_modifier = spec_panic_crunch
+		add_modifier = {
+			name = spec_panic
+			multiplier = 0.5
+		}
+		add_modifier = {
+			name = spec_panic_crunch
+			multiplier = spec_alloc_quarter
+		}
+	}
+	set_variable = { name = spec_panic value = { value = var:spec_panic max = spec_rescue_months } }
+	# the jump, after the 100 limit, shown in the tab until the next monthly update
+	set_variable = { name = spec_c_rescue value = { value = var:spec_conf multiply = -1 } }
+	set_variable = { name = spec_conf value = { value = var:spec_conf add = 20 max = 100 } }
+	change_variable = { name = spec_c_rescue add = var:spec_conf }
+	change_variable = { name = spec_c_total add = var:spec_c_rescue }
+	set_variable = spec_rescued
+	if = {
+		limit = { has_variable = spec_lax }
+		set_variable = { name = spec_lax value = { value = var:spec_lax add = 0.25 max = 1 } }
+	}
+	spec_pick_driver = yes
+	spec_update_band = yes
+}
+
+
+# the bank bailout, once per spell of Bad Debts, from the market tab
+spec_bailout = {
+	custom_tooltip = spec_bailout_fx_tt
+	custom_tooltip = {
+		text = spec_bailout_cost_tt
+		add_treasury = { value = spec_bailout_cost multiply = -1 }
+	}
+		custom_tooltip = {
+			text = spec_bank_bailout_tt
+			ig:ig_trade_unions ?= {
+				add_modifier = {
+					name = spec_bank_bailout
+					days = short_modifier_time
+				}
+			}
+			ig:ig_rural_folk ?= {
+				add_modifier = {
+					name = spec_bank_bailout
+					days = short_modifier_time
+				}
+			}
+		}
+	hidden_effect = {
+		# the button's tooltip previews this effect even with no Bad Debts: read nothing that is unset
+		if = {
+			limit = { has_variable = spec_crunch has_variable = spec_crunch_bite }
+			remove_modifier = spec_credit_crunch
+			set_variable = { name = spec_crunch value = { value = var:spec_crunch multiply = 0.5 } }
+			if = {
+				limit = { var:spec_crunch_bite > var:spec_crunch }
+				set_variable = { name = spec_crunch_bite value = var:spec_crunch }
+			}
+			add_modifier = {
+				name = spec_credit_crunch
+				multiplier = var:spec_crunch_bite
+			}
+		}
+		set_variable = spec_bailed
+		if = {
+			limit = { has_variable = spec_lax }
+			set_variable = { name = spec_lax value = { value = var:spec_lax add = 0.25 max = 1 } }
+		}
+	}
+}
+
+# the mania event's options: confidence down by AMOUNT, never below 0, shown in the tab as this month's change
+spec_cool_conf = {
+	# Pending mania and pledge responses must not restart markets after a law change.
+	if = {
+		limit = { has_variable = spec_conf spec_law_mult > 0 }
+		if = {
+			limit = { NOT = { has_variable = spec_c_total } }
+			set_variable = { name = spec_c_total value = 0 }
+		}
+		set_variable = { name = spec_c_caution value = { value = var:spec_conf max = $AMOUNT$ multiply = -1 } }
+		change_variable = { name = spec_c_total add = var:spec_c_caution }
+		set_variable = { name = spec_conf value = { value = var:spec_conf subtract = $AMOUNT$ min = 0 } }
+		spec_pick_driver = yes
+		spec_update_band = yes
+	}
+}
+
+spec_set_stance = {
+	set_variable = { name = spec_stance_cooldown value = 6 }
+	# the stance buttons' tooltips give the approval in words (credit_ai.ig_lines); hidden here so it is not listed twice
+	hidden_effect = {
+		spec_update_credit_igs = yes
+	}
+}
+
+spec_stance_to_tight = {
+	set_variable = { name = spec_stance value = -1 }
+	spec_set_stance = yes
+}
+
+spec_stance_to_normal = {
+	set_variable = { name = spec_stance value = 0 }
+	spec_set_stance = yes
+}
+
+spec_stance_to_loose = {
+	set_variable = { name = spec_stance value = 1 }
+	spec_set_stance = yes
+}
+
+spec_shut_down = {
+	spec_ld_leave = yes
+	remove_modifier = spec_panic_relief
+	spec_exch_clear = yes
+	if = {
+		limit = { has_modifier = spec_panic }
+		remove_modifier = spec_panic
+	}
+	if = {
+		limit = { has_modifier = spec_panic_crunch }
+		remove_modifier = spec_panic_crunch
+	}
+	if = {
+		limit = { has_modifier = spec_lev_boom }
+		remove_modifier = spec_lev_boom
+	}
+	if = {
+		limit = { has_modifier = spec_credit_crunch }
+		remove_modifier = spec_credit_crunch
+	}
+	if = {
+		limit = { has_modifier = spec_boom_build_light_industry }
+		remove_modifier = spec_boom_build_light_industry
+	}
+	if = {
+		limit = { has_modifier = spec_boom_build_heavy_industry }
+		remove_modifier = spec_boom_build_heavy_industry
+	}
+	if = {
+		limit = { has_modifier = spec_boom_build_military_industry }
+		remove_modifier = spec_boom_build_military_industry
+	}
+	if = {
+		limit = { has_modifier = spec_boom_build_agriculture }
+		remove_modifier = spec_boom_build_agriculture
+	}
+	if = {
+		limit = { has_modifier = spec_boom_build_ranching }
+		remove_modifier = spec_boom_build_ranching
+	}
+	if = {
+		limit = { has_modifier = spec_boom_build_extraction }
+		remove_modifier = spec_boom_build_extraction
+	}
+	if = {
+		limit = { has_modifier = spec_boom_build_plantations }
+		remove_modifier = spec_boom_build_plantations
+	}
+	if = {
+		limit = { has_modifier = spec_boom_build_infrastructure }
+		remove_modifier = spec_boom_build_infrastructure
+	}
+	if = {
+		limit = { has_modifier = spec_conf_panic }
+		remove_modifier = spec_conf_panic
+	}
+	if = {
+		limit = { has_modifier = spec_conf_panic_held }
+		remove_modifier = spec_conf_panic_held
+	}
+	if = {
+		limit = { has_modifier = spec_conf_wary }
+		remove_modifier = spec_conf_wary
+	}
+	if = {
+		limit = { has_modifier = spec_conf_steady }
+		remove_modifier = spec_conf_steady
+	}
+	if = {
+		limit = { has_modifier = spec_conf_buoyant }
+		remove_modifier = spec_conf_buoyant
+	}
+	if = {
+		limit = { has_modifier = spec_conf_mania }
+		remove_modifier = spec_conf_mania
+	}
+	spec_remove_credit_igs = yes
+	remove_variable = spec_centre_score
+	remove_variable = spec_conf
+	remove_variable = spec_stance
+	remove_variable = spec_stance_cooldown
+	remove_variable = spec_panic
+	remove_variable = spec_panic_len
+	remove_variable = spec_panic_elapsed
+	remove_variable = spec_rescued
+	remove_variable = spec_panic_cooldown
+	remove_variable = spec_mania
+	remove_variable = spec_debt
+	remove_variable = spec_clawed
+	remove_variable = spec_crashed
+	remove_variable = spec_crash_top
+	remove_variable = spec_foreign_pending
+	remove_variable = spec_foreign_src
+	remove_variable = spec_caught
+	remove_variable = spec_src_gdp
+	remove_variable = spec_je_added
+	remove_variable = spec_temper
+	remove_variable = spec_calm
+	remove_variable = spec_inquired
+	remove_variable = spec_fast_aeroplanes
+	remove_variable = spec_slow_aeroplanes
+	remove_variable = spec_hype_aeroplanes
+	remove_variable = spec_hprev_aeroplanes
+	remove_variable = spec_peak_aeroplanes
+	remove_variable = spec_fast_ammunition
+	remove_variable = spec_slow_ammunition
+	remove_variable = spec_hype_ammunition
+	remove_variable = spec_hprev_ammunition
+	remove_variable = spec_peak_ammunition
+	remove_variable = spec_fast_artillery
+	remove_variable = spec_slow_artillery
+	remove_variable = spec_hype_artillery
+	remove_variable = spec_hprev_artillery
+	remove_variable = spec_peak_artillery
+	remove_variable = spec_fast_automobiles
+	remove_variable = spec_slow_automobiles
+	remove_variable = spec_hype_automobiles
+	remove_variable = spec_hprev_automobiles
+	remove_variable = spec_peak_automobiles
+	remove_variable = spec_fast_clippers
+	remove_variable = spec_slow_clippers
+	remove_variable = spec_hype_clippers
+	remove_variable = spec_hprev_clippers
+	remove_variable = spec_peak_clippers
+	remove_variable = spec_fast_clothes
+	remove_variable = spec_slow_clothes
+	remove_variable = spec_hype_clothes
+	remove_variable = spec_hprev_clothes
+	remove_variable = spec_peak_clothes
+	remove_variable = spec_fast_coal
+	remove_variable = spec_slow_coal
+	remove_variable = spec_hype_coal
+	remove_variable = spec_hprev_coal
+	remove_variable = spec_peak_coal
+	remove_variable = spec_fast_coffee
+	remove_variable = spec_slow_coffee
+	remove_variable = spec_hype_coffee
+	remove_variable = spec_hprev_coffee
+	remove_variable = spec_peak_coffee
+	remove_variable = spec_fast_copper
+	remove_variable = spec_slow_copper
+	remove_variable = spec_hype_copper
+	remove_variable = spec_hprev_copper
+	remove_variable = spec_peak_copper
+	remove_variable = spec_fast_dye
+	remove_variable = spec_slow_dye
+	remove_variable = spec_hype_dye
+	remove_variable = spec_hprev_dye
+	remove_variable = spec_peak_dye
+	remove_variable = spec_fast_electricity
+	remove_variable = spec_slow_electricity
+	remove_variable = spec_hype_electricity
+	remove_variable = spec_hprev_electricity
+	remove_variable = spec_peak_electricity
+	remove_variable = spec_fast_engines
+	remove_variable = spec_slow_engines
+	remove_variable = spec_hype_engines
+	remove_variable = spec_hprev_engines
+	remove_variable = spec_peak_engines
+	remove_variable = spec_fast_explosives
+	remove_variable = spec_slow_explosives
+	remove_variable = spec_hype_explosives
+	remove_variable = spec_hprev_explosives
+	remove_variable = spec_peak_explosives
+	remove_variable = spec_fast_fabric
+	remove_variable = spec_slow_fabric
+	remove_variable = spec_hype_fabric
+	remove_variable = spec_hprev_fabric
+	remove_variable = spec_peak_fabric
+	remove_variable = spec_fast_fertilizer
+	remove_variable = spec_slow_fertilizer
+	remove_variable = spec_hype_fertilizer
+	remove_variable = spec_hprev_fertilizer
+	remove_variable = spec_peak_fertilizer
+	remove_variable = spec_fast_fine_art
+	remove_variable = spec_slow_fine_art
+	remove_variable = spec_hype_fine_art
+	remove_variable = spec_hprev_fine_art
+	remove_variable = spec_peak_fine_art
+	remove_variable = spec_fast_fish
+	remove_variable = spec_slow_fish
+	remove_variable = spec_hype_fish
+	remove_variable = spec_hprev_fish
+	remove_variable = spec_peak_fish
+	remove_variable = spec_fast_fruit
+	remove_variable = spec_slow_fruit
+	remove_variable = spec_hype_fruit
+	remove_variable = spec_hprev_fruit
+	remove_variable = spec_peak_fruit
+	remove_variable = spec_fast_furniture
+	remove_variable = spec_slow_furniture
+	remove_variable = spec_hype_furniture
+	remove_variable = spec_hprev_furniture
+	remove_variable = spec_peak_furniture
+	remove_variable = spec_fast_glass
+	remove_variable = spec_slow_glass
+	remove_variable = spec_hype_glass
+	remove_variable = spec_hprev_glass
+	remove_variable = spec_peak_glass
+	remove_variable = spec_fast_grain
+	remove_variable = spec_slow_grain
+	remove_variable = spec_hype_grain
+	remove_variable = spec_hprev_grain
+	remove_variable = spec_peak_grain
+	remove_variable = spec_fast_groceries
+	remove_variable = spec_slow_groceries
+	remove_variable = spec_hype_groceries
+	remove_variable = spec_hprev_groceries
+	remove_variable = spec_peak_groceries
+	remove_variable = spec_fast_hardwood
+	remove_variable = spec_slow_hardwood
+	remove_variable = spec_hype_hardwood
+	remove_variable = spec_hprev_hardwood
+	remove_variable = spec_peak_hardwood
+	remove_variable = spec_fast_iron
+	remove_variable = spec_slow_iron
+	remove_variable = spec_hype_iron
+	remove_variable = spec_hprev_iron
+	remove_variable = spec_peak_iron
+	remove_variable = spec_fast_lead
+	remove_variable = spec_slow_lead
+	remove_variable = spec_hype_lead
+	remove_variable = spec_hprev_lead
+	remove_variable = spec_peak_lead
+	remove_variable = spec_fast_liquor
+	remove_variable = spec_slow_liquor
+	remove_variable = spec_hype_liquor
+	remove_variable = spec_hprev_liquor
+	remove_variable = spec_peak_liquor
+	remove_variable = spec_fast_luxury_clothes
+	remove_variable = spec_slow_luxury_clothes
+	remove_variable = spec_hype_luxury_clothes
+	remove_variable = spec_hprev_luxury_clothes
+	remove_variable = spec_peak_luxury_clothes
+	remove_variable = spec_fast_luxury_furniture
+	remove_variable = spec_slow_luxury_furniture
+	remove_variable = spec_hype_luxury_furniture
+	remove_variable = spec_hprev_luxury_furniture
+	remove_variable = spec_peak_luxury_furniture
+	remove_variable = spec_fast_meat
+	remove_variable = spec_slow_meat
+	remove_variable = spec_hype_meat
+	remove_variable = spec_hprev_meat
+	remove_variable = spec_peak_meat
+	remove_variable = spec_fast_merchant_marine
+	remove_variable = spec_slow_merchant_marine
+	remove_variable = spec_hype_merchant_marine
+	remove_variable = spec_hprev_merchant_marine
+	remove_variable = spec_peak_merchant_marine
+	remove_variable = spec_fast_oil
+	remove_variable = spec_slow_oil
+	remove_variable = spec_hype_oil
+	remove_variable = spec_hprev_oil
+	remove_variable = spec_peak_oil
+	remove_variable = spec_fast_opium
+	remove_variable = spec_slow_opium
+	remove_variable = spec_hype_opium
+	remove_variable = spec_hprev_opium
+	remove_variable = spec_peak_opium
+	remove_variable = spec_fast_paper
+	remove_variable = spec_slow_paper
+	remove_variable = spec_hype_paper
+	remove_variable = spec_hprev_paper
+	remove_variable = spec_peak_paper
+	remove_variable = spec_fast_porcelain
+	remove_variable = spec_slow_porcelain
+	remove_variable = spec_hype_porcelain
+	remove_variable = spec_hprev_porcelain
+	remove_variable = spec_peak_porcelain
+	remove_variable = spec_fast_radios
+	remove_variable = spec_slow_radios
+	remove_variable = spec_hype_radios
+	remove_variable = spec_hprev_radios
+	remove_variable = spec_peak_radios
+	remove_variable = spec_fast_rubber
+	remove_variable = spec_slow_rubber
+	remove_variable = spec_hype_rubber
+	remove_variable = spec_hprev_rubber
+	remove_variable = spec_peak_rubber
+	remove_variable = spec_fast_silk
+	remove_variable = spec_slow_silk
+	remove_variable = spec_hype_silk
+	remove_variable = spec_hprev_silk
+	remove_variable = spec_peak_silk
+	remove_variable = spec_fast_small_arms
+	remove_variable = spec_slow_small_arms
+	remove_variable = spec_hype_small_arms
+	remove_variable = spec_hprev_small_arms
+	remove_variable = spec_peak_small_arms
+	remove_variable = spec_fast_steamers
+	remove_variable = spec_slow_steamers
+	remove_variable = spec_hype_steamers
+	remove_variable = spec_hprev_steamers
+	remove_variable = spec_peak_steamers
+	remove_variable = spec_fast_steel
+	remove_variable = spec_slow_steel
+	remove_variable = spec_hype_steel
+	remove_variable = spec_hprev_steel
+	remove_variable = spec_peak_steel
+	remove_variable = spec_fast_sugar
+	remove_variable = spec_slow_sugar
+	remove_variable = spec_hype_sugar
+	remove_variable = spec_hprev_sugar
+	remove_variable = spec_peak_sugar
+	remove_variable = spec_fast_sulfur
+	remove_variable = spec_slow_sulfur
+	remove_variable = spec_hype_sulfur
+	remove_variable = spec_hprev_sulfur
+	remove_variable = spec_peak_sulfur
+	remove_variable = spec_fast_tanks
+	remove_variable = spec_slow_tanks
+	remove_variable = spec_hype_tanks
+	remove_variable = spec_hprev_tanks
+	remove_variable = spec_peak_tanks
+	remove_variable = spec_fast_tea
+	remove_variable = spec_slow_tea
+	remove_variable = spec_hype_tea
+	remove_variable = spec_hprev_tea
+	remove_variable = spec_peak_tea
+	remove_variable = spec_fast_telephones
+	remove_variable = spec_slow_telephones
+	remove_variable = spec_hype_telephones
+	remove_variable = spec_hprev_telephones
+	remove_variable = spec_peak_telephones
+	remove_variable = spec_fast_tobacco
+	remove_variable = spec_slow_tobacco
+	remove_variable = spec_hype_tobacco
+	remove_variable = spec_hprev_tobacco
+	remove_variable = spec_peak_tobacco
+	remove_variable = spec_fast_tools
+	remove_variable = spec_slow_tools
+	remove_variable = spec_hype_tools
+	remove_variable = spec_hprev_tools
+	remove_variable = spec_peak_tools
+	remove_variable = spec_fast_wine
+	remove_variable = spec_slow_wine
+	remove_variable = spec_hype_wine
+	remove_variable = spec_hprev_wine
+	remove_variable = spec_peak_wine
+	remove_variable = spec_fast_wood
+	remove_variable = spec_slow_wood
+	remove_variable = spec_hype_wood
+	remove_variable = spec_hprev_wood
+	remove_variable = spec_peak_wood
+	remove_variable = spec_bhype_shipyard
+	remove_variable = spec_bhype_electrics_industry
+	remove_variable = spec_bhype_automotive_industry
+	remove_variable = spec_bhype_food_industry
+	remove_variable = spec_bhype_logging_camp
+	remove_variable = spec_bhype_textile_mill
+	remove_variable = spec_bhype_furniture_manufactory
+	remove_variable = spec_bhype_glassworks
+	remove_variable = spec_bhype_synthetics_plant
+	remove_variable = spec_bhype_whaling_station
+	remove_variable = spec_top1
+	remove_variable = spec_top1_v
+	remove_variable = spec_top2
+	remove_variable = spec_top2_v
+	remove_variable = spec_top3
+	remove_variable = spec_top3_v
+	remove_variable = spec_low1
+	remove_variable = spec_low1_v
+	remove_variable = spec_low2
+	remove_variable = spec_low2_v
+	remove_variable = spec_heat_1
+	remove_variable = spec_heat_2
+	remove_variable = spec_heat_3
+	remove_variable = spec_heat_4
+	remove_variable = spec_heat_5
+	remove_variable = spec_heat_6
+	remove_variable = spec_heat_collapse
+	remove_variable = spec_heat_boom
+	remove_variable = spec_word_aeroplanes
+	remove_variable = spec_risk_aeroplanes
+	remove_variable = spec_sev_aeroplanes
+	remove_variable = spec_glut_aeroplanes
+	remove_variable = spec_cb_aeroplanes
+	remove_variable = spec_cc_aeroplanes
+	remove_variable = spec_word_ammunition
+	remove_variable = spec_risk_ammunition
+	remove_variable = spec_sev_ammunition
+	remove_variable = spec_glut_ammunition
+	remove_variable = spec_cb_ammunition
+	remove_variable = spec_cc_ammunition
+	remove_variable = spec_word_artillery
+	remove_variable = spec_risk_artillery
+	remove_variable = spec_sev_artillery
+	remove_variable = spec_glut_artillery
+	remove_variable = spec_cb_artillery
+	remove_variable = spec_cc_artillery
+	remove_variable = spec_word_automobiles
+	remove_variable = spec_risk_automobiles
+	remove_variable = spec_sev_automobiles
+	remove_variable = spec_glut_automobiles
+	remove_variable = spec_cb_automobiles
+	remove_variable = spec_cc_automobiles
+	remove_variable = spec_word_clippers
+	remove_variable = spec_risk_clippers
+	remove_variable = spec_sev_clippers
+	remove_variable = spec_glut_clippers
+	remove_variable = spec_cb_clippers
+	remove_variable = spec_cc_clippers
+	remove_variable = spec_word_clothes
+	remove_variable = spec_risk_clothes
+	remove_variable = spec_sev_clothes
+	remove_variable = spec_glut_clothes
+	remove_variable = spec_cb_clothes
+	remove_variable = spec_cc_clothes
+	remove_variable = spec_word_coal
+	remove_variable = spec_risk_coal
+	remove_variable = spec_sev_coal
+	remove_variable = spec_glut_coal
+	remove_variable = spec_cb_coal
+	remove_variable = spec_cc_coal
+	remove_variable = spec_word_coffee
+	remove_variable = spec_risk_coffee
+	remove_variable = spec_sev_coffee
+	remove_variable = spec_glut_coffee
+	remove_variable = spec_cb_coffee
+	remove_variable = spec_cc_coffee
+	remove_variable = spec_word_copper
+	remove_variable = spec_risk_copper
+	remove_variable = spec_sev_copper
+	remove_variable = spec_glut_copper
+	remove_variable = spec_cb_copper
+	remove_variable = spec_cc_copper
+	remove_variable = spec_word_dye
+	remove_variable = spec_risk_dye
+	remove_variable = spec_sev_dye
+	remove_variable = spec_glut_dye
+	remove_variable = spec_cb_dye
+	remove_variable = spec_cc_dye
+	remove_variable = spec_word_electricity
+	remove_variable = spec_risk_electricity
+	remove_variable = spec_sev_electricity
+	remove_variable = spec_glut_electricity
+	remove_variable = spec_cb_electricity
+	remove_variable = spec_cc_electricity
+	remove_variable = spec_word_engines
+	remove_variable = spec_risk_engines
+	remove_variable = spec_sev_engines
+	remove_variable = spec_glut_engines
+	remove_variable = spec_cb_engines
+	remove_variable = spec_cc_engines
+	remove_variable = spec_word_explosives
+	remove_variable = spec_risk_explosives
+	remove_variable = spec_sev_explosives
+	remove_variable = spec_glut_explosives
+	remove_variable = spec_cb_explosives
+	remove_variable = spec_cc_explosives
+	remove_variable = spec_word_fabric
+	remove_variable = spec_risk_fabric
+	remove_variable = spec_sev_fabric
+	remove_variable = spec_glut_fabric
+	remove_variable = spec_cb_fabric
+	remove_variable = spec_cc_fabric
+	remove_variable = spec_word_fertilizer
+	remove_variable = spec_risk_fertilizer
+	remove_variable = spec_sev_fertilizer
+	remove_variable = spec_glut_fertilizer
+	remove_variable = spec_cb_fertilizer
+	remove_variable = spec_cc_fertilizer
+	remove_variable = spec_word_fine_art
+	remove_variable = spec_risk_fine_art
+	remove_variable = spec_sev_fine_art
+	remove_variable = spec_glut_fine_art
+	remove_variable = spec_cb_fine_art
+	remove_variable = spec_cc_fine_art
+	remove_variable = spec_word_fish
+	remove_variable = spec_risk_fish
+	remove_variable = spec_sev_fish
+	remove_variable = spec_glut_fish
+	remove_variable = spec_cb_fish
+	remove_variable = spec_cc_fish
+	remove_variable = spec_word_fruit
+	remove_variable = spec_risk_fruit
+	remove_variable = spec_sev_fruit
+	remove_variable = spec_glut_fruit
+	remove_variable = spec_cb_fruit
+	remove_variable = spec_cc_fruit
+	remove_variable = spec_word_furniture
+	remove_variable = spec_risk_furniture
+	remove_variable = spec_sev_furniture
+	remove_variable = spec_glut_furniture
+	remove_variable = spec_cb_furniture
+	remove_variable = spec_cc_furniture
+	remove_variable = spec_word_glass
+	remove_variable = spec_risk_glass
+	remove_variable = spec_sev_glass
+	remove_variable = spec_glut_glass
+	remove_variable = spec_cb_glass
+	remove_variable = spec_cc_glass
+	remove_variable = spec_word_grain
+	remove_variable = spec_risk_grain
+	remove_variable = spec_sev_grain
+	remove_variable = spec_glut_grain
+	remove_variable = spec_cb_grain
+	remove_variable = spec_cc_grain
+	remove_variable = spec_word_groceries
+	remove_variable = spec_risk_groceries
+	remove_variable = spec_sev_groceries
+	remove_variable = spec_glut_groceries
+	remove_variable = spec_cb_groceries
+	remove_variable = spec_cc_groceries
+	remove_variable = spec_word_hardwood
+	remove_variable = spec_risk_hardwood
+	remove_variable = spec_sev_hardwood
+	remove_variable = spec_glut_hardwood
+	remove_variable = spec_cb_hardwood
+	remove_variable = spec_cc_hardwood
+	remove_variable = spec_word_iron
+	remove_variable = spec_risk_iron
+	remove_variable = spec_sev_iron
+	remove_variable = spec_glut_iron
+	remove_variable = spec_cb_iron
+	remove_variable = spec_cc_iron
+	remove_variable = spec_word_lead
+	remove_variable = spec_risk_lead
+	remove_variable = spec_sev_lead
+	remove_variable = spec_glut_lead
+	remove_variable = spec_cb_lead
+	remove_variable = spec_cc_lead
+	remove_variable = spec_word_liquor
+	remove_variable = spec_risk_liquor
+	remove_variable = spec_sev_liquor
+	remove_variable = spec_glut_liquor
+	remove_variable = spec_cb_liquor
+	remove_variable = spec_cc_liquor
+	remove_variable = spec_word_luxury_clothes
+	remove_variable = spec_risk_luxury_clothes
+	remove_variable = spec_sev_luxury_clothes
+	remove_variable = spec_glut_luxury_clothes
+	remove_variable = spec_cb_luxury_clothes
+	remove_variable = spec_cc_luxury_clothes
+	remove_variable = spec_word_luxury_furniture
+	remove_variable = spec_risk_luxury_furniture
+	remove_variable = spec_sev_luxury_furniture
+	remove_variable = spec_glut_luxury_furniture
+	remove_variable = spec_cb_luxury_furniture
+	remove_variable = spec_cc_luxury_furniture
+	remove_variable = spec_word_meat
+	remove_variable = spec_risk_meat
+	remove_variable = spec_sev_meat
+	remove_variable = spec_glut_meat
+	remove_variable = spec_cb_meat
+	remove_variable = spec_cc_meat
+	remove_variable = spec_word_merchant_marine
+	remove_variable = spec_risk_merchant_marine
+	remove_variable = spec_sev_merchant_marine
+	remove_variable = spec_glut_merchant_marine
+	remove_variable = spec_cb_merchant_marine
+	remove_variable = spec_cc_merchant_marine
+	remove_variable = spec_word_oil
+	remove_variable = spec_risk_oil
+	remove_variable = spec_sev_oil
+	remove_variable = spec_glut_oil
+	remove_variable = spec_cb_oil
+	remove_variable = spec_cc_oil
+	remove_variable = spec_word_opium
+	remove_variable = spec_risk_opium
+	remove_variable = spec_sev_opium
+	remove_variable = spec_glut_opium
+	remove_variable = spec_cb_opium
+	remove_variable = spec_cc_opium
+	remove_variable = spec_word_paper
+	remove_variable = spec_risk_paper
+	remove_variable = spec_sev_paper
+	remove_variable = spec_glut_paper
+	remove_variable = spec_cb_paper
+	remove_variable = spec_cc_paper
+	remove_variable = spec_word_porcelain
+	remove_variable = spec_risk_porcelain
+	remove_variable = spec_sev_porcelain
+	remove_variable = spec_glut_porcelain
+	remove_variable = spec_cb_porcelain
+	remove_variable = spec_cc_porcelain
+	remove_variable = spec_word_radios
+	remove_variable = spec_risk_radios
+	remove_variable = spec_sev_radios
+	remove_variable = spec_glut_radios
+	remove_variable = spec_cb_radios
+	remove_variable = spec_cc_radios
+	remove_variable = spec_word_rubber
+	remove_variable = spec_risk_rubber
+	remove_variable = spec_sev_rubber
+	remove_variable = spec_glut_rubber
+	remove_variable = spec_cb_rubber
+	remove_variable = spec_cc_rubber
+	remove_variable = spec_word_silk
+	remove_variable = spec_risk_silk
+	remove_variable = spec_sev_silk
+	remove_variable = spec_glut_silk
+	remove_variable = spec_cb_silk
+	remove_variable = spec_cc_silk
+	remove_variable = spec_word_small_arms
+	remove_variable = spec_risk_small_arms
+	remove_variable = spec_sev_small_arms
+	remove_variable = spec_glut_small_arms
+	remove_variable = spec_cb_small_arms
+	remove_variable = spec_cc_small_arms
+	remove_variable = spec_word_steamers
+	remove_variable = spec_risk_steamers
+	remove_variable = spec_sev_steamers
+	remove_variable = spec_glut_steamers
+	remove_variable = spec_cb_steamers
+	remove_variable = spec_cc_steamers
+	remove_variable = spec_word_steel
+	remove_variable = spec_risk_steel
+	remove_variable = spec_sev_steel
+	remove_variable = spec_glut_steel
+	remove_variable = spec_cb_steel
+	remove_variable = spec_cc_steel
+	remove_variable = spec_word_sugar
+	remove_variable = spec_risk_sugar
+	remove_variable = spec_sev_sugar
+	remove_variable = spec_glut_sugar
+	remove_variable = spec_cb_sugar
+	remove_variable = spec_cc_sugar
+	remove_variable = spec_word_sulfur
+	remove_variable = spec_risk_sulfur
+	remove_variable = spec_sev_sulfur
+	remove_variable = spec_glut_sulfur
+	remove_variable = spec_cb_sulfur
+	remove_variable = spec_cc_sulfur
+	remove_variable = spec_word_tanks
+	remove_variable = spec_risk_tanks
+	remove_variable = spec_sev_tanks
+	remove_variable = spec_glut_tanks
+	remove_variable = spec_cb_tanks
+	remove_variable = spec_cc_tanks
+	remove_variable = spec_word_tea
+	remove_variable = spec_risk_tea
+	remove_variable = spec_sev_tea
+	remove_variable = spec_glut_tea
+	remove_variable = spec_cb_tea
+	remove_variable = spec_cc_tea
+	remove_variable = spec_word_telephones
+	remove_variable = spec_risk_telephones
+	remove_variable = spec_sev_telephones
+	remove_variable = spec_glut_telephones
+	remove_variable = spec_cb_telephones
+	remove_variable = spec_cc_telephones
+	remove_variable = spec_word_tobacco
+	remove_variable = spec_risk_tobacco
+	remove_variable = spec_sev_tobacco
+	remove_variable = spec_glut_tobacco
+	remove_variable = spec_cb_tobacco
+	remove_variable = spec_cc_tobacco
+	remove_variable = spec_word_tools
+	remove_variable = spec_risk_tools
+	remove_variable = spec_sev_tools
+	remove_variable = spec_glut_tools
+	remove_variable = spec_cb_tools
+	remove_variable = spec_cc_tools
+	remove_variable = spec_word_wine
+	remove_variable = spec_risk_wine
+	remove_variable = spec_sev_wine
+	remove_variable = spec_glut_wine
+	remove_variable = spec_cb_wine
+	remove_variable = spec_cc_wine
+	remove_variable = spec_word_wood
+	remove_variable = spec_risk_wood
+	remove_variable = spec_sev_wood
+	remove_variable = spec_glut_wood
+	remove_variable = spec_cb_wood
+	remove_variable = spec_cc_wood
+	remove_variable = spec_n_w1
+	remove_variable = spec_n_w2
+	remove_variable = spec_n_w3
+	remove_variable = spec_n_w4
+	remove_variable = spec_n_w5
+	remove_variable = spec_n_w6
+	remove_variable = spec_boom_raw
+	remove_variable = spec_crash_raw
+	remove_variable = spec_tm_play
+	remove_variable = spec_tm_default
+	remove_variable = spec_tm_revolution
+	remove_variable = spec_tm_broke
+	remove_variable = spec_tm_warcap
+	remove_variable = spec_hist1
+	remove_variable = spec_hist2
+	remove_variable = spec_hist3
+	remove_variable = spec_hist4
+	remove_variable = spec_hist5
+	remove_variable = spec_hist6
+	remove_variable = spec_hist7
+	remove_variable = spec_hist8
+	remove_variable = spec_hist9
+	remove_variable = spec_hist10
+	remove_variable = spec_hist11
+	remove_variable = spec_hist12
+	remove_variable = spec_hist13
+	remove_variable = spec_hist14
+	remove_variable = spec_hist15
+	remove_variable = spec_hist16
+	remove_variable = spec_hist17
+	remove_variable = spec_hist18
+	remove_variable = spec_hist19
+	remove_variable = spec_hist20
+	remove_variable = spec_hist21
+	remove_variable = spec_hist22
+	remove_variable = spec_hist23
+	remove_variable = spec_hist24
+	remove_variable = spec_hist25
+	remove_variable = spec_hist26
+	remove_variable = spec_hist27
+	remove_variable = spec_hist28
+	remove_variable = spec_hist29
+	remove_variable = spec_hist30
+	remove_variable = spec_hist31
+	remove_variable = spec_hist32
+	remove_variable = spec_hist33
+	remove_variable = spec_hist34
+	remove_variable = spec_hist35
+	remove_variable = spec_hist36
+	remove_variable = spec_n_w1_staple
+	remove_variable = spec_n_w1_industrial
+	remove_variable = spec_n_w1_luxury
+	remove_variable = spec_n_w1_military
+	remove_variable = spec_n_w2_staple
+	remove_variable = spec_n_w2_industrial
+	remove_variable = spec_n_w2_luxury
+	remove_variable = spec_n_w2_military
+	remove_variable = spec_n_w3_staple
+	remove_variable = spec_n_w3_industrial
+	remove_variable = spec_n_w3_luxury
+	remove_variable = spec_n_w3_military
+	remove_variable = spec_n_w4_staple
+	remove_variable = spec_n_w4_industrial
+	remove_variable = spec_n_w4_luxury
+	remove_variable = spec_n_w4_military
+	remove_variable = spec_n_w5_staple
+	remove_variable = spec_n_w5_industrial
+	remove_variable = spec_n_w5_luxury
+	remove_variable = spec_n_w5_military
+	remove_variable = spec_n_w6_staple
+	remove_variable = spec_n_w6_industrial
+	remove_variable = spec_n_w6_luxury
+	remove_variable = spec_n_w6_military
+	remove_variable = spec_exposure
+	remove_variable = spec_risk_src
+	remove_variable = spec_risk_src_hit
+	remove_variable = spec_risk_src_tie
+	remove_variable = spec_risk_src_w
+	remove_variable = spec_risk_src_reach
+	remove_variable = spec_risk_src_size
+	remove_variable = spec_mood_shift
+	remove_variable = spec_restrain_raw
+	remove_variable = spec_fh_size
+	remove_variable = spec_fh_tie
+	remove_variable = spec_fh_reach
+	remove_variable = spec_expo_raw
+	remove_variable = spec_n_risk
+	remove_variable = spec_n_held
+	remove_variable = spec_risk_top
+	remove_variable = spec_risk_top_good
+	remove_variable = spec_n_end_1
+	remove_variable = spec_n_end_2
+	remove_variable = spec_n_end_3
+	remove_variable = spec_p1
+	remove_variable = spec_p2
+	remove_variable = spec_p3
+	remove_variable = spec_p4
+	remove_variable = spec_p5
+	remove_variable = spec_hm
+	remove_variable = spec_hmd
+	remove_variable = spec_c_limit
+	remove_variable = spec_c_rescue
+	remove_variable = spec_c_burst
+	remove_variable = spec_heat
+	remove_variable = spec_c_caution
+	remove_variable = spec_c_mood
+	remove_variable = spec_c_restrain
+	remove_variable = spec_bailed
+	remove_variable = spec_ai_fever
+	remove_variable = spec_crunch
+	remove_variable = spec_crunch_bite
+	remove_variable = spec_lev_held
+	remove_variable = spec_lev_last
+	remove_variable = spec_lev_ready
+	remove_variable = spec_c_drop
+	remove_variable = spec_lev_pop
+	remove_variable = spec_lev_avg
+	remove_variable = spec_lev_old
+	remove_variable = spec_lev_ref
+	remove_variable = spec_lev_fade
+	remove_variable = spec_restrain_aeroplanes
+	remove_variable = spec_encourage_aeroplanes
+	remove_variable = spec_ui_r_aeroplanes
+	remove_variable = spec_ui_e_aeroplanes
+	remove_variable = spec_ui_co_aeroplanes
+	remove_variable = spec_issue_aeroplanes
+	remove_variable = spec_restrain_ammunition
+	remove_variable = spec_encourage_ammunition
+	remove_variable = spec_ui_r_ammunition
+	remove_variable = spec_ui_e_ammunition
+	remove_variable = spec_ui_co_ammunition
+	remove_variable = spec_issue_ammunition
+	remove_variable = spec_restrain_artillery
+	remove_variable = spec_encourage_artillery
+	remove_variable = spec_ui_r_artillery
+	remove_variable = spec_ui_e_artillery
+	remove_variable = spec_ui_co_artillery
+	remove_variable = spec_issue_artillery
+	remove_variable = spec_restrain_automobiles
+	remove_variable = spec_encourage_automobiles
+	remove_variable = spec_ui_r_automobiles
+	remove_variable = spec_ui_e_automobiles
+	remove_variable = spec_ui_co_automobiles
+	remove_variable = spec_issue_automobiles
+	remove_variable = spec_restrain_clippers
+	remove_variable = spec_encourage_clippers
+	remove_variable = spec_ui_r_clippers
+	remove_variable = spec_ui_e_clippers
+	remove_variable = spec_ui_co_clippers
+	remove_variable = spec_issue_clippers
+	remove_variable = spec_restrain_clothes
+	remove_variable = spec_encourage_clothes
+	remove_variable = spec_ui_r_clothes
+	remove_variable = spec_ui_e_clothes
+	remove_variable = spec_ui_co_clothes
+	remove_variable = spec_issue_clothes
+	remove_variable = spec_restrain_coal
+	remove_variable = spec_encourage_coal
+	remove_variable = spec_ui_r_coal
+	remove_variable = spec_ui_e_coal
+	remove_variable = spec_ui_co_coal
+	remove_variable = spec_issue_coal
+	remove_variable = spec_restrain_coffee
+	remove_variable = spec_encourage_coffee
+	remove_variable = spec_ui_r_coffee
+	remove_variable = spec_ui_e_coffee
+	remove_variable = spec_ui_co_coffee
+	remove_variable = spec_issue_coffee
+	remove_variable = spec_restrain_copper
+	remove_variable = spec_encourage_copper
+	remove_variable = spec_ui_r_copper
+	remove_variable = spec_ui_e_copper
+	remove_variable = spec_ui_co_copper
+	remove_variable = spec_issue_copper
+	remove_variable = spec_restrain_dye
+	remove_variable = spec_encourage_dye
+	remove_variable = spec_ui_r_dye
+	remove_variable = spec_ui_e_dye
+	remove_variable = spec_ui_co_dye
+	remove_variable = spec_issue_dye
+	remove_variable = spec_restrain_electricity
+	remove_variable = spec_encourage_electricity
+	remove_variable = spec_ui_r_electricity
+	remove_variable = spec_ui_e_electricity
+	remove_variable = spec_ui_co_electricity
+	remove_variable = spec_issue_electricity
+	remove_variable = spec_restrain_engines
+	remove_variable = spec_encourage_engines
+	remove_variable = spec_ui_r_engines
+	remove_variable = spec_ui_e_engines
+	remove_variable = spec_ui_co_engines
+	remove_variable = spec_issue_engines
+	remove_variable = spec_restrain_explosives
+	remove_variable = spec_encourage_explosives
+	remove_variable = spec_ui_r_explosives
+	remove_variable = spec_ui_e_explosives
+	remove_variable = spec_ui_co_explosives
+	remove_variable = spec_issue_explosives
+	remove_variable = spec_restrain_fabric
+	remove_variable = spec_encourage_fabric
+	remove_variable = spec_ui_r_fabric
+	remove_variable = spec_ui_e_fabric
+	remove_variable = spec_ui_co_fabric
+	remove_variable = spec_issue_fabric
+	remove_variable = spec_restrain_fertilizer
+	remove_variable = spec_encourage_fertilizer
+	remove_variable = spec_ui_r_fertilizer
+	remove_variable = spec_ui_e_fertilizer
+	remove_variable = spec_ui_co_fertilizer
+	remove_variable = spec_issue_fertilizer
+	remove_variable = spec_restrain_fine_art
+	remove_variable = spec_encourage_fine_art
+	remove_variable = spec_ui_r_fine_art
+	remove_variable = spec_ui_e_fine_art
+	remove_variable = spec_ui_co_fine_art
+	remove_variable = spec_issue_fine_art
+	remove_variable = spec_restrain_fish
+	remove_variable = spec_encourage_fish
+	remove_variable = spec_ui_r_fish
+	remove_variable = spec_ui_e_fish
+	remove_variable = spec_ui_co_fish
+	remove_variable = spec_issue_fish
+	remove_variable = spec_restrain_fruit
+	remove_variable = spec_encourage_fruit
+	remove_variable = spec_ui_r_fruit
+	remove_variable = spec_ui_e_fruit
+	remove_variable = spec_ui_co_fruit
+	remove_variable = spec_issue_fruit
+	remove_variable = spec_restrain_furniture
+	remove_variable = spec_encourage_furniture
+	remove_variable = spec_ui_r_furniture
+	remove_variable = spec_ui_e_furniture
+	remove_variable = spec_ui_co_furniture
+	remove_variable = spec_issue_furniture
+	remove_variable = spec_restrain_glass
+	remove_variable = spec_encourage_glass
+	remove_variable = spec_ui_r_glass
+	remove_variable = spec_ui_e_glass
+	remove_variable = spec_ui_co_glass
+	remove_variable = spec_issue_glass
+	remove_variable = spec_restrain_grain
+	remove_variable = spec_encourage_grain
+	remove_variable = spec_ui_r_grain
+	remove_variable = spec_ui_e_grain
+	remove_variable = spec_ui_co_grain
+	remove_variable = spec_issue_grain
+	remove_variable = spec_restrain_groceries
+	remove_variable = spec_encourage_groceries
+	remove_variable = spec_ui_r_groceries
+	remove_variable = spec_ui_e_groceries
+	remove_variable = spec_ui_co_groceries
+	remove_variable = spec_issue_groceries
+	remove_variable = spec_restrain_hardwood
+	remove_variable = spec_encourage_hardwood
+	remove_variable = spec_ui_r_hardwood
+	remove_variable = spec_ui_e_hardwood
+	remove_variable = spec_ui_co_hardwood
+	remove_variable = spec_issue_hardwood
+	remove_variable = spec_restrain_iron
+	remove_variable = spec_encourage_iron
+	remove_variable = spec_ui_r_iron
+	remove_variable = spec_ui_e_iron
+	remove_variable = spec_ui_co_iron
+	remove_variable = spec_issue_iron
+	remove_variable = spec_restrain_lead
+	remove_variable = spec_encourage_lead
+	remove_variable = spec_ui_r_lead
+	remove_variable = spec_ui_e_lead
+	remove_variable = spec_ui_co_lead
+	remove_variable = spec_issue_lead
+	remove_variable = spec_restrain_liquor
+	remove_variable = spec_encourage_liquor
+	remove_variable = spec_ui_r_liquor
+	remove_variable = spec_ui_e_liquor
+	remove_variable = spec_ui_co_liquor
+	remove_variable = spec_issue_liquor
+	remove_variable = spec_restrain_luxury_clothes
+	remove_variable = spec_encourage_luxury_clothes
+	remove_variable = spec_ui_r_luxury_clothes
+	remove_variable = spec_ui_e_luxury_clothes
+	remove_variable = spec_ui_co_luxury_clothes
+	remove_variable = spec_issue_luxury_clothes
+	remove_variable = spec_restrain_luxury_furniture
+	remove_variable = spec_encourage_luxury_furniture
+	remove_variable = spec_ui_r_luxury_furniture
+	remove_variable = spec_ui_e_luxury_furniture
+	remove_variable = spec_ui_co_luxury_furniture
+	remove_variable = spec_issue_luxury_furniture
+	remove_variable = spec_restrain_meat
+	remove_variable = spec_encourage_meat
+	remove_variable = spec_ui_r_meat
+	remove_variable = spec_ui_e_meat
+	remove_variable = spec_ui_co_meat
+	remove_variable = spec_issue_meat
+	remove_variable = spec_restrain_merchant_marine
+	remove_variable = spec_encourage_merchant_marine
+	remove_variable = spec_ui_r_merchant_marine
+	remove_variable = spec_ui_e_merchant_marine
+	remove_variable = spec_ui_co_merchant_marine
+	remove_variable = spec_issue_merchant_marine
+	remove_variable = spec_restrain_oil
+	remove_variable = spec_encourage_oil
+	remove_variable = spec_ui_r_oil
+	remove_variable = spec_ui_e_oil
+	remove_variable = spec_ui_co_oil
+	remove_variable = spec_issue_oil
+	remove_variable = spec_restrain_opium
+	remove_variable = spec_encourage_opium
+	remove_variable = spec_ui_r_opium
+	remove_variable = spec_ui_e_opium
+	remove_variable = spec_ui_co_opium
+	remove_variable = spec_issue_opium
+	remove_variable = spec_restrain_paper
+	remove_variable = spec_encourage_paper
+	remove_variable = spec_ui_r_paper
+	remove_variable = spec_ui_e_paper
+	remove_variable = spec_ui_co_paper
+	remove_variable = spec_issue_paper
+	remove_variable = spec_restrain_porcelain
+	remove_variable = spec_encourage_porcelain
+	remove_variable = spec_ui_r_porcelain
+	remove_variable = spec_ui_e_porcelain
+	remove_variable = spec_ui_co_porcelain
+	remove_variable = spec_issue_porcelain
+	remove_variable = spec_restrain_radios
+	remove_variable = spec_encourage_radios
+	remove_variable = spec_ui_r_radios
+	remove_variable = spec_ui_e_radios
+	remove_variable = spec_ui_co_radios
+	remove_variable = spec_issue_radios
+	remove_variable = spec_restrain_rubber
+	remove_variable = spec_encourage_rubber
+	remove_variable = spec_ui_r_rubber
+	remove_variable = spec_ui_e_rubber
+	remove_variable = spec_ui_co_rubber
+	remove_variable = spec_issue_rubber
+	remove_variable = spec_restrain_silk
+	remove_variable = spec_encourage_silk
+	remove_variable = spec_ui_r_silk
+	remove_variable = spec_ui_e_silk
+	remove_variable = spec_ui_co_silk
+	remove_variable = spec_issue_silk
+	remove_variable = spec_restrain_small_arms
+	remove_variable = spec_encourage_small_arms
+	remove_variable = spec_ui_r_small_arms
+	remove_variable = spec_ui_e_small_arms
+	remove_variable = spec_ui_co_small_arms
+	remove_variable = spec_issue_small_arms
+	remove_variable = spec_restrain_steamers
+	remove_variable = spec_encourage_steamers
+	remove_variable = spec_ui_r_steamers
+	remove_variable = spec_ui_e_steamers
+	remove_variable = spec_ui_co_steamers
+	remove_variable = spec_issue_steamers
+	remove_variable = spec_restrain_steel
+	remove_variable = spec_encourage_steel
+	remove_variable = spec_ui_r_steel
+	remove_variable = spec_ui_e_steel
+	remove_variable = spec_ui_co_steel
+	remove_variable = spec_issue_steel
+	remove_variable = spec_restrain_sugar
+	remove_variable = spec_encourage_sugar
+	remove_variable = spec_ui_r_sugar
+	remove_variable = spec_ui_e_sugar
+	remove_variable = spec_ui_co_sugar
+	remove_variable = spec_issue_sugar
+	remove_variable = spec_restrain_sulfur
+	remove_variable = spec_encourage_sulfur
+	remove_variable = spec_ui_r_sulfur
+	remove_variable = spec_ui_e_sulfur
+	remove_variable = spec_ui_co_sulfur
+	remove_variable = spec_issue_sulfur
+	remove_variable = spec_restrain_tanks
+	remove_variable = spec_encourage_tanks
+	remove_variable = spec_ui_r_tanks
+	remove_variable = spec_ui_e_tanks
+	remove_variable = spec_ui_co_tanks
+	remove_variable = spec_issue_tanks
+	remove_variable = spec_restrain_tea
+	remove_variable = spec_encourage_tea
+	remove_variable = spec_ui_r_tea
+	remove_variable = spec_ui_e_tea
+	remove_variable = spec_ui_co_tea
+	remove_variable = spec_issue_tea
+	remove_variable = spec_restrain_telephones
+	remove_variable = spec_encourage_telephones
+	remove_variable = spec_ui_r_telephones
+	remove_variable = spec_ui_e_telephones
+	remove_variable = spec_ui_co_telephones
+	remove_variable = spec_issue_telephones
+	remove_variable = spec_restrain_tobacco
+	remove_variable = spec_encourage_tobacco
+	remove_variable = spec_ui_r_tobacco
+	remove_variable = spec_ui_e_tobacco
+	remove_variable = spec_ui_co_tobacco
+	remove_variable = spec_issue_tobacco
+	remove_variable = spec_restrain_tools
+	remove_variable = spec_encourage_tools
+	remove_variable = spec_ui_r_tools
+	remove_variable = spec_ui_e_tools
+	remove_variable = spec_ui_co_tools
+	remove_variable = spec_issue_tools
+	remove_variable = spec_restrain_wine
+	remove_variable = spec_encourage_wine
+	remove_variable = spec_ui_r_wine
+	remove_variable = spec_ui_e_wine
+	remove_variable = spec_ui_co_wine
+	remove_variable = spec_issue_wine
+	remove_variable = spec_restrain_wood
+	remove_variable = spec_encourage_wood
+	remove_variable = spec_ui_r_wood
+	remove_variable = spec_ui_e_wood
+	remove_variable = spec_ui_co_wood
+	remove_variable = spec_issue_wood
+	remove_variable = spec_issue
+	remove_variable = spec_issue_cool
+	remove_variable = spec_ui_bar_aeroplanes
+	remove_variable = spec_ui_pos_aeroplanes
+	remove_variable = spec_ui_move_aeroplanes
+	remove_variable = spec_ui_badge_aeroplanes
+	remove_variable = spec_ui_cat_aeroplanes
+	remove_variable = spec_ui_state_aeroplanes
+	remove_variable = spec_ui_crash_aeroplanes
+	remove_variable = spec_ui_bar_ammunition
+	remove_variable = spec_ui_pos_ammunition
+	remove_variable = spec_ui_move_ammunition
+	remove_variable = spec_ui_badge_ammunition
+	remove_variable = spec_ui_cat_ammunition
+	remove_variable = spec_ui_state_ammunition
+	remove_variable = spec_ui_crash_ammunition
+	remove_variable = spec_ui_bar_artillery
+	remove_variable = spec_ui_pos_artillery
+	remove_variable = spec_ui_move_artillery
+	remove_variable = spec_ui_badge_artillery
+	remove_variable = spec_ui_cat_artillery
+	remove_variable = spec_ui_state_artillery
+	remove_variable = spec_ui_crash_artillery
+	remove_variable = spec_ui_bar_automobiles
+	remove_variable = spec_ui_pos_automobiles
+	remove_variable = spec_ui_move_automobiles
+	remove_variable = spec_ui_badge_automobiles
+	remove_variable = spec_ui_cat_automobiles
+	remove_variable = spec_ui_state_automobiles
+	remove_variable = spec_ui_crash_automobiles
+	remove_variable = spec_ui_bar_clippers
+	remove_variable = spec_ui_pos_clippers
+	remove_variable = spec_ui_move_clippers
+	remove_variable = spec_ui_badge_clippers
+	remove_variable = spec_ui_cat_clippers
+	remove_variable = spec_ui_state_clippers
+	remove_variable = spec_ui_crash_clippers
+	remove_variable = spec_ui_bar_clothes
+	remove_variable = spec_ui_pos_clothes
+	remove_variable = spec_ui_move_clothes
+	remove_variable = spec_ui_badge_clothes
+	remove_variable = spec_ui_cat_clothes
+	remove_variable = spec_ui_state_clothes
+	remove_variable = spec_ui_crash_clothes
+	remove_variable = spec_ui_bar_coal
+	remove_variable = spec_ui_pos_coal
+	remove_variable = spec_ui_move_coal
+	remove_variable = spec_ui_badge_coal
+	remove_variable = spec_ui_cat_coal
+	remove_variable = spec_ui_state_coal
+	remove_variable = spec_ui_crash_coal
+	remove_variable = spec_ui_bar_coffee
+	remove_variable = spec_ui_pos_coffee
+	remove_variable = spec_ui_move_coffee
+	remove_variable = spec_ui_badge_coffee
+	remove_variable = spec_ui_cat_coffee
+	remove_variable = spec_ui_state_coffee
+	remove_variable = spec_ui_crash_coffee
+	remove_variable = spec_ui_bar_copper
+	remove_variable = spec_ui_pos_copper
+	remove_variable = spec_ui_move_copper
+	remove_variable = spec_ui_badge_copper
+	remove_variable = spec_ui_cat_copper
+	remove_variable = spec_ui_state_copper
+	remove_variable = spec_ui_crash_copper
+	remove_variable = spec_ui_bar_dye
+	remove_variable = spec_ui_pos_dye
+	remove_variable = spec_ui_move_dye
+	remove_variable = spec_ui_badge_dye
+	remove_variable = spec_ui_cat_dye
+	remove_variable = spec_ui_state_dye
+	remove_variable = spec_ui_crash_dye
+	remove_variable = spec_ui_bar_electricity
+	remove_variable = spec_ui_pos_electricity
+	remove_variable = spec_ui_move_electricity
+	remove_variable = spec_ui_badge_electricity
+	remove_variable = spec_ui_cat_electricity
+	remove_variable = spec_ui_state_electricity
+	remove_variable = spec_ui_crash_electricity
+	remove_variable = spec_ui_bar_engines
+	remove_variable = spec_ui_pos_engines
+	remove_variable = spec_ui_move_engines
+	remove_variable = spec_ui_badge_engines
+	remove_variable = spec_ui_cat_engines
+	remove_variable = spec_ui_state_engines
+	remove_variable = spec_ui_crash_engines
+	remove_variable = spec_ui_bar_explosives
+	remove_variable = spec_ui_pos_explosives
+	remove_variable = spec_ui_move_explosives
+	remove_variable = spec_ui_badge_explosives
+	remove_variable = spec_ui_cat_explosives
+	remove_variable = spec_ui_state_explosives
+	remove_variable = spec_ui_crash_explosives
+	remove_variable = spec_ui_bar_fabric
+	remove_variable = spec_ui_pos_fabric
+	remove_variable = spec_ui_move_fabric
+	remove_variable = spec_ui_badge_fabric
+	remove_variable = spec_ui_cat_fabric
+	remove_variable = spec_ui_state_fabric
+	remove_variable = spec_ui_crash_fabric
+	remove_variable = spec_ui_bar_fertilizer
+	remove_variable = spec_ui_pos_fertilizer
+	remove_variable = spec_ui_move_fertilizer
+	remove_variable = spec_ui_badge_fertilizer
+	remove_variable = spec_ui_cat_fertilizer
+	remove_variable = spec_ui_state_fertilizer
+	remove_variable = spec_ui_crash_fertilizer
+	remove_variable = spec_ui_bar_fine_art
+	remove_variable = spec_ui_pos_fine_art
+	remove_variable = spec_ui_move_fine_art
+	remove_variable = spec_ui_badge_fine_art
+	remove_variable = spec_ui_cat_fine_art
+	remove_variable = spec_ui_state_fine_art
+	remove_variable = spec_ui_crash_fine_art
+	remove_variable = spec_ui_bar_fish
+	remove_variable = spec_ui_pos_fish
+	remove_variable = spec_ui_move_fish
+	remove_variable = spec_ui_badge_fish
+	remove_variable = spec_ui_cat_fish
+	remove_variable = spec_ui_state_fish
+	remove_variable = spec_ui_crash_fish
+	remove_variable = spec_ui_bar_fruit
+	remove_variable = spec_ui_pos_fruit
+	remove_variable = spec_ui_move_fruit
+	remove_variable = spec_ui_badge_fruit
+	remove_variable = spec_ui_cat_fruit
+	remove_variable = spec_ui_state_fruit
+	remove_variable = spec_ui_crash_fruit
+	remove_variable = spec_ui_bar_furniture
+	remove_variable = spec_ui_pos_furniture
+	remove_variable = spec_ui_move_furniture
+	remove_variable = spec_ui_badge_furniture
+	remove_variable = spec_ui_cat_furniture
+	remove_variable = spec_ui_state_furniture
+	remove_variable = spec_ui_crash_furniture
+	remove_variable = spec_ui_bar_glass
+	remove_variable = spec_ui_pos_glass
+	remove_variable = spec_ui_move_glass
+	remove_variable = spec_ui_badge_glass
+	remove_variable = spec_ui_cat_glass
+	remove_variable = spec_ui_state_glass
+	remove_variable = spec_ui_crash_glass
+	remove_variable = spec_ui_bar_grain
+	remove_variable = spec_ui_pos_grain
+	remove_variable = spec_ui_move_grain
+	remove_variable = spec_ui_badge_grain
+	remove_variable = spec_ui_cat_grain
+	remove_variable = spec_ui_state_grain
+	remove_variable = spec_ui_crash_grain
+	remove_variable = spec_ui_bar_groceries
+	remove_variable = spec_ui_pos_groceries
+	remove_variable = spec_ui_move_groceries
+	remove_variable = spec_ui_badge_groceries
+	remove_variable = spec_ui_cat_groceries
+	remove_variable = spec_ui_state_groceries
+	remove_variable = spec_ui_crash_groceries
+	remove_variable = spec_ui_bar_hardwood
+	remove_variable = spec_ui_pos_hardwood
+	remove_variable = spec_ui_move_hardwood
+	remove_variable = spec_ui_badge_hardwood
+	remove_variable = spec_ui_cat_hardwood
+	remove_variable = spec_ui_state_hardwood
+	remove_variable = spec_ui_crash_hardwood
+	remove_variable = spec_ui_bar_iron
+	remove_variable = spec_ui_pos_iron
+	remove_variable = spec_ui_move_iron
+	remove_variable = spec_ui_badge_iron
+	remove_variable = spec_ui_cat_iron
+	remove_variable = spec_ui_state_iron
+	remove_variable = spec_ui_crash_iron
+	remove_variable = spec_ui_bar_lead
+	remove_variable = spec_ui_pos_lead
+	remove_variable = spec_ui_move_lead
+	remove_variable = spec_ui_badge_lead
+	remove_variable = spec_ui_cat_lead
+	remove_variable = spec_ui_state_lead
+	remove_variable = spec_ui_crash_lead
+	remove_variable = spec_ui_bar_liquor
+	remove_variable = spec_ui_pos_liquor
+	remove_variable = spec_ui_move_liquor
+	remove_variable = spec_ui_badge_liquor
+	remove_variable = spec_ui_cat_liquor
+	remove_variable = spec_ui_state_liquor
+	remove_variable = spec_ui_crash_liquor
+	remove_variable = spec_ui_bar_luxury_clothes
+	remove_variable = spec_ui_pos_luxury_clothes
+	remove_variable = spec_ui_move_luxury_clothes
+	remove_variable = spec_ui_badge_luxury_clothes
+	remove_variable = spec_ui_cat_luxury_clothes
+	remove_variable = spec_ui_state_luxury_clothes
+	remove_variable = spec_ui_crash_luxury_clothes
+	remove_variable = spec_ui_bar_luxury_furniture
+	remove_variable = spec_ui_pos_luxury_furniture
+	remove_variable = spec_ui_move_luxury_furniture
+	remove_variable = spec_ui_badge_luxury_furniture
+	remove_variable = spec_ui_cat_luxury_furniture
+	remove_variable = spec_ui_state_luxury_furniture
+	remove_variable = spec_ui_crash_luxury_furniture
+	remove_variable = spec_ui_bar_meat
+	remove_variable = spec_ui_pos_meat
+	remove_variable = spec_ui_move_meat
+	remove_variable = spec_ui_badge_meat
+	remove_variable = spec_ui_cat_meat
+	remove_variable = spec_ui_state_meat
+	remove_variable = spec_ui_crash_meat
+	remove_variable = spec_ui_bar_merchant_marine
+	remove_variable = spec_ui_pos_merchant_marine
+	remove_variable = spec_ui_move_merchant_marine
+	remove_variable = spec_ui_badge_merchant_marine
+	remove_variable = spec_ui_cat_merchant_marine
+	remove_variable = spec_ui_state_merchant_marine
+	remove_variable = spec_ui_crash_merchant_marine
+	remove_variable = spec_ui_bar_oil
+	remove_variable = spec_ui_pos_oil
+	remove_variable = spec_ui_move_oil
+	remove_variable = spec_ui_badge_oil
+	remove_variable = spec_ui_cat_oil
+	remove_variable = spec_ui_state_oil
+	remove_variable = spec_ui_crash_oil
+	remove_variable = spec_ui_bar_opium
+	remove_variable = spec_ui_pos_opium
+	remove_variable = spec_ui_move_opium
+	remove_variable = spec_ui_badge_opium
+	remove_variable = spec_ui_cat_opium
+	remove_variable = spec_ui_state_opium
+	remove_variable = spec_ui_crash_opium
+	remove_variable = spec_ui_bar_paper
+	remove_variable = spec_ui_pos_paper
+	remove_variable = spec_ui_move_paper
+	remove_variable = spec_ui_badge_paper
+	remove_variable = spec_ui_cat_paper
+	remove_variable = spec_ui_state_paper
+	remove_variable = spec_ui_crash_paper
+	remove_variable = spec_ui_bar_porcelain
+	remove_variable = spec_ui_pos_porcelain
+	remove_variable = spec_ui_move_porcelain
+	remove_variable = spec_ui_badge_porcelain
+	remove_variable = spec_ui_cat_porcelain
+	remove_variable = spec_ui_state_porcelain
+	remove_variable = spec_ui_crash_porcelain
+	remove_variable = spec_ui_bar_radios
+	remove_variable = spec_ui_pos_radios
+	remove_variable = spec_ui_move_radios
+	remove_variable = spec_ui_badge_radios
+	remove_variable = spec_ui_cat_radios
+	remove_variable = spec_ui_state_radios
+	remove_variable = spec_ui_crash_radios
+	remove_variable = spec_ui_bar_rubber
+	remove_variable = spec_ui_pos_rubber
+	remove_variable = spec_ui_move_rubber
+	remove_variable = spec_ui_badge_rubber
+	remove_variable = spec_ui_cat_rubber
+	remove_variable = spec_ui_state_rubber
+	remove_variable = spec_ui_crash_rubber
+	remove_variable = spec_ui_bar_silk
+	remove_variable = spec_ui_pos_silk
+	remove_variable = spec_ui_move_silk
+	remove_variable = spec_ui_badge_silk
+	remove_variable = spec_ui_cat_silk
+	remove_variable = spec_ui_state_silk
+	remove_variable = spec_ui_crash_silk
+	remove_variable = spec_ui_bar_small_arms
+	remove_variable = spec_ui_pos_small_arms
+	remove_variable = spec_ui_move_small_arms
+	remove_variable = spec_ui_badge_small_arms
+	remove_variable = spec_ui_cat_small_arms
+	remove_variable = spec_ui_state_small_arms
+	remove_variable = spec_ui_crash_small_arms
+	remove_variable = spec_ui_bar_steamers
+	remove_variable = spec_ui_pos_steamers
+	remove_variable = spec_ui_move_steamers
+	remove_variable = spec_ui_badge_steamers
+	remove_variable = spec_ui_cat_steamers
+	remove_variable = spec_ui_state_steamers
+	remove_variable = spec_ui_crash_steamers
+	remove_variable = spec_ui_bar_steel
+	remove_variable = spec_ui_pos_steel
+	remove_variable = spec_ui_move_steel
+	remove_variable = spec_ui_badge_steel
+	remove_variable = spec_ui_cat_steel
+	remove_variable = spec_ui_state_steel
+	remove_variable = spec_ui_crash_steel
+	remove_variable = spec_ui_bar_sugar
+	remove_variable = spec_ui_pos_sugar
+	remove_variable = spec_ui_move_sugar
+	remove_variable = spec_ui_badge_sugar
+	remove_variable = spec_ui_cat_sugar
+	remove_variable = spec_ui_state_sugar
+	remove_variable = spec_ui_crash_sugar
+	remove_variable = spec_ui_bar_sulfur
+	remove_variable = spec_ui_pos_sulfur
+	remove_variable = spec_ui_move_sulfur
+	remove_variable = spec_ui_badge_sulfur
+	remove_variable = spec_ui_cat_sulfur
+	remove_variable = spec_ui_state_sulfur
+	remove_variable = spec_ui_crash_sulfur
+	remove_variable = spec_ui_bar_tanks
+	remove_variable = spec_ui_pos_tanks
+	remove_variable = spec_ui_move_tanks
+	remove_variable = spec_ui_badge_tanks
+	remove_variable = spec_ui_cat_tanks
+	remove_variable = spec_ui_state_tanks
+	remove_variable = spec_ui_crash_tanks
+	remove_variable = spec_ui_bar_tea
+	remove_variable = spec_ui_pos_tea
+	remove_variable = spec_ui_move_tea
+	remove_variable = spec_ui_badge_tea
+	remove_variable = spec_ui_cat_tea
+	remove_variable = spec_ui_state_tea
+	remove_variable = spec_ui_crash_tea
+	remove_variable = spec_ui_bar_telephones
+	remove_variable = spec_ui_pos_telephones
+	remove_variable = spec_ui_move_telephones
+	remove_variable = spec_ui_badge_telephones
+	remove_variable = spec_ui_cat_telephones
+	remove_variable = spec_ui_state_telephones
+	remove_variable = spec_ui_crash_telephones
+	remove_variable = spec_ui_bar_tobacco
+	remove_variable = spec_ui_pos_tobacco
+	remove_variable = spec_ui_move_tobacco
+	remove_variable = spec_ui_badge_tobacco
+	remove_variable = spec_ui_cat_tobacco
+	remove_variable = spec_ui_state_tobacco
+	remove_variable = spec_ui_crash_tobacco
+	remove_variable = spec_ui_bar_tools
+	remove_variable = spec_ui_pos_tools
+	remove_variable = spec_ui_move_tools
+	remove_variable = spec_ui_badge_tools
+	remove_variable = spec_ui_cat_tools
+	remove_variable = spec_ui_state_tools
+	remove_variable = spec_ui_crash_tools
+	remove_variable = spec_ui_bar_wine
+	remove_variable = spec_ui_pos_wine
+	remove_variable = spec_ui_move_wine
+	remove_variable = spec_ui_badge_wine
+	remove_variable = spec_ui_cat_wine
+	remove_variable = spec_ui_state_wine
+	remove_variable = spec_ui_crash_wine
+	remove_variable = spec_ui_bar_wood
+	remove_variable = spec_ui_pos_wood
+	remove_variable = spec_ui_move_wood
+	remove_variable = spec_ui_badge_wood
+	remove_variable = spec_ui_cat_wood
+	remove_variable = spec_ui_state_wood
+	remove_variable = spec_ui_crash_wood
+	remove_variable = spec_exp_aeroplanes
+	remove_variable = spec_ui_expm_aeroplanes
+	remove_variable = spec_ui_expx_aeroplanes
+	remove_variable = spec_note_bank_aeroplanes
+	remove_variable = spec_exp_ammunition
+	remove_variable = spec_ui_expm_ammunition
+	remove_variable = spec_ui_expx_ammunition
+	remove_variable = spec_note_bank_ammunition
+	remove_variable = spec_exp_artillery
+	remove_variable = spec_ui_expm_artillery
+	remove_variable = spec_ui_expx_artillery
+	remove_variable = spec_note_bank_artillery
+	remove_variable = spec_exp_automobiles
+	remove_variable = spec_ui_expm_automobiles
+	remove_variable = spec_ui_expx_automobiles
+	remove_variable = spec_note_bank_automobiles
+	remove_variable = spec_exp_clippers
+	remove_variable = spec_ui_expm_clippers
+	remove_variable = spec_ui_expx_clippers
+	remove_variable = spec_note_bank_clippers
+	remove_variable = spec_exp_clothes
+	remove_variable = spec_ui_expm_clothes
+	remove_variable = spec_ui_expx_clothes
+	remove_variable = spec_note_bank_clothes
+	remove_variable = spec_exp_coal
+	remove_variable = spec_ui_expm_coal
+	remove_variable = spec_ui_expx_coal
+	remove_variable = spec_note_bank_coal
+	remove_variable = spec_exp_coffee
+	remove_variable = spec_ui_expm_coffee
+	remove_variable = spec_ui_expx_coffee
+	remove_variable = spec_note_bank_coffee
+	remove_variable = spec_exp_copper
+	remove_variable = spec_ui_expm_copper
+	remove_variable = spec_ui_expx_copper
+	remove_variable = spec_note_bank_copper
+	remove_variable = spec_exp_dye
+	remove_variable = spec_ui_expm_dye
+	remove_variable = spec_ui_expx_dye
+	remove_variable = spec_note_bank_dye
+	remove_variable = spec_exp_electricity
+	remove_variable = spec_ui_expm_electricity
+	remove_variable = spec_ui_expx_electricity
+	remove_variable = spec_note_bank_electricity
+	remove_variable = spec_exp_engines
+	remove_variable = spec_ui_expm_engines
+	remove_variable = spec_ui_expx_engines
+	remove_variable = spec_note_bank_engines
+	remove_variable = spec_exp_explosives
+	remove_variable = spec_ui_expm_explosives
+	remove_variable = spec_ui_expx_explosives
+	remove_variable = spec_note_bank_explosives
+	remove_variable = spec_exp_fabric
+	remove_variable = spec_ui_expm_fabric
+	remove_variable = spec_ui_expx_fabric
+	remove_variable = spec_note_bank_fabric
+	remove_variable = spec_exp_fertilizer
+	remove_variable = spec_ui_expm_fertilizer
+	remove_variable = spec_ui_expx_fertilizer
+	remove_variable = spec_note_bank_fertilizer
+	remove_variable = spec_exp_fine_art
+	remove_variable = spec_ui_expm_fine_art
+	remove_variable = spec_ui_expx_fine_art
+	remove_variable = spec_note_bank_fine_art
+	remove_variable = spec_exp_fish
+	remove_variable = spec_ui_expm_fish
+	remove_variable = spec_ui_expx_fish
+	remove_variable = spec_note_bank_fish
+	remove_variable = spec_exp_fruit
+	remove_variable = spec_ui_expm_fruit
+	remove_variable = spec_ui_expx_fruit
+	remove_variable = spec_note_bank_fruit
+	remove_variable = spec_exp_furniture
+	remove_variable = spec_ui_expm_furniture
+	remove_variable = spec_ui_expx_furniture
+	remove_variable = spec_note_bank_furniture
+	remove_variable = spec_exp_glass
+	remove_variable = spec_ui_expm_glass
+	remove_variable = spec_ui_expx_glass
+	remove_variable = spec_note_bank_glass
+	remove_variable = spec_exp_grain
+	remove_variable = spec_ui_expm_grain
+	remove_variable = spec_ui_expx_grain
+	remove_variable = spec_note_bank_grain
+	remove_variable = spec_exp_groceries
+	remove_variable = spec_ui_expm_groceries
+	remove_variable = spec_ui_expx_groceries
+	remove_variable = spec_note_bank_groceries
+	remove_variable = spec_exp_hardwood
+	remove_variable = spec_ui_expm_hardwood
+	remove_variable = spec_ui_expx_hardwood
+	remove_variable = spec_note_bank_hardwood
+	remove_variable = spec_exp_iron
+	remove_variable = spec_ui_expm_iron
+	remove_variable = spec_ui_expx_iron
+	remove_variable = spec_note_bank_iron
+	remove_variable = spec_exp_lead
+	remove_variable = spec_ui_expm_lead
+	remove_variable = spec_ui_expx_lead
+	remove_variable = spec_note_bank_lead
+	remove_variable = spec_exp_liquor
+	remove_variable = spec_ui_expm_liquor
+	remove_variable = spec_ui_expx_liquor
+	remove_variable = spec_note_bank_liquor
+	remove_variable = spec_exp_luxury_clothes
+	remove_variable = spec_ui_expm_luxury_clothes
+	remove_variable = spec_ui_expx_luxury_clothes
+	remove_variable = spec_note_bank_luxury_clothes
+	remove_variable = spec_exp_luxury_furniture
+	remove_variable = spec_ui_expm_luxury_furniture
+	remove_variable = spec_ui_expx_luxury_furniture
+	remove_variable = spec_note_bank_luxury_furniture
+	remove_variable = spec_exp_meat
+	remove_variable = spec_ui_expm_meat
+	remove_variable = spec_ui_expx_meat
+	remove_variable = spec_note_bank_meat
+	remove_variable = spec_exp_merchant_marine
+	remove_variable = spec_ui_expm_merchant_marine
+	remove_variable = spec_ui_expx_merchant_marine
+	remove_variable = spec_note_bank_merchant_marine
+	remove_variable = spec_exp_oil
+	remove_variable = spec_ui_expm_oil
+	remove_variable = spec_ui_expx_oil
+	remove_variable = spec_note_bank_oil
+	remove_variable = spec_exp_opium
+	remove_variable = spec_ui_expm_opium
+	remove_variable = spec_ui_expx_opium
+	remove_variable = spec_note_bank_opium
+	remove_variable = spec_exp_paper
+	remove_variable = spec_ui_expm_paper
+	remove_variable = spec_ui_expx_paper
+	remove_variable = spec_note_bank_paper
+	remove_variable = spec_exp_porcelain
+	remove_variable = spec_ui_expm_porcelain
+	remove_variable = spec_ui_expx_porcelain
+	remove_variable = spec_note_bank_porcelain
+	remove_variable = spec_exp_radios
+	remove_variable = spec_ui_expm_radios
+	remove_variable = spec_ui_expx_radios
+	remove_variable = spec_note_bank_radios
+	remove_variable = spec_exp_rubber
+	remove_variable = spec_ui_expm_rubber
+	remove_variable = spec_ui_expx_rubber
+	remove_variable = spec_note_bank_rubber
+	remove_variable = spec_exp_silk
+	remove_variable = spec_ui_expm_silk
+	remove_variable = spec_ui_expx_silk
+	remove_variable = spec_note_bank_silk
+	remove_variable = spec_exp_small_arms
+	remove_variable = spec_ui_expm_small_arms
+	remove_variable = spec_ui_expx_small_arms
+	remove_variable = spec_note_bank_small_arms
+	remove_variable = spec_exp_steamers
+	remove_variable = spec_ui_expm_steamers
+	remove_variable = spec_ui_expx_steamers
+	remove_variable = spec_note_bank_steamers
+	remove_variable = spec_exp_steel
+	remove_variable = spec_ui_expm_steel
+	remove_variable = spec_ui_expx_steel
+	remove_variable = spec_note_bank_steel
+	remove_variable = spec_exp_sugar
+	remove_variable = spec_ui_expm_sugar
+	remove_variable = spec_ui_expx_sugar
+	remove_variable = spec_note_bank_sugar
+	remove_variable = spec_exp_sulfur
+	remove_variable = spec_ui_expm_sulfur
+	remove_variable = spec_ui_expx_sulfur
+	remove_variable = spec_note_bank_sulfur
+	remove_variable = spec_exp_tanks
+	remove_variable = spec_ui_expm_tanks
+	remove_variable = spec_ui_expx_tanks
+	remove_variable = spec_note_bank_tanks
+	remove_variable = spec_exp_tea
+	remove_variable = spec_ui_expm_tea
+	remove_variable = spec_ui_expx_tea
+	remove_variable = spec_note_bank_tea
+	remove_variable = spec_exp_telephones
+	remove_variable = spec_ui_expm_telephones
+	remove_variable = spec_ui_expx_telephones
+	remove_variable = spec_note_bank_telephones
+	remove_variable = spec_exp_tobacco
+	remove_variable = spec_ui_expm_tobacco
+	remove_variable = spec_ui_expx_tobacco
+	remove_variable = spec_note_bank_tobacco
+	remove_variable = spec_exp_tools
+	remove_variable = spec_ui_expm_tools
+	remove_variable = spec_ui_expx_tools
+	remove_variable = spec_note_bank_tools
+	remove_variable = spec_exp_wine
+	remove_variable = spec_ui_expm_wine
+	remove_variable = spec_ui_expx_wine
+	remove_variable = spec_note_bank_wine
+	remove_variable = spec_exp_wood
+	remove_variable = spec_ui_expm_wood
+	remove_variable = spec_ui_expx_wood
+	remove_variable = spec_note_bank_wood
+	remove_variable = spec_lax
+	remove_variable = spec_bbv_light_industry
+	remove_variable = spec_bbv_heavy_industry
+	remove_variable = spec_bbv_military_industry
+	remove_variable = spec_bbv_agriculture
+	remove_variable = spec_bbv_ranching
+	remove_variable = spec_bbv_extraction
+	remove_variable = spec_bbv_plantations
+	remove_variable = spec_bbv_infrastructure
+	remove_variable = spec_ui_bb_ammunition
+	remove_variable = spec_ui_bb_artillery
+	remove_variable = spec_ui_bb_automobiles
+	remove_variable = spec_ui_bb_clippers
+	remove_variable = spec_ui_bb_clothes
+	remove_variable = spec_ui_bb_coal
+	remove_variable = spec_ui_bb_coffee
+	remove_variable = spec_ui_bb_copper
+	remove_variable = spec_ui_bb_dye
+	remove_variable = spec_ui_bb_engines
+	remove_variable = spec_ui_bb_explosives
+	remove_variable = spec_ui_bb_fabric
+	remove_variable = spec_ui_bb_fertilizer
+	remove_variable = spec_ui_bb_fish
+	remove_variable = spec_ui_bb_fruit
+	remove_variable = spec_ui_bb_furniture
+	remove_variable = spec_ui_bb_glass
+	remove_variable = spec_ui_bb_grain
+	remove_variable = spec_ui_bb_groceries
+	remove_variable = spec_ui_bb_iron
+	remove_variable = spec_ui_bb_lead
+	remove_variable = spec_ui_bb_meat
+	remove_variable = spec_ui_bb_merchant_marine
+	remove_variable = spec_ui_bb_oil
+	remove_variable = spec_ui_bb_opium
+	remove_variable = spec_ui_bb_paper
+	remove_variable = spec_ui_bb_rubber
+	remove_variable = spec_ui_bb_silk
+	remove_variable = spec_ui_bb_small_arms
+	remove_variable = spec_ui_bb_steel
+	remove_variable = spec_ui_bb_sugar
+	remove_variable = spec_ui_bb_sulfur
+	remove_variable = spec_ui_bb_tea
+	remove_variable = spec_ui_bb_telephones
+	remove_variable = spec_ui_bb_tobacco
+	remove_variable = spec_ui_bb_tools
+	remove_variable = spec_ui_bb_wine
+	remove_variable = spec_ui_bb_wood
+	remove_variable = spec_sup_aeroplanes
+	remove_variable = spec_ui_over_aeroplanes
+	remove_variable = spec_ui_overx_aeroplanes
+	remove_variable = spec_note_over_aeroplanes
+	remove_variable = spec_note_ppl_aeroplanes
+	remove_variable = spec_sup_ammunition
+	remove_variable = spec_ui_over_ammunition
+	remove_variable = spec_ui_overx_ammunition
+	remove_variable = spec_note_over_ammunition
+	remove_variable = spec_note_ppl_ammunition
+	remove_variable = spec_sup_artillery
+	remove_variable = spec_ui_over_artillery
+	remove_variable = spec_ui_overx_artillery
+	remove_variable = spec_note_over_artillery
+	remove_variable = spec_note_ppl_artillery
+	remove_variable = spec_sup_automobiles
+	remove_variable = spec_ui_over_automobiles
+	remove_variable = spec_ui_overx_automobiles
+	remove_variable = spec_note_over_automobiles
+	remove_variable = spec_note_ppl_automobiles
+	remove_variable = spec_sup_clippers
+	remove_variable = spec_ui_over_clippers
+	remove_variable = spec_ui_overx_clippers
+	remove_variable = spec_note_over_clippers
+	remove_variable = spec_note_ppl_clippers
+	remove_variable = spec_sup_clothes
+	remove_variable = spec_ui_over_clothes
+	remove_variable = spec_ui_overx_clothes
+	remove_variable = spec_note_over_clothes
+	remove_variable = spec_note_ppl_clothes
+	remove_variable = spec_sup_coal
+	remove_variable = spec_ui_over_coal
+	remove_variable = spec_ui_overx_coal
+	remove_variable = spec_note_over_coal
+	remove_variable = spec_note_ppl_coal
+	remove_variable = spec_sup_coffee
+	remove_variable = spec_ui_over_coffee
+	remove_variable = spec_ui_overx_coffee
+	remove_variable = spec_note_over_coffee
+	remove_variable = spec_note_ppl_coffee
+	remove_variable = spec_sup_copper
+	remove_variable = spec_ui_over_copper
+	remove_variable = spec_ui_overx_copper
+	remove_variable = spec_note_over_copper
+	remove_variable = spec_note_ppl_copper
+	remove_variable = spec_sup_dye
+	remove_variable = spec_ui_over_dye
+	remove_variable = spec_ui_overx_dye
+	remove_variable = spec_note_over_dye
+	remove_variable = spec_note_ppl_dye
+	remove_variable = spec_sup_electricity
+	remove_variable = spec_ui_over_electricity
+	remove_variable = spec_ui_overx_electricity
+	remove_variable = spec_note_over_electricity
+	remove_variable = spec_note_ppl_electricity
+	remove_variable = spec_sup_engines
+	remove_variable = spec_ui_over_engines
+	remove_variable = spec_ui_overx_engines
+	remove_variable = spec_note_over_engines
+	remove_variable = spec_note_ppl_engines
+	remove_variable = spec_sup_explosives
+	remove_variable = spec_ui_over_explosives
+	remove_variable = spec_ui_overx_explosives
+	remove_variable = spec_note_over_explosives
+	remove_variable = spec_note_ppl_explosives
+	remove_variable = spec_sup_fabric
+	remove_variable = spec_ui_over_fabric
+	remove_variable = spec_ui_overx_fabric
+	remove_variable = spec_note_over_fabric
+	remove_variable = spec_note_ppl_fabric
+	remove_variable = spec_sup_fertilizer
+	remove_variable = spec_ui_over_fertilizer
+	remove_variable = spec_ui_overx_fertilizer
+	remove_variable = spec_note_over_fertilizer
+	remove_variable = spec_note_ppl_fertilizer
+	remove_variable = spec_sup_fine_art
+	remove_variable = spec_ui_over_fine_art
+	remove_variable = spec_ui_overx_fine_art
+	remove_variable = spec_note_over_fine_art
+	remove_variable = spec_note_ppl_fine_art
+	remove_variable = spec_sup_fish
+	remove_variable = spec_ui_over_fish
+	remove_variable = spec_ui_overx_fish
+	remove_variable = spec_note_over_fish
+	remove_variable = spec_note_ppl_fish
+	remove_variable = spec_sup_fruit
+	remove_variable = spec_ui_over_fruit
+	remove_variable = spec_ui_overx_fruit
+	remove_variable = spec_note_over_fruit
+	remove_variable = spec_note_ppl_fruit
+	remove_variable = spec_sup_furniture
+	remove_variable = spec_ui_over_furniture
+	remove_variable = spec_ui_overx_furniture
+	remove_variable = spec_note_over_furniture
+	remove_variable = spec_note_ppl_furniture
+	remove_variable = spec_sup_glass
+	remove_variable = spec_ui_over_glass
+	remove_variable = spec_ui_overx_glass
+	remove_variable = spec_note_over_glass
+	remove_variable = spec_note_ppl_glass
+	remove_variable = spec_sup_grain
+	remove_variable = spec_ui_over_grain
+	remove_variable = spec_ui_overx_grain
+	remove_variable = spec_note_over_grain
+	remove_variable = spec_note_ppl_grain
+	remove_variable = spec_sup_groceries
+	remove_variable = spec_ui_over_groceries
+	remove_variable = spec_ui_overx_groceries
+	remove_variable = spec_note_over_groceries
+	remove_variable = spec_note_ppl_groceries
+	remove_variable = spec_sup_hardwood
+	remove_variable = spec_ui_over_hardwood
+	remove_variable = spec_ui_overx_hardwood
+	remove_variable = spec_note_over_hardwood
+	remove_variable = spec_note_ppl_hardwood
+	remove_variable = spec_sup_iron
+	remove_variable = spec_ui_over_iron
+	remove_variable = spec_ui_overx_iron
+	remove_variable = spec_note_over_iron
+	remove_variable = spec_note_ppl_iron
+	remove_variable = spec_sup_lead
+	remove_variable = spec_ui_over_lead
+	remove_variable = spec_ui_overx_lead
+	remove_variable = spec_note_over_lead
+	remove_variable = spec_note_ppl_lead
+	remove_variable = spec_sup_liquor
+	remove_variable = spec_ui_over_liquor
+	remove_variable = spec_ui_overx_liquor
+	remove_variable = spec_note_over_liquor
+	remove_variable = spec_note_ppl_liquor
+	remove_variable = spec_sup_luxury_clothes
+	remove_variable = spec_ui_over_luxury_clothes
+	remove_variable = spec_ui_overx_luxury_clothes
+	remove_variable = spec_note_over_luxury_clothes
+	remove_variable = spec_note_ppl_luxury_clothes
+	remove_variable = spec_sup_luxury_furniture
+	remove_variable = spec_ui_over_luxury_furniture
+	remove_variable = spec_ui_overx_luxury_furniture
+	remove_variable = spec_note_over_luxury_furniture
+	remove_variable = spec_note_ppl_luxury_furniture
+	remove_variable = spec_sup_meat
+	remove_variable = spec_ui_over_meat
+	remove_variable = spec_ui_overx_meat
+	remove_variable = spec_note_over_meat
+	remove_variable = spec_note_ppl_meat
+	remove_variable = spec_sup_merchant_marine
+	remove_variable = spec_ui_over_merchant_marine
+	remove_variable = spec_ui_overx_merchant_marine
+	remove_variable = spec_note_over_merchant_marine
+	remove_variable = spec_note_ppl_merchant_marine
+	remove_variable = spec_sup_oil
+	remove_variable = spec_ui_over_oil
+	remove_variable = spec_ui_overx_oil
+	remove_variable = spec_note_over_oil
+	remove_variable = spec_note_ppl_oil
+	remove_variable = spec_sup_opium
+	remove_variable = spec_ui_over_opium
+	remove_variable = spec_ui_overx_opium
+	remove_variable = spec_note_over_opium
+	remove_variable = spec_note_ppl_opium
+	remove_variable = spec_sup_paper
+	remove_variable = spec_ui_over_paper
+	remove_variable = spec_ui_overx_paper
+	remove_variable = spec_note_over_paper
+	remove_variable = spec_note_ppl_paper
+	remove_variable = spec_sup_porcelain
+	remove_variable = spec_ui_over_porcelain
+	remove_variable = spec_ui_overx_porcelain
+	remove_variable = spec_note_over_porcelain
+	remove_variable = spec_note_ppl_porcelain
+	remove_variable = spec_sup_radios
+	remove_variable = spec_ui_over_radios
+	remove_variable = spec_ui_overx_radios
+	remove_variable = spec_note_over_radios
+	remove_variable = spec_note_ppl_radios
+	remove_variable = spec_sup_rubber
+	remove_variable = spec_ui_over_rubber
+	remove_variable = spec_ui_overx_rubber
+	remove_variable = spec_note_over_rubber
+	remove_variable = spec_note_ppl_rubber
+	remove_variable = spec_sup_silk
+	remove_variable = spec_ui_over_silk
+	remove_variable = spec_ui_overx_silk
+	remove_variable = spec_note_over_silk
+	remove_variable = spec_note_ppl_silk
+	remove_variable = spec_sup_small_arms
+	remove_variable = spec_ui_over_small_arms
+	remove_variable = spec_ui_overx_small_arms
+	remove_variable = spec_note_over_small_arms
+	remove_variable = spec_note_ppl_small_arms
+	remove_variable = spec_sup_steamers
+	remove_variable = spec_ui_over_steamers
+	remove_variable = spec_ui_overx_steamers
+	remove_variable = spec_note_over_steamers
+	remove_variable = spec_note_ppl_steamers
+	remove_variable = spec_sup_steel
+	remove_variable = spec_ui_over_steel
+	remove_variable = spec_ui_overx_steel
+	remove_variable = spec_note_over_steel
+	remove_variable = spec_note_ppl_steel
+	remove_variable = spec_sup_sugar
+	remove_variable = spec_ui_over_sugar
+	remove_variable = spec_ui_overx_sugar
+	remove_variable = spec_note_over_sugar
+	remove_variable = spec_note_ppl_sugar
+	remove_variable = spec_sup_sulfur
+	remove_variable = spec_ui_over_sulfur
+	remove_variable = spec_ui_overx_sulfur
+	remove_variable = spec_note_over_sulfur
+	remove_variable = spec_note_ppl_sulfur
+	remove_variable = spec_sup_tanks
+	remove_variable = spec_ui_over_tanks
+	remove_variable = spec_ui_overx_tanks
+	remove_variable = spec_note_over_tanks
+	remove_variable = spec_note_ppl_tanks
+	remove_variable = spec_sup_tea
+	remove_variable = spec_ui_over_tea
+	remove_variable = spec_ui_overx_tea
+	remove_variable = spec_note_over_tea
+	remove_variable = spec_note_ppl_tea
+	remove_variable = spec_sup_telephones
+	remove_variable = spec_ui_over_telephones
+	remove_variable = spec_ui_overx_telephones
+	remove_variable = spec_note_over_telephones
+	remove_variable = spec_note_ppl_telephones
+	remove_variable = spec_sup_tobacco
+	remove_variable = spec_ui_over_tobacco
+	remove_variable = spec_ui_overx_tobacco
+	remove_variable = spec_note_over_tobacco
+	remove_variable = spec_note_ppl_tobacco
+	remove_variable = spec_sup_tools
+	remove_variable = spec_ui_over_tools
+	remove_variable = spec_ui_overx_tools
+	remove_variable = spec_note_over_tools
+	remove_variable = spec_note_ppl_tools
+	remove_variable = spec_sup_wine
+	remove_variable = spec_ui_over_wine
+	remove_variable = spec_ui_overx_wine
+	remove_variable = spec_note_over_wine
+	remove_variable = spec_note_ppl_wine
+	remove_variable = spec_sup_wood
+	remove_variable = spec_ui_over_wood
+	remove_variable = spec_ui_overx_wood
+	remove_variable = spec_note_over_wood
+	remove_variable = spec_note_ppl_wood
+	remove_variable = spec_lhist1
+	remove_variable = spec_lhist2
+	remove_variable = spec_lhist3
+	remove_variable = spec_lhist4
+	remove_variable = spec_lhist5
+	remove_variable = spec_lhist6
+	remove_variable = spec_lhist7
+	remove_variable = spec_lhist8
+	remove_variable = spec_lhist9
+	remove_variable = spec_lhist10
+	remove_variable = spec_lhist11
+	remove_variable = spec_lhist12
+	remove_variable = spec_lhist13
+	remove_variable = spec_lhist14
+	remove_variable = spec_lhist15
+	remove_variable = spec_lhist16
+	remove_variable = spec_lhist17
+	remove_variable = spec_lhist18
+	remove_variable = spec_lhist19
+	remove_variable = spec_lhist20
+	remove_variable = spec_lhist21
+	remove_variable = spec_lhist22
+	remove_variable = spec_lhist23
+	remove_variable = spec_lhist24
+	remove_variable = spec_lhist25
+	remove_variable = spec_lhist26
+	remove_variable = spec_lhist27
+	remove_variable = spec_lhist28
+	remove_variable = spec_lhist29
+	remove_variable = spec_lhist30
+	remove_variable = spec_lhist31
+	remove_variable = spec_lhist32
+	remove_variable = spec_lhist33
+	remove_variable = spec_lhist34
+	remove_variable = spec_lhist35
+	remove_variable = spec_lhist36
+	remove_variable = spec_ui_mv_aeroplanes
+	remove_variable = spec_ui_mv_ammunition
+	remove_variable = spec_ui_mv_artillery
+	remove_variable = spec_ui_mv_automobiles
+	remove_variable = spec_ui_mv_clippers
+	remove_variable = spec_ui_mv_clothes
+	remove_variable = spec_ui_mv_coal
+	remove_variable = spec_ui_mv_coffee
+	remove_variable = spec_ui_mv_copper
+	remove_variable = spec_ui_mv_dye
+	remove_variable = spec_ui_mv_electricity
+	remove_variable = spec_ui_mv_engines
+	remove_variable = spec_ui_mv_explosives
+	remove_variable = spec_ui_mv_fabric
+	remove_variable = spec_ui_mv_fertilizer
+	remove_variable = spec_ui_mv_fine_art
+	remove_variable = spec_ui_mv_fish
+	remove_variable = spec_ui_mv_fruit
+	remove_variable = spec_ui_mv_furniture
+	remove_variable = spec_ui_mv_glass
+	remove_variable = spec_ui_mv_grain
+	remove_variable = spec_ui_mv_groceries
+	remove_variable = spec_ui_mv_hardwood
+	remove_variable = spec_ui_mv_iron
+	remove_variable = spec_ui_mv_lead
+	remove_variable = spec_ui_mv_liquor
+	remove_variable = spec_ui_mv_luxury_clothes
+	remove_variable = spec_ui_mv_luxury_furniture
+	remove_variable = spec_ui_mv_meat
+	remove_variable = spec_ui_mv_merchant_marine
+	remove_variable = spec_ui_mv_oil
+	remove_variable = spec_ui_mv_opium
+	remove_variable = spec_ui_mv_paper
+	remove_variable = spec_ui_mv_porcelain
+	remove_variable = spec_ui_mv_radios
+	remove_variable = spec_ui_mv_rubber
+	remove_variable = spec_ui_mv_silk
+	remove_variable = spec_ui_mv_small_arms
+	remove_variable = spec_ui_mv_steamers
+	remove_variable = spec_ui_mv_steel
+	remove_variable = spec_ui_mv_sugar
+	remove_variable = spec_ui_mv_sulfur
+	remove_variable = spec_ui_mv_tanks
+	remove_variable = spec_ui_mv_tea
+	remove_variable = spec_ui_mv_telephones
+	remove_variable = spec_ui_mv_tobacco
+	remove_variable = spec_ui_mv_tools
+	remove_variable = spec_ui_mv_wine
+	remove_variable = spec_ui_mv_wood
+	remove_variable = spec_bank_oth_aeroplanes
+	remove_variable = spec_bank_oth_ammunition
+	remove_variable = spec_bank_oth_artillery
+	remove_variable = spec_bank_oth_automobiles
+	remove_variable = spec_bank_oth_clippers
+	remove_variable = spec_bank_oth_clothes
+	remove_variable = spec_bank_oth_coal
+	remove_variable = spec_bank_oth_coffee
+	remove_variable = spec_bank_oth_copper
+	remove_variable = spec_bank_oth_dye
+	remove_variable = spec_bank_oth_electricity
+	remove_variable = spec_bank_oth_engines
+	remove_variable = spec_bank_oth_explosives
+	remove_variable = spec_bank_oth_fabric
+	remove_variable = spec_bank_oth_fertilizer
+	remove_variable = spec_bank_oth_fine_art
+	remove_variable = spec_bank_oth_fish
+	remove_variable = spec_bank_oth_fruit
+	remove_variable = spec_bank_oth_furniture
+	remove_variable = spec_bank_oth_glass
+	remove_variable = spec_bank_oth_grain
+	remove_variable = spec_bank_oth_groceries
+	remove_variable = spec_bank_oth_hardwood
+	remove_variable = spec_bank_oth_iron
+	remove_variable = spec_bank_oth_lead
+	remove_variable = spec_bank_oth_liquor
+	remove_variable = spec_bank_oth_luxury_clothes
+	remove_variable = spec_bank_oth_luxury_furniture
+	remove_variable = spec_bank_oth_meat
+	remove_variable = spec_bank_oth_merchant_marine
+	remove_variable = spec_bank_oth_oil
+	remove_variable = spec_bank_oth_opium
+	remove_variable = spec_bank_oth_paper
+	remove_variable = spec_bank_oth_porcelain
+	remove_variable = spec_bank_oth_radios
+	remove_variable = spec_bank_oth_rubber
+	remove_variable = spec_bank_oth_silk
+	remove_variable = spec_bank_oth_small_arms
+	remove_variable = spec_bank_oth_steamers
+	remove_variable = spec_bank_oth_steel
+	remove_variable = spec_bank_oth_sugar
+	remove_variable = spec_bank_oth_sulfur
+	remove_variable = spec_bank_oth_tanks
+	remove_variable = spec_bank_oth_tea
+	remove_variable = spec_bank_oth_telephones
+	remove_variable = spec_bank_oth_tobacco
+	remove_variable = spec_bank_oth_tools
+	remove_variable = spec_bank_oth_wine
+	remove_variable = spec_bank_oth_wood
+	remove_variable = spec_bank_top
+	remove_variable = spec_iw_lvl1
+	remove_variable = spec_iw_lvl2
+	remove_variable = spec_iw_lvl3
+	remove_variable = spec_iw_lvl4
+	remove_variable = spec_iw_lvl5
+	remove_variable = spec_iw_lvl6
+	remove_variable = spec_flight_pending
+	remove_variable = spec_war_more
+	remove_variable = spec_war_n
+	remove_variable = spec_war_cost
+	remove_variable = spec_war_sum
+	remove_variable = spec_war_end
+	remove_variable = spec_war_stakes_now
+	remove_variable = spec_c_warend
+	remove_variable = spec_c_flight
+	remove_variable = spec_war_prev
+	remove_variable = spec_war1
+	remove_variable = spec_war1_c
+	remove_variable = spec_war1_killed
+	remove_variable = spec_war1_total
+	remove_variable = spec_war1_casualties
+	remove_variable = spec_war1_casualties_r
+	remove_variable = spec_war1_blockade
+	remove_variable = spec_war1_blockade_r
+	remove_variable = spec_war1_gdp
+	remove_variable = spec_war1_gdp_r
+	remove_variable = spec_war1_devastation
+	remove_variable = spec_war1_devastation_r
+	remove_variable = spec_war1_battles
+	remove_variable = spec_war1_battles_r
+	remove_variable = spec_war1_held
+	remove_variable = spec_war1_held_r
+	remove_variable = spec_war1_pressure
+	remove_variable = spec_war1_pressure_r
+	remove_variable = spec_war1_land
+	remove_variable = spec_war1_land_r
+	remove_variable = spec_war1_length
+	remove_variable = spec_war1_length_r
+	remove_variable = spec_war1_stalemate
+	remove_variable = spec_war1_stalemate_r
+	remove_variable = spec_war2
+	remove_variable = spec_war2_c
+	remove_variable = spec_war2_killed
+	remove_variable = spec_war2_total
+	remove_variable = spec_war2_casualties
+	remove_variable = spec_war2_casualties_r
+	remove_variable = spec_war2_blockade
+	remove_variable = spec_war2_blockade_r
+	remove_variable = spec_war2_gdp
+	remove_variable = spec_war2_gdp_r
+	remove_variable = spec_war2_devastation
+	remove_variable = spec_war2_devastation_r
+	remove_variable = spec_war2_battles
+	remove_variable = spec_war2_battles_r
+	remove_variable = spec_war2_held
+	remove_variable = spec_war2_held_r
+	remove_variable = spec_war2_pressure
+	remove_variable = spec_war2_pressure_r
+	remove_variable = spec_war2_land
+	remove_variable = spec_war2_land_r
+	remove_variable = spec_war2_length
+	remove_variable = spec_war2_length_r
+	remove_variable = spec_war2_stalemate
+	remove_variable = spec_war2_stalemate_r
+	remove_variable = spec_war3
+	remove_variable = spec_war3_c
+	remove_variable = spec_war3_killed
+	remove_variable = spec_war3_total
+	remove_variable = spec_war3_casualties
+	remove_variable = spec_war3_casualties_r
+	remove_variable = spec_war3_blockade
+	remove_variable = spec_war3_blockade_r
+	remove_variable = spec_war3_gdp
+	remove_variable = spec_war3_gdp_r
+	remove_variable = spec_war3_devastation
+	remove_variable = spec_war3_devastation_r
+	remove_variable = spec_war3_battles
+	remove_variable = spec_war3_battles_r
+	remove_variable = spec_war3_held
+	remove_variable = spec_war3_held_r
+	remove_variable = spec_war3_pressure
+	remove_variable = spec_war3_pressure_r
+	remove_variable = spec_war3_land
+	remove_variable = spec_war3_land_r
+	remove_variable = spec_war3_length
+	remove_variable = spec_war3_length_r
+	remove_variable = spec_war3_stalemate
+	remove_variable = spec_war3_stalemate_r
+	remove_variable = spec_wp1
+	remove_variable = spec_wp1_k
+	remove_variable = spec_wp2
+	remove_variable = spec_wp2_k
+	remove_variable = spec_wp3
+	remove_variable = spec_wp3_k
+	remove_variable = spec_fp1
+	remove_variable = spec_fp2
+	remove_variable = spec_fp3
+	remove_variable = spec_fs1
+	remove_variable = spec_fs2
+	remove_variable = spec_fs3
+	remove_variable = spec_gdp_avg
+	remove_variable = spec_growth
+	remove_variable = spec_c_growth
+	remove_variable = spec_c_business
+	remove_variable = spec_wr_n
+	remove_variable = spec_war_risk
+	remove_variable = spec_default_risk
+	remove_variable = spec_broke_warned
+	remove_variable = spec_wr1
+	remove_variable = spec_wr2
+	remove_variable = spec_wr3
+	remove_variable = spec_mania_heat
+	remove_variable = spec_fd
+	remove_variable = spec_mh
+	remove_variable = spec_centre_trust
+	remove_variable = spec_centre_calm
+	remove_variable = spec_centre_yrs
+	remove_variable = spec_exch_known
+	remove_variable = spec_charter_lock
+	remove_variable = spec_pursue_n
+	remove_variable = spec_pw_sum
+	remove_variable = spec_pu_price
+	remove_variable = spec_pw_price
+	remove_variable = spec_pu_harbour
+	remove_variable = spec_pw_harbour
+	remove_variable = spec_pu_companies
+	remove_variable = spec_pw_companies
+	remove_variable = spec_pu_floor
+	remove_variable = spec_pw_floor
+	remove_variable = spec_pu_sound
+	remove_variable = spec_pw_sound
+	remove_variable = spec_pu_pockets
+	remove_variable = spec_pw_pockets
+	remove_variable = spec_pu_door
+	remove_variable = spec_pw_door
+	remove_variable = spec_has_price
+	remove_variable = spec_lead_price
+	remove_variable = spec_has_harbour
+	remove_variable = spec_lead_harbour
+	remove_variable = spec_has_companies
+	remove_variable = spec_lead_companies
+	remove_variable = spec_has_floor
+	remove_variable = spec_lead_floor
+	remove_variable = spec_has_sound
+	remove_variable = spec_lead_sound
+	remove_variable = spec_has_pockets
+	remove_variable = spec_lead_pockets
+	remove_variable = spec_has_door
+	remove_variable = spec_lead_door
+	remove_variable = spec_rival
+	remove_variable = spec_rival_lock
+	remove_variable = spec_rival_last
+	clear_variable_list = spec_bank_goods
+	clear_variable_list = spec_iw_levels
+	clear_variable_list = spec_goods_w1
+	clear_variable_list = spec_goods_w1_staple
+	clear_variable_list = spec_goods_w1_industrial
+	clear_variable_list = spec_goods_w1_luxury
+	clear_variable_list = spec_goods_w1_military
+	clear_variable_list = spec_goods_w2
+	clear_variable_list = spec_goods_w2_staple
+	clear_variable_list = spec_goods_w2_industrial
+	clear_variable_list = spec_goods_w2_luxury
+	clear_variable_list = spec_goods_w2_military
+	clear_variable_list = spec_goods_w3
+	clear_variable_list = spec_goods_w3_staple
+	clear_variable_list = spec_goods_w3_industrial
+	clear_variable_list = spec_goods_w3_luxury
+	clear_variable_list = spec_goods_w3_military
+	clear_variable_list = spec_goods_w4
+	clear_variable_list = spec_goods_w4_staple
+	clear_variable_list = spec_goods_w4_industrial
+	clear_variable_list = spec_goods_w4_luxury
+	clear_variable_list = spec_goods_w4_military
+	clear_variable_list = spec_goods_w5
+	clear_variable_list = spec_goods_w5_staple
+	clear_variable_list = spec_goods_w5_industrial
+	clear_variable_list = spec_goods_w5_luxury
+	clear_variable_list = spec_goods_w5_military
+	clear_variable_list = spec_goods_w6
+	clear_variable_list = spec_goods_w6_staple
+	clear_variable_list = spec_goods_w6_industrial
+	clear_variable_list = spec_goods_w6_luxury
+	clear_variable_list = spec_goods_w6_military
+	spec_update_levers = yes
+	spec_update_companies = yes
+}

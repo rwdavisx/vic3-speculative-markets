@@ -1,0 +1,14 @@
+{
+  "de9b342187": "은행 신용은 [concept_spec_leverage] 1개월분마다 [concept_throughput]을 #P {1}%#! 늘리며, 최대 #P {2}%#!까지입니다.",
+  "f25f653c3a": "#v $SPEC_PANIC_AT$#! 미만이면 [concept_spec_financial_panic] 발생이 가능하며, #v {1}#!에 도달하면 #v 안정#! 상태가 됩니다.",
+  "94db779f7e": "[concept_spec_bad_debts]: 현재 [concept_throughput] #N -{1}%#!, 앞으로 #v {2}#!개월에 걸쳐 감소\\n",
+  "3adf5cdd86": "영토 상실 후 [concept_spec_bad_debts]은 [concept_spec_leverage] #v {1}#!개월분으로 계산됩니다. 완화 효과는 앞으로 #v {2}#!개월에 걸쳐 줄어듭니다\\n",
+  "3cafce71a4": "[concept_spec_bad_debts]: 현재 [concept_throughput] #N -{1}%#!, 앞으로 #v {2}#!개월에 걸쳐 감소. 공황이 끝난 뒤에도 남을 수 있습니다.\\n\\n",
+  "6f91445225": "#header 공황 시작: {1}#!\\n$TOOLTIP_DELIMITER$\\n[concept_spec_leverage]가 높을 때 시작된 [concept_spec_financial_panic]은 [concept_spec_market_confidence]를 곧바로 #v {2}#! 아래로 떨어뜨립니다.",
+  "6a698868e0": "#P 안전#!",
+  "53a64a4fa4": "#N 주의#!",
+  "d91b722d1b": "#N 위험#!",
+  "bd5d2d08d9": "#v {1}#!개월분까지 안전",
+  "46852e02d5": "안전 한도 #v {1}#!개월분 초과",
+  "bc99612baf": "[concept_spec_outstanding_credit]: #v @money!{1}#!\\n월간 원천금 수입: #v @money!{2}#!\\n$TOOLTIP_DELIMITER$\\n이번 달 [concept_investment_pool] 수입과 약 1년 평균 중 높은 쪽입니다."
+}

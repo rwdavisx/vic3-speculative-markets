@@ -1,0 +1,174 @@
+﻿namespace = spec_reform
+
+# the Commission of Inquiry's report: one Sound Finance institution, or none
+spec_reform.1 = {
+	type = country_event
+	placement = root
+	title = spec_reform.1.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = spec_reform.1.d_panic
+				trigger = { has_variable = spec_panic_cooldown }
+			}
+			triggered_desc = {
+				desc = spec_reform.1.d_calm
+				trigger = { always = yes }
+			}
+		}
+	}
+	flavor = spec_reform.1.f
+	duration = 3
+	event_image = {
+		trigger = { spec_pic_mideast = yes }
+		video = "unspecific_politicians_arguing"
+	}
+	event_image = {
+		trigger = { spec_pic_africa = yes }
+		video = "unspecific_politicians_arguing"
+	}
+	event_image = {
+		trigger = { spec_pic_asia = yes }
+		video = "asia_politician_parliament_motion"
+	}
+	event_image = {
+		trigger = { spec_pic_latam = yes }
+		video = "unspecific_politicians_arguing"
+	}
+	event_image = {
+		trigger = { spec_pic_west = yes }
+		video = "unspecific_politicians_arguing"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	option = {
+		name = spec_reform.1.a
+		trigger = { has_technology_researched = banking NOT = { has_variable = spec_note } }
+		custom_tooltip = {
+			text = spec_reform_currency_tt
+			set_variable = { name = spec_note value = 1 }
+		}
+		ig:ig_industrialists ?= {
+			add_modifier = {
+				name = spec_dear_money
+				days = short_modifier_time
+			}
+		}
+		spec_reform_done = yes
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = { var:spec_temper ?= -1 }
+				add = 30
+			}
+		}
+	}
+
+	option = {
+		name = spec_reform.1.b
+		trigger = { has_technology_researched = banking NOT = { has_variable = spec_note } }
+		custom_tooltip = {
+			text = spec_reform_free_tt
+			set_variable = { name = spec_note value = 2 }
+		}
+		ig:ig_industrialists ?= {
+			add_modifier = {
+				name = spec_free_issue
+				days = short_modifier_time
+			}
+		}
+		spec_reform_done = yes
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = { var:spec_temper ?= 1 }
+				add = 30
+			}
+		}
+	}
+
+	option = {
+		name = spec_reform.1.c
+		trigger = { has_technology_researched = central_banking NOT = { has_variable = spec_llr } }
+		custom_tooltip = {
+			text = spec_reform_llr_tt
+			set_variable = spec_llr
+		}
+		spec_reform_done = yes
+		ai_chance = {
+			base = 25
+		}
+	}
+
+	option = {
+		name = spec_reform.1.d
+		trigger = { has_technology_researched = joint_stock_companies NOT = { has_variable = spec_company_law } }
+		custom_tooltip = {
+			text = spec_reform_company_tt
+			set_variable = spec_company_law
+		}
+		ig:ig_industrialists ?= {
+			add_modifier = {
+				name = spec_disclosure_burden
+				days = short_modifier_time
+			}
+		}
+		ig:ig_intelligentsia ?= {
+			add_modifier = {
+				name = spec_disclosure_welcomed
+				days = short_modifier_time
+			}
+		}
+		spec_reform_done = yes
+		ai_chance = {
+			base = 15
+		}
+	}
+
+	option = {
+		name = spec_reform.1.e
+		default_option = yes
+		ai_chance = {
+			base = 0
+		}
+	}
+}
+
+# all three institutions made
+spec_reform.2 = {
+	type = country_event
+	placement = root
+	title = spec_reform.2.t
+	desc = spec_reform.2.d
+	flavor = spec_reform.2.f
+	duration = 3
+	event_image = {
+		trigger = { spec_pic_mideast = yes }
+		video = "middleeast_upperclass_party"
+	}
+	event_image = {
+		trigger = { spec_pic_africa = yes }
+		video = "europenorthamerica_capitalists_meeting"
+	}
+	event_image = {
+		trigger = { spec_pic_asia = yes }
+		video = "europenorthamerica_capitalists_meeting"
+	}
+	event_image = {
+		trigger = { spec_pic_latam = yes }
+		video = "europenorthamerica_capitalists_meeting"
+	}
+	event_image = {
+		trigger = { spec_pic_west = yes }
+		video = "europenorthamerica_capitalists_meeting"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	option = {
+		name = spec_reform.2.a
+		default_option = yes
+		add_modifier = { name = spec_sound_finance }
+	}
+}

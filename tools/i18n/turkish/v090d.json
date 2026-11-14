@@ -1,0 +1,9 @@
+{
+  "11d882c683": "[concept_spec_investor_interest] Seviyesine Göre Ticaretimiz",
+  "88bc5abc59": "#header Kaldıraç Geçmişi#!\\n$TOOLTIP_DELIMITER$\\nSon #v {1}#! ayın [concept_spec_leverage] değeri, en yenisi sağda. #v {2}#! ayın altı güvenli, #v {3}#! ve üzeri tehlikeli. Altın çizgi kredi limitimizdir: bankalar bunun ötesinde kredi vermez.",
+  "a77891aed1": "Mala Göre Yükseliş Kredileri",
+  "c1488a6133": "Şimdi #v {1}#! ay",
+  "c6eea0560c": "Güvenli",
+  "d5c9f8b0a4": "Riskli",
+  "f44f1629db": "Tehlikeli"
+}

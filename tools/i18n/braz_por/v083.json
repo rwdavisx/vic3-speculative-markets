@@ -1,0 +1,14 @@
+{
+  "de9b342187": "O crédito bancário aumenta o [concept_throughput] em #P {1}%#! para cada mês inteiro de [concept_spec_leverage], até #P {2}%#!.",
+  "f25f653c3a": "Abaixo de #v $SPEC_PANIC_AT$#!, pode começar um [concept_spec_financial_panic]; em #v {1}#!, o mercado fica #v Estável#!.",
+  "94db779f7e": "[concept_spec_bad_debts]: #N -{1}%#! de [concept_throughput] agora, diminuindo ao longo de mais #v {2}#! meses\\n",
+  "3adf5cdd86": "Após a perda de terras, as [concept_spec_bad_debts] são calculadas com #v {1}#! meses de [concept_spec_leverage]. O alívio diminui ao longo de mais #v {2}#! meses\\n",
+  "3cafce71a4": "[concept_spec_bad_debts]: #N -{1}%#! de [concept_throughput] agora, diminuindo ao longo de mais #v {2}#! meses. Elas podem durar mais que o pânico.\\n\\n",
+  "6f91445225": "#header Início do Pânico: {1}#!\\n$TOOLTIP_DELIMITER$\\nUm [concept_spec_financial_panic] que começa com [concept_spec_leverage] alta derruba a [concept_spec_market_confidence] diretamente para abaixo de #v {2}#!.",
+  "6a698868e0": "#P Seguro#!",
+  "53a64a4fa4": "#N Arriscado#!",
+  "d91b722d1b": "#N Perigoso#!",
+  "bd5d2d08d9": "Seguro até #v {1}#! meses",
+  "46852e02d5": "Limite seguro de #v {1}#! meses excedido",
+  "bc99612baf": "[concept_spec_outstanding_credit]: #v @money!{1}#!\\nRenda Mensal do Fundo: #v @money!{2}#!\\n$TOOLTIP_DELIMITER$\\nO maior valor entre a renda deste mês do [concept_investment_pool] e sua média ao longo de cerca de um ano."
+}

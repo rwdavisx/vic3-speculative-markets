@@ -1,0 +1,166 @@
+﻿# once per AI country, kept until the market economy is left
+spec_ai_temper = {
+	if = {
+		limit = { NOT = { has_variable = spec_temper } }
+	random_list = {
+		30 = {
+			modifier = {
+				if = {
+					limit = { ruler ?= { has_trait = cautious } }
+					add = 30
+				}
+				if = {
+					limit = { heir ?= { has_trait = cautious } }
+					add = 10
+				}
+				if = {
+					limit = { has_law_or_variant = law_type:law_traditionalism }
+					add = 20
+				}
+				if = {
+					limit = { has_law_or_variant = law_type:law_agrarianism }
+					add = 20
+				}
+			}
+			set_variable = { name = spec_temper value = -1 }
+		}
+		40 = {
+			modifier = {
+				if = {
+					limit = { has_law_or_variant = law_type:law_interventionism }
+					add = 20
+				}
+			}
+			set_variable = { name = spec_temper value = 0 }
+		}
+		30 = {
+			modifier = {
+				if = {
+					limit = { ruler ?= { has_trait = reckless } }
+					add = 30
+				}
+				if = {
+					limit = { ruler ?= { has_trait = ambitious } }
+					add = 15
+				}
+				if = {
+					limit = { heir ?= { has_trait = reckless } }
+					add = 10
+				}
+				if = {
+					limit = { has_law_or_variant = law_type:law_laissez_faire }
+					add = 20
+				}
+			}
+			set_variable = { name = spec_temper value = 1 }
+		}
+	}
+	}
+}
+
+# the AI's monthly chance to lend to the banks, by temperament
+spec_ai_rescue_roll = {
+	random_list = {
+		30 = {
+			modifier = {
+				if = {
+					limit = { var:spec_temper = -1 }
+					add = -15
+				}
+				if = {
+					limit = { var:spec_temper = 1 }
+					add = 20
+				}
+			}
+			spec_rescue = yes
+		}
+		70 = { }
+	}
+}
+
+spec_remove_credit_igs = {
+	ig:ig_industrialists ?= {
+		if = {
+			limit = { has_modifier = spec_loose_credit }
+			remove_modifier = spec_loose_credit
+		}
+		if = {
+			limit = { has_modifier = spec_tight_credit }
+			remove_modifier = spec_tight_credit
+		}
+	}
+	ig:ig_intelligentsia ?= {
+		if = {
+			limit = { has_modifier = spec_loose_credit }
+			remove_modifier = spec_loose_credit
+		}
+		if = {
+			limit = { has_modifier = spec_tight_credit }
+			remove_modifier = spec_tight_credit
+		}
+	}
+}
+
+# from a stance change, and from spec_refresh_credit_igs when the government changes
+spec_update_credit_igs = {
+	spec_remove_credit_igs = yes
+	if = {
+		limit = { spec_stance_value = 1 }
+	ig:ig_industrialists ?= {
+		if = {
+			limit = { is_in_government = yes }
+			add_modifier = { name = spec_loose_credit }
+		}
+	}
+	ig:ig_intelligentsia ?= {
+		if = {
+			limit = { is_in_government = yes }
+			add_modifier = { name = spec_loose_credit multiplier = -1 }
+		}
+	}
+	}
+	else_if = {
+		limit = { spec_stance_value = -1 }
+	ig:ig_industrialists ?= {
+		if = {
+			limit = { is_in_government = yes }
+			add_modifier = { name = spec_tight_credit multiplier = -1 }
+		}
+	}
+	ig:ig_intelligentsia ?= {
+		if = {
+			limit = { is_in_government = yes }
+			add_modifier = { name = spec_tight_credit }
+		}
+	}
+	}
+}
+
+# monthly: only when an interest group has entered or left the government since the modifiers were set
+spec_refresh_credit_igs = {
+	if = {
+		limit = {
+			OR = {
+				AND = {
+					spec_stance_value = 1
+					OR = {
+						ig:ig_industrialists ?= { is_in_government = yes NOT = { has_modifier = spec_loose_credit } }
+						ig:ig_industrialists ?= { is_in_government = no has_modifier = spec_loose_credit }
+						ig:ig_intelligentsia ?= { is_in_government = yes NOT = { has_modifier = spec_loose_credit } }
+						ig:ig_intelligentsia ?= { is_in_government = no has_modifier = spec_loose_credit }
+					}
+				}
+				AND = {
+					spec_stance_value = -1
+					OR = {
+						ig:ig_industrialists ?= { is_in_government = yes NOT = { has_modifier = spec_tight_credit } }
+						ig:ig_industrialists ?= { is_in_government = no has_modifier = spec_tight_credit }
+						ig:ig_intelligentsia ?= { is_in_government = yes NOT = { has_modifier = spec_tight_credit } }
+						ig:ig_intelligentsia ?= { is_in_government = no has_modifier = spec_tight_credit }
+					}
+				}
+			}
+		}
+		spec_update_credit_igs = yes
+	}
+}

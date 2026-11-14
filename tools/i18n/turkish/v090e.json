@@ -1,0 +1,10 @@
+{
+  "05fa6cd4d5": "Diğer mallar",
+  "28a6891ce7": "$SPEC_INTEREST_0$: pazarın ticaretinde #v {1}#!, #v {2}#! malda",
+  "eeb2be2e02": "$SPEC_INTEREST_1$: pazarın ticaretinde #v {1}#!, #v {2}#! malda",
+  "27d5160117": "$SPEC_INTEREST_2$: pazarın ticaretinde #v {1}#!, #v {2}#! malda",
+  "4d49c6c22b": "$SPEC_INTEREST_3$: pazarın ticaretinde #v {1}#!, #v {2}#! malda",
+  "b3ab9f2b6e": "$SPEC_INTEREST_4$: pazarın ticaretinde #v {1}#!, #v {2}#! malda",
+  "ee82dd90e3": "$SPEC_INTEREST_5$: pazarın ticaretinde #v {1}#!, #v {2}#! malda",
+  "ff02941358": "#header $SPEC_BANK_OTHER$#!\\n$TOOLTIP_DELIMITER$\\n[concept_spec_outstanding_credit] içinden #v {1}#! diğer tüm malların yükselişlerine verilmiş."
+}

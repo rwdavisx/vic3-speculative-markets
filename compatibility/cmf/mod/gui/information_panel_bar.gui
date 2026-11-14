@@ -1,0 +1,2 @@
+﻿# The complete merged sidebar is in com_gui_sidebar.gui.
+# Mask the parent file so only one information_panel_bar type is loaded.

@@ -1,0 +1,6 @@
+﻿l_polish:
+ rule_spec_market_volatility: "Zmienność rynku"
+ setting_spec_volatility_historical: "#tooltippable #tooltip:[GetPlayer.GetTooltipTag],setting_spec_volatility_historical_desc Historyczna#!#!"
+ setting_spec_volatility_historical_desc: "Boomy spekulacyjne i zjawisko [Concept('concept_spec_financial_panic', '$concept_spec_financial_panics|q$')] występują mniej więcej tak często jak w XIX wieku"
+ setting_spec_volatility_heightened: "#tooltippable #tooltip:[GetPlayer.GetTooltipTag],setting_spec_volatility_heightened_desc #high Wysoka#!#!#!"
+ setting_spec_volatility_heightened_desc: "Boomy spekulacyjne są silniejsze i kończą się gwałtowniej, a zjawisko [Concept('concept_spec_financial_panic', '$concept_spec_financial_panics|q$')] występuje częściej niż w XIX wieku"

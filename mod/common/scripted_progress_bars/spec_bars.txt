@@ -1,0 +1,141 @@
+﻿spec_confidence_bar = {
+	name = "spec_confidence_bar"
+	desc = "spec_confidence_bar_desc"
+	start_value = 55
+	min_value = 0
+	max_value = 100
+	progress_texture = "gfx/interface/progressbar/progressbar_gold.dds"
+	background_texture = "gfx/interface/progressbar/progressbar_bad.dds"
+	glow_texture = "gfx/interface/progressbar/progressbar_gold_glow.dds"
+	glow_line_texture = "gfx/interface/progressbar/progressbar_gold_glow_line.dds"
+	marker = yes
+	# this month's change by driver, for the tooltip (journal.conf_progress)
+	monthly_progress = {
+		if = {
+			limit = { has_variable = spec_c_boom OR = { var:spec_c_boom >= 0.1 var:spec_c_boom <= -0.1 } }
+			add = {
+				desc = "SPEC_DRIVER_BOOM"
+				value = var:spec_c_boom
+			}
+		}
+		if = {
+			limit = { has_variable = spec_c_crash OR = { var:spec_c_crash >= 0.1 var:spec_c_crash <= -0.1 } }
+			add = {
+				desc = "SPEC_DRIVER_CRASH"
+				value = var:spec_c_crash
+			}
+		}
+		if = {
+			limit = { has_variable = spec_c_restrain OR = { var:spec_c_restrain >= 0.1 var:spec_c_restrain <= -0.1 } }
+			add = {
+				desc = "SPEC_DRIVER_RESTRAIN"
+				value = var:spec_c_restrain
+			}
+		}
+		if = {
+			limit = { has_variable = spec_c_foreign OR = { var:spec_c_foreign >= 0.1 var:spec_c_foreign <= -0.1 } }
+			add = {
+				desc = "SPEC_DRIVER_FOREIGN"
+				value = var:spec_c_foreign
+			}
+		}
+		if = {
+			limit = { has_variable = spec_c_world OR = { var:spec_c_world >= 0.1 var:spec_c_world <= -0.1 } }
+			add = {
+				desc = "SPEC_DRIVER_WORLD"
+				value = var:spec_c_world
+			}
+		}
+		if = {
+			limit = { has_variable = spec_c_turmoil OR = { var:spec_c_turmoil >= 0.1 var:spec_c_turmoil <= -0.1 } }
+			add = {
+				desc = "SPEC_DRIVER_TURMOIL"
+				value = var:spec_c_turmoil
+			}
+		}
+		if = {
+			limit = { has_variable = spec_c_debt OR = { var:spec_c_debt >= 0.1 var:spec_c_debt <= -0.1 } }
+			add = {
+				desc = "SPEC_DRIVER_DEBT"
+				value = var:spec_c_debt
+			}
+		}
+		if = {
+			limit = { has_variable = spec_c_mood OR = { var:spec_c_mood >= 0.1 var:spec_c_mood <= -0.1 } }
+			add = {
+				desc = "SPEC_DRIVER_MOOD"
+				value = var:spec_c_mood
+			}
+		}
+		if = {
+			limit = { has_variable = spec_c_recover OR = { var:spec_c_recover >= 0.1 var:spec_c_recover <= -0.1 } }
+			add = {
+				desc = "SPEC_DRIVER_DRIFT"
+				value = var:spec_c_recover
+			}
+		}
+		if = {
+			limit = { has_variable = spec_c_tight OR = { var:spec_c_tight >= 0.1 var:spec_c_tight <= -0.1 } }
+			add = {
+				desc = "SPEC_DRIVER_TIGHT"
+				value = var:spec_c_tight
+			}
+		}
+		if = {
+			limit = { has_variable = spec_c_rescue OR = { var:spec_c_rescue >= 0.1 var:spec_c_rescue <= -0.1 } }
+			add = {
+				desc = "SPEC_DRIVER_RESCUE"
+				value = var:spec_c_rescue
+			}
+		}
+		if = {
+			limit = { has_variable = spec_c_warend OR = { var:spec_c_warend >= 0.1 var:spec_c_warend <= -0.1 } }
+			add = {
+				desc = "SPEC_DRIVER_WAREND"
+				value = var:spec_c_warend
+			}
+		}
+		if = {
+			limit = { has_variable = spec_c_burst OR = { var:spec_c_burst >= 0.1 var:spec_c_burst <= -0.1 } }
+			add = {
+				desc = "SPEC_DRIVER_BURST"
+				value = var:spec_c_burst
+			}
+		}
+		if = {
+			limit = { has_variable = spec_c_caution OR = { var:spec_c_caution >= 0.1 var:spec_c_caution <= -0.1 } }
+			add = {
+				desc = "SPEC_DRIVER_CAUTION"
+				value = var:spec_c_caution
+			}
+		}
+		if = {
+			limit = { has_variable = spec_c_limit OR = { var:spec_c_limit >= 0.1 var:spec_c_limit <= -0.1 } }
+			add = {
+				desc = "SPEC_DRIVER_LIMIT"
+				value = var:spec_c_limit
+			}
+		}
+		if = {
+			limit = { has_variable = spec_c_growth OR = { var:spec_c_growth >= 0.1 var:spec_c_growth <= -0.1 } }
+			add = {
+				desc = "SPEC_DRIVER_GROWTH"
+				value = var:spec_c_growth
+			}
+		}
+		if = {
+			limit = { has_variable = spec_c_business OR = { var:spec_c_business >= 0.1 var:spec_c_business <= -0.1 } }
+			add = {
+				desc = "SPEC_DRIVER_BUSINESS"
+				value = var:spec_c_business
+			}
+		}
+		if = {
+			limit = { has_variable = spec_c_drop OR = { var:spec_c_drop >= 0.1 var:spec_c_drop <= -0.1 } }
+			add = {
+				desc = "SPEC_DRIVER_DROP"
+				value = var:spec_c_drop
+			}
+		}
+	}
+}

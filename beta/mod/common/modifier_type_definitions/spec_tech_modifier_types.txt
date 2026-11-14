@@ -1,0 +1,200 @@
+﻿country_spec_boom_size_mult = {
+	script_only = yes
+	decimals = 0
+	percent = yes
+	color = neutral
+	game_data = {
+		ai_value = 0
+	}
+}
+
+country_spec_bank_lending_mult = {
+	script_only = yes
+	decimals = 0
+	percent = yes
+	color = neutral
+	game_data = {
+		ai_value = 0
+	}
+}
+
+country_spec_boom_end_loss_mult = {
+	script_only = yes
+	decimals = 0
+	percent = yes
+	color = bad
+	game_data = {
+		ai_value = 0
+	}
+}
+
+country_spec_interest_response_mult = {
+	script_only = yes
+	decimals = 0
+	percent = yes
+	color = neutral
+	game_data = {
+		ai_value = 0
+	}
+}
+
+country_spec_confidence_recovery_mult = {
+	script_only = yes
+	decimals = 0
+	percent = yes
+	color = good
+	game_data = {
+		ai_value = 0
+	}
+}
+
+country_spec_capital_flight_mult = {
+	script_only = yes
+	decimals = 0
+	percent = yes
+	color = good
+	game_data = {
+		ai_value = 0
+	}
+}
+
+country_spec_foreign_ties_mult = {
+	script_only = yes
+	decimals = 0
+	percent = yes
+	color = bad
+	game_data = {
+		ai_value = 0
+	}
+}
+
+country_spec_foreign_loss_mult = {
+	script_only = yes
+	decimals = 0
+	percent = yes
+	color = bad
+	game_data = {
+		ai_value = 0
+	}
+}
+
+country_spec_company_bust_mult = {
+	script_only = yes
+	decimals = 0
+	percent = yes
+	color = bad
+	game_data = {
+		ai_value = 0
+	}
+}
+
+country_spec_rescue_cost_mult = {
+	script_only = yes
+	decimals = 0
+	percent = yes
+	color = bad
+	game_data = {
+		ai_value = 0
+	}
+}
+
+country_spec_rescue_months_add = {
+	script_only = yes
+	decimals = 0
+	color = bad
+	game_data = {
+		ai_value = 0
+	}
+}
+
+country_spec_credit_limit_add = {
+	script_only = yes
+	decimals = 0
+	color = good
+	game_data = {
+		ai_value = 0
+	}
+}
+
+country_spec_rescue_bool = {
+	script_only = yes
+	boolean = yes
+	color = good
+	game_data = {
+		ai_value = 0
+	}
+}
+
+country_spec_excess_bool = {
+	script_only = yes
+	boolean = yes
+	color = neutral
+	game_data = {
+		ai_value = 0
+	}
+}
+
+country_spec_credit_policy_bool = {
+	script_only = yes
+	boolean = yes
+	color = good
+	game_data = {
+		ai_value = 0
+	}
+}
+
+country_spec_banknote_bool = {
+	script_only = yes
+	boolean = yes
+	color = good
+	game_data = {
+		ai_value = 0
+	}
+}
+
+country_spec_llr_bool = {
+	script_only = yes
+	boolean = yes
+	color = good
+	game_data = {
+		ai_value = 0
+	}
+}
+
+country_spec_company_law_bool = {
+	script_only = yes
+	boolean = yes
+	color = good
+	game_data = {
+		ai_value = 0
+	}
+}
+
+country_spec_panic_length_mult = {
+	script_only = yes
+	decimals = 0
+	percent = yes
+	color = bad
+	game_data = {
+		ai_value = 0
+	}
+}
+
+country_spec_trade_tie_mult = {
+	script_only = yes
+	decimals = 0
+	percent = yes
+	color = bad
+	game_data = {
+		ai_value = 0
+	}
+}
+
+country_spec_off_bool = {
+	script_only = yes
+	boolean = yes
+	color = neutral
+	game_data = {
+		ai_value = 0
+	}
+}

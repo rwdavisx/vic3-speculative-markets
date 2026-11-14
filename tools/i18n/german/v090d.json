@@ -1,0 +1,9 @@
+{
+  "11d882c683": "Unser Handel nach [concept_spec_investor_interest]",
+  "88bc5abc59": "#header Verlauf der Verschuldung#!\\n$TOOLTIP_DELIMITER$\\n[concept_spec_leverage] der letzten #v {1}#! Monate, der neueste rechts. Sicher unter #v {2}#! Monaten, gefährlich ab #v {3}#!. Die goldene Linie ist unsere Kreditschwelle: Darüber hinaus verleihen die Banken nichts mehr.",
+  "a77891aed1": "Boomkredite nach Gut",
+  "c1488a6133": "Jetzt #v {1}#! Monate",
+  "c6eea0560c": "Sicher",
+  "d5c9f8b0a4": "Riskant",
+  "f44f1629db": "Gefährlich"
+}

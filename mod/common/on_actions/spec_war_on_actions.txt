@@ -1,0 +1,162 @@
+﻿on_won_war = {
+	on_actions = { spec_war_won }
+}
+
+on_lost_war = {
+	on_actions = { spec_war_lost }
+}
+
+on_inconclusive_war = {
+	on_actions = { spec_war_drawn }
+}
+
+spec_war_won = {
+	effect = {
+		if = {
+			limit = { has_variable = spec_conf }
+			set_variable = { name = spec_war_end value = 0 }
+			if = {
+				limit = {
+					exists = var:spec_war1
+					exists = scope:enemy_country
+					has_variable = spec_war1_total
+				}
+				if = {
+					limit = { var:spec_war1 = { this = scope:enemy_country } }
+					set_variable = { name = spec_war_end value = var:spec_war1_total }
+				}
+			}
+			if = {
+				limit = {
+					exists = var:spec_war2
+					exists = scope:enemy_country
+					has_variable = spec_war2_total
+				}
+				if = {
+					limit = { var:spec_war2 = { this = scope:enemy_country } }
+					set_variable = { name = spec_war_end value = var:spec_war2_total }
+				}
+			}
+			if = {
+				limit = {
+					exists = var:spec_war3
+					exists = scope:enemy_country
+					has_variable = spec_war3_total
+				}
+				if = {
+					limit = { var:spec_war3 = { this = scope:enemy_country } }
+					set_variable = { name = spec_war_end value = var:spec_war3_total }
+				}
+			}
+			set_variable = { name = spec_war_end value = spec_war_stakes }
+			set_variable = { name = spec_war_stakes_now value = var:spec_war_end }
+			if = {
+				limit = { exists = scope:benefitted_from_wargoal }
+				change_variable = { name = spec_war_end multiply = 4 }
+			}
+			else = {
+				change_variable = { name = spec_war_end multiply = 1 }
+			}
+			spec_war_jump = yes
+		}
+	}
+}
+
+spec_war_lost = {
+	effect = {
+		if = {
+			limit = { has_variable = spec_conf }
+			set_variable = { name = spec_war_end value = 0 }
+			if = {
+				limit = {
+					exists = var:spec_war1
+					exists = scope:enemy_country
+					has_variable = spec_war1_total
+				}
+				if = {
+					limit = { var:spec_war1 = { this = scope:enemy_country } }
+					set_variable = { name = spec_war_end value = var:spec_war1_total }
+				}
+			}
+			if = {
+				limit = {
+					exists = var:spec_war2
+					exists = scope:enemy_country
+					has_variable = spec_war2_total
+				}
+				if = {
+					limit = { var:spec_war2 = { this = scope:enemy_country } }
+					set_variable = { name = spec_war_end value = var:spec_war2_total }
+				}
+			}
+			if = {
+				limit = {
+					exists = var:spec_war3
+					exists = scope:enemy_country
+					has_variable = spec_war3_total
+				}
+				if = {
+					limit = { var:spec_war3 = { this = scope:enemy_country } }
+					set_variable = { name = spec_war_end value = var:spec_war3_total }
+				}
+			}
+			set_variable = { name = spec_war_end value = spec_war_stakes }
+			set_variable = { name = spec_war_stakes_now value = var:spec_war_end }
+			if = {
+				limit = { exists = scope:victim_of_wargoal }
+				change_variable = { name = spec_war_end multiply = -8 }
+			}
+			else = {
+				change_variable = { name = spec_war_end multiply = -2 }
+			}
+			spec_war_jump = yes
+		}
+	}
+}
+
+spec_war_drawn = {
+	effect = {
+		if = {
+			limit = { has_variable = spec_conf }
+			set_variable = { name = spec_war_end value = 0 }
+			if = {
+				limit = {
+					exists = var:spec_war1
+					exists = scope:enemy_country
+					has_variable = spec_war1_total
+				}
+				if = {
+					limit = { var:spec_war1 = { this = scope:enemy_country } }
+					set_variable = { name = spec_war_end value = var:spec_war1_total }
+				}
+			}
+			if = {
+				limit = {
+					exists = var:spec_war2
+					exists = scope:enemy_country
+					has_variable = spec_war2_total
+				}
+				if = {
+					limit = { var:spec_war2 = { this = scope:enemy_country } }
+					set_variable = { name = spec_war_end value = var:spec_war2_total }
+				}
+			}
+			if = {
+				limit = {
+					exists = var:spec_war3
+					exists = scope:enemy_country
+					has_variable = spec_war3_total
+				}
+				if = {
+					limit = { var:spec_war3 = { this = scope:enemy_country } }
+					set_variable = { name = spec_war_end value = var:spec_war3_total }
+				}
+			}
+			set_variable = { name = spec_war_end value = spec_war_stakes }
+			set_variable = { name = spec_war_stakes_now value = var:spec_war_end }
+			change_variable = { name = spec_war_end multiply = -1 }
+			spec_war_jump = yes
+		}
+	}
+}
+

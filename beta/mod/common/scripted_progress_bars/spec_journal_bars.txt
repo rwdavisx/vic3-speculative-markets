@@ -1,0 +1,46 @@
+﻿spec_excess_bar = {
+	name = "spec_excess_bar"
+	desc = "spec_excess_bar_desc"
+	start_value = 0
+	min_value = 0
+	max_value = 200
+	default_bad = yes
+	# what the month added, for the tooltip; the journal entry's pulse sets the bar to var:spec_heat
+	monthly_progress = {
+		if = {
+			limit = {
+				has_variable = spec_conf
+				var:spec_conf >= spec_heat_from
+				has_technology_researched = stock_exchange
+			}
+			add = {
+				desc = "spec_excess_from_conf"
+				value = var:spec_conf
+				subtract = 70
+				multiply = spec_reform_heat
+			}
+		}
+		# generate.py's soft landing: the bubble cools while confidence sits below spec_heat_from but not below BURST_BELOW
+		else_if = {
+			limit = {
+				has_variable = spec_conf
+				has_variable = spec_heat
+				var:spec_conf >= 60
+			}
+			add = {
+				desc = "spec_excess_cooling"
+				value = var:spec_heat
+				multiply = -0.02
+			}
+		}
+	}
+}
+
+spec_finance_bar = {
+	name = "spec_finance_bar"
+	desc = "spec_finance_bar_desc"
+	start_value = 0
+	min_value = 0
+	max_value = 3
+	default_green = yes
+}

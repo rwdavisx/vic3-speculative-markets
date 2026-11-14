@@ -1,0 +1,40 @@
+﻿spec_ai_lean = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_temper }
+		add = {
+			value = var:spec_temper
+			multiply = 8
+		}
+	}
+	if = {
+		limit = { ig:ig_industrialists ?= { is_in_government = yes } }
+		add = 4
+	}
+	if = {
+		limit = { ig:ig_intelligentsia ?= { is_in_government = yes } }
+		add = -4
+	}
+}
+
+spec_ai_tight_at = {
+	value = 80
+	add = spec_ai_lean
+}
+
+spec_ai_untight_at = {
+	value = 65
+	add = spec_ai_lean
+	min = 58
+}
+
+spec_ai_loose_at = {
+	value = 35
+	add = spec_ai_lean
+}
+
+spec_ai_unloose_at = {
+	value = 55
+	add = spec_ai_lean
+	max = 54
+}

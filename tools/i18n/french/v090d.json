@@ -1,0 +1,9 @@
+{
+  "11d882c683": "Notre commerce par [concept_spec_investor_interest]",
+  "88bc5abc59": "#header Historique de l'endettement#!\\n$TOOLTIP_DELIMITER$\\n[concept_spec_leverage] sur les #v {1}#! derniers mois, le plus récent à droite. Sûr en dessous de #v {2}#! mois, dangereux à partir de #v {3}#!. La ligne dorée est notre plafond de crédit : au-delà, les banques ne prêtent plus.",
+  "a77891aed1": "Prêts des essors par bien",
+  "c1488a6133": "Maintenant #v {1}#! mois",
+  "c6eea0560c": "Sûr",
+  "d5c9f8b0a4": "Risqué",
+  "f44f1629db": "Dangereux"
+}

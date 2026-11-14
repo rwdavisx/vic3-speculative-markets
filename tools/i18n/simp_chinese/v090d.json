@@ -1,0 +1,9 @@
+{
+  "11d882c683": "按[concept_spec_investor_interest]划分的贸易",
+  "88bc5abc59": "#header 杠杆历史#!\\n$TOOLTIP_DELIMITER$\\n过去#v {1}#!个月的[concept_spec_leverage]，最新的在右侧。低于#v {2}#!个月为安全，从#v {3}#!个月起危险。金线是我们的信贷上限，超过后银行不再放贷。",
+  "a77891aed1": "按商品划分的热潮贷款",
+  "c1488a6133": "现为#v {1}#!个月",
+  "c6eea0560c": "安全",
+  "d5c9f8b0a4": "风险",
+  "f44f1629db": "危险"
+}

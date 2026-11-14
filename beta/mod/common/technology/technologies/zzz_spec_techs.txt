@@ -1,0 +1,93 @@
+﻿INJECT:stock_exchange = {
+	modifier = {
+		country_spec_boom_size_mult = 0.36
+		country_spec_bank_lending_mult = 1
+		country_spec_excess_bool = yes
+	}
+}
+
+INJECT:investment_banks = {
+	modifier = {
+		country_spec_boom_size_mult = 0.43
+		country_spec_bank_lending_mult = 1
+		country_spec_credit_limit_add = 2
+	}
+}
+
+INJECT:modern_financial_instruments = {
+	modifier = {
+		country_spec_boom_size_mult = 0.1
+		country_spec_boom_end_loss_mult = 0.1
+		country_spec_bank_lending_mult = 1
+	}
+}
+
+INJECT:mutual_funds = {
+	modifier = {
+		country_spec_boom_end_loss_mult = -0.15
+		country_spec_bank_lending_mult = 1
+	}
+}
+
+INJECT:macroeconomics = {
+	modifier = {
+		country_spec_confidence_recovery_mult = 0.5
+	}
+}
+
+INJECT:international_trade = {
+	modifier = {
+		country_spec_capital_flight_mult = 1
+	}
+}
+
+INJECT:international_exchange_standards = {
+	modifier = {
+		country_spec_capital_flight_mult = 2
+		country_spec_foreign_ties_mult = 0.25
+		country_spec_credit_limit_add = 2
+	}
+}
+
+INJECT:currency_standards = {
+	modifier = {
+		country_spec_foreign_loss_mult = -0.2
+	}
+}
+
+INJECT:central_banking = {
+	modifier = {
+		country_spec_credit_limit_add = 5
+		country_spec_credit_policy_bool = yes
+		country_spec_llr_bool = yes
+		country_spec_rescue_cost_mult = -0.33
+		country_spec_rescue_months_add = -4
+	}
+}
+
+INJECT:joint_stock_companies = {
+	modifier = {
+		country_spec_interest_response_mult = 0.1
+		country_spec_company_law_bool = yes
+	}
+}
+
+INJECT:corporate_charters = {
+	modifier = {
+		country_spec_company_bust_mult = 0.25
+	}
+}
+
+INJECT:corporate_management = {
+	modifier = {
+		country_spec_company_bust_mult = 0.25
+	}
+}
+
+INJECT:banking = {
+	modifier = {
+		country_spec_rescue_bool = yes
+		country_spec_banknote_bool = yes
+	}
+}
+

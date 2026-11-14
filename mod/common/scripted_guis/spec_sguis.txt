@@ -1,0 +1,29 @@
+﻿spec_sgui_tight = {
+	scope = country
+	is_valid = { spec_can_stance_tight = yes }
+	effect = { spec_stance_to_tight = yes }
+}
+
+spec_sgui_normal = {
+	scope = country
+	is_valid = { spec_can_stance_normal = yes }
+	effect = { spec_stance_to_normal = yes }
+}
+
+spec_sgui_loose = {
+	scope = country
+	is_valid = { spec_can_stance_loose = yes }
+	effect = { spec_stance_to_loose = yes }
+}
+
+spec_sgui_rescue = {
+	scope = country
+	is_valid = { spec_can_rescue = yes }
+	effect = { spec_rescue = yes }
+}
+
+spec_sgui_bailout = {
+	scope = country
+	is_valid = { spec_can_bailout = yes }
+	effect = { spec_bailout = yes }
+}

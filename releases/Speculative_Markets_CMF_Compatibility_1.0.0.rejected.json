@@ -1,0 +1,9 @@
+{
+  "archive": "Speculative_Markets_CMF_Compatibility_1.0.0.zip",
+  "archive_sha256": "44702d5f1691b20b0da179c010f4579357628c70fa67e190bf7896876eca2737",
+  "status": "rejected",
+  "game_version": "1.15.1",
+  "reason": "Final game-log review found that the game metadata parser rejects load_after relationships. Launcher support does not imply game-parser support. The UI checks passed, but this candidate failed metadata validation.",
+  "replacement": "Speculative_Markets_CMF_Compatibility_1.0.1.zip",
+  "instruction": "Do not install or publish this candidate. The archive and original manifest are retained unchanged for audit. Validate the replacement in a fresh game session before publication."
+}

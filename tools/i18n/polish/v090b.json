@@ -1,0 +1,9 @@
+{
+  "02cdee371e": "\\n\\n#title Kredyty bankowe:#! #v {1}#! z [concept_spec_outstanding_credit], #v {2}#! mies. dochodu puli\\nGdyby jego boom się skończył, [concept_spec_market_confidence] spadłaby #v x{3}#! razy mocniej niż przy boomie, w który żaden bank nie pożyczał",
+  "2523e47c00": "Gdzie pożyczały banki",
+  "57da154fe8": "#header Zeszły miesiąc#!\\n[concept_spec_leverage]: #v {1}#! mies.",
+  "599efded61": " Banki mocno w niego pożyczały, więc spadek był #N x{1}#! silniejszy.",
+  "99f6f8b6fa": "#header Ten miesiąc#!\\n[concept_spec_leverage]: #v {1}#! mies.",
+  "c866d03845": "#header {1} mies. temu#!\\n[concept_spec_leverage]: #v {2}#! mies.",
+  "d52746e9ce": "Historia zadłużenia"
+}

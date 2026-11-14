@@ -1,0 +1,18 @@
+﻿spec_ld_world_bar = {
+	name = "spec_ld_world_bar"
+	desc = "spec_ld_world_bar_desc"
+	start_value = 0
+	min_value = 0
+	max_value = 100
+	default_green = yes
+}
+
+spec_ld_own_bar = {
+	name = "spec_ld_own_bar"
+	desc = "spec_ld_own_bar_desc"
+	start_value = 0
+	min_value = 0
+	max_value = 100
+	default_green = yes
+}
+

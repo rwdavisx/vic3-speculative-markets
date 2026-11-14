@@ -1,0 +1,153 @@
+﻿je_spec_markets = {
+	icon = "gfx/interface/icons/spec_markets/je_markets.dds"
+	group = je_group_internal_affairs
+
+	# players get it from spec_monthly; AI countries follow scripted rules instead of buttons (journal.MONTHLY_AI).
+	# Shown (and so activated) for a player whenever investors are let in: an entry left inactive, as one was for
+	# Britain in a 2026-10-31 test (add_journal_entry then reports it already there), comes back by itself, and not
+	# before the first monthly update, which ranks the goods the text names
+	is_shown_when_inactive = {
+		is_player = yes
+		spec_law_mult > 0
+		has_variable = spec_top1
+	}
+	activation_description = {
+		always = yes
+	}
+	# gone while the economic system keeps investors out; spec_monthly adds it back
+	outcome = {
+		flags = { hidden invalid_outcome }
+		conclusion_desc = je_standard_failure_conclusion_desc
+		trigger = { NOT = { spec_law_mult > 0 } }
+	}
+
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = spec_je_status_ld
+				trigger = { spec_stage = 6 }
+			}
+			triggered_desc = {
+				desc = spec_je_status_panic
+				trigger = { spec_stage = 5 }
+			}
+			triggered_desc = {
+				desc = spec_je_status_aftermath
+				trigger = { spec_stage = 4 }
+			}
+			triggered_desc = {
+				desc = spec_je_status_mania
+				trigger = { spec_stage = 3 }
+			}
+			triggered_desc = {
+				desc = spec_je_status_buoyant
+				trigger = { spec_stage = 2 }
+			}
+			triggered_desc = {
+				desc = spec_je_status_steady
+				trigger = { spec_stage = 1 }
+			}
+			triggered_desc = {
+				desc = spec_je_status_wary
+				trigger = { spec_stage = 0 }
+			}
+		}
+	}
+
+	# the stage's picture in a confidence ring where the icon sits, and the last three years of confidence
+	widget = {
+		gui = "gui/spec_journal_widgets.gui"
+		name = "spec_je_header"
+		container = "custom_widget_container_je_icon"
+	}
+	widget = {
+		gui = "gui/spec_journal_widgets.gui"
+		name = "spec_je_history"
+		container = "custom_widget_container_4"
+	}
+
+	# after the bars' periodic progress, which only itemizes the month for their tooltips
+	on_monthly_pulse = {
+		effect = {
+			je:je_spec_markets ?= {
+				set_bar_progress = { name = spec_confidence_bar value = root.var:spec_conf }
+				if = {
+					limit = { root = { has_variable = spec_heat } }
+					set_bar_progress = { name = spec_excess_bar value = { value = root.var:spec_heat max = 200 } }
+				}
+				else = {
+					set_bar_progress = { name = spec_excess_bar value = 0 }
+				}
+				if = {
+					limit = { root = { has_variable = spec_reforms } }
+					set_bar_progress = { name = spec_finance_bar value = root.var:spec_reforms }
+				}
+			}
+		}
+	}
+
+	# the world's markets by stage, on the journal entry map mode; root is a state
+	map_color = {
+		if = {
+			limit = { owner ?= { has_variable = spec_conf spec_law_mult > 0 spec_stage = 6 } }
+			value = "spec_map_ld"
+		}
+		else_if = {
+			limit = { owner ?= { has_variable = spec_conf spec_law_mult > 0 spec_stage = 5 } }
+			value = "spec_map_panic"
+		}
+		else_if = {
+			limit = { owner ?= { has_variable = spec_conf spec_law_mult > 0 spec_stage = 4 } }
+			value = "spec_map_aftermath"
+		}
+		else_if = {
+			limit = { owner ?= { has_variable = spec_conf spec_law_mult > 0 spec_stage = 3 } }
+			value = "spec_map_mania"
+		}
+		else_if = {
+			limit = { owner ?= { has_variable = spec_conf spec_law_mult > 0 spec_stage = 2 } }
+			value = "spec_map_buoyant"
+		}
+		else_if = {
+			limit = { owner ?= { has_variable = spec_conf spec_law_mult > 0 spec_stage = 1 } }
+			value = "spec_map_steady"
+		}
+		else_if = {
+			limit = { owner ?= { has_variable = spec_conf spec_law_mult > 0 spec_stage = 0 } }
+			value = "spec_map_wary"
+		}
+	}
+	map_color_second = {
+		if = {
+			limit = { owner ?= { has_variable = spec_caught } }
+			value = "spec_map_caught"
+		}
+	}
+	map_tooltip = {
+		# Resolve this state's owner before saving or reading it; an unowned state must not reuse a prior tooltip's scope.
+		owner ?= {
+			save_scope_as = spec_map_owner
+			if = {
+				limit = {
+					has_variable = spec_conf
+					spec_law_mult > 0
+				}
+				custom_tooltip_no_bullet = spec_map_tt
+				if = {
+					limit = { has_variable = spec_caught }
+					custom_tooltip_no_bullet = spec_map_tt_caught
+				}
+			}
+		}
+	}
+
+	scripted_progress_bar = spec_confidence_bar
+	scripted_progress_bar = spec_excess_bar
+	scripted_progress_bar = spec_finance_bar
+	scripted_button = spec_suspend_act
+	scripted_button = spec_relief_works_button
+	scripted_button = spec_convert_debt
+	scripted_button = spec_inquiry
+
+	weight = 10
+}

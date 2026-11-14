@@ -1,0 +1,9 @@
+{
+  "11d882c683": "Nasz handel według [concept_spec_investor_interest]",
+  "88bc5abc59": "#header Historia zadłużenia#!\\n$TOOLTIP_DELIMITER$\\n[concept_spec_leverage] z ostatnich #v {1}#! mies., najnowsza po prawej. Bezpiecznie poniżej #v {2}#! mies., niebezpiecznie od #v {3}#!. Złota linia to nasz limit kredytu: powyżej niej banki nie pożyczają dalej.",
+  "a77891aed1": "Kredyty w boomach według dóbr",
+  "c1488a6133": "Teraz #v {1}#! mies.",
+  "c6eea0560c": "Bezpiecznie",
+  "d5c9f8b0a4": "Ryzykownie",
+  "f44f1629db": "Niebezpiecznie"
+}

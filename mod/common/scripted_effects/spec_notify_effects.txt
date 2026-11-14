@@ -1,0 +1,25 @@
+﻿spec_notify_tied = {
+	save_scope_as = spec_note_src
+	spec_every_tied = { EFFECT = spec_note_tied }
+	every_in_list = {
+		list = spec_note_list
+		remove_from_list = spec_note_list
+		post_notification = $TYPE$
+	}
+}
+
+# WEIGHT comes from spec_every_tied; the game rejects arguments an effect never reads, so it is kept as a local
+spec_note_tied = {
+	set_local_variable = { name = spec_note_w value = $WEIGHT$ }
+	# read once so the game stops logging it as set but never used; a weight is never negative
+	if = { limit = { local_var:spec_note_w < 0 } }
+	if = {
+		limit = {
+			is_player = yes
+			has_variable = spec_conf
+			NOT = { this = root }
+			NOT = { is_in_list = spec_note_list }
+		}
+		add_to_temporary_list = spec_note_list
+	}
+}

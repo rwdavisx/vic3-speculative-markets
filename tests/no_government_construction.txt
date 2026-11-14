@@ -1,0 +1,4 @@
+﻿# test only: AI governments build no production buildings, so anything built comes from private investors
+NAI = {
+	PRODUCTION_BUILDING_CONSTRUCTION_ENABLED = no
+}

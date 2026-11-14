@@ -1,0 +1,523 @@
+﻿# switching lever KIND on for good G; switching it off is always possible
+spec_lever_free = {
+	trigger_if = {
+		limit = { NOT = { has_variable = spec_$KIND$_$G$ } }
+		custom_tooltip = {
+			text = spec_lever_market_tt
+			spec_law_mult > 0
+		}
+		custom_tooltip = {
+			text = spec_lever_not_$OTHER$_tt
+			NOT = { has_variable = spec_$OTHER$_$G$ }
+		}
+		custom_tooltip = {
+			text = spec_lever_fits_$KIND$_tt
+			spec_lever_fits_$KIND$ = { G = $G$ }
+		}
+		custom_tooltip = {
+			text = spec_lever_no_issue_tt
+			NOT = { has_variable = spec_issue_$G$ }
+		}
+		custom_tooltip = {
+			text = spec_lever_authority_tt
+			authority >= spec_lever_cost_$G$
+		}
+	}
+}
+
+spec_lever_fits_restrain = {
+	OR = {
+		var:spec_word_$G$ >= 5
+		var:spec_risk_$G$ >= 2
+	}
+}
+
+spec_lever_fits_encourage = {
+	var:spec_word_$G$ < 4
+	NOT = { has_variable = spec_glut_$G$ }
+	# not to hold up a boom that could end in a Bust or Collapse (generate.py lifts it once one starts)
+	OR = {
+		NOT = { has_variable = spec_sev_$G$ }
+		var:spec_sev_$G$ < 2
+	}
+}
+
+spec_can_lever = {
+	trigger_if = {
+		limit = { scope:spec_good = { this = g:aeroplanes } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = aeroplanes }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:ammunition } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = ammunition }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:artillery } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = artillery }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:automobiles } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = automobiles }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:clippers } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = clippers }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:clothes } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = clothes }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:coal } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = coal }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:coffee } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = coffee }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:copper } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = copper }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:dye } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = dye }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:electricity } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = electricity }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:engines } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = engines }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:explosives } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = explosives }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:fabric } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = fabric }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:fertilizer } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = fertilizer }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:fine_art } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = fine_art }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:fish } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = fish }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:fruit } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = fruit }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:furniture } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = furniture }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:glass } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = glass }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:grain } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = grain }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:groceries } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = groceries }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:hardwood } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = hardwood }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:iron } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = iron }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:lead } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = lead }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:liquor } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = liquor }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:luxury_clothes } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = luxury_clothes }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:luxury_furniture } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = luxury_furniture }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:meat } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = meat }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:merchant_marine } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = merchant_marine }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:oil } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = oil }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:opium } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = opium }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:paper } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = paper }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:porcelain } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = porcelain }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:radios } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = radios }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:rubber } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = rubber }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:silk } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = silk }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:small_arms } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = small_arms }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:steamers } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = steamers }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:steel } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = steel }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:sugar } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = sugar }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:sulfur } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = sulfur }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:tanks } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = tanks }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:tea } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = tea }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:telephones } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = telephones }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:tobacco } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = tobacco }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:tools } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = tools }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:wine } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = wine }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:wood } }
+		spec_lever_free = { KIND = $KIND$ OTHER = $OTHER$ G = wood }
+	}
+}
+
+# goods scope: a lever on it changes its producers' throughput
+spec_lever_producers = {
+	OR = {
+		this = g:aeroplanes
+		this = g:ammunition
+		this = g:artillery
+		this = g:automobiles
+		this = g:clippers
+		this = g:clothes
+		this = g:coal
+		this = g:coffee
+		this = g:copper
+		this = g:dye
+		this = g:electricity
+		this = g:engines
+		this = g:explosives
+		this = g:fabric
+		this = g:fertilizer
+		this = g:fine_art
+		this = g:fish
+		this = g:furniture
+		this = g:glass
+		this = g:grain
+		this = g:groceries
+		this = g:hardwood
+		this = g:iron
+		this = g:lead
+		this = g:liquor
+		this = g:luxury_clothes
+		this = g:luxury_furniture
+		this = g:meat
+		this = g:merchant_marine
+		this = g:oil
+		this = g:opium
+		this = g:paper
+		this = g:porcelain
+		this = g:radios
+		this = g:rubber
+		this = g:silk
+		this = g:small_arms
+		this = g:steamers
+		this = g:steel
+		this = g:sugar
+		this = g:sulfur
+		this = g:tanks
+		this = g:tea
+		this = g:telephones
+		this = g:tobacco
+		this = g:tools
+		this = g:wine
+		this = g:wood
+	}
+}
+
+# Float a Great Issue on good G
+spec_issue_free = {
+	custom_tooltip = {
+		text = spec_issue_stand_tt
+		AND = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+		}
+	}
+	custom_tooltip = {
+		text = spec_issue_hot_tt
+		var:spec_word_$G$ >= 5
+	}
+	custom_tooltip = {
+		text = spec_issue_one_tt
+		NOT = { has_variable = spec_issue }
+	}
+	custom_tooltip = {
+		text = spec_issue_cool_tt
+		NOT = { has_variable = spec_issue_cool }
+	}
+	custom_tooltip = {
+		text = spec_issue_no_lever_tt
+		NOT = { has_variable = spec_restrain_$G$ }
+		NOT = { has_variable = spec_encourage_$G$ }
+	}
+}
+
+spec_can_issue = {
+	trigger_if = {
+		limit = { scope:spec_good = { this = g:aeroplanes } }
+		spec_issue_free = { G = aeroplanes }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:ammunition } }
+		spec_issue_free = { G = ammunition }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:artillery } }
+		spec_issue_free = { G = artillery }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:automobiles } }
+		spec_issue_free = { G = automobiles }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:clippers } }
+		spec_issue_free = { G = clippers }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:clothes } }
+		spec_issue_free = { G = clothes }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:coal } }
+		spec_issue_free = { G = coal }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:coffee } }
+		spec_issue_free = { G = coffee }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:copper } }
+		spec_issue_free = { G = copper }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:dye } }
+		spec_issue_free = { G = dye }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:electricity } }
+		spec_issue_free = { G = electricity }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:engines } }
+		spec_issue_free = { G = engines }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:explosives } }
+		spec_issue_free = { G = explosives }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:fabric } }
+		spec_issue_free = { G = fabric }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:fertilizer } }
+		spec_issue_free = { G = fertilizer }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:fine_art } }
+		spec_issue_free = { G = fine_art }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:fish } }
+		spec_issue_free = { G = fish }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:fruit } }
+		spec_issue_free = { G = fruit }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:furniture } }
+		spec_issue_free = { G = furniture }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:glass } }
+		spec_issue_free = { G = glass }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:grain } }
+		spec_issue_free = { G = grain }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:groceries } }
+		spec_issue_free = { G = groceries }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:hardwood } }
+		spec_issue_free = { G = hardwood }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:iron } }
+		spec_issue_free = { G = iron }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:lead } }
+		spec_issue_free = { G = lead }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:liquor } }
+		spec_issue_free = { G = liquor }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:luxury_clothes } }
+		spec_issue_free = { G = luxury_clothes }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:luxury_furniture } }
+		spec_issue_free = { G = luxury_furniture }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:meat } }
+		spec_issue_free = { G = meat }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:merchant_marine } }
+		spec_issue_free = { G = merchant_marine }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:oil } }
+		spec_issue_free = { G = oil }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:opium } }
+		spec_issue_free = { G = opium }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:paper } }
+		spec_issue_free = { G = paper }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:porcelain } }
+		spec_issue_free = { G = porcelain }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:radios } }
+		spec_issue_free = { G = radios }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:rubber } }
+		spec_issue_free = { G = rubber }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:silk } }
+		spec_issue_free = { G = silk }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:small_arms } }
+		spec_issue_free = { G = small_arms }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:steamers } }
+		spec_issue_free = { G = steamers }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:steel } }
+		spec_issue_free = { G = steel }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:sugar } }
+		spec_issue_free = { G = sugar }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:sulfur } }
+		spec_issue_free = { G = sulfur }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:tanks } }
+		spec_issue_free = { G = tanks }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:tea } }
+		spec_issue_free = { G = tea }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:telephones } }
+		spec_issue_free = { G = telephones }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:tobacco } }
+		spec_issue_free = { G = tobacco }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:tools } }
+		spec_issue_free = { G = tools }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:wine } }
+		spec_issue_free = { G = wine }
+	}
+	trigger_else_if = {
+		limit = { scope:spec_good = { this = g:wood } }
+		spec_issue_free = { G = wood }
+	}
+}

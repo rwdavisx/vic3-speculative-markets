@@ -1,0 +1,7 @@
+{
+  "d977d9e3db": "$concept_spec_foreign_panic$ obniża [concept_spec_market_confidence], gdy dane [concept_country] ma więzi z państwem, w którym zaczyna się [concept_spec_financial_panic]. Łączyć je może wspólny [concept_market], poddaństwo, prawa inwestycyjne, duże obroty handlowe lub własność gospodarki. Bliższe więzi oznaczają większe straty. Prawo {1} wzmacnia więzi handlowe, a inne zasady handlu je osłabiają. [concept_embargo] zrywa więź handlową.",
+  "12f147d1f2": "$concept_spec_long_depression$ to światowy kryzys gospodarczy. Zaczyna się, gdy [concept_great_power] ogarnia [concept_spec_financial_panic]. Dociera do każdego państwa w panice, a podczas krachu szerzy się przez bliskie więzi: wspólny [concept_market], poddanych i suwerenów, prawa inwestycyjne, duże obroty handlowe oraz własność gospodarki. Państwa o niewielu takich więziach mogą go uniknąć. Krach trwa kilka miesięcy, zamraża kredyt i obniża [concept_spec_market_confidence]. Następnie przychodzi depresja trwająca do #v {1}#! lat, która spowalnia inwestycje, budowę i handel, a część zbiorowości przechodzi do grupy określanej jako {2}. Rządy swoimi decyzjami przyspieszają odbudowę światowej gospodarki, zwłaszcza wielkie mocarstwa. Potem następuje rok powrotu zaufania.",
+  "5ad860c432": "#v {1}#! posiada dużą część naszej gospodarki.",
+  "c1a7b43e69": "Dotknięte przez [concept_spec_financial_panic] w #v {1}#!",
+  "c4b01705fe": "Następstwa"
+}

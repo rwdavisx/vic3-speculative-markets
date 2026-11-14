@@ -1,0 +1,6 @@
+﻿l_french:
+ rule_spec_market_volatility: "Volatilité du marché"
+ setting_spec_volatility_historical: "#tooltippable #tooltip:[GetPlayer.GetTooltipTag],setting_spec_volatility_historical_desc Historique#!#!"
+ setting_spec_volatility_historical_desc: "Les essors spéculatifs et les [Concept('concept_spec_financial_panic', '$concept_spec_financial_panics|q$')] surviennent à peu près aussi souvent qu’au XIXe siècle"
+ setting_spec_volatility_heightened: "#tooltippable #tooltip:[GetPlayer.GetTooltipTag],setting_spec_volatility_heightened_desc #high Élevée#!#!#!"
+ setting_spec_volatility_heightened_desc: "Les essors spéculatifs sont plus forts et se terminent plus brutalement, et les [Concept('concept_spec_financial_panic', '$concept_spec_financial_panics|q$')] surviennent plus souvent qu’au XIXe siècle"

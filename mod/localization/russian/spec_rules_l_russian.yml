@@ -1,0 +1,6 @@
+﻿l_russian:
+ rule_spec_market_volatility: "Изменчивость рынка"
+ setting_spec_volatility_historical: "#tooltippable #tooltip:[GetPlayer.GetTooltipTag],setting_spec_volatility_historical_desc Историческая#!#!"
+ setting_spec_volatility_historical_desc: "Спекулятивные бумы и [Concept('concept_spec_financial_panic', '$concept_spec_financial_panics|q$')] происходят примерно так же часто, как в XIX веке"
+ setting_spec_volatility_heightened: "#tooltippable #tooltip:[GetPlayer.GetTooltipTag],setting_spec_volatility_heightened_desc #high Высокая#!#!#!"
+ setting_spec_volatility_heightened_desc: "Спекулятивные бумы становятся крупнее и обрываются резче, а [Concept('concept_spec_financial_panic', '$concept_spec_financial_panics|q$')] происходят чаще, чем в XIX веке"

@@ -1,0 +1,64 @@
+﻿spec_debt_converted = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
+	country_loan_interest_rate_mult = -0.2
+}
+
+# public works in the slump, as vanilla's work camps; their cost is the expense modifier below
+spec_relief_works = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
+	state_welfare_payments_add = 0.15
+	state_construction_mult = 0.1
+	state_radicals_from_political_movements_mult = -0.25
+}
+
+spec_relief_costs = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
+	country_expenses_add = 1
+}
+
+spec_act_suspended = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	country_legitimacy_base_add = -10
+}
+
+spec_inquiry_sitting = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	country_authority_mult = -0.1
+}
+
+spec_sound_finance = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+	country_loan_interest_rate_mult = -0.05
+	country_prestige_add = 10
+}
+
+spec_rentiers_cut = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
+	interest_group_approval_add = -2
+}
+
+spec_relief_thanks = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
+	interest_group_approval_add = 2
+}
+
+spec_dear_money = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
+	interest_group_approval_add = -2
+}
+
+spec_free_issue = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
+	interest_group_approval_add = 2
+}
+
+spec_disclosure_burden = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	interest_group_approval_add = -1
+}
+
+spec_disclosure_welcomed = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_positive.dds
+	interest_group_approval_add = 1
+}
+

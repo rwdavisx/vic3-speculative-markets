@@ -1,0 +1,7 @@
+{
+  "d977d9e3db": "当通过共同[concept_market]、附属关系、投资权、大量贸易或经济所有权相联系的国家爆发[concept_spec_financial_panic]时，$concept_spec_foreign_panic$会降低[concept_country]的[concept_spec_market_confidence]。联系越紧密，损失越大。{1}加强贸易联系，其他贸易政策则削弱贸易联系。[concept_embargo]切断贸易联系。",
+  "12f147d1f2": "$concept_spec_long_depression$是一场世界经济危机。当[concept_great_power]陷入[concept_spec_financial_panic]时开始。它会波及每个处于恐慌的国家，并在崩溃期间沿紧密联系在各国间蔓延：共同[concept_market]、附属国与宗主国、投资权、大量贸易和经济所有权。这类联系很少的国家可能幸免。崩溃持续数月，冻结信贷并消耗[concept_spec_market_confidence]。随后是最长#v {1}#!年的萧条，减缓投资、建设和贸易，并使部分人口转变为{2}。各国政府的选择能加速世界的复苏，列强的选择尤为重要，此后还有一年信心回升期。",
+  "5ad860c432": "#v {1}#!拥有我国经济的很大份额。",
+  "c1a7b43e69": "受到#v {1}#!的[concept_spec_financial_panic]冲击",
+  "c4b01705fe": "余波"
+}

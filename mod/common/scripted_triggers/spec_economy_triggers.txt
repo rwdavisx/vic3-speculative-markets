@@ -1,0 +1,5 @@
+﻿spec_nearly_broke = {
+	taking_loans = yes
+	in_default = no
+	weeks_until_bankruptcy < 20
+}

@@ -1,0 +1,6 @@
+﻿spec_no_embargo_with_root = {
+	NOR = {
+		has_diplomatic_pact = { who = root type = embargo }
+		root = { has_diplomatic_pact = { who = prev type = embargo } }
+	}
+}

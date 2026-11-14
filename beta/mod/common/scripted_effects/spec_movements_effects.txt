@@ -1,0 +1,52 @@
+﻿# from spec_start_panic: the crash turns people against the free market, and ends any mania's goodwill
+spec_panic_movements = {
+	if = {
+		limit = { has_modifier = spec_mania_movements }
+		remove_modifier = spec_mania_movements
+	}
+	if = {
+		limit = { has_modifier = spec_panic_movements }
+		remove_modifier = spec_panic_movements
+	}
+	add_modifier = {
+		name = spec_panic_movements
+		days = normal_modifier_time
+		is_decaying = yes
+	}
+}
+
+# monthly: a mania that runs long or high builds heat, and enough of it wins the free market friends
+spec_update_movements = {
+	if = {
+		limit = {
+			has_variable = spec_mania
+			var:spec_conf >= 80
+		}
+		if = {
+			limit = { NOT = { has_variable = spec_mania_heat } }
+			set_variable = { name = spec_mania_heat value = 0 }
+		}
+		change_variable = { name = spec_mania_heat add = { value = var:spec_conf subtract = 70 } }
+		# heat starts over, so a mania that keeps going renews it
+		if = {
+			limit = { var:spec_mania_heat >= 120 }
+			if = {
+				limit = { has_modifier = spec_mania_movements }
+				remove_modifier = spec_mania_movements
+			}
+			add_modifier = {
+				name = spec_mania_movements
+				days = normal_modifier_time
+				is_decaying = yes
+			}
+			remove_variable = spec_mania_heat
+		}
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_mania }
+			has_variable = spec_mania_heat
+		}
+		remove_variable = spec_mania_heat
+	}
+}

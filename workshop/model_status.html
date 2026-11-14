@@ -1,0 +1,322 @@
+<title>Market Tuning Status</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;600&family=Source+Sans+3:wght@400;600&display=swap">
+<style>
+/* Layout: one reading column of ledger-like instruments, each chart under the question it answers */
+:root {
+  --bg: #0f1218; --panel: #161a22; --line: #2c3240; --ink: #f6efdc; --dim: #c9bc9c; --mute: #97907f; --gold: #d3ad63;
+  --s1: #bb8b2a; --s2: #4e8fdc; --s3: #d4604e; --s4: #6d7484; --band: #2d3a33; --bandedge: #4b6b58;
+  --good: #63b08c; --warn: #d9a441; --bad: #dc7a68;
+  --display: "EB Garamond", Georgia, serif; --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  color-scheme: dark;
+}
+body { background: var(--bg); color: var(--ink); font: 17px/1.5 var(--body); }
+main { max-width: 860px; margin: 0 auto; padding-block: 28px 56px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 40px; }
+h1, h2 { font-family: var(--display); font-weight: 600; text-wrap: balance; margin: 0; line-height: 1.15; }
+h1 { font-size: clamp(32px, 6vw, 44px); color: var(--gold); }
+h2 { font-size: 26px; }
+p { margin: 0; max-width: 65ch; color: var(--dim); }
+section { display: grid; gap: 14px; min-width: 0; }
+.lede { font-size: 19px; color: var(--ink); }
+.round { width: 100%; border-collapse: collapse; font-size: 14px; } .round th { text-align: left; font-weight: 600; } .round th, .round td { text-align: left; white-space: normal; padding: 6px 10px 6px 0; border-bottom: 1px solid var(--bandedge); vertical-align: top; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 16px; display: grid; gap: 16px; min-width: 0; align-content: start; }
+.small { font-size: 14px; color: var(--mute); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 14px; color: var(--dim); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.key { width: 12px; height: 12px; border-radius: 3px; display: inline-block; flex: none; }
+.dot { border-radius: 50%; } .ring { border-radius: 50%; background: var(--panel); border: 2px solid var(--s2); }
+.diamond { transform: rotate(45deg); border-radius: 1px; background: var(--s3); width: 10px; height: 10px; }
+
+/* the target tracks */
+.controls { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; }
+.controls label { font-weight: 600; flex: 1 1 260px; min-width: 0; display: grid; gap: 4px; }
+.controls output { color: var(--gold); font: 600 22px var(--display); }
+input[type=range] { width: 100%; accent-color: var(--gold); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+.seg button { font: inherit; font-size: 15px; background: none; color: var(--dim); border: 0; padding: 7px 12px; cursor: pointer; }
+.seg button[aria-pressed=true] { background: var(--gold); color: #1a1508; font-weight: 600; }
+button:focus-visible, input:focus-visible, summary:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.track { display: grid; gap: 5px; }
+.track .top { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
+.track .name { font-weight: 600; min-width: 0; }
+.track .val { font-variant-numeric: tabular-nums; color: var(--gold); font-weight: 600; white-space: nowrap; }
+.rail { position: relative; height: 26px; background: #1d222c; border-radius: 4px; }
+.rail .band { position: absolute; top: 0; bottom: 0; background: var(--band); border-left: 1px solid var(--bandedge); border-right: 1px solid var(--bandedge); }
+.rail .centre { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--good); margin-left: -1px; }
+.rail .whisk { position: absolute; top: 12px; height: 2px; background: var(--s1); }
+.mark { position: absolute; top: 13px; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; border: 2px solid var(--panel); }
+.mark.was { background: var(--panel); border: 2px solid var(--s2); width: 12px; height: 12px; margin: -6px 0 0 -6px; }
+.mark.now { background: var(--s1); }
+.mark.real { background: var(--s3); border-radius: 1px; transform: rotate(45deg); width: 10px; height: 10px; margin: -5px 0 0 -5px; border: 0; box-shadow: 0 0 0 2px var(--panel); }
+.scale { position: relative; height: 16px; font-size: 13px; color: var(--mute); font-variant-numeric: tabular-nums; }
+.scale span { position: absolute; transform: translateX(-50%); }
+
+/* bars */
+.rows { display: grid; gap: 12px; }
+.row { display: grid; grid-template-columns: minmax(0, 190px) minmax(0, 1fr) auto; gap: 4px 12px; align-items: center; }
+.row .lab { font-size: 15px; min-width: 0; }
+.bars { display: grid; gap: 3px; min-width: 0; }
+.bar { height: 11px; border-radius: 0 4px 4px 0; min-width: 2px; }
+.chip { font-size: 13px; padding: 1px 8px; border-radius: 10px; border: 1px solid; white-space: nowrap; justify-self: start; }
+.chip.good { color: var(--good); } .chip.bad { color: var(--bad); } .chip.warn { color: var(--warn); } .chip.gold { color: #1a1508; background: var(--gold); border-color: var(--gold); font-weight: 600; } .chip.quiet { color: var(--mute); }
+.num { font-variant-numeric: tabular-nums; font-size: 14px; color: var(--dim); }
+.pairs { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 18px; }
+.pair h3 { margin: 0 0 8px; font: 600 16px var(--body); }
+.pair .row { grid-template-columns: minmax(0, 118px) minmax(0, 1fr); }
+.stack { display: flex; height: 22px; gap: 2px; min-width: 0; }
+.stack i { display: block; min-width: 2px; }
+.stack i:first-child { border-radius: 4px 0 0 4px; } .stack i:last-child { border-radius: 0 4px 4px 0; }
+.dials { display: grid; gap: 2px; }
+.dial { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 118px; gap: 10px; align-items: center; padding: 5px 0; border-bottom: 1px solid var(--line); }
+.dial .nm { font-size: 15px; min-width: 0; } .dial .nm small { color: var(--mute); display: block; font-size: 13px; }
+.dial .bar { height: 12px; background: var(--s1); }
+.dial .bw { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.grouphead { font: 600 18px var(--display); color: var(--gold); padding-top: 14px; }
+svg text { fill: var(--dim); font: 13px var(--body); }
+#tip { position: fixed; z-index: 5; pointer-events: none; background: #0a0c11; border: 1px solid var(--gold); color: var(--ink); font-size: 14px; padding: 6px 9px; border-radius: 5px; max-width: 260px; }
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 16px; }
+ul { margin: 0; padding-left: 20px; color: var(--dim); display: grid; gap: 6px; max-width: 65ch; }
+ul b { color: var(--ink); font-weight: 600; }
+.scroll { overflow-x: auto; }
+table { border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; width: 100%; }
+th, td { text-align: right; padding: 3px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; } th:first-child, td:first-child { text-align: left; } th { color: var(--dim); font-weight: 600; }
+summary { cursor: pointer; color: var(--gold); font-size: 15px; }
+@media (max-width: 560px) {
+  .row { grid-template-columns: minmax(0, 1fr) auto; } .row .bars { grid-column: 1 / -1; grid-row: 2; }
+  .dial { grid-template-columns: minmax(0, 1fr) 96px; } .dial .bw { grid-column: 1 / -1; grid-row: 2; }
+}
+</style>
+
+<main>
+<header style="display:grid;gap:10px">
+  <h1>Market Tuning Status</h1>
+  <p class="lede">Bubbles now cool more slowly, which lifts panics toward history's centre without touching debt or Mania, and nine other tuned values were rounded so they're easy to explain. The offline model passes its exam on panics, gives a rough guide on Mania, and still fails on Tight. No real game has tested these values yet.</p>
+</header>
+
+<section>
+  <h2>Where the game lands against history</h2>
+  <p>The green band is history's range for each reading. The green line is its centre. Drag the slider to see what each cooling value does. All positions use the rounded values. 0.98 is what's now in the mod.</p>
+  <div class="panel">
+    <div class="controls">
+      <label for="cool">Bubble cooling <output id="coolv"></output>
+        <input id="cool" type="range" min="0" max="7" step="1" value="6">
+      </label>
+      <div class="seg" role="group" aria-label="Market volatility rule">
+        <button id="hist" aria-pressed="true">Historical</button><button id="height" aria-pressed="false">Heightened</button>
+      </div>
+    </div>
+    <div class="legend">
+      <span><i class="key ring"></i>0.8 as it was</span>
+      <span><i class="key dot" style="background:var(--s1)"></i>Selected</span>
+      <span><i class="key diamond"></i>tune8, a real game with no cooling</span>
+      <span><i class="key" style="background:var(--band);border:1px solid var(--bandedge)"></i>History's range</span>
+    </div>
+    <div class="rows" id="tracks"></div>
+  </div>
+  <p class="small">These are the model's own numbers on the 4 real 0.8 games, with nothing adjusted. It reads a little high on Mania and panic length: at 0.8's values it gives 5.3% and 4.6 months, against 4.7% and 4.2 played. A real game could land either side of the dot. Panics count per country per 100 years.</p>
+</section>
+
+<section>
+  <h2>Can the offline model be trusted?</h2>
+  <p>The exam: six real games with very different bubble rules, each predicted from each of the others using recorded settings. That makes 30 predictions. A good model beats the lazy guess that nothing changes.</p>
+  <div class="two">
+    <div class="panel">
+      <strong>Panics: predicted against played</strong>
+      <div id="scatter"></div>
+      <p class="small">Dots on the line are perfect. Correlation between real and modelled change is 0.95. The high group is tune5, which the model always reads low.</p>
+    </div>
+    <div class="panel">
+      <strong>Typical miss, smaller is better</strong>
+      <div class="legend"><span><i class="key" style="background:var(--s1)"></i>Model</span><span><i class="key" style="background:var(--s2)"></i>"Nothing changes" guess</span></div>
+      <div class="rows" id="miss"></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>What real games say about cooling</h2>
+  <p>tune8 had the same bubble settings as 0.8 but no cooling. Each bar is the gap between them over the same years: the real one, and the one the model predicts from the 0.8 games alone. They point the same way, but this is supporting evidence, not a clean test.</p>
+  <div class="panel">
+    <div class="legend"><span><i class="key" style="background:var(--s3)"></i>Real gap</span><span><i class="key" style="background:var(--s1)"></i>Model's gap</span></div>
+    <div class="pairs" id="tests"></div>
+    <p class="small">Why it isn't clean: the 0.8 side is only 2, 1 and 1 games, the tune8 side is three overlapping stretches of one game, and the two differ in more than cooling. 0.8 has Leverage, tune8 doesn't, and their histories differ.</p>
+  </div>
+</section>
+
+<section>
+  <h2>The credit ladder</h2>
+  <p>The limit is now 3 months, plus 3 with each of Central Banking, Investment Banks and International Exchange Standards. The bonus and the danger are now both bigger, and both run to 12 months: higher risk, higher reward. Up to 10 months a crash costs what it did before; the new danger sits on top of that. From about 9 months a crash costs more than the boom pays. The chart shows average throughput bonus less Bad Debts if a country rides to each limit and never tightens. It leaves out what the extra money builds and the investment lost in a crash.</p>
+  <div class="panel">
+    <strong>Throughput bonus less Bad Debts, riding to each limit</strong>
+    <div class="legend"><span><i class="key" style="background:var(--s3)"></i>Before</span><span><i class="key" style="background:var(--s1)"></i>Now</span></div>
+    <div class="rows" id="credit"></div>
+    <p class="small">A stress test on the 4 real games: every country gets the limit and the techs from the start and never tightens. It can't see GDP. Even riding, leverage averages only about 2 months, because lending needs confidence above 60 and each panic halves the debt. Lending at 40% means debt can reach 12 if income stays flat, and about 10 if income grows 1% a month. Of 37,490 logged country-months, 172 had Investment Banks and none had Exchange Standards, so the upper steps need the full-length real game.</p>
+  </div>
+  <div class="panel"><strong>What changed, and why</strong>
+    <table class="round"><thead><tr><th>Setting</th><th>Was</th><th>Now</th><th>Why</th></tr></thead><tbody id="limits"></tbody></table>
+  </div>
+</section>
+
+<section>
+  <h2>Values rounded</h2>
+  <p>Numbers players read should be easy to say. These moved to round values. Cooling is the one real change. The others barely change the results.</p>
+  <div class="panel"><table class="round"><thead><tr><th>Value</th><th>Was</th><th>Now</th><th>What the model says</th></tr></thead><tbody id="rounds"></tbody></table></div>
+  <p class="small">Left alone on purpose: Encourage's 2.2 must sit just above Keen at 2, a collapse's 0.167 is simply one sixth, and the war costs are parts of a 0.6 total. Internal thresholds no player sees stay as they are.</p>
+</section>
+
+<section>
+  <h2>What sets off a panic</h2>
+  <p>The biggest single push on confidence in the three months before each panic. I suspected panics spreading between countries were the missing piece. They're the smallest slice, so that rebuild isn't needed.</p>
+  <div class="panel">
+    <div class="legend" id="causeleg"></div>
+    <div class="rows" id="causes"></div>
+    <p class="small">The largest push isn't the only cause, as Codex points out: a small foreign hit can still tip a country already near the line. Removing the scaling of foreign hits changed the exam by only 0.02.</p>
+  </div>
+</section>
+
+<section>
+  <h2>What each dial moves</h2>
+  <p>How far panics move when a dial shifts by about a fifth either way, from the tuned value. Longer bars mean stronger dials. Each carries the verdict from this pass.</p>
+  <div class="panel"><div class="dials" id="dials"></div></div>
+</section>
+
+<section>
+  <h2>What Codex thinks</h2>
+  <div class="two">
+    <div class="panel"><strong>Its verdict, third review</strong><p>It ran the checks itself and confirmed the earlier fixes. It advised against my three small credit changes, so I dropped them. It then reviewed the bigger bonus and danger: no script errors, but it warns that nothing rules out a long investment collapse after the worst crash, because the model holds the economy fixed. The model says nothing about late game: that's blindness, not safety. Its first verdict still stands: useful for provisional sizing, with clean validation unproven.</p></div>
+    <div class="panel"><strong>What it caught across its reviews, now fixed or withdrawn</strong>
+      <ul><li>A panic length of 210 days added a month to the shortest laws too. Now 195, which changes no country.</li><li>Scaling predictions up by 1 / 0.65 wasn't valid. Removed.</li><li>Candidates were corrected against the wrong set of games. Now run on the 4 real games alone.</li><li>Two parts of the replay still read today's drift. Fixed, and a fresh read of every log gave identical results.</li><li>The cooling comparison isn't clean. Reworded.</li><li>Tight can't be waved away. Claim withdrawn.</li><li>"Worse off" past 6 months claimed too much: the measure is only part of the trade-off. Reworded.</li><li>The credit tooltip showed half the real bonus, and two gaps in the new AI rule. Fixed in the mod; the running game has the old tooltip, which changes nothing but the display.</li><li>The test of 40% lending at the top never ran. Rerun with the techs active: Severe crashes more than doubled.</li></ul>
+    </div>
+  </div>
+  <p class="small">Still standing from its first review: only 6 games sit behind the 30 predictions, 18 of 30 panic predictions fall in a range that should catch about 27, and dropping full contagion is only provisional. A separate review of the game scripts found nothing game-breaking: 0.7 saves carry over and the AI can't get stuck. It did find that the game never showed the limit, which is now fixed. None of this has run in the game.</p>
+</section>
+
+<section>
+  <h2>What's left</h2>
+  <div class="two">
+    <div class="panel"><strong>Offline, still open</strong>
+      <ul><li><b>The model reads only 38 of 190 settings one by one.</b> Wars, slumps and foreign panics are now measured as whole groups.</li><li><b>Tight months</b> still fail the exam. Tight feeds lending and debt, so this matters: a miss that size could move panics by about 0.3 and Mania by about 0.8. That stays inside history's range, but it remains unsized.</li><li><b>Only 4 real 0.8 games</b> sit behind the baseline, each a 20-year slice from a save.</li><li><b>The credit ladder</b> is in at 3, 6, 9, 12. Logs stop near 1885, so its upper steps need the full-length real game.</li><li><b>The bigger bonus</b> can't be sized here: the model reads panics, and the bonus doesn't feed them, so it can't see what +24% does to an economy.</li></ul>
+    </div>
+    <div class="panel"><strong>The final real-game batch, last of all</strong>
+      <ul><li>Confirm the new values land where the model says.</li><li>See what the doubled bonus does to GDP, prices and the size of a crash.</li><li>Run a full-length game to test late credit and Severe crashes, which sit below target.</li><li>Check the Leverage row and tooltip by eye.</li></ul>
+    </div>
+  </div>
+</section>
+</main>
+<div id="tip" hidden></div>
+
+<script>
+const D = {"credit":[["Limit 3 months",0.94,1.9],["Limit 6 months",1.29,2.83],["Limit 9 months",1.13,2.69],["Limit 12 months",1.03,2.26]],"limits":[["Bonus per month","+1%","+2%","Bigger in general. A country at the safe 3 months now gets +6%"],["Bonus stops at","8 months","12 months","Up to +24%, so every tech step adds reward"],["Danger tops out at","10 months","12 months","With the bonus running to 12, months 10 to 12 would otherwise be free"],["Worst Bad Debts","25 points","40 points","-40% throughput and -80% investment at the very top. About the same as before up to 10 months"],["Panic line rises by","up to 30","up to 40","Keeps the same climb per month, for two more months"],["Bad Debts fade","0.2 a month","0.25 a month","The worst crash takes about 13 years. At 0.2 it would take 17"],["Monthly lending cap","30%","40%","At 30% debt levels off near 10, so 12 could never be reached. Normal play doesn't move. Riders at 12 get about 0.84 Severe crashes, which is the risk working: history's target is for all countries, and they're still near 0"],["Bold AI tightens at","10 months","12 months","Bold countries can now ride to the top of the ladder"],["Carried away by a Mania","never","50% Bold, 10% Balanced","Each Mania can stop an AI tightening until it passes or a panic comes. With every tech, Severe crashes go from 0.05 to 0.16, toward history's 0.3 to 0.5, and panics hold"],["Monthly repayment","3%","3%","Left alone: it changes every country at every step"],["Lending starts at","60 confidence","60 confidence","Left alone: it changes every country all game, so it needs real games"]],"steps":["0.9","0.92","0.94","0.95","0.96","0.97","0.98","1"],"cool":{"played":{"panics":2.4664354939094872,"medium":0.032453098604072195,"severe":0.0,"over3":6.647105894905309,"over5":1.0696185649506535,"lev":1.3361285716190985,"conf":57.15132764916571,"mania":4.699919978660976,"tight":5.356094958655642,"loose":2.9767938116831156,"rescued":26.31578947368421,"bonus":0.0,"drag":0.0,"in_panic":0.8455588156841825,"length":4.171052631578948,"mania_panic":12.087912087912088},"0.9":{"panics":2.5857006312794524,"medium":0.03975504578998844,"severe":0.010547257046323465,"over3":7.503667644705255,"over5":1.8490930914910644,"lev":1.3503334510383258,"conf":57.351683316802344,"mania":5.44571885836223,"tight":5.173712990130701,"loose":3.123833022139237,"rescued":20.803263256981488,"bonus":1.8886102960789544,"drag":0.008999862543557969,"in_panic":0.9900640170712189,"length":4.658613115782868,"mania_panic":11.775438596491227},"h0.9":{"panics":3.4278585400551265,"medium":0.044623010580599275,"severe":0.00973592958122166,"over3":7.618298212856761,"over5":1.8485596158975728,"lev":1.3797513468830558,"conf":57.61443047253151,"mania":6.365630834889304,"tight":5.393104827954121,"loose":3.3269538543611628,"rescued":24.402366863905325,"bonus":1.9277033875700187,"drag":0.012823783575714834,"in_panic":1.3358895705521472,"length":4.741538461538462,"mania_panic":18.015534953645705},"0.92":{"panics":2.716324353160843,"medium":0.0316417711389704,"severe":0.008924602116119855,"over3":7.555014670578821,"over5":1.8578954387836757,"lev":1.3494358740233179,"conf":57.27568904833387,"mania":5.44158442251267,"tight":5.130034675913577,"loose":3.2168578287543346,"rescued":20.908004778972522,"bonus":1.8861643104827954,"drag":0.008398037986522472,"in_panic":1.0441451053614297,"length":4.676821983273596,"mania_panic":12.614742698191932},"h0.92":{"panics":3.585256068284876,"medium":0.03894371832488664,"severe":0.00649061972081444,"over3":7.385769538543611,"over5":1.788076820485463,"lev":1.3655816774838327,"conf":57.51200442291467,"mania":6.324753267538011,"tight":5.419778607628701,"loose":3.3102160576153645,"rescued":25.164064267933924,"bonus":1.897839423846359,"drag":0.010652816360743488,"in_panic":1.4035076020272073,"length":4.762842272007242,"mania_panic":19.039713957348997},"0.94":{"panics":2.879401173646306,"medium":0.033264426069174007,"severe":0.008924602116119855,"over3":7.295745532141905,"over5":1.7513336889837292,"lev":1.3334393039371124,"conf":57.157629670083196,"mania":5.428180848226194,"tight":5.149306481728461,"loose":3.1933182181915174,"rescued":21.780783319244858,"bonus":1.854242464657242,"drag":0.006583953093368502,"in_panic":1.113296879167778,"length":4.704142011834319,"mania_panic":13.13229571984436},"h0.94":{"panics":3.799446519071753,"medium":0.038132390859784836,"severe":0.005679292255712634,"over3":7.314950653507601,"over5":1.7947452654041078,"lev":1.3610023785189755,"conf":57.430820259260265,"mania":6.342891437716725,"tight":5.32982128567618,"loose":3.3967057882101894,"rescued":25.3683536194747,"bonus":1.8853387570018671,"drag":0.008169285762054158,"in_panic":1.4955988263536943,"length":4.789237668161435,"mania_panic":20.54129962977148},"0.95":{"panics":3.0181381701787147,"medium":0.03975504578998844,"severe":0.01298123944162888,"over3":7.121232328620966,"over5":1.6499733262203256,"lev":1.3262160902976259,"conf":57.10889931634894,"mania":5.433915710856228,"tight":5.146705788210189,"loose":3.252667377967458,"rescued":23.14516129032258,"bonus":1.8354214457188585,"drag":0.00961233468589133,"in_panic":1.165310749533209,"length":4.69758064516129,"mania_panic":14.680701754385964},"h0.95":{"panics":3.9665799768827243,"medium":0.04543433804570107,"severe":0.007301947185916245,"over3":7.324153107495332,"over5":1.7911443051480396,"lev":1.3559228295564865,"conf":57.36890051545291,"mania":6.359895972259269,"tight":5.273139503867698,"loose":3.4631234995998934,"rescued":26.876661894047864,"bonus":1.8753227527340623,"drag":0.009123989844217417,"in_panic":1.5640837556681781,"length":4.797504602168132,"mania_panic":21.96143110885562},"0.96":{"panics":3.144705254734596,"medium":0.04381168311549747,"severe":0.012169911976527075,"over3":7.2159242464657245,"over5":1.8268871699119764,"lev":1.3259369956422937,"conf":57.051820122834755,"mania":5.47746065617498,"tight":4.995265404107762,"loose":3.4066417711389705,"rescued":24.200206398348815,"bonus":1.8340917578020806,"drag":0.010485838179843044,"in_panic":1.222125900240064,"length":4.728328173374613,"mania_panic":15.591699383062254},"h0.96":{"panics":4.104505645950032,"medium":0.047868320441006494,"severe":0.007301947185916245,"over3":7.062483328887703,"over5":1.665310749533209,"lev":1.3395256427215503,"conf":57.28071346388452,"mania":6.3344891971192325,"tight":5.379101093624967,"loose":3.5328087489997335,"rescued":26.44791460762997,"bonus":1.8412483328887703,"drag":0.008882943230865121,"in_panic":1.6305014670578821,"length":4.833168610397312,"mania_panic":22.92590246991767},"0.97":{"panics":3.3215746421267895,"medium":0.044623010580599275,"severe":0.015415221836934294,"over3":7.083488930381435,"over5":1.7321285676180316,"lev":1.3186604208072774,"conf":56.96920944498274,"mania":5.3829021072285945,"tight":5.019605228060816,"loose":3.5140704187783407,"rescued":23.790913531998044,"bonus":1.8189930648172845,"drag":0.013170641349088012,"in_panic":1.2908108829021072,"length":4.728138739618955,"mania_panic":16.66197579510273},"h0.97":{"panics":4.25703520938917,"medium":0.033264426069174007,"severe":0.00486796479061083,"over3":6.8954387836756466,"over5":1.566017604694585,"lev":1.3276677948895752,"conf":57.22569925318056,"mania":6.297212590024007,"tight":5.3895038676980525,"loose":3.5557481995198716,"rescued":27.55860491709548,"bonus":1.819665244065084,"drag":0.007611670771061715,"in_panic":1.6897172579354494,"length":4.829235753764055,"mania_panic":23.953934740882918},"0.98":{"panics":3.463556948519605,"medium":0.03732106339468303,"severe":0.00973592958122166,"over3":6.8540944251800475,"over5":1.6710456121632435,"lev":1.3054325461447447,"conf":56.90897462655494,"mania":5.332755401440384,"tight":5.068018138170179,"loose":3.5609495865564154,"rescued":24.595924104005622,"bonus":1.793066150973593,"drag":0.01012292772673062,"in_panic":1.3522272606028274,"length":4.750058561724057,"mania_panic":17.483012457531146},"h0.98":{"panics":4.37386636436383,"medium":0.04381168311549747,"severe":0.00649061972081444,"over3":6.919911976527074,"over5":1.6130301413710322,"lev":1.3243345110343698,"conf":57.15107462318605,"mania":6.301947185916244,"tight":5.2984795945585486,"loose":3.6178314217124563,"rescued":27.824151363383415,"bonus":1.8118031475060017,"drag":0.00905349003882187,"in_panic":1.7446652440650838,"length":4.853088480801335,"mania_panic":24.662764062102315},"1":{"panics":3.9649573219525207,"medium":0.04218902818529386,"severe":0.008924602116119855,"over3":6.718058148839691,"over5":1.6739130434782608,"lev":1.2877406640053641,"conf":56.77748216176101,"mania":5.4313150173379565,"tight":5.005734862630034,"loose":3.6281008268871697,"rescued":26.68303662778801,"bonus":1.7545318751667112,"drag":0.011757174917106834,"in_panic":1.5634835956255002,"length":4.797626355637405,"mania_panic":21.711184116554776},"h1":{"panics":4.739775051124745,"medium":0.046245665510802884,"severe":0.005679292255712634,"over3":6.8559615897572685,"over5":1.6361696452387302,"lev":1.3170942198925895,"conf":57.03999501580839,"mania":6.302880768204854,"tight":5.159575886903174,"loose":3.6723126166977864,"rescued":28.346456692913385,"bonus":1.7950946919178448,"drag":0.010682989074962198,"in_panic":1.8993064817284608,"length":4.875385142074632,"mania_panic":27.659036296952067}},"targets":[{"k":"panics","name":"Panics per country per 100 years","low":2.5,"high":5.5,"centre":4,"min":1.5,"max":6.5,"d":1,"unit":"","size":0},{"k":"in_panic","name":"Share of months in panic","low":0.8,"high":2.5,"centre":1.5,"min":0.4,"max":2.9,"d":2,"unit":"%","size":0},{"k":"mania_panic","name":"Manias that end in a panic","low":10,"high":35,"centre":20,"min":5,"max":45,"d":0,"unit":"%","size":0},{"k":"length","name":"Months a panic lasts","low":3,"high":6,"centre":4.5,"min":2,"max":7,"d":1,"unit":"","size":0},{"k":"mania","name":"Share of months in Mania","low":2,"high":8,"centre":4,"min":1,"max":9,"d":1,"unit":"%","size":0}],"tune8":{"panics":3.73,"in_panic":1.39,"length":4.53,"mania":5.19,"mania_panic":24.04},"exam":[{"src":"tune3","dst":"tune4","played":2.4621092350176017,"pred":1.4957100781149957},{"src":"tune3","dst":"tune5","played":5.233391747650152,"pred":3.633710950909715},{"src":"tune3","dst":"tune6","played":2.1657205170146576,"pred":1.9248826291079815},{"src":"tune3","dst":"tune7","played":2.5257995607305115,"pred":2.118544600938967},{"src":"tune3","dst":"tune8","played":3.7322909966519884,"pred":2.529342723004695},{"src":"tune4","dst":"tune3","played":1.8696375976437445,"pred":1.9696873880140815},{"src":"tune4","dst":"tune5","played":5.233391747650152,"pred":3.572348426312265},{"src":"tune4","dst":"tune6","played":2.3955572384197907,"pred":2.531356057252472},{"src":"tune4","dst":"tune7","played":2.5460379464285716,"pred":2.6313792449250615},{"src":"tune4","dst":"tune8","played":4.236908059622741,"pred":3.3315415586331927},{"src":"tune5","dst":"tune3","played":2.278188683955934,"pred":1.9286017736710743},{"src":"tune5","dst":"tune4","played":2.0682017204965746,"pred":1.9286017736710743},{"src":"tune5","dst":"tune6","played":2.5781585897672135,"pred":2.5876214752270195},{"src":"tune5","dst":"tune7","played":2.4461757560526096,"pred":2.77175933301471},{"src":"tune5","dst":"tune8","played":3.176061104128396,"pred":3.3338643725771333},{"src":"tune6","dst":"tune3","played":1.8779342723004695,"pred":1.5979505436351393},{"src":"tune6","dst":"tune4","played":2.4621092350176017,"pred":1.326770162817115},{"src":"tune6","dst":"tune5","played":5.233391747650152,"pred":3.9793317363798293},{"src":"tune6","dst":"tune7","played":2.5257995607305115,"pred":2.025241348343436},{"src":"tune6","dst":"tune8","played":3.7322909966519884,"pred":2.9207960486224707},{"src":"tune7","dst":"tune3","played":1.8779342723004695,"pred":2.0865300719078137},{"src":"tune7","dst":"tune4","played":2.4621092350176017,"pred":1.9180152529761907},{"src":"tune7","dst":"tune5","played":5.233391747650152,"pred":3.6692636340789146},{"src":"tune7","dst":"tune6","played":2.1657205170146576,"pred":2.70150735625959},{"src":"tune7","dst":"tune8","played":3.7322909966519884,"pred":3.393356801155339},{"src":"tune8","dst":"tune3","played":1.8779342723004695,"pred":2.0347005755941487},{"src":"tune8","dst":"tune4","played":2.4621092350176017,"pred":2.0703073473156577},{"src":"tune8","dst":"tune5","played":5.233391747650152,"pred":3.728931000032228},{"src":"tune8","dst":"tune6","played":2.1657205170146576,"pred":2.6366829944089853},{"src":"tune8","dst":"tune7","played":2.5257995607305115,"pred":2.775138950736398}],"miss":[{"name":"Panic count","model":0.6077687700508191,"guess":1.470738218040548,"ok":true,"chip":"\u2713 Usable"},{"name":"Months in panic","model":0.20197811762748838,"guess":0.5459264818666835,"ok":true,"chip":"\u2713 Usable"},{"name":"Manias ending in panic","model":5.194222729849275,"guess":10.575510091150598,"ok":true,"chip":"\u2713 Usable"},{"name":"Mania share","model":0.97411655786536,"guess":1.3288848487297455,"ok":true,"chip":"\u2713 Rough guide"},{"name":"AI's Tight share","model":1.7475785648271596,"guess":1.216636058322128,"ok":false,"chip":"\u2715 Not yet"}],"tests":[{"name":"1836 to 1856","rows":[{"name":"Panics","played":0.87,"pred":1.12,"unit":""},{"name":"Months in panic","played":0.35,"pred":0.51,"unit":"%"},{"name":"Manias ending in panic","played":9.0,"pred":9.0,"unit":"%"}]},{"name":"1850 to 1870","rows":[{"name":"Panics","played":1.18,"pred":1.01,"unit":""},{"name":"Months in panic","played":0.47,"pred":0.43,"unit":"%"},{"name":"Manias ending in panic","played":13.0,"pred":6.0,"unit":"%"}]},{"name":"1864 to 1885","rows":[{"name":"Panics","played":2.74,"pred":1.6,"unit":""},{"name":"Months in panic","played":1.06,"pred":0.68,"unit":"%"},{"name":"Manias ending in panic","played":25.0,"pred":13.0,"unit":"%"}]}],"rounds":[["Pull back to rest","4.2%","4%","Panics +0.2, Mania +0.4"],["Wary line","34","35","No visible change"],["Confidence per boom","+0.72","+0.7","Mania -0.2"],["Collapse cost","5.1","5","No visible change"],["Bubble builds from","74","75","Panics -0.1, manias ending in panic -1 point"],["Bubble loses a month","10%","2%","The one real change: panics 2.6 to 3.5, manias ending in a panic 12% to 18%"],["Panic length","189 days","195 days","No change in play: every law still rounds to the same months. The panel now shows the true 7 months, not 6"],["Heightened volatility","from 72, biggest burst 42","from 70, biggest burst 45","Panics +0.2, manias ending in panic +1 point, on Heightened only"],["Income average","15.4%","15%","No visible change"],["Long Depression recovery","2.1 a month","2 a month","Not in the model: 50 months instead of 48"]],"cause":[{"name":"tune7","note":"46 panics","burst":36.95652173913043,"crash":54.347826086956516,"foreign":0,"other":8.695652173913054},{"name":"tune8","note":"62 panics","burst":58.06451612903226,"crash":20.967741935483872,"foreign":1.6129032258064515,"other":19.354838709677413},{"name":"0.8 as it was","note":"76 panics, 4 games","burst":25.0,"crash":44.73684210526316,"foreign":2.631578947368421,"other":27.63157894736842}],"dials":[{"name":"Changed","rows":[{"name":"Bubble cooling","today":"today 0.98, was 0.9","swing":1.4421816436181014,"verdict":"changed"}]},{"name":"Checked and kept","rows":[{"name":"How long mood swings last","today":"today 0.75","swing":7.819679597250174,"verdict":"keep"},{"name":"Panic line","today":"today 20","swing":2.2755919080765374,"verdict":"keep"},{"name":"Size of mood swings","today":"today 1.5","swing":1.491602198383831,"verdict":"keep"},{"name":"Confidence resting point","today":"today 55","swing":1.1748613701125659,"verdict":"keep"},{"name":"Pull back to rest","today":"today 0.04","swing":1.1658758147006152,"verdict":"keep"},{"name":"Bubble bursts below","today":"today 60","swing":0.759279432309842,"verdict":"keep"},{"name":"Size of market collapses","today":"today 5","swing":0.6087713791596658,"verdict":"keep"},{"name":"Largest burst","today":"today 40","swing":0.5885538794827765,"verdict":"keep"},{"name":"Bubble starts at","today":"today 75","swing":0.5863074906297889,"verdict":"keep"},{"name":"Size of booms","today":"today 0.7","swing":0.34145110565413006,"verdict":"keep"},{"name":"Burst size","today":"today 0.2","swing":0.33246555024217894,"verdict":"keep"},{"name":"Lending starts above","today":"today 60","swing":0.2178997187398064,"verdict":"keep"},{"name":"Debt repaid a month","today":"today 0.03","swing":0.13702972003224945,"verdict":"keep"},{"name":"Mania ends below","today":"today 65","swing":0.1168122203553601,"verdict":"keep"},{"name":"Confidence after a panic","today":"today 40","swing":0.10782666494340942,"verdict":"keep"},{"name":"Lending rate","today":"today 1.5","swing":0.09434833182548319,"verdict":"keep"},{"name":"Leverage safe level","today":"today 3","swing":0.08311638756054451,"verdict":"keep"},{"name":"Monthly lending cap","today":"today 0.4","swing":0.05166694361871693,"verdict":"keep"},{"name":"Leverage ruin level","today":"today 12","swing":0.01572472197091379,"verdict":"keep"},{"name":"Leverage lifts panic line by","today":"today 40","swing":0.011231944264938676,"verdict":"keep"},{"name":"Calm months after a panic","today":"today 12","swing":0.0,"verdict":"keep"}]},{"name":"Whole groups of settings","rows":[{"name":"Economic growth","today":"scaled as a whole","swing":0.1752183305330406,"verdict":"group"},{"name":"World slumps","today":"scaled as a whole","swing":0.1190586092083481,"verdict":"group"},{"name":"Wars and unrest","today":"scaled as a whole","swing":0.11456583150237254,"verdict":"group"},{"name":"Business mood","today":"scaled as a whole","swing":0.10333388723743431,"verdict":"group"},{"name":"Foreign panics","today":"scaled as a whole","swing":0.04717416591274182,"verdict":"group"},{"name":"Government debt","today":"scaled as a whole","swing":0.004492777705975115,"verdict":"group"}]},{"name":"No effect in these games","rows":[{"name":"Tight's pull","today":"today 0.1","swing":0.1190586092083481,"verdict":"none"},{"name":"Loose money lift","today":"today 0.2","swing":0.08985555411950807,"verdict":"none"},{"name":"Rescue odds","today":"today 1","swing":0.0786236098545694,"verdict":"none"},{"name":"Debt cleared by a panic","today":"today 0.5","swing":0.06514527673664317,"verdict":"none"},{"name":"Months between stance changes","today":"today 6","swing":0.060652499030667606,"verdict":"none"},{"name":"Rescue confidence","today":"today 15","swing":0.0,"verdict":"none"}]},{"name":"Can't be sized offline","rows":[{"name":"AI goes Tight at","today":"today 80","swing":0.47398804798040395,"verdict":"real"},{"name":"Tight pulls down to","today":"today 60","swing":0.1797111082390157,"verdict":"real"},{"name":"AI goes Loose at","today":"today 35","swing":0.11905860920834765,"verdict":"real"},{"name":"AI temperament spread","today":"today 8","swing":0.05840611017768005,"verdict":"real"},{"name":"Bad Debts size","today":"today 40","swing":0.0,"verdict":"real"},{"name":"Bad Debts fade","today":"today 0.25","swing":0.0,"verdict":"real"}]}]};
+const $ = id => document.getElementById(id);
+const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
+const f2 = (v, d = 2) => Number(v).toFixed(d);
+
+// tooltips, for mouse and touch
+const tip = $("tip");
+document.addEventListener("pointermove", e => {
+  const t = e.target.closest && e.target.closest("[data-tip]");
+  if (!t) { tip.hidden = true; return; }
+  tip.textContent = t.dataset.tip; tip.hidden = false;
+  const w = tip.offsetWidth, h = tip.offsetHeight;
+  tip.style.left = Math.max(8, Math.min(e.clientX + 12, innerWidth - w - 8)) + "px";
+  tip.style.top = Math.max(8, e.clientY - h - 12) + "px";
+});
+
+// target tracks
+let mode = "", idx = 4;
+function tracks() {
+  const key = D.steps[idx], now = D.cool[mode + key], was = D.cool.played;
+  $("coolv").textContent = key === "1" ? "1 (none)" : key;
+  const box = $("tracks"); box.textContent = "";
+  for (const t of D.targets) {
+    const at = v => Math.max(0, Math.min(100, (v - t.min) / (t.max - t.min) * 100));
+    const v = now[t.k], base = was[t.k], w = el("div", "track");
+    const reach = t.size ? base + (v - base) / t.size : v;
+    w.append(el("div", "top", `<span class="name">${t.name}</span><span class="val">${f2(v, t.d)}${t.unit}</span>`));
+    const r = el("div", "rail");
+    const b = el("div", "band"); b.style.left = at(t.low) + "%"; b.style.width = at(t.high) - at(t.low) + "%"; b.dataset.tip = `History: ${t.low} to ${t.high}${t.unit}, centre ${t.centre}${t.unit}`; r.append(b);
+    const c = el("div", "centre"); c.style.left = at(t.centre) + "%"; r.append(c);
+    if (Math.abs(reach - v) > 1e-6) { const k = el("div", "whisk"); k.style.left = Math.min(at(v), at(reach)) + "%"; k.style.width = Math.abs(at(reach) - at(v)) + "%"; k.dataset.tip = `A real game might reach ${f2(reach, t.d)}${t.unit}`; r.append(k); }
+    const m1 = el("div", "mark was"); m1.style.left = at(base) + "%"; m1.dataset.tip = `0.8 as it was: ${f2(base, t.d)}${t.unit}`; r.append(m1);
+    const m3 = el("div", "mark real"); m3.style.left = at(D.tune8[t.k]) + "%"; m3.dataset.tip = `tune8, played: ${f2(D.tune8[t.k], t.d)}${t.unit}`; r.append(m3);
+    const m2 = el("div", "mark now"); m2.style.left = at(v) + "%"; m2.dataset.tip = `Selected: ${f2(v, t.d)}${t.unit}`; r.append(m2);
+    w.append(r);
+    const s = el("div", "scale");
+    for (const x of [t.low, t.centre, t.high]) { const e = el("span", "", x + t.unit); e.style.left = at(x) + "%"; s.append(e); }
+    w.append(s); box.append(w);
+  }
+}
+$("cool").addEventListener("input", e => { idx = +e.target.value; tracks(); });
+const pick = m => { mode = m; $("hist").setAttribute("aria-pressed", !m); $("height").setAttribute("aria-pressed", !!m); tracks(); };
+$("hist").onclick = () => pick(""); $("height").onclick = () => pick("h");
+$("cool").max = D.steps.length - 1; idx = D.steps.indexOf("0.98"); $("cool").value = idx; tracks();
+
+// scatter
+(() => {
+  const W = 400, H = 340, L = 44, B = 42, T = 10, R = 10, lo = 1, hi = 6.5;
+  const x = v => L + (v - lo) / (hi - lo) * (W - L - R), y = v => H - B - (v - lo) / (hi - lo) * (H - B - T);
+  let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Predicted panics against played panics for 30 predictions" style="width:100%;height:auto;display:block">`;
+  for (const v of [2, 3, 4, 5, 6]) s += `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" stroke="#2c3240"/><text x="${L - 8}" y="${y(v) + 4}" text-anchor="end">${v}</text><text x="${x(v)}" y="${H - B + 18}" text-anchor="middle">${v}</text>`;
+  s += `<line x1="${x(lo)}" y1="${y(lo)}" x2="${x(hi)}" y2="${y(hi)}" stroke="#63b08c" stroke-width="2" stroke-dasharray="5 4"/>`;
+  s += `<text x="${(L + W - R) / 2}" y="${H - 6}" text-anchor="middle">Played</text><text transform="translate(13 ${(T + H - B) / 2}) rotate(-90)" text-anchor="middle">Predicted</text>`;
+  for (const r of D.exam) s += `<circle cx="${x(r.played)}" cy="${y(r.pred)}" r="6" fill="#bb8b2a" stroke="#161a22" stroke-width="2" data-tip="${r.src} to ${r.dst}: played ${f2(r.played)}, predicted ${f2(r.pred)}"/>`;
+  $("scatter").innerHTML = s + "</svg>";
+})();
+
+// misses
+for (const m of D.miss) {
+  const top = Math.max(m.model, m.guess), r = el("div", "row");
+  r.append(el("div", "lab", m.name));
+  const b = el("div", "bars");
+  for (const [v, c, n] of [[m.model, "--s1", "Model"], [m.guess, "--s2", "Guess"]]) { const e = el("div", "bar"); e.style.width = v / top * 100 + "%"; e.style.background = `var(${c})`; e.dataset.tip = `${n}: off by ${f2(v)}`; b.append(e); }
+  r.append(b, el("span", "chip " + (m.ok ? "good" : "bad"), m.chip));
+  $("miss").append(r);
+}
+
+// the cooling test
+for (const g of D.tests) {
+  const p = el("div", "pair"); p.append(el("h3", "", g.name));
+  for (const q of g.rows) {
+    const top = Math.max(q.played, q.pred), r = el("div", "row");
+    r.append(el("div", "lab", q.name));
+    const b = el("div", "bars");
+    for (const [v, c, n] of [[q.played, "--s3", "Real gap"], [q.pred, "--s1", "Model's gap"]]) { const row = el("div"); row.style.cssText = "display:flex;align-items:center;gap:6px"; const e = el("div", "bar"); e.style.width = v / top * 72 + "%"; e.style.background = `var(${c})`; e.dataset.tip = `${n}: ${v}${q.unit}`; row.append(e, el("span", "num", v + q.unit)); b.append(row); }
+    r.append(b); p.append(r);
+  }
+  $("tests").append(p);
+}
+
+for (const row of D.rounds) { const t = el("tr"); for (const x of row) t.append(el("td", "", x)); $("rounds").append(t); }
+
+for (const [n, a, b] of D.credit) {
+  const r = el("div", "row"), bars = el("div", "bars"); r.append(el("div", "lab", n));
+  for (const [v, c, l] of [[a, "--s3", "Before"], [b, "--s1", "Now"]]) { const row = el("div"); row.style.cssText = "display:flex;align-items:center;gap:6px"; const e = el("div", "bar"); e.style.width = v / 3 * 72 + "%"; e.style.background = `var(${c})`; e.dataset.tip = `${l}: +${v}%`; row.append(e, el("span", "num", "+" + v + "%")); bars.append(row); }
+  r.append(bars); $("credit").append(r);
+}
+for (const row of D.limits) { const t = el("tr"); for (const x of row) t.append(el("td", "", x)); $("limits").append(t); }
+
+// causes
+const CAUSE = [["burst", "A bubble bursting", "--s1"], ["crash", "A market collapse", "--s2"], ["foreign", "A panic abroad", "--s3"], ["other", "Everything else", "--s4"]];
+for (const [, n, c] of CAUSE) { const s = el("span"); s.append(Object.assign(el("i", "key"), { style: `background:var(${c})` }), n); $("causeleg").append(s); }
+for (const g of D.cause) {
+  const r = el("div", "track"); r.append(el("div", "top", `<span class="name">${g.name}</span><span class="num">${g.note}</span>`));
+  const s = el("div", "stack");
+  for (const [k, n, c] of CAUSE) { const e = el("i"); e.style.width = g[k] + "%"; e.style.background = `var(${c})`; e.dataset.tip = `${n}: ${Math.round(g[k])}%`; s.append(e); }
+  r.append(s); $("causes").append(r);
+}
+
+// dials
+const CHIP = { changed: ["gold", "Changed"], keep: ["good", "✓ Keep"], none: ["quiet", "No visible effect"], real: ["warn", "Needs real game"], group: ["quiet", "Whole group"] };
+const fullBar = 1.5;
+for (const sec of D.dials) {
+  $("dials").append(el("div", "grouphead", sec.name));
+  for (const d of sec.rows) {
+    const r = el("div", "dial");
+    r.append(el("div", "nm", `${d.name}<small>${d.today}</small>`));
+    const w = el("div", "bw"), b = el("div", "bar");
+    b.style.width = Math.min(d.swing / fullBar, 1) * 70 + "%"; b.dataset.tip = `Panics move ${f2(d.swing)} across the range tested`; w.append(b, el("span", "num", (d.swing > fullBar ? "over " + fullBar : f2(d.swing))));
+    r.append(w, el("span", "chip " + CHIP[d.verdict][0], CHIP[d.verdict][1]));
+    $("dials").append(r);
+  }
+}
+</script>

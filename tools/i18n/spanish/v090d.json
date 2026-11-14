@@ -1,0 +1,9 @@
+{
+  "11d882c683": "Nuestro comercio por [concept_spec_investor_interest]",
+  "88bc5abc59": "#header Historial de apalancamiento#!\\n$TOOLTIP_DELIMITER$\\n[concept_spec_leverage] de los últimos #v {1}#! meses, el más reciente a la derecha. Seguro por debajo de #v {2}#! meses, peligroso a partir de #v {3}#!. La línea dorada es nuestro límite de crédito: más allá, los bancos no prestan más.",
+  "a77891aed1": "Préstamos de auges por bien",
+  "c1488a6133": "Ahora #v {1}#! meses",
+  "c6eea0560c": "Seguro",
+  "d5c9f8b0a4": "Arriesgado",
+  "f44f1629db": "Peligroso"
+}

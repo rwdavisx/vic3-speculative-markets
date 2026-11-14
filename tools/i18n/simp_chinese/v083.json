@@ -1,0 +1,14 @@
+{
+  "de9b342187": "银行信贷使[concept_spec_leverage]每满一个月，[concept_throughput]提高#P {1}%#!，最高#P {2}%#!。",
+  "f25f653c3a": "低于#v $SPEC_PANIC_AT$#!时可能爆发[concept_spec_financial_panic]，达到#v {1}#!时转为#v 稳定#!。",
+  "94db779f7e": "[concept_spec_bad_debts]：当前[concept_throughput]#N -{1}%#!，还将在#v {2}#!个月内逐渐消退\\n",
+  "3adf5cdd86": "失去领土后，[concept_spec_bad_debts]按#v {1}#!个月的[concept_spec_leverage]计算。这一缓解将在#v {2}#!个月内逐渐消退\\n",
+  "3cafce71a4": "[concept_spec_bad_debts]：当前[concept_throughput]#N -{1}%#!，还将在#v {2}#!个月内逐渐消退。坏账会比恐慌持续更久。\\n\\n",
+  "6f91445225": "#header 恐慌爆发：{1}#!\\n$TOOLTIP_DELIMITER$\\n在高[concept_spec_leverage]下爆发的[concept_spec_financial_panic]会使[concept_spec_market_confidence]直接跌破#v {2}#!。",
+  "6a698868e0": "#P 安全#!",
+  "53a64a4fa4": "#N 有风险#!",
+  "d91b722d1b": "#N 危险#!",
+  "bd5d2d08d9": "#v {1}#!个月内安全",
+  "46852e02d5": "已超过#v {1}#!个月的安全上限",
+  "bc99612baf": "[concept_spec_outstanding_credit]：#v @money!{1}#!\\n投资池月收入：#v @money!{2}#!\\n$TOOLTIP_DELIMITER$\\n取本月[concept_investment_pool]收入与约一年平均值中较高者。"
+}

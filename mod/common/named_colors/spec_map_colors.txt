@@ -1,0 +1,10 @@
+﻿colors = {
+	spec_map_ld = rgb{ 70 45 95 }
+	spec_map_panic = rgb{ 170 30 35 }
+	spec_map_aftermath = rgb{ 150 95 85 }
+	spec_map_mania = rgb{ 235 185 40 }
+	spec_map_buoyant = rgb{ 60 150 110 }
+	spec_map_steady = rgb{ 150 150 135 }
+	spec_map_wary = rgb{ 95 125 165 }
+	spec_map_caught = rgb{ 45 20 25 }
+}

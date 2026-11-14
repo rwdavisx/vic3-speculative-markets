@@ -1,0 +1,10 @@
+﻿
+spec_pledge_broken = {
+	type = country
+	group = "spec_exchange_notification_group"
+
+	texture = "gfx/interface/icons/notification_icons/company.dds"
+
+	notification_type = toast
+	color = bad
+}

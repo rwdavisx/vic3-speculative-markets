@@ -1,0 +1,52 @@
+﻿# the region of the capital, for the events' pictures; exactly one of these is true
+spec_pic_mideast = {
+	capital ?= {
+		OR = {
+			is_in_geographic_region = geographic_region_middle_east
+			is_in_geographic_region = geographic_region_north_africa_egypt
+		}
+	}
+}
+spec_pic_africa = {
+	NOT = { spec_pic_mideast = yes }
+	capital ?= { is_in_geographic_region = geographic_region_africa }
+}
+spec_pic_asia = {
+	NOT = { spec_pic_mideast = yes }
+	capital ?= {
+		is_in_geographic_region = geographic_region_asia
+		NOT = { is_in_geographic_region = geographic_region_australasia }
+	}
+}
+spec_pic_latam = {
+	capital ?= { is_in_geographic_region = geographic_region_latin_america }
+}
+# Europe, North America, Australasia and anything else
+spec_pic_west = {
+	NOR = {
+		spec_pic_mideast = yes
+		spec_pic_africa = yes
+		spec_pic_asia = yes
+		spec_pic_latam = yes
+	}
+}
+
+# a story may fire: a player, the market system running, and no mania or panic event fresh
+spec_story_quiet = {
+	is_player = yes
+	has_variable = spec_conf
+	spec_law_mult > 0
+	NOT = { has_variable = spec_story_hush }
+	NOT = {
+		AND = {
+			has_variable = spec_mania
+			NOT = { has_variable = spec_story_mania_seen }
+		}
+	}
+	NOT = {
+		AND = {
+			has_variable = spec_panic
+			NOT = { has_variable = spec_story_panic_seen }
+		}
+	}
+}

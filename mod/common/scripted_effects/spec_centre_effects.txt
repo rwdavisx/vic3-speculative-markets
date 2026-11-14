@@ -1,0 +1,5348 @@
+﻿spec_exch_clear = {
+	if = {
+		limit = { has_modifier = spec_trust_0 }
+		remove_modifier = spec_trust_0
+	}
+	if = {
+		limit = { has_modifier = spec_trust_1 }
+		remove_modifier = spec_trust_1
+	}
+	if = {
+		limit = { has_modifier = spec_trust_3 }
+		remove_modifier = spec_trust_3
+	}
+	if = {
+		limit = { has_modifier = spec_exch_national }
+		remove_modifier = spec_exch_national
+	}
+	if = {
+		limit = { has_modifier = spec_financial_centre }
+		remove_modifier = spec_financial_centre
+	}
+	if = {
+		limit = { has_modifier = spec_pursue_price_0 }
+		remove_modifier = spec_pursue_price_0
+	}
+	if = {
+		limit = { has_modifier = spec_pursue_price_1 }
+		remove_modifier = spec_pursue_price_1
+	}
+	if = {
+		limit = { has_modifier = spec_pursue_price_2 }
+		remove_modifier = spec_pursue_price_2
+	}
+	if = {
+		limit = { has_modifier = spec_pursue_price_3 }
+		remove_modifier = spec_pursue_price_3
+	}
+	if = {
+		limit = { has_modifier = spec_pursue_harbour_0 }
+		remove_modifier = spec_pursue_harbour_0
+	}
+	if = {
+		limit = { has_modifier = spec_pursue_harbour_1 }
+		remove_modifier = spec_pursue_harbour_1
+	}
+	if = {
+		limit = { has_modifier = spec_pursue_harbour_2 }
+		remove_modifier = spec_pursue_harbour_2
+	}
+	if = {
+		limit = { has_modifier = spec_pursue_harbour_3 }
+		remove_modifier = spec_pursue_harbour_3
+	}
+	if = {
+		limit = { has_modifier = spec_pursue_companies_0 }
+		remove_modifier = spec_pursue_companies_0
+	}
+	if = {
+		limit = { has_modifier = spec_pursue_companies_1 }
+		remove_modifier = spec_pursue_companies_1
+	}
+	if = {
+		limit = { has_modifier = spec_pursue_companies_2 }
+		remove_modifier = spec_pursue_companies_2
+	}
+	if = {
+		limit = { has_modifier = spec_pursue_companies_3 }
+		remove_modifier = spec_pursue_companies_3
+	}
+	if = {
+		limit = { has_modifier = spec_pursue_floor_0 }
+		remove_modifier = spec_pursue_floor_0
+	}
+	if = {
+		limit = { has_modifier = spec_pursue_floor_1 }
+		remove_modifier = spec_pursue_floor_1
+	}
+	if = {
+		limit = { has_modifier = spec_pursue_floor_2 }
+		remove_modifier = spec_pursue_floor_2
+	}
+	if = {
+		limit = { has_modifier = spec_pursue_floor_3 }
+		remove_modifier = spec_pursue_floor_3
+	}
+	if = {
+		limit = { has_modifier = spec_pursue_sound_0 }
+		remove_modifier = spec_pursue_sound_0
+	}
+	if = {
+		limit = { has_modifier = spec_pursue_sound_1 }
+		remove_modifier = spec_pursue_sound_1
+	}
+	if = {
+		limit = { has_modifier = spec_pursue_sound_2 }
+		remove_modifier = spec_pursue_sound_2
+	}
+	if = {
+		limit = { has_modifier = spec_pursue_sound_3 }
+		remove_modifier = spec_pursue_sound_3
+	}
+	if = {
+		limit = { has_modifier = spec_pursue_pockets_0 }
+		remove_modifier = spec_pursue_pockets_0
+	}
+	if = {
+		limit = { has_modifier = spec_pursue_pockets_1 }
+		remove_modifier = spec_pursue_pockets_1
+	}
+	if = {
+		limit = { has_modifier = spec_pursue_pockets_2 }
+		remove_modifier = spec_pursue_pockets_2
+	}
+	if = {
+		limit = { has_modifier = spec_pursue_pockets_3 }
+		remove_modifier = spec_pursue_pockets_3
+	}
+	if = {
+		limit = { has_modifier = spec_pursue_door_0 }
+		remove_modifier = spec_pursue_door_0
+	}
+	if = {
+		limit = { has_modifier = spec_pursue_door_1 }
+		remove_modifier = spec_pursue_door_1
+	}
+	if = {
+		limit = { has_modifier = spec_pursue_door_2 }
+		remove_modifier = spec_pursue_door_2
+	}
+	if = {
+		limit = { has_modifier = spec_pursue_door_3 }
+		remove_modifier = spec_pursue_door_3
+	}
+	remove_variable = spec_centre_score
+	remove_variable = spec_centre_rank
+	remove_variable = spec_centre_new
+	remove_variable = spec_centre_also
+	remove_variable = spec_centre_pos
+	remove_variable = spec_exch_stand
+	remove_variable = spec_centre_trust
+	remove_variable = spec_centre_calm
+	remove_variable = spec_centre_yrs
+	remove_variable = spec_exch_known
+	remove_variable = spec_exch_tally
+	remove_variable = spec_exch_sound
+	remove_variable = spec_exch_hold
+	remove_variable = spec_charter_lock
+	remove_variable = spec_exch_seat
+	remove_variable = spec_exch_seat_t
+	remove_variable = spec_pledge
+	remove_variable = spec_pledge_leave
+	remove_variable = spec_xs_inc
+	remove_variable = spec_xs_raw
+	remove_variable = spec_xs_reg
+	remove_variable = spec_xs_regtop
+	remove_variable = spec_xs_regshare
+	remove_variable = spec_xs_trust_v
+	remove_variable = spec_xs_fd_v
+	remove_variable = spec_xs_co_v
+	remove_variable = spec_xs_fdm_v
+	remove_variable = spec_xs_com_v
+	remove_variable = spec_xs_tech_v
+	remove_variable = spec_xs_ntech_v
+	remove_variable = spec_xs_rank_v
+	remove_variable = spec_xs_econ_v
+	remove_variable = spec_xs_own_v
+	remove_variable = spec_xs_reach_v
+	remove_variable = spec_xs_size_v
+	remove_variable = spec_xs_ratio_v
+	remove_variable = spec_xs_wealth_v
+	remove_variable = spec_pursue_n
+	remove_variable = spec_pw_sum
+	remove_variable = spec_pu_price
+	remove_variable = spec_pw_price
+	remove_variable = spec_has_price
+	remove_variable = spec_pu_lock_price
+	remove_variable = spec_pu_lost_price
+	remove_variable = spec_lead_price
+	remove_variable = spec_sh_price
+	remove_variable = spec_shl_price
+	remove_variable = spec_pu_harbour
+	remove_variable = spec_pw_harbour
+	remove_variable = spec_has_harbour
+	remove_variable = spec_pu_lock_harbour
+	remove_variable = spec_pu_lost_harbour
+	remove_variable = spec_lead_harbour
+	remove_variable = spec_sh_harbour
+	remove_variable = spec_shl_harbour
+	remove_variable = spec_pu_companies
+	remove_variable = spec_pw_companies
+	remove_variable = spec_has_companies
+	remove_variable = spec_pu_lock_companies
+	remove_variable = spec_pu_lost_companies
+	remove_variable = spec_lead_companies
+	remove_variable = spec_sh_companies
+	remove_variable = spec_shl_companies
+	remove_variable = spec_pu_floor
+	remove_variable = spec_pw_floor
+	remove_variable = spec_has_floor
+	remove_variable = spec_pu_lock_floor
+	remove_variable = spec_pu_lost_floor
+	remove_variable = spec_lead_floor
+	remove_variable = spec_sh_floor
+	remove_variable = spec_shl_floor
+	remove_variable = spec_pu_sound
+	remove_variable = spec_pw_sound
+	remove_variable = spec_has_sound
+	remove_variable = spec_pu_lock_sound
+	remove_variable = spec_pu_lost_sound
+	remove_variable = spec_lead_sound
+	remove_variable = spec_sh_sound
+	remove_variable = spec_shl_sound
+	remove_variable = spec_pu_pockets
+	remove_variable = spec_pw_pockets
+	remove_variable = spec_has_pockets
+	remove_variable = spec_pu_lock_pockets
+	remove_variable = spec_pu_lost_pockets
+	remove_variable = spec_lead_pockets
+	remove_variable = spec_sh_pockets
+	remove_variable = spec_shl_pockets
+	remove_variable = spec_pu_door
+	remove_variable = spec_pw_door
+	remove_variable = spec_has_door
+	remove_variable = spec_pu_lock_door
+	remove_variable = spec_pu_lost_door
+	remove_variable = spec_lead_door
+	remove_variable = spec_sh_door
+	remove_variable = spec_shl_door
+}
+
+spec_pledge_make = {
+	set_variable = spec_pledge
+}
+
+spec_pledge_withdraw = {
+	set_variable = { name = spec_pledge_leave value = 24 }
+}
+
+spec_charter_to_1 = {
+	if = {
+		limit = {
+			has_variable = spec_exch_known
+			has_variable = spec_centre_trust
+		}
+		set_variable = { name = spec_centre_trust value = { value = var:spec_centre_trust multiply = 0.5 } }
+	}
+	set_variable = { name = spec_exch_known value = 1 }
+	set_variable = { name = spec_charter_lock days = 3650 }
+	if = {
+		limit = { has_variable = spec_pu_harbour }
+		spec_pursue_stop_harbour = yes
+	}
+	if = {
+		limit = { has_variable = spec_pu_companies }
+		spec_pursue_stop_companies = yes
+	}
+}
+
+spec_charter_to_2 = {
+	if = {
+		limit = {
+			has_variable = spec_exch_known
+			has_variable = spec_centre_trust
+		}
+		set_variable = { name = spec_centre_trust value = { value = var:spec_centre_trust multiply = 0.5 } }
+	}
+	set_variable = { name = spec_exch_known value = 2 }
+	set_variable = { name = spec_charter_lock days = 3650 }
+	if = {
+		limit = { has_variable = spec_pu_price }
+		spec_pursue_stop_price = yes
+	}
+	if = {
+		limit = { has_variable = spec_pu_companies }
+		spec_pursue_stop_companies = yes
+	}
+}
+
+spec_charter_to_3 = {
+	if = {
+		limit = {
+			has_variable = spec_exch_known
+			has_variable = spec_centre_trust
+		}
+		set_variable = { name = spec_centre_trust value = { value = var:spec_centre_trust multiply = 0.5 } }
+	}
+	set_variable = { name = spec_exch_known value = 3 }
+	set_variable = { name = spec_charter_lock days = 3650 }
+	if = {
+		limit = { has_variable = spec_pu_price }
+		spec_pursue_stop_price = yes
+	}
+	if = {
+		limit = { has_variable = spec_pu_harbour }
+		spec_pursue_stop_harbour = yes
+	}
+}
+
+spec_pursue_to_price = {
+	if = {
+		limit = { NOT = { has_variable = spec_pw_sum } }
+		set_variable = { name = spec_pw_price value = 0 }
+		set_variable = { name = spec_pw_harbour value = 0 }
+		set_variable = { name = spec_pw_companies value = 0 }
+		set_variable = { name = spec_pw_floor value = 0 }
+		set_variable = { name = spec_pw_sound value = 0 }
+		set_variable = { name = spec_pw_pockets value = 0 }
+		set_variable = { name = spec_pw_door value = 0 }
+		set_variable = { name = spec_pw_sum value = 0 }
+		set_variable = { name = spec_pursue_n value = 0 }
+	}
+	change_variable = { name = spec_pursue_n add = 1 }
+	set_variable = { name = spec_pu_price value = var:spec_pursue_n }
+	set_variable = spec_has_price
+	set_variable = { name = spec_pu_lock_price value = 60 }
+}
+
+spec_pursue_stop_price = {
+	set_global_variable = { name = spec_pu_was value = var:spec_pu_price }
+	remove_variable = spec_pu_price
+	remove_variable = spec_has_price
+	if = {
+		limit = { has_variable = spec_pu_lock_price }
+		remove_variable = spec_pu_lock_price
+	}
+	change_variable = { name = spec_pursue_n add = -1 }
+	if = {
+		limit = {
+			has_variable = spec_pu_harbour
+			var:spec_pu_harbour > global_var:spec_pu_was
+		}
+		change_variable = { name = spec_pu_harbour add = -1 }
+	}
+	if = {
+		limit = {
+			has_variable = spec_pu_companies
+			var:spec_pu_companies > global_var:spec_pu_was
+		}
+		change_variable = { name = spec_pu_companies add = -1 }
+	}
+	if = {
+		limit = {
+			has_variable = spec_pu_floor
+			var:spec_pu_floor > global_var:spec_pu_was
+		}
+		change_variable = { name = spec_pu_floor add = -1 }
+	}
+	if = {
+		limit = {
+			has_variable = spec_pu_sound
+			var:spec_pu_sound > global_var:spec_pu_was
+		}
+		change_variable = { name = spec_pu_sound add = -1 }
+	}
+	if = {
+		limit = {
+			has_variable = spec_pu_pockets
+			var:spec_pu_pockets > global_var:spec_pu_was
+		}
+		change_variable = { name = spec_pu_pockets add = -1 }
+	}
+	if = {
+		limit = {
+			has_variable = spec_pu_door
+			var:spec_pu_door > global_var:spec_pu_was
+		}
+		change_variable = { name = spec_pu_door add = -1 }
+	}
+	remove_global_variable = spec_pu_was
+}
+
+spec_pursue_to_harbour = {
+	if = {
+		limit = { NOT = { has_variable = spec_pw_sum } }
+		set_variable = { name = spec_pw_price value = 0 }
+		set_variable = { name = spec_pw_harbour value = 0 }
+		set_variable = { name = spec_pw_companies value = 0 }
+		set_variable = { name = spec_pw_floor value = 0 }
+		set_variable = { name = spec_pw_sound value = 0 }
+		set_variable = { name = spec_pw_pockets value = 0 }
+		set_variable = { name = spec_pw_door value = 0 }
+		set_variable = { name = spec_pw_sum value = 0 }
+		set_variable = { name = spec_pursue_n value = 0 }
+	}
+	change_variable = { name = spec_pursue_n add = 1 }
+	set_variable = { name = spec_pu_harbour value = var:spec_pursue_n }
+	set_variable = spec_has_harbour
+	set_variable = { name = spec_pu_lock_harbour value = 60 }
+}
+
+spec_pursue_stop_harbour = {
+	set_global_variable = { name = spec_pu_was value = var:spec_pu_harbour }
+	remove_variable = spec_pu_harbour
+	remove_variable = spec_has_harbour
+	if = {
+		limit = { has_variable = spec_pu_lock_harbour }
+		remove_variable = spec_pu_lock_harbour
+	}
+	change_variable = { name = spec_pursue_n add = -1 }
+	if = {
+		limit = {
+			has_variable = spec_pu_price
+			var:spec_pu_price > global_var:spec_pu_was
+		}
+		change_variable = { name = spec_pu_price add = -1 }
+	}
+	if = {
+		limit = {
+			has_variable = spec_pu_companies
+			var:spec_pu_companies > global_var:spec_pu_was
+		}
+		change_variable = { name = spec_pu_companies add = -1 }
+	}
+	if = {
+		limit = {
+			has_variable = spec_pu_floor
+			var:spec_pu_floor > global_var:spec_pu_was
+		}
+		change_variable = { name = spec_pu_floor add = -1 }
+	}
+	if = {
+		limit = {
+			has_variable = spec_pu_sound
+			var:spec_pu_sound > global_var:spec_pu_was
+		}
+		change_variable = { name = spec_pu_sound add = -1 }
+	}
+	if = {
+		limit = {
+			has_variable = spec_pu_pockets
+			var:spec_pu_pockets > global_var:spec_pu_was
+		}
+		change_variable = { name = spec_pu_pockets add = -1 }
+	}
+	if = {
+		limit = {
+			has_variable = spec_pu_door
+			var:spec_pu_door > global_var:spec_pu_was
+		}
+		change_variable = { name = spec_pu_door add = -1 }
+	}
+	remove_global_variable = spec_pu_was
+}
+
+spec_pursue_to_companies = {
+	if = {
+		limit = { NOT = { has_variable = spec_pw_sum } }
+		set_variable = { name = spec_pw_price value = 0 }
+		set_variable = { name = spec_pw_harbour value = 0 }
+		set_variable = { name = spec_pw_companies value = 0 }
+		set_variable = { name = spec_pw_floor value = 0 }
+		set_variable = { name = spec_pw_sound value = 0 }
+		set_variable = { name = spec_pw_pockets value = 0 }
+		set_variable = { name = spec_pw_door value = 0 }
+		set_variable = { name = spec_pw_sum value = 0 }
+		set_variable = { name = spec_pursue_n value = 0 }
+	}
+	change_variable = { name = spec_pursue_n add = 1 }
+	set_variable = { name = spec_pu_companies value = var:spec_pursue_n }
+	set_variable = spec_has_companies
+	set_variable = { name = spec_pu_lock_companies value = 60 }
+}
+
+spec_pursue_stop_companies = {
+	set_global_variable = { name = spec_pu_was value = var:spec_pu_companies }
+	remove_variable = spec_pu_companies
+	remove_variable = spec_has_companies
+	if = {
+		limit = { has_variable = spec_pu_lock_companies }
+		remove_variable = spec_pu_lock_companies
+	}
+	change_variable = { name = spec_pursue_n add = -1 }
+	if = {
+		limit = {
+			has_variable = spec_pu_price
+			var:spec_pu_price > global_var:spec_pu_was
+		}
+		change_variable = { name = spec_pu_price add = -1 }
+	}
+	if = {
+		limit = {
+			has_variable = spec_pu_harbour
+			var:spec_pu_harbour > global_var:spec_pu_was
+		}
+		change_variable = { name = spec_pu_harbour add = -1 }
+	}
+	if = {
+		limit = {
+			has_variable = spec_pu_floor
+			var:spec_pu_floor > global_var:spec_pu_was
+		}
+		change_variable = { name = spec_pu_floor add = -1 }
+	}
+	if = {
+		limit = {
+			has_variable = spec_pu_sound
+			var:spec_pu_sound > global_var:spec_pu_was
+		}
+		change_variable = { name = spec_pu_sound add = -1 }
+	}
+	if = {
+		limit = {
+			has_variable = spec_pu_pockets
+			var:spec_pu_pockets > global_var:spec_pu_was
+		}
+		change_variable = { name = spec_pu_pockets add = -1 }
+	}
+	if = {
+		limit = {
+			has_variable = spec_pu_door
+			var:spec_pu_door > global_var:spec_pu_was
+		}
+		change_variable = { name = spec_pu_door add = -1 }
+	}
+	remove_global_variable = spec_pu_was
+}
+
+spec_pursue_to_floor = {
+	if = {
+		limit = { NOT = { has_variable = spec_pw_sum } }
+		set_variable = { name = spec_pw_price value = 0 }
+		set_variable = { name = spec_pw_harbour value = 0 }
+		set_variable = { name = spec_pw_companies value = 0 }
+		set_variable = { name = spec_pw_floor value = 0 }
+		set_variable = { name = spec_pw_sound value = 0 }
+		set_variable = { name = spec_pw_pockets value = 0 }
+		set_variable = { name = spec_pw_door value = 0 }
+		set_variable = { name = spec_pw_sum value = 0 }
+		set_variable = { name = spec_pursue_n value = 0 }
+	}
+	change_variable = { name = spec_pursue_n add = 1 }
+	set_variable = { name = spec_pu_floor value = var:spec_pursue_n }
+	set_variable = spec_has_floor
+	set_variable = { name = spec_pu_lock_floor value = 60 }
+}
+
+spec_pursue_stop_floor = {
+	set_global_variable = { name = spec_pu_was value = var:spec_pu_floor }
+	remove_variable = spec_pu_floor
+	remove_variable = spec_has_floor
+	if = {
+		limit = { has_variable = spec_pu_lock_floor }
+		remove_variable = spec_pu_lock_floor
+	}
+	change_variable = { name = spec_pursue_n add = -1 }
+	if = {
+		limit = {
+			has_variable = spec_pu_price
+			var:spec_pu_price > global_var:spec_pu_was
+		}
+		change_variable = { name = spec_pu_price add = -1 }
+	}
+	if = {
+		limit = {
+			has_variable = spec_pu_harbour
+			var:spec_pu_harbour > global_var:spec_pu_was
+		}
+		change_variable = { name = spec_pu_harbour add = -1 }
+	}
+	if = {
+		limit = {
+			has_variable = spec_pu_companies
+			var:spec_pu_companies > global_var:spec_pu_was
+		}
+		change_variable = { name = spec_pu_companies add = -1 }
+	}
+	if = {
+		limit = {
+			has_variable = spec_pu_sound
+			var:spec_pu_sound > global_var:spec_pu_was
+		}
+		change_variable = { name = spec_pu_sound add = -1 }
+	}
+	if = {
+		limit = {
+			has_variable = spec_pu_pockets
+			var:spec_pu_pockets > global_var:spec_pu_was
+		}
+		change_variable = { name = spec_pu_pockets add = -1 }
+	}
+	if = {
+		limit = {
+			has_variable = spec_pu_door
+			var:spec_pu_door > global_var:spec_pu_was
+		}
+		change_variable = { name = spec_pu_door add = -1 }
+	}
+	remove_global_variable = spec_pu_was
+}
+
+spec_pursue_to_sound = {
+	if = {
+		limit = { NOT = { has_variable = spec_pw_sum } }
+		set_variable = { name = spec_pw_price value = 0 }
+		set_variable = { name = spec_pw_harbour value = 0 }
+		set_variable = { name = spec_pw_companies value = 0 }
+		set_variable = { name = spec_pw_floor value = 0 }
+		set_variable = { name = spec_pw_sound value = 0 }
+		set_variable = { name = spec_pw_pockets value = 0 }
+		set_variable = { name = spec_pw_door value = 0 }
+		set_variable = { name = spec_pw_sum value = 0 }
+		set_variable = { name = spec_pursue_n value = 0 }
+	}
+	change_variable = { name = spec_pursue_n add = 1 }
+	set_variable = { name = spec_pu_sound value = var:spec_pursue_n }
+	set_variable = spec_has_sound
+	set_variable = { name = spec_pu_lock_sound value = 60 }
+}
+
+spec_pursue_stop_sound = {
+	set_global_variable = { name = spec_pu_was value = var:spec_pu_sound }
+	remove_variable = spec_pu_sound
+	remove_variable = spec_has_sound
+	if = {
+		limit = { has_variable = spec_pu_lock_sound }
+		remove_variable = spec_pu_lock_sound
+	}
+	change_variable = { name = spec_pursue_n add = -1 }
+	if = {
+		limit = {
+			has_variable = spec_pu_price
+			var:spec_pu_price > global_var:spec_pu_was
+		}
+		change_variable = { name = spec_pu_price add = -1 }
+	}
+	if = {
+		limit = {
+			has_variable = spec_pu_harbour
+			var:spec_pu_harbour > global_var:spec_pu_was
+		}
+		change_variable = { name = spec_pu_harbour add = -1 }
+	}
+	if = {
+		limit = {
+			has_variable = spec_pu_companies
+			var:spec_pu_companies > global_var:spec_pu_was
+		}
+		change_variable = { name = spec_pu_companies add = -1 }
+	}
+	if = {
+		limit = {
+			has_variable = spec_pu_floor
+			var:spec_pu_floor > global_var:spec_pu_was
+		}
+		change_variable = { name = spec_pu_floor add = -1 }
+	}
+	if = {
+		limit = {
+			has_variable = spec_pu_pockets
+			var:spec_pu_pockets > global_var:spec_pu_was
+		}
+		change_variable = { name = spec_pu_pockets add = -1 }
+	}
+	if = {
+		limit = {
+			has_variable = spec_pu_door
+			var:spec_pu_door > global_var:spec_pu_was
+		}
+		change_variable = { name = spec_pu_door add = -1 }
+	}
+	remove_global_variable = spec_pu_was
+}
+
+spec_pursue_to_pockets = {
+	if = {
+		limit = { NOT = { has_variable = spec_pw_sum } }
+		set_variable = { name = spec_pw_price value = 0 }
+		set_variable = { name = spec_pw_harbour value = 0 }
+		set_variable = { name = spec_pw_companies value = 0 }
+		set_variable = { name = spec_pw_floor value = 0 }
+		set_variable = { name = spec_pw_sound value = 0 }
+		set_variable = { name = spec_pw_pockets value = 0 }
+		set_variable = { name = spec_pw_door value = 0 }
+		set_variable = { name = spec_pw_sum value = 0 }
+		set_variable = { name = spec_pursue_n value = 0 }
+	}
+	change_variable = { name = spec_pursue_n add = 1 }
+	set_variable = { name = spec_pu_pockets value = var:spec_pursue_n }
+	set_variable = spec_has_pockets
+	set_variable = { name = spec_pu_lock_pockets value = 60 }
+}
+
+spec_pursue_stop_pockets = {
+	set_global_variable = { name = spec_pu_was value = var:spec_pu_pockets }
+	remove_variable = spec_pu_pockets
+	remove_variable = spec_has_pockets
+	if = {
+		limit = { has_variable = spec_pu_lock_pockets }
+		remove_variable = spec_pu_lock_pockets
+	}
+	change_variable = { name = spec_pursue_n add = -1 }
+	if = {
+		limit = {
+			has_variable = spec_pu_price
+			var:spec_pu_price > global_var:spec_pu_was
+		}
+		change_variable = { name = spec_pu_price add = -1 }
+	}
+	if = {
+		limit = {
+			has_variable = spec_pu_harbour
+			var:spec_pu_harbour > global_var:spec_pu_was
+		}
+		change_variable = { name = spec_pu_harbour add = -1 }
+	}
+	if = {
+		limit = {
+			has_variable = spec_pu_companies
+			var:spec_pu_companies > global_var:spec_pu_was
+		}
+		change_variable = { name = spec_pu_companies add = -1 }
+	}
+	if = {
+		limit = {
+			has_variable = spec_pu_floor
+			var:spec_pu_floor > global_var:spec_pu_was
+		}
+		change_variable = { name = spec_pu_floor add = -1 }
+	}
+	if = {
+		limit = {
+			has_variable = spec_pu_sound
+			var:spec_pu_sound > global_var:spec_pu_was
+		}
+		change_variable = { name = spec_pu_sound add = -1 }
+	}
+	if = {
+		limit = {
+			has_variable = spec_pu_door
+			var:spec_pu_door > global_var:spec_pu_was
+		}
+		change_variable = { name = spec_pu_door add = -1 }
+	}
+	remove_global_variable = spec_pu_was
+}
+
+spec_pursue_to_door = {
+	if = {
+		limit = { NOT = { has_variable = spec_pw_sum } }
+		set_variable = { name = spec_pw_price value = 0 }
+		set_variable = { name = spec_pw_harbour value = 0 }
+		set_variable = { name = spec_pw_companies value = 0 }
+		set_variable = { name = spec_pw_floor value = 0 }
+		set_variable = { name = spec_pw_sound value = 0 }
+		set_variable = { name = spec_pw_pockets value = 0 }
+		set_variable = { name = spec_pw_door value = 0 }
+		set_variable = { name = spec_pw_sum value = 0 }
+		set_variable = { name = spec_pursue_n value = 0 }
+	}
+	change_variable = { name = spec_pursue_n add = 1 }
+	set_variable = { name = spec_pu_door value = var:spec_pursue_n }
+	set_variable = spec_has_door
+	set_variable = { name = spec_pu_lock_door value = 60 }
+}
+
+spec_pursue_stop_door = {
+	set_global_variable = { name = spec_pu_was value = var:spec_pu_door }
+	remove_variable = spec_pu_door
+	remove_variable = spec_has_door
+	if = {
+		limit = { has_variable = spec_pu_lock_door }
+		remove_variable = spec_pu_lock_door
+	}
+	change_variable = { name = spec_pursue_n add = -1 }
+	if = {
+		limit = {
+			has_variable = spec_pu_price
+			var:spec_pu_price > global_var:spec_pu_was
+		}
+		change_variable = { name = spec_pu_price add = -1 }
+	}
+	if = {
+		limit = {
+			has_variable = spec_pu_harbour
+			var:spec_pu_harbour > global_var:spec_pu_was
+		}
+		change_variable = { name = spec_pu_harbour add = -1 }
+	}
+	if = {
+		limit = {
+			has_variable = spec_pu_companies
+			var:spec_pu_companies > global_var:spec_pu_was
+		}
+		change_variable = { name = spec_pu_companies add = -1 }
+	}
+	if = {
+		limit = {
+			has_variable = spec_pu_floor
+			var:spec_pu_floor > global_var:spec_pu_was
+		}
+		change_variable = { name = spec_pu_floor add = -1 }
+	}
+	if = {
+		limit = {
+			has_variable = spec_pu_sound
+			var:spec_pu_sound > global_var:spec_pu_was
+		}
+		change_variable = { name = spec_pu_sound add = -1 }
+	}
+	if = {
+		limit = {
+			has_variable = spec_pu_pockets
+			var:spec_pu_pockets > global_var:spec_pu_was
+		}
+		change_variable = { name = spec_pu_pockets add = -1 }
+	}
+	remove_global_variable = spec_pu_was
+}
+
+spec_pursue_left_price = {
+	set_local_variable = { name = spec_to value = var:spec_pu_price }
+	change_local_variable = { name = spec_to add = -1 }
+	if = {
+		limit = { has_variable = spec_pu_harbour var:spec_pu_harbour = local_var:spec_to }
+		set_variable = { name = spec_pu_harbour value = var:spec_pu_price }
+	}
+	if = {
+		limit = { has_variable = spec_pu_companies var:spec_pu_companies = local_var:spec_to }
+		set_variable = { name = spec_pu_companies value = var:spec_pu_price }
+	}
+	if = {
+		limit = { has_variable = spec_pu_floor var:spec_pu_floor = local_var:spec_to }
+		set_variable = { name = spec_pu_floor value = var:spec_pu_price }
+	}
+	if = {
+		limit = { has_variable = spec_pu_sound var:spec_pu_sound = local_var:spec_to }
+		set_variable = { name = spec_pu_sound value = var:spec_pu_price }
+	}
+	if = {
+		limit = { has_variable = spec_pu_pockets var:spec_pu_pockets = local_var:spec_to }
+		set_variable = { name = spec_pu_pockets value = var:spec_pu_price }
+	}
+	if = {
+		limit = { has_variable = spec_pu_door var:spec_pu_door = local_var:spec_to }
+		set_variable = { name = spec_pu_door value = var:spec_pu_price }
+	}
+	set_variable = { name = spec_pu_price value = local_var:spec_to }
+}
+
+spec_pursue_right_price = {
+	set_local_variable = { name = spec_to value = var:spec_pu_price }
+	change_local_variable = { name = spec_to add = 1 }
+	if = {
+		limit = { has_variable = spec_pu_harbour var:spec_pu_harbour = local_var:spec_to }
+		set_variable = { name = spec_pu_harbour value = var:spec_pu_price }
+	}
+	if = {
+		limit = { has_variable = spec_pu_companies var:spec_pu_companies = local_var:spec_to }
+		set_variable = { name = spec_pu_companies value = var:spec_pu_price }
+	}
+	if = {
+		limit = { has_variable = spec_pu_floor var:spec_pu_floor = local_var:spec_to }
+		set_variable = { name = spec_pu_floor value = var:spec_pu_price }
+	}
+	if = {
+		limit = { has_variable = spec_pu_sound var:spec_pu_sound = local_var:spec_to }
+		set_variable = { name = spec_pu_sound value = var:spec_pu_price }
+	}
+	if = {
+		limit = { has_variable = spec_pu_pockets var:spec_pu_pockets = local_var:spec_to }
+		set_variable = { name = spec_pu_pockets value = var:spec_pu_price }
+	}
+	if = {
+		limit = { has_variable = spec_pu_door var:spec_pu_door = local_var:spec_to }
+		set_variable = { name = spec_pu_door value = var:spec_pu_price }
+	}
+	set_variable = { name = spec_pu_price value = local_var:spec_to }
+}
+
+spec_pursue_left_harbour = {
+	set_local_variable = { name = spec_to value = var:spec_pu_harbour }
+	change_local_variable = { name = spec_to add = -1 }
+	if = {
+		limit = { has_variable = spec_pu_price var:spec_pu_price = local_var:spec_to }
+		set_variable = { name = spec_pu_price value = var:spec_pu_harbour }
+	}
+	if = {
+		limit = { has_variable = spec_pu_companies var:spec_pu_companies = local_var:spec_to }
+		set_variable = { name = spec_pu_companies value = var:spec_pu_harbour }
+	}
+	if = {
+		limit = { has_variable = spec_pu_floor var:spec_pu_floor = local_var:spec_to }
+		set_variable = { name = spec_pu_floor value = var:spec_pu_harbour }
+	}
+	if = {
+		limit = { has_variable = spec_pu_sound var:spec_pu_sound = local_var:spec_to }
+		set_variable = { name = spec_pu_sound value = var:spec_pu_harbour }
+	}
+	if = {
+		limit = { has_variable = spec_pu_pockets var:spec_pu_pockets = local_var:spec_to }
+		set_variable = { name = spec_pu_pockets value = var:spec_pu_harbour }
+	}
+	if = {
+		limit = { has_variable = spec_pu_door var:spec_pu_door = local_var:spec_to }
+		set_variable = { name = spec_pu_door value = var:spec_pu_harbour }
+	}
+	set_variable = { name = spec_pu_harbour value = local_var:spec_to }
+}
+
+spec_pursue_right_harbour = {
+	set_local_variable = { name = spec_to value = var:spec_pu_harbour }
+	change_local_variable = { name = spec_to add = 1 }
+	if = {
+		limit = { has_variable = spec_pu_price var:spec_pu_price = local_var:spec_to }
+		set_variable = { name = spec_pu_price value = var:spec_pu_harbour }
+	}
+	if = {
+		limit = { has_variable = spec_pu_companies var:spec_pu_companies = local_var:spec_to }
+		set_variable = { name = spec_pu_companies value = var:spec_pu_harbour }
+	}
+	if = {
+		limit = { has_variable = spec_pu_floor var:spec_pu_floor = local_var:spec_to }
+		set_variable = { name = spec_pu_floor value = var:spec_pu_harbour }
+	}
+	if = {
+		limit = { has_variable = spec_pu_sound var:spec_pu_sound = local_var:spec_to }
+		set_variable = { name = spec_pu_sound value = var:spec_pu_harbour }
+	}
+	if = {
+		limit = { has_variable = spec_pu_pockets var:spec_pu_pockets = local_var:spec_to }
+		set_variable = { name = spec_pu_pockets value = var:spec_pu_harbour }
+	}
+	if = {
+		limit = { has_variable = spec_pu_door var:spec_pu_door = local_var:spec_to }
+		set_variable = { name = spec_pu_door value = var:spec_pu_harbour }
+	}
+	set_variable = { name = spec_pu_harbour value = local_var:spec_to }
+}
+
+spec_pursue_left_companies = {
+	set_local_variable = { name = spec_to value = var:spec_pu_companies }
+	change_local_variable = { name = spec_to add = -1 }
+	if = {
+		limit = { has_variable = spec_pu_price var:spec_pu_price = local_var:spec_to }
+		set_variable = { name = spec_pu_price value = var:spec_pu_companies }
+	}
+	if = {
+		limit = { has_variable = spec_pu_harbour var:spec_pu_harbour = local_var:spec_to }
+		set_variable = { name = spec_pu_harbour value = var:spec_pu_companies }
+	}
+	if = {
+		limit = { has_variable = spec_pu_floor var:spec_pu_floor = local_var:spec_to }
+		set_variable = { name = spec_pu_floor value = var:spec_pu_companies }
+	}
+	if = {
+		limit = { has_variable = spec_pu_sound var:spec_pu_sound = local_var:spec_to }
+		set_variable = { name = spec_pu_sound value = var:spec_pu_companies }
+	}
+	if = {
+		limit = { has_variable = spec_pu_pockets var:spec_pu_pockets = local_var:spec_to }
+		set_variable = { name = spec_pu_pockets value = var:spec_pu_companies }
+	}
+	if = {
+		limit = { has_variable = spec_pu_door var:spec_pu_door = local_var:spec_to }
+		set_variable = { name = spec_pu_door value = var:spec_pu_companies }
+	}
+	set_variable = { name = spec_pu_companies value = local_var:spec_to }
+}
+
+spec_pursue_right_companies = {
+	set_local_variable = { name = spec_to value = var:spec_pu_companies }
+	change_local_variable = { name = spec_to add = 1 }
+	if = {
+		limit = { has_variable = spec_pu_price var:spec_pu_price = local_var:spec_to }
+		set_variable = { name = spec_pu_price value = var:spec_pu_companies }
+	}
+	if = {
+		limit = { has_variable = spec_pu_harbour var:spec_pu_harbour = local_var:spec_to }
+		set_variable = { name = spec_pu_harbour value = var:spec_pu_companies }
+	}
+	if = {
+		limit = { has_variable = spec_pu_floor var:spec_pu_floor = local_var:spec_to }
+		set_variable = { name = spec_pu_floor value = var:spec_pu_companies }
+	}
+	if = {
+		limit = { has_variable = spec_pu_sound var:spec_pu_sound = local_var:spec_to }
+		set_variable = { name = spec_pu_sound value = var:spec_pu_companies }
+	}
+	if = {
+		limit = { has_variable = spec_pu_pockets var:spec_pu_pockets = local_var:spec_to }
+		set_variable = { name = spec_pu_pockets value = var:spec_pu_companies }
+	}
+	if = {
+		limit = { has_variable = spec_pu_door var:spec_pu_door = local_var:spec_to }
+		set_variable = { name = spec_pu_door value = var:spec_pu_companies }
+	}
+	set_variable = { name = spec_pu_companies value = local_var:spec_to }
+}
+
+spec_pursue_left_floor = {
+	set_local_variable = { name = spec_to value = var:spec_pu_floor }
+	change_local_variable = { name = spec_to add = -1 }
+	if = {
+		limit = { has_variable = spec_pu_price var:spec_pu_price = local_var:spec_to }
+		set_variable = { name = spec_pu_price value = var:spec_pu_floor }
+	}
+	if = {
+		limit = { has_variable = spec_pu_harbour var:spec_pu_harbour = local_var:spec_to }
+		set_variable = { name = spec_pu_harbour value = var:spec_pu_floor }
+	}
+	if = {
+		limit = { has_variable = spec_pu_companies var:spec_pu_companies = local_var:spec_to }
+		set_variable = { name = spec_pu_companies value = var:spec_pu_floor }
+	}
+	if = {
+		limit = { has_variable = spec_pu_sound var:spec_pu_sound = local_var:spec_to }
+		set_variable = { name = spec_pu_sound value = var:spec_pu_floor }
+	}
+	if = {
+		limit = { has_variable = spec_pu_pockets var:spec_pu_pockets = local_var:spec_to }
+		set_variable = { name = spec_pu_pockets value = var:spec_pu_floor }
+	}
+	if = {
+		limit = { has_variable = spec_pu_door var:spec_pu_door = local_var:spec_to }
+		set_variable = { name = spec_pu_door value = var:spec_pu_floor }
+	}
+	set_variable = { name = spec_pu_floor value = local_var:spec_to }
+}
+
+spec_pursue_right_floor = {
+	set_local_variable = { name = spec_to value = var:spec_pu_floor }
+	change_local_variable = { name = spec_to add = 1 }
+	if = {
+		limit = { has_variable = spec_pu_price var:spec_pu_price = local_var:spec_to }
+		set_variable = { name = spec_pu_price value = var:spec_pu_floor }
+	}
+	if = {
+		limit = { has_variable = spec_pu_harbour var:spec_pu_harbour = local_var:spec_to }
+		set_variable = { name = spec_pu_harbour value = var:spec_pu_floor }
+	}
+	if = {
+		limit = { has_variable = spec_pu_companies var:spec_pu_companies = local_var:spec_to }
+		set_variable = { name = spec_pu_companies value = var:spec_pu_floor }
+	}
+	if = {
+		limit = { has_variable = spec_pu_sound var:spec_pu_sound = local_var:spec_to }
+		set_variable = { name = spec_pu_sound value = var:spec_pu_floor }
+	}
+	if = {
+		limit = { has_variable = spec_pu_pockets var:spec_pu_pockets = local_var:spec_to }
+		set_variable = { name = spec_pu_pockets value = var:spec_pu_floor }
+	}
+	if = {
+		limit = { has_variable = spec_pu_door var:spec_pu_door = local_var:spec_to }
+		set_variable = { name = spec_pu_door value = var:spec_pu_floor }
+	}
+	set_variable = { name = spec_pu_floor value = local_var:spec_to }
+}
+
+spec_pursue_left_sound = {
+	set_local_variable = { name = spec_to value = var:spec_pu_sound }
+	change_local_variable = { name = spec_to add = -1 }
+	if = {
+		limit = { has_variable = spec_pu_price var:spec_pu_price = local_var:spec_to }
+		set_variable = { name = spec_pu_price value = var:spec_pu_sound }
+	}
+	if = {
+		limit = { has_variable = spec_pu_harbour var:spec_pu_harbour = local_var:spec_to }
+		set_variable = { name = spec_pu_harbour value = var:spec_pu_sound }
+	}
+	if = {
+		limit = { has_variable = spec_pu_companies var:spec_pu_companies = local_var:spec_to }
+		set_variable = { name = spec_pu_companies value = var:spec_pu_sound }
+	}
+	if = {
+		limit = { has_variable = spec_pu_floor var:spec_pu_floor = local_var:spec_to }
+		set_variable = { name = spec_pu_floor value = var:spec_pu_sound }
+	}
+	if = {
+		limit = { has_variable = spec_pu_pockets var:spec_pu_pockets = local_var:spec_to }
+		set_variable = { name = spec_pu_pockets value = var:spec_pu_sound }
+	}
+	if = {
+		limit = { has_variable = spec_pu_door var:spec_pu_door = local_var:spec_to }
+		set_variable = { name = spec_pu_door value = var:spec_pu_sound }
+	}
+	set_variable = { name = spec_pu_sound value = local_var:spec_to }
+}
+
+spec_pursue_right_sound = {
+	set_local_variable = { name = spec_to value = var:spec_pu_sound }
+	change_local_variable = { name = spec_to add = 1 }
+	if = {
+		limit = { has_variable = spec_pu_price var:spec_pu_price = local_var:spec_to }
+		set_variable = { name = spec_pu_price value = var:spec_pu_sound }
+	}
+	if = {
+		limit = { has_variable = spec_pu_harbour var:spec_pu_harbour = local_var:spec_to }
+		set_variable = { name = spec_pu_harbour value = var:spec_pu_sound }
+	}
+	if = {
+		limit = { has_variable = spec_pu_companies var:spec_pu_companies = local_var:spec_to }
+		set_variable = { name = spec_pu_companies value = var:spec_pu_sound }
+	}
+	if = {
+		limit = { has_variable = spec_pu_floor var:spec_pu_floor = local_var:spec_to }
+		set_variable = { name = spec_pu_floor value = var:spec_pu_sound }
+	}
+	if = {
+		limit = { has_variable = spec_pu_pockets var:spec_pu_pockets = local_var:spec_to }
+		set_variable = { name = spec_pu_pockets value = var:spec_pu_sound }
+	}
+	if = {
+		limit = { has_variable = spec_pu_door var:spec_pu_door = local_var:spec_to }
+		set_variable = { name = spec_pu_door value = var:spec_pu_sound }
+	}
+	set_variable = { name = spec_pu_sound value = local_var:spec_to }
+}
+
+spec_pursue_left_pockets = {
+	set_local_variable = { name = spec_to value = var:spec_pu_pockets }
+	change_local_variable = { name = spec_to add = -1 }
+	if = {
+		limit = { has_variable = spec_pu_price var:spec_pu_price = local_var:spec_to }
+		set_variable = { name = spec_pu_price value = var:spec_pu_pockets }
+	}
+	if = {
+		limit = { has_variable = spec_pu_harbour var:spec_pu_harbour = local_var:spec_to }
+		set_variable = { name = spec_pu_harbour value = var:spec_pu_pockets }
+	}
+	if = {
+		limit = { has_variable = spec_pu_companies var:spec_pu_companies = local_var:spec_to }
+		set_variable = { name = spec_pu_companies value = var:spec_pu_pockets }
+	}
+	if = {
+		limit = { has_variable = spec_pu_floor var:spec_pu_floor = local_var:spec_to }
+		set_variable = { name = spec_pu_floor value = var:spec_pu_pockets }
+	}
+	if = {
+		limit = { has_variable = spec_pu_sound var:spec_pu_sound = local_var:spec_to }
+		set_variable = { name = spec_pu_sound value = var:spec_pu_pockets }
+	}
+	if = {
+		limit = { has_variable = spec_pu_door var:spec_pu_door = local_var:spec_to }
+		set_variable = { name = spec_pu_door value = var:spec_pu_pockets }
+	}
+	set_variable = { name = spec_pu_pockets value = local_var:spec_to }
+}
+
+spec_pursue_right_pockets = {
+	set_local_variable = { name = spec_to value = var:spec_pu_pockets }
+	change_local_variable = { name = spec_to add = 1 }
+	if = {
+		limit = { has_variable = spec_pu_price var:spec_pu_price = local_var:spec_to }
+		set_variable = { name = spec_pu_price value = var:spec_pu_pockets }
+	}
+	if = {
+		limit = { has_variable = spec_pu_harbour var:spec_pu_harbour = local_var:spec_to }
+		set_variable = { name = spec_pu_harbour value = var:spec_pu_pockets }
+	}
+	if = {
+		limit = { has_variable = spec_pu_companies var:spec_pu_companies = local_var:spec_to }
+		set_variable = { name = spec_pu_companies value = var:spec_pu_pockets }
+	}
+	if = {
+		limit = { has_variable = spec_pu_floor var:spec_pu_floor = local_var:spec_to }
+		set_variable = { name = spec_pu_floor value = var:spec_pu_pockets }
+	}
+	if = {
+		limit = { has_variable = spec_pu_sound var:spec_pu_sound = local_var:spec_to }
+		set_variable = { name = spec_pu_sound value = var:spec_pu_pockets }
+	}
+	if = {
+		limit = { has_variable = spec_pu_door var:spec_pu_door = local_var:spec_to }
+		set_variable = { name = spec_pu_door value = var:spec_pu_pockets }
+	}
+	set_variable = { name = spec_pu_pockets value = local_var:spec_to }
+}
+
+spec_pursue_left_door = {
+	set_local_variable = { name = spec_to value = var:spec_pu_door }
+	change_local_variable = { name = spec_to add = -1 }
+	if = {
+		limit = { has_variable = spec_pu_price var:spec_pu_price = local_var:spec_to }
+		set_variable = { name = spec_pu_price value = var:spec_pu_door }
+	}
+	if = {
+		limit = { has_variable = spec_pu_harbour var:spec_pu_harbour = local_var:spec_to }
+		set_variable = { name = spec_pu_harbour value = var:spec_pu_door }
+	}
+	if = {
+		limit = { has_variable = spec_pu_companies var:spec_pu_companies = local_var:spec_to }
+		set_variable = { name = spec_pu_companies value = var:spec_pu_door }
+	}
+	if = {
+		limit = { has_variable = spec_pu_floor var:spec_pu_floor = local_var:spec_to }
+		set_variable = { name = spec_pu_floor value = var:spec_pu_door }
+	}
+	if = {
+		limit = { has_variable = spec_pu_sound var:spec_pu_sound = local_var:spec_to }
+		set_variable = { name = spec_pu_sound value = var:spec_pu_door }
+	}
+	if = {
+		limit = { has_variable = spec_pu_pockets var:spec_pu_pockets = local_var:spec_to }
+		set_variable = { name = spec_pu_pockets value = var:spec_pu_door }
+	}
+	set_variable = { name = spec_pu_door value = local_var:spec_to }
+}
+
+spec_pursue_right_door = {
+	set_local_variable = { name = spec_to value = var:spec_pu_door }
+	change_local_variable = { name = spec_to add = 1 }
+	if = {
+		limit = { has_variable = spec_pu_price var:spec_pu_price = local_var:spec_to }
+		set_variable = { name = spec_pu_price value = var:spec_pu_door }
+	}
+	if = {
+		limit = { has_variable = spec_pu_harbour var:spec_pu_harbour = local_var:spec_to }
+		set_variable = { name = spec_pu_harbour value = var:spec_pu_door }
+	}
+	if = {
+		limit = { has_variable = spec_pu_companies var:spec_pu_companies = local_var:spec_to }
+		set_variable = { name = spec_pu_companies value = var:spec_pu_door }
+	}
+	if = {
+		limit = { has_variable = spec_pu_floor var:spec_pu_floor = local_var:spec_to }
+		set_variable = { name = spec_pu_floor value = var:spec_pu_door }
+	}
+	if = {
+		limit = { has_variable = spec_pu_sound var:spec_pu_sound = local_var:spec_to }
+		set_variable = { name = spec_pu_sound value = var:spec_pu_door }
+	}
+	if = {
+		limit = { has_variable = spec_pu_pockets var:spec_pu_pockets = local_var:spec_to }
+		set_variable = { name = spec_pu_pockets value = var:spec_pu_door }
+	}
+	set_variable = { name = spec_pu_door value = local_var:spec_to }
+}
+
+spec_rival_pick = {
+	set_variable = { name = spec_rival value = scope:target }
+	set_variable = { name = spec_rival_lock days = 1825 }
+	if = {
+		limit = { has_variable = spec_rival_last }
+		remove_variable = spec_rival_last
+	}
+}
+
+spec_rival_end = {
+	remove_variable = spec_rival
+	if = { limit = { has_variable = spec_rival_last } remove_variable = spec_rival_last }
+}
+
+# the Financial Centres (centres.py): once a month, for the whole world
+spec_rank_centres = {
+	# the Exchange score's yearly average and the world's pool income per person (centres.py)
+	set_global_variable = { name = spec_xs_world_inc value = 0 }
+	set_global_variable = { name = spec_xs_world_pop value = 0 }
+	every_country = {
+		limit = { has_variable = spec_conf }
+		if = {
+			limit = { NOT = { has_variable = spec_xs_inc } }
+			set_variable = { name = spec_xs_inc value = spec_pool_month }
+		}
+		else = {
+			set_variable = { name = spec_xs_inc value = { value = spec_pool_month subtract = var:spec_xs_inc multiply = 0.1 add = var:spec_xs_inc } }
+		}
+		change_global_variable = { name = spec_xs_world_inc add = var:spec_xs_inc }
+		change_global_variable = { name = spec_xs_world_pop add = { value = total_population divide = 1000000 } }
+	}
+	set_global_variable = { name = spec_xs_world_pc value = { value = global_var:spec_xs_world_inc divide = { value = global_var:spec_xs_world_pop min = 1 } } }
+	every_country = {
+		if = {
+			limit = { has_variable = spec_conf }
+			if = {
+				limit = { NOT = { has_variable = spec_centre_calm } }
+				set_variable = { name = spec_centre_calm value = 0 }
+				if = {
+					limit = { has_variable = spec_calm }
+					set_variable = { name = spec_centre_calm value = var:spec_calm }
+				}
+			}
+			if = {
+				limit = { NOT = { has_variable = spec_centre_trust } }
+				set_variable = { name = spec_centre_trust value = { value = var:spec_centre_calm min = 60 max = 120 } }
+			}
+			if = {
+				limit = { NOT = { has_variable = spec_panic } }
+				if = {
+					limit = { has_variable = spec_lax var:spec_lax >= 0.8 }
+					set_variable = { name = spec_centre_trust value = { value = var:spec_centre_trust subtract = { value = 1 multiply = spec_exch_loss } min = 0 } }
+				}
+				else_if = {
+					limit = { NOT = { has_variable = spec_crunch } OR = { NOT = { has_variable = spec_lax } var:spec_lax < 0.6 } }
+					set_variable = { name = spec_centre_trust value = { value = var:spec_centre_trust add = 1 max = 120 } }
+					set_variable = { name = spec_exch_sound value = { value = spec_log_ksnd add = 1 } }
+				}
+			}
+			if = {
+				limit = {
+					has_variable = spec_pledge
+					in_default = yes
+				}
+				set_variable = { name = spec_centre_trust value = 0 }
+				spec_cool_conf = { AMOUNT = 15 }
+				add_modifier = { name = spec_pledge_broken months = 60 }
+				set_variable = { name = spec_pledge_broken value = { value = spec_log_pbroke add = 1 } }
+				remove_variable = spec_pledge
+				if = {
+					limit = { has_variable = spec_pledge_leave }
+					remove_variable = spec_pledge_leave
+				}
+				if = {
+					limit = { is_player = yes }
+					post_notification = spec_pledge_broken
+				}
+			}
+			else_if = {
+				limit = { has_variable = spec_pledge_leave }
+				change_variable = { name = spec_pledge_leave add = -1 }
+				if = {
+					limit = { var:spec_pledge_leave <= 0 }
+					remove_variable = spec_pledge_leave
+					remove_variable = spec_pledge
+				}
+			}
+			if = {
+				limit = { is_player = no }
+				if = {
+					limit = {
+						spec_can_pledge = yes
+						in_default = no
+						scaled_debt < 0.3
+						gold_reserves >= spec_rescue_cost
+					}
+					spec_pledge_make = yes
+				}
+				else_if = {
+					limit = {
+						spec_can_pledge_leave = yes
+						OR = {
+							scaled_debt > 0.4
+							gold_reserves < spec_rescue_cost
+						}
+					}
+					spec_pledge_withdraw = yes
+				}
+			}
+			if = {
+				limit = {
+					has_variable = spec_has_price
+					NOT = { has_variable = spec_pu_price }
+				}
+				remove_variable = spec_has_price
+			}
+			if = {
+				limit = {
+					has_variable = spec_has_harbour
+					NOT = { has_variable = spec_pu_harbour }
+				}
+				remove_variable = spec_has_harbour
+			}
+			if = {
+				limit = {
+					has_variable = spec_has_companies
+					NOT = { has_variable = spec_pu_companies }
+				}
+				remove_variable = spec_has_companies
+			}
+			if = {
+				limit = {
+					has_variable = spec_has_floor
+					NOT = { has_variable = spec_pu_floor }
+				}
+				remove_variable = spec_has_floor
+			}
+			if = {
+				limit = {
+					has_variable = spec_has_sound
+					NOT = { has_variable = spec_pu_sound }
+				}
+				remove_variable = spec_has_sound
+			}
+			if = {
+				limit = {
+					has_variable = spec_has_pockets
+					NOT = { has_variable = spec_pu_pockets }
+				}
+				remove_variable = spec_has_pockets
+			}
+			if = {
+				limit = {
+					has_variable = spec_has_door
+					NOT = { has_variable = spec_pu_door }
+				}
+				remove_variable = spec_has_door
+			}
+			if = {
+				limit = { has_variable = spec_pw_sum }
+				if = {
+					limit = {
+						has_variable = spec_pu_price
+						var:spec_pursue_n > spec_pursue_slots
+						var:spec_pu_price = var:spec_pursue_n
+					}
+					spec_pursue_stop_price = yes
+				}
+				if = {
+					limit = {
+						has_variable = spec_pu_harbour
+						var:spec_pursue_n > spec_pursue_slots
+						var:spec_pu_harbour = var:spec_pursue_n
+					}
+					spec_pursue_stop_harbour = yes
+				}
+				if = {
+					limit = {
+						has_variable = spec_pu_companies
+						var:spec_pursue_n > spec_pursue_slots
+						var:spec_pu_companies = var:spec_pursue_n
+					}
+					spec_pursue_stop_companies = yes
+				}
+				if = {
+					limit = {
+						has_variable = spec_pu_floor
+						var:spec_pursue_n > spec_pursue_slots
+						var:spec_pu_floor = var:spec_pursue_n
+					}
+					spec_pursue_stop_floor = yes
+				}
+				if = {
+					limit = {
+						has_variable = spec_pu_sound
+						var:spec_pursue_n > spec_pursue_slots
+						var:spec_pu_sound = var:spec_pursue_n
+					}
+					spec_pursue_stop_sound = yes
+				}
+				if = {
+					limit = {
+						has_variable = spec_pu_pockets
+						var:spec_pursue_n > spec_pursue_slots
+						var:spec_pu_pockets = var:spec_pursue_n
+					}
+					spec_pursue_stop_pockets = yes
+				}
+				if = {
+					limit = {
+						has_variable = spec_pu_door
+						var:spec_pursue_n > spec_pursue_slots
+						var:spec_pu_door = var:spec_pursue_n
+					}
+					spec_pursue_stop_door = yes
+				}
+				if = {
+					limit = {
+						has_variable = spec_pu_price
+						var:spec_pursue_n > spec_pursue_slots
+						var:spec_pu_price = var:spec_pursue_n
+					}
+					spec_pursue_stop_price = yes
+				}
+				if = {
+					limit = {
+						has_variable = spec_pu_harbour
+						var:spec_pursue_n > spec_pursue_slots
+						var:spec_pu_harbour = var:spec_pursue_n
+					}
+					spec_pursue_stop_harbour = yes
+				}
+				if = {
+					limit = {
+						has_variable = spec_pu_companies
+						var:spec_pursue_n > spec_pursue_slots
+						var:spec_pu_companies = var:spec_pursue_n
+					}
+					spec_pursue_stop_companies = yes
+				}
+				if = {
+					limit = {
+						has_variable = spec_pu_floor
+						var:spec_pursue_n > spec_pursue_slots
+						var:spec_pu_floor = var:spec_pursue_n
+					}
+					spec_pursue_stop_floor = yes
+				}
+				if = {
+					limit = {
+						has_variable = spec_pu_sound
+						var:spec_pursue_n > spec_pursue_slots
+						var:spec_pu_sound = var:spec_pursue_n
+					}
+					spec_pursue_stop_sound = yes
+				}
+				if = {
+					limit = {
+						has_variable = spec_pu_pockets
+						var:spec_pursue_n > spec_pursue_slots
+						var:spec_pu_pockets = var:spec_pursue_n
+					}
+					spec_pursue_stop_pockets = yes
+				}
+				if = {
+					limit = {
+						has_variable = spec_pu_door
+						var:spec_pursue_n > spec_pursue_slots
+						var:spec_pu_door = var:spec_pursue_n
+					}
+					spec_pursue_stop_door = yes
+				}
+				if = {
+					limit = {
+						has_variable = spec_pu_price
+						var:spec_pursue_n > spec_pursue_slots
+						var:spec_pu_price = var:spec_pursue_n
+					}
+					spec_pursue_stop_price = yes
+				}
+				if = {
+					limit = {
+						has_variable = spec_pu_harbour
+						var:spec_pursue_n > spec_pursue_slots
+						var:spec_pu_harbour = var:spec_pursue_n
+					}
+					spec_pursue_stop_harbour = yes
+				}
+				if = {
+					limit = {
+						has_variable = spec_pu_companies
+						var:spec_pursue_n > spec_pursue_slots
+						var:spec_pu_companies = var:spec_pursue_n
+					}
+					spec_pursue_stop_companies = yes
+				}
+				if = {
+					limit = {
+						has_variable = spec_pu_floor
+						var:spec_pursue_n > spec_pursue_slots
+						var:spec_pu_floor = var:spec_pursue_n
+					}
+					spec_pursue_stop_floor = yes
+				}
+				if = {
+					limit = {
+						has_variable = spec_pu_sound
+						var:spec_pursue_n > spec_pursue_slots
+						var:spec_pu_sound = var:spec_pursue_n
+					}
+					spec_pursue_stop_sound = yes
+				}
+				if = {
+					limit = {
+						has_variable = spec_pu_pockets
+						var:spec_pursue_n > spec_pursue_slots
+						var:spec_pu_pockets = var:spec_pursue_n
+					}
+					spec_pursue_stop_pockets = yes
+				}
+				if = {
+					limit = {
+						has_variable = spec_pu_door
+						var:spec_pursue_n > spec_pursue_slots
+						var:spec_pu_door = var:spec_pursue_n
+					}
+					spec_pursue_stop_door = yes
+				}
+				if = {
+					limit = { has_variable = spec_pu_price }
+					change_variable = { name = spec_pw_price add = 0.084 }
+				}
+				else = {
+					change_variable = { name = spec_pw_price add = -0.084 }
+				}
+				clamp_variable = { name = spec_pw_price min = 0 max = 1 }
+				if = {
+					limit = { has_variable = spec_pu_lock_price }
+					change_variable = { name = spec_pu_lock_price add = -1 }
+					if = {
+						limit = { var:spec_pu_lock_price <= 0 }
+						remove_variable = spec_pu_lock_price
+					}
+				}
+				if = {
+					limit = { has_variable = spec_pu_harbour }
+					change_variable = { name = spec_pw_harbour add = 0.084 }
+				}
+				else = {
+					change_variable = { name = spec_pw_harbour add = -0.084 }
+				}
+				clamp_variable = { name = spec_pw_harbour min = 0 max = 1 }
+				if = {
+					limit = { has_variable = spec_pu_lock_harbour }
+					change_variable = { name = spec_pu_lock_harbour add = -1 }
+					if = {
+						limit = { var:spec_pu_lock_harbour <= 0 }
+						remove_variable = spec_pu_lock_harbour
+					}
+				}
+				if = {
+					limit = { has_variable = spec_pu_companies }
+					change_variable = { name = spec_pw_companies add = 0.084 }
+				}
+				else = {
+					change_variable = { name = spec_pw_companies add = -0.084 }
+				}
+				clamp_variable = { name = spec_pw_companies min = 0 max = 1 }
+				if = {
+					limit = { has_variable = spec_pu_lock_companies }
+					change_variable = { name = spec_pu_lock_companies add = -1 }
+					if = {
+						limit = { var:spec_pu_lock_companies <= 0 }
+						remove_variable = spec_pu_lock_companies
+					}
+				}
+				if = {
+					limit = { has_variable = spec_pu_floor }
+					change_variable = { name = spec_pw_floor add = 0.084 }
+				}
+				else = {
+					change_variable = { name = spec_pw_floor add = -0.084 }
+				}
+				clamp_variable = { name = spec_pw_floor min = 0 max = 1 }
+				if = {
+					limit = { has_variable = spec_pu_lock_floor }
+					change_variable = { name = spec_pu_lock_floor add = -1 }
+					if = {
+						limit = { var:spec_pu_lock_floor <= 0 }
+						remove_variable = spec_pu_lock_floor
+					}
+				}
+				if = {
+					limit = { has_variable = spec_pu_sound }
+					change_variable = { name = spec_pw_sound add = 0.084 }
+				}
+				else = {
+					change_variable = { name = spec_pw_sound add = -0.084 }
+				}
+				clamp_variable = { name = spec_pw_sound min = 0 max = 1 }
+				if = {
+					limit = { has_variable = spec_pu_lock_sound }
+					change_variable = { name = spec_pu_lock_sound add = -1 }
+					if = {
+						limit = { var:spec_pu_lock_sound <= 0 }
+						remove_variable = spec_pu_lock_sound
+					}
+				}
+				if = {
+					limit = { has_variable = spec_pu_pockets }
+					change_variable = { name = spec_pw_pockets add = 0.084 }
+				}
+				else = {
+					change_variable = { name = spec_pw_pockets add = -0.084 }
+				}
+				clamp_variable = { name = spec_pw_pockets min = 0 max = 1 }
+				if = {
+					limit = { has_variable = spec_pu_lock_pockets }
+					change_variable = { name = spec_pu_lock_pockets add = -1 }
+					if = {
+						limit = { var:spec_pu_lock_pockets <= 0 }
+						remove_variable = spec_pu_lock_pockets
+					}
+				}
+				if = {
+					limit = { has_variable = spec_pu_door }
+					change_variable = { name = spec_pw_door add = 0.084 }
+				}
+				else = {
+					change_variable = { name = spec_pw_door add = -0.084 }
+				}
+				clamp_variable = { name = spec_pw_door min = 0 max = 1 }
+				if = {
+					limit = { has_variable = spec_pu_lock_door }
+					change_variable = { name = spec_pu_lock_door add = -1 }
+					if = {
+						limit = { var:spec_pu_lock_door <= 0 }
+						remove_variable = spec_pu_lock_door
+					}
+				}
+				set_variable = { name = spec_pw_sum value = { value = 0 add = var:spec_pw_price add = var:spec_pw_harbour add = var:spec_pw_companies add = var:spec_pw_floor add = var:spec_pw_sound add = var:spec_pw_pockets add = var:spec_pw_door } }
+				if = {
+					limit = { has_modifier = spec_pursue_price_0 }
+					remove_modifier = spec_pursue_price_0
+				}
+				if = {
+					limit = { has_modifier = spec_pursue_price_1 }
+					remove_modifier = spec_pursue_price_1
+				}
+				if = {
+					limit = { has_modifier = spec_pursue_price_2 }
+					remove_modifier = spec_pursue_price_2
+				}
+				if = {
+					limit = { has_modifier = spec_pursue_price_3 }
+					remove_modifier = spec_pursue_price_3
+				}
+				if = {
+					limit = { var:spec_pw_price > 0 }
+					if = {
+						limit = { var:spec_lead_price ?= 1 }
+						add_modifier = { name = spec_pursue_price_3 multiplier = var:spec_pw_price }
+					}
+					else_if = {
+						limit = { var:spec_lead_price ?= 2 }
+						add_modifier = { name = spec_pursue_price_2 multiplier = var:spec_pw_price }
+					}
+					else_if = {
+						limit = { var:spec_lead_price ?= 3 }
+						add_modifier = { name = spec_pursue_price_1 multiplier = var:spec_pw_price }
+					}
+					else = {
+						add_modifier = { name = spec_pursue_price_0 multiplier = var:spec_pw_price }
+					}
+				}
+				if = {
+					limit = { has_modifier = spec_pursue_harbour_0 }
+					remove_modifier = spec_pursue_harbour_0
+				}
+				if = {
+					limit = { has_modifier = spec_pursue_harbour_1 }
+					remove_modifier = spec_pursue_harbour_1
+				}
+				if = {
+					limit = { has_modifier = spec_pursue_harbour_2 }
+					remove_modifier = spec_pursue_harbour_2
+				}
+				if = {
+					limit = { has_modifier = spec_pursue_harbour_3 }
+					remove_modifier = spec_pursue_harbour_3
+				}
+				if = {
+					limit = { var:spec_pw_harbour > 0 }
+					if = {
+						limit = { var:spec_lead_harbour ?= 1 }
+						add_modifier = { name = spec_pursue_harbour_3 multiplier = var:spec_pw_harbour }
+					}
+					else_if = {
+						limit = { var:spec_lead_harbour ?= 2 }
+						add_modifier = { name = spec_pursue_harbour_2 multiplier = var:spec_pw_harbour }
+					}
+					else_if = {
+						limit = { var:spec_lead_harbour ?= 3 }
+						add_modifier = { name = spec_pursue_harbour_1 multiplier = var:spec_pw_harbour }
+					}
+					else = {
+						add_modifier = { name = spec_pursue_harbour_0 multiplier = var:spec_pw_harbour }
+					}
+				}
+				if = {
+					limit = { has_modifier = spec_pursue_companies_0 }
+					remove_modifier = spec_pursue_companies_0
+				}
+				if = {
+					limit = { has_modifier = spec_pursue_companies_1 }
+					remove_modifier = spec_pursue_companies_1
+				}
+				if = {
+					limit = { has_modifier = spec_pursue_companies_2 }
+					remove_modifier = spec_pursue_companies_2
+				}
+				if = {
+					limit = { has_modifier = spec_pursue_companies_3 }
+					remove_modifier = spec_pursue_companies_3
+				}
+				if = {
+					limit = { var:spec_pw_companies > 0 }
+					if = {
+						limit = { var:spec_lead_companies ?= 1 }
+						add_modifier = { name = spec_pursue_companies_3 multiplier = var:spec_pw_companies }
+					}
+					else_if = {
+						limit = { var:spec_lead_companies ?= 2 }
+						add_modifier = { name = spec_pursue_companies_2 multiplier = var:spec_pw_companies }
+					}
+					else_if = {
+						limit = { var:spec_lead_companies ?= 3 }
+						add_modifier = { name = spec_pursue_companies_1 multiplier = var:spec_pw_companies }
+					}
+					else = {
+						add_modifier = { name = spec_pursue_companies_0 multiplier = var:spec_pw_companies }
+					}
+				}
+				if = {
+					limit = { has_modifier = spec_pursue_floor_0 }
+					remove_modifier = spec_pursue_floor_0
+				}
+				if = {
+					limit = { has_modifier = spec_pursue_floor_1 }
+					remove_modifier = spec_pursue_floor_1
+				}
+				if = {
+					limit = { has_modifier = spec_pursue_floor_2 }
+					remove_modifier = spec_pursue_floor_2
+				}
+				if = {
+					limit = { has_modifier = spec_pursue_floor_3 }
+					remove_modifier = spec_pursue_floor_3
+				}
+				if = {
+					limit = { var:spec_pw_floor > 0 }
+					if = {
+						limit = { var:spec_lead_floor ?= 1 }
+						add_modifier = { name = spec_pursue_floor_3 multiplier = var:spec_pw_floor }
+					}
+					else_if = {
+						limit = { var:spec_lead_floor ?= 2 }
+						add_modifier = { name = spec_pursue_floor_2 multiplier = var:spec_pw_floor }
+					}
+					else_if = {
+						limit = { var:spec_lead_floor ?= 3 }
+						add_modifier = { name = spec_pursue_floor_1 multiplier = var:spec_pw_floor }
+					}
+					else = {
+						add_modifier = { name = spec_pursue_floor_0 multiplier = var:spec_pw_floor }
+					}
+				}
+				if = {
+					limit = { has_modifier = spec_pursue_sound_0 }
+					remove_modifier = spec_pursue_sound_0
+				}
+				if = {
+					limit = { has_modifier = spec_pursue_sound_1 }
+					remove_modifier = spec_pursue_sound_1
+				}
+				if = {
+					limit = { has_modifier = spec_pursue_sound_2 }
+					remove_modifier = spec_pursue_sound_2
+				}
+				if = {
+					limit = { has_modifier = spec_pursue_sound_3 }
+					remove_modifier = spec_pursue_sound_3
+				}
+				if = {
+					limit = { var:spec_pw_sound > 0 }
+					if = {
+						limit = { var:spec_lead_sound ?= 1 }
+						add_modifier = { name = spec_pursue_sound_3 multiplier = var:spec_pw_sound }
+					}
+					else_if = {
+						limit = { var:spec_lead_sound ?= 2 }
+						add_modifier = { name = spec_pursue_sound_2 multiplier = var:spec_pw_sound }
+					}
+					else_if = {
+						limit = { var:spec_lead_sound ?= 3 }
+						add_modifier = { name = spec_pursue_sound_1 multiplier = var:spec_pw_sound }
+					}
+					else = {
+						add_modifier = { name = spec_pursue_sound_0 multiplier = var:spec_pw_sound }
+					}
+				}
+				if = {
+					limit = { has_modifier = spec_pursue_pockets_0 }
+					remove_modifier = spec_pursue_pockets_0
+				}
+				if = {
+					limit = { has_modifier = spec_pursue_pockets_1 }
+					remove_modifier = spec_pursue_pockets_1
+				}
+				if = {
+					limit = { has_modifier = spec_pursue_pockets_2 }
+					remove_modifier = spec_pursue_pockets_2
+				}
+				if = {
+					limit = { has_modifier = spec_pursue_pockets_3 }
+					remove_modifier = spec_pursue_pockets_3
+				}
+				if = {
+					limit = { var:spec_pw_pockets > 0 }
+					if = {
+						limit = { var:spec_lead_pockets ?= 1 }
+						add_modifier = { name = spec_pursue_pockets_3 multiplier = var:spec_pw_pockets }
+					}
+					else_if = {
+						limit = { var:spec_lead_pockets ?= 2 }
+						add_modifier = { name = spec_pursue_pockets_2 multiplier = var:spec_pw_pockets }
+					}
+					else_if = {
+						limit = { var:spec_lead_pockets ?= 3 }
+						add_modifier = { name = spec_pursue_pockets_1 multiplier = var:spec_pw_pockets }
+					}
+					else = {
+						add_modifier = { name = spec_pursue_pockets_0 multiplier = var:spec_pw_pockets }
+					}
+				}
+				if = {
+					limit = { has_modifier = spec_pursue_door_0 }
+					remove_modifier = spec_pursue_door_0
+				}
+				if = {
+					limit = { has_modifier = spec_pursue_door_1 }
+					remove_modifier = spec_pursue_door_1
+				}
+				if = {
+					limit = { has_modifier = spec_pursue_door_2 }
+					remove_modifier = spec_pursue_door_2
+				}
+				if = {
+					limit = { has_modifier = spec_pursue_door_3 }
+					remove_modifier = spec_pursue_door_3
+				}
+				if = {
+					limit = { var:spec_pw_door > 0 }
+					if = {
+						limit = { var:spec_lead_door ?= 1 }
+						add_modifier = { name = spec_pursue_door_3 multiplier = var:spec_pw_door }
+					}
+					else_if = {
+						limit = { var:spec_lead_door ?= 2 }
+						add_modifier = { name = spec_pursue_door_2 multiplier = var:spec_pw_door }
+					}
+					else_if = {
+						limit = { var:spec_lead_door ?= 3 }
+						add_modifier = { name = spec_pursue_door_1 multiplier = var:spec_pw_door }
+					}
+					else = {
+						add_modifier = { name = spec_pursue_door_0 multiplier = var:spec_pw_door }
+					}
+				}
+			}
+			if = {
+				limit = {
+					var:spec_centre_trust < 30
+				}
+				if = {
+					limit = { NOT = { has_modifier = spec_trust_0 } }
+					add_modifier = { name = spec_trust_0 }
+				}
+			}
+			else_if = {
+				limit = { has_modifier = spec_trust_0 }
+				remove_modifier = spec_trust_0
+			}
+			if = {
+				limit = {
+					var:spec_centre_trust >= 30
+					var:spec_centre_trust < 60
+				}
+				if = {
+					limit = { NOT = { has_modifier = spec_trust_1 } }
+					add_modifier = { name = spec_trust_1 }
+				}
+			}
+			else_if = {
+				limit = { has_modifier = spec_trust_1 }
+				remove_modifier = spec_trust_1
+			}
+			if = {
+				limit = {
+					var:spec_centre_trust >= 90
+				}
+				if = {
+					limit = { NOT = { has_modifier = spec_trust_3 } }
+					add_modifier = { name = spec_trust_3 }
+				}
+			}
+			else_if = {
+				limit = { has_modifier = spec_trust_3 }
+				remove_modifier = spec_trust_3
+			}
+			if = {
+				limit = {
+					has_variable = spec_exch_stand
+					OR = {
+						is_player = yes
+						var:spec_exch_stand >= 1
+					}
+				}
+				if = {
+					limit = { has_global_variable = spec_ldv_price }
+					if = {
+						limit = { has_variable = spec_sh_price }
+						set_variable = { name = spec_shl_price value = var:spec_sh_price }
+					}
+					set_variable = { name = spec_sh_price value = { value = spec_name_price divide = global_var:spec_ldv_price max = 1.5 } }
+				}
+				else_if = {
+					limit = { has_variable = spec_sh_price }
+					remove_variable = spec_sh_price
+					remove_variable = spec_shl_price
+				}
+				if = {
+					limit = { has_global_variable = spec_ldv_harbour }
+					if = {
+						limit = { has_variable = spec_sh_harbour }
+						set_variable = { name = spec_shl_harbour value = var:spec_sh_harbour }
+					}
+					set_variable = { name = spec_sh_harbour value = { value = spec_name_harbour divide = global_var:spec_ldv_harbour max = 1.5 } }
+				}
+				else_if = {
+					limit = { has_variable = spec_sh_harbour }
+					remove_variable = spec_sh_harbour
+					remove_variable = spec_shl_harbour
+				}
+				if = {
+					limit = { has_global_variable = spec_ldv_companies }
+					if = {
+						limit = { has_variable = spec_sh_companies }
+						set_variable = { name = spec_shl_companies value = var:spec_sh_companies }
+					}
+					set_variable = { name = spec_sh_companies value = { value = spec_name_companies divide = global_var:spec_ldv_companies max = 1.5 } }
+				}
+				else_if = {
+					limit = { has_variable = spec_sh_companies }
+					remove_variable = spec_sh_companies
+					remove_variable = spec_shl_companies
+				}
+				if = {
+					limit = { has_global_variable = spec_ldv_floor }
+					if = {
+						limit = { has_variable = spec_sh_floor }
+						set_variable = { name = spec_shl_floor value = var:spec_sh_floor }
+					}
+					set_variable = { name = spec_sh_floor value = { value = spec_name_floor divide = global_var:spec_ldv_floor max = 1.5 } }
+				}
+				else_if = {
+					limit = { has_variable = spec_sh_floor }
+					remove_variable = spec_sh_floor
+					remove_variable = spec_shl_floor
+				}
+				if = {
+					limit = { has_global_variable = spec_ldv_sound }
+					if = {
+						limit = { has_variable = spec_sh_sound }
+						set_variable = { name = spec_shl_sound value = var:spec_sh_sound }
+					}
+					set_variable = { name = spec_sh_sound value = { value = spec_name_sound divide = global_var:spec_ldv_sound max = 1.5 } }
+				}
+				else_if = {
+					limit = { has_variable = spec_sh_sound }
+					remove_variable = spec_sh_sound
+					remove_variable = spec_shl_sound
+				}
+				if = {
+					limit = { has_global_variable = spec_ldv_pockets }
+					if = {
+						limit = { has_variable = spec_sh_pockets }
+						set_variable = { name = spec_shl_pockets value = var:spec_sh_pockets }
+					}
+					set_variable = { name = spec_sh_pockets value = { value = spec_name_pockets divide = global_var:spec_ldv_pockets max = 1.5 } }
+				}
+				else_if = {
+					limit = { has_variable = spec_sh_pockets }
+					remove_variable = spec_sh_pockets
+					remove_variable = spec_shl_pockets
+				}
+				if = {
+					limit = { has_global_variable = spec_ldv_door }
+					if = {
+						limit = { has_variable = spec_sh_door }
+						set_variable = { name = spec_shl_door value = var:spec_sh_door }
+					}
+					set_variable = { name = spec_sh_door value = { value = spec_name_door divide = global_var:spec_ldv_door max = 1.5 } }
+				}
+				else_if = {
+					limit = { has_variable = spec_sh_door }
+					remove_variable = spec_sh_door
+					remove_variable = spec_shl_door
+				}
+			}
+			if = {
+				limit = { is_country_alive = no }
+				remove_variable = spec_exch_seat
+				remove_variable = spec_exch_seat_t
+			}
+			else = {
+				if = {
+					limit = { exists = var:spec_exch_seat.owner }
+					if = {
+						limit = { NOT = { this = var:spec_exch_seat.owner } }
+						remove_variable = spec_exch_seat
+						remove_variable = spec_exch_seat_t
+					}
+				}
+				else = {
+					remove_variable = spec_exch_seat
+					remove_variable = spec_exch_seat_t
+				}
+				if = {
+					limit = {
+						exists = capital.owner
+						NOT = { has_variable = spec_exch_seat }
+					}
+					if = {
+						limit = { this = capital.owner }
+						set_variable = { name = spec_exch_seat value = capital }
+					}
+				}
+				if = {
+					limit = {
+						exists = var:spec_exch_seat
+						NOT = { has_variable = spec_exch_seat_t }
+					}
+					set_variable = { name = spec_exch_seat_t days = 365 }
+					var:spec_exch_seat = {
+						save_temporary_scope_as = spec_seat_old
+						set_variable = { name = spec_seat_need value = { value = spec_seat_fd add = 2 } }
+					}
+					ordered_scope_state = {
+						limit = {
+							has_building = building_financial_district
+							spec_seat_fd >= scope:spec_seat_old.var:spec_seat_need
+						}
+						order_by = spec_seat_fd
+						position = 0
+						check_range_bounds = no
+						owner = {
+							set_variable = { name = spec_exch_seat value = prev }
+						}
+					}
+					scope:spec_seat_old = {
+						remove_variable = spec_seat_need
+					}
+				}
+			}
+			if = {
+				limit = { has_variable = spec_panic }
+				set_variable = { name = spec_centre_calm value = 0 }
+			}
+			else = {
+				change_variable = { name = spec_centre_calm add = 1 }
+			}
+			set_variable = { name = spec_centre_yrs value = { value = var:spec_centre_calm divide = 12 floor = yes } }
+			save_temporary_scope_as = spec_xs_me
+			set_global_variable = { name = spec_xs_me_inc value = var:spec_xs_inc }
+			set_variable = { name = spec_xs_own_v value = spec_xs_own }
+			set_variable = { name = spec_xs_reach_v value = spec_xs_reach }
+			set_local_variable = { name = spec_sq_x value = { value = var:spec_xs_own_v add = var:spec_xs_reach_v min = 0 } }
+			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = 40 add = 2 } }
+			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+			set_variable = { name = spec_xs_size_v value = local_var:spec_sq }
+			set_variable = { name = spec_xs_size_v value = { value = var:spec_xs_size_v multiply = 10 } }
+			set_variable = { name = spec_xs_ratio_v value = spec_xs_ratio }
+			set_local_variable = { name = spec_sq_x value = { value = var:spec_xs_ratio_v min = 0 } }
+			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = 40 add = 2 } }
+			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+			set_variable = { name = spec_xs_wealth_v value = local_var:spec_sq }
+			set_variable = { name = spec_xs_wealth_v value = { value = var:spec_xs_wealth_v min = 0.5 max = 2 } }
+			if = {
+				limit = {
+					capital ?= {
+						OR = {
+							is_in_geographic_region = geographic_region_europe
+						}
+					}
+				}
+				set_variable = { name = spec_xs_reg value = 1 }
+			}
+			else_if = {
+				limit = {
+					capital ?= {
+						OR = {
+							is_in_geographic_region = geographic_region_latin_america
+						}
+					}
+				}
+				set_variable = { name = spec_xs_reg value = 2 }
+			}
+			else_if = {
+				limit = {
+					capital ?= {
+						OR = {
+							is_in_geographic_region = geographic_region_north_america
+						}
+					}
+				}
+				set_variable = { name = spec_xs_reg value = 3 }
+			}
+			else_if = {
+				limit = {
+					capital ?= {
+						OR = {
+							is_in_geographic_region = geographic_region_africa
+							is_in_geographic_region = geographic_region_middle_east
+						}
+					}
+				}
+				set_variable = { name = spec_xs_reg value = 4 }
+			}
+			else_if = {
+				limit = {
+					capital ?= {
+						OR = {
+							is_in_geographic_region = geographic_region_india
+						}
+					}
+				}
+				set_variable = { name = spec_xs_reg value = 5 }
+			}
+			else = {
+				set_variable = { name = spec_xs_reg value = 6 }
+			}
+			set_variable = { name = spec_centre_score value = spec_centre_size }
+			set_variable = { name = spec_xs_raw value = var:spec_centre_score }
+			set_variable = { name = spec_xs_fd_v value = spec_xs_fd }
+			set_variable = { name = spec_xs_co_v value = spec_xs_co }
+			set_variable = { name = spec_xs_fdm_v value = spec_xs_fdm }
+			set_variable = { name = spec_xs_com_v value = spec_xs_com }
+			set_variable = { name = spec_xs_tech_v value = spec_xs_tech }
+			set_variable = { name = spec_xs_ntech_v value = spec_xs_ntech }
+			set_variable = { name = spec_xs_rank_v value = spec_xs_rank }
+			set_variable = { name = spec_xs_econ_v value = spec_xs_econ }
+			set_variable = { name = spec_xs_trust_v value = spec_centre_calm_mult }
+		}
+		else_if = {
+			limit = {
+				OR = {
+					has_variable = spec_centre_score
+					has_variable = spec_centre_trust
+					has_variable = spec_exch_seat  # spec_shut_down already took the two above; set monthly for every Exchange
+				}
+			}
+			remove_variable = spec_centre_score
+			spec_exch_clear = yes
+		}
+	}
+	set_global_variable = { name = spec_centre_top value = 0 }
+	set_global_variable = { name = spec_xs_topn value = 0 }
+	ordered_country = {
+		limit = { has_variable = spec_centre_score }
+		order_by = spec_centre_order
+		max = 3
+		check_range_bounds = no
+		change_global_variable = { name = spec_centre_top add = var:spec_centre_score }
+		change_global_variable = { name = spec_xs_topn add = 1 }
+	}
+	if = {
+		limit = { global_var:spec_xs_topn > 0 }
+		set_global_variable = { name = spec_centre_top value = { value = global_var:spec_centre_top divide = global_var:spec_xs_topn } }
+	}
+	if = {
+		limit = { has_global_variable = spec_centre_1 }
+		remove_global_variable = spec_centre_1
+	}
+	if = {
+		limit = { has_global_variable = spec_centre_2 }
+		remove_global_variable = spec_centre_2
+	}
+	if = {
+		limit = { has_global_variable = spec_centre_3 }
+		remove_global_variable = spec_centre_3
+	}
+	if = {
+		limit = { has_global_variable = spec_centre_4 }
+		remove_global_variable = spec_centre_4
+	}
+	if = {
+		limit = { has_global_variable = spec_centre_5 }
+		remove_global_variable = spec_centre_5
+	}
+	if = {
+		limit = { has_global_variable = spec_centre_6 }
+		remove_global_variable = spec_centre_6
+	}
+	if = {
+		limit = { has_global_variable = spec_centre_7 }
+		remove_global_variable = spec_centre_7
+	}
+	if = {
+		limit = { has_global_variable = spec_centre_8 }
+		remove_global_variable = spec_centre_8
+	}
+	if = {
+		limit = { has_global_variable = spec_centre_9 }
+		remove_global_variable = spec_centre_9
+	}
+	if = {
+		limit = { has_global_variable = spec_centre_10 }
+		remove_global_variable = spec_centre_10
+	}
+	if = {
+		limit = { has_global_variable = spec_centre_11 }
+		remove_global_variable = spec_centre_11
+	}
+	if = {
+		limit = { has_global_variable = spec_centre_12 }
+		remove_global_variable = spec_centre_12
+	}
+	if = {
+		limit = { has_global_variable = spec_centre_13 }
+		remove_global_variable = spec_centre_13
+	}
+	if = {
+		limit = { has_global_variable = spec_centre_14 }
+		remove_global_variable = spec_centre_14
+	}
+	if = {
+		limit = { has_global_variable = spec_centre_15 }
+		remove_global_variable = spec_centre_15
+	}
+	if = {
+		limit = { has_global_variable = spec_centre_16 }
+		remove_global_variable = spec_centre_16
+	}
+	if = {
+		limit = { has_global_variable = spec_centre_17 }
+		remove_global_variable = spec_centre_17
+	}
+	if = {
+		limit = { has_global_variable = spec_centre_18 }
+		remove_global_variable = spec_centre_18
+	}
+	if = {
+		limit = { has_global_variable = spec_centre_19 }
+		remove_global_variable = spec_centre_19
+	}
+	if = {
+		limit = { has_global_variable = spec_centre_20 }
+		remove_global_variable = spec_centre_20
+	}
+	if = {
+		limit = { has_global_variable = spec_centre_21 }
+		remove_global_variable = spec_centre_21
+	}
+	if = {
+		limit = { has_global_variable = spec_centre_22 }
+		remove_global_variable = spec_centre_22
+	}
+	if = {
+		limit = { has_global_variable = spec_centre_23 }
+		remove_global_variable = spec_centre_23
+	}
+	if = {
+		limit = { has_global_variable = spec_centre_24 }
+		remove_global_variable = spec_centre_24
+	}
+	if = {
+		limit = { has_global_variable = spec_centre_25 }
+		remove_global_variable = spec_centre_25
+	}
+	if = {
+		limit = { has_global_variable = spec_centre_26 }
+		remove_global_variable = spec_centre_26
+	}
+	if = {
+		limit = { has_global_variable = spec_centre_27 }
+		remove_global_variable = spec_centre_27
+	}
+	if = {
+		limit = { has_global_variable = spec_centre_28 }
+		remove_global_variable = spec_centre_28
+	}
+	if = {
+		limit = { has_global_variable = spec_centre_29 }
+		remove_global_variable = spec_centre_29
+	}
+	if = {
+		limit = { has_global_variable = spec_centre_30 }
+		remove_global_variable = spec_centre_30
+	}
+	if = {
+		limit = { has_global_variable = spec_centre_31 }
+		remove_global_variable = spec_centre_31
+	}
+	if = {
+		limit = { has_global_variable = spec_centre_32 }
+		remove_global_variable = spec_centre_32
+	}
+	if = {
+		limit = { has_global_variable = spec_centre_33 }
+		remove_global_variable = spec_centre_33
+	}
+	if = {
+		limit = { has_global_variable = spec_centre_34 }
+		remove_global_variable = spec_centre_34
+	}
+	if = {
+		limit = { has_global_variable = spec_centre_35 }
+		remove_global_variable = spec_centre_35
+	}
+	if = {
+		limit = { has_global_variable = spec_centre_36 }
+		remove_global_variable = spec_centre_36
+	}
+	if = {
+		limit = { has_global_variable = spec_centre_37 }
+		remove_global_variable = spec_centre_37
+	}
+	if = {
+		limit = { has_global_variable = spec_centre_38 }
+		remove_global_variable = spec_centre_38
+	}
+	if = {
+		limit = { has_global_variable = spec_centre_39 }
+		remove_global_variable = spec_centre_39
+	}
+	if = {
+		limit = { has_global_variable = spec_centre_40 }
+		remove_global_variable = spec_centre_40
+	}
+	every_country = {
+		limit = { has_variable = spec_centre_also }
+		remove_variable = spec_centre_also
+	}
+	if = {
+		limit = { global_var:spec_centre_top > 0 }
+		every_country = {
+			limit = { has_variable = spec_centre_score }
+			set_variable = { name = spec_centre_score value = { value = var:spec_centre_score multiply = 100 divide = global_var:spec_centre_top } }
+		}
+		set_global_variable = { name = spec_centre_next value = 1 }
+		ordered_country = {
+			limit = {
+				has_variable = spec_centre_score
+				var:spec_centre_score > 0
+			}
+			order_by = spec_centre_order
+			max = 5
+			check_range_bounds = no
+			set_variable = { name = spec_centre_new value = global_var:spec_centre_next }
+			change_global_variable = { name = spec_centre_next add = 1 }
+		}
+		remove_global_variable = spec_centre_next
+	}
+	remove_global_variable = spec_centre_top
+	# each region's leading Exchange, and every market's share of it (centres.py)
+	every_country = {
+		limit = { has_variable = spec_xs_regtop }
+		remove_variable = spec_xs_regtop
+	}
+	if = {
+		limit = { has_global_variable = spec_xs_rlead_1 }
+		remove_global_variable = spec_xs_rlead_1
+	}
+	set_global_variable = { name = spec_xs_rbest_1 value = 0 }
+	ordered_country = {
+		limit = {
+			has_variable = spec_centre_score
+			var:spec_xs_reg = 1
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_xs_regtop
+		set_global_variable = { name = spec_xs_rbest_1 value = var:spec_xs_raw }
+		set_global_variable = { name = spec_xs_rlead_1 value = this }
+	}
+	if = {
+		limit = { has_global_variable = spec_xs_rlead_2 }
+		remove_global_variable = spec_xs_rlead_2
+	}
+	set_global_variable = { name = spec_xs_rbest_2 value = 0 }
+	ordered_country = {
+		limit = {
+			has_variable = spec_centre_score
+			var:spec_xs_reg = 2
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_xs_regtop
+		set_global_variable = { name = spec_xs_rbest_2 value = var:spec_xs_raw }
+		set_global_variable = { name = spec_xs_rlead_2 value = this }
+	}
+	if = {
+		limit = { has_global_variable = spec_xs_rlead_3 }
+		remove_global_variable = spec_xs_rlead_3
+	}
+	set_global_variable = { name = spec_xs_rbest_3 value = 0 }
+	ordered_country = {
+		limit = {
+			has_variable = spec_centre_score
+			var:spec_xs_reg = 3
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_xs_regtop
+		set_global_variable = { name = spec_xs_rbest_3 value = var:spec_xs_raw }
+		set_global_variable = { name = spec_xs_rlead_3 value = this }
+	}
+	if = {
+		limit = { has_global_variable = spec_xs_rlead_4 }
+		remove_global_variable = spec_xs_rlead_4
+	}
+	set_global_variable = { name = spec_xs_rbest_4 value = 0 }
+	ordered_country = {
+		limit = {
+			has_variable = spec_centre_score
+			var:spec_xs_reg = 4
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_xs_regtop
+		set_global_variable = { name = spec_xs_rbest_4 value = var:spec_xs_raw }
+		set_global_variable = { name = spec_xs_rlead_4 value = this }
+	}
+	if = {
+		limit = { has_global_variable = spec_xs_rlead_5 }
+		remove_global_variable = spec_xs_rlead_5
+	}
+	set_global_variable = { name = spec_xs_rbest_5 value = 0 }
+	ordered_country = {
+		limit = {
+			has_variable = spec_centre_score
+			var:spec_xs_reg = 5
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_xs_regtop
+		set_global_variable = { name = spec_xs_rbest_5 value = var:spec_xs_raw }
+		set_global_variable = { name = spec_xs_rlead_5 value = this }
+	}
+	if = {
+		limit = { has_global_variable = spec_xs_rlead_6 }
+		remove_global_variable = spec_xs_rlead_6
+	}
+	set_global_variable = { name = spec_xs_rbest_6 value = 0 }
+	ordered_country = {
+		limit = {
+			has_variable = spec_centre_score
+			var:spec_xs_reg = 6
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_xs_regtop
+		set_global_variable = { name = spec_xs_rbest_6 value = var:spec_xs_raw }
+		set_global_variable = { name = spec_xs_rlead_6 value = this }
+	}
+	every_country = {
+		limit = { has_variable = spec_centre_score }
+		set_variable = { name = spec_xs_regshare value = 0 }
+		if = {
+			limit = {
+				var:spec_xs_reg = 1
+				global_var:spec_xs_rbest_1 > 0
+			}
+			set_variable = { name = spec_xs_regshare value = { value = var:spec_xs_raw multiply = 100 divide = global_var:spec_xs_rbest_1 } }
+		}
+		else_if = {
+			limit = {
+				var:spec_xs_reg = 2
+				global_var:spec_xs_rbest_2 > 0
+			}
+			set_variable = { name = spec_xs_regshare value = { value = var:spec_xs_raw multiply = 100 divide = global_var:spec_xs_rbest_2 } }
+		}
+		else_if = {
+			limit = {
+				var:spec_xs_reg = 3
+				global_var:spec_xs_rbest_3 > 0
+			}
+			set_variable = { name = spec_xs_regshare value = { value = var:spec_xs_raw multiply = 100 divide = global_var:spec_xs_rbest_3 } }
+		}
+		else_if = {
+			limit = {
+				var:spec_xs_reg = 4
+				global_var:spec_xs_rbest_4 > 0
+			}
+			set_variable = { name = spec_xs_regshare value = { value = var:spec_xs_raw multiply = 100 divide = global_var:spec_xs_rbest_4 } }
+		}
+		else_if = {
+			limit = {
+				var:spec_xs_reg = 5
+				global_var:spec_xs_rbest_5 > 0
+			}
+			set_variable = { name = spec_xs_regshare value = { value = var:spec_xs_raw multiply = 100 divide = global_var:spec_xs_rbest_5 } }
+		}
+		else_if = {
+			limit = {
+				var:spec_xs_reg = 6
+				global_var:spec_xs_rbest_6 > 0
+			}
+			set_variable = { name = spec_xs_regshare value = { value = var:spec_xs_raw multiply = 100 divide = global_var:spec_xs_rbest_6 } }
+		}
+	}
+	# the Exchange's Standing (centres.py)
+	every_country = {
+		limit = {
+			OR = {
+				has_variable = spec_centre_score
+				has_variable = spec_exch_stand
+			}
+		}
+		if = {
+			limit = { NOT = { has_variable = spec_centre_score } }
+			remove_variable = spec_exch_stand
+			if = {
+				limit = { has_variable = spec_lead_price }
+				remove_variable = spec_lead_price
+			}
+			if = {
+				limit = { has_variable = spec_lead_harbour }
+				remove_variable = spec_lead_harbour
+			}
+			if = {
+				limit = { has_variable = spec_lead_companies }
+				remove_variable = spec_lead_companies
+			}
+			if = {
+				limit = { has_variable = spec_lead_floor }
+				remove_variable = spec_lead_floor
+			}
+			if = {
+				limit = { has_variable = spec_lead_sound }
+				remove_variable = spec_lead_sound
+			}
+			if = {
+				limit = { has_variable = spec_lead_pockets }
+				remove_variable = spec_lead_pockets
+			}
+			if = {
+				limit = { has_variable = spec_lead_door }
+				remove_variable = spec_lead_door
+			}
+			if = {
+				limit = { has_modifier = spec_exch_national }
+				remove_modifier = spec_exch_national
+			}
+		}
+		else = {
+			set_local_variable = { name = spec_exch_was value = 0 }
+			if = {
+				limit = { has_variable = spec_exch_stand }
+				set_local_variable = { name = spec_exch_was value = var:spec_exch_stand }
+			}
+			if = {
+				limit = {
+					var:spec_centre_new ?= 1
+					has_technology_researched = central_banking
+				}
+				set_variable = { name = spec_exch_stand value = 3 }
+			}
+			else_if = {
+				limit = {
+					OR = {
+						has_variable = spec_centre_new
+						has_variable = spec_exch_hold  # ponytail: a year's grace, so places 5 and 6 swapping does not flip it monthly
+						has_variable = spec_xs_regtop
+					}
+					has_technology_researched = stock_exchange
+				}
+				set_variable = { name = spec_exch_stand value = 2 }
+			}
+			else_if = {
+				limit = {
+					OR = {
+						has_variable = spec_centre_new
+						var:spec_centre_score >= 15
+						var:spec_xs_regshare >= 35
+						AND = {
+							has_variable = spec_exch_stand
+							var:spec_exch_stand >= 1
+							OR = {
+								var:spec_centre_score >= 13
+								var:spec_xs_regshare >= 30
+							}
+						}
+					}
+				}
+				set_variable = { name = spec_exch_stand value = 1 }
+			}
+			else = {
+				set_variable = { name = spec_exch_stand value = 0 }
+			}
+			if = {
+				limit = { has_variable = spec_crunch }
+				set_variable = { name = spec_centre_trust value = { value = var:spec_centre_trust subtract = { value = 1 multiply = spec_exch_loss } min = 0 } }
+				if = {
+					limit = { var:spec_exch_stand > local_var:spec_exch_was }
+					set_variable = { name = spec_exch_stand value = local_var:spec_exch_was }
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						has_variable = spec_centre_new
+						has_variable = spec_xs_regtop
+					}
+				}
+				set_variable = { name = spec_exch_hold days = 365 }
+			}
+			if = {
+				limit = {
+					var:spec_exch_stand >= 1
+					NOT = { has_variable = spec_centre_new }  # a listed place has its own prestige
+					NOT = { has_modifier = spec_exch_national }
+				}
+				add_modifier = { name = spec_exch_national }
+			}
+			else_if = {
+				limit = {
+					OR = {
+						var:spec_exch_stand = 0
+						has_variable = spec_centre_new
+					}
+					has_modifier = spec_exch_national
+				}
+				remove_modifier = spec_exch_national
+			}
+			if = {
+				limit = {
+					is_player = yes
+					local_var:spec_exch_was < var:spec_exch_stand
+				}
+				post_notification = spec_exch_up
+			}
+			else_if = {
+				limit = {
+					is_player = yes
+					local_var:spec_exch_was > var:spec_exch_stand
+				}
+				if = {
+					limit = { has_variable = spec_pu_lost_price }
+					remove_variable = spec_pu_lost_price
+				}
+				if = {
+					limit = { has_variable = spec_pu_lost_harbour }
+					remove_variable = spec_pu_lost_harbour
+				}
+				if = {
+					limit = { has_variable = spec_pu_lost_companies }
+					remove_variable = spec_pu_lost_companies
+				}
+				if = {
+					limit = { has_variable = spec_pu_lost_floor }
+					remove_variable = spec_pu_lost_floor
+				}
+				if = {
+					limit = { has_variable = spec_pu_lost_sound }
+					remove_variable = spec_pu_lost_sound
+				}
+				if = {
+					limit = { has_variable = spec_pu_lost_pockets }
+					remove_variable = spec_pu_lost_pockets
+				}
+				if = {
+					limit = { has_variable = spec_pu_lost_door }
+					remove_variable = spec_pu_lost_door
+				}
+				if = {
+					limit = { has_variable = spec_pursue_n }
+					if = {
+						limit = {
+							has_variable = spec_pu_price
+							var:spec_pursue_n > spec_pursue_slots
+							var:spec_pu_price = var:spec_pursue_n
+						}
+						set_variable = spec_pu_lost_price
+						spec_pursue_stop_price = yes
+					}
+					if = {
+						limit = {
+							has_variable = spec_pu_harbour
+							var:spec_pursue_n > spec_pursue_slots
+							var:spec_pu_harbour = var:spec_pursue_n
+						}
+						set_variable = spec_pu_lost_harbour
+						spec_pursue_stop_harbour = yes
+					}
+					if = {
+						limit = {
+							has_variable = spec_pu_companies
+							var:spec_pursue_n > spec_pursue_slots
+							var:spec_pu_companies = var:spec_pursue_n
+						}
+						set_variable = spec_pu_lost_companies
+						spec_pursue_stop_companies = yes
+					}
+					if = {
+						limit = {
+							has_variable = spec_pu_floor
+							var:spec_pursue_n > spec_pursue_slots
+							var:spec_pu_floor = var:spec_pursue_n
+						}
+						set_variable = spec_pu_lost_floor
+						spec_pursue_stop_floor = yes
+					}
+					if = {
+						limit = {
+							has_variable = spec_pu_sound
+							var:spec_pursue_n > spec_pursue_slots
+							var:spec_pu_sound = var:spec_pursue_n
+						}
+						set_variable = spec_pu_lost_sound
+						spec_pursue_stop_sound = yes
+					}
+					if = {
+						limit = {
+							has_variable = spec_pu_pockets
+							var:spec_pursue_n > spec_pursue_slots
+							var:spec_pu_pockets = var:spec_pursue_n
+						}
+						set_variable = spec_pu_lost_pockets
+						spec_pursue_stop_pockets = yes
+					}
+					if = {
+						limit = {
+							has_variable = spec_pu_door
+							var:spec_pursue_n > spec_pursue_slots
+							var:spec_pu_door = var:spec_pursue_n
+						}
+						set_variable = spec_pu_lost_door
+						spec_pursue_stop_door = yes
+					}
+					if = {
+						limit = {
+							has_variable = spec_pu_price
+							var:spec_pursue_n > spec_pursue_slots
+							var:spec_pu_price = var:spec_pursue_n
+						}
+						set_variable = spec_pu_lost_price
+						spec_pursue_stop_price = yes
+					}
+					if = {
+						limit = {
+							has_variable = spec_pu_harbour
+							var:spec_pursue_n > spec_pursue_slots
+							var:spec_pu_harbour = var:spec_pursue_n
+						}
+						set_variable = spec_pu_lost_harbour
+						spec_pursue_stop_harbour = yes
+					}
+					if = {
+						limit = {
+							has_variable = spec_pu_companies
+							var:spec_pursue_n > spec_pursue_slots
+							var:spec_pu_companies = var:spec_pursue_n
+						}
+						set_variable = spec_pu_lost_companies
+						spec_pursue_stop_companies = yes
+					}
+					if = {
+						limit = {
+							has_variable = spec_pu_floor
+							var:spec_pursue_n > spec_pursue_slots
+							var:spec_pu_floor = var:spec_pursue_n
+						}
+						set_variable = spec_pu_lost_floor
+						spec_pursue_stop_floor = yes
+					}
+					if = {
+						limit = {
+							has_variable = spec_pu_sound
+							var:spec_pursue_n > spec_pursue_slots
+							var:spec_pu_sound = var:spec_pursue_n
+						}
+						set_variable = spec_pu_lost_sound
+						spec_pursue_stop_sound = yes
+					}
+					if = {
+						limit = {
+							has_variable = spec_pu_pockets
+							var:spec_pursue_n > spec_pursue_slots
+							var:spec_pu_pockets = var:spec_pursue_n
+						}
+						set_variable = spec_pu_lost_pockets
+						spec_pursue_stop_pockets = yes
+					}
+					if = {
+						limit = {
+							has_variable = spec_pu_door
+							var:spec_pursue_n > spec_pursue_slots
+							var:spec_pu_door = var:spec_pursue_n
+						}
+						set_variable = spec_pu_lost_door
+						spec_pursue_stop_door = yes
+					}
+					if = {
+						limit = {
+							has_variable = spec_pu_price
+							var:spec_pursue_n > spec_pursue_slots
+							var:spec_pu_price = var:spec_pursue_n
+						}
+						set_variable = spec_pu_lost_price
+						spec_pursue_stop_price = yes
+					}
+					if = {
+						limit = {
+							has_variable = spec_pu_harbour
+							var:spec_pursue_n > spec_pursue_slots
+							var:spec_pu_harbour = var:spec_pursue_n
+						}
+						set_variable = spec_pu_lost_harbour
+						spec_pursue_stop_harbour = yes
+					}
+					if = {
+						limit = {
+							has_variable = spec_pu_companies
+							var:spec_pursue_n > spec_pursue_slots
+							var:spec_pu_companies = var:spec_pursue_n
+						}
+						set_variable = spec_pu_lost_companies
+						spec_pursue_stop_companies = yes
+					}
+					if = {
+						limit = {
+							has_variable = spec_pu_floor
+							var:spec_pursue_n > spec_pursue_slots
+							var:spec_pu_floor = var:spec_pursue_n
+						}
+						set_variable = spec_pu_lost_floor
+						spec_pursue_stop_floor = yes
+					}
+					if = {
+						limit = {
+							has_variable = spec_pu_sound
+							var:spec_pursue_n > spec_pursue_slots
+							var:spec_pu_sound = var:spec_pursue_n
+						}
+						set_variable = spec_pu_lost_sound
+						spec_pursue_stop_sound = yes
+					}
+					if = {
+						limit = {
+							has_variable = spec_pu_pockets
+							var:spec_pursue_n > spec_pursue_slots
+							var:spec_pu_pockets = var:spec_pursue_n
+						}
+						set_variable = spec_pu_lost_pockets
+						spec_pursue_stop_pockets = yes
+					}
+					if = {
+						limit = {
+							has_variable = spec_pu_door
+							var:spec_pursue_n > spec_pursue_slots
+							var:spec_pu_door = var:spec_pursue_n
+						}
+						set_variable = spec_pu_lost_door
+						spec_pursue_stop_door = yes
+					}
+				}
+				post_notification = spec_exch_down
+			}
+			if = {
+				limit = { is_player = no OR = { NOT = { has_variable = spec_exch_stand } var:spec_exch_stand < 1 } NOT = { has_variable = spec_exch_tally } }
+				set_variable = { name = spec_exch_tally days = 365 }
+				if = {
+					limit = {
+						spec_earn_tc >= 1
+						spec_earn_tc > spec_earn_snd
+						spec_earn_tc > spec_earn_co
+						NOT = { var:spec_exch_known ?= 1 }
+					}
+					set_variable = { name = spec_exch_known value = 1 }
+					if = {
+						limit = { has_variable = spec_pu_harbour }
+						spec_pursue_stop_harbour = yes
+					}
+					if = {
+						limit = { has_variable = spec_pu_companies }
+						spec_pursue_stop_companies = yes
+					}
+				}
+				else_if = {
+					limit = {
+						spec_earn_snd >= 1
+						spec_earn_snd > spec_earn_tc
+						spec_earn_snd > spec_earn_co
+						NOT = { var:spec_exch_known ?= 2 }
+					}
+					set_variable = { name = spec_exch_known value = 2 }
+					if = {
+						limit = { has_variable = spec_pu_price }
+						spec_pursue_stop_price = yes
+					}
+					if = {
+						limit = { has_variable = spec_pu_companies }
+						spec_pursue_stop_companies = yes
+					}
+				}
+				else_if = {
+					limit = {
+						spec_earn_co >= 1
+						spec_earn_co > spec_earn_tc
+						spec_earn_co > spec_earn_snd
+						has_technology_researched = stock_exchange
+						NOT = { var:spec_exch_known ?= 3 }
+					}
+					set_variable = { name = spec_exch_known value = 3 }
+					if = {
+						limit = { has_variable = spec_pu_price }
+						spec_pursue_stop_price = yes
+					}
+					if = {
+						limit = { has_variable = spec_pu_harbour }
+						spec_pursue_stop_harbour = yes
+					}
+				}
+			}
+		}
+	}
+	# each field's leader (centres.py): a challenger must stay on top 3 months to take it
+	ordered_country = {
+		limit = {
+			is_country_alive = yes
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			var:spec_exch_known ?= 1
+			spec_name_price > 0
+		}
+		order_by = spec_name_price
+		position = 0
+		check_range_bounds = no
+		save_temporary_scope_as = spec_now_price
+	}
+	if = {
+		limit = { exists = scope:spec_now_price }
+		if = {
+			limit = { NOT = { exists = global_var:spec_ld_price } }
+			set_global_variable = { name = spec_ld_price value = scope:spec_now_price }
+			if = {
+				limit = { has_global_variable = spec_ch_price }
+				remove_global_variable = spec_ch_price
+				remove_global_variable = spec_chm_price
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					global_var:spec_ld_price = {
+						is_country_alive = yes
+						has_variable = spec_exch_stand
+						var:spec_exch_stand >= 1
+						var:spec_exch_known ?= 1
+						spec_name_price > 0
+					}
+				}
+			}
+			set_global_variable = { name = spec_ld_price value = scope:spec_now_price }
+			if = {
+				limit = { has_global_variable = spec_ch_price }
+				remove_global_variable = spec_ch_price
+				remove_global_variable = spec_chm_price
+			}
+		}
+		else_if = {
+			limit = { global_var:spec_ld_price = scope:spec_now_price }
+			if = {
+				limit = { has_global_variable = spec_ch_price }
+				remove_global_variable = spec_ch_price
+				remove_global_variable = spec_chm_price
+			}
+		}
+		else = {
+			if = {
+				limit = {
+					has_global_variable = spec_ch_price
+					global_var:spec_ch_price = scope:spec_now_price
+				}
+				change_global_variable = { name = spec_chm_price add = 1 }
+			}
+			else = {
+				set_global_variable = { name = spec_ch_price value = scope:spec_now_price }
+				set_global_variable = { name = spec_chm_price value = 1 }
+			}
+			if = {
+				limit = { global_var:spec_chm_price >= 3 }
+				set_global_variable = { name = spec_ld_price value = scope:spec_now_price }
+				remove_global_variable = spec_ch_price
+				remove_global_variable = spec_chm_price
+			}
+		}
+		global_var:spec_ld_price = {
+			set_global_variable = { name = spec_ldv_price value = { value = spec_name_price min = 0.01 } }
+		}
+		set_global_variable = { name = spec_t2_price value = 0 }
+		set_global_variable = { name = spec_t3_price value = 0 }
+		ordered_country = {
+			limit = {
+				is_country_alive = yes
+				has_variable = spec_exch_stand
+				var:spec_exch_stand >= 1
+				var:spec_exch_known ?= 1
+				spec_name_price > 0
+				NOT = { this = global_var:spec_ld_price }
+			}
+			order_by = spec_name_price
+			max = 2
+			check_range_bounds = no
+			if = {
+				limit = { global_var:spec_t2_price = 0 }
+				set_global_variable = { name = spec_t2_price value = { value = spec_name_price max = global_var:spec_ldv_price } }
+			}
+			else = {
+				set_global_variable = { name = spec_t3_price value = { value = spec_name_price max = global_var:spec_t2_price } }
+			}
+		}
+	}
+	else_if = {
+		limit = { has_global_variable = spec_ld_price }
+		remove_global_variable = spec_ld_price
+		remove_global_variable = spec_ldv_price
+		if = {
+			limit = { has_global_variable = spec_ch_price }
+			remove_global_variable = spec_ch_price
+			remove_global_variable = spec_chm_price
+		}
+	}
+	ordered_country = {
+		limit = {
+			is_country_alive = yes
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			var:spec_exch_known ?= 2
+			spec_name_harbour > 0
+		}
+		order_by = spec_name_harbour
+		position = 0
+		check_range_bounds = no
+		save_temporary_scope_as = spec_now_harbour
+	}
+	if = {
+		limit = { exists = scope:spec_now_harbour }
+		if = {
+			limit = { NOT = { exists = global_var:spec_ld_harbour } }
+			set_global_variable = { name = spec_ld_harbour value = scope:spec_now_harbour }
+			if = {
+				limit = { has_global_variable = spec_ch_harbour }
+				remove_global_variable = spec_ch_harbour
+				remove_global_variable = spec_chm_harbour
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					global_var:spec_ld_harbour = {
+						is_country_alive = yes
+						has_variable = spec_exch_stand
+						var:spec_exch_stand >= 1
+						var:spec_exch_known ?= 2
+						spec_name_harbour > 0
+					}
+				}
+			}
+			set_global_variable = { name = spec_ld_harbour value = scope:spec_now_harbour }
+			if = {
+				limit = { has_global_variable = spec_ch_harbour }
+				remove_global_variable = spec_ch_harbour
+				remove_global_variable = spec_chm_harbour
+			}
+		}
+		else_if = {
+			limit = { global_var:spec_ld_harbour = scope:spec_now_harbour }
+			if = {
+				limit = { has_global_variable = spec_ch_harbour }
+				remove_global_variable = spec_ch_harbour
+				remove_global_variable = spec_chm_harbour
+			}
+		}
+		else = {
+			if = {
+				limit = {
+					has_global_variable = spec_ch_harbour
+					global_var:spec_ch_harbour = scope:spec_now_harbour
+				}
+				change_global_variable = { name = spec_chm_harbour add = 1 }
+			}
+			else = {
+				set_global_variable = { name = spec_ch_harbour value = scope:spec_now_harbour }
+				set_global_variable = { name = spec_chm_harbour value = 1 }
+			}
+			if = {
+				limit = { global_var:spec_chm_harbour >= 3 }
+				set_global_variable = { name = spec_ld_harbour value = scope:spec_now_harbour }
+				remove_global_variable = spec_ch_harbour
+				remove_global_variable = spec_chm_harbour
+			}
+		}
+		global_var:spec_ld_harbour = {
+			set_global_variable = { name = spec_ldv_harbour value = { value = spec_name_harbour min = 0.01 } }
+		}
+		set_global_variable = { name = spec_t2_harbour value = 0 }
+		set_global_variable = { name = spec_t3_harbour value = 0 }
+		ordered_country = {
+			limit = {
+				is_country_alive = yes
+				has_variable = spec_exch_stand
+				var:spec_exch_stand >= 1
+				var:spec_exch_known ?= 2
+				spec_name_harbour > 0
+				NOT = { this = global_var:spec_ld_harbour }
+			}
+			order_by = spec_name_harbour
+			max = 2
+			check_range_bounds = no
+			if = {
+				limit = { global_var:spec_t2_harbour = 0 }
+				set_global_variable = { name = spec_t2_harbour value = { value = spec_name_harbour max = global_var:spec_ldv_harbour } }
+			}
+			else = {
+				set_global_variable = { name = spec_t3_harbour value = { value = spec_name_harbour max = global_var:spec_t2_harbour } }
+			}
+		}
+	}
+	else_if = {
+		limit = { has_global_variable = spec_ld_harbour }
+		remove_global_variable = spec_ld_harbour
+		remove_global_variable = spec_ldv_harbour
+		if = {
+			limit = { has_global_variable = spec_ch_harbour }
+			remove_global_variable = spec_ch_harbour
+			remove_global_variable = spec_chm_harbour
+		}
+	}
+	ordered_country = {
+		limit = {
+			is_country_alive = yes
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			var:spec_exch_known ?= 3
+			spec_name_companies > 0
+		}
+		order_by = spec_name_companies
+		position = 0
+		check_range_bounds = no
+		save_temporary_scope_as = spec_now_companies
+	}
+	if = {
+		limit = { exists = scope:spec_now_companies }
+		if = {
+			limit = { NOT = { exists = global_var:spec_ld_companies } }
+			set_global_variable = { name = spec_ld_companies value = scope:spec_now_companies }
+			if = {
+				limit = { has_global_variable = spec_ch_companies }
+				remove_global_variable = spec_ch_companies
+				remove_global_variable = spec_chm_companies
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					global_var:spec_ld_companies = {
+						is_country_alive = yes
+						has_variable = spec_exch_stand
+						var:spec_exch_stand >= 1
+						var:spec_exch_known ?= 3
+						spec_name_companies > 0
+					}
+				}
+			}
+			set_global_variable = { name = spec_ld_companies value = scope:spec_now_companies }
+			if = {
+				limit = { has_global_variable = spec_ch_companies }
+				remove_global_variable = spec_ch_companies
+				remove_global_variable = spec_chm_companies
+			}
+		}
+		else_if = {
+			limit = { global_var:spec_ld_companies = scope:spec_now_companies }
+			if = {
+				limit = { has_global_variable = spec_ch_companies }
+				remove_global_variable = spec_ch_companies
+				remove_global_variable = spec_chm_companies
+			}
+		}
+		else = {
+			if = {
+				limit = {
+					has_global_variable = spec_ch_companies
+					global_var:spec_ch_companies = scope:spec_now_companies
+				}
+				change_global_variable = { name = spec_chm_companies add = 1 }
+			}
+			else = {
+				set_global_variable = { name = spec_ch_companies value = scope:spec_now_companies }
+				set_global_variable = { name = spec_chm_companies value = 1 }
+			}
+			if = {
+				limit = { global_var:spec_chm_companies >= 3 }
+				set_global_variable = { name = spec_ld_companies value = scope:spec_now_companies }
+				remove_global_variable = spec_ch_companies
+				remove_global_variable = spec_chm_companies
+			}
+		}
+		global_var:spec_ld_companies = {
+			set_global_variable = { name = spec_ldv_companies value = { value = spec_name_companies min = 0.01 } }
+		}
+		set_global_variable = { name = spec_t2_companies value = 0 }
+		set_global_variable = { name = spec_t3_companies value = 0 }
+		ordered_country = {
+			limit = {
+				is_country_alive = yes
+				has_variable = spec_exch_stand
+				var:spec_exch_stand >= 1
+				var:spec_exch_known ?= 3
+				spec_name_companies > 0
+				NOT = { this = global_var:spec_ld_companies }
+			}
+			order_by = spec_name_companies
+			max = 2
+			check_range_bounds = no
+			if = {
+				limit = { global_var:spec_t2_companies = 0 }
+				set_global_variable = { name = spec_t2_companies value = { value = spec_name_companies max = global_var:spec_ldv_companies } }
+			}
+			else = {
+				set_global_variable = { name = spec_t3_companies value = { value = spec_name_companies max = global_var:spec_t2_companies } }
+			}
+		}
+	}
+	else_if = {
+		limit = { has_global_variable = spec_ld_companies }
+		remove_global_variable = spec_ld_companies
+		remove_global_variable = spec_ldv_companies
+		if = {
+			limit = { has_global_variable = spec_ch_companies }
+			remove_global_variable = spec_ch_companies
+			remove_global_variable = spec_chm_companies
+		}
+	}
+	ordered_country = {
+		limit = {
+			is_country_alive = yes
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			spec_name_floor > 0
+		}
+		order_by = spec_name_floor
+		position = 0
+		check_range_bounds = no
+		save_temporary_scope_as = spec_now_floor
+	}
+	if = {
+		limit = { exists = scope:spec_now_floor }
+		if = {
+			limit = { NOT = { exists = global_var:spec_ld_floor } }
+			set_global_variable = { name = spec_ld_floor value = scope:spec_now_floor }
+			if = {
+				limit = { has_global_variable = spec_ch_floor }
+				remove_global_variable = spec_ch_floor
+				remove_global_variable = spec_chm_floor
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					global_var:spec_ld_floor = {
+						is_country_alive = yes
+						has_variable = spec_exch_stand
+						var:spec_exch_stand >= 1
+						spec_name_floor > 0
+					}
+				}
+			}
+			set_global_variable = { name = spec_ld_floor value = scope:spec_now_floor }
+			if = {
+				limit = { has_global_variable = spec_ch_floor }
+				remove_global_variable = spec_ch_floor
+				remove_global_variable = spec_chm_floor
+			}
+		}
+		else_if = {
+			limit = { global_var:spec_ld_floor = scope:spec_now_floor }
+			if = {
+				limit = { has_global_variable = spec_ch_floor }
+				remove_global_variable = spec_ch_floor
+				remove_global_variable = spec_chm_floor
+			}
+		}
+		else = {
+			if = {
+				limit = {
+					has_global_variable = spec_ch_floor
+					global_var:spec_ch_floor = scope:spec_now_floor
+				}
+				change_global_variable = { name = spec_chm_floor add = 1 }
+			}
+			else = {
+				set_global_variable = { name = spec_ch_floor value = scope:spec_now_floor }
+				set_global_variable = { name = spec_chm_floor value = 1 }
+			}
+			if = {
+				limit = { global_var:spec_chm_floor >= 3 }
+				set_global_variable = { name = spec_ld_floor value = scope:spec_now_floor }
+				remove_global_variable = spec_ch_floor
+				remove_global_variable = spec_chm_floor
+			}
+		}
+		global_var:spec_ld_floor = {
+			set_global_variable = { name = spec_ldv_floor value = { value = spec_name_floor min = 0.01 } }
+		}
+		set_global_variable = { name = spec_t2_floor value = 0 }
+		set_global_variable = { name = spec_t3_floor value = 0 }
+		ordered_country = {
+			limit = {
+				is_country_alive = yes
+				has_variable = spec_exch_stand
+				var:spec_exch_stand >= 1
+				spec_name_floor > 0
+				NOT = { this = global_var:spec_ld_floor }
+			}
+			order_by = spec_name_floor
+			max = 2
+			check_range_bounds = no
+			if = {
+				limit = { global_var:spec_t2_floor = 0 }
+				set_global_variable = { name = spec_t2_floor value = { value = spec_name_floor max = global_var:spec_ldv_floor } }
+			}
+			else = {
+				set_global_variable = { name = spec_t3_floor value = { value = spec_name_floor max = global_var:spec_t2_floor } }
+			}
+		}
+	}
+	else_if = {
+		limit = { has_global_variable = spec_ld_floor }
+		remove_global_variable = spec_ld_floor
+		remove_global_variable = spec_ldv_floor
+		if = {
+			limit = { has_global_variable = spec_ch_floor }
+			remove_global_variable = spec_ch_floor
+			remove_global_variable = spec_chm_floor
+		}
+	}
+	ordered_country = {
+		limit = {
+			is_country_alive = yes
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			spec_name_sound > 0
+		}
+		order_by = spec_name_sound
+		position = 0
+		check_range_bounds = no
+		save_temporary_scope_as = spec_now_sound
+	}
+	if = {
+		limit = { exists = scope:spec_now_sound }
+		if = {
+			limit = { NOT = { exists = global_var:spec_ld_sound } }
+			set_global_variable = { name = spec_ld_sound value = scope:spec_now_sound }
+			if = {
+				limit = { has_global_variable = spec_ch_sound }
+				remove_global_variable = spec_ch_sound
+				remove_global_variable = spec_chm_sound
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					global_var:spec_ld_sound = {
+						is_country_alive = yes
+						has_variable = spec_exch_stand
+						var:spec_exch_stand >= 1
+						spec_name_sound > 0
+					}
+				}
+			}
+			set_global_variable = { name = spec_ld_sound value = scope:spec_now_sound }
+			if = {
+				limit = { has_global_variable = spec_ch_sound }
+				remove_global_variable = spec_ch_sound
+				remove_global_variable = spec_chm_sound
+			}
+		}
+		else_if = {
+			limit = { global_var:spec_ld_sound = scope:spec_now_sound }
+			if = {
+				limit = { has_global_variable = spec_ch_sound }
+				remove_global_variable = spec_ch_sound
+				remove_global_variable = spec_chm_sound
+			}
+		}
+		else = {
+			if = {
+				limit = {
+					has_global_variable = spec_ch_sound
+					global_var:spec_ch_sound = scope:spec_now_sound
+				}
+				change_global_variable = { name = spec_chm_sound add = 1 }
+			}
+			else = {
+				set_global_variable = { name = spec_ch_sound value = scope:spec_now_sound }
+				set_global_variable = { name = spec_chm_sound value = 1 }
+			}
+			if = {
+				limit = { global_var:spec_chm_sound >= 3 }
+				set_global_variable = { name = spec_ld_sound value = scope:spec_now_sound }
+				remove_global_variable = spec_ch_sound
+				remove_global_variable = spec_chm_sound
+			}
+		}
+		global_var:spec_ld_sound = {
+			set_global_variable = { name = spec_ldv_sound value = { value = spec_name_sound min = 0.01 } }
+		}
+		set_global_variable = { name = spec_t2_sound value = 0 }
+		set_global_variable = { name = spec_t3_sound value = 0 }
+		ordered_country = {
+			limit = {
+				is_country_alive = yes
+				has_variable = spec_exch_stand
+				var:spec_exch_stand >= 1
+				spec_name_sound > 0
+				NOT = { this = global_var:spec_ld_sound }
+			}
+			order_by = spec_name_sound
+			max = 2
+			check_range_bounds = no
+			if = {
+				limit = { global_var:spec_t2_sound = 0 }
+				set_global_variable = { name = spec_t2_sound value = { value = spec_name_sound max = global_var:spec_ldv_sound } }
+			}
+			else = {
+				set_global_variable = { name = spec_t3_sound value = { value = spec_name_sound max = global_var:spec_t2_sound } }
+			}
+		}
+	}
+	else_if = {
+		limit = { has_global_variable = spec_ld_sound }
+		remove_global_variable = spec_ld_sound
+		remove_global_variable = spec_ldv_sound
+		if = {
+			limit = { has_global_variable = spec_ch_sound }
+			remove_global_variable = spec_ch_sound
+			remove_global_variable = spec_chm_sound
+		}
+	}
+	ordered_country = {
+		limit = {
+			is_country_alive = yes
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			spec_name_pockets > 0
+		}
+		order_by = spec_name_pockets
+		position = 0
+		check_range_bounds = no
+		save_temporary_scope_as = spec_now_pockets
+	}
+	if = {
+		limit = { exists = scope:spec_now_pockets }
+		if = {
+			limit = { NOT = { exists = global_var:spec_ld_pockets } }
+			set_global_variable = { name = spec_ld_pockets value = scope:spec_now_pockets }
+			if = {
+				limit = { has_global_variable = spec_ch_pockets }
+				remove_global_variable = spec_ch_pockets
+				remove_global_variable = spec_chm_pockets
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					global_var:spec_ld_pockets = {
+						is_country_alive = yes
+						has_variable = spec_exch_stand
+						var:spec_exch_stand >= 1
+						spec_name_pockets > 0
+					}
+				}
+			}
+			set_global_variable = { name = spec_ld_pockets value = scope:spec_now_pockets }
+			if = {
+				limit = { has_global_variable = spec_ch_pockets }
+				remove_global_variable = spec_ch_pockets
+				remove_global_variable = spec_chm_pockets
+			}
+		}
+		else_if = {
+			limit = { global_var:spec_ld_pockets = scope:spec_now_pockets }
+			if = {
+				limit = { has_global_variable = spec_ch_pockets }
+				remove_global_variable = spec_ch_pockets
+				remove_global_variable = spec_chm_pockets
+			}
+		}
+		else = {
+			if = {
+				limit = {
+					has_global_variable = spec_ch_pockets
+					global_var:spec_ch_pockets = scope:spec_now_pockets
+				}
+				change_global_variable = { name = spec_chm_pockets add = 1 }
+			}
+			else = {
+				set_global_variable = { name = spec_ch_pockets value = scope:spec_now_pockets }
+				set_global_variable = { name = spec_chm_pockets value = 1 }
+			}
+			if = {
+				limit = { global_var:spec_chm_pockets >= 3 }
+				set_global_variable = { name = spec_ld_pockets value = scope:spec_now_pockets }
+				remove_global_variable = spec_ch_pockets
+				remove_global_variable = spec_chm_pockets
+			}
+		}
+		global_var:spec_ld_pockets = {
+			set_global_variable = { name = spec_ldv_pockets value = { value = spec_name_pockets min = 0.01 } }
+		}
+		set_global_variable = { name = spec_t2_pockets value = 0 }
+		set_global_variable = { name = spec_t3_pockets value = 0 }
+		ordered_country = {
+			limit = {
+				is_country_alive = yes
+				has_variable = spec_exch_stand
+				var:spec_exch_stand >= 1
+				spec_name_pockets > 0
+				NOT = { this = global_var:spec_ld_pockets }
+			}
+			order_by = spec_name_pockets
+			max = 2
+			check_range_bounds = no
+			if = {
+				limit = { global_var:spec_t2_pockets = 0 }
+				set_global_variable = { name = spec_t2_pockets value = { value = spec_name_pockets max = global_var:spec_ldv_pockets } }
+			}
+			else = {
+				set_global_variable = { name = spec_t3_pockets value = { value = spec_name_pockets max = global_var:spec_t2_pockets } }
+			}
+		}
+	}
+	else_if = {
+		limit = { has_global_variable = spec_ld_pockets }
+		remove_global_variable = spec_ld_pockets
+		remove_global_variable = spec_ldv_pockets
+		if = {
+			limit = { has_global_variable = spec_ch_pockets }
+			remove_global_variable = spec_ch_pockets
+			remove_global_variable = spec_chm_pockets
+		}
+	}
+	ordered_country = {
+		limit = {
+			is_country_alive = yes
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			spec_name_door > 0
+		}
+		order_by = spec_name_door
+		position = 0
+		check_range_bounds = no
+		save_temporary_scope_as = spec_now_door
+	}
+	if = {
+		limit = { exists = scope:spec_now_door }
+		if = {
+			limit = { NOT = { exists = global_var:spec_ld_door } }
+			set_global_variable = { name = spec_ld_door value = scope:spec_now_door }
+			if = {
+				limit = { has_global_variable = spec_ch_door }
+				remove_global_variable = spec_ch_door
+				remove_global_variable = spec_chm_door
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					global_var:spec_ld_door = {
+						is_country_alive = yes
+						has_variable = spec_exch_stand
+						var:spec_exch_stand >= 1
+						spec_name_door > 0
+					}
+				}
+			}
+			set_global_variable = { name = spec_ld_door value = scope:spec_now_door }
+			if = {
+				limit = { has_global_variable = spec_ch_door }
+				remove_global_variable = spec_ch_door
+				remove_global_variable = spec_chm_door
+			}
+		}
+		else_if = {
+			limit = { global_var:spec_ld_door = scope:spec_now_door }
+			if = {
+				limit = { has_global_variable = spec_ch_door }
+				remove_global_variable = spec_ch_door
+				remove_global_variable = spec_chm_door
+			}
+		}
+		else = {
+			if = {
+				limit = {
+					has_global_variable = spec_ch_door
+					global_var:spec_ch_door = scope:spec_now_door
+				}
+				change_global_variable = { name = spec_chm_door add = 1 }
+			}
+			else = {
+				set_global_variable = { name = spec_ch_door value = scope:spec_now_door }
+				set_global_variable = { name = spec_chm_door value = 1 }
+			}
+			if = {
+				limit = { global_var:spec_chm_door >= 3 }
+				set_global_variable = { name = spec_ld_door value = scope:spec_now_door }
+				remove_global_variable = spec_ch_door
+				remove_global_variable = spec_chm_door
+			}
+		}
+		global_var:spec_ld_door = {
+			set_global_variable = { name = spec_ldv_door value = { value = spec_name_door min = 0.01 } }
+		}
+		set_global_variable = { name = spec_t2_door value = 0 }
+		set_global_variable = { name = spec_t3_door value = 0 }
+		ordered_country = {
+			limit = {
+				is_country_alive = yes
+				has_variable = spec_exch_stand
+				var:spec_exch_stand >= 1
+				spec_name_door > 0
+				NOT = { this = global_var:spec_ld_door }
+			}
+			order_by = spec_name_door
+			max = 2
+			check_range_bounds = no
+			if = {
+				limit = { global_var:spec_t2_door = 0 }
+				set_global_variable = { name = spec_t2_door value = { value = spec_name_door max = global_var:spec_ldv_door } }
+			}
+			else = {
+				set_global_variable = { name = spec_t3_door value = { value = spec_name_door max = global_var:spec_t2_door } }
+			}
+		}
+	}
+	else_if = {
+		limit = { has_global_variable = spec_ld_door }
+		remove_global_variable = spec_ld_door
+		remove_global_variable = spec_ldv_door
+		if = {
+			limit = { has_global_variable = spec_ch_door }
+			remove_global_variable = spec_ch_door
+			remove_global_variable = spec_chm_door
+		}
+	}
+	# each field's three leaders, once a year (centres.py); the AI chooses its specialities then
+	if = {
+		limit = {
+			NOT = { has_global_variable = spec_names_year }
+			any_country = {
+				has_variable = spec_exch_stand
+				var:spec_exch_stand >= 1
+			}
+		}
+		set_global_variable = { name = spec_names_year days = 365 }
+		# the AI spreads its charters so each charter path has its three places (centres.py)
+		set_global_variable = { name = spec_chn_1 value = 0 }
+		set_global_variable = { name = spec_chn_2 value = 0 }
+		set_global_variable = { name = spec_chn_3 value = 0 }
+		every_country = {
+			limit = { has_variable = spec_exch_stand var:spec_exch_stand >= 1 var:spec_exch_known ?= 1 spec_name_price > 0 }
+			change_global_variable = { name = spec_chn_1 add = 1 }
+		}
+		every_country = {
+			limit = { has_variable = spec_exch_stand var:spec_exch_stand >= 1 var:spec_exch_known ?= 2 spec_name_harbour > 0 }
+			change_global_variable = { name = spec_chn_2 add = 1 }
+		}
+		every_country = {
+			limit = { has_variable = spec_exch_stand var:spec_exch_stand >= 1 var:spec_exch_known ?= 3 has_technology_researched = stock_exchange spec_name_companies > 0 }
+			change_global_variable = { name = spec_chn_3 add = 1 }
+		}
+		every_country = {
+			limit = { is_player = no has_variable = spec_exch_stand var:spec_exch_stand >= 1 }
+				if = {
+					limit = {
+						spec_name_price > 0 OR = { NOT = { AND = { spec_name_harbour > 0 } } global_var:spec_chn_1 <= global_var:spec_chn_2 } OR = { NOT = { AND = { has_technology_researched = stock_exchange spec_name_companies > 0 } } global_var:spec_chn_1 <= global_var:spec_chn_3 }
+						OR = {
+							NOR = { var:spec_exch_known ?= 1 var:spec_exch_known ?= 2 var:spec_exch_known ?= 3 }
+							AND = { var:spec_exch_known ?= 2 NOT = { AND = { spec_name_harbour > 0 } } }
+							AND = { var:spec_exch_known ?= 2 spec_name_harbour > 0 global_var:spec_chn_2 > 3 global_var:spec_chn_1 < 3 }
+							AND = { var:spec_exch_known ?= 3 NOT = { AND = { has_technology_researched = stock_exchange spec_name_companies > 0 } } }
+							AND = { var:spec_exch_known ?= 3 has_technology_researched = stock_exchange spec_name_companies > 0 global_var:spec_chn_3 > 3 global_var:spec_chn_1 < 3 }
+						}
+					}
+					if = {
+						limit = { var:spec_exch_known ?= 2 spec_name_harbour > 0 }
+						change_global_variable = { name = spec_chn_2 add = -1 }
+					}
+					if = {
+						limit = { var:spec_exch_known ?= 3 has_technology_researched = stock_exchange spec_name_companies > 0 }
+						change_global_variable = { name = spec_chn_3 add = -1 }
+					}
+					change_global_variable = { name = spec_chn_1 add = 1 }
+					set_variable = { name = spec_exch_known value = 1 }
+					if = {
+						limit = { has_variable = spec_pu_harbour }
+						spec_pursue_stop_harbour = yes
+					}
+					if = {
+						limit = { has_variable = spec_pu_companies }
+						spec_pursue_stop_companies = yes
+					}
+				}
+				else_if = {
+					limit = {
+						spec_name_harbour > 0 OR = { NOT = { AND = { spec_name_price > 0 } } global_var:spec_chn_2 <= global_var:spec_chn_1 } OR = { NOT = { AND = { has_technology_researched = stock_exchange spec_name_companies > 0 } } global_var:spec_chn_2 <= global_var:spec_chn_3 }
+						OR = {
+							NOR = { var:spec_exch_known ?= 1 var:spec_exch_known ?= 2 var:spec_exch_known ?= 3 }
+							AND = { var:spec_exch_known ?= 1 NOT = { AND = { spec_name_price > 0 } } }
+							AND = { var:spec_exch_known ?= 1 spec_name_price > 0 global_var:spec_chn_1 > 3 global_var:spec_chn_2 < 3 }
+							AND = { var:spec_exch_known ?= 3 NOT = { AND = { has_technology_researched = stock_exchange spec_name_companies > 0 } } }
+							AND = { var:spec_exch_known ?= 3 has_technology_researched = stock_exchange spec_name_companies > 0 global_var:spec_chn_3 > 3 global_var:spec_chn_2 < 3 }
+						}
+					}
+					if = {
+						limit = { var:spec_exch_known ?= 1 spec_name_price > 0 }
+						change_global_variable = { name = spec_chn_1 add = -1 }
+					}
+					if = {
+						limit = { var:spec_exch_known ?= 3 has_technology_researched = stock_exchange spec_name_companies > 0 }
+						change_global_variable = { name = spec_chn_3 add = -1 }
+					}
+					change_global_variable = { name = spec_chn_2 add = 1 }
+					set_variable = { name = spec_exch_known value = 2 }
+					if = {
+						limit = { has_variable = spec_pu_price }
+						spec_pursue_stop_price = yes
+					}
+					if = {
+						limit = { has_variable = spec_pu_companies }
+						spec_pursue_stop_companies = yes
+					}
+				}
+				else_if = {
+					limit = {
+						has_technology_researched = stock_exchange spec_name_companies > 0 OR = { NOT = { AND = { spec_name_price > 0 } } global_var:spec_chn_3 <= global_var:spec_chn_1 } OR = { NOT = { AND = { spec_name_harbour > 0 } } global_var:spec_chn_3 <= global_var:spec_chn_2 }
+						OR = {
+							NOR = { var:spec_exch_known ?= 1 var:spec_exch_known ?= 2 var:spec_exch_known ?= 3 }
+							AND = { var:spec_exch_known ?= 1 NOT = { AND = { spec_name_price > 0 } } }
+							AND = { var:spec_exch_known ?= 1 spec_name_price > 0 global_var:spec_chn_1 > 3 global_var:spec_chn_3 < 3 }
+							AND = { var:spec_exch_known ?= 2 NOT = { AND = { spec_name_harbour > 0 } } }
+							AND = { var:spec_exch_known ?= 2 spec_name_harbour > 0 global_var:spec_chn_2 > 3 global_var:spec_chn_3 < 3 }
+						}
+					}
+					if = {
+						limit = { var:spec_exch_known ?= 1 spec_name_price > 0 }
+						change_global_variable = { name = spec_chn_1 add = -1 }
+					}
+					if = {
+						limit = { var:spec_exch_known ?= 2 spec_name_harbour > 0 }
+						change_global_variable = { name = spec_chn_2 add = -1 }
+					}
+					change_global_variable = { name = spec_chn_3 add = 1 }
+					set_variable = { name = spec_exch_known value = 3 }
+					if = {
+						limit = { has_variable = spec_pu_price }
+						spec_pursue_stop_price = yes
+					}
+					if = {
+						limit = { has_variable = spec_pu_harbour }
+						spec_pursue_stop_harbour = yes
+					}
+				}
+		}
+		set_global_variable = { name = spec_top_price value = 1 }
+		every_country = {
+			limit = { has_variable = spec_lead_price }
+			remove_variable = spec_lead_price
+		}
+		if = {
+			limit = { has_global_variable = spec_w_price1 }
+			remove_global_variable = spec_w_price1
+		}
+		if = {
+			limit = { has_global_variable = spec_w_price2 }
+			remove_global_variable = spec_w_price2
+		}
+		if = {
+			limit = { has_global_variable = spec_w_price3 }
+			remove_global_variable = spec_w_price3
+		}
+		set_global_variable = { name = spec_name_next value = 1 }
+		ordered_country = {
+			limit = {
+				is_country_alive = yes
+				has_variable = spec_exch_stand
+				var:spec_exch_stand >= 1
+				var:spec_exch_known ?= 1
+				spec_name_price > 0
+			}
+			order_by = spec_name_price
+			max = 3
+			check_range_bounds = no
+			set_variable = { name = spec_lead_price value = global_var:spec_name_next }
+			if = {
+				limit = { global_var:spec_name_next = 1 }
+				set_global_variable = { name = spec_w_price1 value = this }
+				set_global_variable = { name = spec_top_price value = { value = spec_name_price min = 1 } }
+			}
+			if = {
+				limit = { global_var:spec_name_next = 2 }
+				set_global_variable = { name = spec_w_price2 value = this }
+			}
+			if = {
+				limit = { global_var:spec_name_next = 3 }
+				set_global_variable = { name = spec_w_price3 value = this }
+			}
+			change_global_variable = { name = spec_name_next add = 1 }
+		}
+		remove_global_variable = spec_name_next
+		set_global_variable = { name = spec_top_harbour value = 1 }
+		every_country = {
+			limit = { has_variable = spec_lead_harbour }
+			remove_variable = spec_lead_harbour
+		}
+		if = {
+			limit = { has_global_variable = spec_w_harbour1 }
+			remove_global_variable = spec_w_harbour1
+		}
+		if = {
+			limit = { has_global_variable = spec_w_harbour2 }
+			remove_global_variable = spec_w_harbour2
+		}
+		if = {
+			limit = { has_global_variable = spec_w_harbour3 }
+			remove_global_variable = spec_w_harbour3
+		}
+		set_global_variable = { name = spec_name_next value = 1 }
+		ordered_country = {
+			limit = {
+				is_country_alive = yes
+				has_variable = spec_exch_stand
+				var:spec_exch_stand >= 1
+				var:spec_exch_known ?= 2
+				spec_name_harbour > 0
+			}
+			order_by = spec_name_harbour
+			max = 3
+			check_range_bounds = no
+			set_variable = { name = spec_lead_harbour value = global_var:spec_name_next }
+			if = {
+				limit = { global_var:spec_name_next = 1 }
+				set_global_variable = { name = spec_w_harbour1 value = this }
+				set_global_variable = { name = spec_top_harbour value = { value = spec_name_harbour min = 1 } }
+			}
+			if = {
+				limit = { global_var:spec_name_next = 2 }
+				set_global_variable = { name = spec_w_harbour2 value = this }
+			}
+			if = {
+				limit = { global_var:spec_name_next = 3 }
+				set_global_variable = { name = spec_w_harbour3 value = this }
+			}
+			change_global_variable = { name = spec_name_next add = 1 }
+		}
+		remove_global_variable = spec_name_next
+		set_global_variable = { name = spec_top_companies value = 1 }
+		every_country = {
+			limit = { has_variable = spec_lead_companies }
+			remove_variable = spec_lead_companies
+		}
+		if = {
+			limit = { has_global_variable = spec_w_companies1 }
+			remove_global_variable = spec_w_companies1
+		}
+		if = {
+			limit = { has_global_variable = spec_w_companies2 }
+			remove_global_variable = spec_w_companies2
+		}
+		if = {
+			limit = { has_global_variable = spec_w_companies3 }
+			remove_global_variable = spec_w_companies3
+		}
+		set_global_variable = { name = spec_name_next value = 1 }
+		ordered_country = {
+			limit = {
+				is_country_alive = yes
+				has_variable = spec_exch_stand
+				var:spec_exch_stand >= 1
+				var:spec_exch_known ?= 3
+				spec_name_companies > 0
+			}
+			order_by = spec_name_companies
+			max = 3
+			check_range_bounds = no
+			set_variable = { name = spec_lead_companies value = global_var:spec_name_next }
+			if = {
+				limit = { global_var:spec_name_next = 1 }
+				set_global_variable = { name = spec_w_companies1 value = this }
+				set_global_variable = { name = spec_top_companies value = { value = spec_name_companies min = 1 } }
+			}
+			if = {
+				limit = { global_var:spec_name_next = 2 }
+				set_global_variable = { name = spec_w_companies2 value = this }
+			}
+			if = {
+				limit = { global_var:spec_name_next = 3 }
+				set_global_variable = { name = spec_w_companies3 value = this }
+			}
+			change_global_variable = { name = spec_name_next add = 1 }
+		}
+		remove_global_variable = spec_name_next
+		set_global_variable = { name = spec_top_floor value = 1 }
+		every_country = {
+			limit = { has_variable = spec_lead_floor }
+			remove_variable = spec_lead_floor
+		}
+		if = {
+			limit = { has_global_variable = spec_w_floor1 }
+			remove_global_variable = spec_w_floor1
+		}
+		if = {
+			limit = { has_global_variable = spec_w_floor2 }
+			remove_global_variable = spec_w_floor2
+		}
+		if = {
+			limit = { has_global_variable = spec_w_floor3 }
+			remove_global_variable = spec_w_floor3
+		}
+		set_global_variable = { name = spec_name_next value = 1 }
+		ordered_country = {
+			limit = {
+				is_country_alive = yes
+				has_variable = spec_exch_stand
+				var:spec_exch_stand >= 1
+				spec_name_floor > 0
+			}
+			order_by = spec_name_floor
+			max = 3
+			check_range_bounds = no
+			set_variable = { name = spec_lead_floor value = global_var:spec_name_next }
+			if = {
+				limit = { global_var:spec_name_next = 1 }
+				set_global_variable = { name = spec_w_floor1 value = this }
+				set_global_variable = { name = spec_top_floor value = { value = spec_name_floor min = 1 } }
+			}
+			if = {
+				limit = { global_var:spec_name_next = 2 }
+				set_global_variable = { name = spec_w_floor2 value = this }
+			}
+			if = {
+				limit = { global_var:spec_name_next = 3 }
+				set_global_variable = { name = spec_w_floor3 value = this }
+			}
+			change_global_variable = { name = spec_name_next add = 1 }
+		}
+		remove_global_variable = spec_name_next
+		set_global_variable = { name = spec_top_sound value = 1 }
+		every_country = {
+			limit = { has_variable = spec_lead_sound }
+			remove_variable = spec_lead_sound
+		}
+		if = {
+			limit = { has_global_variable = spec_w_sound1 }
+			remove_global_variable = spec_w_sound1
+		}
+		if = {
+			limit = { has_global_variable = spec_w_sound2 }
+			remove_global_variable = spec_w_sound2
+		}
+		if = {
+			limit = { has_global_variable = spec_w_sound3 }
+			remove_global_variable = spec_w_sound3
+		}
+		set_global_variable = { name = spec_name_next value = 1 }
+		ordered_country = {
+			limit = {
+				is_country_alive = yes
+				has_variable = spec_exch_stand
+				var:spec_exch_stand >= 1
+				spec_name_sound > 0
+			}
+			order_by = spec_name_sound
+			max = 3
+			check_range_bounds = no
+			set_variable = { name = spec_lead_sound value = global_var:spec_name_next }
+			if = {
+				limit = { global_var:spec_name_next = 1 }
+				set_global_variable = { name = spec_w_sound1 value = this }
+				set_global_variable = { name = spec_top_sound value = { value = spec_name_sound min = 1 } }
+			}
+			if = {
+				limit = { global_var:spec_name_next = 2 }
+				set_global_variable = { name = spec_w_sound2 value = this }
+			}
+			if = {
+				limit = { global_var:spec_name_next = 3 }
+				set_global_variable = { name = spec_w_sound3 value = this }
+			}
+			change_global_variable = { name = spec_name_next add = 1 }
+		}
+		remove_global_variable = spec_name_next
+		set_global_variable = { name = spec_top_pockets value = 1 }
+		every_country = {
+			limit = { has_variable = spec_lead_pockets }
+			remove_variable = spec_lead_pockets
+		}
+		if = {
+			limit = { has_global_variable = spec_w_pockets1 }
+			remove_global_variable = spec_w_pockets1
+		}
+		if = {
+			limit = { has_global_variable = spec_w_pockets2 }
+			remove_global_variable = spec_w_pockets2
+		}
+		if = {
+			limit = { has_global_variable = spec_w_pockets3 }
+			remove_global_variable = spec_w_pockets3
+		}
+		set_global_variable = { name = spec_name_next value = 1 }
+		ordered_country = {
+			limit = {
+				is_country_alive = yes
+				has_variable = spec_exch_stand
+				var:spec_exch_stand >= 1
+				spec_name_pockets > 0
+			}
+			order_by = spec_name_pockets
+			max = 3
+			check_range_bounds = no
+			set_variable = { name = spec_lead_pockets value = global_var:spec_name_next }
+			if = {
+				limit = { global_var:spec_name_next = 1 }
+				set_global_variable = { name = spec_w_pockets1 value = this }
+				set_global_variable = { name = spec_top_pockets value = { value = spec_name_pockets min = 1 } }
+			}
+			if = {
+				limit = { global_var:spec_name_next = 2 }
+				set_global_variable = { name = spec_w_pockets2 value = this }
+			}
+			if = {
+				limit = { global_var:spec_name_next = 3 }
+				set_global_variable = { name = spec_w_pockets3 value = this }
+			}
+			change_global_variable = { name = spec_name_next add = 1 }
+		}
+		remove_global_variable = spec_name_next
+		set_global_variable = { name = spec_top_door value = 1 }
+		every_country = {
+			limit = { has_variable = spec_lead_door }
+			remove_variable = spec_lead_door
+		}
+		if = {
+			limit = { has_global_variable = spec_w_door1 }
+			remove_global_variable = spec_w_door1
+		}
+		if = {
+			limit = { has_global_variable = spec_w_door2 }
+			remove_global_variable = spec_w_door2
+		}
+		if = {
+			limit = { has_global_variable = spec_w_door3 }
+			remove_global_variable = spec_w_door3
+		}
+		set_global_variable = { name = spec_name_next value = 1 }
+		ordered_country = {
+			limit = {
+				is_country_alive = yes
+				has_variable = spec_exch_stand
+				var:spec_exch_stand >= 1
+				spec_name_door > 0
+			}
+			order_by = spec_name_door
+			max = 3
+			check_range_bounds = no
+			set_variable = { name = spec_lead_door value = global_var:spec_name_next }
+			if = {
+				limit = { global_var:spec_name_next = 1 }
+				set_global_variable = { name = spec_w_door1 value = this }
+				set_global_variable = { name = spec_top_door value = { value = spec_name_door min = 1 } }
+			}
+			if = {
+				limit = { global_var:spec_name_next = 2 }
+				set_global_variable = { name = spec_w_door2 value = this }
+			}
+			if = {
+				limit = { global_var:spec_name_next = 3 }
+				set_global_variable = { name = spec_w_door3 value = this }
+			}
+			change_global_variable = { name = spec_name_next add = 1 }
+		}
+		remove_global_variable = spec_name_next
+		every_country = {
+			limit = { has_variable = spec_exch_stand }
+			if = {
+				limit = {
+					is_player = no
+					has_variable = spec_exch_stand
+				}
+				if = {
+					limit = { OR = { NOT = { has_variable = spec_pursue_n } spec_pursue_slots > var:spec_pursue_n } }
+					set_local_variable = { name = spec_ai_best value = -1 }
+					set_local_variable = { name = spec_ai_sh_price value = -1 }
+					if = {
+						limit = { spec_can_pursue_price = yes }
+						set_local_variable = { name = spec_ai_sh_price value = 0 }
+						if = {
+							limit = { has_variable = spec_sh_price }
+							set_local_variable = { name = spec_ai_sh_price value = var:spec_sh_price }
+						}
+						if = {
+							limit = { local_var:spec_ai_sh_price > local_var:spec_ai_best }
+							set_local_variable = { name = spec_ai_best value = local_var:spec_ai_sh_price }
+						}
+					}
+					set_local_variable = { name = spec_ai_sh_harbour value = -1 }
+					if = {
+						limit = { spec_can_pursue_harbour = yes }
+						set_local_variable = { name = spec_ai_sh_harbour value = 0 }
+						if = {
+							limit = { has_variable = spec_sh_harbour }
+							set_local_variable = { name = spec_ai_sh_harbour value = var:spec_sh_harbour }
+						}
+						if = {
+							limit = { local_var:spec_ai_sh_harbour > local_var:spec_ai_best }
+							set_local_variable = { name = spec_ai_best value = local_var:spec_ai_sh_harbour }
+						}
+					}
+					set_local_variable = { name = spec_ai_sh_companies value = -1 }
+					if = {
+						limit = { spec_can_pursue_companies = yes }
+						set_local_variable = { name = spec_ai_sh_companies value = 0 }
+						if = {
+							limit = { has_variable = spec_sh_companies }
+							set_local_variable = { name = spec_ai_sh_companies value = var:spec_sh_companies }
+						}
+						if = {
+							limit = { local_var:spec_ai_sh_companies > local_var:spec_ai_best }
+							set_local_variable = { name = spec_ai_best value = local_var:spec_ai_sh_companies }
+						}
+					}
+					set_local_variable = { name = spec_ai_sh_floor value = -1 }
+					if = {
+						limit = { spec_can_pursue_floor = yes }
+						set_local_variable = { name = spec_ai_sh_floor value = 0 }
+						if = {
+							limit = { has_variable = spec_sh_floor }
+							set_local_variable = { name = spec_ai_sh_floor value = var:spec_sh_floor }
+						}
+						if = {
+							limit = { local_var:spec_ai_sh_floor > local_var:spec_ai_best }
+							set_local_variable = { name = spec_ai_best value = local_var:spec_ai_sh_floor }
+						}
+					}
+					set_local_variable = { name = spec_ai_sh_sound value = -1 }
+					if = {
+						limit = { spec_can_pursue_sound = yes }
+						set_local_variable = { name = spec_ai_sh_sound value = 0 }
+						if = {
+							limit = { has_variable = spec_sh_sound }
+							set_local_variable = { name = spec_ai_sh_sound value = var:spec_sh_sound }
+						}
+						if = {
+							limit = { local_var:spec_ai_sh_sound > local_var:spec_ai_best }
+							set_local_variable = { name = spec_ai_best value = local_var:spec_ai_sh_sound }
+						}
+					}
+					set_local_variable = { name = spec_ai_sh_pockets value = -1 }
+					if = {
+						limit = { spec_can_pursue_pockets = yes }
+						set_local_variable = { name = spec_ai_sh_pockets value = 0 }
+						if = {
+							limit = { has_variable = spec_sh_pockets }
+							set_local_variable = { name = spec_ai_sh_pockets value = var:spec_sh_pockets }
+						}
+						if = {
+							limit = { local_var:spec_ai_sh_pockets > local_var:spec_ai_best }
+							set_local_variable = { name = spec_ai_best value = local_var:spec_ai_sh_pockets }
+						}
+					}
+					set_local_variable = { name = spec_ai_sh_door value = -1 }
+					if = {
+						limit = { spec_can_pursue_door = yes }
+						set_local_variable = { name = spec_ai_sh_door value = 0 }
+						if = {
+							limit = { has_variable = spec_sh_door }
+							set_local_variable = { name = spec_ai_sh_door value = var:spec_sh_door }
+						}
+						if = {
+							limit = { local_var:spec_ai_sh_door > local_var:spec_ai_best }
+							set_local_variable = { name = spec_ai_best value = local_var:spec_ai_sh_door }
+						}
+					}
+					if = {
+						limit = { local_var:spec_ai_sh_price >= 0 local_var:spec_ai_sh_price = local_var:spec_ai_best }
+						spec_pursue_to_price = yes
+					}
+					else_if = {
+						limit = { local_var:spec_ai_sh_harbour >= 0 local_var:spec_ai_sh_harbour = local_var:spec_ai_best }
+						spec_pursue_to_harbour = yes
+					}
+					else_if = {
+						limit = { local_var:spec_ai_sh_companies >= 0 local_var:spec_ai_sh_companies = local_var:spec_ai_best }
+						spec_pursue_to_companies = yes
+					}
+					else_if = {
+						limit = { local_var:spec_ai_sh_floor >= 0 local_var:spec_ai_sh_floor = local_var:spec_ai_best }
+						spec_pursue_to_floor = yes
+					}
+					else_if = {
+						limit = { local_var:spec_ai_sh_sound >= 0 local_var:spec_ai_sh_sound = local_var:spec_ai_best }
+						spec_pursue_to_sound = yes
+					}
+					else_if = {
+						limit = { local_var:spec_ai_sh_pockets >= 0 local_var:spec_ai_sh_pockets = local_var:spec_ai_best }
+						spec_pursue_to_pockets = yes
+					}
+					else_if = {
+						limit = { local_var:spec_ai_sh_door >= 0 local_var:spec_ai_sh_door = local_var:spec_ai_best }
+						spec_pursue_to_door = yes
+					}
+				}
+				if = {
+					limit = { OR = { NOT = { has_variable = spec_pursue_n } spec_pursue_slots > var:spec_pursue_n } }
+					set_local_variable = { name = spec_ai_best value = -1 }
+					set_local_variable = { name = spec_ai_sh_price value = -1 }
+					if = {
+						limit = { spec_can_pursue_price = yes }
+						set_local_variable = { name = spec_ai_sh_price value = 0 }
+						if = {
+							limit = { has_variable = spec_sh_price }
+							set_local_variable = { name = spec_ai_sh_price value = var:spec_sh_price }
+						}
+						if = {
+							limit = { local_var:spec_ai_sh_price > local_var:spec_ai_best }
+							set_local_variable = { name = spec_ai_best value = local_var:spec_ai_sh_price }
+						}
+					}
+					set_local_variable = { name = spec_ai_sh_harbour value = -1 }
+					if = {
+						limit = { spec_can_pursue_harbour = yes }
+						set_local_variable = { name = spec_ai_sh_harbour value = 0 }
+						if = {
+							limit = { has_variable = spec_sh_harbour }
+							set_local_variable = { name = spec_ai_sh_harbour value = var:spec_sh_harbour }
+						}
+						if = {
+							limit = { local_var:spec_ai_sh_harbour > local_var:spec_ai_best }
+							set_local_variable = { name = spec_ai_best value = local_var:spec_ai_sh_harbour }
+						}
+					}
+					set_local_variable = { name = spec_ai_sh_companies value = -1 }
+					if = {
+						limit = { spec_can_pursue_companies = yes }
+						set_local_variable = { name = spec_ai_sh_companies value = 0 }
+						if = {
+							limit = { has_variable = spec_sh_companies }
+							set_local_variable = { name = spec_ai_sh_companies value = var:spec_sh_companies }
+						}
+						if = {
+							limit = { local_var:spec_ai_sh_companies > local_var:spec_ai_best }
+							set_local_variable = { name = spec_ai_best value = local_var:spec_ai_sh_companies }
+						}
+					}
+					set_local_variable = { name = spec_ai_sh_floor value = -1 }
+					if = {
+						limit = { spec_can_pursue_floor = yes }
+						set_local_variable = { name = spec_ai_sh_floor value = 0 }
+						if = {
+							limit = { has_variable = spec_sh_floor }
+							set_local_variable = { name = spec_ai_sh_floor value = var:spec_sh_floor }
+						}
+						if = {
+							limit = { local_var:spec_ai_sh_floor > local_var:spec_ai_best }
+							set_local_variable = { name = spec_ai_best value = local_var:spec_ai_sh_floor }
+						}
+					}
+					set_local_variable = { name = spec_ai_sh_sound value = -1 }
+					if = {
+						limit = { spec_can_pursue_sound = yes }
+						set_local_variable = { name = spec_ai_sh_sound value = 0 }
+						if = {
+							limit = { has_variable = spec_sh_sound }
+							set_local_variable = { name = spec_ai_sh_sound value = var:spec_sh_sound }
+						}
+						if = {
+							limit = { local_var:spec_ai_sh_sound > local_var:spec_ai_best }
+							set_local_variable = { name = spec_ai_best value = local_var:spec_ai_sh_sound }
+						}
+					}
+					set_local_variable = { name = spec_ai_sh_pockets value = -1 }
+					if = {
+						limit = { spec_can_pursue_pockets = yes }
+						set_local_variable = { name = spec_ai_sh_pockets value = 0 }
+						if = {
+							limit = { has_variable = spec_sh_pockets }
+							set_local_variable = { name = spec_ai_sh_pockets value = var:spec_sh_pockets }
+						}
+						if = {
+							limit = { local_var:spec_ai_sh_pockets > local_var:spec_ai_best }
+							set_local_variable = { name = spec_ai_best value = local_var:spec_ai_sh_pockets }
+						}
+					}
+					set_local_variable = { name = spec_ai_sh_door value = -1 }
+					if = {
+						limit = { spec_can_pursue_door = yes }
+						set_local_variable = { name = spec_ai_sh_door value = 0 }
+						if = {
+							limit = { has_variable = spec_sh_door }
+							set_local_variable = { name = spec_ai_sh_door value = var:spec_sh_door }
+						}
+						if = {
+							limit = { local_var:spec_ai_sh_door > local_var:spec_ai_best }
+							set_local_variable = { name = spec_ai_best value = local_var:spec_ai_sh_door }
+						}
+					}
+					if = {
+						limit = { local_var:spec_ai_sh_price >= 0 local_var:spec_ai_sh_price = local_var:spec_ai_best }
+						spec_pursue_to_price = yes
+					}
+					else_if = {
+						limit = { local_var:spec_ai_sh_harbour >= 0 local_var:spec_ai_sh_harbour = local_var:spec_ai_best }
+						spec_pursue_to_harbour = yes
+					}
+					else_if = {
+						limit = { local_var:spec_ai_sh_companies >= 0 local_var:spec_ai_sh_companies = local_var:spec_ai_best }
+						spec_pursue_to_companies = yes
+					}
+					else_if = {
+						limit = { local_var:spec_ai_sh_floor >= 0 local_var:spec_ai_sh_floor = local_var:spec_ai_best }
+						spec_pursue_to_floor = yes
+					}
+					else_if = {
+						limit = { local_var:spec_ai_sh_sound >= 0 local_var:spec_ai_sh_sound = local_var:spec_ai_best }
+						spec_pursue_to_sound = yes
+					}
+					else_if = {
+						limit = { local_var:spec_ai_sh_pockets >= 0 local_var:spec_ai_sh_pockets = local_var:spec_ai_best }
+						spec_pursue_to_pockets = yes
+					}
+					else_if = {
+						limit = { local_var:spec_ai_sh_door >= 0 local_var:spec_ai_sh_door = local_var:spec_ai_best }
+						spec_pursue_to_door = yes
+					}
+				}
+				if = {
+					limit = { OR = { NOT = { has_variable = spec_pursue_n } spec_pursue_slots > var:spec_pursue_n } }
+					set_local_variable = { name = spec_ai_best value = -1 }
+					set_local_variable = { name = spec_ai_sh_price value = -1 }
+					if = {
+						limit = { spec_can_pursue_price = yes }
+						set_local_variable = { name = spec_ai_sh_price value = 0 }
+						if = {
+							limit = { has_variable = spec_sh_price }
+							set_local_variable = { name = spec_ai_sh_price value = var:spec_sh_price }
+						}
+						if = {
+							limit = { local_var:spec_ai_sh_price > local_var:spec_ai_best }
+							set_local_variable = { name = spec_ai_best value = local_var:spec_ai_sh_price }
+						}
+					}
+					set_local_variable = { name = spec_ai_sh_harbour value = -1 }
+					if = {
+						limit = { spec_can_pursue_harbour = yes }
+						set_local_variable = { name = spec_ai_sh_harbour value = 0 }
+						if = {
+							limit = { has_variable = spec_sh_harbour }
+							set_local_variable = { name = spec_ai_sh_harbour value = var:spec_sh_harbour }
+						}
+						if = {
+							limit = { local_var:spec_ai_sh_harbour > local_var:spec_ai_best }
+							set_local_variable = { name = spec_ai_best value = local_var:spec_ai_sh_harbour }
+						}
+					}
+					set_local_variable = { name = spec_ai_sh_companies value = -1 }
+					if = {
+						limit = { spec_can_pursue_companies = yes }
+						set_local_variable = { name = spec_ai_sh_companies value = 0 }
+						if = {
+							limit = { has_variable = spec_sh_companies }
+							set_local_variable = { name = spec_ai_sh_companies value = var:spec_sh_companies }
+						}
+						if = {
+							limit = { local_var:spec_ai_sh_companies > local_var:spec_ai_best }
+							set_local_variable = { name = spec_ai_best value = local_var:spec_ai_sh_companies }
+						}
+					}
+					set_local_variable = { name = spec_ai_sh_floor value = -1 }
+					if = {
+						limit = { spec_can_pursue_floor = yes }
+						set_local_variable = { name = spec_ai_sh_floor value = 0 }
+						if = {
+							limit = { has_variable = spec_sh_floor }
+							set_local_variable = { name = spec_ai_sh_floor value = var:spec_sh_floor }
+						}
+						if = {
+							limit = { local_var:spec_ai_sh_floor > local_var:spec_ai_best }
+							set_local_variable = { name = spec_ai_best value = local_var:spec_ai_sh_floor }
+						}
+					}
+					set_local_variable = { name = spec_ai_sh_sound value = -1 }
+					if = {
+						limit = { spec_can_pursue_sound = yes }
+						set_local_variable = { name = spec_ai_sh_sound value = 0 }
+						if = {
+							limit = { has_variable = spec_sh_sound }
+							set_local_variable = { name = spec_ai_sh_sound value = var:spec_sh_sound }
+						}
+						if = {
+							limit = { local_var:spec_ai_sh_sound > local_var:spec_ai_best }
+							set_local_variable = { name = spec_ai_best value = local_var:spec_ai_sh_sound }
+						}
+					}
+					set_local_variable = { name = spec_ai_sh_pockets value = -1 }
+					if = {
+						limit = { spec_can_pursue_pockets = yes }
+						set_local_variable = { name = spec_ai_sh_pockets value = 0 }
+						if = {
+							limit = { has_variable = spec_sh_pockets }
+							set_local_variable = { name = spec_ai_sh_pockets value = var:spec_sh_pockets }
+						}
+						if = {
+							limit = { local_var:spec_ai_sh_pockets > local_var:spec_ai_best }
+							set_local_variable = { name = spec_ai_best value = local_var:spec_ai_sh_pockets }
+						}
+					}
+					set_local_variable = { name = spec_ai_sh_door value = -1 }
+					if = {
+						limit = { spec_can_pursue_door = yes }
+						set_local_variable = { name = spec_ai_sh_door value = 0 }
+						if = {
+							limit = { has_variable = spec_sh_door }
+							set_local_variable = { name = spec_ai_sh_door value = var:spec_sh_door }
+						}
+						if = {
+							limit = { local_var:spec_ai_sh_door > local_var:spec_ai_best }
+							set_local_variable = { name = spec_ai_best value = local_var:spec_ai_sh_door }
+						}
+					}
+					if = {
+						limit = { local_var:spec_ai_sh_price >= 0 local_var:spec_ai_sh_price = local_var:spec_ai_best }
+						spec_pursue_to_price = yes
+					}
+					else_if = {
+						limit = { local_var:spec_ai_sh_harbour >= 0 local_var:spec_ai_sh_harbour = local_var:spec_ai_best }
+						spec_pursue_to_harbour = yes
+					}
+					else_if = {
+						limit = { local_var:spec_ai_sh_companies >= 0 local_var:spec_ai_sh_companies = local_var:spec_ai_best }
+						spec_pursue_to_companies = yes
+					}
+					else_if = {
+						limit = { local_var:spec_ai_sh_floor >= 0 local_var:spec_ai_sh_floor = local_var:spec_ai_best }
+						spec_pursue_to_floor = yes
+					}
+					else_if = {
+						limit = { local_var:spec_ai_sh_sound >= 0 local_var:spec_ai_sh_sound = local_var:spec_ai_best }
+						spec_pursue_to_sound = yes
+					}
+					else_if = {
+						limit = { local_var:spec_ai_sh_pockets >= 0 local_var:spec_ai_sh_pockets = local_var:spec_ai_best }
+						spec_pursue_to_pockets = yes
+					}
+					else_if = {
+						limit = { local_var:spec_ai_sh_door >= 0 local_var:spec_ai_sh_door = local_var:spec_ai_best }
+						spec_pursue_to_door = yes
+					}
+				}
+				if = {
+					limit = { OR = { NOT = { has_variable = spec_pursue_n } spec_pursue_slots > var:spec_pursue_n } }
+					set_local_variable = { name = spec_ai_best value = -1 }
+					set_local_variable = { name = spec_ai_sh_price value = -1 }
+					if = {
+						limit = { spec_can_pursue_price = yes }
+						set_local_variable = { name = spec_ai_sh_price value = 0 }
+						if = {
+							limit = { has_variable = spec_sh_price }
+							set_local_variable = { name = spec_ai_sh_price value = var:spec_sh_price }
+						}
+						if = {
+							limit = { local_var:spec_ai_sh_price > local_var:spec_ai_best }
+							set_local_variable = { name = spec_ai_best value = local_var:spec_ai_sh_price }
+						}
+					}
+					set_local_variable = { name = spec_ai_sh_harbour value = -1 }
+					if = {
+						limit = { spec_can_pursue_harbour = yes }
+						set_local_variable = { name = spec_ai_sh_harbour value = 0 }
+						if = {
+							limit = { has_variable = spec_sh_harbour }
+							set_local_variable = { name = spec_ai_sh_harbour value = var:spec_sh_harbour }
+						}
+						if = {
+							limit = { local_var:spec_ai_sh_harbour > local_var:spec_ai_best }
+							set_local_variable = { name = spec_ai_best value = local_var:spec_ai_sh_harbour }
+						}
+					}
+					set_local_variable = { name = spec_ai_sh_companies value = -1 }
+					if = {
+						limit = { spec_can_pursue_companies = yes }
+						set_local_variable = { name = spec_ai_sh_companies value = 0 }
+						if = {
+							limit = { has_variable = spec_sh_companies }
+							set_local_variable = { name = spec_ai_sh_companies value = var:spec_sh_companies }
+						}
+						if = {
+							limit = { local_var:spec_ai_sh_companies > local_var:spec_ai_best }
+							set_local_variable = { name = spec_ai_best value = local_var:spec_ai_sh_companies }
+						}
+					}
+					set_local_variable = { name = spec_ai_sh_floor value = -1 }
+					if = {
+						limit = { spec_can_pursue_floor = yes }
+						set_local_variable = { name = spec_ai_sh_floor value = 0 }
+						if = {
+							limit = { has_variable = spec_sh_floor }
+							set_local_variable = { name = spec_ai_sh_floor value = var:spec_sh_floor }
+						}
+						if = {
+							limit = { local_var:spec_ai_sh_floor > local_var:spec_ai_best }
+							set_local_variable = { name = spec_ai_best value = local_var:spec_ai_sh_floor }
+						}
+					}
+					set_local_variable = { name = spec_ai_sh_sound value = -1 }
+					if = {
+						limit = { spec_can_pursue_sound = yes }
+						set_local_variable = { name = spec_ai_sh_sound value = 0 }
+						if = {
+							limit = { has_variable = spec_sh_sound }
+							set_local_variable = { name = spec_ai_sh_sound value = var:spec_sh_sound }
+						}
+						if = {
+							limit = { local_var:spec_ai_sh_sound > local_var:spec_ai_best }
+							set_local_variable = { name = spec_ai_best value = local_var:spec_ai_sh_sound }
+						}
+					}
+					set_local_variable = { name = spec_ai_sh_pockets value = -1 }
+					if = {
+						limit = { spec_can_pursue_pockets = yes }
+						set_local_variable = { name = spec_ai_sh_pockets value = 0 }
+						if = {
+							limit = { has_variable = spec_sh_pockets }
+							set_local_variable = { name = spec_ai_sh_pockets value = var:spec_sh_pockets }
+						}
+						if = {
+							limit = { local_var:spec_ai_sh_pockets > local_var:spec_ai_best }
+							set_local_variable = { name = spec_ai_best value = local_var:spec_ai_sh_pockets }
+						}
+					}
+					set_local_variable = { name = spec_ai_sh_door value = -1 }
+					if = {
+						limit = { spec_can_pursue_door = yes }
+						set_local_variable = { name = spec_ai_sh_door value = 0 }
+						if = {
+							limit = { has_variable = spec_sh_door }
+							set_local_variable = { name = spec_ai_sh_door value = var:spec_sh_door }
+						}
+						if = {
+							limit = { local_var:spec_ai_sh_door > local_var:spec_ai_best }
+							set_local_variable = { name = spec_ai_best value = local_var:spec_ai_sh_door }
+						}
+					}
+					if = {
+						limit = { local_var:spec_ai_sh_price >= 0 local_var:spec_ai_sh_price = local_var:spec_ai_best }
+						spec_pursue_to_price = yes
+					}
+					else_if = {
+						limit = { local_var:spec_ai_sh_harbour >= 0 local_var:spec_ai_sh_harbour = local_var:spec_ai_best }
+						spec_pursue_to_harbour = yes
+					}
+					else_if = {
+						limit = { local_var:spec_ai_sh_companies >= 0 local_var:spec_ai_sh_companies = local_var:spec_ai_best }
+						spec_pursue_to_companies = yes
+					}
+					else_if = {
+						limit = { local_var:spec_ai_sh_floor >= 0 local_var:spec_ai_sh_floor = local_var:spec_ai_best }
+						spec_pursue_to_floor = yes
+					}
+					else_if = {
+						limit = { local_var:spec_ai_sh_sound >= 0 local_var:spec_ai_sh_sound = local_var:spec_ai_best }
+						spec_pursue_to_sound = yes
+					}
+					else_if = {
+						limit = { local_var:spec_ai_sh_pockets >= 0 local_var:spec_ai_sh_pockets = local_var:spec_ai_best }
+						spec_pursue_to_pockets = yes
+					}
+					else_if = {
+						limit = { local_var:spec_ai_sh_door >= 0 local_var:spec_ai_sh_door = local_var:spec_ai_best }
+						spec_pursue_to_door = yes
+					}
+				}
+			}
+		}
+	}
+	# rival Exchanges (centres.py): rivalries that no longer hold end the month they stop (a rival annexed, an alliance)
+	every_country = {
+		limit = { has_variable = spec_rival }
+		save_scope_as = spec_rival_me
+		if = {
+			limit = { NOT = { exists = var:spec_rival } }
+			spec_rival_end = yes
+		}
+		else_if = {
+			limit = {
+				OR = {
+					is_country_alive = no
+					NOT = { has_variable = spec_exch_stand }
+					var:spec_rival = { OR = { is_country_alive = no NOT = { has_variable = spec_exch_stand } } }
+					var:spec_rival = { any_scope_treaty = { binds = scope:spec_rival_me any_scope_article = { OR = { has_type = alliance has_type = defensive_pact has_type = foreign_investment_rights } } } }
+				}
+			}
+			spec_rival_end = yes
+		}
+	}
+	# then, once a year, the AI picks and each rivalry is scored
+	if = {
+		limit = { NOT = { has_global_variable = spec_rival_year } }
+		set_global_variable = { name = spec_rival_year days = 365 }
+		every_country = {
+			limit = {
+				is_player = no
+				is_country_alive = yes
+				has_variable = spec_exch_stand
+				var:spec_exch_stand >= 1
+				has_variable = spec_centre_score
+				NOT = { has_variable = spec_rival }
+				NOT = { has_variable = spec_rival_lock }
+			}
+			save_scope_as = spec_rival_me
+			random_country = {
+				limit = {
+					NOT = { this = scope:spec_rival_me }
+					is_country_alive = yes
+					has_variable = spec_exch_stand
+					has_variable = spec_centre_score
+					OR = { AND = { scope:spec_rival_me.var:spec_exch_stand = 1 this.var:spec_exch_stand >= 1 this.var:spec_exch_stand <= 2 } AND = { scope:spec_rival_me.var:spec_exch_stand = 2 this.var:spec_exch_stand >= 2 this.var:spec_exch_stand <= 3 } AND = { scope:spec_rival_me.var:spec_exch_stand = 3 this.var:spec_exch_stand >= 3 this.var:spec_exch_stand <= 3 } }
+					var:spec_centre_score >= scope:spec_rival_me.var:spec_centre_score
+					NOT = { any_scope_treaty = { binds = scope:spec_rival_me any_scope_article = { OR = { has_type = alliance has_type = defensive_pact has_type = foreign_investment_rights } } } }
+				}
+				scope:spec_rival_me = {
+					set_variable = { name = spec_rival value = prev }
+					set_variable = { name = spec_rival_lock days = 1825 }
+				}
+			}
+		}
+		every_country = {
+			limit = {
+				has_variable = spec_rival
+				has_variable = spec_centre_score
+				has_variable = spec_centre_trust
+				var:spec_rival = {
+					has_variable = spec_centre_score
+					has_variable = spec_centre_trust
+				}
+			}
+			save_scope_as = spec_rival_me
+			if = {
+				limit = { var:spec_centre_score > var:spec_rival.var:spec_centre_score }
+				set_variable = { name = spec_centre_trust value = { value = var:spec_centre_trust add = 6 max = 120 } }
+				set_variable = { name = spec_rival_last value = 1 }
+				if = {
+					limit = { is_player = yes }
+					post_notification = spec_rival_won
+				}
+				var:spec_rival = {
+					if = {
+						limit = { NOT = { var:spec_rival ?= scope:spec_rival_me } }
+						set_variable = { name = spec_centre_trust value = { value = var:spec_centre_trust subtract = { value = 6 multiply = spec_exch_loss } min = 0 } }
+						if = {
+							limit = { "relations(scope:spec_rival_me)" <= relations_threshold:poor }
+							set_variable = { name = spec_centre_trust value = { value = var:spec_centre_trust subtract = { value = 3.0 multiply = spec_exch_loss } min = 0 } }
+						}
+						if = {
+							limit = { is_player = yes }
+							post_notification = spec_rival_lost
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = { var:spec_centre_score < var:spec_rival.var:spec_centre_score }
+				set_variable = { name = spec_rival_last value = -1 }
+				set_variable = { name = spec_centre_trust value = { value = var:spec_centre_trust subtract = { value = 6 multiply = spec_exch_loss } min = 0 } }
+				if = {
+					limit = { var:spec_rival = { "relations(scope:spec_rival_me)" <= relations_threshold:poor } }
+					set_variable = { name = spec_centre_trust value = { value = var:spec_centre_trust subtract = { value = 3.0 multiply = spec_exch_loss } min = 0 } }
+				}
+				if = {
+					limit = { is_player = yes }
+					post_notification = spec_rival_lost
+				}
+				var:spec_rival = {
+					if = {
+						limit = { NOT = { var:spec_rival ?= scope:spec_rival_me } }
+						set_variable = { name = spec_centre_trust value = { value = var:spec_centre_trust add = 6 max = 120 } }
+						if = {
+							limit = { is_player = yes }
+							post_notification = spec_rival_won
+						}
+					}
+				}
+			}
+		}
+	}
+	set_global_variable = { name = spec_exch_n_0 value = 0 }
+	set_global_variable = { name = spec_exch_n_1 value = 0 }
+	set_global_variable = { name = spec_exch_n_2 value = 0 }
+	set_global_variable = { name = spec_exch_n_3 value = 0 }
+	every_country = {
+		limit = { has_variable = spec_exch_stand }
+		if = {
+			limit = { var:spec_exch_stand = 0 }
+			change_global_variable = { name = spec_exch_n_0 add = 1 }
+		}
+		if = {
+			limit = { var:spec_exch_stand = 1 }
+			change_global_variable = { name = spec_exch_n_1 add = 1 }
+		}
+		if = {
+			limit = { var:spec_exch_stand = 2 }
+			change_global_variable = { name = spec_exch_n_2 add = 1 }
+		}
+		if = {
+			limit = { var:spec_exch_stand = 3 }
+			change_global_variable = { name = spec_exch_n_3 add = 1 }
+		}
+	}
+	ordered_country = {
+		limit = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			NOT = { has_variable = spec_centre_pos }
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_centre_pos
+		set_global_variable = { name = spec_centre_1 value = this }
+	}
+	ordered_country = {
+		limit = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			NOT = { has_variable = spec_centre_pos }
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_centre_pos
+		set_global_variable = { name = spec_centre_2 value = this }
+	}
+	ordered_country = {
+		limit = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			NOT = { has_variable = spec_centre_pos }
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_centre_pos
+		set_global_variable = { name = spec_centre_3 value = this }
+	}
+	ordered_country = {
+		limit = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			NOT = { has_variable = spec_centre_pos }
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_centre_pos
+		set_global_variable = { name = spec_centre_4 value = this }
+	}
+	ordered_country = {
+		limit = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			NOT = { has_variable = spec_centre_pos }
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_centre_pos
+		set_global_variable = { name = spec_centre_5 value = this }
+	}
+	ordered_country = {
+		limit = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			NOT = { has_variable = spec_centre_pos }
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_centre_pos
+		set_variable = spec_centre_also
+		set_global_variable = { name = spec_centre_6 value = this }
+	}
+	ordered_country = {
+		limit = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			NOT = { has_variable = spec_centre_pos }
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_centre_pos
+		set_variable = spec_centre_also
+		set_global_variable = { name = spec_centre_7 value = this }
+	}
+	ordered_country = {
+		limit = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			NOT = { has_variable = spec_centre_pos }
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_centre_pos
+		set_variable = spec_centre_also
+		set_global_variable = { name = spec_centre_8 value = this }
+	}
+	ordered_country = {
+		limit = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			NOT = { has_variable = spec_centre_pos }
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_centre_pos
+		set_variable = spec_centre_also
+		set_global_variable = { name = spec_centre_9 value = this }
+	}
+	ordered_country = {
+		limit = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			NOT = { has_variable = spec_centre_pos }
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_centre_pos
+		set_variable = spec_centre_also
+		set_global_variable = { name = spec_centre_10 value = this }
+	}
+	ordered_country = {
+		limit = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			NOT = { has_variable = spec_centre_pos }
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_centre_pos
+		set_variable = spec_centre_also
+		set_global_variable = { name = spec_centre_11 value = this }
+	}
+	ordered_country = {
+		limit = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			NOT = { has_variable = spec_centre_pos }
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_centre_pos
+		set_variable = spec_centre_also
+		set_global_variable = { name = spec_centre_12 value = this }
+	}
+	ordered_country = {
+		limit = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			NOT = { has_variable = spec_centre_pos }
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_centre_pos
+		set_variable = spec_centre_also
+		set_global_variable = { name = spec_centre_13 value = this }
+	}
+	ordered_country = {
+		limit = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			NOT = { has_variable = spec_centre_pos }
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_centre_pos
+		set_variable = spec_centre_also
+		set_global_variable = { name = spec_centre_14 value = this }
+	}
+	ordered_country = {
+		limit = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			NOT = { has_variable = spec_centre_pos }
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_centre_pos
+		set_variable = spec_centre_also
+		set_global_variable = { name = spec_centre_15 value = this }
+	}
+	ordered_country = {
+		limit = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			NOT = { has_variable = spec_centre_pos }
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_centre_pos
+		set_variable = spec_centre_also
+		set_global_variable = { name = spec_centre_16 value = this }
+	}
+	ordered_country = {
+		limit = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			NOT = { has_variable = spec_centre_pos }
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_centre_pos
+		set_variable = spec_centre_also
+		set_global_variable = { name = spec_centre_17 value = this }
+	}
+	ordered_country = {
+		limit = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			NOT = { has_variable = spec_centre_pos }
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_centre_pos
+		set_variable = spec_centre_also
+		set_global_variable = { name = spec_centre_18 value = this }
+	}
+	ordered_country = {
+		limit = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			NOT = { has_variable = spec_centre_pos }
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_centre_pos
+		set_variable = spec_centre_also
+		set_global_variable = { name = spec_centre_19 value = this }
+	}
+	ordered_country = {
+		limit = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			NOT = { has_variable = spec_centre_pos }
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_centre_pos
+		set_variable = spec_centre_also
+		set_global_variable = { name = spec_centre_20 value = this }
+	}
+	ordered_country = {
+		limit = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			NOT = { has_variable = spec_centre_pos }
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_centre_pos
+		set_variable = spec_centre_also
+		set_global_variable = { name = spec_centre_21 value = this }
+	}
+	ordered_country = {
+		limit = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			NOT = { has_variable = spec_centre_pos }
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_centre_pos
+		set_variable = spec_centre_also
+		set_global_variable = { name = spec_centre_22 value = this }
+	}
+	ordered_country = {
+		limit = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			NOT = { has_variable = spec_centre_pos }
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_centre_pos
+		set_variable = spec_centre_also
+		set_global_variable = { name = spec_centre_23 value = this }
+	}
+	ordered_country = {
+		limit = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			NOT = { has_variable = spec_centre_pos }
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_centre_pos
+		set_variable = spec_centre_also
+		set_global_variable = { name = spec_centre_24 value = this }
+	}
+	ordered_country = {
+		limit = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			NOT = { has_variable = spec_centre_pos }
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_centre_pos
+		set_variable = spec_centre_also
+		set_global_variable = { name = spec_centre_25 value = this }
+	}
+	ordered_country = {
+		limit = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			NOT = { has_variable = spec_centre_pos }
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_centre_pos
+		set_variable = spec_centre_also
+		set_global_variable = { name = spec_centre_26 value = this }
+	}
+	ordered_country = {
+		limit = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			NOT = { has_variable = spec_centre_pos }
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_centre_pos
+		set_variable = spec_centre_also
+		set_global_variable = { name = spec_centre_27 value = this }
+	}
+	ordered_country = {
+		limit = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			NOT = { has_variable = spec_centre_pos }
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_centre_pos
+		set_variable = spec_centre_also
+		set_global_variable = { name = spec_centre_28 value = this }
+	}
+	ordered_country = {
+		limit = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			NOT = { has_variable = spec_centre_pos }
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_centre_pos
+		set_variable = spec_centre_also
+		set_global_variable = { name = spec_centre_29 value = this }
+	}
+	ordered_country = {
+		limit = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			NOT = { has_variable = spec_centre_pos }
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_centre_pos
+		set_variable = spec_centre_also
+		set_global_variable = { name = spec_centre_30 value = this }
+	}
+	ordered_country = {
+		limit = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			NOT = { has_variable = spec_centre_pos }
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_centre_pos
+		set_variable = spec_centre_also
+		set_global_variable = { name = spec_centre_31 value = this }
+	}
+	ordered_country = {
+		limit = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			NOT = { has_variable = spec_centre_pos }
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_centre_pos
+		set_variable = spec_centre_also
+		set_global_variable = { name = spec_centre_32 value = this }
+	}
+	ordered_country = {
+		limit = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			NOT = { has_variable = spec_centre_pos }
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_centre_pos
+		set_variable = spec_centre_also
+		set_global_variable = { name = spec_centre_33 value = this }
+	}
+	ordered_country = {
+		limit = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			NOT = { has_variable = spec_centre_pos }
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_centre_pos
+		set_variable = spec_centre_also
+		set_global_variable = { name = spec_centre_34 value = this }
+	}
+	ordered_country = {
+		limit = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			NOT = { has_variable = spec_centre_pos }
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_centre_pos
+		set_variable = spec_centre_also
+		set_global_variable = { name = spec_centre_35 value = this }
+	}
+	ordered_country = {
+		limit = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			NOT = { has_variable = spec_centre_pos }
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_centre_pos
+		set_variable = spec_centre_also
+		set_global_variable = { name = spec_centre_36 value = this }
+	}
+	ordered_country = {
+		limit = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			NOT = { has_variable = spec_centre_pos }
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_centre_pos
+		set_variable = spec_centre_also
+		set_global_variable = { name = spec_centre_37 value = this }
+	}
+	ordered_country = {
+		limit = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			NOT = { has_variable = spec_centre_pos }
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_centre_pos
+		set_variable = spec_centre_also
+		set_global_variable = { name = spec_centre_38 value = this }
+	}
+	ordered_country = {
+		limit = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			NOT = { has_variable = spec_centre_pos }
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_centre_pos
+		set_variable = spec_centre_also
+		set_global_variable = { name = spec_centre_39 value = this }
+	}
+	ordered_country = {
+		limit = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+			NOT = { has_variable = spec_centre_pos }
+		}
+		order_by = spec_centre_order
+		position = 0
+		check_range_bounds = no
+		set_variable = spec_centre_pos
+		set_variable = spec_centre_also
+		set_global_variable = { name = spec_centre_40 value = this }
+	}
+	every_country = {
+		limit = { has_variable = spec_centre_pos }
+		remove_variable = spec_centre_pos
+	}
+	# ponytail: a market hovering between the last place and the next gets a toast each time it crosses; hold a place
+	# for a few months if that proves noisy
+	every_country = {
+		limit = {
+			OR = {
+				has_variable = spec_centre_rank
+				has_variable = spec_centre_new
+			}
+		}
+		if = {
+			limit = { NOT = { has_variable = spec_centre_new } }
+			if = {
+				limit = { has_modifier = spec_financial_centre }
+				remove_modifier = spec_financial_centre
+			}
+			remove_variable = spec_centre_rank
+		}
+		else = {
+			if = {
+				limit = { NOT = { has_variable = spec_centre_rank } }
+				set_variable = { name = spec_centre_rank value = 0 }
+			}
+			if = {
+				limit = { NOT = { var:spec_centre_rank = var:spec_centre_new } }
+				if = {
+					limit = { has_modifier = spec_financial_centre }
+					remove_modifier = spec_financial_centre
+				}
+				add_modifier = { name = spec_financial_centre multiplier = spec_centre_mult }
+				set_variable = { name = spec_centre_rank value = var:spec_centre_new }
+			}
+			remove_variable = spec_centre_new
+		}
+	}
+}

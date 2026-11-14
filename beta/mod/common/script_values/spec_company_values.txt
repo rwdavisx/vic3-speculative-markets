@@ -1,0 +1,19 @@
+﻿spec_company_tie = {
+	value = 1
+	if = {
+		limit = { has_technology_researched = corporate_charters }
+		add = 0.25
+	}
+	if = {
+		limit = { has_technology_researched = corporate_management }
+		add = 0.25
+	}
+}
+spec_company_tie_2 = {
+	value = spec_company_tie
+	multiply = 0.5
+}
+spec_company_tie_1 = {
+	value = spec_company_tie
+	multiply = 0.25
+}

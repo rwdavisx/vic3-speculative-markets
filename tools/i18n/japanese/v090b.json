@@ -1,0 +1,9 @@
+{
+  "02cdee371e": "\\n\\n#title 銀行融資:#! [concept_spec_outstanding_credit]の#v {1}#!、プール収入の#v {2}#!か月分\\nこのブームが終われば、[concept_spec_market_confidence]の下落は、銀行が貸し込んでいないブームの#v x{3}#!倍になります",
+  "2523e47c00": "銀行の融資先",
+  "57da154fe8": "#header 先月#!\\n[concept_spec_leverage]: #v {1}#!か月分",
+  "599efded61": "銀行がこの産業に多額を貸し込んでいたため、下落は#N x{1}#!倍の激しさでした。",
+  "99f6f8b6fa": "#header 今月#!\\n[concept_spec_leverage]: #v {1}#!か月分",
+  "c866d03845": "#header {1}か月前#!\\n[concept_spec_leverage]: #v {2}#!か月分",
+  "d52746e9ce": "レバレッジの推移"
+}

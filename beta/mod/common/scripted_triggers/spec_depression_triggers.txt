@@ -1,0 +1,11 @@
+﻿# in a Financial Panic, or one began within the window
+spec_ld_in_window = {
+	OR = {
+		has_variable = spec_panic
+		has_variable = spec_ld_recent
+	}
+}
+
+spec_ld_is_gp = {
+	country_rank = rank_value:great_power
+}

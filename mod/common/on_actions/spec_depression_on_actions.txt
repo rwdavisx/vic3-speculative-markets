@@ -1,0 +1,29 @@
+﻿on_monthly_pulse = {
+	on_actions = { spec_ld_pulse }
+}
+
+spec_ld_pulse = {
+	effect = {
+		spec_ld_tick = yes
+	}
+}
+
+on_monthly_pulse_country = {
+	on_actions = { spec_ld_country_pulse }
+}
+
+spec_ld_country_pulse = {
+	trigger = {
+		var:spec_ld ?= 2
+		NOT = { has_variable = spec_ld_event_cd }
+	}
+	random_events = {
+		chance_to_happen = 10
+		100 = spec_depression.2
+		100 = spec_depression.3
+		100 = spec_depression.4
+		100 = spec_depression.5
+		100 = spec_depression.6
+		100 = spec_depression.7
+	}
+}

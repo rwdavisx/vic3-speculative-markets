@@ -1,0 +1,348 @@
+﻿# monthly from on_monthly_pulse, no scope: the phase clock while it runs, otherwise the check whether it starts
+spec_ld_tick = {
+	# Repair old saves whose market economy closed with phase modifiers still active, or whose crisis state
+	# outlived the world's crisis. Normal market shutdown calls spec_ld_leave immediately.
+	every_country = {
+		limit = {
+			OR = {
+				has_variable = spec_ld
+				has_modifier = spec_ld_crash
+				has_modifier = spec_ld_depression
+			}
+			OR = {
+				NOT = { has_variable = spec_conf }
+				NOT = { spec_law_mult > 0 }
+				NOT = { has_global_variable = spec_ld_phase }
+			}
+		}
+		spec_ld_leave = yes
+	}
+	# this game's own earliest year, rolled once in months
+	if = {
+		limit = {
+			game_date >= 1868.1.1
+			NOT = { has_global_variable = spec_ld_open }
+		}
+		if = {
+			limit = { NOT = { has_global_variable = spec_ld_wait } }
+			set_global_variable = { name = spec_ld_wait value = { fixed_range = { min = 0 max = 120 } } }
+		}
+		change_global_variable = { name = spec_ld_wait add = -1 }
+		if = {
+			limit = {
+				OR = {
+					global_var:spec_ld_wait <= 0
+					game_date >= 1878.1.1
+				}
+			}
+			set_global_variable = spec_ld_open
+			remove_global_variable = spec_ld_wait
+		}
+	}
+	if = {
+		limit = { has_global_variable = spec_ld_phase }
+		# the Crash spreads: last month's joiners pass it on once along their strong ties. Two passes, so a country
+		# reached this month waits for the next whether or not the event fires at once
+		if = {
+			limit = { global_var:spec_ld_phase = 1 }
+			every_country = {
+				limit = { has_variable = spec_ld_spreading }
+				remove_variable = spec_ld_spreading
+				set_variable = spec_ld_spread_now
+			}
+			every_country = {
+				limit = { has_variable = spec_ld_spread_now }
+				remove_variable = spec_ld_spread_now
+				trigger_event = { id = spec_depression.99 }
+			}
+		}
+		change_global_variable = { name = spec_ld_months add = -1 }
+		if = {
+			limit = { global_var:spec_ld_phase = 2 }
+			spec_ld_world = { AMOUNT = 2 }
+		}
+		if = {
+			limit = {
+				OR = {
+					global_var:spec_ld_months <= 0
+					AND = {
+						global_var:spec_ld_phase = 2
+						global_var:spec_ld_progress >= 100
+					}
+				}
+			}
+			spec_ld_next_phase = yes
+		}
+	}
+	else_if = {
+		limit = {
+			has_global_variable = spec_ld_open
+			NOT = { has_global_variable = spec_ld_cooldown }
+			OR = {
+				NOT = { has_global_variable = spec_ld_count }
+				AND = {
+					global_var:spec_ld_count < 2
+					has_global_variable = spec_ld_second
+				}
+			}
+		}
+		# a Great Power in a Financial Panic, not the one that started an earlier Long Depression
+		random_country = {
+			limit = {
+				spec_ld_is_gp = yes
+				has_variable = spec_panic
+				spec_law_mult > 0
+				NOT = { has_variable = spec_ld_origin }
+			}
+			set_variable = spec_ld_origin
+			spec_ld_start = yes
+		}
+	}
+}
+
+spec_ld_start = {
+	set_global_variable = { name = spec_ld_phase value = 1 }
+	set_global_variable = { name = spec_ld_months value = 4 }
+	set_global_variable = { name = spec_ld_progress value = 0 }
+	if = {
+		limit = { has_global_variable = spec_ld_count }
+		change_global_variable = { name = spec_ld_count add = 1 }
+	}
+	else = {
+		set_global_variable = { name = spec_ld_count value = 1 }
+	}
+	every_country = {
+		limit = { spec_ld_in_window = yes }
+		spec_ld_join = yes
+	}
+	# the origin's strong ties join now, from an event on it (spec_every_tied needs it as root); the rest spreads monthly
+	trigger_event = { id = spec_depression.99 }
+	spec_ld_notify = { TYPE = spec_ld_started }
+}
+
+# from spec_every_tied: a tie at SPREAD_MIN or more passes the crash on. WEIGHT is a number or a script value
+# name, so it is compared through a local
+spec_ld_tied_join = {
+	set_local_variable = { name = spec_ld_w value = $WEIGHT$ }
+	if = {
+		limit = { local_var:spec_ld_w >= 0.5 }
+		spec_ld_join = yes
+	}
+}
+
+# on a country: it enters the Long Depression in the current phase. Never reads root.
+spec_ld_join = {
+	if = {
+		limit = {
+			has_variable = spec_conf
+			spec_law_mult > 0
+			NOT = { has_variable = spec_ld }
+			has_global_variable = spec_ld_phase
+		}
+		set_variable = { name = spec_ld value = 0 }
+		set_variable = { name = spec_ld_own value = 0 }
+		# joined during the Crash: passes it on next month (spec_ld_tick)
+		if = {
+			limit = { global_var:spec_ld_phase = 1 }
+			set_variable = spec_ld_spreading
+		}
+		# credit freezes: the banks call in part of what they lent, unless a panic already has, now or in the last year
+		if = {
+			limit = {
+				has_variable = spec_debt
+				NOT = { has_variable = spec_panic }
+				NOT = { has_variable = spec_panic_cooldown }  # ponytail: the 12 months after a panic ends, at least 12 since it began
+			}
+			set_variable = { name = spec_clawed value = spec_clawback }
+			add_investment_pool = { value = var:spec_clawed multiply = -1 }
+			change_variable = { name = spec_debt subtract = var:spec_clawed }
+		}
+		add_radicals = { value = small_radicals pop_type = capitalists }
+		spec_ld_apply = yes
+		if = {
+			limit = {
+				is_player = yes
+				# a Great Power that started it can be reached twice in one tick: as the one in a panic and as a tie
+				NOT = { has_journal_entry = je_spec_depression }
+			}
+			add_journal_entry = { type = je_spec_depression }
+		}
+		trigger_event = { id = spec_depression.1 popup = yes }
+	}
+}
+
+# on an affected country: var:spec_ld is the world's phase, or Recovery once its own recovery is full, and only
+# that phase's modifier applies
+spec_ld_apply = {
+	set_variable = { name = spec_ld value = global_var:spec_ld_phase }
+	if = {
+		limit = {
+			var:spec_ld = 2
+			var:spec_ld_own >= 100
+		}
+		set_variable = { name = spec_ld value = 3 }
+	}
+	if = {
+		limit = { has_variable = spec_panic }
+		set_variable = spec_ld_half
+	}
+	else_if = {
+		limit = { has_variable = spec_ld_half }
+		remove_variable = spec_ld_half
+	}
+	if = {
+		limit = { has_modifier = spec_ld_crash }
+		remove_modifier = spec_ld_crash
+	}
+	if = {
+		limit = { has_modifier = spec_ld_depression }
+		remove_modifier = spec_ld_depression
+	}
+	remove_variable = spec_world_crash
+	if = {
+		limit = { var:spec_ld = 1 }
+		add_modifier = {
+			name = spec_ld_crash
+			multiplier = spec_ld_strength
+		}
+		set_variable = spec_world_crash
+	}
+	else_if = {
+		limit = { var:spec_ld = 2 }
+		add_modifier = {
+			name = spec_ld_depression
+			multiplier = spec_ld_strength
+		}
+	}
+}
+
+# no scope: the next phase, or the end after the Recovery
+spec_ld_next_phase = {
+	if = {
+		limit = { global_var:spec_ld_phase = 1 }
+		set_global_variable = { name = spec_ld_phase value = 2 }
+		set_global_variable = { name = spec_ld_months value = 60 }
+		every_country = {
+			limit = { has_variable = spec_ld }
+			remove_variable = spec_ld_spreading
+			spec_ld_apply = yes
+		}
+		spec_ld_notify = { TYPE = spec_ld_deepens }
+	}
+	else_if = {
+		limit = { global_var:spec_ld_phase = 2 }
+		set_global_variable = { name = spec_ld_phase value = 3 }
+		set_global_variable = { name = spec_ld_months value = 12 }
+		set_global_variable = { name = spec_ld_progress value = 100 }
+		every_country = {
+			limit = { has_variable = spec_ld }
+			spec_ld_apply = yes
+			trigger_event = { id = spec_depression.8 popup = yes }
+		}
+		spec_ld_notify = { TYPE = spec_ld_lifts }
+	}
+	else = {
+		every_country = {
+			limit = { has_variable = spec_ld }
+			spec_ld_leave = yes
+		}
+		remove_global_variable = spec_ld_phase
+		remove_global_variable = spec_ld_months
+		remove_global_variable = spec_ld_progress
+		set_global_variable = { name = spec_ld_cooldown value = yes days = 9125 }
+		random = {
+			chance = 50
+			set_global_variable = spec_ld_second
+		}
+		spec_ld_notify = { TYPE = spec_ld_over }
+	}
+}
+
+# on a country: stop the lasting crisis effects when the crisis ends or the market economy closes
+spec_ld_leave = {
+	if = {
+		limit = { has_modifier = spec_ld_crash }
+		remove_modifier = spec_ld_crash
+	}
+	if = {
+		limit = { has_modifier = spec_ld_depression }
+		remove_modifier = spec_ld_depression
+	}
+	remove_variable = spec_ld
+	remove_variable = spec_ld_own
+	remove_variable = spec_ld_conf
+	remove_variable = spec_ld_half
+	remove_variable = spec_ld_spreading
+	remove_variable = spec_ld_spread_now
+	remove_variable = spec_ld_tariff
+	remove_variable = spec_ld_recent
+	remove_variable = spec_world_crash
+}
+
+spec_ld_notify = {
+	every_country = {
+		limit = { is_player = yes }
+		post_notification = $TYPE$
+	}
+}
+
+# on an affected country: its own recovery, which takes it into the Recovery early once full
+spec_ld_own = {
+	if = {
+		limit = { has_variable = spec_ld_own }
+		change_variable = { name = spec_ld_own add = $AMOUNT$ }
+		clamp_variable = { name = spec_ld_own min = 0 max = 100 }
+		if = {
+			limit = {
+				var:spec_ld = 2
+				var:spec_ld_own >= 100
+			}
+			spec_ld_apply = yes
+			if = {
+				limit = { is_player = yes }
+				post_notification = spec_ld_recovered
+			}
+		}
+		spec_ld_bars = yes
+	}
+}
+
+spec_ld_world = {
+	if = {
+		limit = { has_global_variable = spec_ld_progress }
+		change_global_variable = { name = spec_ld_progress add = $AMOUNT$ }
+		clamp_global_variable = { name = spec_ld_progress min = 0 max = 100 }
+	}
+}
+
+# root is the country
+spec_ld_bars = {
+	je:je_spec_depression ?= {
+		set_bar_progress = { name = spec_ld_world_bar value = global_var:spec_ld_progress }
+		set_bar_progress = { name = spec_ld_own_bar value = root.var:spec_ld_own }
+	}
+}
+
+# on a country tied to root, which has raised its tariffs: lost confidence, applied on its next monthly update
+spec_ld_tariff_hit = {
+	if = {
+		limit = {
+			has_variable = spec_conf
+			gdp > 0
+		}
+		if = {
+			limit = { NOT = { has_variable = spec_ld_tariff } }
+			set_variable = { name = spec_ld_tariff value = 0 }
+		}
+		change_variable = {
+			name = spec_ld_tariff
+			add = {
+				value = root.gdp
+				divide = gdp
+				max = 1
+				multiply = 4
+				multiply = $WEIGHT$
+			}
+		}
+	}
+}

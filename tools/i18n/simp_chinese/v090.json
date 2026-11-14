@@ -1,0 +1,9 @@
+{
+  "0198603996": "#header 鼓励{1}投资#!\\n$TOOLTIP_DELIMITER$\\n[concept_spec_investor_interest]：数月内升至#v 看好#!\\n[concept_authority]：每月#N -{2}#!#indent_newline:3 \\n基准价值：#v {3}#!（对其征收消费税的{4}%）\\n贸易份额：#v x{5}#!（占我方市场的#v {6}#!）\\n按{7}#!取整\\n{8}[concept_budget_additional_expenses]：每周#N @money!{9}#!，补贴额为我方每周产出按基准价格计算的{10}%\\n\\n当该[concept_good]达到#v 追捧#!时会自行解除，因此其热潮可以自然结束。\\n\\n#low 如同19世纪中叶英属印度和法国向铁路投资者提供的保底收益。#!{11}\\n\\n{12}",
+  "43d47c4c26": "#header 破灭的热潮：{1}#!\\n上月最大：#v {2}#!\\n$TOOLTIP_DELIMITER$\\n已终结热潮的规模：{3}\\n[concept_spec_market_conditions]：{4}#v x{5}#!#!#!{6}\\n$TOOLTIP_DELIMITER$\\n热潮过后价格大幅下跌的[concept_good]会降低[concept_spec_market_confidence]。热潮越大、占[concept_market]的份额越高，损失就越大。{7}可分散风险，{8}则会加剧风险。",
+  "4eacb65e3b": "银行纾困",
+  "a2654484a5": "#header 抑制{1}投机#!\\n$TOOLTIP_DELIMITER$\\n[concept_spec_investor_interest]：数月内降至#v 平静#!\\n[concept_authority]：每月#N -{2}#!#indent_newline:3 \\n基准价值：#v {3}#!（对其征收消费税的{4}%）\\n贸易份额：#v x{5}#!（占我方市场的#v {6}#!）\\n按{7}#!取整\\n{8}[concept_budget_additional_income]：每周#P @money!{9}#!，征收额为我方每周产出按基准价格计算的{10}%\\n\\n受抑制期间，其热潮既不会膨胀也不会崩盘，而是在约一年内以[concept_spec_correction]的形式逐渐消退，每月损失少量[concept_spec_market_confidence]。\\n\\n#low 如同{11}年的《泡沫法案》，在南海泡沫之后限制了新股份公司的设立。#!{12}\\n\\n{13}",
+  "bf8e5c092d": "银行",
+  "c96fbc447b": "#header 收购不良贷款#!\\n$TOOLTIP_DELIMITER$\\n国库从陷入困境的银行商行手中收购受损票据和债权，把它们的损失转到公共账目上。\\n\\n{1}",
+  "eadef26dae": "#header 银行纾困#!\\n$TOOLTIP_DELIMITER$\\n在[concept_spec_financial_panic]期间，向银行放贷可使其提前结束。"
+}

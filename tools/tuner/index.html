@@ -1,0 +1,637 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Speculative Markets Tuner</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root {
+  --bg: #0f1216; --panel: #171b21; --panel2: #1f252e; --line: #2a313c; --text: #dfe5ec; --muted: #8f9aa8;
+  --accent: #5b9cff; --good: #53c08a; --bad: #ef6f76; --warn: #f2a541;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.45 "Segoe UI", system-ui, sans-serif; }
+header { display: flex; align-items: center; gap: 22px; padding: 0 20px; border-bottom: 1px solid var(--line); background: var(--panel); position: sticky; top: 0; z-index: 5; flex-wrap: wrap; }
+header h1 { font-size: 15px; margin: 0; font-weight: 600; }
+nav button { background: none; border: 0; color: var(--muted); padding: 14px 14px 12px; font: inherit; cursor: pointer; border-bottom: 2px solid transparent; }
+nav button:hover { color: var(--text); }
+nav button.on { color: var(--text); border-bottom-color: var(--accent); }
+#machine { margin-left: auto; display: flex; gap: 16px; color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
+#machine b { color: var(--text); font-weight: 600; }
+#machine .hot { color: var(--warn); }
+main { padding: 20px; max-width: 1560px; margin: 0 auto; }
+section { display: none; } section.on { display: block; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; margin-bottom: 16px; }
+.card h2 { font-size: 14px; font-weight: 600; margin: 0 0 10px; }
+.card h2 small { color: var(--muted); font-weight: 400; font-size: 13px; margin-left: 8px; }
+.head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+.head h2 { margin: 0; }
+#headline { font-size: 20px; font-weight: 600; margin: 2px 0 16px; }
+#headline small { display: block; font-size: 13px; font-weight: 400; color: var(--muted); }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+.cols .card { margin-bottom: 16px; }
+.row { display: flex; gap: 20px; align-items: flex-start; }
+.side { width: 270px; flex: none; }
+.grow { flex: 1; min-width: 0; }
+table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+th, td { padding: 7px 10px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+tr:last-child td { border-bottom: 0; }
+th { color: var(--muted); font-weight: 500; font-size: 12px; }
+th.l, td.l { text-align: left; }
+td.wrap { white-space: normal; }
+.scroll { overflow-x: auto; }
+.bar { width: 150px; height: 6px; background: var(--panel2); border-radius: 3px; overflow: hidden; margin-top: 4px; }
+.bar i { display: block; height: 100%; background: var(--accent); }
+.bar.stuck i { background: var(--bad); }
+.good { color: var(--good); } .bad { color: var(--bad); } .warn { color: var(--warn); } .muted { color: var(--muted); }
+.note { color: var(--muted); font-size: 12.5px; margin: 8px 0 0; }
+.feed { max-height: 330px; overflow-y: auto; }
+.feed div { display: flex; gap: 10px; padding: 4px 0; border-bottom: 1px solid var(--line); font-variant-numeric: tabular-nums; }
+.feed div:last-child { border-bottom: 0; }
+.feed .when { color: var(--muted); width: 118px; flex: none; }
+.feed .save { color: var(--muted); margin-left: auto; font-size: 12.5px; }
+.steps { list-style: none; margin: 0; padding: 0; }
+.steps li { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px solid var(--line); }
+.steps li:last-child { border-bottom: 0; }
+.steps .dot { width: 72px; flex: none; font-size: 12px; font-weight: 600; }
+.steps .note { margin: 0; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; }
+.tile { background: var(--panel2); border-radius: 6px; padding: 10px 12px; }
+.tile .k { color: var(--muted); font-size: 12.5px; }
+.tile .v { font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.tile .s { color: var(--muted); font-size: 12px; }
+.list div { padding: 7px 10px; border-radius: 6px; cursor: pointer; display: flex; justify-content: space-between; gap: 8px; }
+.list div:hover { background: var(--panel2); }
+.list div.on { background: #22324d; }
+.list small { color: var(--muted); white-space: nowrap; }
+.cv { position: relative; height: 280px; }
+input, select { background: var(--panel2); color: var(--text); border: 1px solid var(--line); border-radius: 5px; padding: 6px 8px; font: inherit; }
+input:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+input[type=checkbox], input[type=radio] { accent-color: var(--accent); }
+button.btn { background: var(--panel2); color: var(--text); border: 1px solid var(--line); border-radius: 6px; padding: 6px 13px; font: inherit; cursor: pointer; }
+button.btn:hover { border-color: var(--accent); }
+button.small { padding: 2px 9px; font-size: 12.5px; }
+button.primary { background: #234a86; border-color: #2f5fa8; }
+button.danger { background: #5a1f24; border-color: #8a2f36; }
+button:disabled { opacity: .5; cursor: wait; }
+.toolbar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.form { display: grid; grid-template-columns: 170px 1fr; gap: 10px 14px; align-items: start; }
+.form .picks { display: flex; flex-wrap: wrap; gap: 4px 14px; }
+.form label { cursor: pointer; }
+.trow { display: grid; grid-template-columns: 240px 240px 1fr; gap: 14px; padding: 8px 0; border-bottom: 1px solid var(--line); align-items: center; }
+.trow:last-child { border-bottom: 0; }
+.trow .name { font-family: ui-monospace, Consolas, monospace; font-size: 11px; color: var(--muted); }
+.trow input { width: 110px; }
+.trow.changed .lab::after { content: " \2022 changed"; color: var(--warn); font-size: 12px; }
+.trow.dirty input { border-color: var(--warn); }
+.ladder { display: flex; gap: 6px; flex-wrap: wrap; }
+.ladder label { font-size: 11px; color: var(--muted); display: flex; flex-direction: column; }
+.ladder input { width: 62px; }
+pre { background: #0b0d10; border: 1px solid var(--line); border-radius: 6px; padding: 10px; overflow: auto; max-height: 360px; font: 12px/1.4 ui-monospace, Consolas, monospace; white-space: pre-wrap; margin: 6px 0 0; }
+.badge { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 10px; margin-right: 8px; }
+.pass { background: #1d3d2c; color: var(--good); } .fail { background: #4a1d22; color: var(--bad); }
+.danger-zone { border-color: #8a2f36; }
+.hidden { display: none !important; }
+dialog { background: var(--bg); color: var(--text); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; width: min(1180px, 94vw); max-height: 92vh; }
+dialog::backdrop { background: rgba(0, 0, 0, .6); }
+.charts { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.charts .card { margin: 0; }
+.charts .wide { grid-column: 1 / -1; }
+@media (max-width: 1000px) { .cols, .charts { grid-template-columns: 1fr; } .row { flex-direction: column; } .side { width: 100%; } .trow, .form { grid-template-columns: 1fr; } #machine { margin-left: 0; padding-bottom: 8px; } }
+.verdict { font-size: 20px; font-weight: 600; line-height: 1.35; }
+.verdict.good { color: var(--good); } .verdict.warn { color: var(--warn); } .verdict.bad { color: var(--bad); }
+.says div { display: flex; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
+.says div:last-child { border-bottom: 0; }
+.says b { width: 16px; text-align: center; flex: none; }
+.strip { display: flex; gap: 3px; }
+.strip i { flex: 1; height: 44px; border-radius: 3px; }
+.strip .paid { background: var(--good); } .strip .miss { background: var(--bad); }
+details summary { cursor: pointer; color: var(--muted); }
+details .scroll { margin-top: 10px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Speculative Markets Tuner</h1>
+  <nav>
+    <button data-tab="now" class="on">Now</button><button data-tab="results">Results</button><button data-tab="debt">Debt</button><button data-tab="settings">Settings</button><button data-tab="build">Build</button>
+  </nav>
+  <div id="machine"></div>
+</header>
+<main>
+<section id="now" class="on">
+  <div id="headline">Reading the games…</div>
+  <div id="tests"></div>
+  <div class="cols">
+    <div class="card"><h2>Latest news from the games <small>panics and crashes in the 40 largest countries</small></h2><div class="feed" id="feed"></div></div>
+    <div class="card"><h2>Before release</h2><ul class="steps" id="steps"></ul></div>
+  </div>
+  <div class="card hidden" id="endedCard"><h2>Finished in the last day</h2><div class="scroll"><table id="ended"></table></div></div>
+  <div class="card">
+    <h2>Start a test</h2>
+    <div class="form">
+      <span>Name</span><div><input id="sName" placeholder="for example full1" size="24"></div>
+      <span>Kind of test</span><div class="picks" id="sKinds"></div>
+      <span>Builds</span><div class="picks" id="sBuilds"></div>
+      <span>Starts from</span><div class="picks" id="sSaves"></div>
+      <span>Games at once</span><div><input id="sJobs" type="number" min="1" max="1" value="1" style="width:70px"></div>
+      <span></span><div class="toolbar"><button class="btn primary" id="sGo">Start test</button><span class="note" style="margin:0" id="sNote"></span></div>
+    </div>
+  </div>
+</section>
+
+<section id="results">
+  <div class="row">
+    <div class="side card"><h2>Tests</h2><div class="list" id="testList"></div></div>
+    <div class="grow" id="card"><div class="card muted">Pick a test.</div></div>
+  </div>
+</section>
+
+<section id="debt">
+  <div class="row">
+    <div class="side card"><h2>Sovereign Debt tests</h2><div class="list" id="debtList"></div></div>
+    <div class="grow" id="debtCard"><div class="card muted">No tests yet.</div></div>
+  </div>
+</section>
+
+<section id="settings">
+  <div class="card">
+    <div class="toolbar">
+      <button class="btn primary" id="tSave">Save</button>
+      <button class="btn" id="tRevert">Discard edits</button>
+      <button class="btn danger" id="tReset">Reset all to defaults</button>
+      <span class="note" style="margin:0" id="tMsg"></span>
+    </div>
+    <p class="note">Saved values go into the next build, then a test on that build shows what they do. Running games are not affected. Saved to tools/tuning.json, only values that differ from the defaults.</p>
+  </div>
+  <div id="tGroups"></div>
+</section>
+
+<section id="build">
+  <div class="card">
+    <h2>Test build</h2>
+    <p class="note" style="margin:0 0 10px">Builds the mod with its logging into its own folder, then runs the checks and self-tests. The live mod is not touched. A build folder a running game is using is refused.</p>
+    <div class="toolbar">
+      <span>Name</span><input id="bName" value="test" size="18">
+      <button class="btn primary" id="bTest">Make test build</button>
+      <button class="btn" id="bTests">Run self-tests only</button>
+      <span class="note" style="margin:0" id="bTuning"></span>
+    </div>
+  </div>
+  <div class="card danger-zone">
+    <h2 class="bad">Live build</h2>
+    <p class="note" style="margin:0 0 10px">Writes the release build, without logging, straight into <code>mod/</code>. Refused while any game is running: a game can crash when its mod changes under it.</p>
+    <button class="btn danger" id="bLive">Build into live mod</button>
+  </div>
+  <div id="bOut"></div>
+</section>
+</main>
+
+<dialog id="game">
+  <div class="head"><h2 id="gTitle"></h2><button class="btn" id="gClose">Close</button></div>
+  <div class="tiles" id="gTiles" style="margin-bottom:14px"></div>
+  <div class="charts" id="gCharts">
+    <div class="card wide"><h2>Confidence by country</h2>
+      <div class="toolbar"><input id="tagIn" list="tagList" placeholder="Add a country, e.g. JAP" size="22"><datalist id="tagList"></datalist><span class="note" style="margin:0" id="tagNote">Click a name in the legend to hide it.</span></div>
+      <div class="cv" style="height:300px"><canvas id="cConf"></canvas></div></div>
+    <div class="card"><h2>World: share of countries in panic or mania</h2><div class="cv"><canvas id="cWorld"></canvas></div></div>
+    <div class="card"><h2>World: share of countries running hot or in Bad Debts</h2><div class="cv"><canvas id="cLev"></canvas></div></div>
+  </div>
+</dialog>
+
+<script>
+const $ = s => document.querySelector(s);
+const COLORS = ['#5b9cff', '#f2a541', '#53c08a', '#ef6f76', '#b28cf0', '#4fc4cf', '#d9d26a', '#f07fbf'];
+const DEFAULT_TAGS = ['GBR', 'FRA', 'PRU', 'RUS', 'USA', 'AUS'];
+const WORDS = {INTEREST_THROUGHPUT: {1: 'Fleeing', 2: 'Doubtful', 3: 'Calm', 4: 'Keen', 5: 'Eager', 6: 'Feverish'},
+               AI_LEV_LIMIT: {'-1': 'Cautious', 0: 'Balanced', 1: 'Bold'}};
+const charts = {};
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
+const fmt = (v, d = 1) => v == null ? '–' : Number(v).toLocaleString(undefined, {minimumFractionDigits: d, maximumFractionDigits: d});
+const signed = (v, d = 1) => v == null ? '–' : (v > 0 ? '+' : '') + fmt(v, d) + '%';
+const tone = v => v == null ? '' : v > 0 ? 'good' : v < 0 ? 'bad' : '';
+const left = h => h == null ? '–' : h < 1 ? Math.max(1, Math.round(h * 60)) + ' min' : Math.floor(h) + ' h ' + Math.round(h % 1 * 60) + ' min';
+const ago = t => { const m = Math.round((Date.now() / 1000 - t) / 60); return m < 60 ? m + ' min ago' : m < 1440 ? Math.round(m / 60) + ' h ago' : new Date(t * 1000).toLocaleDateString(); };
+const STATUS = {running: ['Running', 'warn'], 'stopped early': ['Stopped early', 'bad'], done: ['Finished', 'good'], crashed: ['Crashed', 'bad'], frozen: ['Froze', 'bad'], timeout: ['Ran out of time', 'bad'], stopped: ['Stopped', 'warn']};
+const statusText = s => { const [t, c] = STATUS[s] || [s, '']; return `<span class="${c}">${esc(t)}</span>`; };
+const saveName = s => !s ? 'New game' : s.replace(/^base115_mod_(\d)_(\d+)$/, 'Save $1 from $2').replace(/^seed_(\d+)$/, 'Seed $1');
+const buildName = b => b === 'probe_mod' ? 'Vanilla' : b || '–';
+
+Chart.defaults.color = '#8f9aa8';
+Chart.defaults.borderColor = '#2a313c';
+Chart.defaults.font.family = '"Segoe UI", system-ui, sans-serif';
+Chart.defaults.animation = false;
+Chart.defaults.elements.point.radius = 0;
+Chart.defaults.elements.line.borderWidth = 2;
+Chart.defaults.plugins.legend.labels.boxWidth = 12;
+
+async function api(path, body) {
+  const r = await fetch(path, body === undefined ? {} : {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body)});
+  const j = await r.json();
+  if (!r.ok) throw new Error(j.error || r.status);
+  return j;
+}
+function draw(id, labels, datasets, extra = {}) {
+  if (charts[id]) charts[id].destroy();
+  charts[id] = new Chart(document.getElementById(id), {type: 'line', data: {labels, datasets},
+    options: Object.assign({responsive: true, maintainAspectRatio: false, interaction: {mode: 'index', intersect: false}, spanGaps: true,
+      scales: {x: {ticks: {maxTicksLimit: 12}}}}, extra)});
+}
+const line = (label, data, color, more = {}) => Object.assign({label, data, borderColor: color, backgroundColor: color}, more);
+
+document.querySelectorAll('nav button').forEach(b => b.onclick = () => {
+  document.querySelectorAll('nav button, section').forEach(e => e.classList.remove('on'));
+  b.classList.add('on'); $('#' + b.dataset.tab).classList.add('on');
+  ({now: refresh, results: loadTests, debt: loadDebt, settings: loadTuning, build: showTuningNote}[b.dataset.tab])();
+});
+
+// -- Now ------------------------------------------------------------------------------------------
+let snap = null, drawing = false;
+
+async function refresh() {
+  if (drawing || document.hidden || !$('#now').classList.contains('on')) return;
+  drawing = true;
+  try { snap = await api('/api/live'); showNow(snap); }
+  catch (e) { $('#headline').innerHTML = `<span class="bad">The tuner is not answering</span><small>${esc(e.message)}</small>`; }
+  drawing = false;
+}
+setInterval(refresh, 5000);
+
+function showMachine(m) {
+  const hot = (v, at) => v != null && v >= at ? 'hot' : '';
+  $('#machine').innerHTML = `<span class="${hot(m.cpu, 95)}">CPU <b>${m.cpu ?? '–'}%</b></span><span class="${hot(m.memory, 90)}">Memory <b>${m.memory}%</b> of ${m.memory_gb} GB</span><span class="${m.disk_free_gb < 30 ? 'hot' : ''}">Disk free <b>${m.disk_free_gb} GB</b></span>`;
+}
+
+function gameRow(g) {
+  const stuck = g.state === 'stuck';
+  const where = g.state === 'loading' ? '<span class="muted">Loading</span>' : stuck ? `<span class="bad">No progress for ${fmt(g.stuck_minutes, 0)} min</span>` : esc(g.date);
+  return `<tr><td class="l">${esc(saveName(g.save))}</td><td class="l">${esc(buildName(g.build))}</td>
+    <td class="l">${where}<div class="bar ${stuck ? 'stuck' : ''}"><i style="width:${g.percent}%"></i></div></td>
+    <td>${fmt(g.percent, 0)}%</td><td>${left(g.hours_left)}</td>
+    <td class="${tone(g.world)}" title="World GDP against baseline games at the same date. One game alone can be 2 to 3% off by chance.">${signed(g.world)}</td>
+    <td>${g.panics}</td><td>${g.crashes}</td><td class="${g.severe ? 'bad' : ''}">${g.severe}</td><td>${g.hot}</td><td>${g.in_bad_debts}</td>
+    <td>${g.errors}</td><td>${fmt(g.memory_gb)} GB</td>
+    <td><button class="btn small" onclick="openGame({pid:${g.pid}},'${esc(saveName(g.save))}, ${esc(buildName(g.build))}')">Watch</button>
+    <button class="btn small danger" onclick="stopGame(${g.pid},'${esc(saveName(g.save))}')">Stop</button></td></tr>`;
+}
+function topCard(g) {
+  const rows = g.leaders.map((c, i) => `<tr><td>${i + 1}</td><td class="l">${esc(c.name)}</td><td>£${fmt(c.gdp / 1e6, 0)}M</td><td>${fmt(c.lev)}</td><td>${fmt(c.conf, 0)}</td>
+    <td class="${c.crunch >= 15 ? 'bad' : c.crunch > 0 ? 'warn' : ''}">${c.crunch ? fmt(c.crunch, 0) : '–'}</td><td class="l ${c.panic ? 'bad' : ''}">${c.panic ? 'Panic' : ''}</td></tr>`).join('');
+  return `<div class="card"><h2>Top 10 countries<small>by GDP, ${esc(g.date)}${g.label ? ', ' + esc(g.label) : ''}</small></h2><div class="scroll"><table>
+    <tr><th>#</th><th class="l">Country</th><th>GDP</th><th title="Months of investment income owed">Leverage</th><th title="Market Confidence">Confidence</th><th>Bad Debts</th><th class="l"></th></tr>${rows}</table></div></div>`;
+}
+const GAME_HEAD = `<tr><th class="l">Game</th><th class="l">Build</th><th class="l">In game</th><th>Done</th><th>Time left</th>
+  <th title="World GDP against baseline games at the same date">World GDP</th><th>Panics</th><th title="Bad Debts of 5 or more">Crashes</th><th title="Bad Debts of 15 or more">Severe</th>
+  <th title="Countries of the 40 largest at 3 months of leverage or more">Running hot</th><th title="Countries of the 40 largest with Bad Debts now">In Bad Debts</th>
+  <th title="Lines naming our mod in the game's error log. A normal game has about 16 to 30.">Errors</th><th>Memory</th><th></th></tr>`;
+
+function showNow(s) {
+  showMachine(s.machine);
+  const mine = s.games.filter(g => g.ours), others = s.games.filter(g => !g.ours);
+  const leftAll = mine.map(g => g.hours_left).filter(h => h != null);
+  const n = mine.length, waiting = s.tests.reduce((a, t) => a + t.waiting, 0);
+  $('#headline').innerHTML = n ? `${n} test game${n > 1 ? 's' : ''} running${leftAll.length ? ', about ' + left(Math.max(...leftAll)) + ' left' : ''}
+      <small>${waiting ? waiting + ' more waiting to start. ' : ''}${s.machine.max_games} at once is the limit. Updates every 5 seconds.</small>`
+    : `Nothing is being tested right now<small>Anything that starts will show up here, whoever started it.</small>`;
+
+  const groups = new Map(s.tests.map(t => [t.name, []]));
+  const loose = [];
+  const sovereign = mine.filter(g => g.build === 'sd_mod');
+  for (const g of mine) if (g.build !== 'sd_mod') (groups.has(g.test) ? groups.get(g.test) : loose).push(g);
+  let h = '';
+  for (const t of s.tests) {
+    h += `<div class="card"><div class="head"><h2>${esc(t.name)}<small>${t.finished} of ${t.total} games finished${t.waiting ? ', ' + t.waiting + ' waiting' : ''}</small></h2>
+      <button class="btn small danger" onclick="stopTest('${esc(t.name)}')">Stop whole test</button></div>
+      <div class="scroll"><table>${GAME_HEAD}${groups.get(t.name).map(gameRow).join('')}</table></div></div>`;
+  }
+  h += mine.filter(g => g.build !== 'sd_mod' && g.leaders?.length).map(topCard).join('');
+  if (sovereign.length) h += `<div class="card"><div class="head"><h2>Sovereign Debt<small>${sovereign.length} game${sovereign.length > 1 ? 's' : ''} running. Dates and results are on the Debt tab.</small></h2>
+      <button class="btn small" onclick="document.querySelector('[data-tab=debt]').click()">Open Debt</button></div></div>`;
+  if (loose.length) h += `<div class="card"><h2>Games started by a script<small>Their results are saved when they finish</small></h2><div class="scroll"><table>${GAME_HEAD}${loose.map(gameRow).join('')}</table></div></div>`;
+  if (others.length || s.others.length) {
+    h += `<div class="card"><h2>Also running<small>Not test games of this project, so they can't be stopped from here</small></h2><table>` +
+      others.map(g => `<tr><td class="l">Victoria 3, started by ${esc(g.owner)}</td><td class="l">${esc(g.save || '')}</td><td>until ${esc(g.until || '–')}</td><td>${fmt(g.memory_gb)} GB</td></tr>`).join('') +
+      s.others.map(o => `<tr><td class="l">${esc(o.name)}</td><td class="l wrap" colspan="3">${esc(o.what)}</td></tr>`).join('') + '</table></div>';
+  }
+  $('#tests').innerHTML = h;
+
+  const news = mine.flatMap(g => g.events.map(e => ({...e, save: saveName(g.save)}))).sort((a, b) => b.month - a.month).slice(0, 60);
+  $('#feed').innerHTML = news.map(e => `<div><span class="when">${esc(e.date)}</span><span>${esc(e.tag)}: ${e.kind === 'panic' ? 'panic' :
+    `<span class="${e.size >= 15 ? 'bad' : 'warn'}">crash, Bad Debts ${fmt(e.size, 0)}</span>`}</span><span class="save">${esc(e.save)}</span></div>`).join('') || '<span class="muted">Nothing yet.</span>';
+  const LOOK = {done: ['Done', 'good'], running: ['Running', 'warn'], failed: ['Failed', 'bad'], waiting: ['Waiting', 'muted']};
+  $('#steps').innerHTML = s.checklist.map(c => { const [t, k] = LOOK[c.state] || [c.state, '']; return `<li><span class="dot ${k}">${esc(t)}</span><div>${esc(c.step)}${c.note ? `<p class="note">${esc(c.note)}</p>` : ''}</div></li>`; }).join('');
+
+  $('#endedCard').classList.toggle('hidden', !s.ended.length);
+  $('#ended').innerHTML = `<tr><th class="l">Test</th><th class="l">Game</th><th class="l">Result</th><th class="l">Reached</th><th>Took</th><th>Errors</th><th>Ended</th></tr>` +
+    s.ended.map(g => `<tr><td class="l">${esc(g.test)}</td><td class="l">${esc(saveName(g.start))}, ${esc(g.arm)}</td><td class="l">${statusText(g.status)}</td><td class="l">${esc(g.date)}</td>
+      <td>${left(g.minutes / 60)}</td><td>${g.errors ?? '–'}</td><td>${ago(g.when)}</td></tr>`).join('');
+}
+
+async function stopGame(pid, name) {
+  if (!confirm(`Stop the game "${name}"?\n\nIt can't be continued. What it has logged so far is kept.`)) return;
+  try { await api('/api/stop', {pid}); } catch (e) { alert(e.message); }
+}
+async function stopTest(name) {
+  if (!confirm(`Stop the whole test "${name}"?\n\nEvery game in it stops and nothing else in it starts. What the games have logged is kept.`)) return;
+  try { await api('/api/stop', {test: name}); } catch (e) { alert(e.message); }
+}
+
+// start form
+let opts = null;
+const chosen = id => [...document.querySelectorAll(`#${id} input:checked`)].map(i => i.value);
+async function loadOptions() {
+  opts = await api('/api/options');
+  $('#sKinds').innerHTML = opts.kinds.map((k, i) => `<label><input type="radio" name="kind" value="${k.name}" ${i ? '' : 'checked'}> ${esc(k.label)}</label>`).join('');
+  $('#sBuilds').innerHTML = opts.builds.map(b => `<label><input type="checkbox" value="${esc(b.name)}"> ${esc(b.label)}</label>`).join('');
+  $('#sSaves').innerHTML = opts.saves.map(s => `<label><input type="checkbox" value="${esc(s)}"> ${esc(saveName(s))}</label>`).join('');
+  document.querySelectorAll('#now .form input').forEach(i => i.oninput = estimate);
+  estimate();
+}
+function plan() {
+  const kind = opts.kinds.find(k => k.name === chosen('sKinds')[0]);
+  const games = chosen('sBuilds').length * chosen('sSaves').length, jobs = Math.max(1, Math.min(+$('#sJobs').value || 1, games || 1));
+  return {kind, games, jobs, hours: Math.ceil(games / jobs) * kind.hours};
+}
+function estimate() {
+  const p = plan();
+  $('#sNote').textContent = p.games ? `Each build plays each start: ${p.games} game${p.games > 1 ? 's' : ''}, about ${left(p.hours)} in all.` : 'Pick at least one build and one start.';
+}
+$('#sGo').onclick = async () => {
+  const p = plan();
+  const body = {name: $('#sName').value.trim(), kind: p.kind.name, builds: chosen('sBuilds'), saves: chosen('sSaves'), jobs: p.jobs};
+  if (!confirm(`Start "${body.name}"?\n\n${p.kind.label}\n${p.games} games, ${p.jobs} at once, about ${left(p.hours)}.`)) return;
+  try {
+    const r = await api('/api/start', body);
+    $('#sNote').textContent = `Started ${r.name}. Its games will appear at the top in a few seconds.`;
+  } catch (e) { $('#sNote').textContent = 'Not started: ' + e.message; }
+};
+
+// -- Results --------------------------------------------------------------------------------------
+let openTest = null;
+async function loadTests() {
+  const ts = await api('/api/tests');
+  $('#testList').innerHTML = '';
+  for (const t of ts) {
+    const d = document.createElement('div');
+    d.dataset.name = t.name;
+    d.innerHTML = `<span>${esc(t.name)}${t.bad ? ` <span class="bad" title="${t.bad} did not finish">●</span>` : ''}</span><small>${t.games} game${t.games > 1 ? 's' : ''}, ${ago(t.when)}</small>`;
+    d.onclick = () => showTest(t.name);
+    $('#testList').append(d);
+  }
+  if (ts.length) showTest(openTest || ts[0].name);
+}
+async function showTest(name) {
+  openTest = name;
+  document.querySelectorAll('#testList div').forEach(d => d.classList.toggle('on', d.dataset.name === name));
+  $('#card').innerHTML = '<div class="card muted">Reading the games…</div>';
+  const c = await api('/api/score?test=' + encodeURIComponent(name));
+  let h = '';
+  c.arms.forEach((a, i) => h += armCard(a, i, c.severe_target));
+  const rows = c.games.map(g => `<tr><td class="l">${esc(saveName(g.start))}</td><td class="l">${esc(g.arm === 'vanilla' ? 'Vanilla' : g.arm)}</td><td class="l">${statusText(g.status)}</td><td class="l">${esc(g.date)}</td>
+    <td>${left(g.minutes / 60)}</td><td>${g.errors ?? '–'}</td><td><button class="btn small" onclick="openGame({test:'${esc(g.test)}',folder:'${esc(g.folder)}'},'${esc(saveName(g.start))}, ${esc(g.arm)}')">Open</button></td></tr>`).join('');
+  h += `<div class="card"><h2>Games</h2><div class="scroll"><table><tr><th class="l">Start</th><th class="l">Version</th><th class="l">Result</th><th class="l">Reached</th><th>Took</th><th>Errors</th><th></th></tr>${rows}</table></div></div>`;
+  $('#card').innerHTML = h;
+  c.arms.forEach((a, i) => { if (a.scored) drawArm(a, i); });
+}
+function tile(k, v, s, cls = '') { return `<div class="tile"><div class="k">${esc(k)}</div><div class="v ${cls}">${v}</div><div class="s">${esc(s)}</div></div>`; }
+function armCard(a, i, target) {
+  const title = `<h2>${esc(a.arm)}<small>${a.scored} of ${a.games} games scored${a.baseline ? ' against ' + esc(a.baseline) + ' from the same start' : ''}${a.years ? ', about ' + fmt(a.years, 0) + ' years' : ''}</small></h2>`;
+  if (!a.scored) return `<div class="card">${title}<p class="muted">Not scored: a game needs 2 years or more and a baseline game from the same start.</p></div>`;
+  const sev = a.severe, cls = sev == null ? '' : sev > target[1] ? 'bad' : sev < target[0] ? 'warn' : 'good';
+  const out = a.outcomes.map(o => `<tr><td class="l">${esc(o.name)}</td><td>${o.n}</td><td class="${tone(o.median)}">${signed(o.median)}</td><td class="${tone(o.mean)}">${signed(o.mean)}</td></tr>`).join('');
+  const cr = a.crashes.map(c => `<tr><td class="l">${esc(c.name)}</td><td>${c.n}</td>${c.after.map(v => `<td class="${tone(v)}">${signed(v)}</td>`).join('')}</tr>`).join('');
+  return `<div class="card">${title}
+    <div class="tiles">${tile('Typical country', signed(a.typical), 'GDP at the end against baseline', tone(a.typical))}
+      ${tile('World GDP', signed(a.world), `chance alone: about ±${fmt(a.noise)}% with ${a.scored} game${a.scored > 1 ? 's' : ''}`, tone(a.world))}
+      ${tile('Severe crashes', fmt(sev, 2), `per 100 country years (${a.severe_n}), goal ${target[0]} to ${target[1]}`, cls)}
+      ${tile('Panics', fmt(a.panics, 1), 'per 100 country years')}
+      ${tile('Typical leverage', fmt(a.lev_typical) + ' months', `1 month in 10 is above ${fmt(a.lev_high)}`)}</div>
+    <div class="charts" style="margin-top:14px">
+      <div class="card wide"><h2>World GDP against baseline, by years since the start</h2><div class="cv"><canvas id="arm${i}"></canvas></div>
+        <p class="note">The grey band is how far baseline games differ from each other: inside it, the difference could be chance.</p></div>
+      <div class="card"><h2>Who won and who lost <small>40 largest countries, GDP at the end</small></h2><table><tr><th class="l">What happened to the country</th><th>Countries</th><th>Typical</th><th>Average</th></tr>${out}</table></div>
+      <div class="card"><h2>After a crash <small>GDP against baseline since the crash</small></h2>${cr ? `<div class="scroll"><table><tr><th class="l">Size of crash</th><th>Crashes</th>${a.after_years.map(y => `<th>${y} yr</th>`).join('')}</tr>${cr}</table></div>` : '<p class="muted">No crashes.</p>'}</div>
+    </div></div>`;
+}
+function drawArm(a, i) {
+  const c = a.chart, sets = [];
+  if (c.low.some(v => v != null)) sets.push(line('Baseline low', c.low, 'transparent'), line('Chance range', c.high, 'transparent', {fill: '-1', backgroundColor: 'rgba(159,179,200,.2)'}));
+  sets.push(...c.games.map((g, j) => line(saveName(g.name), g.data, COLORS[(j + 1) % COLORS.length], {borderWidth: 1})), line('Mean', c.mean, COLORS[0], {borderWidth: 3}));
+  draw('arm' + i, c.years, sets, {plugins: {legend: {labels: {filter: x => x.text !== 'Baseline low'}}, tooltip: {filter: x => x.dataset.label !== 'Baseline low' && x.dataset.label !== 'Chance range'}},
+    scales: {x: {title: {display: true, text: 'years since the start'}}, y: {ticks: {callback: v => v + '%'}}}});
+}
+
+// -- one game -------------------------------------------------------------------------------------
+let gameKey = null, gameData = null, tags = [], gameTimer = null;
+async function openGame(key, title) {
+  gameKey = key; tags = DEFAULT_TAGS.slice();
+  $('#gTitle').textContent = title;
+  $('#gTiles').innerHTML = '<span class="muted">Reading this game’s log, a long game takes a few seconds…</span>';
+  $('#gCharts').classList.add('hidden');
+  $('#game').showModal();
+  await loadGame();
+  clearInterval(gameTimer);
+  if (key.pid) gameTimer = setInterval(loadGame, 60000);
+}
+async function loadGame() {
+  try {
+    gameData = await api('/api/game?' + new URLSearchParams(gameKey));
+  } catch (e) { $('#gTiles').textContent = 'Could not read it: ' + e.message; return; }
+  const d = gameData, s = d.summary;
+  if (!s) { $('#gTiles').innerHTML = '<span class="muted">This game logged no market data yet. A vanilla game never does.</span>'; return; }
+  $('#gCharts').classList.remove('hidden');
+  $('#gTiles').innerHTML = tile('Countries', fmt(s.countries, 0), fmt(s.country_months / 12, 0) + ' country years') +
+    tile('Typical confidence', fmt(s.conf_median, 0), '') + tile('Panics', fmt(s.panic_starts, 0), `one per ${fmt(s.years_per_panic, 0)} country years`) +
+    tile('Bank rescues', fmt(s.rescues, 0), '') + tile('Months running hot', fmt(s.hot_pct) + '%', '3 months of leverage or more') + tile('Months in Bad Debts', fmt(s.debts_pct) + '%', '');
+  $('#tagList').innerHTML = Object.keys(d.conf).sort().map(t => `<option value="${esc(t)}">`).join('');
+  drawConf();
+  draw('cWorld', d.months, [line('In panic', d.world.panic, COLORS[3]), line('In mania', d.world.mania, COLORS[1])], {scales: {y: {ticks: {callback: v => v + '%'}}, x: {ticks: {maxTicksLimit: 10}}}});
+  draw('cLev', d.months, [line('Running hot', d.world.hot, COLORS[1]), line('In Bad Debts', d.world.debts, COLORS[3])], {scales: {y: {ticks: {callback: v => v + '%'}}, x: {ticks: {maxTicksLimit: 10}}}});
+}
+function drawConf() {
+  const d = gameData;
+  draw('cConf', d.months, tags.filter(t => d.conf[t]).map((t, i) => line(t, d.conf[t], COLORS[i % COLORS.length], {borderWidth: 1.5})), {scales: {y: {min: 0, max: 100}, x: {ticks: {maxTicksLimit: 12}}}});
+}
+$('#tagIn').onkeydown = e => {
+  if (e.key !== 'Enter') return;
+  const t = $('#tagIn').value.trim().toUpperCase();
+  if (!gameData.conf[t]) { $('#tagNote').textContent = `No country ${t} in this game.`; return; }
+  if (!tags.includes(t)) tags.push(t);
+  $('#tagIn').value = ''; drawConf();
+};
+$('#gClose').onclick = () => $('#game').close();
+$('#game').onclose = () => clearInterval(gameTimer);
+
+// -- Settings -------------------------------------------------------------------------------------
+let tuning = [];
+const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+async function loadTuning() {
+  tuning = await api('/api/tuning');
+  const box = $('#tGroups'); box.innerHTML = '';
+  for (const g of [...new Set(tuning.map(t => t.group))]) {
+    const card = document.createElement('div'); card.className = 'card';
+    card.innerHTML = `<h2>${esc(g)}</h2>`;
+    for (const t of tuning.filter(t => t.group === g)) card.append(tuneRow(t));
+    box.append(card);
+  }
+  $('#tMsg').textContent = `${tuning.filter(t => !same(t.value, t.default)).length} changed from the defaults`;
+}
+function tuneRow(t) {
+  const r = document.createElement('div'); r.className = 'trow';
+  r.innerHTML = `<div><div class="lab"></div><div class="name"></div></div><div class="inp"></div><div><div class="desc"></div><div class="note dflt" style="margin:0"></div></div>`;
+  r.querySelector('.lab').textContent = t.label;
+  r.querySelector('.name').textContent = `${t.name} · ${t.file}`;
+  r.querySelector('.desc').textContent = t.missing ? 'Not found in the source.' : t.desc;
+  const isDict = typeof t.default === 'object' && t.default !== null;
+  r.querySelector('.dflt').textContent = 'default ' + (isDict ? Object.values(t.default).join(' / ') : t.default);
+  const inp = r.querySelector('.inp');
+  const mk = (val, dflt) => {
+    const i = document.createElement('input'); i.type = 'number'; i.step = 'any'; i.value = val;
+    i.dataset.orig = val; i.dataset.dflt = dflt; i.oninput = () => mark(r); return i;
+  };
+  if (isDict) {
+    const lad = document.createElement('div'); lad.className = 'ladder';
+    for (const k of Object.keys(t.default).sort((a, b) => a - b)) {
+      const l = document.createElement('label'); l.textContent = (WORDS[t.name] || {})[k] || k;
+      const i = mk(t.value[k], t.default[k]); i.dataset.key = k; l.append(i); lad.append(l);
+    }
+    inp.append(lad);
+  } else inp.append(mk(t.value, t.default));
+  r.dataset.name = t.name;
+  mark(r);
+  return r;
+}
+function rowValue(r) {
+  const ins = [...r.querySelectorAll('input')];
+  return ins[0].dataset.key ? Object.fromEntries(ins.map(i => [i.dataset.key, Number(i.value)])) : Number(ins[0].value);
+}
+function mark(r) {
+  const ins = [...r.querySelectorAll('input')];
+  r.classList.toggle('changed', ins.some(i => Number(i.value) !== Number(i.dataset.dflt)));
+  r.classList.toggle('dirty', ins.some(i => i.value !== String(i.dataset.orig)));
+}
+$('#tSave').onclick = async () => {
+  const body = {};
+  for (const r of document.querySelectorAll('.trow')) {
+    if ([...r.querySelectorAll('input')].some(i => i.value.trim() === '' || !isFinite(Number(i.value)))) { $('#tMsg').textContent = `${r.dataset.name}: not a number`; return; }
+    body[r.dataset.name] = rowValue(r);
+  }
+  try {
+    const res = await api('/api/tuning', body);
+    await loadTuning();
+    $('#tMsg').textContent = `Saved. Changed: ${Object.keys(res.saved).join(', ') || 'nothing'}`;
+  } catch (e) { $('#tMsg').textContent = 'Not saved: ' + e.message; }
+};
+$('#tRevert').onclick = loadTuning;
+$('#tReset').onclick = async () => {
+  if (!confirm('Put every value back to its default?')) return;
+  await api('/api/tuning', {});
+  await loadTuning();
+};
+
+// -- Build ----------------------------------------------------------------------------------------
+// -- Debt -----------------------------------------------------------------------------------------
+let openDebt = null, debtRunning = false;
+setInterval(() => { if (debtRunning && $('#debt').offsetParent) loadDebt(); }, 20000);
+
+async function loadDebt() {
+  const ts = await api('/api/debt');
+  $('#debtList').innerHTML = '';
+  for (const t of ts) {
+    const d = document.createElement('div');
+    d.dataset.name = t.name;
+    d.innerHTML = `<span>${esc(t.title)}</span><small>1 game, ${ago(t.when)}</small>`;
+    d.onclick = () => showDebt(t.name);
+    $('#debtList').append(d);
+  }
+  if (ts.length) showDebt(openDebt || ts[0].name);
+}
+async function showDebt(name) {
+  openDebt = name;
+  document.querySelectorAll('#debtList div').forEach(d => d.classList.toggle('on', d.dataset.name === name));
+  $('#debtCard').innerHTML = '<div class="card muted">Reading the game…</div>';
+  const c = await api('/api/debt?test=' + encodeURIComponent(name));
+  debtRunning = c.game?.status === 'running';
+  const marks = {good: '✓', warn: '!', bad: '✕'};
+  const says = c.findings.map(f => `<div><b class="${esc(f.tone)}">${marks[f.tone]}</b><span>${esc(f.say)}</span></div>`).join('');
+  const why = c.findings.map(f => `<tr><td class="l wrap">${esc(f.say)}</td><td class="l wrap muted">${esc(f.why)}</td></tr>`).join('');
+  const log = c.events.map(e => `<div><span class="when">${esc(e.date)}</span><span>${esc(e.text)}</span></div>`).join('');
+  $('#debtCard').innerHTML = `<div class="card verdict ${esc(c.tone)}">${esc(c.verdict)}</div>
+    ${c.tiles ? debtScore(c) : ''}
+    ${c.payments ? paymentStrip(c) : ''}
+    <div class="card says"><h2>Against the goals</h2>${says}</div>
+    ${c.game ? debtGames(c) : ''}
+    <details class="card"><summary>Show the evidence</summary><div class="scroll"><table>${why}</table></div><div class="feed">${log}</div></details>`;
+  if (c.tiles && c.active.length) {
+    const years = c.active.map(a => a[0].slice(0, 4));
+    draw('debtActive', years, [line('Loans active', c.active.map(a => a[1]), COLORS[0]), line('Goal', c.active.map(() => c.goal), COLORS[3], {borderDash: [6, 4], borderWidth: 1})]);
+  }
+}
+function debtScore(c) {
+  const out = c.outcomes.map(([k, n]) => `<tr><td class="l">${esc(k)}</td><td>${n}</td></tr>`).join('');
+  const who = c.lenders.map(([k, n]) => `<tr><td class="l">${esc(k)}</td><td>${n}</td></tr>`).join('');
+  const reached = c.active.length ? c.active[c.active.length - 1][0].slice(0, 4) : '–';
+  return `<div class="card"><h2>${esc(c.game?.version || c.title)}<small>1 game, reached ${esc(reached)}</small></h2>
+    <div class="tiles">${c.tiles.map(([k, v, s]) => tile(k, fmt(v, 0), s)).join('')}</div>
+    <div class="charts" style="margin-top:14px">
+      <div class="card wide"><h2>Loans active at once, against the goal</h2><div class="cv"><canvas id="debtActive"></canvas></div></div>
+      <div class="card"><h2>What happened to the loans</h2><table><tr><th class="l">Outcome</th><th>Loans</th></tr>${out}</table></div>
+      <div class="card"><h2>Who lent</h2><table><tr><th class="l">Lender</th><th>Loans</th></tr>${who}</table></div>
+    </div></div>`;
+}
+function debtGames(c) {
+  const g = c.game, reached = c.active?.length ? c.active[c.active.length - 1][0] : '–';
+  return `<div class="card"><h2>Games</h2><div class="scroll"><table><tr><th class="l">Start</th><th class="l">Version</th><th class="l">Result</th><th class="l">Reached</th><th>Took</th><th>Errors</th></tr>
+    <tr><td class="l">${esc(g.start)}</td><td class="l">${esc(g.version)}</td><td class="l">${statusText(g.status)}</td><td class="l">${esc(reached)}</td><td>${left(g.minutes / 60)}</td><td>${g.errors}</td></tr></table></div></div>`;
+}
+// A week counts as missed when the receiver's income sits at least half a payment below its normal level
+function paymentStrip(c) {
+  const p = c.payments, rows = c.weekly[p.receiver];
+  const normal = rows.map(r => r.net).sort((a, b) => a - b)[rows.length >> 1];
+  const weeks = rows.map(r => ({date: r.date, paid: r.net > normal - p.amount / 2}));
+  const missed = weeks.filter(w => !w.paid).length;
+  const cells = weeks.map(w => `<i class="${w.paid ? 'paid' : 'miss'}" title="${esc(w.date)}: ${w.paid ? 'paid' : 'missed'}"></i>`).join('');
+  return `<div class="card"><h2>${esc(p.headline)}</h2><div class="strip">${cells}</div>
+    <p class="note"><span class="good">Green: paid.</span> <span class="bad">Red: missed during default.</span></p>
+    <div class="tiles" style="margin-top:12px">${tile('Weeks missed', missed, 'out of ' + weeks.length, 'bad')}${tile('Money lost', '£' + fmt(missed * p.amount, 0), 'never made up', 'bad')}</div></div>`;
+}
+
+async function showTuningNote() {
+  const t = await api('/api/tuning');
+  const n = t.filter(x => !same(x.value, x.default)).map(x => x.name);
+  $('#bTuning').textContent = n.length ? `Changed settings go in: ${n.join(', ')}` : 'All settings at their defaults';
+}
+async function runBuild(path, body, label) {
+  const btns = document.querySelectorAll('#build button');
+  btns.forEach(b => b.disabled = true);
+  $('#bOut').innerHTML = `<div class="card muted">${esc(label)}… this can take a minute.</div>`;
+  try {
+    const res = await api(path, body);
+    const ok = res.steps.every(s => s.ok);
+    $('#bOut').innerHTML = `<div class="card"><span class="badge ${ok ? 'pass' : 'fail'}">${ok ? 'ALL PASS' : 'FAILED'}</span>${esc(res.target ? 'Built into ' + res.target : 'Self-tests')}</div>`;
+    for (const s of res.steps) {
+      const c = document.createElement('div'); c.className = 'card';
+      c.innerHTML = `<div><span class="badge ${s.ok ? 'pass' : 'fail'}">${s.ok ? 'PASS' : 'FAIL ' + s.code}</span><b>${esc(s.name)}</b></div>`;
+      for (const txt of [s.stdout, s.stderr]) {
+        if (!txt.trim()) continue;
+        const p = document.createElement('pre'); p.textContent = txt; c.append(p);
+      }
+      $('#bOut').append(c);
+    }
+  } catch (e) {
+    $('#bOut').innerHTML = `<div class="card"><span class="badge fail">NOT BUILT</span>${esc(e.message)}</div>`;
+  } finally { btns.forEach(b => b.disabled = false); }
+}
+$('#bTest').onclick = () => runBuild('/api/build', {target: 'test', name: $('#bName').value.trim()}, 'Building');
+$('#bTests').onclick = () => runBuild('/api/selftest', {}, 'Running self-tests');
+$('#bLive').onclick = () => {
+  if (!confirm('Build into the live mod (mod/)?\n\nThis changes the mod your own game loads. It does not upload anything.')) return;
+  runBuild('/api/build', {target: 'live', confirm: 'live'}, 'Building into mod/');
+};
+
+refresh();
+loadOptions();
+</script>
+</body>
+</html>

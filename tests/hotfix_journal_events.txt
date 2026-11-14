@@ -1,0 +1,123 @@
+# TEST BUILD ONLY. Copy into an isolated test mod's events/; never ship this file.
+# Execute on an initialized market country. Events .1/.2/.3 deliberately clear market/crisis state.
+namespace = spec_hotfix_journal
+
+# Active crisis -> market shutdown. Lasting modifiers and all transient phase state must disappear,
+# while historical origin and the event cooldown survive.
+spec_hotfix_journal.1 = {
+	type = country_event
+	hidden = yes
+	immediate = {
+		set_variable = { name = spec_ld value = 2 }
+		set_variable = { name = spec_ld_own value = 73 }
+		set_variable = { name = spec_ld_conf value = -0.6 }
+		set_variable = spec_ld_half
+		set_variable = spec_ld_spreading
+		set_variable = spec_ld_spread_now
+		set_variable = spec_world_crash
+		set_variable = spec_ld_recent
+		set_variable = { name = spec_ld_tariff value = 3 }
+		set_variable = spec_ld_origin
+		set_variable = { name = spec_ld_event_cd days = 300 }
+		add_modifier = { name = spec_ld_crash }
+		add_modifier = { name = spec_ld_depression }
+		spec_shut_down = yes
+		if = {
+			limit = {
+				NOR = {
+					has_variable = spec_conf
+					has_variable = spec_ld
+					has_variable = spec_ld_own
+					has_variable = spec_ld_conf
+					has_variable = spec_ld_half
+					has_variable = spec_ld_spreading
+					has_variable = spec_ld_spread_now
+					has_variable = spec_world_crash
+					has_variable = spec_ld_tariff
+					has_variable = spec_ld_recent
+					has_modifier = spec_ld_crash
+					has_modifier = spec_ld_depression
+				}
+				has_variable = spec_ld_origin
+				has_variable = spec_ld_event_cd
+			}
+			debug_log = "HOTFIX PASS journal_shutdown"
+		}
+		else = { debug_log = "HOTFIX FAIL journal_shutdown" }
+	}
+}
+
+# Upgrade a save that already shut down, leaving an orphaned depression modifier behind.
+spec_hotfix_journal.2 = {
+	type = country_event
+	hidden = yes
+	immediate = {
+		remove_variable = spec_conf
+		set_variable = { name = spec_ld value = 2 }
+		set_variable = { name = spec_ld_own value = 70 }
+		add_modifier = { name = spec_ld_depression }
+		spec_ld_tick = yes
+		if = {
+			limit = {
+				NOR = {
+					has_variable = spec_ld
+					has_variable = spec_ld_own
+					has_modifier = spec_ld_depression
+				}
+			}
+			debug_log = "HOTFIX PASS journal_legacy_cleanup"
+		}
+		else = { debug_log = "HOTFIX FAIL journal_legacy_cleanup" }
+	}
+}
+
+# A delayed story/event response after shutdown must not bring the market system back to life.
+spec_hotfix_journal.3 = {
+	type = country_event
+	hidden = yes
+	immediate = {
+		remove_variable = spec_conf
+		remove_variable = spec_c_total
+		remove_variable = spec_c_caution
+		spec_story_conf = { AMOUNT = 10 }
+		spec_cool_conf = { AMOUNT = 10 }
+		if = {
+			limit = {
+				NOR = {
+					has_variable = spec_conf
+					has_variable = spec_c_total
+					has_variable = spec_c_caution
+					has_variable = spec_story_was
+				}
+			}
+			debug_log = "HOTFIX PASS journal_delayed_story"
+		}
+		else = { debug_log = "HOTFIX FAIL journal_delayed_story" }
+	}
+}
+
+# Run the actual foreign-panic response effect after its target has gone missing.
+spec_hotfix_journal.4 = {
+	type = country_event
+	hidden = yes
+	immediate = {
+		remove_variable = spec_story_src
+		remove_variable = spec_conf
+		remove_variable = spec_c_total
+		remove_variable = spec_c_caution
+		ig:ig_petty_bourgeoisie ?= { remove_modifier = spec_story_foreign_blamed }
+		spec_story_blame_foreign = yes
+		if = {
+			limit = {
+				NOR = {
+					has_variable = spec_conf
+					has_variable = spec_c_total
+					has_variable = spec_c_caution
+					ig:ig_petty_bourgeoisie ?= { has_modifier = spec_story_foreign_blamed }
+				}
+			}
+			debug_log = "HOTFIX PASS story_missing_foreign_source_safe"
+		}
+		else = { debug_log = "HOTFIX FAIL story_missing_foreign_source_safe" }
+	}
+}

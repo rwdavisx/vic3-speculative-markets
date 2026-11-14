@@ -1,0 +1,10 @@
+{
+  "05fa6cd4d5": "기타 상품",
+  "28a6891ce7": "$SPEC_INTEREST_0$: 시장 무역의 #v {1}#!, 상품 #v {2}#!개",
+  "eeb2be2e02": "$SPEC_INTEREST_1$: 시장 무역의 #v {1}#!, 상품 #v {2}#!개",
+  "27d5160117": "$SPEC_INTEREST_2$: 시장 무역의 #v {1}#!, 상품 #v {2}#!개",
+  "4d49c6c22b": "$SPEC_INTEREST_3$: 시장 무역의 #v {1}#!, 상품 #v {2}#!개",
+  "b3ab9f2b6e": "$SPEC_INTEREST_4$: 시장 무역의 #v {1}#!, 상품 #v {2}#!개",
+  "ee82dd90e3": "$SPEC_INTEREST_5$: 시장 무역의 #v {1}#!, 상품 #v {2}#!개",
+  "ff02941358": "#header $SPEC_BANK_OTHER$#!\\n$TOOLTIP_DELIMITER$\\n[concept_spec_outstanding_credit]의 #v {1}#!이(가) 다른 모든 상품의 호황에 대출되어 있습니다."
+}

@@ -1,0 +1,594 @@
+﻿spec_log_issue = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_issue }
+		value = 1
+	}
+}
+
+# the Financial Centres (centres.py)
+spec_centre_calm_mult = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_centre_trust }
+		add = var:spec_centre_trust
+	}
+	max = 120
+	divide = 120
+	add = 0.5
+}
+
+spec_xs_own = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_xs_inc }
+		value = var:spec_xs_inc
+	}
+	multiply = 6
+	divide = 1000
+}
+spec_xs_reach = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_xs_inc }
+		every_country = {
+			limit = {
+				has_variable = spec_xs_inc
+				var:spec_xs_inc < global_var:spec_xs_me_inc
+				OR = {
+					market ?= scope:spec_xs_me.market
+					is_subject_of = scope:spec_xs_me
+					AND = {
+						is_in_power_bloc = yes
+						power_bloc ?= scope:spec_xs_me.power_bloc
+					}
+					any_scope_treaty = {
+						any_scope_article = {
+							has_type = foreign_investment_rights
+							target_country = scope:spec_xs_me
+						}
+					}
+				}
+			}
+			add = var:spec_xs_inc
+		}
+	}
+	multiply = 0.25
+	multiply = 6
+	divide = 1000
+	max = spec_xs_own
+}
+spec_xs_ratio = {
+	value = 0
+	if = {
+		limit = {
+			has_variable = spec_xs_inc
+			total_population > 0
+			has_global_variable = spec_xs_world_pc
+			global_var:spec_xs_world_pc > 0
+		}
+		value = var:spec_xs_inc
+		divide = {
+			value = total_population
+			divide = 1000000
+			min = 0.001
+		}
+		divide = global_var:spec_xs_world_pc
+	}
+}
+spec_xs_fd = {
+	value = 0
+	every_scope_state = {
+		limit = { has_building = building_financial_district }
+		add = b:building_financial_district.level
+	}
+}
+spec_xs_co = {
+	value = 0
+	every_company = {
+		add = 1
+	}
+}
+spec_xs_fdm = {
+	value = spec_xs_fd
+	max = 50
+	multiply = 0.01
+	add = 1
+}
+spec_xs_com = {
+	value = spec_xs_co
+	max = 10
+	multiply = 0.03
+	add = 1
+}
+spec_xs_tech = {
+	value = 1
+	if = {
+		limit = { has_technology_researched = banking }
+		add = 0.05
+	}
+	if = {
+		limit = { has_technology_researched = stock_exchange }
+		add = 0.05
+	}
+	if = {
+		limit = { has_technology_researched = central_banking }
+		add = 0.05
+	}
+	if = {
+		limit = { has_technology_researched = joint_stock_companies }
+		add = 0.05
+	}
+	if = {
+		limit = { has_technology_researched = mutual_funds }
+		add = 0.05
+	}
+	if = {
+		limit = { has_technology_researched = investment_banks }
+		add = 0.1
+	}
+	if = {
+		limit = { has_technology_researched = international_exchange_standards }
+		add = 0.1
+	}
+	if = {
+		limit = { has_technology_researched = modern_financial_instruments }
+		add = 0.1
+	}
+}
+spec_xs_ntech = {
+	value = 0
+	if = {
+		limit = { has_technology_researched = banking }
+		add = 1
+	}
+	if = {
+		limit = { has_technology_researched = stock_exchange }
+		add = 1
+	}
+	if = {
+		limit = { has_technology_researched = central_banking }
+		add = 1
+	}
+	if = {
+		limit = { has_technology_researched = joint_stock_companies }
+		add = 1
+	}
+	if = {
+		limit = { has_technology_researched = mutual_funds }
+		add = 1
+	}
+	if = {
+		limit = { has_technology_researched = investment_banks }
+		add = 1
+	}
+	if = {
+		limit = { has_technology_researched = international_exchange_standards }
+		add = 1
+	}
+	if = {
+		limit = { has_technology_researched = modern_financial_instruments }
+		add = 1
+	}
+}
+spec_xs_rank = {
+	value = 1
+	if = {
+		limit = { country_rank >= rank_value:great_power }
+		value = 1.15
+	}
+	else_if = {
+		limit = { country_rank >= rank_value:major_power }
+		value = 1.05
+	}
+}
+spec_xs_econ = {
+	value = 1
+	if = {
+		limit = { has_law_or_variant = law_type:law_laissez_faire }
+		value = 1.15
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_interventionism }
+		value = 1.05
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_agrarianism }
+		value = 0.95
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_traditionalism }
+		value = 0.9
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_extraction_economy }
+		value = 0.9
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_command_economy }
+		value = 0.75
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_cooperative_ownership }
+		value = 0.6
+	}
+}
+spec_xs_issue = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_issue }
+		multiply = 1.25
+	}
+}
+
+spec_centre_size = {
+	value = var:spec_xs_size_v
+	multiply = var:spec_xs_wealth_v
+	multiply = spec_xs_fdm
+	multiply = spec_xs_com
+	multiply = spec_xs_tech
+	multiply = spec_xs_rank
+	multiply = spec_xs_econ
+	multiply = spec_centre_calm_mult
+	if = {
+		limit = { has_variable = spec_issue }
+		multiply = 1.25
+	}
+}
+
+spec_centre_order = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_centre_score }
+		add = var:spec_centre_score
+	}
+}
+
+# the modifier's size: 5 steps for the first place, 1 for the last
+spec_centre_mult = {
+	value = 6
+	subtract = var:spec_centre_new
+}
+
+# the Exchange (centres.py): its Standing and what it is known for
+spec_exch_hype = {
+	value = 1
+	if = {
+		limit = { var:spec_exch_stand ?= 1 }
+		value = 1.05
+	}
+	else_if = {
+		limit = { var:spec_exch_stand ?= 2 }
+		value = 1.1
+	}
+	else_if = {
+		limit = { var:spec_exch_stand ?= 3 }
+		value = 1.15
+	}
+	if = {
+		limit = { var:spec_exch_known ?= 1 }
+		multiply = 1.1
+	}
+	if = {
+		limit = { has_variable = spec_pw_price var:spec_pw_price > 0 }
+		multiply = { value = var:spec_pw_price multiply = 0.15 add = 1 }
+	}
+	if = {
+		limit = { has_variable = spec_pw_floor var:spec_pw_floor > 0 }
+		multiply = { value = var:spec_pw_floor multiply = 0.1 add = 1 }
+	}
+}
+
+spec_exch_flight = {
+	value = 1
+	if = {
+		limit = { var:spec_exch_stand ?= 1 }
+		value = 1
+	}
+	else_if = {
+		limit = { var:spec_exch_stand ?= 2 }
+		value = 2
+	}
+	else_if = {
+		limit = { var:spec_exch_stand ?= 3 }
+		value = 3
+	}
+	if = {
+		limit = { has_variable = spec_pledge }
+		multiply = 1.5
+	}
+	if = {
+		limit = { has_variable = spec_pw_harbour var:spec_pw_harbour > 0 }
+		multiply = { value = var:spec_pw_harbour multiply = 0.5 add = 1 }
+	}
+	if = {
+		limit = { has_variable = spec_pw_companies var:spec_pw_companies > 0 }
+		multiply = { value = var:spec_pw_companies multiply = -0.25 add = 1 }
+	}
+	if = {
+		limit = { has_variable = spec_pw_door var:spec_pw_door > 0 }
+		multiply = { value = var:spec_pw_door multiply = 0.25 add = 1 }
+	}
+}
+
+spec_exch_loss = {
+	value = 1
+	if = {
+		limit = { var:spec_exch_known ?= 2 }
+		value = 0.75
+	}
+	if = {
+		limit = { has_variable = spec_pw_price var:spec_pw_price > 0 }
+		multiply = { value = var:spec_pw_price multiply = 0.25 add = 1 }
+	}
+	if = {
+		limit = { has_variable = spec_pw_floor var:spec_pw_floor > 0 }
+		multiply = { value = var:spec_pw_floor multiply = 0.15 add = 1 }
+	}
+	if = {
+		limit = { has_variable = spec_pw_sound var:spec_pw_sound > 0 }
+		multiply = { value = var:spec_pw_sound multiply = -0.25 add = 1 }
+	}
+	if = {
+		limit = { has_variable = spec_pw_pockets var:spec_pw_pockets > 0 }
+		multiply = { value = var:spec_pw_pockets multiply = 0.15 add = 1 }
+	}
+}
+
+spec_exch_credit = {
+	value = 1
+	if = {
+		limit = { var:spec_exch_known ?= 3 }
+		value = 1.1
+	}
+	if = {
+		limit = { has_variable = spec_pw_harbour var:spec_pw_harbour > 0 }
+		multiply = { value = var:spec_pw_harbour multiply = -0.1 add = 1 }
+	}
+	if = {
+		limit = { has_variable = spec_pw_companies var:spec_pw_companies > 0 }
+		multiply = { value = var:spec_pw_companies multiply = 0.15 add = 1 }
+	}
+	if = {
+		limit = { has_variable = spec_pw_sound var:spec_pw_sound > 0 }
+		multiply = { value = var:spec_pw_sound multiply = -0.1 add = 1 }
+	}
+	if = {
+		limit = { has_variable = spec_pw_pockets var:spec_pw_pockets > 0 }
+		multiply = { value = var:spec_pw_pockets multiply = 0.15 add = 1 }
+	}
+	if = {
+		limit = { has_variable = spec_pw_door var:spec_pw_door > 0 }
+		multiply = { value = var:spec_pw_door multiply = -0.05 add = 1 }
+	}
+}
+
+# the Exchange's place adds to the credit limit (centres.py)
+spec_exch_limit = {
+	value = 0
+	if = {
+		limit = {
+			has_variable = spec_centre_rank
+			has_technology_researched = central_banking
+			OR = {
+				NOT = { has_variable = spec_lax }
+				var:spec_lax < 0.6
+			}
+		}
+		value = 6
+		subtract = var:spec_centre_rank
+		multiply = 1
+	}
+}
+
+spec_exch_panic_cut = {
+	value = 0.2
+	if = {
+		limit = { has_variable = spec_lev_last }
+		value = var:spec_lev_last
+		subtract = 3
+		divide = 9
+		min = 0
+		max = 1
+		multiply = 0.3
+		add = 0.2
+	}
+	if = {
+		limit = { has_variable = spec_pledge }
+		multiply = 0.5
+	}
+	if = {
+		limit = { has_variable = spec_caught }
+		multiply = 0.5
+	}
+}
+
+# Pledge to Rescue the Banks (centres.py)
+spec_pledge_cost = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_pledge }
+		value = 0.75
+	}
+}
+spec_log_pledge = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_pledge }
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_pledge_leave }
+		add = 1
+	}
+}
+spec_log_pbroke = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_pledge_broken }
+		value = var:spec_pledge_broken
+	}
+}
+
+# what the Exchange is known for, earned by building (centres.py)
+spec_log_ktc = {
+	value = 0
+	every_scope_state = {
+		limit = { has_building = building_trade_center }
+		add = b:building_trade_center.level
+	}
+}
+spec_log_kco = {
+	value = 0
+	every_company = {
+		limit = { prosperity >= 50 }
+		add = 1
+	}
+}
+spec_log_ksnd = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_exch_sound }
+		value = var:spec_exch_sound
+	}
+}
+spec_earn_tc = {
+	value = spec_log_ktc
+	divide = 20
+}
+spec_earn_snd = {
+	value = spec_log_ksnd
+	divide = 120
+}
+spec_earn_co = {
+	value = spec_log_kco
+	divide = 4
+}
+
+# the Exchange's links (centres.py)
+spec_exch_mood = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_centre_trust }
+		value = var:spec_centre_trust
+		divide = 120
+		subtract = 0.5
+		multiply = -1
+		add = 1
+	}
+}
+spec_exch_recover = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_centre_trust }
+		value = var:spec_centre_trust
+		divide = 120
+		multiply = 0.75
+		subtract = 0.25
+		multiply = 1
+		add = 1
+	}
+}
+spec_exch_lean = {
+	value = 0
+	if = {
+		limit = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand >= 1
+		}
+		value = spec_earn_co
+		subtract = 1
+		multiply = 0.2
+		min = -0.3
+		max = 0.3
+	}
+}
+
+# what each name is won by (centres.py)
+spec_name_price = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_mv_total }
+		value = var:spec_mv_total
+	}
+	if = {
+		limit = { has_variable = spec_pw_sum }
+		multiply = { value = var:spec_pw_price multiply = 0.25 add = 1 }
+		multiply = { value = var:spec_pw_sum subtract = var:spec_pw_price multiply = -0.1 add = 1 }
+	}
+}
+spec_name_harbour = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_centre_trust }
+		value = var:spec_centre_trust
+	}
+	if = {
+		limit = { has_variable = spec_centre_calm }
+		add = { value = var:spec_centre_calm divide = 10000 }
+	}
+	if = {
+		limit = { has_variable = spec_pw_sum }
+		multiply = { value = var:spec_pw_harbour multiply = 0.25 add = 1 }
+		multiply = { value = var:spec_pw_sum subtract = var:spec_pw_harbour multiply = -0.1 add = 1 }
+	}
+}
+spec_name_companies = {
+	value = spec_log_kco
+	if = {
+		limit = { has_variable = spec_pw_sum }
+		multiply = { value = var:spec_pw_companies multiply = 0.25 add = 1 }
+		multiply = { value = var:spec_pw_sum subtract = var:spec_pw_companies multiply = -0.1 add = 1 }
+	}
+}
+spec_name_floor = {
+	value = spec_log_ktc
+	if = {
+		limit = { has_variable = spec_pw_sum }
+		multiply = { value = var:spec_pw_floor multiply = 0.25 add = 1 }
+		multiply = { value = var:spec_pw_sum subtract = var:spec_pw_floor multiply = -0.1 add = 1 }
+	}
+}
+spec_name_sound = {
+	value = spec_log_ksnd
+	if = {
+		limit = { has_variable = spec_pw_sum }
+		multiply = { value = var:spec_pw_sound multiply = 0.25 add = 1 }
+		multiply = { value = var:spec_pw_sum subtract = var:spec_pw_sound multiply = -0.1 add = 1 }
+	}
+}
+spec_name_pockets = {
+	value = spec_pool_month
+	if = {
+		limit = { has_variable = spec_pw_sum }
+		multiply = { value = var:spec_pw_pockets multiply = 0.25 add = 1 }
+		multiply = { value = var:spec_pw_sum subtract = var:spec_pw_pockets multiply = -0.1 add = 1 }
+	}
+}
+spec_name_door = {
+	value = 0
+	every_scope_treaty = {
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_pw_sum }
+		multiply = { value = var:spec_pw_door multiply = 0.25 add = 1 }
+		multiply = { value = var:spec_pw_sum subtract = var:spec_pw_door multiply = -0.1 add = 1 }
+	}
+}
+spec_pursue_slots = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_exch_stand }
+		add = var:spec_exch_stand
+	}
+}
+
+# the state with the most Financial District levels names the Exchange (centres._seat)
+spec_seat_fd = {
+	value = 0
+	if = {
+		limit = { has_building = building_financial_district }
+		value = b:building_financial_district.level
+	}
+}

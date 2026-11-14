@@ -1,0 +1,265 @@
+# TEST BUILD ONLY. Run on initialized Britain in a disposable 1836 game.
+# No schedules: the testbed dispatches this before its core and journal scenarios.
+namespace = spec_hotfix_economy
+
+spec_hotfix_economy.1 = {
+    type = country_event
+    hidden = yes
+    immediate = {
+        # A new steel mill must receive the stable steel tier even if another good
+        # changes every month. Removing its modifier emulates a newly built mill.
+        set_variable = { name = spec_word_steel value = 6 }
+        remove_variable = spec_investor_on
+        spec_update_companies = yes
+        every_scope_building = {
+            limit = { is_building_type = building_steel_mill }
+            remove_modifier = spec_investor_steel_6
+        }
+        set_variable = { name = spec_ia_n value = 0 }
+        set_variable = { name = spec_word_glass value = 1 }
+        set_variable = { name = spec_ia_glass value = 2 }
+        spec_update_companies = yes
+        set_variable = { name = spec_word_glass value = 2 }
+        spec_update_companies = yes
+        if = {
+            limit = {
+                any_scope_building = {
+                    is_building_type = building_steel_mill
+                    NOT = { has_modifier = spec_investor_steel_6 }
+                }
+                var:spec_ia_n = 2
+            }
+            debug_log = "HOTFIX PASS company_sweep_waits_until_due"
+        }
+        else = { debug_log = "HOTFIX FAIL company_sweep_waits_until_due" }
+        set_variable = { name = spec_word_glass value = 1 }
+        spec_update_companies = yes
+        if = {
+            limit = {
+                any_scope_building = { is_building_type = building_steel_mill }
+                NOT = {
+                    any_scope_building = {
+                        is_building_type = building_steel_mill
+                        NOT = { has_modifier = spec_investor_steel_6 }
+                    }
+                }
+                var:spec_ia_n = 0
+            }
+            debug_log = "HOTFIX PASS company_sweep_repairs_stable_goods"
+        }
+        else = { debug_log = "HOTFIX FAIL company_sweep_repairs_stable_goods" }
+
+        # Set every Exchange at its country's strongest state (an empty search),
+        # except Britain's weakest state (a successful search). A candidate saved
+        # by Britain must not leak into the later countries in the world pass.
+        every_country = {
+            limit = { has_variable = spec_conf }
+            remove_variable = spec_exch_seat_t
+            ordered_scope_state = {
+                order_by = spec_seat_fd
+                position = 0
+                check_range_bounds = no
+                owner = { set_variable = { name = spec_exch_seat value = prev } }
+            }
+        }
+        ordered_scope_state = {
+            order_by = { value = spec_seat_fd multiply = -1 }
+            position = 0
+            check_range_bounds = no
+            set_global_variable = { name = spec_hotfix_seat_need value = { value = spec_seat_fd add = 2 } }
+            owner = { set_variable = { name = spec_exch_seat value = prev } }
+        }
+        spec_rank_centres = yes
+        if = {
+            limit = {
+                var:spec_exch_seat = { spec_seat_fd >= global_var:spec_hotfix_seat_need }
+            }
+            debug_log = "HOTFIX PASS exchange_seat_search_precondition"
+        }
+        else = { debug_log = "HOTFIX FAIL exchange_seat_search_precondition" }
+        if = {
+            limit = {
+                NOT = {
+                    any_country = {
+                        has_variable = spec_exch_seat
+                        NOT = { this = var:spec_exch_seat.owner }
+                    }
+                }
+            }
+            debug_log = "HOTFIX PASS exchange_seats_owned_domestically"
+        }
+        else = { debug_log = "HOTFIX FAIL exchange_seats_owned_domestically" }
+        remove_global_variable = spec_hotfix_seat_need
+
+        # With only two active markets, the mean is over two unique countries;
+        # out-of-range rank positions must not overwrite second place with fifth.
+        every_country = {
+            limit = { has_variable = spec_conf }
+            set_variable = { name = spec_hotfix_saved_conf value = var:spec_conf }
+            remove_variable = spec_conf
+        }
+        c:GBR = { set_variable = { name = spec_conf value = 55 } }
+        c:FRA = { set_variable = { name = spec_conf value = 55 } }
+        spec_rank_centres = yes
+        if = {
+            limit = {
+                global_var:spec_xs_topn = 2
+                c:GBR = { has_variable = spec_centre_rank var:spec_centre_rank <= 2 }
+                c:FRA = { has_variable = spec_centre_rank var:spec_centre_rank <= 2 }
+                NOT = { c:GBR.var:spec_centre_rank = c:FRA.var:spec_centre_rank }
+            }
+            debug_log = "HOTFIX PASS exchange_two_country_ranking"
+        }
+        else = { debug_log = "HOTFIX FAIL exchange_two_country_ranking" }
+        every_country = {
+            limit = { has_variable = spec_hotfix_saved_conf }
+            set_variable = { name = spec_conf value = var:spec_hotfix_saved_conf }
+            remove_variable = spec_hotfix_saved_conf
+        }
+
+        # Shutdown must remove bonuses and all local selection state immediately,
+        # not wait for another world's ranking. Restore rank state for later tests.
+        add_modifier = { name = spec_financial_centre multiplier = 5 }
+        add_modifier = { name = spec_exch_national }
+        add_modifier = { name = spec_trust_3 }
+        add_modifier = { name = spec_pursue_floor_3 }
+        set_variable = { name = spec_centre_rank value = 1 }
+        set_variable = { name = spec_exch_stand value = 3 }
+        set_variable = { name = spec_pw_sum value = 1 }
+        set_variable = { name = spec_pw_floor value = 1 }
+        set_variable = { name = spec_pu_floor value = 1 }
+        set_variable = { name = spec_pu_lock_floor value = 60 }
+        set_variable = { name = spec_xs_regtop value = 1 }
+        spec_exch_clear = yes
+        if = {
+            limit = {
+                NOR = {
+                    has_modifier = spec_financial_centre
+                    has_modifier = spec_exch_national
+                    has_modifier = spec_trust_3
+                    has_modifier = spec_pursue_floor_3
+                    has_variable = spec_centre_rank
+                    has_variable = spec_exch_stand
+                    has_variable = spec_pw_sum
+                    has_variable = spec_pw_floor
+                    has_variable = spec_pu_floor
+                    has_variable = spec_pu_lock_floor
+                    has_variable = spec_xs_regtop
+                    has_variable = spec_exch_seat
+                    has_variable = spec_pledge
+                }
+            }
+            debug_log = "HOTFIX PASS exchange_clear_immediate"
+        }
+        else = { debug_log = "HOTFIX FAIL exchange_clear_immediate" }
+        spec_rank_centres = yes
+    }
+}
+
+# A field with a qualifying Exchange must recover from an absent leader and from
+# a real annexed leader. A numeric value is not equivalent to a missing object:
+# exists accepts scalar scopes too, so it would not test the lifecycle involved.
+spec_hotfix_economy.2 = {
+    type = country_event
+    hidden = yes
+    immediate = {
+        set_variable = { name = spec_exch_known value = 1 }
+        set_global_variable = { name = spec_names_year days = 365 }
+        remove_global_variable = spec_ld_price
+        spec_rank_centres = yes
+        if = {
+            limit = {
+                any_country = {
+                    is_country_alive = yes
+                    this = global_var:spec_ld_price
+                    has_variable = spec_exch_stand
+                    var:spec_exch_stand >= 1
+                    var:spec_exch_known ?= 1
+                    spec_name_price > 0
+                }
+            }
+            debug_log = "HOTFIX PASS exchange_missing_leader_recovers"
+        }
+        else = { debug_log = "HOTFIX FAIL exchange_missing_leader_recovers" }
+        # Leave a leader reference to a country that has just lost its final
+        # state. The test runs only in an isolated fresh 1836 world.
+        set_variable = { name = spec_rival value = c:LUX }
+        set_variable = { name = spec_rival_lock days = 365 }
+        set_variable = { name = spec_rival_last value = 1 }
+        c:LUX = {
+            save_temporary_scope_as = spec_hotfix_annexed_country
+            set_variable = { name = spec_exch_stand value = 1 }
+            set_variable = { name = spec_exch_known value = 1 }
+            set_variable = { name = spec_mv_total value = 1000 }
+            set_variable = { name = spec_exch_seat value = capital }
+            remove_variable = spec_exch_seat_t
+            set_global_variable = { name = spec_ld_price value = this }
+        }
+        # Both countries start with a split Wallonia. Annexation merges their
+        # states; the engine may retain the old capital target until this effect
+        # finishes. A dead country must clear its seat in either case.
+        c:BEL = { annex = c:LUX }
+        scope:spec_hotfix_annexed_country = {
+            if = {
+                limit = {
+                    is_country_alive = no
+                    has_variable = spec_exch_seat
+                }
+                # The harness wraps the exact production _seat() output in this
+                # test-only effect so the annexed-country path runs deterministically.
+                spec_hotfix_update_seat = yes
+                if = {
+                    limit = {
+                        NOR = {
+                            has_variable = spec_exch_seat
+                            has_variable = spec_exch_seat_t
+                        }
+                    }
+                    debug_log = "HOTFIX PASS exchange_annexed_seat_cleared"
+                }
+                else = { debug_log = "HOTFIX FAIL exchange_annexed_seat_cleared" }
+            }
+            else = { debug_log = "HOTFIX FAIL exchange_annexed_seat_cleared" }
+            set_variable = { name = spec_exch_seat value = c:BEL.capital }
+            set_variable = { name = spec_exch_seat_t days = 365 }
+            spec_hotfix_update_seat = yes
+            if = {
+                limit = {
+                    is_country_alive = no
+                    NOR = {
+                        has_variable = spec_exch_seat
+                        has_variable = spec_exch_seat_t
+                    }
+                }
+                debug_log = "HOTFIX PASS exchange_foreign_seat_cleared_after_annexation"
+            }
+            else = { debug_log = "HOTFIX FAIL exchange_foreign_seat_cleared_after_annexation" }
+        }
+        spec_rank_centres = yes
+        if = {
+            limit = {
+                NOR = {
+                    has_variable = spec_rival
+                    has_variable = spec_rival_last
+                }
+                has_variable = spec_rival_lock
+            }
+            debug_log = "HOTFIX PASS exchange_annexed_rival_cleared"
+        }
+        else = { debug_log = "HOTFIX FAIL exchange_annexed_rival_cleared" }
+        if = {
+            limit = {
+                any_country = {
+                    is_country_alive = yes
+                    this = global_var:spec_ld_price
+                    has_variable = spec_exch_stand
+                    var:spec_exch_stand >= 1
+                    var:spec_exch_known ?= 1
+                    spec_name_price > 0
+                }
+            }
+            debug_log = "HOTFIX PASS exchange_annexed_leader_recovers"
+        }
+        else = { debug_log = "HOTFIX FAIL exchange_annexed_leader_recovers" }
+    }
+}

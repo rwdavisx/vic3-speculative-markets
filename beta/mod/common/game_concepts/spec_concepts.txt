@@ -1,0 +1,73 @@
+﻿concept_spec_market_confidence = {
+	texture = "gfx/interface/icons/spec_markets/je_markets.dds"
+}
+
+concept_spec_speculative_mania = {
+	texture = "gfx/interface/icons/spec_markets/state_mania.dds"
+}
+
+concept_spec_financial_panic = {
+	texture = "gfx/interface/icons/spec_markets/state_panic.dds"
+}
+
+concept_spec_foreign_panic = {
+	texture = "gfx/interface/icons/spec_markets/driver_foreign.dds"
+}
+
+concept_spec_boom_end = {
+	texture = "gfx/interface/icons/spec_markets/driver_crash.dds"
+}
+
+concept_spec_correction = {
+	texture = "gfx/interface/icons/spec_markets/driver_crash.dds"
+}
+
+concept_spec_bust = {
+	texture = "gfx/interface/icons/spec_markets/driver_crash.dds"
+}
+
+concept_spec_collapse = {
+	texture = "gfx/interface/icons/spec_markets/driver_crash.dds"
+}
+
+concept_spec_investor_interest = {
+	texture = "gfx/interface/icons/spec_markets/driver_boom.dds"
+}
+
+concept_spec_credit_policy = {}
+
+concept_spec_outstanding_credit = {}
+
+concept_spec_long_depression = {}
+
+concept_spec_speculative_excess = {
+	texture = "gfx/interface/icons/spec_markets/crash_risk.dds"
+}
+
+concept_spec_sound_finance = {}
+
+concept_spec_banking_reforms = {}
+
+concept_spec_intervention = {}
+
+concept_spec_market_conditions = {}
+
+concept_spec_baseline = {}
+
+concept_spec_market_mood = {}
+
+concept_spec_market_tie = {}
+
+concept_spec_capital_flight = {}
+
+concept_spec_war_news = {}
+
+concept_spec_financial_centre = {}
+
+concept_spec_leverage = {}
+
+concept_spec_bad_debts = {}
+
+concept_spec_lending_standards = {}
+
+concept_spec_exchange = {}

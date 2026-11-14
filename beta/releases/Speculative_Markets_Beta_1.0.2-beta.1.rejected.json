@@ -1,0 +1,9 @@
+{
+  "archive": "Speculative_Markets_Beta_1.0.2-beta.1.zip",
+  "archive_sha256": "04869a4c0e4886d2527595f5c1533d8673a186ab30a9191c9d65f6a0d35f8f72",
+  "status": "rejected",
+  "game_version": "1.15.1",
+  "reason": "The game-side metadata reader rejected rel_type incompatible_with; its accepted enum contains undefined and dependency. Launcher schema support alone was insufficient.",
+  "replacement": "Speculative_Markets_Beta_1.0.2-beta.2.zip",
+  "instruction": "Do not install or publish this revision. The original ZIP and manifest are retained unchanged as audit evidence."
+}

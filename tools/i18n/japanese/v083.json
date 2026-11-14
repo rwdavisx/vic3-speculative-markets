@@ -1,0 +1,14 @@
+{
+  "de9b342187": "銀行の融資により、[concept_spec_leverage]の1か月分につき[concept_throughput]が#P {1}%#!増加し、上限は#P {2}%#!です。",
+  "f25f653c3a": "#v $SPEC_PANIC_AT$#!未満では[concept_spec_financial_panic]が起こる恐れがあり、#v {1}#!に達すると#v 安定#!になります。",
+  "94db779f7e": "[concept_spec_bad_debts]: 現在[concept_throughput]#N -{1}%#!（あと#v {2}#!か月かけて薄れる）\\n",
+  "3adf5cdd86": "領土喪失後、[concept_spec_bad_debts]は[concept_spec_leverage]#v {1}#!か月分で算定されます。この軽減はあと#v {2}#!か月かけて薄れます\\n",
+  "3cafce71a4": "[concept_spec_bad_debts]: 現在[concept_throughput]#N -{1}%#!（あと#v {2}#!か月かけて薄れる）。恐慌が終わっても残ることがあります。\\n\\n",
+  "6f91445225": "#header 恐慌の発生: {1}#!\\n$TOOLTIP_DELIMITER$\\n[concept_spec_leverage]が高い状態で[concept_spec_financial_panic]が始まると、[concept_spec_market_confidence]は一気に#v {2}#!未満まで下落します。",
+  "6a698868e0": "#P 安全#!",
+  "53a64a4fa4": "#N 要注意#!",
+  "d91b722d1b": "#N 危険#!",
+  "bd5d2d08d9": "#v {1}#!か月分まで安全",
+  "46852e02d5": "安全限度の#v {1}#!か月分を超過",
+  "bc99612baf": "[concept_spec_outstanding_credit]: #v @money!{1}#!\\nプールの月収: #v @money!{2}#!\\n$TOOLTIP_DELIMITER$\\n今月の[concept_investment_pool]の収入と、約1年間の平均のうち高いほうです。"
+}

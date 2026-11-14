@@ -1,0 +1,7 @@
+{
+  "d977d9e3db": "Um $concept_spec_foreign_panic$ reduz a [concept_spec_market_confidence] de um [concept_country] quando um [concept_spec_financial_panic] começa em outro país vinculado a ele por um [concept_market] compartilhado, sujeição, direitos de investimento, comércio intenso ou propriedade de sua economia. Vínculos mais próximos causam perdas maiores. A lei {1} fortalece os vínculos comerciais, e outras políticas comerciais os enfraquecem. Um [concept_embargo] rompe o vínculo comercial.",
+  "12f147d1f2": "A $concept_spec_long_depression$ é uma crise econômica mundial. Começa quando uma [concept_great_power] entra em [concept_spec_financial_panic]. Atinge todo país em pânico e, durante a quebra, se propaga de país em país por vínculos próximos: [concept_market] compartilhado, súditos e soberanos, direitos de investimento, comércio intenso e propriedade da economia. Países com poucos desses vínculos podem escapar. A quebra dura alguns meses, congelando o crédito e esgotando a [concept_spec_market_confidence]. Segue-se uma depressão de até #v {1}#! anos, que desacelera o investimento, a construção e o comércio e transforma algumas unidades de população em {2}. As escolhas dos governos aceleram a recuperação mundial, sobretudo as das Superpotências. Segue-se um ano de retorno da confiança.",
+  "5ad860c432": "#v {1}#! possui uma grande parte da nossa economia.",
+  "c1a7b43e69": "Atingido pelo [concept_spec_financial_panic] em #v {1}#!",
+  "c4b01705fe": "Rescaldo"
+}

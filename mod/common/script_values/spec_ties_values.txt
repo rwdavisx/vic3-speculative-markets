@@ -1,0 +1,134 @@
+﻿spec_tie_market = {
+	value = 1
+	if = {
+		limit = { has_technology_researched = international_exchange_standards }
+		multiply = 1.25
+	}
+}
+
+spec_tie_investment = {
+	value = 0.6
+	if = {
+		limit = { has_technology_researched = international_exchange_standards }
+		multiply = 1.25
+	}
+}
+
+spec_tie_trade = {
+	value = 0.4
+	if = {
+		limit = { has_law_or_variant = law_type:law_free_trade }
+		multiply = 1.5
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_protectionism }
+		multiply = 0.7
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_mercantilism }
+		multiply = 0.7
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_isolationism }
+		multiply = 0.1
+	}
+}
+
+spec_owned_share = {
+	value = 0
+	if = {
+		limit = {
+			exists = scope:spec_tie_src
+			gdp > 0
+		}
+		value = "gdp_owned_by(scope:spec_tie_src)"
+		divide = gdp
+		max = 1
+	}
+}
+
+spec_tie_owned = {
+	value = spec_owned_share
+	multiply = 3
+	max = 0.9
+}
+
+spec_tech_hype = {
+	value = 1
+	if = {
+		limit = { has_technology_researched = joint_stock_companies }
+		value = 1.1
+	}
+}
+
+spec_debt_drag = {
+	value = 0
+	if = {
+		limit = {
+			in_default = no
+			scaled_debt > 0.5
+		}
+		value = scaled_debt
+		subtract = 0.5
+		multiply = -2
+		min = -1
+	}
+}
+
+spec_debt_share = {
+	value = scaled_debt
+	min = 0
+}
+
+spec_fd_levels = {
+	value = 0
+	every_scope_state = {
+		limit = { has_building = building_financial_district }
+		add = b:building_financial_district.level
+	}
+}
+
+spec_mh_levels = {
+	value = 0
+	every_scope_state = {
+		limit = { has_building = building_manor_house }
+		add = b:building_manor_house.level
+	}
+}
+
+spec_depth = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_fd }
+		value = var:spec_fd
+		divide = {
+			value = building_levels
+			min = 1
+		}
+		divide = 0.03
+		multiply = 0.2
+		add = 0.8
+		max = 1.2
+	}
+}
+
+spec_steady = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_mh
+			var:spec_mh > 0
+		}
+		subtract = {
+			value = var:spec_mh
+			divide = {
+				value = var:spec_mh
+				add = var:spec_fd
+			}
+			subtract = 0.9
+			multiply = 0.5
+		}
+		min = 0.85
+		max = 1.1
+	}
+}

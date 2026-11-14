@@ -1,0 +1,86 @@
+{
+  "id": "speculative_markets_cmf_compat",
+  "version": "1.0.1",
+  "source": "G:\\GameDev\\speculative-markets\\compatibility\\cmf\\mod",
+  "built_against": "1.15.1",
+  "packaged_utc": "2026-11-14T00:07:29.020822+00:00",
+  "archive": "Speculative_Markets_CMF_Compatibility_1.0.1.zip",
+  "archive_sha256": "7ac174dddd244370cd20a2c60b0be90141df69b8d1ef5b1f4756b3dda6ece66f",
+  "file_count": 3,
+  "files_sha256": {
+    ".metadata/metadata.json": "5689fe9555abec6c358bf37fa24b0e4e4069284224030f551509ed6d283a2115",
+    "gui/com_gui_sidebar.gui": "fc0c54cb06f8ffc95f4576dfb720b64eada1580b2ea4215ad2a5f2545eed3ee9",
+    "gui/information_panel_bar.gui": "734a0a8a8a118a4f0d9d9850599aced636d885f4cf47e80301812fd5c304105c"
+  },
+  "build_provenance": {
+    "built_at_utc": "2026-11-14T00:05:54.959333+00:00",
+    "builder_version": "1.0.1",
+    "output": "G:\\GameDev\\speculative-markets\\compatibility\\cmf\\mod",
+    "parents": {
+      "speculative_markets": {
+        "path": "G:\\GameDev\\speculative-markets\\mod",
+        "metadata": {
+          "name": "Speculative Markets",
+          "id": "speculative_markets",
+          "version": "1.0.2",
+          "supported_game_version": "1.15.*",
+          "short_description": "Investors chase rising prices, booms turn to panics, and you set credit policy.",
+          "tags": [
+            "Economy And Buildings",
+            "Events",
+            "Journal Entries"
+          ],
+          "relationships": [],
+          "game_custom_data": {
+            "multiplayer_synchronized": true
+          }
+        },
+        "files": {
+          "gui/information_panel_bar.gui": "3188097a97c3118f45e8c258dd57529f259ccb3dcedbe97f108f502fcd98612c",
+          ".metadata/metadata.json": "2b471d5558daffd1d26f76cbed210f0349cc070c51434f2680f2bba8acd540fc"
+        }
+      },
+      "community_mod_framework": {
+        "path": "G:\\SteamLibrary\\steamapps\\workshop\\content\\529340\\3385002128",
+        "metadata": {
+          "name": "[1.15] Community Mod Framework",
+          "id": "com.github.Victoria-3-Modding-Co-op.Community-Mod-Framework",
+          "version": "1.67.6",
+          "game_id": "victoria3",
+          "supported_game_version": "1.15.*",
+          "short_description": "This is a framework to enable easy integration between mods.",
+          "tags": [
+            "Utilities",
+            "1.15"
+          ],
+          "relationships": [],
+          "game_custom_data": {
+            "multiplayer_synchronized": true
+          }
+        },
+        "files": {
+          "gui/com_gui_sidebar.gui": "2b6dfe6067f45cc55fd807392c13e31d7d20f54dbadf76d70af19c6ad97402b4",
+          ".metadata/metadata.json": "c2db29162346bf2be2b9efc6c96e79cb811944ebaa9d124df80b0a3f34ad160b"
+        }
+      }
+    },
+    "output_files": {
+      "gui/com_gui_sidebar.gui": "fc0c54cb06f8ffc95f4576dfb720b64eada1580b2ea4215ad2a5f2545eed3ee9",
+      "gui/information_panel_bar.gui": "734a0a8a8a118a4f0d9d9850599aced636d885f4cf47e80301812fd5c304105c",
+      ".metadata/metadata.json": "5689fe9555abec6c358bf37fa24b0e4e4069284224030f551509ed6d283a2115"
+    },
+    "load_order": [
+      "speculative_markets",
+      "com.github.Victoria-3-Modding-Co-op.Community-Mod-Framework",
+      "speculative_markets_cmf_compat"
+    ],
+    "notes": [
+      "The two parents may be swapped; this patch must follow both.",
+      "Built from Speculative Markets 1.0.2; enable either stable or the matching beta, never both.",
+      "Only CMF is a mandatory metadata dependency; the required SM channel choice is documented for players.",
+      "Set load order manually: the 1.15.1 game rejects launcher-only load_after metadata.",
+      "No parent files are modified. Runtime compatibility is validated separately.",
+      "CMF sidebar attribution is preserved in the merged GUI."
+    ]
+  }
+}

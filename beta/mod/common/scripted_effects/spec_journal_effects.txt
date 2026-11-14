@@ -1,0 +1,91 @@
+﻿spec_do_convert = {
+	add_modifier = {
+		name = spec_debt_converted
+		years = 5
+	}
+	ig:ig_landowners ?= {
+		add_modifier = {
+			name = spec_rentiers_cut
+			years = 5
+		}
+	}
+	custom_tooltip = {
+		text = spec_convert_conf_cost_tt
+		spec_cool_conf = { AMOUNT = 5 }
+		set_variable = { name = spec_converted years = 10 }
+	}
+}
+
+spec_do_relief = {
+	add_modifier = {
+		name = spec_relief_works
+		days = 372
+	}
+	add_modifier = {
+		name = spec_relief_costs
+		days = 372
+		multiplier = money_amount_multiplier_medium
+	}
+	ig:ig_trade_unions ?= {
+		add_modifier = {
+			name = spec_relief_thanks
+			days = 372
+		}
+	}
+	hidden_effect = {
+		set_variable = { name = spec_relief months = 12 }
+	}
+}
+
+# a Treasury letter lets the bank lend beyond the Act's limit: the panic ends soon, at no cost to the treasury, but
+# investors learn that the government will step in, and the next bubble grows faster
+spec_do_suspend = {
+	add_modifier = {
+		name = spec_act_suspended
+		years = 2
+	}
+	custom_tooltip = {
+		text = spec_suspend_tt
+		set_variable = { name = spec_panic value = { value = var:spec_panic max = 2 } }
+		set_variable = { name = spec_c_rescue value = { value = var:spec_conf multiply = -1 } }
+		set_variable = { name = spec_conf value = { value = var:spec_conf add = 15 max = 100 } }
+		change_variable = { name = spec_c_rescue add = var:spec_conf }
+		change_variable = { name = spec_c_total add = var:spec_c_rescue }
+		set_variable = spec_rescued
+		if = {
+			limit = { has_variable = spec_lax }
+			set_variable = { name = spec_lax value = { value = var:spec_lax add = 0.25 max = 1 } }
+		}
+		set_variable = { name = spec_hazard years = 10 }
+		spec_pick_driver = yes
+		spec_update_band = yes
+	}
+}
+
+spec_do_inquiry = {
+	add_modifier = {
+		name = spec_inquiry_sitting
+		days = 186
+	}
+	hidden_effect = {
+		set_variable = spec_inquired
+		set_variable = { name = spec_calm value = 0 }
+	}
+	trigger_event = { id = spec_reform.1 popup = yes }
+}
+
+# after an institution is made: the count for the bar, and Sound Finance once all three stand
+spec_reform_done = {
+	set_variable = { name = spec_reforms value = spec_reform_count }
+	je:je_spec_markets ?= {
+		set_bar_progress = { name = spec_finance_bar value = root.var:spec_reforms }
+	}
+	if = {
+		limit = {
+			spec_reform_count >= 3
+			NOT = { has_variable = spec_sound }
+		}
+		set_variable = spec_sound
+		trigger_event = { id = spec_reform.2 popup = yes }
+	}
+}

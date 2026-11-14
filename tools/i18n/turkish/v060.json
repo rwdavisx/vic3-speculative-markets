@@ -1,0 +1,7 @@
+{
+  "d977d9e3db": "Bir [concept_country] ile ortak [concept_market], bağlı ülke ilişkisi, yatırım hakları, yoğun ticaret veya ekonomi mülkiyeti üzerinden bağlantılı başka bir ülkede [concept_spec_financial_panic] başladığında $concept_spec_foreign_panic$ o ülkede [concept_spec_market_confidence] kaybına yol açar. Yakın bağlar daha büyük kayıp doğurur. {1} ticaret bağlarını güçlendirir, diğer ticaret politikaları zayıflatır. [concept_embargo] ticaret bağını keser.",
+  "12f147d1f2": "$concept_spec_long_depression$ dünya çapında bir iktisadi krizdir. Bir [concept_great_power] ülkesinde [concept_spec_financial_panic] başladığında ortaya çıkar. Panik yaşayan her ülkeye ulaşır. Çöküş sırasında ortak [concept_market], bağlı ülkeler ve egemenler, yatırım hakları, yoğun ticaret ve ekonomi mülkiyeti gibi yakın bağlar üzerinden ülkeden ülkeye yayılır. Bu tür bağları az olan ülkeler kurtulabilir. Çöküş birkaç ay sürer, krediyi durdurur ve [concept_spec_market_confidence] kaybına yol açar. Ardından en fazla #v {1}#! yıl süren bir bunalım gelir. Yatırım, inşaat ve ticaret yavaşlar, bazı toplumlar {2} olur. Hükümetler kararlarıyla dünyanın toparlanmasını hızlandırır. Üstün Güçlerin etkisi en büyüktür. Sonrasında güvenin geri döndüğü bir yıl yaşanır.",
+  "5ad860c432": "#v {1}#! ekonomimizin büyük bir bölümüne sahip.",
+  "c1a7b43e69": "#v {1}#! kaynaklı [concept_spec_financial_panic] tarafından vuruldu",
+  "c4b01705fe": "Sonrası"
+}

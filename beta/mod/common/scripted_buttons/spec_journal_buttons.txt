@@ -1,0 +1,40 @@
+﻿spec_suspend_act = {
+	name = "spec_suspend_act"
+	desc = "spec_suspend_act_desc"
+	possible = { root = { spec_can_suspend = yes } }
+	effect = { root = { spec_do_suspend = yes } }
+	ai_chance = {
+		value = 0
+	}
+}
+
+spec_relief_works_button = {
+	name = "spec_relief_works_button"
+	desc = "spec_relief_works_button_desc"
+	possible = { root = { spec_can_relief = yes } }
+	selected = { root = { has_variable = spec_relief } }
+	effect = { root = { spec_do_relief = yes } }
+	ai_chance = {
+		value = 0
+	}
+}
+
+spec_convert_debt = {
+	name = "spec_convert_debt"
+	desc = "spec_convert_debt_desc"
+	possible = { root = { spec_can_convert = yes } }
+	effect = { root = { spec_do_convert = yes } }
+	ai_chance = {
+		value = 0
+	}
+}
+
+spec_inquiry = {
+	name = "spec_inquiry"
+	desc = "spec_inquiry_desc"
+	possible = { root = { spec_can_inquire = yes } }
+	effect = { root = { spec_do_inquiry = yes } }
+	ai_chance = {
+		value = 0
+	}
+}

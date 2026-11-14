@@ -1,0 +1,100 @@
+﻿# Recheck at response time: the country can disappear while the foreign-panic story is open.
+# Keep the whole response together, so an absent target gives no confidence or approval for blaming it.
+spec_story_blame_foreign = {
+	if = {
+		limit = { exists = var:spec_story_src }
+		change_relations = {
+			country = var:spec_story_src
+			value = -15
+		}
+		custom_tooltip = {
+			text = spec_story_conf_up_2
+			spec_story_conf = { AMOUNT = 2 }
+		}
+		ig:ig_petty_bourgeoisie ?= {
+			add_modifier = {
+				name = spec_story_foreign_blamed
+				days = short_modifier_time
+			}
+		}
+	}
+}
+
+# confidence up or down by AMOUNT within 0 to 100, shown in the tab as this month's government change
+spec_story_conf = {
+	# An event can remain open while a law change closes the market economy. Its eventual option must not
+	# recreate confidence (or read cleared driver variables) after spec_shut_down.
+	if = {
+		limit = {
+			has_variable = spec_conf
+			spec_law_mult > 0
+		}
+		if = {
+			limit = { NOT = { has_variable = spec_c_caution } }
+			set_variable = { name = spec_c_caution value = 0 }
+		}
+		if = {
+			limit = { NOT = { has_variable = spec_c_total } }
+			set_variable = { name = spec_c_total value = 0 }
+		}
+		set_variable = { name = spec_story_was value = var:spec_conf }
+		set_variable = { name = spec_conf value = { value = var:spec_conf add = $AMOUNT$ min = 0 max = 100 } }
+		change_variable = { name = spec_c_caution add = { value = var:spec_conf subtract = var:spec_story_was } }
+		change_variable = { name = spec_c_total add = { value = var:spec_conf subtract = var:spec_story_was } }
+		remove_variable = spec_story_was
+		spec_pick_driver = yes
+		spec_update_band = yes
+	}
+}
+
+# monthly, players only: what the stories need to know, whichever order the mod's pulses run in
+spec_story_track = {
+	# a mania or panic new since last month keeps the stories away for a while
+	if = {
+		limit = {
+			has_variable = spec_mania
+			NOT = { has_variable = spec_story_mania_seen }
+		}
+		set_variable = spec_story_mania_seen
+		set_variable = { name = spec_story_hush value = yes days = 120 }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_mania }
+			has_variable = spec_story_mania_seen
+		}
+		remove_variable = spec_story_mania_seen
+	}
+	if = {
+		limit = {
+			has_variable = spec_panic
+			NOT = { has_variable = spec_story_panic_seen }
+		}
+		set_variable = spec_story_panic_seen
+		set_variable = { name = spec_story_hush value = yes days = 120 }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_variable = spec_panic }
+			has_variable = spec_story_panic_seen
+		}
+		remove_variable = spec_story_panic_seen
+	}
+	# a collapsed boom and a panic abroad that reached us, remembered for a season
+	if = {
+		limit = {
+			has_variable = spec_crashed
+			var:spec_c_crash <= -3
+		}
+		set_variable = { name = spec_story_crashed value = var:spec_crashed }
+		set_variable = { name = spec_story_crash value = yes days = 90 }
+	}
+	if = {
+		limit = {
+			has_variable = spec_foreign_src
+			var:spec_c_foreign <= -2
+		}
+		set_variable = { name = spec_story_src value = var:spec_foreign_src }
+		set_variable = { name = spec_story_foreign value = yes days = 90 }
+	}
+}

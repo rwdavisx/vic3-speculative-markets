@@ -1,0 +1,9 @@
+{
+  "02cdee371e": "\\n\\n#title 银行贷款:#! 占[concept_spec_outstanding_credit]的#v {1}#!，相当于资金池#v {2}#!个月的收入\\n若其热潮结束，[concept_spec_market_confidence]的跌幅将是无银行贷款热潮的#v x{3}#!倍",
+  "2523e47c00": "银行贷款去向",
+  "57da154fe8": "#header 上个月#!\\n[concept_spec_leverage]：#v {1}#!个月",
+  "599efded61": "银行曾向其大量放贷，因此跌幅是平常的#N x{1}#!倍。",
+  "99f6f8b6fa": "#header 本月#!\\n[concept_spec_leverage]：#v {1}#!个月",
+  "c866d03845": "#header {1}个月前#!\\n[concept_spec_leverage]：#v {2}#!个月",
+  "d52746e9ce": "杠杆历史"
+}

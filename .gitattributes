@@ -1,0 +1,9 @@
+*.py text eol=lf
+*.md text eol=lf
+*.bbcode text eol=lf
+# Preserve generated release bytes, including UTF-8 BOMs and line endings.
+mod/** -text
+beta/mod/** -text
+compatibility/cmf/mod/** -text
+*.png binary
+*.dds binary

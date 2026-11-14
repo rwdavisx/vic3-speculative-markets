@@ -1,0 +1,90 @@
+﻿texticon = {
+	icon = spec_ending_0
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/ending_0.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_ending_1
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/ending_1.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_ending_2
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/ending_2.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_ending_3
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/ending_3.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_interest_fleeing
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/interest_fleeing.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_interest_doubtful
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/interest_doubtful.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_interest_calm
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/interest_calm.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_interest_keen
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/interest_keen.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_interest_eager
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/interest_eager.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_interest_feverish
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/interest_feverish.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}

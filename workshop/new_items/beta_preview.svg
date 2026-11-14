@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800" role="img" aria-labelledby="title desc">
+  <title id="title">Speculative Markets - Beta</title>
+  <desc id="desc">Original gold and cream typography on a deep green field, with a financial chart and a clear Beta testing channel label.</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#0b2424"/><stop offset="1" stop-color="#183c37"/></linearGradient>
+    <linearGradient id="gold"><stop stop-color="#a77e41"/><stop offset=".5" stop-color="#ead29a"/><stop offset="1" stop-color="#a77e41"/></linearGradient>
+  </defs>
+  <rect width="800" height="800" fill="url(#bg)"/>
+  <rect x="25" y="25" width="750" height="750" rx="2" fill="none" stroke="url(#gold)" stroke-width="3"/>
+  <rect x="36" y="36" width="728" height="728" fill="none" stroke="#b69d68" stroke-opacity=".4"/>
+  <path d="M25 96H96V25M704 25V96H775M25 704H96V775M704 775V704H775" fill="none" stroke="#d4b980" stroke-width="2"/>
+  <g fill="#f2ead7" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif">
+    <text x="400" y="130" font-size="45" letter-spacing="2">SPECULATIVE</text>
+    <text x="400" y="183" font-size="45" letter-spacing="7">MARKETS</text>
+  </g>
+  <path d="M153 219H647" stroke="url(#gold)" stroke-width="2"/>
+  <g transform="translate(235 254)">
+    <path d="M0 126H330M0 84H330M0 42H330" stroke="#d4b980" stroke-opacity=".13"/>
+    <g fill="#b99b5e" opacity=".6"><rect x="16" y="76" width="32" height="50"/><rect x="82" y="56" width="32" height="70"/><rect x="148" y="66" width="32" height="60"/><rect x="214" y="26" width="32" height="100"/><rect x="280" y="0" width="32" height="126"/></g>
+    <path d="M0 91L65 69L130 84L195 45L260 27L330 0" fill="none" stroke="#f3dfaa" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="400" y="547" text-anchor="middle" fill="#f8eed9" font-family="Georgia, 'Times New Roman', serif" font-size="150" font-weight="bold" letter-spacing="3">BETA</text>
+  <text x="400" y="604" text-anchor="middle" fill="#d9bd82" font-family="Arial, sans-serif" font-size="29" letter-spacing="5">TESTING CHANNEL</text>
+  <path d="M154 642H646" stroke="url(#gold)" stroke-width="2"/>
+  <text x="400" y="690" text-anchor="middle" fill="#f2ead7" font-family="Arial, sans-serif" font-size="24">Enable Beta OR Stable</text>
+  <text x="400" y="729" text-anchor="middle" fill="#b8c4ba" font-family="Arial, sans-serif" font-size="18" letter-spacing="3">FOR VICTORIA 3</text>
+</svg>

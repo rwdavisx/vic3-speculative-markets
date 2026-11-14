@@ -1,0 +1,10 @@
+{
+  "05fa6cd4d5": "その他の物資",
+  "28a6891ce7": "$SPEC_INTEREST_0$: 市場の取引の#v {1}#!（#v {2}#!種の物資）",
+  "eeb2be2e02": "$SPEC_INTEREST_1$: 市場の取引の#v {1}#!（#v {2}#!種の物資）",
+  "27d5160117": "$SPEC_INTEREST_2$: 市場の取引の#v {1}#!（#v {2}#!種の物資）",
+  "4d49c6c22b": "$SPEC_INTEREST_3$: 市場の取引の#v {1}#!（#v {2}#!種の物資）",
+  "b3ab9f2b6e": "$SPEC_INTEREST_4$: 市場の取引の#v {1}#!（#v {2}#!種の物資）",
+  "ee82dd90e3": "$SPEC_INTEREST_5$: 市場の取引の#v {1}#!（#v {2}#!種の物資）",
+  "ff02941358": "#header $SPEC_BANK_OTHER$#!\\n$TOOLTIP_DELIMITER$\\n[concept_spec_outstanding_credit]の#v {1}#!が、他のすべての物資のブームに貸し出されています。"
+}

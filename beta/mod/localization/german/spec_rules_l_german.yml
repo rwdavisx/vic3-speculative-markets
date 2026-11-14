@@ -1,0 +1,6 @@
+﻿l_german:
+ rule_spec_market_volatility: "Marktschwankungen"
+ setting_spec_volatility_historical: "#tooltippable #tooltip:[GetPlayer.GetTooltipTag],setting_spec_volatility_historical_desc Historisch#!#!"
+ setting_spec_volatility_historical_desc: "Spekulationsbooms und [Concept('concept_spec_financial_panic', '$concept_spec_financial_panics|q$')] treten etwa so häufig auf wie im 19. Jahrhundert"
+ setting_spec_volatility_heightened: "#tooltippable #tooltip:[GetPlayer.GetTooltipTag],setting_spec_volatility_heightened_desc #high Hoch#!#!#!"
+ setting_spec_volatility_heightened_desc: "Spekulationsbooms werden größer und enden abrupter. [Concept('concept_spec_financial_panic', '$concept_spec_financial_panics|q$')] treten häufiger auf als im 19. Jahrhundert"

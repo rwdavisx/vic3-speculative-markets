@@ -1,0 +1,9 @@
+{
+  "02cdee371e": "\\n\\n#title 은행 대출:#! [concept_spec_outstanding_credit]의 #v {1}#!, 풀 수입 #v {2}#!개월분\\n이 호황이 끝난다면 [concept_spec_market_confidence]은(는) 은행이 대출하지 않은 호황보다 #v x{3}#!배 더 떨어집니다",
+  "2523e47c00": "은행이 대출한 곳",
+  "57da154fe8": "#header 지난달#!\\n[concept_spec_leverage]: #v {1}#!개월분",
+  "599efded61": " 은행이 이곳에 많이 대출해 두었기 때문에 하락폭이 #N x{1}#!배나 컸습니다.",
+  "99f6f8b6fa": "#header 이번 달#!\\n[concept_spec_leverage]: #v {1}#!개월분",
+  "c866d03845": "#header {1}개월 전#!\\n[concept_spec_leverage]: #v {2}#!개월분",
+  "d52746e9ce": "레버리지 추이"
+}

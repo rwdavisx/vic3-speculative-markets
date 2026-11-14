@@ -1,0 +1,520 @@
+﻿# applied by spec_update_levers: the money and Authority ones multiplied by their amount, then each lever's throughput
+spec_lever_restrain = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	country_tax_income_add = 1
+}
+
+spec_lever_encourage = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	country_expenses_add = 1
+}
+
+spec_levers = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	country_authority_add = -1
+}
+
+spec_lever_restrain_aeroplanes = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_automotive_industry_throughput_add = -0.1
+}
+
+spec_lever_encourage_aeroplanes = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_automotive_industry_throughput_add = 0.1
+}
+
+spec_lever_restrain_ammunition = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_munition_plant_throughput_add = -0.1
+}
+
+spec_lever_encourage_ammunition = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_munition_plant_throughput_add = 0.1
+}
+
+spec_lever_restrain_artillery = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_artillery_foundry_throughput_add = -0.1
+}
+
+spec_lever_encourage_artillery = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_artillery_foundry_throughput_add = 0.1
+}
+
+spec_lever_restrain_automobiles = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_automotive_industry_throughput_add = -0.1
+}
+
+spec_lever_encourage_automobiles = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_automotive_industry_throughput_add = 0.1
+}
+
+spec_lever_restrain_clippers = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_shipyard_throughput_add = -0.1
+}
+
+spec_lever_encourage_clippers = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_shipyard_throughput_add = 0.1
+}
+
+spec_lever_restrain_clothes = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_textile_mill_throughput_add = -0.1
+}
+
+spec_lever_encourage_clothes = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_textile_mill_throughput_add = 0.1
+}
+
+spec_lever_restrain_coal = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_coal_mine_throughput_add = -0.1
+}
+
+spec_lever_encourage_coal = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_coal_mine_throughput_add = 0.1
+}
+
+spec_lever_restrain_coffee = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_coffee_plantation_throughput_add = -0.1
+}
+
+spec_lever_encourage_coffee = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_coffee_plantation_throughput_add = 0.1
+}
+
+spec_lever_restrain_copper = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_copper_mine_throughput_add = -0.1
+}
+
+spec_lever_encourage_copper = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_copper_mine_throughput_add = 0.1
+}
+
+spec_lever_restrain_dye = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_synthetics_plant_throughput_add = -0.1
+	building_dye_plantation_throughput_add = -0.1
+}
+
+spec_lever_encourage_dye = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_synthetics_plant_throughput_add = 0.1
+	building_dye_plantation_throughput_add = 0.1
+}
+
+spec_lever_restrain_electricity = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_power_plant_throughput_add = -0.1
+}
+
+spec_lever_encourage_electricity = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_power_plant_throughput_add = 0.1
+}
+
+spec_lever_restrain_engines = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_motor_industry_throughput_add = -0.1
+}
+
+spec_lever_encourage_engines = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_motor_industry_throughput_add = 0.1
+}
+
+spec_lever_restrain_explosives = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_explosives_factory_throughput_add = -0.1
+}
+
+spec_lever_encourage_explosives = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_explosives_factory_throughput_add = 0.1
+}
+
+spec_lever_restrain_fabric = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_cotton_plantation_throughput_add = -0.1
+}
+
+spec_lever_encourage_fabric = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_cotton_plantation_throughput_add = 0.1
+}
+
+spec_lever_restrain_fertilizer = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_chemical_plant_throughput_add = -0.1
+}
+
+spec_lever_encourage_fertilizer = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_chemical_plant_throughput_add = 0.1
+}
+
+spec_lever_restrain_fine_art = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_art_academy_throughput_add = -0.1
+}
+
+spec_lever_encourage_fine_art = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_art_academy_throughput_add = 0.1
+}
+
+spec_lever_restrain_fish = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_fishing_wharf_throughput_add = -0.1
+}
+
+spec_lever_encourage_fish = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_fishing_wharf_throughput_add = 0.1
+}
+
+spec_lever_restrain_furniture = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_furniture_manufactory_throughput_add = -0.1
+}
+
+spec_lever_encourage_furniture = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_furniture_manufactory_throughput_add = 0.1
+}
+
+spec_lever_restrain_glass = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_glassworks_throughput_add = -0.1
+}
+
+spec_lever_encourage_glass = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_glassworks_throughput_add = 0.1
+}
+
+spec_lever_restrain_grain = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_rye_farm_throughput_add = -0.1
+	building_wheat_farm_throughput_add = -0.1
+	building_rice_farm_throughput_add = -0.1
+	building_maize_farm_throughput_add = -0.1
+	building_millet_farm_throughput_add = -0.1
+}
+
+spec_lever_encourage_grain = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_rye_farm_throughput_add = 0.1
+	building_wheat_farm_throughput_add = 0.1
+	building_rice_farm_throughput_add = 0.1
+	building_maize_farm_throughput_add = 0.1
+	building_millet_farm_throughput_add = 0.1
+}
+
+spec_lever_restrain_groceries = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_food_industry_throughput_add = -0.1
+}
+
+spec_lever_encourage_groceries = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_food_industry_throughput_add = 0.1
+}
+
+spec_lever_restrain_hardwood = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_group_bg_logging_throughput_add = -0.1
+}
+
+spec_lever_encourage_hardwood = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_group_bg_logging_throughput_add = 0.1
+}
+
+spec_lever_restrain_iron = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_iron_mine_throughput_add = -0.1
+}
+
+spec_lever_encourage_iron = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_iron_mine_throughput_add = 0.1
+}
+
+spec_lever_restrain_lead = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_lead_mine_throughput_add = -0.1
+}
+
+spec_lever_encourage_lead = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_lead_mine_throughput_add = 0.1
+}
+
+spec_lever_restrain_liquor = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_food_industry_throughput_add = -0.1
+}
+
+spec_lever_encourage_liquor = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_food_industry_throughput_add = 0.1
+}
+
+spec_lever_restrain_luxury_clothes = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_textile_mill_throughput_add = -0.1
+}
+
+spec_lever_encourage_luxury_clothes = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_textile_mill_throughput_add = 0.1
+}
+
+spec_lever_restrain_luxury_furniture = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_furniture_manufactory_throughput_add = -0.1
+}
+
+spec_lever_encourage_luxury_furniture = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_furniture_manufactory_throughput_add = 0.1
+}
+
+spec_lever_restrain_meat = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_livestock_ranch_throughput_add = -0.1
+	building_whaling_station_throughput_add = -0.1
+}
+
+spec_lever_encourage_meat = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_livestock_ranch_throughput_add = 0.1
+	building_whaling_station_throughput_add = 0.1
+}
+
+spec_lever_restrain_merchant_marine = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_port_throughput_add = -0.1
+}
+
+spec_lever_encourage_merchant_marine = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_port_throughput_add = 0.1
+}
+
+spec_lever_restrain_oil = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_group_bg_oil_extraction_throughput_add = -0.1
+	building_whaling_station_throughput_add = -0.1
+}
+
+spec_lever_encourage_oil = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_group_bg_oil_extraction_throughput_add = 0.1
+	building_whaling_station_throughput_add = 0.1
+}
+
+spec_lever_restrain_opium = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_opium_plantation_throughput_add = -0.1
+}
+
+spec_lever_encourage_opium = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_opium_plantation_throughput_add = 0.1
+}
+
+spec_lever_restrain_paper = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_paper_mill_throughput_add = -0.1
+}
+
+spec_lever_encourage_paper = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_paper_mill_throughput_add = 0.1
+}
+
+spec_lever_restrain_porcelain = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_glassworks_throughput_add = -0.1
+}
+
+spec_lever_encourage_porcelain = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_glassworks_throughput_add = 0.1
+}
+
+spec_lever_restrain_radios = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_electrics_industry_throughput_add = -0.1
+}
+
+spec_lever_encourage_radios = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_electrics_industry_throughput_add = 0.1
+}
+
+spec_lever_restrain_rubber = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_rubber_plantation_throughput_add = -0.1
+}
+
+spec_lever_encourage_rubber = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_rubber_plantation_throughput_add = 0.1
+}
+
+spec_lever_restrain_silk = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_silk_plantation_throughput_add = -0.1
+	building_synthetics_plant_throughput_add = -0.1
+}
+
+spec_lever_encourage_silk = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_silk_plantation_throughput_add = 0.1
+	building_synthetics_plant_throughput_add = 0.1
+}
+
+spec_lever_restrain_small_arms = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_arms_industry_throughput_add = -0.1
+}
+
+spec_lever_encourage_small_arms = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_arms_industry_throughput_add = 0.1
+}
+
+spec_lever_restrain_steamers = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_shipyard_throughput_add = -0.1
+}
+
+spec_lever_encourage_steamers = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_shipyard_throughput_add = 0.1
+}
+
+spec_lever_restrain_steel = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_steel_mill_throughput_add = -0.1
+}
+
+spec_lever_encourage_steel = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_steel_mill_throughput_add = 0.1
+}
+
+spec_lever_restrain_sugar = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_sugar_plantation_throughput_add = -0.1
+}
+
+spec_lever_encourage_sugar = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_sugar_plantation_throughput_add = 0.1
+}
+
+spec_lever_restrain_sulfur = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_sulfur_mine_throughput_add = -0.1
+}
+
+spec_lever_encourage_sulfur = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_sulfur_mine_throughput_add = 0.1
+}
+
+spec_lever_restrain_tanks = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_automotive_industry_throughput_add = -0.1
+}
+
+spec_lever_encourage_tanks = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_automotive_industry_throughput_add = 0.1
+}
+
+spec_lever_restrain_tea = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_tea_plantation_throughput_add = -0.1
+}
+
+spec_lever_encourage_tea = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_tea_plantation_throughput_add = 0.1
+}
+
+spec_lever_restrain_telephones = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_electrics_industry_throughput_add = -0.1
+}
+
+spec_lever_encourage_telephones = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_electrics_industry_throughput_add = 0.1
+}
+
+spec_lever_restrain_tobacco = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_tobacco_plantation_throughput_add = -0.1
+}
+
+spec_lever_encourage_tobacco = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_tobacco_plantation_throughput_add = 0.1
+}
+
+spec_lever_restrain_tools = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_tooling_workshop_throughput_add = -0.1
+}
+
+spec_lever_encourage_tools = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_tooling_workshop_throughput_add = 0.1
+}
+
+spec_lever_restrain_wine = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_vineyard_throughput_add = -0.1
+}
+
+spec_lever_encourage_wine = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_vineyard_throughput_add = 0.1
+}
+
+spec_lever_restrain_wood = {
+	icon = gfx/interface/icons/spec_markets/lever_restrain.dds
+	building_group_bg_logging_throughput_add = -0.1
+}
+
+spec_lever_encourage_wood = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+	building_group_bg_logging_throughput_add = 0.1
+}
+
+spec_lever_encourage_industry = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+}
+
+spec_lever_encourage_land = {
+	icon = gfx/interface/icons/spec_markets/lever_encourage.dds
+}
+

@@ -1,0 +1,9 @@
+{
+  "02cdee371e": "\\n\\n#title Empréstimos bancários:#! #v {1}#! de [concept_spec_outstanding_credit], #v {2}#! meses de renda do fundo\\nSe a expansão terminasse, a [concept_spec_market_confidence] cairia #v x{3}#! vezes mais do que com uma expansão em que nenhum banco emprestou",
+  "2523e47c00": "Onde os bancos emprestaram",
+  "57da154fe8": "#header Mês passado#!\\n[concept_spec_leverage]: #v {1}#! meses",
+  "599efded61": " Os bancos tinham emprestado muito nele, então a queda foi #N x{1}#! mais dura.",
+  "99f6f8b6fa": "#header Este mês#!\\n[concept_spec_leverage]: #v {1}#! meses",
+  "c866d03845": "#header {1} meses atrás#!\\n[concept_spec_leverage]: #v {2}#! meses",
+  "d52746e9ce": "Histórico de alavancagem"
+}

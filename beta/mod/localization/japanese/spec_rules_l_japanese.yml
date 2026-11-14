@@ -1,0 +1,6 @@
+﻿l_japanese:
+ rule_spec_market_volatility: "市場の変動性"
+ setting_spec_volatility_historical: "#tooltippable #tooltip:[GetPlayer.GetTooltipTag],setting_spec_volatility_historical_desc 史実準拠#!#!"
+ setting_spec_volatility_historical_desc: "投機的な好況と[Concept('concept_spec_financial_panic', '$concept_spec_financial_panics|q$')]が、19世紀の史実と同程度の頻度で起こります"
+ setting_spec_volatility_heightened: "#tooltippable #tooltip:[GetPlayer.GetTooltipTag],setting_spec_volatility_heightened_desc #high 高い#!#!#!"
+ setting_spec_volatility_heightened_desc: "投機的な好況がより大きくなり、より急激に終息します。[Concept('concept_spec_financial_panic', '$concept_spec_financial_panics|q$')]は19世紀の史実よりも頻繁に起こります"

@@ -1,0 +1,14 @@
+{
+  "de9b342187": "Bankkredite erhöhen [concept_throughput] um #P {1}%#! für jeden vollen Monat [concept_spec_leverage], bis zu #P {2}%#!.",
+  "f25f653c3a": "Unter #v $SPEC_PANIC_AT$#! kann eine [concept_spec_financial_panic] beginnen, bei #v {1}#! wechselt er zu #v Stabil#!.",
+  "94db779f7e": "[concept_spec_bad_debts]: #N -{1}%#! [concept_throughput] jetzt, abklingend über weitere #v {2}#! Monate\\n",
+  "3adf5cdd86": "Nach einem Gebietsverlust werden [concept_spec_bad_debts] mit #v {1}#! Monaten [concept_spec_leverage] berechnet. Die Entlastung klingt über weitere #v {2}#! Monate ab\\n",
+  "3cafce71a4": "[concept_spec_bad_debts]: #N -{1}%#! [concept_throughput] jetzt, abklingend über weitere #v {2}#! Monate. Sie können die Panik überdauern.\\n\\n",
+  "6f91445225": "#header Panikbeginn: {1}#!\\n$TOOLTIP_DELIMITER$\\nEine [concept_spec_financial_panic], die bei hohem [concept_spec_leverage] beginnt, lässt [concept_spec_market_confidence] direkt unter #v {2}#! fallen.",
+  "6a698868e0": "#P Sicher#!",
+  "53a64a4fa4": "#N Riskant#!",
+  "d91b722d1b": "#N Gefährlich#!",
+  "bd5d2d08d9": "Sicher bis #v {1}#! Monate",
+  "46852e02d5": "Sicheres Limit von #v {1}#! Monaten überschritten",
+  "bc99612baf": "[concept_spec_outstanding_credit]: #v @money!{1}#!\\nMonatliche Fondseinnahmen: #v @money!{2}#!\\n$TOOLTIP_DELIMITER$\\nDer höhere Wert aus den Einnahmen des [concept_investment_pool] in diesem Monat und ihrem Durchschnitt über etwa ein Jahr."
+}

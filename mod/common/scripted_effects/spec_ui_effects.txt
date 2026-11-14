@@ -1,0 +1,69 @@
+﻿# the Speculation tab's per-good figures (interest_board.py), so its tiles read one variable each frame
+spec_ui_good = {
+	if = {
+		limit = { var:spec_word_$G$ > 0 }
+		set_variable = { name = spec_ui_cat_$G$ value = $CAT$ }
+		if = {
+			limit = { var:spec_word_$G$ = 1 }
+			set_variable = { name = spec_ui_bar_$G$ value = { value = var:spec_hype_$G$ subtract = 0.05 divide = 0.117 min = 0 max = 1 } }
+		}
+		else_if = {
+			limit = { var:spec_word_$G$ = 2 }
+			set_variable = { name = spec_ui_bar_$G$ value = { value = var:spec_hype_$G$ subtract = 0.167 divide = 0.333 min = 0 max = 1 } }
+		}
+		else_if = {
+			limit = { var:spec_word_$G$ = 3 }
+			set_variable = { name = spec_ui_bar_$G$ value = { value = var:spec_hype_$G$ subtract = 0.5 divide = 1.5 min = 0 max = 1 } }
+		}
+		else_if = {
+			limit = { var:spec_word_$G$ = 4 }
+			set_variable = { name = spec_ui_bar_$G$ value = { value = var:spec_hype_$G$ subtract = 2 divide = 1 min = 0 max = 1 } }
+		}
+		else_if = {
+			limit = { var:spec_word_$G$ = 5 }
+			set_variable = { name = spec_ui_bar_$G$ value = { value = var:spec_hype_$G$ subtract = 3 divide = 3 min = 0 max = 1 } }
+		}
+		else_if = {
+			limit = { var:spec_word_$G$ = 6 }
+			set_variable = { name = spec_ui_bar_$G$ value = { value = var:spec_hype_$G$ subtract = 6 divide = 14 min = 0 max = 1 } }
+		}
+		set_variable = { name = spec_ui_pos_$G$ value = { value = var:spec_word_$G$ subtract = 1 add = var:spec_ui_bar_$G$ } }
+		set_variable = { name = spec_ui_move_$G$ value = 0 }
+		if = {
+			limit = { has_variable = spec_hprev_$G$ }
+			if = {
+				limit = { var:spec_hype_$G$ > { value = var:spec_hprev_$G$ add = 0.06 } }
+				set_variable = { name = spec_ui_move_$G$ value = 1 }
+			}
+			else_if = {
+				limit = { var:spec_hype_$G$ < { value = var:spec_hprev_$G$ subtract = 0.06 } }
+				set_variable = { name = spec_ui_move_$G$ value = -1 }
+			}
+		}
+		set_variable = { name = spec_ui_badge_$G$ value = 0 }
+		if = {
+			limit = {
+				var:spec_peak_$G$ >= 6
+				NOT = { var:spec_hype_$G$ >= { value = var:spec_peak_$G$ multiply = 0.85 } }
+				# a restrained boom eases down to Calm and cannot end there
+				NOT = { has_variable = spec_restrain_$G$ }
+			}
+			set_variable = { name = spec_ui_badge_$G$ value = 1 }
+		}
+		# interest_list's row state, one variable for its marker: 2 the boom ended this month (generate.monthly's
+		# crash branch, which runs first), 3 in a glut after it, 1 turning as the badge, 0 none
+		set_variable = { name = spec_ui_state_$G$ value = 0 }
+		if = {
+			limit = { has_variable = spec_ui_crash_$G$ }
+			set_variable = { name = spec_ui_state_$G$ value = 2 }
+		}
+		else_if = {
+			limit = { has_variable = spec_glut_$G$ }
+			set_variable = { name = spec_ui_state_$G$ value = 3 }
+		}
+		else_if = {
+			limit = { var:spec_ui_badge_$G$ = 1 }
+			set_variable = { name = spec_ui_state_$G$ value = 1 }
+		}
+	}
+}

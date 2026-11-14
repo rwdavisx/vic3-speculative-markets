@@ -1,0 +1,9 @@
+{
+  "0198603996": "#header {1}への投資を奨励#!\\n$TOOLTIP_DELIMITER$\\n[concept_spec_investor_interest]: 数か月かけて#v 積極#!まで上昇\\n[concept_authority]: 毎月#N -{2}#!#indent_newline:3 \\n基準価値に由来#v {3}#!（その消費税の{4}%）\\n貿易割合に由来#v x{5}#!（我が国の市場の#v {6}#!）\\n{7}#!単位で四捨五入\\n{8}[concept_budget_additional_expenses]: 毎週#N @money!{9}#!、基準価格での週間生産額の{10}%に相当する助成金\\n\\n[concept_good]が#v 意欲#!になると自動的に解除されるため、好況は自然に終息しえます。\\n\\n#low 1800年代半ばにイギリス領インドとフランスが鉄道投資家に与えた利益保証のように。#!{11}\\n\\n{12}",
+  "43d47c4c26": "#header 崩壊した好況: {1}#!\\n直近1か月の最大: #v {2}#!\\n$TOOLTIP_DELIMITER$\\n終息した好況の規模に由来{3}\\n[concept_spec_market_conditions]に由来{4}#v x{5}#!#!#!{6}\\n$TOOLTIP_DELIMITER$\\n好況の後に価格が急落した[concept_good]は[concept_spec_market_confidence]を引き下げます。好況が大きく、[concept_market]に占める割合が大きいほど、損失も大きくなります。{7}はリスクを分散させ、{8}はリスクを増大させます。",
+  "4eacb65e3b": "銀行救済",
+  "a2654484a5": "#header {1}の投機を抑制#!\\n$TOOLTIP_DELIMITER$\\n[concept_spec_investor_interest]: 数か月かけて#v 平静#!まで低下\\n[concept_authority]: 毎月#N -{2}#!#indent_newline:3 \\n基準価値に由来#v {3}#!（その消費税の{4}%）\\n貿易割合に由来#v x{5}#!（我が国の市場の#v {6}#!）\\n{7}#!単位で四捨五入\\n{8}[concept_budget_additional_income]: 毎週#P @money!{9}#!、基準価格での週間生産額の{10}%に相当する賦課金\\n\\n抑制されている間、その好況は拡大も暴落もしません。代わりに約1年かけて[concept_spec_correction]として収束し、毎月わずかに[concept_spec_market_confidence]を損ないます。\\n\\n#low 南海泡沫事件の後に新規の株式会社を制限した、{11}年のバブル法のように。#!{12}\\n\\n{13}",
+  "bf8e5c092d": "銀行",
+  "c96fbc447b": "#header 不良債権を買い取る#!\\n$TOOLTIP_DELIMITER$\\n国庫が窮地にある銀行商会から不良手形と債権を買い取り、その損失を公の勘定に引き受けます。\\n\\n{1}",
+  "eadef26dae": "#header 銀行救済#!\\n$TOOLTIP_DELIMITER$\\n[concept_spec_financial_panic]の最中に銀行へ融資すると、恐慌が早く終わります。"
+}

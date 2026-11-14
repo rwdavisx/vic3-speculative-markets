@@ -1,0 +1,9 @@
+{
+  "0198603996": "#header {1} 투자 장려#!\\n$TOOLTIP_DELIMITER$\\n[concept_spec_investor_interest]: 몇 달에 걸쳐 #v 관심#!까지 상승\\n[concept_authority]: 매달 #N -{2}#!#indent_newline:3 \\n기준 가치에서: #v {3}#! (그 상품 소비세의 {4}%)\\n거래 비중에서: #v x{5}#! (우리 시장의 #v {6}#!)\\n{7}#! 단위로 반올림\\n{8}[concept_budget_additional_expenses]: 매주 #N @money!{9}#!, 기준 가격 기준 주간 생산량의 {10}%에 해당하는 보조금\\n\\n해당 [concept_good]이(가) #v 열의#! 단계가 되면 저절로 해제되므로 호황이 스스로 끝날 수 있습니다.\\n\\n#low 1800년대 중반 영국령 인도와 프랑스가 철도 투자자에게 제공한 수익 보장처럼.#!{11}\\n\\n{12}",
+  "43d47c4c26": "#header 무너진 호황: {1}#!\\n지난달 최대: #v {2}#!\\n$TOOLTIP_DELIMITER$\\n끝난 호황의 규모에서: {3}\\n[concept_spec_market_conditions]에서: {4}#v x{5}#!#!#!{6}\\n$TOOLTIP_DELIMITER$\\n호황 뒤에 가격이 급락한 [concept_good]은(는) [concept_spec_market_confidence]을(를) 떨어뜨립니다. 호황이 크고 [concept_market]에서 차지하는 비중이 클수록 손실도 커집니다. {7}은(는) 위험을 분산시킵니다. {8}은(는) 위험을 키웁니다.",
+  "4eacb65e3b": "은행 구제",
+  "a2654484a5": "#header {1} 투기 억제#!\\n$TOOLTIP_DELIMITER$\\n[concept_spec_investor_interest]: 몇 달에 걸쳐 #v 관망#!까지 하락\\n[concept_authority]: 매달 #N -{2}#!#indent_newline:3 \\n기준 가치에서: #v {3}#! (그 상품 소비세의 {4}%)\\n거래 비중에서: #v x{5}#! (우리 시장의 #v {6}#!)\\n{7}#! 단위로 반올림\\n{8}[concept_budget_additional_income]: 매주 #P @money!{9}#!, 기준 가격 기준 주간 생산량의 {10}%에 해당하는 부담금\\n\\n억제되는 동안 호황은 커지지도 무너지지도 않습니다. 대신 약 1년에 걸쳐 [concept_spec_correction](으)로 잦아들며, 매달 [concept_spec_market_confidence]을(를) 조금씩 깎습니다.\\n\\n#low 남해 거품 사건 이후 신규 합자회사 설립을 제한한 {11}년의 버블법처럼.#!{12}\\n\\n{13}",
+  "bf8e5c092d": "은행",
+  "c96fbc447b": "#header 부실 대출 매입#!\\n$TOOLTIP_DELIMITER$\\n국고가 어려움에 처한 은행 상회로부터 부실 어음과 채권을 사들여 그 손실을 공공 회계로 떠안습니다.\\n\\n{1}",
+  "eadef26dae": "#header 은행 구제#!\\n$TOOLTIP_DELIMITER$\\n[concept_spec_financial_panic] 중에 은행에 대출하면 공황이 더 일찍 끝납니다."
+}

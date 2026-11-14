@@ -1,0 +1,60 @@
+﻿spec_can_stance_tight = {
+	has_technology_researched = central_banking
+	custom_tooltip = {
+		text = spec_stance_current_tt
+		NOT = { spec_stance_value = -1 }
+	}
+	custom_tooltip = {
+		text = spec_stance_cooldown_tt
+		NOT = { has_variable = spec_stance_cooldown }
+	}
+}
+
+spec_can_stance_normal = {
+	has_technology_researched = central_banking
+	custom_tooltip = {
+		text = spec_stance_current_tt
+		NOT = { spec_stance_value = 0 }
+	}
+	custom_tooltip = {
+		text = spec_stance_cooldown_tt
+		NOT = { has_variable = spec_stance_cooldown }
+	}
+}
+
+spec_can_stance_loose = {
+	has_technology_researched = central_banking
+	custom_tooltip = {
+		text = spec_stance_current_tt
+		NOT = { spec_stance_value = 1 }
+	}
+	custom_tooltip = {
+		text = spec_stance_cooldown_tt
+		NOT = { has_variable = spec_stance_cooldown }
+	}
+}
+
+spec_can_rescue = {
+	custom_tooltip = {
+		text = spec_suspend_panic_tt
+		has_variable = spec_panic
+	}
+	has_technology_researched = banking
+	custom_tooltip = {
+		text = spec_rescued_tt
+		NOT = { has_variable = spec_rescued }
+	}
+}
+
+spec_can_bailout = {
+	custom_tooltip = {
+		text = spec_bailout_debts_tt
+		has_variable = spec_crunch
+	}
+	has_technology_researched = banking
+	in_default = no
+	custom_tooltip = {
+		text = spec_bailed_tt
+		NOT = { has_variable = spec_bailed }
+	}
+}

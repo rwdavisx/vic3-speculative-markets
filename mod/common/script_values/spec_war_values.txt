@@ -1,0 +1,149 @@
+﻿spec_war_killed = {
+	value = 0
+	add = "scope:war.num_country_casualties(root)"
+}
+spec_war_forces = {
+	value = 1000
+	if = {
+		limit = { military_size > 0 }
+		multiply = military_size
+	}
+}
+spec_war_total = {
+	value = spec_war_killed
+	divide = spec_war_forces
+}
+spec_wv_casualties = {
+	value = 0
+	add = spec_war_killed
+	subtract = var:spec_war_prev
+	min = 0
+	divide = spec_war_forces
+}
+spec_wc_casualties = {
+	value = spec_wv_casualties
+	multiply = -6
+	min = -0.75
+	max = 0
+}
+spec_wv_blockade = {
+	value = 0
+	add = "scope:war.blockaded_gdp_share(root)"
+}
+spec_wc_blockade = {
+	value = spec_wv_blockade
+	multiply = -1
+	min = -0.35
+	max = 0
+}
+spec_wv_gdp = {
+	value = 0
+	add = "scope:war.gdp_change_since_war_start(root)"
+}
+spec_wc_gdp = {
+	value = spec_wv_gdp
+	add = 0.1
+	max = 0
+	min = -0.35
+	max = 0
+}
+spec_wv_devastation = {
+	value = 0
+	add = average_devastation
+}
+spec_wc_devastation = {
+	value = spec_wv_devastation
+	multiply = -1
+	min = -0.2
+	max = 0
+}
+spec_wv_battles = {
+	value = 0
+	add = "size_weighted_won_battles_fraction(scope:war)"
+	subtract = "size_weighted_lost_battles_fraction(scope:war)"
+	multiply = {
+		value = "scope:war.num_significant_battles"
+		divide = define:NWar|WAR_SUPPORT_BATTLES_RAMP_THRESHOLD
+		max = 1
+	}
+}
+spec_wc_battles = {
+	value = spec_wv_battles
+	multiply = 0.25
+	min = -0.25
+	max = 0.25
+}
+spec_wv_held = {
+	value = 0
+	add = "enemy_side_occupation(scope:war)"
+}
+spec_wc_held = {
+	value = spec_wv_held
+	multiply = 0.25
+	min = 0
+	max = 0.25
+}
+spec_wv_pressure = {
+	value = 0
+	add = "scope:war.enemy_pressure(root)"
+}
+spec_wc_pressure = {
+	value = spec_wv_pressure
+	multiply = -0.35
+	min = -0.35
+	max = 0
+}
+spec_wv_land = {
+	value = 0
+	add = "scope:war.land_lost_since_war_start(root)"
+}
+spec_wc_land = {
+	value = spec_wv_land
+	multiply = -1
+	min = -0.1
+	max = 0
+}
+spec_wv_length = {
+	value = 0
+	add = "scope:war.war_duration_months"
+}
+spec_wc_length = {
+	value = spec_wv_length
+	subtract = 12
+	min = 0
+	multiply = -0.0083
+	min = -0.2
+	max = 0
+}
+spec_wv_stalemate = {
+	value = 0
+	if = {
+		limit = { scope:war = { war_is_in_stalemate = yes } }
+		add = 1
+	}
+}
+spec_wc_stalemate = {
+	value = spec_wv_stalemate
+	multiply = -0.1
+	min = -0.1
+	max = 0
+}
+spec_war_month = {
+	value = -0.35
+	add = spec_wc_casualties
+	add = spec_wc_blockade
+	add = spec_wc_gdp
+	add = spec_wc_devastation
+	add = spec_wc_battles
+	add = spec_wc_held
+	add = spec_wc_pressure
+	add = spec_wc_land
+	add = spec_wc_length
+	add = spec_wc_stalemate
+}
+spec_war_stakes = {
+	value = var:spec_war_end
+	multiply = 4
+	min = 0.25
+	max = 1
+}

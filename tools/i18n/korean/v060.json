@@ -1,0 +1,7 @@
+{
+  "d977d9e3db": "$concept_spec_foreign_panic$은 공동 [concept_market], 종속 관계, 투자권, 대규모 무역, 경제 소유로 연결된 국가에서 [concept_spec_financial_panic] 발생 시 해당 [concept_country]의 [concept_spec_market_confidence]를 낮춥니다. 관계가 긴밀할수록 손실이 큽니다. {1} 도입 시 무역 연계가 강화되며 다른 무역 정책은 이를 약화합니다. [concept_embargo]는 무역 연계를 끊습니다.",
+  "12f147d1f2": "$concept_spec_long_depression$은 세계적인 경제 위기입니다. [concept_great_power]이 [concept_spec_financial_panic]에 빠지면 시작됩니다. 공황 중인 모든 국가에 영향을 미치며, 폭락기에는 공동 [concept_market], 종속국과 종주국, 투자권, 대규모 무역, 경제 소유 등의 긴밀한 관계를 따라 국가 간에 퍼집니다. 이런 관계가 드문 국가는 위기를 피할 수 있습니다. 폭락은 수개월 동안 지속되며 신용을 동결하고 [concept_spec_market_confidence]를 고갈시킵니다. 이후 최대 #v {1}#!년의 불황이 이어져 투자, 건설, 무역이 둔화되고 일부 팝이 {2} 세력으로 돌아섭니다. 각 정부의 선택은 세계의 회복을 앞당기며, 특히 열강의 영향이 큽니다. 그 뒤 1년 동안 신뢰도가 회복됩니다.",
+  "5ad860c432": "#v {1}#!이(가) 우리 경제의 상당 부분을 소유하고 있습니다.",
+  "c1a7b43e69": "#v {1}#!의 [concept_spec_financial_panic] 타격을 받음",
+  "c4b01705fe": "여파"
+}

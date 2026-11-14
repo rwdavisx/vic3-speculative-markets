@@ -1,0 +1,70 @@
+﻿spec_capital_flight = {
+	every_country = {
+		limit = {
+			NOT = { this = root }
+			OR = {OR = {
+				country_rank = rank_value:great_power
+				AND = {
+					has_variable = spec_exch_stand
+					var:spec_exch_stand >= 2
+				}
+			} AND = { has_variable = spec_rival var:spec_rival = root } AND = { root = { has_variable = spec_rival } root.var:spec_rival = this } }
+			has_variable = spec_conf
+			var:spec_conf >= 40
+			NOT = { has_variable = spec_panic }
+			NOT = { has_variable = spec_foreign_pending }
+			is_at_war = no
+			gdp > 0
+		}
+		# ponytail: a second panic in the same month overwrites the first; rare enough not to keep the larger
+		set_variable = {
+			name = spec_flight_pending
+			value = {
+				value = root.var:spec_src_gdp
+				divide = gdp
+				max = 1
+				multiply = 2
+				multiply = spec_flight_mult
+				if = {
+					limit = { OR = { AND = { has_variable = spec_rival var:spec_rival = root } AND = { root = { has_variable = spec_rival } root.var:spec_rival = this } } }
+					multiply = 1.5
+				}
+			}
+		}
+		set_variable = { name = spec_foreign_src value = root }
+		if = {
+			limit = {
+				NOT = { has_variable = spec_fp1 }
+			}
+			set_variable = { name = spec_fp1 value = root }
+		}
+		else_if = {
+			limit = {
+				NOT = { var:spec_fp1 ?= root }
+				NOT = { has_variable = spec_fp2 }
+			}
+			set_variable = { name = spec_fp2 value = root }
+		}
+		else_if = {
+			limit = {
+				NOT = { var:spec_fp1 ?= root }
+				NOT = { var:spec_fp2 ?= root }
+				NOT = { has_variable = spec_fp3 }
+			}
+			set_variable = { name = spec_fp3 value = root }
+		}
+	}
+}
+spec_war_jump = {
+	set_variable = { name = spec_war_end value = { value = var:spec_conf add = var:spec_war_end min = 0 max = 100 subtract = var:spec_conf } }
+	change_variable = { name = spec_conf add = var:spec_war_end }
+	if = {
+		limit = { NOT = { has_variable = spec_c_warend } }
+		set_variable = { name = spec_c_warend value = 0 }
+	}
+	change_variable = { name = spec_c_warend add = var:spec_war_end }
+	change_variable = { name = spec_c_total add = var:spec_war_end }
+	remove_variable = spec_war_end
+	spec_pick_driver = yes
+	spec_update_band = yes
+}
