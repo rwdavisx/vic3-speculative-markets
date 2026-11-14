@@ -1,0 +1,234 @@
+{
+  "overrides": [
+    {
+      "path": "thumbnail.png",
+      "patch_sha256": "70e0497979a0549591c6481053a09cde37357c79d08e270cd5790a1569efd489",
+      "stable_sha256": "a26bd11718c351627863cb953fd0df4c8dabb01d697d5e726e119112cee26737",
+      "identical": false
+    },
+    {
+      "path": ".metadata/metadata.json",
+      "patch_sha256": "aa091576aaf3a8b2ce28623138d1319672cfd4ec54667ba2b955072b3327b7de",
+      "stable_sha256": "f026a6e3e83bf8d9a5f7d1744907da714e2cc937d60dc3d7cf3654fdf55062c4",
+      "identical": false
+    },
+    {
+      "path": "gui/spec_market_tab.gui",
+      "patch_sha256": "a8a74c57edc3aea14b7171d7eb08f275516bfcb817ae64f781f4da21ad7e6f38",
+      "stable_sha256": "231cb97abc30753e05c3f714be22309e390d851615f5f394e951ee85d24eb286",
+      "identical": false
+    },
+    {
+      "path": "common/on_actions/spec_on_actions.txt",
+      "patch_sha256": "3ff2e22d6d233b5e5e7121b06ff7e968bc8f7bdd894f4df5638d88713eff08e3",
+      "stable_sha256": "7c0479355c3017e06f9d6adf7049b4ee25777c1f3a70f4697de420a778f67379",
+      "identical": false
+    },
+    {
+      "path": "common/scripted_effects/spec_company_effects.txt",
+      "patch_sha256": "3ec73c52c56c721595d2d5df54ed259b6534bafc2290afdd00784eb9f515a18a",
+      "stable_sha256": "2d1dd260618d2d4360efd3dd0e6df392438df278d24b60be9ac5d613c4f12fdc",
+      "identical": false
+    },
+    {
+      "path": "common/scripted_effects/spec_effects.txt",
+      "patch_sha256": "bb0683e7cee41126d804c2186805db1cc4353188354c85b1772dce7ab110ffc7",
+      "stable_sha256": "400999c552ea73f1875d458813da2902123406f28ff815bd4c2e838e77470c06",
+      "identical": false
+    },
+    {
+      "path": "common/scripted_effects/spec_lever_effects.txt",
+      "patch_sha256": "8a934bc51bd9cadf1714df4c7997b73ac81c5fde740525d0083be1963a03fad5",
+      "stable_sha256": "01c5f53ff60d43a7b554ec6e766adf1cb8fc08ff8fbfeef90fbb7b98e7aa66ee",
+      "identical": false
+    },
+    {
+      "path": "common/scripted_triggers/spec_lever_triggers.txt",
+      "patch_sha256": "b1c865fb206821e7ead1414170ebe2a22b5b6c9fc0ff00bb3da522efb40d1a17",
+      "stable_sha256": "053868e6d5056a14cfbba04860aa1174e4d3cd028dca5f6332bf5cd1d276e027",
+      "identical": false
+    },
+    {
+      "path": "common/script_values/spec_values.txt",
+      "patch_sha256": "e85e7cbacb72d33fb86fe785dbb972287dc2ebef8ae2e4dbe6c305db182bb1b7",
+      "stable_sha256": "653039d5563efc0c6aa6dca68e88ebec665db206f16d44f1a0f05e20dc667e0f",
+      "identical": false
+    },
+    {
+      "path": "common/script_values/spec_values_levers.txt",
+      "patch_sha256": "1375cc5184a638aec46bd9449b9e1b3f14414c53328fd53889f7d6e8e2c58897",
+      "stable_sha256": "749a8a2039db2c9e66d66f642247edf830a2d1c1660c1daa60d947fd670efd9b",
+      "identical": false
+    },
+    {
+      "path": "common/static_modifiers/spec_company_modifiers.txt",
+      "patch_sha256": "076479bf3f5bf7c9371ad426f85c8dc2d42f1d2ca62c632efa96c2b1e3babced",
+      "stable_sha256": "e2e019be5085117a2d0fc721eea982eb3f94a47cd5f0859401c8e6cb1026faaf",
+      "identical": false
+    },
+    {
+      "path": "common/static_modifiers/spec_lever_modifiers.txt",
+      "patch_sha256": "ffe7948099feda39ed60c8ab0ea5ce60533ec8ae371d3fe4fea29ab1a81623f6",
+      "stable_sha256": "4a7e278c436388a14423c42980f2e9fdd6c8dc0696a23d3ddb8c4e4917f85284",
+      "identical": false
+    }
+  ],
+  "finance_window_in_bridge": false,
+  "finance_window_in_stable": true,
+  "navigation_guard_in_bridge": false,
+  "patch_gui_lines": 48539,
+  "stable_gui_lines": 66393,
+  "reported_log": {
+    "url": "https://pastebin.com/raw/ebJ4i3R5",
+    "read_via": "in-app browser DOM",
+    "characters": 311453,
+    "autonomous_investment_pool_errors": 69,
+    "directly_controlled_investment_pool_errors": 39,
+    "finance_or_spec_lines": 0
+  },
+  "date": "2026-11-14",
+  "game_version": "1.15.1",
+  "stable_version": "1.0.4",
+  "patch_workshop_id": "3836657389",
+  "conclusion": "The downloaded third-party GUI override alone removes the Finance window types and reproduces the unresponsive Finance button.",
+  "limitations": [
+    "Not the full reported modlist or the reporter save.",
+    "Sidebar tested; journal shortcut not independently exercised in this reproduction.",
+    "No claim that investment-pool errors cause this failure.",
+    "No production or Workshop changes made."
+  ],
+  "runs": {
+    "ui_with_old_gui": {
+      "launch": {
+        "pid": 53032,
+        "command": [
+          "G:/SteamLibrary/steamapps/common/Victoria 3/binaries/victoria3.exe",
+          "-gdpr-compliant",
+          "-debug_mode",
+          "-nosounds",
+          "-no_crash_reporter",
+          "-userdir=G:\\GameDev\\speculative-markets\\runs\\reported_finance_20261114\\ui_with_old_gui",
+          "-loadsave=repro"
+        ],
+        "source_save": "G:\\GameDev\\speculative-markets\\runs\\cmf_compat\\stable_102\\save games\\cmf_ui_1840.v3",
+        "save_sha256": "fd0209d9d17f64d67dafe1755c7e726d5712e4c26340cf3443f942d13ec7ab6d",
+        "override_source": "G:\\SteamLibrary\\steamapps\\workshop\\content\\529340\\3836657389\\gui\\spec_market_tab.gui",
+        "override_sha256": "a8a74c57edc3aea14b7171d7eb08f275516bfcb817ae64f781f4da21ad7e6f38",
+        "method": "Isolate the downloaded third-party GUI override only; not the full reported playset."
+      },
+      "mods": {
+        "enabledMods": [
+          {
+            "path": "G:\\SteamLibrary\\steamapps\\workshop\\content\\529340\\3385002128"
+          },
+          {
+            "path": "G:\\GameDev\\speculative-markets\\mod"
+          },
+          {
+            "path": "G:\\GameDev\\speculative-markets\\runs\\reported_finance_20261114\\mr_gui_repro"
+          },
+          {
+            "path": "G:\\GameDev\\speculative-markets\\compatibility\\cmf\\mod"
+          }
+        ],
+        "disabledDLC": [],
+        "enabledUGC": []
+      },
+      "observed": "Sidebar highlights but Finance never opens.",
+      "error_gate": {
+        "error_logs_checked": [
+          "runs\\reported_finance_20261114\\ui_with_old_gui\\logs\\error.log"
+        ],
+        "error_categories": {
+          "engine_or_basegame_other": 74,
+          "mod_other_diagnostics": 5,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 5,
+        "blocking_error_examples": [
+          {
+            "category": "mod_other_diagnostics",
+            "record": "[10:48:41][pdx_mod_metadata.cpp:168]: Mod metadata read error. Error: Expected member (short_description), near: {\"name\":\"MR bridge GUI reproduction - test only\",\"id\":\"spec_mr_gui_repro\",\"version\":\"test\",\"supported_game_version\":\"1.15.1\",\"tags\":[]}"
+          },
+          {
+            "category": "mod_other_diagnostics",
+            "record": "[10:48:47][pdx_gui_factory.cpp:611]: gui/com_gui_sidebar.gui:52 - 'spec_finance_navigation_guard' is not a valid widget/type/property"
+          },
+          {
+            "category": "mod_other_diagnostics",
+            "record": "[10:48:47][pdx_gui_factory.cpp:611]: gui/com_gui_sidebar.gui:63 - 'spec_finance_window' is not a valid widget/type/property"
+          },
+          {
+            "category": "mod_other_diagnostics",
+            "record": "[10:48:49][pdx_gui_factory.cpp:909]: gui/com_gui_sidebar.gui:63 - spec_finance_window is not a valid type"
+          },
+          {
+            "category": "mod_other_diagnostics",
+            "record": "[10:48:50][pdx_gui_factory.cpp:909]: gui/com_gui_sidebar.gui:52 - spec_finance_navigation_guard is not a valid type"
+          }
+        ]
+      },
+      "finance_type_errors": [
+        "[10:48:47][pdx_gui_factory.cpp:611]: gui/com_gui_sidebar.gui:52 - 'spec_finance_navigation_guard' is not a valid widget/type/property",
+        "[10:48:47][pdx_gui_factory.cpp:611]: gui/com_gui_sidebar.gui:63 - 'spec_finance_window' is not a valid widget/type/property",
+        "[10:48:49][pdx_gui_factory.cpp:909]: gui/com_gui_sidebar.gui:63 - spec_finance_window is not a valid type",
+        "[10:48:50][pdx_gui_factory.cpp:909]: gui/com_gui_sidebar.gui:52 - spec_finance_navigation_guard is not a valid type"
+      ],
+      "sha256": {
+        "runs\\reported_finance_20261114\\ui_with_old_gui\\logs\\error.log": "5b3f14626a4d77fd1e4a95b1fc23c64dfde263bd19c2fc7b81f5847937a9fc0c",
+        "runs\\reported_finance_20261114\\ui_with_old_gui\\evidence\\sidebar_fails.jpg": "cc3f9eaad5e2a902fd50da3ce35504eb0922e35cadfeaba1afba75dd300e9ae0"
+      }
+    },
+    "ui_without_old_gui": {
+      "launch": {
+        "pid": 35800,
+        "command": [
+          "G:/SteamLibrary/steamapps/common/Victoria 3/binaries/victoria3.exe",
+          "-gdpr-compliant",
+          "-debug_mode",
+          "-nosounds",
+          "-no_crash_reporter",
+          "-userdir=G:\\GameDev\\speculative-markets\\runs\\reported_finance_20261114\\ui_without_old_gui",
+          "-loadsave=repro"
+        ],
+        "source_save": "G:\\GameDev\\speculative-markets\\runs\\cmf_compat\\stable_102\\save games\\cmf_ui_1840.v3",
+        "save_sha256": "fd0209d9d17f64d67dafe1755c7e726d5712e4c26340cf3443f942d13ec7ab6d",
+        "override_source": "G:\\SteamLibrary\\steamapps\\workshop\\content\\529340\\3836657389\\gui\\spec_market_tab.gui",
+        "override_sha256": "a8a74c57edc3aea14b7171d7eb08f275516bfcb817ae64f781f4da21ad7e6f38",
+        "method": "Same saved game and mod order, with only the obsolete GUI override removed."
+      },
+      "mods": {
+        "enabledMods": [
+          {
+            "path": "G:\\SteamLibrary\\steamapps\\workshop\\content\\529340\\3385002128"
+          },
+          {
+            "path": "G:\\GameDev\\speculative-markets\\mod"
+          },
+          {
+            "path": "G:\\GameDev\\speculative-markets\\compatibility\\cmf\\mod"
+          }
+        ],
+        "disabledDLC": [],
+        "enabledUGC": []
+      },
+      "observed": "Sidebar opens Finance with Exchange tab visible on the same paused GBR 1840 save.",
+      "error_gate": {
+        "error_logs_checked": [
+          "runs\\reported_finance_20261114\\ui_without_old_gui\\logs\\error.log"
+        ],
+        "error_categories": {
+          "engine_or_basegame_other": 74,
+          "mod_variable_load_warnings": 16
+        },
+        "blocking_error_count": 0,
+        "blocking_error_examples": []
+      },
+      "finance_type_errors": [],
+      "sha256": {
+        "runs\\reported_finance_20261114\\ui_without_old_gui\\logs\\error.log": "dd46981e590c762d6f7af02397816f60dd1d9470a7942bffe4370520b2d3085e",
+        "runs\\reported_finance_20261114\\ui_without_old_gui\\evidence\\finance_opens.jpg": "ba5268088615dd6640dde1cc8c092acf3d7833ca6d7c336af8903ec11c8ca0fb"
+      }
+    }
+  }
+}
