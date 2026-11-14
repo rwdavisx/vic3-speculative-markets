@@ -1594,7 +1594,15 @@ def _rivals(t="\t"):
         return ""
     T = lambda n: t + "\t" * n
     sore = "\"relations(scope:spec_rival_me)\" <= relations_threshold:poor"
-    note = lambda key, n: f"{T(n)}if = {{\n{T(n + 1)}limit = {{ is_player = yes }}\n{T(n + 1)}post_notification = spec_rival_{key}\n{T(n)}}}\n"
+    # Several exchanges may name the same player as their rival. Apply every
+    # result, but collect notices until all pairs have been scored.
+    note = lambda key, n: f"{T(n)}if = {{\n{T(n + 1)}limit = {{ is_player = yes }}\n{T(n + 1)}set_variable = spec_rival_note_{key}\n{T(n)}}}\n"
+    flush = "".join(
+        f"{T(2)}if = {{\n{T(3)}limit = {{ has_variable = spec_rival_note_{key} }}\n"
+        f"{T(3)}post_notification = spec_rival_{key}\n"
+        f"{T(3)}remove_variable = spec_rival_note_{key}\n{T(2)}}}\n"
+        for key in ("won", "lost")
+    )
     bitter = lambda n, where: (f"{T(n)}if = {{\n{T(n + 1)}limit = {{ {where} }}\n"
                                f"{_lose(RIVAL_TRUST * (RIVAL_BITTER - 1), T(n + 1))}{T(n)}}}\n")
     # the named side, in its own scope, when it has not named us back
@@ -1676,6 +1684,9 @@ def _rivals(t="\t"):
 {T(3)}set_variable = {{ name = spec_rival_last value = 0 }}
 {T(2)}}}
 {T(1)}}}
+{T(1)}every_country = {{
+{T(2)}limit = {{ OR = {{ has_variable = spec_rival_note_won has_variable = spec_rival_note_lost }} }}
+{flush}{T(1)}}}
 {t}}}
 """
 
@@ -3531,7 +3542,7 @@ if __name__ == "__main__":
         assert "spec_sgui_rival = " in rules[1] and "spec_can_rival = " in rules[0] and "spec_rival_pick = {" in script
         assert "rivalry.dds" in gui and " SPEC_RIVAL_TT:" in words
         assert "spec_xh_" not in script + words and script.count("spec_rival_end = yes") == 2  # missing rivals end before any dereference
-        assert script.count("post_notification = spec_rival_") == 4 and "spec_rival_score_tt" in rules[0] + words
+        assert script.count("post_notification = spec_rival_") == 2 and "spec_rival_score_tt" in rules[0] + words
         assert "has_type = alliance" in script and "trade_privilege" not in script + rules[0]
     if LINKS:
         # the links at the defaults: mood x1.5 to x0.5 and recovery x0.75 to x1.5 over no trust to full; the lean

@@ -1,0 +1,41 @@
+namespace = spec_mechanics_rival_notifications
+spec_mechanics_rival_notifications.1 = { type = country_event hidden = yes immediate = {
+every_country = { remove_variable = spec_rival remove_variable = spec_exch_known }
+set_relations = { country = c:FRA value = 0 }
+set_relations = { country = c:PRU value = 0 }
+set_relations = { country = c:AUS value = 0 }
+set_variable = { name = spec_rival value = c:FRA }
+set_variable = { name = spec_centre_score value = 300 }
+c:FRA = { set_variable = { name = spec_centre_score value = 200 } set_variable = { name = spec_centre_trust value = 60 } }
+c:PRU = { set_variable = { name = spec_rival value = c:GBR } set_variable = { name = spec_centre_score value = 200 } set_variable = { name = spec_centre_trust value = 60 } }
+c:AUS = { set_variable = { name = spec_rival value = c:GBR } set_variable = { name = spec_centre_score value = 200 } set_variable = { name = spec_centre_trust value = 60 } }
+set_variable = { name = spec_centre_trust value = 60 }
+set_variable = { name = spec_test_won value = 0 }
+set_variable = { name = spec_test_lost value = 0 }
+spec_mechanics_rival_year = yes
+if = { limit = { var:spec_test_won = 1 var:spec_test_lost = 0 } debug_log = "HOTFIX PASS multiple_wins_one_notification" } else = { debug_log = "HOTFIX FAIL multiple_wins_one_notification" }
+if = { limit = { var:spec_centre_trust = 78 } debug_log = "HOTFIX PASS all_three_win_rewards_preserved" } else = { debug_log = "HOTFIX FAIL all_three_win_rewards_preserved" }
+set_variable = { name = spec_test_won value = 0 }
+spec_mechanics_rival_year = yes
+if = { limit = { var:spec_test_won = 1 } debug_log = "HOTFIX PASS next_year_can_notify_again" } else = { debug_log = "HOTFIX FAIL next_year_can_notify_again" }
+set_variable = { name = spec_centre_score value = 100 }
+set_variable = { name = spec_centre_trust value = 60 }
+set_variable = { name = spec_test_won value = 0 }
+set_variable = { name = spec_test_lost value = 0 }
+spec_mechanics_rival_year = yes
+if = { limit = { var:spec_test_lost = 1 var:spec_test_won = 0 } debug_log = "HOTFIX PASS multiple_losses_one_notification" } else = { debug_log = "HOTFIX FAIL multiple_losses_one_notification" }
+if = { limit = { var:spec_centre_trust = 42 } debug_log = "HOTFIX PASS all_three_loss_penalties_preserved" } else = { debug_log = "HOTFIX FAIL all_three_loss_penalties_preserved" }
+c:FRA = { set_variable = { name = spec_centre_score value = 50 } }
+set_variable = { name = spec_test_won value = 0 }
+set_variable = { name = spec_test_lost value = 0 }
+spec_mechanics_rival_year = yes
+if = { limit = { var:spec_test_won = 1 var:spec_test_lost = 1 } debug_log = "HOTFIX PASS mixed_results_keep_both_notifications" } else = { debug_log = "HOTFIX FAIL mixed_results_keep_both_notifications" }
+c:FRA = { set_variable = { name = spec_centre_score value = 100 } }
+c:PRU = { set_variable = { name = spec_centre_score value = 100 } }
+c:AUS = { set_variable = { name = spec_centre_score value = 100 } }
+set_variable = { name = spec_test_won value = 0 }
+set_variable = { name = spec_test_lost value = 0 }
+spec_mechanics_rival_year = yes
+if = { limit = { var:spec_test_won = 0 var:spec_test_lost = 0 } debug_log = "HOTFIX PASS tied_year_has_no_stale_notification" } else = { debug_log = "HOTFIX FAIL tied_year_has_no_stale_notification" }
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

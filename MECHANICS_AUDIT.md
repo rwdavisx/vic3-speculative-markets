@@ -352,3 +352,9 @@ The November 14 baseline pass adds 141 unique engine assertions across eight sui
 Live checks cover the upper Speculation panel in all 11 languages at 120%, all four Finance tabs and Exchange scrolling at 140%, and every inquiry reform choice plus Sound Finance and completed-inquiry dismissal. The live-war test passes nine assertions; its raw log gate contains one explicitly reviewed warning from a temporary debug readout. The other accepted runtime gates pass without blocking mod/test errors.
 
 The only production change is a proved AI rescue-weight correction, tested in local unpublished beta 1.0.5-beta.2. Stable and published beta outputs are unchanged. This pass establishes baseline coverage, not exhaustive coverage or a crash-free guarantee: an earlier successor test exited unexpectedly and its cause remains unresolved. See `AUDIT_BASELINE.md` and `tests/mechanics/verification_baseline_105.json` for exact scope, rejected fixtures, limits and hashes. Compatibility testing was removed from this pass at the user's request.
+
+## Repeated rivalry notices
+
+A standalone engine reproduction proves that multiple incoming rivals dispatch identical annual notices. The original beta fails four of seven notification assertions. Local 1.0.5-beta.3 consolidates notices per player/outcome after scoring, preserving every trust adjustment. All seven new checks and 25 rivalry regressions pass, with zero blocking errors in the four cumulative log gates. This adds seven unique assertions: **792 in 65 base suites**. All 46 Python tests also pass.
+
+These checks instrument actual notification call sites in an extracted production helper; they do not count rendered popup windows. The reporter's playset and live popup UI remain untested. Stable and published beta are unchanged; no Workshop upload. See `RIVAL_NOTIFICATION_FIX.md` and `tests/mechanics/verification_rival_notifications_105.json`.
