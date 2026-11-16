@@ -108,5 +108,10 @@
   "a80a2378fb": "Panique étrangère",
   "684f0a3ab2": "Longue dépression",
   "b1381ea64a": "Encours de crédit",
-  "13deb2ed5d": "Finances saines"
+  "13deb2ed5d": "Finances saines",
+  "11f47d73c2": "#header [concept_spec_company_strength] : #v {1}#!#!\\n$TOOLTIP_DELIMITER$\\n$concept_companies$ : #v {2}#!\\n@spec_blue_chip! {3} : #v {4}#!, chacune ajoutant #v {5}#!\\n\\n#low Une compagnie devient une $concept_spec_blue_chip$ après #v {6}#! mois d'affilée à #v {7}#! ou plus de [concept_prosperity].#!",
+  "3ecd7db822": "\\n{1}{2}#!#! ($SPEC_DRIVER_RIVAL$)",
+  "7ac3228a98": "Rivalités",
+  "eafcab7a35": "Nous rivalisons avec #v {1}#!, rivaux de #v {2}#!",
+  "5c775ad815": "#header Rivalités#!\\n$SPEC_RIVAL_RULE$"
 }

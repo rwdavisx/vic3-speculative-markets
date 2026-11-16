@@ -108,5 +108,10 @@
   "a80a2378fb": "해외 공황",
   "684f0a3ab2": "장기 불황",
   "b1381ea64a": "대출 잔액",
-  "13deb2ed5d": "건전한 금융"
+  "13deb2ed5d": "건전한 금융",
+  "11f47d73c2": "#header [concept_spec_company_strength]: #v {1}#!#!\\n$TOOLTIP_DELIMITER$\\n$concept_companies$: #v {2}#!\\n@spec_blue_chip! {3}: #v {4}#!, 각각 #v {5}#! 추가\\n\\n#low [concept_prosperity] #v {7}#! 이상이 #v {6}#!개월 연속 유지되면 기업은 $concept_spec_blue_chip$가 됩니다.#!",
+  "3ecd7db822": "\\n$SPEC_DRIVER_RIVAL$에서: {1}{2}#!#!",
+  "7ac3228a98": "경쟁 구도",
+  "eafcab7a35": "우리가 선언 #v {1}#!, 상대가 선언 #v {2}#!",
+  "5c775ad815": "#header 경쟁 구도#!\\n$SPEC_RIVAL_RULE$"
 }

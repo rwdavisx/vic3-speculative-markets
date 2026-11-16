@@ -420,7 +420,7 @@ def log_values():
           "spec_log_wsum = {\n\tvalue = 0\n" + "".join(f"\tadd = spec_weight_{g}\n" for g in GOODS) + "}"]
     sv += [f"spec_log_{k} = {{\n\tvalue = 0\n\tif = {{\n\t\tlimit = {{ has_variable = {v} }}\n\t\tvalue = var:{v}\n\t}}\n}}"
            for k, v in (("heat", "spec_heat"), ("burst", "spec_c_burst"))]
-    return sv + cycle.log_values(GOODS) + leverage.LOG_VALUES
+    return sv + cycle.log_values(GOODS) + leverage.LOG_VALUES + centres.LOG_GIVEN
 
 
 def flag(name, trigger):
@@ -539,7 +539,8 @@ def values():
     sv.append(f"spec_conf_recover = {{\n\tvalue = {CONF_START}\n\tsubtract = var:spec_conf\n\tmultiply = {CONF_RECOVER}\n\tmultiply = spec_macro\n{centres.RECOVER_REF}}}")
     sv.append("spec_conf_pre = {\n\tvalue = var:spec_conf\n\tadd = var:spec_c_recover\n\tadd = var:spec_c_boom\n"
               "\tadd = var:spec_c_crash\n\tadd = var:spec_c_restrain\n\tadd = var:spec_c_turmoil\n\tadd = var:spec_c_debt\n\tadd = var:spec_c_foreign\n\tadd = var:spec_c_world\n"
-              "\tadd = var:spec_c_mood\n\tadd = var:spec_c_growth\n\tadd = var:spec_c_business\n}")
+              "\tadd = var:spec_c_mood\n\tadd = var:spec_c_growth\n\tadd = var:spec_c_business\n"
+              + ("\tadd = var:spec_c_rival\n" if centres.RIVAL_ON else "") + "}")
     sv.append(f"spec_tight_pull = {{\n\tvalue = {TIGHT_FROM}\n\tsubtract = spec_conf_pre\n\tmultiply = {TIGHT_PULL:g}\n\tmax = 0\n}}")
     sv.append("spec_conf_next = {\n\tvalue = spec_conf_pre\n\tadd = var:spec_c_tight\n\tmin = 0\n\tmax = 100\n}")
     # deeper speculation falls harder, Manor Houses steady it (vanilla_ties.py)
@@ -943,7 +944,7 @@ spec_monthly = {{
 				}}
 				remove_variable = spec_foreign_pending
 			}}
-{diplomacy.MONTHLY}{''.join(f'			remove_variable = spec_fs{n}{chr(10)}			if = {{{chr(10)}				limit = {{ has_variable = spec_fp{n} }}{chr(10)}'f'				set_variable = {{ name = spec_fs{n} value = var:spec_fp{n} }}{chr(10)}				remove_variable = spec_fp{n}{chr(10)}			}}{chr(10)}' for n in range(1, SOURCES + 1))}{depression.MONTHLY}			# market mood: a random shift that fades over some months (fixed_range as in vanilla's krakatoa_events.txt)
+{diplomacy.MONTHLY}{__import__("rivals").MONTHLY if centres.RIVAL_ON else ""}{''.join(f'			remove_variable = spec_fs{n}{chr(10)}			if = {{{chr(10)}				limit = {{ has_variable = spec_fp{n} }}{chr(10)}'f'				set_variable = {{ name = spec_fs{n} value = var:spec_fp{n} }}{chr(10)}				remove_variable = spec_fp{n}{chr(10)}			}}{chr(10)}' for n in range(1, SOURCES + 1))}{depression.MONTHLY}			# market mood: a random shift that fades over some months (fixed_range as in vanilla's krakatoa_events.txt)
 			if = {{
 				limit = {{ NOT = {{ has_variable = spec_c_mood }} }}
 				set_variable = {{ name = spec_c_mood value = 0 }}
@@ -1200,7 +1201,7 @@ spec_monthly = {{
 					}}
 				}}
 {leverage.AI_BAILOUT}{journal.MONTHLY_AI}{levers.ai_block(GOODS, HOT_HYPE, RISING_HYPE, COOLING_HYPE)}			}}
-			# for everyone: the levers' Authority cost moves with each good's share of the market, their money with its output
+{levers.MONTHLY}			# for everyone: the levers' Authority cost moves with each good's share of the market, their money with its output
 			spec_update_levers = yes
 
 			je:je_spec_markets ?= {{

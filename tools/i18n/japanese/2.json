@@ -108,5 +108,10 @@
   "a80a2378fb": "外国の恐慌",
   "684f0a3ab2": "長期不況",
   "b1381ea64a": "融資残高",
-  "13deb2ed5d": "健全な金融"
+  "13deb2ed5d": "健全な金融",
+  "11f47d73c2": "#header [concept_spec_company_strength]: #v {1}#!#!\\n$TOOLTIP_DELIMITER$\\n$concept_companies$: #v {2}#!\\n@spec_blue_chip! {3}: #v {4}#!、それぞれ#v {5}#!を加える\\n\\n#low [concept_prosperity]#v {7}#!以上が#v {6}#!か月連続すると、企業は$concept_spec_blue_chip$になります。#!",
+  "3ecd7db822": "\\n$SPEC_DRIVER_RIVAL$に由来{1}{2}#!#!",
+  "7ac3228a98": "ライバル",
+  "eafcab7a35": "我が国が宣言 #v {1}#!、相手が宣言 #v {2}#!",
+  "5c775ad815": "#header ライバル#!\\n$SPEC_RIVAL_RULE$"
 }

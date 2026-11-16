@@ -104,5 +104,12 @@
   "ff59c791e8": "#header {1}への[concept_spec_investor_interest]#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_TILE_BODY$",
   "51a3ac46e3": "\\n[concept_loans]の金利: #P -{1}%#!",
   "39584b5894": "\\n#v {1}#!での恐慌",
-  "83b4adced5": "、[concept_spec_credit_policy]は#v 緩和#!"
+  "83b4adced5": "、[concept_spec_credit_policy]は#v 緩和#!",
+  "5fdac7196f": "@spec_blue_chip! [concept_spec_blue_chip]: 我が国の[concept_spec_company_strength]に#v {1}#!を加える",
+  "620079a27e": "@spec_blue_chip! [concept_spec_blue_chip]まで: #v {2}#!か月中#v {1}#!か月連続で[concept_prosperity]#v {3}#!以上",
+  "e6eda9ee3f": "#header {1}#!\\n[concept_spec_financial_centre] #v ##{2}#!\\n$TOOLTIP_DELIMITER$\\nスコア: #v {3}#!\\n[concept_spec_exchange]の地位: $SPEC_CENTRE_STAND$\\n信認: #v $SPEC_EXCH_TRUST$#!\\n[concept_spec_financial_panic]のない年数: $SPEC_CENTRE_CALM$\\n\\n[concept_prestige]: #P +{4}%#!\\n[concept_loans]の金利: #P -{5}%#!\\n融資上限: #P +{6}#!か月({7}、融資基準が#v 健全#!またはそれより厳格な場合)",
+  "39d0faad79": "#header {1}#!\\n[concept_spec_financial_centre] #v ##{2}#!\\n$TOOLTIP_DELIMITER$\\nスコア: #v {3}#!\\n[concept_spec_exchange]の地位: $SPEC_CENTRE_STAND$\\n信認: #v $SPEC_EXCH_TRUST$#!\\n[concept_spec_financial_panic]のない年数: $SPEC_CENTRE_CALM$\\n\\n[concept_prestige]: #P +{4}%#!\\n[concept_loans]の金利: #P -{5}%#!\\n融資上限: #P +{6}#!か月({7}、融資基準が#v 健全#!またはそれより厳格な場合)",
+  "5425c9b5f6": "#header {1}#!\\n世界の上位#v {2}#!の{3}には入っていません\\n$TOOLTIP_DELIMITER$\\nスコア: #v {4}#!\\n[concept_spec_exchange]の地位: $SPEC_CENTRE_STAND$\\n信認: #v $SPEC_EXCH_TRUST$#!\\n[concept_spec_financial_panic]のない年数: $SPEC_CENTRE_CALM$",
+  "f2c978c265": "ライバルの行動",
+  "df0bd2bda5": "#header ライバルの行動: {1}#!\\nライバルによる我が国の市場への売り崩し。6か月にわたって作用します。"
 }

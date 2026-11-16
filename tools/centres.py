@@ -14,6 +14,7 @@ panic caught from abroad) and halved again if the panic runs its full course unr
 var:spec_exch_stand is a market's Standing (0 Provincial, 1 National, 2 International, 3 World Centre): hotter booms,
 more capital flight received. var:spec_exch_known is what it is known for (1 Commodity Exchange, 2 Deposit Banks,
 3 Stock Exchange), chosen in spec_exchange.1 each time it reaches a Standing above var:spec_exch_best."""
+import companies
 import cycle
 import icons
 import leverage
@@ -101,6 +102,7 @@ EARN_TC = tuning.get("EXCH_EARN_TC", 20)            # 1 Commodity Exchange: Trad
 EARN_SOUND = tuning.get("EXCH_EARN_SOUND", 120)     # 2 Deposit Banks: quiet months under sound Lending Standards
 EARN_CO = tuning.get("EXCH_EARN_CO", 4)             # 3 Share Market: companies with prosperity >= EARN_PROSPER
 EARN_PROSPER = tuning.get("EXCH_EARN_PROSPER", 50)  # ponytail: scale assumed 0-100 (vanilla only shows >= 100); kco logs it
+CO_STRENGTH = tuning.get("EXCH_CO_STRENGTH", 20)    # Home of Great Companies: prosperity per point (a company at 100 is 5)
 EARN_BY = {1: "spec_earn_tc", 2: "spec_earn_snd", 3: "spec_earn_co"}
 
 LINKS = ON and tuning.get("EXCH_LINKS_ON", 1)
@@ -166,7 +168,7 @@ def boom_end(g, sev, share, t="\t\t\t\t"):
     return (f"{t}if = {{\n{t}\tlimit = {{ has_variable = spec_centre_trust spec_weight_{g} >= {share:.3f} }}\n" + apply(d, t + "\t")
             + f"{t}\tif = {{\n{t}\t\tlimit = {{ has_variable = spec_issue_{g} }}\n" + apply(d * (levers.ISSUE_TRUST - 1), t + "\t\t") + f"{t}\t}}\n{t}}}\n"
             f"{t}if = {{\n{t}\tlimit = {{ has_variable = spec_issue_{g} }}\n{t}\tremove_variable = spec_issue_{g}\n{t}\tremove_variable = spec_issue\n"
-            f"{t}\tset_variable = {{ name = spec_issue_cool value = 1 days = {levers.ISSUE_COOL} }}\n"
+            f"{t}\tset_variable = {{ name = spec_issue_cool value = {levers.COOL_MONTHS} }}\n"  # pulses left (levers.spec_issue_clock)
             f"{t}\tspec_update_levers = yes\n{t}}}\n")  # the Restrain/Encourage buttons see the issue gone now, not next month
 
 
@@ -202,8 +204,8 @@ def _parts_values():
     # so a hub draws on its hinterland and not the reverse
     tie = ("\t\t\t\tOR = {\n\t\t\t\t\tmarket ?= scope:spec_xs_me.market\n\t\t\t\t\tis_subject_of = scope:spec_xs_me\n"
            "\t\t\t\t\tAND = {\n\t\t\t\t\t\tis_in_power_bloc = yes\n\t\t\t\t\t\tpower_bloc ?= scope:spec_xs_me.power_bloc\n\t\t\t\t\t}\n"
-           "\t\t\t\t\tany_scope_treaty = {\n\t\t\t\t\t\tany_scope_article = {\n\t\t\t\t\t\t\thas_type = foreign_investment_rights\n"
-           "\t\t\t\t\t\t\ttarget_country = scope:spec_xs_me\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n")
+           # granted us investment rights: listed by _xs_prep from our own treaties, not a treaty scan in every country
+           f"\t\t\t\t\tis_in_list = {FIR_LIST}\n\t\t\t\t}}\n")
     return (f"spec_xs_own = {{\n\tvalue = 0\n\tif = {{\n\t\tlimit = {{ has_variable = spec_xs_inc }}\n\t\tvalue = var:spec_xs_inc\n\t}}\n{unit}}}\n"
             f"spec_xs_reach = {{\n\tvalue = 0\n\tif = {{\n\t\tlimit = {{ has_variable = spec_xs_inc }}\n\t\tevery_country = {{\n"
             f"\t\t\tlimit = {{\n\t\t\t\thas_variable = spec_xs_inc\n\t\t\t\tvar:spec_xs_inc < global_var:spec_xs_me_inc\n{tie}\t\t\t}}\n"
@@ -259,6 +261,9 @@ def _xs_world(t="\t"):
             f"divide = {{ value = global_var:spec_xs_world_pop min = 1 }} }} }}\n")
 
 
+FIR_LIST = "spec_xs_fir"
+
+
 def _xs_prep(t):
     """In the monthly pulse, before the score: Size and wealth per head (square roots), and the market's region."""
     reg = "".join(f"{t}{'if' if i == 0 else 'else_if'} = {{\n{t}\tlimit = {{\n{t}\t\tcapital ?= {{\n{t}\t\t\tOR = {{\n"
@@ -269,7 +274,13 @@ def _xs_prep(t):
     return (f"{t}save_temporary_scope_as = spec_xs_me\n"
             f"{t}set_global_variable = {{ name = spec_xs_me_inc value = var:spec_xs_inc }}\n"
             f"{t}set_variable = {{ name = spec_xs_own_v value = spec_xs_own }}\n"
+            # the countries whose treaty with us grants us foreign investment rights (a directed article: they are its
+            # source); the list lives for the whole ranking, so it is emptied again for the next country
+            + f"{t}every_scope_treaty = {{\n{t}\tevery_scope_article = {{\n{t}\t\tlimit = {{\n"
+            f"{t}\t\t\thas_type = foreign_investment_rights\n{t}\t\t\ttarget_country = scope:spec_xs_me\n{t}\t\t}}\n"
+            f"{t}\t\tsource_country ?= {{\n{t}\t\t\tadd_to_temporary_list = {FIR_LIST}\n{t}\t\t}}\n{t}\t}}\n{t}}}\n"
             f"{t}set_variable = {{ name = spec_xs_reach_v value = spec_xs_reach }}\n"
+            f"{t}every_in_list = {{\n{t}\tlist = {FIR_LIST}\n{t}\tremove_from_list = {FIR_LIST}\n{t}}}\n"
             + _sqrt("var:spec_xs_own_v add = var:spec_xs_reach_v", "spec_xs_size_v", t)
             + f"{t}set_variable = {{ name = spec_xs_size_v value = {{ value = var:spec_xs_size_v multiply = {SIZE_X:g} }} }}\n"
             f"{t}set_variable = {{ name = spec_xs_ratio_v value = spec_xs_ratio }}\n"
@@ -420,6 +431,11 @@ def _earn_values():
     return ("\n# what the Exchange is known for, earned by building (centres.py)\n"
             f"spec_log_ktc = {{\n{vanilla_ties.levels('building_trade_center')}}}\n"
             f"spec_log_kco = {{\n\tvalue = 0\n\tevery_company = {{\n\t\tlimit = {{ prosperity >= {EARN_PROSPER:g} }}\n\t\tadd = 1\n\t}}\n}}\n"
+            # Company Strength (design_companies.md): every point of prosperity counts, so the honour rarely ties;
+            # read in company scope, the only place the engine accepts it (probe: runs/sweep_prosperity_probe_r1)
+            f"spec_log_kstr = {{\n\tvalue = 0\n\tevery_company = {{\n\t\tadd = prosperity\n\t}}\n\tdivide = {CO_STRENGTH:g}\n"
+            f"\tadd = {{\n\t\tvalue = spec_log_kbc\n\t\tmultiply = {companies.BLUE_BONUS:g}\n\t}}\n}}\n"
+            "spec_log_kbc = {\n\tvalue = 0\n\tevery_company = {\n\t\tlimit = { has_variable = spec_blue_chip }\n\t\tadd = 1\n\t}\n}\n"
             # nothing sets spec_exch_sound unless EARN is on (LINKS alone also writes these values)
             + ("spec_log_ksnd = {\n\tvalue = 0\n\tif = {\n\t\tlimit = { has_variable = spec_exch_sound }\n\t\tvalue = var:spec_exch_sound\n\t}\n}\n"
                if EARN else "spec_log_ksnd = { value = 0 }\n")
@@ -447,7 +463,7 @@ NAME_BY = {
     # ponytail: quiet months break a tie at full trust; they add at most ~0.1 a century
     "harbour": "\tvalue = 0\n\tif = {\n\t\tlimit = { has_variable = spec_centre_trust }\n\t\tvalue = var:spec_centre_trust\n\t}\n"
                "\tif = {\n\t\tlimit = { has_variable = spec_centre_calm }\n\t\tadd = { value = var:spec_centre_calm divide = 10000 }\n\t}\n",
-    "companies": "\tvalue = spec_log_kco\n", "floor": "\tvalue = spec_log_ktc\n", "sound": "\tvalue = spec_log_ksnd\n",
+    "companies": "\tvalue = spec_log_kstr\n", "floor": "\tvalue = spec_log_ktc\n", "sound": "\tvalue = spec_log_ksnd\n",
     "pockets": "\tvalue = spec_pool_month\n",
     "door": "\tvalue = 0\n\tevery_scope_treaty = {\n\t\tadd = 1\n\t}\n"}
 SLOTS = "var:spec_exch_stand"  # names an Exchange may hold: National 1, International 2, World Centre 3
@@ -464,11 +480,28 @@ PURSUE_LOCK = tuning.get("EXCH_PURSUE_LOCK", 5)  # years a pursuit is held once 
 PURSUE_FX = tuning.get("EXCH_PURSUE_FX", {
     "floor": [["state_trade_capacity_mult", 0.05], ["country_prestige_mult", 0.05]],
     "sound": [["country_loan_interest_rate_mult", -0.025], ["country_gold_reserve_limit_mult", 0.25]],  # at most -10%
-    "pockets": [["state_capitalists_investment_pool_contribution_add", 0.05], ["country_private_construction_allocation_mult", 0.1]],
+    # 0.05 (first place +0.20 on vanilla's 0.30) gave the top three Exchanges +33-43% investment pool / GDP over vanilla,
+    # Britain +58-64%; without it +0-14%, and leverage or credit off changed nothing (runs/20261115_*_pool_*, 1.0.6).
+    # At 0.02 (four games): top three +20% / +35% (1840s / 1850s), Britain +29% / +50%; the user chose first place +0.06
+    "pockets": [["state_capitalists_investment_pool_contribution_add", 0.015], ["country_private_construction_allocation_mult", 0.1]],
     "door": [["country_treaty_leverage_generation_mult", 0.1], ["country_influence_mult", 0.05]],
     "price": [["state_trade_advantage_mult", 0.05], ["country_minting_mult", 0.1]],
     "harbour": [["country_gold_reserve_limit_mult", 0.1], ["country_legitimacy_base_add", 5]],
     "companies": [["country_company_throughput_bonus_add", 0.03], ["country_max_companies_add", 1]]})
+
+
+def _pursue_given(k):
+    """Log builds: the first modifier a name gives this month, as applied (its step for our place, times its build-up)."""
+    a = PURSUE_FX[k][0][1]
+    place = "".join(f"\t\t{'if' if r == 1 else 'else_if'} = {{\n\t\t\tlimit = {{ var:spec_lead_{k} ?= {r} }}\n"
+                    f"\t\t\tmultiply = {5 - r}\n\t\t}}\n" for r in (1, 2, 3))
+    return (f"spec_log_pf_{k} = {{\n\tvalue = 0\n\tif = {{\n\t\tlimit = {{ has_variable = spec_pw_{k} }}\n"
+            f"\t\tvalue = var:spec_pw_{k}\n{place}\t\tmultiply = {a:g}\n\t}}\n}}")
+
+
+LOG_GIVEN = [_pursue_given(k) for k in ("pockets", "companies")] if ON and NAMES_ON else []
+LOG += (" pfpk=[THIS.ScriptValue('spec_log_pf_pockets')] pfco=[THIS.ScriptValue('spec_log_pf_companies')]"
+        if LOG_GIVEN else "") + (" levpct=[THIS.ScriptValue('spec_lev_boom_pct')]" if ON and leverage.ON else "")
 PLACE_WORDS = ["Outside the top three", "Third", "Second", "First"]
 # trust's own effects at each level (Distrusted, Doubted, Respected, Trusted: a quarter of CALM each)
 TRUST_FX = tuning.get("CENTRE_TRUST_FX", [
@@ -752,16 +785,17 @@ def _pursue_effects():
     init = ("\tif = {\n\t\tlimit = { NOT = { has_variable = spec_pw_sum } }\n"
             + "".join(f"\t\tset_variable = {{ name = spec_pw_{k} value = 0 }}\n" for k, *_ in NAMES)
             + "\t\tset_variable = { name = spec_pw_sum value = 0 }\n\t\tset_variable = { name = spec_pursue_n value = 0 }\n\t}\n")
-    # stopping one moves those chosen after it one place left
-    left = lambda k: "".join(f"\tif = {{\n\t\tlimit = {{\n\t\t\thas_variable = spec_pu_{j}\n\t\t\tvar:spec_pu_{j} > global_var:spec_pu_was\n"
+    # stopping one moves those chosen after it one place left: compared with its own place before it goes (a global copy
+    # is never set while a button's tooltip previews the effect, and the comparison then errors)
+    left = lambda k: "".join(f"\tif = {{\n\t\tlimit = {{\n\t\t\thas_variable = spec_pu_{j}\n\t\t\tvar:spec_pu_{j} > var:spec_pu_{k}\n"
                              f"\t\t}}\n\t\tchange_variable = {{ name = spec_pu_{j} add = -1 }}\n\t}}\n" for j, *_ in NAMES if j != k)
     return "".join(f"spec_pursue_to_{k} = {{\n{init}\tchange_variable = {{ name = spec_pursue_n add = 1 }}\n"
                    f"\tset_variable = {{ name = spec_pu_{k} value = var:spec_pursue_n }}\n\tset_variable = spec_has_{k}\n"
                    f"\tset_variable = {{ name = spec_pu_lock_{k} value = {PURSUE_LOCK * 12} }}\n}}\n\n"  # months, counted down in _pursue_month
-                   f"spec_pursue_stop_{k} = {{\n\tset_global_variable = {{ name = spec_pu_was value = var:spec_pu_{k} }}\n"
+                   f"spec_pursue_stop_{k} = {{\n{left(k)}"
                    f"\tremove_variable = spec_pu_{k}\n\tremove_variable = spec_has_{k}\n\tif = {{\n\t\tlimit = {{ has_variable = spec_pu_lock_{k} }}\n"
-                   f"\t\tremove_variable = spec_pu_lock_{k}\n\t}}\n\tchange_variable = {{ name = spec_pursue_n add = -1 }}\n"
-                   f"{left(k)}\tremove_global_variable = spec_pu_was\n}}\n\n" for k, *_ in NAMES) + "".join(
+                   f"\t\tremove_variable = spec_pu_lock_{k}\n\t}}\n\tchange_variable = {{ name = spec_pursue_n add = -1 }}\n}}\n\n"
+                   for k, *_ in NAMES) + "".join(
         f"spec_pursue_{d}_{k} = {{\n\tset_local_variable = {{ name = spec_to value = var:spec_pu_{k} }}\n"
         f"\tchange_local_variable = {{ name = spec_to add = {step} }}\n"
         + "".join(f"\tif = {{\n\t\tlimit = {{ has_variable = spec_pu_{j} var:spec_pu_{j} = local_var:spec_to }}\n"
@@ -1342,7 +1376,10 @@ def _names_loc(ui, known):
     """The charter cards' and the names' words; replaces the earned cards' (same keys)."""
     tc = "[GetBuildingType('building_trade_center').GetName]"
     by = {"price": ("the value of the goods our market deals in", "D"), "harbour": ("the trust our Exchange holds", "0"),
-          "companies": ("companies with high [concept_prosperity]", "0"), "floor": (f"{tc} levels", "0"),
+          "companies": ("[concept_spec_company_strength]: the [concept_prosperity] of our companies, and "
+                        f"#v {companies.BLUE_BONUS:g}#! for each [concept_spec_blue_chip]. "
+                        f"@spec_blue_chip! [Concept('concept_spec_blue_chip','$concept_spec_blue_chips$')] held: "
+                        f"#v [{P}.ScriptValue('spec_log_kbc')|0]#!", "1"), "floor": (f"{tc} levels", "0"),
           "sound": ("quiet months of sound lending", "0"),
           "pockets": ("money entering the [concept_investment_pool] each month", "D"),
           "door": ("treaties with other countries", "0")}
@@ -1369,7 +1406,7 @@ def _names_loc(ui, known):
                 f' SPEC_CHARTER_WHY_{n}: "\\n\\n{sg(key, "BuildTooltip")}"\n'
                 f" SPEC_CHARTER_BTN_{n}: \"[SelectLocalization({held(n)}, 'SPEC_CHARTER_HELD', 'SPEC_CHARTER_GRANT')]\"\n"
                 f' SPEC_NAME_NEED_{n}: "{known[n]} only"\n')
-    unit = {"price": "traded", "harbour": "trust", "companies": "companies", "floor": "levels", "sound": "months",
+    unit = {"price": "traded", "harbour": "trust", "companies": "strength", "floor": "levels", "sound": "months",
             "pockets": "income", "door": "treaties"}
     for k, title, ch in NAMES:
         what, f = by[k]
@@ -1503,364 +1540,17 @@ def _names_loc(ui, known):
         ' SPEC_H_KNOWN_TT: "#header Specialities#!\\nThe Paths to Renown the state has chosen for our [concept_spec_exchange].\\n\\n$SPEC_PURSUE_RULE$"\n')
 
 
-# Rival exchanges (plan step 7): the state names one market at its own Standing or one above, scoring at least as high
-# as its own, as its rival (var:spec_rival). Each year the higher Financial Centre score gains trust and the lower loses
-# it, on both sides whichever named the other, more so when the two countries are on poor terms; a panic in either
-# sends its fleeing money to the other first; an alliance, a defensive pact or investment rights between them end it.
-# The AI picks a rival the same way. A World Centre has no one above it to name, so it only answers challengers.
+# Rival exchanges (rivals.py, design_rivals.md): every vanilla rivalry between two countries with an Exchange
 RIVAL_ON = NAMES_ON and tuning.get("EXCH_RIVAL_ON", 1)
-RIVAL_TRUST = tuning.get("EXCH_RIVAL_TRUST", 6)       # trust won or lost each year (out of CALM)
-RIVAL_BITTER = tuning.get("EXCH_RIVAL_BITTER", 1.5)   # ... times this on poor relations or worse
-RIVAL_LOCK = tuning.get("EXCH_RIVAL_LOCK", 5)         # years before the rival can change
-RIVAL_VARS = ["spec_rival", "spec_rival_lock", "spec_rival_last"]
-RIVAL = "GetPlayer.MakeScope.Var('spec_rival')"  # the rival row's datacontext is the rival, so never P
-RIVAL_C = f"{RIVAL}.GetCountry.MakeScope"
-# World row tooltips: the listed market's own rival
-RIV_LINE = "[AddLocalizationIf(Country.MakeScope.Var('spec_rival').GetCountry.IsValid, 'SPEC_CENTRE_RIVAL')]"
-
-
-def _allied_with(who):
-    """Ties that end a rivalry: an alliance, a defensive pact or investment rights (a trade treaty does not: London
-    and Paris stayed rivals through their 1860 treaty)."""
-    return (f"any_scope_treaty = {{ binds = {who} any_scope_article = {{ OR = {{ has_type = alliance "
-            f"has_type = defensive_pact has_type = foreign_investment_rights }} }} }}")
-
-
-def _reach(me, them):
-    """`them` holds our Standing or the one above (Standings 1..3)."""
-    return ("OR = { " + " ".join(f"AND = {{ {me}.var:spec_exch_stand = {t} {them}.var:spec_exch_stand >= {t} "
-                                 f"{them}.var:spec_exch_stand <= {min(t + 1, 3)} }}" for t in (1, 2, 3)) + " }")
-
-
-def _rival_triggers():
-    return f"""
-spec_can_rival = {{
-	has_technology_researched = banking
-	custom_tooltip = {{
-		text = spec_rival_stand_tt
-		has_variable = spec_exch_stand
-		var:spec_exch_stand >= 1
-	}}
-	custom_tooltip = {{
-		text = spec_rival_reach_tt
-		NOT = {{ scope:target = this }}
-		scope:target = {{ has_variable = spec_exch_stand }}
-		{_reach("this", "scope:target")}
-	}}
-	custom_tooltip = {{
-		text = spec_rival_score_tt
-		has_variable = spec_centre_score
-		scope:target = {{ has_variable = spec_centre_score }}
-		scope:target.var:spec_centre_score >= var:spec_centre_score
-	}}
-	custom_tooltip = {{
-		text = spec_rival_current_tt
-		NOT = {{ var:spec_rival ?= scope:target }}
-	}}
-	custom_tooltip = {{
-		text = spec_rival_locked_tt
-		NOT = {{ has_variable = spec_rival_lock }}
-	}}
-	custom_tooltip = {{
-		text = spec_rival_trade_tt
-		NOT = {{ {_allied_with("scope:target")} }}
-	}}
-}}
-
-spec_can_rival_end = {{
-	has_variable = spec_rival
-	custom_tooltip = {{
-		text = spec_rival_locked_tt
-		NOT = {{ has_variable = spec_rival_lock }}
-	}}
-}}
-"""
-
-
-def _rival_effects():
-    return (f"spec_rival_pick = {{\n\tset_variable = {{ name = spec_rival value = scope:target }}\n"
-            f"\tset_variable = {{ name = spec_rival_lock days = {RIVAL_LOCK * 365} }}\n"
-            f"\tif = {{\n\t\tlimit = {{ has_variable = spec_rival_last }}\n\t\tremove_variable = spec_rival_last\n\t}}\n}}\n\n"
-            "spec_rival_end = {\n\tremove_variable = spec_rival\n"
-            "\tif = { limit = { has_variable = spec_rival_last } remove_variable = spec_rival_last }\n}\n\n")
-
-
-def _rivals(t="\t"):
-    """In the ranking pass: monthly, rivalries that no longer hold end (spec_rival_end; the lock is kept); once a year
-    the AI picks, then each rivalry is scored. The result goes to both sides; the named side's share is applied here only
-    when it has not named us back (else its own pass does it).
-    ponytail: the AI picks at random among the markets it may; weigh by closeness if rivalries look odd."""
-    if not RIVAL_ON:
-        return ""
-    T = lambda n: t + "\t" * n
-    sore = "\"relations(scope:spec_rival_me)\" <= relations_threshold:poor"
-    # Several exchanges may name the same player as their rival. Apply every
-    # result, but collect notices until all pairs have been scored.
-    note = lambda key, n: f"{T(n)}if = {{\n{T(n + 1)}limit = {{ is_player = yes }}\n{T(n + 1)}set_variable = spec_rival_note_{key}\n{T(n)}}}\n"
-    flush = "".join(
-        f"{T(2)}if = {{\n{T(3)}limit = {{ has_variable = spec_rival_note_{key} }}\n"
-        f"{T(3)}post_notification = spec_rival_{key}\n"
-        f"{T(3)}remove_variable = spec_rival_note_{key}\n{T(2)}}}\n"
-        for key in ("won", "lost")
-    )
-    bitter = lambda n, where: (f"{T(n)}if = {{\n{T(n + 1)}limit = {{ {where} }}\n"
-                               f"{_lose(RIVAL_TRUST * (RIVAL_BITTER - 1), T(n + 1))}{T(n)}}}\n")
-    # the named side, in its own scope, when it has not named us back
-    them = lambda won: (f"{T(3)}var:spec_rival = {{\n{T(4)}if = {{\n{T(5)}limit = {{ NOT = {{ var:spec_rival ?= scope:spec_rival_me }} }}\n"
-                        + (_gain(RIVAL_TRUST, T(5)) + note("won", 5) if won else
-                           _lose(RIVAL_TRUST, T(5)) + bitter(5, sore) + note("lost", 5))
-                        + f"{T(4)}}}\n{T(3)}}}\n")
-    return f"""{t}# rival Exchanges (centres.py): rivalries that no longer hold end the month they stop (a rival annexed, an alliance)
-{t}every_country = {{
-{T(1)}limit = {{ has_variable = spec_rival }}
-{T(1)}save_scope_as = spec_rival_me
-{T(1)}if = {{
-{T(2)}limit = {{ NOT = {{ exists = var:spec_rival }} }}
-{T(2)}spec_rival_end = yes
-{T(1)}}}
-{T(1)}else_if = {{
-{T(2)}limit = {{
-{T(3)}OR = {{
-{T(4)}is_country_alive = no
-{T(4)}NOT = {{ has_variable = spec_exch_stand }}
-{T(4)}var:spec_rival = {{ OR = {{ is_country_alive = no NOT = {{ has_variable = spec_exch_stand }} }} }}
-{T(4)}var:spec_rival = {{ {_allied_with("scope:spec_rival_me")} }}
-{T(3)}}}
-{T(2)}}}
-{T(2)}spec_rival_end = yes
-{T(1)}}}
-{t}}}
-{t}# then, once a year, the AI picks and each rivalry is scored
-{t}if = {{
-{T(1)}limit = {{ NOT = {{ has_global_variable = spec_rival_year }} }}
-{T(1)}set_global_variable = {{ name = spec_rival_year days = 365 }}
-{T(1)}every_country = {{
-{T(2)}limit = {{
-{T(3)}is_player = no
-{T(3)}is_country_alive = yes
-{T(3)}has_variable = spec_exch_stand
-{T(3)}var:spec_exch_stand >= 1
-{T(3)}has_variable = spec_centre_score
-{T(3)}NOT = {{ has_variable = spec_rival }}
-{T(3)}NOT = {{ has_variable = spec_rival_lock }}
-{T(2)}}}
-{T(2)}save_scope_as = spec_rival_me
-{T(2)}random_country = {{
-{T(3)}limit = {{
-{T(4)}NOT = {{ this = scope:spec_rival_me }}
-{T(4)}is_country_alive = yes
-{T(4)}has_variable = spec_exch_stand
-{T(4)}has_variable = spec_centre_score
-{T(4)}{_reach("scope:spec_rival_me", "this")}
-{T(4)}var:spec_centre_score >= scope:spec_rival_me.var:spec_centre_score
-{T(4)}NOT = {{ {_allied_with("scope:spec_rival_me")} }}
-{T(3)}}}
-{T(3)}scope:spec_rival_me = {{
-{T(4)}set_variable = {{ name = spec_rival value = prev }}
-{T(4)}set_variable = {{ name = spec_rival_lock days = {RIVAL_LOCK * 365} }}
-{T(3)}}}
-{T(2)}}}
-{T(1)}}}
-{T(1)}every_country = {{
-{T(2)}limit = {{
-{T(3)}has_variable = spec_rival
-{T(3)}has_variable = spec_centre_score
-{T(3)}has_variable = spec_centre_trust
-{T(3)}var:spec_rival = {{
-{T(4)}has_variable = spec_centre_score
-{T(4)}has_variable = spec_centre_trust
-{T(3)}}}
-{T(2)}}}
-{T(2)}save_scope_as = spec_rival_me
-{T(2)}if = {{
-{T(3)}limit = {{ var:spec_centre_score > var:spec_rival.var:spec_centre_score }}
-{_gain(RIVAL_TRUST, T(3))}{T(3)}set_variable = {{ name = spec_rival_last value = 1 }}
-{note("won", 3)}{them(False)}{T(2)}}}
-{T(2)}else_if = {{
-{T(3)}limit = {{ var:spec_centre_score < var:spec_rival.var:spec_centre_score }}
-{T(3)}set_variable = {{ name = spec_rival_last value = -1 }}
-{_lose(RIVAL_TRUST, T(3))}{bitter(3, "var:spec_rival = { " + sore + " }")}{note("lost", 3)}{them(True)}{T(2)}}}
-{T(2)}else = {{
-{T(3)}set_variable = {{ name = spec_rival_last value = 0 }}
-{T(2)}}}
-{T(1)}}}
-{T(1)}every_country = {{
-{T(2)}limit = {{ OR = {{ has_variable = spec_rival_note_won has_variable = spec_rival_note_lost }} }}
-{flush}{T(1)}}}
-{t}}}
-"""
+RIVAL_VARS = __import__("rivals").STATE_VARS
 
 
 def rival_block():
-    """Standing tab: our rival, both scores side by side, and what last year's contest gave. Both bars are scaled to the
-    larger score, so the leader's is full; with no rival neither is shown."""
-    them = f"{RIVAL_C}.Var('spec_centre_score').GetValue"
-    us = v("spec_centre_score")
-    of_top = lambda x: f"Divide_CFixedPoint({x}, Max_CFixedPoint(Max_CFixedPoint({us}, {them}), {fx(1)}))"
-    return f"""flowcontainer = {{
-	direction = vertical
-	parentanchor = hcenter
-	ignoreinvisible = yes
-	widget = {{
-		visible = "[{RIVAL}.GetCountry.IsValid]"
-		size = {{ {W} 44 }}
-		datacontext = "[{RIVAL}.GetCountry]"
-		tooltip = "SPEC_RIVAL_TT"
-		background = {{
-			using = entry_bg_simple
-		}}
-		tiny_flag = {{
-			position = {{ 14 0 }}
-			parentanchor = vcenter
-		}}
-		button = {{
-			position = {{ 48 0 }}
-			size = {{ 260 30 }}
-			parentanchor = vcenter
-			using = clean_button
-			onclick = "[InformationPanelBar.OpenCountryPanel(Country.Self)]"
-			tooltipwidget = {{
-				FancyTooltip_Country = {{}}
-			}}
-			textbox = {{
-				size = {{ 100% 100% }}
-				margin_left = 12
-				align = nobaseline
-				elide = right
-				alwaystransparent = yes
-				text = "SPEC_RIVAL_NAME"
-			}}
-		}}
-		button = {{
-			position = {{ -10 0 }}
-			size = {{ 150 30 }}
-			parentanchor = right|vcenter
-			using = default_button
-			align = center|nobaseline
-			enabled = "[GetScriptedGui('spec_sgui_rival_end').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-			onclick = "[GetScriptedGui('spec_sgui_rival_end').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-			text = "SPEC_RIVAL_END"
-			tooltip = "SPEC_RIVAL_END_TT"
-		}}
-	}}
-{ind(gauge("SPEC_RIVAL_G_US", "SPEC_RIVAL_US", of_top(us), 1, "SPEC_RIVAL_TT", f"{RIVAL}.GetCountry.IsValid"), 1)}	widget = {{
-		visible = "[{RIVAL}.GetCountry.IsValid]"
-		size = {{ {W} 46 }}
-		tooltip = "SPEC_RIVAL_TT"
-		textbox = {{
-			position = {{ 20 4 }}
-			size = {{ 320 20 }}
-			align = left|nobaseline
-			text = "SPEC_RIVAL_G_THEM"
-		}}
-		textbox = {{
-			position = {{ -20 4 }}
-			size = {{ 160 20 }}
-			parentanchor = right
-			align = right|nobaseline
-			text = "SPEC_RIVAL_THEM"
-		}}
-		widget = {{
-			position = {{ 20 28 }}
-			size = {{ {BAR_W} 10 }}
-			default_progressbar_horizontal = {{
-				size = {{ 100% 100% }}
-				blockoverride "values" {{
-					min = 0
-					max = 1
-					value = "[{of_top(them)}]"
-				}}
-			}}
-		}}
-	}}
-	textbox = {{
-		size = {{ {BAR_W} 40 }}
-		parentanchor = hcenter
-		multiline = yes
-		align = left|nobaseline
-		using = fontsize_small
-		text = "SPEC_RIVAL_NOTE"
-	}}
-}}
-"""
+    return __import__("rivals").block()
 
 
 def rival_button():
-    """World tab row, Rival column (the row's Country is the listed one): on our rival's row the rivalry icon as a
-    marker; while we have no rival, a Choose button on each market we may name. Ending a rivalry is in rival_block."""
-    call = (f"GetScriptedGui('spec_sgui_rival').{{}}(GuiScope.SetRoot(GetPlayer.MakeScope)"
-            f".AddScope('target', Country.MakeScope).End)")
-    ours = (f"And({RIVAL}.GetCountry.IsValid, ObjectsEqual({RIVAL}.GetCountry.Self, Country.Self))")
-    return f"""		icon = {{
-			visible = "[{ours}]"
-			position = {{ 322 0 }}
-			size = {{ 28 28 }}
-			parentanchor = vcenter
-			texture = "gfx/interface/icons/lens_toolbar_icons/rivalry.dds"
-			tooltip = "SPEC_RIVAL_MARK_TT"
-		}}
-		button = {{
-			visible = "[And(Not({RIVAL}.GetCountry.IsValid), {call.format('IsValid')})]"
-			position = {{ 302 0 }}
-			size = {{ 68 26 }}
-			parentanchor = vcenter
-			using = default_button
-			align = center|nobaseline
-			onclick = "[{call.format('Execute')}]"
-			text = "SPEC_RIVAL_CHOOSE"
-			tooltip = "SPEC_RIVAL_PICK_TT"
-		}}
-"""
-
-
-def _rival_loc():
-    them = f"{RIVAL_C}.Var('spec_centre_score').GetValue"
-    call = ("GetScriptedGui('spec_sgui_rival').BuildTooltip(GuiScope.SetRoot(GetPlayer.MakeScope)"
-            ".AddScope('target', Country.MakeScope).End)")
-    pc = lambda x: f"{round(x * 100, 1):g}%"
-    stake, sore = pc(RIVAL_TRUST / CALM), pc(RIVAL_TRUST * RIVAL_BITTER / CALM)
-    rule = (f"Each year the Exchange with the higher [Concept('concept_spec_financial_centre','$concept_spec_exchange$')] score gains #P {stake}#! trust and "
-            f"the other loses #N {stake}#!, or #N {sore}#! if the two countries are on poor terms or worse (before Trust losses "
-            "effects). This applies to both, whichever named the other.\\n"
-            "Can be named: a market at our Standing or the one above, with a score at least ours. A World Centre names no rival.\\n"
-            "In a [concept_spec_financial_panic], fleeing money goes to the rival first.\\n"
-            "An alliance, defensive pact or investment rights between the two end the rivalry.")
-    return (f' SPEC_H_RIVAL: "Rival Exchange"\n SPEC_H_RIVAL_TT: "#header Rival Exchange#!\\n$SPEC_RIVAL_RULE$"\n'
-            f" SPEC_H_RIVAL_RIGHT: \"[SelectLocalization({RIVAL}.GetCountry.IsValid, 'SPEC_RIVAL_HEAD', 'SPEC_RIVAL_HEAD_NONE')]\"\n"
-            f' SPEC_RIVAL_HEAD: "[{RIVAL}.GetCountry.GetNameNoFormatting]"\n SPEC_RIVAL_HEAD_NONE: "None"\n'
-            f' SPEC_RIVAL_RULE: "{rule}"\n'
-            ' SPEC_RIVAL_NAME: "[Country.GetNameNoFormatting]"\n'
-            ' SPEC_CENTRE_RIVAL: "\\nRival Exchange: #v [Country.MakeScope.Var(\'spec_rival\').GetCountry.GetName]#!"\n'
-            f" SPEC_RIVAL_LAST: \"[SelectLocalization(Not({RIVAL}.GetCountry.IsValid), '', SelectLocalization(Not(GetPlayer.MakeScope.Var('spec_rival_last').IsSet), "
-            f"'SPEC_RIVAL_LAST_0', SelectLocalization(GreaterThan_CFixedPoint(GetPlayer.MakeScope.Var('spec_rival_last').GetValue, {fx(0)}), "
-            f"'SPEC_RIVAL_LAST_W', SelectLocalization(LessThan_CFixedPoint(GetPlayer.MakeScope.Var('spec_rival_last').GetValue, {fx(0)}), "
-            f"'SPEC_RIVAL_LAST_L', 'SPEC_RIVAL_LAST_T'))))]\"\n"
-            ' SPEC_RIVAL_LAST_0: "No result yet"\n SPEC_RIVAL_LAST_W: "#P Won last year#!"\n'
-            ' SPEC_RIVAL_LAST_L: "#N Lost last year#!"\n'
-            ' SPEC_RIVAL_LAST_T: "Tied last year"\n'
-            ' SPEC_RIVAL_G_US: "Our score"\n'
-            f' SPEC_RIVAL_US: "#v [{v("spec_centre_score")}|0]#!"\n'
-            ' SPEC_RIVAL_G_THEM: "Their score"\n'
-            f' SPEC_RIVAL_THEM: "#v [{them}|0]#!"\n'
-            f' SPEC_RIVAL_TT: "#header Rival Exchange#!\\nOur score: #v [{v("spec_centre_score")}|0]#!\\nTheir score: #v [{them}|0]#!'
-            '\\n$TOOLTIP_DELIMITER$\\n$SPEC_RIVAL_RULE$"\n'
-            f" SPEC_RIVAL_NOTE: \"[SelectLocalization({RIVAL}.GetCountry.IsValid, 'SPEC_RIVAL_NOTE_ON', 'SPEC_RIVAL_NOTE_OFF')]\"\n"
-            ' SPEC_RIVAL_NOTE_ON: "$SPEC_RIVAL_LAST$. The higher score at the year\'s end wins trust from the other."\n'
-            f" SPEC_RIVAL_NOTE_OFF: \"[SelectLocalization({P}.Var('spec_rival_lock').IsSet, 'SPEC_RIVAL_NOTE_LOCK', 'SPEC_RIVAL_NOTE_PICK')]\"\n"
-            ' SPEC_RIVAL_NOTE_PICK: "No rival. Choose one in the list above: a market at our Standing or one above, with a score at least ours."\n'
-            f' SPEC_RIVAL_NOTE_LOCK: "No rival. A new one can be chosen #v {RIVAL_LOCK}#! years after the last was named."\n'
-            ' SPEC_RIVAL_CHOOSE: "Choose"\n SPEC_RIVAL_END: "End Rivalry"\n'
-            ' SPEC_RIVAL_MARK_TT: "#header Our Rival Exchange#!\\n$SPEC_RIVAL_RULE$"\n'
-            f' SPEC_RIVAL_PICK_TT: "#header Name as Our Rival Exchange#!\\n$SPEC_RIVAL_RULE$\\n$TOOLTIP_DELIMITER$\\n'
-            f'A rival stands for at least #v {RIVAL_LOCK}#! years.\\n\\n[{call}]"\n'
-            f' SPEC_RIVAL_END_TT: "#header End the Rivalry#!\\nA rival stands for at least #v {RIVAL_LOCK}#! years once named.\\n\\n'
-            "[GetScriptedGui('spec_sgui_rival_end').BuildTooltip(GuiScope.SetRoot(GetPlayer.MakeScope).End)]\"\n"
-            ' spec_rival_stand_tt: "Our [concept_spec_exchange] holds #v National#! Standing or higher"\n'
-            ' spec_rival_reach_tt: "This market holds our Standing or the one above"\n'
-            ' spec_rival_current_tt: "This market is not already our rival"\n'
-            f' spec_rival_locked_tt: "We have not named a rival in the last #v {RIVAL_LOCK}#! years"\n'
-            ' spec_rival_score_tt: "This market\'s [Concept(\'concept_spec_financial_centre\',\'$concept_spec_exchange$\')] score is at least ours"\n'
-            ' spec_rival_trade_tt: "We have no alliance, defensive pact or investment rights with this country"\n')
+    return __import__("rivals").marker()
 
 
 def _earn(t):
@@ -2258,8 +1948,6 @@ def effects():
                   f"spec_pledge_withdraw = {{\n\tset_variable = {{ name = spec_pledge_leave value = {PLEDGE_NOTICE} }}\n}}\n\n")
     if NAMES_ON:
         pre += _charter_effects()
-    if RIVAL_ON:
-        pre += _rival_effects()
     return pre + f"""# the Financial Centres (centres.py): once a month, for the whole world
 spec_rank_centres = {{
 {_xs_world() if ON else ''}	every_country = {{
@@ -2302,7 +1990,7 @@ spec_rank_centres = {{
 		}}
 {listed}	}}
 	remove_global_variable = spec_centre_top
-{_regions() if ON else ''}{_standing()}{_names()}{_rivals()}{COUNTS}{shown}	# ponytail: a market hovering between the last place and the next gets a toast each time it crosses; hold a place
+{_regions() if ON else ''}{_standing()}{_names()}{__import__("rivals").pass_() if RIVAL_ON else ""}{COUNTS}{shown}	# ponytail: a market hovering between the last place and the next gets a toast each time it crosses; hold a place
 	# for a few months if that proves noisy
 	every_country = {{
 		limit = {{
@@ -2466,7 +2154,7 @@ spec_can_pledge_leave = {{
 		NOT = {{ has_variable = spec_pledge_leave }}
 	}}
 }}
-""") + (_charter_triggers() if NAMES_ON else "") + (_rival_triggers() if RIVAL_ON else "")
+""") + (_charter_triggers() if NAMES_ON else "")
 
 
 def sguis():
@@ -2481,7 +2169,7 @@ spec_sgui_{k} = {{
               + [(f"pursue_{k}", f"pursue_to_{k}") for k, *_ in NAMES if NAMES_ON]
               + [(f"pursue_stop_{k}", f"pursue_stop_{k}") for k, *_ in NAMES if NAMES_ON]
               + [(f"pursue_{d}_{k}", f"pursue_{d}_{k}") for k, *_ in NAMES for d in ("left", "right") if NAMES_ON]
-              + ([("rival", "rival_pick"), ("rival_end", "rival_end")] if RIVAL_ON else []))
+              )
 
 
 # the toast when a pledge is broken, as notify.messages()
@@ -2513,6 +2201,8 @@ def build(write):
         write("common/scripted_guis/spec_centre_sguis.txt", sguis())
     if PLEDGE_ON:
         write("common/messages/spec_centre_messages.txt", PLEDGE_MESSAGE)
+    if RIVAL_ON:
+        __import__("rivals").build(write)
 
 
 def text(x, w, key, align="left"):
@@ -3189,14 +2879,14 @@ def loc():
            f" SPEC_CENTRE_CALM: \"[SelectLocalization({P}.Var('spec_panic').IsSet, 'SPEC_CENTRE_PANIC', 'SPEC_CENTRE_YEARS')]\"\n"
            ' SPEC_CENTRE_N_NONE: "-"\n'
            f' SPEC_CENTRE_TT_OWN: "#header [Country.GetName]#!\\nNot one of the world\'s #v {PLACES}#! {centres}\\n'
-           f'$TOOLTIP_DELIMITER$\\n{stats}{RIV_LINE if RIVAL_ON else ""}"\n'
+           f'$TOOLTIP_DELIMITER$\\n{stats}"\n'
            ' spec_financial_centre: "Leading Exchange"\n'
            f' spec_financial_centre_desc: "Effects of the [concept_country] being one of the world\'s {centres}"\n')
     out += "".join(f' SPEC_CENTRE_N_{n}: "{n}"\n' for n in range(PLACES + 1, SHOWN + 1))
     for n in range(1, PLACES + 1):
         out += (f' SPEC_CENTRE_N_{n}: "#b {n}#!"\n'
                 f' SPEC_CENTRE_TT_{n}: "#header [Country.GetName]#!\\n[concept_spec_financial_centre] #v ##{n}#!\\n'
-                f'$TOOLTIP_DELIMITER$\\n{stats}{RIV_LINE if RIVAL_ON else ""}\\n\\n[concept_prestige]: #P +{pct(n)}#!\\n'
+                f'$TOOLTIP_DELIMITER$\\n{stats}\\n\\n[concept_prestige]: #P +{pct(n)}#!\\n'
                 f'[concept_loans] interest rate: #P -{pct(n)}#!'
                 + (f"\\nLending Limit: #P +{lim(n)}#! month{'s' * (lim(n) != '1')} (with [GetTechnology('central_banking').GetName], "
                    "Lending Standards #v Sound#! or stricter)" if BRAKE else "") + '"\n')
@@ -3311,7 +3001,7 @@ def _exch_loc(score, rank, centres):
     if NAMES_ON:
         ui = _names_loc(ui, known)
     if RIVAL_ON:
-        ui += _rival_loc()
+        ui += __import__("rivals").loc()
     return (ui + "".join(f' SPEC_EXCH_W_{i}: "{w}"\n' for i, w in enumerate(words))
             + "".join(f' SPEC_EXCH_NEXT_{i}: "{w}"\n' for i, w in enumerate(nxt))
             + "".join(f' SPEC_EXCH_KNOWN_{i}: "{w}"\n' for i, w in enumerate(known))
@@ -3539,11 +3229,8 @@ if __name__ == "__main__":
         assert all(f"name = spec_sh_{k} value" in script and f" SPEC_NAME_QTY_{k}:" in words for k, *_ in NAMES)
         assert round(1 / PURSUE_MONTHS + 0.0005, 3) * PURSUE_MONTHS >= 1  # a pursuit reaches full strength
     if RIVAL_ON:
-        assert "spec_sgui_rival = " in rules[1] and "spec_can_rival = " in rules[0] and "spec_rival_pick = {" in script
-        assert "rivalry.dds" in gui and " SPEC_RIVAL_TT:" in words
-        assert "spec_xh_" not in script + words and script.count("spec_rival_end = yes") == 2  # missing rivals end before any dereference
-        assert script.count("post_notification = spec_rival_") == 2 and "spec_rival_score_tt" in rules[0] + words
-        assert "has_type = alliance" in script and "trade_privilege" not in script + rules[0]
+        assert "rivalry.dds" in gui and " SPEC_RV_RAID_TT:" in words and "spec_rival_contest = yes" in script
+        assert "spec_sgui_rival" not in gui + script + "".join(rules) and "spec_rival_pick" not in script
     if LINKS:
         # the links at the defaults: mood x1.5 to x0.5 and recovery x0.75 to x1.5 over no trust to full; the lean
         # stays within 0.3 either way; Bad Debts cap the Standing at last month's

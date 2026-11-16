@@ -141,5 +141,12 @@
   "d4121243c3": "#v Otimista#!{1}",
   "4b3b793f0e": "#n Mania#!{1}",
   "d08cc6bc12": "#n [concept_spec_financial_panic]:#! termina em #v {1}#! meses{2}",
-  "7516860b75": "#v Estável#!{1}"
+  "7516860b75": "#v Estável#!{1}",
+  "9204c46bed": "$SPEC_NAME_QTY_companies$ #grey força#!",
+  "297344df9e": "#header Lar das Grandes Companhias#!\\nAs maiores companhias levantam seu capital aqui.\\n$TOOLTIP_DELIMITER$\\nCrédito concedido: #P +{1}%#!\\n[concept_spec_capital_flight]: #N -{2}%#!\\nA [concept_spec_capital_flight] só é recebida com Posição Internacional ou superior, ou como [concept_great_power]\\n$TOOLTIP_DELIMITER$\\nClassificado pela [concept_prosperity] das nossas companhias\\nNossa: #v {3}#!\\nLíder mundial: #v {4}#!{5}\\nSó para uma Bolsa com carta de #v Mercado de Ações#!{6}\\n\\n$SPEC_NAME_RULE$",
+  "0f05c94569": "#header Lar das Grandes Companhias#!\\nAs maiores companhias levantam seu capital aqui.\\n$TOOLTIP_DELIMITER$\\nCrédito concedido: #P +{1}%#!\\n[concept_spec_capital_flight]: #N -{2}%#!\\nA [concept_spec_capital_flight] só é recebida com Posição Internacional ou superior, ou como [concept_great_power]\\n$TOOLTIP_DELIMITER$\\nClassificado pela [concept_prosperity] das nossas companhias. Uma blue chip, uma companhia com #v {3}#! ou mais por #v {4}#! meses seguidos, soma #v {5}#!. Blue chips: #v {6}#!\\nNossa: #v {7}#!\\nLíder mundial: #v {8}#!{9}\\nSó para uma Bolsa com carta de #v Mercado de Ações#!{10}\\n\\n$SPEC_NAME_RULE$",
+  "e40c1944e1": "@spec_blue_chip! #v Blue chip#!: soma #v {1}#! à força das nossas companhias",
+  "1ca35d3bec": "@spec_blue_chip! Rumo a blue chip: #v {1}#! de #v {2}#! meses seguidos com #v {3}#! ou mais de [concept_prosperity]",
+  "c18e45c84c": "  #N Abaixo de {1} de [concept_prosperity]#! por #v {2}#! de #v {3}#! meses: o status é perdido em #v {4}#!",
+  "405b7acd31": "#header Lar das Grandes Companhias#!\\nAs maiores companhias levantam seu capital aqui.\\n$TOOLTIP_DELIMITER$\\nCrédito concedido: #P +{1}%#!\\n[concept_spec_capital_flight]: #N -{2}%#!\\nA [concept_spec_capital_flight] só é recebida com Posição Internacional ou superior, ou como [concept_great_power]\\n$TOOLTIP_DELIMITER$\\nClassificado pela [concept_spec_company_strength]: a [concept_prosperity] das nossas companhias, mais #v {3}#! para cada [concept_spec_blue_chip]. @spec_blue_chip! {4}: #v {5}#!\\nNossa: #v {6}#!\\nLíder mundial: #v {7}#!{8}\\nSó para uma Bolsa com carta de #v Mercado de Ações#!{9}\\n\\n$SPEC_NAME_RULE$"
 }

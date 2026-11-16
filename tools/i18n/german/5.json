@@ -39,5 +39,10 @@
   "437ee3eda8": "Die Banknotenregeln folgen der Currency-Schule",
   "6575fbacc8": "Es herrscht eine [concept_spec_financial_panic]",
   "773a1e1a8f": "Die [concept_spec_financial_panic] endet binnen #v {1}#! Monaten; bis dahin wirkt sie unvermindert\\n[concept_spec_market_confidence] steigt um #v {2}#!\\nFür #v {3}#! Jahre wächst [concept_spec_speculative_excess] #v {4}%#! schneller",
-  "41b40c750b": "Spekulationswarnungen"
+  "41b40c750b": "Spekulationswarnungen",
+  "4e1738cc73": "Standardwert",
+  "f72e0eeaa5": "Standardwerte",
+  "f9cd1cc404": "Stärke der Kompanien",
+  "0dd844c7bf": "Ein $concept_spec_blue_chip$ ist eine [concept_company], die #v {2}#! Monate in Folge #v {1}#! oder mehr [concept_prosperity] gehalten hat. Jeder davon bringt #v {3}#! zur [concept_spec_company_strength].\\n\\n#v {4}#! Monate in Folge unter #v {5}#! beenden den Status, und die #v {6}#! Monate müssen dann erneut gehalten werden. Ein Monat darunter setzt den Weg dorthin zurück. Ein [concept_country], das die Marktwirtschaft verlässt, behält keinen.",
+  "bbb693d4fb": "Für ein [concept_country] ist die $concept_spec_company_strength$ der [concept_prosperity] all seiner {1}, zusammengezählt und geteilt durch #v {2}#!. Eine Kompanie mit #v {3}#! zählt also #v {4}#!, dazu #v {5}#! für jeden [concept_spec_blue_chip]. Die Auszeichnung Sitz großer Kompanien geht an den Stärksten."
 }

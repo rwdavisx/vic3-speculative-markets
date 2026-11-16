@@ -39,5 +39,10 @@
   "437ee3eda8": "银行券规则遵循通货学派",
   "6575fbacc8": "[concept_spec_financial_panic]正在进行",
   "773a1e1a8f": "[concept_spec_financial_panic]在#v {1}#!个月内结束，在此之前影响不减\\n[concept_spec_market_confidence]上升#v {2}#!\\n#v {3}#!年内[concept_spec_speculative_excess]积累速度加快#v {4}%#!",
-  "41b40c750b": "投机警告"
+  "41b40c750b": "投机警告",
+  "4e1738cc73": "蓝筹股",
+  "f72e0eeaa5": "蓝筹股",
+  "f9cd1cc404": "公司实力",
+  "0dd844c7bf": "$concept_spec_blue_chip$是[concept_prosperity]连续#v {2}#!个月保持在#v {1}#!或以上的[concept_company]。每家为我国[concept_spec_company_strength]加#v {3}#!。\\n\\n连续#v {4}#!个月低于#v {5}#!即失去该地位，之后须重新保持#v {6}#!个月。迈向该地位期间，只要有一个月低于标准，进度便会重置。退出市场经济的[concept_country]不保留任何蓝筹股。",
+  "bbb693d4fb": "$concept_spec_company_strength$是一个[concept_country]所有{1}的[concept_prosperity]之和除以#v {2}#!，因此一家达到#v {3}#!的公司计为#v {4}#!，每个[concept_spec_blue_chip]另加#v {5}#!。大公司之家的荣誉归于最强者。"
 }

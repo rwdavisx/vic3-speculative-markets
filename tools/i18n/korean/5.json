@@ -39,5 +39,10 @@
   "437ee3eda8": "은행권 규칙이 통화학파를 따름",
   "6575fbacc8": "[concept_spec_financial_panic]이 진행 중임",
   "773a1e1a8f": "[concept_spec_financial_panic]이 #v {1}#!개월 이내에 끝나며, 그때까지 효과가 온전히 유지됨\\n[concept_spec_market_confidence]가 #v {2}#! 상승함\\n#v {3}#!년 동안 [concept_spec_speculative_excess] 축적 속도 #v {4}%#! 증가",
-  "41b40c750b": "투기 경고"
+  "41b40c750b": "투기 경고",
+  "4e1738cc73": "우량주",
+  "f72e0eeaa5": "우량주",
+  "f9cd1cc404": "기업 역량",
+  "0dd844c7bf": "$concept_spec_blue_chip$은(는) [concept_prosperity] #v {1}#! 이상을 #v {2}#!개월 연속 유지한 [concept_company]입니다. 하나마다 우리 [concept_spec_company_strength]에 #v {3}#!을 더합니다.\\n\\n#v {4}#!개월 연속 #v {5}#! 미만이면 지위를 잃고, 다시 #v {6}#!개월을 유지해야 합니다. 도달하기 전에 한 달이라도 미만이면 진행이 초기화됩니다. 시장 경제를 떠난 [concept_country]은(는) 하나도 유지하지 못합니다.",
+  "bbb693d4fb": "$concept_spec_company_strength$은(는) 한 [concept_country]의 모든 {1}의 [concept_prosperity]을(를) 더해 #v {2}#!(으)로 나눈 값입니다. 따라서 #v {3}#!인 기업은 #v {4}#!(으)로 계산되며, [concept_spec_blue_chip] 하나마다 #v {5}#!이 더해집니다. 대기업의 본거지 영예는 가장 강한 국가에 돌아갑니다."
 }

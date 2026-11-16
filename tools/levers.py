@@ -43,7 +43,10 @@ ISSUE_ON = tuning.get("EXCHANGE_ON", 1) and tuning.get("EXCH_ISSUE_ON", 1)
 ISSUE_SCORE = tuning.get("EXCH_ISSUE_SCORE", 1.25)  # Exchange score while an issue runs
 ISSUE_EXPO = tuning.get("EXCH_ISSUE_EXPO", 1.5)     # weight of the banks' loans into the good when its boom ends (exposure.py)
 ISSUE_TRUST = tuning.get("EXCH_ISSUE_TRUST", 2)     # times the boom end's trust result (centres.TRUST_END)
-ISSUE_DAYS, ISSUE_COOL = 730, 365
+# months on plain counters, not `days =` timers: after a save reload the engine sometimes kept spec_issue and
+# spec_issue_cool past their timers while spec_issue_<g>, set with them, lapsed (runs/release_gate/pool_perf_106b7_r1)
+ISSUE_MONTHS, COOL_MONTHS = 24, 12
+MONTHLY = "\t\t\tspec_issue_clock = yes\n" if ISSUE_ON else ""  # generate.monthly, for every country, after the AI floats
 ISSUE_WORD = 5         # Eager or hotter, as cycle._hot
 ISSUE_AI_CONF = 40
 MODIFIERS = [  # name, script value giving its multiplier, icon, effects at a multiplier of 1
@@ -213,9 +216,16 @@ spec_lever_toggle = {{
 """
     if ISSUE_ON:  # Float a Great Issue on good G: centres.boom_end ends it with the boom, else it lapses.
         # The cooldown starts now, to run a year past the lapse; a boom end resets it to a year from then
-        effects += (f"\nspec_issue_float = {{\n\tset_variable = {{ name = spec_issue_$G$ value = 1 days = {ISSUE_DAYS} }}\n"
-                    f"\tset_variable = {{ name = spec_issue value = 1 days = {ISSUE_DAYS} }}\n"
-                    f"\tset_variable = {{ name = spec_issue_cool value = 1 days = {ISSUE_DAYS + ISSUE_COOL} }}\n}}\n")
+        # spec_issue and spec_issue_cool hold the monthly pulses left; spec_issue_clock counts them down
+        effects += (f"\nspec_issue_float = {{\n\tset_variable = {{ name = spec_issue_$G$ value = 1 }}\n"
+                    f"\tset_variable = {{ name = spec_issue value = {ISSUE_MONTHS} }}\n"
+                    f"\tset_variable = {{ name = spec_issue_cool value = {ISSUE_MONTHS + COOL_MONTHS} }}\n}}\n"
+                    "\nspec_issue_clock = {\n\tif = {\n\t\tlimit = { has_variable = spec_issue }\n"
+                    "\t\tchange_variable = { name = spec_issue add = -1 }\n\t\tif = {\n\t\t\tlimit = { var:spec_issue <= 0 }\n"
+                    "\t\t\tremove_variable = spec_issue\n" + "".join(f"\t\t\tremove_variable = spec_issue_{g}\n" for g in goods)
+                    + "\t\t\tspec_update_levers = yes\n\t\t}\n\t}\n\tif = {\n\t\tlimit = { has_variable = spec_issue_cool }\n"
+                    "\t\tchange_variable = { name = spec_issue_cool add = -1 }\n\t\tif = {\n\t\t\tlimit = { var:spec_issue_cool <= 0 }\n"
+                    "\t\t\tremove_variable = spec_issue_cool\n\t\t}\n\t}\n}\n")
     # an issue and a lever never share a good: Restrain or Encourage could hold off the boom end that resolves the issue
     no_issue = ("""		custom_tooltip = {
 			text = spec_lever_no_issue_tt
@@ -555,11 +565,11 @@ def loc():
 def issue_loc(head):
     if not ISSUE_ON:
         return ""
-    years = ISSUE_DAYS // 365
+    years = ISSUE_MONTHS // 12
     # the ranking concept, shown as plain "Exchange score" whatever the concept is called
     SCORE = "[Concept('concept_spec_financial_centre','$concept_spec_exchange$')] score"
     on = f"[SelectLocalization({active('issue')}, 'SPEC_ISSUE_ON', 'SPEC_LEVER_NONE')]"
-    return f""" SPEC_LEVER_ISSUE_TT: "{head.format('Float a Great Issue in [Goods.GetName]')}For #v {years}#! years:\\n{SCORE}: #P +{ISSUE_SCORE - 1:.0%}#!\\nBank loans into it count #N x{ISSUE_EXPO:g}#! when its boom ends\\nTrust gained or lost when its boom ends: #v x{ISSUE_TRUST:g}#!\\n$TOOLTIP_DELIMITER$\\nNeeds National Standing or higher, [concept_spec_investor_interest] #v Eager#! or higher and no [concept_spec_intervention]. One Great Issue at a time; the next can be floated #v {ISSUE_COOL // 365}#! year after this one ends.{on}\\n\\n[{_sg('issue', 'IsValidTooltip')}]"
+    return f""" SPEC_LEVER_ISSUE_TT: "{head.format('Float a Great Issue in [Goods.GetName]')}For #v {years}#! years:\\n{SCORE}: #P +{ISSUE_SCORE - 1:.0%}#!\\nBank loans into it count #N x{ISSUE_EXPO:g}#! when its boom ends\\nTrust gained or lost when its boom ends: #v x{ISSUE_TRUST:g}#!\\n$TOOLTIP_DELIMITER$\\nNeeds National Standing or higher, [concept_spec_investor_interest] #v Eager#! or higher and no [concept_spec_intervention]. One Great Issue at a time; the next can be floated #v {COOL_MONTHS // 12}#! year after this one ends.{on}\\n\\n[{_sg('issue', 'IsValidTooltip')}]"
  SPEC_ISSUE_ON: "\\n\\nAn issue is running on this [concept_good]"
  spec_issue_stand_tt: "Our [concept_spec_exchange] stands #v National#! or higher"
  spec_issue_hot_tt: "[concept_spec_investor_interest] is #v Eager#! or higher"
@@ -609,7 +619,10 @@ if __name__ == "__main__":
         t = out["common/scripted_triggers/spec_lever_triggers.txt"]
         assert "text = spec_lever_no_issue_tt" in t.split("spec_lever_free = {")[1].split("spec_lever_fits_restrain")[0]
         assert "NOT = { has_variable = spec_restrain_$G$ }" in t.split("spec_issue_free = {")[1]
-        assert f"name = spec_issue_cool value = 1 days = {ISSUE_DAYS + ISSUE_COOL}" in e.split("spec_issue_float = {")[1]
+        assert f"name = spec_issue_cool value = {ISSUE_MONTHS + COOL_MONTHS}" in e.split("spec_issue_float = {")[1]
+        clock = e.split("spec_issue_clock = {")[1]
+        assert "days =" not in e.split("spec_issue_float = {")[1].split("spec_issue_clock")[0] and "remove_variable = spec_issue_wine" in clock
+        assert "spec_issue_clock = yes" in MONTHLY
         assert "NOT = { has_variable = spec_issue_steel }" in ai and "NOT = { has_variable = spec_restrain_steel }" in issue_ai(["steel"])
         assert "spec_issue_no_lever_tt:" in loc() and "spec_lever_no_issue_tt:" in loc() and "Financial Centres" not in loc()
         assert "spec_update_levers = yes" in s.split("spec_sgui_issue = {")[1]

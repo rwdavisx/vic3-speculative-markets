@@ -105,7 +105,12 @@ def path(name):
     return f"{DIR}/{name}.dds" if has(name) else SLOTS[name][1]
 
 
-TEXT_ICONS = [n for n in SLOTS if n.startswith(("interest_", "ending_"))]  # in loc as @spec_interest_<word>! and @spec_ending_<n>!
+# a blue chip company (companies.BLUE_*): its badge on the Companies rows, and @spec_blue_chip! in text
+SLOTS["blue_chip"] = (64, f"{V}/company_charter_icons/investment_charter.dds",
+                      "a round deep blue enamel medal with a polished gold rim and a small gold five-pointed star in its "
+                      "centre, hanging from a short deep blue silk ribbon" + _OUTLINE)
+
+TEXT_ICONS = [n for n in SLOTS if n.startswith(("interest_", "ending_", "blue_"))]  # in loc as @spec_<name>!
 
 
 def texticons():

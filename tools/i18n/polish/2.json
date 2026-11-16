@@ -108,5 +108,10 @@
   "a80a2378fb": "Zagraniczna panika",
   "684f0a3ab2": "Długi kryzys",
   "b1381ea64a": "Niespłacony kredyt",
-  "13deb2ed5d": "Zdrowe finanse"
+  "13deb2ed5d": "Zdrowe finanse",
+  "11f47d73c2": "#header [concept_spec_company_strength]: #v {1}#!#!\\n$TOOLTIP_DELIMITER$\\n$concept_companies$: #v {2}#!\\n@spec_blue_chip! {3}: #v {4}#!, każdy dodaje #v {5}#!\\n\\n#low Firma otrzymuje status $concept_spec_blue_chip$ po #v {6}#! miesiącach z rzędu ze wskaźnikiem [concept_prosperity] #v {7}#! lub wyższym.#!",
+  "3ecd7db822": "\\n{1}{2}#!#! ze względu na: $SPEC_DRIVER_RIVAL$",
+  "7ac3228a98": "Rywalizacja",
+  "eafcab7a35": "Przez nas: #v {1}#!, przeciw nam: #v {2}#!",
+  "5c775ad815": "#header Rywalizacja#!\\n$SPEC_RIVAL_RULE$"
 }

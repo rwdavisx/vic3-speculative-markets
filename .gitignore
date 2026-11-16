@@ -37,3 +37,9 @@ __pycache__/
 /tools/i18n/source/
 Thumbs.db
 .DS_Store
+/beta/blue_chips/mod/
+/beta/company_strength/mod/
+/beta/pool_perf/mod/
+/beta/rivals/mod/
+/beta/rivals_r10/mod/
+/beta/rivals_r11/mod/

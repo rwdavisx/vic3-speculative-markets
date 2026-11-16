@@ -108,5 +108,10 @@
   "a80a2378fb": "Pánico extranjero",
   "684f0a3ab2": "Larga Depresión",
   "b1381ea64a": "Crédito pendiente",
-  "13deb2ed5d": "Solidez financiera"
+  "13deb2ed5d": "Solidez financiera",
+  "11f47d73c2": "#header [concept_spec_company_strength]: #v {1}#!#!\\n$TOOLTIP_DELIMITER$\\n$concept_companies$: #v {2}#!\\n@spec_blue_chip! {3}: #v {4}#!, cada uno suma #v {5}#!\\n\\n#low Una compañía se convierte en $concept_spec_blue_chip$ tras #v {6}#! meses seguidos con #v {7}#! o más de [concept_prosperity].#!",
+  "3ecd7db822": "\\n{1}{2}#!#! por $SPEC_DRIVER_RIVAL$",
+  "7ac3228a98": "Rivalidades",
+  "eafcab7a35": "Rivalizamos con #v {1}#!; rival de #v {2}#!",
+  "5c775ad815": "#header Rivalidades#!\\n$SPEC_RIVAL_RULE$"
 }

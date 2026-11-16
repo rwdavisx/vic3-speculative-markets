@@ -1,0 +1,7 @@
+{
+  "spec_mechanics_blue": {
+    "path": "common/scripted_effects/spec_company_effects.txt",
+    "start": "\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\tevery_company = {\n",
+    "end": "\n\t\t}\n\t}\n\telse = {"
+  }
+}

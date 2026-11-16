@@ -290,6 +290,50 @@
     "legacy_hotfix": {
       "mode": "legacy",
       "until": "1836.4.1"
+    },
+    "rival_large_network": {
+      "mode": "automatic",
+      "until": "1836.4.1"
+    },
+    "exposure_transfer": {
+      "mode": "automatic",
+      "until": "1836.6.1"
+    },
+    "company_strength": {
+      "mode": "automatic",
+      "until": "1836.6.1"
+    },
+    "blue_chips": {
+      "mode": "automatic",
+      "until": "1836.8.1"
+    },
+    "investor_pass": {
+      "mode": "automatic",
+      "until": "1836.6.1"
+    },
+    "rival_migration": {
+      "mode": "automatic",
+      "until": "1836.4.1"
+    },
+    "rival_raid": {
+      "mode": "automatic",
+      "until": "1836.4.1"
+    },
+    "rival_lure": {
+      "mode": "automatic",
+      "until": "1836.5.1"
+    },
+    "rival_press": {
+      "mode": "automatic",
+      "until": "1836.4.1"
+    },
+    "rival_shore": {
+      "mode": "automatic",
+      "until": "1836.4.1"
+    },
+    "rival_ai": {
+      "mode": "automatic",
+      "until": "1836.4.1"
     }
   }
 }

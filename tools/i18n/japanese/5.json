@@ -39,5 +39,10 @@
   "437ee3eda8": "銀行券の規則が通貨学派に従っている",
   "6575fbacc8": "[concept_spec_financial_panic]が起きている",
   "773a1e1a8f": "[concept_spec_financial_panic]は#v {1}#!か月以内に終息し、それまでは影響が軽減されません\\n[concept_spec_market_confidence]が#v {2}#!上昇します\\n#v {3}#!年間、[concept_spec_speculative_excess]の蓄積が#v {4}%#!速くなります",
-  "41b40c750b": "投機の警告"
+  "41b40c750b": "投機の警告",
+  "4e1738cc73": "優良株",
+  "f72e0eeaa5": "優良株",
+  "f9cd1cc404": "企業の強さ",
+  "0dd844c7bf": "$concept_spec_blue_chip$とは、#v {2}#!か月連続で[concept_prosperity]#v {1}#!以上を保った[concept_company]です。1つごとに我が国の[concept_spec_company_strength]に#v {3}#!を加えます。\\n\\n#v {5}#!未満が#v {4}#!か月続くと地位を失い、再び#v {6}#!か月保たなければなりません。到達までの間に1か月でも下回ると、進み具合はやり直しになります。市場経済を離れた[concept_country]は1つも保持できません。",
+  "bbb693d4fb": "$concept_spec_company_strength$とは、[concept_country]の全{1}の[concept_prosperity]を合計し、#v {2}#!で割ったものです。#v {3}#!の企業は#v {4}#!と数え、[concept_spec_blue_chip]1つごとに#v {5}#!を加えます。大企業の本拠の栄誉は最も強い国に与えられます。"
 }

@@ -82,7 +82,7 @@ if MOD == ROOT / "mod":
 # (module, switch, a definition the build has only with it on); a switch its module no longer has is skipped
 FEATURES = [("centres", "BRAKE", r"^spec_exch_limit = \{"), ("centres", "PLEDGE_ON", r"^spec_pledge_cost = \{"),
             ("centres", "EARN", r"^spec_earn_tc = \{"), ("centres", "LINKS", r"^spec_exch_mood = \{"), ("centres", "NAMES_ON", r"^spec_pursue_\w+ = \{"),
-            ("centres", "RIVAL_ON", r"\bspec_rival_lock\b"), ("diplomacy", "RIVAL", r"var:spec_rival = root"),
+            ("centres", "RIVAL_ON", r"^spec_rival_contest = \{"),
             ("levers", "ISSUE_ON", r"^spec_issue_float = \{")]
 script = "\n".join(p.read_text(encoding="utf-8-sig") for d in ("common", "events") for p in (MOD / d).rglob("*.txt"))
 sys.dont_write_bytecode = True  # importing the tool modules must not leave tools/__pycache__ behind

@@ -35,6 +35,33 @@ import mod_sources
 # interest word (1 Fleeing to 6 Feverish) -> throughput of the good's buildings, in percent
 INTEREST_THROUGHPUT = tuning.get("INTEREST_THROUGHPUT", {1: -10, 2: -5, 3: 0, 4: 3, 5: 5, 6: 8})
 COMPANY_BUST = tuning.get("COMPANY_BUST", -0.1)      # after a good's boom collapses, for BUST_DAYS
+# blue chips (design_companies.md): a company at BLUE_PROSPER+ for BLUE_MONTHS months running earns the status; below it
+# for BLUE_LOSE months running loses it, and the count starts again. Counted on the company (companies keep variables:
+# runs/sweep_company_vars_probe_r1). Each one adds BLUE_BONUS to Home of Great Companies' Company Strength (centres.py)
+BLUE_PROSPER = tuning.get("BLUE_PROSPER", 70)
+BLUE_MONTHS = tuning.get("BLUE_MONTHS", 24)
+BLUE_LOSE = tuning.get("BLUE_LOSE", 3)
+BLUE_BONUS = tuning.get("BLUE_BONUS", 2)
+BLUE_UPDATE = (
+    "\t\tevery_company = {\n"
+    f"\t\t\tif = {{\n\t\t\t\tlimit = {{ prosperity >= {BLUE_PROSPER:g} }}\n\t\t\t\tremove_variable = spec_bc_low\n"
+    "\t\t\t\tif = {\n\t\t\t\t\tlimit = { NOT = { has_variable = spec_blue_chip } }\n"
+    "\t\t\t\t\tif = {\n\t\t\t\t\t\tlimit = { NOT = { has_variable = spec_bc_months } }\n"
+    "\t\t\t\t\t\tset_variable = { name = spec_bc_months value = 0 }\n\t\t\t\t\t}\n"
+    "\t\t\t\t\tchange_variable = { name = spec_bc_months add = 1 }\n"
+    f"\t\t\t\t\tif = {{\n\t\t\t\t\t\tlimit = {{ var:spec_bc_months >= {BLUE_MONTHS:g} }}\n"
+    "\t\t\t\t\t\tset_variable = spec_blue_chip\n\t\t\t\t\t\tremove_variable = spec_bc_months\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n"
+    "\t\t\telse = {\n\t\t\t\tremove_variable = spec_bc_months\n"
+    "\t\t\t\tif = {\n\t\t\t\t\tlimit = { has_variable = spec_blue_chip }\n"
+    "\t\t\t\t\tif = {\n\t\t\t\t\t\tlimit = { NOT = { has_variable = spec_bc_low } }\n"
+    "\t\t\t\t\t\tset_variable = { name = spec_bc_low value = 0 }\n\t\t\t\t\t}\n"
+    "\t\t\t\t\tchange_variable = { name = spec_bc_low add = 1 }\n"
+    f"\t\t\t\t\tif = {{\n\t\t\t\t\t\tlimit = {{ var:spec_bc_low >= {BLUE_LOSE:g} }}\n"
+    "\t\t\t\t\t\tremove_variable = spec_blue_chip\n\t\t\t\t\t\tremove_variable = spec_bc_low\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n"
+    "\t\t}\n")
+# a closed market keeps no blue chips: the count starts again when it reopens
+BLUE_CLEAR = ("\t\tevery_company = {\n\t\t\tremove_variable = spec_blue_chip\n\t\t\tremove_variable = spec_bc_months\n"
+              "\t\t\tremove_variable = spec_bc_low\n\t\t}\n")
 BUST_DAYS = 365
 # severity of the boom's end (generate.UNWINDS) -> share of COMPANY_BUST, days
 UNWIND = {3: (1, BUST_DAYS), 2: (0.5, 180), 1: (0.25, 90)}
@@ -198,6 +225,13 @@ def script(game, sells, upgrades, icon):
                       + apply(g, "\t\t\t\t\t\t") + "\t\t\t\t\t}\n")
     passes = "".join(f"\t\t\t\t{'if' if i == 0 else 'else_if'} = {{\n\t\t\t\t\tlimit = {{ is_building_type = building_{b} }}\n"
                      + "".join(only(g) for g in makers[b]) + "\t\t\t\t}\n" for i, b in enumerate(types))
+    # a differential pass (most months: a few goods changed) looks up each changed good's building types in each state
+    # (one building per type and state) instead of testing every building against the whole type chain
+    direct = "".join(f"\t\t\t\tif = {{\n\t\t\t\t\tlimit = {{ OR = {{ "
+                     + " ".join(f"local_var:spec_iat_{g} = 1" for g in makers[b])
+                     + f" }} }}\n\t\t\t\t\tevery_scope_state = {{\n\t\t\t\t\t\tb:building_{b} ?= {{\n"
+                     + "".join(only(g) for g in makers[b])  # ponytail: inner blocks keep the chain's indent
+                     + "\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n" for b in types)
     update.append(f"\t\tif = {{\n\t\t\tlimit = {{ NOT = {{ has_variable = {LEGACY_DONE} }} }}\n{''.join(legacy_update)}"
                   f"\t\t\tset_variable = {LEGACY_DONE}\n\t\t}}\n")
     update.append(f"\t\tif = {{\n\t\t\tlimit = {{ NOT = {{ has_variable = spec_ia_n }} }}\n\t\t\tset_variable = {{ name = spec_ia_n value = 0 }}\n\t\t}}\n"
@@ -210,7 +244,8 @@ def script(game, sells, upgrades, icon):
                   "\t\t\tif = {\n\t\t\t\tlimit = { local_var:spec_ia_all = 1 }\n"
                   "\t\t\t\tset_variable = { name = spec_ia_n value = 0 }\n\t\t\t}\n" + todo
                   + "".join(f"\t\t\tset_variable = {{ name = spec_ia_{g} value = var:spec_word_{g} }}\n" for g in goods)
-                  + "\t\t\tevery_scope_building = {\n" + passes + "\t\t\t}\n\t\t}\n")
+                  + "\t\t\tif = {\n\t\t\t\tlimit = { local_var:spec_ia_all = 1 }\n\t\t\t\tevery_scope_building = {\n" + passes
+                  + "\t\t\t\t}\n\t\t\t}\n\t\t\telse = {\n" + direct + "\t\t\t}\n\t\t}\n")
     clear.append(f"\t\tif = {{\n\t\t\tlimit = {{ has_variable = {ON} }}\n\t\t\tremove_variable = {ON}\n\t\t\tremove_variable = spec_ia_n\n"
                  + "".join(f"\t\t\tremove_variable = spec_ia_{g}\n" for g in goods)
                  + "\t\t\tevery_scope_building = {\n\t" + is_type
@@ -238,8 +273,8 @@ def script(game, sells, upgrades, icon):
         "common/scripted_effects/spec_company_effects.txt":
             "# monthly, after the interest words are set: each good's interest modifier, changed only when its tier did;\n"
             "# on shut down: every modifier here goes; once: the goods of each building type, for the tab\n"
-            f"spec_update_companies = {{\n{bt_map}\tif = {{\n\t\tlimit = {{ has_variable = spec_conf }}\n{''.join(update)}\t}}\n"
-            f"\telse = {{\n{''.join(clear)}\t}}\n}}\n",
+            f"spec_update_companies = {{\n{bt_map}\tif = {{\n\t\tlimit = {{ has_variable = spec_conf }}\n{''.join(update)}{BLUE_UPDATE}\t}}\n"
+            f"\telse = {{\n{''.join(clear)}{BLUE_CLEAR}\t}}\n}}\n",
         # as vanilla's building_group_bg_service_standard_of_living_add (01_building_modifier_types.txt:497)
         "common/modifier_type_definitions/spec_modifier_types.txt":
             f"{FD_SOL} = {{\n\tdecimals = 1\n\tcolor = good\n\tgame_data = {{\n\t\tai_value = 0\n\t}}\n}}\n",

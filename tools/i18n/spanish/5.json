@@ -39,5 +39,10 @@
   "437ee3eda8": "Las normas de emisión siguen la escuela monetaria",
   "6575fbacc8": "Hay un [concept_spec_financial_panic] en curso",
   "773a1e1a8f": "El [concept_spec_financial_panic] termina en un plazo de #v {1}#! meses y conserva toda su intensidad hasta entonces\\nLa [concept_spec_market_confidence] aumenta en #v {2}#!\\nDurante #v {3}#! años, el [concept_spec_speculative_excess] se acumula un #v {4}%#! más deprisa",
-  "41b40c750b": "Advertencias especulativas"
+  "41b40c750b": "Advertencias especulativas",
+  "4e1738cc73": "Valor de primera",
+  "f72e0eeaa5": "Valores de primera",
+  "f9cd1cc404": "Fuerza de las compañías",
+  "0dd844c7bf": "Un $concept_spec_blue_chip$ es una [concept_company] que ha mantenido #v {1}#! o más de [concept_prosperity] durante #v {2}#! meses seguidos. Cada uno suma #v {3}#! a nuestra [concept_spec_company_strength].\\n\\n#v {4}#! meses seguidos por debajo de #v {5}#! acaban con el estatus, y entonces hay que volver a mantener los #v {6}#! meses. Un mes por debajo reinicia el avance hacia él. Un [concept_country] que abandona la economía de mercado no conserva ninguno.",
+  "bbb693d4fb": "La $concept_spec_company_strength$ es la [concept_prosperity] de todas las {1} de un [concept_country], sumada y dividida por #v {2}#!. Así, una compañía con #v {3}#! cuenta #v {4}#!, más #v {5}#! por cada [concept_spec_blue_chip]. El honor de Sede de grandes compañías es para el más fuerte."
 }

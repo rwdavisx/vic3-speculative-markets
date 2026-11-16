@@ -141,5 +141,12 @@
   "d4121243c3": "#v 乐观#!{1}",
   "4b3b793f0e": "#n 狂热#!{1}",
   "d08cc6bc12": "#n [concept_spec_financial_panic]：#!#v {1}#!个月后结束{2}",
-  "7516860b75": "#v 稳定#!{1}"
+  "7516860b75": "#v 稳定#!{1}",
+  "9204c46bed": "$SPEC_NAME_QTY_companies$ #grey 实力#!",
+  "297344df9e": "#header 大公司之家#!\\n最大的公司都在这里筹集资金。\\n$TOOLTIP_DELIMITER$\\n放贷额：#P +{1}%#!\\n[concept_spec_capital_flight]：#N -{2}%#!\\n只有地位为国际级或以上，或身为[concept_great_power]时，才能接收[concept_spec_capital_flight]\\n$TOOLTIP_DELIMITER$\\n按我国公司的[concept_prosperity]排名\\n我国：#v {3}#!\\n世界领先者：#v {4}#!{5}\\n仅限特许为#v 股票市场#!的交易所{6}\\n\\n$SPEC_NAME_RULE$",
+  "0f05c94569": "#header 大公司之家#!\\n最大的公司都在这里筹集资金。\\n$TOOLTIP_DELIMITER$\\n放贷额：#P +{1}%#!\\n[concept_spec_capital_flight]：#N -{2}%#!\\n只有地位为国际级或以上，或身为[concept_great_power]时，才能接收[concept_spec_capital_flight]\\n$TOOLTIP_DELIMITER$\\n按我国公司的[concept_prosperity]排名。连续#v {4}#!个月达到#v {3}#!或以上的公司成为蓝筹股，加#v {5}#!。蓝筹股：#v {6}#!\\n我国：#v {7}#!\\n世界领先者：#v {8}#!{9}\\n仅限特许为#v 股票市场#!的交易所{10}\\n\\n$SPEC_NAME_RULE$",
+  "e40c1944e1": "@spec_blue_chip! #v 蓝筹股#!：为我国公司实力加#v {1}#!",
+  "1ca35d3bec": "@spec_blue_chip! 迈向蓝筹股：[concept_prosperity]连续达到#v {3}#!或以上已#v {1}#!个月，共需#v {2}#!个月",
+  "c18e45c84c": "  #N [concept_prosperity]低于{1}#!：#v {3}#!个月中已有#v {2}#!个月，达到#v {4}#!个月即失去地位",
+  "405b7acd31": "#header 大公司之家#!\\n最大的公司都在这里筹集资金。\\n$TOOLTIP_DELIMITER$\\n放贷额：#P +{1}%#!\\n[concept_spec_capital_flight]：#N -{2}%#!\\n只有地位为国际级或以上，或身为[concept_great_power]时，才能接收[concept_spec_capital_flight]\\n$TOOLTIP_DELIMITER$\\n按[concept_spec_company_strength]排名：我国公司的[concept_prosperity]，每个[concept_spec_blue_chip]另加#v {3}#!。@spec_blue_chip! 持有{4}：#v {5}#!\\n我国：#v {6}#!\\n世界领先者：#v {7}#!{8}\\n仅限特许为#v 股票市场#!的交易所{9}\\n\\n$SPEC_NAME_RULE$"
 }

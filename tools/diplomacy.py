@@ -90,8 +90,8 @@ WAR_JUMP = """spec_war_jump = {
 # it (a tied one has just caught the panic). Applied on their next monthly update, in the Foreign Panics row.
 # rival Exchanges (centres.RIVAL_ON): a rival on either side takes the fleeing money first, and more of it.
 # centres imports market_tab, which imports this module, so its switch is read at build time
-RIVALS = ("AND = { has_variable = spec_rival var:spec_rival = root } "
-          "AND = { root = { has_variable = spec_rival } root.var:spec_rival = this }")
+RIVALS = ("AND = { has_variable = spec_exch_stand root = { has_variable = spec_exch_stand } "
+          "OR = { any_rival_country = { this = root } any_rivaling_country = { this = root } } }")
 
 
 def effects(rival):

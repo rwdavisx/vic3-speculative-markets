@@ -141,5 +141,12 @@
   "d4121243c3": "#v 活況#!{1}",
   "4b3b793f0e": "#n 狂乱#!{1}",
   "d08cc6bc12": "#n [concept_spec_financial_panic]:#! あと#v {1}#!か月で終息{2}",
-  "7516860b75": "#v 安定#!{1}"
+  "7516860b75": "#v 安定#!{1}",
+  "9204c46bed": "$SPEC_NAME_QTY_companies$ #grey 強さ#!",
+  "297344df9e": "#header 大企業の本拠#!\\n最大級の企業がここで資金を調達します。\\n$TOOLTIP_DELIMITER$\\n融資額: #P +{1}%#!\\n[concept_spec_capital_flight]: #N -{2}%#!\\n[concept_spec_capital_flight]は国際級以上の地位、または[concept_great_power]の場合のみ受け入れます\\n$TOOLTIP_DELIMITER$\\n順位の基準: 我が国の企業の[concept_prosperity]\\n我が国: #v {3}#!\\n世界首位: #v {4}#!{5}\\n#v 株式市場#!の特許状を持つ取引所のみ{6}\\n\\n$SPEC_NAME_RULE$",
+  "0f05c94569": "#header 大企業の本拠#!\\n最大級の企業がここで資金を調達します。\\n$TOOLTIP_DELIMITER$\\n融資額: #P +{1}%#!\\n[concept_spec_capital_flight]: #N -{2}%#!\\n[concept_spec_capital_flight]は国際級以上の地位、または[concept_great_power]の場合のみ受け入れます\\n$TOOLTIP_DELIMITER$\\n順位の基準: 我が国の企業の[concept_prosperity]。#v {4}#!か月連続で#v {3}#!以上の企業は優良株となり、#v {5}#!を加える。優良株: #v {6}#!\\n我が国: #v {7}#!\\n世界首位: #v {8}#!{9}\\n#v 株式市場#!の特許状を持つ取引所のみ{10}\\n\\n$SPEC_NAME_RULE$",
+  "e40c1944e1": "@spec_blue_chip! #v 優良株#!: 我が国の企業の強さに#v {1}#!を加える",
+  "1ca35d3bec": "@spec_blue_chip! 優良株まで: #v {2}#!か月中#v {1}#!か月連続で[concept_prosperity]#v {3}#!以上",
+  "c18e45c84c": "  #N [concept_prosperity]{1}未満#!: #v {3}#!か月中#v {2}#!か月。#v {4}#!か月で地位を失う",
+  "405b7acd31": "#header 大企業の本拠#!\\n最大級の企業がここで資金を調達します。\\n$TOOLTIP_DELIMITER$\\n融資額: #P +{1}%#!\\n[concept_spec_capital_flight]: #N -{2}%#!\\n[concept_spec_capital_flight]は国際級以上の地位、または[concept_great_power]の場合のみ受け入れます\\n$TOOLTIP_DELIMITER$\\n順位の基準: [concept_spec_company_strength]。我が国の企業の[concept_prosperity]に、[concept_spec_blue_chip]1つごとに#v {3}#!を加える。@spec_blue_chip! {4}: #v {5}#!\\n我が国: #v {6}#!\\n世界首位: #v {7}#!{8}\\n#v 株式市場#!の特許状を持つ取引所のみ{9}\\n\\n$SPEC_NAME_RULE$"
 }

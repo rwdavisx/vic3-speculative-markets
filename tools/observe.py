@@ -29,7 +29,7 @@ from pathlib import Path
 import probe
 
 ROOT = Path(__file__).resolve().parent.parent
-MOD = ROOT / "mod"
+MOD = Path(os.environ.get("SPEC_MOD_OUT", ROOT / "mod"))  # generate.py's own override
 GAME = Path("G:/SteamLibrary/steamapps/common/Victoria 3/binaries")
 STEAM_APP_ID = "529340"  # without this the game cannot reach Steam, so every DLC feature reads as not owned
 DOCS = Path.home() / "OneDrive/Documents/Paradox Interactive/Victoria 3"
@@ -407,7 +407,7 @@ def run_one(folder, until, timeout_min, marker):
         (DATA / f"obs_{folder.parent.name}_{folder.name}.txt").write_text(telemetry, encoding="utf-8")
     (folder / "probe.log").write_text("\n".join(l for l in seen if "PROBE tag=" in l), encoding="utf-8")
     by_year, ends = yearly(parse(seen, "PROBE"))
-    keys = ("gdp", "sol", "debt", "inv", "war", "default")
+    keys = (*probe.FIELDS, *probe.FLAGS, *probe.CALLS)
     (folder / "probe_yearly.csv").write_text("year,tag," + ",".join(keys) + "\n" + "".join(
         f"{y},{t}," + ",".join(m.get(k, "") for k in keys) + "\n" for y, cs in ends.items() for t, m in cs.items()),
         encoding="utf-8")

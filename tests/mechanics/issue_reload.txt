@@ -1,30 +1,32 @@
-namespace = spec_mechanics_issue_reload
+﻿namespace = spec_mechanics_issue_reload
+# A Great Issue across a save reload. Its markers count monthly pulses (levers.spec_issue_clock), so the 24th pulse after
+# floating ends the issue and the 36th the cooldown: checks sit 20+ days clear of the earliest and latest such pulse.
 spec_mechanics_issue_reload.1 = { type = country_event hidden = yes immediate = {
 trigger_event = { id = spec_mechanics_issue_reload.2 days = 300 }
 } }
 spec_mechanics_issue_reload.2 = { type = country_event hidden = yes immediate = {
 spec_issue_float = { G = aeroplanes }
-if = { limit = { has_variable = spec_issue_aeroplanes has_variable = spec_issue has_variable = spec_issue_cool } debug_log = "HOTFIX PASS issue_started_before_save" }
+if = { limit = { has_variable = spec_issue_aeroplanes var:spec_issue = 24 var:spec_issue_cool = 36 } debug_log = "HOTFIX PASS issue_started_before_save" }
 else = { debug_log = "HOTFIX FAIL issue_started_before_save" }
-trigger_event = { id = spec_mechanics_issue_reload.3 days = 729 }
-trigger_event = { id = spec_mechanics_issue_reload.4 days = 731 }
-trigger_event = { id = spec_mechanics_issue_reload.5 days = 1094 }
-trigger_event = { id = spec_mechanics_issue_reload.6 days = 1096 }
+trigger_event = { id = spec_mechanics_issue_reload.3 days = 680 }
+trigger_event = { id = spec_mechanics_issue_reload.4 days = 740 }
+trigger_event = { id = spec_mechanics_issue_reload.5 days = 1045 }
+trigger_event = { id = spec_mechanics_issue_reload.6 days = 1105 }
 } }
 spec_mechanics_issue_reload.3 = { type = country_event hidden = yes immediate = {
-if = { limit = { has_variable = spec_issue_aeroplanes has_variable = spec_issue has_variable = spec_issue_cool } debug_log = "HOTFIX PASS issue_active_day_729" }
-else = { debug_log = "HOTFIX FAIL issue_active_day_729" }
+if = { limit = { has_variable = spec_issue_aeroplanes has_variable = spec_issue has_variable = spec_issue_cool } debug_log = "HOTFIX PASS issue_active_day_680" }
+else = { debug_log = "HOTFIX FAIL issue_active_day_680" }
 } }
 spec_mechanics_issue_reload.4 = { type = country_event hidden = yes immediate = {
-if = { limit = { NOR = { has_variable = spec_issue_aeroplanes has_variable = spec_issue } has_variable = spec_issue_cool } debug_log = "HOTFIX PASS issue_expires_day_731_cooldown_remains" }
-else = { debug_log = "HOTFIX FAIL issue_expires_day_731_cooldown_remains" }
+if = { limit = { NOR = { has_variable = spec_issue_aeroplanes has_variable = spec_issue } has_variable = spec_issue_cool } debug_log = "HOTFIX PASS issue_expires_day_740_cooldown_remains" }
+else = { debug_log = "HOTFIX FAIL issue_expires_day_740_cooldown_remains" }
 } }
 spec_mechanics_issue_reload.5 = { type = country_event hidden = yes immediate = {
-if = { limit = { has_variable = spec_issue_cool } debug_log = "HOTFIX PASS issue_cooldown_present_day_1094" }
-else = { debug_log = "HOTFIX FAIL issue_cooldown_present_day_1094" }
+if = { limit = { has_variable = spec_issue_cool } debug_log = "HOTFIX PASS issue_cooldown_present_day_1045" }
+else = { debug_log = "HOTFIX FAIL issue_cooldown_present_day_1045" }
 } }
 spec_mechanics_issue_reload.6 = { type = country_event hidden = yes immediate = {
-if = { limit = { NOT = { has_variable = spec_issue_cool } } debug_log = "HOTFIX PASS issue_cooldown_expires_day_1096" }
-else = { debug_log = "HOTFIX FAIL issue_cooldown_expires_day_1096" }
+if = { limit = { NOT = { has_variable = spec_issue_cool } } debug_log = "HOTFIX PASS issue_cooldown_expires_day_1105" }
+else = { debug_log = "HOTFIX FAIL issue_cooldown_expires_day_1105" }
 debug_log = "HOTFIX SUITE COMPLETE"
 } }

@@ -1,4 +1,4 @@
-namespace = spec_mechanics_state_transfer
+﻿namespace = spec_mechanics_state_transfer
 spec_mechanics_state_transfer.1 = { type = country_event hidden = yes immediate = { trigger_event = { id = spec_mechanics_state_transfer.2 days = 10 } } }
 spec_mechanics_state_transfer.2 = { type = country_event hidden = yes immediate = {
 remove_variable = spec_lev_old
@@ -7,14 +7,14 @@ remove_variable = spec_lev_fade
 set_variable = { name = spec_lev_avg value = 10000000 }
 set_variable = { name = spec_debt value = 80000000 }
 set_variable = { name = spec_lev_pop value = total_population }
-random_scope_state = { limit = { is_capital = no } save_scope_as = spec_test_state }
-set_variable = { name = spec_test_state value = scope:spec_test_state }
+random_scope_state = { limit = { is_capital = no } state_region = { save_scope_as = spec_test_region } }
+set_variable = { name = spec_test_region value = scope:spec_test_region }
 every_scope_state = { limit = { is_capital = no } set_state_owner = c:FRA }
 trigger_event = { id = spec_mechanics_state_transfer.3 days = 8 }
 } }
 spec_mechanics_state_transfer.3 = { type = country_event hidden = yes immediate = {
 debug_log = "HOTFIX INFO transfer_kept=[THIS.ScriptValue('spec_pop_kept')]"
-if = { limit = { var:spec_test_state = { owner = c:FRA } } debug_log = "HOTFIX PASS state_really_transferred" }
+if = { limit = { c:FRA = { any_scope_state = { state_region = root.var:spec_test_region } } NOT = { any_scope_state = { state_region = root.var:spec_test_region } } } debug_log = "HOTFIX PASS state_really_transferred" }
 else = { debug_log = "HOTFIX FAIL state_really_transferred" }
 if = { limit = { spec_pop_kept <= 0.9 } debug_log = "HOTFIX PASS actual_population_loss_exceeds_ten_percent" }
 else = { debug_log = "HOTFIX FAIL actual_population_loss_exceeds_ten_percent" }

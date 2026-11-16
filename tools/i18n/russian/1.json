@@ -104,5 +104,12 @@
   "ff59c791e8": "#header [concept_spec_investor_interest]: {1}#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_TILE_BODY$",
   "51a3ac46e3": "\\n[concept_loans], процентная ставка: #P -{1}%#!",
   "39584b5894": "\\nПаника; страна: #v {1}#!",
-  "83b4adced5": ", [concept_spec_credit_policy]: #v Мягкая#!"
+  "83b4adced5": ", [concept_spec_credit_policy]: #v Мягкая#!",
+  "5fdac7196f": "@spec_blue_chip! [concept_spec_blue_chip]: добавляет #v {1}#! к показателю «[concept_spec_company_strength]»",
+  "620079a27e": "@spec_blue_chip! На пути к статусу «[concept_spec_blue_chip]»: #v {1}#! из #v {2}#! месяцев подряд с уровнем «[concept_prosperity]» #v {3}#! или выше",
+  "e6eda9ee3f": "#header {1}#!\\n[concept_spec_financial_centre]: место #v ##{2}#!\\n$TOOLTIP_DELIMITER$\\nОчки: #v {3}#!\\nСтатус ([concept_spec_exchange]): $SPEC_CENTRE_STAND$\\nДоверие: #v $SPEC_EXCH_TRUST$#!\\nЛет без события «[concept_spec_financial_panic]»: $SPEC_CENTRE_CALM$\\n\\n[concept_prestige]: #P +{4}%#!\\n[concept_loans], процентная ставка: #P -{5}%#!\\nЛимит кредитования: #P +{6}#! мес. (требуется: {7}, а также стандарты кредитования #v Надёжные#! или строже)",
+  "39d0faad79": "#header {1}#!\\n[concept_spec_financial_centre]: место #v ##{2}#!\\n$TOOLTIP_DELIMITER$\\nОчки: #v {3}#!\\nСтатус ([concept_spec_exchange]): $SPEC_CENTRE_STAND$\\nДоверие: #v $SPEC_EXCH_TRUST$#!\\nЛет без события «[concept_spec_financial_panic]»: $SPEC_CENTRE_CALM$\\n\\n[concept_prestige]: #P +{4}%#!\\n[concept_loans], процентная ставка: #P -{5}%#!\\nЛимит кредитования: #P +{6}#! мес. (требуется: {7}, а также стандарты кредитования #v Надёжные#! или строже)",
+  "5425c9b5f6": "#header {1}#!\\nНе входит в #v {2}#! ведущих в мире: {3}\\n$TOOLTIP_DELIMITER$\\nОчки: #v {4}#!\\nСтатус ([concept_spec_exchange]): $SPEC_CENTRE_STAND$\\nДоверие: #v $SPEC_EXCH_TRUST$#!\\nЛет без события «[concept_spec_financial_panic]»: $SPEC_CENTRE_CALM$",
+  "f2c978c265": "Действия соперников",
+  "df0bd2bda5": "#header Действия соперников: {1}#!\\nМедвежий налёт соперника на наш рынок, растянутый на шесть месяцев."
 }

@@ -1,0 +1,46 @@
+﻿namespace = spec_mechanics_company_strength
+spec_mechanics_company_strength.1 = { type = country_event hidden = yes immediate = { trigger_event = { id = spec_mechanics_company_strength.2 days = 90 } } }
+spec_mechanics_company_strength.2 = { type = country_event hidden = yes immediate = {
+set_global_variable = { name = spec_test_with value = 0 }
+set_global_variable = { name = spec_test_bad_sum value = 0 }
+set_global_variable = { name = spec_test_bad_zero value = 0 }
+set_global_variable = { name = spec_test_ties_new value = 0 }
+set_global_variable = { name = spec_test_ties_old value = 0 }
+every_country = { limit = { is_country_alive = yes }
+set_global_variable = { name = spec_test_acc value = 0 }
+every_company = { change_global_variable = { name = spec_test_acc add = { value = prosperity } } }
+set_variable = { name = spec_test_ps value = { value = global_var:spec_test_acc divide = 20 } }
+set_variable = { name = spec_test_str value = spec_log_kstr }
+set_variable = { name = spec_test_old value = spec_log_kco }
+if = { limit = { any_company = { count >= 1 } }
+change_global_variable = { name = spec_test_with add = 1 }
+set_variable = spec_test_has_co
+if = { limit = { OR = { var:spec_test_str > { value = var:spec_test_ps add = 0.01 } var:spec_test_str < { value = var:spec_test_ps subtract = 0.01 } } } change_global_variable = { name = spec_test_bad_sum add = 1 } debug_log = "HOTFIX INFO bad_sum country=[THIS.GetCountry.GetTagName] str=[THIS.Var('spec_test_str').GetValue] sum=[THIS.Var('spec_test_ps').GetValue]" }
+}
+else = {
+remove_variable = spec_test_has_co
+if = { limit = { NOT = { var:spec_test_str = 0 } } change_global_variable = { name = spec_test_bad_zero add = 1 } }
+}
+}
+# every pair of company-holding countries, counted once each way: equal scores are ties
+every_country = { limit = { has_variable = spec_test_has_co } save_scope_as = spec_test_a
+every_country = { limit = { has_variable = spec_test_has_co NOT = { this = scope:spec_test_a } }
+if = { limit = { var:spec_test_str = scope:spec_test_a.var:spec_test_str } change_global_variable = { name = spec_test_ties_new add = 1 } debug_log = "HOTFIX INFO tie [THIS.GetCountry.GetTagName]=[scope:spec_test_a.GetCountry.GetTagName] str=[THIS.Var('spec_test_str').GetValue] companies=[THIS.MakeScope.ScriptValue('spec_xs_co')]" }
+if = { limit = { var:spec_test_old = scope:spec_test_a.var:spec_test_old } change_global_variable = { name = spec_test_ties_old add = 1 } }
+} }
+debug_log = "HOTFIX INFO countries_with_companies=[GetGlobalVariable('spec_test_with').GetValue] ties_new=[GetGlobalVariable('spec_test_ties_new').GetValue] ties_old=[GetGlobalVariable('spec_test_ties_old').GetValue] gbr_strength=[THIS.Var('spec_test_str').GetValue]"
+if = { limit = { global_var:spec_test_with >= 2 } debug_log = "HOTFIX PASS several_countries_have_companies" }
+else = { debug_log = "HOTFIX FAIL several_countries_have_companies" }
+if = { limit = { global_var:spec_test_bad_sum = 0 } debug_log = "HOTFIX PASS strength_is_prosperity_over_20" }
+else = { debug_log = "HOTFIX FAIL strength_is_prosperity_over_20" }
+if = { limit = { global_var:spec_test_bad_zero = 0 } debug_log = "HOTFIX PASS no_companies_scores_zero" }
+else = { debug_log = "HOTFIX FAIL no_companies_scores_zero" }
+if = { limit = { global_var:spec_test_ties_old > 0 global_var:spec_test_ties_new <= { value = global_var:spec_test_ties_old multiply = 0.1 } } debug_log = "HOTFIX PASS ties_at_least_90_percent_rarer" }
+else = { debug_log = "HOTFIX FAIL ties_at_least_90_percent_rarer" }
+# the honour's score is Company Strength scaled only by specialities
+remove_variable = spec_pw_sum
+if = { limit = { spec_name_companies = var:spec_test_str } debug_log = "HOTFIX PASS honour_ranks_by_strength" }
+else = { debug_log = "HOTFIX FAIL honour_ranks_by_strength" }
+every_country = { remove_variable = spec_test_ps remove_variable = spec_test_str remove_variable = spec_test_old remove_variable = spec_test_has_co }
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

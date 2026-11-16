@@ -104,5 +104,12 @@
   "ff59c791e8": "#header [concept_spec_investor_interest] em {1}#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_TILE_BODY$",
   "51a3ac46e3": "\\nTaxa de juros de [concept_loans]: #P -{1}%#!",
   "39584b5894": "\\nPânico no país #v {1}#!",
-  "83b4adced5": ", [concept_spec_credit_policy] #v Flexível#!"
+  "83b4adced5": ", [concept_spec_credit_policy] #v Flexível#!",
+  "5fdac7196f": "@spec_blue_chip! [concept_spec_blue_chip]: soma #v {1}#! à nossa [concept_spec_company_strength]",
+  "620079a27e": "@spec_blue_chip! Rumo a [concept_spec_blue_chip]: #v {1}#! de #v {2}#! meses seguidos com #v {3}#! ou mais de [concept_prosperity]",
+  "e6eda9ee3f": "#header {1}#!\\n[concept_spec_financial_centre] #v ##{2}#!\\n$TOOLTIP_DELIMITER$\\nPontos: #v {3}#!\\n[concept_spec_exchange] Posição: $SPEC_CENTRE_STAND$\\nCredibilidade: #v $SPEC_EXCH_TRUST$#!\\nAnos sem [concept_spec_financial_panic]: $SPEC_CENTRE_CALM$\\n\\n[concept_prestige]: #P +{4}%#!\\nTaxa de juros de [concept_loans]: #P -{5}%#!\\nLimite de Crédito: #P +{6}#! meses (com {7}, Critérios de Crédito #v Sólidos#! ou mais rígidos)",
+  "39d0faad79": "#header {1}#!\\n[concept_spec_financial_centre] #v ##{2}#!\\n$TOOLTIP_DELIMITER$\\nPontos: #v {3}#!\\n[concept_spec_exchange] Posição: $SPEC_CENTRE_STAND$\\nCredibilidade: #v $SPEC_EXCH_TRUST$#!\\nAnos sem [concept_spec_financial_panic]: $SPEC_CENTRE_CALM$\\n\\n[concept_prestige]: #P +{4}%#!\\nTaxa de juros de [concept_loans]: #P -{5}%#!\\nLimite de Crédito: #P +{6}#! mês (com {7}, Critérios de Crédito #v Sólidos#! ou mais rígidos)",
+  "5425c9b5f6": "#header {1}#!\\nNão é uma das #v {2}#! {3} do mundo\\n$TOOLTIP_DELIMITER$\\nPontos: #v {4}#!\\n[concept_spec_exchange] Posição: $SPEC_CENTRE_STAND$\\nCredibilidade: #v $SPEC_EXCH_TRUST$#!\\nAnos sem [concept_spec_financial_panic]: $SPEC_CENTRE_CALM$",
+  "f2c978c265": "Ações Rivais",
+  "df0bd2bda5": "#header Ações Rivais: {1}#!\\nAtaque baixista de um rival contra o nosso mercado, distribuído em seis meses."
 }

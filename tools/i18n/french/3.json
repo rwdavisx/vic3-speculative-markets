@@ -141,5 +141,12 @@
   "d4121243c3": "#v Optimisme#!{1}",
   "4b3b793f0e": "#n Frénésie#!{1}",
   "d08cc6bc12": "#n [concept_spec_financial_panic] :#! prend fin dans #v {1}#! mois{2}",
-  "7516860b75": "#v Stabilité#!{1}"
+  "7516860b75": "#v Stabilité#!{1}",
+  "9204c46bed": "$SPEC_NAME_QTY_companies$ #grey puissance#!",
+  "297344df9e": "#header Siège des grandes compagnies#!\\nLes plus grandes compagnies lèvent leurs fonds ici.\\n$TOOLTIP_DELIMITER$\\nCrédit accordé : #P +{1} %#!\\n[concept_spec_capital_flight] : #N -{2} %#!\\nLa [concept_spec_capital_flight] n’est reçue qu’avec une Bourse Internationale ou mieux, ou en tant que [concept_great_power]\\n$TOOLTIP_DELIMITER$\\nClassement selon la [concept_prosperity] de nos compagnies\\nNotre décompte : #v {3}#!\\nLeader mondial : #v {4}#!{5}\\nRéservé à une Bourse dotée de la charte #v Bourse des valeurs#!{6}\\n\\n$SPEC_NAME_RULE$",
+  "0f05c94569": "#header Siège des grandes compagnies#!\\nLes plus grandes compagnies lèvent leurs fonds ici.\\n$TOOLTIP_DELIMITER$\\nCrédit accordé : #P +{1} %#!\\n[concept_spec_capital_flight] : #N -{2} %#!\\nLa [concept_spec_capital_flight] n’est reçue qu’avec une Bourse Internationale ou mieux, ou en tant que [concept_great_power]\\n$TOOLTIP_DELIMITER$\\nClassement selon la [concept_prosperity] de nos compagnies. Une valeur de premier ordre, une compagnie à #v {3}#! ou plus pendant #v {4}#! mois d'affilée, ajoute #v {5}#!. Valeurs de premier ordre : #v {6}#!\\nNotre décompte : #v {7}#!\\nLeader mondial : #v {8}#!{9}\\nRéservé à une Bourse dotée de la charte #v Bourse des valeurs#!{10}\\n\\n$SPEC_NAME_RULE$",
+  "e40c1944e1": "@spec_blue_chip! #v Valeur de premier ordre#! : ajoute #v {1}#! à la puissance de nos compagnies",
+  "1ca35d3bec": "@spec_blue_chip! Vers la valeur de premier ordre : #v {1}#! mois sur #v {2}#! d'affilée à #v {3}#! ou plus de [concept_prosperity]",
+  "c18e45c84c": "  #N Sous {1} de [concept_prosperity]#! pendant #v {2}#! mois sur #v {3}#! : le statut est perdu à #v {4}#!",
+  "405b7acd31": "#header Siège des grandes compagnies#!\\nLes plus grandes compagnies lèvent leurs fonds ici.\\n$TOOLTIP_DELIMITER$\\nCrédit accordé : #P +{1} %#!\\n[concept_spec_capital_flight] : #N -{2} %#!\\nLa [concept_spec_capital_flight] n’est reçue qu’avec une Bourse Internationale ou mieux, ou en tant que [concept_great_power]\\n$TOOLTIP_DELIMITER$\\nClassement selon la [concept_spec_company_strength] : la [concept_prosperity] de nos compagnies, plus #v {3}#! pour chaque [concept_spec_blue_chip]. @spec_blue_chip! {4} : #v {5}#!\\nNotre décompte : #v {6}#!\\nLeader mondial : #v {7}#!{8}\\nRéservé à une Bourse dotée de la charte #v Bourse des valeurs#!{9}\\n\\n$SPEC_NAME_RULE$"
 }

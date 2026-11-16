@@ -108,5 +108,10 @@
   "a80a2378fb": "Зарубежная паника",
   "684f0a3ab2": "Долгая депрессия",
   "b1381ea64a": "Непогашенный кредит",
-  "13deb2ed5d": "Здоровые финансы"
+  "13deb2ed5d": "Здоровые финансы",
+  "11f47d73c2": "#header [concept_spec_company_strength]: #v {1}#!#!\\n$TOOLTIP_DELIMITER$\\n$concept_companies$: #v {2}#!\\n@spec_blue_chip! {3}: #v {4}#!, каждая добавляет #v {5}#!\\n\\n#low Компания получает статус «$concept_spec_blue_chip$» после #v {6}#! мес. подряд с уровнем «[concept_prosperity]» #v {7}#! или выше.#!",
+  "3ecd7db822": "\\n{1}{2}#!#! от фактора «$SPEC_DRIVER_RIVAL$»",
+  "7ac3228a98": "Соперничество",
+  "eafcab7a35": "Мы объявили: #v {1}#!, против нас: #v {2}#!",
+  "5c775ad815": "#header Соперничество#!\\n$SPEC_RIVAL_RULE$"
 }

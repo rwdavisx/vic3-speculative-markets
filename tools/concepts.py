@@ -11,7 +11,7 @@ CONCEPTS = {"market_confidence": "je_markets", "speculative_mania": "state_mania
             "credit_policy": None, "outstanding_credit": None, "long_depression": None,
             "speculative_excess": "crash_risk", "sound_finance": None, "banking_reforms": None,
             "intervention": None, "market_conditions": None, "baseline": None, "market_mood": None, "market_tie": None,
-            "capital_flight": None, "war_news": None, "financial_centre": None, **({"leverage": None, "bad_debts": None} if leverage.ON else {}),
+            "capital_flight": None, "war_news": None, "financial_centre": None, "blue_chip": "blue_chip", "company_strength": None, **({"leverage": None, "bad_debts": None} if leverage.ON else {}),
             **({"lending_standards": None} if cycle.ON else {}),
             **({"exchange": None} if tuning.get("EXCHANGE_ON", 1) else {})}  # centres.ON; its text is in centres.loc
 LEVERAGE_LOC = "" if not leverage.ON else (
@@ -79,6 +79,24 @@ def boom_end_loc(k, mc):
     return out
 
 
+def companies_loc():
+    """Blue Chip and Company Strength (design_companies.md), read from the honour and the Companies rows."""
+    import centres  # ponytail: imported here, centres is the heavier module and only CO_STRENGTH is needed
+    cos = "[Concept('concept_company','$concept_companies$')]"
+    return (' concept_spec_blue_chip: "Blue Chip"\n concept_spec_blue_chips: "Blue Chips"\n'
+            ' concept_spec_blue_chip_desc: "A $concept_spec_blue_chip$ is a [concept_company] that has held '
+            f"#v {companies.BLUE_PROSPER:g}#! or more [concept_prosperity] for #v {companies.BLUE_MONTHS:g}#! months running. "
+            f"Each one adds #v {companies.BLUE_BONUS:g}#! to our [concept_spec_company_strength].\\n\\n"
+            f"#v {companies.BLUE_LOSE:g}#! months running below #v {companies.BLUE_PROSPER:g}#! end the status, and the "
+            f"#v {companies.BLUE_MONTHS:g}#! months must then be held again. A month below resets a climb towards it. "
+            'A [concept_country] that leaves the market economy keeps none."\n'
+            ' concept_spec_company_strength: "Company Strength"\n'
+            ' concept_spec_company_strength_desc: "$concept_spec_company_strength$ is the [concept_prosperity] of all of a '
+            f"[concept_country]'s {cos} added together and divided by #v {centres.CO_STRENGTH:g}#!, so a company at "
+            f"#v 100#! counts #v {100 / centres.CO_STRENGTH:g}#!, plus #v {companies.BLUE_BONUS:g}#! for each "
+            '[concept_spec_blue_chip]. The Home of Great Companies honour goes to the strongest."\n')
+
+
 def loc(k):
     goods = "[Concept('concept_good','$concept_goods$')]"
     buildings = "[Concept('concept_building','$concept_buildings$')]"
@@ -100,6 +118,6 @@ def loc(k):
  concept_spec_credit_policy_normal: "Normal Credit"
  concept_spec_credit_policy_loose: "Loose Credit"
  concept_spec_credit_policy_desc: "$concept_spec_credit_policy$ sets how freely banks lend into the [concept_investment_pool]. It requires [GetTechnology('central_banking').GetName] and can be $concept_spec_credit_policy_tight$, $concept_spec_credit_policy_normal$ or $concept_spec_credit_policy_loose$. Tighter credit slows investment and pulls [{mc}] down when it runs high, while looser credit adds to [concept_spec_outstanding_credit]. Changing it locks it for #v {k['STANCE_COOLDOWN']}#! months."
-{LEVERAGE_LOC}{LENDING_LOC} concept_spec_outstanding_credit: "Outstanding Credit"
+{LEVERAGE_LOC}{LENDING_LOC}{companies_loc()} concept_spec_outstanding_credit: "Outstanding Credit"
  concept_spec_outstanding_credit_desc: "$concept_spec_outstanding_credit$ is the credit banks have lent into the [concept_investment_pool] and not yet been repaid. Banks lend while [{mc}] is above #v {k['CREDIT_FROM']}#!, up to a Lending Limit of #v {leverage.SAFE}#! months of pool income. [GetTechnology('{leverage.LADDER_TECHS[0]}').GetName] adds #v {leverage.LADDER_STEPS[0]}#! months, and [GetTechnology('{leverage.LADDER_TECHS[1]}').GetName] and [GetTechnology('{leverage.LADDER_TECHS[2]}').GetName] add #v {leverage.LADDER_STEPS[1]}#! each.\\n\\nEach month #v {k['CREDIT_RUNOFF']:.0%}#! is repaid from the pool. When a [concept_spec_financial_panic] begins, part of it is withdrawn.\\n\\n#lore Banks lent against railway shares in the 1840s, cotton in 1837 and building land in Vienna in 1873, and were caught when those booms broke.#!"
 """

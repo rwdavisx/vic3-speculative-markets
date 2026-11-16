@@ -241,8 +241,8 @@ spec_hotfix_economy.2 = {
                 NOR = {
                     has_variable = spec_rival
                     has_variable = spec_rival_last
+                    has_variable = spec_rival_lock
                 }
-                has_variable = spec_rival_lock
             }
             debug_log = "HOTFIX PASS exchange_annexed_rival_cleared"
         }

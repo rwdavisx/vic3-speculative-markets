@@ -1,0 +1,14 @@
+namespace = spec_mechanics_old_bridge_migration
+spec_mechanics_old_bridge_migration.1 = { type = country_event hidden = yes immediate = {
+if = { limit = { has_variable = spec_fast_elgar_instruments has_variable = spec_hype_elgar_instruments global_var:spec_bt_g1_building_instrument_workshops = g:elgar_instruments } debug_log = "HOTFIX PASS old_bridge_instruments_migrate" }
+else = { debug_log = "HOTFIX FAIL old_bridge_instruments_migrate" }
+if = { limit = { has_variable = spec_fast_good_uranium has_variable = spec_hype_good_uranium global_var:spec_bt_g1_building_uranium_mine = g:good_uranium } debug_log = "HOTFIX PASS old_bridge_uranium_migrate" }
+else = { debug_log = "HOTFIX FAIL old_bridge_uranium_migrate" }
+if = { limit = { has_variable = spec_fast_manzoni_prints has_variable = spec_hype_manzoni_prints global_var:spec_bt_g1_building_manzoni_publishing_industry = g:manzoni_prints } debug_log = "HOTFIX PASS old_bridge_publications_migrate" }
+else = { debug_log = "HOTFIX FAIL old_bridge_publications_migrate" }
+if = { limit = { has_variable = spec_fast_electricity has_variable = spec_slow_electricity has_variable = spec_word_electricity has_variable = spec_hype_electricity } debug_log = "HOTFIX PASS old_bridge_missing_electricity_initialized" }
+else = { debug_log = "HOTFIX FAIL old_bridge_missing_electricity_initialized" }
+if = { limit = { has_variable = spec_debt var:spec_debt >= 0 var:spec_conf >= 0 var:spec_conf <= 100 has_variable = spec_stance exists = je:je_spec_markets } debug_log = "HOTFIX PASS old_bridge_finance_and_journal_survive" }
+else = { debug_log = "HOTFIX FAIL old_bridge_finance_and_journal_survive" }
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

@@ -1,0 +1,52 @@
+namespace = spec_mechanics_blue_chips
+spec_mechanics_blue_chips.1 = { type = country_event hidden = yes immediate = { trigger_event = { id = spec_mechanics_blue_chips.2 days = 60 } } }
+spec_mechanics_blue_chips.2 = { type = country_event hidden = yes immediate = {
+random_country = { limit = { has_variable = spec_conf any_company = { prosperity < 60 } } save_scope_as = spec_test_c }
+if = { limit = { exists = scope:spec_test_c } debug_log = "HOTFIX PASS fixture_has_low_company" }
+else = { debug_log = "HOTFIX FAIL fixture_has_low_company" }
+scope:spec_test_c ?= {
+set_global_variable = { name = spec_test_c value = this }
+random_company = { limit = { prosperity < 60 } save_scope_as = spec_test_co }
+set_global_variable = { name = spec_test_co value = scope:spec_test_co }
+set_variable = { name = spec_test_str0 value = spec_log_kstr }
+set_variable = { name = spec_test_kbc0 value = spec_log_kbc }
+set_variable = { name = spec_test_kbc1 value = { value = var:spec_test_kbc0 add = 1 } }
+set_variable = { name = spec_test_lo value = { value = var:spec_test_str0 add = 1.999 } }
+set_variable = { name = spec_test_hi value = { value = var:spec_test_str0 add = 2.001 } }
+scope:spec_test_co = { set_variable = spec_blue_chip }
+set_variable = { name = spec_test_str1 value = spec_log_kstr }
+debug_log = "HOTFIX INFO country=[THIS.GetCountry.GetTagName] str0=[THIS.Var('spec_test_str0').GetValue] str1=[THIS.Var('spec_test_str1').GetValue]"
+if = { limit = { spec_log_kbc = var:spec_test_kbc1 var:spec_test_str1 >= var:spec_test_lo var:spec_test_str1 <= var:spec_test_hi } debug_log = "HOTFIX PASS blue_chip_adds_two_strength" }
+else = { debug_log = "HOTFIX FAIL blue_chip_adds_two_strength" }
+scope:spec_test_co = { spec_mechanics_blue = yes }
+if = { limit = { scope:spec_test_co = { has_variable = spec_blue_chip var:spec_bc_low = 1 } } debug_log = "HOTFIX PASS one_low_month_keeps_status" }
+else = { debug_log = "HOTFIX FAIL one_low_month_keeps_status" }
+scope:spec_test_co = { spec_mechanics_blue = yes }
+if = { limit = { scope:spec_test_co = { has_variable = spec_blue_chip var:spec_bc_low = 2 } } debug_log = "HOTFIX PASS two_low_months_keep_status" }
+else = { debug_log = "HOTFIX FAIL two_low_months_keep_status" }
+scope:spec_test_co = { spec_mechanics_blue = yes }
+if = { limit = { scope:spec_test_co = { NOT = { has_variable = spec_blue_chip } NOT = { has_variable = spec_bc_low } } } debug_log = "HOTFIX PASS third_low_month_removes_status" }
+else = { debug_log = "HOTFIX FAIL third_low_month_removes_status" }
+if = { limit = { spec_log_kbc = var:spec_test_kbc0 } debug_log = "HOTFIX PASS lost_status_stops_counting" }
+else = { debug_log = "HOTFIX FAIL lost_status_stops_counting" }
+scope:spec_test_co = { set_variable = { name = spec_bc_months value = 23 } spec_mechanics_blue = yes }
+if = { limit = { scope:spec_test_co = { NOT = { has_variable = spec_bc_months } NOT = { has_variable = spec_blue_chip } } } debug_log = "HOTFIX PASS low_month_resets_the_climb" }
+else = { debug_log = "HOTFIX FAIL low_month_resets_the_climb" }
+# the real monthly update applies the same rules: three ordinary months below the mark end a status set now
+scope:spec_test_co = { set_variable = spec_blue_chip }
+}
+trigger_event = { id = spec_mechanics_blue_chips.3 days = 100 }
+} }
+spec_mechanics_blue_chips.3 = { type = country_event hidden = yes immediate = {
+if = { limit = { global_var:spec_test_co = { prosperity < 70 NOT = { has_variable = spec_blue_chip } } } debug_log = "HOTFIX PASS monthly_update_applies_blue_chip_rules" }
+else = { debug_log = "HOTFIX FAIL monthly_update_applies_blue_chip_rules" }
+# a closed market keeps no blue chips
+global_var:spec_test_c = {
+global_var:spec_test_co = { set_variable = spec_blue_chip set_variable = { name = spec_bc_low value = 1 } }
+remove_variable = spec_conf
+spec_update_companies = yes
+if = { limit = { global_var:spec_test_co = { NOT = { has_variable = spec_blue_chip } NOT = { has_variable = spec_bc_low } } } debug_log = "HOTFIX PASS closed_market_clears_blue_chips" }
+else = { debug_log = "HOTFIX FAIL closed_market_clears_blue_chips" }
+}
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

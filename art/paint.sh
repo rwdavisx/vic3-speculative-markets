@@ -6,7 +6,7 @@ import sys; sys.path.insert(0, '../tools'); import icons
 n='$name'; d=icons.SLOTS[n][2]
 r={'state':'refs/investment_banks.png refs/central_banking.png raw/state_steady.png','mod':'refs/modifier_coins_negative.png refs/modifier_coins_positive.png',
    'je':'refs/event_trade.png refs/event_protest.png','event':'refs/event_trade.png refs/event_protest.png','crash':'refs/warning.png refs/investment_banks.png',
-   'mapmode':'refs/mapmode_market_areas.png refs/investment_banks.png','driver':'refs/investment_banks.png raw/state_steady.png','lever':'refs/investment_banks.png refs/modifier_coins_negative.png','interest':'refs/investment_banks.png raw/driver_drift.png raw/driver_boom.png','ending':'refs/acceptance_tier3.png raw/driver_crash.png raw/crash_risk.png'}[n.split('_')[0]]
+   'mapmode':'refs/mapmode_market_areas.png refs/investment_banks.png','driver':'refs/investment_banks.png raw/state_steady.png','lever':'refs/investment_banks.png refs/modifier_coins_negative.png','interest':'refs/investment_banks.png raw/driver_drift.png raw/driver_boom.png','ending':'refs/acceptance_tier3.png raw/driver_crash.png raw/crash_risk.png','blue':'refs/acceptance_tier3.png refs/investment_banks.png raw/name_companies.png'}[n.split('_')[0]]
 print(d.replace(' ', '_'), r)")"
 desc=${desc//_/ }
 [ -f "raw/$name.png" ] && { echo "skip $name"; exit 0; }

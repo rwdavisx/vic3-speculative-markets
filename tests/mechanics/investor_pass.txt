@@ -1,0 +1,74 @@
+namespace = spec_mechanics_investor_pass
+# the per-good building pass (companies.py): a tier change outside a sweep reaches every building of the good's types
+# through the direct state lookup, sets exactly the new tier's modifier, and leaves other goods' buildings alone
+spec_mechanics_investor_pass.1 = { type = country_event hidden = yes immediate = { trigger_event = { id = spec_mechanics_investor_pass.2 days = 60 } } }
+spec_mechanics_investor_pass.2 = { type = country_event hidden = yes immediate = {
+if = { limit = { any_scope_building = { is_building_type = building_coal_mine } any_scope_building = { is_building_type = building_iron_mine } has_variable = spec_investor_on } debug_log = "HOTFIX PASS fixture_has_coal_and_iron_mines_and_running_pass" }
+else = { debug_log = "HOTFIX FAIL fixture_has_coal_and_iron_mines_and_running_pass" }
+set_variable = { name = spec_test_word0 value = var:spec_word_coal }
+# the iron mines' investor modifiers, as a sum of tier numbers: a coal-only change must not touch them
+set_variable = { name = spec_test_iron0 value = 0 }
+every_scope_building = { limit = { is_building_type = building_iron_mine }
+if = { limit = { has_modifier = spec_investor_iron_1 } ROOT = { change_variable = { name = spec_test_iron0 add = 1 } } }
+if = { limit = { has_modifier = spec_investor_iron_2 } ROOT = { change_variable = { name = spec_test_iron0 add = 2 } } }
+if = { limit = { has_modifier = spec_investor_iron_4 } ROOT = { change_variable = { name = spec_test_iron0 add = 4 } } }
+if = { limit = { has_modifier = spec_investor_iron_5 } ROOT = { change_variable = { name = spec_test_iron0 add = 5 } } }
+if = { limit = { has_modifier = spec_investor_iron_6 } ROOT = { change_variable = { name = spec_test_iron0 add = 6 } } }
+}
+# so the iron check means something: iron's buildings carry a tier now
+if = { limit = { var:spec_test_iron0 = 0 }
+set_variable = { name = spec_word_iron value = 4 }
+set_variable = { name = spec_ia_n value = 0 }
+spec_update_companies = yes
+every_scope_building = { limit = { is_building_type = building_iron_mine } if = { limit = { has_modifier = spec_investor_iron_4 } ROOT = { change_variable = { name = spec_test_iron0 add = 4 } } } }
+}
+# tier 5, a differential pass (the sweep clock reset so it is not a sweep)
+set_variable = { name = spec_word_coal value = 5 }
+set_variable = { name = spec_ia_n value = 0 }
+spec_update_companies = yes
+set_variable = { name = spec_test_bad value = 0 }
+set_variable = { name = spec_test_n value = 0 }
+every_scope_building = { limit = { is_building_type = building_coal_mine }
+ROOT = { change_variable = { name = spec_test_n add = 1 } }
+if = { limit = { OR = { NOT = { has_modifier = spec_investor_coal_5 } has_modifier = spec_investor_coal_1 has_modifier = spec_investor_coal_2 has_modifier = spec_investor_coal_4 has_modifier = spec_investor_coal_6 } } ROOT = { change_variable = { name = spec_test_bad add = 1 } } }
+}
+debug_log = "HOTFIX INFO coal_mines=[THIS.Var('spec_test_n').GetValue] bad=[THIS.Var('spec_test_bad').GetValue]"
+if = { limit = { var:spec_test_n >= 1 var:spec_test_bad = 0 } debug_log = "HOTFIX PASS tier_change_sets_new_modifier_on_every_building" }
+else = { debug_log = "HOTFIX FAIL tier_change_sets_new_modifier_on_every_building" }
+# tier 1 replaces it
+set_variable = { name = spec_word_coal value = 1 }
+set_variable = { name = spec_ia_n value = 0 }
+spec_update_companies = yes
+set_variable = { name = spec_test_bad value = 0 }
+every_scope_building = { limit = { is_building_type = building_coal_mine }
+if = { limit = { OR = { NOT = { has_modifier = spec_investor_coal_1 } has_modifier = spec_investor_coal_5 } } ROOT = { change_variable = { name = spec_test_bad add = 1 } } }
+}
+if = { limit = { var:spec_test_bad = 0 } debug_log = "HOTFIX PASS second_change_replaces_the_tier" }
+else = { debug_log = "HOTFIX FAIL second_change_replaces_the_tier" }
+# Calm (no throughput) removes every coal tier
+set_variable = { name = spec_word_coal value = 3 }
+set_variable = { name = spec_ia_n value = 0 }
+spec_update_companies = yes
+set_variable = { name = spec_test_bad value = 0 }
+every_scope_building = { limit = { is_building_type = building_coal_mine }
+if = { limit = { OR = { has_modifier = spec_investor_coal_1 has_modifier = spec_investor_coal_2 has_modifier = spec_investor_coal_4 has_modifier = spec_investor_coal_5 has_modifier = spec_investor_coal_6 } } ROOT = { change_variable = { name = spec_test_bad add = 1 } } }
+}
+if = { limit = { var:spec_test_bad = 0 } debug_log = "HOTFIX PASS calm_removes_every_tier" }
+else = { debug_log = "HOTFIX FAIL calm_removes_every_tier" }
+set_variable = { name = spec_test_iron1 value = 0 }
+every_scope_building = { limit = { is_building_type = building_iron_mine }
+if = { limit = { has_modifier = spec_investor_iron_1 } ROOT = { change_variable = { name = spec_test_iron1 add = 1 } } }
+if = { limit = { has_modifier = spec_investor_iron_2 } ROOT = { change_variable = { name = spec_test_iron1 add = 2 } } }
+if = { limit = { has_modifier = spec_investor_iron_4 } ROOT = { change_variable = { name = spec_test_iron1 add = 4 } } }
+if = { limit = { has_modifier = spec_investor_iron_5 } ROOT = { change_variable = { name = spec_test_iron1 add = 5 } } }
+if = { limit = { has_modifier = spec_investor_iron_6 } ROOT = { change_variable = { name = spec_test_iron1 add = 6 } } }
+}
+debug_log = "HOTFIX INFO iron_before=[THIS.Var('spec_test_iron0').GetValue] iron_after=[THIS.Var('spec_test_iron1').GetValue]"
+if = { limit = { var:spec_test_iron0 > 0 var:spec_test_iron1 = var:spec_test_iron0 } debug_log = "HOTFIX PASS other_goods_buildings_untouched" }
+else = { debug_log = "HOTFIX FAIL other_goods_buildings_untouched" }
+set_variable = { name = spec_word_coal value = var:spec_test_word0 }
+set_variable = { name = spec_ia_n value = 0 }
+spec_update_companies = yes
+remove_variable = spec_test_word0 remove_variable = spec_test_bad remove_variable = spec_test_n remove_variable = spec_test_iron0 remove_variable = spec_test_iron1
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

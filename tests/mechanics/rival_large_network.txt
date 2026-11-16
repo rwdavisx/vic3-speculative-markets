@@ -1,0 +1,65 @@
+namespace = spec_mechanics_rival_large_network
+spec_mechanics_rival_large_network.1 = { type = country_event hidden = yes immediate = {
+every_country = { limit = { OR = { this = c:GBR this = c:FRA this = c:PRU this = c:AUS this = c:RUS } }
+save_scope_as = spec_t
+every_rival_country = { save_temporary_scope_as = spec_tx scope:spec_t = { remove_diplomatic_pact = { country = scope:spec_tx type = rivalry } } }
+every_rivaling_country = { remove_diplomatic_pact = { country = scope:spec_t type = rivalry } }
+remove_variable = spec_exch_known remove_variable = spec_pw_floor remove_variable = spec_pw_pockets remove_variable = spec_pw_price remove_variable = spec_pw_sound
+set_variable = { name = spec_exch_stand value = 1 } set_variable = { name = spec_centre_trust value = 60 }
+every_country = { limit = { NOT = { this = prev } OR = { this = c:GBR this = c:FRA this = c:PRU this = c:AUS this = c:RUS } } set_relations = { country = prev value = 0 } }
+}
+c:GBR = { create_diplomatic_pact = { country = c:FRA type = rivalry } }
+c:FRA = { create_diplomatic_pact = { country = c:PRU type = rivalry } }
+c:PRU = { create_diplomatic_pact = { country = c:AUS type = rivalry } }
+c:AUS = { create_diplomatic_pact = { country = c:RUS type = rivalry } }
+c:RUS = { create_diplomatic_pact = { country = c:GBR type = rivalry } }
+c:GBR = { set_variable = { name = spec_centre_score value = 500 } }
+c:FRA = { set_variable = { name = spec_centre_score value = 400 } }
+c:PRU = { set_variable = { name = spec_centre_score value = 300 } }
+c:AUS = { set_variable = { name = spec_centre_score value = 200 } }
+c:RUS = { set_variable = { name = spec_centre_score value = 100 } }
+spec_rival_contest = yes
+if = { limit = { c:GBR = { var:spec_centre_trust = 66 } c:GBR = { is_target_in_variable_list = { name = spec_rv_won target = c:FRA } } c:GBR = { is_target_in_variable_list = { name = spec_rv_won target = c:RUS } } } debug_log = "HOTFIX PASS year1_top_wins_twice" }
+else = { debug_log = "HOTFIX FAIL year1_top_wins_twice" }
+if = { limit = { c:FRA = { var:spec_centre_trust = 60 } c:PRU = { var:spec_centre_trust = 60 } c:AUS = { var:spec_centre_trust = 60 } } debug_log = "HOTFIX PASS year1_middle_nets_zero" }
+else = { debug_log = "HOTFIX FAIL year1_middle_nets_zero" }
+if = { limit = { c:RUS = { var:spec_centre_trust = 54 } c:RUS = { is_target_in_variable_list = { name = spec_rv_lost target = c:AUS } } } debug_log = "HOTFIX PASS year1_bottom_loses_twice" }
+else = { debug_log = "HOTFIX FAIL year1_bottom_loses_twice" }
+spec_rival_contest = yes
+if = { limit = { c:GBR = { var:spec_centre_trust = 72 } c:RUS = { var:spec_centre_trust = 48 } } debug_log = "HOTFIX PASS year2_accumulates_exactly" }
+else = { debug_log = "HOTFIX FAIL year2_accumulates_exactly" }
+if = { limit = { c:FRA = { var:spec_centre_trust = 60 } c:PRU = { var:spec_centre_trust = 60 } c:AUS = { var:spec_centre_trust = 60 } } debug_log = "HOTFIX PASS year2_middle_still_zero" }
+else = { debug_log = "HOTFIX FAIL year2_middle_still_zero" }
+set_global_variable = { name = spec_test_trust_total value = 0 }
+c:GBR = { change_global_variable = { name = spec_test_trust_total add = var:spec_centre_trust } }
+c:FRA = { change_global_variable = { name = spec_test_trust_total add = var:spec_centre_trust } }
+c:PRU = { change_global_variable = { name = spec_test_trust_total add = var:spec_centre_trust } }
+c:AUS = { change_global_variable = { name = spec_test_trust_total add = var:spec_centre_trust } }
+c:RUS = { change_global_variable = { name = spec_test_trust_total add = var:spec_centre_trust } }
+if = { limit = { global_var:spec_test_trust_total = 300 } debug_log = "HOTFIX PASS neutral_network_conserves_trust" }
+else = { debug_log = "HOTFIX FAIL neutral_network_conserves_trust" }
+c:GBR = { set_variable = { name = spec_centre_trust value = 60 } }
+c:FRA = { set_variable = { name = spec_centre_trust value = 60 } }
+c:PRU = { set_variable = { name = spec_centre_trust value = 60 } }
+c:AUS = { set_variable = { name = spec_centre_trust value = 60 } }
+c:RUS = { set_variable = { name = spec_centre_trust value = 60 } }
+c:GBR = { remove_diplomatic_pact = { country = c:FRA type = rivalry } }
+c:FRA = { remove_diplomatic_pact = { country = c:PRU type = rivalry } }
+c:PRU = { remove_diplomatic_pact = { country = c:AUS type = rivalry } }
+c:AUS = { remove_diplomatic_pact = { country = c:RUS type = rivalry } }
+c:RUS = { remove_diplomatic_pact = { country = c:GBR type = rivalry } }
+c:RUS = { create_diplomatic_pact = { country = c:AUS type = rivalry } }
+c:AUS = { create_diplomatic_pact = { country = c:PRU type = rivalry } }
+c:PRU = { create_diplomatic_pact = { country = c:FRA type = rivalry } }
+c:FRA = { create_diplomatic_pact = { country = c:GBR type = rivalry } }
+c:GBR = { create_diplomatic_pact = { country = c:RUS type = rivalry } }
+c:RUS = { set_variable = { name = spec_centre_score value = 500 } }
+c:AUS = { set_variable = { name = spec_centre_score value = 400 } }
+c:PRU = { set_variable = { name = spec_centre_score value = 300 } }
+c:FRA = { set_variable = { name = spec_centre_score value = 200 } }
+c:GBR = { set_variable = { name = spec_centre_score value = 100 } }
+spec_rival_contest = yes
+if = { limit = { c:RUS = { var:spec_centre_trust = 66 } c:GBR = { var:spec_centre_trust = 54 } c:AUS = { var:spec_centre_trust = 60 } c:PRU = { var:spec_centre_trust = 60 } c:FRA = { var:spec_centre_trust = 60 } } debug_log = "HOTFIX PASS reversed_roles_same_result" }
+else = { debug_log = "HOTFIX FAIL reversed_roles_same_result" }
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

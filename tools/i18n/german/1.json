@@ -104,5 +104,12 @@
   "ff59c791e8": "#header [concept_spec_investor_interest] an {1}#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_TILE_BODY$",
   "51a3ac46e3": "\\nZinssatz für [concept_loans]: #P -{1}%#!",
   "39584b5894": "\\nPanik: #v {1}#!",
-  "83b4adced5": ", [concept_spec_credit_policy] #v Locker#!"
+  "83b4adced5": ", [concept_spec_credit_policy] #v Locker#!",
+  "5fdac7196f": "@spec_blue_chip! [concept_spec_blue_chip]: bringt #v {1}#! zur [concept_spec_company_strength]",
+  "620079a27e": "@spec_blue_chip! Auf dem Weg zum [concept_spec_blue_chip]: #v {1}#! von #v {2}#! Monaten in Folge mit #v {3}#! oder mehr [concept_prosperity]",
+  "e6eda9ee3f": "#header {1}#!\\n[concept_spec_financial_centre] #v ##{2}#!\\n$TOOLTIP_DELIMITER$\\nPunkte: #v {3}#!\\nStellung der [concept_spec_exchange]: $SPEC_CENTRE_STAND$\\nVertrauen: #v $SPEC_EXCH_TRUST$#!\\nJahre ohne [concept_spec_financial_panic]: $SPEC_CENTRE_CALM$\\n\\n[concept_prestige]: #P +{4}%#!\\nKreditzins ([concept_loans]): #P -{5}%#!\\nKreditgrenze: #P +{6}#! Monate (mit {7}, Kreditstandards #v Solide#! oder strenger)",
+  "39d0faad79": "#header {1}#!\\n[concept_spec_financial_centre] #v ##{2}#!\\n$TOOLTIP_DELIMITER$\\nPunkte: #v {3}#!\\nStellung der [concept_spec_exchange]: $SPEC_CENTRE_STAND$\\nVertrauen: #v $SPEC_EXCH_TRUST$#!\\nJahre ohne [concept_spec_financial_panic]: $SPEC_CENTRE_CALM$\\n\\n[concept_prestige]: #P +{4}%#!\\nKreditzins ([concept_loans]): #P -{5}%#!\\nKreditgrenze: #P +{6}#! Monat (mit {7}, Kreditstandards #v Solide#! oder strenger)",
+  "5425c9b5f6": "#header {1}#!\\nNicht unter den weltweit #v {2}#! besten ({3})\\n$TOOLTIP_DELIMITER$\\nPunkte: #v {4}#!\\nStellung der [concept_spec_exchange]: $SPEC_CENTRE_STAND$\\nVertrauen: #v $SPEC_EXCH_TRUST$#!\\nJahre ohne [concept_spec_financial_panic]: $SPEC_CENTRE_CALM$",
+  "f2c978c265": "Aktionen der Rivalen",
+  "df0bd2bda5": "#header Aktionen der Rivalen: {1}#!\\nDer Baisseangriff eines Rivalen auf unseren Markt, verteilt über sechs Monate."
 }

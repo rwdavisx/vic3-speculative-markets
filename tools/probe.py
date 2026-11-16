@@ -12,6 +12,8 @@ VALUES = "common/script_values/spec_probe_values.txt"
 ACTIONS = "common/on_actions/spec_probe_on_actions.txt"
 FIELDS = {"gdp": "gdp", "sol": "average_sol", "debt": "principal", "inv": "investment_pool_income"}
 FLAGS = {"war": "is_at_war = yes", "default": "in_default = yes"}
+# weekly construction goods spending (all, private) and construction points used: engine data functions, no script value
+CALLS = {"cg": "GetConstructionGoodsExpenses", "pcg": "GetPrivateConstructionGoodsExpenses", "cu": "CalcUsedConstruction"}
 
 
 def files():
@@ -19,6 +21,7 @@ def files():
     values += "".join(f"spec_probe_{k} = {{\n\tvalue = 0\n\tif = {{\n\t\tlimit = {{ {t} }}\n\t\tvalue = 1\n\t}}\n}}\n"
                       for k, t in FLAGS.items())
     fields = " ".join(f"{k}=[THIS.ScriptValue('spec_probe_{k}')]" for k in (*FIELDS, *FLAGS))
+    fields += "".join(f" {k}=[THIS.GetCountry.{f}]" for k, f in CALLS.items())
     # only on_actions lists on the vanilla on_actions, never an effect block, which would replace vanilla's
     actions = f"""on_monthly_pulse_country = {{
 	on_actions = {{ spec_probe_monthly }}

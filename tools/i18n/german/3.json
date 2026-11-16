@@ -141,5 +141,12 @@
   "d4121243c3": "#v Zuversichtlich#!{1}",
   "4b3b793f0e": "#n Manie#!{1}",
   "d08cc6bc12": "#n [concept_spec_financial_panic]:#! endet in #v {1}#! Monaten{2}",
-  "7516860b75": "#v Stabil#!{1}"
+  "7516860b75": "#v Stabil#!{1}",
+  "9204c46bed": "$SPEC_NAME_QTY_companies$ #grey Stärke#!",
+  "297344df9e": "#header Sitz großer Kompanien#!\\nDie größten Kompanien beschaffen hier ihr Geld.\\n$TOOLTIP_DELIMITER$\\nKreditvergabe: #P +{1}%#!\\n[concept_spec_capital_flight]: #N -{2}%#!\\n[concept_spec_capital_flight] wird nur ab der Stellung International oder als [concept_great_power] empfangen\\n$TOOLTIP_DELIMITER$\\nGemessen am [concept_prosperity] unserer Kompanien\\nUnser Wert: #v {3}#!\\nWeltspitze: #v {4}#!{5}\\nNur für eine Börse mit dem Privileg #v Aktienmarkt#!{6}\\n\\n$SPEC_NAME_RULE$",
+  "0f05c94569": "#header Sitz großer Kompanien#!\\nDie größten Kompanien beschaffen hier ihr Geld.\\n$TOOLTIP_DELIMITER$\\nKreditvergabe: #P +{1}%#!\\n[concept_spec_capital_flight]: #N -{2}%#!\\n[concept_spec_capital_flight] wird nur ab der Stellung International oder als [concept_great_power] empfangen\\n$TOOLTIP_DELIMITER$\\nGemessen am [concept_prosperity] unserer Kompanien. Ein Standardwert, eine Kompanie mit #v {3}#! oder mehr über #v {4}#! Monate in Folge, bringt #v {5}#!. Standardwerte: #v {6}#!\\nUnser Wert: #v {7}#!\\nWeltspitze: #v {8}#!{9}\\nNur für eine Börse mit dem Privileg #v Aktienmarkt#!{10}\\n\\n$SPEC_NAME_RULE$",
+  "e40c1944e1": "@spec_blue_chip! #v Standardwert#!: bringt #v {1}#! zur Stärke unserer Kompanien",
+  "1ca35d3bec": "@spec_blue_chip! Auf dem Weg zum Standardwert: #v {1}#! von #v {2}#! Monaten in Folge mit #v {3}#! oder mehr [concept_prosperity]",
+  "c18e45c84c": "  #N Unter {1} [concept_prosperity]#! in #v {2}#! von #v {3}#! Monaten: Bei #v {4}#! geht der Status verloren",
+  "405b7acd31": "#header Sitz großer Kompanien#!\\nDie größten Kompanien beschaffen hier ihr Geld.\\n$TOOLTIP_DELIMITER$\\nKreditvergabe: #P +{1}%#!\\n[concept_spec_capital_flight]: #N -{2}%#!\\n[concept_spec_capital_flight] wird nur ab der Stellung International oder als [concept_great_power] empfangen\\n$TOOLTIP_DELIMITER$\\nGemessen an der [concept_spec_company_strength]: dem [concept_prosperity] unserer Kompanien, dazu #v {3}#! für jeden [concept_spec_blue_chip]. @spec_blue_chip! {4}: #v {5}#!\\nUnser Wert: #v {6}#!\\nWeltspitze: #v {7}#!{8}\\nNur für eine Börse mit dem Privileg #v Aktienmarkt#!{9}\\n\\n$SPEC_NAME_RULE$"
 }

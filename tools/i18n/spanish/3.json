@@ -141,5 +141,12 @@
   "d4121243c3": "#v Optimismo#!{1}",
   "4b3b793f0e": "#n Manía#!{1}",
   "d08cc6bc12": "#n [concept_spec_financial_panic]:#! termina en #v {1}#! meses{2}",
-  "7516860b75": "#v Estabilidad#!{1}"
+  "7516860b75": "#v Estabilidad#!{1}",
+  "9204c46bed": "$SPEC_NAME_QTY_companies$ #grey fuerza#!",
+  "297344df9e": "#header Sede de grandes compañías#!\\nLas mayores compañías obtienen aquí su dinero.\\n$TOOLTIP_DELIMITER$\\nCrédito concedido: #P +{1}%#!\\n[concept_spec_capital_flight]: #N -{2}%#!\\nLa [concept_spec_capital_flight] solo se recibe con rango Internacional o superior, o como [concept_great_power]\\n$TOOLTIP_DELIMITER$\\nClasificación por la [concept_prosperity] de nuestras compañías\\nNuestra cifra: #v {3}#!\\nLíder mundial: #v {4}#!{5}\\nSolo para una Bolsa con estatuto de #v Bolsa de valores#!{6}\\n\\n$SPEC_NAME_RULE$",
+  "0f05c94569": "#header Sede de grandes compañías#!\\nLas mayores compañías obtienen aquí su dinero.\\n$TOOLTIP_DELIMITER$\\nCrédito concedido: #P +{1}%#!\\n[concept_spec_capital_flight]: #N -{2}%#!\\nLa [concept_spec_capital_flight] solo se recibe con rango Internacional o superior, o como [concept_great_power]\\n$TOOLTIP_DELIMITER$\\nClasificación por la [concept_prosperity] de nuestras compañías. Un valor de primera, una compañía con #v {3}#! o más durante #v {4}#! meses seguidos, suma #v {5}#!. Valores de primera: #v {6}#!\\nNuestra cifra: #v {7}#!\\nLíder mundial: #v {8}#!{9}\\nSolo para una Bolsa con estatuto de #v Bolsa de valores#!{10}\\n\\n$SPEC_NAME_RULE$",
+  "e40c1944e1": "@spec_blue_chip! #v Valor de primera#!: suma #v {1}#! a la fuerza de nuestras compañías",
+  "1ca35d3bec": "@spec_blue_chip! Hacia valor de primera: #v {1}#! de #v {2}#! meses seguidos con #v {3}#! o más de [concept_prosperity]",
+  "c18e45c84c": "  #N Por debajo de {1} de [concept_prosperity]#! durante #v {2}#! de #v {3}#! meses: el estatus se pierde en #v {4}#!",
+  "405b7acd31": "#header Sede de grandes compañías#!\\nLas mayores compañías obtienen aquí su dinero.\\n$TOOLTIP_DELIMITER$\\nCrédito concedido: #P +{1}%#!\\n[concept_spec_capital_flight]: #N -{2}%#!\\nLa [concept_spec_capital_flight] solo se recibe con rango Internacional o superior, o como [concept_great_power]\\n$TOOLTIP_DELIMITER$\\nClasificación por la [concept_spec_company_strength]: la [concept_prosperity] de nuestras compañías, más #v {3}#! por cada [concept_spec_blue_chip]. @spec_blue_chip! {4}: #v {5}#!\\nNuestra cifra: #v {6}#!\\nLíder mundial: #v {7}#!{8}\\nSolo para una Bolsa con estatuto de #v Bolsa de valores#!{9}\\n\\n$SPEC_NAME_RULE$"
 }

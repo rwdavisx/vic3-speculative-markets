@@ -39,5 +39,10 @@
   "437ee3eda8": "Zasady emisji banknotów są zgodne ze szkołą obiegową",
   "6575fbacc8": "Trwa [concept_spec_financial_panic]",
   "773a1e1a8f": "[concept_spec_financial_panic] kończy się w ciągu #v {1}#! mies., do tego czasu działa z pełną siłą\\n[concept_spec_market_confidence] rośnie o #v {2}#!\\nPrzez #v {3}#! lat [concept_spec_speculative_excess] narasta o #v {4}%#! szybciej",
-  "41b40c750b": "Ostrzeżenia spekulacyjne"
+  "41b40c750b": "Ostrzeżenia spekulacyjne",
+  "4e1738cc73": "Blue chip",
+  "f72e0eeaa5": "Blue chipy",
+  "f9cd1cc404": "Siła spółek",
+  "0dd844c7bf": "$concept_spec_blue_chip$ to [concept_company] ze wskaźnikiem [concept_prosperity] #v {1}#! lub wyższym przez #v {2}#! mies. z rzędu. Każdy dodaje #v {3}#! do wskaźnika [concept_spec_company_strength].\\n\\nPo #v {4}#! mies. z rzędu poniżej #v {5}#! status przepada i trzeba znów utrzymać wynik przez #v {6}#! mies. Jeden miesiąc poniżej zeruje postęp w drodze do statusu. [concept_country], które opuszcza gospodarkę rynkową, nie zachowuje żadnego.",
+  "bbb693d4fb": "Do wskaźnika $concept_spec_company_strength$ liczą się wszystkie {1}, jakie ma [concept_country]: ich wskaźnik [concept_prosperity] sumuje się i dzieli przez #v {2}#!. Spółka z wynikiem #v {3}#! liczy się więc jako #v {4}#!, do tego #v {5}#! za każdy [concept_spec_blue_chip]. Wyróżnienie Siedziba wielkich spółek trafia do najsilniejszego."
 }

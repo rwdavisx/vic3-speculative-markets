@@ -1,0 +1,30 @@
+namespace = spec_mechanics_rival_shore
+spec_mechanics_rival_shore.1 = { type = country_event hidden = yes immediate = {
+every_country = { limit = { OR = { this = c:GBR this = c:FRA } }
+save_scope_as = spec_t
+every_rival_country = { save_temporary_scope_as = spec_tx scope:spec_t = { remove_diplomatic_pact = { country = scope:spec_tx type = rivalry } } }
+every_rivaling_country = { remove_diplomatic_pact = { country = scope:spec_t type = rivalry } }
+remove_variable = spec_exch_known remove_variable = spec_pw_floor remove_variable = spec_pw_pockets remove_variable = spec_pw_price remove_variable = spec_pw_sound
+set_variable = { name = spec_exch_stand value = 1 } set_variable = { name = spec_centre_trust value = 60 }
+every_country = { limit = { NOT = { this = prev } OR = { this = c:GBR this = c:FRA } } set_relations = { country = prev value = 0 } }
+}
+c:GBR = { create_diplomatic_pact = { country = c:FRA type = rivalry } }
+every_country = { limit = { OR = { this = c:GBR this = c:FRA } } remove_variable = spec_rv_raid remove_variable = spec_rv_raid_pm remove_variable = spec_rv_lure remove_variable = spec_rv_lurer remove_variable = spec_rv_lure_share remove_variable = spec_rv_shored remove_variable = spec_rv_shore_cd remove_variable = spec_rv_hit remove_variable = spec_rv_hit_by remove_variable = spec_rv_hit_ok remove_variable = spec_rv_hit_recent remove_variable = spec_panic clear_variable_list = spec_rv_cd_raid clear_variable_list = spec_rv_cd_lure clear_variable_list = spec_rv_cd_press if = { limit = { has_modifier = spec_rv_press_1 } remove_modifier = spec_rv_press_1 } if = { limit = { has_modifier = spec_rv_press_2 } remove_modifier = spec_rv_press_2 } if = { limit = { has_modifier = spec_rv_press_3 } remove_modifier = spec_rv_press_3 } set_variable = { name = spec_conf value = 55 } set_variable = { name = spec_centre_trust value = 60 } if = { limit = { NOT = { has_variable = spec_centre_score } } set_variable = { name = spec_centre_score value = 100 } } }
+add_treasury = 100000000
+if = { limit = { spec_can_rv_shore = yes } debug_log = "HOTFIX PASS shore_allowed" }
+else = { debug_log = "HOTFIX FAIL shore_allowed" }
+set_variable = { name = spec_test_gold value = gold_reserves }
+spec_rv_shore = yes
+if = { limit = { gold_reserves < var:spec_test_gold } debug_log = "HOTFIX PASS shore_costs_treasury" }
+else = { debug_log = "HOTFIX FAIL shore_costs_treasury" }
+if = { limit = { var:spec_rv_shored = 12 } debug_log = "HOTFIX PASS shore_runs_twelve_months" }
+else = { debug_log = "HOTFIX FAIL shore_runs_twelve_months" }
+if = { limit = { has_variable = spec_rv_shore_cd NOT = { spec_can_rv_shore = yes } } debug_log = "HOTFIX PASS shore_cooldown_two_years" }
+else = { debug_log = "HOTFIX FAIL shore_cooldown_two_years" }
+trigger_event = { id = spec_mechanics_rival_shore.2 days = 31 }
+} }
+spec_mechanics_rival_shore.2 = { type = country_event hidden = yes immediate = {
+if = { limit = { var:spec_rv_shored = 11 has_variable = spec_rv_shore_cd } debug_log = "HOTFIX PASS shore_month_counts_down" }
+else = { debug_log = "HOTFIX FAIL shore_month_counts_down" }
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

@@ -141,5 +141,12 @@
   "d4121243c3": "#v Оптимизм#!{1}",
   "4b3b793f0e": "#n Мания#!{1}",
   "d08cc6bc12": "#n [concept_spec_financial_panic]:#! завершится через #v {1}#! мес.{2}",
-  "7516860b75": "#v Устойчивость#!{1}"
+  "7516860b75": "#v Устойчивость#!{1}",
+  "9204c46bed": "$SPEC_NAME_QTY_companies$ #grey мощи#!",
+  "297344df9e": "#header Дом великих компаний#!\\nКрупнейшие компании привлекают деньги здесь.\\n$TOOLTIP_DELIMITER$\\nКредиты: #P +{1}%#!\\n[concept_spec_capital_flight]: #N -{2}%#!\\n[concept_spec_capital_flight] поступает только при статусе «Международная» или выше либо если это [concept_great_power]\\n$TOOLTIP_DELIMITER$\\nРейтинг по уровню «[concept_prosperity]» наших компаний\\nНаш счёт: #v {3}#!\\nМировой лидер: #v {4}#!{5}\\nТолько для биржи с уставом #v Фондовый рынок#!{6}\\n\\n$SPEC_NAME_RULE$",
+  "0f05c94569": "#header Дом великих компаний#!\\nКрупнейшие компании привлекают деньги здесь.\\n$TOOLTIP_DELIMITER$\\nКредиты: #P +{1}%#!\\n[concept_spec_capital_flight]: #N -{2}%#!\\n[concept_spec_capital_flight] поступает только при статусе «Международная» или выше либо если это [concept_great_power]\\n$TOOLTIP_DELIMITER$\\nРейтинг по уровню «[concept_prosperity]» наших компаний. Голубая фишка, компания с уровнем #v {3}#! или выше #v {4}#! месяцев подряд, добавляет #v {5}#!. Голубых фишек: #v {6}#!\\nНаш счёт: #v {7}#!\\nМировой лидер: #v {8}#!{9}\\nТолько для биржи с уставом #v Фондовый рынок#!{10}\\n\\n$SPEC_NAME_RULE$",
+  "e40c1944e1": "@spec_blue_chip! #v Голубая фишка#!: добавляет #v {1}#! к мощи наших компаний",
+  "1ca35d3bec": "@spec_blue_chip! На пути к голубой фишке: #v {1}#! из #v {2}#! месяцев подряд с уровнем «[concept_prosperity]» #v {3}#! или выше",
+  "c18e45c84c": "  #N Уровень «[concept_prosperity]» ниже {1}#! в течение #v {2}#! из #v {3}#! месяцев: статус теряется при #v {4}#!",
+  "405b7acd31": "#header Дом великих компаний#!\\nКрупнейшие компании привлекают деньги здесь.\\n$TOOLTIP_DELIMITER$\\nКредиты: #P +{1}%#!\\n[concept_spec_capital_flight]: #N -{2}%#!\\n[concept_spec_capital_flight] поступает только при статусе «Международная» или выше либо если это [concept_great_power]\\n$TOOLTIP_DELIMITER$\\nРейтинг по показателю «[concept_spec_company_strength]»: уровень «[concept_prosperity]» наших компаний и #v {3}#! за каждый статус «[concept_spec_blue_chip]». @spec_blue_chip! {4}: #v {5}#!\\nНаш счёт: #v {6}#!\\nМировой лидер: #v {7}#!{8}\\nТолько для биржи с уставом #v Фондовый рынок#!{9}\\n\\n$SPEC_NAME_RULE$"
 }

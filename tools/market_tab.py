@@ -1117,7 +1117,7 @@ def band_loc(k):
 
 DRIVERS = [("boom", "spec_c_boom"), ("crash", "spec_c_crash"), ("restrain", "spec_c_restrain"), ("foreign", "spec_c_foreign"), ("world", "spec_c_world"),
            ("turmoil", "spec_c_turmoil"), ("debt", "spec_c_debt"), ("mood", "spec_c_mood"), ("drift", "spec_c_recover"), ("tight", "spec_c_tight"), ("rescue", "spec_c_rescue"), ("warend", "spec_c_warend"), ("burst", "spec_c_burst"),
-           ("caution", "spec_c_caution"), ("limit", "spec_c_limit"), ("growth", "spec_c_growth"), ("business", "spec_c_business")] + ([("drop", "spec_c_drop")] if leverage.ON else [])
+           ("caution", "spec_c_caution"), ("limit", "spec_c_limit"), ("growth", "spec_c_growth"), ("business", "spec_c_business"), ("rival", "spec_c_rival")] + ([("drop", "spec_c_drop")] if leverage.ON else [])
 # the card's pressure chips: the mod's driver icons, vanilla ones for the rest
 _VANILLA = "gfx/interface/icons"
 DRIVER_ICONS = {k: icons.path(f"driver_{k}") for k in ("boom", "crash", "foreign", "turmoil", "tight")} | {
@@ -1133,7 +1133,7 @@ CHIP_ICONS = DRIVER_ICONS | {"panic_risk": f"{_VANILLA}/lens_toolbar_icons/unuse
 
 # the card's fixed pressure chips: every driver in one of five groups, each chip the sum of its group, so the five add
 # up to the month's change and never trade places
-PRESSURES = [("goods", "boom", ("boom", "crash", "restrain", "burst", "growth")), ("abroad", "foreign", ("foreign", "world")),
+PRESSURES = [("goods", "boom", ("boom", "crash", "restrain", "burst", "growth")), ("abroad", "foreign", ("foreign", "world", "rival")),
              ("state", "turmoil", ("turmoil", "debt", "caution", "rescue", "warend")), ("mood", "mood", ("mood", "business", "drift")),
              ("credit", "tight", ("tight", "limit") + (("drop",) if leverage.ON else ()))]
 assert sorted(k for *_, ks in PRESSURES for k in ks) == sorted(k for k, _ in DRIVERS)

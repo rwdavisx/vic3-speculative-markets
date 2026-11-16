@@ -1,0 +1,25 @@
+namespace = spec_mechanics_rival_migration
+spec_mechanics_rival_migration.1 = { type = country_event hidden = yes immediate = {
+every_country = { limit = { OR = { this = c:GBR this = c:FRA } }
+save_scope_as = spec_t
+every_rival_country = { save_temporary_scope_as = spec_tx scope:spec_t = { remove_diplomatic_pact = { country = scope:spec_tx type = rivalry } } }
+every_rivaling_country = { remove_diplomatic_pact = { country = scope:spec_t type = rivalry } }
+remove_variable = spec_exch_known remove_variable = spec_pw_floor remove_variable = spec_pw_pockets remove_variable = spec_pw_price remove_variable = spec_pw_sound
+set_variable = { name = spec_exch_stand value = 1 } set_variable = { name = spec_centre_trust value = 60 }
+every_country = { limit = { NOT = { this = prev } OR = { this = c:GBR this = c:FRA } } set_relations = { country = prev value = 0 } }
+}
+set_variable = { name = spec_rival value = c:FRA }
+set_variable = { name = spec_rival_lock days = 1000 }
+set_variable = { name = spec_rival_last value = 1 }
+c:FRA = { set_variable = { name = spec_rival value = c:GBR } set_variable = { name = spec_rival_last value = -1 } }
+trigger_event = { id = spec_mechanics_rival_migration.2 days = 40 }
+} }
+spec_mechanics_rival_migration.2 = { type = country_event hidden = yes immediate = {
+if = { limit = { NOT = { has_variable = spec_rival } NOT = { has_variable = spec_rival_lock } NOT = { has_variable = spec_rival_last } } debug_log = "HOTFIX PASS old_rival_vars_removed" }
+else = { debug_log = "HOTFIX FAIL old_rival_vars_removed" }
+if = { limit = { c:FRA = { NOT = { has_variable = spec_rival } NOT = { has_variable = spec_rival_last } } } debug_log = "HOTFIX PASS old_rival_vars_removed_target" }
+else = { debug_log = "HOTFIX FAIL old_rival_vars_removed_target" }
+if = { limit = { NOT = { any_rival_country = { this = c:FRA } } NOT = { any_rivaling_country = { this = c:FRA } } } debug_log = "HOTFIX PASS no_vanilla_rivalry_created" }
+else = { debug_log = "HOTFIX FAIL no_vanilla_rivalry_created" }
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

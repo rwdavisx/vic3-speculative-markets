@@ -120,7 +120,39 @@ def chip():
 """
 
 
+# blue chips (companies.BLUE_UPDATE): the status, its run of low months, or the climb towards it; never two at once
+_CV = lambda n: f"Company.MakeScope.Var('{n}')"
+BC, BC_LOW, BC_CLIMB = (f"{_CV(n)}.IsSet" for n in ("spec_blue_chip", "spec_bc_low", "spec_bc_months"))
+
+
+def badge():
+    """The company's icon, with the blue chip badge on its corner: whole for a blue chip, faded while its low months
+    run, faint while it climbs towards the status."""
+    alpha = f"Select_float({BC}, Select_float({BC_LOW}, '(float)0.55', '(float)1.0'), '(float)0.3')"
+    return f"""widget = {{
+	size = {{ {CO_ICON} {CO_ICON} }}
+	icon = {{
+		size = {{ {CO_ICON} {CO_ICON} }}
+		texture = "[Company.GetCompanyType.GetIcon]"
+	}}
+	icon = {{
+		size = {{ 24 24 }}
+		parentanchor = bottom|right
+		position = {{ 6 6 }}
+		visible = "[Or({BC}, {BC_CLIMB})]"
+		alpha = "[{alpha}]"
+		texture = "{icons.path('blue_chip')}"
+	}}
+}}
+"""
+
+
 def tooltip_lines():
+    blue = "".join(f"""custom_tooltip_textbox = {{
+	visible = "[{test}]"
+	text = "{key}"
+}}
+""" for key, test in (("SPEC_CO_BC", BC), ("SPEC_CO_BC_LOW", BC_LOW), ("SPEC_CO_BC_CLIMB", BC_CLIMB)))
     lines = "".join(f"""custom_tooltip_textbox = {{
 	{f'visible = "[{test}]"' if test else ""}
 	text = "{key}"
@@ -133,7 +165,7 @@ def tooltip_lines():
 	custom_tooltip_textbox = {{
 		text = "SPEC_CO_TT_HEAD"
 	}}
-{ind(per_good(lines, "vertical"), 1)}}}
+{ind(per_good(lines, "vertical"), 1)}{ind(blue, 1)}}}
 """
 
 
@@ -230,11 +262,7 @@ def row():
 		margin_left = 10
 		margin_right = 10
 		spacing = 10
-		icon = {{
-			size = {{ {CO_ICON} {CO_ICON} }}
-			texture = "[Company.GetCompanyType.GetIcon]"
-		}}
-		vbox = {{
+{ind(badge(), 2)}		vbox = {{
 			spacing = 4
 			textbox = {{
 				size = {{ {PROSPERITY_W} 24 }}
@@ -267,7 +295,7 @@ textbox = {{
 	text = "SPEC_CO_NONE"
 }}
 """
-    return block(header("SPEC_H_COMPANIES", "SPEC_H_COMPANIES_RIGHT"), body)
+    return block(header("SPEC_H_COMPANIES", "SPEC_H_COMPANIES_RIGHT", "SPEC_H_COMPANIES_RIGHT_TT"), body)
 
 
 def loc():
@@ -279,7 +307,17 @@ def loc():
             f" SPEC_H_COMPANIES_TT: \"#header $concept_companies$#!\\n$TOOLTIP_DELIMITER$\\n[concept_spec_investor_interest] in a good raises or "
             f"lowers the [concept_throughput] of the buildings making it, and lowers it further while the good recovers after its boom. A "
             f"{company} earns more while its goods are in favor and less once they fall.\"\n"
-            " SPEC_H_COMPANIES_RIGHT: \"[GetDataModelSize(Country.GetCompanies)]\"\n"
+            f" SPEC_H_COMPANIES_RIGHT: \"[GetDataModelSize(Country.GetCompanies)]  @spec_blue_chip! #v [{P}.ScriptValue('spec_log_kbc')|0]#!\"\n"
+            f" SPEC_H_COMPANIES_RIGHT_TT: \"#header [concept_spec_company_strength]: #v [{P}.ScriptValue('spec_log_kstr')|1]#!#!\\n"
+            "$TOOLTIP_DELIMITER$\\n$concept_companies$: #v [GetDataModelSize(Country.GetCompanies)]#!\\n"
+            f"@spec_blue_chip! [Concept('concept_spec_blue_chip','$concept_spec_blue_chips$')]: #v [{P}.ScriptValue('spec_log_kbc')|0]#!, "
+            f"each adding #v {companies.BLUE_BONUS:g}#!\\n\\n#low A company becomes a $concept_spec_blue_chip$ after "
+            f"#v {companies.BLUE_MONTHS:g}#! months running at #v {companies.BLUE_PROSPER:g}#! or more [concept_prosperity].#!\"\n"
+            f" SPEC_CO_BC: \"@spec_blue_chip! [concept_spec_blue_chip]: adds #v {companies.BLUE_BONUS:g}#! to our [concept_spec_company_strength]\"\n"
+            f" SPEC_CO_BC_LOW: \"  #N Below {companies.BLUE_PROSPER:g} [concept_prosperity]#! for #v [{_CV('spec_bc_low')}.GetValue|0]#! of "
+            f"#v {companies.BLUE_LOSE:g}#! months: the status is lost at #v {companies.BLUE_LOSE:g}#!\"\n"
+            f" SPEC_CO_BC_CLIMB: \"@spec_blue_chip! Towards [concept_spec_blue_chip]:#v [{_CV('spec_bc_months')}.GetValue|0]#! of #v {companies.BLUE_MONTHS:g}#! "
+            f"months running at #v {companies.BLUE_PROSPER:g}#! or more [concept_prosperity]\"\n"
             " SPEC_CO_NONE: \"#low We have no Companies#!\"\n"
             f" SPEC_CO_PCT: \"[{EFFECT}|+=0]%\"\n"
             " SPEC_CO_TT_HEAD: \"#header [concept_spec_investor_interest]#!\"\n"
@@ -299,5 +337,8 @@ if __name__ == "__main__":
     assert "set_variable = { name = spec_ui_co_$G$ value = -10 }" in levers.ui_effect() and f"add = {LEVER}" in levers.ui_effect()
     assert "SPEC_CO_W6" in text and "'SPEC_CO_W0'" in text and text.count("SPEC_CO_PCT:") == 1
     assert "SPEC_CO_TT_NOTE" not in gui + text and "elide_fontsize_min" in gui and "max_width" not in gui
+    for k in ("SPEC_CO_BC", "SPEC_CO_BC_LOW", "SPEC_CO_BC_CLIMB"):
+        assert f'text = "{k}"' in gui and f" {k}:" in text
+    assert gui.count(BC_CLIMB) == 2 and "spec_log_kbc" in text and "@spec_blue_chip!" in text
     assert fx(round(companies.COMPANY_BUST, 4)) in GLUT_LOSS and fx(round(companies.UNWIND[3][1] / 30)) in GLUT_MONTHS
     print("ok")

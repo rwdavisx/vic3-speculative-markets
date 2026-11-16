@@ -141,5 +141,12 @@
   "d4121243c3": "#v İyimser#!{1}",
   "4b3b793f0e": "#n Çılgınlık#!{1}",
   "d08cc6bc12": "#n [concept_spec_financial_panic]:#! #v {1}#! ay sonra sona erer{2}",
-  "7516860b75": "#v Dengeli#!{1}"
+  "7516860b75": "#v Dengeli#!{1}",
+  "9204c46bed": "$SPEC_NAME_QTY_companies$ #grey güç#!",
+  "297344df9e": "#header Büyük Şirketlerin Yuvası#!\\nEn büyük şirketler paralarını burada toplar.\\n$TOOLTIP_DELIMITER$\\nVerilen kredi: #P +%{1}#!\\n[concept_spec_capital_flight]: #N -%{2}#!\\n[concept_spec_capital_flight] yalnızca Uluslararası veya daha yüksek Konumda ya da [concept_great_power] olarak alınır\\n$TOOLTIP_DELIMITER$\\nSıralama ölçütü: şirketlerimizin [concept_prosperity] düzeyi\\nBizimki: #v {3}#!\\nDünya lideri: #v {4}#!{5}\\nYalnızca #v Hisse Piyasası#! imtiyazlı bir Borsa için{6}\\n\\n$SPEC_NAME_RULE$",
+  "0f05c94569": "#header Büyük Şirketlerin Yuvası#!\\nEn büyük şirketler paralarını burada toplar.\\n$TOOLTIP_DELIMITER$\\nVerilen kredi: #P +%{1}#!\\n[concept_spec_capital_flight]: #N -%{2}#!\\n[concept_spec_capital_flight] yalnızca Uluslararası veya daha yüksek Konumda ya da [concept_great_power] olarak alınır\\n$TOOLTIP_DELIMITER$\\nSıralama ölçütü: şirketlerimizin [concept_prosperity] düzeyi. #v {4}#! ay üst üste #v {3}#! veya üzeri olan şirket birinci sınıf hisse olur ve #v {5}#! ekler. Birinci sınıf hisseler: #v {6}#!\\nBizimki: #v {7}#!\\nDünya lideri: #v {8}#!{9}\\nYalnızca #v Hisse Piyasası#! imtiyazlı bir Borsa için{10}\\n\\n$SPEC_NAME_RULE$",
+  "e40c1944e1": "@spec_blue_chip! #v Birinci sınıf hisse#!: şirket gücümüze #v {1}#! ekler",
+  "1ca35d3bec": "@spec_blue_chip! Birinci sınıf hisseye doğru: #v {2}#! ayın #v {1}#! ayı üst üste #v {3}#! veya üzeri [concept_prosperity]",
+  "c18e45c84c": "  #N [concept_prosperity] {1} altında#!: #v {3}#! ayın #v {2}#! ayı; statü #v {4}#! ayda kaybedilir",
+  "405b7acd31": "#header Büyük Şirketlerin Yuvası#!\\nEn büyük şirketler paralarını burada toplar.\\n$TOOLTIP_DELIMITER$\\nVerilen kredi: #P +%{1}#!\\n[concept_spec_capital_flight]: #N -%{2}#!\\n[concept_spec_capital_flight] yalnızca Uluslararası veya daha yüksek Konumda ya da [concept_great_power] olarak alınır\\n$TOOLTIP_DELIMITER$\\nSıralama ölçütü: [concept_spec_company_strength]. Şirketlerimizin [concept_prosperity] düzeyine her [concept_spec_blue_chip] için #v {3}#! eklenir. @spec_blue_chip! {4}: #v {5}#!\\nBizimki: #v {6}#!\\nDünya lideri: #v {7}#!{8}\\nYalnızca #v Hisse Piyasası#! imtiyazlı bir Borsa için{9}\\n\\n$SPEC_NAME_RULE$"
 }

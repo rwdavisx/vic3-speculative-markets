@@ -39,5 +39,10 @@
   "437ee3eda8": "Banknot Kuralları Para Okulu esaslarına dayanıyor",
   "6575fbacc8": "[concept_spec_financial_panic] sürüyor",
   "773a1e1a8f": "[concept_spec_financial_panic] #v {1}#! ay içinde sona erer, o zamana kadar etkileri tam güçle sürer\\n[concept_spec_market_confidence] #v {2}#! yükselir\\n#v {3}#! yıl boyunca [concept_spec_speculative_excess] #v %{4}#! daha hızlı birikir",
-  "41b40c750b": "Spekülasyon Uyarıları"
+  "41b40c750b": "Spekülasyon Uyarıları",
+  "4e1738cc73": "Birinci Sınıf Hisse",
+  "f72e0eeaa5": "Birinci Sınıf Hisseler",
+  "f9cd1cc404": "Şirket Gücü",
+  "0dd844c7bf": "$concept_spec_blue_chip$, #v {2}#! ay üst üste #v {1}#! veya üzeri [concept_prosperity] düzeyini korumuş bir [concept_company] demektir. Her biri [concept_spec_company_strength] değerimize #v {3}#! ekler.\\n\\n#v {4}#! ay üst üste #v {5}#! altında kalmak statüyü bitirir ve ardından #v {6}#! ay yeniden korunmalıdır. Hedefe giderken bir ay altında kalmak ilerlemeyi sıfırlar. Piyasa ekonomisinden çıkan bir [concept_country] hiçbirini koruyamaz.",
+  "bbb693d4fb": "Bir [concept_country] için tüm {1} sayılır: [concept_prosperity] düzeyleri toplanıp #v {2}#! ile bölünür ve bu $concept_spec_company_strength$ olur. Böylece #v {3}#! düzeyindeki bir şirket #v {4}#! sayılır, her [concept_spec_blue_chip] için de #v {5}#! eklenir. Büyük Şirketlerin Yuvası onuru en güçlü olana gider."
 }

@@ -85,6 +85,23 @@ else = { debug_log = "HOTFIX FAIL severity_valid_in_live_countries" }
 if = { limit = { NOT = { any_country = { is_country_alive = yes OR = { has_variable = spec_rival_note_won has_variable = spec_rival_note_lost } } } }
  debug_log = "HOTFIX PASS rivalry_notification_flags_cleared"
 } else = { debug_log = "HOTFIX FAIL rivalry_notification_flags_cleared" }
+set_global_variable = { name = spec_test_bad_rival value = 0 }
+set_global_variable = { name = spec_test_rival_hits value = 0 }
+set_global_variable = { name = spec_test_exchanges value = 0 }
+every_country = { limit = { is_country_alive = yes }
+if = { limit = { has_variable = spec_exch_stand } change_global_variable = { name = spec_test_exchanges add = 1 } }
+if = { limit = { has_variable = spec_rv_raid OR = { var:spec_rv_raid > 6 var:spec_rv_raid < 0 NOT = { has_variable = spec_rv_raid_pm } } } change_global_variable = { name = spec_test_bad_rival add = 1 } }
+if = { limit = { has_variable = spec_rv_lure OR = { var:spec_rv_lure > 12 NOT = { exists = var:spec_rv_lurer } } } change_global_variable = { name = spec_test_bad_rival add = 1 } }
+if = { limit = { has_variable = spec_rv_shored var:spec_rv_shored > 12 } change_global_variable = { name = spec_test_bad_rival add = 1 } }
+if = { limit = { has_variable = spec_c_rival var:spec_c_rival > 0 } change_global_variable = { name = spec_test_bad_rival add = 1 } }
+if = { limit = { OR = { has_variable = spec_rival has_variable = spec_rival_lock has_variable = spec_rival_last } } change_global_variable = { name = spec_test_bad_rival add = 1 } }
+if = { limit = { has_variable = spec_rv_hit_recent } change_global_variable = { name = spec_test_rival_hits add = 1 } }
+}
+if = { limit = { global_var:spec_test_bad_rival = 0 } debug_log = "HOTFIX PASS rival_state_valid" }
+else = { debug_log = "HOTFIX FAIL rival_state_valid" }
+if = { limit = { global_var:spec_test_rival_hits <= global_var:spec_test_exchanges } debug_log = "HOTFIX PASS rival_hits_bounded" }
+else = { debug_log = "HOTFIX FAIL rival_hits_bounded" }
+debug_log = "HOTFIX INFO rival_hits_last_year=[GetGlobalVariable('spec_test_rival_hits').GetValue] exchanges=[GetGlobalVariable('spec_test_exchanges').GetValue]"
 if = { limit = { global_var:spec_test_campaign_samples >= 21 }
  debug_log = "HOTFIX SUITE COMPLETE"
 } else = { trigger_event = { id = spec_mechanics_campaign_repeated.2 days = 90 } }

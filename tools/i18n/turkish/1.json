@@ -104,5 +104,12 @@
   "ff59c791e8": "#header {1} için [concept_spec_investor_interest]#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_TILE_BODY$",
   "51a3ac46e3": "\\n[concept_loans] faiz oranı: #P -%{1}#!",
   "39584b5894": "\\nPanik yaşayan ülke: #v {1}#!",
-  "83b4adced5": ", [concept_spec_credit_policy] #v Gevşek#!"
+  "83b4adced5": ", [concept_spec_credit_policy] #v Gevşek#!",
+  "5fdac7196f": "@spec_blue_chip! [concept_spec_blue_chip]: [concept_spec_company_strength] değerimize #v {1}#! ekler",
+  "620079a27e": "@spec_blue_chip! [concept_spec_blue_chip] yolunda: #v {2}#! ayın #v {1}#! ayı üst üste #v {3}#! veya üzeri [concept_prosperity]",
+  "e6eda9ee3f": "#header {1}#!\\n[concept_spec_financial_centre] #v ##{2}#!\\n$TOOLTIP_DELIMITER$\\nPuan: #v {3}#!\\n[concept_spec_exchange] Mevkii: $SPEC_CENTRE_STAND$\\nGüven: #v $SPEC_EXCH_TRUST$#!\\n[concept_spec_financial_panic] yaşanmayan yıl: $SPEC_CENTRE_CALM$\\n\\n[concept_prestige]: #P +{4}%#!\\n[concept_loans] faiz oranı: #P -{5}%#!\\nKredi Sınırı: #P +{6}#! ay ({7} ile, Kredi Standartları #v Sağlam#! veya daha sıkı)",
+  "39d0faad79": "#header {1}#!\\n[concept_spec_financial_centre] #v ##{2}#!\\n$TOOLTIP_DELIMITER$\\nPuan: #v {3}#!\\n[concept_spec_exchange] Mevkii: $SPEC_CENTRE_STAND$\\nGüven: #v $SPEC_EXCH_TRUST$#!\\n[concept_spec_financial_panic] yaşanmayan yıl: $SPEC_CENTRE_CALM$\\n\\n[concept_prestige]: #P +{4}%#!\\n[concept_loans] faiz oranı: #P -{5}%#!\\nKredi Sınırı: #P +{6}#! ay ({7} ile, Kredi Standartları #v Sağlam#! veya daha sıkı)",
+  "5425c9b5f6": "#header {1}#!\\nDünyanın #v {2}#! {3} arasında değil\\n$TOOLTIP_DELIMITER$\\nPuan: #v {4}#!\\n[concept_spec_exchange] Mevkii: $SPEC_CENTRE_STAND$\\nGüven: #v $SPEC_EXCH_TRUST$#!\\n[concept_spec_financial_panic] yaşanmayan yıl: $SPEC_CENTRE_CALM$",
+  "f2c978c265": "Rakip Eylemleri",
+  "df0bd2bda5": "#header Rakip Eylemleri: {1}#!\\nBir rakibin piyasamıza yönelik Ayı Baskını, altı aya yayılır."
 }

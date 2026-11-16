@@ -104,5 +104,12 @@
   "ff59c791e8": "#header {1}的[concept_spec_investor_interest]#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_TILE_BODY$",
   "51a3ac46e3": "\\n[concept_loans]利率：#P -{1}%#!",
   "39584b5894": "\\n#v {1}#!的恐慌",
-  "83b4adced5": "，[concept_spec_credit_policy]#v 宽松#!"
+  "83b4adced5": "，[concept_spec_credit_policy]#v 宽松#!",
+  "5fdac7196f": "@spec_blue_chip! [concept_spec_blue_chip]：为我国[concept_spec_company_strength]加#v {1}#!",
+  "620079a27e": "@spec_blue_chip! 迈向[concept_spec_blue_chip]：[concept_prosperity]连续达到#v {3}#!或以上已#v {1}#!个月，共需#v {2}#!个月",
+  "e6eda9ee3f": "#header {1}#!\\n[concept_spec_financial_centre] #v ##{2}#!\\n$TOOLTIP_DELIMITER$\\n得分：#v {3}#!\\n[concept_spec_exchange]地位：$SPEC_CENTRE_STAND$\\n信任：#v $SPEC_EXCH_TRUST$#!\\n无[concept_spec_financial_panic]的年数：$SPEC_CENTRE_CALM$\\n\\n[concept_prestige]：#P +{4}%#!\\n[concept_loans]利率：#P -{5}%#!\\n借贷上限：#P +{6}#!个月（配合{7}，借贷标准为#v 稳健#!或更严）",
+  "39d0faad79": "#header {1}#!\\n[concept_spec_financial_centre] #v ##{2}#!\\n$TOOLTIP_DELIMITER$\\n得分：#v {3}#!\\n[concept_spec_exchange]地位：$SPEC_CENTRE_STAND$\\n信任：#v $SPEC_EXCH_TRUST$#!\\n无[concept_spec_financial_panic]的年数：$SPEC_CENTRE_CALM$\\n\\n[concept_prestige]：#P +{4}%#!\\n[concept_loans]利率：#P -{5}%#!\\n借贷上限：#P +{6}#!个月（配合{7}，借贷标准为#v 稳健#!或更严）",
+  "5425c9b5f6": "#header {1}#!\\n不属于世界#v {2}#!大{3}之列\\n$TOOLTIP_DELIMITER$\\n得分：#v {4}#!\\n[concept_spec_exchange]地位：$SPEC_CENTRE_STAND$\\n信任：#v $SPEC_EXCH_TRUST$#!\\n无[concept_spec_financial_panic]的年数：$SPEC_CENTRE_CALM$",
+  "f2c978c265": "对手行动",
+  "df0bd2bda5": "#header 对手行动：{1}#!\\n对手对我方市场发动的做空袭击，分六个月释放。"
 }

@@ -1,0 +1,83 @@
+namespace = spec_mechanics_rival_ai
+spec_mechanics_rival_ai.1 = { type = country_event hidden = yes immediate = {
+every_country = { limit = { OR = { this = c:GBR this = c:FRA this = c:PRU } }
+save_scope_as = spec_t
+every_rival_country = { save_temporary_scope_as = spec_tx scope:spec_t = { remove_diplomatic_pact = { country = scope:spec_tx type = rivalry } } }
+every_rivaling_country = { remove_diplomatic_pact = { country = scope:spec_t type = rivalry } }
+remove_variable = spec_exch_known remove_variable = spec_pw_floor remove_variable = spec_pw_pockets remove_variable = spec_pw_price remove_variable = spec_pw_sound
+set_variable = { name = spec_exch_stand value = 1 } set_variable = { name = spec_centre_trust value = 60 }
+every_country = { limit = { NOT = { this = prev } OR = { this = c:GBR this = c:FRA this = c:PRU } } set_relations = { country = prev value = 0 } }
+}
+c:FRA = { create_diplomatic_pact = { country = c:PRU type = rivalry } }
+c:PRU = { create_diplomatic_pact = { country = c:FRA type = rivalry } }
+every_country = { limit = { OR = { this = c:FRA this = c:PRU } } add_treasury = 100000000 }
+every_country = { limit = { OR = { this = c:FRA this = c:PRU } } set_variable = { name = spec_temper value = 0 } }
+set_variable = { name = spec_test_acts value = 0 }
+while = { count = 100
+every_country = { limit = { OR = { this = c:FRA this = c:PRU } } remove_variable = spec_rv_raid remove_variable = spec_rv_raid_pm remove_variable = spec_rv_lure remove_variable = spec_rv_lurer remove_variable = spec_rv_lure_share remove_variable = spec_rv_shored remove_variable = spec_rv_shore_cd remove_variable = spec_rv_hit remove_variable = spec_rv_hit_by remove_variable = spec_rv_hit_ok remove_variable = spec_rv_hit_recent remove_variable = spec_panic clear_variable_list = spec_rv_cd_raid clear_variable_list = spec_rv_cd_lure clear_variable_list = spec_rv_cd_press if = { limit = { has_modifier = spec_rv_press_1 } remove_modifier = spec_rv_press_1 } if = { limit = { has_modifier = spec_rv_press_2 } remove_modifier = spec_rv_press_2 } if = { limit = { has_modifier = spec_rv_press_3 } remove_modifier = spec_rv_press_3 } set_variable = { name = spec_conf value = 55 } set_variable = { name = spec_centre_trust value = 60 } if = { limit = { NOT = { has_variable = spec_centre_score } } set_variable = { name = spec_centre_score value = 100 } } }
+c:PRU = { set_variable = { name = spec_rv_shore_cd days = 730 } }
+c:FRA = { set_variable = { name = spec_rv_shore_cd days = 730 } }
+spec_rv_ai = yes
+if = { limit = { c:PRU = { var:spec_rv_hit_by ?= c:FRA } } change_variable = { name = spec_test_acts add = 1 } }
+if = { limit = { c:FRA = { var:spec_rv_hit_by ?= c:PRU } } change_variable = { name = spec_test_acts add = 1 } }
+}
+if = { limit = { var:spec_test_acts >= 30 var:spec_test_acts <= 75 } debug_log = "HOTFIX PASS ai_acts_balanced" }
+else = { debug_log = "HOTFIX FAIL ai_acts_balanced" }
+debug_log = "HOTFIX INFO ai_acts_balanced=[THIS.Var('spec_test_acts').GetValue] of 200 chances"
+every_country = { limit = { OR = { this = c:FRA this = c:PRU } } set_variable = { name = spec_temper value = 1 } }
+set_variable = { name = spec_test_acts value = 0 }
+while = { count = 100
+every_country = { limit = { OR = { this = c:FRA this = c:PRU } } remove_variable = spec_rv_raid remove_variable = spec_rv_raid_pm remove_variable = spec_rv_lure remove_variable = spec_rv_lurer remove_variable = spec_rv_lure_share remove_variable = spec_rv_shored remove_variable = spec_rv_shore_cd remove_variable = spec_rv_hit remove_variable = spec_rv_hit_by remove_variable = spec_rv_hit_ok remove_variable = spec_rv_hit_recent remove_variable = spec_panic clear_variable_list = spec_rv_cd_raid clear_variable_list = spec_rv_cd_lure clear_variable_list = spec_rv_cd_press if = { limit = { has_modifier = spec_rv_press_1 } remove_modifier = spec_rv_press_1 } if = { limit = { has_modifier = spec_rv_press_2 } remove_modifier = spec_rv_press_2 } if = { limit = { has_modifier = spec_rv_press_3 } remove_modifier = spec_rv_press_3 } set_variable = { name = spec_conf value = 55 } set_variable = { name = spec_centre_trust value = 60 } if = { limit = { NOT = { has_variable = spec_centre_score } } set_variable = { name = spec_centre_score value = 100 } } }
+c:PRU = { set_variable = { name = spec_rv_shore_cd days = 730 } }
+c:FRA = { set_variable = { name = spec_rv_shore_cd days = 730 } }
+spec_rv_ai = yes
+if = { limit = { c:PRU = { var:spec_rv_hit_by ?= c:FRA } } change_variable = { name = spec_test_acts add = 1 } }
+if = { limit = { c:FRA = { var:spec_rv_hit_by ?= c:PRU } } change_variable = { name = spec_test_acts add = 1 } }
+}
+if = { limit = { var:spec_test_acts >= 55 var:spec_test_acts <= 110 } debug_log = "HOTFIX PASS ai_acts_bold" }
+else = { debug_log = "HOTFIX FAIL ai_acts_bold" }
+debug_log = "HOTFIX INFO ai_acts_bold=[THIS.Var('spec_test_acts').GetValue] of 200 chances"
+every_country = { limit = { OR = { this = c:FRA this = c:PRU } } set_variable = { name = spec_temper value = -1 } }
+set_variable = { name = spec_test_acts value = 0 }
+while = { count = 100
+every_country = { limit = { OR = { this = c:FRA this = c:PRU } } remove_variable = spec_rv_raid remove_variable = spec_rv_raid_pm remove_variable = spec_rv_lure remove_variable = spec_rv_lurer remove_variable = spec_rv_lure_share remove_variable = spec_rv_shored remove_variable = spec_rv_shore_cd remove_variable = spec_rv_hit remove_variable = spec_rv_hit_by remove_variable = spec_rv_hit_ok remove_variable = spec_rv_hit_recent remove_variable = spec_panic clear_variable_list = spec_rv_cd_raid clear_variable_list = spec_rv_cd_lure clear_variable_list = spec_rv_cd_press if = { limit = { has_modifier = spec_rv_press_1 } remove_modifier = spec_rv_press_1 } if = { limit = { has_modifier = spec_rv_press_2 } remove_modifier = spec_rv_press_2 } if = { limit = { has_modifier = spec_rv_press_3 } remove_modifier = spec_rv_press_3 } set_variable = { name = spec_conf value = 55 } set_variable = { name = spec_centre_trust value = 60 } if = { limit = { NOT = { has_variable = spec_centre_score } } set_variable = { name = spec_centre_score value = 100 } } }
+c:PRU = { set_variable = { name = spec_rv_shore_cd days = 730 } }
+c:FRA = { set_variable = { name = spec_rv_shore_cd days = 730 } }
+spec_rv_ai = yes
+if = { limit = { c:PRU = { var:spec_rv_hit_by ?= c:FRA } } change_variable = { name = spec_test_acts add = 1 } }
+if = { limit = { c:FRA = { var:spec_rv_hit_by ?= c:PRU } } change_variable = { name = spec_test_acts add = 1 } }
+}
+if = { limit = { var:spec_test_acts >= 5 var:spec_test_acts <= 40 } debug_log = "HOTFIX PASS ai_acts_cautious" }
+else = { debug_log = "HOTFIX FAIL ai_acts_cautious" }
+debug_log = "HOTFIX INFO ai_acts_cautious=[THIS.Var('spec_test_acts').GetValue] of 200 chances"
+set_variable = { name = spec_test_twice value = 0 }
+every_country = { limit = { OR = { this = c:FRA this = c:PRU } } set_variable = { name = spec_temper value = 1 } }
+while = { count = 100
+every_country = { limit = { OR = { this = c:FRA this = c:PRU } } remove_variable = spec_rv_raid remove_variable = spec_rv_raid_pm remove_variable = spec_rv_lure remove_variable = spec_rv_lurer remove_variable = spec_rv_lure_share remove_variable = spec_rv_shored remove_variable = spec_rv_shore_cd remove_variable = spec_rv_hit remove_variable = spec_rv_hit_by remove_variable = spec_rv_hit_ok remove_variable = spec_rv_hit_recent remove_variable = spec_panic clear_variable_list = spec_rv_cd_raid clear_variable_list = spec_rv_cd_lure clear_variable_list = spec_rv_cd_press if = { limit = { has_modifier = spec_rv_press_1 } remove_modifier = spec_rv_press_1 } if = { limit = { has_modifier = spec_rv_press_2 } remove_modifier = spec_rv_press_2 } if = { limit = { has_modifier = spec_rv_press_3 } remove_modifier = spec_rv_press_3 } set_variable = { name = spec_conf value = 55 } set_variable = { name = spec_centre_trust value = 60 } if = { limit = { NOT = { has_variable = spec_centre_score } } set_variable = { name = spec_centre_score value = 100 } } }
+spec_rv_ai = yes
+if = { limit = { c:FRA = { any_in_list = { variable = spec_rv_cd_raid count >= 2 } } } change_variable = { name = spec_test_twice add = 1 } }
+}
+if = { limit = { var:spec_test_twice = 0 } debug_log = "HOTFIX PASS ai_once_per_rivalry_per_call" }
+else = { debug_log = "HOTFIX FAIL ai_once_per_rivalry_per_call" }
+every_country = { limit = { OR = { this = c:FRA this = c:PRU } } remove_variable = spec_rv_raid remove_variable = spec_rv_raid_pm remove_variable = spec_rv_lure remove_variable = spec_rv_lurer remove_variable = spec_rv_lure_share remove_variable = spec_rv_shored remove_variable = spec_rv_shore_cd remove_variable = spec_rv_hit remove_variable = spec_rv_hit_by remove_variable = spec_rv_hit_ok remove_variable = spec_rv_hit_recent remove_variable = spec_panic clear_variable_list = spec_rv_cd_raid clear_variable_list = spec_rv_cd_lure clear_variable_list = spec_rv_cd_press if = { limit = { has_modifier = spec_rv_press_1 } remove_modifier = spec_rv_press_1 } if = { limit = { has_modifier = spec_rv_press_2 } remove_modifier = spec_rv_press_2 } if = { limit = { has_modifier = spec_rv_press_3 } remove_modifier = spec_rv_press_3 } set_variable = { name = spec_conf value = 55 } set_variable = { name = spec_centre_trust value = 60 } if = { limit = { NOT = { has_variable = spec_centre_score } } set_variable = { name = spec_centre_score value = 100 } } }
+c:FRA = { set_variable = { name = spec_rv_hit_recent days = 365 } set_variable = { name = spec_temper value = 1 } }
+set_variable = { name = spec_test_acts value = 0 }
+while = { count = 100
+c:FRA = { remove_variable = spec_rv_shore_cd remove_variable = spec_rv_shored clear_variable_list = spec_rv_cd_raid clear_variable_list = spec_rv_cd_lure clear_variable_list = spec_rv_cd_press add_treasury = 100000000 }
+c:PRU = { save_scope_as = target }
+c:FRA = { spec_rv_ai_act = yes }
+if = { limit = { c:FRA = { has_variable = spec_rv_shored } } change_variable = { name = spec_test_acts add = 1 } }
+}
+if = { limit = { var:spec_test_acts >= 20 } debug_log = "HOTFIX PASS ai_shores_up_after_hit" }
+else = { debug_log = "HOTFIX FAIL ai_shores_up_after_hit" }
+debug_log = "HOTFIX INFO ai_shores=[THIS.Var('spec_test_acts').GetValue] of 100"
+if = { limit = { c:GBR = { NOT = { var:spec_rv_hit_by ?= c:FRA } NOT = { var:spec_rv_hit_by ?= c:PRU } } } debug_log = "HOTFIX PASS ai_never_acts_unpaired" }
+else = { debug_log = "HOTFIX FAIL ai_never_acts_unpaired" }
+every_country = { limit = { OR = { this = c:FRA this = c:PRU } } remove_variable = spec_rv_raid remove_variable = spec_rv_raid_pm remove_variable = spec_rv_lure remove_variable = spec_rv_lurer remove_variable = spec_rv_lure_share remove_variable = spec_rv_shored remove_variable = spec_rv_shore_cd remove_variable = spec_rv_hit remove_variable = spec_rv_hit_by remove_variable = spec_rv_hit_ok remove_variable = spec_rv_hit_recent remove_variable = spec_panic clear_variable_list = spec_rv_cd_raid clear_variable_list = spec_rv_cd_lure clear_variable_list = spec_rv_cd_press if = { limit = { has_modifier = spec_rv_press_1 } remove_modifier = spec_rv_press_1 } if = { limit = { has_modifier = spec_rv_press_2 } remove_modifier = spec_rv_press_2 } if = { limit = { has_modifier = spec_rv_press_3 } remove_modifier = spec_rv_press_3 } set_variable = { name = spec_conf value = 55 } set_variable = { name = spec_centre_trust value = 60 } if = { limit = { NOT = { has_variable = spec_centre_score } } set_variable = { name = spec_centre_score value = 100 } } }
+c:FRA = { add_to_variable_list = { name = spec_rv_cd_raid target = c:PRU days = 365 } c:PRU = { save_scope_as = target } spec_rv_raid = yes }
+if = { limit = { c:PRU = { var:spec_rv_hit = 1 var:spec_rv_hit_by = c:FRA } } debug_log = "HOTFIX PASS retaliation_ignores_cooldown" }
+else = { debug_log = "HOTFIX FAIL retaliation_ignores_cooldown" }
+every_country = { limit = { OR = { this = c:FRA this = c:PRU } } remove_variable = spec_rv_raid remove_variable = spec_rv_raid_pm remove_variable = spec_rv_lure remove_variable = spec_rv_lurer remove_variable = spec_rv_lure_share remove_variable = spec_rv_shored remove_variable = spec_rv_shore_cd remove_variable = spec_rv_hit remove_variable = spec_rv_hit_by remove_variable = spec_rv_hit_ok remove_variable = spec_rv_hit_recent remove_variable = spec_panic clear_variable_list = spec_rv_cd_raid clear_variable_list = spec_rv_cd_lure clear_variable_list = spec_rv_cd_press if = { limit = { has_modifier = spec_rv_press_1 } remove_modifier = spec_rv_press_1 } if = { limit = { has_modifier = spec_rv_press_2 } remove_modifier = spec_rv_press_2 } if = { limit = { has_modifier = spec_rv_press_3 } remove_modifier = spec_rv_press_3 } set_variable = { name = spec_conf value = 55 } set_variable = { name = spec_centre_trust value = 60 } if = { limit = { NOT = { has_variable = spec_centre_score } } set_variable = { name = spec_centre_score value = 100 } } }
+c:FRA = { set_variable = { name = spec_centre_trust value = 60 } }
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

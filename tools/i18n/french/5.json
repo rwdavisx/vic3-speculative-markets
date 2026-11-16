@@ -39,5 +39,10 @@
   "437ee3eda8": "Les règles d’émission des billets suivent l’école monétaire",
   "6575fbacc8": "Une [concept_spec_financial_panic] est en cours",
   "773a1e1a8f": "La [concept_spec_financial_panic] prend fin dans un délai de #v {1}#! mois, avec tous ses effets jusque-là\\nLa [concept_spec_market_confidence] augmente de #v {2}#!\\nPendant #v {3}#! ans, l’[concept_spec_speculative_excess] s’accumule #v {4} %#! plus vite",
-  "41b40c750b": "Avertissements spéculatifs"
+  "41b40c750b": "Avertissements spéculatifs",
+  "4e1738cc73": "Valeur de premier ordre",
+  "f72e0eeaa5": "Valeurs de premier ordre",
+  "f9cd1cc404": "Puissance des compagnies",
+  "0dd844c7bf": "Une $concept_spec_blue_chip$ est une [concept_company] qui a maintenu #v {1}#! ou plus de [concept_prosperity] pendant #v {2}#! mois d'affilée. Chacune ajoute #v {3}#! à notre [concept_spec_company_strength].\\n\\n#v {4}#! mois d'affilée sous #v {5}#! mettent fin au statut, et les #v {6}#! mois doivent alors être tenus de nouveau. Un mois en dessous remet à zéro la progression vers ce statut. Un [concept_country] qui quitte l'économie de marché n'en garde aucune.",
+  "bbb693d4fb": "La $concept_spec_company_strength$ est la [concept_prosperity] de toutes les {1} d'un [concept_country], additionnée puis divisée par #v {2}#!. Une compagnie à #v {3}#! compte donc #v {4}#!, plus #v {5}#! pour chaque [concept_spec_blue_chip]. L'honneur de Siège des grandes compagnies revient au plus puissant."
 }

@@ -104,5 +104,12 @@
   "ff59c791e8": "#header [concept_spec_investor_interest]: {1}#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_TILE_BODY$",
   "51a3ac46e3": "\\nOprocentowanie w kategorii [concept_loans]: #P -{1}%#!",
   "39584b5894": "\\nPanika w państwie #v {1}#!",
-  "83b4adced5": ", [concept_spec_credit_policy]: #v Łagodna#!"
+  "83b4adced5": ", [concept_spec_credit_policy]: #v Łagodna#!",
+  "5fdac7196f": "@spec_blue_chip! [concept_spec_blue_chip]: dodaje #v {1}#! do wskaźnika [concept_spec_company_strength]",
+  "620079a27e": "@spec_blue_chip! Droga do statusu [concept_spec_blue_chip]: #v {1}#! z #v {2}#! miesięcy z rzędu ze wskaźnikiem [concept_prosperity] #v {3}#! lub wyższym",
+  "e6eda9ee3f": "#header {1}#!\\n[concept_spec_financial_centre]: miejsce #v ##{2}#!\\n$TOOLTIP_DELIMITER$\\nWynik: #v {3}#!\\n[concept_spec_exchange] - pozycja: $SPEC_CENTRE_STAND$\\nWiarygodność: #v $SPEC_EXCH_TRUST$#!\\nLata bez: [concept_spec_financial_panic]: $SPEC_CENTRE_CALM$\\n\\n[concept_prestige]: #P +{4}%#!\\n[concept_loans] - oprocentowanie: #P -{5}%#!\\nLimit kredytu: #P +{6}#! mies. (wymaga: {7}, a Standardy kredytowe co najmniej #v Solidne#!)",
+  "39d0faad79": "#header {1}#!\\n[concept_spec_financial_centre]: miejsce #v ##{2}#!\\n$TOOLTIP_DELIMITER$\\nWynik: #v {3}#!\\n[concept_spec_exchange] - pozycja: $SPEC_CENTRE_STAND$\\nWiarygodność: #v $SPEC_EXCH_TRUST$#!\\nLata bez: [concept_spec_financial_panic]: $SPEC_CENTRE_CALM$\\n\\n[concept_prestige]: #P +{4}%#!\\n[concept_loans] - oprocentowanie: #P -{5}%#!\\nLimit kredytu: #P +{6}#! mies. (wymaga: {7}, a Standardy kredytowe co najmniej #v Solidne#!)",
+  "5425c9b5f6": "#header {1}#!\\nPoza czołową #v {2}#! świata: {3}\\n$TOOLTIP_DELIMITER$\\nWynik: #v {4}#!\\n[concept_spec_exchange] - pozycja: $SPEC_CENTRE_STAND$\\nWiarygodność: #v $SPEC_EXCH_TRUST$#!\\nLata bez: [concept_spec_financial_panic]: $SPEC_CENTRE_CALM$",
+  "f2c978c265": "Działania rywali",
+  "df0bd2bda5": "#header Działania rywali: {1}#!\\nAtak bessy rywala na nasz rynek, rozłożony na sześć miesięcy."
 }

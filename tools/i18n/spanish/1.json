@@ -104,5 +104,12 @@
   "ff59c791e8": "#header [concept_spec_investor_interest] en {1}#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_TILE_BODY$",
   "51a3ac46e3": "\\nTipo de interés de los [concept_loans]: #P -{1}%#!",
   "39584b5894": "\\nPánico en #v {1}#!",
-  "83b4adced5": ", [concept_spec_credit_policy] #v Expansiva#!"
+  "83b4adced5": ", [concept_spec_credit_policy] #v Expansiva#!",
+  "5fdac7196f": "@spec_blue_chip! [concept_spec_blue_chip]: suma #v {1}#! a nuestra [concept_spec_company_strength]",
+  "620079a27e": "@spec_blue_chip! Hacia [concept_spec_blue_chip]: #v {1}#! de #v {2}#! meses seguidos con #v {3}#! o más de [concept_prosperity]",
+  "e6eda9ee3f": "#header {1}#!\\n[concept_spec_financial_centre] #v ##{2}#!\\n$TOOLTIP_DELIMITER$\\nPuntos: #v {3}#!\\n[concept_spec_exchange] Rango: $SPEC_CENTRE_STAND$\\nReputación: #v $SPEC_EXCH_TRUST$#!\\nAños sin [concept_spec_financial_panic]: $SPEC_CENTRE_CALM$\\n\\n[concept_prestige]: #P +{4}%#!\\nTipo de interés de [concept_loans]: #P -{5}%#!\\nLímite de préstamo: #P +{6}#! meses (con {7}, criterios de préstamo #v Sólidos#! o más estrictos)",
+  "39d0faad79": "#header {1}#!\\n[concept_spec_financial_centre] #v ##{2}#!\\n$TOOLTIP_DELIMITER$\\nPuntos: #v {3}#!\\n[concept_spec_exchange] Rango: $SPEC_CENTRE_STAND$\\nReputación: #v $SPEC_EXCH_TRUST$#!\\nAños sin [concept_spec_financial_panic]: $SPEC_CENTRE_CALM$\\n\\n[concept_prestige]: #P +{4}%#!\\nTipo de interés de [concept_loans]: #P -{5}%#!\\nLímite de préstamo: #P +{6}#! mes (con {7}, criterios de préstamo #v Sólidos#! o más estrictos)",
+  "5425c9b5f6": "#header {1}#!\\nNo es una de las #v {2}#! {3} del mundo\\n$TOOLTIP_DELIMITER$\\nPuntos: #v {4}#!\\n[concept_spec_exchange] Rango: $SPEC_CENTRE_STAND$\\nReputación: #v $SPEC_EXCH_TRUST$#!\\nAños sin [concept_spec_financial_panic]: $SPEC_CENTRE_CALM$",
+  "f2c978c265": "Acciones rivales",
+  "df0bd2bda5": "#header Acciones rivales: {1}#!\\nAtaque bajista de un rival contra nuestro mercado, repartido en seis meses."
 }
