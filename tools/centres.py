@@ -45,6 +45,9 @@ TRUST_END = tuning.get("EXCH_TRUST_END", {1: 2, 2: -6, 3: -18})  # a boom's endi
 KNOWN_HYPE = tuning.get("EXCH_KNOWN_HYPE", 1.1)   # 1 Commodity Exchange: its booms
 KNOWN_LOSS = tuning.get("EXCH_KNOWN_LOSS", 0.75)  # 2 Deposit Banks: share of each loss of trust it takes
 KNOWN_CREDIT = tuning.get("EXCH_KNOWN_CREDIT", 1.1)  # 3 Stock Exchange: credit lent each month
+WORLD_PLACES = tuning.get("EXCH_WORLD_PLACES", 3)  # beta.12: the top three are World Centres (was the first alone)
+WORLD_FX = tuning.get("EXCH_WORLD_FX", [["country_loan_interest_rate_mult", -0.1], ["country_influence_mult", 0.1]])
+WORLD_SHELTER = tuning.get("EXCH_WORLD_SHELTER", 0.7)  # foreign panics' loss at a World Centre: the hub money runs to
 GATE = "has_technology_researched = central_banking"  # as Credit Policy (generate.triggers)
 CALM_VAR = "spec_centre_trust" if ON else "spec_centre_calm"
 # Phase 1 (plan_levers.md): the score leaves out Outstanding Credit, and a place adds to the credit limit
@@ -465,12 +468,12 @@ NAMES = [("price", "Price Setter", 1), ("harbour", "Safe Harbor", 2), ("companie
          ("futures", "Futures Pit", 1), ("lender", "Lender to Nations", 2), ("railway", "Railway Mania", 3),
          ("floor", "Busy Floor", 0), ("sound", "Sound Lending", 0), ("pockets", "Deep Pockets", 0), ("door", "Open Door", 0)]
 NAME_FX = tuning.get("EXCH_NAME_FX", {  # beta.12: each path a trade-off: at least one cost against its gains
-    "price": {"press": 1.5, "hype": 1.15, "loss": 1.2},          # feared and watched; a slip costs it dearly
-    "futures": {"crash": 0.7, "hype": 0.9, "credit": 0.85},      # hedged: softer busts, slower booms, less lent
-    "harbour": {"panic": 0.75, "shore": 1.5, "credit": 0.85},    # safe, and its banks cautious
-    "lender": {"lure": 1.5, "tie_inv": 1.3, "bad": 1.2},         # rich, tied to its debtors, hurt by their defaults
-    "companies": {"blue": 1.5, "crash": 1.1},                    # great firms, and their fall
-    "railway": {"burst": 1.3, "crash": 1.2, "raid": 1.5},        # a mania
+    "price": {"press": 1.35, "hype": 1.15, "loss": 1.2},          # feared and watched; a slip costs it dearly
+    "futures": {"crash": 0.75, "hype": 0.9, "credit": 0.85},      # hedged: softer busts, slower booms, less lent
+    "harbour": {"panic": 0.75, "shore": 1.4, "credit": 0.85},    # safe, and its banks cautious
+    "lender": {"lure": 1.35, "tie_inv": 1.3, "bad": 1.2},         # rich, tied to its debtors, hurt by their defaults
+    "companies": {"blue": 1.4, "crash": 1.1},                    # great firms, and their fall
+    "railway": {"burst": 1.3, "crash": 1.2, "raid": 1.35},        # a mania
     "floor": {"tie_trade": 1.25, "flight": 1.15, "loss": 1.15},  # busy and exposed
     "sound": {"bad": 0.75, "loss": 0.75, "ceiling": 0.85},       # careful, and lends less
     "pockets": {"ceiling": 1.2, "bad": 1.2},                     # big and risky
@@ -506,27 +509,31 @@ PURSUE_LOCK = tuning.get("EXCH_PURSUE_LOCK", 5)  # years a pursuit is held once 
 # what a pursuit gives, by our place in its field at the yearly contest (outside the top three, third, second, first):
 # the first modifier once for each step, the second at first place only; scaled by how far the pursuit has built up
 PURSUE_FX = tuning.get("EXCH_PURSUE_FX", {
-    # [grows with our place, first place only, *always while pursued]. beta.12: each path themed to what it is won by;
-    # the charter paths are stronger and carry a drawback
-    "floor": [["state_trade_capacity_mult", 0.03], ["building_trade_center_throughput_add", 0.1]],
-    "sound": [["country_loan_interest_rate_mult", -0.015], ["interest_group_ig_petty_bourgeoisie_approval_add", 2]],
+    # [grows with our place, first place only, *costs]. beta.12: each path themed to what it is won by; every path
+    # carries a cost, and its costs grow with the place too (COST_SCALE), so leading a path stirs more resentment
+    "floor": [["state_trade_capacity_mult", 0.03], ["building_trade_center_throughput_add", 0.1],
+              ["interest_group_ig_landowners_approval_add", -1]],  # merchants over the land
+    "sound": [["country_loan_interest_rate_mult", -0.015], ["interest_group_ig_petty_bourgeoisie_approval_add", 2],
+              ["interest_group_ig_industrialists_approval_add", -1]],  # tight credit for new works
     # 0.05 (first place +0.20 on vanilla's 0.30) gave the top three Exchanges +33-43% investment pool / GDP over vanilla,
     # Britain +58-64%; without it +0-14%, and leverage or credit off changed nothing (runs/20261115_*_pool_*, 1.0.6).
     # At 0.02 (four games): top three +20% / +35% (1840s / 1850s), Britain +29% / +50%; the user chose first place +0.06
-    "pockets": [["state_capitalists_investment_pool_contribution_add", 0.015], ["country_private_construction_allocation_mult", 0.1]],
-    "door": [["country_influence_mult", 0.02], ["country_mass_migration_attraction_mult", 0.15]],
+    "pockets": [["state_capitalists_investment_pool_contribution_add", 0.015], ["country_private_construction_allocation_mult", 0.1],
+                ["state_tax_collection_mult", -0.02]],  # fortunes sheltered from the tax man
+    "door": [["country_influence_mult", 0.02], ["country_mass_migration_attraction_mult", 0.15],
+             ["country_leverage_resistance_mult", -0.04]],  # foreign money, foreign sway
     "price": [["state_trade_advantage_mult", 0.03], ["state_export_advantage_mult", 0.1],
               ["interest_group_ig_trade_unions_approval_add", -1]],  # dear bread
     "futures": [["building_group_bg_agriculture_throughput_add", 0.02], ["state_market_access_price_impact", 0.1],
                 ["interest_group_ig_rural_folk_approval_add", -1]],  # speculators on the harvest
     "harbour": [["country_gold_reserve_limit_mult", 0.05], ["country_legitimacy_base_add", 3],
-                ["country_private_construction_allocation_mult", -0.05]],  # safe money sits idle
+                ["country_private_construction_allocation_mult", -0.04]],  # safe money sits idle
     "lender": [["country_leverage_generation_mult", 0.05], ["country_loan_interest_rate_mult", -0.05],
-               ["interest_group_ig_industrialists_approval_add", -1]],  # capital that could build at home
+               ["state_capitalists_investment_pool_efficiency_mult", -0.02]],  # capital that could build at home
     "companies": [["country_company_throughput_bonus_add", 0.02], ["country_max_companies_add", 1],
                   ["interest_group_ig_petty_bourgeoisie_approval_add", -1]],  # small shops crushed
     "railway": [["building_railway_throughput_add", 0.03], ["state_infrastructure_mult", 0.1],
-                ["building_group_bg_construction_laborers_mortality_mult", 0.1]]})  # the navvies' toll
+                ["building_group_bg_construction_laborers_mortality_mult", 0.04]]})  # the navvies' toll
 
 
 def _pursue_given(k):
@@ -768,8 +775,19 @@ def _pursue_values():
 
 def _pursue_fx(k, lv):
     """The modifiers a pursuit of `k` gives at level lv (0 outside the top three .. 3 first)."""
-    (m, base), extra, *always = PURSUE_FX[k]
-    return [(m, round(base * (lv + 1), 4))] + [tuple(a) for a in always] + ([tuple(extra)] if lv == 3 else [])
+    (m, base), extra, *costs = PURSUE_FX[k]
+    return [(m, round(base * (lv + 1), 4))] + [_cost(c, x, lv) for c, x in costs] + ([tuple(extra)] if lv == 3 else [])
+
+
+COST_SCALE = tuning.get("EXCH_COST_SCALE", [1, 1.25, 1.5, 2])  # a path's costs by place: unranked, 3rd, 2nd, 1st
+APPROVAL_COST = [1, 1, 1, 2]  # approval in whole points: -1, -1, -1, -2 for a -1 cost
+
+
+def _cost(m, x, lv):
+    if m.endswith("approval_add"):
+        return (m, x * APPROVAL_COST[lv])
+    pts = int(abs(x) * COST_SCALE[lv] * 100 + 0.5)  # whole percent, halves up
+    return (m, (pts if x > 0 else -pts) / 100)
 
 
 def _mod_words(fx, sep=", "):
@@ -1363,6 +1381,7 @@ def contest_block():
 			size = {{ {NW - 30} 24 }}
 			align = left|nobaseline
 			elide = right
+			fontsize_min = 13  # shrinks to fit the longest name (Home of Great Companies), as vanilla's elide_fontsize_min
 			text = "SPEC_NAME_H_{k}"
 		}}
 	}}
@@ -1841,6 +1860,10 @@ def _standing(t="\t"):
 {t}			limit = {{ has_modifier = spec_exch_national }}
 {t}			remove_modifier = spec_exch_national
 {t}		}}
+{t}		if = {{
+{t}			limit = {{ has_modifier = spec_exch_world }}
+{t}			remove_modifier = spec_exch_world
+{t}		}}
 {f"{t}{chr(9) * 2}remove_modifier = spec_exch_industry{chr(10)}" if LINKS and LINK_IND else ""}{t}	}}
 {t}	else = {{
 {t}		set_local_variable = {{ name = spec_exch_was value = 0 }}
@@ -1850,7 +1873,8 @@ def _standing(t="\t"):
 {t}		}}
 {t}		if = {{
 {t}			limit = {{
-{t}				var:spec_centre_new ?= 1
+{t}				has_variable = spec_centre_new
+{t}				var:spec_centre_new <= {WORLD_PLACES}
 {t}				{GATE}
 {t}			}}
 {t}			{stand(3)}
@@ -1903,6 +1927,20 @@ def _standing(t="\t"):
 {t}				NOT = {{ has_modifier = spec_exch_national }}
 {t}			}}
 {t}			add_modifier = {{ name = spec_exch_national }}
+{t}		}}
+{t}		if = {{
+{t}			limit = {{
+{t}				var:spec_exch_stand = 3
+{t}				NOT = {{ has_modifier = spec_exch_world }}
+{t}			}}
+{t}			add_modifier = {{ name = spec_exch_world }}
+{t}		}}
+{t}		else_if = {{
+{t}			limit = {{
+{t}				var:spec_exch_stand < 3
+{t}				has_modifier = spec_exch_world
+{t}			}}
+{t}			remove_modifier = spec_exch_world
 {t}		}}
 {t}		else_if = {{
 {t}			limit = {{
@@ -1975,7 +2013,7 @@ def _exch_clear():
     """Leaving the market economy clears the Exchange immediately; the ranking pass also repairs older saves.
     Permanent modifiers and the whole local state go together, so switching back cannot revive half an Exchange.
     Timed punishment for a broken pledge remains until it expires. The world's list refreshes at its next ranking."""
-    mods = ([f"spec_trust_{i}" for i, f in enumerate(TRUST_FX) if f] + ["spec_exch_national", "spec_financial_centre"]
+    mods = ([f"spec_trust_{i}" for i, f in enumerate(TRUST_FX) if f] + ["spec_exch_national", "spec_exch_world", "spec_financial_centre"]
             + (["spec_exch_industry"] if LINKS and LINK_IND else [])
             + ([f"spec_pursue_{k}_{lv}" for k, *_ in NAMES for lv in range(4)] if NAMES_ON else []))
     keep = (["spec_centre_score", "spec_centre_rank", "spec_centre_new", "spec_centre_also", "spec_centre_pos", "spec_exch_stand",
@@ -2151,6 +2189,9 @@ spec_exch_national = {{
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
 	country_prestige_mult = {PRESTIGE:g}
 }}
+spec_exch_world = {{
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
+{''.join(f'{chr(9)}{m} = {x:g}{chr(10)}' for m, x in WORLD_FX)}}}
 """ if ON else "") + (f"""
 spec_pledge_broken = {{
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
@@ -2627,7 +2668,7 @@ def score_levels():
     sc = v("spec_centre_score")
     far = fx(10000)
     at = lambda n: f"Select_CFixedPoint({SLOT(n)}.IsSet, {SCORE_V(SLOT(n) + '.GetCountry')}, {far})"
-    fifth, first = at(PLACES), at(1)
+    fifth, first = at(PLACES), at(WORLD_PLACES)  # first: the lowest World Centre's score
     span = lambda lo, hi: f"Divide_CFixedPoint(Subtract_CFixedPoint({sc}, {lo}), Max_CFixedPoint(Subtract_CFixedPoint({hi}, {lo}), {fx(1)}))"
     segs = [(span(fx(0), fx(NATIONAL)), STAND_IS(0), "SPEC_EXCH_TIER_TT_0"),
             (span(fx(NATIONAL), fifth), STAND_IS(1), "SPEC_EXCH_TIER_TT_1"),
@@ -3043,8 +3084,8 @@ def _exch_loc(score, rank, centres):
     nxt = [f"To stand #v National#!: #v {NATIONAL:g}%#! of the top three's score, #v {REG_NATIONAL:g}%#! of our region's leader's, "
            f"or a place among the {centres}",
            f"To stand #v International#!: a place among the #v {PLACES}#! {centres} or the lead in our region, with {stock}",
-           f"To stand #v World Centre#!: the first place among the {centres}, with {bank}",
-           "#v World Centre#! is the highest Standing. It is kept while we hold the first place"]
+           f"To stand #v World Centre#!: a top #v {WORLD_PLACES}#! place among the {centres}, with {bank}",
+           f"#v World Centre#! is the highest Standing. It is kept while we hold a top #v {WORLD_PLACES}#! place"]
     known = ["None yet", "Commodity Exchange", "Money Market", "Share Market"]  # not "Stock Exchange": that is a vanilla technology
     tc = "[GetBuildingType('building_trade_center').GetName]"
     known_me = _pick(f"GetPlayer.MakeScope.Var('spec_exch_known').GetValueWithDefault({fx(0)})", "SPEC_EXCH_KNOWN", 3)
@@ -3058,7 +3099,9 @@ def _exch_loc(score, rank, centres):
             "The one furthest past its mark wins; until one is reached, the Exchange keeps its name.\\n") if EARN and not NAMES_ON else ""
     tier_fx = lambda t: ("Every market begins here" if t == 0 else f"Investor Reaction: #v {up(HYPE[t])}#!"
                          + f"\\n[concept_prestige]: #P +{PRESTIGE:.0%}#! when not among the {centres}"
-                         + (f"\\nReceives [concept_spec_capital_flight]: #P x{FLIGHT[t]:g}#!" if t >= 2 else ""))
+                         + (f"\\nReceives [concept_spec_capital_flight]: #P x{FLIGHT[t]:g}#!" if t >= 2 else "")
+                         + (f"\\n[concept_spec_foreign_panic] losses: #P {WORLD_SHELTER - 1:+.0%}#!\\n{_mod_words(WORLD_FX, chr(92) + 'n')}"
+                            "\\nOne rival free of upkeep" if t == 3 else ""))
     card_fx = [f"Investor Reaction: #v {up(KNOWN_HYPE)}#!", f"Trust losses: #P {KNOWN_LOSS - 1:+.0%}#!",
                f"Up to #P {up(KNOWN_CREDIT)}#! credit lent into the [concept_investment_pool] each month"]
     card_by = [(f"{tc} levels", sv("spec_log_ktc"), EARN_TC),
@@ -3222,7 +3265,7 @@ if __name__ == "__main__":
         assert re.search(r"owner = \{\n\s+set_variable = \{ name = spec_exch_seat value = prev \}", _seat("\t"))
         assert seat({"cap": 3, "ny": 4}, "cap") == "cap" and seat({"cap": 3, "ny": 5}, "cap") == "ny" and seat({"cap": 0}, "cap") == "cap"
         assert "spec_rules" not in script + values() + words + gui and " SPEC_H_EXCH:" in words
-        assert all(f"Select_CFixedPoint(GetGlobalVariable('spec_centre_{n}').IsSet" in gui for n in (1, PLACES))
+        assert all(f"Select_CFixedPoint(GetGlobalVariable('spec_centre_{n}').IsSet" in gui for n in (WORLD_PLACES, PLACES))
         assert all(f"remove_modifier = spec_trust_{i}" in script for i, f in enumerate(TRUST_FX) if f)
         assert 0.5 + panic(trust, False) / CALM == 0.75  # the score's multiplier after an unrescued panic
     if BRAKE:
@@ -3313,7 +3356,7 @@ if __name__ == "__main__":
         # while a slot is filled the rows that can be chosen are lit and say so; the row shows what each place gives
         assert gui.count("[And(GetVariableSystem.Exists('spec_pick_slot'), And(Country.IsLocalPlayer") == 2 * len(NAMES)  # click, light
         assert all(f"$SPEC_PURSUE_LV_{k}$[AddLocalizationIf" in words for k, *_ in NAMES) and " SPEC_ROW_CLICK:" in words
-        assert _pursue_fx("railway", 3) == [("building_railway_throughput_add", 0.12), ("building_group_bg_construction_laborers_mortality_mult", 0.1), ("state_infrastructure_mult", 0.1)]
+        assert _pursue_fx("railway", 3) == [("building_railway_throughput_add", 0.12), ("building_group_bg_construction_laborers_mortality_mult", 0.08), ("state_infrastructure_mult", 0.1)]
         assert _pursue_fx("floor", 0) == [("state_trade_capacity_mult", 0.03)] and "spec_pursue_harbour_3 = {" in MODIFIER
         assert _mod_words(TRUST_FX[0]).startswith("#N +10%#! $country_loan_interest_rate_mult$")
         assert _mod_words(TRUST_FX[3]) == "#P -5%#! $country_loan_interest_rate_mult$, #P +2#! $interest_group_ig_industrialists_approval_add$"

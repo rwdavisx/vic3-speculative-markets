@@ -1,0 +1,5 @@
+{
+  "13286c7f6e": "#header Dünya Merkezi#!\\nYatırımcı Tepkisi: #v +%{1}#!\\n[concept_prestige]: {3} arasında değilken #P +%{2}#!\\n[concept_spec_capital_flight] alımı: #P x2#!\\n[concept_spec_foreign_panic] kayıpları: #P -%{4}#!\\n#P -%{5}#! {6}\\n#P +%{7}#! {8}\\nBir rakip bakım masrafsız\\n$TOOLTIP_DELIMITER$\\n#v Dünya Merkezi#! Konum için: {10} arasında ilk #v {9}#! sıradan biri; ayrıca {11} gerekir",
+  "cf7284be4c": "#v Dünya Merkezi#! Konum için: {2} sıralamasında ilk #v {1}#! sıradan biri; ayrıca {3} gerekir",
+  "7fc12f5de9": "#v Dünya Merkezi#! en yüksek Konumdur. İlk #v {1}#! sıradan birini koruduğumuz sürece elimizde kalır"
+}

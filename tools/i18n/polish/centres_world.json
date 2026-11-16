@@ -1,0 +1,5 @@
+{
+  "13286c7f6e": "#header Światowe centrum#!\\nReakcja inwestorów: #v +{1}%#!\\n[concept_prestige]: #P +{2}%#! poza rankingiem ({3})\\nOtrzymywana [concept_spec_capital_flight]: #P x2#!\\n[concept_spec_foreign_panic] – straty: #P -{4}%#!\\n#P -{5}%#! {6}\\n#P +{7}%#! {8}\\nJeden rywal bez kosztów utrzymania\\n$TOOLTIP_DELIMITER$\\nWarunek pozycji #v Światowe centrum#!: jedno z pierwszych #v {9}#! miejsc w rankingu ({10}), przy: {11}",
+  "cf7284be4c": "Pozycja #v Światowe centrum#!: jedno z pierwszych #v {1}#! miejsc ({2}), z technologią {3}",
+  "7fc12f5de9": "#v Światowe centrum#! to najwyższa pozycja. Utrzymuje się ją, dopóki zajmujemy jedno z pierwszych #v {1}#! miejsc"
+}

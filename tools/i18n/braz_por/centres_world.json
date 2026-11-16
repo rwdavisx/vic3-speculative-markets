@@ -1,0 +1,5 @@
+{
+  "13286c7f6e": "#header Centro Mundial#!\\nReação dos Investidores: #v +{1}%#!\\n[concept_prestige]: #P +{2}%#! quando fora das {3}\\nRecebe [concept_spec_capital_flight]: #P x2#!\\nPerdas por [concept_spec_foreign_panic]: #P -{4}%#!\\n#P -{5}%#! {6}\\n#P +{7}%#! {8}\\nUm rival sem custo de manutenção\\n$TOOLTIP_DELIMITER$\\nPara ter Posição #v Centro Mundial#!: um dos #v {9}#! primeiros lugares entre as {10}, com {11}",
+  "cf7284be4c": "Para ser #v Centro Mundial#!: um dos #v {1}#! primeiros lugares entre as {2}, com {3}",
+  "7fc12f5de9": "#v Centro Mundial#! é a Posição mais alta. Ela é mantida enquanto tivermos um dos #v {1}#! primeiros lugares"
+}

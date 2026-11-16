@@ -523,6 +523,7 @@ def values():
     sv.append(f"spec_recover_pct = {{\n\tvalue = {CONF_RECOVER * 100:g}\n\tmultiply = spec_macro\n{centres.RECOVER_REF}}}")  # display only
     sv.append(f"spec_ld_own_drift = {{\n\tvalue = {depression.OWN_DRIFT:g}\n\tmultiply = spec_macro\n}}")
     sv.append(f"spec_flight_mult = {{\n\tvalue = {FLIGHT_BASE:g}\n" + "".join(f"{tech(t)}\t\tadd = {n:g}\n\t}}\n" for t, n in FLIGHT_TECHS.items()) + centres.FLIGHT_REF + "}")
+    sv.append(f"spec_world_shelter = {{\n\tvalue = 1\n\tif = {{\n\t\tlimit = {{ has_variable = spec_exch_stand var:spec_exch_stand = 3 }}\n\t\tvalue = {centres.WORLD_SHELTER:g}\n\t}}\n}}")
     sv.append(f"spec_foreign_loss_mult = {{\n\tvalue = {UNSTANDARD[1]:g}\n{tech(UNSTANDARD[0])}\t\tvalue = 1\n\t}}\n}}")
     sv.append(f"spec_flight_gain_max = {{\n\tvalue = {FLIGHT_GAIN:g}\n\tmultiply = spec_flight_mult\n}}")  # display only
     # the share scales with the panic left to cut short: x(months left / RESCUE_REF_MONTHS), within RESCUE_SCALE
@@ -1362,6 +1363,7 @@ spec_catch_panic = {{
 				multiply = $WEIGHT$
 				multiply = root.spec_reach
 				multiply = spec_foreign_loss_mult
+				multiply = spec_world_shelter
 			}}
 		}}
 		if = {{

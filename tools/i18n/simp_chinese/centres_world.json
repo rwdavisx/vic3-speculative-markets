@@ -1,0 +1,5 @@
+{
+  "13286c7f6e": "#header 世界中心#!\\n投资者反应：#v +{1}%#!\\n[concept_prestige]：未跻身{3}时#P +{2}%#!\\n接收[concept_spec_capital_flight]：#P x2#!\\n[concept_spec_foreign_panic]损失：#P -{4}%#!\\n#P -{5}%#! {6}\\n#P +{7}%#! {8}\\n一个竞争对手免维护费\\n$TOOLTIP_DELIMITER$\\n达到#v 世界中心#!的条件：在{10}中位列前#v {9}#!名，且拥有{11}",
+  "cf7284be4c": "晋升#v 世界中心#!：在{2}中位列前#v {1}#!名，并拥有{3}",
+  "7fc12f5de9": "#v 世界中心#!是最高地位。只要保持前#v {1}#!名即可保住"
+}
