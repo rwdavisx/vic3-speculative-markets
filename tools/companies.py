@@ -39,7 +39,7 @@ COMPANY_BUST = tuning.get("COMPANY_BUST", -0.1)      # after a good's boom colla
 # for BLUE_LOSE months running loses it, and the count starts again. Counted on the company (companies keep variables:
 # runs/sweep_company_vars_probe_r1). Each one adds BLUE_BONUS to Home of Great Companies' Company Strength (centres.py)
 BLUE_PROSPER = tuning.get("BLUE_PROSPER", 70)
-BLUE_MONTHS = tuning.get("BLUE_MONTHS", 24)
+BLUE_MONTHS = tuning.get("BLUE_MONTHS", 12)  # beta.12: was 24; only 3-5 in the world by 1846 (runs/20261116_104250_calib_b_1846)
 BLUE_LOSE = tuning.get("BLUE_LOSE", 3)
 BLUE_BONUS = tuning.get("BLUE_BONUS", 2)
 # beta.12 (bluechips.py): the loop also counts them (local spec_bc_cnt), flags a new one (spec_bc_new) and a first month

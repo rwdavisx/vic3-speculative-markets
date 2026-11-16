@@ -262,7 +262,7 @@ def loc():
         ' spec_bc_index: "Blue Chip Index"\n'
         f' spec_bc_index_desc: "Our {bc}s draw savings to the market and make lenders easy. Grows with each, up to {CAP}."\n'
         ' spec_bluechip.1.t: "A New Blue Chip"\n'
-        f' spec_bluechip.1.d: "After two years of steady profits, {CO} is now counted among the blue chips. Its shares are '
+        f' spec_bluechip.1.d: "After a year of steady profits, {CO} is now counted among the blue chips. Its shares are '
         'sought by every bank and widow in the land, and the brokers ask whether it will stay content with its standing or '
         'ask the market for more."\n'
         ' spec_bluechip.1.f: "Safe as the Bank, they say."\n'
