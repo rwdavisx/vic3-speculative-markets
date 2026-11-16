@@ -42,27 +42,76 @@ BLUE_PROSPER = tuning.get("BLUE_PROSPER", 70)
 BLUE_MONTHS = tuning.get("BLUE_MONTHS", 24)
 BLUE_LOSE = tuning.get("BLUE_LOSE", 3)
 BLUE_BONUS = tuning.get("BLUE_BONUS", 2)
-BLUE_UPDATE = (
-    "\t\tset_local_variable = { name = spec_nx_bc value = spec_nx_blue }\n"  # a renown path speeds the climb
-    "\t\tevery_company = {\n"
-    f"\t\t\tif = {{\n\t\t\t\tlimit = {{ prosperity >= {BLUE_PROSPER:g} }}\n\t\t\t\tremove_variable = spec_bc_low\n"
-    "\t\t\t\tif = {\n\t\t\t\t\tlimit = { NOT = { has_variable = spec_blue_chip } }\n"
-    "\t\t\t\t\tif = {\n\t\t\t\t\t\tlimit = { NOT = { has_variable = spec_bc_months } }\n"
-    "\t\t\t\t\t\tset_variable = { name = spec_bc_months value = 0 }\n\t\t\t\t\t}\n"
-    "\t\t\t\t\tchange_variable = { name = spec_bc_months add = local_var:spec_nx_bc }\n"
-    f"\t\t\t\t\tif = {{\n\t\t\t\t\t\tlimit = {{ var:spec_bc_months >= {BLUE_MONTHS:g} }}\n"
-    "\t\t\t\t\t\tset_variable = spec_blue_chip\n\t\t\t\t\t\tremove_variable = spec_bc_months\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n"
-    "\t\t\telse = {\n\t\t\t\tremove_variable = spec_bc_months\n"
-    "\t\t\t\tif = {\n\t\t\t\t\tlimit = { has_variable = spec_blue_chip }\n"
-    "\t\t\t\t\tif = {\n\t\t\t\t\t\tlimit = { NOT = { has_variable = spec_bc_low } }\n"
-    "\t\t\t\t\t\tset_variable = { name = spec_bc_low value = 0 }\n\t\t\t\t\t}\n"
-    "\t\t\t\t\tchange_variable = { name = spec_bc_low add = 1 }\n"
-    f"\t\t\t\t\tif = {{\n\t\t\t\t\t\tlimit = {{ var:spec_bc_low >= {BLUE_LOSE:g} }}\n"
-    "\t\t\t\t\t\tremove_variable = spec_blue_chip\n\t\t\t\t\t\tremove_variable = spec_bc_low\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n"
-    "\t\t}\n")
+# beta.12 (bluechips.py): the loop also counts them (local spec_bc_cnt), flags a new one (spec_bc_new) and a first month
+# below the mark (spec_bc_wobble) for the events, skips the low months while propped up (spec_bc_propped), and drops a
+# fragile one (spec_bc_fragile, from issuing shares) at its first low month; bluechips.after_update acts on the flags
+BLUE_UPDATE = f"""		set_local_variable = {{ name = spec_nx_bc value = spec_nx_blue }}
+		set_local_variable = {{ name = spec_bc_cnt value = 0 }}
+		every_company = {{
+			if = {{
+				limit = {{ prosperity >= {BLUE_PROSPER:g} }}
+				remove_variable = spec_bc_low
+				if = {{
+					limit = {{ NOT = {{ has_variable = spec_blue_chip }} }}
+					if = {{
+						limit = {{ NOT = {{ has_variable = spec_bc_months }} }}
+						set_variable = {{ name = spec_bc_months value = 0 }}
+					}}
+					change_variable = {{ name = spec_bc_months add = local_var:spec_nx_bc }}
+					if = {{
+						limit = {{ var:spec_bc_months >= {BLUE_MONTHS:g} }}
+						set_variable = spec_blue_chip
+						remove_variable = spec_bc_months
+						set_variable = {{ name = spec_bc_new days = 60 }}
+						set_local_variable = {{ name = spec_bc_gained value = 1 }}
+					}}
+				}}
+			}}
+			else = {{
+				remove_variable = spec_bc_months
+				if = {{
+					limit = {{
+						has_variable = spec_blue_chip
+						NOT = {{ has_variable = spec_bc_propped }}
+					}}
+					if = {{
+						limit = {{ NOT = {{ has_variable = spec_bc_low }} }}
+						set_variable = {{ name = spec_bc_low value = 0 }}
+					}}
+					change_variable = {{ name = spec_bc_low add = 1 }}
+					if = {{
+						limit = {{
+							OR = {{
+								var:spec_bc_low >= {BLUE_LOSE:g}
+								has_variable = spec_bc_fragile
+							}}
+						}}
+						remove_variable = spec_blue_chip
+						remove_variable = spec_bc_low
+						remove_variable = spec_bc_wobble
+						if = {{
+							limit = {{ NOT = {{ has_local_variable = spec_bc_fell }} }}
+							set_local_variable = {{ name = spec_bc_fell value = 0 }}
+						}}
+						change_local_variable = {{ name = spec_bc_fell add = 1 }}
+					}}
+					else_if = {{
+						limit = {{ var:spec_bc_low = 1 }}
+						set_variable = {{ name = spec_bc_wobble days = 60 }}
+						set_local_variable = {{ name = spec_bc_wobbled value = 1 }}
+					}}
+				}}
+			}}
+			if = {{
+				limit = {{ has_variable = spec_blue_chip }}
+				change_local_variable = {{ name = spec_bc_cnt add = 1 }}
+			}}
+		}}
+{__import__("bluechips").after_update()}"""
 # a closed market keeps no blue chips: the count starts again when it reopens
 BLUE_CLEAR = ("\t\tevery_company = {\n\t\t\tremove_variable = spec_blue_chip\n\t\t\tremove_variable = spec_bc_months\n"
-              "\t\t\tremove_variable = spec_bc_low\n\t\t}\n")
+              "\t\t\tremove_variable = spec_bc_low\n\t\t\tremove_variable = spec_bc_fragile\n\t\t\tremove_variable = spec_bc_propped\n\t\t}\n"
+              "\t\tremove_variable = spec_bc_n\n")
 BUST_DAYS = 365
 # severity of the boom's end (generate.UNWINDS) -> share of COMPANY_BUST, days
 UNWIND = {3: (1, BUST_DAYS), 2: (0.5, 180), 1: (0.25, 90)}

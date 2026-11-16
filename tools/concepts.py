@@ -85,7 +85,8 @@ def companies_loc():
     return (' concept_spec_blue_chip: "Blue Chip"\n concept_spec_blue_chips: "Blue Chips"\n'
             ' concept_spec_blue_chip_desc: "A $concept_spec_blue_chip$ is a [concept_company] that has held '
             f"#v {companies.BLUE_PROSPER:g}#! or more [concept_prosperity] for #v {companies.BLUE_MONTHS:g}#! months running. "
-            f"Each one adds #v {companies.BLUE_BONUS:g}#! to our [concept_spec_company_strength].\\n\\n"
+            f"Each one adds #v {companies.BLUE_BONUS:g}#! to our [concept_spec_company_strength].\\n"
+            + __import__("bluechips").effects_text().replace("[concept_spec_blue_chip]", "$concept_spec_blue_chip$") + "\\n\\n"
             f"#v {companies.BLUE_LOSE:g}#! months running below #v {companies.BLUE_PROSPER:g}#! end the status, and the "
             f"#v {companies.BLUE_MONTHS:g}#! months must then be held again. A month below resets a climb towards it. "
             'A [concept_country] that leaves the market economy keeps none."\n'

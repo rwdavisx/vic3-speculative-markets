@@ -72,6 +72,21 @@ Probe (Nov 15, beta.3, `runs/sweep_company_vars_probe_r1`): companies keep plain
 
 This rewards the long game and gives a reason to protect specific companies during a panic.
 
+**beta.12 rework (2026-11-16, the user: "pretty passive and meh"), `tools/bluechips.py`.** Numbers are starting points:
+- Steadiness: each blue chip, up to 5, cuts confidence lost to collapsing booms and foreign panics by 4%
+  (`spec_bc_shelter` in `spec_crash_scale` and `spec_catch_panic`). This is the panic replacement above, built.
+- Dividend: +0.5 Exchange trust a year for each, up to 5.
+- A fall: losing the status costs 2 trust and 3 confidence.
+- Moments, as country events; the AI picks by weight:
+  - **A New Blue Chip.** Ring the bell for +2 trust, or issue new shares for 2 months of investment pool income. The
+    shares make the company fragile for 5 years: one month below 70 loses the status.
+  - **A Blue Chip Slips**, at its first month below 70. Prop it up for 0.3% of GDP, so its low months stop counting for
+    12 months, or let the market decide.
+- **Company of the Year** (section 5, built in a lean form): once a year, the world's most prosperous blue chip. Its
+  country gains +3 trust and `spec_coty` (+5% prestige) for a year; a player also gets an event. The row tooltip marks it.
+- Listings (section 2) and the scandal and darling stories (section 4) remain unbuilt. The two events above take
+  their place.
+
 ## 4. Company stories: moments to react to
 
 Built on the existing story system, at most one per country per year.

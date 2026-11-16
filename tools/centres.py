@@ -2120,7 +2120,7 @@ spec_rank_centres = {{
 		}}
 {listed}	}}
 	remove_global_variable = spec_centre_top
-{_regions() if ON else ''}{_standing()}{_names()}{__import__("rivals").pass_() if RIVAL_ON else ""}{COUNTS}{shown}	# ponytail: a market hovering between the last place and the next gets a toast each time it crosses; hold a place
+{_regions() if ON else ''}{_standing()}{_names()}{__import__("rivals").pass_() if RIVAL_ON else ""}{__import__("bluechips").pass_()}{COUNTS}{shown}	# ponytail: a market hovering between the last place and the next gets a toast each time it crosses; hold a place
 	# for a few months if that proves noisy
 	every_country = {{
 		limit = {{
@@ -2336,6 +2336,7 @@ def build(write):
         write("common/messages/spec_centre_messages.txt", PLEDGE_MESSAGE)
     if RIVAL_ON:
         __import__("rivals").build(write)
+    __import__("bluechips").build(write)
 
 
 def text(x, w, key, align="left"):

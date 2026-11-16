@@ -24,7 +24,7 @@ MAP_KEY = [("Mania", (235, 185, 40)), ("Buoyant", (60, 150, 110)), ("Steady", (1
 # shown enlarged and framed, stacked unless side by side; the scene behind is the whole screen, dimmed
 CARDS = [
     ("01_finance", "The Finance Panel",
-     "Open it with the Finance button on the left: Exchange, Speculation, Banking and Rankings.",
+     "Open it with the Finance button on the left: Trading Floor, Speculation, Banking and Exchanges.",
      "", [("full_exchange", (0, 110, 916, 1300)), ("ui_speculation", (0, 0, 840, 1190)),
           ("ui_banking", (0, 0, 840, 1190)), ("ui_rankings", (0, 0, 840, 1190))], True, "full_exchange"),
     ("02_exchange", "Your Stock Exchange",
@@ -37,7 +37,7 @@ CARDS = [
      "Leverage speeds up your economy, until the loans go bad. See where the banks have lent.",
      "ui_banking", [("full_banking", (0, 110, 916, 1120)), (0, 830, 840, 1800)], True, "full_banking"),
     ("05_rankings", "The World's Leading Exchanges",
-     "The top five gain prestige and cheaper loans. Name a rival and take its trust.",
+     "The top five gain prestige and cheaper loans. The top three are World Centres.",
      "ui_rankings", [("full_rankings", (0, 110, 916, 1225)), (0, 935, 840, 1870)], True, "full_rankings"),
     ("06_panic", "Financial Panic",
      "Output and taxes fall, loans are called in, and relief costs you every week. Rescue the banks?",
@@ -57,6 +57,18 @@ CARDS = [
     ("12_tech", "Finance in the Tech Tree",
      "Each finance technology lists what it changes in your markets.",
      "tt_tech_central_banking", [(1310, 470, 2480, 1220)], False),
+    # beta.12 cards: NEED SCREENSHOTS, see shot_list_beta12.md. The raw/ files below do not exist yet, so the script
+    # stops at the first of these until they are taken; the crop boxes follow the ui_/full_/ev_ shots above and may
+    # need fitting once the shots exist.
+    ("13_rivals", "Rival Exchanges",
+     "A tug of war every five years. Raid them, lure their capital, hold the line or shore up.",
+     "ui_rivals", [("full_rivals", (0, 110, 916, 1225)), (0, 935, 840, 1870)], True, "full_rivals"),
+    ("14_bluechips", "Blue Chips",
+     "Keep a company prosperous for two years. The world's best is Company of the Year.",
+     "ev_coty", [("ui_bluechips", (0, 0, 840, 1190)), (1040, 500, 2810, 1700)], True, "full_speculation"),
+    ("15_renown", "Paths to Renown",
+     "Compete for specialities. The higher your place, the bigger the reward and its price.",
+     "ui_renown", [("full_renown", (0, 110, 916, 1225)), (0, 935, 840, 1870)], True, "full_renown"),
 ]
 
 def outlined(canvas, xy, text, font, fill=CREAM, anchor="mt", stroke=None):

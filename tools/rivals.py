@@ -53,6 +53,54 @@ US, THEM = "GetPlayer.MakeScope", "Country.MakeScope"
 pc = lambda x: f"{round(x * 100, 1):g}%"
 
 
+LOG = "--log" in __import__("sys").argv  # generate.py --log: SPECRV debug lines for tools/observe.py runs
+
+
+def _log(what, t):
+    """In the actor's scope with scope:target saved: one SPECRV line in a --log build, else nothing."""
+    if not LOG:
+        return ""
+    return (f"{t}set_variable = {{ name = spec_rv_log_vs value = spec_rv_vs }}\n"
+            f"{t}debug_log = \"SPECRV {what} by=[THIS.GetCountry.GetTagName] on=[SCOPE.sCountry('target').GetTagName]"
+            " date=[TimeKeeper.GetCurrentDate.GetString] vs=[THIS.Var('spec_rv_log_vs').GetValue]"
+            " ok=[THIS.Var('spec_rv_log_ok').GetValue] score=[THIS.Var('spec_centre_score').GetValue]"
+            " tscore=[SCOPE.sCountry('target').Var('spec_centre_score').GetValue]\"\n")
+
+
+def _ok(t):
+    return f"{t}set_variable = {{ name = spec_rv_log_ok value = local_var:spec_rv_ok }}\n" if LOG else ""
+
+
+def _settle_log(what, me, value, t):
+    """In the rival's scope, with scope:<me> the country that named it: the bar from <me>'s side."""
+    if not LOG:
+        return ""
+    return (f"{t}set_variable = {{ name = spec_rv_log_p value = {value} }}\n"
+            f"{t}debug_log = \"SPECRV {what} by=[SCOPE.sCountry('{me}').GetTagName] on=[THIS.GetCountry.GetTagName]"
+            " date=[TimeKeeper.GetCurrentDate.GetString] p=[THIS.Var('spec_rv_log_p').GetValue]"
+            f" score=[SCOPE.sCountry('{me}').Var('spec_centre_score').GetValue] tscore=[THIS.Var('spec_centre_score').GetValue]"
+            f" stand=[SCOPE.sCountry('{me}').Var('spec_exch_stand').GetValue] tstand=[THIS.Var('spec_exch_stand').GetValue]\"\n")
+
+
+def _year_log(t):
+    """Once a year, a line per Exchange: rivals named, upkeep, Standing, score, trust, influence."""
+    if not LOG:
+        return ""
+    keys = [k for k, *_ in __import__("centres").NAMES]
+    # each speciality's strength (spec_pw_<key>, 0 to 1) and our place on it (spec_lead_<key>, 1 to 3), 0 when unset
+    pre = "".join(f"{t}\tset_variable = {{ name = spec_rv_log_{n}_{k} value = 0 }}\n"
+                  f"{t}\tif = {{ limit = {{ has_variable = {v}_{k} }} set_variable = {{ name = spec_rv_log_{n}_{k} value = var:{v}_{k} }} }}\n"
+                  for k in keys for n, v in (("pw", "spec_pw"), ("at", "spec_lead")))
+    return (f"{t}every_country = {{\n{t}\tlimit = {{ has_variable = spec_exch_stand has_variable = spec_centre_score }}\n"
+            f"{t}\tdebug_log = \"SPECRVY tag=[THIS.GetCountry.GetTagName] date=[TimeKeeper.GetCurrentDate.GetString]"
+            " named=[THIS.Var('spec_rv_n_chosen').GetValue] upkeep=[THIS.ScriptValue('spec_rv_upkeep_total')]"
+            " stand=[THIS.Var('spec_exch_stand').GetValue] score=[THIS.Var('spec_centre_score').GetValue]"
+            " trust=[THIS.Var('spec_centre_trust').GetValue] round=[GetGlobalVariable('spec_rv_round').GetValue]"
+            " bc=[THIS.ScriptValue('spec_log_kbc')] kstr=[THIS.ScriptValue('spec_log_kstr')]"
+            + "".join(f" pw_{k}=[THIS.Var('spec_rv_log_pw_{k}').GetValue] at_{k}=[THIS.Var('spec_rv_log_at_{k}').GetValue]" for k in keys)
+            + f"\"\n{t}}}\n").replace(f"{t}\tdebug_log", pre + f"{t}\tdebug_log", 1)
+
+
 def shown(key):
     return CALL.format(key, "IsShown")
 
@@ -405,7 +453,7 @@ spec_rival_contest = {{
 			}}
 			set_local_variable = {{ name = spec_rv_p value = spec_rv_rope }}
 			set_local_variable = {{ name = spec_rv_big value = 0 }}
-			if = {{
+{_settle_log('settle', 'spec_rival_me', 'local_var:spec_rv_p', chr(9) * 3)}			if = {{
 				limit = {{ local_var:spec_rv_p >= {DECISIVE} }}
 				set_local_variable = {{ name = spec_rv_big value = 1 }}
 			}}
@@ -678,7 +726,7 @@ spec_rv_raid = {{
 		spec_rv_push = {{ BY = scope:target ON = scope:spec_rv_actor }}
 	}}
 	spec_rv_log = {{ CODE = 1 }}
-	}}
+{_ok(chr(9))}{_log('act=raid', chr(9))}	}}
 }}
 
 spec_rv_lure = {{
@@ -703,7 +751,7 @@ spec_rv_lure = {{
 	}}
 	spec_rv_push = {{ BY = scope:spec_rv_actor ON = scope:target }}
 	spec_rv_log = {{ CODE = 2 }}
-	}}
+{_ok(chr(9))}{_log('act=lure', chr(9))}	}}
 }}
 
 spec_rv_press = {{
@@ -731,7 +779,7 @@ spec_rv_press = {{
 		spec_rv_push = {{ BY = scope:target ON = scope:spec_rv_actor }}
 	}}
 	spec_rv_log = {{ CODE = 3 }}
-	}}
+{_ok(chr(9))}{_log('act=press', chr(9))}	}}
 }}
 
 spec_rv_hold = {{
@@ -741,7 +789,7 @@ spec_rv_hold = {{
 	add_treasury = spec_rv_cost_neg
 	add_to_variable_list = {{ name = spec_rv_cd_hold target = scope:target days = {CD_DAYS} }}
 	spec_rv_unpush = {{ BY = scope:target ON = scope:spec_rv_actor }}
-	}}
+{_log('act=hold', chr(9))}	}}
 }}
 
 spec_rv_shore = {{
@@ -758,7 +806,7 @@ spec_rv_shore = {{
 		add_to_variable_list = {{ name = spec_rv_shield target = scope:target days = {SHORE_MONTHS * 30} }}
 	}}
 	add_to_variable_list = {{ name = spec_rv_cd_shore target = scope:target days = {SHORE_CD * 365} }}
-	}}
+{_log('act=shore', chr(9))}	}}
 }}
 
 # the AI against scope:target, at most once a year per rivalry, from where its contest stands (spec_rv_ai_p, its
@@ -864,7 +912,7 @@ spec_rv_ai_pick = {{
 				}}
 			}}
 			save_temporary_scope_as = spec_rv_x
-			scope:spec_rv_ai_me = {{ remove_list_variable = {{ name = spec_rv_chosen target = scope:spec_rv_x }} }}
+{_settle_log('drop', 'spec_rv_ai_me', 'spec_rv_rope', chr(9) * 3)}			scope:spec_rv_ai_me = {{ remove_list_variable = {{ name = spec_rv_chosen target = scope:spec_rv_x }} }}
 		}}
 		spec_rv_count = yes
 		while = {{
@@ -880,7 +928,7 @@ spec_rv_ai_pick = {{
 					save_scope_as = target
 				}}
 				spec_rv_choose = yes
-			}}
+{_log('pick', chr(9) * 4)}			}}
 		}}
 	}}
 }}
@@ -930,7 +978,7 @@ def pass_(t="\t"):
 {t}			set_global_variable = {{ name = spec_rv_round value = 0 }}
 {t}		}}
 {t}		spec_rv_ai = yes
-{t}	}}
+{_year_log(t + chr(9) * 2)}{t}	}}
 {t}	set_global_variable = spec_rival_started
 {t}}}
 {t}every_country = {{

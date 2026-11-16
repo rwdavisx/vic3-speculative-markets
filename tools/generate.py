@@ -545,7 +545,7 @@ def values():
     sv.append(f"spec_tight_pull = {{\n\tvalue = {TIGHT_FROM}\n\tsubtract = spec_conf_pre\n\tmultiply = {TIGHT_PULL:g}\n\tmax = 0\n}}")
     sv.append("spec_conf_next = {\n\tvalue = spec_conf_pre\n\tadd = var:spec_c_tight\n\tmin = 0\n\tmax = 100\n}")
     # deeper speculation falls harder, Manor Houses steady it (vanilla_ties.py)
-    sv.append(f"spec_crash_scale = {{\n\tvalue = var:spec_conf\n\tdivide = {CONF_START}\n\tmultiply = spec_depth\n\tmultiply = spec_steady\n\tmultiply = spec_fin_risk\n\tmultiply = spec_nx_crash\n}}")
+    sv.append(f"spec_crash_scale = {{\n\tvalue = var:spec_conf\n\tdivide = {CONF_START}\n\tmultiply = spec_depth\n\tmultiply = spec_steady\n\tmultiply = spec_fin_risk\n\tmultiply = spec_nx_crash\n\tmultiply = spec_bc_shelter\n}}")
     cost = goods_cost()
     # market_goods scope: its trade value, as spec_mv_<g> reads it from the country, for sorting the goods board
     sv.append("spec_mg_value = {\n\tvalue = market_goods_sell_orders\n\tmultiply = goods.base_price\n}")
@@ -1364,6 +1364,7 @@ spec_catch_panic = {{
 				multiply = root.spec_reach
 				multiply = spec_foreign_loss_mult
 				multiply = spec_world_shelter
+				multiply = spec_bc_shelter
 			}}
 		}}
 		if = {{

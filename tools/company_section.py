@@ -123,6 +123,7 @@ def chip():
 # blue chips (companies.BLUE_UPDATE): the status, its run of low months, or the climb towards it; never two at once
 _CV = lambda n: f"Company.MakeScope.Var('{n}')"
 BC, BC_LOW, BC_CLIMB = (f"{_CV(n)}.IsSet" for n in ("spec_blue_chip", "spec_bc_low", "spec_bc_months"))
+COTY, PROPPED, FRAGILE = (f"{_CV(n)}.IsSet" for n in ("spec_coty", "spec_bc_propped", "spec_bc_fragile"))  # bluechips.py
 
 
 def badge():
@@ -152,7 +153,8 @@ def tooltip_lines():
 	visible = "[{test}]"
 	text = "{key}"
 }}
-""" for key, test in (("SPEC_CO_BC", BC), ("SPEC_CO_BC_LOW", BC_LOW), ("SPEC_CO_BC_CLIMB", BC_CLIMB)))
+""" for key, test in (("SPEC_CO_BC", BC), ("SPEC_CO_BC_LOW", BC_LOW), ("SPEC_CO_BC_CLIMB", BC_CLIMB),
+                      ("SPEC_CO_COTY", COTY), ("SPEC_CO_PROPPED", f"And({BC}, {PROPPED})"), ("SPEC_CO_FRAGILE", f"And({BC}, {FRAGILE})")))
     lines = "".join(f"""custom_tooltip_textbox = {{
 	{f'visible = "[{test}]"' if test else ""}
 	text = "{key}"
@@ -311,13 +313,16 @@ def loc():
             f" SPEC_H_COMPANIES_RIGHT_TT: \"#header [concept_spec_company_strength]: #v [{P}.ScriptValue('spec_log_kstr')|1]#!#!\\n"
             "$TOOLTIP_DELIMITER$\\n$concept_companies$: #v [GetDataModelSize(Country.GetCompanies)]#!\\n"
             f"@spec_blue_chip! [Concept('concept_spec_blue_chip','$concept_spec_blue_chips$')]: #v [{P}.ScriptValue('spec_log_kbc')|0]#!, "
-            f"each adding #v {companies.BLUE_BONUS:g}#!\\n\\n#low A company becomes a $concept_spec_blue_chip$ after "
+            f"each adding #v {companies.BLUE_BONUS:g}#!\\n{__import__('bluechips').effects_text()}\\n\\n#low A company becomes a $concept_spec_blue_chip$ after "
             f"#v {companies.BLUE_MONTHS:g}#! months running at #v {companies.BLUE_PROSPER:g}#! or more [concept_prosperity].#!\"\n"
             f" SPEC_CO_BC: \"@spec_blue_chip! [concept_spec_blue_chip]: adds #v {companies.BLUE_BONUS:g}#! to our [concept_spec_company_strength]\"\n"
             f" SPEC_CO_BC_LOW: \"  #N Below {companies.BLUE_PROSPER:g} [concept_prosperity]#! for #v [{_CV('spec_bc_low')}.GetValue|0]#! of "
             f"#v {companies.BLUE_LOSE:g}#! months: the status is lost at #v {companies.BLUE_LOSE:g}#!\"\n"
             f" SPEC_CO_BC_CLIMB: \"@spec_blue_chip! Towards [concept_spec_blue_chip]:#v [{_CV('spec_bc_months')}.GetValue|0]#! of #v {companies.BLUE_MONTHS:g}#! "
             f"months running at #v {companies.BLUE_PROSPER:g}#! or more [concept_prosperity]\"\n"
+            " SPEC_CO_COTY: \"@spec_blue_chip! #P Company of the Year#!: the world's most prosperous [concept_spec_blue_chip]\"\n"
+            " SPEC_CO_PROPPED: \"  Propped up: keeps its status whatever its profits\"\n"
+            f" SPEC_CO_FRAGILE: \"  #N Fragile#!: one month below {companies.BLUE_PROSPER:g} [concept_prosperity] loses the status\"\n"
             " SPEC_CO_NONE: \"#low We own no companies#!\"\n"
             f" SPEC_CO_PCT: \"[{EFFECT}|+=0]%\"\n"
             " SPEC_CO_TT_HEAD: \"#header [concept_spec_investor_interest]#!\"\n"
@@ -325,7 +330,7 @@ def loc():
             f" SPEC_CO_ENC: \"  Encourage Investment: [concept_throughput] #P +{LEVER}%#!\"\n"
             f" SPEC_CO_RES: \"  Restrain Speculation: [concept_throughput] #N -{LEVER}%#!\"\n"
             f" SPEC_CO_GLUT: \"  @warning! #N [Goods.GetName] Recovering#!: [concept_throughput] #N [{GLUT_LOSS}|%0]#! for #v [{GLUT_MONTHS}|0]#! months\"\n"
-            " SPEC_CO_W0: \"#low not traded here#!\"\n" + words)
+            " SPEC_CO_W0: \"#low not traded here#!\"\n" + words + __import__("bluechips").loc())
 
 
 if __name__ == "__main__":
