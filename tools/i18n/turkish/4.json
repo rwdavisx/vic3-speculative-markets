@@ -171,5 +171,15 @@
   "f2d8f35ab1": "Hata ayıklama: yıllık rekabet",
   "386a98016c": "İki tarafta da süren eylem yok.",
   "582624dd58": "Onlar: {1}{2}{3} ",
-  "a6b6447344": "Biz: {1}{2}{3}"
+  "a6b6447344": "Biz: {1}{2}{3}",
+  "0451bc183d": "Bir [concept_spec_exchange], diplomatik rekabetlerden ayrı olarak kendi rakiplerini belirler: #v {1}#!, Uluslararası Konumdan itibaren #v {2}#!, kendi Konumuna en fazla #v {3}#! uzaklıktaki Borsalar arasından. Yeni bir rakip en az bir yıl tutulur. Rekabet, hangi tarafın diğerini belirlediğine bakılmaksızın sayılır. Her yıl, {4} puanı yüksek olan taraf, ikisinin Konumu aynıyken diğerinden #P {5}%#! Güven kazanır. Konum farkı varsa, alttaki Borsanın galibiyeti daha çok, üsttekinin galibiyeti daha az getirir: bir artı farkla çarpılır veya bölünür. İlişkiler kötü veya daha kötüyse kaybeden #N x1.5#! kaybeder.\\n[concept_spec_financial_panic] sırasında kaçan para önce rakibe gider.\\nÖnde Gelen Borsalar listesinin Rakip sütunundan bir rakip belirleyin, buradaki satırından da bırakın.",
+  "49ee308734": "Belirle",
+  "07d758289c": "#header Rakibimiz Olarak Belirle#!\\n$SPEC_RIVAL_RULE$\\n\\n{1}",
+  "5418f1e4aa": "#v Karşılıklı belirlendi#!",
+  "4598145460": "#v Onlar bizi belirledi#!",
+  "b651a35ae2": "#v Biz onları belirledik#!",
+  "dd7138b436": "Rakip yok. Önde Gelen Borsalar listesinin Rakip sütunundan bir tane belirleyin. Bizi belirleyen bir Borsa da burada listelenir.",
+  "e69d8ba498": "#header Bu Rakibi Bırak#!\\nBizim [concept_spec_exchange] artık onları rakip saymaz.\\n\\n{1}",
+  "982806250e": "Bir [concept_spec_exchange], diplomatik rekabetlerden ayrı olarak kendi rakiplerini belirler: #v {1}#!, Uluslararası Konumdan itibaren #v {2}#!, kendi Konumuna en fazla #v {3}#! uzaklıktaki Borsalar arasından. Yeni bir rakip en az bir yıl tutulur. Rekabet, hangi tarafın diğerini belirlediğine bakılmaksızın sayılır. Her yıl, {4} puanı yüksek olan taraf, ikisinin Konumu aynıyken diğerinden #P {5}%#! Güven kazanır. Konum farkı varsa, alttaki Borsanın galibiyeti daha çok, üsttekinin galibiyeti daha az getirir: bir artı farkla çarpılır veya bölünür. İlişkiler kötü veya daha kötüyse kaybeden #N x1.5#! kaybeder.\\n[concept_spec_financial_panic] sırasında kaçan para önce rakibe gider.\\nÖnde Gelen Borsalar listesinin Rakip sütunundan bir rakip belirleyin, buradaki satırından da bırakın.",
+  "045b190d03": "Rakip yok. Önde Gelen Borsalar listesinin Rakip sütunundan bir tane belirleyin. Bizi belirleyen bir Borsa da burada listelenir."
 }

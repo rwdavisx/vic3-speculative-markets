@@ -113,5 +113,6 @@
   "3ecd7db822": "\\n{1}{2}#!#! ze względu na: $SPEC_DRIVER_RIVAL$",
   "7ac3228a98": "Rywalizacja",
   "eafcab7a35": "Przez nas: #v {1}#!, przeciw nam: #v {2}#!",
-  "5c775ad815": "#header Rywalizacja#!\\n$SPEC_RIVAL_RULE$"
+  "5c775ad815": "#header Rywalizacja#!\\n$SPEC_RIVAL_RULE$",
+  "7be1025162": "Wyznaczone: #v {1}#! z #v {2}#!, wyznaczają nas: #v {3}#!"
 }

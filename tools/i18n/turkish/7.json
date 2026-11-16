@@ -27,5 +27,12 @@
   "ac29e01c37": "[concept_spec_outstanding_credit] tutarımız #N @money!{1}#! artar. {2} ay boyunca onların [concept_investment_pool] gelirinin #P {3}%#! kadarı bize gelir.",
   "07b5df73e3": "{2} ay boyunca #N {1}#! nüfuz öderiz. Onların [concept_spec_exchange] #N {3}%#! Güven kaybeder. #N {4}%#! ihtimalle ifşa olur: ilişkiler #N -{5}#!, kendi Güvenimiz #N -{6}%#!.",
   "ccb8988b99": "@money!{1} öderiz. [concept_spec_market_confidence] değerleri {3} ayda #N {2}#! düşer, başarısız olursa bizimki düşer.",
-  "88fc5fb67f": "@money!{1} öderiz. {2} ay boyunca herhangi bir rakibin bize yönelik her eylemi etkisinin yarısına iner."
+  "88fc5fb67f": "@money!{1} öderiz. {2} ay boyunca herhangi bir rakibin bize yönelik her eylemi etkisinin yarısına iner.",
+  "2fc56bb374": "Onlara karşı #v Ayı Baskını#!:",
+  "8884c841d8": "#v Sermayelerini Çek#!:",
+  "88495b3249": "Onlara karşı #v Basın Kampanyası#!:",
+  "ad0d4b9cff": "Aynısını onlara yaparız, bu yıl yapmış olsak bile.",
+  "9270f6baab": "İzin verilenden az rakip belirledik: #v {1}#!, Uluslararası Konumdan itibaren #v {2}#!",
+  "8b7385944f": "Onları bir yıldan uzun süre önce belirledik",
+  "ca94f3322f": "Taraflardan biri diğerini rakip olarak belirledi ve iki ülkenin de [concept_spec_exchange] sahibi"
 }

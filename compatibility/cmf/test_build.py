@@ -167,8 +167,7 @@ class CompatibilityTests(unittest.TestCase):
                          "stable and beta are alternatives, never simultaneous dependencies")
         self.assertEqual(relationships, required,
                          "the game rejects launcher-only load_after/incompatible_with relationships")
-        parent_version = json.loads(read(CMF / ".metadata/metadata.json"))["version"]
-        self.assertEqual(required[0]["version"], parent_version)
+        self.assertEqual(required[0]["version"], "*", "any CMF version, so CMF bugfixes don't mark the patch outdated")
         self.assertTrue(all(relation["resource_type"] == "mod" for relation in relationships))
 
     def test_finance_buttons_close_cmf_and_ledger_then_toggle_finance(self):

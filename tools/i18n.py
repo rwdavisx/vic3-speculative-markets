@@ -11,6 +11,8 @@ import json
 import os
 import re
 import sys
+
+import icons
 from pathlib import Path
 
 HERE = Path(__file__).parent
@@ -240,6 +242,7 @@ def build(write):
         for rel, pairs in files:
             lines = [f"l_{language}:"]
             for key, value in pairs:
+                plain = value
                 masked, tokens = mask(value)
                 text, how = pick(table, key, masked, past) if has_words(masked) else (None, "")
                 if how:
@@ -250,7 +253,8 @@ def build(write):
                     count["missing"] += 1
                 elif text:
                     value = unmask(text, tokens)
-                lines.append(f' {key}: "{value}"')
+                # the concept icons the English gets (generate.with_icons, written after this), in the same places
+                lines.append(f' {key}: "{icons.concept_icons(key, value, icons.iconed(icons.concept_icons(key, plain)))}"')
             write(f"localization/{language}/{rel.replace('l_english', f'l_{language}')}", "\n".join(lines) + "\n")
         print(f"i18n {language}: {count['own']} translated, {count['outdated']} kept from an earlier English, {count['missing']} still English")
     if not os.environ.get("SPEC_MOD_OUT"):  # side builds (sweeps) run side by side: only the live build records

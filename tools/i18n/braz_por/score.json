@@ -1,0 +1,5 @@
+{
+ "e511e7bbe9": "#header Centro Mundial#!\\nReação dos Investidores: #v +{1}%#!\\n[concept_prestige]: #P +{2}%#! quando fora das {3}\\nRecebe [concept_spec_capital_flight]: #P x2#!\\n$TOOLTIP_DELIMITER$\\nPara ter Posição #v Centro Mundial#!: o primeiro lugar entre as {4}, com {5}",
+ "72c56f3541": "#header Capital#!\\n$TOOLTIP_DELIMITER$\\nA pontuação parte do capital em que nossa [concept_spec_exchange] se apoia, crescendo com sua raiz quarta: dezesseis vezes o capital dobra a pontuação.\\n\\nPróprio: #v @money!{1}#!, seis meses de renda do [concept_investment_pool], na média do último ano\\nDos nossos vínculos: #v @money!{2}#!, um quarto do capital de cada [concept_country] menor no nosso [concept_market], dos nossos {3}, do nosso [concept_power_bloc] ou que nos concede direitos de [concept_foreign_investment]; no máximo tanto quanto o nosso próprio",
+ "0736a70713": "#header Riqueza por Habitante#!\\n$TOOLTIP_DELIMITER$\\nA renda do nosso [concept_investment_pool] por pessoa é #v {1}#! vezes a do mundo. As economias de um povo rico formam um mercado mais profundo: a raiz quadrada disso, de #v x0.75#! a #v x1.5#!"
+}

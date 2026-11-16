@@ -78,9 +78,9 @@ MANIA_LINE = f"If it lasts, {MOVEMENTS} that favor {LF} will gain support."
 
 def loc():
     return (' spec_panic_movements: "Distrust of the Markets"\n'
-            f' spec_panic_movements_desc: "After the panic, many want the state to rein in the markets. {MOVEMENTS} against {LF} gain support. This fades over time."\n'
+            f' spec_panic_movements_desc: "After the panic, many have come to believe that the state must rein in the markets, and {MOVEMENTS} opposed to {LF} have gained support."\n'
             ' spec_mania_movements: "Faith in the Markets"\n'
-            f' spec_mania_movements_desc: "A long boom has convinced many that the markets are best left alone. {MOVEMENTS} that favor {LF} gain support. This fades over time."\n')
+            f' spec_mania_movements_desc: "A long boom has convinced many that the markets are best left alone, and {MOVEMENTS} that favor {LF} have gained support."\n')
 
 
 if __name__ == "__main__":

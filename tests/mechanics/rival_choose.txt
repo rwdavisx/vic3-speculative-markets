@@ -1,0 +1,63 @@
+namespace = spec_mechanics_rival_choose
+spec_mechanics_rival_choose.1 = { type = country_event hidden = yes immediate = {
+set_global_variable = { name = spec_rival_year days = 3650 }
+every_country = { limit = { OR = { this = c:GBR this = c:FRA this = c:PRU this = c:AUS } }
+save_scope_as = spec_t
+every_rival_country = { save_temporary_scope_as = spec_tx scope:spec_t = { remove_diplomatic_pact = { country = scope:spec_tx type = rivalry } } }
+every_rivaling_country = { remove_diplomatic_pact = { country = scope:spec_t type = rivalry } }
+clear_variable_list = spec_rv_chosen clear_variable_list = spec_rv_keep remove_variable = spec_rv_n_chosen
+remove_variable = spec_exch_known remove_variable = spec_pw_floor remove_variable = spec_pw_pockets remove_variable = spec_pw_price remove_variable = spec_pw_sound
+set_variable = { name = spec_exch_stand value = 1 } set_variable = { name = spec_centre_trust value = 60 }
+every_country = { limit = { NOT = { this = prev } OR = { this = c:GBR this = c:FRA this = c:PRU this = c:AUS } } set_relations = { country = prev value = 0 } }
+}
+every_country = { limit = { NOR = { this = c:GBR this = c:FRA this = c:PRU this = c:AUS } } remove_variable = spec_exch_stand remove_variable = spec_centre_score clear_variable_list = spec_rv_chosen }
+c:GBR = { set_variable = { name = spec_exch_stand value = 1 } set_variable = { name = spec_centre_score value = 100 } }
+c:FRA = { set_variable = { name = spec_exch_stand value = 1 } set_variable = { name = spec_centre_score value = 100 } }
+c:PRU = { set_variable = { name = spec_exch_stand value = 2 } set_variable = { name = spec_centre_score value = 100 } }
+c:AUS = { set_variable = { name = spec_exch_stand value = 3 } set_variable = { name = spec_centre_score value = 100 } }
+c:AUS = { save_scope_as = target }
+if = { limit = { NOT = { spec_can_rv_choose = yes } } debug_log = "HOTFIX PASS reach_blocks_two_standings_away" }
+else = { debug_log = "HOTFIX FAIL reach_blocks_two_standings_away" }
+c:PRU = { save_scope_as = target }
+if = { limit = { spec_can_rv_choose = yes } debug_log = "HOTFIX PASS reach_allows_one_standing_away" }
+else = { debug_log = "HOTFIX FAIL reach_allows_one_standing_away" }
+c:FRA = { save_scope_as = target }
+if = { limit = { spec_can_rv_choose = yes } debug_log = "HOTFIX PASS choose_allowed" }
+else = { debug_log = "HOTFIX FAIL choose_allowed" }
+spec_rv_choose = yes
+if = { limit = { c:GBR = { is_target_in_variable_list = { name = spec_rv_chosen target = c:FRA } } c:GBR = { var:spec_rv_n_chosen = 1 } spec_rv_pair = yes spec_rv_chose = yes } debug_log = "HOTFIX PASS choose_names_and_counts" }
+else = { debug_log = "HOTFIX FAIL choose_names_and_counts" }
+c:GBR = { save_scope_as = target }
+if = { limit = { c:FRA = { spec_rv_pair = yes spec_rv_chosen_by = yes spec_rv_chose = no } } debug_log = "HOTFIX PASS pair_seen_from_the_named_side" }
+else = { debug_log = "HOTFIX FAIL pair_seen_from_the_named_side" }
+c:PRU = { save_scope_as = target }
+if = { limit = { NOT = { spec_can_rv_choose = yes } } debug_log = "HOTFIX PASS one_slot_below_international" }
+else = { debug_log = "HOTFIX FAIL one_slot_below_international" }
+c:FRA = { save_scope_as = target }
+if = { limit = { NOT = { spec_can_rv_end = yes } } debug_log = "HOTFIX PASS kept_a_year" }
+else = { debug_log = "HOTFIX FAIL kept_a_year" }
+clear_variable_list = spec_rv_keep
+if = { limit = { spec_can_rv_end = yes } debug_log = "HOTFIX PASS may_drop_after_a_year" }
+else = { debug_log = "HOTFIX FAIL may_drop_after_a_year" }
+spec_rv_end = yes
+if = { limit = { NOT = { c:GBR = { is_target_in_variable_list = { name = spec_rv_chosen target = c:FRA } } } c:GBR = { var:spec_rv_n_chosen = 0 } NOT = { spec_rv_pair = yes } } debug_log = "HOTFIX PASS drop_removes_and_counts" }
+else = { debug_log = "HOTFIX FAIL drop_removes_and_counts" }
+c:GBR = { set_variable = { name = spec_exch_stand value = 2 } set_variable = { name = spec_centre_score value = 100 } }
+spec_rv_choose = yes
+c:PRU = { save_scope_as = target }
+if = { limit = { spec_can_rv_choose = yes } debug_log = "HOTFIX PASS two_slots_from_international" }
+else = { debug_log = "HOTFIX FAIL two_slots_from_international" }
+spec_rv_choose = yes
+c:AUS = { save_scope_as = target }
+if = { limit = { c:GBR = { var:spec_rv_n_chosen = 2 } NOT = { spec_can_rv_choose = yes } } debug_log = "HOTFIX PASS third_refused" }
+else = { debug_log = "HOTFIX FAIL third_refused" }
+c:AUS = { remove_variable = spec_exch_stand }
+if = { limit = { NOT = { spec_can_rv_choose = yes } } debug_log = "HOTFIX PASS no_exchange_refused" }
+else = { debug_log = "HOTFIX FAIL no_exchange_refused" }
+c:AUS = { set_variable = { name = spec_exch_stand value = 1 } set_variable = { name = spec_centre_score value = 100 } }
+c:AUS = { add_to_variable_list = { name = spec_rv_chosen target = c:GBR } }
+c:AUS = { save_scope_as = target }
+if = { limit = { spec_rv_pair = yes spec_rv_chosen_by = yes spec_rv_chose = no } debug_log = "HOTFIX PASS named_by_them_is_a_pair" }
+else = { debug_log = "HOTFIX FAIL named_by_them_is_a_pair" }
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

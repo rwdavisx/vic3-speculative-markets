@@ -27,5 +27,12 @@
   "ac29e01c37": "Nosso [concept_spec_outstanding_credit] aumenta em #N @money!{1}#!. Por {2} meses, #P {3}%#! da renda do [concept_investment_pool] deles vem para o nosso.",
   "07b5df73e3": "Pagamos #N {1}#! de influência por {2} meses. A [concept_spec_exchange] deles perde #N {3}%#! de credibilidade. #N {4}%#! de chance de ser descoberta: relações #N -{5}#!, nossa credibilidade #N -{6}%#!.",
   "ccb8988b99": "Pagamos @money!{1}. A [concept_spec_market_confidence] deles cai #N {2}#! em {3} meses, ou a nossa, se falhar.",
-  "88fc5fb67f": "Pagamos @money!{1}. Por {2} meses, toda ação rival contra nós tem metade do efeito."
+  "88fc5fb67f": "Pagamos @money!{1}. Por {2} meses, toda ação rival contra nós tem metade do efeito.",
+  "2fc56bb374": "#v Ataque baixista#! contra eles:",
+  "8884c841d8": "#v Atrair o capital deles#!:",
+  "88495b3249": "#v Campanha de imprensa#! contra eles:",
+  "ad0d4b9cff": "Fazemos o mesmo com eles, mesmo que o tenhamos feito este ano.",
+  "9270f6baab": "Nomeamos menos rivais do que podemos: #v {1}#!, ou #v {2}#! a partir da posição Internacional",
+  "8b7385944f": "Nós os nomeamos há mais de um ano",
+  "ca94f3322f": "Um de nós nomeou o outro como rival, e ambos os países têm uma [concept_spec_exchange]"
 }

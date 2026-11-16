@@ -754,7 +754,7 @@ def loc(k):
     pick = lambda a, key: f"[SelectLocalization({ge(a, 3)}, '{key}_3', SelectLocalization({ge(a, 2)}, '{key}_2', '{key}_1'))]"
     crash, glut = good_var("spec_ui_crash"), good_var("spec_glut")
     months = "".join(f' SPEC_IL_MONTHS_{s}: "#v {m}#! months"\n' for s, m in sorted(k["GLUT_MONTHS"].items()))
-    loses = "and where a [concept_company] makes it, its industry loses [concept_throughput]."
+    loses = "\\n[Concept('concept_company','$concept_companies$')] making it lose [concept_throughput]"
     # the tier names over the bar, plain: the tier icon is beside them
     tiers = "".join(f' SPEC_IL_TIER_{w}: "{WORDS[w].capitalize()}"\n' for w in range(1, 7))
     # each tier segment's tooltip, laid out as vanilla's interest tier tooltip (INTEREST_TIER_ACTIVE_TOOLTIP): the
@@ -767,14 +767,14 @@ def loc(k):
     levels = "".join(
         f' SPEC_IL_LEVEL_{w}_TT: "#header @spec_interest_{WORDS[w]}! {WORDS[w].capitalize()}#!'
         f"[AddLocalizationIf(EqualTo_CFixedPoint({WORD}, {fx(w)}), 'SPEC_IL_LEVEL_CURRENT')]"
-        f"\\nApplies while the price trend is {where[w]} against its long-run average"
-        f"\\nPrice trend now: #v [{TREND}|=+%1]#!"
+        f"\\nPrice trend {where[w]} against its long-run average"
+        f"\\nCurrent Price Trend: #v [{TREND}|=+%1]#!"
         f'\\n$TOOLTIP_DELIMITER$\\n#title Effects:#!\\n{effects[WORDS[w]]}{allows[w]}"\n'
         for w in range(1, 7))
-    levels += ' SPEC_IL_LEVEL_CURRENT: " #i #b Current level#!#! for [Goods.GetName]"\n'
+    levels += ' SPEC_IL_LEVEL_CURRENT: "\\n#P [Goods.GetName] is at this level#!"\n'
     return months + tiers + levels + (
         ' SPEC_IL_COL_GOODS: "Goods"\n'
-        ' SPEC_IL_EMPTY_FILTERS: "No goods match these filters"\n'
+        ' SPEC_IL_EMPTY_FILTERS: "No goods match the current filters"\n'
         ' SPEC_IL_WORD_CRASHED: "#N Boom Ended#!"\n'
         ' SPEC_IL_WORD_GLUT: "#n Recovering#!"\n'
         ' SPEC_IL_COL_INTEREST: "[concept_spec_investor_interest]"\n'
@@ -782,19 +782,18 @@ def loc(k):
         " SPEC_IL_SORT_GOODS_TT: \"#header Sort by Goods#!\\n$TOOLTIP_DELIMITER$\\nThe [Concept('concept_good','$concept_goods$')] traded in our "
         '[concept_market] in a fixed order: by category, then by name."\n'
         ' SPEC_IL_SORT_INTEREST_TT: "#header Sort by [concept_spec_investor_interest]#!\\n$TOOLTIP_DELIMITER$\\nHighest interest '
-        'first; within each level, the most traded first.\\n\\nThe marker shows the level, from @spec_interest_fleeing! '
-        '#v Fleeing#! to @spec_interest_feverish! #v Feverish#!. The arrow shows this month\'s change."\n'
+        'first, then the most traded\\n\\nThe marker shows the level, from @spec_interest_fleeing! '
+        '#v Fleeing#! to @spec_interest_feverish! #v Feverish#!, and the arrow this month\'s change"\n'
         f' SPEC_IL_SORT_LEVER_TT: "$SPEC_IL_SORT_LEVER_BASE_TT${"$SPEC_IL_ISSUE_FILTER$" if levers.ISSUE_ON else ""}"\n'
         ' SPEC_IL_ISSUE_FILTER: "\\n\\nRunning Great Issues are also shown."\n'
         ' SPEC_IL_SORT_LEVER_BASE_TT: "#header Show Interventions#!\\n$TOOLTIP_DELIMITER$\\nShows only goods with an '
-        '[concept_spec_intervention].\\n\\n$SPEC_COL_LEVER_TT$\\n\\n#instruction Click to filter; click again to show all#!"\n'
+        '[concept_spec_intervention]\\n\\n#instruction Click to show only these goods, click again to show all#!"\n'
         ' SPEC_IL_DANGER_TT: "#header Collapse Zone#!\\nIf [concept_spec_investor_interest] falls this far, its boom ends '
         f'in a [concept_spec_collapse], costing about #N [{RISK}|1]#! [concept_spec_market_confidence]."\n'
-        f' SPEC_IL_CRASHED_TT: "#header [Goods.GetName]: Boom Ended#!\\nIts boom ended this month in a {pick(crash, "SPEC_UNWIND_C")}. '
-        f'Investors now hold back for {pick(crash, "SPEC_IL_MONTHS")}, {loses}"\n'
-        f' SPEC_IL_GLUT_TT: "#header [Goods.GetName] Recovering#!\\nIts last boom ended in a {pick(glut, "SPEC_UNWIND_C")}. '
-        f'Investors hold back for {pick(glut, "SPEC_IL_MONTHS")} after it ends, keeping [concept_spec_investor_interest] at '
-        f'#v Doubtful#! or lower, {loses}"\n')
+        f' SPEC_IL_CRASHED_TT: "#header [Goods.GetName]: Boom Ended#!\\nEnded this month in a {pick(crash, "SPEC_UNWIND_C")}\\n'
+        f'Investors hold back for {pick(crash, "SPEC_IL_MONTHS")}{loses}"\n'
+        f' SPEC_IL_GLUT_TT: "#header [Goods.GetName] Recovering#!\\nLast boom ended in a {pick(glut, "SPEC_UNWIND_C")}\\n'
+        f'[concept_spec_investor_interest] held at #v Doubtful#! or lower for {pick(glut, "SPEC_IL_MONTHS")}{loses}"\n')
 
 
 def bindings(t):

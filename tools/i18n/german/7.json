@@ -27,5 +27,12 @@
   "ac29e01c37": "Unser [concept_spec_outstanding_credit] wächst um #N @money!{1}#!. Für {2} Monate fließen #P {3}%#! ihres Einkommens aus dem [concept_investment_pool] zu unserem.",
   "07b5df73e3": "Wir zahlen #N {1}#! Einfluss für {2} Monate. Ihre [concept_spec_exchange] verliert #N {3}%#! Vertrauen. #N {4}%#! Chance, dass sie auffliegt: Beziehungen #N -{5}#!, unser Vertrauen #N -{6}%#!.",
   "ccb8988b99": "Wir zahlen @money!{1}. Ihr [concept_spec_market_confidence] sinkt um #N {2}#! über {3} Monate, bei einem Fehlschlag stattdessen unseres.",
-  "88fc5fb67f": "Wir zahlen @money!{1}. Für {2} Monate hat jede Rivalenaktion gegen uns nur die halbe Wirkung."
+  "88fc5fb67f": "Wir zahlen @money!{1}. Für {2} Monate hat jede Rivalenaktion gegen uns nur die halbe Wirkung.",
+  "2fc56bb374": "#v Baisseangriff#! gegen sie:",
+  "8884c841d8": "#v Ihr Kapital abwerben#!:",
+  "88495b3249": "#v Pressekampagne#! gegen sie:",
+  "ad0d4b9cff": "Wir tun ihnen dasselbe an, auch wenn wir es dieses Jahr schon getan haben.",
+  "9270f6baab": "Wir benennen weniger Rivalen als erlaubt: #v {1}#!, oder #v {2}#! ab der Stellung International",
+  "8b7385944f": "Wir haben sie vor mehr als einem Jahr benannt",
+  "ca94f3322f": "Eine Seite hat die andere als Rivalen benannt, und beide Länder haben eine [concept_spec_exchange]"
 }

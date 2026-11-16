@@ -759,7 +759,7 @@ def alerts(k):
 
 spec_bubble_alert = {{
 	script_context = player_country
-	texture = "gfx/interface/icons/alert_icons/expensive_goods.dds"
+	texture = "{icons.path('excess_alert')}"
 
 	valid = {{
 		NOT = {{ has_variable = spec_panic }}
@@ -846,25 +846,25 @@ def loc(k):
     cap = "[JournalEntry.GetCountry.GetCapital.GetCityHubName]"
     stage = {
         6: f"The [concept_spec_long_depression] hangs over {cap}. Investors hoard what they have and lend to no one, and "
-           "each recovery so far has faltered within months. Its own journal entry tracks the world's recovery.\\n\\n"
-           "Relief Works put the unemployed to building and keep them fed while it lasts.",
+           "each recovery so far has faltered within months. The world's recovery is followed in a journal entry of its own.\\n\\n"
+           "Relief Works can put the unemployed to work and keep them fed while the slump lasts.",
         5: f"Panic has gripped {cap}. Depositors queue outside the banks from first light, loans are called in, and "
            f"[concept_private_construction] is halved for #v {var('spec_panic')}#! more months unless the government acts."
-           "\\n\\n#v Lend to the Banks#! ends it sooner and halves its effects. Relief Works put the unemployed to building "
+           "\\n\\n#v Lend to the Banks#! would end it sooner and halve its effects. Relief Works can put the unemployed to work "
            f"and keep them fed.[SelectLocalization({on('spec_currency_v')}, 'SPEC_JE_SUSPEND_HINT', 'SPEC_JE_NONE')]",
         4: f"The panic has passed, leaving failed houses and half-built works behind it. Investors are counting their "
            f"losses, and no new panic can start for #v {var('spec_panic_cooldown')}#! months."
            f"[SelectLocalization({on('spec_reform_open_v')}, 'SPEC_JE_INQUIRY_HINT', 'SPEC_JE_NONE')]",
         3: f"The exchange in {cap} has gone mad. Clerks and widows buy shares in {top} with borrowed money, and every "
-           f"month that {mc} stands at #v [{sv('spec_heat_from')}|0]#! or more adds to the {excess}. When {mc} falls below #v {k['BURST_BELOW']}#! the "
-           "bubble bursts, and the higher the excess, the harder the fall.\\n\\nRestraining speculation in the hottest "
-           "goods, or tightening credit, lets the air out slowly.",
+           f"month that {mc} stands at #v [{sv('spec_heat_from')}|0]#! or more adds to the {excess}. When $concept_spec_market_confidence$ falls below #v {k['BURST_BELOW']}#! the "
+           "bubble bursts, and the greater the excess, the harder the fall.\\n\\nRestraining speculation in the hottest "
+           "goods, or tightening credit, would let the air out slowly.",
         2: f"Money is easy and investors are buoyant. New companies in {top} are oversubscribed within the hour, and the "
            f"banks lend freely against their shares. With {mc} at #v [{sv('spec_heat_from')}|0]#! or more, the {excess} starts to build."
-           "\\n\\nGood times are also the moment to convert the national debt to a lower rate.",
+           "\\n\\nGood times are also the moment to convert our national debt to a lower rate.",
         1: f"Trade on the exchange in {cap} is orderly. Investors favor {top} and shun {low}.",
         0: f"Investors in {cap} are wary. Burned by recent losses, they keep their money close and shun {low}. Loose "
-           "credit, or encouraging investment in a good, can coax them back.",
+           "credit, or encouragement to invest in a good, may coax them back.",
     }
     ig_tt = lambda key: next(f"{n:+d}" for k2, _, n, _ in IG_MODIFIERS if k2 == key)
     # the map's tooltip: the stage's short name, by the same chain as the entry's text, on the state's owner
@@ -877,7 +877,7 @@ def loc(k):
         **{f"SPEC_MAP_STAGE_{n}": t for n, t in MAP_STAGES.items()},
         "je_spec_markets": "Financial Markets",
         "je_spec_markets_reason": f"[{chain}]\\n\\n#bold [concept_spec_banking_reforms]:#! [SelectLocalization({on('spec_reform_count')}, 'SPEC_JE_NONE', 'SPEC_JE_INST_NONE')]{inst}"
-                                  "\\n\\nThe #bold $SPEC_FINANCE$#! window shows the details.",
+                                  "\\n\\nThe details are shown in the #bold $SPEC_FINANCE$#! window.",
         **{f"SPEC_JE_STAGE_{n}": t for n, t in stage.items()},
         **{f"spec_je_status_{key}": f"{t}{stance}" for key, t in status.items()},
         "SPEC_JE_BAD_DEBTS": f", [concept_spec_bad_debts] #N -[{G}('spec_crunch_tp_pct')|1]%#! for #v [{G}('spec_crunch_months')|0]#! months",
@@ -896,7 +896,7 @@ def loc(k):
         "SPEC_JE_INST_COMPANY": "\\n#bold Company Law:#! smaller losses when booms end",
         "spec_excess_bar": "Speculative Excess",
         "concept_spec_speculative_excess": "Speculative Excess",
-        "concept_spec_speculative_excess_desc": f"$concept_spec_speculative_excess$ measures the bubble building in a [concept_country]'s [concept_market] during a boom. Once {tech('stock_exchange')} has been researched, it grows in each month that [concept_spec_market_confidence] is at #v [{G}('spec_heat_from')|0]#! or more, and grows faster the higher $concept_spec_market_confidence$ climbs. While $concept_spec_market_confidence$ stays between #v {k['BURST_BELOW']}#! and #v [{G}('spec_heat_from')|0]#!, it cools by #v {1 - k['HEAT_COOL']:.0%}#! per month.\\n\\nWhen $concept_spec_market_confidence$ falls below #v {k['BURST_BELOW']}#!, the bubble bursts and $concept_spec_market_confidence$ falls further, by up to #v [{G}('spec_burst_max')|0]#!. The higher the $concept_spec_speculative_excess$, the harder the fall.",
+        "concept_spec_speculative_excess_desc": f"$concept_spec_speculative_excess$ measures the bubble building in a [concept_country]'s [concept_market] during a boom. Once {tech('stock_exchange')} has been researched, it grows in each month that [concept_spec_market_confidence] is at #v [{G}('spec_heat_from')|0]#! or more, and grows faster the higher $concept_spec_market_confidence$ climbs. While $concept_spec_market_confidence$ stays between #v {k['BURST_BELOW']}#! and #v [{G}('spec_heat_from')|0]#!, it slowly cools.\\n\\nWhen $concept_spec_market_confidence$ falls below #v {k['BURST_BELOW']}#!, the bubble bursts and $concept_spec_market_confidence$ falls further, by up to #v [{G}('spec_burst_max')|0]#!. The higher the $concept_spec_speculative_excess$, the harder the fall.",
         "concept_spec_sound_finance": "Sound Finance",
         "concept_spec_sound_finance_desc": f"$concept_spec_sound_finance$ is achieved by enacting all three [concept_spec_banking_reforms]: Banknote Rules, a Lender of Last Resort and Company Law.\\n\\nOnce all three are enacted, the [concept_country] gains #v {SOUND_PRESTIGE}#! [concept_prestige] and pays #v {-SOUND_RATE:.0%}#! less interest on its [concept_loans].",
         "concept_spec_banking_reforms": "Banking Reforms",
@@ -905,22 +905,22 @@ def loc(k):
         "alert_spec_panic_risk_alert_name": "Panic Risk",
         "spec_panic_risk_alert_setting_name": "Panic Risk",
         "alert_spec_panic_risk_alert_desc": f"If our booms ended now, {mc} would fall to #N [{G}('spec_after_collapse')|0]#!, below the #v {f"[{G}('spec_panic_at')|0]" if leverage.ON else k['PANIC']}#! where a {fp} begins.",
-        "alert_spec_panic_risk_alert_hint": "Restrain Speculation in the goods most at risk, or tighten [concept_spec_credit_policy] in the #bold $SPEC_FIN_TAB_BANKING$#! tab of the #bold $SPEC_FINANCE$#! window.",
+        "alert_spec_panic_risk_alert_hint": "You can Restrain Speculation in the goods most at risk, or tighten [concept_spec_credit_policy], in the #bold $SPEC_FIN_TAB_BANKING$#! tab of the #bold $SPEC_FINANCE$#! window.",
         "alert_spec_panic_risk_alert_action": "Journal",
         "alert_spec_bubble_alert_name": "Speculative Excess",
         "spec_bubble_alert_setting_name": "Speculative Excess",
-        "alert_spec_bubble_alert_desc": f"Our {excess} stands at #v [GetPlayer.MakeScope.Var('spec_heat').GetValue|0]#!. When {mc} falls back below #v {k['BURST_BELOW']}#!, the bubble bursts and {mc} falls a further #N [{G}('spec_burst_now')|0]#!.",
-        "alert_spec_bubble_alert_hint": f"The bubble grows each month {mc} is at #v [{G}('spec_heat_from')|0]#! or more, and cools while it stays between #v {k['BURST_BELOW']}#! and that. Restraining booming goods or tightening [concept_spec_credit_policy] brings it down gently.",
+        "alert_spec_bubble_alert_desc": f"Our {excess} stands at #v [GetPlayer.MakeScope.Var('spec_heat').GetValue|0]#!. When {mc} falls back below #v {k['BURST_BELOW']}#!, the bubble will burst and $concept_spec_market_confidence$ will fall a further #N [{G}('spec_burst_now')|0]#!.",
+        "alert_spec_bubble_alert_hint": f"You can let the bubble down gently by restraining the booming goods or tightening [concept_spec_credit_policy]. It grows each month that {mc} is at #v [{G}('spec_heat_from')|0]#! or more, and cools while it stays between #v {k['BURST_BELOW']}#! and that.",
         "alert_spec_bubble_alert_action": "Journal",
         "alert_spec_rescue_alert_name": "Bank Rescue Available",
         "spec_rescue_alert_setting_name": "Bank Rescue Available",
         "alert_spec_rescue_alert_desc": f"A {fp} is under way and we have not yet lent to the banks.",
-        "alert_spec_rescue_alert_hint": f"#v Lend to the Banks#! shortens the panic, halves its effects and raises {mc} by #P +{k['RESCUE_CONF']}#!. Once per panic, from the #bold $SPEC_FIN_TAB_BANKING$#! tab of the #bold $SPEC_FINANCE$#! window.",
+        "alert_spec_rescue_alert_hint": f"You can #v Lend to the Banks#! once per panic from the #bold $SPEC_FIN_TAB_BANKING$#! tab of the #bold $SPEC_FINANCE$#! window. This shortens the panic, halves its effects and raises {mc} by #P +{k['RESCUE_CONF']}#!.",
         "alert_spec_rescue_alert_action": "Journal",
         "alert_spec_bailout_alert_name": "Buy Up Bad Loans Available",
         "spec_bailout_alert_setting_name": "Buy Up Bad Loans Available",
-        "alert_spec_bailout_alert_desc": "[concept_spec_bad_debts] are holding back [concept_throughput] and investment, and the state has not yet bought up bad loans.",
-        "alert_spec_bailout_alert_hint": f"#v Buy Up Bad Loans#! halves the remaining [concept_spec_bad_debts] for #v @money![{G}('spec_bailout_cost')|D]#!, once while they last, from the #bold $SPEC_FIN_TAB_BANKING$#! tab of the #bold $SPEC_FINANCE$#! window.",
+        "alert_spec_bailout_alert_desc": "[concept_spec_bad_debts] are holding back [concept_throughput] and investment, and we have not yet bought up the bad loans.",
+        "alert_spec_bailout_alert_hint": f"You can #v Buy Up Bad Loans#! once while they last, from the #bold $SPEC_FIN_TAB_BANKING$#! tab of the #bold $SPEC_FINANCE$#! window. This halves the remaining [concept_spec_bad_debts] for #v @money![{G}('spec_bailout_cost')|D]#!.",
         "alert_spec_bailout_alert_action": "Journal",
         "spec_excess_bar_desc": f"[SelectLocalization({on('spec_has_stock_exchange')}, 'SPEC_EXCESS_ON', 'SPEC_EXCESS_OFF')]",
         "SPEC_EXCESS_ON": f"{excess}: #v [JournalEntry.GetCurrentBarValue(ScriptedProgressBar.Self)|0]#![SelectLocalization({on('spec_burst_now')}, 'SPEC_EXCESS_COST', 'SPEC_JE_NONE')]",
@@ -947,11 +947,11 @@ def loc(k):
                            + ("\\n[concept_spec_lending_standards] loosen, as after a Bank Rescue" if cycle.ON else ""),
         "spec_suspend_act": "Suspend the Bank Act",
         "spec_suspend_act_desc": "Let the bank lend beyond the limit the Act sets on its notes. The panic subsides within months at no "
-                                 "cost to the treasury, but investors learn that the government will always step in. Counts as "
-                                 "#v Lend to the Banks#! for this panic.\\n\\n#lore Britain suspended its Bank Charter Act in 1847, 1857 and 1866.#!",
+                                 "cost to the treasury, but investors learn that the government will always step in. This counts as "
+                                 "#v Lend to the Banks#! for the current panic.\\n\\n#lore Britain suspended its Bank Charter Act in 1847, 1857 and 1866.#!",
         "spec_relief_works_button": "Relief Works",
-        "spec_relief_works_button_desc": "Pay for public works and relief while the slump lasts: welfare, more construction and "
-                                         f"fewer radicals for #v {RELIEF_MONTHS}#! months, at a weekly cost that grows with our [concept_gdp].",
+        "spec_relief_works_button_desc": "Pay for public works and relief while the slump lasts, raising welfare and construction and drawing "
+                                         f"support away from the radicals for #v {RELIEF_MONTHS}#! months. The weekly cost grows with our [concept_gdp].",
         "spec_convert_debt": "Convert the National Debt",
         "spec_convert_debt_desc": "While investors are buoyant, swap our loans for new ones at a lower rate. Bondholders who lived "
                                   "on the old interest will not thank us.",
@@ -960,17 +960,17 @@ def loc(k):
                              f"companies should be run. Its report enacts one [Concept('concept_spec_banking_reforms','$concept_spec_banking_reform$')] our technology allows. "
                              f"Its sittings take up the government's attention for #v {INQUIRY_MONTHS}#! months.",
         "spec_debt_converted": "Converted Debt",
-        "spec_debt_converted_desc": "Loans converted to a lower rate while investors were eager to lend",
+        "spec_debt_converted_desc": "Our loans were converted to a lower rate while investors were eager to lend.",
         "spec_relief_works": "Relief Works",
-        "spec_relief_works_desc": "Public works and relief for those the slump has thrown out of work",
+        "spec_relief_works_desc": "Public works and relief are provided for those the slump has thrown out of work.",
         "spec_relief_costs": "Relief Works Costs",
-        "spec_relief_costs_desc": "The cost of the Relief Works",
+        "spec_relief_costs_desc": "The treasury bears the cost of public works and relief.",
         "spec_act_suspended": "Bank Act Suspended",
-        "spec_act_suspended_desc": "The government set aside its own law to end a panic",
+        "spec_act_suspended_desc": "The government has set aside its own law to end a panic.",
         "spec_inquiry_sitting": "Commission of Inquiry",
-        "spec_inquiry_sitting_desc": "A commission is hearing evidence on the last panic",
+        "spec_inquiry_sitting_desc": "A commission is hearing evidence on the conduct of our banks and companies.",
         "spec_sound_finance": "Sound Finance",
-        "spec_sound_finance_desc": "Currency, banks and companies run by rules investors trust",
+        "spec_sound_finance_desc": "Our currency, banks and companies are run by rules that investors trust.",
         **{key: name for key, _, _, name in IG_MODIFIERS},
         "spec_reform_currency_tt": f"Banks lend #v {1 - REFORMS['currency']['credit']:.0%}#! less, the {excess} builds "
                                    f"#v {1 - REFORMS['currency']['heat']:.0%}#! slower, and [Concept('concept_spec_financial_panic','$concept_spec_financial_panics$')] last #v {REFORMS['currency']['panic_len'] - 1:.0%}#! longer\\n"
@@ -996,7 +996,7 @@ def loc(k):
         "spec_reform.2.t": "Sound Finance",
         "spec_reform.2.d": "Our banks issue their notes by rule, a lender stands ready when panic strikes, and our companies must "
                            "show investors what they own and what they owe. Abroad, our bonds now sell at a premium, and "
-                           "[ROOT.GetCountry.GetCapital.GetCityHubName] is spoken of as a safe harbour for capital.",
+                           "[ROOT.GetCountry.GetCapital.GetCityHubName] is spoken of as a safe harbor for capital.",
         "spec_reform.2.f": "\"A banker's first duty is not to make money but to keep it.\"",
         "spec_reform.2.a": "Confidence is the foundation of credit.",
     }

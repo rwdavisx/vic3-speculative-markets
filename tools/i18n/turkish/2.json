@@ -113,5 +113,6 @@
   "3ecd7db822": "\\n{1}{2}#!#! kaynak: $SPEC_DRIVER_RIVAL$",
   "7ac3228a98": "Rekabetler",
   "eafcab7a35": "Rakibimiz: #v {1}#!, bizi rakip sayan: #v {2}#!",
-  "5c775ad815": "#header Rekabetler#!\\n$SPEC_RIVAL_RULE$"
+  "5c775ad815": "#header Rekabetler#!\\n$SPEC_RIVAL_RULE$",
+  "7be1025162": "Belirlenen: #v {1}#!/#v {2}#!, bizi belirleyen: #v {3}#!"
 }

@@ -1,0 +1,5 @@
+{
+ "e511e7bbe9": "#header 세계 중심#!\\n투자자 반응: #v +{1}%#!\\n{3}에 들지 못했을 때 [concept_prestige]: #P +{2}%#!\\n[concept_spec_capital_flight] 유입: #P x2#!\\n$TOOLTIP_DELIMITER$\\n#v 세계 중심#! 위상 조건: {5} 보유 시 {4} 1위",
+ "72c56f3541": "#header 자본#!\\n$TOOLTIP_DELIMITER$\\n점수는 우리 [concept_spec_exchange]가 끌어 쓰는 자본에서 출발하며, 그 네제곱근에 비례해 늘어납니다. 자본이 열여섯 배가 되면 점수는 두 배가 됩니다.\\n\\n자국: #v @money!{1}#!, 지난 한 해 동안 평균한 [concept_investment_pool] 수입 여섯 달 치\\n연계국: #v @money!{2}#!, 우리 [concept_market]에 속하거나, 우리 {3}이거나, 우리 [concept_power_bloc]에 속하거나, 우리에게 [concept_foreign_investment] 권리를 준 더 작은 각 [concept_country] 자본의 사분의 일. 최대 자국 자본만큼",
+ "0736a70713": "#header 1인당 부#!\\n$TOOLTIP_DELIMITER$\\n우리의 1인당 [concept_investment_pool] 수입은 세계 평균의 #v {1}#!배입니다. 부유한 국민의 저축은 시장을 더 깊게 만듭니다. 그 제곱근을 적용하며, 범위는 #v x0.75#!~#v x1.5#!입니다"
+}

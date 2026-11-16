@@ -1,0 +1,40 @@
+namespace = spec_mechanics_rival_ai_pick
+spec_mechanics_rival_ai_pick.1 = { type = country_event hidden = yes immediate = {
+set_global_variable = { name = spec_rival_year days = 3650 }
+every_country = { limit = { OR = { this = c:GBR this = c:FRA this = c:PRU this = c:AUS this = c:RUS } }
+save_scope_as = spec_t
+every_rival_country = { save_temporary_scope_as = spec_tx scope:spec_t = { remove_diplomatic_pact = { country = scope:spec_tx type = rivalry } } }
+every_rivaling_country = { remove_diplomatic_pact = { country = scope:spec_t type = rivalry } }
+clear_variable_list = spec_rv_chosen clear_variable_list = spec_rv_keep remove_variable = spec_rv_n_chosen
+remove_variable = spec_exch_known remove_variable = spec_pw_floor remove_variable = spec_pw_pockets remove_variable = spec_pw_price remove_variable = spec_pw_sound
+set_variable = { name = spec_exch_stand value = 1 } set_variable = { name = spec_centre_trust value = 60 }
+every_country = { limit = { NOT = { this = prev } OR = { this = c:GBR this = c:FRA this = c:PRU this = c:AUS this = c:RUS } } set_relations = { country = prev value = 0 } }
+}
+every_country = { limit = { NOR = { this = c:GBR this = c:FRA this = c:PRU this = c:AUS this = c:RUS } } remove_variable = spec_exch_stand remove_variable = spec_centre_score clear_variable_list = spec_rv_chosen }
+c:GBR = { set_variable = { name = spec_exch_stand value = 2 } set_variable = { name = spec_centre_score value = 300 } }
+c:FRA = { set_variable = { name = spec_exch_stand value = 2 } set_variable = { name = spec_centre_score value = 200 } }
+c:PRU = { set_variable = { name = spec_exch_stand value = 1 } set_variable = { name = spec_centre_score value = 150 } }
+c:AUS = { set_variable = { name = spec_exch_stand value = 1 } set_variable = { name = spec_centre_score value = 100 } }
+c:RUS = { set_variable = { name = spec_exch_stand value = 0 } set_variable = { name = spec_centre_score value = 50 } }
+spec_rv_ai_pick = yes
+if = { limit = { c:AUS = { is_target_in_variable_list = { name = spec_rv_chosen target = c:PRU } } c:AUS = { var:spec_rv_n_chosen = 1 } c:PRU = { is_target_in_variable_list = { name = spec_rv_chosen target = c:FRA } } c:PRU = { var:spec_rv_n_chosen = 1 } } debug_log = "HOTFIX PASS names_nearest_above" }
+else = { debug_log = "HOTFIX FAIL names_nearest_above" }
+if = { limit = { c:FRA = { is_target_in_variable_list = { name = spec_rv_chosen target = c:GBR } } c:FRA = { is_target_in_variable_list = { name = spec_rv_chosen target = c:PRU } } c:FRA = { var:spec_rv_n_chosen = 2 } } debug_log = "HOTFIX PASS international_names_two" }
+else = { debug_log = "HOTFIX FAIL international_names_two" }
+if = { limit = { c:GBR = { is_target_in_variable_list = { name = spec_rv_chosen target = c:FRA } } c:GBR = { is_target_in_variable_list = { name = spec_rv_chosen target = c:PRU } } c:GBR = { var:spec_rv_n_chosen = 2 } } debug_log = "HOTFIX PASS leader_names_nearest_below" }
+else = { debug_log = "HOTFIX FAIL leader_names_nearest_below" }
+if = { limit = { c:RUS = { is_target_in_variable_list = { name = spec_rv_chosen target = c:AUS } } c:RUS = { var:spec_rv_n_chosen = 1 } NOT = { c:RUS = { is_target_in_variable_list = { name = spec_rv_chosen target = c:FRA } } } } debug_log = "HOTFIX PASS reach_respected" }
+else = { debug_log = "HOTFIX FAIL reach_respected" }
+spec_rv_ai_pick = yes
+if = { limit = { c:AUS = { var:spec_rv_n_chosen = 1 } c:PRU = { var:spec_rv_n_chosen = 1 } c:FRA = { var:spec_rv_n_chosen = 2 } c:GBR = { var:spec_rv_n_chosen = 2 } c:RUS = { var:spec_rv_n_chosen = 1 } } debug_log = "HOTFIX PASS repeat_pick_changes_nothing" }
+else = { debug_log = "HOTFIX FAIL repeat_pick_changes_nothing" }
+c:PRU = { set_variable = { name = spec_exch_stand value = 3 } set_variable = { name = spec_centre_score value = 150 } }
+spec_rv_ai_pick = yes
+if = { limit = { NOT = { c:AUS = { is_target_in_variable_list = { name = spec_rv_chosen target = c:PRU } } } c:AUS = { is_target_in_variable_list = { name = spec_rv_chosen target = c:FRA } } c:AUS = { var:spec_rv_n_chosen = 1 } } debug_log = "HOTFIX PASS out_of_reach_dropped_and_replaced" }
+else = { debug_log = "HOTFIX FAIL out_of_reach_dropped_and_replaced" }
+c:FRA = { remove_variable = spec_exch_stand remove_variable = spec_centre_score }
+spec_rv_ai_pick = yes
+if = { limit = { NOT = { c:GBR = { is_target_in_variable_list = { name = spec_rv_chosen target = c:FRA } } } NOT = { c:AUS = { is_target_in_variable_list = { name = spec_rv_chosen target = c:FRA } } } } debug_log = "HOTFIX PASS no_exchange_dropped" }
+else = { debug_log = "HOTFIX FAIL no_exchange_dropped" }
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

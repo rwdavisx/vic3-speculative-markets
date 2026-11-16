@@ -113,5 +113,6 @@
   "3ecd7db822": "\\n{1}{2}#!#! ($SPEC_DRIVER_RIVAL$)",
   "7ac3228a98": "Rivalités",
   "eafcab7a35": "Nous rivalisons avec #v {1}#!, rivaux de #v {2}#!",
-  "5c775ad815": "#header Rivalités#!\\n$SPEC_RIVAL_RULE$"
+  "5c775ad815": "#header Rivalités#!\\n$SPEC_RIVAL_RULE$",
+  "7be1025162": "Désignées : #v {1}#! sur #v {2}#!, nous désignent : #v {3}#!"
 }

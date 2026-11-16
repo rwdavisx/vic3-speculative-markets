@@ -91,7 +91,8 @@ WAR_JUMP = """spec_war_jump = {
 # rival Exchanges (centres.RIVAL_ON): a rival on either side takes the fleeing money first, and more of it.
 # centres imports market_tab, which imports this module, so its switch is read at build time
 RIVALS = ("AND = { has_variable = spec_exch_stand root = { has_variable = spec_exch_stand } "
-          "OR = { any_rival_country = { this = root } any_rivaling_country = { this = root } } }")
+          "OR = { is_target_in_variable_list = { name = spec_rv_chosen target = root } "
+          "root = { is_target_in_variable_list = { name = spec_rv_chosen target = prev } } } }")
 
 
 def effects(rival):

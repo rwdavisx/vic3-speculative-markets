@@ -113,5 +113,6 @@
   "3ecd7db822": "\\n$SPEC_DRIVER_RIVAL$에서: {1}{2}#!#!",
   "7ac3228a98": "경쟁 구도",
   "eafcab7a35": "우리가 선언 #v {1}#!, 상대가 선언 #v {2}#!",
-  "5c775ad815": "#header 경쟁 구도#!\\n$SPEC_RIVAL_RULE$"
+  "5c775ad815": "#header 경쟁 구도#!\\n$SPEC_RIVAL_RULE$",
+  "7be1025162": "지명 #v {1}#!/#v {2}#!, 피지명 #v {3}#!"
 }

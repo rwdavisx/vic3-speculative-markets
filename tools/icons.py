@@ -1,9 +1,10 @@
 """The mod's own icons. Codex paints each one into art/raw/<name>.png; build() trims, squares and resizes it into a
 DDS in the mod. A slot without art yet falls back to the vanilla icon it replaces (or to nothing), so the mod
 always builds and each icon switches over as soon as its painting exists."""
+import re
 from pathlib import Path
 
-from PIL import Image, ImageDraw, ImageEnhance, ImageFont
+from PIL import Image, ImageDraw, ImageEnhance, ImageFont, ImageOps
 
 ART = Path(__file__).resolve().parent.parent / "art" / "raw"
 DIR = "gfx/interface/icons/spec_markets"
@@ -93,6 +94,9 @@ SLOTS.update({f"name_{k}": (128, f"{V}/{fb}.dds", d) for k, fb, d in [
     ("sound", "invention_icons/investment_banks", "an open ledger with a quill and a neat stack of gold coins"),
     ("pockets", "invention_icons/mutual_funds", "a fat leather money bag with gold coins spilling out"),
     ("door", "generic_icons/diplomatic_treaties", "a rolled treaty with ribbon and seal before a half-open door"),
+    ("futures", "building_icons/wheat_farm", "a sheaf of golden wheat bound with a paper futures contract and wax seal"),
+    ("lender", "invention_icons/central_banking", "a bound government bond with a foreign crest beside a stack of gold coins"),
+    ("railway", "invention_icons/railways", "a steam locomotive bursting through a share certificate"),
 ]})
 
 
@@ -102,13 +106,62 @@ def has(name):
 
 def path(name):
     """Texture path for a slot: the mod's own icon once painted, else its vanilla fallback (None means no icon)."""
-    return f"{DIR}/{name}.dds" if has(name) else SLOTS[name][1]
+    return f"{DIR}/{name}.dds" if has(name) else (SLOTS[name][1] if name in SLOTS else None)
 
 
 # a blue chip company (companies.BLUE_*): its badge on the Companies rows, and @spec_blue_chip! in text
 SLOTS["blue_chip"] = (64, f"{V}/company_charter_icons/investment_charter.dds",
                       "a round deep blue enamel medal with a polished gold rim and a small gold five-pointed star in its "
                       "centre, hanging from a short deep blue silk ribbon" + _OUTLINE)
+
+# the Speculative Excess alert (journal.spec_bubble_alert), replacing vanilla's expensive goods
+SLOTS["excess_alert"] = (100, f"{V}/alert_icons/expensive_goods.dds",
+                         "a large iridescent soap bubble swelling up out of a heap of share certificates and gold coins, "
+                         "a thin bright crack running across its skin as it is about to burst" + _OUTLINE)
+# Rival Exchanges (rivals.py): the action cards, the two parts' headers
+SLOTS.update({f"rival_{k}": (96, f"{V}/{fb}.dds", d + _OUTLINE) for k, fb, d in [
+    ("raid", "generic_icons/down_down", "a heavy dark bronze bear paw pressing a share certificate down, gold coins scattering from under it"),
+    ("lure", "timed_modifier_icons/modifier_coins_positive", "a red and steel horseshoe magnet pulling a stream of gold coins out of a tipped leather purse"),
+    ("press", "timed_modifier_icons/modifier_newspaper_negative", "a folded broadsheet newspaper with blank grey columns, a quill pen and a spilled ink pot on it"),
+    ("shore", "generic_icons/map_list_lock", "a stout wall of timber posts and sandbags standing in front of a neat stack of gold coins"),
+    ("hold", "lens_toolbar_icons/rivalry", "a gloved fist gripping a thick taut hemp rope, as in a tug of war, a gold coin tied into the rope beside it"),
+    ("out", "lens_toolbar_icons/rivalry", "a gentleman's slim duelling sword pointing right across a single gold coin"),
+    ("in", "lens_toolbar_icons/rivalry", "a round dented iron shield with a deep red stripe, a broken arrow glancing off it"),
+]})
+# event pictures (stories): the left of vanilla's 620x600 event image, at twice that, opaque, fading out on the right
+PICTURES = {"picture_rival": "two rival stockbrokers in top hats and frock coats glaring at each other across a crowded "
+                             "19th century trading floor, torn share certificates and ticker tape in the air between them"}
+PICTURE_SIZE = (1240, 1200)
+GAME_GFX = "G:/SteamLibrary/steamapps/common/Victoria 3/game/"
+RIVALRY = f"{DIR}/rival_out.dds"  # the painted "we rival" icon (SLOTS rival_out)
+RIVALRY_OFF = f"{DIR}/rival_out_off.dds"
+# the mod's concepts without an icon of their own (concepts.CONCEPTS): one painted object each, shown on the concept's
+# tooltip and as @spec_<concept>! before its name, as vanilla's @aut! Authority
+SLOTS.update({f"concept_{c}": (128, f"{V}/{fb}.dds", d + _OUTLINE) for c, fb, d in [
+    ("credit_policy", "invention_icons/central_banking", "a large brass valve wheel on a short iron pipe, a thin trickle of gold coins falling from its spout"),
+    ("outstanding_credit", "invention_icons/banking", "a long paper loan ledger unrolling from a brass spindle, a quill pen resting across it"),
+    ("long_depression", "event_icons/event_trade", "a cold idle brick factory with smokeless chimneys behind a chained and padlocked iron gate, grey muted tones"),
+    ("sound_finance", "invention_icons/investment_banks", "a solid granite classical column standing on three stacked gold ingots"),
+    ("banking_reforms", "generic_icons/diplomatic_treaties", "a thick bound parliamentary report tied with a red ribbon, a quill and brass inkwell beside it"),
+    ("intervention", "invention_icons/central_banking", "a gloved hand steadying a brass balance scale that holds a few gold coins"),
+    ("market_conditions", "invention_icons/international_exchange_standards", "a round brass barometer with a cream dial and a black needle"),
+    ("baseline", "invention_icons/investment_banks", "a brass and wood spirit level lying perfectly level on a short stack of gold coins"),
+    ("market_mood", "invention_icons/stock_exchanges", "a brass weathervane with an arrow turning on top of a small copper cupola"),
+    ("market_tie", "generic_icons/diplomatic_treaties", "two large gold coins linked together by a short heavy iron chain"),
+    ("capital_flight", "invention_icons/mutual_funds", "a leather money bag with small white feathered wings flying away, a few coins falling from it"),
+    ("war_news", "event_icons/event_trade", "a folded newspaper with blank grey columns beside a brass field telescope and a small cannon ball"),
+    ("financial_centre", "building_icons/building_trade_center", "a small domed classical exchange building inside a gilded laurel wreath"),
+    ("company_strength", "invention_icons/stock_exchanges", "an iron-bound oak strongbox with a brass company seal on its lid, share certificates tucked under it"),
+    ("leverage", "invention_icons/banking", "a wooden lever on a brass fulcrum lifting a heavy stack of gold coins"),
+    ("bad_debts", "timed_modifier_icons/modifier_coins_negative", "a heap of torn loan bills spilling from an open ledger, the whole object tinted dull red"),
+    ("lending_standards", "invention_icons/investment_banks", "a banker's brass magnifying glass held over a loan bill with a red seal"),
+    ("exchange", "invention_icons/stock_exchanges", "the columned front of a small classical stock exchange with a pediment and a flag on its roof"),
+]})
+# every concept's icon, painted or reused (concepts.CONCEPTS takes its texture from here)
+CONCEPT_ICON = {"market_confidence": "je_markets", "speculative_mania": "state_mania", "financial_panic": "state_panic",
+                "foreign_panic": "driver_foreign", "boom_end": "driver_crash", "correction": "ending_1", "bust": "ending_2",
+                "collapse": "ending_3", "investor_interest": "driver_boom", "speculative_excess": "crash_risk",
+                "blue_chip": "blue_chip", **{n[8:]: n for n in SLOTS if n.startswith("concept_")}}
 
 TEXT_ICONS = [n for n in SLOTS if n.startswith(("interest_", "ending_", "blue_"))]  # in loc as @spec_<name>!
 
@@ -118,13 +171,13 @@ def texticons():
     return "".join(f"""texticon = {{
 	icon = spec_{n}
 	iconsize = {{
-		texture = "{path(n)}"
+		texture = "{path(slot)}"
 		size = {{ 22 22 }}
 		offset = {{ 0 6 }}
 		fontsize = 18
 	}}
 }}
-""" for n in TEXT_ICONS)
+""" for n, slot in [(n, n) for n in TEXT_ICONS] + [(c, n) for c, n in CONCEPT_ICON.items() if c not in TEXT_ICONS])
 
 
 # vanilla icons measured on opaque pixels (60 icons: inventions, goods, events, modifiers, buildings): mean saturation
@@ -214,7 +267,68 @@ def build(mod):
         dest.parent.mkdir(parents=True, exist_ok=True)
         canvas.resize((size, size), Image.LANCZOS).save(dest)
         out.append(name)
+    # the rivalry button's off state: a silhouette of our "we rival" icon, as vanilla's subsidized_not (its colour and
+    # teal), so the toggle reads off-but-clickable as the subsidize button does. Our icon is a round shield, whose flat
+    # silhouette is a plain disc, so it keeps its own light and shade, tinted teal
+    src = Image.open(mod / RIVALRY).convert("RGBA")
+    grey = ImageOps.colorize(ImageOps.autocontrast(src.convert("L"), cutoff=2), (20, 40, 40), (130, 200, 200)).convert("RGBA")
+    grey.putalpha(src.getchannel("A").point(lambda v: round(v * 0.8)))
+    (mod / RIVALRY_OFF).parent.mkdir(parents=True, exist_ok=True)
+    grey.save(mod / RIVALRY_OFF)
+    out.append("rival_out_off")  # generate keeps only files it was told about
+    for name in PICTURES:
+        if not has(name):
+            continue
+        im = Image.open(ART / f"{name}.png").convert("RGB")
+        w, h = PICTURE_SIZE  # fill, cropping the overhang evenly
+        k = max(w / im.width, h / im.height)
+        im = im.resize((round(im.width * k), round(im.height * k)), Image.LANCZOS)
+        x, y = (im.width - w) // 2, (im.height - h) // 2
+        dest = mod / DIR / f"{name}.dds"
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        im.crop((x, y, x + w, y + h)).save(dest)
+        out.append(name)
     gui = mod / "gui/spec_texticons.gui"
     gui.parent.mkdir(parents=True, exist_ok=True)
     gui.write_text(texticons(), encoding="utf-8-sig", newline="\n")
     return out
+
+
+# where vanilla sets a concept's icon before its name: the start of its own description, and a concept that opens a
+# line or a #header/#title (tooltip heads, breakdown rows). Running text keeps plain links, as vanilla's does.
+_LEAD = re.compile(r"(?:^|(?<=\n)|(?<=#header )|(?<=#title )|(?<=#bold ))"
+                   r"(?=\[concept_spec_(\w+)\]|\[Concept\('concept_spec_(\w+)'|\$concept_spec_(\w+)\$)")
+ICON_TAG = re.compile(r"@spec_(\w+)! (?=\[concept_spec_|\[Concept\('concept_spec_|\$concept_spec_)")
+
+
+def concept_icons(key, value, allow=None):
+    """value with @spec_<concept>! set before each concept that leads a line or heading, and before the concept's
+    own description. Idempotent; strip_concept_icons undoes it, so translations are matched on the plain English."""
+    def lead(m):
+        c = m[1] or m[2] or m[3]
+        return f"@spec_{c}! " if c in CONCEPT_ICON and (allow is None or c in allow) else ""
+    value = _LEAD.sub(lead, strip_concept_icons(value))
+    own = re.fullmatch(r"concept_spec_(\w+)_desc", key)
+    if own and own[1] in CONCEPT_ICON and not value.startswith("@spec_"):
+        value = f"@spec_{own[1]}! {value}"
+    return value
+
+
+def iconed(value):
+    """The concepts concept_icons set an icon for in value, for a translation to get the same ones."""
+    return set(re.findall(r"@spec_(\w+)! (?=\[concept_spec_|\[Concept\('concept_spec_|\$concept_spec_)", value))
+
+
+def strip_concept_icons(value):
+    value = ICON_TAG.sub(lambda m: "" if m[1] in CONCEPT_ICON else m[0], value)
+    return re.sub(r"^@spec_(\w+)! ", lambda m: "" if m[1] in CONCEPT_ICON else m[0], value)
+
+
+if __name__ == "__main__":
+    t = concept_icons("x", "#header [concept_spec_leverage]#!\n[concept_spec_bad_debts]: #N -1%#!\nSee [concept_spec_exchange].")
+    assert t == "#header @spec_leverage! [concept_spec_leverage]#!\n@spec_bad_debts! [concept_spec_bad_debts]: #N -1%#!\nSee [concept_spec_exchange].", t
+    d = concept_icons("concept_spec_baseline_desc", "[concept_spec_baseline] is the level")
+    assert d == "@spec_baseline! [concept_spec_baseline] is the level" and concept_icons("concept_spec_baseline_desc", d) == d, d
+    assert strip_concept_icons(d) == "[concept_spec_baseline] is the level" and strip_concept_icons(t).count("@") == 0
+    assert concept_icons("k", "@spec_interest_keen! #v Keen#!") == "@spec_interest_keen! #v Keen#!"
+    print("icons ok")

@@ -171,5 +171,15 @@
   "f2d8f35ab1": "Debug: disputa anual",
   "386a98016c": "Nenhuma ação em curso de nenhum dos lados.",
   "582624dd58": "Eles: {1}{2}{3} ",
-  "a6b6447344": "Nós: {1}{2}{3}"
+  "a6b6447344": "Nós: {1}{2}{3}",
+  "0451bc183d": "Uma [concept_spec_exchange] nomeia as próprias rivais, à parte das rivalidades diplomáticas: #v {1}#!, ou #v {2}#! a partir da posição Internacional, entre Bolsas a até #v {3}#! de posição da sua. Uma nova rival é mantida por pelo menos um ano. Uma rivalidade conta seja qual for o lado que nomeou o outro. A cada ano, a que tiver a pontuação de {4} mais alta ganha #P {5}%#! de credibilidade da outra quando ambas têm a mesma posição. Havendo diferença de posição, a vitória da Bolsa inferior rende mais e a da superior rende menos: multiplica-se ou divide-se por um mais a diferença. Com relações ruins ou piores, a perdedora perde #N x1.5#!.\\nEm um [concept_spec_financial_panic], o dinheiro em fuga vai primeiro para uma rival.\\nNomeie uma rival pela coluna Rival da lista de Bolsas Líderes e abandone uma pela linha dela aqui.",
+  "49ee308734": "Nomear",
+  "07d758289c": "#header Nomear como nossa rival#!\\n$SPEC_RIVAL_RULE$\\n\\n{1}",
+  "5418f1e4aa": "#v Nomeação mútua#!",
+  "4598145460": "#v Eles nos nomearam#!",
+  "b651a35ae2": "#v Nós os nomeamos#!",
+  "dd7138b436": "Sem rivais. Nomeie uma pela coluna Rival da lista de Bolsas Líderes. Uma Bolsa que nos nomeia também aparece aqui.",
+  "e69d8ba498": "#header Abandonar esta rival#!\\nNossa [concept_spec_exchange] deixa de nomeá-los como rivais.\\n\\n{1}",
+  "982806250e": "Uma [concept_spec_exchange] nomeia as próprias rivais, à parte das rivalidades diplomáticas: #v {1}#!, ou #v {2}#! a partir da posição Internacional, entre Bolsas a até #v {3}#! de posição da sua. Uma nova rival é mantida por pelo menos um ano. Uma rivalidade conta seja qual for o lado que nomeou o outro. A cada ano, a que tiver a pontuação de {4} mais alta ganha #P {5}%#! de credibilidade da outra quando ambas têm a mesma posição. Havendo diferença de posição, a vitória da Bolsa inferior rende mais e a da superior rende menos: multiplica-se ou divide-se por um mais a diferença. Com relações ruins ou piores, a perdedora perde #N x1.5#!.\\nEm um [concept_spec_financial_panic], o dinheiro em fuga vai primeiro para uma rival.\\nNomeie uma rival pela coluna Rival da lista de Bolsas Líderes e abandone uma pela linha dela aqui.",
+  "045b190d03": "Sem rivais. Nomeie uma pela coluna Rival da lista de Bolsas Líderes. Uma Bolsa que nos nomeia também aparece aqui."
 }

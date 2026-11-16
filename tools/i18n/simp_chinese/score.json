@@ -1,0 +1,5 @@
+{
+ "e511e7bbe9": "#header 世界中心#!\\n投资者反应：#v +{1}%#!\\n[concept_prestige]：未跻身{3}时#P +{2}%#!\\n接收[concept_spec_capital_flight]：#P x2#!\\n$TOOLTIP_DELIMITER$\\n达到#v 世界中心#!的条件：在{4}中位列第一，且拥有{5}",
+ "72c56f3541": "#header 资本#!\\n$TOOLTIP_DELIMITER$\\n得分以我国[concept_spec_exchange]可调用的资本为起点，按其四次方根增长：资本增至十六倍，得分翻倍。\\n\\n自有：#v @money!{1}#!，即[concept_investment_pool]六个月的收入，按过去一年平均\\n来自联系国：#v @money!{2}#!，即我国[concept_market]中每个较小[concept_country]、我国的{3}、我国的[concept_power_bloc]或给予我国[concept_foreign_investment]权的国家资本的四分之一；最多与自有资本相同",
+ "0736a70713": "#header 人均财富#!\\n$TOOLTIP_DELIMITER$\\n我国人均[concept_investment_pool]收入是世界平均的#v {1}#!倍。富裕民众的储蓄造就更有深度的市场：取其平方根，范围为#v x0.75#!至#v x1.5#!"
+}

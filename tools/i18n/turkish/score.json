@@ -1,0 +1,5 @@
+{
+ "e511e7bbe9": "#header Dünya Merkezi#!\\nYatırımcı Tepkisi: #v +%{1}#!\\n[concept_prestige]: {3} arasında değilken #P +%{2}#!\\n[concept_spec_capital_flight] alımı: #P x2#!\\n$TOOLTIP_DELIMITER$\\n#v Dünya Merkezi#! Konum için: {4} arasında birinci sıra; ayrıca {5} gerekir",
+ "72c56f3541": "#header Sermaye#!\\n$TOOLTIP_DELIMITER$\\nPuan, [concept_spec_exchange] kurumumuzun dayandığı sermayeden başlar ve onun dördüncü dereceden köküyle büyür: sermayeyi on altı katına çıkarmak puanı iki katına çıkarır.\\n\\nKendimizin: #v @money!{1}#!, son bir yılın ortalamasıyla altı aylık [concept_investment_pool] geliri\\nBağlarımızdan: #v @money!{2}#!, aynı [concept_market] içindeki her daha küçük [concept_country], her {3}, [concept_power_bloc] ortaklarımız ve bize [concept_foreign_investment] hakkı tanıyanların sermayesinin dörtte biri; en fazla kendimizinki kadar",
+ "0736a70713": "#header Kişi Başına Servet#!\\n$TOOLTIP_DELIMITER$\\nKişi başına [concept_investment_pool] gelirimiz dünya ortalamasının #v {1}#! katı. Zengin bir halkın birikimleri daha derin bir pazar yaratır: bunun karekökü, #v x0.75#! ile #v x1.5#! arasında"
+}

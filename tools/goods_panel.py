@@ -194,7 +194,7 @@ def patch(gui):
 def loc():
     at = lambda n: ge(SEV, n)
     return f""" SPEC_OPEN_TAB: "Open $SPEC_FINANCE$"
- SPEC_OPEN_TAB_TT: "#header $SPEC_FINANCE$#!\\nOpens the $SPEC_FIN_TAB_BOOMS$ tab: [concept_spec_market_confidence] and [concept_spec_investor_interest] in each good"
+ SPEC_OPEN_TAB_TT: "#header $SPEC_FINANCE$#!\\nOpens the $SPEC_FIN_TAB_BOOMS$ tab, which shows [concept_spec_market_confidence] and the [concept_spec_investor_interest] in each good"
  SPEC_GP_LEVERS: "[concept_spec_intervention]"
  SPEC_GP_TITLE: "[concept_spec_investor_interest]"
  SPEC_GP_RISK_TITLE: "[concept_spec_boom_end]"

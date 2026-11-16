@@ -474,7 +474,7 @@ def values():
     # adds its own changing figures and wraps back into the range. Wrapping an even roll leaves it even, so the odds don't change
     sv.append(f"spec_mood_roll = {{\n\tvalue = total_population\n\tmultiply = 0.01731\n\tadd = spec_pool_month\n\tadd = var:spec_mood_shift\n"
               f"\tmodulo = {2 * MOOD_SHOCK:g}\n\tsubtract = {MOOD_SHOCK:g}\n}}")
-    sv.append(f"spec_credit_ceiling = {{\n\tvalue = spec_pool_month\n\tmultiply = {CREDIT_CEILING}\n}}")
+    sv.append(f"spec_credit_ceiling = {{\n\tvalue = spec_pool_month\n\tmultiply = {CREDIT_CEILING}\n\tmultiply = spec_nx_ceiling\n}}")
     if leverage.ON:
         sv.append(leverage.limit(centres.LIMIT_REF))
     sv.append(f"spec_credit_room = {{\n\tvalue = {'spec_lev_income' if leverage.ON else 'spec_pool_month'}\n{leverage.cap(CREDIT_CAP_MONTHS)}"
@@ -530,11 +530,11 @@ def values():
               f"\t\tvalue = var:spec_panic\n\t\tdivide = {RESCUE_REF_MONTHS}\n\t\tmin = {RESCUE_SCALE[0]:g}\n\t\tmax = {RESCUE_SCALE[1]:g}\n\t}}\n}}")
     sv.append("spec_rescue_share_now = {\n\tvalue = spec_rescue_share\n\tmultiply = spec_rescue_scale\n}")
     sv.append(f"spec_panic_relief_week = {{\n\tvalue = gdp\n\tdivide = {52 / PANIC_RELIEF:g}\n\tmin = 1\n}}")
-    sv.append(f"spec_rescue_cost = {{\n\tvalue = gdp\n\tmultiply = spec_rescue_share_now\n\tdivide = 1000\n\tround = yes\n\tmultiply = 1000\n\tmin = 1000\n}}")
+    sv.append(f"spec_rescue_cost = {{\n\tvalue = gdp\n\tmultiply = spec_rescue_share_now\n\tmultiply = spec_nx_rescue\n\tdivide = 1000\n\tround = yes\n\tmultiply = 1000\n\tmin = 1000\n}}")
     # the mania event's levy on speculators, rounded to 1000 like vanilla's event money
     sv.append(f"spec_speculator_tax = {{\n\tvalue = gdp\n\tdivide = 100000\n\tmultiply = {MANIA_TAX * 100:g}\n"
               "\tround = yes\n\tmultiply = 1000\n\tmin = 1000\n}")
-    sv.append(f"spec_panic_months = {{\n\tvalue = {PANIC_DAYS / 30:g}\n\tmultiply = spec_panic_mult\n"
+    sv.append(f"spec_panic_months = {{\n\tvalue = {PANIC_DAYS / 30:g}\n\tmultiply = spec_panic_mult\n\tmultiply = spec_nx_panic\n"
               "\tceiling = yes\n\tmin = 1\n}")
     sv.append(f"spec_conf_recover = {{\n\tvalue = {CONF_START}\n\tsubtract = var:spec_conf\n\tmultiply = {CONF_RECOVER}\n\tmultiply = spec_macro\n{centres.RECOVER_REF}}}")
     sv.append("spec_conf_pre = {\n\tvalue = var:spec_conf\n\tadd = var:spec_c_recover\n\tadd = var:spec_c_boom\n"
@@ -544,7 +544,7 @@ def values():
     sv.append(f"spec_tight_pull = {{\n\tvalue = {TIGHT_FROM}\n\tsubtract = spec_conf_pre\n\tmultiply = {TIGHT_PULL:g}\n\tmax = 0\n}}")
     sv.append("spec_conf_next = {\n\tvalue = spec_conf_pre\n\tadd = var:spec_c_tight\n\tmin = 0\n\tmax = 100\n}")
     # deeper speculation falls harder, Manor Houses steady it (vanilla_ties.py)
-    sv.append(f"spec_crash_scale = {{\n\tvalue = var:spec_conf\n\tdivide = {CONF_START}\n\tmultiply = spec_depth\n\tmultiply = spec_steady\n\tmultiply = spec_fin_risk\n}}")
+    sv.append(f"spec_crash_scale = {{\n\tvalue = var:spec_conf\n\tdivide = {CONF_START}\n\tmultiply = spec_depth\n\tmultiply = spec_steady\n\tmultiply = spec_fin_risk\n\tmultiply = spec_nx_crash\n}}")
     cost = goods_cost()
     # market_goods scope: its trade value, as spec_mv_<g> reads it from the country, for sorting the goods board
     sv.append("spec_mg_value = {\n\tvalue = market_goods_sell_orders\n\tmultiply = goods.base_price\n}")
@@ -1071,7 +1071,7 @@ spec_monthly = {{
 					var:spec_conf < {BURST_BELOW}
 				}}
 				# a one-off jump, shown in the tab until the next monthly update
-				set_variable = {{ name = spec_c_burst value = {{ value = var:spec_heat multiply = spec_burst_per_heat multiply = -1 min = spec_burst_floor min = {{ value = var:spec_conf multiply = -1 }} }} }}
+				set_variable = {{ name = spec_c_burst value = {{ value = var:spec_heat multiply = spec_burst_per_heat multiply = spec_nx_burst multiply = -1 min = spec_burst_floor min = {{ value = var:spec_conf multiply = -1 }} }} }}
 				set_variable = {{ name = spec_conf value = {{ value = var:spec_conf add = var:spec_c_burst min = 0 }} }}
 				change_variable = {{ name = spec_c_total add = var:spec_c_burst }}
 				remove_variable = spec_heat
@@ -1857,9 +1857,9 @@ def unwind_loc():
     for s, _, below, _, months in UNWINDS:
         end = f"the boom ends in a [concept_spec_{name[s].lower()}]"
         out += [f' SPEC_UNWIND_{s}: "{name[s]}"', f' SPEC_UNWIND_C_{s}: "[concept_spec_{name[s].lower()}]"',
-                f' SPEC_UNWIND_DESC_{s}: "This [concept_good] has had a boom that reached #v {peak[s]}#!. If its price trend '
-                f'falls below #v {trend(below)}#!, [concept_spec_investor_interest] turns #v {"Fleeing" if s == 3 else "Doubtful"}#! '
-                f'and {end}. Investors then hold back for #v {months}#! months. The risk fades as the boom ages."']
+                f' SPEC_UNWIND_DESC_{s}: "Boom reached #v {peak[s]}#!\\nIf the price trend falls below #v {trend(below)}#!, '
+                f'[concept_spec_investor_interest] turns #v {"Fleeing" if s == 3 else "Doubtful"}#! '
+                f'and {end}\\nInvestors then hold back for #v {months}#! months\\nThe risk fades as the boom ages"']
     return "".join(line + "\n" for line in out)
 
 
@@ -1875,20 +1875,20 @@ def loc():
     return f"""l_english:
  spec_confidence_bar: "Market Confidence"
  spec_confidence_bar_desc: "[concept_spec_market_confidence]: #v [JournalEntry.GetCurrentBarValue(ScriptedProgressBar.Self)|0]#!"
- spec_stance_current_tt: "This is not already the [concept_spec_credit_policy]"
+ spec_stance_current_tt: "This is not the current [concept_spec_credit_policy]"
  spec_stance_cooldown_tt: "[concept_spec_credit_policy] has not changed in the last #v {STANCE_COOLDOWN}#! months"
  spec_rescued_tt: "We have neither lent to the banks nor suspended the Bank Act during this [concept_spec_financial_panic]"
  spec_credit_tight: "Tight Credit"
  spec_credit_tight_fx: "[concept_spec_credit_policy] becomes #v Tight#!"
  spec_credit_normal_fx: "[concept_spec_credit_policy] becomes #v Normal#!"
  spec_credit_loose_fx: "[concept_spec_credit_policy] becomes #v Loose#!"
- spec_credit_tight_desc: "Banks stop lending and investors react less to rising prices. Booms stay smaller, so their endings and panics are milder. Each month [concept_spec_market_confidence] loses #N {TIGHT_PULL:.0%}#! of how far it is above #v {TIGHT_FROM}#!. {requires}\\n\\n{credit_ai.ig_lines('tight')}"
+ spec_credit_tight_desc: "Raise the discount rate and ration credit to cool the market. Banks stop lending and investors react less to rising prices, so booms stay smaller and their endings and panics milder. Each month [concept_spec_market_confidence] loses #N {TIGHT_PULL:.0%}#! of how far it is above #v {TIGHT_FROM}#!. {requires}\\n\\n{credit_ai.ig_lines('tight')}"
  spec_credit_normal: "Normal Credit"
- spec_credit_normal_desc: "Banks lend into the [concept_investment_pool] while [concept_spec_market_confidence] is above #v {CREDIT_FROM}#!. {requires}"
+ spec_credit_normal_desc: "Let the banks lend on ordinary terms. They lend into the [concept_investment_pool] while [concept_spec_market_confidence] is above #v {CREDIT_FROM}#!. {requires}"
  spec_credit_loose: "Loose Credit"
- spec_credit_loose_desc: "Banks lend more and investors react more strongly to rising prices. Booms grow larger, and so do the losses when they end. {requires}\\n\\n{credit_ai.ig_lines('loose')}"
+ spec_credit_loose_desc: "Lower the discount rate and let credit flow freely. Banks lend more and investors react more strongly to rising prices, so booms grow larger, and so do the losses when they end. {requires}\\n\\n{credit_ai.ig_lines('loose')}"
  spec_rescue_banks: "Lend to the Banks"
- spec_rescue_banks_desc: "Spend about #v [{root}.ScriptValue('spec_rescue_share_now')|%1]#! of [concept_gdp] from the [concept_treasury] to end the [concept_spec_financial_panic] within #v [{root}.ScriptValue('spec_rescue_months')|0]#! months and halve its effects. [concept_spec_market_confidence] rises by #v {RESCUE_CONF}#!. The more months the panic has left, the more it costs. Can be done once per panic. [GetTechnology('central_banking').GetName] makes it cheaper and faster."
+ spec_rescue_banks_desc: "Lend freely to the banks from the [concept_treasury], at a cost of about #v [{root}.ScriptValue('spec_rescue_share_now')|%1]#! of [concept_gdp], to end the [concept_spec_financial_panic] within #v [{root}.ScriptValue('spec_rescue_months')|0]#! months and halve its effects. [concept_spec_market_confidence] rises by #v {RESCUE_CONF}#!. The longer the panic has left to run, the more it costs, and it can be done only once per $concept_spec_financial_panic$. [GetTechnology('central_banking').GetName] makes it cheaper and faster."
  spec_conf_panic: "Shaken Investors"
  spec_conf_panic_held: "Shaken Investors"
  spec_conf_wary: "Wary Investors"
@@ -1904,7 +1904,7 @@ def loc():
  spec_panic: "Financial Panic"
  spec_panic_desc: "Effects of a [concept_spec_financial_panic] in the [concept_market]"
  spec_panic_crunch: "Credit Crunch"
- spec_panic_crunch_desc: "Banks have stopped lending during the [concept_spec_financial_panic], halving [concept_private_construction]"
+ spec_panic_crunch_desc: "The banks have stopped lending for the duration of the [concept_spec_financial_panic], and [concept_private_construction] has slowed sharply"
 {leverage.LOC} spec_loose_credit: "Loose Credit"
  spec_loose_credit_desc: "Effects of the [concept_spec_credit_policy]"
  spec_tight_credit: "Tight Credit"
@@ -2121,6 +2121,15 @@ def game_version():
     return re.search(r'"rawVersion":\s*"([^"]+)"', (GAME.parent / "launcher/launcher-settings.json").read_text(encoding="utf-8")).group(1)
 
 
+def with_icons(text):
+    """English loc with each concept's icon where vanilla puts one (icons.concept_icons)."""
+    out = []
+    for line in text.rstrip("\n").split("\n"):
+        m = re.match(r'( ([A-Za-z0-9_.\-]+):\d* ")(.*)("\s*)$', line)
+        out.append(f"{m[1]}{icons.concept_icons(m[2], m[3])}{m[4]}" if m else line)
+    return "\n".join(out) + "\n"
+
+
 def main(log=False):
     if log and MOD.resolve() == (Path(__file__).resolve().parent.parent / "mod").resolve():
         raise SystemExit("Debug builds require SPEC_MOD_OUT pointing outside mod/. The release was not changed.")
@@ -2185,8 +2194,9 @@ def main(log=False):
     # the Crash passes along market and subject ties always, never along an isolationist trade tie
     assert LINKS['trade'] * vanilla_ties.TRADE_TIE['isolationism'] < depression.SPREAD_MIN <= LINKS['subject'], depression.SPREAD_MIN
     depression.build(write, GAME, MOD, log)
-    write("localization/english/spec_markets_l_english.yml",
+    english = (
           loc() + journal.loc(k) + market_tab.loc(k) + market_tab.item_loc(GOODS, k) + concepts.loc(k) + levers.loc() + stories.loc(k) + notify.loc(PANIC) + movements.loc() + vanilla_ties.loc(k) + companies.loc() + __import__("company_section").loc() + __import__("centres").loc() + market_visual.loc(k) + goods_panel.loc() + depression.loc() + tech_ties.loc() + cycle.loc())
+    write("localization/english/spec_markets_l_english.yml", english)
     write("localization/english/replace/spec_markets_replace_l_english.yml", pool_breakdown())
     write("common/game_rules/spec_game_rules.txt", "spec_market_volatility = {\n\tdefault = spec_volatility_historical\n\n"
           + "".join(f"\tspec_volatility_{n} = {{\n\t}}\n" for n in VOLATILITY) + "}\n")
@@ -2196,11 +2206,11 @@ def main(log=False):
     panics = "[Concept('concept_spec_financial_panic', '$concept_spec_financial_panics$')]"
     write("localization/english/spec_rules_l_english.yml", "l_english:\n rule_spec_market_volatility: \"Market Volatility\"\n"
           f" setting_spec_volatility_historical: \"{tip('historical', 'Historical')}\"\n"
-          f" setting_spec_volatility_historical_desc: \"Speculative booms and {panics} occur about as often as they did "
+          f" setting_spec_volatility_historical_desc: \"Speculative booms and {panics} will occur about as often as they did "
           "in the 19th century\"\n"
           f" setting_spec_volatility_heightened: \"{tip('heightened', '#high High#!')}\"\n"
-          " setting_spec_volatility_heightened_desc: \"Speculative booms grow larger and end more abruptly, and "
-          f"{panics} occur more often than they did in the 19th century\"\n")
+          " setting_spec_volatility_heightened_desc: \"Speculative booms will grow larger and end more abruptly, and "
+          f"{panics} will occur more often than they did in the 19th century\"\n")
     write("common/game_concepts/spec_concepts.txt", concepts.definitions())
     write("gui/spec_market_tab.gui", market_tab.tab_type(k))
     write("gui/information_panel_bar.gui", information_panel_bar())
@@ -2209,7 +2219,8 @@ def main(log=False):
     (MOD / tech_ties.VANILLA_FILE).unlink(missing_ok=True)  # was a copy of the vanilla file
     for rel, text in tech_ties.files(GAME, tech_table(), law_table()).items():
         write(rel, text)
-    i18n.build(write)
+    i18n.build(write)  # from the plain English, so translations match it; then the English gets its icons
+    write("localization/english/spec_markets_l_english.yml", with_icons(english))
     meta = MOD / ".metadata/metadata.json"
     live = Path(__file__).resolve().parent.parent / "mod"
     template = meta if meta.exists() else live / ".metadata/metadata.json"

@@ -1,0 +1,5 @@
+{
+ "e511e7bbe9": "#header 世界中心#!\\n投資家の反応: #v +{1}%#!\\n[concept_prestige]: {3}に入っていない場合#P +{2}%#!\\n[concept_spec_capital_flight]の受け入れ: #P x2#!\\n$TOOLTIP_DELIMITER$\\n#v 世界中心#!の条件: {4}の首位、かつ{5}",
+ "72c56f3541": "#header 資本#!\\n$TOOLTIP_DELIMITER$\\nスコアは我が国の[concept_spec_exchange]が利用できる資本から始まり、その4乗根に比例して増えます。資本が16倍になるとスコアは2倍になります。\\n\\n自国: #v @money!{1}#!、過去1年間の平均による[concept_investment_pool]収入の6か月分\\n関係国から: #v @money!{2}#!、我が国の[concept_market]、我が国の{3}、我が国の[concept_power_bloc]に属するか、我が国に[concept_foreign_investment]権を与えている、より小さな各[concept_country]の資本の4分の1。最大で自国分と同額",
+ "0736a70713": "#header 1人当たりの富#!\\n$TOOLTIP_DELIMITER$\\n我が国の1人当たりの[concept_investment_pool]収入は世界の#v {1}#!倍です。豊かな国民の貯蓄は市場を厚くします。その平方根により、#v x0.75#!から#v x1.5#!まで"
+}

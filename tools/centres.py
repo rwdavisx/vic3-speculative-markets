@@ -38,7 +38,7 @@ HOLD = tuning.get("EXCH_HOLD", 2)                 # a National market keeps its 
 HYPE = tuning.get("EXCH_HYPE", {1: 1.05, 2: 1.1, 3: 1.15})   # spec_hype_mult by Standing (Provincial 1)
 # capital flight received by Standing (Provincial 1); only International or higher, or a Great Power, receives any
 # (diplomacy.SAFE), so every flight bonus says so (FLIGHT_IF)
-FLIGHT = tuning.get("EXCH_FLIGHT", {1: 1, 2: 2, 3: 3})
+FLIGHT = tuning.get("EXCH_FLIGHT", {1: 1, 2: 2, 3: 2})  # World Centre was x3 before beta.12: the leader's pool grew fastest and kept it first
 FLIGHT_IF = "at International Standing or higher, or as a [concept_great_power]"
 PRESTIGE = tuning.get("EXCH_PRESTIGE", 0.02)      # above Provincial and unlisted: the listed places have their own modifier
 TRUST_END = tuning.get("EXCH_TRUST_END", {1: 2, 2: -6, 3: -18})  # a boom's ending: Correction, Bust, Collapse
@@ -56,10 +56,14 @@ LIMIT_STEP = tuning.get("EXCH_LIMIT_STEP", 1)     # credit limit months for each
 # Shown against the world's top three, and against its region's leader (by capital), which can also make it National
 # or International. Size has diminishing returns so the largest countries do not win by size alone.
 CAP_PER = tuning.get("EXCH_CAP_PER", 1000)   # pounds of six months' pool income for a unit of capital
-SIZE_X = tuning.get("EXCH_SIZE_X", 10)       # points for each unit of the square root of capital
+SIZE_X = tuning.get("EXCH_SIZE_X", 10)       # points for each unit of the root of capital
+# 2: the square root of capital; 4: its fourth root (beta.12), so the largest pool (Britain's, ~9x France's by 1855)
+# leads by under 2x on capital alone instead of 3x
+SIZE_ROOT = tuning.get("EXCH_SIZE_ROOT", 4)
+assert SIZE_ROOT in (2, 4)
 SMOOTH = tuning.get("EXCH_SMOOTH", 0.1)      # share of the gap to this month's pool income the average closes
 REACH = tuning.get("EXCH_REACH", 0.25)       # share of a smaller tied country's capital drawn on; at most our own in all
-WEALTH = tuning.get("EXCH_WEALTH", [0.5, 2])  # bounds of the wealth-per-head multiplier (the square root of the ratio)
+WEALTH = tuning.get("EXCH_WEALTH", [0.75, 1.5])  # bounds of the wealth-per-head multiplier (the square root of the ratio); [0.5, 2] before beta.12
 FD_STEP, FD_CAP = tuning.get("EXCH_FD_STEP", 0.01), tuning.get("EXCH_FD_CAP", 50)  # a Financial District level, up to
 CO_STEP, CO_CAP = tuning.get("EXCH_CO_STEP", 0.03), tuning.get("EXCH_CO_CAP", 10)  # a company headquartered here, up to
 RANK = tuning.get("EXCH_RANK", {"great_power": 1.15, "major_power": 1.05})
@@ -282,6 +286,7 @@ def _xs_prep(t):
             f"{t}set_variable = {{ name = spec_xs_reach_v value = spec_xs_reach }}\n"
             f"{t}every_in_list = {{\n{t}\tlist = {FIR_LIST}\n{t}\tremove_from_list = {FIR_LIST}\n{t}}}\n"
             + _sqrt("var:spec_xs_own_v add = var:spec_xs_reach_v", "spec_xs_size_v", t)
+            + (_sqrt("var:spec_xs_size_v", "spec_xs_size_v", t) if SIZE_ROOT == 4 else "")
             + f"{t}set_variable = {{ name = spec_xs_size_v value = {{ value = var:spec_xs_size_v multiply = {SIZE_X:g} }} }}\n"
             f"{t}set_variable = {{ name = spec_xs_ratio_v value = spec_xs_ratio }}\n"
             + _sqrt("var:spec_xs_ratio_v", "spec_xs_wealth_v", t)
@@ -355,7 +360,7 @@ spec_centre_mult = {{
 	value = {PLACES + 1}
 	subtract = var:spec_centre_new
 }}
-""" + (_exch_values() if ON else "")
+""" + _nx_values() + (_exch_values() if ON else "")
 
 
 def _by_stand(name, by, tail="", var="spec_exch_stand"):
@@ -390,6 +395,12 @@ spec_exch_limit = {{
 
 def _known(n, how):
     return f"\tif = {{\n\t\tlimit = {{ var:spec_exch_known ?= {n} }}\n\t\t{how}\n\t}}\n"
+
+
+def _nx_values():
+    """The renown paths' levers in the rest of the mod: each a multiplier, 1 with no speciality pulling it."""
+    return "\n# renown paths' levers (centres.NAME_FX)\n" + "".join(
+        f"spec_nx_{h} = {{\n\tvalue = 1\n{_name_tail(h)}}}\n" for h in NX_HOOKS)
 
 
 def _exch_values():
@@ -450,13 +461,23 @@ NAMES_ON = EARN and tuning.get("EXCH_NAMES_ON", 1)
 CHARTER_COST = tuning.get("EXCH_CHARTER_COST", 0.5)   # share of trust a change of charter costs (the first is free)
 CHARTER_LOCK = tuning.get("EXCH_CHARTER_LOCK", 10)    # years before the charter can change again
 # key, title, the charter it needs (0: any); the hand-out prefers them in this order
-NAMES = [("price", "Price Setter", 1), ("harbour", "Safe Harbour", 2), ("companies", "Home of Great Companies", 3),
+NAMES = [("price", "Price Setter", 1), ("harbour", "Safe Harbor", 2), ("companies", "Home of Great Companies", 3),
+         ("futures", "Futures Pit", 1), ("lender", "Lender to Nations", 2), ("railway", "Railway Mania", 3),
          ("floor", "Busy Floor", 0), ("sound", "Sound Lending", 0), ("pockets", "Deep Pockets", 0), ("door", "Open Door", 0)]
-NAME_FX = tuning.get("EXCH_NAME_FX", {
-    "price": {"hype": 1.15, "loss": 1.25}, "harbour": {"flight": 1.5, "credit": 0.9},
-    "companies": {"credit": 1.15, "flight": 0.75}, "floor": {"hype": 1.1, "loss": 1.15},
-    "sound": {"loss": 0.75, "credit": 0.9}, "pockets": {"credit": 1.15, "loss": 1.15},
-    "door": {"flight": 1.25, "credit": 0.95}})
+NAME_FX = tuning.get("EXCH_NAME_FX", {  # beta.12: each path a trade-off: at least one cost against its gains
+    "price": {"press": 1.5, "hype": 1.15, "loss": 1.2},          # feared and watched; a slip costs it dearly
+    "futures": {"crash": 0.7, "hype": 0.9, "credit": 0.85},      # hedged: softer busts, slower booms, less lent
+    "harbour": {"panic": 0.75, "shore": 1.5, "credit": 0.85},    # safe, and its banks cautious
+    "lender": {"lure": 1.5, "tie_inv": 1.3, "bad": 1.2},         # rich, tied to its debtors, hurt by their defaults
+    "companies": {"blue": 1.5, "crash": 1.1},                    # great firms, and their fall
+    "railway": {"burst": 1.3, "crash": 1.2, "raid": 1.5},        # a mania
+    "floor": {"tie_trade": 1.25, "flight": 1.15, "loss": 1.15},  # busy and exposed
+    "sound": {"bad": 0.75, "loss": 0.75, "ceiling": 0.85},       # careful, and lends less
+    "pockets": {"ceiling": 1.2, "bad": 1.2},                     # big and risky
+    "door": {"flight": 1.25, "tie_trade": 1.2, "crash": 1.1}})   # open to the world, and its storms
+# the hooks that reach outside the Exchange: spec_nx_<hook>, 1 unless a speciality changes it (_nx_values)
+NX_HOOKS = ("press", "raid", "lure", "shore", "crash", "panic", "rescue", "tie_inv", "tie_trade", "blue", "burst",
+            "bad", "ceiling")
 # what each name is won by: script value lines for spec_name_<key>
 NAME_BY = {
     "price": "\tvalue = 0\n\tif = {\n\t\tlimit = { has_variable = spec_mv_total }\n\t\tvalue = var:spec_mv_total\n\t}\n",
@@ -465,7 +486,14 @@ NAME_BY = {
                "\tif = {\n\t\tlimit = { has_variable = spec_centre_calm }\n\t\tadd = { value = var:spec_centre_calm divide = 10000 }\n\t}\n",
     "companies": "\tvalue = spec_log_kstr\n", "floor": "\tvalue = spec_log_ktc\n", "sound": "\tvalue = spec_log_ksnd\n",
     "pockets": "\tvalue = spec_pool_month\n",
-    "door": "\tvalue = 0\n\tevery_scope_treaty = {\n\t\tadd = 1\n\t}\n"}
+    "door": "\tvalue = 0\n\tevery_scope_treaty = {\n\t\tadd = 1\n\t}\n",
+    # beta.12 paths, one more per charter
+    "futures": "\tvalue = 0\n\tevery_scope_state = {\n\t\tadd = 1\n\t}\n",
+    # countries granting us foreign investment rights (as _xs_prep's list)
+    "lender": ("\tvalue = 0\n\tsave_temporary_scope_as = spec_lender_me\n\tevery_scope_treaty = {\n\t\tevery_scope_article = {\n"
+               "\t\t\tlimit = {\n\t\t\t\thas_type = foreign_investment_rights\n\t\t\t\ttarget_country = scope:spec_lender_me\n"
+               "\t\t\t}\n\t\t\tadd = 1\n\t\t}\n\t}\n"),
+    "railway": f"{vanilla_ties.levels('building_railway')}\tadd = {{\n{vanilla_ties.levels('building_port')}\t}}\n"}
 SLOTS = "var:spec_exch_stand"  # names an Exchange may hold: National 1, International 2, World Centre 3
 # the state may pursue names (var:spec_pu_<key>, its place in the order chosen), one more than its Exchange's Standing;
 # each is held PURSUE_LOCK years once chosen, and builds up over PURSUE_MONTHS
@@ -478,16 +506,27 @@ PURSUE_LOCK = tuning.get("EXCH_PURSUE_LOCK", 5)  # years a pursuit is held once 
 # what a pursuit gives, by our place in its field at the yearly contest (outside the top three, third, second, first):
 # the first modifier once for each step, the second at first place only; scaled by how far the pursuit has built up
 PURSUE_FX = tuning.get("EXCH_PURSUE_FX", {
-    "floor": [["state_trade_capacity_mult", 0.05], ["country_prestige_mult", 0.05]],
-    "sound": [["country_loan_interest_rate_mult", -0.025], ["country_gold_reserve_limit_mult", 0.25]],  # at most -10%
+    # [grows with our place, first place only, *always while pursued]. beta.12: each path themed to what it is won by;
+    # the charter paths are stronger and carry a drawback
+    "floor": [["state_trade_capacity_mult", 0.03], ["building_trade_center_throughput_add", 0.1]],
+    "sound": [["country_loan_interest_rate_mult", -0.015], ["interest_group_ig_petty_bourgeoisie_approval_add", 2]],
     # 0.05 (first place +0.20 on vanilla's 0.30) gave the top three Exchanges +33-43% investment pool / GDP over vanilla,
     # Britain +58-64%; without it +0-14%, and leverage or credit off changed nothing (runs/20261115_*_pool_*, 1.0.6).
     # At 0.02 (four games): top three +20% / +35% (1840s / 1850s), Britain +29% / +50%; the user chose first place +0.06
     "pockets": [["state_capitalists_investment_pool_contribution_add", 0.015], ["country_private_construction_allocation_mult", 0.1]],
-    "door": [["country_treaty_leverage_generation_mult", 0.1], ["country_influence_mult", 0.05]],
-    "price": [["state_trade_advantage_mult", 0.05], ["country_minting_mult", 0.1]],
-    "harbour": [["country_gold_reserve_limit_mult", 0.1], ["country_legitimacy_base_add", 5]],
-    "companies": [["country_company_throughput_bonus_add", 0.03], ["country_max_companies_add", 1]]})
+    "door": [["country_influence_mult", 0.02], ["country_mass_migration_attraction_mult", 0.15]],
+    "price": [["state_trade_advantage_mult", 0.03], ["state_export_advantage_mult", 0.1],
+              ["interest_group_ig_trade_unions_approval_add", -1]],  # dear bread
+    "futures": [["building_group_bg_agriculture_throughput_add", 0.02], ["state_market_access_price_impact", 0.1],
+                ["interest_group_ig_rural_folk_approval_add", -1]],  # speculators on the harvest
+    "harbour": [["country_gold_reserve_limit_mult", 0.05], ["country_legitimacy_base_add", 3],
+                ["country_private_construction_allocation_mult", -0.05]],  # safe money sits idle
+    "lender": [["country_leverage_generation_mult", 0.05], ["country_loan_interest_rate_mult", -0.05],
+               ["interest_group_ig_industrialists_approval_add", -1]],  # capital that could build at home
+    "companies": [["country_company_throughput_bonus_add", 0.02], ["country_max_companies_add", 1],
+                  ["interest_group_ig_petty_bourgeoisie_approval_add", -1]],  # small shops crushed
+    "railway": [["building_railway_throughput_add", 0.03], ["state_infrastructure_mult", 0.1],
+                ["building_group_bg_construction_laborers_mortality_mult", 0.1]]})  # the navvies' toll
 
 
 def _pursue_given(k):
@@ -503,6 +542,7 @@ LOG_GIVEN = [_pursue_given(k) for k in ("pockets", "companies")] if ON and NAMES
 LOG += (" pfpk=[THIS.ScriptValue('spec_log_pf_pockets')] pfco=[THIS.ScriptValue('spec_log_pf_companies')]"
         if LOG_GIVEN else "") + (" levpct=[THIS.ScriptValue('spec_lev_boom_pct')]" if ON and leverage.ON else "")
 PLACE_WORDS = ["Outside the top three", "Third", "Second", "First"]
+PLACE_SHORT = ["Unranked", "3rd", "2nd", "1st"]  # the tooltips' place lists
 # trust's own effects at each level (Distrusted, Doubted, Respected, Trusted: a quarter of CALM each)
 TRUST_FX = tuning.get("CENTRE_TRUST_FX", [
     [["country_loan_interest_rate_mult", 0.1], ["interest_group_ig_industrialists_approval_add", -2]],
@@ -728,27 +768,32 @@ def _pursue_values():
 
 def _pursue_fx(k, lv):
     """The modifiers a pursuit of `k` gives at level lv (0 outside the top three .. 3 first)."""
-    (m, base), extra = PURSUE_FX[k]
-    return [(m, round(base * (lv + 1), 4))] + ([tuple(extra)] if lv == 3 else [])
+    (m, base), extra, *always = PURSUE_FX[k]
+    return [(m, round(base * (lv + 1), 4))] + [tuple(a) for a in always] + ([tuple(extra)] if lv == 3 else [])
 
 
 def _mod_words(fx, sep=", "):
     """Vanilla's modifier names with our values: green when good for the state, red when bad."""
     out = []
     for m, x in fx:
-        good = x < 0 if m == "country_loan_interest_rate_mult" else x > 0
+        good = x < 0 if m == "country_loan_interest_rate_mult" or m.endswith("mortality_mult") else x > 0
         val = f"{x:+g}" if m.endswith(("legitimacy_base_add", "max_companies_add", "approval_add")) else f"{x:+.1%}".replace(".0%", "%")
         out.append(f"#{'P' if good else 'N'} {val}#! ${m}$")
     return sep.join(out)
 
 
 def _pursue_lv(k):
-    """Pursue tooltip: what the pursuit gives at each place, ours marked."""
+    """Pursue tooltip: what the pursuit gives at each place, ours in bold and the rest grey (vanilla's current-line style)."""
     now = lambda lv: (f"Not({P}.Var('spec_lead_{k}').IsSet)" if lv == 0
                       else f"EqualTo_CFixedPoint({v(f'spec_lead_{k}')}, {fx(4 - lv)})")
-    return "By our place in the world on this path, at full strength:" + "".join(
-        f"\\n{w}: {_mod_words(_pursue_fx(k, lv))}[AddLocalizationIf({now(lv)}, 'SPEC_PURSUE_NOW')]"
-        for lv, w in enumerate(PLACE_WORDS))
+    return (chr(92) + "n").join(
+        f"[SelectLocalization({now(lv)}, 'SPEC_PURSUE_LV_{k}_{lv}_ON', 'SPEC_PURSUE_LV_{k}_{lv}')]" for lv in (3, 2, 1, 0))
+
+
+def _pursue_lv_keys(k):
+    """The place lines _pursue_lv picks between."""
+    return "".join(f' SPEC_PURSUE_LV_{k}_{lv}_ON: "#b {PLACE_SHORT[lv]}: {_mod_words(_pursue_fx(k, lv))}#!"\n'
+                   f' SPEC_PURSUE_LV_{k}_{lv}: "#grey {PLACE_SHORT[lv]}:#! {_mod_words(_pursue_fx(k, lv))}"\n' for lv in range(4))
 
 
 def _trust_words(i):
@@ -1002,7 +1047,10 @@ def names_block():
     """Exchange tab, Specialities: a card a slot, left to right in the order chosen (the last chosen dropped first).
     A held card moves earlier or later and drops; paths are chosen in the list below; locked ones point to the Standing."""
     n_slot = 4
-    cw, ch = (W - 10 * (n_slot - 1)) // n_slot, 104
+    # beta.12 layout: a top strip (slot number left, Drop right), the icon between them, the name under it, and a
+    # bottom strip under a rule with the two order arrows at its ends
+    cw, ch = (W - 10 * (n_slot - 1)) // n_slot, 112
+    from market_tab import FLAT
     n_held = v("spec_pursue_n")
     slots = f"{P}.ScriptValue('spec_pursue_slots')"
     card = lambda vis, tt, body: f"""widget = {{
@@ -1029,16 +1077,17 @@ def names_block():
 """
     name = lambda key, y, h=40, al="center|nobaseline": f"""textbox = {{
 	position = {{ 0 {y} }}
-	size = {{ {cw - 10} {h} }}
+	size = {{ {cw - 12} {h} }}
 	parentanchor = top|hcenter
 	multiline = yes
+	fontsize = 14
 	align = {al}
 	text = "{key}"
 }}
 """
     badge = lambda i: f"""widget = {{
-	position = {{ 4 4 }}
-	size = {{ 28 28 }}
+	position = {{ 6 6 }}
+	size = {{ 24 24 }}
 	icon = {{
 		size = {{ 100% 100% }}
 		texture = "{ROUND}"
@@ -1046,14 +1095,15 @@ def names_block():
 	textbox = {{
 		size = {{ 100% 100% }}
 		align = center|nobaseline
+		using = fontsize_small
 		text = "SPEC_SLOT_NUM_{i}"
 	}}
 }}
 """
     move = lambda k, d, kind, x: f"""{kind} = {{
-	position = {{ {x} 34 }}
-	parentanchor = {'left' if d == 'left' else 'right'}
-	size = {{ 22 24 }}
+	position = {{ {x} -5 }}
+	parentanchor = {'bottom|left' if d == 'left' else 'bottom|right'}
+	size = {{ 22 22 }}
 	enabled = "{sg(f'pursue_{d}_{k}', 'IsValid')}"
 	onclick = "{sg(f'pursue_{d}_{k}', 'Execute')}"
 	tooltip = "SPEC_PURSUE_{d.upper()}_TT_{k}"
@@ -1061,8 +1111,16 @@ def names_block():
 """
     # a held card's controls, kept off its name: earlier and later beside the picture (the order is the order they are
     # lost in), Drop as the corner's close button
-    foot = lambda k: (move(k, "left", "button_icon_move_left", 6) + move(k, "right", "button_icon_move_right", -6) + f"""close_button = {{
-	position = {{ -4 4 }}
+    rule = f"""icon = {{
+	position = {{ 0 -32 }}
+	size = {{ {cw - 16} 1 }}
+	parentanchor = bottom|hcenter
+	texture = "{FLAT}"
+	color = {{ 1 1 1 0.15 }}
+}}
+"""
+    foot = lambda k: (rule + move(k, "left", "button_icon_move_left", 8) + move(k, "right", "button_icon_move_right", -8) + f"""close_button = {{
+	position = {{ -6 6 }}
 	parentanchor = right
 	size = {{ 24 24 }}
 	enabled = "{sg(f'pursue_stop_{k}', 'IsValid')}"
@@ -1093,7 +1151,7 @@ def names_block():
     out = ""
     for i in range(1, n_slot + 1):
         out += "".join(card(f"EqualTo_CFixedPoint({v(f'spec_pu_{k}')}, {fx(i)})", f"SPEC_NAME_TT_{k}",
-                            pic(ICON(k), 8, 44) + name(f"SPEC_NAME_H_{k}", 56) + badge(i) + foot(k)) for k, *_ in NAMES)
+                            pic(ICON(k), 8, 44) + name(f"SPEC_NAME_H_{k}", 50, 34) + badge(i) + foot(k)) for k, *_ in NAMES)
         room = f"GreaterThan_CFixedPoint({slots}, {at(i)})"
         out += card(f"And({room}, EqualTo_CFixedPoint({n_held}, {fx(i - 1)}))", "SPEC_SLOT_OPEN_TT",
                     pick_lit + title("SPEC_SLOT_OPEN", (ch - 22) // 2 - 16) + badge(i) + pick_btn)
@@ -1101,8 +1159,8 @@ def names_block():
             out += card(f"And({room}, LessThan_CFixedPoint({n_held}, {at(i - 1)}))", "SPEC_SLOT_LATER_TT",
                         title("SPEC_SLOT_OPEN", (ch - 22) // 2) + badge(i))
             out += card(f"And(LessThan_CFixedPoint({slots}, {at(i)}), LessThan_CFixedPoint({n_held}, {at(i)}))",
-                        f"SPEC_SLOT_LOCK_TT_{i - 1}", pic("gfx/interface/buttons/button_icons/lock.dds", 12, 28)
-                        + name(f"SPEC_SLOT_LOCK_{i - 1}", 44, ch - 50, "hcenter|top") + badge(i))
+                        f"SPEC_SLOT_LOCK_TT_{i - 1}", pic("gfx/interface/buttons/button_icons/lock.dds", 22, 28)
+                        + name(f"SPEC_SLOT_LOCK_{i - 1}", 56, 40, "hcenter|top") + badge(i))
     return f"""flowcontainer = {{
 	parentanchor = hcenter
 	spacing = 10
@@ -1117,17 +1175,19 @@ def contest_block():
     own after. Choosing and dropping is on the Specialities cards above."""
     from market_tab import FLAT, CLEAR, BARS
     order = [x for x in NAMES if not x[2]] + [x for x in NAMES if x[2]]
-    rh = 60
-    NX, NW, FX0, GX = 68, 220, 290, 392  # the columns; Effects gets the width for its longest line
-    BAR_Y, BAR_H = 34, 14  # the bar's track, under the name
-    BW = 112  # the bar; our figure and its word after it, to the flags (106 wide: room for a money tally)
+    rh = 66  # beta.12: name, then the bar across the column, then our tally under it, so nothing is squeezed
+    # the columns; beta.12: name and flags narrowed so Effects (short lines, FX_COLUMN) fits without wrapping
+    NX, NW, FX0, GX, FS = 68, 186, 256, 368, 36  # FS: a flag's column, with room between the flags
+    BAR_Y, BAR_H = 30, 12  # the bar's track, under the name
+    BW = NW - 14  # the bar: the name column's width; our figure and its word sit under it
     GW = W - GX - 8
 
     def flag(k, pos):
         g = f"GetGlobalVariable('spec_w_{k}{pos}')"
         return f"""widget = {{
-	position = {{ {FX0 + (pos - 1) * 33} {(rh - 20) // 2} }}
+	position = {{ {FX0 + (pos - 1) * FS} {(rh - 20) // 2} }}
 	size = {{ 30 20 }}
+	tooltip = "SPEC_NAME_FLAG_TT_{k}{pos}"
 	icon = {{
 		visible = "[Not({g}.GetCountry.IsValid)]"
 		size = {{ 27 18 }}
@@ -1141,6 +1201,7 @@ def contest_block():
 		datacontext = "[{g}.GetCountry]"
 		tiny_flag = {{
 			parentanchor = top|hcenter
+			alwaystransparent = yes  # the place's tooltip, not the country's
 		}}
 	}}
 }}
@@ -1307,7 +1368,6 @@ def contest_block():
 	}}
 	# framed as market_tab.framed_bar is: the frame sits 3 outside the fill, under it, so it never covers the fill
 	widget = {{
-		{f'visible = "[{open_}]"' if ch else ""}
 		position = {{ {NX + 3} {BAR_Y} }}
 		size = {{ {BW} {BAR_H} }}
 		tooltip = "SPEC_NAME_BAR_TT_{k}"
@@ -1324,9 +1384,8 @@ def contest_block():
 {ind(bar, 3)}		}}
 	}}
 	textbox = {{
-		{f'visible = "[{open_}]"' if ch else ""}
-		position = {{ {NX + 3 + BW + 10} {BAR_Y + BAR_H // 2 - 10} }}
-		size = {{ {NW - BW - 13} 20 }}
+		position = {{ {NX + 3} {BAR_Y + BAR_H + 3} }}
+		size = {{ {NW - 6} 18 }}
 		align = left|nobaseline
 		elide = right
 		using = fontsize_small
@@ -1345,8 +1404,8 @@ def contest_block():
 """
     # the column heads as every other table's in the window (market_tab.heads); the places' cells are as narrow as
     # their flags, so their words sit without the usual margin
-    cols = heads([(0, FX0 - 2, "SPEC_CONTEST_COL_NAME", "left", False), (FX0 - 2 + 99, W - FX0 - 97, "SPEC_CONTEST_COL_GIVES", "left", False)]
-                 + [(FX0 - 2 + (p - 1) * 33, 33, f"SPEC_CONTEST_PLACE_{p}", "center", False) for p in (1, 2, 3)])
+    cols = heads([(0, FX0 - 2, "SPEC_CONTEST_COL_NAME", "left", False), (GX - 2, W - GX + 2, "SPEC_CONTEST_COL_GIVES", "left", False)]
+                 + [(FX0 - 2 + (p - 1) * FS, FS, f"SPEC_CONTEST_PLACE_{p}", "center", False) for p in (1, 2, 3)])
     cols = __import__("re").sub(r"\t*margin = \{ 10 0 \}\n(\t*align = center)", r"\1", cols)
     return f"""{cols}flowcontainer = {{
 	parentanchor = hcenter
@@ -1356,12 +1415,27 @@ def contest_block():
 """
 
 
+# the Effects column's words: one short line each (FX_WORDS, in full, are the tooltips')
+FX_SHORT = {"hype": "Investor Reaction", "flight": "Capital flight in", "loss": "Trust losses", "credit": "Credit lent",
+            "press": "Press Campaigns", "raid": "Bear Raids", "lure": "Lure Investors", "shore": "Shore Up length",
+            "crash": "Bust losses", "panic": "Panic length", "rescue": "Rescue cost", "tie_inv": "Investment ties",
+            "tie_trade": "Trade ties", "blue": "Blue Chip climb", "burst": "Bubble Bursts", "bad": "Bad Debts",
+            "ceiling": "Credit ceiling"}
 # a hook's words, and whether more of it helps (1), hurts (-1) or neither (0)
 FX_WORDS = {"hype": ("Investor Reaction", 0), "flight": ("[concept_spec_capital_flight]", 1), "loss": ("Trust losses", -1),
-            "credit": ("Credit lent", 1)}
-NAMES_ABOUT = ("The state grants its Exchange one charter: #v Commodity Exchange#!, #v Money Market#! or #v Share Market#!. "
-               f"An Exchange holds #v 1#! to #v 4#! specialities from the #v {len(NAMES)}#! Paths to Renown, more as its "
-               f"Standing rises, and keeps each at least #v {PURSUE_LOCK}#! years.")
+            "credit": ("Credit lent", 1),
+            # levers in the rest of the mod (NX_HOOKS)
+            "press": ("Our rival Press Campaigns", 1), "raid": ("Our rival Bear Raids", 1),
+            "lure": ("Our rival Lure Investors", 1), "shore": ("Our Shore Up lasts", 1),
+            "crash": ("Confidence lost in busts", -1), "panic": ("[concept_spec_financial_panic] length", -1),
+            "rescue": ("Rescue cost", -1), "tie_inv": ("Investment ties to other markets", 0),
+            "tie_trade": ("Trade ties to other markets", 0), "blue": ("[concept_spec_blue_chip] climb", 1),
+            "burst": ("Bubble Bursts", -1), "bad": ("[concept_spec_bad_debts] a panic leaves", -1),
+            "ceiling": ("Credit ceiling", 1)}
+NAMES_ABOUT = ("You grant your Exchange one charter: #v Commodity Exchange#!, #v Money Market#! or #v Share Market#!. "
+               f"It holds #v 1#! to #v 4#! specialities from the #v {len(NAMES)}#! Paths to Renown, more as its "
+               f"Standing rises, and keeps each for at least #v {PURSUE_LOCK}#! years.")
+FX_COLUMN = {h: (FX_SHORT[h], g) for h, (_, g) in FX_WORDS.items()}
 
 
 def _fx_words(k, sep, words=FX_WORDS):
@@ -1382,32 +1456,42 @@ def _names_loc(ui, known):
                         f"#v [{P}.ScriptValue('spec_log_kbc')|0]#!", "1"), "floor": (f"{tc} levels", "0"),
           "sound": ("quiet months of sound lending", "0"),
           "pockets": ("money entering the [concept_investment_pool] each month", "D"),
-          "door": ("treaties with other countries", "0")}
+          "door": ("treaties with other countries", "0"),
+          "futures": ("the states our market reaches", "0"),
+          "lender": ("countries granting us [concept_foreign_investment] rights", "0"),
+          "railway": ("[GetBuildingType('building_railway').GetName] and [GetBuildingType('building_port').GetName] levels", "0")}
     about = {"price": "The world looks to our floor for the price of goods.",
-             "harbour": "Frightened money abroad comes to our banks.",
+             "harbour": "Frightened money from abroad comes to our banks.",
              "companies": "The greatest companies raise their money here.",
              "floor": "More trade passes through our market than through any other.",
              "sound": "Our banks lend with care.",
              "pockets": "No market has more money seeking a use.",
-             "door": "Our market deals freely with the world."}
+             "door": "Our market deals freely with the world.",
+             "futures": "Harvests yet unsown are bought and sold on our floor.",
+             "lender": "Foreign governments come to us for their money.",
+             "railway": "Every new line is floated on our market, and every fortune with it."}
     drop = (" SPEC_EXCH_CARD_N_", " SPEC_EXCH_CARD_TT_", " SPEC_H_KNOWN_TT", " SPEC_EXCH_CARD_NOTE", " SPEC_EXCH_CARD_HELD")
     out = "".join(line for line in ui.splitlines(True) if not line.startswith(drop))
     short = [f"Investor Reaction: #v {KNOWN_HYPE - 1:+.0%}#!", f"Trust losses: #P {KNOWN_LOSS - 1:+.0%}#!",
              f"Credit lent: up to #P {KNOWN_CREDIT - 1:+.0%}#!"]
-    only = {ch: title for _, title, ch in NAMES if ch}
+    only = {}
+    for _, title, ch in NAMES:
+        if ch:
+            only[ch] = f"{only[ch]}#! or #v {title}" if ch in only else title
     held = lambda n: f"EqualTo_CFixedPoint({v('spec_exch_known')}, {fx(n)})"
     for n in (1, 2, 3):
         key = f"charter_{n}"
         out += (f' SPEC_EXCH_CARD_N_{n}: "{short[n - 1]}"\n'
-                f' SPEC_EXCH_CARD_TT_{n}: "#header {known[n]}#!\\n{short[n - 1]}\\nOnly an Exchange with this charter can '
-                f'choose #v {only[n]}#! as a speciality.\\n$TOOLTIP_DELIMITER$\\n$SPEC_CHARTER_RULE$'
+                f' SPEC_EXCH_CARD_TT_{n}: "#header {known[n]}#!\\n{short[n - 1]}\\nOpens #v {only[n]}#! as a speciality'
                 f"[AddLocalizationIf(Not(GetScriptedGui('spec_sgui_{key}').IsValid(GuiScope.SetRoot({P}).End)), "
                 f"'SPEC_CHARTER_WHY_{n}')]\"\n"
                 f' SPEC_CHARTER_WHY_{n}: "\\n\\n{sg(key, "BuildTooltip")}"\n'
                 f" SPEC_CHARTER_BTN_{n}: \"[SelectLocalization({held(n)}, 'SPEC_CHARTER_HELD', 'SPEC_CHARTER_GRANT')]\"\n"
-                f' SPEC_NAME_NEED_{n}: "{known[n]} only"\n')
+                f' SPEC_NAME_NEED_{n}: "{known[n]} only"\n'
+                f' SPEC_NAME_NEEDS_{n}: "\\n\\n#N Needs the {known[n]} charter#!"\n')
     unit = {"price": "traded", "harbour": "trust", "companies": "strength", "floor": "levels", "sound": "months",
-            "pockets": "income", "door": "treaties"}
+            "pockets": "income", "door": "treaties",
+            "futures": "states", "lender": "countries", "railway": "levels"}
     for k, title, ch in NAMES:
         what, f = by[k]
         cur = "@money!" if f == "D" else ""  # the fields counted in money
@@ -1426,40 +1510,48 @@ def _names_loc(ui, known):
         tval = lambda p: ldv if p == 1 else f"GetGlobalVariable('spec_t{p}_{k}').GetValue"
         need = lambda p: f"Subtract_CFixedPoint({tval(p)}, {ours_v})"
         stat = f"[SelectLocalization({has}, 'SPEC_NAME_FX_{k}', 'SPEC_NAME_FXDIM_{k}')]"  # the build-up is in the row's tooltip
-        flight = f"\\n[concept_spec_capital_flight] is received only {FLIGHT_IF}" if "flight" in NAME_FX[k] else ""
+        flight = f"\\n#grey [concept_spec_capital_flight] received {FLIGHT_IF}#!" if "flight" in NAME_FX[k] else ""
         out += (f' SPEC_NAME_H_{k}: "#b {title}#!"\n'
-                f' SPEC_NAME_FX_{k}: "{_fx_words(k, chr(92) + "n")}"\n'
+                f' SPEC_NAME_FX_{k}: "{_fx_words(k, chr(92) + "n", FX_COLUMN)}"\n'
                 f' SPEC_NAME_FXDIM_{k}: "$SPEC_NAME_FX_{k}$"\n'  # coloured as held: good green, bad red, neutral white
-                + (f" SPEC_NAME_STATUS_{k}: \"[SelectLocalization({held(ch)}, 'SPEC_NAME_STAT_{k}', 'SPEC_NAME_NEED_{ch}')]\"\n"
-                   f' SPEC_NAME_STAT_{k}: "{stat}"\n' if ch else f' SPEC_NAME_STATUS_{k}: "{stat}"\n')
-                + f' SPEC_NAME_PW_TT_{k}: "\\nSpeciality bonus to our tally: #v +[{pct}|%0]#! of #v {PURSUE_BOOST - 1:+.0%}#!'
+                # the effects always show, chartered or not (the user wants to see what a locked path gives);
+                # the charter it needs is in the icon's tooltip
+                + f' SPEC_NAME_STATUS_{k}: "{stat}"\n'
+                + f' SPEC_NAME_PW_TT_{k}: "\\n$TOOLTIP_DELIMITER$\\nTally bonus: #v +[{pct}|%0]#! of #v {PURSUE_BOOST - 1:+.0%}#!'
                 f"[SelectLocalization({pu}, 'SPEC_NAME_PW_UP', 'SPEC_NAME_PW_DOWN')]\"\n"
                 f" SPEC_NAME_QTY_{k}: \"#b {cur}[{P}.ScriptValue('spec_name_{k}')|{f}]#!\"\n"
                 f' SPEC_NAME_TALLY_{k}: "$SPEC_NAME_QTY_{k}$ #grey {unit[k]}#!"\n'
-                f' SPEC_NAME_BAR_TT_{k}: "#header {title}#!\\nOurs: #v {cur}[{ours_v}|{f}]#!\\n$TOOLTIP_DELIMITER$\\n'
+                f' SPEC_NAME_BAR_TT_{k}: "#header {title}#!\\nRanked by {by[k][0]}\\n$TOOLTIP_DELIMITER$\\n'
                 f"[SelectLocalization({ld}.GetCountry.IsValid, 'SPEC_NAME_PLACES_{k}', 'SPEC_NAME_NOLEAD')]"
                 + f"[AddLocalizationIf({ch_}.GetCountry.IsValid, 'SPEC_NAME_CH_{k}')]"
                 + f"[SelectLocalization({gt(f'Subtract_CFixedPoint({sh}, {shl})', 0.001)}, 'SPEC_NAME_UP', "
                 f"SelectLocalization({gt(f'Subtract_CFixedPoint({shl}, {sh})', 0.001)}, 'SPEC_NAME_DOWN', 'SPEC_NAME_FLAT'))]"
-                f'\\n$TOOLTIP_DELIMITER$\\n$SPEC_NAME_BAR_RULE$"\n'
+                f'"\n'
                 # the flags' three, each with its tally now: "1st France: 212"
                 f" SPEC_NAME_PLACES_{k}: \"" + "".join(
-                    f"[AddLocalizationIf(GetGlobalVariable('spec_w_{k}{p}').GetCountry.IsValid, 'SPEC_NAME_P{p}_{k}')]" for p in (1, 2, 3)) + '"\n'
-                f' SPEC_NAME_CH_{k}: "\\n#v [{ch_}.GetCountry.GetNameNoFormatting]#! has the higher tally and takes the lead '
-                f'if it stays ahead #v {LEAD_HOLD}#! months running: #v [GetGlobalVariable(\'spec_chm_{k}\').GetValue|0]#! so far"\n'
-                + f" SPEC_NAME_P1_{k}: \"1st [GetGlobalVariable('spec_w_{k}1').GetCountry.GetNameNoFormatting]: #v {cur}[GetGlobalVariable('spec_w_{k}1').GetCountry.MakeScope.ScriptValue('spec_name_{k}')|{f}]#!\"\n"
-                + f" SPEC_NAME_P2_{k}: \"\\n2nd [GetGlobalVariable('spec_w_{k}2').GetCountry.GetNameNoFormatting]: #v {cur}[GetGlobalVariable('spec_w_{k}2').GetCountry.MakeScope.ScriptValue('spec_name_{k}')|{f}]#!\"\n"
-                + f" SPEC_NAME_P3_{k}: \"\\n3rd [GetGlobalVariable('spec_w_{k}3').GetCountry.GetNameNoFormatting]: #v {cur}[GetGlobalVariable('spec_w_{k}3').GetCountry.MakeScope.ScriptValue('spec_name_{k}')|{f}]#!\"\n"
-                + f' SPEC_NAME_THIRD_{k}: "\\nThird place: #v {cur}[{third_v}|{f}]#!"\n'
-                f' SPEC_NAME_ICON_TT_{k}: "#header {title}#!\\n{_fx_words(k, chr(92) + "n")}{flight}"\n'
-                f' SPEC_PURSUE_STOP_TT_{k}: "#header Drop {title}#!\\nThe speciality is dropped and its place freed at once; what '
-                f"it has built up fades over #v {PURSUE_MONTHS}#! months.[AddLocalizationIf({P}.Var('spec_pu_lock_{k}').IsSet, 'SPEC_PURSUE_LEFT_{k}')]"
-                f'\\n$TOOLTIP_DELIMITER$\\n$SPEC_PURSUE_LV_{k}$\\n$TOOLTIP_DELIMITER$\\n'
-                f'{sg(f"pursue_stop_{k}", "BuildTooltip")}"\n'
-                f' SPEC_PURSUE_LEFT_{k}: "\\n\\nCan be dropped in #v [{v(f"spec_pu_lock_{k}")}|0]#! months"\n'
+                    f"[AddLocalizationIf(GetGlobalVariable('spec_w_{k}{p}').GetCountry.IsValid, 'SPEC_NAME_P{p}_{k}')]" for p in (1, 2, 3))
+                + f"\\n#b Ours: {cur}[{ours_v}|{f}]#! #grey {unit[k]}#!\"\n"
+                + "".join(f" SPEC_NAME_FLAG_TT_{k}{p}: \"#header {('1st', '2nd', '3rd')[p - 1]} on {title}#!\\n"
+                          f"[SelectLocalization(GetGlobalVariable('spec_w_{k}{p}').GetCountry.IsValid, 'SPEC_NAME_FW_{k}{p}', 'SPEC_NAME_NOONE')]"
+                          f"\\n$TOOLTIP_DELIMITER$\\nAs our speciality, this place gives:\\n{_mod_words(_pursue_fx(k, 4 - p), chr(92) + 'n')}\"\n"
+                          f" SPEC_NAME_FW_{k}{p}: \"#v [GetGlobalVariable('spec_w_{k}{p}').GetCountry.GetNameNoFormatting]#!: "
+                          f"#v {cur}[GetGlobalVariable('spec_w_{k}{p}').GetCountry.MakeScope.ScriptValue('spec_name_{k}')|{f}]#! #grey {unit[k]}#!\"\n"
+                          for p in (1, 2, 3))
+                + f' SPEC_NAME_CH_{k}: "\\n#v [{ch_}.GetCountry.GetNameNoFormatting]#! takes the lead after #v {LEAD_HOLD}#! months ahead '
+                f'(#v [GetGlobalVariable(\'spec_chm_{k}\').GetValue|0]#! so far)"\n'
+                + f" SPEC_NAME_P1_{k}: \"1st [GetGlobalVariable('spec_w_{k}1').GetCountry.GetNameNoFormatting]: #v {cur}[GetGlobalVariable('spec_w_{k}1').GetCountry.MakeScope.ScriptValue('spec_name_{k}')|{f}]#! #grey {unit[k]}#!\"\n"
+                + f" SPEC_NAME_P2_{k}: \"\\n2nd [GetGlobalVariable('spec_w_{k}2').GetCountry.GetNameNoFormatting]: #v {cur}[GetGlobalVariable('spec_w_{k}2').GetCountry.MakeScope.ScriptValue('spec_name_{k}')|{f}]#! #grey {unit[k]}#!\"\n"
+                + f" SPEC_NAME_P3_{k}: \"\\n3rd [GetGlobalVariable('spec_w_{k}3').GetCountry.GetNameNoFormatting]: #v {cur}[GetGlobalVariable('spec_w_{k}3').GetCountry.MakeScope.ScriptValue('spec_name_{k}')|{f}]#! #grey {unit[k]}#!\"\n"
+                + f' SPEC_NAME_THIRD_{k}: "\\nThird place: #v {cur}[{third_v}|{f}]#! #grey {unit[k]}#!"\n'
+                f' SPEC_NAME_ICON_TT_{k}: "$SPEC_NAME_TT_{k}$"\n'
+                f' SPEC_PURSUE_STOP_TT_{k}: "#header Drop {title}#!\\nFrees its slot at once; its effects fade over #v {PURSUE_MONTHS}#! months.'
+                f"[AddLocalizationIf({P}.Var('spec_pu_lock_{k}').IsSet, 'SPEC_PURSUE_LEFT_{k}')]"
+                f'\\n$TOOLTIP_DELIMITER$\\n{sg(f"pursue_stop_{k}", "BuildTooltip")}"\n'
+                f' SPEC_PURSUE_LEFT_{k}: "\\n#N Locked for#! #v [{v(f"spec_pu_lock_{k}")}|0]#! #N more months#!"\n'
                 f' SPEC_PURSUE_LV_{k}: "{_pursue_lv(k)}"\n'
+                + _pursue_lv_keys(k) +
                 # the row: what the path gives at each place, and while a slot is being filled whether it can be chosen
-                f" SPEC_ROW_TT_{k}: \"$SPEC_NAME_TT_{k}$\\n$TOOLTIP_DELIMITER$\\n$SPEC_PURSUE_LV_{k}$"
+                f" SPEC_ROW_TT_{k}: \"$SPEC_NAME_TT_{k}$"
                 f"[AddLocalizationIf(And(Not({pu}), GetVariableSystem.Exists('spec_pick_slot')), 'SPEC_ROW_CHOOSE_{k}')]\"\n"
                 f" SPEC_ROW_CHOOSE_{k}: \"\\n$TOOLTIP_DELIMITER$\\n[SelectLocalization({sg(f'pursue_{k}', 'IsValid')[1:-1]}, "
                 f"'SPEC_ROW_CLICK', 'SPEC_ROW_CANNOT')]\\n{sg(f'pursue_{k}', 'BuildTooltip')}\"\n"
@@ -1467,13 +1559,11 @@ def _names_loc(ui, known):
                           f'{sg(f"pursue_{d}_{k}", "BuildTooltip")}"\n' for d, w in (("left", "Earlier"), ("right", "Later")))
                 + ''
                 f' SPEC_PURSUE_SLOT_{k}: "#v [{v(f"spec_pu_{k}")}|0]#!"\n'
-                f' SPEC_NAME_TT_{k}: "#header {title}#!\\n{about[k]}\\n$TOOLTIP_DELIMITER$\\n{_fx_words(k, chr(92) + "n")}{flight}\\n'
-                f"$TOOLTIP_DELIMITER$\\nRanked by {what}\\nOurs: #v {cur}[{P}.ScriptValue('spec_name_{k}')|{f}]#!\\n"
-                f"The world's leader: #v {cur}[GetGlobalVariable('spec_top_{k}').GetValue|{f}]#!"
-                f"[AddLocalizationIf({third}.GetCountry.IsValid, 'SPEC_NAME_THIRD_{k}')]"
-                + (f"\\nOnly for an Exchange chartered as a #v {known[ch]}#!" if ch else "")
-                + f"[AddLocalizationIf({live}, 'SPEC_NAME_PW_TT_{k}')]"
-                + '\\n\\n$SPEC_NAME_RULE$"\n')
+                f' SPEC_NAME_TT_{k}: "#header {title}#!\\n#italic {about[k]}#!\\n$TOOLTIP_DELIMITER$\\n'
+                f'#b As a speciality#!\\n{_fx_words(k, chr(92) + "n")}{flight}\\n\\n'
+                f'#b By our place each year#!\\n$SPEC_PURSUE_LV_{k}$'
+                + (f"[AddLocalizationIf(Not({held(ch)}), 'SPEC_NAME_NEEDS_{ch}')]" if ch else "")
+                + f"[AddLocalizationIf({live}, 'SPEC_NAME_PW_TT_{k}')]" + '"\n')
     for ch in (1, 2, 3):
         out += f' spec_pursue_charter_tt_{ch}: "Our [concept_spec_exchange] is chartered as a #v {known[ch]}#!"\n'
     rule = (f"Specialities: #v 1#! at Provincial, up to #v 4#! as a World Centre\\n"
@@ -1486,40 +1576,42 @@ def _names_loc(ui, known):
             ' SPEC_NAME_PW_UP: ", #P building#!"\n SPEC_NAME_PW_DOWN: ", #N fading#!"\n'
             ' SPEC_NAME_UP: "\\n#P Gaining on the leader this month#!"\n'
             ' SPEC_NAME_DOWN: "\\n#N Falling behind the leader this month#!"\n SPEC_NAME_FLAT: ""\n'
-            f' SPEC_NAME_BAR_RULE: "Our tally against the leader\'s, updated monthly. Marks show where 3rd, 2nd and 1st place '
-            f'stand. Gold while we gain on the leader, red while we fall behind. A market takes the lead after #v {LEAD_HOLD}#! '
-            'months ahead in a row."\n'
+            f' SPEC_NAME_BAR_RULE: "Our tally against the leader\'s, updated each month. The marks show where 3rd, 2nd and 1st '
+            f'place stand. The bar is gold while we gain on the leader and red while we fall behind. A market takes the lead once '
+            f'it has stayed ahead for #v {LEAD_HOLD}#! months in a row."\n'
             ' SPEC_NAME_NOLEAD: "No Exchange leads on this path yet"\n'
+            ' SPEC_NAME_NOONE: "#grey No Exchange holds this place yet#!"\n'
             f' SPEC_H_NAMES_RIGHT: "#v [{v("spec_pursue_n")}|0]#! of #v [{slots}|0]#!"\n'
             ' SPEC_H_CONTEST: "Paths to Renown"\n'
-            ' SPEC_H_CONTEST_TT: "#header Paths to Renown#!\\n$SPEC_CONTEST_NOTE$\\n\\n$SPEC_NAME_RULE$\\n$TOOLTIP_DELIMITER$\\n$SPEC_PURSUE_RULE$"\n'
+            ' SPEC_H_CONTEST_TT: "#header Paths to Renown#!\\n$SPEC_CONTEST_NOTE$\\n\\n$SPEC_NAME_RULE$\\n\\n$SPEC_NAME_BAR_RULE$\\n$TOOLTIP_DELIMITER$\\n$SPEC_PURSUE_RULE$"\n'
             ' SPEC_CONTEST_PLACE_1: "#grey 1st#!"\n SPEC_CONTEST_PLACE_2: "#grey 2nd#!"\n SPEC_CONTEST_PLACE_3: "#grey 3rd#!"\n'
             ' SPEC_CONTEST_NOTE: "The flags show last year\'s three leaders on each path, and each bar our tally against '
             'the leader\'s. Choosing a path as a speciality helps us climb on it, at some cost to the rest."\n'
             ' SPEC_CONTEST_COL_NAME: "#grey Path#!"\n'
             ' SPEC_CONTEST_COL_GIVES: "#grey Effects#!"\n'
             ' SPEC_SLOT_OPEN: "#grey Open#!"\n'
-            ' SPEC_SLOT_OPEN_TT: "#header Open Speciality#!\\nClick #v Choose#! here, then a Path to Renown in the list below.\\n\\n$SPEC_PURSUE_RULE$"\n'
+            ' SPEC_SLOT_OPEN_TT: "#header Open Speciality#!\\n$SPEC_PURSUE_RULE$\\n\\n#instruction Click Choose, then a Path to Renown in the list below#!"\n'
             + "".join(f' SPEC_SLOT_NUM_{i}: "#v {i}#!"\n' for i in (1, 2, 3, 4))
-            + "".join(f' SPEC_SLOT_LOCK_TT_{i}: "#header Locked Speciality#!\\n$SPEC_SLOT_LOCK_{i}$"\n' for i in (1, 2, 3)) +
-            ' SPEC_SLOT_LOCK_1: "#grey Opens at#! #v National#! #grey Standing#!"\n'
-            ' SPEC_SLOT_LOCK_2: "#grey Opens at#! #v International#! #grey Standing#!"\n'
-            ' SPEC_SLOT_LOCK_3: "#grey Opens as a#! #v World Centre#!"\n'
+            # the card: two short lines that fit its width; the tooltip says it in full
+            + "".join(f' SPEC_SLOT_LOCK_TT_{i}: "#header Locked Speciality#!\\nOpens when our [concept_spec_exchange] reaches #v {st}#! Standing."\n'
+                      for i, st in ((1, "National"), (2, "International"), (3, "World Centre"))) +
+            ' SPEC_SLOT_LOCK_1: "#grey Opens at#!\\n#v National#!"\n'
+            ' SPEC_SLOT_LOCK_2: "#grey Opens at#!\\n#v International#!"\n'
+            ' SPEC_SLOT_LOCK_3: "#grey Opens at#!\\n#v World Centre#!"\n'
             ' spec_pursue_current_tt: "Not already one of our specialities"\n'
             ' spec_pursue_room_tt: "We have a free speciality"\n'
             f' spec_pursue_locked_tt: "Kept at least #v {PURSUE_LOCK}#! years"\n'
             ' SPEC_SLOT_PICK: "Choose"\n SPEC_SLOT_PICK_CANCEL: "Cancel"\n'
-            ' SPEC_ROW_CLICK: "#T Click to choose#!"\n SPEC_ROW_CANNOT: "#N Cannot be chosen#!"\n'
-            ' SPEC_SLOT_PICK_TT: "#header Choose a Speciality#!\\nThen click one of the lit Paths to Renown in the list below."\n'
-            ' SPEC_SLOT_PICK_CANCEL_TT: "#header Cancel#!\\nStop choosing a path for this slot."\n'
+            ' SPEC_ROW_CLICK: "#instruction Click to choose#!"\n SPEC_ROW_CANNOT: "#N Cannot be chosen#!"\n'
+            ' SPEC_SLOT_PICK_TT: "#header Choose a Speciality#!\\n#instruction Click one of the lit Paths to Renown in the list below#!"\n'
+            ' SPEC_SLOT_PICK_CANCEL_TT: "#header Cancel#!\\n#instruction Click to stop choosing a path for this slot#!"\n'
             ' SPEC_SLOT_LATER_TT: "#header Open Speciality#!\\nFilled after the slots before it.\\n\\n$SPEC_PURSUE_RULE$"\n'
             ' spec_pursue_first_tt: "Already first"\n spec_pursue_last_tt: "Already last"\n'
             ' SPEC_PURSUE_ORDER: "If our [concept_spec_exchange]\'s Standing falls, specialities are lost from the last slot first. '
             'Moving one earlier keeps it longer."\n'
-            ' SPEC_PURSUE_NOW: " #grey (now)#!"\n'
             ' SPEC_PURSUE_SLOT_TT: "#header Order Chosen#!\\nIf our [concept_spec_exchange]\'s Standing falls, the last chosen specialities are dropped first."\n'
-            + "".join(f' spec_pursue_{k}_{lv}: "{title}"\n spec_pursue_{k}_{lv}_desc: "The [concept_country]\'s [concept_spec_exchange] speciality, '
-                      f'{PLACE_WORDS[lv].lower()} on its path"\n' for k, title, _ in NAMES for lv in range(4))
+            + "".join(f' spec_pursue_{k}_{lv}: "{title}"\n spec_pursue_{k}_{lv}_desc: "The [concept_country]\'s [concept_spec_exchange] '
+                      f'has made this its speciality, and stands {PLACE_WORDS[lv].lower()} on its path."\n' for k, title, _ in NAMES for lv in range(4))
             # the Standing-down toast (notify.py) names the specialities the fall cost (_pursue_fall)
             + ' SPEC_EXCH_DOWN_LOST: "' + "".join(f"[AddLocalizationIf(GetPlayer.MakeScope.Var('spec_pu_lost_{k}').IsSet, "
                                                   f"'SPEC_EXCH_LOST_{k}')]" for k, *_ in NAMES) + '"\n'
@@ -1528,19 +1620,19 @@ def _names_loc(ui, known):
         ' SPEC_NAME_RULE: "Once a year the world\'s Exchanges of National Standing or higher are compared on each Path to Renown. '
         'Our place on a path chosen as a speciality sets what it gives."\n'
         ' SPEC_CHARTER_HELD: "Chartered"\n SPEC_CHARTER_GRANT: "Grant Charter"\n'
-        f' SPEC_CHARTER_RULE: "The first charter costs nothing. Granting a different one later costs #N {CHARTER_COST:.0%}#! '
-        "of the [concept_spec_exchange]'s trust and any speciality only the old charter allowed. A charter then stands for "
-        f'#v {CHARTER_LOCK}#! years."\n'
+        f' SPEC_CHARTER_RULE: "The first charter is free\\nA new one later: #N -{CHARTER_COST:.0%}#! '
+        "of the [concept_spec_exchange]'s trust, and any speciality only the old charter allowed\\nEach charter stands for "
+        f'#v {CHARTER_LOCK}#! years"\n'
         ' spec_charter_current_tt: "Our [concept_spec_exchange] does not already hold this charter"\n'
         f' spec_charter_locked_tt: "No charter has been granted in the last #v {CHARTER_LOCK}#! years"\n'
         ' SPEC_H_CHARTER: "Exchange Charter"\n'
         ' SPEC_H_CHARTER_TT: "#header Exchange Charter#!\\n$SPEC_EXCH_CARD_NOTE$\\n\\n$SPEC_CHARTER_RULE$"\n'
-        ' SPEC_EXCH_CARD_NOTE: "The state grants its [concept_spec_exchange] one charter. Each brings its own advantage and opens one '
-        'Path to Renown that no other kind of Exchange can choose as a speciality."\n'
+        ' SPEC_EXCH_CARD_NOTE: "The state grants its [concept_spec_exchange] one charter\\nEach brings its own advantage and opens '
+        'Paths to Renown no other charter can choose"\n'
         ' SPEC_H_KNOWN_TT: "#header Specialities#!\\nThe Paths to Renown the state has chosen for our [concept_spec_exchange].\\n\\n$SPEC_PURSUE_RULE$"\n')
 
 
-# Rival exchanges (rivals.py, design_rivals.md): every vanilla rivalry between two countries with an Exchange
+# Rival exchanges (rivals.py, design_rivals.md): named rivals each Exchange chooses, separate from vanilla rivalries
 RIVAL_ON = NAMES_ON and tuning.get("EXCH_RIVAL_ON", 1)
 RIVAL_VARS = __import__("rivals").STATE_VARS
 
@@ -2438,6 +2530,7 @@ def gauge(label, value, expr, top, tt, vis=None):
 """
 
 TRUST_LV = ["Distrusted", "Doubted", "Respected", "Trusted"]
+TRUST_COL = ["N", "grey", "v", "P"]  # the level's colour where it is shown alone (the trust heading)
 TRUST_PICK = lambda: _pick(f"Subtract_CFixedPoint(Multiply_CFixedPoint(Divide_CFixedPoint({v('spec_centre_trust')}, {fx(CALM)}), "
                            f"{fx(4)}), {fx(0.5)})", "SPEC_EXCH_TRUST_LV", 3)
 
@@ -2612,17 +2705,17 @@ def _parts_loc():
             + "".join(f' SPEC_XS_REGLINE_{i}: "\\nAgainst the leader in {name}, '
                       f"[GetGlobalVariable('spec_xs_rlead_{i}').GetCountry.GetName]: #v {p('spec_xs_regshare')}%#!\"\n"
                       for i, (_, name) in enumerate(REGIONS, 1))
-            + f' SPEC_XS_CAP_TT: "#header Capital#!\\n$TOOLTIP_DELIMITER$\\nThe score begins from the capital our '
-            f"[concept_spec_exchange] draws on, growing as its square root: four times the capital "
-            f"doubles the score.\\n\\nOur own: #v {money('spec_xs_own_v')}#!, six months of [concept_investment_pool] income, averaged over the "
-            f"past year\\nFrom our ties: #v {money('spec_xs_reach_v')}#!, {reach}\"\n"
-            f' SPEC_XS_WEALTH_TT: "#header Wealth per Head#!\\n$TOOLTIP_DELIMITER$\\nOur [concept_investment_pool] income per '
-            f"person is #v {p('spec_xs_ratio_v', '2')}#! times the world's. A rich people's savings make a deeper market: the square "
-            f'root of that, from #v x{WEALTH[0]:g}#! to #v x{WEALTH[1]:g}#!"\n'
-            f' SPEC_XS_TECH_TT: "#header Finance Technologies#!\\n$TOOLTIP_DELIMITER$\\nEach one researched raises the score:{techs}'
+            + f' SPEC_XS_CAP_TT: "#header Capital#!\\n$TOOLTIP_DELIMITER$\\nThe score grows with the {'fourth' if SIZE_ROOT == 4 else 'square'} root of the capital our '
+            f"[concept_spec_exchange] draws on: "
+            f"{'sixteen' if SIZE_ROOT == 4 else 'four'} times the capital doubles it\\n\\nOur own: #v {money('spec_xs_own_v')}#!, six months of [concept_investment_pool] income, yearly "
+            f"average\\nFrom our ties: #v {money('spec_xs_reach_v')}#!, {reach}\"\n"
+            f' SPEC_XS_WEALTH_TT: "#header Wealth per Head#!\\n$TOOLTIP_DELIMITER$\\n[concept_investment_pool] income per '
+            f"person: #v {p('spec_xs_ratio_v', '2')}#! times the world's\\nThe score takes its square "
+            f'root, from #v x{WEALTH[0]:g}#! to #v x{WEALTH[1]:g}#!"\n'
+            f' SPEC_XS_TECH_TT: "#header Finance Technologies#!\\n$TOOLTIP_DELIMITER$\\nEach one researched{techs}'
             f"\\n\\n{tech('stock_exchange')} is needed to stand #v International#!, "
             f"{tech('central_banking')} to stand #v World Centre#!\"\n"
-            f' SPEC_XS_ECON_TT: "#header Economic System#!\\n$TOOLTIP_DELIMITER$\\nOur economic system multiplies the score:{econ}"\n')
+            f' SPEC_XS_ECON_TT: "#header Economic System#!\\n$TOOLTIP_DELIMITER$\\nBy economic system{econ}"\n')
 
 
 def standing_block():
@@ -2798,13 +2891,12 @@ def pledge_row():
 
 
 def _pledge_loc():
-    about = (f"Every [concept_spec_financial_panic] is rescued at once, #P {1 - PLEDGE_SHARE:.0%}#! cheaper, if the "
-             "[concept_treasury] can pay from its reserves and the country is not in [concept_default]\\n"
+    about = (f"Every [concept_spec_financial_panic] rescued at once, #P {1 - PLEDGE_SHARE:.0%}#! cheaper, while the "
+             "[concept_treasury] can pay from reserves and we are not in [concept_default]\\n"
              f"[concept_spec_exchange] trust lost to a panic: #P {PLEDGE_PANIC - 1:+.0%}#!\\n"
-             f"[concept_spec_capital_flight] received: #P {PLEDGE_FLIGHT - 1:+.0%}#! (International Standing or higher, or as a "
-             "[concept_great_power])"
+             f"[concept_spec_capital_flight] received: #P {PLEDGE_FLIGHT - 1:+.0%}#!"
              + ("\\nEach rescue loosens Lending Standards" if cycle.ON else "") + "\\n$TOOLTIP_DELIMITER$\\n"
-             f"Entering [concept_default] breaks the Pledge: all trust is lost, [concept_spec_market_confidence] "
+             f"Broken by [concept_default]: all trust lost, [concept_spec_market_confidence] "
              f"#N -{PLEDGE_BREAK['conf']}#!, [concept_legitimacy] #N -{PLEDGE_BREAK['legit']}#! for #v 5#! years\\n"
              f"Withdrawing the Pledge takes #v {PLEDGE_NOTICE}#! months' notice")
     why = lambda k: (f"[AddLocalizationIf(Not(GetScriptedGui('spec_sgui_{k}').IsValid(GuiScope.SetRoot({P}).End)), "
@@ -2825,12 +2917,12 @@ def _pledge_loc():
            ' spec_pledge_made_tt: "We have not already made the Pledge"\n'
            ' spec_pledge_none_tt: "We have made the Pledge"\n'
            ' spec_pledge_leaving_tt: "We are not already withdrawing it"\n'
-           ' SPEC_PLEDGE_UNMET: "\\n\\nWe pledged to rescue the banks, but the [concept_treasury] cannot honor it: the [concept_spec_financial_panic] runs its course."\n'
+           ' SPEC_PLEDGE_UNMET: "\\n\\n#N The [concept_treasury] cannot honor the Pledge#!, so the [concept_spec_financial_panic] runs its course"\n'
            ' spec_pledge_broken: "Broken Pledge"\n'
-           ' spec_pledge_broken_desc: "The [concept_country] defaulted after pledging to rescue its banks"\n'
-           ' notification_spec_pledge_broken_name: "Pledge Broken"\n'
-           ' notification_spec_pledge_broken_desc: "Our default has broken our Pledge to Rescue the Banks. '
-           'No one trusts the $SPEC_EXCH_CITY_ME$ Exchange now."\n'
+           ' spec_pledge_broken_desc: "The [concept_country] pledged to rescue its banks, then went into [concept_default]."\n'
+           ' notification_spec_pledge_broken_name: "Our default breaks the Pledge"\n'
+           ' notification_spec_pledge_broken_desc: "Our default has broken our Pledge to Rescue the Banks, and the '
+           '$SPEC_EXCH_CITY_ME$ Exchange has lost all the trust it held."\n'
            ' notification_spec_pledge_broken_tooltip: "#header $notification_spec_pledge_broken_name$#!\\n$TOOLTIP_DELIMITER$\\n'
            '$notification_spec_pledge_broken_desc$"\n')
     for k in ("pledge", "pledge_leave"):
@@ -2851,12 +2943,12 @@ def loc():
            ' concept_spec_financial_centres: "Leading Exchanges"\n'
            f' concept_spec_financial_centre_desc: "The $concept_spec_financial_centres$ are the #v {PLACES}#! '
            + ("[Concept('concept_country','$concept_countries$')] with the highest "
-              "[Concept('concept_spec_financial_centre','$concept_spec_exchange$')] score, ranked each month. The score grows with "
-              f"the square root of #v {MONTHS:g}#! months of [concept_investment_pool] income, and with trust, wealth per head, "
-              "Financial Districts, companies, finance technologies, [concept_rank] and economic system. The average of the "
+              "[Concept('concept_spec_financial_centre','$concept_spec_exchange$')] score, ranked each month. The score rests on "
+              "the [concept_investment_pool] income your [concept_spec_exchange] draws on, and rises with its trust, your wealth per "
+              "head, Financial Districts, companies, finance technologies, [concept_rank] and economic system. The average of the "
               "top three is shown as #v 100#!.\\n\\n" if ON else
               "[Concept('concept_country','$concept_countries$')] whose Exchanges lead the world, ranked each month.\\n\\n"
-              f"An Exchange's score is #v {MONTHS:g}#! months of [concept_investment_pool] income plus its "
+              f"Your Exchange's score is #v {MONTHS:g}#! months of [concept_investment_pool] income plus its "
               "[concept_spec_outstanding_credit]. A [concept_spec_financial_panic] cuts this to #v half#!; it then grows "
               f"month by month, to #v one and a half times#! after #v {CALM // 12}#! years without another. The leader's "
               "score is shown as #v 100#!.\\n\\n")
@@ -2870,7 +2962,9 @@ def loc():
            ' SPEC_CENTRE_EMPTY: "No $concept_spec_financial_centres$"\n'
            ' SPEC_CENTRE_COL_NAME: "$concept_country$"\n'
            ' SPEC_CENTRE_COL_SCORE: "Score"\n'
-           ' SPEC_CENTRE_COL_SCORE_TT: "The score of the [concept_country]\'s [concept_spec_exchange]. ' + ("The average of the top three is shown as #v 100#!" if ON else "The leader\'s is shown as #v 100#!") + '"\n'
+           ' SPEC_CENTRE_COL_SCORE_TT: "The [concept_spec_exchange]\'s capital, with diminishing returns, times its depth: '
+           'wealth per head, Financial Districts, companies, finance technologies and trust\\n'
+           + ("#v 100#! is the average of the world\'s top three" if ON else "#v 100#! is the leader\'s") + '"\n'
            ' SPEC_CENTRE_COL_CALM: "Years of Calm"\n'
            ' SPEC_CENTRE_COL_CALM_TT: "Years since the last [concept_spec_financial_panic] in the [concept_country]"\n'
            f' SPEC_CENTRE_SCORE: "#v {score}#!"\n'
@@ -2881,7 +2975,7 @@ def loc():
            f' SPEC_CENTRE_TT_OWN: "#header [Country.GetName]#!\\nNot one of the world\'s #v {PLACES}#! {centres}\\n'
            f'$TOOLTIP_DELIMITER$\\n{stats}"\n'
            ' spec_financial_centre: "Leading Exchange"\n'
-           f' spec_financial_centre_desc: "Effects of the [concept_country] being one of the world\'s {centres}"\n')
+           f' spec_financial_centre_desc: "The [concept_country]\'s [concept_spec_exchange] is one of the world\'s {centres}, and capital from every quarter seeks it out."\n')
     out += "".join(f' SPEC_CENTRE_N_{n}: "{n}"\n' for n in range(PLACES + 1, SHOWN + 1))
     for n in range(1, PLACES + 1):
         out += (f' SPEC_CENTRE_N_{n}: "#b {n}#!"\n'
@@ -2923,13 +3017,13 @@ def _exch_loc(score, rank, centres):
     cut = (f"#N -{PANIC_CUT[0]:.0%}#! to #N -{sum(PANIC_CUT):.0%}#! of trust as it starts, more with higher "
            "[concept_spec_leverage]" if leverage.ON else f"#N -{0.5:.0%}#! of trust as it starts")
     trust_how = (("Each month: #P rises#! with no [concept_spec_financial_panic] while Lending Standards are #v Sound#! or "
-                  "stricter, holds while #v Lax#!, #N falls#! while #v Reckless#!\\n" if cycle.ON else
+                  "stricter\\nHolds while #v Lax#!, #N falls#! while #v Reckless#!\\n" if cycle.ON else
                   "Each month: #P rises#! with no [concept_spec_financial_panic]\\n")
                  + "Boom ending in a main good: [concept_spec_correction] #P a little#!, [concept_spec_bust] or "
                  "[concept_spec_collapse] #N a lot#!\\n"
-                 f"[concept_spec_financial_panic]: {cut}, half that if set off by a [concept_spec_foreign_panic]"
+                 f"[concept_spec_financial_panic]: {cut}\\nHalved if set off by a [concept_spec_foreign_panic]"
                  + (" or under the Pledge" if PLEDGE_ON else "")
-                 + "; #N halved#! again if it runs its course with no Bank Rescue"
+                 + ", and again if it runs its course with no Bank Rescue"
                  + ("\\n[concept_spec_bad_debts]: #N falls#! each month, and the Standing cannot rise" if CRUNCH else "")
                  + f"\\nA new Exchange starts at #v {0.5:.0%}#!")
     # Phase 5's links, in the Exchange row's tooltip
@@ -2944,7 +3038,7 @@ def _exch_loc(score, rank, centres):
                     f"#v [{P}.ScriptValue('spec_exch_lean')|+=2]#! per month\"\n" if LEAN else "")
                  + (f' SPEC_EXCH_FX_IND: "\\nIndustrialists\' political strength: #P +[Multiply_CFixedPoint({stand(P)}, {fx(LINK_IND)})|%0]#!"\n'
                     ' spec_exch_industry: "Exchange Standing"\n'
-                    ' spec_exch_industry_desc: "The Industrialists gain strength from the [concept_country]\'s [concept_spec_exchange]"\n'
+                    ' spec_exch_industry_desc: "The Industrialists gain strength from the [concept_country]\'s [concept_spec_exchange]."\n'
                     if LINKS and LINK_IND else ""))
     nxt = [f"To stand #v National#!: #v {NATIONAL:g}%#! of the top three's score, #v {REG_NATIONAL:g}%#! of our region's leader's, "
            f"or a place among the {centres}",
@@ -2980,18 +3074,18 @@ def _exch_loc(score, rank, centres):
           + ' SPEC_EXCH_TIER_EMPTY: "No market holds this Standing"\n'
           ' SPEC_CENTRE_COL_TRUST: "Trust"\n'
           ' SPEC_CENTRE_COL_RIVAL: "Rival"\n'
-          ' SPEC_CENTRE_COL_RIVAL_TT: "#instruction Click a market\'s button to name it our Rival Exchange#!"\n'
+          ' SPEC_CENTRE_COL_RIVAL_TT: "Whether our [concept_spec_exchange] rivals theirs"\n'
           ' SPEC_CENTRE_COL_KNOWN: "Specialities"\n'
           ' SPEC_CENTRE_COL_KNOWN_TT: "The Paths to Renown the [concept_country]\'s [concept_spec_exchange] has chosen"\n'
           ' SPEC_CENTRE_COL_TRUST_TT: "How far the [concept_country]\'s [concept_spec_exchange] is trusted"\n'
           ' SPEC_CENTRE_TRUST: "#v $SPEC_EXCH_TRUST$#!"\n'
           + f' SPEC_EXCH_SCORE_LINE: "[Concept(\'concept_spec_financial_centre\',\'$concept_spec_exchange$\')] score #v [{v("spec_centre_score")}|0]#!"\n'
           + _parts_loc()
-          + "".join(f' SPEC_EXCH_TRUST_LV_{i}: "{w}"\n' for i, w in enumerate(TRUST_LV))
+          + "".join(f' SPEC_EXCH_TRUST_LV_{i}: "#{TRUST_COL[i]} {w}#!"\n' for i, w in enumerate(TRUST_LV))
           + "".join(f' SPEC_EXCH_TRUST_LV_TT_{i}: "#header {w}#!\\nTrust from #v {i * 25}%#! to #v {i * 25 + 25}%#!{_trust_words(i)}"\n'
                     for i, w in enumerate(TRUST_LV))
-          + f' SPEC_EXCH_TRUST_HEAD: "Trust: {TRUST_PICK()} $SPEC_CENTRE_TRUST$"\n'
-          f' SPEC_EXCH_G_TRUST_TT: "#header Trust#!\\n$TOOLTIP_DELIMITER$\\n{trust_how}"\n'
+          + f' SPEC_EXCH_TRUST_HEAD: "#grey Trust:#! #b {TRUST_PICK()}#!"\n'  # the label and the coloured level; its % is in the tooltip
+          f' SPEC_EXCH_G_TRUST_TT: "#header Trust: {TRUST_PICK()} $SPEC_CENTRE_TRUST$#!\\n$TOOLTIP_DELIMITER$\\n{trust_how}"\n'
           ' SPEC_H_KNOWN: "Specialities"\n'
           ' SPEC_H_KNOWN_TT: "#header Known For#!\\n$SPEC_EXCH_CARD_NOTE$"\n'
           f' SPEC_H_KNOWN_RIGHT: "#v {_pick(v("spec_exch_known"), "SPEC_EXCH_KNOWN", 3)}#!"\n'
@@ -3040,8 +3134,8 @@ def _exch_loc(score, rank, centres):
             ' concept_spec_exchange: "Exchange"\n'
             ' concept_spec_exchange_desc: "A [concept_country]\'s $concept_spec_exchange$ is where its shares, bonds and credit change hands. Its Standing '
             "follows its [Concept('concept_spec_financial_centre','$concept_spec_exchange$')] score: #v Provincial#!, #v National#!, "
-            f"#v International#! (needs {stock}) or #v World Centre#! (needs {bank}). A higher Standing raises Investor Reaction "
-            "to rising prices, and from #v International#! the Exchange receives [concept_spec_capital_flight].\\n\\n"
+            f"#v International#! (needs {stock}) or #v World Centre#! (needs {bank}). The higher your Exchange's Standing, the more "
+            "strongly investors react to rising prices, and from #v International#! it also receives [concept_spec_capital_flight].\\n\\n"
             + (NAMES_ABOUT if NAMES_ON else
                f"An Exchange becomes known for what its country builds, checked once a year: a #v Commodity Exchange#! for "
                f"higher Investor Reaction, from {tc} levels; a #v Money Market#! for smaller Trust losses, from years of sound "
@@ -3054,12 +3148,12 @@ def _exch_loc(score, rank, centres):
             + "\\n\\nTrust rises in calm years" + (" under sound lending" if cycle.ON else "")
             + ", and falls with [Concept('concept_spec_financial_panic','$concept_spec_financial_panics$')]"
             + (", [concept_spec_bad_debts]" if CRUNCH else "")
-            + ' and a [concept_spec_bust] or [concept_spec_collapse] in a main good. Low trust raises the interest rate on [concept_loans] and high trust lowers it."\n'
+            + ' and a [concept_spec_bust] or [concept_spec_collapse] in a main good. Low trust raises the interest rate on your [concept_loans] and high trust lowers it."\n'
             ' spec_exch_national: "Exchange Standing"\n'
             + "".join(f' spec_trust_{i}: "{TRUST_LV[i]} Exchange"\n spec_trust_{i}_desc: "The '
-                      f'[concept_country]\'s [concept_spec_exchange] is #v {TRUST_LV[i]}#! by investors"\n' for i, f in enumerate(TRUST_FX) if f) +
-            ' spec_exch_national_desc: "Effects of the [concept_country]\'s [concept_spec_exchange] Standing #v National#! or '
-            'higher without a place among the $concept_spec_financial_centres$"\n'
+                      f'[concept_country]\'s [concept_spec_exchange] is #v {TRUST_LV[i]}#! by investors."\n' for i, f in enumerate(TRUST_FX) if f) +
+            ' spec_exch_national_desc: "The [concept_country]\'s [concept_spec_exchange] is known well beyond its own city, though it '
+            'is not yet one of the $concept_spec_financial_centres$."\n'
             + (f' SPEC_EXCH_KNOWN_ME: "{known_me}"\n' if EARN else _choice_loc(city)) + links_loc)
 
 
@@ -3192,11 +3286,12 @@ if __name__ == "__main__":
         assert script.count("remove_global_variable = spec_ldv_") == len(NAMES) and "SPEC_NAME_NOLEAD" in words
         # a speciality's hooks follow its strength, the drawback as much as the benefit
         assert "has_variable = spec_has_" not in values() and values().count("multiply = { value = var:spec_pw_") == 4 * len(NAMES)  # 2 hooks and the 2 tally lines
-        assert words.count("is received only at International") == 2 * sum("flight" in NAME_FX[k] for k, *_ in NAMES)
+        assert words.count("[concept_spec_capital_flight] received at International") == 2 * sum("flight" in NAME_FX[k] for k, *_ in NAMES)
     if NAMES_ON:
         # the hand-out: first places before seconds before thirds, no more than the Standing allows; every name
         # helps one hook and hurts another; the player's charter is a button, the AI's is still earned
-        assert all(len(NAME_FX[k]) == 2 and set(NAME_FX[k]) <= set(FX_WORDS) for k, *_ in NAMES)
+        assert all(2 <= len(NAME_FX[k]) <= 3 and set(NAME_FX[k]) <= set(FX_WORDS) for k, *_ in NAMES)
+        assert set(FX_WORDS) == {"hype", "flight", "loss", "credit", *NX_HOOKS}
         assert script.count("order_by = spec_name_") == 3 * len(NAMES) and "name = spec_t3_door value = {" in script  # monthly leader, runner-ups and annual top three
         assert script.count("set_variable = spec_has_") == len(NAMES) and "is_player = no OR = { NOT = { has_variable = spec_exch_stand }" in script
         assert all(f"spec_sgui_charter_{n} = " in rules[1] and f"spec_can_charter_{n} = " in rules[0] for n in (1, 2, 3))
@@ -3218,8 +3313,8 @@ if __name__ == "__main__":
         # while a slot is filled the rows that can be chosen are lit and say so; the row shows what each place gives
         assert gui.count("[And(GetVariableSystem.Exists('spec_pick_slot'), And(Country.IsLocalPlayer") == 2 * len(NAMES)  # click, light
         assert all(f"$SPEC_PURSUE_LV_{k}$[AddLocalizationIf" in words for k, *_ in NAMES) and " SPEC_ROW_CLICK:" in words
-        assert _pursue_fx("sound", 3) == [("country_loan_interest_rate_mult", -0.1),("country_gold_reserve_limit_mult", 0.25)]
-        assert _pursue_fx("floor", 0) == [("state_trade_capacity_mult", 0.05)] and "spec_pursue_harbour_3 = {" in MODIFIER
+        assert _pursue_fx("railway", 3) == [("building_railway_throughput_add", 0.12), ("building_group_bg_construction_laborers_mortality_mult", 0.1), ("state_infrastructure_mult", 0.1)]
+        assert _pursue_fx("floor", 0) == [("state_trade_capacity_mult", 0.03)] and "spec_pursue_harbour_3 = {" in MODIFIER
         assert _mod_words(TRUST_FX[0]).startswith("#N +10%#! $country_loan_interest_rate_mult$")
         assert _mod_words(TRUST_FX[3]) == "#P -5%#! $country_loan_interest_rate_mult$, #P +2#! $interest_group_ig_industrialists_approval_add$"
         assert script.count("add_modifier = { name = spec_trust_") == sum(1 for f in TRUST_FX if f)

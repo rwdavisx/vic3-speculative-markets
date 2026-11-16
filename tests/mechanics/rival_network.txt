@@ -1,16 +1,18 @@
 namespace = spec_mechanics_rival_network
 spec_mechanics_rival_network.1 = { type = country_event hidden = yes immediate = {
+set_global_variable = { name = spec_rival_year days = 3650 }
 every_country = { limit = { OR = { this = c:GBR this = c:FRA this = c:PRU } }
 save_scope_as = spec_t
 every_rival_country = { save_temporary_scope_as = spec_tx scope:spec_t = { remove_diplomatic_pact = { country = scope:spec_tx type = rivalry } } }
 every_rivaling_country = { remove_diplomatic_pact = { country = scope:spec_t type = rivalry } }
+clear_variable_list = spec_rv_chosen clear_variable_list = spec_rv_keep remove_variable = spec_rv_n_chosen
 remove_variable = spec_exch_known remove_variable = spec_pw_floor remove_variable = spec_pw_pockets remove_variable = spec_pw_price remove_variable = spec_pw_sound
 set_variable = { name = spec_exch_stand value = 1 } set_variable = { name = spec_centre_trust value = 60 }
 every_country = { limit = { NOT = { this = prev } OR = { this = c:GBR this = c:FRA this = c:PRU } } set_relations = { country = prev value = 0 } }
 }
-c:GBR = { create_diplomatic_pact = { country = c:FRA type = rivalry } }
-c:FRA = { create_diplomatic_pact = { country = c:PRU type = rivalry } }
-c:PRU = { create_diplomatic_pact = { country = c:GBR type = rivalry } }
+c:GBR = { add_to_variable_list = { name = spec_rv_chosen target = c:FRA } }
+c:FRA = { add_to_variable_list = { name = spec_rv_chosen target = c:PRU } }
+c:PRU = { add_to_variable_list = { name = spec_rv_chosen target = c:GBR } }
 c:GBR = { set_variable = { name = spec_centre_score value = 300 } }
 c:FRA = { set_variable = { name = spec_centre_score value = 200 } }
 c:PRU = { set_variable = { name = spec_centre_score value = 100 } }

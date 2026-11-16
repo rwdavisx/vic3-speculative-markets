@@ -10,60 +10,60 @@ GOOD = "[SCOPE.sGoods('spec_note_good').GetName]"
 NOTES = {
     "spec_tied_panic": (
         "spec_foreign_panic_notification_group", "rank_down", "bad",
-        f"[concept_spec_financial_panic] in {SRC}",
-        f"A [concept_spec_financial_panic] has begun in {SRC}. Our ties to them bring a [concept_spec_foreign_panic] to our own markets."),
+        f"Panic breaks out in {SRC}",
+        f"A [concept_spec_financial_panic] has broken out in {SRC}, and our ties to them have carried a [concept_spec_foreign_panic] into our own markets."),
     "spec_tied_mania": (
         "spec_foreign_mania_notification_group", "company", "neutral",
-        f"{SRC} in [concept_spec_speculative_mania]",
-        f"Investors in {SRC} have entered a [concept_spec_speculative_mania]. If it ends in a [concept_spec_financial_panic], "
+        f"Speculative mania grips {SRC}",
+        f"Investors in {SRC} have been seized by a [concept_spec_speculative_mania]. Should it end in a [concept_spec_financial_panic], "
         "our ties to them will drag down our own [concept_spec_market_confidence]."),
     # our own market: a warning while there is still time to act, and the news when a boom ends
     "spec_feverish": (
         "spec_warning_notification_group", "goods", "bad",
-        f"Feverish Interest in {GOOD}",
-        f"[concept_spec_investor_interest] in {GOOD} has reached #v Feverish#!. If it now falls back, the boom ends in a "
-        "[concept_spec_collapse], which lowers [concept_spec_market_confidence] sharply."),
+        f"Investors grow feverish over {GOOD}",
+        f"[concept_spec_investor_interest] in {GOOD} has become #v Feverish#!. Should it fall back now, the boom will end in a "
+        "[concept_spec_collapse] and [concept_spec_market_confidence] will fall sharply."),
     "spec_near_panic": (
         "spec_warning_notification_group", "rank_down", "bad",
-        "Confidence Near Panic",
+        "Confidence nears panic",
         "[concept_spec_market_confidence] has fallen to #v [GetPlayer.Var('spec_conf').GetValue|0]#!. "
-        "Below #v $SPEC_PANIC_AT$#! a [concept_spec_financial_panic] begins."),
+        "Below #v $SPEC_PANIC_AT$#!, a [concept_spec_financial_panic] will break out."),
     "spec_nearly_broke": (
         "spec_warning_notification_group", "rank_down", "bad",
-        "Treasury Running Out",
-        "At this deficit we reach [concept_bankruptcy] in #v [GetPlayer.ScriptValue('spec_broke_weeks')|0]#! weeks. "
-        "[concept_spec_market_confidence] slides until the budget recovers."),
+        "Treasury runs low",
+        "At our present deficit, we will face [concept_bankruptcy] in #v [GetPlayer.ScriptValue('spec_broke_weeks')|0]#! weeks. "
+        "[concept_spec_market_confidence] will keep sliding until the budget recovers."),
     # the panic is over, and the bubble has burst: until now the tab was the only place that said so
     # the Financial Centres (centres.py)
     "spec_centre_gained": (
         "spec_warning_notification_group", "rank_up", "good",
-        "We are now a Financial Centre",
+        "Our exchange becomes a Financial Centre",
         "Our [concept_spec_exchange] now ranks among the world's [Concept('concept_spec_financial_centre','$concept_spec_financial_centres$')]. "
         "While it does, we gain [concept_prestige] and pay less interest on our [concept_loans]."),
     "spec_centre_lost": (
         "spec_warning_notification_group", "rank_down", "bad",
-        "We are no longer a Financial Centre",
+        "Our exchange is no longer a Financial Centre",
         "Our [concept_spec_exchange] no longer ranks among the world's [Concept('concept_spec_financial_centre','$concept_spec_financial_centres$')]. "
         "We have lost the [concept_prestige] and the lower interest on our [concept_loans] that came with it."),
     "spec_panic_over": (
         "spec_warning_notification_group", "rank_up", "good",
-        "Financial Panic Over",
-        "The [concept_spec_financial_panic] has ended and its effects are lifted."),
+        "The panic subsides",
+        "The [concept_spec_financial_panic] has run its course, and its effects have lifted."),
     "spec_bubble_burst": (
         "spec_warning_notification_group", "rank_down", "bad",
-        "The Bubble Bursts",
+        "The bubble bursts",
         "[concept_spec_market_confidence] has fallen too low to sustain our [concept_spec_speculative_excess]. "
-        "The bubble has burst, and $concept_spec_market_confidence$ falls further."),
+        "The bubble has burst, and $concept_spec_market_confidence$ has fallen further."),
 } | ({"spec_lev_unsafe": (
         "spec_warning_notification_group", "rank_down", "bad",
-        "Credit Leverage No Longer Safe",
-        f"[concept_spec_leverage] has risen above #v {leverage.SAFE}#! months, the most that is safe. From here a "
-        "[concept_spec_financial_panic] begins at higher [concept_spec_market_confidence] and leaves [concept_spec_bad_debts]."),
+        "Leverage passes the safe limit",
+        f"[concept_spec_leverage] has risen above #v {leverage.SAFE}#! months, the most that is safe. From here, a "
+        "[concept_spec_financial_panic] will begin at a higher [concept_spec_market_confidence] and leave [concept_spec_bad_debts] behind it."),
 } if leverage.ON else {}) | {f"spec_boom_end_{sev}": (
         "spec_boom_end_notification_group", "goods", color,
-        f"{name} in {GOOD}",
-        f"The boom in {GOOD} has ended in a [concept_spec_{key}]. [concept_spec_market_confidence] falls, and its industry, "
-        f"built up for prices that did not last, is now #v Recovering#!: investors hold back from it for about #v {months}#! months.$SPEC_NOTE_BANKS$")
+        f"{GOOD} boom ends in a {name}",
+        f"The boom in {GOOD} has ended in a [concept_spec_{key}]. [concept_spec_market_confidence] has fallen, and the industry "
+        f"built up for prices that did not last is now #v Recovering#!, shunned by investors for about #v {months}#! months.$SPEC_NOTE_BANKS$")
     for sev, key, name, color, months in
     # months: generate.UNWINDS' glut lengths (generate imports this module)
     [(1, "correction", "Correction", "neutral", 3), (2, "bust", "Bust", "bad", 6), (3, "collapse", "Collapse", "bad", 12)]}
@@ -78,24 +78,24 @@ if centres.ON:  # its Standing toasts replace the Financial Centre ones
     NOTES = {k: x for k, x in NOTES.items() if k not in ("spec_centre_gained", "spec_centre_lost")} | {
         "spec_exch_up": (
             NEWS, "rank_up", "good",
-            "Our Exchange Rises",
-            f"The {EXCH} now stands #v $SPEC_EXCH_STAND_ME$#!. Its booms will run hotter, and fall harder."),
+            "Our exchange rises in standing",
+            f"The {EXCH} now stands #v $SPEC_EXCH_STAND_ME$#!, and its booms will run hotter and fall harder."),
         "spec_exch_down": (
             NEWS, "rank_down", "bad",
-            "Our Exchange Falls",
+            "Our exchange loses standing",
             f"The {EXCH} has fallen to #v $SPEC_EXCH_STAND_ME$#!, and has lost what its higher [concept_spec_exchange] Standing brought.$SPEC_EXCH_DOWN_LOST$"),
     }
     # the yearly tally names the Exchange (centres._earn); with the charters (NAMES_ON) it names only the AI's, so no toast
     if centres.EARN and not centres.NAMES_ON:
         NOTES["spec_exch_known_new"] = (
             NEWS, "rank_up", "good",
-            "Our Exchange Makes Its Name",
+            "Our exchange makes its name",
             f"The {EXCH} is now known abroad for its #v $SPEC_EXCH_KNOWN_ME$#!.")
-    if centres.RIVAL_ON:  # the yearly contest
-        NOTES["spec_rival_won"] = (NEWS, "rank_up", "good", "Our Exchange Outshines Its Rivals",
-                                   f"The {EXCH} ended the year ahead of a rival Exchange, and its trust has grown.")
-        NOTES["spec_rival_lost"] = (NEWS, "rank_down", "bad", "Our Exchange Trails Its Rivals",
-                                    f"The {EXCH} ended the year behind a rival Exchange, and its trust has fallen.")
+    if centres.RIVAL_ON:  # a rivalry's contest settling (rivals.ROUND years)
+        NOTES["spec_rival_won"] = (NEWS, "rank_up", "good", "Our exchange wins a rivalry",
+                                   f"The {EXCH} has come out ahead in its contest with a rival Exchange, and its trust has grown.")
+        NOTES["spec_rival_lost"] = (NEWS, "rank_down", "bad", "Our exchange loses a rivalry",
+                                    f"The {EXCH} has come out behind in its contest with a rival Exchange, and its trust has fallen.")
 
 
 # SelectLocalization evaluates selected strings without the notification SCOPE.

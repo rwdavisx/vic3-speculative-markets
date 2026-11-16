@@ -1,6 +1,6 @@
 namespace = spec_mechanics_capital_flight
 spec_mechanics_capital_flight.1 = { type = country_event hidden = yes immediate = {
-every_country = { limit = { OR = { this = c:GBR this = c:FRA } } save_scope_as = spec_t every_rival_country = { save_temporary_scope_as = spec_tx scope:spec_t = { remove_diplomatic_pact = { country = scope:spec_tx type = rivalry } } } every_rivaling_country = { remove_diplomatic_pact = { country = scope:spec_t type = rivalry } } set_variable = { name = spec_exch_stand value = 1 } }
+every_country = { limit = { OR = { this = c:GBR this = c:FRA } } save_scope_as = spec_t clear_variable_list = spec_rv_chosen every_rival_country = { save_temporary_scope_as = spec_tx scope:spec_t = { remove_diplomatic_pact = { country = scope:spec_tx type = rivalry } } } every_rivaling_country = { remove_diplomatic_pact = { country = scope:spec_t type = rivalry } } set_variable = { name = spec_exch_stand value = 1 } }
 remove_variable = spec_flight_pending
 set_variable = { name = spec_conf value = 55 }
 set_variable = { name = spec_src_gdp value = c:FRA.gdp }
@@ -14,13 +14,13 @@ set_variable = { name = spec_src_gdp value = { value = c:FRA.gdp multiply = 2 } 
 spec_capital_flight = yes
 if = { limit = { c:FRA = { var:spec_flight_pending = var:spec_test_flight } } debug_log = "HOTFIX PASS source_size_ratio_capped_at_one" }
 else = { debug_log = "HOTFIX FAIL source_size_ratio_capped_at_one" }
-create_diplomatic_pact = { country = c:FRA type = rivalry }
+add_to_variable_list = { name = spec_rv_chosen target = c:FRA }
 c:FRA = { set_variable = { name = spec_test_rival value = { value = var:spec_test_flight multiply = 1.5 } } }
 spec_capital_flight = yes
 if = { limit = { c:FRA = { var:spec_flight_pending = var:spec_test_rival } } debug_log = "HOTFIX PASS outgoing_rival_gets_fifty_percent_bonus" }
 else = { debug_log = "HOTFIX FAIL outgoing_rival_gets_fifty_percent_bonus" }
-remove_diplomatic_pact = { country = c:FRA type = rivalry }
-c:FRA = { create_diplomatic_pact = { country = c:GBR type = rivalry } }
+remove_list_variable = { name = spec_rv_chosen target = c:FRA }
+c:FRA = { add_to_variable_list = { name = spec_rv_chosen target = c:GBR } }
 spec_capital_flight = yes
 if = { limit = { c:FRA = { var:spec_flight_pending = var:spec_test_rival } } debug_log = "HOTFIX PASS incoming_rival_gets_same_bonus" }
 else = { debug_log = "HOTFIX FAIL incoming_rival_gets_same_bonus" }
@@ -44,11 +44,11 @@ spec_capital_flight = yes
 if = { limit = { c:FRA = { NOT = { has_variable = spec_flight_pending } } } debug_log = "HOTFIX PASS closed_market_prevents_capital_flight" }
 else = { debug_log = "HOTFIX FAIL closed_market_prevents_capital_flight" }
 c:FRA = { set_variable = { name = spec_conf value = 40 } }
-c:FRA = { remove_diplomatic_pact = { country = c:GBR type = rivalry } }
-c:FRA = { create_diplomatic_pact = { country = c:GBR type = rivalry } remove_variable = spec_exch_stand remove_variable = spec_flight_pending }
+c:FRA = { remove_list_variable = { name = spec_rv_chosen target = c:GBR } }
+c:FRA = { add_to_variable_list = { name = spec_rv_chosen target = c:GBR } remove_variable = spec_exch_stand remove_variable = spec_flight_pending }
 spec_capital_flight = yes
 if = { limit = { c:FRA = { var:spec_flight_pending = var:spec_test_flight } } debug_log = "HOTFIX PASS rival_without_exchange_gets_no_bonus" }
 else = { debug_log = "HOTFIX FAIL rival_without_exchange_gets_no_bonus" }
-c:FRA = { remove_diplomatic_pact = { country = c:GBR type = rivalry } set_variable = { name = spec_exch_stand value = 1 } }
+c:FRA = { remove_list_variable = { name = spec_rv_chosen target = c:GBR } set_variable = { name = spec_exch_stand value = 1 } }
 debug_log = "HOTFIX SUITE COMPLETE"
 } }

@@ -171,5 +171,15 @@
   "f2d8f35ab1": "Débogage : rivalité annuelle",
   "386a98016c": "Aucune action en cours, d’un côté comme de l’autre.",
   "582624dd58": "Eux : {1}{2}{3} ",
-  "a6b6447344": "Nous : {1}{2}{3}"
+  "a6b6447344": "Nous : {1}{2}{3}",
+  "0451bc183d": "Une [concept_spec_exchange] désigne elle-même ses rivales, indépendamment des rivalités diplomatiques : #v {1}#!, ou #v {2}#! à partir du rang International, parmi les Bourses dont le rang s’écarte d’au plus #v {3}#! du sien. Une nouvelle rivale est conservée au moins un an. Une rivalité compte quel que soit le côté qui a désigné l’autre. Chaque année, celle dont le score ({4}) est le plus élevé gagne #P {5} %#! de réputation sur l’autre, à rang égal. En cas d’écart de rang, une victoire de la Bourse inférieure rapporte davantage et celle de la supérieure moins : multiplié ou divisé par un plus l’écart. Si les relations sont mauvaises ou pires, la perdante perd #N x1.5#!.\\nEn [concept_spec_financial_panic], les capitaux en fuite vont d’abord à une rivale.\\nDésignez une rivale depuis la colonne Rivale de la liste des Grandes Bourses, et abandonnez-en une depuis sa ligne ici.",
+  "49ee308734": "Désigner",
+  "07d758289c": "#header Désigner comme rivale#!\\n$SPEC_RIVAL_RULE$\\n\\n{1}",
+  "5418f1e4aa": "#v Désignés mutuellement#!",
+  "4598145460": "#v Ils nous ont désignés#!",
+  "b651a35ae2": "#v Nous les avons désignés#!",
+  "dd7138b436": "Aucune rivale. Désignez-en une depuis la colonne Rivale de la liste des Grandes Bourses. Une Bourse qui nous désigne figure aussi ici.",
+  "e69d8ba498": "#header Abandonner ce rival#!\\nNotre [concept_spec_exchange] ne les désigne plus comme rivaux.\\n\\n{1}",
+  "982806250e": "Une [concept_spec_exchange] désigne elle-même ses rivales, indépendamment des rivalités diplomatiques : #v {1}#!, ou #v {2}#! à partir du rang International, parmi les Bourses dont le rang s’écarte d’au plus #v {3}#! du sien. Une nouvelle rivale est conservée au moins un an. Une rivalité compte quel que soit le côté qui a désigné l’autre. Chaque année, celle dont le score ({4}) est le plus élevé gagne #P {5} %#! de réputation sur l’autre, à rang égal. En cas d’écart de rang, une victoire de la Bourse inférieure rapporte davantage et celle de la supérieure moins : multiplié ou divisé par un plus l’écart. Si les relations sont mauvaises ou pires, la perdante perd #N x1.5#!.\\nEn [concept_spec_financial_panic], les capitaux en fuite vont d’abord à une rivale.\\nDésignez une rivale depuis la colonne Rivale de la liste des Grandes Bourses, et abandonnez-en une depuis sa ligne ici.",
+  "045b190d03": "Aucune rivale. Désignez-en une depuis la colonne Rivale de la liste des Grandes Bourses. Une Bourse qui nous désigne figure aussi ici."
 }

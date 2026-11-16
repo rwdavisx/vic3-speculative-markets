@@ -27,5 +27,12 @@
   "ac29e01c37": "Notre [concept_spec_outstanding_credit] augmente de #N @money!{1}#!. Pendant {2} mois, #P {3} %#! de leur revenu du [concept_investment_pool] vient au nôtre.",
   "07b5df73e3": "Nous payons #N {1}#! d’influence pendant {2} mois. Leur [concept_spec_exchange] perd #N {3} %#! de réputation. #N {4} %#! de risque qu’elle soit démasquée : relations #N -{5}#!, notre réputation #N -{6} %#!.",
   "ccb8988b99": "Nous payons @money!{1}. Leur [concept_spec_market_confidence] baisse de #N {2}#! sur {3} mois, ou la nôtre en cas d’échec.",
-  "88fc5fb67f": "Nous payons @money!{1}. Pendant {2} mois, toute action de rival contre nous a moitié moins d’effet."
+  "88fc5fb67f": "Nous payons @money!{1}. Pendant {2} mois, toute action de rival contre nous a moitié moins d’effet.",
+  "2fc56bb374": "#v Attaque à la baisse#! contre eux :",
+  "8884c841d8": "#v Attirer leurs capitaux#! :",
+  "88495b3249": "#v Campagne de presse#! contre eux :",
+  "ad0d4b9cff": "Nous leur en faisons autant, même si nous l’avons fait cette année.",
+  "9270f6baab": "Nous désignons moins de rivales que permis : #v {1}#!, ou #v {2}#! à partir du rang International",
+  "8b7385944f": "Nous les avons désignés il y a plus d’un an",
+  "ca94f3322f": "L’un de nous a désigné l’autre comme rival, et les deux pays ont une [concept_spec_exchange]"
 }

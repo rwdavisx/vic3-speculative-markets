@@ -171,5 +171,15 @@
   "f2d8f35ab1": "Debug: roczna rywalizacja",
   "386a98016c": "Po żadnej stronie nie trwają działania.",
   "582624dd58": "Oni: {1}{2}{3} ",
-  "a6b6447344": "My: {1}{2}{3}"
+  "a6b6447344": "My: {1}{2}{3}",
+  "0451bc183d": "Giełda ([concept_spec_exchange]) sama wyznacza swoich rywali, niezależnie od rywalizacji dyplomatycznej: #v {1}#! lub #v {2}#! od pozycji Międzynarodowej, spośród giełd, których pozycja różni się od jej własnej najwyżej o #v {3}#!. Nowego rywala zachowuje się co najmniej rok. Rywalizacja liczy się bez względu na to, która strona wyznaczyła drugą. Co roku giełda z wyższym wynikiem ({4}) zabiera drugiej #P {5}%#! wiarygodności, jeśli obie mają tę samą pozycję. Przy różnicy pozycji wygrana niższej giełdy daje więcej, a wyższej mniej: wynik mnoży się lub dzieli przez jeden plus różnica pozycji. Przy złych stosunkach lub gorszych przegrywający traci #N x1.5#!.\\nPodczas zdarzenia [concept_spec_financial_panic] uciekające pieniądze trafiają najpierw do rywala.\\nWyznacz rywala w kolumnie Rywal listy Czołowe giełdy, a porzuć go tutaj w jego wierszu.",
+  "49ee308734": "Wyznacz",
+  "07d758289c": "#header Wyznacz na naszego rywala#!\\n$SPEC_RIVAL_RULE$\\n\\n{1}",
+  "5418f1e4aa": "#v Wzajemnie wyznaczeni#!",
+  "4598145460": "#v Oni wyznaczyli nas#!",
+  "b651a35ae2": "#v My wyznaczyliśmy ich#!",
+  "dd7138b436": "Brak rywali. Wyznacz jednego w kolumnie Rywal listy Czołowe giełdy. Giełda, która wyznaczyła nas, też jest tu wymieniona.",
+  "e69d8ba498": "#header Porzuć tego rywala#!\\nNasza giełda ([concept_spec_exchange]) przestaje wyznaczać ich na rywala.\\n\\n{1}",
+  "982806250e": "Giełda ([concept_spec_exchange]) sama wyznacza swoich rywali, niezależnie od rywalizacji dyplomatycznej: #v {1}#! lub #v {2}#! od pozycji Międzynarodowej, spośród giełd, których pozycja różni się od jej własnej najwyżej o #v {3}#!. Nowego rywala zachowuje się co najmniej rok. Rywalizacja liczy się bez względu na to, która strona wyznaczyła drugą. Co roku giełda z wyższym wynikiem ({4}) zabiera drugiej #P {5}%#! wiarygodności, jeśli obie mają tę samą pozycję. Przy różnicy pozycji wygrana niższej giełdy daje więcej, a wyższej mniej: wynik mnoży się lub dzieli przez jeden plus różnica pozycji. Przy złych stosunkach lub gorszych przegrywający traci #N x1.5#!.\\nPodczas zdarzenia [concept_spec_financial_panic] uciekające pieniądze trafiają najpierw do rywala.\\nWyznacz rywala w kolumnie Rywal listy Czołowe giełdy, a porzuć go tutaj w jego wierszu.",
+  "045b190d03": "Brak rywali. Wyznacz jednego w kolumnie Rywal listy Czołowe giełdy. Giełda, która wyznaczyła nas, też jest tu wymieniona."
 }

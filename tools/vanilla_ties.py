@@ -38,8 +38,8 @@ def script(k):
                     f"\t\tmultiply = {n:g}\n\t}}\n" for i, (law, n) in enumerate(TRADE_TIE.items()))
     exchange = f"\tif = {{\n\t\tlimit = {{ has_technology_researched = international_exchange_standards }}\n\t\tmultiply = {EXCHANGE_TIE:g}\n\t}}\n"
     sv = [f"spec_tie_market = {{\n\tvalue = {links['market']:g}\n{exchange}}}",
-          f"spec_tie_investment = {{\n\tvalue = {links['investment']:g}\n{exchange}}}",
-          f"spec_tie_trade = {{\n\tvalue = {links['trade']:g}\n{trade}}}",
+          f"spec_tie_investment = {{\n\tvalue = {links['investment']:g}\n{exchange}\tmultiply = spec_nx_tie_inv\n}}",
+          f"spec_tie_trade = {{\n\tvalue = {links['trade']:g}\n{trade}\tmultiply = spec_nx_tie_trade\n}}",
           # the share of this country's GDP owned by scope:spec_tie_src (set by spec_every_tied and spec_find_risk_src)
           "spec_owned_share = {\n\tvalue = 0\n\tif = {\n\t\tlimit = {\n\t\t\texists = scope:spec_tie_src\n\t\t\tgdp > 0\n\t\t}\n"
           "\t\tvalue = \"gdp_owned_by(scope:spec_tie_src)\"\n\t\tdivide = gdp\n\t\tmax = 1\n\t}\n}",

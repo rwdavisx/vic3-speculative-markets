@@ -171,5 +171,15 @@
   "f2d8f35ab1": "Debug: jährlicher Wettstreit",
   "386a98016c": "Auf keiner Seite laufen Aktionen.",
   "582624dd58": "Sie: {1}{2}{3} ",
-  "a6b6447344": "Wir: {1}{2}{3}"
+  "a6b6447344": "Wir: {1}{2}{3}",
+  "0451bc183d": "Eine [concept_spec_exchange] benennt ihre Rivalen selbst, unabhängig von diplomatischen Rivalitäten: #v {1}#!, oder #v {2}#! ab der Stellung International, unter Börsen, deren Stellung höchstens #v {3}#! von der eigenen abweicht. Ein neuer Rivale bleibt mindestens ein Jahr. Eine Rivalität zählt, gleich welche Seite die andere benannt hat. Jedes Jahr gewinnt die Börse mit der höheren Punktzahl ({4}) #P {5}%#! Vertrauen von der anderen, wenn beide dieselbe Stellung haben. Bei unterschiedlicher Stellung bringt ein Sieg der niedrigeren Börse mehr und ein Sieg der höheren weniger: mal oder geteilt durch eins plus den Abstand. Bei schlechten Beziehungen oder schlimmer verliert die Verliererin #N x1.5#!.\\nIn einer [concept_spec_financial_panic] fließt fliehendes Geld zuerst zu einem Rivalen.\\nBenenne einen Rivalen in der Spalte Rivale der Liste Spitzenbörsen und gib ihn hier in seiner Zeile auf.",
+  "49ee308734": "Benennen",
+  "07d758289c": "#header Als unseren Rivalen benennen#!\\n$SPEC_RIVAL_RULE$\\n\\n{1}",
+  "5418f1e4aa": "#v Gegenseitig benannt#!",
+  "4598145460": "#v Sie benannten uns#!",
+  "b651a35ae2": "#v Wir benannten sie#!",
+  "dd7138b436": "Keine Rivalen. Benenne einen in der Spalte Rivale der Liste Spitzenbörsen. Eine Börse, die uns benennt, wird hier ebenfalls aufgeführt.",
+  "e69d8ba498": "#header Diesen Rivalen aufgeben#!\\nUnsere [concept_spec_exchange] benennt sie nicht mehr als Rivalen.\\n\\n{1}",
+  "982806250e": "Eine [concept_spec_exchange] benennt ihre Rivalen selbst, unabhängig von diplomatischen Rivalitäten: #v {1}#!, oder #v {2}#! ab der Stellung International, unter Börsen, deren Stellung höchstens #v {3}#! von der eigenen abweicht. Ein neuer Rivale bleibt mindestens ein Jahr. Eine Rivalität zählt, gleich welche Seite die andere benannt hat. Jedes Jahr gewinnt die Börse mit der höheren Punktzahl ({4}) #P {5}%#! Vertrauen von der anderen, wenn beide dieselbe Stellung haben. Bei unterschiedlicher Stellung bringt ein Sieg der niedrigeren Börse mehr und ein Sieg der höheren weniger: mal oder geteilt durch eins plus den Abstand. Bei schlechten Beziehungen oder schlimmer verliert die Verliererin #N x1.5#!.\\nIn einer [concept_spec_financial_panic] fließt fliehendes Geld zuerst zu einem Rivalen.\\nBenenne einen Rivalen in der Spalte Rivale der Liste Spitzenbörsen und gib ihn hier in seiner Zeile auf.",
+  "045b190d03": "Keine Rivalen. Benenne einen in der Spalte Rivale der Liste Spitzenbörsen. Eine Börse, die uns benennt, wird hier ebenfalls aufgeführt."
 }

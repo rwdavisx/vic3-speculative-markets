@@ -43,12 +43,13 @@ BLUE_MONTHS = tuning.get("BLUE_MONTHS", 24)
 BLUE_LOSE = tuning.get("BLUE_LOSE", 3)
 BLUE_BONUS = tuning.get("BLUE_BONUS", 2)
 BLUE_UPDATE = (
+    "\t\tset_local_variable = { name = spec_nx_bc value = spec_nx_blue }\n"  # a renown path speeds the climb
     "\t\tevery_company = {\n"
     f"\t\t\tif = {{\n\t\t\t\tlimit = {{ prosperity >= {BLUE_PROSPER:g} }}\n\t\t\t\tremove_variable = spec_bc_low\n"
     "\t\t\t\tif = {\n\t\t\t\t\tlimit = { NOT = { has_variable = spec_blue_chip } }\n"
     "\t\t\t\t\tif = {\n\t\t\t\t\t\tlimit = { NOT = { has_variable = spec_bc_months } }\n"
     "\t\t\t\t\t\tset_variable = { name = spec_bc_months value = 0 }\n\t\t\t\t\t}\n"
-    "\t\t\t\t\tchange_variable = { name = spec_bc_months add = 1 }\n"
+    "\t\t\t\t\tchange_variable = { name = spec_bc_months add = local_var:spec_nx_bc }\n"
     f"\t\t\t\t\tif = {{\n\t\t\t\t\t\tlimit = {{ var:spec_bc_months >= {BLUE_MONTHS:g} }}\n"
     "\t\t\t\t\t\tset_variable = spec_blue_chip\n\t\t\t\t\t\tremove_variable = spec_bc_months\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n"
     "\t\t\telse = {\n\t\t\t\tremove_variable = spec_bc_months\n"
@@ -284,9 +285,9 @@ def script(game, sells, upgrades, icon):
 def loc():
     companies = "[Concept('concept_company','$concept_companies$')]"
     names = "".join(f' {LEGACY.format(g)}: "${g}$ Boom"\n spec_company_bust_{g}: "${g}$ Recovering"\n'
-                    f' spec_company_bust_{g}_desc: "The ${g}$ boom has ended and the industry is overbuilt. Buildings making ${g}$ lose [concept_throughput], and the {companies} that own them earn less."\n'
+                    f' spec_company_bust_{g}_desc: "The ${g}$ boom has ended, leaving the industry with more works than its buyers need. Until it recovers, buildings making ${g}$ lose [concept_throughput] and the {companies} that own them earn less."\n'
                     for g in sorted(_GOODS))
-    desc = lambda g: f"[concept_spec_investor_interest] in ${g}$. Buildings making it gain [concept_throughput] while interest is high and lose it while interest is low."
+    desc = lambda g: f"Buildings making ${g}$ gain [concept_throughput] while [concept_spec_investor_interest] in it is high, and lose it while interest is low."
     names += "".join(f' spec_investor_{g}{k}: "Investor Interest in ${g}$"\n spec_investor_{g}{k}_desc: "{desc(g)}"\n'
                      for g in sorted(_INDUSTRY) for k in [""] + [f"_{t}" for t, p in INTEREST_THROUGHPUT.items() if p])
     # worded as vanilla's building_group_bg_service_standard_of_living_add (modifiers_l_english.yml:1609)

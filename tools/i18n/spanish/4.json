@@ -171,5 +171,15 @@
   "f2d8f35ab1": "Depuración: pugna anual",
   "386a98016c": "No hay acciones en curso en ningún bando.",
   "582624dd58": "Ellos: {1}{2}{3} ",
-  "a6b6447344": "Nosotros: {1}{2}{3}"
+  "a6b6447344": "Nosotros: {1}{2}{3}",
+  "0451bc183d": "Una [concept_spec_exchange] nombra a sus propias rivales, al margen de las rivalidades diplomáticas: #v {1}#!, o #v {2}#! desde el rango Internacional, entre Bolsas a no más de #v {3}#! de rango de la suya. Una nueva rival se mantiene al menos un año. Una rivalidad cuenta sea cual sea el lado que nombró al otro. Cada año, la que tenga la puntuación de {4} más alta gana #P {5}%#! de reputación a la otra cuando ambas tienen el mismo rango. Con una diferencia de rango, la victoria de la Bolsa inferior rinde más y la de la superior rinde menos: se multiplica o divide por uno más la diferencia. Con relaciones malas o peores, la perdedora pierde #N x1.5#!.\\nEn un [concept_spec_financial_panic], el dinero que huye va primero a una rival.\\nNombra una rival desde la columna Rival de la lista de Bolsas principales, y abandona una desde su fila aquí.",
+  "49ee308734": "Nombrar",
+  "07d758289c": "#header Nombrar como nuestra rival#!\\n$SPEC_RIVAL_RULE$\\n\\n{1}",
+  "5418f1e4aa": "#v Nombrados mutuamente#!",
+  "4598145460": "#v Nos nombraron#!",
+  "b651a35ae2": "#v Los nombramos#!",
+  "dd7138b436": "Sin rivales. Nombra una desde la columna Rival de la lista de Bolsas principales. Una Bolsa que nos nombra también aparece aquí.",
+  "e69d8ba498": "#header Abandonar esta rival#!\\nNuestra [concept_spec_exchange] deja de nombrarlos rivales.\\n\\n{1}",
+  "982806250e": "Una [concept_spec_exchange] nombra a sus propias rivales, al margen de las rivalidades diplomáticas: #v {1}#!, o #v {2}#! desde el rango Internacional, entre Bolsas a no más de #v {3}#! de rango de la suya. Una nueva rival se mantiene al menos un año. Una rivalidad cuenta sea cual sea el lado que nombró al otro. Cada año, la que tenga la puntuación de {4} más alta gana #P {5}%#! de reputación a la otra cuando ambas tienen el mismo rango. Con una diferencia de rango, la victoria de la Bolsa inferior rinde más y la de la superior rinde menos: se multiplica o divide por uno más la diferencia. Con relaciones malas o peores, la perdedora pierde #N x1.5#!.\\nEn un [concept_spec_financial_panic], el dinero que huye va primero a una rival.\\nNombra una rival desde la columna Rival de la lista de Bolsas principales, y abandona una desde su fila aquí.",
+  "045b190d03": "Sin rivales. Nombra una desde la columna Rival de la lista de Bolsas principales. Una Bolsa que nos nombra también aparece aquí."
 }

@@ -18,7 +18,7 @@ ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_SPEC = ROOT / "mod"
 DEFAULT_CMF = Path("G:/SteamLibrary/steamapps/workshop/content/529340/3385002128")
 DEFAULT_OUT = Path(__file__).resolve().parent / "mod"
-VERSION = "1.0.1"
+VERSION = "1.0.2"
 SPEC_ID = "speculative_markets"
 CMF_ID = "com.github.Victoria-3-Modding-Co-op.Community-Mod-Framework"
 SPEC_GUI = "gui/information_panel_bar.gui"
@@ -203,12 +203,13 @@ def build(spec=DEFAULT_SPEC, cmf=DEFAULT_CMF, out=DEFAULT_OUT):
         "name": "Speculative Markets - Community Mod Framework Compatibility",
         "id": "speculative_markets_cmf_compat",
         "version": VERSION,
-        "supported_game_version": "1.15.1",
+        "supported_game_version": "1.15.*",
         "short_description": "Requires CMF and either Speculative Markets or its Beta. Enable only one SM channel; load this patch last.",
         "tags": ["Utilities"],
         "relationships": [
             {"rel_type": "dependency", "id": CMF_ID, "display_name": "Community Mod Framework",
-             "resource_type": "mod", "version": cmf_version},
+             # any CMF version: pinning the exact one marked the patch outdated on every CMF bugfix
+             "resource_type": "mod", "version": "*"},
             # The 1.15.1 game parser accepts dependency only, even though the
             # launcher supports more relationship types. Exactly one SM
             # channel and patch-last ordering are explicit player instructions.

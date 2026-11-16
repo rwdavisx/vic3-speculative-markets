@@ -1,14 +1,16 @@
 namespace = spec_mechanics_rival_raid
 spec_mechanics_rival_raid.1 = { type = country_event hidden = yes immediate = {
+set_global_variable = { name = spec_rival_year days = 3650 }
 every_country = { limit = { OR = { this = c:GBR this = c:FRA this = c:PRU } }
 save_scope_as = spec_t
 every_rival_country = { save_temporary_scope_as = spec_tx scope:spec_t = { remove_diplomatic_pact = { country = scope:spec_tx type = rivalry } } }
 every_rivaling_country = { remove_diplomatic_pact = { country = scope:spec_t type = rivalry } }
+clear_variable_list = spec_rv_chosen clear_variable_list = spec_rv_keep remove_variable = spec_rv_n_chosen
 remove_variable = spec_exch_known remove_variable = spec_pw_floor remove_variable = spec_pw_pockets remove_variable = spec_pw_price remove_variable = spec_pw_sound
 set_variable = { name = spec_exch_stand value = 1 } set_variable = { name = spec_centre_trust value = 60 }
 every_country = { limit = { NOT = { this = prev } OR = { this = c:GBR this = c:FRA this = c:PRU } } set_relations = { country = prev value = 0 } }
 }
-c:GBR = { create_diplomatic_pact = { country = c:FRA type = rivalry } }
+c:GBR = { add_to_variable_list = { name = spec_rv_chosen target = c:FRA } }
 c:GBR = { set_variable = { name = spec_centre_score value = 200 } }
 c:FRA = { set_variable = { name = spec_centre_score value = 200 } }
 c:PRU = { set_variable = { name = spec_centre_score value = 200 } }
@@ -31,8 +33,8 @@ if = { limit = { c:FRA = { var:spec_rv_hit = 1 var:spec_rv_hit_by = c:GBR has_va
 else = { debug_log = "HOTFIX FAIL raid_logged_on_target" }
 if = { limit = { OR = { AND = { c:FRA = { var:spec_rv_hit_ok = 1 var:spec_rv_raid = 6 var:spec_rv_raid_pm = 1 } NOT = { has_variable = spec_rv_raid } } AND = { c:FRA = { var:spec_rv_hit_ok = 0 NOT = { has_variable = spec_rv_raid } } var:spec_rv_raid = 6 var:spec_rv_raid_pm = 1 } } } debug_log = "HOTFIX PASS raid_hits_one_side" }
 else = { debug_log = "HOTFIX FAIL raid_hits_one_side" }
-c:GBR = { remove_diplomatic_pact = { country = c:FRA type = rivalry } }
-c:FRA = { create_diplomatic_pact = { country = c:GBR type = rivalry } }
+c:GBR = { remove_list_variable = { name = spec_rv_chosen target = c:FRA } }
+c:FRA = { add_to_variable_list = { name = spec_rv_chosen target = c:GBR } }
 clear_variable_list = spec_rv_cd_raid
 c:FRA = { save_scope_as = target }
 if = { limit = { spec_can_rv_raid = yes } debug_log = "HOTFIX PASS incoming_rivalry_allows_raid" }

@@ -334,6 +334,14 @@
     "rival_ai": {
       "mode": "automatic",
       "until": "1836.4.1"
+    },
+    "rival_choose": {
+      "mode": "automatic",
+      "until": "1836.4.1"
+    },
+    "rival_ai_pick": {
+      "mode": "automatic",
+      "until": "1836.4.1"
     }
   }
 }

@@ -531,10 +531,10 @@ TEXT = {
     7: ("A Craze for Shares",
         (f"Clerks, shopkeepers and schoolmasters crowd the coffee houses of {CAP} to trade shares in companies they have "
          f"never seen. Shares in {G1} ventures change hands several times a day, most of them bought with borrowed money. It "
-         "is said that servants are pawning their savings for a part in the next flotation.",
+         "is said that servants are pawning their Sunday clothes for a part in the next flotation.",
          f"Clerks, shopkeepers and schoolmasters crowd the coffee houses of {CAP} to trade shares in companies they have "
          "never seen. Shares in the newest ventures change hands several times a day, most of them bought with borrowed "
-         "money. It is said that servants are pawning their savings for a part in the next flotation."),
+         "money. It is said that servants are pawning their Sunday clothes for a part in the next flotation."),
         (f'"My barber gave me a tip on {G1} shares this morning. I took it, and gave him one in return: sell."',
          '"My barber gave me a tip on shares this morning. I took it, and gave him one in return: sell."'),
         ["Let the people share in the wealth.", "Forbid dealing on borrowed money.", "Levy a stamp duty on share transfers."]),

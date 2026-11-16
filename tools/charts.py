@@ -394,10 +394,10 @@ def loc(k):
     at = lambda m: round(k["PANIC"] + leverage.PANIC_SPAN * min(max((m - leverage.SAFE) / (leverage.RUIN - leverage.SAFE), 0), 1))  # the Panic Threshold there
     return (
         ' SPEC_H_BANK_LENT: "Where the Banks Have Lent"\n'
-        ' SPEC_H_BANK_LENT_TT: "#header Where the Banks Have Lent#!\\n$TOOLTIP_DELIMITER$\\nBanks lend most new credit into '
-        'booming goods: the larger a good\'s share of our trade and the higher its [concept_spec_investor_interest], '
-        'the more it gets. A loan stays in its good until repaid.\\n\\nWhen a boom the banks lent into ends, '
-        '[concept_spec_market_confidence] falls further. Restraining speculation in a good halves the new lending it attracts."\n'
+        ' SPEC_H_BANK_LENT_TT: "#header Where the Banks Have Lent#!\\n$TOOLTIP_DELIMITER$\\nMost new credit goes into booming goods, '
+        'by share of trade and [concept_spec_investor_interest]\\nA loan stays in its good until repaid'
+        '\\n\\nWhen a boom the banks lent into ends, [concept_spec_market_confidence] falls further\\n'
+        'Restraining speculation in a good halves the new lending it attracts"\n'
         ' SPEC_BANK_PIE: "Boom Loans by Good"\n'
         f' SPEC_BANK_SLICE_NAME: "[SelectLocalization({OTHER}, \'SPEC_BANK_OTHER\', \'SPEC_BANK_GOOD_NAME\')]"\n'
         ' SPEC_BANK_GOOD_NAME: "[Scope.GetGoods.GetName]"\n'
@@ -406,11 +406,10 @@ def loc(k):
         f' SPEC_BANK_GOOD_SHARE: "#v [Divide_CFixedPoint({SHARE}, Max_CFixedPoint({sv("spec_exp_booms")}, {fx(0.001)}))|%0]#!"\n'
         f' SPEC_BANK_SLICE_TT: "[SelectLocalization({OTHER}, \'SPEC_BANK_OTHER_TT\', \'SPEC_BANK_GOOD_TT\')]"\n'
         f' SPEC_BANK_GOOD_TT: "#header [Scope.GetGoods.GetName]#!\\n$TOOLTIP_DELIMITER$\\n#v [{SHARE}|%1]#! of [concept_spec_outstanding_credit] '
-        f'is lent into it.\\nIf its boom ended, [concept_spec_market_confidence] would fall #v x[{MULT}|2]#! as far.\\n\\n'
-        '#grey A loan stays in its good until it is repaid, even after the boom cools.#!"\n'
+        f'lent into it\\nIf its boom ended, [concept_spec_market_confidence] would fall #v x[{MULT}|2]#! as far"\n'
         ' SPEC_BANK_NONE_S: "#grey No credit lent into booms#!"\n'
-        f' SPEC_BANK_NONE: "The banks have lent nothing into booms. Banks lend while [concept_spec_market_confidence] is above '
-        f'#v {k["CREDIT_FROM"]}#! (now #v [{v("spec_conf")}|0]#!), most of it into goods #v Keen#! or hotter."\n'
+        f' SPEC_BANK_NONE: "Nothing lent into booms\\nBanks lend above #v {k["CREDIT_FROM"]}#! [concept_spec_market_confidence], '
+        f'mostly into goods #v Keen#! or hotter"\n'
         ' SPEC_LHIST_EMPTY: "#grey Recorded each month from now on#!"\n'
         ' SPEC_H_CREDIT_HISTORY: "Credit Leverage History"\n'
         f' SPEC_H_CREDIT_HISTORY_TT: "#header Credit Leverage History#!\\n$TOOLTIP_DELIMITER$\\n[concept_spec_leverage] over the last #v {HISTORY}#! '
@@ -427,7 +426,7 @@ def loc(k):
                   f'begins below #v {at(m)}#! [concept_spec_market_confidence]."\n' for m in (leverage.SAFE, leverage.DANGER, leverage.LADDER[-1]))
         + "".join(f' SPEC_LHIST_{n}_TT: "[SelectLocalization({P}.Var(\'spec_lhist{n}\').IsSet, \'SPEC_LHIST_{n}_ON\', \'SPEC_HIST_NONE\')]"\n'
                   f' SPEC_LHIST_{n}_ON: "#header {when(n)}#!\\n[concept_spec_leverage]: #v [{lev(n)}|1]#! months"\n' for n in range(1, HISTORY + 1))
-        + ' SPEC_BANK_OTHER: "Other goods"\n'
+        + ' SPEC_BANK_OTHER: "Other Goods"\n'
         f' SPEC_BANK_OTHER_TT: "#header $SPEC_BANK_OTHER$#!\\n$TOOLTIP_DELIMITER$\\n#v [{OTHER_SHARE}|%1]#! of [concept_spec_outstanding_credit] is lent into the booms of every other good."\n'
         + ' SPEC_IW_PIE: "Trade by [concept_spec_investor_interest]"\n'
         ' SPEC_IW_NONE: "#grey Shown from the start of next month#!"\n'

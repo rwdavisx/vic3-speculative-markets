@@ -1,8 +1,8 @@
 {
   "name": "Speculative Markets - Community Mod Framework Compatibility",
   "id": "speculative_markets_cmf_compat",
-  "version": "1.0.1",
-  "supported_game_version": "1.15.1",
+  "version": "1.0.2",
+  "supported_game_version": "1.15.*",
   "short_description": "Requires CMF and either Speculative Markets or its Beta. Enable only one SM channel; load this patch last.",
   "tags": [
     "Utilities"
@@ -13,7 +13,7 @@
       "id": "com.github.Victoria-3-Modding-Co-op.Community-Mod-Framework",
       "display_name": "Community Mod Framework",
       "resource_type": "mod",
-      "version": "1.67.6"
+      "version": "*"
     }
   ],
   "game_custom_data": {

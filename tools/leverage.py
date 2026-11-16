@@ -106,7 +106,7 @@ def values(panic, near):
         "spec_lev_fade_sv = {\n\tvalue = 0\n\tif = {\n\t\tlimit = { has_variable = spec_lev_fade }\n\t\tvalue = var:spec_lev_fade\n\t}\n}",
         f"spec_crunch_stress = {{\n\tvalue = spec_lev_bad\n\tsubtract = {SAFE}\n\tdivide = {RUIN - SAFE}\n\tmin = 0\n\tmax = 1\n}}",
         # what a panic would leave today, for the panic and the tab's warning: a new panic never eases bad debts already there
-        f"spec_crunch_if = {{\n\tvalue = spec_crunch_stress\n\tmultiply = {CRUNCH_MAX}\n\tmin = spec_crunch_sv\n}}",
+        f"spec_crunch_if = {{\n\tvalue = spec_crunch_stress\n\tmultiply = {CRUNCH_MAX}\n\tmultiply = spec_nx_bad\n\tmin = spec_crunch_sv\n}}",
         f"spec_crunch_months = {{\n\tvalue = spec_crunch_sv\n\tdivide = {CRUNCH_FADE}\n\tceiling = yes\n}}",
         # throughput lost in percent, for the texts: now, once fully bitten in, and if a panic began now
         *(f"{name} = {{\n\tvalue = {src}\n\tmultiply = {CRUNCH_THROUGHPUT * 100:g}\n}}" for name, src in

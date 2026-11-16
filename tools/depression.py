@@ -109,19 +109,19 @@ COUNTRY_MODS = [
 ]
 # message key -> icon, color, toast title, toast text
 NOTES = {
-    "spec_ld_started": ("rank_down", "bad", "The $SPEC_LD_NAME$",
-                        "[Concept('concept_spec_financial_panic','$concept_spec_financial_panics$')] have spread across the world economy. The World Crash has begun and will "
-                        "reach every economy closely tied to those already caught. The [concept_spec_long_depression] will follow."),
-    "spec_ld_deepens": ("rank_down", "bad", "The Crash Deepens",
+    "spec_ld_started": ("rank_down", "bad", "The $SPEC_LD_NAME$ begins",
+                        "[Concept('concept_spec_financial_panic','$concept_spec_financial_panics$')] have spread across the world economy, "
+                        "and the World Crash has begun. The [concept_spec_long_depression] will follow."),
+    "spec_ld_deepens": ("rank_down", "bad", "The World Crash deepens",
                         "The World Crash has become the [concept_spec_long_depression]. Investment, construction and trade will stay weak until "
                         "the world recovers."),
-    "spec_ld_lifts": ("rank_up", "good", "The Depression Lifts",
-                      "The world has recovered from the [concept_spec_long_depression]. [concept_spec_market_confidence] recovers over the coming year."),
-    "spec_ld_over": ("rank_up", "neutral", "Recovery Complete",
-                     "The recovery from the [concept_spec_long_depression] is complete."),
-    "spec_ld_recovered": ("rank_up", "good", "Our Recovery",
-                          "Our economy has recovered from the [concept_spec_long_depression] ahead of the world. "
-                          "[concept_spec_market_confidence] recovers while others still struggle."),
+    "spec_ld_lifts": ("rank_up", "good", "The depression lifts",
+                      "The world has recovered from the [concept_spec_long_depression], and [concept_spec_market_confidence] will return over the coming year."),
+    "spec_ld_over": ("rank_up", "neutral", "The world economy recovers",
+                     "The world's recovery from the [concept_spec_long_depression] is complete."),
+    "spec_ld_recovered": ("rank_up", "good", "Our economy recovers",
+                          "Our economy has recovered from the [concept_spec_long_depression] ahead of the world, and "
+                          "[concept_spec_market_confidence] returns here while others still struggle."),
 }
 OWN_STEPS, WORLD_STEPS = set(), set()
 
@@ -864,15 +864,15 @@ def loc():
     tariff = f"Subtract_CFixedPoint({world}, {market_tab.v('spec_ld_conf')})"
     out = [
         ' concept_spec_long_depression: "Long Depression"',
-        ' concept_spec_long_depression_desc: "The $concept_spec_long_depression$ is a world economic crisis. It begins when '
-        "a [concept_great_power] falls into a [concept_spec_financial_panic], reaches every country then in a panic, and "
-        "spreads along close ties: a shared [concept_market], subjects and overlords, investment rights, heavy trade and "
-        "foreign ownership.\\n\\n"
-        f"{PHASES[1]} ({span(CRASH_MONTHS)}): credit freezes and [concept_spec_market_confidence] drains\\n"
+        ' concept_spec_long_depression_desc: "The $concept_spec_long_depression$ is a crisis of the whole world economy. It '
+        "begins when a [concept_great_power] falls into a [concept_spec_financial_panic]. It then reaches every country "
+        "already in a panic, and spreads along close ties: a shared [concept_market], subjects and overlords, investment "
+        "rights, heavy trade and foreign ownership.\\n\\n"
+        f"{PHASES[1]} ({span(CRASH_MONTHS)}): credit freezes and [concept_spec_market_confidence] drains away.\\n"
         f"{PHASES[2]} (up to {span(DEPRESSION_MAX)}): investment, construction and trade slow, and some pops become "
-        "[Concept('concept_radical','$concept_radicals$')]\\n"
-        f"{PHASES[3]} ({span(RECOVERY_MONTHS)}): [concept_spec_market_confidence] returns\\n\\n"
-        "Each government's choices speed its own and the world's recovery, and a [concept_great_power]'s count most.\"",
+        "[Concept('concept_radical','$concept_radicals$')].\\n"
+        f"{PHASES[3]} ({span(RECOVERY_MONTHS)}): $concept_spec_market_confidence$ returns.\\n\\n"
+        "Your choices hasten your own recovery and the world's, and a $concept_great_power$'s choices count for the most.\"",
         ' je_spec_depression: "The $SPEC_LD_NAME$"',
         ' SPEC_LD_LONG: "Long Depression"',
         ' SPEC_LD_GREAT: "Great Depression"',
@@ -892,7 +892,7 @@ def loc():
         ' spec_ld_tariff_tt: "Countries tied to us lose [concept_spec_market_confidence], more the larger our economy is against theirs"',
         ' SPEC_DRIVER_WORLD: "$SPEC_LD_NAME$"',
         f' SPEC_WORLD_TARIFF: "\\n[{tariff}|+=2] from tariffs raised by countries tied to us"',
-        f' SPEC_DRIVER_WORLD_TT: "#header $SPEC_LD_NAME$: [{world}|+=2]#!\\n$TOOLTIP_DELIMITER$\\n[{market_tab.v("spec_ld_conf")}|+=2] from the Current Phase'
+        f' SPEC_DRIVER_WORLD_TT: "#header $SPEC_LD_NAME$: [{world}|+=2]#!\\n$TOOLTIP_DELIMITER$\\n[{market_tab.v("spec_ld_conf")}|+=2] from the current phase'
         f'[AddLocalizationIf({market_tab.nonzero(tariff, 0.01)}, \'SPEC_WORLD_TARIFF\')]\\n$TOOLTIP_DELIMITER$\\n'
         + "\\n".join(f"{PHASES[p]}: {'#N' if n < 0 else '#P'} {n:+g}#! per month" for p, n in PRESSURE.items())
         + '"',
@@ -907,7 +907,7 @@ def loc():
         out += [f' spec_depression.{eid}.t: "{t}"', f' spec_depression.{eid}.d: "{d}"', f' spec_depression.{eid}.f: "{f}"']
         out += [f' spec_depression.{eid}.{chr(97 + i)}: "{o}"' for i, o in enumerate(opts)]
     out += [f' {key}: "{name}"' for key, name in MOD_NAMES.items()]
-    out += [' spec_ld_crash_desc: "Effects of the World Crash that opens the [concept_spec_long_depression]"',
-            ' spec_ld_depression_desc: "Effects of the [concept_spec_long_depression]"']
+    out += [' spec_ld_crash_desc: "Credit has frozen across the world as the [concept_spec_long_depression] begins."',
+            ' spec_ld_depression_desc: "The [concept_spec_long_depression] weighs on investment, construction and trade."']
     out += [f' {key}: "{name}"' for key, *_, name in IG_MODS + COUNTRY_MODS]
     return "\n".join(out) + "\n"

@@ -113,5 +113,6 @@
   "3ecd7db822": "\\n$SPEC_DRIVER_RIVAL$に由来{1}{2}#!#!",
   "7ac3228a98": "ライバル",
   "eafcab7a35": "我が国が宣言 #v {1}#!、相手が宣言 #v {2}#!",
-  "5c775ad815": "#header ライバル#!\\n$SPEC_RIVAL_RULE$"
+  "5c775ad815": "#header ライバル#!\\n$SPEC_RIVAL_RULE$",
+  "7be1025162": "指名 #v {1}#!/#v {2}#!、被指名 #v {3}#!"
 }
