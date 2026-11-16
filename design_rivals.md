@@ -11,6 +11,10 @@ Revised again on November 16, 2026, for beta.12: the user chose to separate Exch
 The forced tie made Britain's only rival Russia, a contest Britain won 144 to 19 every year. Section 1 below is the
 beta.12 rule; sections 2 and 3 are unchanged apart from where noted.
 
+Revised late on November 16, 2026, for beta.12, after the user's in-game review of the UI: Shore Up is per rival;
+costs and effects scale with the two Exchanges' sizes; the AI picks rivals it can beat and plays each contest; the UI
+was rebuilt (section 4). The user asked for each of these; balance numbers are starting points, not measured.
+
 Revised on November 16, 2026, for beta.12, at the user's request: the yearly contest became a tug of war settled every
 5 years, in five bands, that actions push; actions work against Exchanges rivaling us too; Hold the Line added;
 maintenance by the rival's Standing and a relations cost. The balance freeze is lifted for these rules (the user's call).
@@ -35,11 +39,11 @@ maintenance by the rival's Standing and a relations cost. The balance freeze is 
   rivalry drifts to -20).
 - **Kept a year:** a new rival cannot be ended for 365 days (`spec_rv_keep`). This stops rivalling just before the
   contest and ending it after.
-- **Ending:** the End button on its row, or the toggle. A rival who named us cannot be ended by us. Dead countries are
+- **Ending:** the toggle in the Leading Exchanges list (the rows no longer carry it). A rival who named us cannot be ended by us. Dead countries are
   removed from the list each month.
 - **Where:** a rivalry icon button (`spec_sgui_rv_toggle`, vanilla `button_icon_round_action` with the rivalry
-  icon, lit while we rival them) in the Rival column of the Leading Exchanges list and on each row we rival. Its
-  tooltip: the monthly cost and one line on what a rivalry is, or the saving; the lock only when it applies.
+  icon, lit while we rival them) in the Rival column of the Leading Exchanges list, with a small lock in a rivalry's
+  first year. Its tooltip: the monthly cost and the relations cost.
 - **The contest, a tug of war settled every 5 years** (`ROUND`, global `spec_rv_round` counts the years), once per pair:
   - The bar (`spec_rv_rope`, -1 to 1 from one side) starts from the score lead as a share of the higher score.
   - Each action that works pushes it 0.1 toward the actor (`PUSH`), at most 5 pushes a side (`PUSHES`), stored as
@@ -61,7 +65,12 @@ maintenance by the rival's Standing and a relations cost. The balance freeze is 
 ## 2. Rival actions
 
 Target: a rival Exchange pair, in either direction (section 1). Each action has its
-own cooldown per target. The numbers are starting points.
+own cooldown per target. The numbers are starting points, at two Exchanges of equal size.
+
+- **Size (beta.12):** `spec_rv_vs`, their Exchange score over ours, clamped 0.5 to 2 (`VS_LO`, `VS_HI`). Gold and credit
+  costs are multiplied by it, so a larger rival costs more to act against or shore up against. The effects of Bear
+  Raid, Lure and Press are multiplied by its inverse (`spec_rv_heft`), so a larger Exchange hits harder. Press's
+  influence cost and Shore Up's halving are not scaled. Tooltips show this pair's numbers.
 
 | Action | Cost | Effect | Risk / cooldown |
 |---|---|---|---|
@@ -69,7 +78,7 @@ own cooldown per target. The numbers are starting points.
 | **Lure Their Capital** | +2 months of our pool income to our Outstanding Credit, so our leverage rises | For 12 months, 10% of their monthly Investment Pool income moves to ours | Our panic threshold rises with the leverage (existing rule). 1 year. |
 | **Press Campaign** | -25 influence for 12 months | Their Exchange trust -6 | 30% exposure: relations -20 and our trust -6. 1 year. |
 | **Hold the Line** | 0.5% of our GDP from the treasury | Undoes one of their pushes in our contest | Only when they have pushed. 1 year. |
-| **Shore Up** | 0.5% of our GDP from the treasury | Halves every rival action against us for 12 months | None. 2-year cooldown, not per target. |
+| **Shore Up** | 0.5% of our GDP from the treasury | Halves this rival's actions against us for 12 months (list `spec_rv_shield`; Safe Harbour 17 months) | Not while already shored up against them. 2-year cooldown per rival. |
 
 - Bear Raid, Lure and Press also push the contest bar (section 1). Every action works against Exchanges we rival and
   Exchanges rivaling us, from either table.
@@ -82,36 +91,49 @@ own cooldown per target. The numbers are starting points.
 - **Naming (beta.12):** once a year, before the contest, each AI Exchange:
   - keeps its own limits: 1 rival, or 2 from International Standing (`spec_rv_slots`), within one Standing (`REACH`)
   - drops named rivals that are dead, out of reach or without an Exchange
-  - fills its free slots with the nearest-scoring Exchange above it within reach
-  - names the highest-scoring Exchange below it within reach when none is above, so a leader still has rivals
+  - early in a round (years 0 to 1), drops a rival it is 0.65 or more behind on the bar (`AI_CUT`), unless kept
+  - fills its free slots with Exchanges within reach that it starts no more than 0.3 behind (`AI_REACH`), the best
+    first by `spec_rv_ai_pick_v`: its side of the bar plus 0.15 a Standing above it (a bigger prize)
   - Players are valid targets. It also runs on the first monthly pass, so rivals exist before the first contest.
 
 - Once a year, each AI with an Exchange may act against each rival pair: at most one action per rivalry per year.
   - Base chance: 25%. Bold +15%, Cautious -15% (`credit_ai` tempers).
-  - It Shores Up first when it was hit this year, else Holds the Line when pushed, else picks an action it can afford
-    and that is off cooldown.
+  - Plus 15% a year of the round gone (`AI_URGENCY`), so it acts most in the year before the contest settles.
+  - In order: Shore Up against the rival that just hit it; nothing while already past the decisive line by a push
+    (keeps its money); Hold the Line when pushed; else push, weighted Lure 3, Press 2, Bear Raid 1, or 3 when its
+    score is the higher (a raid fails less then).
+  - Not yet: it ignores the size scaling and whether a push would cross a band; calibrate from logs or headless runs.
   - It names no Exchange that `AI_CAP` (3) already rival, and drops one rivalled by more, so minors do not pile on.
 - **A player who is targeted gets an event.** It names the action and its effect, with three choices:
   - **Retaliate:** the same action against them, paid as usual, ignoring the cooldown. From beta.12 the tooltip names
     the action and shows its cost and effect.
-  - **Shore up:** if it is available.
+  - **Shore up against them:** if it is available.
   - **Ignore:** +2 trust for keeping calm.
 
 ## 4. UI: the Rivalries section (Finance, World tab)
 
 - Rebuilt after the user's in-game reviews: vanilla tables, icons, terse tooltips; rules once, in the header tooltip.
 - **Header** (`default_header_2texts`): Rivalries, with the influence upkeep on the right.
-- **Two folding tables with one layout** (`section_header_button`, `sort_button` heads, 35px rows, vanilla dividers,
-  a hover highlight): Country | Contest | Effects | Actions.
-  - **Contest:** vanilla's `double_direction_progressbar` as a tug of war: green toward us from the centre line, red
-    toward them, with ticks at the draw and decisive bands. Its tooltip: the band now, both scores, both sides'
-    pushes, years until it settles, the last result.
-  - **Effects:** rival actions running on them, icons with a months-left badge.
-  - **Actions:** Bear Raid, Lure, Press, Hold the Line as vanilla tariff-style buttons (`set_level_bar_item`); in
-    Exchanges We Rival also the rivalry toggle, with a small lock in its first year.
-- **Exchanges Rivaling Us** opens with our own row: "Settles in N years", the actions running on us, Shore Up.
+- **Rival Actions on Us** (folding section, "Contests settle in N years" on the right): one 44px row per action
+  running on us (Bear Raid by whom, `spec_rv_raider`; Capital Lured by whom, `spec_rv_lurer`), with what it does and
+  its months left on a bar; then the last move against us that left nothing running (a Press Campaign, worked or
+  exposed, or a failed Bear Raid), from `spec_rv_hit`, `_hit_by`, `_hit_ok`, for the year `spec_rv_hit_recent` lasts;
+  else a line saying none is.
+- **Exchanges We Rival / Exchanges Rivaling Us**, folding tables with one layout (`section_header_button`,
+  `sort_button` heads, 44px rows, vanilla dividers, a hover highlight): Country | Contest | Actions.
+  - **Contest:** drawn as the Market Confidence bar (`market_tab.tier_scale`): fill sliding from the centre, green
+    toward us and red toward them, vanilla's glow and the changed-value chevrons running toward whoever has pushed
+    more; dividers at the five results, decisive ends tinted, vanilla's active-level frame on the current one, its
+    name above. Each result's section has its own tooltip: what that result does with this pair's numbers, then
+    where it stands (scores, pushes, years left, last result).
+  - The bar and pushes are stored on each row's country by `spec_rv_ui` (monthly and on every push), so the screen
+    reads three numbers rather than a few hundred scripted-GUI checks a row each frame. In multiplayer, two players
+    rivalling the same Exchange share them.
+  - **Actions:** Bear Raid, Lure, Press, Hold the Line, Shore Up as vanilla tariff-style buttons; framed while running
+    on them (Raid and Lure with a months badge), while shored up against them, or while used and cooling down.
+  - A shield after a rival's name: they have shored up against us.
 - **Leading Exchanges list:** the rivalry toggle, a vanilla subsidize-style button (silhouette off, lit on, upkeep
-  and relations in its tooltip), plus a shield when they rival us.
+  and relations in its tooltip, a lock in the first year), plus a shield when they rival us.
 - **Notifications:** one for a won contest and one for a lost one; the event for a raid, lure or smear against us.
 
 ## Build order and tests

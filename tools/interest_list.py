@@ -281,7 +281,7 @@ def tier_overlay(rd, w, danger=False):
     return _tier_overlay(rd, w, danger, colour, below, lit)
 
 
-def chevrons(up, down, alpha=0.45, anchor="right"):
+def chevrons(up, down, alpha=0.45, anchor="right", duration=1):
     """vanilla's changed value chevrons (progressbars.gui:457-583) through a lit bar: rightward while up,
     leftward while down. anchor: the side of the marker the lit part is on."""
     return "".join(f"""icon = {{
@@ -304,7 +304,7 @@ def chevrons(up, down, alpha=0.45, anchor="right"):
 		trigger_on_create = yes
 		name = arrow_animation_1
 		next = arrow_animation_2
-		duration = 1
+		duration = {duration}
 		modify_texture = {{
 			name = arrow_animation
 			translate_uv = {{ -1 0 }}
