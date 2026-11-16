@@ -1,0 +1,20 @@
+{
+"271c54084c": "崩壊の緩和 #P {1}%#!\\n対決の押し #P +{2}%#!\\n信認 毎年#P +{3}%#!",
+"936c9d03a3": "#v {1}#!社保有",
+"40b1988c76": "#header $concept_spec_blue_chips$#!\\n企業は#v {2}#!以上の[concept_prosperity]を#v {1}#!か月連続で保つと優良株になります\\n$TOOLTIP_DELIMITER$\\n#b 我が国: #v {3}#!#!\\n暴落や恐慌で失う[concept_spec_market_confidence]: #P -{4}%#! #grey (1社につき-{5}%)#!\\n[concept_spec_exchange]の信認: 毎年#P +{6}%#! #grey (1社につき+{7}%)#!\\n[concept_spec_exchange]の対決: 我が国側へ#P +{8}%#! #grey (1社につき+{9}%)#!\\n資本家の[concept_investment_pool]への拠出: #P +{10}%#! #grey (1社につき+{11}%)#!\\n融資の利息: #P -{12}%#! #grey (1社につき-{13}%)#!\\n#grey 最初の{14}社は全額、次の{15}社は半分の効果です。1社ごとに、大企業の本拠の集計である我が国の[concept_spec_company_strength]に#v {16}#!加わります#!\\n$TOOLTIP_DELIMITER$\\n#b 1社失うと#!\\n[concept_prosperity]が#v {18}#!か月連続で#v {17}#!未満: [concept_spec_exchange]の信認#N -{19}%#!、[concept_spec_market_confidence]#N -{20}#!\\n我が国へのベアレイド(売り崩し)が成功すると、1社が1年間#N 脆弱#!になります\\n\\n#b 年間最優秀企業#!\\n世界で最も繁栄した優良株: 1年間、[concept_spec_exchange]の信認#P +{21}%#!、[concept_prestige]#P +{22}%#!",
+"5bb90087e2": "#P [concept_spec_blue_chip]#!: 我が国の[concept_spec_company_strength]に#v {1}#!加わり、我が国の$concept_spec_blue_chips$に数えられる",
+"094d972a0b": "#v {2}#!以上の[concept_prosperity]をあと#v {1}#!か月保つと[concept_spec_blue_chip]になる",
+"b43ae17abb": "  #N 後退中#!: #v {3}#!か月中#v {2}#!か月、[concept_prosperity]が#v {1}#!未満。#v {4}#!か月に達すると地位を失う",
+"254aa75a5f": "  #N 脆弱#!: [concept_prosperity]が#v {1}#!を1か月でも下回ると地位を失う",
+"aff4e6db4c": "  下支え中: [concept_prosperity]にかかわらず当面は地位を保つ",
+"aabb1a76d3": "#P 優良株#!",
+"7ead9802ba": "#grey {1}/{2}か月#!",
+"8bdcfdd90e": "#P 年間最優秀企業#!",
+"6263f9ceea": "#N 脆弱#!",
+"b05966b8cd": "#N 後退 {1}/{2}#!",
+"2abe40a7d4": "#header @spec_company_strength! [concept_spec_company_strength]: #v {1}#!#!\\n$TOOLTIP_DELIMITER$\\n$concept_companies$: #v {2}#!\\n{3}: #v {4}#!、各#v {5}#!を加算",
+"4bbbc76474": "$SPEC_NAME_QTY_companies$ #grey 強さ#!  @spec_blue_chip! #v {1}#!",
+"cc6f9c574a": "[concept_spec_exchange]は、外交上のライバル関係を除き、好きな取引所と競合できます。競合相手ごとに、地位に応じた影響力の維持費(#N {1}#!から#N {2}#!まで)がかかり、競合は最初の1年間は終了できません。\\n\\n#v {3}#!年ごとに、各対決は綱引きのように決着します。バーは両者の{4}スコアから始まり、各[concept_spec_blue_chip]につき双方へ#v {5}%#!ずつ(#v {6}#!社までは全額、#v {7}#!社までは半分)動き、効果のあった各行動はそれぞれの側へ#v {8}%#!ずつ(各側で最大#v {9}#!回)押します。中央付近は引き分けです。勝てば敗者から信認を#P {10}%#!奪い、#v {11}%#!を超える決定的勝利なら#P {12}%#!を奪うほか、敗者の[concept_investment_pool]収入の#P {13}%#!を{14}か月間奪います。地位に差がある場合、下位の取引所が勝てば得るものが大きく、上位が勝てば小さくなります。関係が不信以下の場合、敗者の損失は#N x1.5#!になります。\\n\\n競合相手への行動は双方向です。我が国が競合する取引所と、我が国と競合する取引所の両方が対象で、競合相手ごとに年1回使えます。大きい取引所に対しては費用が増え効果が減り、#v x0.75#!から#v x1.33#!の範囲です。[concept_spec_financial_panic]では、逃げ出した資金はまず競合相手に流れ込みます。",
+"c6100e1404": "@spec_blue_chip! $concept_spec_blue_chip$とは、#v {2}#!か月連続で#v {1}#!以上の[concept_prosperity]を保った[concept_company]です。1社につき我が国の[concept_spec_company_strength]に#v {3}#!加わります。\\n#b 1社ごと#! #grey (最初の{4}社は全額、次の{5}社は半分)#!\\n暴落や恐慌で失う[concept_spec_market_confidence]: #P -{6}%#!\\n[concept_spec_exchange]の信認: 毎年#P +{7}%#!\\n[concept_spec_exchange]の対決: 我が国側へ#P +{8}%#!\\n資本家の[concept_investment_pool]への拠出: #P +{9}%#!\\n融資の利息: #P -{10}%#!\\n\\n#b 1社失うと#!\\n[concept_prosperity]が#v {12}#!か月連続で#v {11}#!未満: [concept_spec_exchange]の信認#N -{13}%#!、[concept_spec_market_confidence]#N -{14}#!\\n我が国へのベアレイド(売り崩し)が成功すると、1社が1年間#N 脆弱#!になります\\n\\n#b 年間最優秀企業#!\\n世界で最も繁栄した優良株: 1年間、[concept_spec_exchange]の信認#P +{15}%#!、[concept_prestige]#P +{16}%#!\\n\\n#v {18}#!未満が#v {17}#!か月続くとこの地位を失い、再び#v {19}#!か月保つ必要があります。到達までの途中で1か月でも下回ると、数え直しになります。市場経済を離れた[concept_country]は1社も保てません。",
+"7b3e2b27f2": "我が国の[concept_spec_blue_chip]は市場に貯蓄を呼び込み、貸し手を寛容にします。1社ごとに増え、{1}社までは全額、{2}社までは半分です。"
+}

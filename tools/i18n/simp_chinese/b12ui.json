@@ -1,0 +1,20 @@
+{
+"271c54084c": "崩盘缓冲#P {1}%#!\\n较量拉力#P +{2}%#!\\n信任每年#P +{3}%#!",
+"936c9d03a3": "持有#v {1}#!家",
+"40b1988c76": "#header $concept_spec_blue_chips$#!\\n公司连续#v {1}#!个月[concept_prosperity]保持在#v {2}#!或以上，即成为蓝筹股\\n$TOOLTIP_DELIMITER$\\n#b 我方：#v {3}#!#!\\n崩盘和恐慌造成的[concept_spec_market_confidence]损失：#P -{4}%#! #grey （每家-{5}%）#!\\n[concept_spec_exchange]信任：每年#P +{6}%#! #grey （每家+{7}%）#!\\n[concept_spec_exchange]较量：向我方#P +{8}%#! #grey （每家+{9}%）#!\\n资本家对[concept_investment_pool]的贡献：#P +{10}%#! #grey （每家+{11}%）#!\\n贷款利息：#P -{12}%#! #grey （每家-{13}%）#!\\n#grey 前{14}家全额生效，其后{15}家效果减半。每家为我国[concept_spec_company_strength]增加#v {16}#!，这是大公司之家的计分#!\\n$TOOLTIP_DELIMITER$\\n#b 失去一家#!\\n连续#v {18}#!个月[concept_prosperity]低于#v {17}#!：[concept_spec_exchange]信任#N -{19}%#!，[concept_spec_market_confidence]#N -{20}#!\\n命中我方的做空袭击会使一家#N 脆弱#!一年\\n\\n#b 年度公司#!\\n世界上最繁荣的蓝筹股：一年内[concept_spec_exchange]信任#P +{21}%#!，[concept_prestige]#P +{22}%#!",
+"5bb90087e2": "#P [concept_spec_blue_chip]#!：为我国[concept_spec_company_strength]增加#v {1}#!，并计入我国的$concept_spec_blue_chips$",
+"094d972a0b": "再保持#v {1}#!个月[concept_prosperity]在#v {2}#!或以上，即成为[concept_spec_blue_chip]",
+"b43ae17abb": "  #N 下滑#!：#v {3}#!个月中有#v {2}#!个月[concept_prosperity]低于#v {1}#!。达到#v {4}#!个月即失去地位",
+"254aa75a5f": "  #N 脆弱#!：[concept_prosperity]只要有一个月低于#v {1}#!，即失去地位",
+"aff4e6db4c": "  受扶持：暂时保持地位，无论[concept_prosperity]如何",
+"aabb1a76d3": "#P 蓝筹股#!",
+"7ead9802ba": "#grey {1}/{2}个月#!",
+"8bdcfdd90e": "#P 年度公司#!",
+"6263f9ceea": "#N 脆弱#!",
+"b05966b8cd": "#N 下滑 {1}/{2}#!",
+"2abe40a7d4": "#header @spec_company_strength! [concept_spec_company_strength]：#v {1}#!#!\\n$TOOLTIP_DELIMITER$\\n$concept_companies$：#v {2}#!\\n{3}：#v {4}#!，每家增加#v {5}#!",
+"4bbbc76474": "$SPEC_NAME_QTY_companies$ #grey 实力#!  @spec_blue_chip! #v {1}#!",
+"cc6f9c574a": "[concept_spec_exchange]可与任何交易所竞争，外交宿敌关系除外。每个竞争者按其地位产生影响力维护费，从#N {1}#!到#N {2}#!，且竞争在第一年内不能结束。\\n\\n每#v {3}#!年，每场较量如拔河般结算。力度条从双方的{4}得分起算，每方每有一家[concept_spec_blue_chip]就向其一侧移动#v {5}%#!（#v {6}#!家以内全额，#v {7}#!家以内减半）；每次奏效的行动将其推向己方#v {8}%#!，每方最多#v {9}#!次。接近中间为平局。获胜方从败方夺取#P {10}%#!信誉；超过#v {11}%#!的决定性胜利夺取#P {12}%#!信誉，并在{14}个月内夺取败方#P {13}%#!的[concept_investment_pool]收入。在地位有差距时，较低的交易所获胜所得更多，较高的交易所获胜所得更少。关系较差或更差时，败方损失#N x1.5#!。\\n\\n竞争者行动双向生效：既针对我们竞争的交易所，也针对与我们竞争的交易所。每个竞争者每年各可使用一次。针对更大的交易所时，成本更高、效果更差，系数从#v x0.75#!到#v x1.33#!。发生[concept_spec_financial_panic]时，外逃的资金首先流向竞争者。",
+"c6100e1404": "@spec_blue_chip! $concept_spec_blue_chip$是连续#v {2}#!个月[concept_prosperity]保持在#v {1}#!或以上的[concept_company]。每家为我国[concept_spec_company_strength]增加#v {3}#!。\\n#b 每家#! #grey （前{4}家全额，其后{5}家减半）#!\\n崩盘和恐慌造成的[concept_spec_market_confidence]损失：#P -{6}%#!\\n[concept_spec_exchange]信任：每年#P +{7}%#!\\n[concept_spec_exchange]较量：向我方#P +{8}%#!\\n资本家对[concept_investment_pool]的贡献：#P +{9}%#!\\n贷款利息：#P -{10}%#!\\n\\n#b 失去一家#!\\n连续#v {12}#!个月[concept_prosperity]低于#v {11}#!：[concept_spec_exchange]信任#N -{13}%#!，[concept_spec_market_confidence]#N -{14}#!\\n命中我方的做空袭击会使一家#N 脆弱#!一年\\n\\n#b 年度公司#!\\n世界上最繁荣的蓝筹股：一年内[concept_spec_exchange]信任#P +{15}%#!，[concept_prestige]#P +{16}%#!\\n\\n连续#v {17}#!个月低于#v {18}#!即失去这一地位，之后须重新保持#v {19}#!个月。在积累期间，只要有一个月低于标准，就会重新计算。退出市场经济的[concept_country]不保留任何蓝筹股。",
+"7b3e2b27f2": "我国的[concept_spec_blue_chip]吸引储蓄流入市场，并使贷款人更易放贷。每家都会推高它：{1}家以内全额，{2}家以内减半。"
+}

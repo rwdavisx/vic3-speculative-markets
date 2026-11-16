@@ -1,0 +1,20 @@
+{
+"271c54084c": "붕괴 방어 #P {1}%#!\\n대결 견인 #P +{2}%#!\\n신뢰 매년 #P +{3}%#!",
+"936c9d03a3": "#v {1}#!개 보유",
+"40b1988c76": "#header $concept_spec_blue_chips$#!\\n기업은 [concept_prosperity] #v {2}#! 이상을 #v {1}#!개월 연속 유지하면 우량주가 됩니다\\n$TOOLTIP_DELIMITER$\\n#b 우리: #v {3}#!#!\\n붕괴와 공황으로 잃는 [concept_spec_market_confidence]: #P -{4}%#! #grey (하나당 -{5}%)#!\\n[concept_spec_exchange] 신뢰: 매년 #P +{6}%#! #grey (하나당 +{7}%)#!\\n[concept_spec_exchange] 대결: 우리 쪽으로 #P +{8}%#! #grey (하나당 +{9}%)#!\\n자본가의 [concept_investment_pool] 기여: #P +{10}%#! #grey (하나당 +{11}%)#!\\n대출 이자: #P -{12}%#! #grey (하나당 -{13}%)#!\\n#grey 처음 {14}개는 전부, 다음 {15}개는 절반만 적용됩니다. 하나마다 대기업의 본거지 순위를 정하는 우리 [concept_spec_company_strength]에 #v {16}#!을(를) 더합니다#!\\n$TOOLTIP_DELIMITER$\\n#b 하나를 잃으면#!\\n#v {18}#!개월 연속 [concept_prosperity] #v {17}#! 미만: [concept_spec_exchange] 신뢰 #N -{19}%#!, [concept_spec_market_confidence] #N -{20}#!\\n우리에게 적중한 공매도 공세는 하나를 1년간 #N 취약#! 상태로 만듭니다\\n\\n#b 올해의 기업#!\\n세계에서 가장 번영한 우량주: 1년간 [concept_spec_exchange] 신뢰 #P +{21}%#!, [concept_prestige] #P +{22}%#!",
+"5bb90087e2": "#P [concept_spec_blue_chip]#!: 우리 [concept_spec_company_strength]에 #v {1}#!을(를) 더하고 우리 $concept_spec_blue_chips$에 포함됨",
+"094d972a0b": "[concept_prosperity] #v {2}#! 이상을 #v {1}#!개월 더 유지하면 [concept_spec_blue_chip]이(가) 됨",
+"b43ae17abb": "  #N 하락 중#!: #v {3}#!개월 중 #v {2}#!개월 동안 [concept_prosperity] #v {1}#! 미만. #v {4}#!개월이 되면 지위 상실",
+"254aa75a5f": "  #N 취약#!: 한 달이라도 [concept_prosperity] #v {1}#! 미만이면 지위 상실",
+"aff4e6db4c": "  지원 중: [concept_prosperity]와(과) 상관없이 당분간 지위 유지",
+"aabb1a76d3": "#P 우량주#!",
+"7ead9802ba": "#grey {1}/{2}개월#!",
+"8bdcfdd90e": "#P 올해의 기업#!",
+"6263f9ceea": "#N 취약#!",
+"b05966b8cd": "#N 하락 {1}/{2}#!",
+"2abe40a7d4": "#header @spec_company_strength! [concept_spec_company_strength]: #v {1}#!#!\\n$TOOLTIP_DELIMITER$\\n$concept_companies$: #v {2}#!\\n{3}: #v {4}#!, 하나당 #v {5}#!",
+"4bbbc76474": "$SPEC_NAME_QTY_companies$ #grey 역량#!  @spec_blue_chip! #v {1}#!",
+"cc6f9c574a": "[concept_spec_exchange]는 외교적 라이벌 관계를 제외하고 원하는 거래소와 경쟁할 수 있습니다. 경쟁자마다 위상에 따라 #N {1}#!에서 #N {2}#!까지의 영향력 유지비가 들며, 경쟁은 첫 1년 동안 끝낼 수 없습니다.\\n\\n#v {3}#!년마다 각 대결은 줄다리기처럼 결판납니다. 막대는 두 {4} 점수에서 시작해, [concept_spec_blue_chip] 하나마다 해당 쪽으로 #v {5}%#!씩(#v {6}#!개까지는 전부, #v {7}#!개까지는 절반) 움직이고, 효과를 낸 행동마다 자기 쪽으로 #v {8}%#!씩(쪽마다 최대 #v {9}#!회) 밀립니다. 중앙 부근은 무승부입니다. 이기면 패자에게서 신뢰 #P {10}%#!를 빼앗고, #v {11}%#!를 넘는 결정적 승리는 #P {12}%#!와 함께 {14}개월 동안 패자의 [concept_investment_pool] 수입 #P {13}%#!를 빼앗습니다. 위상 격차가 있으면 낮은 거래소의 승리는 더 많이, 높은 거래소의 승리는 더 적게 얻습니다. 관계가 나쁨 이하이면 패자의 손실은 #N x1.5#!이 됩니다.\\n\\n경쟁자 행동은 양방향으로 작용합니다. 우리가 경쟁하는 거래소와 우리와 경쟁하는 거래소 모두에 해당하며, 경쟁자마다 1년에 한 번 쓸 수 있습니다. 더 큰 거래소를 상대로는 비용이 더 들고 효과가 줄며, 범위는 #v x0.75#!에서 #v x1.33#!입니다. [concept_spec_financial_panic] 중에는 빠져나가는 자금이 먼저 경쟁자에게 갑니다.",
+"c6100e1404": "@spec_blue_chip! $concept_spec_blue_chip$은(는) #v {2}#!개월 연속으로 [concept_prosperity] #v {1}#! 이상을 유지한 [concept_company]입니다. 하나마다 우리 [concept_spec_company_strength]에 #v {3}#!을(를) 더합니다.\\n#b 하나마다#! #grey (처음 {4}개는 전부, 다음 {5}개는 절반)#!\\n붕괴와 공황으로 잃는 [concept_spec_market_confidence]: #P -{6}%#!\\n[concept_spec_exchange] 신뢰: 매년 #P +{7}%#!\\n[concept_spec_exchange] 대결: 우리 쪽으로 #P +{8}%#!\\n자본가의 [concept_investment_pool] 기여: #P +{9}%#!\\n대출 이자: #P -{10}%#!\\n\\n#b 하나를 잃으면#!\\n#v {12}#!개월 연속 [concept_prosperity] #v {11}#! 미만: [concept_spec_exchange] 신뢰 #N -{13}%#!, [concept_spec_market_confidence] #N -{14}#!\\n우리에게 적중한 공매도 공세는 하나를 1년간 #N 취약#! 상태로 만듭니다\\n\\n#b 올해의 기업#!\\n세계에서 가장 번영한 우량주: 1년간 [concept_spec_exchange] 신뢰 #P +{15}%#!, [concept_prestige] #P +{16}%#!\\n\\n#v {17}#!개월 연속 #v {18}#! 미만이면 지위를 잃으며, 다시 #v {19}#!개월을 유지해야 합니다. 도중에 한 달이라도 미만이면 처음부터 다시 셉니다. 시장 경제를 떠난 [concept_country]은(는) 하나도 유지하지 못합니다.",
+"7b3e2b27f2": "우리의 [concept_spec_blue_chip]은(는) 시장으로 저축을 끌어들이고 대출을 쉽게 만듭니다. 하나마다 늘어나며, {1}개까지는 전부, {2}개까지는 절반입니다."
+}
