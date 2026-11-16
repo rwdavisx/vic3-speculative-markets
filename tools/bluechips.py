@@ -28,6 +28,12 @@ PROP_GDP = tuning.get("BC_PROP_GDP", 0.003)    # event 2, prop it up: share of G
 PROP_MONTHS = tuning.get("BC_PROP_MONTHS", 12)
 COTY_TRUST = tuning.get("BC_COTY_TRUST", 3)
 COTY_PRESTIGE = tuning.get("BC_COTY_PRESTIGE", 0.05)
+# beta.12 second pass (the user: still lacklustre): the Blue Chip Index, a country modifier per blue chip counted, and
+# each one counted moves every Exchange contest's bar PULL our way (rivals.spec_rv_rope); a Bear Raid that lands
+# rattles one of the target's blue chips: fragile for RATTLE_DAYS (rivals.spec_rv_raided)
+INDEX = tuning.get("BC_INDEX", [["state_capitalists_investment_pool_contribution_add", 0.006], ["country_loan_interest_rate_mult", -0.01]])
+PULL = tuning.get("BC_PULL", 0.03)
+RATTLE_DAYS = tuning.get("BC_RATTLE_DAYS", 365)
 
 CO = "[SCOPE.sCompany('spec_bc_co').GetName]"
 EXCH = "has_variable = spec_centre_trust"
@@ -49,7 +55,28 @@ def _lose(by, t):
 def after_update(t="\t\t"):
     """In spec_update_companies, after BLUE_UPDATE's loop (country scope, its local flags set): the count, the fall's
     cost, and the events."""
-    return f"""{t}set_variable = {{ name = spec_bc_n value = local_var:spec_bc_cnt }}
+    return f"""{t}set_local_variable = {{ name = spec_bc_was value = spec_bc_counted }}
+{t}set_variable = {{ name = spec_bc_n value = local_var:spec_bc_cnt }}
+{t}# the Blue Chip Index, re-applied when the count moves (a modifier's multiplier is fixed)
+{t}if = {{
+{t}	limit = {{
+{t}		OR = {{
+{t}			NOT = {{ local_var:spec_bc_was = spec_bc_counted }}
+{t}			AND = {{
+{t}				spec_bc_counted > 0
+{t}				NOT = {{ has_modifier = spec_bc_index }}
+{t}			}}
+{t}		}}
+{t}	}}
+{t}	if = {{
+{t}		limit = {{ has_modifier = spec_bc_index }}
+{t}		remove_modifier = spec_bc_index
+{t}	}}
+{t}	if = {{
+{t}		limit = {{ spec_bc_counted > 0 }}
+{t}		add_modifier = {{ name = spec_bc_index multiplier = spec_bc_counted }}
+{t}	}}
+{t}}}
 {t}if = {{
 {t}	limit = {{ has_local_variable = spec_bc_fell }}
 {t}	if = {{
@@ -212,6 +239,10 @@ MODIFIERS = f"""spec_coty = {{
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
 	country_prestige_mult = {COTY_PRESTIGE:g}
 }}
+
+spec_bc_index = {{
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
+{"".join(f"	{k} = {v:g}{chr(10)}" for k, v in INDEX)}}}
 """
 
 
@@ -228,6 +259,8 @@ def loc():
     return (
         ' spec_coty: "Company of the Year"\n'
         f' spec_coty_desc: "The world\'s most prosperous {bc} is ours this year"\n'
+        ' spec_bc_index: "Blue Chip Index"\n'
+        f' spec_bc_index_desc: "Our {bc}s draw savings to the market and make lenders easy. Grows with each, up to {CAP}."\n'
         ' spec_bluechip.1.t: "A New Blue Chip"\n'
         f' spec_bluechip.1.d: "After two years of steady profits, {CO} is now counted among the blue chips. Its shares are '
         'sought by every bank and widow in the land, and the brokers ask whether it will stay content with its standing or '
@@ -260,8 +293,12 @@ def loc():
 
 # what a blue chip does, for the header tooltip and the concept (company_section, concepts)
 def effects_text():
+    idx = dict(INDEX)
     return (f"Each [concept_spec_blue_chip], up to #v {CAP}#!: #P -{SHELTER:.0%}#! [concept_spec_market_confidence] lost to collapsing "
             f"booms and foreign panics, #P +{DIVIDEND / 120:.1%}#! [concept_spec_exchange] trust a year\\n"
+            f"Blue Chip Index, each: Capitalists' [concept_investment_pool] contribution "
+            f"#P +{idx['state_capitalists_investment_pool_contribution_add']:.1%}#!, loan interest #P {idx['country_loan_interest_rate_mult']:.0%}#!\\n"
+            f"Each also moves our Exchange contests #P {PULL:.0%}#! our way; a Bear Raid that lands rattles one, fragile for a year\\n"
             f"Losing one: [concept_spec_exchange] trust #N -{FALL_TRUST / 120:.1%}#!, [concept_spec_market_confidence] #N -{FALL_CONF}#!\\n"
             f"Company of the Year, the world's most prosperous: trust #P +{COTY_TRUST / 120:.1%}#!, [concept_prestige] #P +{COTY_PRESTIGE:.0%}#! for a year")
 

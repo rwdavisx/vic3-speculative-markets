@@ -111,7 +111,7 @@ BLUE_UPDATE = f"""		set_local_variable = {{ name = spec_nx_bc value = spec_nx_bl
 # a closed market keeps no blue chips: the count starts again when it reopens
 BLUE_CLEAR = ("\t\tevery_company = {\n\t\t\tremove_variable = spec_blue_chip\n\t\t\tremove_variable = spec_bc_months\n"
               "\t\t\tremove_variable = spec_bc_low\n\t\t\tremove_variable = spec_bc_fragile\n\t\t\tremove_variable = spec_bc_propped\n\t\t}\n"
-              "\t\tremove_variable = spec_bc_n\n")
+              "\t\tremove_variable = spec_bc_n\n\t\tif = {\n\t\t\tlimit = { has_modifier = spec_bc_index }\n\t\t\tremove_modifier = spec_bc_index\n\t\t}\n")
 BUST_DAYS = 365
 # severity of the boom's end (generate.UNWINDS) -> share of COMPANY_BUST, days
 UNWIND = {3: (1, BUST_DAYS), 2: (0.5, 180), 1: (0.25, 90)}

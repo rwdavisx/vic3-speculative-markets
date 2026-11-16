@@ -1799,7 +1799,7 @@ def loc(k):
  SPEC_FIN_TAB_BANKING: "Banking"
  SPEC_FIN_TAB_BANKING_TT: "[concept_spec_credit_policy], [concept_spec_leverage], [concept_spec_bad_debts] and Bank Rescues"
  SPEC_FIN_TAB_WORLD: "Exchanges"
- SPEC_FIN_TAB_WORLD_TT: "Where our [concept_spec_exchange] ranks among the world's Exchanges, and our Rival Exchange"
+ SPEC_FIN_TAB_WORLD_TT: "Where our [concept_spec_exchange] ranks among the world's Exchanges, and our competitors"
  SPEC_H_POLICY_RIGHT: "#v @money![{v('spec_credit_given')}|+D]#! this month"
  SPEC_POLICY_UPPER: "{by_stance('SPEC_POLICY_UPPER')}"
  SPEC_POLICY_UPPER_TIGHT: "[Concept('concept_spec_credit_policy','$concept_spec_credit_policy_tight$')]"

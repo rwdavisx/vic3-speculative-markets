@@ -1444,8 +1444,8 @@ FX_SHORT = {"hype": "Investor Reaction", "flight": "Capital flight in", "loss": 
 FX_WORDS = {"hype": ("Investor Reaction", 0), "flight": ("[concept_spec_capital_flight]", 1), "loss": ("Trust losses", -1),
             "credit": ("Credit lent", 1),
             # levers in the rest of the mod (NX_HOOKS)
-            "press": ("Our rival Press Campaigns", 1), "raid": ("Our rival Bear Raids", 1),
-            "lure": ("Our rival Lure Investors", 1), "shore": ("Our Shore Up lasts", 1),
+            "press": ("Our Press Campaigns", 1), "raid": ("Our Bear Raids", 1),
+            "lure": ("Our Lure Investors", 1), "shore": ("Our Shore Up lasts", 1),
             "crash": ("Confidence lost in busts", -1), "panic": ("[concept_spec_financial_panic] length", -1),
             "rescue": ("Rescue cost", -1), "tie_inv": ("Investment ties to other markets", 0),
             "tie_trade": ("Trade ties to other markets", 0), "blue": ("[concept_spec_blue_chip] climb", 1),
@@ -3102,7 +3102,7 @@ def _exch_loc(score, rank, centres):
                          + f"\\n[concept_prestige]: #P +{PRESTIGE:.0%}#! when not among the {centres}"
                          + (f"\\nReceives [concept_spec_capital_flight]: #P x{FLIGHT[t]:g}#!" if t >= 2 else "")
                          + (f"\\n[concept_spec_foreign_panic] losses: #P {WORLD_SHELTER - 1:+.0%}#!\\n{_mod_words(WORLD_FX, chr(92) + 'n')}"
-                            "\\nOne rival free of upkeep" if t == 3 else ""))
+                            "\\nOne competitor free of upkeep" if t == 3 else ""))
     card_fx = [f"Investor Reaction: #v {up(KNOWN_HYPE)}#!", f"Trust losses: #P {KNOWN_LOSS - 1:+.0%}#!",
                f"Up to #P {up(KNOWN_CREDIT)}#! credit lent into the [concept_investment_pool] each month"]
     card_by = [(f"{tc} levels", sv("spec_log_ktc"), EARN_TC),
@@ -3117,8 +3117,8 @@ def _exch_loc(score, rank, centres):
                     f'Earned from: {what}, {now} of #v {mark:g}#!"\n' for n, (what, now, mark) in enumerate(card_by, 1))
           + ' SPEC_EXCH_TIER_EMPTY: "No market holds this Standing"\n'
           ' SPEC_CENTRE_COL_TRUST: "Trust"\n'
-          ' SPEC_CENTRE_COL_RIVAL: "Rival"\n'
-          ' SPEC_CENTRE_COL_RIVAL_TT: "Whether our [concept_spec_exchange] rivals theirs"\n'
+          ' SPEC_CENTRE_COL_RIVAL: "Compete"\n'
+          ' SPEC_CENTRE_COL_RIVAL_TT: "Whether our [concept_spec_exchange] competes with theirs"\n'
           ' SPEC_CENTRE_COL_KNOWN: "Specialities"\n'
           ' SPEC_CENTRE_COL_KNOWN_TT: "The Paths to Renown the [concept_country]\'s [concept_spec_exchange] has chosen"\n'
           ' SPEC_CENTRE_COL_TRUST_TT: "How far the [concept_country]\'s [concept_spec_exchange] is trusted"\n'

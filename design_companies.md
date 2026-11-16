@@ -84,6 +84,11 @@ This rewards the long game and gives a reason to protect specific companies duri
     12 months, or let the market decide.
 - **Company of the Year** (section 5, built in a lean form): once a year, the world's most prosperous blue chip. Its
   country gains +3 trust and `spec_coty` (+5% prestige) for a year; a player also gets an event. The row tooltip marks it.
+- Second pass (same day, the user: "still a bit lack luster"; chose these two of four offered):
+  - **Blue Chip Index** (`spec_bc_index`): per blue chip counted, +0.006 Capitalists' investment pool contribution
+    and -1% loan interest, re-applied when the count moves.
+  - **Into the Exchange contests:** each counted blue chip moves `spec_rv_rope` 3% toward its side, and a Bear Raid
+    that lands rattles one of the raided country's blue chips (`spec_bc_fragile` for a year).
 - Listings (section 2) and the scandal and darling stories (section 4) remain unbuilt. The two events above take
   their place.
 

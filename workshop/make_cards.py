@@ -60,11 +60,11 @@ CARDS = [
     # beta.12 cards: NEED SCREENSHOTS, see shot_list_beta12.md. The raw/ files below do not exist yet, so the script
     # stops at the first of these until they are taken; the crop boxes follow the ui_/full_/ev_ shots above and may
     # need fitting once the shots exist.
-    ("13_rivals", "Rival Exchanges",
-     "A tug of war every five years. Raid them, lure their capital, hold the line or shore up.",
+    ("13_rivals", "Competing Exchanges",
+     "A tug of war every five years. Raid a competitor, lure its capital, hold the line or shore up.",
      "ui_rivals", [("full_rivals", (0, 110, 916, 1225)), (0, 935, 840, 1870)], True, "full_rivals"),
     ("14_bluechips", "Blue Chips",
-     "Keep a company prosperous for two years. The world's best is Company of the Year.",
+     "Keep a company prosperous for two years. Blue chips help in contests. The world's best is Company of the Year.",
      "ev_coty", [("ui_bluechips", (0, 0, 840, 1190)), (1040, 500, 2810, 1700)], True, "full_speculation"),
     ("15_renown", "Paths to Renown",
      "Compete for specialities. The higher your place, the bigger the reward and its price.",

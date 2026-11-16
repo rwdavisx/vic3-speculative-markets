@@ -92,10 +92,10 @@ if centres.ON:  # its Standing toasts replace the Financial Centre ones
             "Our exchange makes its name",
             f"The {EXCH} is now known abroad for its #v $SPEC_EXCH_KNOWN_ME$#!.")
     if centres.RIVAL_ON:  # a rivalry's contest settling (rivals.ROUND years)
-        NOTES["spec_rival_won"] = (NEWS, "rank_up", "good", "Our exchange wins a rivalry",
-                                   f"The {EXCH} has come out ahead in its contest with a rival Exchange, and its trust has grown.")
-        NOTES["spec_rival_lost"] = (NEWS, "rank_down", "bad", "Our exchange loses a rivalry",
-                                    f"The {EXCH} has come out behind in its contest with a rival Exchange, and its trust has fallen.")
+        NOTES["spec_rival_won"] = (NEWS, "rank_up", "good", "Our Exchange wins a contest",
+                                   f"The {EXCH} has come out ahead in its contest with a competing Exchange, and its trust has grown.")
+        NOTES["spec_rival_lost"] = (NEWS, "rank_down", "bad", "Our Exchange loses a contest",
+                                    f"The {EXCH} has come out behind in its contest with a competing Exchange, and its trust has fallen.")
 
 
 # SelectLocalization evaluates selected strings without the notification SCOPE.

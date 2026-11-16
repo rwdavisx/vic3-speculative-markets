@@ -11,14 +11,14 @@ Crop boxes in `make_cards.py` CARDS are starting points; refit them once a shot 
 
 | File | Card | Show | Crop notes |
 | --- | --- | --- | --- |
-| `raw/full_rivals.png` | 13_rivals | Exchanges tab, scrolled to Rivalries: Rival Actions on Us with a running Bear Raid or Lure, then Exchanges We Rival with two or three rows. One Contest bar clearly off-center with chevrons. | Card uses (0,110)-(916,1225): header through the first rival rows. Also the dimmed backdrop. |
-| `raw/ui_rivals.png` | 13_rivals | Panel only, scrolled to Exchanges We Rival / Exchanges Rivaling Us, action buttons visible, at least one framed (running or cooling down) and a shield after a name. | Card uses the lower half, (0,935)-(840,1870). |
+| `raw/full_rivals.png` | 13_rivals | Exchanges tab, scrolled to Competition: Competitor Actions on Us with a running Bear Raid or Lure, then Our Competitors with two or three rows. One Contest bar clearly off-center with chevrons. | Card uses (0,110)-(916,1225): header through the first competitor rows. Also the dimmed backdrop. |
+| `raw/ui_rivals.png` | 13_rivals | Panel only, scrolled to Our Competitors / Competing With Us, action buttons visible, at least one framed (running or cooling down) and a shield after a name. | Card uses the lower half, (0,935)-(840,1870). |
 | `raw/ui_bluechips.png` | 14_bluechips | Speculation tab, panel only, Companies section with two or more medal badges and the blue chip count in the header. | Card uses the top (0,0)-(840,1190); put the Companies section at the top. |
 | `raw/ev_coty.png` | 14_bluechips | Company of the Year event (spec_bluechip.3) as a player, option tooltip shown if it fits. | Event window inside (1040,500)-(2810,1700), as ev_panic. |
 | `raw/full_renown.png` | 15_renown | Trading Floor tab, Paths to Renown with place rewards on the leader flags; a charter that shows Futures Pit, Lender to Nations or Railway Mania. | Card uses (0,110)-(916,1225). Also the dimmed backdrop. |
 | `raw/ui_renown.png` | 15_renown | Panel only, Specialities rows, including a locked path showing its effects, bars and tallies. | Card uses the lower half, (0,935)-(840,1870). |
 
-Good save for all six: a mid-game great power (1850s or later) at International Standing or a World Centre, with rivals named and a few blue chips.
+Good save for all six: a mid-game great power (1850s or later) at International Standing or a World Centre, with competitors named and a few blue chips.
 
 ## Retakes: tab names changed
 
@@ -32,7 +32,7 @@ The tab bar now reads Trading Floor, Speculation, Banking, Exchanges. Every shot
 | `raw/ui_speculation.png` | Speculation | 01_finance, 03_speculation, thumbnail |
 | `raw/full_banking.png` | Banking | 04_banking |
 | `raw/ui_banking.png` | Banking | 01_finance, 04_banking |
-| `raw/full_rankings.png` | Exchanges, Leading Exchanges list with the rivalry buttons | 05_rankings |
+| `raw/full_rankings.png` | Exchanges, Leading Exchanges list with the compete buttons | 05_rankings |
 | `raw/ui_rankings.png` | Exchanges | 01_finance, 05_rankings |
 
 Retake the same scroll positions as the old shots so the existing crop boxes still fit. The live page's imgur images (the four tab pictures in description.bbcode) show the old tabs too.
