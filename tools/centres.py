@@ -1539,7 +1539,8 @@ def _names_loc(ui, known):
                 + f' SPEC_NAME_PW_TT_{k}: "\\n$TOOLTIP_DELIMITER$\\nTally bonus: #v +[{pct}|%0]#! of #v {PURSUE_BOOST - 1:+.0%}#!'
                 f"[SelectLocalization({pu}, 'SPEC_NAME_PW_UP', 'SPEC_NAME_PW_DOWN')]\"\n"
                 f" SPEC_NAME_QTY_{k}: \"#b {cur}[{P}.ScriptValue('spec_name_{k}')|{f}]#!\"\n"
-                f' SPEC_NAME_TALLY_{k}: "$SPEC_NAME_QTY_{k}$ #grey {unit[k]}#!"\n'
+                f' SPEC_NAME_TALLY_{k}: "$SPEC_NAME_QTY_{k}$ #grey {unit[k]}#!'
+                + (f"  @spec_blue_chip! #v [{P}.ScriptValue('spec_log_kbc')|0]#!" if k == "companies" else "") + '"\n'
                 f' SPEC_NAME_BAR_TT_{k}: "#header {title}#!\\nRanked by {by[k][0]}\\n$TOOLTIP_DELIMITER$\\n'
                 f"[SelectLocalization({ld}.GetCountry.IsValid, 'SPEC_NAME_PLACES_{k}', 'SPEC_NAME_NOLEAD')]"
                 + f"[AddLocalizationIf({ch_}.GetCountry.IsValid, 'SPEC_NAME_CH_{k}')]"
@@ -2499,7 +2500,7 @@ def tier(t):
 		text = "SPEC_EXCH_TIER_N_{t}"
 	}}
 }}
-{"".join(row(n, t) for n in range(1, {3: 2, 0: 1}.get(t, SHOWN + 1))) + row(None, t)}textbox = {{
+{"".join(row(n, t) for n in range(1, {3: WORLD_PLACES + 1, 0: 1}.get(t, SHOWN + 1))) + row(None, t)}textbox = {{
 	size = {{ {W} 30 }}
 	visible = "[EqualTo_CFixedPoint({TIER_N(t)}, {fx(0)})]"
 	align = center|nobaseline

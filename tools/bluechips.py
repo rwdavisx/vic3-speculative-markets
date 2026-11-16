@@ -16,7 +16,9 @@ and counts the country's blue chips (var:spec_bc_n). This file adds:
 """
 import tuning
 
-CAP = tuning.get("BC_CAP", 5)                  # blue chips that count toward the shelter and the dividend
+CAP = tuning.get("BC_CAP", 5)                  # blue chips that count in full toward their effects
+CAP2 = tuning.get("BC_CAP2", 10)               # beta.12 soft limit: past CAP, each counts HALF, up to CAP2
+HALF = tuning.get("BC_HALF", 0.5)
 SHELTER = tuning.get("BC_SHELTER", 0.04)       # each: confidence lost to collapses and foreign panics
 DIVIDEND = tuning.get("BC_DIVIDEND", 0.5)      # each: Exchange trust a year
 FALL_TRUST = tuning.get("BC_FALL_TRUST", 2)    # trust lost when a blue chip loses the status
@@ -95,23 +97,25 @@ def after_update(t="\t\t"):
 """
 
 
+def counted(n, t):
+    """Script math for the blue chips counted, from the held count n: in full up to CAP, then HALF each up to CAP2."""
+    return (f"{t}add = {{ value = {n} max = {CAP} }}\n"
+            f"{t}add = {{ value = {n} subtract = {CAP} min = 0 max = {CAP2 - CAP} multiply = {HALF:g} }}\n")
+
+
 def values():
     return f"""# blue chips (bluechips.py): the share of collapse and foreign panic losses kept, by the blue chips counted
 spec_bc_shelter = {{
 	value = 1
-	if = {{
-		limit = {{ has_variable = spec_bc_n var:spec_bc_n > 0 }}
-		subtract = {{ value = var:spec_bc_n max = {CAP} multiply = {SHELTER:g} }}
-	}}
+	subtract = {{ value = spec_bc_counted multiply = {SHELTER:g} }}
 }}
 
+# the blue chips counted toward their effects: in full up to CAP, then HALF each up to CAP2
 spec_bc_counted = {{
 	value = 0
 	if = {{
 		limit = {{ has_variable = spec_bc_n }}
-		value = var:spec_bc_n
-		max = {CAP}
-	}}
+{counted('var:spec_bc_n', chr(9) * 2)}	}}
 }}
 
 # Prop It Up's cost
@@ -260,7 +264,7 @@ def loc():
         ' spec_coty: "Company of the Year"\n'
         f' spec_coty_desc: "The world\'s most prosperous {bc} is ours this year"\n'
         ' spec_bc_index: "Blue Chip Index"\n'
-        f' spec_bc_index_desc: "Our {bc}s draw savings to the market and make lenders easy. Grows with each, up to {CAP}."\n'
+        f' spec_bc_index_desc: "Our {bc}s draw savings to the market and make lenders easy. Grows with each: in full up to {CAP}, half as much up to {CAP2}."\n'
         ' spec_bluechip.1.t: "A New Blue Chip"\n'
         f' spec_bluechip.1.d: "After a year of steady profits, {CO} is now counted among the blue chips. Its shares are '
         'sought by every bank and widow in the land, and the brokers ask whether it will stay content with its standing or '
@@ -292,15 +296,31 @@ def loc():
 
 
 # what a blue chip does, for the header tooltip and the concept (company_section, concepts)
-def effects_text():
+def effect_lines(val, each=False):
+    """One line per effect, vanilla style. val(per_one, fmt) gives the figure: one blue chip's, or our total's; each
+    adds one blue chip's figure after it, faint."""
     idx = dict(INDEX)
-    return (f"Each [concept_spec_blue_chip], up to #v {CAP}#!: #P -{SHELTER:.0%}#! [concept_spec_market_confidence] lost to collapsing "
-            f"booms and foreign panics, #P +{DIVIDEND / 120:.1%}#! [concept_spec_exchange] trust a year\\n"
-            f"Blue Chip Index, each: Capitalists' [concept_investment_pool] contribution "
-            f"#P +{idx['state_capitalists_investment_pool_contribution_add']:.1%}#!, loan interest #P {idx['country_loan_interest_rate_mult']:.0%}#!\\n"
-            f"Each also moves our Exchange contests #P {PULL:.0%}#! our way; a Bear Raid that lands rattles one, fragile for a year\\n"
-            f"Losing one: [concept_spec_exchange] trust #N -{FALL_TRUST / 120:.1%}#!, [concept_spec_market_confidence] #N -{FALL_CONF}#!\\n"
-            f"Company of the Year, the world's most prosperous: trust #P +{COTY_TRUST / 120:.1%}#!, [concept_prestige] #P +{COTY_PRESTIGE:.0%}#! for a year")
+    rows = [("[concept_spec_market_confidence] lost to crashes and panics", "-", SHELTER * 100, "0", ""),
+            ("[concept_spec_exchange] trust", "+", DIVIDEND / 1.2, "1", " a year"),
+            ("[concept_spec_exchange] contests", "+", PULL * 100, "0", " our way"),
+            ("Capitalists' [concept_investment_pool] contribution", "+", idx["state_capitalists_investment_pool_contribution_add"] * 100, "1", ""),
+            ("Loan interest", "-", -idx["country_loan_interest_rate_mult"] * 100, "0", "")]
+    return "\\n".join(f"{name}: #P {sign}{val(x, f)}%#!{tail}" + (f" #grey ({sign}{x:.{f}f}% each)#!" if each else "")
+                      for name, sign, x, f, tail in rows)
+
+
+def risk_text():
+    import companies  # not at the top: companies imports this file
+    return (f"#b Losing one#!\\nBelow #v {companies.BLUE_PROSPER:g}#! [concept_prosperity] for #v {companies.BLUE_LOSE}#! months running: "
+            f"[concept_spec_exchange] trust #N -{FALL_TRUST / 1.2:.1f}%#!, [concept_spec_market_confidence] #N -{FALL_CONF}#!\\n"
+            f"A Bear Raid that lands on us leaves one #N Fragile#! for a year\\n\\n"
+            f"#b Company of the Year#!\\nThe world's most prosperous one: [concept_spec_exchange] trust #P +{COTY_TRUST / 1.2:.1f}%#!, "
+            f"[concept_prestige] #P +{COTY_PRESTIGE:.0%}#! for a year")
+
+
+# what a blue chip does, for the concept (concepts)
+def effects_text():
+    return f"#b Each one#! #grey (the first {CAP} in full, the next {CAP2 - CAP} half as much)#!\\n" + effect_lines(lambda x, f: f"{x:.{f}f}") + "\\n\\n" + risk_text()
 
 
 if __name__ == "__main__":

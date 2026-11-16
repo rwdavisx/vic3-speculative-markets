@@ -294,14 +294,17 @@ spec_rv_rope = {{
 		min = scope:spec_rival_me.var:spec_centre_score
 		min = 1
 	}}
-	# blue chips (bluechips.PULL each, up to bluechips.CAP)
+	# blue chips (bluechips.PULL each as counted: in full up to CAP, half up to CAP2)
 	if = {{
 		limit = {{ scope:spec_rival_me = {{ has_variable = spec_bc_n }} }}
-		add = {{ value = scope:spec_rival_me.var:spec_bc_n max = {BC.CAP} multiply = {BC.PULL:g} }}
+		add = {{
+			value = 0
+{BC.counted('scope:spec_rival_me.var:spec_bc_n', chr(9) * 3)}			multiply = {BC.PULL:g}
+		}}
 	}}
 	if = {{
 		limit = {{ has_variable = spec_bc_n }}
-		subtract = {{ value = var:spec_bc_n max = {BC.CAP} multiply = {BC.PULL:g} }}
+		subtract = {{ value = spec_bc_counted multiply = {BC.PULL:g} }}
 	}}
 {"".join(f'''	if = {{
 		limit = {{ scope:spec_rival_me = {{ is_target_in_variable_list = {{ name = spec_rv_push_{k} target = prev }} }} }}
@@ -1173,7 +1176,7 @@ def build(write):
 
 ROW_H = 44  # a row: the contest's result over its bar
 # columns, (x, width): flag and name | the contest | actions (4 tariff items, then the toggle on our rivals' rows)
-C_NAME, C_SCORE, C_ACT = (0, 150), (152, 184), (342, W - 342)
+C_NAME, C_SCORE, C_ACT = (0, 70), (72, 264), (342, W - 342)  # the flag alone names the country
 BANDS = ("BIGWIN", "WIN", "DRAW", "LOSS", "BIGLOSS")  # the five results, left (ours) to right
 BAR = "gfx/interface/progressbar"
 SCORE = lambda who: f"{who}.Var('spec_centre_score').GetValue"
@@ -1276,29 +1279,20 @@ def _cell(c, key, align="center", small=False, visible=None):
             + ("\tusing = fontsize_small\n" if small else "") + f"\ttext = \"{key}\"\n}}\n")
 
 
-def _name(own=False):
-    """Flag and name, which opens the country, as the Leading Exchanges rows."""
-    return f"""tiny_flag = {{
-	position = {{ 6 0 }}
+def _flag(x=6, ctx=None):
+    """The country's flag, which opens it, with vanilla's country tooltip: the flag alone, no name."""
+    dc = f'\tdatacontext = "[{ctx}]"\n' if ctx else ""
+    return f"""button = {{
+{dc}	position = {{ {x} 0 }}
+	size = {{ 34 24 }}
 	parentanchor = vcenter
-}}
-button = {{
-	position = {{ 40 0 }}
-	size = {{ {C_NAME[1] - 64} 30 }}
-	parentanchor = vcenter
-	using = clean_button
 	onclick = "[InformationPanelBar.OpenCountryPanel(Country.Self)]"
 	tooltipwidget = {{
 		FancyTooltip_Country = {{}}
 	}}
-	textbox = {{
-		size = {{ 100% 100% }}
-		margin_left = 8
-		align = nobaseline
-		parentanchor = vcenter
-		elide = right
+	tiny_flag = {{
+		parentanchor = center
 		alwaystransparent = yes
-		text = "{'SPEC_RV_US_NAME' if own else '[Country.GetNameNoFormatting]'}"
 	}}
 }}
 """
@@ -1551,31 +1545,31 @@ def _us_row(var, pic, months, by):
 		parentanchor = vcenter
 		texture = "{icons.path('rival_' + pic)}"
 	}}
-	textbox = {{
-		position = {{ 48 4 }}
-		size = {{ 33020 }}
+{ind(_flag(44, f"{US}.Var('{by}').GetCountry"), 1)}	textbox = {{
+		position = {{ 84 4 }}
+		size = {{ 294 20 }}
 		align = left|nobaseline
 		elide = right
 		fontsize_min = 13
 		text = "SPEC_RV_US_{var.upper()}"
 	}}
 	textbox = {{
-		position = {{ 48 23 }}
-		size = {{ 33018 }}
+		position = {{ 84 23 }}
+		size = {{ 294 18 }}
 		align = left|nobaseline
 		elide = right
 		using = fontsize_small
 		text = "SPEC_RV_US_{var.upper()}_FX"
 	}}
 	textbox = {{
-		position = {{ 3904 }}
+		position = {{ 390 4 }}
 		size = {{ {W - 402} 18 }}
 		align = right|nobaseline
 		using = fontsize_small
 		text = "SPEC_RV_US_LEFT_{var.upper()}"
 	}}
 	widget = {{
-		position = {{ 39024 }}
+		position = {{ 390 24 }}
 		size = {{ {W - 402} 12 }}
 		background = {{
 			texture = "{BAR}/progressbar_empty.dds"
@@ -1624,28 +1618,29 @@ def _last_row():
 		texture = "{icons.path('rival_' + a)}"
 	}}
 """ for i, a in enumerate(ACTIONS, 1))
+    pics += ind(_flag(44, f"{US}.Var('spec_rv_hit_by').GetCountry"), 1)
     return f"""widget = {{
 	visible = "[{LAST}]"
 	size = {{ {W} {ROW_H} }}
 	tooltip = "SPEC_RV_US_LAST_TT"
 {ind(HOVER, 1)}{pics}	textbox = {{
-		position = {{ 48 4 }}
-		size = {{ 33020 }}
+		position = {{ 84 4 }}
+		size = {{ 294 20 }}
 		align = left|nobaseline
 		elide = right
 		fontsize_min = 13
 		text = "SPEC_RV_US_LAST"
 	}}
 	textbox = {{
-		position = {{ 48 23 }}
-		size = {{ {W - 60} 18 }}
+		position = {{ 84 23 }}
+		size = {{ {W - 96} 18 }}
 		align = left|nobaseline
 		elide = right
 		using = fontsize_small
 		text = "SPEC_RV_US_LAST_FX"
 	}}
 	textbox = {{
-		position = {{ 3904 }}
+		position = {{ 390 4 }}
 		size = {{ {W - 402} 18 }}
 		align = right|nobaseline
 		using = fontsize_small
@@ -1706,7 +1701,7 @@ def block():
                    for a in ACTIONS + ("hold",))
     acts += _item("SPEC_RV_SHORE_TT", icons.path("rival_shore"), lambda what: CALL.format("rv_shore", what), shown("rv_is_shield"),
                   used=shown("rv_is_cd_shore"))
-    in_row = _name() + _shored_badge() + _score() + _strip(acts, C_ACT[0])
+    in_row = _flag() + _shored_badge() + _score() + _strip(acts, C_ACT[0])
     out_row = in_row  # the rivalry itself is named and ended from the Leading Exchanges list (marker)
     outs, ins = f"{US}.GetList('spec_rv_outs')", f"{US}.GetList('spec_rv_ins')"
     h = heads([(x, w, k, "center" if i else "left", bool(i)) for i, ((x, w), k) in
@@ -1750,7 +1745,7 @@ def loc():
     rule = (f"An [concept_spec_exchange] competes with whichever Exchanges it likes, apart from diplomatic rivalries. Each competitor has an influence "
             f"maintenance cost by its Standing, from #N {UPKEEP[0]}#! to #N {UPKEEP[-1]}#!, and a competition cannot be ended in its first year.\\n\\n"
             f"Every #v {ROUND}#! years each contest is settled like a tug of war. The bar starts from the two [Concept('concept_spec_financial_centre','$concept_spec_exchange$')] scores, "
-            f"moved #v {pc(BC.PULL)}#! toward each side for each of its [concept_spec_blue_chip]s, up to #v {BC.CAP}#!, "
+            f"moved #v {pc(BC.PULL)}#! toward each side for each of its [concept_spec_blue_chip]s (in full up to #v {BC.CAP}#!, half as much up to #v {BC.CAP2}#!), "
             f"and each action that works pushes it #v {pc(PUSH)}#! toward its side, up to #v {PUSHES}#! pushes each. Near the middle it is a draw. "
             f"A win takes #P {pc(WIN_X * STAKE / CALM)}#! trust from the loser; past #v {pc(DECISIVE)}#! a decisive win takes #P {pc(BIG_X * STAKE / CALM)}#! "
             f"and #P {pc(LURE_SHARE)}#! of the loser's [concept_investment_pool] income for {LURE_MONTHS} months. "
