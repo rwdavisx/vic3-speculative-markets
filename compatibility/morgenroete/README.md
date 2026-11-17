@@ -1,9 +1,11 @@
 # Speculative Markets - Morgenroete Compatibility
 
 An independently generated compatibility patch maintained with Speculative Markets.
-**Published 1.0.0**, Workshop [3839705018](https://steamcommunity.com/sharedfiles/filedetails/?id=3839705018), for stable **1.0.5** or matching **1.0.5-beta.1**, Morgenroete **2.9.0e Curie**, Victoria 3 **1.15.1**.
+**Published 1.1.0** (2026-11-17), Workshop [3839705018](https://steamcommunity.com/sharedfiles/filedetails/?id=3839705018), for stable **1.1.2**, Morgenroete **2.9.0e Curie**, Victoria 3 **1.15.1**.
 
-Release verification: `tests/mechanics/verification_release_105.json`. All 85 focused engine assertions passed (76 inherited, 9 new migration), and the release UI renders all three added goods. The historical candidate notes below retain their original scope; individual-goods navigation and existing-Morgenroete-save migration are now checked. Full reporter playset and long campaigns remain untested.
+1.1.0 was rebuilt with `tools/morgenroete_build.py --parent mod --out runs/morgenroete/v1_1_0 --version 1.1.0`: parent check against 1.1.2 passed, both generated builds passed `check.py`, 24 generated files differ from the parent. Archive `releases/Speculative_Markets_Morgenroete_Compatibility_1.1.0.zip` (sha256 93ab7b7b…3744). **Not yet tested in game**; the engine assertions from 1.0.0 were not rerun. The Beta channel (still on an old version) is not supported by this build.
+
+1.0.0 (for stable 1.0.5) replaced 1.1's Finance window, monthly action and localization with 1.0.5 versions for anyone on 1.1.x until this rebuild.
 
 The patch adds musical instruments, uranium, and printed publications to our price
 trends, bank exposure, boom/bust cycle, industry interventions, building investment
@@ -16,7 +18,7 @@ Load in this order:
 
 1. Community Mod Framework
 2. Morgenroete - Dawn of Flavor (Workshop 2889925770)
-3. Speculative Markets 1.0.5 OR Beta 1.0.5-beta.1 (exactly one)
+3. Speculative Markets 1.1.2
 4. This Morgenroete compatibility patch
 5. Speculative Markets - Community Mod Framework Compatibility
 

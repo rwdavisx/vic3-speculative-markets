@@ -1,7 +1,7 @@
 {
   "name": "Speculative Markets - Morgenroete Compatibility",
   "id": "speculative_markets_morgenroete",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "supported_game_version": "1.15.*",
   "short_description": "Requires the matching Speculative Markets build and Morgenroete.",
   "tags": [
