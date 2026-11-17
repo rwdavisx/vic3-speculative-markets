@@ -1,7 +1,7 @@
 {
   "name": "Speculative Markets - Community Mod Framework Compatibility",
   "id": "speculative_markets_cmf_compat",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "supported_game_version": "1.15.*",
   "short_description": "Requires CMF and either Speculative Markets or its Beta. Enable only one SM channel; load this patch last.",
   "tags": [

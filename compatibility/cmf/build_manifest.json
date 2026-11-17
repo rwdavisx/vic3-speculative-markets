@@ -1,6 +1,6 @@
 {
-  "built_at_utc": "2026-11-16T03:49:13.587985+00:00",
-  "builder_version": "1.0.2",
+  "built_at_utc": "2026-11-17T03:54:21.656294+00:00",
+  "builder_version": "1.0.3",
   "output": "G:\\GameDev\\speculative-markets\\compatibility\\cmf\\mod",
   "parents": {
     "speculative_markets": {
@@ -8,7 +8,7 @@
       "metadata": {
         "name": "Speculative Markets",
         "id": "speculative_markets",
-        "version": "1.0.6",
+        "version": "1.1.2",
         "supported_game_version": "1.15.*",
         "short_description": "Investors chase rising prices, booms turn to panics, and you set credit policy.",
         "tags": [
@@ -22,8 +22,8 @@
         }
       },
       "files": {
-        "gui/information_panel_bar.gui": "3188097a97c3118f45e8c258dd57529f259ccb3dcedbe97f108f502fcd98612c",
-        ".metadata/metadata.json": "2ca09d69f8e0ab1ee170a7ae3c2bb1f5fa68da70e7ee3a697e642c5b32cb53ad"
+        "gui/information_panel_bar.gui": "d20c5419552afed6c6040ee067cd4a909193f2d343954a64fda5fc38d47fd420",
+        ".metadata/metadata.json": "40b3b2de2947b2d33cab3c9627afe57af76df1e45aa095fc16e34d9a40435b1a"
       }
     },
     "community_mod_framework": {
@@ -51,9 +51,9 @@
     }
   },
   "output_files": {
-    "gui/com_gui_sidebar.gui": "fc0c54cb06f8ffc95f4576dfb720b64eada1580b2ea4215ad2a5f2545eed3ee9",
+    "gui/com_gui_sidebar.gui": "b4068a684e19970e1ddbcb8b057245a7798183f26fcd6fd6f090d94153748bd0",
     "gui/information_panel_bar.gui": "734a0a8a8a118a4f0d9d9850599aced636d885f4cf47e80301812fd5c304105c",
-    ".metadata/metadata.json": "259e8dbad26deff564916a47343f2de7aa136fd5047f79101d40a7bafdc8cfa3"
+    ".metadata/metadata.json": "18ea9902f867d02d14d9cb6e7a9d6201626bd8016bd4d6388f4b2efb7639755a"
   },
   "load_order": [
     "speculative_markets",
@@ -62,7 +62,7 @@
   ],
   "notes": [
     "The two parents may be swapped; this patch must follow both.",
-    "Built from Speculative Markets 1.0.6; enable either stable or the matching beta, never both.",
+    "Built from Speculative Markets 1.1.2; enable either stable or the matching beta, never both.",
     "Only CMF is a mandatory metadata dependency; the required SM channel choice is documented for players.",
     "Set load order manually: the 1.15.1 game rejects launcher-only load_after metadata.",
     "No parent files are modified. Runtime compatibility is validated separately.",

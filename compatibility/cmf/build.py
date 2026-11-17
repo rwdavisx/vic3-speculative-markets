@@ -18,7 +18,7 @@ ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_SPEC = ROOT / "mod"
 DEFAULT_CMF = Path("G:/SteamLibrary/steamapps/workshop/content/529340/3385002128")
 DEFAULT_OUT = Path(__file__).resolve().parent / "mod"
-VERSION = "1.0.2"
+VERSION = "1.0.3"
 SPEC_ID = "speculative_markets"
 CMF_ID = "com.github.Victoria-3-Modding-Co-op.Community-Mod-Framework"
 SPEC_GUI = "gui/information_panel_bar.gui"
@@ -114,10 +114,11 @@ def merge_gui(spec_text, cmf_text):
         lambda m: m[0] + m["indent"] + "custom_sidebar = {}\n",
         1, "sidebar container",
     )
+    # 1.1: the Finance button cycles its tabs (spec_finance_next) instead of toggling; CMF's closes go after
+    # the native ClosePanel that starts both of its click paths, and the rest of SM's path stays as it is
     finance_click = (
         r"^(?P<indent>[ \t]*)onclick = \"\[InformationPanelBar\.ClosePanel\]\"\n"
-        r"(?P=indent)onclick = \"\[GetVariableSystem\.Toggle\('spec_finance'\)\]\"\n"
-        r"(?P=indent)onclick = \"\[GetVariableSystem\.Clear\('spec_pick_slot'\)\]\""
+        r"(?=(?P=indent)onclick = \"\[GetVariableSystem\.Clear\('spec_finance_next'\)\]\")"
     )
 
     def finance_actions(match):
@@ -126,12 +127,10 @@ def merge_gui(spec_text, cmf_text):
             "InformationPanelBar.ClosePanel",
             "MapListPanelManager.CloseCurrentPanel",
             "GetVariableSystem.Clear('com_open_window')",
-            "GetVariableSystem.Toggle('spec_finance')",
-            "GetVariableSystem.Clear('spec_pick_slot')",
         )
-        return "\n".join(f'{indent}onclick = "[{action}]"' for action in actions)
+        return "".join(f'{indent}onclick = "[{action}]"\n' for action in actions)
 
-    merged = _replace(merged, finance_click, finance_actions, 2, "Finance click paths")
+    merged = _replace(merged, finance_click, finance_actions, 4, "Finance click paths")
     cmf_click = r"^(?P<indent>[ \t]*)onclick = \"\[GetVariableSystem\.Set\('com_open_window', Scope\.GetFlagName\)\]\""
     buttons = _replace(
         buttons, cmf_click,
