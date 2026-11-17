@@ -956,6 +956,9 @@ def _pursue_month(t):
                    f"{u}\tchange_variable = {{ name = spec_pu_lock_{k} add = -1 }}\n"
                    f"{u}\tif = {{\n{u}\t\tlimit = {{ var:spec_pu_lock_{k} <= 0 }}\n{u}\t\tremove_variable = spec_pu_lock_{k}\n{u}\t}}\n{u}}}\n"
                    for k, *_ in NAMES)
+    # Saves from before a path existed have spec_pw_sum but not that path's strength: start it at 0.
+    each = "".join(f"{u}if = {{\n{u}\tlimit = {{ NOT = {{ has_variable = spec_pw_{k} }} }}\n"
+                   f"{u}\tset_variable = {{ name = spec_pw_{k} value = 0 }}\n{u}}}\n" for k, *_ in NAMES) + each
     total = " ".join(f"add = var:spec_pw_{k}" for k, *_ in NAMES)
     drop = _pursue_drop(u)
     give = "".join(

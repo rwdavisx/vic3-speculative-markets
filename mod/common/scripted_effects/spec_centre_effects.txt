@@ -2594,6 +2594,46 @@ spec_rank_centres = {
 					spec_pursue_stop_door = yes
 				}
 				if = {
+					limit = { NOT = { has_variable = spec_pw_price } }
+					set_variable = { name = spec_pw_price value = 0 }
+				}
+				if = {
+					limit = { NOT = { has_variable = spec_pw_harbour } }
+					set_variable = { name = spec_pw_harbour value = 0 }
+				}
+				if = {
+					limit = { NOT = { has_variable = spec_pw_companies } }
+					set_variable = { name = spec_pw_companies value = 0 }
+				}
+				if = {
+					limit = { NOT = { has_variable = spec_pw_futures } }
+					set_variable = { name = spec_pw_futures value = 0 }
+				}
+				if = {
+					limit = { NOT = { has_variable = spec_pw_lender } }
+					set_variable = { name = spec_pw_lender value = 0 }
+				}
+				if = {
+					limit = { NOT = { has_variable = spec_pw_railway } }
+					set_variable = { name = spec_pw_railway value = 0 }
+				}
+				if = {
+					limit = { NOT = { has_variable = spec_pw_floor } }
+					set_variable = { name = spec_pw_floor value = 0 }
+				}
+				if = {
+					limit = { NOT = { has_variable = spec_pw_sound } }
+					set_variable = { name = spec_pw_sound value = 0 }
+				}
+				if = {
+					limit = { NOT = { has_variable = spec_pw_pockets } }
+					set_variable = { name = spec_pw_pockets value = 0 }
+				}
+				if = {
+					limit = { NOT = { has_variable = spec_pw_door } }
+					set_variable = { name = spec_pw_door value = 0 }
+				}
+				if = {
 					limit = { has_variable = spec_pu_price }
 					change_variable = { name = spec_pw_price add = 0.084 }
 				}
