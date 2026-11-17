@@ -1,9 +1,9 @@
-# Speculative Markets - Morgenroete Compatibility
+﻿# Speculative Markets - Morgenroete Compatibility
 
 An independently generated compatibility patch maintained with Speculative Markets.
 **Published 1.1.0** (2026-11-17), Workshop [3839705018](https://steamcommunity.com/sharedfiles/filedetails/?id=3839705018), for stable **1.1.2**, Morgenroete **2.9.0e Curie**, Victoria 3 **1.15.1**.
 
-1.1.0 was rebuilt with `tools/morgenroete_build.py --parent mod --out runs/morgenroete/v1_1_0 --version 1.1.0`: parent check against 1.1.2 passed, both generated builds passed `check.py`, 24 generated files differ from the parent. Archive `releases/Speculative_Markets_Morgenroete_Compatibility_1.1.0.zip` (sha256 93ab7b7b…3744). Engine: the `morgenroete` suite passed 24/24 headless (CMF + Morgenroete + beta-tagged 1.1.2 copy + this patch + CMF patch, `runs/morgenroete/engine_110`), 0 blocking errors. Live (`runs/morgenroete/ui_110`, 1836 Morgenroete save): the 1.1 Finance window (four tabs, Excess, Lending Standards, panic bar) renders and the game runs. The first two monthly pulses log `spec_pw_lender` unset errors from `spec_centre_effects.txt`, a parent file this patch does not replace or touch. Morgenroete goods rows in the UI were not checked visually. The Beta channel (still on an old version) is not supported by this build.
+1.1.0 was rebuilt with `tools/morgenroete_build.py --parent mod --out runs/morgenroete/v1_1_0 --version 1.1.0`: parent check against 1.1.2 passed, both generated builds passed `check.py`, 24 generated files differ from the parent. Archive `releases/Speculative_Markets_Morgenroete_Compatibility_1.1.0.zip` (sha256 93ab7b7bâ€¦3744). Engine: the `morgenroete` suite passed 24/24 headless (CMF + Morgenroete + beta-tagged 1.1.2 copy + this patch + CMF patch, `runs/morgenroete/engine_110`), 0 blocking errors. Live (`runs/morgenroete/ui_110`, 1836 Morgenroete save): the 1.1 Finance window (four tabs, Excess, Lending Standards, panic bar) renders and the game runs. The first two monthly pulses log `spec_pw_lender` unset errors from `spec_centre_effects.txt`, a parent file this patch does not replace or touch. The user then played it live on 2026-11-17 and reported it ran and looked fine. The Beta channel (still on an old version) is not supported by this build.
 
 1.0.0 (for stable 1.0.5) replaced 1.1's Finance window, monthly action and localization with 1.0.5 versions for anyone on 1.1.x until this rebuild.
 
@@ -59,7 +59,7 @@ Finance sidebar/journal shortcuts and selected tabs; verify the individual-goods
 transitions, and full logs. Preserve candidate hashes and test evidence. The
 reported player's entire modlist and long-term campaigns are separate coverage.
 
-## Historical candidate validation — November 14, 2026
+## Historical candidate validation â€” November 14, 2026
 
 The beta5 candidate passed 24 focused engine assertions for the three added goods
 and 52 collapse/recovery assertions covering the entire goods registry. Both runs
