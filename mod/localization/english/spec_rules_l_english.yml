@@ -1,6 +1,6 @@
 ﻿l_english:
  rule_spec_market_volatility: "Market Volatility"
  setting_spec_volatility_historical: "#tooltippable #tooltip:[GetPlayer.GetTooltipTag],setting_spec_volatility_historical_desc Historical#!#!"
- setting_spec_volatility_historical_desc: "Speculative booms and [Concept('concept_spec_financial_panic', '$concept_spec_financial_panics|q$')] occur about as often as they did in the 19th century"
+ setting_spec_volatility_historical_desc: "Speculative booms and [Concept('concept_spec_financial_panic', '$concept_spec_financial_panics|q$')] will occur about as often as they did in the 19th century"
  setting_spec_volatility_heightened: "#tooltippable #tooltip:[GetPlayer.GetTooltipTag],setting_spec_volatility_heightened_desc #high High#!#!#!"
- setting_spec_volatility_heightened_desc: "Speculative booms grow larger and end more abruptly, and [Concept('concept_spec_financial_panic', '$concept_spec_financial_panics|q$')] occur more often than they did in the 19th century"
+ setting_spec_volatility_heightened_desc: "Speculative booms will grow larger and end more abruptly, and [Concept('concept_spec_financial_panic', '$concept_spec_financial_panics|q$')] will occur more often than they did in the 19th century"

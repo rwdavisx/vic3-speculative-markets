@@ -1,0 +1,31 @@
+﻿# blue chips (bluechips.py): the share of collapse and foreign panic losses kept, by the blue chips counted
+spec_bc_shelter = {
+	value = 1
+	subtract = { value = spec_bc_counted multiply = 0.04 }
+}
+
+# the blue chips counted toward their effects: in full up to CAP, then HALF each up to CAP2
+spec_bc_counted = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_bc_n }
+		add = { value = var:spec_bc_n max = 5 }
+		add = { value = var:spec_bc_n subtract = 5 min = 0 max = 5 multiply = 0.5 }
+	}
+}
+
+# Prop It Up's cost
+spec_bc_prop_cost = {
+	value = gdp
+	multiply = 0.003
+}
+
+spec_bc_prop_cost_neg = {
+	value = spec_bc_prop_cost
+	multiply = -1
+}
+
+spec_bc_shares = {
+	value = spec_pool_month
+	multiply = 2
+}

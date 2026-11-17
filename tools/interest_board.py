@@ -118,17 +118,17 @@ def small_strip():
 
 def loc(k):
     conf = "[concept_spec_market_confidence]"
-    out = (" SPEC_IB_TURNING_TT: \"#header Boom Turning#!\\n[Goods.GetName] has fallen from a large boom. If "
-           "[concept_spec_investor_interest] keeps falling it ends in a [concept_spec_collapse], costing about "
-           f"#N [{RISK}|1]#! {conf}.\"\n"
+    out = (" SPEC_IB_TURNING_TT: \"#header Boom Turning#!\\n$TOOLTIP_DELIMITER$\\n#italic [Goods.GetName] had a big boom, and it is fading.#!\\n"
+           "\\nIf [concept_spec_investor_interest] keeps falling, it ends in a [concept_spec_collapse]\\n"
+           f"That would cost about #N [{RISK}|1]#! {conf}\"\n"
            " SPEC_IB_HEAT_TT: \"#header [concept_spec_investor_interest] in [Goods.GetName]#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_TILE_BODY$\"\n")
     # only the top band reads its bar out, as collapse danger. Below it no next band is named: that read as if interest
     # only ever rose
     pct = f"[{BAR}|%0]"
     out += (f" SPEC_TILE_NEXT: \"[SelectLocalization({eq(WORD, 6)}, 'SPEC_TILE_DANGER', 'SPEC_IB_EMPTY')]\"\n"
             " SPEC_IB_EMPTY: \"\"\n"
-            f" SPEC_TILE_DANGER: \"\\nCollapse Zone: #v {pct}#! of the way to the top\\nThe higher interest climbs, the "
-            f"more {conf} a [concept_spec_collapse] costs.\"\n")
+            f" SPEC_TILE_DANGER: \"\\nCollapse Zone: #v {pct}#! of the way to the top\\nThe higher it climbs, the "
+            f"more {conf} a [concept_spec_collapse] would cost\"\n")
     return out
 
 

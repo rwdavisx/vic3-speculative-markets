@@ -1,0 +1,16 @@
+{
+ "1df87801bb": "#header Pazar Havası: {1}#!\\n$TOOLTIP_DELIMITER$\\nBu ayki rastgele dalgalanmadan {2}\\nGeçen aydan kalan {3}\\n$TOOLTIP_DELIMITER$\\n#weak Her ay rastgele dalgalanır, her iki yönde en fazla #v {4}#!. Bunun #v %{5}#! kadarı gelecek aya taşınır. [concept_spec_exchange] kurumumuz #v Ulusal#! Konuma ulaşınca yüksek [concept_prosperity] sahibi şirketler onu yükseltir.#!",
+ "6f6df5a662": "$SPEC_EXCH_CITY_ME$ Borsası: #v $SPEC_EXCH_STAND_ME$#!",
+ "8d0deedba3": "[concept_spec_exchange] kurumumuz ve Konumu. Gerisi #bold $SPEC_FINANCE$#! penceresinin #bold $SPEC_FIN_TAB_EXCHANGE$#! sekmesinde.",
+ "220d9a90d5": "Gözde",
+ "b1cca0504f": "Yatırımcıların bu ay en hevesli olduğu mallar: bunları üreten şirketlerin ve binaların payları kolayca satılır",
+ "0ff44c8e76": "#italic {1} Piyasasında Para Çekingen: Yatırımcılar Keselerini Açmıyor, Simsarlar Boşta#!",
+ "5d31cf9e13": "#italic {1} Piyasasında Sakin Gün: {2} Hisseleri Sağlam, Gerisi Değişmedi#!",
+ "c415b9428c": "#italic Yeni {1} İhracı Bir Saatte Karşılandı; Bankalar Cömertçe Borç Veriyor#!",
+ "6884e4f5f9": "#italic {1} Borsasında Ateş: Kâtipler ve Dullar Borçla {2} Alıyor#!",
+ "35f3072dea": "#italic Borsa Cılız İşlemlerle Yeniden Açıldı, Alacaklılar Zararı Hesaplıyor#!",
+ "e59260b4e7": "#italic BANKALARA HÜCUM! Kalabalıklar {1} Sarraflarını Kuşattı#!",
+ "cffc45e57b": "#italic Bir Kıt Yıl Daha: Fabrikalar Sessiz, Bankalar Borç Vermiyor#!",
+ "5345bcbfc0": "Rağbetsiz",
+ "a386950ee9": "Yatırımcıların bu ay en az ilgilenmek istediği mallar"
+}

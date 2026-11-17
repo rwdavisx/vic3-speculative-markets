@@ -1,6 +1,6 @@
 ﻿l_spanish:
  rule_spec_market_volatility: "Volatilidad bursátil"
  setting_spec_volatility_historical: "#tooltippable #tooltip:[GetPlayer.GetTooltipTag],setting_spec_volatility_historical_desc Histórica#!#!"
- setting_spec_volatility_historical_desc: "Los auges especulativos y los episodios de [Concept('concept_spec_financial_panic', '$concept_spec_financial_panics|q$')] ocurren con una frecuencia similar a la del siglo XIX"
+ setting_spec_volatility_historical_desc: "Los auges especulativos y los episodios de [Concept('concept_spec_financial_panic', '$concept_spec_financial_panics|q$')] ocurrirán con una frecuencia similar a la del siglo XIX"
  setting_spec_volatility_heightened: "#tooltippable #tooltip:[GetPlayer.GetTooltipTag],setting_spec_volatility_heightened_desc #high Alta#!#!#!"
- setting_spec_volatility_heightened_desc: "Los auges especulativos crecen más y terminan más bruscamente; los episodios de [Concept('concept_spec_financial_panic', '$concept_spec_financial_panics|q$')] son más frecuentes que en el siglo XIX"
+ setting_spec_volatility_heightened_desc: "Los auges especulativos crecerán más y terminarán más bruscamente, y los episodios de [Concept('concept_spec_financial_panic', '$concept_spec_financial_panics|q$')] serán más frecuentes que en el siglo XIX"

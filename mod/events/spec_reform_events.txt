@@ -126,11 +126,27 @@ spec_reform.1 = {
 		}
 	}
 
-	option = {
+	option = {  # shelve it: the money men are relieved and the market with them, the reformers are not
 		name = spec_reform.1.e
 		default_option = yes
+		ig:ig_industrialists ?= {
+			add_modifier = {
+				name = spec_report_shelved
+				days = short_modifier_time
+			}
+		}
+		ig:ig_intelligentsia ?= {
+			add_modifier = {
+				name = spec_report_buried
+				days = short_modifier_time
+			}
+		}
+		custom_tooltip = {
+			text = spec_story_conf_up_3
+			spec_story_conf = { AMOUNT = 3 }
+		}
 		ai_chance = {
-			base = 0
+			base = 5
 		}
 	}
 }

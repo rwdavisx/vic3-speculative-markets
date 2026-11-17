@@ -557,8 +557,8 @@ def loc(k):
             text = (text,) if isinstance(text, str) else text
             out += [f' spec_story.{eid}.{field}{suffix}: "{t.replace("[GC]", GC)}"' for suffix, t in zip(("", "_generic"), text)]
         out += [f' spec_story.{eid}.{chr(97 + i)}: "{o}"' for i, o in enumerate(opts)]
-    out.append(f' spec_story.6.a.tt: "[concept_spec_credit_policy] becomes #v Normal#! and is locked for #v {k["STANCE_COOLDOWN"]}#! months"')
-    out += [f' {conf_key(n)}: "[concept_spec_market_confidence] {"rises" if n > 0 else "falls"} by #v {abs(n)}#!"'
+    out.append(f' spec_story.6.a.tt: "[concept_spec_credit_policy] goes back to #v Normal#! and cannot be changed for #v {k["STANCE_COOLDOWN"]}#! months"')
+    out += [f' {conf_key(n)}: "[concept_spec_market_confidence] {"#P +" if n > 0 else "#N -"}{abs(n)}#!"'
             for n in sorted(CONF_STEPS)]
     out += [f' {key}: "{name}"' for key, *_, name in IG_MODS + COUNTRY_MODS]
     return "\n".join(out) + "\n"

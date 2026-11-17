@@ -1,0 +1,16 @@
+{
+ "1df87801bb": "#header 市场情绪：{1}#!\\n$TOOLTIP_DELIMITER$\\n本月的随机波动：{2}\\n上月延续下来的：{3}\\n$TOOLTIP_DELIMITER$\\n#weak 每月随机波动，任一方向最多#v {4}#!。其中#v {5}%#!会延续到下个月。我国[concept_spec_exchange]达到#v 全国级#!后，[concept_prosperity]高的公司会推高市场情绪。#!",
+ "6f6df5a662": "$SPEC_EXCH_CITY_ME$交易所：#v $SPEC_EXCH_STAND_ME$#!",
+ "8d0deedba3": "我国[concept_spec_exchange]及其地位。其余内容见#bold $SPEC_FINANCE$#!窗口的#bold $SPEC_FIN_TAB_EXCHANGE$#!标签页。",
+ "220d9a90d5": "受追捧",
+ "b1cca0504f": "本月投资者最热衷的商品：生产它们的公司和建筑的股份容易售出",
+ "0ff44c8e76": "#italic {1}银根紧缩：投资者捂紧钱袋，经纪人无所事事#!",
+ "5d31cf9e13": "#italic {1}交易平淡：{2}股走稳，余者持平#!",
+ "c415b9428c": "#italic {1}新股一小时内超额认购，银行放贷宽松#!",
+ "6884e4f5f9": "#italic {1}交易所陷入狂热：店员寡妇举债抢购{2}#!",
+ "35f3072dea": "#italic 交易所重开，成交清淡，债主清点损失#!",
+ "e59260b4e7": "#italic 银行挤兑！人群围堵{1}各大钱庄#!",
+ "cffc45e57b": "#italic 又一个荒年：工厂停工，银行惜贷#!",
+ "5345bcbfc0": "遭冷落",
+ "a386950ee9": "本月投资者最不愿沾手的商品"
+}

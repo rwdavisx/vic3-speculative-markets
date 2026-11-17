@@ -128,10 +128,11 @@ SLOTS.update({f"rival_{k}": (96, f"{V}/{fb}.dds", d + _OUTLINE) for k, fb, d in 
     ("out", "lens_toolbar_icons/rivalry", "a gentleman's slim duelling sword pointing right across a single gold coin"),
     ("in", "lens_toolbar_icons/rivalry", "a round dented iron shield with a deep red stripe, a broken arrow glancing off it"),
 ]})
-# event pictures (stories): the left of vanilla's 620x600 event image, at twice that, opaque, fading out on the right
+# event pictures (stories): the event window stretches its picture over the whole window, 1120 wide and about 650 to 750
+# high (it grows with the text), so 1.65 to 1; made 2.1 to 1 the painting came out tall and thin (2026-11-16)
 PICTURES = {"picture_rival": "two rival stockbrokers in top hats and frock coats glaring at each other across a crowded "
                              "19th century trading floor, torn share certificates and ticker tape in the air between them"}
-PICTURE_SIZE = (1240, 1200)
+PICTURE_SIZE = (1650, 1000)
 GAME_GFX = "G:/SteamLibrary/steamapps/common/Victoria 3/game/"
 RIVALRY = f"{DIR}/rival_out.dds"  # the painted "we rival" icon (SLOTS rival_out)
 RIVALRY_OFF = f"{DIR}/rival_out_off.dds"
@@ -155,6 +156,7 @@ SLOTS.update({f"concept_{c}": (128, f"{V}/{fb}.dds", d + _OUTLINE) for c, fb, d 
     ("leverage", "invention_icons/banking", "a wooden lever on a brass fulcrum lifting a heavy stack of gold coins"),
     ("bad_debts", "timed_modifier_icons/modifier_coins_negative", "a heap of torn loan bills spilling from an open ledger, the whole object tinted dull red"),
     ("lending_standards", "invention_icons/investment_banks", "a banker's brass magnifying glass held over a loan bill with a red seal"),
+    ("trust", "generic_icons/legitimacy", "a gentleman's firm handshake over a closed leather ledger with a brass clasp"),
     ("exchange", "invention_icons/stock_exchanges", "the columned front of a small classical stock exchange with a pediment and a flag on its roof"),
 ]})
 # every concept's icon, painted or reused (concepts.CONCEPTS takes its texture from here)
@@ -280,13 +282,22 @@ def build(mod):
         if not has(name):
             continue
         im = Image.open(ART / f"{name}.png").convert("RGB")
-        w, h = PICTURE_SIZE  # fill, cropping the overhang evenly
+        w, h = PICTURE_SIZE
+        # the painting whole, at full height on the left (the part the event's text panel leaves clear); behind and
+        # right of it the same painting blurred and darkened, so nothing is cropped or stretched
+        from PIL import ImageFilter
         k = max(w / im.width, h / im.height)
-        im = im.resize((round(im.width * k), round(im.height * k)), Image.LANCZOS)
-        x, y = (im.width - w) // 2, (im.height - h) // 2
+        back = im.resize((round(im.width * k), round(im.height * k)), Image.LANCZOS)
+        back = back.crop(((back.width - w) // 2, (back.height - h) // 2, (back.width - w) // 2 + w, (back.height - h) // 2 + h))
+        back = ImageEnhance.Brightness(back.filter(ImageFilter.GaussianBlur(40))).enhance(0.45)
+        front = im.resize((round(im.width * h / im.height), h), Image.LANCZOS)
+        fade = Image.linear_gradient("L").rotate(-90, expand=True).resize((front.width // 5, h))  # the right edge fades into the blur
+        mask = Image.new("L", front.size, 255)
+        mask.paste(fade, (front.width - fade.width, 0))
+        back.paste(front, (0, 0), mask)
         dest = mod / DIR / f"{name}.dds"
         dest.parent.mkdir(parents=True, exist_ok=True)
-        im.crop((x, y, x + w, y + h)).save(dest)
+        back.save(dest)
         out.append(name)
     gui = mod / "gui/spec_texticons.gui"
     gui.parent.mkdir(parents=True, exist_ok=True)
@@ -301,12 +312,19 @@ _LEAD = re.compile(r"(?:^|(?<=\n)|(?<=#header )|(?<=#title )|(?<=#bold ))"
 ICON_TAG = re.compile(r"@spec_(\w+)! (?=\[concept_spec_|\[Concept\('concept_spec_|\$concept_spec_)")
 
 
+# loc keys shown as panel text (generate.panel_keys): concept icons belong in tooltips only, where they tie a link to
+# its picture; panel text keeps plain links
+PANEL_KEYS = set()
+
+
 def concept_icons(key, value, allow=None):
     """value with @spec_<concept>! set before each concept that leads a line or heading, and before the concept's
     own description. Idempotent; strip_concept_icons undoes it, so translations are matched on the plain English."""
     def lead(m):
         c = m[1] or m[2] or m[3]
         return f"@spec_{c}! " if c in CONCEPT_ICON and (allow is None or c in allow) else ""
+    if key in PANEL_KEYS:
+        return strip_concept_icons(value)
     value = _LEAD.sub(lead, strip_concept_icons(value))
     own = re.fullmatch(r"concept_spec_(\w+)_desc", key)
     if own and own[1] in CONCEPT_ICON and not value.startswith("@spec_"):

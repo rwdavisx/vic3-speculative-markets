@@ -1,0 +1,21 @@
+{
+ "a1cc9ffbc3": "A grande Bolsa de #v {1}#! finalmente nos notou, e não gosta do que vê. ",
+ "eb64e178ce": "Há anos as Bolsas de #v {1}#! e de #v {2}#! se rondam. Era só questão de tempo. ",
+ "9686b40e2b": "Atacaram no auge da nossa expansão, quando todo investidor já passa as noites em claro temendo a queda.\\n\\n",
+ "1705ec0c88": "Escolheram o momento com cuidado: nosso mercado já está em pânico, e agora cada golpe acerta duas vezes.\\n\\n",
+ "6b4e256cfc": "Os arrivistas de #v {1}#! decidiram que é preciso baixar a crista de #v {2}#!. ",
+ "3b3c377788": "$SPEC_RV_EV_WHO$$SPEC_RV_EV_WHEN$Corretores a serviço de #v {1}#! despejaram de uma só vez nossas ações no pregão, esperando uma debandada. Em vez disso, nossos bancos compraram cada lote oferecido, os preços se sustentaram e, ao sino de fechamento, eram os atacantes que lambiam as feridas.\\n\\nA [concept_spec_market_confidence] deles cai #P {2}#! ao longo de {3} meses.",
+ "22ac33d063": "$SPEC_RV_EV_WHO$$SPEC_RV_EV_WHEN$Antes do sino de abertura, corretores a serviço de #v {1}#! despejaram de uma só vez no pregão grandes lotes de nossas ações ferroviárias e bancárias. Os preços desabaram, as cotações não davam conta e, ao meio-dia, nossos próprios escriturários vendiam apavorados.\\n\\nNossa [concept_spec_market_confidence] cairá #N {2}#! ao longo de {3} meses.",
+ "81a87a2c0e": "$SPEC_RV_EV_WHO$$SPEC_RV_EV_WHEN$Agentes de #v {1}#! se hospedaram em nossos melhores hotéis, e nossos maiores investidores jantam com eles todas as noites. A oferta é simples: juros melhores, um porto mais seguro e nenhuma pergunta incômoda.\\n\\nPor {2} meses, #N {3}#! da nossa renda de [concept_investment_pool] vai para eles.",
+ "8570eb128f": "$SPEC_RV_EV_WHO$$SPEC_RV_EV_WHEN$Os jornais matutinos de #v {1}#! trazem longas colunas sobre balanços forjados e bancos cambaleantes em #v {2}#!. Nenhuma é assinada e poucas são verdadeiras, mas são lidas em todas as casas de comércio do continente.\\n\\nNossa [concept_spec_exchange] perde #N {3}#! de credibilidade.",
+ "0cb47f6b6f": "$SPEC_RV_EV_WHO$$SPEC_RV_EV_WHEN$Os jornais de #v {1}#! andavam cheios de dúvidas sobre nossa [concept_spec_exchange]. Mas um escriturário falou, e agora todos sabem de quem era o dinheiro que pagou a tinta.\\n\\nPerdemos credibilidade, mas eles também, e seu nome sofre no exterior.",
+ "af6622a107": "\\\"O urso que vende o que não tem é bom que esteja certo.\\\"",
+ "39e0bfbfcd": "\\\"O capital vai aonde é bem tratado e fica onde é bem alimentado.\\\"",
+ "95fbe10842": "\\\"Uma mentira dá meia volta ao mundo enquanto a verdade ainda calça as botas.\\\"",
+ "7202f82324": "\\\"Lama atirada no escuro ainda suja as mãos.\\\"",
+ "d2a84e0d0c": "O ataque que fracassou",
+ "203b7841fa": "Ataque baixista contra #v {1}#!!",
+ "b5ade2188d": "Estão cortejando nosso capital",
+ "049cf4d9ea": "Uma campanha de boatos",
+ "2754c96593": "Campanha paga desmascarada"
+}

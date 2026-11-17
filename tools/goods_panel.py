@@ -171,7 +171,7 @@ def block_type():
 OPEN_TAB = ("[GetVariableSystem.Clear('spec_pick_slot')]\"\n"
             "\t\tonclick = \"[GetVariableSystem.Set('spec_finance_tab', 'booms')]\"\n"
             "\t\tonclick = \"[GetVariableSystem.Set('spec_finance', 'open')]\"\n"
-            "\t\tonclick = \"[InformationPanelBar.ClosePanel]")
+            "\t\tonclick = \"[GetVariableSystem.Clear('spec_finance_next')]")  # no-op: the entry's panel stays open under Finance (market_tab.JE_PANEL)
 
 
 def patch(gui):

@@ -1,0 +1,16 @@
+{
+ "1df87801bb": "#header Nastroje rynkowe: {1}#!\\n$TOOLTIP_DELIMITER$\\n{2} ze względu na losowe wahanie w tym miesiącu\\n{3} pozostało z zeszłego miesiąca\\n$TOOLTIP_DELIMITER$\\n#weak Co miesiąc waha się losowo, do #v {4}#! w każdą stronę. #v {5}%#! przechodzi na następny miesiąc. Spółki o wysokim wskaźniku [concept_prosperity] podnoszą je, gdy nasza giełda ([concept_spec_exchange]) osiągnie pozycję #v Krajowa#!.#!",
+ "6f6df5a662": "Giełda ($SPEC_EXCH_CITY_ME$): #v $SPEC_EXCH_STAND_ME$#!",
+ "8d0deedba3": "Nasza giełda ([concept_spec_exchange]) i jej pozycja. Resztę pokazuje zakładka #bold $SPEC_FIN_TAB_EXCHANGE$#! w oknie #bold $SPEC_FINANCE$#!.",
+ "220d9a90d5": "W łaskach",
+ "b1cca0504f": "Towary, którymi inwestorzy najbardziej się interesują w tym miesiącu: udziały w spółkach i budynkach, które je wytwarzają, łatwo się sprzedają",
+ "0ff44c8e76": "#italic {1}: pieniądz się chowa, maklerzy bezczynni, inwestorzy zaciskają sakiewki#!",
+ "5d31cf9e13": "#italic Spokojna sesja – {1}: {2} trzyma się mocno, reszta bez zmian#!",
+ "c415b9428c": "#italic Nowa emisja ({1}) rozchwytana w godzinę; banki pożyczają hojnie#!",
+ "6884e4f5f9": "#italic Gorączka na giełdzie – {1}: subiekci i wdowy kupują na kredyt ({2})#!",
+ "35f3072dea": "#italic Giełda znów otwarta, obroty nikłe, wierzyciele liczą straty#!",
+ "e59260b4e7": "#italic PANIKA W BANKACH! Tłumy oblegają kantory ({1})#!",
+ "cffc45e57b": "#italic Kolejny chudy rok: fabryki stoją, a banki nie pożyczają#!",
+ "5345bcbfc0": "W niełasce",
+ "a386950ee9": "Towary, z którymi inwestorzy najmniej chcą mieć do czynienia w tym miesiącu"
+}

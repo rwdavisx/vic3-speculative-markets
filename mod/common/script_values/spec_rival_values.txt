@@ -1,0 +1,335 @@
+﻿# rival actions (actor scope, scope:target): their Exchange's size against ours, VS_LO to VS_HI. A larger rival
+# costs more to act against or to shore up against; a larger Exchange's moves hit harder (spec_rv_heft, the inverse)
+spec_rv_vs = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_centre_score
+			scope:target ?= { has_variable = spec_centre_score }
+		}
+		value = scope:target.var:spec_centre_score
+		divide = {
+			value = var:spec_centre_score
+			min = 1
+		}
+	}
+	min = 0.75
+	max = 1.33
+}
+
+spec_rv_heft = {
+	value = 1
+	divide = spec_rv_vs
+}
+
+spec_rv_cost_base = {
+	value = gdp
+	multiply = 0.04
+	min = 0
+}
+
+spec_rv_cost = {
+	value = spec_rv_cost_base
+	multiply = spec_rv_vs
+}
+
+spec_rv_cost_neg = {
+	value = spec_rv_cost
+	multiply = -1
+}
+
+# the AI pays for a money action only with this much gold in reserve
+spec_rv_ai_money = {
+	value = spec_rv_cost
+	multiply = 3
+}
+
+# the competitor event's fitted counter (rivals.COUNTER_GDP)
+spec_rv_counter_cost = {
+	value = gdp
+	multiply = 0.01
+}
+
+spec_rv_counter_cost_neg = {
+	value = spec_rv_counter_cost
+	multiply = -1
+}
+
+# Press Campaign: the % chance it is exposed, by the target's speech law (target scope)
+spec_rv_press_expose = {
+	value = 30
+	if = { limit = { has_law = law_type:law_outlawed_dissent } value = 10 }
+	if = { limit = { has_law = law_type:law_censorship } value = 20 }
+	if = { limit = { has_law = law_type:law_right_of_assembly } value = 35 }
+	if = { limit = { has_law = law_type:law_protected_speech } value = 50 }
+}
+
+# Bear Raid: the % chance it fails, more as their score exceeds ours (actor scope)
+spec_rv_raid_fail = {
+	value = 20
+	if = {
+		limit = { scope:target.var:spec_centre_score > var:spec_centre_score }
+		add = {
+			value = scope:target.var:spec_centre_score
+			subtract = var:spec_centre_score
+			divide = scope:target.var:spec_centre_score
+			multiply = 60
+		}
+	}
+	max = 80
+}
+
+spec_rv_lure_debt_base = {
+	value = spec_pool_month
+	multiply = 6
+}
+
+spec_rv_lure_debt = {
+	value = spec_rv_lure_debt_base
+	multiply = spec_rv_vs
+}
+
+# the yearly contest's stake, in the winner's scope against scope:spec_rv_l: an upset pays more, the expected less
+spec_rv_stake = {
+	value = 3
+	if = {
+		limit = { var:spec_exch_stand > scope:spec_rv_l.var:spec_exch_stand }
+		divide = {
+			value = var:spec_exch_stand
+			subtract = scope:spec_rv_l.var:spec_exch_stand
+			add = 1
+		}
+	}
+	else_if = {
+		limit = { var:spec_exch_stand < scope:spec_rv_l.var:spec_exch_stand }
+		multiply = {
+			value = scope:spec_rv_l.var:spec_exch_stand
+			subtract = var:spec_exch_stand
+			add = 1
+		}
+	}
+}
+
+# the contest's bar from scope:spec_rival_me's side against this: the score lead as a share of the higher score, then
+# the pushes each way, from -1 (theirs) to 1 (ours)
+spec_rv_rope = {
+	value = spec_rv_me_eff
+	subtract = spec_rv_it_eff
+	divide = {
+		value = spec_rv_it_eff
+		min = spec_rv_me_eff
+		min = 1
+	}
+	# blue chips (bluechips.PULL each as counted: in full up to CAP, half up to CAP2)
+	if = {
+		limit = { scope:spec_rival_me = { has_variable = spec_bc_n } }
+		add = {
+			value = 0
+			add = { value = scope:spec_rival_me.var:spec_bc_n max = 5 }
+			add = { value = scope:spec_rival_me.var:spec_bc_n subtract = 5 min = 0 max = 5 multiply = 0.5 }
+			multiply = 0.03
+		}
+	}
+	if = {
+		limit = { has_variable = spec_bc_n }
+		subtract = { value = spec_bc_counted multiply = 0.03 }
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_push_1 target = prev } } }
+		add = 0.1
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_push_1 target = scope:spec_rival_me } }
+		subtract = 0.1
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_push_2 target = prev } } }
+		add = 0.1
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_push_2 target = scope:spec_rival_me } }
+		subtract = 0.1
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_push_3 target = prev } } }
+		add = 0.1
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_push_3 target = scope:spec_rival_me } }
+		subtract = 0.1
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_push_4 target = prev } } }
+		add = 0.1
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_push_4 target = scope:spec_rival_me } }
+		subtract = 0.1
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_push_5 target = prev } } }
+		add = 0.1
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_push_5 target = scope:spec_rival_me } }
+		subtract = 0.1
+	}
+	min = -1
+	max = 1
+}
+
+# pushes on the contest between this and scope:spec_rival_me, by each side
+spec_rv_n_push_me = {
+	value = 0
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_push_1 target = prev } } }
+		add = 1
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_push_2 target = prev } } }
+		add = 1
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_push_3 target = prev } } }
+		add = 1
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_push_4 target = prev } } }
+		add = 1
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_push_5 target = prev } } }
+		add = 1
+	}
+}
+
+spec_rv_n_push_it = {
+	value = 0
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_push_1 target = scope:spec_rival_me } }
+		add = 1
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_push_2 target = scope:spec_rival_me } }
+		add = 1
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_push_3 target = scope:spec_rival_me } }
+		add = 1
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_push_4 target = scope:spec_rival_me } }
+		add = 1
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_push_5 target = scope:spec_rival_me } }
+		add = 1
+	}
+}
+
+# rivals an Exchange may name, and the Standings it may name them from
+spec_rv_slots = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_exch_stand }
+		add = var:spec_exch_stand
+	}
+	max = 4
+}
+
+# spread thin: what a side's score counts for, by the contests it is in (spec_rv_n_all, monthly)
+spec_rv_focus_sv = {
+	value = 1
+	divide = {
+		value = var:spec_rv_n_all
+		subtract = 1
+		min = 0
+		multiply = 0.25
+		add = 1
+	}
+}
+
+# the two sides' scores as they count (scope:spec_rival_me's, and this country's)
+spec_rv_me_eff = {
+	value = scope:spec_rival_me.var:spec_centre_score
+	if = {
+		limit = { scope:spec_rival_me = { has_variable = spec_rv_focus } }
+		multiply = scope:spec_rival_me.var:spec_rv_focus
+	}
+}
+spec_rv_it_eff = {
+	value = var:spec_centre_score
+	if = {
+		limit = { has_variable = spec_rv_focus }
+		multiply = var:spec_rv_focus
+	}
+}
+
+# years into a contest (its clock, spec_rv_age_<k> on the side that named the other): from this to scope:target
+spec_rv_age_t = {
+	value = 0
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_1 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_1 target = prev } } } } value = 1 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_2 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_2 target = prev } } } } value = 2 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_3 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_3 target = prev } } } } value = 3 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_4 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_4 target = prev } } } } value = 4 }
+}
+
+# the same from scope:spec_rival_me to this (a player's rows)
+spec_rv_age_m = {
+	value = 0
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_1 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_1 target = prev } } } } value = 1 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_2 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_2 target = prev } } } } value = 2 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_3 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_3 target = prev } } } } value = 3 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_4 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_4 target = prev } } } } value = 4 }
+}
+
+spec_rv_reach_lo = {
+	value = var:spec_exch_stand
+	subtract = 1
+}
+
+spec_rv_reach_hi = {
+	value = var:spec_exch_stand
+	add = 1
+}
+
+# influence maintenance of rivalling this country, by its Standing (none counts as the lowest)
+spec_rv_tier_cost = {
+	value = 25
+	if = {
+		limit = { has_variable = spec_exch_stand var:spec_exch_stand = 1 }
+		value = 50
+	}
+	if = {
+		limit = { has_variable = spec_exch_stand var:spec_exch_stand = 2 }
+		value = 100
+	}
+	if = {
+		limit = { has_variable = spec_exch_stand var:spec_exch_stand = 3 }
+		value = 150
+	}
+}
+
+# our rivals' maintenance in all (spec_rv_count sums it)
+spec_rv_upkeep_total = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_rv_upkeep_sum }
+		value = var:spec_rv_upkeep_sum
+	}
+	if = {  # a World Centre keeps its dearest rival free (centres.WORLD_FX)
+		limit = { has_variable = spec_rv_upkeep_max has_variable = spec_exch_stand var:spec_exch_stand = 3 }
+		subtract = var:spec_rv_upkeep_max
+	}
+}
+
+# the AI's pick, in a candidate against scope:spec_rival_me (the AI): its side of the bar, plus the bigger prize of
+# beating a higher Standing (rivals' spec_rv_stake)
+spec_rv_ai_pick_v = {
+	value = spec_rv_rope
+	add = {
+		value = var:spec_exch_stand
+		subtract = scope:spec_rival_me.var:spec_exch_stand
+		multiply = 0.15
+	}
+}

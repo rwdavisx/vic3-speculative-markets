@@ -8,7 +8,7 @@
 					has_variable = spec_exch_stand
 					var:spec_exch_stand >= 2
 				}
-			} AND = { has_variable = spec_rival var:spec_rival = root } AND = { root = { has_variable = spec_rival } root.var:spec_rival = this } }
+			} AND = { has_variable = spec_exch_stand root = { has_variable = spec_exch_stand } OR = { is_target_in_variable_list = { name = spec_rv_chosen target = root } root = { is_target_in_variable_list = { name = spec_rv_chosen target = prev } } } } }
 			has_variable = spec_conf
 			var:spec_conf >= 40
 			NOT = { has_variable = spec_panic }
@@ -26,7 +26,7 @@
 				multiply = 2
 				multiply = spec_flight_mult
 				if = {
-					limit = { OR = { AND = { has_variable = spec_rival var:spec_rival = root } AND = { root = { has_variable = spec_rival } root.var:spec_rival = this } } }
+					limit = { OR = { AND = { has_variable = spec_exch_stand root = { has_variable = spec_exch_stand } OR = { is_target_in_variable_list = { name = spec_rv_chosen target = root } root = { is_target_in_variable_list = { name = spec_rv_chosen target = prev } } } } } }
 					multiply = 1.5
 				}
 			}

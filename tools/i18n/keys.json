@@ -7,43 +7,51 @@
 ],
 "SPEC_BAD_BUILDING": [
 "3854907d9f",
-"4c569f9549"
+"4c569f9549",
+"6e619e4a33"
 ],
 "SPEC_BAD_SCALE": [
 "a4683276d1",
-"4b8fb3c1b8"
+"4b8fb3c1b8",
+"e76932cb29"
 ],
 "SPEC_BAILOUT": [
 "e2a0f65eb8"
 ],
 "SPEC_BAILOUT_TT": [
-"c96fbc447b"
+"c96fbc447b",
+"4359957bd3"
 ],
 "SPEC_BANK_GOOD_TT": [
 "f2c4b3c332",
 "e577317c0b",
-"269395959c"
+"269395959c",
+"a0163d1a56"
 ],
 "SPEC_BANK_NONE": [
 "2ebfbb2fbc",
-"acf708311d"
+"acf708311d",
+"978687248d"
 ],
 "SPEC_BANK_NONE_S": [
 "dc8eba7077",
 "73a93b2506"
 ],
 "SPEC_BANK_OTHER": [
-"05fa6cd4d5"
+"05fa6cd4d5",
+"1e6430ad4f"
 ],
 "SPEC_BANK_OTHER_TT": [
-"ff02941358"
+"ff02941358",
+"449306133f"
 ],
 "SPEC_BANK_PIE": [
 "a77891aed1"
 ],
 "SPEC_BAR_SRC_TT": [
 "1ba2796102",
-"63f914d69c"
+"63f914d69c",
+"9d6ef46461"
 ],
 "SPEC_BAR_TIE_1": [
 "2e8e5f8b23"
@@ -60,12 +68,26 @@
 "SPEC_BAR_TIE_5": [
 "5ad860c432"
 ],
+"SPEC_BC_STRIP": [
+"f72e0eeaa5"
+],
+"SPEC_BC_STRIP_FX": [
+"271c54084c"
+],
+"SPEC_BC_STRIP_N": [
+"936c9d03a3"
+],
+"SPEC_BC_STRIP_TT": [
+"939b610c8e"
+],
 "SPEC_BOOM_CAP": [
 "afcca6a646",
-"244024dc91"
+"244024dc91",
+"1f3cc5fd2d"
 ],
 "SPEC_BOOM_FIN": [
-"c8854b92bf"
+"c8854b92bf",
+"0e4b55c1d4"
 ],
 "SPEC_BOOM_RULE": [
 "a707e53dc0"
@@ -74,151 +96,200 @@
 "78bc24024b"
 ],
 "SPEC_BOOM_WHY_AEROPLANES": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_AMMUNITION": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_ARTILLERY": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_AUTOMOBILES": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_CLIPPERS": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_CLOTHES": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_COAL": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_COFFEE": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_COPPER": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_DYE": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_ELECTRICITY": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_ENGINES": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_EXPLOSIVES": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_FABRIC": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_FERTILIZER": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_FINE_ART": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_FISH": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_FRUIT": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_FURNITURE": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_GLASS": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_GRAIN": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_GROCERIES": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_HARDWOOD": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_IRON": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_LEAD": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_LIQUOR": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_LUXURY_CLOTHES": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_LUXURY_FURNITURE": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_MEAT": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_MERCHANT_MARINE": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_OIL": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_OPIUM": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_PAPER": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_PORCELAIN": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_RADIOS": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_RUBBER": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_SILK": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_SMALL_ARMS": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_STEAMERS": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_STEEL": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_SUGAR": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_SULFUR": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_TANKS": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_TEA": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_TELEPHONES": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_TOBACCO": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_TOOLS": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_WINE": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BOOM_WHY_WOOD": [
-"2f2d3de38e"
+"2f2d3de38e",
+"c333eb1e79"
 ],
 "SPEC_BUDGET_BANKING_TAB": [
 "bf8e5c092d"
@@ -227,7 +298,8 @@
 "1349a20a3b"
 ],
 "SPEC_CARD_CHANGE_TT": [
-"ca054da3bf"
+"ca054da3bf",
+"fb867fb1bc"
 ],
 "SPEC_CARD_FRESH": [
 "f98e5dc587",
@@ -258,12 +330,17 @@
 "10ceb7e18f",
 "c43fed0276"
 ],
+"SPEC_CENTRE_COL_RANK_TT": [
+"d1cfe20a63"
+],
 "SPEC_CENTRE_COL_RIVAL": [
-"eea9d021db"
+"eea9d021db",
+"42450bff31"
 ],
 "SPEC_CENTRE_COL_RIVAL_TT": [
 "f23d907962",
-"eef05c7da0"
+"eef05c7da0",
+"dfae2d1a85"
 ],
 "SPEC_CENTRE_COL_SCORE": [
 "5dd135d1bc"
@@ -271,7 +348,8 @@
 "SPEC_CENTRE_COL_SCORE_TT": [
 "d80779dff3",
 "aa965499f0",
-"57590bcc93"
+"57590bcc93",
+"b78f771b10"
 ],
 "SPEC_CENTRE_COL_TRUST": [
 "2f81eae071"
@@ -293,31 +371,37 @@
 "480beebd2a",
 "c327452909",
 "effca294f6",
-"8c644c1631"
+"8c644c1631",
+"e6eda9ee3f"
 ],
 "SPEC_CENTRE_TT_2": [
 "c327452909",
 "effca294f6",
-"8c644c1631"
+"8c644c1631",
+"e6eda9ee3f"
 ],
 "SPEC_CENTRE_TT_3": [
 "c327452909",
 "effca294f6",
-"8c644c1631"
+"8c644c1631",
+"e6eda9ee3f"
 ],
 "SPEC_CENTRE_TT_4": [
 "c327452909",
 "effca294f6",
-"8c644c1631"
+"8c644c1631",
+"e6eda9ee3f"
 ],
 "SPEC_CENTRE_TT_5": [
 "c327452909",
 "effca294f6",
-"ae1c049d91"
+"ae1c049d91",
+"39d0faad79"
 ],
 "SPEC_CENTRE_TT_OWN": [
 "73bd1674bf",
-"d0f59d6393"
+"d0f59d6393",
+"5425c9b5f6"
 ],
 "SPEC_CHARTER_GRANT": [
 "1a6103d58c"
@@ -327,7 +411,8 @@
 ],
 "SPEC_CHARTER_RULE": [
 "4bfca26595",
-"cf9aade1c4"
+"cf9aade1c4",
+"d73767479b"
 ],
 "SPEC_CHIP_NONE": [
 "848d26eade"
@@ -337,7 +422,8 @@
 ],
 "SPEC_COL_LEVER_TT": [
 "07055946b6",
-"44bdcb37ce"
+"44bdcb37ce",
+"c3e15bdc57"
 ],
 "SPEC_CONF_LINE": [
 "e53c08621f"
@@ -350,7 +436,8 @@
 "ac2e3af4ff"
 ],
 "SPEC_CONTEST_NOTE": [
-"1aee9a72cd"
+"1aee9a72cd",
+"07830887d0"
 ],
 "SPEC_CONTEST_PLACE_1": [
 "8de56190d3"
@@ -361,17 +448,51 @@
 "SPEC_CONTEST_PLACE_3": [
 "b123be28a6"
 ],
+"SPEC_CO_BC": [
+"ac87ff0940"
+],
+"SPEC_CO_BC_CLIMB": [
+"094d972a0b"
+],
+"SPEC_CO_BC_LOW": [
+"463d835078"
+],
+"SPEC_CO_COTY": [
+"a6236de53c"
+],
 "SPEC_CO_ENC": [
 "4998ecb882"
+],
+"SPEC_CO_FRAGILE": [
+"e2b5d7b74a"
 ],
 "SPEC_CO_GLUT": [
 "daf4231908"
 ],
 "SPEC_CO_NONE": [
-"b8fc8d675e"
+"b8fc8d675e",
+"e4826c75f7"
+],
+"SPEC_CO_PROPPED": [
+"f12af8643a"
 ],
 "SPEC_CO_RES": [
 "3415030865"
+],
+"SPEC_CO_TAG_BC": [
+"aabb1a76d3"
+],
+"SPEC_CO_TAG_CLIMB": [
+"7ead9802ba"
+],
+"SPEC_CO_TAG_COTY": [
+"8bdcfdd90e"
+],
+"SPEC_CO_TAG_FRAGILE": [
+"6263f9ceea"
+],
+"SPEC_CO_TAG_LOW": [
+"b05966b8cd"
 ],
 "SPEC_CO_W0": [
 "7eee81b602"
@@ -396,203 +517,253 @@
 ],
 "SPEC_CRASH_CAP": [
 "bfa4e9e41e",
-"3c3dfdc5e9"
+"3c3dfdc5e9",
+"bc2909eece"
 ],
 "SPEC_CRASH_WHY_AEROPLANES": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_AMMUNITION": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_ARTILLERY": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_AUTOMOBILES": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_CLIPPERS": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_CLOTHES": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_COAL": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_COFFEE": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_COPPER": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_DYE": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_ELECTRICITY": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_ENGINES": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_EXPLOSIVES": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_FABRIC": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_FERTILIZER": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_FINE_ART": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_FISH": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_FRUIT": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_FURNITURE": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_GLASS": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_GRAIN": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_GROCERIES": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_HARDWOOD": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_IRON": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_LEAD": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_LIQUOR": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_LUXURY_CLOTHES": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_LUXURY_FURNITURE": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_MEAT": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_MERCHANT_MARINE": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_OIL": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_OPIUM": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_PAPER": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_PORCELAIN": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_RADIOS": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_RUBBER": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_SILK": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_SMALL_ARMS": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_STEAMERS": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_STEEL": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_SUGAR": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_SULFUR": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_TANKS": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_TEA": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_TELEPHONES": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_TOBACCO": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_TOOLS": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_WINE": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CRASH_WHY_WOOD": [
 "cf62c359a4",
-"97f8fbb19e"
+"97f8fbb19e",
+"edd4d5ace3"
 ],
 "SPEC_CREDITW_0": [
 "6adf97f83a"
@@ -613,10 +784,12 @@
 "018d47de56"
 ],
 "SPEC_CREDIT_LENDING_LOCKED": [
-"8666d23e56"
+"8666d23e56",
+"4e30bc72bc"
 ],
 "SPEC_CREDIT_LOCK": [
-"989c25687f"
+"989c25687f",
+"3429cfcf7a"
 ],
 "SPEC_CREDIT_MOVED": [
 "d8f235acfb"
@@ -625,7 +798,8 @@
 "605bc80091"
 ],
 "SPEC_CREDIT_NO_CONF": [
-"d53b31a0b9"
+"d53b31a0b9",
+"659fec9cb1"
 ],
 "SPEC_CREDIT_NO_CRASH": [
 "97dc53e946"
@@ -635,20 +809,28 @@
 "e77ae5a6b4"
 ],
 "SPEC_CREDIT_NO_LINE": [
-"eba4acff84"
+"eba4acff84",
+"5c2ab9d40c"
 ],
 "SPEC_CREDIT_NO_PANIC": [
 "d75c97567b"
 ],
 "SPEC_CREDIT_NO_ROOM": [
 "ad7596011c",
-"f1e9620247"
+"f1e9620247",
+"876225423a"
 ],
 "SPEC_CREDIT_NO_TIGHT": [
 "28f759cb48"
 ],
 "SPEC_CREDIT_SUMMARY": [
 "a5fe541ba3"
+],
+"SPEC_DEBT_BAR_NONE": [
+"5766219aac"
+],
+"SPEC_DEBT_BAR_ON": [
+"c75594fd15"
 ],
 "SPEC_DEPTH_0": [
 "d1a6f807df",
@@ -659,20 +841,23 @@
 "33a1a6aa8e"
 ],
 "SPEC_DOWNSIDE_TT": [
-"1f562a5109"
+"1f562a5109",
+"b2d87f9b07"
 ],
 "SPEC_DRIVER_BOOM": [
 "1dfc922a8e"
 ],
 "SPEC_DRIVER_BOOM_TT": [
-"c3bd997ded"
+"c3bd997ded",
+"2bb51b7278"
 ],
 "SPEC_DRIVER_BURST": [
 "53ce94938d"
 ],
 "SPEC_DRIVER_BURST_TT": [
 "03a9c1753e",
-"7a1a0b1b87"
+"7a1a0b1b87",
+"e80cce0236"
 ],
 "SPEC_DRIVER_BUSINESS": [
 "f34f443caa"
@@ -685,7 +870,8 @@
 "87accf3a9a"
 ],
 "SPEC_DRIVER_CAUTION_TT": [
-"2c61e5414e"
+"2c61e5414e",
+"20a64f5bef"
 ],
 "SPEC_DRIVER_CRASH": [
 "503893a9a2",
@@ -693,98 +879,119 @@
 ],
 "SPEC_DRIVER_CRASH_TT": [
 "43d47c4c26",
-"fe44525445"
+"fe44525445",
+"be82575733"
 ],
 "SPEC_DRIVER_DEBT": [
 "458b88caf2"
 ],
 "SPEC_DRIVER_DEBT_TT": [
 "9905069937",
-"f12a4dbbc9"
+"f12a4dbbc9",
+"b3388d5b81"
 ],
 "SPEC_DRIVER_DRIFT": [
 "370f8401a9"
 ],
 "SPEC_DRIVER_DRIFT_TT": [
 "1e6af07c01",
-"3173454e7c"
+"3173454e7c",
+"d0c5eb2bd4"
 ],
 "SPEC_DRIVER_DROP": [
 "c18a7e148f"
 ],
 "SPEC_DRIVER_DROP_TT": [
-"6f91445225"
+"6f91445225",
+"3d887e3199"
 ],
 "SPEC_DRIVER_FOREIGN": [
 "2ef10bd952"
 ],
 "SPEC_DRIVER_FOREIGN_TT": [
-"8b7336c087"
+"8b7336c087",
+"d0ae538f0d"
 ],
 "SPEC_DRIVER_GROWTH": [
 "699aed86da"
 ],
 "SPEC_DRIVER_GROWTH_TT": [
 "8a6e14de4d",
-"93b87cdd29"
+"93b87cdd29",
+"b16f8f357e"
 ],
 "SPEC_DRIVER_LIMIT": [
 "f83c409220"
 ],
 "SPEC_DRIVER_LIMIT_TT": [
-"a7a18f2ddc"
+"a7a18f2ddc",
+"7893250dc7"
 ],
 "SPEC_DRIVER_MOOD": [
 "02353bd927"
 ],
 "SPEC_DRIVER_MOOD_TT": [
-"30d0c806c9"
+"30d0c806c9",
+"1df87801bb"
 ],
 "SPEC_DRIVER_RESCUE": [
 "4eacb65e3b"
 ],
 "SPEC_DRIVER_RESCUE_TT": [
 "b468a3f73c",
-"9d8023dc87"
+"9d8023dc87",
+"060fafd13c"
 ],
 "SPEC_DRIVER_RESTRAIN": [
 "051d3b3d3b"
 ],
 "SPEC_DRIVER_RESTRAIN_TT": [
-"c62f982d4e"
+"c62f982d4e",
+"f2555aa3cd"
+],
+"SPEC_DRIVER_RIVAL": [
+"73e434c4f9"
+],
+"SPEC_DRIVER_RIVAL_TT": [
+"84cf078127"
 ],
 "SPEC_DRIVER_TIGHT": [
 "a71462baff"
 ],
 "SPEC_DRIVER_TIGHT_TT": [
 "e0719d1266",
-"5af2f0bc0f"
+"5af2f0bc0f",
+"eaf00ee624"
 ],
 "SPEC_DRIVER_TURMOIL": [
 "decf074b7a"
 ],
 "SPEC_DRIVER_TURMOIL_TT": [
 "adf6357267",
-"173d98ee3e"
+"173d98ee3e",
+"25b337dcea"
 ],
 "SPEC_DRIVER_WAREND": [
 "e289ae0da4"
 ],
 "SPEC_DRIVER_WAREND_TT": [
 "9adba3c5d3",
-"7ee4b30116"
+"7ee4b30116",
+"9095ca2bc1"
 ],
 "SPEC_DRIVER_WORLD_TT": [
 "d79bbdb0bd",
 "3f2f10fd54",
-"9a4e5222fd"
+"9a4e5222fd",
+"58b63aba35"
 ],
 "SPEC_EFFECT_BAD_IF": [
 "303f02b33e"
 ],
 "SPEC_EFFECT_BAD_NONE_TT": [
 "9ca5273438",
-"2a4a18092c"
+"2a4a18092c",
+"c40344ad85"
 ],
 "SPEC_EFFECT_BAD_ON": [
 "4266feed2d"
@@ -792,20 +999,23 @@
 "SPEC_EFFECT_BAD_TT": [
 "52b4bb0e0d",
 "f584597e57",
-"53afaa739e"
+"53afaa739e",
+"8b5d76bbc7"
 ],
 "SPEC_EFFECT_DEBT": [
 "106526c8ae"
 ],
 "SPEC_EFFECT_DEBT_TT": [
-"9acf8baed3"
+"9acf8baed3",
+"41834065a7"
 ],
 "SPEC_EFFECT_EXCH": [
 "db1f221466"
 ],
 "SPEC_EFFECT_EXCH_TT": [
 "0062788f0f",
-"d18c20aa17"
+"d18c20aa17",
+"f7c86a1f5a"
 ],
 "SPEC_EFFECT_GIVEN_TT": [
 "81b21e3d45",
@@ -813,7 +1023,8 @@
 "9e9709ec43",
 "81d8d635f3",
 "55d96f3180",
-"e20a9e4da5"
+"e20a9e4da5",
+"6599e911c2"
 ],
 "SPEC_EFFECT_LAX": [
 "de5070519b"
@@ -821,7 +1032,8 @@
 "SPEC_EFFECT_LAX_TT": [
 "bfea33a4d9",
 "8740520517",
-"8faa60fcbe"
+"8faa60fcbe",
+"0f33b6c0fd"
 ],
 "SPEC_EFFECT_LEV": [
 "f6d322d1c8",
@@ -838,11 +1050,13 @@
 ],
 "SPEC_EXCH_CALC_TT": [
 "b6dfe862bc",
-"770ac5d8a2"
+"770ac5d8a2",
+"1903f02396"
 ],
 "SPEC_EXCH_CARD_NOTE": [
 "f92b1bb484",
-"b2a23f27a9"
+"b2a23f27a9",
+"899df78527"
 ],
 "SPEC_EXCH_CARD_N_1": [
 "4e9a5c7456",
@@ -856,19 +1070,23 @@
 ],
 "SPEC_EXCH_CARD_TT_1": [
 "f45b0dc19b",
-"357307c63e"
+"357307c63e",
+"ce037e65bf"
 ],
 "SPEC_EXCH_CARD_TT_2": [
-"1d9c43b9e5"
+"1d9c43b9e5",
+"7276292c70"
 ],
 "SPEC_EXCH_CARD_TT_3": [
-"bd4cf88e8a"
+"bd4cf88e8a",
+"3ae092afe0"
 ],
 "SPEC_EXCH_FX_CREDIT": [
 "3af5ccfe5e"
 ],
 "SPEC_EXCH_FX_CRUNCH": [
-"46789cb697"
+"46789cb697",
+"f1cc5cc52a"
 ],
 "SPEC_EXCH_FX_FLIGHT": [
 "f25a24bec1"
@@ -884,7 +1102,8 @@
 ],
 "SPEC_EXCH_G_TRUST_TT": [
 "b09d7ee630",
-"706c072979"
+"706c072979",
+"d6722fe6bf"
 ],
 "SPEC_EXCH_KNOWN_0": [
 "4e6d327262"
@@ -901,7 +1120,8 @@
 "SPEC_EXCH_LIMIT_OFF": [
 "a6a7963784",
 "a449ca44da",
-"45dbcaf044"
+"45dbcaf044",
+"763d29079b"
 ],
 "SPEC_EXCH_LIMIT_ON": [
 "41f75d7d5e",
@@ -917,8 +1137,15 @@
 "SPEC_EXCH_LOST_floor": [
 "be3ba5529a"
 ],
+"SPEC_EXCH_LOST_futures": [
+"048527b4a0"
+],
 "SPEC_EXCH_LOST_harbour": [
-"e60612f7cb"
+"e60612f7cb",
+"1e59647e16"
+],
+"SPEC_EXCH_LOST_lender": [
+"1fa65f71ac"
 ],
 "SPEC_EXCH_LOST_pockets": [
 "1aa6f854b6"
@@ -926,20 +1153,30 @@
 "SPEC_EXCH_LOST_price": [
 "d26de71dff"
 ],
+"SPEC_EXCH_LOST_railway": [
+"02bae5312a"
+],
 "SPEC_EXCH_LOST_sound": [
 "2c7b895804"
 ],
 "SPEC_EXCH_NEXT_0": [
-"6e11b5cc61"
+"6e11b5cc61",
+"73dcbc4fbc"
 ],
 "SPEC_EXCH_NEXT_1": [
-"f92a6a9066"
+"f92a6a9066",
+"e6404c40af"
 ],
 "SPEC_EXCH_NEXT_2": [
-"86bc1c2226"
+"86bc1c2226",
+"c2a7061e81"
 ],
 "SPEC_EXCH_NEXT_3": [
-"ab3e430850"
+"ab3e430850",
+"8e19dc389c"
+],
+"SPEC_EXCH_SCORE_LBL": [
+"092045b26c"
 ],
 "SPEC_EXCH_SCORE_LINE": [
 "4fa5d3d5c0"
@@ -964,42 +1201,65 @@
 ],
 "SPEC_EXCH_TIER_TT_1": [
 "03333ef3b0",
-"114f428201"
+"114f428201",
+"76d23781e9"
 ],
 "SPEC_EXCH_TIER_TT_2": [
 "c24a0011fb",
-"8a4869aacc"
+"8a4869aacc",
+"3df3bf75bf"
 ],
 "SPEC_EXCH_TIER_TT_3": [
 "759906bd2c",
-"0f6488d5ad"
+"0f6488d5ad",
+"352176bf63"
 ],
 "SPEC_EXCH_TRUST_HEAD": [
 "8fdf8a670a"
 ],
 "SPEC_EXCH_TRUST_LV_0": [
-"3ffbc35af2"
+"3ffbc35af2",
+"6031ad4826"
 ],
 "SPEC_EXCH_TRUST_LV_1": [
-"d6f51fc897"
+"d6f51fc897",
+"cdf7ce3915"
 ],
 "SPEC_EXCH_TRUST_LV_2": [
-"a572793c6d"
+"a572793c6d",
+"0c1830bc1a"
 ],
 "SPEC_EXCH_TRUST_LV_3": [
-"c0405d71f2"
+"c0405d71f2",
+"e0f4dd7a19"
+],
+"SPEC_EXCH_TRUST_LV_DIM_0": [
+"05461c3673"
+],
+"SPEC_EXCH_TRUST_LV_DIM_1": [
+"ac4f3eaa06"
+],
+"SPEC_EXCH_TRUST_LV_DIM_2": [
+"1b7fe95cf3"
+],
+"SPEC_EXCH_TRUST_LV_DIM_3": [
+"537d2d9890"
 ],
 "SPEC_EXCH_TRUST_LV_TT_0": [
-"fb93356577"
+"fb93356577",
+"e2a044699c"
 ],
 "SPEC_EXCH_TRUST_LV_TT_1": [
-"ee1aee0cf3"
+"ee1aee0cf3",
+"9958d02d2e"
 ],
 "SPEC_EXCH_TRUST_LV_TT_2": [
-"949eda5167"
+"949eda5167",
+"34b338cea6"
 ],
 "SPEC_EXCH_TRUST_LV_TT_3": [
-"9829808f00"
+"9829808f00",
+"79e7061001"
 ],
 "SPEC_EXCH_W_0": [
 "ac88b0ef66"
@@ -1036,28 +1296,34 @@
 "9fc07ccaf5"
 ],
 "SPEC_FIN_TAB_EXCHANGE": [
-"992374d8e2"
+"992374d8e2",
+"67156f5ec9"
 ],
 "SPEC_FIN_TAB_EXCHANGE_TT": [
 "5ed0bbd384",
-"c59efc5f9d"
+"c59efc5f9d",
+"e09ca9dddf"
 ],
 "SPEC_FIN_TAB_WORLD": [
-"0d937858a2"
+"0d937858a2",
+"de10cac641"
 ],
 "SPEC_FIN_TAB_WORLD_TT": [
 "6ecf8543ae",
-"937111ca1c"
+"937111ca1c",
+"417ca41a0c"
 ],
 "SPEC_FOREIGN_FLIGHT": [
 "5a0a24e7cf"
 ],
 "SPEC_FOREIGN_HIT": [
 "3c94716ee1",
-"2d15e9e196"
+"2d15e9e196",
+"eb0927b59c"
 ],
 "SPEC_FOREIGN_UNSTD": [
-"cde6fd6e3c"
+"cde6fd6e3c",
+"0eeb42d1f5"
 ],
 "SPEC_GAUGE_CHANGE": [
 "cb91cddf40"
@@ -1167,6 +1433,9 @@
 "SPEC_GAUGE_ROW_RESTRAIN": [
 "228b9afd06"
 ],
+"SPEC_GAUGE_ROW_RIVAL": [
+"3ecd7db822"
+],
 "SPEC_GAUGE_ROW_TIGHT": [
 "e3cbce8d5d"
 ],
@@ -1190,7 +1459,8 @@
 ],
 "SPEC_HISTORY_TT": [
 "6e484c679b",
-"964518733c"
+"964518733c",
+"8ddfd9e333"
 ],
 "SPEC_HIST_10_ON": [
 "e65a4e55b5"
@@ -1309,7 +1579,8 @@
 "SPEC_H_BANK_LENT_TT": [
 "932d0e544c",
 "5dce84a969",
-"623090681d"
+"623090681d",
+"8e7608f37f"
 ],
 "SPEC_H_CENTRES": [
 "fb4ffbe665",
@@ -1321,19 +1592,25 @@
 ],
 "SPEC_H_CHARTER_TT": [
 "781e5dc490",
-"62f6379ba0"
+"62f6379ba0",
+"83b1a23547"
 ],
 "SPEC_H_COMPANIES": [
 "edefbda3a2"
 ],
+"SPEC_H_COMPANIES_RIGHT_TT": [
+"a3e0fc569c"
+],
 "SPEC_H_COMPANIES_TT": [
-"d6e00572b6"
+"d6e00572b6",
+"bf46432619"
 ],
 "SPEC_H_CONTEST": [
 "3676a5525f"
 ],
 "SPEC_H_CONTEST_TT": [
-"e26f6f265c"
+"e26f6f265c",
+"aa247392d0"
 ],
 "SPEC_H_CREDIT_HISTORY": [
 "d52746e9ce",
@@ -1345,7 +1622,8 @@
 "SPEC_H_CREDIT_HISTORY_TT": [
 "88bc5abc59",
 "90d8e7950e",
-"86300d8a58"
+"86300d8a58",
+"b2ac548108"
 ],
 "SPEC_H_GOODS": [
 "a7e91a0465"
@@ -1355,7 +1633,8 @@
 ],
 "SPEC_H_KNOWN_TT": [
 "a379c10240",
-"ff68ff266a"
+"ff68ff266a",
+"78f3b988b4"
 ],
 "SPEC_H_LEDGER": [
 "1af8a6d9c1"
@@ -1374,7 +1653,8 @@
 ],
 "SPEC_H_POLICY_TT": [
 "946b587ed2",
-"1fd8ba04d2"
+"1fd8ba04d2",
+"c4380bdf65"
 ],
 "SPEC_H_RESCUE": [
 "4eacb65e3b"
@@ -1385,65 +1665,79 @@
 ],
 "SPEC_H_RIVAL": [
 "eea9d021db",
-"8a4f34ecb0"
+"8a4f34ecb0",
+"1bdedea8c6"
 ],
 "SPEC_H_RIVAL_TT": [
 "caef17214e",
-"f476b153b6"
+"f476b153b6",
+"90d77adeac"
 ],
 "SPEC_IB_HEAT_TT": [
 "ff59c791e8"
 ],
 "SPEC_IB_TURNING_TT": [
-"b726f5a556"
+"b726f5a556",
+"31192176df"
 ],
 "SPEC_IL_COL_GOODS": [
 "9b2cfa29e7"
 ],
 "SPEC_IL_CRASHED_TT": [
-"4fde4de203"
+"4fde4de203",
+"72a65ededc"
 ],
 "SPEC_IL_DANGER_TT": [
-"28a330914d"
+"28a330914d",
+"abc44e1670"
 ],
 "SPEC_IL_EMPTY_FILTERS": [
-"56df5cdee0"
+"56df5cdee0",
+"2e9d0dd5bd"
 ],
 "SPEC_IL_EMPTY_LEVERS": [
 "caf15187ef"
 ],
 "SPEC_IL_GLUT_TT": [
-"03f8551949"
+"03f8551949",
+"f5ae3c245e"
 ],
 "SPEC_IL_ISSUE_FILTER": [
 "76831f2b73"
 ],
 "SPEC_IL_LEVEL_1_TT": [
 "e0196f6e1b",
-"6e1384fbc5"
+"6e1384fbc5",
+"a55e340490"
 ],
 "SPEC_IL_LEVEL_2_TT": [
 "7e1c423428",
-"795de0219b"
+"795de0219b",
+"fbbe0b4eb7"
 ],
 "SPEC_IL_LEVEL_3_TT": [
 "bce3af0444",
-"95d5e276cb"
+"95d5e276cb",
+"2c18b59912"
 ],
 "SPEC_IL_LEVEL_4_TT": [
 "59804329ea",
-"297611fd0c"
+"297611fd0c",
+"544329e117"
 ],
 "SPEC_IL_LEVEL_5_TT": [
 "797151bbf9",
-"a9fc655b00"
+"a9fc655b00",
+"d65f57c37a"
 ],
 "SPEC_IL_LEVEL_6_TT": [
 "15682a8d03",
-"593e69efbb"
+"593e69efbb",
+"9b4745073e"
 ],
 "SPEC_IL_LEVEL_CURRENT": [
-"d82312f089"
+"d82312f089",
+"91f02784cc"
 ],
 "SPEC_IL_MONTHS_1": [
 "d8c3fa7152"
@@ -1455,15 +1749,18 @@
 "d8c3fa7152"
 ],
 "SPEC_IL_SORT_GOODS_TT": [
-"9e66c6a43d"
+"9e66c6a43d",
+"83ded54202"
 ],
 "SPEC_IL_SORT_INTEREST_TT": [
 "c5c51b2232",
 "4d55324afa",
-"9a31a24702"
+"9a31a24702",
+"3316943e6a"
 ],
 "SPEC_IL_SORT_LEVER_BASE_TT": [
-"ad046d4f50"
+"ad046d4f50",
+"c05d02a98d"
 ],
 "SPEC_IL_SORT_LEVER_TT": [
 "7123ddfac3",
@@ -1560,7 +1857,8 @@
 "43675bc979"
 ],
 "SPEC_ITEM_WAR_MORE": [
-"b7be1cef75"
+"b7be1cef75",
+"cf0df1608c"
 ],
 "SPEC_ITEM_WR_1": [
 "eb459e2584"
@@ -1572,22 +1870,28 @@
 "eb459e2584"
 ],
 "SPEC_IW_LVL_1_TT": [
-"28a6891ce7"
+"28a6891ce7",
+"63430e0e66"
 ],
 "SPEC_IW_LVL_2_TT": [
-"eeb2be2e02"
+"eeb2be2e02",
+"b7c1a2198c"
 ],
 "SPEC_IW_LVL_3_TT": [
-"27d5160117"
+"27d5160117",
+"4dc60b05e7"
 ],
 "SPEC_IW_LVL_4_TT": [
-"4d49c6c22b"
+"4d49c6c22b",
+"86626dd5f1"
 ],
 "SPEC_IW_LVL_5_TT": [
-"b3ab9f2b6e"
+"b3ab9f2b6e",
+"ccafa44d5c"
 ],
 "SPEC_IW_LVL_6_TT": [
-"ee82dd90e3"
+"ee82dd90e3",
+"a3b87a4f75"
 ],
 "SPEC_IW_NONE": [
 "472225c863",
@@ -1608,39 +1912,85 @@
 "SPEC_JE_CREDIT_TIGHT": [
 "e2c2138e58"
 ],
+"SPEC_JE_EXCH_ON": [
+"6f6df5a662"
+],
+"SPEC_JE_EXCH_TT": [
+"8d0deedba3"
+],
+"SPEC_JE_FAVOURED": [
+"220d9a90d5"
+],
+"SPEC_JE_FAVOURED_TT": [
+"0723312641"
+],
 "SPEC_JE_INQUIRY_HINT": [
 "00f09b95d2"
 ],
 "SPEC_JE_INST_COMPANY": [
-"bbf14baf3a"
+"bbf14baf3a",
+"4973c8bdd7"
 ],
 "SPEC_JE_INST_CURRENCY": [
-"74fdfba498"
+"74fdfba498",
+"ce41cc87fc"
 ],
 "SPEC_JE_INST_FREE": [
-"0f71c6cb07"
+"0f71c6cb07",
+"3ba80d5779"
 ],
 "SPEC_JE_INST_LLR": [
 "3422ce5801",
 "ed41c010bf",
-"c517da0d5a"
+"c517da0d5a",
+"6325730c6a"
 ],
 "SPEC_JE_INST_NONE": [
 "f0cb0fabf7"
 ],
+"SPEC_JE_NEWS_0": [
+"0ff44c8e76"
+],
+"SPEC_JE_NEWS_1": [
+"5d31cf9e13"
+],
+"SPEC_JE_NEWS_2": [
+"b90416df55"
+],
+"SPEC_JE_NEWS_3": [
+"6884e4f5f9"
+],
+"SPEC_JE_NEWS_4": [
+"35f3072dea"
+],
+"SPEC_JE_NEWS_5": [
+"e59260b4e7"
+],
+"SPEC_JE_NEWS_6": [
+"cffc45e57b"
+],
+"SPEC_JE_SHUNNED": [
+"5345bcbfc0"
+],
+"SPEC_JE_SHUNNED_TT": [
+"a386950ee9"
+],
 "SPEC_JE_STAGE_0": [
-"a36df613d2"
+"a36df613d2",
+"05e5d1a6a5"
 ],
 "SPEC_JE_STAGE_1": [
 "487321358c"
 ],
 "SPEC_JE_STAGE_2": [
 "4b54e2b2ab",
-"a75142f638"
+"a75142f638",
+"35e62bbbff"
 ],
 "SPEC_JE_STAGE_3": [
 "3aa3a00e01",
-"01eee5533d"
+"01eee5533d",
+"7cf6ac2262"
 ],
 "SPEC_JE_STAGE_4": [
 "0b76e6e932",
@@ -1649,14 +1999,34 @@
 "SPEC_JE_STAGE_5": [
 "c3c749516f",
 "0cac9a0b0f",
-"7a7b2b4514"
+"7a7b2b4514",
+"04e10dac23"
 ],
 "SPEC_JE_STAGE_6": [
 "ade6a0cfb8",
-"d49930a4dc"
+"d49930a4dc",
+"8664e3f6d0"
 ],
 "SPEC_JE_SUSPEND_HINT": [
 "7eb2b68685"
+],
+"SPEC_LAXL_0_TT": [
+"cfb69c0cc7"
+],
+"SPEC_LAXL_1_TT": [
+"fbbd41bc6f"
+],
+"SPEC_LAXL_2_TT": [
+"83d2a7ec54"
+],
+"SPEC_LAXL_3_TT": [
+"f1b96131ce"
+],
+"SPEC_LAXL_4_TT": [
+"936f43a422"
+],
+"SPEC_LAXL_HERE": [
+"050bc7a23f"
 ],
 "SPEC_LAXW_0": [
 "2e979835dd"
@@ -1753,28 +2123,34 @@
 ],
 "SPEC_LEVERS_TT": [
 "8a1b6b72b0",
-"76415f0585"
+"76415f0585",
+"175dd70f0a"
 ],
 "SPEC_LEVER_ENCOURAGE_TT": [
 "0198603996",
-"6bcb3ba505"
+"6bcb3ba505",
+"af6b666455"
 ],
 "SPEC_LEVER_ISSUE_TT": [
 "3fe761449f",
-"5eb7072520"
+"5eb7072520",
+"4f6c930a26"
 ],
 "SPEC_LEVER_LIFT": [
 "56da218c7a"
 ],
 "SPEC_LEVER_RESTRAIN_TT": [
 "a2654484a5",
-"be131d0f70"
+"be131d0f70",
+"fedd687912"
 ],
 "SPEC_LEVER_TP_DOWN": [
-"0b2d438a4d"
+"0b2d438a4d",
+"0b2a18fdca"
 ],
 "SPEC_LEVER_TP_UP": [
-"b268dcc98a"
+"b268dcc98a",
+"dbace4255c"
 ],
 "SPEC_LEV_ADVICE_DANGER": [
 "c500c89bce",
@@ -1822,14 +2198,17 @@
 ],
 "SPEC_LEV_MAIN_TT": [
 "cbc58a6b68",
-"1ccd507438"
+"1ccd507438",
+"50a6f2cdb1"
 ],
 "SPEC_LEV_MONTHS_TT": [
-"bc99612baf"
+"bc99612baf",
+"364d422dba"
 ],
 "SPEC_LEV_RELIEF": [
 "3adf5cdd86",
-"30cd486b87"
+"30cd486b87",
+"ae24824618"
 ],
 "SPEC_LEV_SAFE": [
 "d8c3fa7152"
@@ -1993,21 +2372,24 @@
 "9a52a04f0b"
 ],
 "SPEC_LHIST_PANIC_12_TT": [
-"89e4c4f249"
+"89e4c4f249",
+"3bf14c16b0"
 ],
 "SPEC_LHIST_PANIC_3": [
 "3f7ea0fd81",
 "9a52a04f0b"
 ],
 "SPEC_LHIST_PANIC_3_TT": [
-"89e4c4f249"
+"89e4c4f249",
+"3bf14c16b0"
 ],
 "SPEC_LHIST_PANIC_8": [
 "3f7ea0fd81",
 "9a52a04f0b"
 ],
 "SPEC_LHIST_PANIC_8_TT": [
-"89e4c4f249"
+"89e4c4f249",
+"3bf14c16b0"
 ],
 "SPEC_MAP_STAGE_0": [
 "c9a89cc8c5"
@@ -2032,75 +2414,304 @@
 ],
 "SPEC_NAME_BAR_RULE": [
 "b109ae27e4",
-"43a29cfe68"
+"43a29cfe68",
+"9cd9a446f8"
 ],
 "SPEC_NAME_BAR_TT_companies": [
-"941198ac10"
+"941198ac10",
+"38f81b9997"
 ],
 "SPEC_NAME_BAR_TT_door": [
-"9b5b7288dc"
+"9b5b7288dc",
+"27a3eba2f0"
 ],
 "SPEC_NAME_BAR_TT_floor": [
-"1cae23cca7"
+"1cae23cca7",
+"5e38025fca"
+],
+"SPEC_NAME_BAR_TT_futures": [
+"743587f3fd"
 ],
 "SPEC_NAME_BAR_TT_harbour": [
-"939b1cf351"
+"939b1cf351",
+"ab2688c1f5"
+],
+"SPEC_NAME_BAR_TT_lender": [
+"bd938c36c9"
 ],
 "SPEC_NAME_BAR_TT_pockets": [
-"407fb6d16d"
+"407fb6d16d",
+"ec2878c516"
 ],
 "SPEC_NAME_BAR_TT_price": [
-"db31e28291"
+"db31e28291",
+"d8ecfefa97"
+],
+"SPEC_NAME_BAR_TT_railway": [
+"ab3af250c1"
 ],
 "SPEC_NAME_BAR_TT_sound": [
-"2ed331e3de"
+"2ed331e3de",
+"55fe912aba"
 ],
 "SPEC_NAME_CH_companies": [
-"f3af87cc7b"
+"f3af87cc7b",
+"c78fc7fbb9"
 ],
 "SPEC_NAME_CH_door": [
-"f3af87cc7b"
+"f3af87cc7b",
+"c78fc7fbb9"
 ],
 "SPEC_NAME_CH_floor": [
-"f3af87cc7b"
+"f3af87cc7b",
+"c78fc7fbb9"
+],
+"SPEC_NAME_CH_futures": [
+"c78fc7fbb9"
 ],
 "SPEC_NAME_CH_harbour": [
-"f3af87cc7b"
+"f3af87cc7b",
+"c78fc7fbb9"
+],
+"SPEC_NAME_CH_lender": [
+"c78fc7fbb9"
 ],
 "SPEC_NAME_CH_pockets": [
-"f3af87cc7b"
+"f3af87cc7b",
+"c78fc7fbb9"
 ],
 "SPEC_NAME_CH_price": [
-"f3af87cc7b"
+"f3af87cc7b",
+"c78fc7fbb9"
+],
+"SPEC_NAME_CH_railway": [
+"c78fc7fbb9"
 ],
 "SPEC_NAME_CH_sound": [
-"f3af87cc7b"
+"f3af87cc7b",
+"c78fc7fbb9"
 ],
 "SPEC_NAME_DOWN": [
 "b83c4b46fb"
 ],
+"SPEC_NAME_FLAG_TT_companies1": [
+"71a3024712"
+],
+"SPEC_NAME_FLAG_TT_companies2": [
+"55f8b3e733"
+],
+"SPEC_NAME_FLAG_TT_companies3": [
+"f44985944d"
+],
+"SPEC_NAME_FLAG_TT_door1": [
+"a5b070a55c"
+],
+"SPEC_NAME_FLAG_TT_door2": [
+"c2810d41c0"
+],
+"SPEC_NAME_FLAG_TT_door3": [
+"2e660497dc"
+],
+"SPEC_NAME_FLAG_TT_floor1": [
+"3061534cbc"
+],
+"SPEC_NAME_FLAG_TT_floor2": [
+"ff3f848f4b"
+],
+"SPEC_NAME_FLAG_TT_floor3": [
+"7670cc8393"
+],
+"SPEC_NAME_FLAG_TT_futures1": [
+"f501b26d0e"
+],
+"SPEC_NAME_FLAG_TT_futures2": [
+"f3590e5fac"
+],
+"SPEC_NAME_FLAG_TT_futures3": [
+"75520b6553"
+],
+"SPEC_NAME_FLAG_TT_harbour1": [
+"31b08f52ca"
+],
+"SPEC_NAME_FLAG_TT_harbour2": [
+"ea762f13ad"
+],
+"SPEC_NAME_FLAG_TT_harbour3": [
+"91eb4f95ef"
+],
+"SPEC_NAME_FLAG_TT_lender1": [
+"9565d772dc"
+],
+"SPEC_NAME_FLAG_TT_lender2": [
+"9f60da4a8c"
+],
+"SPEC_NAME_FLAG_TT_lender3": [
+"2ded9f9951"
+],
+"SPEC_NAME_FLAG_TT_pockets1": [
+"aaf6e1318f"
+],
+"SPEC_NAME_FLAG_TT_pockets2": [
+"8755263b78"
+],
+"SPEC_NAME_FLAG_TT_pockets3": [
+"76d9a996c0"
+],
+"SPEC_NAME_FLAG_TT_price1": [
+"c76a892a3e"
+],
+"SPEC_NAME_FLAG_TT_price2": [
+"1e4ab66f15"
+],
+"SPEC_NAME_FLAG_TT_price3": [
+"593fc5520e"
+],
+"SPEC_NAME_FLAG_TT_railway1": [
+"51edb41b52"
+],
+"SPEC_NAME_FLAG_TT_railway2": [
+"63a98d794d"
+],
+"SPEC_NAME_FLAG_TT_railway3": [
+"9b6f341415"
+],
+"SPEC_NAME_FLAG_TT_sound1": [
+"a77d2ed6f4"
+],
+"SPEC_NAME_FLAG_TT_sound2": [
+"2eb7c32ede"
+],
+"SPEC_NAME_FLAG_TT_sound3": [
+"1b5463f19f"
+],
+"SPEC_NAME_FW_companies1": [
+"f39acce74e"
+],
+"SPEC_NAME_FW_companies2": [
+"f39acce74e"
+],
+"SPEC_NAME_FW_companies3": [
+"f39acce74e"
+],
+"SPEC_NAME_FW_door1": [
+"5e9189fccc"
+],
+"SPEC_NAME_FW_door2": [
+"5e9189fccc"
+],
+"SPEC_NAME_FW_door3": [
+"5e9189fccc"
+],
+"SPEC_NAME_FW_floor1": [
+"89f54d35a3"
+],
+"SPEC_NAME_FW_floor2": [
+"89f54d35a3"
+],
+"SPEC_NAME_FW_floor3": [
+"89f54d35a3"
+],
+"SPEC_NAME_FW_futures1": [
+"9dca2fc9e6"
+],
+"SPEC_NAME_FW_futures2": [
+"9dca2fc9e6"
+],
+"SPEC_NAME_FW_futures3": [
+"9dca2fc9e6"
+],
+"SPEC_NAME_FW_harbour1": [
+"273860f57f"
+],
+"SPEC_NAME_FW_harbour2": [
+"273860f57f"
+],
+"SPEC_NAME_FW_harbour3": [
+"273860f57f"
+],
+"SPEC_NAME_FW_lender1": [
+"317eab7b0d"
+],
+"SPEC_NAME_FW_lender2": [
+"317eab7b0d"
+],
+"SPEC_NAME_FW_lender3": [
+"317eab7b0d"
+],
+"SPEC_NAME_FW_pockets1": [
+"9e0be2c618"
+],
+"SPEC_NAME_FW_pockets2": [
+"9e0be2c618"
+],
+"SPEC_NAME_FW_pockets3": [
+"9e0be2c618"
+],
+"SPEC_NAME_FW_price1": [
+"31d65aee1a"
+],
+"SPEC_NAME_FW_price2": [
+"31d65aee1a"
+],
+"SPEC_NAME_FW_price3": [
+"31d65aee1a"
+],
+"SPEC_NAME_FW_railway1": [
+"89f54d35a3"
+],
+"SPEC_NAME_FW_railway2": [
+"89f54d35a3"
+],
+"SPEC_NAME_FW_railway3": [
+"89f54d35a3"
+],
+"SPEC_NAME_FW_sound1": [
+"bc1790ca9c"
+],
+"SPEC_NAME_FW_sound2": [
+"bc1790ca9c"
+],
+"SPEC_NAME_FW_sound3": [
+"bc1790ca9c"
+],
 "SPEC_NAME_FX_companies": [
-"f8641942e8"
+"f8641942e8",
+"a663d60700"
 ],
 "SPEC_NAME_FX_door": [
-"de1a86d4a3"
+"de1a86d4a3",
+"01b2ee79e0"
 ],
 "SPEC_NAME_FX_floor": [
 "9a6974c721",
-"e96afe6f9e"
+"e96afe6f9e",
+"2c5a6dfc3f"
+],
+"SPEC_NAME_FX_futures": [
+"549a4eec99"
 ],
 "SPEC_NAME_FX_harbour": [
-"de1a86d4a3"
+"de1a86d4a3",
+"2ff20ef497"
+],
+"SPEC_NAME_FX_lender": [
+"53becbebcf"
 ],
 "SPEC_NAME_FX_pockets": [
-"2f80d8a7aa"
+"2f80d8a7aa",
+"6533170aec"
 ],
 "SPEC_NAME_FX_price": [
 "9a6974c721",
-"e96afe6f9e"
+"e96afe6f9e",
+"c89167aa6a"
+],
+"SPEC_NAME_FX_railway": [
+"8f5f0dabcc"
 ],
 "SPEC_NAME_FX_sound": [
-"e4f86cd2aa"
+"e4f86cd2aa",
+"4b9841851b"
 ],
 "SPEC_NAME_H_companies": [
 "e98594cae8"
@@ -2111,14 +2722,24 @@
 "SPEC_NAME_H_floor": [
 "8ee0ca0bfa"
 ],
+"SPEC_NAME_H_futures": [
+"2311515b06"
+],
 "SPEC_NAME_H_harbour": [
-"b90fb9ff70"
+"b90fb9ff70",
+"36e30dbb58"
+],
+"SPEC_NAME_H_lender": [
+"f645e41806"
 ],
 "SPEC_NAME_H_pockets": [
 "b95417cd2b"
 ],
 "SPEC_NAME_H_price": [
 "ea7503571c"
+],
+"SPEC_NAME_H_railway": [
+"b2a692b007"
 ],
 "SPEC_NAME_H_sound": [
 "1e85b244e2"
@@ -2209,6 +2830,15 @@
 "SPEC_NAME_MORE3_sound": [
 "259b79bb80"
 ],
+"SPEC_NAME_NEEDS_1": [
+"f9063684bd"
+],
+"SPEC_NAME_NEEDS_2": [
+"04afaae0aa"
+],
+"SPEC_NAME_NEEDS_3": [
+"48ca1e710c"
+],
 "SPEC_NAME_NEED_1": [
 "398c5de2d2"
 ],
@@ -2221,123 +2851,208 @@
 "SPEC_NAME_NOLEAD": [
 "612fcea3a1"
 ],
+"SPEC_NAME_NOONE": [
+"891750a852"
+],
 "SPEC_NAME_P1_companies": [
-"740f666bb6"
+"740f666bb6",
+"5d7c249a58"
 ],
 "SPEC_NAME_P1_door": [
-"740f666bb6"
+"740f666bb6",
+"edaebfb049"
 ],
 "SPEC_NAME_P1_floor": [
-"740f666bb6"
+"740f666bb6",
+"4f86bcd46f"
+],
+"SPEC_NAME_P1_futures": [
+"2f54a0276b"
 ],
 "SPEC_NAME_P1_harbour": [
-"740f666bb6"
+"740f666bb6",
+"a3a0fe74c5"
+],
+"SPEC_NAME_P1_lender": [
+"ab08dcf24f"
 ],
 "SPEC_NAME_P1_pockets": [
-"e0abab4f88"
+"e0abab4f88",
+"3dd40e5929"
 ],
 "SPEC_NAME_P1_price": [
-"e0abab4f88"
+"e0abab4f88",
+"69f0dba691"
+],
+"SPEC_NAME_P1_railway": [
+"4f86bcd46f"
 ],
 "SPEC_NAME_P1_sound": [
-"740f666bb6"
+"740f666bb6",
+"ac8d1f523f"
 ],
 "SPEC_NAME_P2_companies": [
-"08a0ea0f14"
+"08a0ea0f14",
+"824c7fbb50"
 ],
 "SPEC_NAME_P2_door": [
-"08a0ea0f14"
+"08a0ea0f14",
+"51bc9d01de"
 ],
 "SPEC_NAME_P2_floor": [
-"08a0ea0f14"
+"08a0ea0f14",
+"7a4244dae5"
+],
+"SPEC_NAME_P2_futures": [
+"0b9cb8f8e3"
 ],
 "SPEC_NAME_P2_harbour": [
-"08a0ea0f14"
+"08a0ea0f14",
+"acc74dc8e2"
+],
+"SPEC_NAME_P2_lender": [
+"0973e2ecb7"
 ],
 "SPEC_NAME_P2_pockets": [
-"e1555d9ba8"
+"e1555d9ba8",
+"7d4703dffb"
 ],
 "SPEC_NAME_P2_price": [
-"e1555d9ba8"
+"e1555d9ba8",
+"b66df33f03"
+],
+"SPEC_NAME_P2_railway": [
+"7a4244dae5"
 ],
 "SPEC_NAME_P2_sound": [
-"08a0ea0f14"
+"08a0ea0f14",
+"c452b6ffb9"
 ],
 "SPEC_NAME_P3_companies": [
-"840780a5d1"
+"840780a5d1",
+"c1da336abd"
 ],
 "SPEC_NAME_P3_door": [
-"840780a5d1"
+"840780a5d1",
+"333683ff9b"
 ],
 "SPEC_NAME_P3_floor": [
-"840780a5d1"
+"840780a5d1",
+"0b4916c0b2"
+],
+"SPEC_NAME_P3_futures": [
+"1b59c03efa"
 ],
 "SPEC_NAME_P3_harbour": [
-"840780a5d1"
+"840780a5d1",
+"0846a0bf8a"
+],
+"SPEC_NAME_P3_lender": [
+"010334e432"
 ],
 "SPEC_NAME_P3_pockets": [
-"9813d57aeb"
+"9813d57aeb",
+"c3ffe6718b"
 ],
 "SPEC_NAME_P3_price": [
-"9813d57aeb"
+"9813d57aeb",
+"6f980e61a4"
+],
+"SPEC_NAME_P3_railway": [
+"0b4916c0b2"
 ],
 "SPEC_NAME_P3_sound": [
-"840780a5d1"
+"840780a5d1",
+"141708c274"
 ],
 "SPEC_NAME_PLACES_companies": [
-"62dc2660a6"
+"62dc2660a6",
+"57a71f324e"
 ],
 "SPEC_NAME_PLACES_door": [
-"62dc2660a6"
+"62dc2660a6",
+"ee858d2203"
 ],
 "SPEC_NAME_PLACES_floor": [
-"62dc2660a6"
+"62dc2660a6",
+"ee96e0ad9c"
+],
+"SPEC_NAME_PLACES_futures": [
+"2b5e7d8bd9"
 ],
 "SPEC_NAME_PLACES_harbour": [
-"62dc2660a6"
+"62dc2660a6",
+"63fc2679e7"
+],
+"SPEC_NAME_PLACES_lender": [
+"f1af4da9ac"
 ],
 "SPEC_NAME_PLACES_pockets": [
-"7034091f92"
+"7034091f92",
+"7259a2afb9"
 ],
 "SPEC_NAME_PLACES_price": [
-"7034091f92"
+"7034091f92",
+"f787f8bfa0"
+],
+"SPEC_NAME_PLACES_railway": [
+"ee96e0ad9c"
 ],
 "SPEC_NAME_PLACES_sound": [
-"62dc2660a6"
+"62dc2660a6",
+"aed9223070"
 ],
 "SPEC_NAME_PW_DOWN": [
 "804739344e"
 ],
 "SPEC_NAME_PW_TT_companies": [
-"4c5baddfed"
+"4c5baddfed",
+"0dc759d3e5"
 ],
 "SPEC_NAME_PW_TT_door": [
-"4c5baddfed"
+"4c5baddfed",
+"0dc759d3e5"
 ],
 "SPEC_NAME_PW_TT_floor": [
-"4c5baddfed"
+"4c5baddfed",
+"0dc759d3e5"
+],
+"SPEC_NAME_PW_TT_futures": [
+"0dc759d3e5"
 ],
 "SPEC_NAME_PW_TT_harbour": [
-"4c5baddfed"
+"4c5baddfed",
+"0dc759d3e5"
+],
+"SPEC_NAME_PW_TT_lender": [
+"0dc759d3e5"
 ],
 "SPEC_NAME_PW_TT_pockets": [
-"4c5baddfed"
+"4c5baddfed",
+"0dc759d3e5"
 ],
 "SPEC_NAME_PW_TT_price": [
-"4c5baddfed"
+"4c5baddfed",
+"0dc759d3e5"
+],
+"SPEC_NAME_PW_TT_railway": [
+"0dc759d3e5"
 ],
 "SPEC_NAME_PW_TT_sound": [
-"4c5baddfed"
+"4c5baddfed",
+"0dc759d3e5"
 ],
 "SPEC_NAME_PW_UP": [
 "72a745265a"
 ],
 "SPEC_NAME_RULE": [
 "2fcb980a15",
-"6bf725f9b9"
+"6bf725f9b9",
+"2084cf2b89"
 ],
 "SPEC_NAME_TALLY_companies": [
-"c972c73656"
+"c972c73656",
+"4bbbc76474"
 ],
 "SPEC_NAME_TALLY_door": [
 "0c9663bd37"
@@ -2345,8 +3060,14 @@
 "SPEC_NAME_TALLY_floor": [
 "f5aeebefae"
 ],
+"SPEC_NAME_TALLY_futures": [
+"8b6fcbdfa9"
+],
 "SPEC_NAME_TALLY_harbour": [
 "e9cd99cb3d"
+],
+"SPEC_NAME_TALLY_lender": [
+"1eae53d37c"
 ],
 "SPEC_NAME_TALLY_pockets": [
 "424c998b79"
@@ -2354,52 +3075,87 @@
 "SPEC_NAME_TALLY_price": [
 "86c44d6cdf"
 ],
+"SPEC_NAME_TALLY_railway": [
+"a7a75991f4"
+],
 "SPEC_NAME_TALLY_sound": [
 "20225f3670"
 ],
 "SPEC_NAME_THIRD_companies": [
-"972efc6e54"
+"972efc6e54",
+"c6db8bb499"
 ],
 "SPEC_NAME_THIRD_door": [
-"972efc6e54"
+"972efc6e54",
+"e320949174"
 ],
 "SPEC_NAME_THIRD_floor": [
-"972efc6e54"
+"972efc6e54",
+"50edef5418"
+],
+"SPEC_NAME_THIRD_futures": [
+"881e441cfe"
 ],
 "SPEC_NAME_THIRD_harbour": [
-"972efc6e54"
+"972efc6e54",
+"fac14dc875"
+],
+"SPEC_NAME_THIRD_lender": [
+"08b4062ab3"
 ],
 "SPEC_NAME_THIRD_pockets": [
-"53eb8e565e"
+"53eb8e565e",
+"29c72b634f"
 ],
 "SPEC_NAME_THIRD_price": [
-"53eb8e565e"
+"53eb8e565e",
+"382612a4d4"
+],
+"SPEC_NAME_THIRD_railway": [
+"50edef5418"
 ],
 "SPEC_NAME_THIRD_sound": [
-"972efc6e54"
+"972efc6e54",
+"abe6fb2f98"
 ],
 "SPEC_NAME_TT_companies": [
-"32ea58088f"
+"32ea58088f",
+"eebfc4717d"
 ],
 "SPEC_NAME_TT_door": [
-"dd21cbb7f7"
+"dd21cbb7f7",
+"f70e0e67b4"
 ],
 "SPEC_NAME_TT_floor": [
 "ec0f3dbc1b",
-"b3d6a2c8ee"
+"b3d6a2c8ee",
+"4e2f4dd0f7"
+],
+"SPEC_NAME_TT_futures": [
+"e0ddd6a615"
 ],
 "SPEC_NAME_TT_harbour": [
-"fd4d55afcb"
+"fd4d55afcb",
+"63d153e9dd"
+],
+"SPEC_NAME_TT_lender": [
+"266f18b93e"
 ],
 "SPEC_NAME_TT_pockets": [
-"f27be96f8c"
+"f27be96f8c",
+"6b2d515ebb"
 ],
 "SPEC_NAME_TT_price": [
 "a0b7cf0545",
-"f6031ab4ec"
+"f6031ab4ec",
+"0d32bb6a4e"
+],
+"SPEC_NAME_TT_railway": [
+"84474cc122"
 ],
 "SPEC_NAME_TT_sound": [
-"bdd9e4cac7"
+"bdd9e4cac7",
+"5ec660ead3"
 ],
 "SPEC_NAME_UP": [
 "6fb2ef8529"
@@ -2433,10 +3189,12 @@
 "e8dd15a1eb"
 ],
 "SPEC_OPEN_TAB_TT": [
-"c05d1cce36"
+"c05d1cce36",
+"1f81f042c7"
 ],
 "SPEC_PANIC_BAD_DEBTS": [
-"3cafce71a4"
+"3cafce71a4",
+"06616345a7"
 ],
 "SPEC_PANIC_BAR_OFF": [
 "9239b00ab3",
@@ -2460,7 +3218,8 @@
 "SPEC_PANIC_LINE_TT": [
 "09a3819059",
 "4e66b4f23f",
-"ec489b8378"
+"ec489b8378",
+"177630966e"
 ],
 "SPEC_PANIC_LOANS": [
 "71df4b588d"
@@ -2470,13 +3229,18 @@
 ],
 "SPEC_PANIC_NONE_TT": [
 "91b987bf1f",
-"48e2255de9"
+"48e2255de9",
+"7f792c96de"
 ],
 "SPEC_PANIC_NO_LOANS": [
 "89d396ed3d"
 ],
 "SPEC_PANIC_RECOVERY": [
-"56f90339ec"
+"56f90339ec",
+"d1dd8f4083"
+],
+"SPEC_PANIC_RELIEF_NOTE": [
+"576a6a08d5"
 ],
 "SPEC_PANIC_RESCUED_NOTE": [
 "2ab9b45064"
@@ -2500,7 +3264,8 @@
 "SPEC_PLEDGE_MAKE_TT": [
 "61aadaa9f9",
 "44bccb9712",
-"f1827a8e2e"
+"f1827a8e2e",
+"68a378a550"
 ],
 "SPEC_PLEDGE_NONE": [
 "cd294a45ec"
@@ -2514,7 +3279,8 @@
 "SPEC_PLEDGE_OUT_TT": [
 "e288e52271",
 "1b03ce2629",
-"fec1bdb54d"
+"fec1bdb54d",
+"ed3f47442c"
 ],
 "SPEC_PLEDGE_SUB": [
 "b54f68a314",
@@ -2523,7 +3289,8 @@
 ],
 "SPEC_PLEDGE_UNMET": [
 "112a65f450",
-"bb0a0bad3b"
+"bb0a0bad3b",
+"281245f6b1"
 ],
 "SPEC_PLEDGE_WITHDRAW": [
 "402edb8948"
@@ -2551,7 +3318,8 @@
 "97fd475288"
 ],
 "SPEC_PRESSURES_TT": [
-"b453c9c67c"
+"b453c9c67c",
+"947936be0a"
 ],
 "SPEC_PRESSURE_ABROAD": [
 "f9185ded84"
@@ -2577,7 +3345,13 @@
 "SPEC_PURSUE_LEFT_TT_floor": [
 "a0db075fd8"
 ],
+"SPEC_PURSUE_LEFT_TT_futures": [
+"a0db075fd8"
+],
 "SPEC_PURSUE_LEFT_TT_harbour": [
+"a0db075fd8"
+],
+"SPEC_PURSUE_LEFT_TT_lender": [
 "a0db075fd8"
 ],
 "SPEC_PURSUE_LEFT_TT_pockets": [
@@ -2586,50 +3360,309 @@
 "SPEC_PURSUE_LEFT_TT_price": [
 "a0db075fd8"
 ],
+"SPEC_PURSUE_LEFT_TT_railway": [
+"a0db075fd8"
+],
 "SPEC_PURSUE_LEFT_TT_sound": [
 "a0db075fd8"
 ],
 "SPEC_PURSUE_LEFT_companies": [
-"a19943ed5e"
+"a19943ed5e",
+"a53aa9b0d7"
 ],
 "SPEC_PURSUE_LEFT_door": [
-"a19943ed5e"
+"a19943ed5e",
+"a53aa9b0d7"
 ],
 "SPEC_PURSUE_LEFT_floor": [
-"a19943ed5e"
+"a19943ed5e",
+"a53aa9b0d7"
+],
+"SPEC_PURSUE_LEFT_futures": [
+"a53aa9b0d7"
 ],
 "SPEC_PURSUE_LEFT_harbour": [
-"a19943ed5e"
+"a19943ed5e",
+"a53aa9b0d7"
+],
+"SPEC_PURSUE_LEFT_lender": [
+"a53aa9b0d7"
 ],
 "SPEC_PURSUE_LEFT_pockets": [
-"a19943ed5e"
+"a19943ed5e",
+"a53aa9b0d7"
 ],
 "SPEC_PURSUE_LEFT_price": [
-"a19943ed5e"
+"a19943ed5e",
+"a53aa9b0d7"
+],
+"SPEC_PURSUE_LEFT_railway": [
+"a53aa9b0d7"
 ],
 "SPEC_PURSUE_LEFT_sound": [
-"a19943ed5e"
+"a19943ed5e",
+"a53aa9b0d7"
 ],
 "SPEC_PURSUE_LV_companies": [
 "fb2c032273"
 ],
+"SPEC_PURSUE_LV_companies_0": [
+"593c4ec524"
+],
+"SPEC_PURSUE_LV_companies_0_ON": [
+"6e73457961"
+],
+"SPEC_PURSUE_LV_companies_1": [
+"4f11d2ff66"
+],
+"SPEC_PURSUE_LV_companies_1_ON": [
+"686a5579be"
+],
+"SPEC_PURSUE_LV_companies_2": [
+"6f1268d83f"
+],
+"SPEC_PURSUE_LV_companies_2_ON": [
+"5cb4d99614"
+],
+"SPEC_PURSUE_LV_companies_3": [
+"73ee0e7e53"
+],
+"SPEC_PURSUE_LV_companies_3_ON": [
+"dc122f7f33"
+],
 "SPEC_PURSUE_LV_door": [
 "e2352d22a0"
+],
+"SPEC_PURSUE_LV_door_0": [
+"049efd0702"
+],
+"SPEC_PURSUE_LV_door_0_ON": [
+"3586e2e7c5"
+],
+"SPEC_PURSUE_LV_door_1": [
+"b5b1996e82"
+],
+"SPEC_PURSUE_LV_door_1_ON": [
+"cc5a8236d6"
+],
+"SPEC_PURSUE_LV_door_2": [
+"74d12cbec2"
+],
+"SPEC_PURSUE_LV_door_2_ON": [
+"98e02735b5"
+],
+"SPEC_PURSUE_LV_door_3": [
+"d5e77f4707"
+],
+"SPEC_PURSUE_LV_door_3_ON": [
+"a88c0d5e4c"
 ],
 "SPEC_PURSUE_LV_floor": [
 "e2352d22a0"
 ],
+"SPEC_PURSUE_LV_floor_0": [
+"593c4ec524"
+],
+"SPEC_PURSUE_LV_floor_0_ON": [
+"6e73457961"
+],
+"SPEC_PURSUE_LV_floor_1": [
+"4f11d2ff66"
+],
+"SPEC_PURSUE_LV_floor_1_ON": [
+"686a5579be"
+],
+"SPEC_PURSUE_LV_floor_2": [
+"6f1268d83f"
+],
+"SPEC_PURSUE_LV_floor_2_ON": [
+"5cb4d99614"
+],
+"SPEC_PURSUE_LV_floor_3": [
+"9acbc29ce5"
+],
+"SPEC_PURSUE_LV_floor_3_ON": [
+"3eea33ee8c"
+],
+"SPEC_PURSUE_LV_futures_0": [
+"593c4ec524"
+],
+"SPEC_PURSUE_LV_futures_0_ON": [
+"6e73457961"
+],
+"SPEC_PURSUE_LV_futures_1": [
+"4f11d2ff66"
+],
+"SPEC_PURSUE_LV_futures_1_ON": [
+"686a5579be"
+],
+"SPEC_PURSUE_LV_futures_2": [
+"6f1268d83f"
+],
+"SPEC_PURSUE_LV_futures_2_ON": [
+"5cb4d99614"
+],
+"SPEC_PURSUE_LV_futures_3": [
+"9acbc29ce5"
+],
+"SPEC_PURSUE_LV_futures_3_ON": [
+"3eea33ee8c"
+],
 "SPEC_PURSUE_LV_harbour": [
 "fb2c032273"
+],
+"SPEC_PURSUE_LV_harbour_0": [
+"049efd0702"
+],
+"SPEC_PURSUE_LV_harbour_0_ON": [
+"3586e2e7c5"
+],
+"SPEC_PURSUE_LV_harbour_1": [
+"b5b1996e82"
+],
+"SPEC_PURSUE_LV_harbour_1_ON": [
+"cc5a8236d6"
+],
+"SPEC_PURSUE_LV_harbour_2": [
+"74d12cbec2"
+],
+"SPEC_PURSUE_LV_harbour_2_ON": [
+"98e02735b5"
+],
+"SPEC_PURSUE_LV_harbour_3": [
+"ffbded90e4"
+],
+"SPEC_PURSUE_LV_harbour_3_ON": [
+"5837bd2762"
+],
+"SPEC_PURSUE_LV_lender_0": [
+"049efd0702"
+],
+"SPEC_PURSUE_LV_lender_0_ON": [
+"3586e2e7c5"
+],
+"SPEC_PURSUE_LV_lender_1": [
+"b5b1996e82"
+],
+"SPEC_PURSUE_LV_lender_1_ON": [
+"cc5a8236d6"
+],
+"SPEC_PURSUE_LV_lender_2": [
+"74d12cbec2"
+],
+"SPEC_PURSUE_LV_lender_2_ON": [
+"98e02735b5"
+],
+"SPEC_PURSUE_LV_lender_3": [
+"dde9ee18da"
+],
+"SPEC_PURSUE_LV_lender_3_ON": [
+"fe01587528"
 ],
 "SPEC_PURSUE_LV_pockets": [
 "e2352d22a0"
 ],
+"SPEC_PURSUE_LV_pockets_0": [
+"049efd0702"
+],
+"SPEC_PURSUE_LV_pockets_0_ON": [
+"3586e2e7c5"
+],
+"SPEC_PURSUE_LV_pockets_1": [
+"b5b1996e82"
+],
+"SPEC_PURSUE_LV_pockets_1_ON": [
+"cc5a8236d6"
+],
+"SPEC_PURSUE_LV_pockets_2": [
+"74d12cbec2"
+],
+"SPEC_PURSUE_LV_pockets_2_ON": [
+"98e02735b5"
+],
+"SPEC_PURSUE_LV_pockets_3": [
+"d5e77f4707"
+],
+"SPEC_PURSUE_LV_pockets_3_ON": [
+"a88c0d5e4c"
+],
 "SPEC_PURSUE_LV_price": [
 "e2352d22a0"
 ],
+"SPEC_PURSUE_LV_price_0": [
+"593c4ec524"
+],
+"SPEC_PURSUE_LV_price_0_ON": [
+"6e73457961"
+],
+"SPEC_PURSUE_LV_price_1": [
+"4f11d2ff66"
+],
+"SPEC_PURSUE_LV_price_1_ON": [
+"686a5579be"
+],
+"SPEC_PURSUE_LV_price_2": [
+"6f1268d83f"
+],
+"SPEC_PURSUE_LV_price_2_ON": [
+"5cb4d99614"
+],
+"SPEC_PURSUE_LV_price_3": [
+"9acbc29ce5"
+],
+"SPEC_PURSUE_LV_price_3_ON": [
+"3eea33ee8c"
+],
+"SPEC_PURSUE_LV_railway_0": [
+"e325f95ffe"
+],
+"SPEC_PURSUE_LV_railway_0_ON": [
+"cad093ca7a"
+],
+"SPEC_PURSUE_LV_railway_1": [
+"9a1b240d6c"
+],
+"SPEC_PURSUE_LV_railway_1_ON": [
+"ce77ea1be2"
+],
+"SPEC_PURSUE_LV_railway_2": [
+"aed7c50d5e"
+],
+"SPEC_PURSUE_LV_railway_2_ON": [
+"483d7c86bf"
+],
+"SPEC_PURSUE_LV_railway_3": [
+"a82c98bb1f"
+],
+"SPEC_PURSUE_LV_railway_3_ON": [
+"e5c7abedad"
+],
 "SPEC_PURSUE_LV_sound": [
 "4056e18f66"
+],
+"SPEC_PURSUE_LV_sound_0": [
+"f89cfdca0e"
+],
+"SPEC_PURSUE_LV_sound_0_ON": [
+"8165d407dd"
+],
+"SPEC_PURSUE_LV_sound_1": [
+"540c3b3c2d"
+],
+"SPEC_PURSUE_LV_sound_1_ON": [
+"4202e9a931"
+],
+"SPEC_PURSUE_LV_sound_2": [
+"9d65e89a31"
+],
+"SPEC_PURSUE_LV_sound_2_ON": [
+"4f59ecbaa2"
+],
+"SPEC_PURSUE_LV_sound_3": [
+"6fd047db3c"
+],
+"SPEC_PURSUE_LV_sound_3_ON": [
+"5c50154176"
 ],
 "SPEC_PURSUE_NOW": [
 "f910816a78"
@@ -2647,7 +3680,13 @@
 "SPEC_PURSUE_RIGHT_TT_floor": [
 "fdd7532cee"
 ],
+"SPEC_PURSUE_RIGHT_TT_futures": [
+"fdd7532cee"
+],
 "SPEC_PURSUE_RIGHT_TT_harbour": [
+"fdd7532cee"
+],
+"SPEC_PURSUE_RIGHT_TT_lender": [
 "fdd7532cee"
 ],
 "SPEC_PURSUE_RIGHT_TT_pockets": [
@@ -2656,12 +3695,16 @@
 "SPEC_PURSUE_RIGHT_TT_price": [
 "fdd7532cee"
 ],
+"SPEC_PURSUE_RIGHT_TT_railway": [
+"fdd7532cee"
+],
 "SPEC_PURSUE_RIGHT_TT_sound": [
 "fdd7532cee"
 ],
 "SPEC_PURSUE_RULE": [
 "3a8b1965fb",
-"0ef75b8642"
+"0ef75b8642",
+"42b2e915ce"
 ],
 "SPEC_PURSUE_SLOT_TT": [
 "cfe295d35c",
@@ -2671,34 +3714,52 @@
 "3e679cff5b"
 ],
 "SPEC_PURSUE_STOP_TT_companies": [
-"1473fd513f"
+"1473fd513f",
+"63a011ca2b"
 ],
 "SPEC_PURSUE_STOP_TT_door": [
-"2332692fe1"
+"2332692fe1",
+"7d08268383"
 ],
 "SPEC_PURSUE_STOP_TT_floor": [
-"4dc7afded2"
+"4dc7afded2",
+"1003e64de9"
+],
+"SPEC_PURSUE_STOP_TT_futures": [
+"562d959872"
 ],
 "SPEC_PURSUE_STOP_TT_harbour": [
-"888e7fdf4d"
+"888e7fdf4d",
+"df155e40c1"
+],
+"SPEC_PURSUE_STOP_TT_lender": [
+"6baebff837"
 ],
 "SPEC_PURSUE_STOP_TT_pockets": [
-"d06771cfb1"
+"d06771cfb1",
+"3c7985d0ee"
 ],
 "SPEC_PURSUE_STOP_TT_price": [
-"b28d66a686"
+"b28d66a686",
+"f6463dd382"
+],
+"SPEC_PURSUE_STOP_TT_railway": [
+"48a8c9d46e"
 ],
 "SPEC_PURSUE_STOP_TT_sound": [
-"8b3c893ff3"
+"8b3c893ff3",
+"6b57922527"
 ],
 "SPEC_RESCUED": [
 "e1f860ea67"
 ],
 "SPEC_RESCUE_ACTION_TT": [
-"bf61de0994"
+"bf61de0994",
+"b008f59e32"
 ],
 "SPEC_RESCUE_EXCEPTIONS": [
-"833257eb73"
+"833257eb73",
+"ca2ad8e0e5"
 ],
 "SPEC_RESCUE_LABEL": [
 "d92422eaef"
@@ -2716,300 +3777,365 @@
 "SPEC_RISKS_TT": [
 "2abc57cc33",
 "6b44cf345e",
-"c2e37a7f4a"
+"c2e37a7f4a",
+"6766198960"
 ],
 "SPEC_RISK_1_NONE": [
 "6efd53a3d0",
-"ff9c61fb78"
+"ff9c61fb78",
+"0f112a0710"
 ],
 "SPEC_RISK_2_NONE": [
-"6022dd554c"
+"6022dd554c",
+"040fa07160"
 ],
 "SPEC_RISK_3_NONE": [
-"abf765063d"
+"abf765063d",
+"07d7491f35"
 ],
 "SPEC_RISK_3_ON": [
 "96cd641ec7",
-"6c0cd7c5ee"
+"6c0cd7c5ee",
+"6a518e3872"
 ],
 "SPEC_RISK_4_BROKE": [
 "c92303db59",
-"22e07a9dfe"
+"22e07a9dfe",
+"0f582ba11d"
 ],
 "SPEC_RISK_4_NONE": [
-"ebb2fb1707"
+"ebb2fb1707",
+"b123f6a642"
 ],
 "SPEC_RISK_4_ON": [
 "fb81818598",
 "b64f799ba9",
-"512e2d8d09"
+"512e2d8d09",
+"cd5c17ae02"
+],
+"SPEC_RISK_5_NONE": [
+"241399aea0"
 ],
 "SPEC_RISK_CALM": [
-"db1e7ccf0a"
+"db1e7ccf0a",
+"f9d4d7e8fa"
 ],
 "SPEC_RISK_GLUT": [
-"746e13b0f4"
+"746e13b0f4",
+"66cdbb831f"
 ],
 "SPEC_RISK_HELD_LINE": [
 "57c821ad97",
 "1de4279586",
-"055e8d48ea"
+"055e8d48ea",
+"ccd5d6fb5e"
 ],
 "SPEC_RISK_SHARE": [
 "7abd34a9ce"
 ],
 "SPEC_RISK_SLIGHT": [
-"38d432b835"
+"38d432b835",
+"a671735706"
 ],
 "SPEC_RISK_TT": [
 "d8bce9f41b",
 "3ca8290368",
-"91bcde051e"
+"91bcde051e",
+"e4e82a8a30"
 ],
 "SPEC_RISK_WHY_AEROPLANES": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_AMMUNITION": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_ARTILLERY": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_AUTOMOBILES": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_CLIPPERS": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_CLOTHES": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_COAL": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_COFFEE": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_COPPER": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_DYE": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_ELECTRICITY": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_ENGINES": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_EXPLOSIVES": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_FABRIC": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_FERTILIZER": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_FINE_ART": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_FISH": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_FRUIT": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_FURNITURE": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_GLASS": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_GRAIN": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_GROCERIES": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_HARDWOOD": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_IRON": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_LEAD": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_LIQUOR": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_LUXURY_CLOTHES": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_LUXURY_FURNITURE": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_MEAT": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_MERCHANT_MARINE": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_OIL": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_OPIUM": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_PAPER": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_PORCELAIN": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_RADIOS": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_RUBBER": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_SILK": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_SMALL_ARMS": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_STEAMERS": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_STEEL": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_SUGAR": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_SULFUR": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_TANKS": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_TEA": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_TELEPHONES": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_TOBACCO": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_TOOLS": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_WINE": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RISK_WHY_WOOD": [
 "2e18c198d1",
 "952e79ac0d",
-"e3e58c4367"
+"e3e58c4367",
+"a5a3f10c37"
 ],
 "SPEC_RIVAL_CHOOSE": [
 "961f2247a2"
@@ -3066,7 +4192,8 @@
 ],
 "SPEC_RIVAL_RULE": [
 "002e0cb1f4",
-"fa232a7539"
+"fa232a7539",
+"66ec0c2928"
 ],
 "SPEC_RIVAL_TT": [
 "e9c2f60f22",
@@ -3076,53 +4203,391 @@
 "e6dcf72b82"
 ],
 "SPEC_ROW_CLICK": [
-"9e94e69e57"
+"9e94e69e57",
+"2de7b347d6"
+],
+"SPEC_RV_AGAINST": [
+"54b5dc96ba"
+],
+"SPEC_RV_AGAINST_NONE": [
+"05f2983a3a"
+],
+"SPEC_RV_AGAINST_TT": [
+"abb7d2aa4c"
+],
+"SPEC_RV_BAND_BIGLOSS": [
+"e3aa755244"
+],
+"SPEC_RV_BAND_BIGWIN": [
+"25bbf36905"
+],
+"SPEC_RV_BAND_DRAW": [
+"2d03c2d5a7"
+],
+"SPEC_RV_BAND_LOSS": [
+"c37dce24c7"
+],
+"SPEC_RV_BAND_WIN": [
+"a3ff3ef9a0"
+],
+"SPEC_RV_CARD_NONE": [
+"d4c5eac5ef"
+],
+"SPEC_RV_CARD_TITLE": [
+"e9aaf9ed1a"
+],
+"SPEC_RV_COL_ACT": [
+"06df33001c"
+],
+"SPEC_RV_COL_ACT_TT": [
+"d4ffb14ca1"
+],
+"SPEC_RV_COL_LAST": [
+"8093904453"
+],
+"SPEC_RV_COL_LAST_TT": [
+"6da3dc253a"
+],
+"SPEC_RV_COL_LEFT": [
+"da22a18379"
+],
+"SPEC_RV_COL_LEFT_TT": [
+"9331300149"
+],
+"SPEC_RV_COL_SCORE": [
+"57fb27deb6"
+],
+"SPEC_RV_COL_SCORE_TT": [
+"e603f6e7bb"
+],
+"SPEC_RV_DID": [
+"838fb1cf57"
+],
+"SPEC_RV_DID_COST1": [
+"0aeb2ce962"
+],
+"SPEC_RV_DID_COST2": [
+"4f5f85687a"
+],
+"SPEC_RV_DID_COST3": [
+"c5be0834fe"
+],
+"SPEC_RV_DID_EXPOSED": [
+"bf98d4c42f"
+],
+"SPEC_RV_DID_FAIL": [
+"589f3f1e68"
+],
+"SPEC_RV_DID_FX10": [
+"ac2c48b367"
+],
+"SPEC_RV_DID_FX11": [
+"ac5d89056b"
+],
+"SPEC_RV_DID_FX2": [
+"87a8e71d67"
+],
+"SPEC_RV_DID_FX31": [
+"0b2a442494"
+],
+"SPEC_RV_DID_FX3N": [
+"b4a560a3f8"
+],
+"SPEC_RV_DID_FX4": [
+"beb2f8bfe0"
+],
+"SPEC_RV_DID_OK": [
+"189c68f3cf"
+],
+"SPEC_RV_DID_S10": [
+"b5c3075dd0"
+],
+"SPEC_RV_DID_S11": [
+"fd7052ee93"
+],
+"SPEC_RV_DID_S2": [
+"124bedeaec"
+],
+"SPEC_RV_DID_S31": [
+"6a053a6c2c"
+],
+"SPEC_RV_DID_S3N": [
+"9345568148"
+],
+"SPEC_RV_DID_TT": [
+"7b6320b8fe"
+],
+"SPEC_RV_EMPTY_IN": [
+"6b4a70918d"
+],
+"SPEC_RV_EMPTY_OUT": [
+"180e554bef"
+],
+"SPEC_RV_EV_MANIA": [
+"aa5751b5ba"
+],
+"SPEC_RV_EV_PANIC": [
+"b5c0630972"
+],
+"SPEC_RV_EXPOSED": [
+"8c6e59782b"
+],
+"SPEC_RV_FAILED": [
+"52973a9312"
+],
+"SPEC_RV_HOLD": [
+"a6a9d45734"
+],
+"SPEC_RV_HOLD_TT": [
+"d41ac948f0"
+],
+"SPEC_RV_HOW": [
+"57f379a8be"
+],
+"SPEC_RV_LAST_EXPOSED": [
+"6d978b3abf"
+],
+"SPEC_RV_LAST_FAILED": [
+"bc7eafc3a2"
+],
+"SPEC_RV_LAST_NONE": [
+"476ade636b"
+],
+"SPEC_RV_LAST_OURS": [
+"5187940a93"
+],
+"SPEC_RV_LAST_PRESS": [
+"7420fd602b"
+],
+"SPEC_RV_LAST_THEIRS": [
+"85fd6b7177"
+],
+"SPEC_RV_LEFT": [
+"f73581495c"
+],
+"SPEC_RV_LEFT_TT": [
+"74699900f9"
+],
+"SPEC_RV_LURE": [
+"62cdbda5c2"
+],
+"SPEC_RV_LURE_TT": [
+"14b5c1233b"
+],
+"SPEC_RV_MARK_TT": [
+"94e1a438ab"
+],
+"SPEC_RV_MONTHS_LEFT": [
+"48a6166920"
+],
+"SPEC_RV_MONTH_LEFT": [
+"b2931d12c1"
+],
+"SPEC_RV_NEED": [
+"a7bf4a7112"
+],
+"SPEC_RV_NOW_LINE": [
+"c675386d60"
+],
+"SPEC_RV_OK": [
+"713fc83fb9"
+],
+"SPEC_RV_OUR_WAY": [
+"2ac4a8cb89"
+],
+"SPEC_RV_PRESS": [
+"7d5f7bccf0"
+],
+"SPEC_RV_PRESS_TT": [
+"fe9809ff9a"
+],
+"SPEC_RV_RAID": [
+"2ca45fb01a"
+],
+"SPEC_RV_RAID_TT": [
+"a41ba198fe"
+],
+"SPEC_RV_ROUND": [
+"1e96191142"
+],
+"SPEC_RV_SCORE_BODY": [
+"8eb4141117"
+],
+"SPEC_RV_SCORE_OFF": [
+"68f7ede1c7"
+],
+"SPEC_RV_SCORE_TT": [
+"ab568d7536"
+],
+"SPEC_RV_SHIELDED_TT": [
+"9f77155b5d"
+],
+"SPEC_RV_SHORE": [
+"9002b12964"
+],
+"SPEC_RV_SHORE_TT": [
+"2358eade4a"
+],
+"SPEC_RV_SLOTS": [
+"5c0df8b8eb"
+],
+"SPEC_RV_SLOTS_TT": [
+"4e67599103"
+],
+"SPEC_RV_SLOT_CANCEL_CLICK": [
+"81499caa00"
+],
+"SPEC_RV_SLOT_CANCEL_LOCKED": [
+"194deb3aef"
+],
+"SPEC_RV_SLOT_CANCEL_LURE": [
+"6ffa614892"
+],
+"SPEC_RV_SLOT_CANCEL_TT": [
+"915a4fc358"
+],
+"SPEC_RV_SLOT_END": [
+"d2f133f7e4"
+],
+"SPEC_RV_SLOT_FREE_TT": [
+"7d6f2db978"
+],
+"SPEC_RV_SLOT_LOCKED": [
+"753147fa13"
+],
+"SPEC_RV_SLOT_SHUT_TT": [
+"c0db6270ea"
+],
+"SPEC_RV_SLOT_USED_TT": [
+"7e24b1ec46"
+],
+"SPEC_RV_SUB_IN": [
+"a01604a8e2"
+],
+"SPEC_RV_SUB_OUT": [
+"69156d8965"
+],
+"SPEC_RV_THEIR_WAY": [
+"609c38943d"
+],
+"SPEC_RV_THIN_THEM": [
+"cf17a46abb"
+],
+"SPEC_RV_THIN_US": [
+"1b93be969b"
+],
+"SPEC_RV_TIED": [
+"2d03c2d5a7"
+],
+"SPEC_RV_TIER_BIGLOSS_TT": [
+"0c63310f4f"
+],
+"SPEC_RV_TIER_BIGWIN_TT": [
+"3275d57326"
+],
+"SPEC_RV_TIER_DRAW_TT": [
+"6ef6e5365f"
+],
+"SPEC_RV_TIER_LOSS_TT": [
+"e79abf2193"
+],
+"SPEC_RV_TIER_WIN_TT": [
+"f17907fb39"
+],
+"SPEC_RV_TOGGLE_TT_OFF": [
+"13a6b113dd"
+],
+"SPEC_RV_TOGGLE_TT_ON": [
+"dbfc6b774a"
+],
+"SPEC_RV_US_LAST": [
+"c841e3e928"
+],
+"SPEC_RV_US_LAST_TT": [
+"bbecf6bde3"
+],
+"SPEC_RV_US_LAST_WHEN": [
+"50f73f9bed"
+],
+"SPEC_RV_US_LURE": [
+"5601546deb"
+],
+"SPEC_RV_US_LURE_FX": [
+"dee27d7e34"
+],
+"SPEC_RV_US_LURE_TT": [
+"ae7255a289"
+],
+"SPEC_RV_US_RAID": [
+"5775d62334"
+],
+"SPEC_RV_US_RAID_FX": [
+"e7275992e8"
+],
+"SPEC_RV_US_RAID_TT": [
+"428826e9e1"
+],
+"SPEC_RV_US_TT": [
+"3d0fa15845"
 ],
 "SPEC_SEP_CALM_TT": [
-"df6c09cfec"
+"df6c09cfec",
+"c5bb3093fd"
 ],
 "SPEC_SEP_DOUBTFUL_TT": [
-"26be65574e"
+"26be65574e",
+"4de44ebfd8"
 ],
 "SPEC_SEP_EAGER_TT": [
-"c083c7e2d7"
+"c083c7e2d7",
+"d1a453224d"
 ],
 "SPEC_SEP_FEVERISH_TT": [
-"db681d30c6"
+"db681d30c6",
+"6c01b3ecc1"
 ],
 "SPEC_SEP_FLEEING_TT": [
-"b36a3b43fc"
+"b36a3b43fc",
+"3e7e7e56f1"
 ],
 "SPEC_SEP_KEEN_TT": [
-"31138fbe71"
+"31138fbe71",
+"38f71daaba"
 ],
 "SPEC_SLOT_LATER_TT": [
 "24ff50a8f1"
 ],
 "SPEC_SLOT_LOCK_1": [
-"7127dd1c60"
+"7127dd1c60",
+"90523e46ea"
 ],
 "SPEC_SLOT_LOCK_2": [
-"a5c150bba8"
+"a5c150bba8",
+"028c4ae449"
 ],
 "SPEC_SLOT_LOCK_3": [
-"a4bfe6bd81"
+"a4bfe6bd81",
+"144d09fc07"
 ],
 "SPEC_SLOT_LOCK_TT_1": [
-"4923643ee6"
+"4923643ee6",
+"d5c8fc303a"
 ],
 "SPEC_SLOT_LOCK_TT_2": [
-"2dd0e73a04"
+"2dd0e73a04",
+"0d89ef277b"
 ],
 "SPEC_SLOT_LOCK_TT_3": [
-"63c9e1961c"
+"63c9e1961c",
+"5741b221b8"
 ],
 "SPEC_SLOT_OPEN": [
 "40de7254d9"
 ],
 "SPEC_SLOT_OPEN_TT": [
 "c5c029810a",
-"2feaa95e1e"
+"2feaa95e1e",
+"5456940ca5"
 ],
 "SPEC_SLOT_PICK": [
 "961f2247a2"
@@ -3131,27 +4596,32 @@
 "ea4788705e"
 ],
 "SPEC_SLOT_PICK_CANCEL_TT": [
-"9f1e64cdd1"
+"9f1e64cdd1",
+"2177ea0cef"
 ],
 "SPEC_SLOT_PICK_TT": [
 "8fbfde8f03",
-"cf3476d61b"
+"cf3476d61b",
+"1839a4b93e"
 ],
 "SPEC_STANCE_LOOSE_TT": [
 "478420a4f0",
 "7ab882046d",
-"c81eb81701"
+"c81eb81701",
+"fb47454374"
 ],
 "SPEC_STANCE_NORMAL_TT": [
 "4970701bb4",
 "fb4836a376",
-"3105ac0c0b"
+"3105ac0c0b",
+"efa12c8d54"
 ],
 "SPEC_STANCE_TIGHT_TT": [
 "608b1ff1d4",
 "1578bcdc11",
 "b03b0f493b",
-"803833c28d"
+"803833c28d",
+"09febc2489"
 ],
 "SPEC_STATE_BUOYANT": [
 "3c0647a96e"
@@ -3169,7 +4639,8 @@
 ],
 "SPEC_STATE_DESC_PANIC_RESCUED": [
 "3ecd1b1647",
-"596f228cd9"
+"596f228cd9",
+"e848d94a40"
 ],
 "SPEC_STATE_DESC_SHAKEN": [
 "02afaca753",
@@ -3207,7 +4678,8 @@
 "ae3af734aa"
 ],
 "SPEC_TIER_BUOYANT_TT": [
-"9bfc5c89a2"
+"9bfc5c89a2",
+"635e05e2bf"
 ],
 "SPEC_TIER_MANIA": [
 "0ce3f285ac"
@@ -3216,7 +4688,8 @@
 "7955136d86"
 ],
 "SPEC_TIER_MANIA_TT": [
-"ea244ff391"
+"ea244ff391",
+"0fd2f33552"
 ],
 "SPEC_TIER_PANIC": [
 "1b5cbfa80e"
@@ -3226,7 +4699,8 @@
 ],
 "SPEC_TIER_PANIC_TT": [
 "423710f632",
-"c75e308a7c"
+"c75e308a7c",
+"e5c009e6d8"
 ],
 "SPEC_TIER_STEADY": [
 "9ede786e1e"
@@ -3236,7 +4710,8 @@
 ],
 "SPEC_TIER_STEADY_TT": [
 "283c068ec3",
-"851a1eae94"
+"851a1eae94",
+"dc7908d3bc"
 ],
 "SPEC_TIER_WARY": [
 "c9a89cc8c5"
@@ -3245,10 +4720,12 @@
 "80e8c2e082"
 ],
 "SPEC_TIER_WARY_TT": [
-"8ae010126a"
+"8ae010126a",
+"9ed4b6172d"
 ],
 "SPEC_TILE_BANKS_ON": [
-"02cdee371e"
+"02cdee371e",
+"f89bd1fa9b"
 ],
 "SPEC_TILE_BB_ON": [
 "21cbf9d995"
@@ -3256,32 +4733,38 @@
 "SPEC_TILE_BODY": [
 "018ebf341d",
 "2684f3103c",
-"099b735303"
+"099b735303",
+"815f0b67ad"
 ],
 "SPEC_TILE_BOOM_NONE": [
-"4a31b33b43"
+"4a31b33b43",
+"6b65e754e4"
 ],
 "SPEC_TILE_BOOM_ON": [
 "58fc8e128a"
 ],
 "SPEC_TILE_BOOM_PAST": [
-"2be899f4a2"
+"2be899f4a2",
+"e1bb64a28e"
 ],
 "SPEC_TILE_BOOM_SLIGHT": [
 "4317e92351"
 ],
 "SPEC_TILE_DANGER": [
 "7c84929ed4",
-"2a47016642"
+"2a47016642",
+"47ff604f28"
 ],
 "SPEC_TILE_FALLING": [
 "a6ac2e42fe"
 ],
 "SPEC_TILE_LIFTS": [
-"e5ee8aa7e1"
+"e5ee8aa7e1",
+"0ee0021ed7"
 ],
 "SPEC_TILE_OVER_ON": [
-"02406cfa5b"
+"02406cfa5b",
+"30df2b5613"
 ],
 "SPEC_TILE_RISING": [
 "79645baa17"
@@ -3294,21 +4777,26 @@
 ],
 "SPEC_TM_BROKE_TT": [
 "e903a66790",
-"16de034561"
+"16de034561",
+"86181299e0"
 ],
 "SPEC_TM_DEFAULT_TT": [
-"b0f2c2d00c"
+"b0f2c2d00c",
+"cde3f5153d"
 ],
 "SPEC_TM_PLAY_TT": [
 "2010fb205e",
-"ddb8f9f1f3"
+"ddb8f9f1f3",
+"c597152db9"
 ],
 "SPEC_TM_REVOLUTION_TT": [
-"b100b2e671"
+"b100b2e671",
+"4d667570ec"
 ],
 "SPEC_TM_WARCAP_TT": [
 "c0264f0f29",
-"fe35e6d1e2"
+"fe35e6d1e2",
+"3986db6897"
 ],
 "SPEC_UNWIND_1": [
 "8e42c4bdb2"
@@ -3320,17 +4808,21 @@
 "2b31634e3c"
 ],
 "SPEC_UNWIND_DESC_1": [
-"882f1542a4"
+"882f1542a4",
+"6442d23522"
 ],
 "SPEC_UNWIND_DESC_2": [
-"4ce8231da8"
+"4ce8231da8",
+"23b66864ad"
 ],
 "SPEC_UNWIND_DESC_3": [
-"665d38bf9a"
+"665d38bf9a",
+"6b11b9b9c1"
 ],
 "SPEC_WAR_MORE_TT": [
 "8723eb327b",
-"efb05f5f95"
+"efb05f5f95",
+"097af15754"
 ],
 "SPEC_WAR_ROW_1_BATTLES": [
 "a1272652a8",
@@ -3437,13 +4929,16 @@
 ],
 "SPEC_WAR_WHY_1": [
 "cd181be14a",
-"e350d165fb"
+"e350d165fb",
+"0b78658afb"
 ],
 "SPEC_WAR_WHY_2": [
-"e350d165fb"
+"e350d165fb",
+"0b78658afb"
 ],
 "SPEC_WAR_WHY_3": [
-"e350d165fb"
+"e350d165fb",
+"0b78658afb"
 ],
 "SPEC_WHY_CAP": [
 "09412edcd0"
@@ -3451,13 +4946,15 @@
 "SPEC_WHY_COND": [
 "7f3752ca49",
 "33b3104c73",
-"7b2b38d9e5"
+"7b2b38d9e5",
+"e0d06245fa"
 ],
 "SPEC_WHY_COND_DEPTH": [
 "92178472b0"
 ],
 "SPEC_WHY_COND_FIN": [
-"c8854b92bf"
+"c8854b92bf",
+"0e4b55c1d4"
 ],
 "SPEC_WHY_COND_STEADY": [
 "78bc24024b"
@@ -3476,7 +4973,8 @@
 ],
 "SPEC_WHY_SPEED": [
 "dff48f310c",
-"10de587804"
+"10de587804",
+"b9dfc480b1"
 ],
 "SPEC_WHY_SPEED_BAND": [
 "44bbfda85b"
@@ -3496,30 +4994,53 @@
 "SPEC_WORLD_TARIFF": [
 "a6fd05c170"
 ],
+"SPEC_XS": [
+"d1d25b9ff7"
+],
+"SPEC_XS_BAR_COOL": [
+"8088804f8c"
+],
+"SPEC_XS_BAR_NONE": [
+"17f767d01e"
+],
+"SPEC_XS_BAR_OFF": [
+"476adf008d"
+],
+"SPEC_XS_BAR_UP": [
+"803d18888c"
+],
 "SPEC_XS_CAP_TT": [
-"44a6aa9925"
+"44a6aa9925",
+"02c0074103"
 ],
 "SPEC_XS_ECON_TT": [
 "39511f184f",
-"763849c2d3"
+"763849c2d3",
+"12440e0461"
 ],
 "SPEC_XS_REGLINE_1": [
-"30d76d1d45"
+"30d76d1d45",
+"9cfbbcaf46"
 ],
 "SPEC_XS_REGLINE_2": [
-"3c236524ae"
+"3c236524ae",
+"7f4cea86e8"
 ],
 "SPEC_XS_REGLINE_3": [
-"fc21453d45"
+"fc21453d45",
+"1dcc3fe28d"
 ],
 "SPEC_XS_REGLINE_4": [
-"4cf32e5cc6"
+"4cf32e5cc6",
+"fcf1228607"
 ],
 "SPEC_XS_REGLINE_5": [
-"d9dbde2533"
+"d9dbde2533",
+"d63fd715b8"
 ],
 "SPEC_XS_REGLINE_6": [
-"eb331d8d99"
+"eb331d8d99",
+"a8c8ddf20d"
 ],
 "SPEC_XS_ROW_CO": [
 "ce0e740661"
@@ -3567,21 +5088,28 @@
 "87e37f7063"
 ],
 "SPEC_XS_TECH_TT": [
-"71488c7b0a"
+"71488c7b0a",
+"dffcf0bbad"
+],
+"SPEC_XS_TT": [
+"54c4c098a1"
 ],
 "SPEC_XS_WEALTH_TT": [
-"c29d2e0a84"
+"c29d2e0a84",
+"263ad7b6f5"
 ],
 "alert_spec_bailout_alert_action": [
 "6b2b5614a2"
 ],
 "alert_spec_bailout_alert_desc": [
-"c21cc74b35"
+"c21cc74b35",
+"8101bb9328"
 ],
 "alert_spec_bailout_alert_hint": [
 "6e21d422e9",
 "6f2912409c",
-"2f602a216e"
+"2f602a216e",
+"1b3738d0dc"
 ],
 "alert_spec_bailout_alert_name": [
 "02f0857506",
@@ -3591,10 +5119,12 @@
 "6b2b5614a2"
 ],
 "alert_spec_bubble_alert_desc": [
-"3f074e84cc"
+"3f074e84cc",
+"334e6c91e9"
 ],
 "alert_spec_bubble_alert_hint": [
-"04478f6699"
+"04478f6699",
+"cbc89b27f0"
 ],
 "alert_spec_bubble_alert_name": [
 "be1f54cb71",
@@ -3605,12 +5135,14 @@
 "6b2b5614a2"
 ],
 "alert_spec_panic_risk_alert_desc": [
-"7ccc24c95b"
+"7ccc24c95b",
+"881252aa4e"
 ],
 "alert_spec_panic_risk_alert_hint": [
 "f17c6ac198",
 "9a8c6242a4",
-"20e85034da"
+"20e85034da",
+"b09b8e115d"
 ],
 "alert_spec_panic_risk_alert_name": [
 "c72cc3603c"
@@ -3620,12 +5152,14 @@
 "6b2b5614a2"
 ],
 "alert_spec_rescue_alert_desc": [
-"bd1a12f7de"
+"bd1a12f7de",
+"0379eefe6a"
 ],
 "alert_spec_rescue_alert_hint": [
 "601c8448fc",
 "04b9b70d39",
-"675be8a270"
+"675be8a270",
+"840c8b362f"
 ],
 "alert_spec_rescue_alert_name": [
 "7f40d93572"
@@ -3643,7 +5177,8 @@
 "1176abfe06",
 "5ad651e831",
 "7c2355b716",
-"885586ff6c"
+"885586ff6c",
+"fb0328375d"
 ],
 "concept_spec_banking_reform": [
 "b8c53d159f"
@@ -3654,20 +5189,32 @@
 "concept_spec_banking_reforms_desc": [
 "afb794c27a",
 "3401f81f5a",
-"99e5be457f"
+"99e5be457f",
+"34f49b2824"
 ],
 "concept_spec_baseline": [
 "ba0821e305"
 ],
 "concept_spec_baseline_desc": [
-"2be129198e"
+"2be129198e",
+"73ab0a0c30"
+],
+"concept_spec_blue_chip": [
+"4e1738cc73"
+],
+"concept_spec_blue_chip_desc": [
+"472d3e6229"
+],
+"concept_spec_blue_chips": [
+"f72e0eeaa5"
 ],
 "concept_spec_boom_end": [
 "dfe57e3d5c"
 ],
 "concept_spec_boom_end_desc": [
 "cc8c369f7a",
-"1c0892a166"
+"1c0892a166",
+"912ff23001"
 ],
 "concept_spec_boom_ends": [
 "b32a90db1d"
@@ -3677,7 +5224,8 @@
 ],
 "concept_spec_bust_desc": [
 "4fc42ef515",
-"462c29e768"
+"462c29e768",
+"ab0c8c32c3"
 ],
 "concept_spec_capital_flight": [
 "d31b0cd54b"
@@ -3691,14 +5239,22 @@
 ],
 "concept_spec_collapse_desc": [
 "41cf7e989f",
-"4f1ba3d388"
+"4f1ba3d388",
+"6ea6b43669"
+],
+"concept_spec_company_strength": [
+"f9cd1cc404"
+],
+"concept_spec_company_strength_desc": [
+"40cb60ffd0"
 ],
 "concept_spec_correction": [
 "8e42c4bdb2"
 ],
 "concept_spec_correction_desc": [
 "407272646d",
-"50a0946dae"
+"50a0946dae",
+"79738e45ff"
 ],
 "concept_spec_credit_policy": [
 "33a234e313"
@@ -3706,7 +5262,8 @@
 "concept_spec_credit_policy_desc": [
 "d7cb9922e6",
 "bb757479bd",
-"ef57aa5aec"
+"ef57aa5aec",
+"6ce9373e87"
 ],
 "concept_spec_credit_policy_loose": [
 "0c6e567f2f"
@@ -3723,7 +5280,8 @@
 "concept_spec_exchange_desc": [
 "6e69ac2e7c",
 "17a31aa013",
-"9ae1b0f505"
+"9ae1b0f505",
+"992e22aa37"
 ],
 "concept_spec_financial_centre": [
 "a9d251244d",
@@ -3733,7 +5291,8 @@
 "a570c4aefc",
 "456c51eec3",
 "444e80ede4",
-"d33f100fd8"
+"d33f100fd8",
+"51a655efd3"
 ],
 "concept_spec_financial_centres": [
 "77f8472d92"
@@ -3744,7 +5303,8 @@
 "concept_spec_financial_panic_desc": [
 "58faedf45b",
 "e4293c07e5",
-"ca1cb3b63d"
+"ca1cb3b63d",
+"d6d479e01e"
 ],
 "concept_spec_financial_panics": [
 "e3e347ef73"
@@ -3753,7 +5313,8 @@
 "a80a2378fb"
 ],
 "concept_spec_foreign_panic_desc": [
-"d977d9e3db"
+"d977d9e3db",
+"18c75a8753"
 ],
 "concept_spec_foreign_panics": [
 "2ef10bd952"
@@ -3764,7 +5325,8 @@
 "concept_spec_intervention_desc": [
 "f896140dde",
 "61e4fae6ee",
-"56833a4c7f"
+"56833a4c7f",
+"48562c8ff3"
 ],
 "concept_spec_investor_interest": [
 "a7e91a0465"
@@ -3772,13 +5334,15 @@
 "concept_spec_investor_interest_desc": [
 "e8c60c8545",
 "85e03658ac",
-"75f86d4679"
+"75f86d4679",
+"1781807417"
 ],
 "concept_spec_lending_standards": [
 "de5070519b"
 ],
 "concept_spec_lending_standards_desc": [
-"2cf23bb2d9"
+"2cf23bb2d9",
+"942784b6ca"
 ],
 "concept_spec_leverage": [
 "fd347bb5e7"
@@ -3786,14 +5350,16 @@
 "concept_spec_leverage_desc": [
 "d8ecd7846b",
 "8af61519d6",
-"adce6d9708"
+"adce6d9708",
+"d025aaea32"
 ],
 "concept_spec_long_depression": [
 "684f0a3ab2"
 ],
 "concept_spec_long_depression_desc": [
 "12f147d1f2",
-"fd860f666b"
+"fd860f666b",
+"4ead71cb26"
 ],
 "concept_spec_market_conditions": [
 "1bac189549"
@@ -3801,14 +5367,16 @@
 "concept_spec_market_conditions_desc": [
 "f8c5a90775",
 "34825c833e",
-"daffcc809d"
+"daffcc809d",
+"76ad5275ae"
 ],
 "concept_spec_market_confidence": [
 "498a538b90"
 ],
 "concept_spec_market_confidence_desc": [
 "68f203a446",
-"f770e75cba"
+"f770e75cba",
+"1898959028"
 ],
 "concept_spec_market_mood": [
 "02353bd927"
@@ -3828,34 +5396,45 @@
 ],
 "concept_spec_outstanding_credit_desc": [
 "ff87da08e4",
-"61ef4f3af3"
+"61ef4f3af3",
+"c42914e576"
 ],
 "concept_spec_sound_finance": [
 "13deb2ed5d"
 ],
 "concept_spec_sound_finance_desc": [
 "72f32b39e5",
-"b93dc2fb56"
+"b93dc2fb56",
+"606480cd05"
 ],
 "concept_spec_speculative_excess": [
 "aacac2ac3d"
 ],
 "concept_spec_speculative_excess_desc": [
 "788186a952",
-"cbdf4b94f4"
+"cbdf4b94f4",
+"4ea6898455"
 ],
 "concept_spec_speculative_mania": [
 "11e9a23006"
 ],
 "concept_spec_speculative_mania_desc": [
-"33519a2660"
+"33519a2660",
+"797dd4ca9d"
+],
+"concept_spec_trust": [
+"2f81eae071"
+],
+"concept_spec_trust_desc": [
+"38c130bd37"
 ],
 "concept_spec_war_news": [
 "f604936621"
 ],
 "concept_spec_war_news_desc": [
 "fe731b9b4a",
-"db56a185f2"
+"db56a185f2",
+"1e38302934"
 ],
 "country_spec_bank_lending_mult": [
 "07f71c7186",
@@ -3938,14 +5517,16 @@
 ],
 "country_spec_foreign_ties_mult_desc": [
 "393a46091d",
-"3e971dcf22"
+"3e971dcf22",
+"57a544fe46"
 ],
 "country_spec_interest_response_mult": [
 "0be009cf5a",
 "413cfd251f"
 ],
 "country_spec_interest_response_mult_desc": [
-"df3f9b927e"
+"df3f9b927e",
+"62a83aaac0"
 ],
 "country_spec_llr_bool": [
 "410e8448c6"
@@ -3992,7 +5573,8 @@
 "7e3fb7c943"
 ],
 "country_spec_trade_tie_mult_desc": [
-"6812770157"
+"6812770157",
+"09340bd3e9"
 ],
 "je_spec_depression": [
 "482d52facd",
@@ -4009,29 +5591,37 @@
 "e9ace685db"
 ],
 "notification_spec_boom_end_1_desc": [
-"d03259f79d"
+"d03259f79d",
+"a0cebacd00"
 ],
 "notification_spec_boom_end_1_name": [
-"8609fe5404"
+"8609fe5404",
+"2e9cce9e3b"
 ],
 "notification_spec_boom_end_2_desc": [
-"08d361204e"
+"08d361204e",
+"220d88d313"
 ],
 "notification_spec_boom_end_2_name": [
-"985519b27b"
+"985519b27b",
+"2c63e4c985"
 ],
 "notification_spec_boom_end_3_desc": [
-"dd2274153a"
+"dd2274153a",
+"677a7602d0"
 ],
 "notification_spec_boom_end_3_name": [
-"ebb61b3f2d"
+"ebb61b3f2d",
+"1c1e2adcbb"
 ],
 "notification_spec_bubble_burst_desc": [
 "6d16f8dd32",
-"86a9e5489b"
+"86a9e5489b",
+"1160a77b43"
 ],
 "notification_spec_bubble_burst_name": [
-"876a4c1a92"
+"876a4c1a92",
+"3c77c7f71f"
 ],
 "notification_spec_centre_gained_desc": [
 "21e574e02c"
@@ -4050,116 +5640,148 @@
 "246cf391ec"
 ],
 "notification_spec_exch_down_name": [
-"c663a169cd"
+"c663a169cd",
+"e28aa3b629"
 ],
 "notification_spec_exch_up_desc": [
 "ecde909242",
-"a8ad202671"
+"a8ad202671",
+"8a0734c6f0"
 ],
 "notification_spec_exch_up_name": [
-"a7c9529d09"
+"a7c9529d09",
+"09f4f1c9ee"
 ],
 "notification_spec_feverish_desc": [
-"cffbf74ee7"
+"cffbf74ee7",
+"d1796a6fc4"
 ],
 "notification_spec_feverish_name": [
-"5bda88d571"
+"5bda88d571",
+"4690e61d90"
 ],
 "notification_spec_ld_deepens_desc": [
 "a46f04d7c9",
 "694f153335"
 ],
 "notification_spec_ld_deepens_name": [
-"ffcd64a588"
+"ffcd64a588",
+"9e64e3fcb5"
 ],
 "notification_spec_ld_lifts_desc": [
 "d611fb1093",
-"ada971612c"
+"ada971612c",
+"1bb0360274"
 ],
 "notification_spec_ld_lifts_name": [
-"1bdb275f0d"
+"1bdb275f0d",
+"e0330503fe"
 ],
 "notification_spec_ld_over_desc": [
-"d10b653872"
+"d10b653872",
+"f5f433be4b"
 ],
 "notification_spec_ld_over_name": [
-"de573ea5ef"
+"de573ea5ef",
+"3883ff06bb"
 ],
 "notification_spec_ld_recovered_desc": [
 "f9081053d8",
-"39f6791bcf"
+"39f6791bcf",
+"5cbd474b27"
 ],
 "notification_spec_ld_recovered_name": [
-"a3484c967d"
+"a3484c967d",
+"6087c0bdce"
 ],
 "notification_spec_ld_started_desc": [
 "22202cb71b",
-"fe03fbd2e9"
+"fe03fbd2e9",
+"738d24d5bf"
 ],
 "notification_spec_ld_started_name": [
-"10e38f17e2"
+"10e38f17e2",
+"fc672b1299"
 ],
 "notification_spec_lev_unsafe_desc": [
-"2ec6f6d0f2"
+"2ec6f6d0f2",
+"09f6d985f9"
 ],
 "notification_spec_lev_unsafe_name": [
 "8478aba7db",
-"24d345bc9a"
+"24d345bc9a",
+"6c4d307070"
 ],
 "notification_spec_near_panic_desc": [
-"964e8ff609"
+"964e8ff609",
+"ac06313569"
 ],
 "notification_spec_near_panic_name": [
-"e1819fe51a"
+"e1819fe51a",
+"8762ba1d35"
 ],
 "notification_spec_nearly_broke_desc": [
-"bd800667aa"
+"bd800667aa",
+"9245617458"
 ],
 "notification_spec_nearly_broke_name": [
-"2e04089646"
+"2e04089646",
+"64c5a365bf"
 ],
 "notification_spec_panic_over_desc": [
-"d330937d50"
+"d330937d50",
+"ba613f18f8"
 ],
 "notification_spec_panic_over_name": [
-"3d249b7dde"
+"3d249b7dde",
+"335a5b63cb"
 ],
 "notification_spec_pledge_broken_desc": [
 "3bf7da335c",
-"48679a442a"
+"48679a442a",
+"318d905031"
 ],
 "notification_spec_pledge_broken_name": [
-"2d4b9b84b8"
+"2d4b9b84b8",
+"90308f5975"
 ],
 "notification_spec_rival_lost_desc": [
 "c1bddbd86f",
 "a34ac2d173",
-"14b465a5bc"
+"14b465a5bc",
+"d75ee76491"
 ],
 "notification_spec_rival_lost_name": [
 "dc1277065c",
-"0ab9cab45d"
+"0ab9cab45d",
+"b8f65dc2d2"
 ],
 "notification_spec_rival_won_desc": [
 "5e8f78415d",
 "6cd90be7e4",
-"c6da8556d8"
+"c6da8556d8",
+"f8788357e7"
 ],
 "notification_spec_rival_won_name": [
 "a747cf2e69",
-"1696d01ed5"
+"1696d01ed5",
+"911308955e"
 ],
 "notification_spec_tied_mania_desc": [
-"87e73038ec"
+"87e73038ec",
+"ee074e7dd4"
 ],
 "notification_spec_tied_mania_name": [
-"0c5b1bea6b"
+"0c5b1bea6b",
+"7e798f5bf9"
 ],
 "notification_spec_tied_panic_desc": [
-"18c555615c"
+"18c555615c",
+"acabd762a8"
 ],
 "notification_spec_tied_panic_name": [
-"96172927e8"
+"96172927e8",
+"2f19db31c0"
 ],
 "rule_spec_market_volatility": [
 "3bc020ef1c"
@@ -4168,19 +5790,22 @@
 "84e374eadf"
 ],
 "setting_spec_volatility_heightened_desc": [
-"1b1beca5b9"
+"1b1beca5b9",
+"64896bd0e2"
 ],
 "setting_spec_volatility_historical": [
 "6c393b0e41"
 ],
 "setting_spec_volatility_historical_desc": [
-"5fc877538a"
+"5fc877538a",
+"85889d01dc"
 ],
 "spec_act_suspended": [
 "0819aab5e4"
 ],
 "spec_act_suspended_desc": [
-"b0d2d128a1"
+"b0d2d128a1",
+"803aba4e49"
 ],
 "spec_bailed_tt": [
 "25d2751c27"
@@ -4196,7 +5821,8 @@
 "9bbdf689c3"
 ],
 "spec_bailout_fx_tt": [
-"ee27d38701"
+"ee27d38701",
+"54b905784f"
 ],
 "spec_bank_bailout": [
 "4eacb65e3b"
@@ -4204,8 +5830,71 @@
 "spec_bank_bailout_tt": [
 "a9ca6e686b"
 ],
+"spec_bc_index": [
+"18c0673850"
+],
+"spec_bc_index_desc": [
+"c1475c48ef"
+],
 "spec_blamed_for_panic": [
 "f9b7e8ca5b"
+],
+"spec_bluechip.1.a": [
+"03a042da2f"
+],
+"spec_bluechip.1.a.tt": [
+"37d1357ae8"
+],
+"spec_bluechip.1.b": [
+"12cec40765"
+],
+"spec_bluechip.1.b.tt": [
+"6d519a45d5"
+],
+"spec_bluechip.1.d": [
+"1bdecf9f04"
+],
+"spec_bluechip.1.f": [
+"ab6680eac6"
+],
+"spec_bluechip.1.t": [
+"6a23522d93"
+],
+"spec_bluechip.2.a": [
+"ef69d1ee23"
+],
+"spec_bluechip.2.a.tt": [
+"ee341e5bbe"
+],
+"spec_bluechip.2.b": [
+"de434fbf2b"
+],
+"spec_bluechip.2.b.tt": [
+"68ea7ba571"
+],
+"spec_bluechip.2.d": [
+"661cc8bbd5"
+],
+"spec_bluechip.2.f": [
+"81511c82b2"
+],
+"spec_bluechip.2.t": [
+"ce75e29a51"
+],
+"spec_bluechip.3.a": [
+"e3b26578c7"
+],
+"spec_bluechip.3.a.tt": [
+"01a451480b"
+],
+"spec_bluechip.3.d": [
+"d92a15645e"
+],
+"spec_bluechip.3.f": [
+"2894388880"
+],
+"spec_bluechip.3.t": [
+"5b1ba27db2"
 ],
 "spec_boom_build_agriculture": [
 "9bc3167610"
@@ -4393,277 +6082,323 @@
 "32e1e31e34"
 ],
 "spec_company_bust_aeroplanes_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_ammunition": [
 "32e1e31e34"
 ],
 "spec_company_bust_ammunition_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_artillery": [
 "32e1e31e34"
 ],
 "spec_company_bust_artillery_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_automobiles": [
 "32e1e31e34"
 ],
 "spec_company_bust_automobiles_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_clippers": [
 "32e1e31e34"
 ],
 "spec_company_bust_clippers_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_clothes": [
 "32e1e31e34"
 ],
 "spec_company_bust_clothes_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_coal": [
 "32e1e31e34"
 ],
 "spec_company_bust_coal_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_coffee": [
 "32e1e31e34"
 ],
 "spec_company_bust_coffee_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_copper": [
 "32e1e31e34"
 ],
 "spec_company_bust_copper_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_dye": [
 "32e1e31e34"
 ],
 "spec_company_bust_dye_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_electricity": [
 "32e1e31e34"
 ],
 "spec_company_bust_electricity_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_engines": [
 "32e1e31e34"
 ],
 "spec_company_bust_engines_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_explosives": [
 "32e1e31e34"
 ],
 "spec_company_bust_explosives_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_fabric": [
 "32e1e31e34"
 ],
 "spec_company_bust_fabric_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_fertilizer": [
 "32e1e31e34"
 ],
 "spec_company_bust_fertilizer_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_fine_art": [
 "32e1e31e34"
 ],
 "spec_company_bust_fine_art_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_fish": [
 "32e1e31e34"
 ],
 "spec_company_bust_fish_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_furniture": [
 "32e1e31e34"
 ],
 "spec_company_bust_furniture_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_glass": [
 "32e1e31e34"
 ],
 "spec_company_bust_glass_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_grain": [
 "32e1e31e34"
 ],
 "spec_company_bust_grain_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_groceries": [
 "32e1e31e34"
 ],
 "spec_company_bust_groceries_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_iron": [
 "32e1e31e34"
 ],
 "spec_company_bust_iron_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_lead": [
 "32e1e31e34"
 ],
 "spec_company_bust_lead_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_liquor": [
 "32e1e31e34"
 ],
 "spec_company_bust_liquor_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_luxury_clothes": [
 "32e1e31e34"
 ],
 "spec_company_bust_luxury_clothes_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_luxury_furniture": [
 "32e1e31e34"
 ],
 "spec_company_bust_luxury_furniture_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_meat": [
 "32e1e31e34"
 ],
 "spec_company_bust_meat_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_merchant_marine": [
 "32e1e31e34"
 ],
 "spec_company_bust_merchant_marine_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_oil": [
 "32e1e31e34"
 ],
 "spec_company_bust_oil_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_opium": [
 "32e1e31e34"
 ],
 "spec_company_bust_opium_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_paper": [
 "32e1e31e34"
 ],
 "spec_company_bust_paper_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_porcelain": [
 "32e1e31e34"
 ],
 "spec_company_bust_porcelain_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_radios": [
 "32e1e31e34"
 ],
 "spec_company_bust_radios_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_rubber": [
 "32e1e31e34"
 ],
 "spec_company_bust_rubber_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_silk": [
 "32e1e31e34"
 ],
 "spec_company_bust_silk_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_small_arms": [
 "32e1e31e34"
 ],
 "spec_company_bust_small_arms_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_steamers": [
 "32e1e31e34"
 ],
 "spec_company_bust_steamers_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_steel": [
 "32e1e31e34"
 ],
 "spec_company_bust_steel_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_sugar": [
 "32e1e31e34"
 ],
 "spec_company_bust_sugar_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_sulfur": [
 "32e1e31e34"
 ],
 "spec_company_bust_sulfur_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_tanks": [
 "32e1e31e34"
 ],
 "spec_company_bust_tanks_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_tea": [
 "32e1e31e34"
 ],
 "spec_company_bust_tea_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_telephones": [
 "32e1e31e34"
 ],
 "spec_company_bust_telephones_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_tobacco": [
 "32e1e31e34"
 ],
 "spec_company_bust_tobacco_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_tools": [
 "32e1e31e34"
 ],
 "spec_company_bust_tools_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_company_bust_wine": [
 "32e1e31e34"
 ],
 "spec_company_bust_wine_desc": [
-"90879dd8c2"
+"90879dd8c2",
+"0bbd8d6b9c"
 ],
 "spec_conf_buoyant": [
 "512212ca66"
@@ -4712,7 +6447,8 @@
 "498a538b90"
 ],
 "spec_convert_cd_tt": [
-"abb2a3c949"
+"abb2a3c949",
+"615d436257"
 ],
 "spec_convert_conf_cost_tt": [
 "025c46853e"
@@ -4724,10 +6460,17 @@
 "429d622749"
 ],
 "spec_convert_debt_desc": [
-"0927ec8228"
+"0927ec8228",
+"03018301fd"
 ],
 "spec_convert_debt_tt": [
 "25c4cd2c56"
+],
+"spec_coty": [
+"5b1ba27db2"
+],
+"spec_coty_desc": [
+"b691d14344"
 ],
 "spec_credit_crunch": [
 "df1e224396"
@@ -4735,13 +6478,15 @@
 "spec_credit_crunch_desc": [
 "24e39a6848",
 "8fcae15ed6",
-"7026b3918c"
+"7026b3918c",
+"58f08e04f5"
 ],
 "spec_credit_loose": [
 "0c6e567f2f"
 ],
 "spec_credit_loose_desc": [
-"004a6726e9"
+"004a6726e9",
+"99377190b7"
 ],
 "spec_credit_loose_fx": [
 "e4a9d04295"
@@ -4750,7 +6495,8 @@
 "ead474ff42"
 ],
 "spec_credit_normal_desc": [
-"2d46582ee0"
+"2d46582ee0",
+"a37be87058"
 ],
 "spec_credit_normal_fx": [
 "3188548def"
@@ -4760,7 +6506,8 @@
 ],
 "spec_credit_tight_desc": [
 "4243e6ec4e",
-"7b4ee44884"
+"7b4ee44884",
+"a9451ae29e"
 ],
 "spec_credit_tight_fx": [
 "99d21f1d85"
@@ -4773,7 +6520,8 @@
 ],
 "spec_debt_converted_desc": [
 "0825c00f0a",
-"2ad3aac805"
+"2ad3aac805",
+"c1f76002b8"
 ],
 "spec_depression.1.a": [
 "1bc3766dee"
@@ -4813,7 +6561,8 @@
 "95b21fe0c0"
 ],
 "spec_depression.3.d": [
-"a080d820ed"
+"a080d820ed",
+"f4855e0be3"
 ],
 "spec_depression.3.f": [
 "1ba711b342"
@@ -4910,17 +6659,20 @@
 "aacac2ac3d"
 ],
 "spec_excess_cooling": [
-"c6dbce9893"
+"c6dbce9893",
+"cd7bcfae2a"
 ],
 "spec_excess_from_conf": [
-"9eacc33b34"
+"9eacc33b34",
+"a762b42f74"
 ],
 "spec_exch_national": [
 "933fa30429"
 ],
 "spec_exch_national_desc": [
 "7f99ac2391",
-"75ed8e8eb8"
+"75ed8e8eb8",
+"60b97dc462"
 ],
 "spec_exchange_notification_group": [
 "e8d5d4251d"
@@ -4936,7 +6688,8 @@
 ],
 "spec_financial_centre_desc": [
 "a008cca817",
-"7a836bbf36"
+"7a836bbf36",
+"116afeaf95"
 ],
 "spec_foreign_mania_notification_group": [
 "523fb2a390"
@@ -4952,22 +6705,26 @@
 "190ff144e8"
 ],
 "spec_inquiry_desc": [
-"79c47d2d8f"
+"79c47d2d8f",
+"36f761d5b3"
 ],
 "spec_inquiry_no_panic_tt": [
 "a81cd6236c"
 ],
 "spec_inquiry_reform_tt": [
-"194e04fcbe"
+"194e04fcbe",
+"2774ea7940"
 ],
 "spec_inquiry_sitting": [
 "190ff144e8"
 ],
 "spec_inquiry_sitting_desc": [
-"5236d74ce5"
+"5236d74ce5",
+"9b916bf3b2"
 ],
 "spec_inquiry_when_tt": [
-"2630ed20ec"
+"2630ed20ec",
+"8309aefc59"
 ],
 "spec_investor_aeroplanes": [
 "539625e64f"
@@ -4976,34 +6733,40 @@
 "539625e64f"
 ],
 "spec_investor_aeroplanes_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_aeroplanes_2": [
 "539625e64f"
 ],
 "spec_investor_aeroplanes_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_aeroplanes_4": [
 "539625e64f"
 ],
 "spec_investor_aeroplanes_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_aeroplanes_5": [
 "539625e64f"
 ],
 "spec_investor_aeroplanes_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_aeroplanes_6": [
 "539625e64f"
 ],
 "spec_investor_aeroplanes_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_aeroplanes_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_ammunition": [
 "539625e64f"
@@ -5012,34 +6775,40 @@
 "539625e64f"
 ],
 "spec_investor_ammunition_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_ammunition_2": [
 "539625e64f"
 ],
 "spec_investor_ammunition_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_ammunition_4": [
 "539625e64f"
 ],
 "spec_investor_ammunition_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_ammunition_5": [
 "539625e64f"
 ],
 "spec_investor_ammunition_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_ammunition_6": [
 "539625e64f"
 ],
 "spec_investor_ammunition_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_ammunition_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_artillery": [
 "539625e64f"
@@ -5048,34 +6817,40 @@
 "539625e64f"
 ],
 "spec_investor_artillery_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_artillery_2": [
 "539625e64f"
 ],
 "spec_investor_artillery_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_artillery_4": [
 "539625e64f"
 ],
 "spec_investor_artillery_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_artillery_5": [
 "539625e64f"
 ],
 "spec_investor_artillery_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_artillery_6": [
 "539625e64f"
 ],
 "spec_investor_artillery_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_artillery_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_automobiles": [
 "539625e64f"
@@ -5084,34 +6859,40 @@
 "539625e64f"
 ],
 "spec_investor_automobiles_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_automobiles_2": [
 "539625e64f"
 ],
 "spec_investor_automobiles_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_automobiles_4": [
 "539625e64f"
 ],
 "spec_investor_automobiles_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_automobiles_5": [
 "539625e64f"
 ],
 "spec_investor_automobiles_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_automobiles_6": [
 "539625e64f"
 ],
 "spec_investor_automobiles_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_automobiles_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_clippers": [
 "539625e64f"
@@ -5120,34 +6901,40 @@
 "539625e64f"
 ],
 "spec_investor_clippers_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_clippers_2": [
 "539625e64f"
 ],
 "spec_investor_clippers_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_clippers_4": [
 "539625e64f"
 ],
 "spec_investor_clippers_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_clippers_5": [
 "539625e64f"
 ],
 "spec_investor_clippers_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_clippers_6": [
 "539625e64f"
 ],
 "spec_investor_clippers_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_clippers_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_clothes": [
 "539625e64f"
@@ -5156,34 +6943,40 @@
 "539625e64f"
 ],
 "spec_investor_clothes_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_clothes_2": [
 "539625e64f"
 ],
 "spec_investor_clothes_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_clothes_4": [
 "539625e64f"
 ],
 "spec_investor_clothes_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_clothes_5": [
 "539625e64f"
 ],
 "spec_investor_clothes_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_clothes_6": [
 "539625e64f"
 ],
 "spec_investor_clothes_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_clothes_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_coal": [
 "539625e64f"
@@ -5192,34 +6985,40 @@
 "539625e64f"
 ],
 "spec_investor_coal_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_coal_2": [
 "539625e64f"
 ],
 "spec_investor_coal_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_coal_4": [
 "539625e64f"
 ],
 "spec_investor_coal_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_coal_5": [
 "539625e64f"
 ],
 "spec_investor_coal_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_coal_6": [
 "539625e64f"
 ],
 "spec_investor_coal_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_coal_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_coffee": [
 "539625e64f"
@@ -5228,34 +7027,40 @@
 "539625e64f"
 ],
 "spec_investor_coffee_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_coffee_2": [
 "539625e64f"
 ],
 "spec_investor_coffee_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_coffee_4": [
 "539625e64f"
 ],
 "spec_investor_coffee_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_coffee_5": [
 "539625e64f"
 ],
 "spec_investor_coffee_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_coffee_6": [
 "539625e64f"
 ],
 "spec_investor_coffee_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_coffee_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_copper": [
 "539625e64f"
@@ -5264,34 +7069,40 @@
 "539625e64f"
 ],
 "spec_investor_copper_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_copper_2": [
 "539625e64f"
 ],
 "spec_investor_copper_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_copper_4": [
 "539625e64f"
 ],
 "spec_investor_copper_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_copper_5": [
 "539625e64f"
 ],
 "spec_investor_copper_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_copper_6": [
 "539625e64f"
 ],
 "spec_investor_copper_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_copper_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_dye": [
 "539625e64f"
@@ -5300,34 +7111,40 @@
 "539625e64f"
 ],
 "spec_investor_dye_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_dye_2": [
 "539625e64f"
 ],
 "spec_investor_dye_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_dye_4": [
 "539625e64f"
 ],
 "spec_investor_dye_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_dye_5": [
 "539625e64f"
 ],
 "spec_investor_dye_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_dye_6": [
 "539625e64f"
 ],
 "spec_investor_dye_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_dye_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_electricity": [
 "539625e64f"
@@ -5336,34 +7153,40 @@
 "539625e64f"
 ],
 "spec_investor_electricity_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_electricity_2": [
 "539625e64f"
 ],
 "spec_investor_electricity_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_electricity_4": [
 "539625e64f"
 ],
 "spec_investor_electricity_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_electricity_5": [
 "539625e64f"
 ],
 "spec_investor_electricity_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_electricity_6": [
 "539625e64f"
 ],
 "spec_investor_electricity_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_electricity_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_engines": [
 "539625e64f"
@@ -5372,34 +7195,40 @@
 "539625e64f"
 ],
 "spec_investor_engines_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_engines_2": [
 "539625e64f"
 ],
 "spec_investor_engines_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_engines_4": [
 "539625e64f"
 ],
 "spec_investor_engines_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_engines_5": [
 "539625e64f"
 ],
 "spec_investor_engines_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_engines_6": [
 "539625e64f"
 ],
 "spec_investor_engines_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_engines_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_explosives": [
 "539625e64f"
@@ -5408,34 +7237,40 @@
 "539625e64f"
 ],
 "spec_investor_explosives_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_explosives_2": [
 "539625e64f"
 ],
 "spec_investor_explosives_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_explosives_4": [
 "539625e64f"
 ],
 "spec_investor_explosives_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_explosives_5": [
 "539625e64f"
 ],
 "spec_investor_explosives_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_explosives_6": [
 "539625e64f"
 ],
 "spec_investor_explosives_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_explosives_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_fabric": [
 "539625e64f"
@@ -5444,34 +7279,40 @@
 "539625e64f"
 ],
 "spec_investor_fabric_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_fabric_2": [
 "539625e64f"
 ],
 "spec_investor_fabric_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_fabric_4": [
 "539625e64f"
 ],
 "spec_investor_fabric_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_fabric_5": [
 "539625e64f"
 ],
 "spec_investor_fabric_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_fabric_6": [
 "539625e64f"
 ],
 "spec_investor_fabric_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_fabric_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_fertilizer": [
 "539625e64f"
@@ -5480,34 +7321,40 @@
 "539625e64f"
 ],
 "spec_investor_fertilizer_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_fertilizer_2": [
 "539625e64f"
 ],
 "spec_investor_fertilizer_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_fertilizer_4": [
 "539625e64f"
 ],
 "spec_investor_fertilizer_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_fertilizer_5": [
 "539625e64f"
 ],
 "spec_investor_fertilizer_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_fertilizer_6": [
 "539625e64f"
 ],
 "spec_investor_fertilizer_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_fertilizer_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_fine_art": [
 "539625e64f"
@@ -5516,34 +7363,40 @@
 "539625e64f"
 ],
 "spec_investor_fine_art_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_fine_art_2": [
 "539625e64f"
 ],
 "spec_investor_fine_art_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_fine_art_4": [
 "539625e64f"
 ],
 "spec_investor_fine_art_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_fine_art_5": [
 "539625e64f"
 ],
 "spec_investor_fine_art_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_fine_art_6": [
 "539625e64f"
 ],
 "spec_investor_fine_art_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_fine_art_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_fish": [
 "539625e64f"
@@ -5552,34 +7405,40 @@
 "539625e64f"
 ],
 "spec_investor_fish_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_fish_2": [
 "539625e64f"
 ],
 "spec_investor_fish_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_fish_4": [
 "539625e64f"
 ],
 "spec_investor_fish_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_fish_5": [
 "539625e64f"
 ],
 "spec_investor_fish_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_fish_6": [
 "539625e64f"
 ],
 "spec_investor_fish_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_fish_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_furniture": [
 "539625e64f"
@@ -5588,34 +7447,40 @@
 "539625e64f"
 ],
 "spec_investor_furniture_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_furniture_2": [
 "539625e64f"
 ],
 "spec_investor_furniture_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_furniture_4": [
 "539625e64f"
 ],
 "spec_investor_furniture_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_furniture_5": [
 "539625e64f"
 ],
 "spec_investor_furniture_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_furniture_6": [
 "539625e64f"
 ],
 "spec_investor_furniture_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_furniture_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_glass": [
 "539625e64f"
@@ -5624,34 +7489,40 @@
 "539625e64f"
 ],
 "spec_investor_glass_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_glass_2": [
 "539625e64f"
 ],
 "spec_investor_glass_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_glass_4": [
 "539625e64f"
 ],
 "spec_investor_glass_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_glass_5": [
 "539625e64f"
 ],
 "spec_investor_glass_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_glass_6": [
 "539625e64f"
 ],
 "spec_investor_glass_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_glass_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_grain": [
 "539625e64f"
@@ -5660,34 +7531,40 @@
 "539625e64f"
 ],
 "spec_investor_grain_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_grain_2": [
 "539625e64f"
 ],
 "spec_investor_grain_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_grain_4": [
 "539625e64f"
 ],
 "spec_investor_grain_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_grain_5": [
 "539625e64f"
 ],
 "spec_investor_grain_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_grain_6": [
 "539625e64f"
 ],
 "spec_investor_grain_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_grain_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_groceries": [
 "539625e64f"
@@ -5696,34 +7573,40 @@
 "539625e64f"
 ],
 "spec_investor_groceries_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_groceries_2": [
 "539625e64f"
 ],
 "spec_investor_groceries_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_groceries_4": [
 "539625e64f"
 ],
 "spec_investor_groceries_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_groceries_5": [
 "539625e64f"
 ],
 "spec_investor_groceries_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_groceries_6": [
 "539625e64f"
 ],
 "spec_investor_groceries_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_groceries_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_iron": [
 "539625e64f"
@@ -5732,34 +7615,40 @@
 "539625e64f"
 ],
 "spec_investor_iron_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_iron_2": [
 "539625e64f"
 ],
 "spec_investor_iron_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_iron_4": [
 "539625e64f"
 ],
 "spec_investor_iron_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_iron_5": [
 "539625e64f"
 ],
 "spec_investor_iron_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_iron_6": [
 "539625e64f"
 ],
 "spec_investor_iron_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_iron_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_lead": [
 "539625e64f"
@@ -5768,34 +7657,40 @@
 "539625e64f"
 ],
 "spec_investor_lead_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_lead_2": [
 "539625e64f"
 ],
 "spec_investor_lead_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_lead_4": [
 "539625e64f"
 ],
 "spec_investor_lead_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_lead_5": [
 "539625e64f"
 ],
 "spec_investor_lead_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_lead_6": [
 "539625e64f"
 ],
 "spec_investor_lead_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_lead_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_liquor": [
 "539625e64f"
@@ -5804,34 +7699,40 @@
 "539625e64f"
 ],
 "spec_investor_liquor_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_liquor_2": [
 "539625e64f"
 ],
 "spec_investor_liquor_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_liquor_4": [
 "539625e64f"
 ],
 "spec_investor_liquor_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_liquor_5": [
 "539625e64f"
 ],
 "spec_investor_liquor_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_liquor_6": [
 "539625e64f"
 ],
 "spec_investor_liquor_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_liquor_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_luxury_clothes": [
 "539625e64f"
@@ -5840,34 +7741,40 @@
 "539625e64f"
 ],
 "spec_investor_luxury_clothes_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_luxury_clothes_2": [
 "539625e64f"
 ],
 "spec_investor_luxury_clothes_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_luxury_clothes_4": [
 "539625e64f"
 ],
 "spec_investor_luxury_clothes_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_luxury_clothes_5": [
 "539625e64f"
 ],
 "spec_investor_luxury_clothes_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_luxury_clothes_6": [
 "539625e64f"
 ],
 "spec_investor_luxury_clothes_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_luxury_clothes_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_luxury_furniture": [
 "539625e64f"
@@ -5876,34 +7783,40 @@
 "539625e64f"
 ],
 "spec_investor_luxury_furniture_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_luxury_furniture_2": [
 "539625e64f"
 ],
 "spec_investor_luxury_furniture_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_luxury_furniture_4": [
 "539625e64f"
 ],
 "spec_investor_luxury_furniture_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_luxury_furniture_5": [
 "539625e64f"
 ],
 "spec_investor_luxury_furniture_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_luxury_furniture_6": [
 "539625e64f"
 ],
 "spec_investor_luxury_furniture_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_luxury_furniture_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_meat": [
 "539625e64f"
@@ -5912,34 +7825,40 @@
 "539625e64f"
 ],
 "spec_investor_meat_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_meat_2": [
 "539625e64f"
 ],
 "spec_investor_meat_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_meat_4": [
 "539625e64f"
 ],
 "spec_investor_meat_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_meat_5": [
 "539625e64f"
 ],
 "spec_investor_meat_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_meat_6": [
 "539625e64f"
 ],
 "spec_investor_meat_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_meat_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_merchant_marine": [
 "539625e64f"
@@ -5948,34 +7867,40 @@
 "539625e64f"
 ],
 "spec_investor_merchant_marine_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_merchant_marine_2": [
 "539625e64f"
 ],
 "spec_investor_merchant_marine_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_merchant_marine_4": [
 "539625e64f"
 ],
 "spec_investor_merchant_marine_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_merchant_marine_5": [
 "539625e64f"
 ],
 "spec_investor_merchant_marine_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_merchant_marine_6": [
 "539625e64f"
 ],
 "spec_investor_merchant_marine_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_merchant_marine_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_oil": [
 "539625e64f"
@@ -5984,34 +7909,40 @@
 "539625e64f"
 ],
 "spec_investor_oil_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_oil_2": [
 "539625e64f"
 ],
 "spec_investor_oil_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_oil_4": [
 "539625e64f"
 ],
 "spec_investor_oil_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_oil_5": [
 "539625e64f"
 ],
 "spec_investor_oil_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_oil_6": [
 "539625e64f"
 ],
 "spec_investor_oil_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_oil_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_opium": [
 "539625e64f"
@@ -6020,34 +7951,40 @@
 "539625e64f"
 ],
 "spec_investor_opium_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_opium_2": [
 "539625e64f"
 ],
 "spec_investor_opium_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_opium_4": [
 "539625e64f"
 ],
 "spec_investor_opium_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_opium_5": [
 "539625e64f"
 ],
 "spec_investor_opium_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_opium_6": [
 "539625e64f"
 ],
 "spec_investor_opium_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_opium_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_paper": [
 "539625e64f"
@@ -6056,34 +7993,40 @@
 "539625e64f"
 ],
 "spec_investor_paper_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_paper_2": [
 "539625e64f"
 ],
 "spec_investor_paper_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_paper_4": [
 "539625e64f"
 ],
 "spec_investor_paper_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_paper_5": [
 "539625e64f"
 ],
 "spec_investor_paper_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_paper_6": [
 "539625e64f"
 ],
 "spec_investor_paper_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_paper_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_porcelain": [
 "539625e64f"
@@ -6092,34 +8035,40 @@
 "539625e64f"
 ],
 "spec_investor_porcelain_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_porcelain_2": [
 "539625e64f"
 ],
 "spec_investor_porcelain_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_porcelain_4": [
 "539625e64f"
 ],
 "spec_investor_porcelain_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_porcelain_5": [
 "539625e64f"
 ],
 "spec_investor_porcelain_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_porcelain_6": [
 "539625e64f"
 ],
 "spec_investor_porcelain_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_porcelain_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_radios": [
 "539625e64f"
@@ -6128,34 +8077,40 @@
 "539625e64f"
 ],
 "spec_investor_radios_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_radios_2": [
 "539625e64f"
 ],
 "spec_investor_radios_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_radios_4": [
 "539625e64f"
 ],
 "spec_investor_radios_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_radios_5": [
 "539625e64f"
 ],
 "spec_investor_radios_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_radios_6": [
 "539625e64f"
 ],
 "spec_investor_radios_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_radios_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_rubber": [
 "539625e64f"
@@ -6164,34 +8119,40 @@
 "539625e64f"
 ],
 "spec_investor_rubber_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_rubber_2": [
 "539625e64f"
 ],
 "spec_investor_rubber_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_rubber_4": [
 "539625e64f"
 ],
 "spec_investor_rubber_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_rubber_5": [
 "539625e64f"
 ],
 "spec_investor_rubber_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_rubber_6": [
 "539625e64f"
 ],
 "spec_investor_rubber_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_rubber_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_silk": [
 "539625e64f"
@@ -6200,34 +8161,40 @@
 "539625e64f"
 ],
 "spec_investor_silk_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_silk_2": [
 "539625e64f"
 ],
 "spec_investor_silk_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_silk_4": [
 "539625e64f"
 ],
 "spec_investor_silk_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_silk_5": [
 "539625e64f"
 ],
 "spec_investor_silk_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_silk_6": [
 "539625e64f"
 ],
 "spec_investor_silk_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_silk_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_small_arms": [
 "539625e64f"
@@ -6236,34 +8203,40 @@
 "539625e64f"
 ],
 "spec_investor_small_arms_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_small_arms_2": [
 "539625e64f"
 ],
 "spec_investor_small_arms_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_small_arms_4": [
 "539625e64f"
 ],
 "spec_investor_small_arms_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_small_arms_5": [
 "539625e64f"
 ],
 "spec_investor_small_arms_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_small_arms_6": [
 "539625e64f"
 ],
 "spec_investor_small_arms_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_small_arms_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_steamers": [
 "539625e64f"
@@ -6272,34 +8245,40 @@
 "539625e64f"
 ],
 "spec_investor_steamers_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_steamers_2": [
 "539625e64f"
 ],
 "spec_investor_steamers_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_steamers_4": [
 "539625e64f"
 ],
 "spec_investor_steamers_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_steamers_5": [
 "539625e64f"
 ],
 "spec_investor_steamers_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_steamers_6": [
 "539625e64f"
 ],
 "spec_investor_steamers_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_steamers_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_steel": [
 "539625e64f"
@@ -6308,34 +8287,40 @@
 "539625e64f"
 ],
 "spec_investor_steel_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_steel_2": [
 "539625e64f"
 ],
 "spec_investor_steel_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_steel_4": [
 "539625e64f"
 ],
 "spec_investor_steel_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_steel_5": [
 "539625e64f"
 ],
 "spec_investor_steel_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_steel_6": [
 "539625e64f"
 ],
 "spec_investor_steel_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_steel_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_sugar": [
 "539625e64f"
@@ -6344,34 +8329,40 @@
 "539625e64f"
 ],
 "spec_investor_sugar_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_sugar_2": [
 "539625e64f"
 ],
 "spec_investor_sugar_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_sugar_4": [
 "539625e64f"
 ],
 "spec_investor_sugar_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_sugar_5": [
 "539625e64f"
 ],
 "spec_investor_sugar_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_sugar_6": [
 "539625e64f"
 ],
 "spec_investor_sugar_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_sugar_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_sulfur": [
 "539625e64f"
@@ -6380,34 +8371,40 @@
 "539625e64f"
 ],
 "spec_investor_sulfur_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_sulfur_2": [
 "539625e64f"
 ],
 "spec_investor_sulfur_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_sulfur_4": [
 "539625e64f"
 ],
 "spec_investor_sulfur_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_sulfur_5": [
 "539625e64f"
 ],
 "spec_investor_sulfur_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_sulfur_6": [
 "539625e64f"
 ],
 "spec_investor_sulfur_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_sulfur_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_tanks": [
 "539625e64f"
@@ -6416,34 +8413,40 @@
 "539625e64f"
 ],
 "spec_investor_tanks_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_tanks_2": [
 "539625e64f"
 ],
 "spec_investor_tanks_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_tanks_4": [
 "539625e64f"
 ],
 "spec_investor_tanks_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_tanks_5": [
 "539625e64f"
 ],
 "spec_investor_tanks_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_tanks_6": [
 "539625e64f"
 ],
 "spec_investor_tanks_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_tanks_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_tea": [
 "539625e64f"
@@ -6452,34 +8455,40 @@
 "539625e64f"
 ],
 "spec_investor_tea_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_tea_2": [
 "539625e64f"
 ],
 "spec_investor_tea_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_tea_4": [
 "539625e64f"
 ],
 "spec_investor_tea_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_tea_5": [
 "539625e64f"
 ],
 "spec_investor_tea_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_tea_6": [
 "539625e64f"
 ],
 "spec_investor_tea_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_tea_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_telephones": [
 "539625e64f"
@@ -6488,34 +8497,40 @@
 "539625e64f"
 ],
 "spec_investor_telephones_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_telephones_2": [
 "539625e64f"
 ],
 "spec_investor_telephones_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_telephones_4": [
 "539625e64f"
 ],
 "spec_investor_telephones_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_telephones_5": [
 "539625e64f"
 ],
 "spec_investor_telephones_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_telephones_6": [
 "539625e64f"
 ],
 "spec_investor_telephones_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_telephones_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_tobacco": [
 "539625e64f"
@@ -6524,34 +8539,40 @@
 "539625e64f"
 ],
 "spec_investor_tobacco_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_tobacco_2": [
 "539625e64f"
 ],
 "spec_investor_tobacco_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_tobacco_4": [
 "539625e64f"
 ],
 "spec_investor_tobacco_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_tobacco_5": [
 "539625e64f"
 ],
 "spec_investor_tobacco_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_tobacco_6": [
 "539625e64f"
 ],
 "spec_investor_tobacco_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_tobacco_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_tools": [
 "539625e64f"
@@ -6560,34 +8581,40 @@
 "539625e64f"
 ],
 "spec_investor_tools_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_tools_2": [
 "539625e64f"
 ],
 "spec_investor_tools_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_tools_4": [
 "539625e64f"
 ],
 "spec_investor_tools_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_tools_5": [
 "539625e64f"
 ],
 "spec_investor_tools_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_tools_6": [
 "539625e64f"
 ],
 "spec_investor_tools_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_tools_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_wine": [
 "539625e64f"
@@ -6596,34 +8623,40 @@
 "539625e64f"
 ],
 "spec_investor_wine_1_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_wine_2": [
 "539625e64f"
 ],
 "spec_investor_wine_2_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_wine_4": [
 "539625e64f"
 ],
 "spec_investor_wine_4_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_wine_5": [
 "539625e64f"
 ],
 "spec_investor_wine_5_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_wine_6": [
 "539625e64f"
 ],
 "spec_investor_wine_6_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_investor_wine_desc": [
-"6f5157b59b"
+"6f5157b59b",
+"8977eb9ae1"
 ],
 "spec_issue_cool_tt": [
 "211a0d572f"
@@ -6670,7 +8703,8 @@
 ],
 "spec_ld_crash_desc": [
 "b26f6f9908",
-"6f0c132de0"
+"6f0c132de0",
+"28e92edcb0"
 ],
 "spec_ld_dear_money": [
 "777be5dbef"
@@ -6682,7 +8716,8 @@
 "a8c7b0f348"
 ],
 "spec_ld_depression_desc": [
-"9cf6da43eb"
+"9cf6da43eb",
+"9066d44a26"
 ],
 "spec_ld_easy_money": [
 "60fe9f11af"
@@ -6788,7 +8823,8 @@
 "b0aff1ee45"
 ],
 "spec_ld_tariff_tt": [
-"9519499297"
+"9519499297",
+"68f1aa488a"
 ],
 "spec_ld_world_bar": [
 "2f4cd53f5b"
@@ -6819,7 +8855,8 @@
 ],
 "spec_lev_boom_desc": [
 "de9b342187",
-"d08fdcff7d"
+"d08fdcff7d",
+"21e467562d"
 ],
 "spec_lever_authority_tt": [
 "0da57c0924"
@@ -6972,13 +9009,16 @@
 "7fe071a7ef"
 ],
 "spec_lever_fits_encourage_tt": [
-"21617f8760"
+"21617f8760",
+"534663dc77"
 ],
 "spec_lever_fits_restrain_tt": [
-"ec6f73e4dd"
+"ec6f73e4dd",
+"01d749564b"
 ],
 "spec_lever_market_tt": [
-"d9a223306b"
+"d9a223306b",
+"2369cb4af0"
 ],
 "spec_lever_no_issue_tt": [
 "c7fd2595f5"
@@ -7153,7 +9193,8 @@
 "7286954b08"
 ],
 "spec_mania_movements_desc": [
-"8933f87934"
+"8933f87934",
+"bb47bc58bb"
 ],
 "spec_map_tt_caught": [
 "c1a7b43e69"
@@ -7254,7 +9295,8 @@
 "91287edbf7"
 ],
 "spec_panic_crunch_desc": [
-"a728265720"
+"a728265720",
+"ed8c9a31ce"
 ],
 "spec_panic_desc": [
 "f196e7d569",
@@ -7264,13 +9306,15 @@
 "acb935bc89"
 ],
 "spec_panic_movements_desc": [
-"a13a9f532a"
+"a13a9f532a",
+"a00ce581e5"
 ],
 "spec_panic_relief": [
 "7e80c56ba8"
 ],
 "spec_panic_relief_desc": [
-"9e9c5a1cba"
+"9e9c5a1cba",
+"93c09943be"
 ],
 "spec_panic_risk_alert_setting_name": [
 "c72cc3603c"
@@ -7279,7 +9323,8 @@
 "6d927fa29b"
 ],
 "spec_pledge_broken_desc": [
-"1952c11923"
+"1952c11923",
+"d4369f247c"
 ],
 "spec_pledge_debt_tt": [
 "f13e3fd122"
@@ -7321,28 +9366,32 @@
 ],
 "spec_pursue_companies_0_desc": [
 "ec4c4c3fb7",
-"4b62b984bb"
+"4b62b984bb",
+"ea82a5439a"
 ],
 "spec_pursue_companies_1": [
 "d6e1a6252a"
 ],
 "spec_pursue_companies_1_desc": [
 "bf291b1238",
-"fa2895f137"
+"fa2895f137",
+"15c14dfa94"
 ],
 "spec_pursue_companies_2": [
 "d6e1a6252a"
 ],
 "spec_pursue_companies_2_desc": [
 "2126393b14",
-"7cb29b40b3"
+"7cb29b40b3",
+"edfe392da9"
 ],
 "spec_pursue_companies_3": [
 "d6e1a6252a"
 ],
 "spec_pursue_companies_3_desc": [
 "6e3634e6ed",
-"9e17577fb8"
+"9e17577fb8",
+"d6ae664633"
 ],
 "spec_pursue_current_tt": [
 "23508d5507"
@@ -7352,28 +9401,32 @@
 ],
 "spec_pursue_door_0_desc": [
 "ec4c4c3fb7",
-"4b62b984bb"
+"4b62b984bb",
+"ea82a5439a"
 ],
 "spec_pursue_door_1": [
 "c37644a484"
 ],
 "spec_pursue_door_1_desc": [
 "bf291b1238",
-"fa2895f137"
+"fa2895f137",
+"15c14dfa94"
 ],
 "spec_pursue_door_2": [
 "c37644a484"
 ],
 "spec_pursue_door_2_desc": [
 "2126393b14",
-"7cb29b40b3"
+"7cb29b40b3",
+"edfe392da9"
 ],
 "spec_pursue_door_3": [
 "c37644a484"
 ],
 "spec_pursue_door_3_desc": [
 "6e3634e6ed",
-"9e17577fb8"
+"9e17577fb8",
+"d6ae664633"
 ],
 "spec_pursue_first_tt": [
 "58f53f0d37"
@@ -7383,59 +9436,119 @@
 ],
 "spec_pursue_floor_0_desc": [
 "ec4c4c3fb7",
-"4b62b984bb"
+"4b62b984bb",
+"ea82a5439a"
 ],
 "spec_pursue_floor_1": [
 "e0e0ac143d"
 ],
 "spec_pursue_floor_1_desc": [
 "bf291b1238",
-"fa2895f137"
+"fa2895f137",
+"15c14dfa94"
 ],
 "spec_pursue_floor_2": [
 "e0e0ac143d"
 ],
 "spec_pursue_floor_2_desc": [
 "2126393b14",
-"7cb29b40b3"
+"7cb29b40b3",
+"edfe392da9"
 ],
 "spec_pursue_floor_3": [
 "e0e0ac143d"
 ],
 "spec_pursue_floor_3_desc": [
 "6e3634e6ed",
-"9e17577fb8"
+"9e17577fb8",
+"d6ae664633"
+],
+"spec_pursue_futures_0": [
+"baf22df1ba"
+],
+"spec_pursue_futures_0_desc": [
+"ea82a5439a"
+],
+"spec_pursue_futures_1": [
+"baf22df1ba"
+],
+"spec_pursue_futures_1_desc": [
+"15c14dfa94"
+],
+"spec_pursue_futures_2": [
+"baf22df1ba"
+],
+"spec_pursue_futures_2_desc": [
+"edfe392da9"
+],
+"spec_pursue_futures_3": [
+"baf22df1ba"
+],
+"spec_pursue_futures_3_desc": [
+"d6ae664633"
 ],
 "spec_pursue_harbour_0": [
-"6bb0c2eb3a"
+"6bb0c2eb3a",
+"dd5fd3b569"
 ],
 "spec_pursue_harbour_0_desc": [
 "ec4c4c3fb7",
-"4b62b984bb"
+"4b62b984bb",
+"ea82a5439a"
 ],
 "spec_pursue_harbour_1": [
-"6bb0c2eb3a"
+"6bb0c2eb3a",
+"dd5fd3b569"
 ],
 "spec_pursue_harbour_1_desc": [
 "bf291b1238",
-"fa2895f137"
+"fa2895f137",
+"15c14dfa94"
 ],
 "spec_pursue_harbour_2": [
-"6bb0c2eb3a"
+"6bb0c2eb3a",
+"dd5fd3b569"
 ],
 "spec_pursue_harbour_2_desc": [
 "2126393b14",
-"7cb29b40b3"
+"7cb29b40b3",
+"edfe392da9"
 ],
 "spec_pursue_harbour_3": [
-"6bb0c2eb3a"
+"6bb0c2eb3a",
+"dd5fd3b569"
 ],
 "spec_pursue_harbour_3_desc": [
 "6e3634e6ed",
-"9e17577fb8"
+"9e17577fb8",
+"d6ae664633"
 ],
 "spec_pursue_last_tt": [
 "7e2d7e8617"
+],
+"spec_pursue_lender_0": [
+"c2c62fb4a6"
+],
+"spec_pursue_lender_0_desc": [
+"ea82a5439a"
+],
+"spec_pursue_lender_1": [
+"c2c62fb4a6"
+],
+"spec_pursue_lender_1_desc": [
+"15c14dfa94"
+],
+"spec_pursue_lender_2": [
+"c2c62fb4a6"
+],
+"spec_pursue_lender_2_desc": [
+"edfe392da9"
+],
+"spec_pursue_lender_3": [
+"c2c62fb4a6"
+],
+"spec_pursue_lender_3_desc": [
+"d6ae664633"
 ],
 "spec_pursue_locked_tt": [
 "f1fedfc247"
@@ -7445,56 +9558,88 @@
 ],
 "spec_pursue_pockets_0_desc": [
 "ec4c4c3fb7",
-"4b62b984bb"
+"4b62b984bb",
+"ea82a5439a"
 ],
 "spec_pursue_pockets_1": [
 "61108dcc8c"
 ],
 "spec_pursue_pockets_1_desc": [
 "bf291b1238",
-"fa2895f137"
+"fa2895f137",
+"15c14dfa94"
 ],
 "spec_pursue_pockets_2": [
 "61108dcc8c"
 ],
 "spec_pursue_pockets_2_desc": [
 "2126393b14",
-"7cb29b40b3"
+"7cb29b40b3",
+"edfe392da9"
 ],
 "spec_pursue_pockets_3": [
 "61108dcc8c"
 ],
 "spec_pursue_pockets_3_desc": [
 "6e3634e6ed",
-"9e17577fb8"
+"9e17577fb8",
+"d6ae664633"
 ],
 "spec_pursue_price_0": [
 "8853bccbcc"
 ],
 "spec_pursue_price_0_desc": [
 "ec4c4c3fb7",
-"4b62b984bb"
+"4b62b984bb",
+"ea82a5439a"
 ],
 "spec_pursue_price_1": [
 "8853bccbcc"
 ],
 "spec_pursue_price_1_desc": [
 "bf291b1238",
-"fa2895f137"
+"fa2895f137",
+"15c14dfa94"
 ],
 "spec_pursue_price_2": [
 "8853bccbcc"
 ],
 "spec_pursue_price_2_desc": [
 "2126393b14",
-"7cb29b40b3"
+"7cb29b40b3",
+"edfe392da9"
 ],
 "spec_pursue_price_3": [
 "8853bccbcc"
 ],
 "spec_pursue_price_3_desc": [
 "6e3634e6ed",
-"9e17577fb8"
+"9e17577fb8",
+"d6ae664633"
+],
+"spec_pursue_railway_0": [
+"c51a298a46"
+],
+"spec_pursue_railway_0_desc": [
+"ea82a5439a"
+],
+"spec_pursue_railway_1": [
+"c51a298a46"
+],
+"spec_pursue_railway_1_desc": [
+"15c14dfa94"
+],
+"spec_pursue_railway_2": [
+"c51a298a46"
+],
+"spec_pursue_railway_2_desc": [
+"edfe392da9"
+],
+"spec_pursue_railway_3": [
+"c51a298a46"
+],
+"spec_pursue_railway_3_desc": [
+"d6ae664633"
 ],
 "spec_pursue_room_tt": [
 "d59fccbc99"
@@ -7504,28 +9649,32 @@
 ],
 "spec_pursue_sound_0_desc": [
 "ec4c4c3fb7",
-"4b62b984bb"
+"4b62b984bb",
+"ea82a5439a"
 ],
 "spec_pursue_sound_1": [
 "7c3d108f32"
 ],
 "spec_pursue_sound_1_desc": [
 "bf291b1238",
-"fa2895f137"
+"fa2895f137",
+"15c14dfa94"
 ],
 "spec_pursue_sound_2": [
 "7c3d108f32"
 ],
 "spec_pursue_sound_2_desc": [
 "2126393b14",
-"7cb29b40b3"
+"7cb29b40b3",
+"edfe392da9"
 ],
 "spec_pursue_sound_3": [
 "7c3d108f32"
 ],
 "spec_pursue_sound_3_desc": [
 "6e3634e6ed",
-"9e17577fb8"
+"9e17577fb8",
+"d6ae664633"
 ],
 "spec_reform.1.a": [
 "03d5c63499"
@@ -7543,10 +9692,12 @@
 "d3a23d790d"
 ],
 "spec_reform.1.d_panic": [
-"44636b2f3c"
+"44636b2f3c",
+"017f93ca8f"
 ],
 "spec_reform.1.e": [
-"b46f07f1b0"
+"b46f07f1b0",
+"b762ba3b7e"
 ],
 "spec_reform.1.f": [
 "24987892f9"
@@ -7569,14 +9720,17 @@
 ],
 "spec_reform_company_tt": [
 "03eab68f0d",
-"1818cb3d64"
+"1818cb3d64",
+"3ecc209268"
 ],
 "spec_reform_currency_tt": [
 "512fceccf2",
-"702cea9bc4"
+"702cea9bc4",
+"e9f81d9a54"
 ],
 "spec_reform_free_tt": [
-"136d247972"
+"136d247972",
+"2d277d149c"
 ],
 "spec_reform_llr_tt": [
 "1240f0832c",
@@ -7590,13 +9744,15 @@
 "1ee3481d30"
 ],
 "spec_relief_costs_desc": [
-"6b352f9e36"
+"6b352f9e36",
+"76f958c257"
 ],
 "spec_relief_thanks": [
 "0312643179"
 ],
 "spec_relief_when_tt": [
-"e821806ebb"
+"e821806ebb",
+"a194f18eee"
 ],
 "spec_relief_works": [
 "0312643179"
@@ -7605,13 +9761,21 @@
 "0312643179"
 ],
 "spec_relief_works_button_desc": [
-"bc17fc106c"
+"bc17fc106c",
+"db613d45f3"
 ],
 "spec_relief_works_desc": [
-"91cf722832"
+"91cf722832",
+"3d9a307172"
 ],
 "spec_rentiers_cut": [
 "9884fba707"
+],
+"spec_report_buried": [
+"b436590baa"
+],
+"spec_report_shelved": [
+"44f02ae02b"
 ],
 "spec_rescue_alert_setting_name": [
 "7f40d93572"
@@ -7620,7 +9784,8 @@
 "d92422eaef"
 ],
 "spec_rescue_banks_desc": [
-"7b0aa73ba6"
+"7b0aa73ba6",
+"bff8bfd720"
 ],
 "spec_rescue_cost_tt": [
 "1b389f88f2"
@@ -7628,6 +9793,150 @@
 "spec_rescued_tt": [
 "0d6be6f64b",
 "159c67fbc8"
+],
+"spec_rival.1.a": [
+"87d1e136de"
+],
+"spec_rival.1.a_1": [
+"2fc56bb374"
+],
+"spec_rival.1.a_2": [
+"8884c841d8"
+],
+"spec_rival.1.a_3": [
+"88495b3249"
+],
+"spec_rival.1.a_tt": [
+"ad0d4b9cff"
+],
+"spec_rival.1.b": [
+"05d8ff864f"
+],
+"spec_rival.1.b_tt": [
+"f3dd14b290"
+],
+"spec_rival.1.c": [
+"c7427b58cb"
+],
+"spec_rival.1.c_tt": [
+"9329e69910"
+],
+"spec_rival.1.d": [
+"3d05a9b991"
+],
+"spec_rival.1.d10": [
+"e567714d63"
+],
+"spec_rival.1.d10_big": [
+"3145ce63b4"
+],
+"spec_rival.1.d10_even": [
+"09c3bfd15e"
+],
+"spec_rival.1.d10_small": [
+"0727e40488"
+],
+"spec_rival.1.d11": [
+"3eb91a3c5f"
+],
+"spec_rival.1.d11_big": [
+"b8400e59f7"
+],
+"spec_rival.1.d11_even": [
+"6ac8e19dd8"
+],
+"spec_rival.1.d11_small": [
+"c491537458"
+],
+"spec_rival.1.d21": [
+"1ede5a4b2c"
+],
+"spec_rival.1.d21_big": [
+"fcd33f67b4"
+],
+"spec_rival.1.d21_even": [
+"b993343062"
+],
+"spec_rival.1.d21_small": [
+"0b68f349bb"
+],
+"spec_rival.1.d31": [
+"cca8ec1782"
+],
+"spec_rival.1.d31_big": [
+"9dce39cf4d"
+],
+"spec_rival.1.d31_even": [
+"79aa0d19aa"
+],
+"spec_rival.1.d31_small": [
+"271a157d2a"
+],
+"spec_rival.1.d3n": [
+"38c9792385"
+],
+"spec_rival.1.d3n_big": [
+"4b976c3f2f"
+],
+"spec_rival.1.d3n_even": [
+"456c605d71"
+],
+"spec_rival.1.d3n_small": [
+"ccaca636c0"
+],
+"spec_rival.1.d_tt": [
+"ac898b896f"
+],
+"spec_rival.1.desc": [
+"2862ca6fec"
+],
+"spec_rival.1.e": [
+"575124b8a6"
+],
+"spec_rival.1.e_tt": [
+"34ac1ab7db"
+],
+"spec_rival.1.f": [
+"5bec13d457"
+],
+"spec_rival.1.f10": [
+"af6622a107"
+],
+"spec_rival.1.f11": [
+"5bec13d457"
+],
+"spec_rival.1.f21": [
+"39e0bfbfcd"
+],
+"spec_rival.1.f31": [
+"95fbe10842"
+],
+"spec_rival.1.f3n": [
+"7202f82324"
+],
+"spec_rival.1.g": [
+"5ad1255688"
+],
+"spec_rival.1.g_tt": [
+"7682f8795d"
+],
+"spec_rival.1.t": [
+"3eef20bf3e"
+],
+"spec_rival.1.t10": [
+"d2a84e0d0c"
+],
+"spec_rival.1.t11": [
+"203b7841fa"
+],
+"spec_rival.1.t21": [
+"b5ade2188d"
+],
+"spec_rival.1.t31": [
+"049cf4d9ea"
+],
+"spec_rival.1.t3n": [
+"2754c96593"
 ],
 "spec_rival_current_tt": [
 "c01176ce52"
@@ -7648,12 +9957,142 @@
 "spec_rival_trade_tt": [
 "8f6fa78d39"
 ],
+"spec_rv_cd_tt": [
+"4b89cc21ee"
+],
+"spec_rv_compete": [
+"1a9a46e663"
+],
+"spec_rv_compete_action_name": [
+"1a9a46e663"
+],
+"spec_rv_compete_action_notification_desc": [
+"de2521fdf3"
+],
+"spec_rv_compete_action_notification_name": [
+"21e6c3f15c"
+],
+"spec_rv_compete_action_propose_name": [
+"1a9a46e663"
+],
+"spec_rv_compete_desc": [
+"342ec76842"
+],
+"spec_rv_exch_tt": [
+"231075accb"
+],
+"spec_rv_forfeit_tt": [
+"e48c3c90a2"
+],
+"spec_rv_gold_tt": [
+"8f6043d989"
+],
+"spec_rv_hold_fx": [
+"df9496aa4d"
+],
+"spec_rv_infl_tt": [
+"3d8401b991"
+],
+"spec_rv_interest_tier_effect": [
+"6cfb39c002"
+],
+"spec_rv_interest_tt": [
+"411e820453"
+],
+"spec_rv_keep_tt": [
+"2be95d5f48"
+],
+"spec_rv_lure_fx": [
+"c3574e36ad"
+],
+"spec_rv_lured_tt": [
+"ca3526d097"
+],
+"spec_rv_mutual_tt": [
+"be9b98e828"
+],
+"spec_rv_pair_tt": [
+"2dbb07870c"
+],
+"spec_rv_panic_tt": [
+"3453fa1704"
+],
+"spec_rv_press_1": [
+"7d5f7bccf0"
+],
+"spec_rv_press_1_desc": [
+"42deb03840"
+],
+"spec_rv_press_2": [
+"210bda8624"
+],
+"spec_rv_press_2_desc": [
+"42deb03840"
+],
+"spec_rv_press_3": [
+"3c07845a5a"
+],
+"spec_rv_press_3_desc": [
+"42deb03840"
+],
+"spec_rv_press_fx": [
+"6df9a23bc1"
+],
+"spec_rv_pushed_tt": [
+"74a6d1b3f3"
+],
+"spec_rv_raid_fx": [
+"ccb8988b99"
+],
+"spec_rv_room_tt": [
+"0edec51650"
+],
+"spec_rv_shield_tt": [
+"cc7e4db387"
+],
+"spec_rv_shore_cd_tt": [
+"b2d450b6a4"
+],
+"spec_rv_shore_fx": [
+"2cd468c5f5"
+],
+"spec_rv_slots_tt": [
+"e951797d67"
+],
+"spec_rv_stop": [
+"7cebd87bcc"
+],
+"spec_rv_stop_action_name": [
+"7cebd87bcc"
+],
+"spec_rv_stop_action_notification_desc": [
+"42c3613371"
+],
+"spec_rv_stop_action_notification_name": [
+"251bfba21a"
+],
+"spec_rv_stop_action_propose_name": [
+"7cebd87bcc"
+],
+"spec_rv_stop_desc": [
+"c4d865913f"
+],
+"spec_rv_their_exch_tt": [
+"966425a285"
+],
+"spec_rv_upkeep": [
+"908b4a2bd3"
+],
+"spec_rv_upkeep_desc": [
+"36483d3f5b"
+],
 "spec_sound_finance": [
 "13deb2ed5d"
 ],
 "spec_sound_finance_desc": [
 "f72b226d9c",
-"6636a4f636"
+"6636a4f636",
+"d61530db6e"
 ],
 "spec_speculation_levy": [
 "01871a1df9"
@@ -7665,7 +10104,8 @@
 "743964aca6"
 ],
 "spec_stance_current_tt": [
-"e21e799aa6"
+"e21e799aa6",
+"c5d7f376b9"
 ],
 "spec_story.1.a": [
 "a005bc1c41"
@@ -7782,7 +10222,8 @@
 "f0151bd735"
 ],
 "spec_story.6.a.tt": [
-"747fe7f776"
+"747fe7f776",
+"31f466d957"
 ],
 "spec_story.6.b": [
 "57763f1ea6"
@@ -7809,10 +10250,12 @@
 "210d33b295"
 ],
 "spec_story.7.d": [
-"0cdfbc179b"
+"0cdfbc179b",
+"1e48290c75"
 ],
 "spec_story.7.d_generic": [
-"5416b32572"
+"5416b32572",
+"d0fee6722e"
 ],
 "spec_story.7.f": [
 "c116f7d6b1"
@@ -7966,10 +10409,12 @@
 ],
 "spec_suspend_act_desc": [
 "3602a34beb",
-"a0f76eddb7"
+"a0f76eddb7",
+"4cd9c9d596"
 ],
 "spec_suspend_note_tt": [
-"437ee3eda8"
+"437ee3eda8",
+"142ccc0851"
 ],
 "spec_suspend_panic_tt": [
 "6575fbacc8"
@@ -7977,7 +10422,8 @@
 "spec_suspend_tt": [
 "773a1e1a8f",
 "2d995a9496",
-"32bacf2996"
+"32bacf2996",
+"4c10b556ae"
 ],
 "spec_tight_credit": [
 "a71462baff"
@@ -7990,19 +10436,22 @@
 "b40a733ba8"
 ],
 "spec_trust_0_desc": [
-"99d69db30e"
+"99d69db30e",
+"f2ea764a4a"
 ],
 "spec_trust_1": [
 "240ede2c1d"
 ],
 "spec_trust_1_desc": [
-"1a51a522b4"
+"1a51a522b4",
+"62070d6620"
 ],
 "spec_trust_3": [
 "0ad50d6471"
 ],
 "spec_trust_3_desc": [
-"190fdd9ae8"
+"190fdd9ae8",
+"81f6949f74"
 ],
 "spec_warning_notification_group": [
 "41b40c750b"

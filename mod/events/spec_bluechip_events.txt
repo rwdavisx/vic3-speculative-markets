@@ -1,0 +1,190 @@
+﻿namespace = spec_bluechip
+
+spec_bluechip.1 = {
+	type = country_event
+	placement = root
+	title = spec_bluechip.1.t
+	desc = spec_bluechip.1.d
+	flavor = spec_bluechip.1.f
+	duration = 3
+	event_image = {
+		trigger = { spec_pic_mideast = yes }
+		video = "unspecific_signed_contract"
+	}
+	event_image = {
+		trigger = { spec_pic_africa = yes }
+		video = "unspecific_signed_contract"
+	}
+	event_image = {
+		trigger = { spec_pic_asia = yes }
+		video = "asia_westerners_arriving"
+	}
+	event_image = {
+		trigger = { spec_pic_latam = yes }
+		video = "unspecific_signed_contract"
+	}
+	event_image = {
+		trigger = { spec_pic_west = yes }
+		video = "unspecific_signed_contract"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+
+	trigger = {
+		any_company = { has_variable = spec_bc_new }
+	}
+
+	immediate = {
+		random_company = {
+			limit = { has_variable = spec_bc_new }
+			save_scope_as = spec_bc_co
+		}
+		scope:spec_bc_co = { remove_variable = spec_bc_new }
+	}
+
+	option = {
+		name = spec_bluechip.1.a
+		default_option = yes
+		custom_tooltip = spec_bluechip.1.a.tt
+		hidden_effect = {
+			if = {
+				limit = { has_variable = spec_centre_trust }
+				set_variable = { name = spec_centre_trust value = { value = var:spec_centre_trust add = 2 max = 120 } }
+			}
+		}
+		ai_chance = {
+			base = 60
+		}
+	}
+
+	option = {
+		name = spec_bluechip.1.b
+		custom_tooltip = spec_bluechip.1.b.tt
+		hidden_effect = {
+			add_investment_pool = spec_bc_shares
+			scope:spec_bc_co = { set_variable = { name = spec_bc_fragile days = 1825 } }
+		}
+		ai_chance = {
+			base = 40
+		}
+	}
+}
+
+spec_bluechip.2 = {
+	type = country_event
+	placement = root
+	title = spec_bluechip.2.t
+	desc = spec_bluechip.2.d
+	flavor = spec_bluechip.2.f
+	duration = 3
+	event_image = {
+		trigger = { spec_pic_mideast = yes }
+		video = "unspecific_politicians_arguing"
+	}
+	event_image = {
+		trigger = { spec_pic_africa = yes }
+		video = "africa_leader_arguing"
+	}
+	event_image = {
+		trigger = { spec_pic_asia = yes }
+		video = "asia_politician_parliament_motion"
+	}
+	event_image = {
+		trigger = { spec_pic_latam = yes }
+		video = "southamerica_aristocrats"
+	}
+	event_image = {
+		trigger = { spec_pic_west = yes }
+		video = "europenorthamerica_capitalists_meeting"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	trigger = {
+		any_company = { has_variable = spec_bc_wobble }
+	}
+
+	immediate = {
+		random_company = {
+			limit = { has_variable = spec_bc_wobble }
+			save_scope_as = spec_bc_co
+		}
+		scope:spec_bc_co = { remove_variable = spec_bc_wobble }
+	}
+
+	option = {
+		name = spec_bluechip.2.a
+		trigger = { gold_reserves >= spec_bc_prop_cost }
+		custom_tooltip = spec_bluechip.2.a.tt
+		hidden_effect = {
+			add_treasury = spec_bc_prop_cost_neg
+			scope:spec_bc_co = {
+				set_variable = { name = spec_bc_propped days = 360 }
+				remove_variable = spec_bc_low
+			}
+		}
+		ai_chance = {
+			base = 50
+		}
+	}
+
+	option = {
+		name = spec_bluechip.2.b
+		default_option = yes
+		custom_tooltip = spec_bluechip.2.b.tt
+		ai_chance = {
+			base = 50
+		}
+	}
+}
+
+spec_bluechip.3 = {
+	type = country_event
+	placement = root
+	title = spec_bluechip.3.t
+	desc = spec_bluechip.3.d
+	flavor = spec_bluechip.3.f
+	duration = 3
+	event_image = {
+		trigger = { spec_pic_mideast = yes }
+		video = "middleeast_middleclass_cafe"
+	}
+	event_image = {
+		trigger = { spec_pic_africa = yes }
+		video = "africa_city_center"
+	}
+	event_image = {
+		trigger = { spec_pic_asia = yes }
+		video = "asia_farmers_market"
+	}
+	event_image = {
+		trigger = { spec_pic_latam = yes }
+		video = "unspecific_world_fair"
+	}
+	event_image = {
+		trigger = { spec_pic_west = yes }
+		video = "unspecific_world_fair"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+
+	trigger = {
+		any_company = { has_variable = spec_coty }
+	}
+
+	immediate = {
+		random_company = {
+			limit = { has_variable = spec_coty }
+			save_scope_as = spec_bc_co
+		}
+	}
+
+	option = {
+		name = spec_bluechip.3.a
+		default_option = yes
+		custom_tooltip = spec_bluechip.3.a.tt
+		ai_chance = {
+			base = 1
+		}
+	}
+}

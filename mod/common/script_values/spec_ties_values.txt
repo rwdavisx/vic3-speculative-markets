@@ -12,6 +12,7 @@ spec_tie_investment = {
 		limit = { has_technology_researched = international_exchange_standards }
 		multiply = 1.25
 	}
+	multiply = spec_nx_tie_inv
 }
 
 spec_tie_trade = {
@@ -32,6 +33,7 @@ spec_tie_trade = {
 		limit = { has_law_or_variant = law_type:law_isolationism }
 		multiply = 0.1
 	}
+	multiply = spec_nx_tie_trade
 }
 
 spec_owned_share = {

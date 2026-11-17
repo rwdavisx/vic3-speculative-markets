@@ -62,3 +62,13 @@ spec_disclosure_welcomed = {
 	interest_group_approval_add = 1
 }
 
+spec_report_shelved = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
+	interest_group_approval_add = 2
+}
+
+spec_report_buried = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	interest_group_approval_add = -2
+}
+

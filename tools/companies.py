@@ -334,7 +334,7 @@ def script(game, sells, upgrades, icon):
 def loc():
     companies = "[Concept('concept_company','$concept_companies$')]"
     names = "".join(f' {LEGACY.format(g)}: "${g}$ Boom"\n spec_company_bust_{g}: "${g}$ Recovering"\n'
-                    f' spec_company_bust_{g}_desc: "The ${g}$ boom has ended, leaving the industry with more works than its buyers need. Until it recovers, buildings making ${g}$ lose [concept_throughput] and the {companies} that own them earn less."\n'
+                    f' spec_company_bust_{g}_desc: "The ${g}$ boom is over, and there are now more works than buyers need. Until it recovers, buildings making ${g}$ lose [concept_throughput] and the {companies} that own them earn less."\n'
                     for g in sorted(_GOODS))
     desc = lambda g: f"Buildings making ${g}$ gain [concept_throughput] while [concept_spec_investor_interest] in it is high, and lose it while interest is low."
     names += "".join(f' spec_investor_{g}{k}: "Investor Interest in ${g}$"\n spec_investor_{g}{k}_desc: "{desc(g)}"\n'

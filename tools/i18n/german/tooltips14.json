@@ -1,0 +1,21 @@
+{
+ "a1cc9ffbc3": "Die große Börse von #v {1}#! hat uns endlich bemerkt, und was sie sieht, gefällt ihr nicht. ",
+ "eb64e178ce": "Seit Jahren umkreisen die Börsen von #v {1}#! und #v {2}#! einander. Es war nur eine Frage der Zeit. ",
+ "9686b40e2b": "Sie schlugen auf dem Höhepunkt unseres Booms zu, da jeder Anleger ohnehin schon nachts wach liegt und den Sturz fürchtet.\\n\\n",
+ "1705ec0c88": "Sie haben ihren Augenblick mit Bedacht gewählt: Unser Markt ist schon in Panik, und jeder Schlag trifft nun doppelt.\\n\\n",
+ "6b4e256cfc": "Die Emporkömmlinge von #v {1}#! haben beschlossen, dass man #v {2}#! einen Dämpfer verpassen muss. ",
+ "3b3c377788": "$SPEC_RV_EV_WHO$$SPEC_RV_EV_WHEN$Makler im Auftrag von #v {1}#! warfen unsere Aktien auf einen Schlag aufs Parkett und rechneten mit einer wilden Flucht. Stattdessen kauften unsere Banken jeden angebotenen Posten, die Kurse hielten, und bei Börsenschluss waren es die Angreifer, die ihre Wunden leckten.\\n\\nBei ihnen sinkt [concept_spec_market_confidence] über {3} Monate um #P {2}#!.",
+ "22ac33d063": "$SPEC_RV_EV_WHO$$SPEC_RV_EV_WHEN$Noch vor der Eröffnungsglocke warfen Makler im Auftrag von #v {1}#! große Pakete unserer Eisenbahn- und Bankaktien auf einmal aufs Parkett. Die Kurse brachen ein, die Kurszettel kamen nicht mehr nach, und bis Mittag verkauften auch unsere eigenen Schreiber in heller Angst.\\n\\nBei uns sinkt [concept_spec_market_confidence] über {3} Monate um #N {2}#!.",
+ "81a87a2c0e": "$SPEC_RV_EV_WHO$$SPEC_RV_EV_WHEN$Agenten aus #v {1}#! haben sich in unseren besten Hotels eingemietet, und unsere größten Anleger speisen allabendlich mit ihnen. Ihr Angebot ist einfach: ein besserer Zins, ein sichererer Hafen und keine unbequemen Fragen.\\n\\n{2} Monate lang gehen #N {3}#! der Einnahmen aus unserem [concept_investment_pool] an sie.",
+ "8570eb128f": "$SPEC_RV_EV_WHO$$SPEC_RV_EV_WHEN$Die Morgenblätter von #v {1}#! bringen lange Spalten über gefälschte Bilanzen und wankende Banken in #v {2}#!. Keine ist unterzeichnet und kaum eine wahr, doch man liest sie in jedem Kontor des Kontinents.\\n\\nUnsere [concept_spec_exchange] verliert #N {3}#! Vertrauen.",
+ "0cb47f6b6f": "$SPEC_RV_EV_WHO$$SPEC_RV_EV_WHEN$Die Zeitungen von #v {1}#! waren voller Zweifel an unserer [concept_spec_exchange]. Doch ein Schreiber hat geplaudert, und nun weiß jeder, wessen Geld die Druckerschwärze bezahlt hat.\\n\\nWir verlieren Vertrauen, sie aber auch, und ihr Name leidet im Ausland.",
+ "af6622a107": "\\\"Der Bär, der verkauft, was er nicht besitzt, sollte besser recht behalten.\\\"",
+ "39e0bfbfcd": "\\\"Das Kapital geht dorthin, wo man es gut behandelt, und bleibt, wo man es gut nährt.\\\"",
+ "95fbe10842": "\\\"Eine Lüge reist um die halbe Welt, während die Wahrheit sich noch die Stiefel anzieht.\\\"",
+ "7202f82324": "\\\"Wer im Dunkeln mit Schmutz wirft, hat danach doch schmutzige Hände.\\\"",
+ "d2a84e0d0c": "Der gescheiterte Angriff",
+ "203b7841fa": "Baisseangriff auf #v {1}#!!",
+ "b5ade2188d": "Man umwirbt unser Kapital",
+ "049cf4d9ea": "Eine Flüsterkampagne",
+ "2754c96593": "Eine bezahlte Kampagne entlarvt"
+}

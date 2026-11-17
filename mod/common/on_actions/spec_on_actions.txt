@@ -165,7 +165,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_aeroplanes }
 						remove_variable = spec_issue_aeroplanes
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_aeroplanes value = 3 days = 360 }
@@ -290,7 +290,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_aeroplanes }
 						remove_variable = spec_issue_aeroplanes
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_aeroplanes value = 2 days = 180 }
@@ -374,7 +374,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_aeroplanes }
 						remove_variable = spec_issue_aeroplanes
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_aeroplanes value = 1 days = 90 }
@@ -650,7 +650,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_ammunition }
 						remove_variable = spec_issue_ammunition
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_ammunition value = 3 days = 360 }
@@ -775,7 +775,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_ammunition }
 						remove_variable = spec_issue_ammunition
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_ammunition value = 2 days = 180 }
@@ -859,7 +859,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_ammunition }
 						remove_variable = spec_issue_ammunition
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_ammunition value = 1 days = 90 }
@@ -1135,7 +1135,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_artillery }
 						remove_variable = spec_issue_artillery
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_artillery value = 3 days = 360 }
@@ -1260,7 +1260,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_artillery }
 						remove_variable = spec_issue_artillery
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_artillery value = 2 days = 180 }
@@ -1344,7 +1344,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_artillery }
 						remove_variable = spec_issue_artillery
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_artillery value = 1 days = 90 }
@@ -1620,7 +1620,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_automobiles }
 						remove_variable = spec_issue_automobiles
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_automobiles value = 3 days = 360 }
@@ -1745,7 +1745,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_automobiles }
 						remove_variable = spec_issue_automobiles
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_automobiles value = 2 days = 180 }
@@ -1829,7 +1829,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_automobiles }
 						remove_variable = spec_issue_automobiles
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_automobiles value = 1 days = 90 }
@@ -2105,7 +2105,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_clippers }
 						remove_variable = spec_issue_clippers
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_clippers value = 3 days = 360 }
@@ -2230,7 +2230,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_clippers }
 						remove_variable = spec_issue_clippers
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_clippers value = 2 days = 180 }
@@ -2314,7 +2314,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_clippers }
 						remove_variable = spec_issue_clippers
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_clippers value = 1 days = 90 }
@@ -2590,7 +2590,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_clothes }
 						remove_variable = spec_issue_clothes
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_clothes value = 3 days = 360 }
@@ -2715,7 +2715,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_clothes }
 						remove_variable = spec_issue_clothes
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_clothes value = 2 days = 180 }
@@ -2799,7 +2799,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_clothes }
 						remove_variable = spec_issue_clothes
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_clothes value = 1 days = 90 }
@@ -3075,7 +3075,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_coal }
 						remove_variable = spec_issue_coal
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_coal value = 3 days = 360 }
@@ -3200,7 +3200,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_coal }
 						remove_variable = spec_issue_coal
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_coal value = 2 days = 180 }
@@ -3284,7 +3284,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_coal }
 						remove_variable = spec_issue_coal
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_coal value = 1 days = 90 }
@@ -3560,7 +3560,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_coffee }
 						remove_variable = spec_issue_coffee
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_coffee value = 3 days = 360 }
@@ -3685,7 +3685,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_coffee }
 						remove_variable = spec_issue_coffee
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_coffee value = 2 days = 180 }
@@ -3769,7 +3769,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_coffee }
 						remove_variable = spec_issue_coffee
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_coffee value = 1 days = 90 }
@@ -4045,7 +4045,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_copper }
 						remove_variable = spec_issue_copper
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_copper value = 3 days = 360 }
@@ -4170,7 +4170,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_copper }
 						remove_variable = spec_issue_copper
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_copper value = 2 days = 180 }
@@ -4254,7 +4254,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_copper }
 						remove_variable = spec_issue_copper
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_copper value = 1 days = 90 }
@@ -4530,7 +4530,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_dye }
 						remove_variable = spec_issue_dye
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_dye value = 3 days = 360 }
@@ -4655,7 +4655,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_dye }
 						remove_variable = spec_issue_dye
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_dye value = 2 days = 180 }
@@ -4739,7 +4739,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_dye }
 						remove_variable = spec_issue_dye
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_dye value = 1 days = 90 }
@@ -5015,7 +5015,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_electricity }
 						remove_variable = spec_issue_electricity
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_electricity value = 3 days = 360 }
@@ -5140,7 +5140,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_electricity }
 						remove_variable = spec_issue_electricity
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_electricity value = 2 days = 180 }
@@ -5224,7 +5224,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_electricity }
 						remove_variable = spec_issue_electricity
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_electricity value = 1 days = 90 }
@@ -5500,7 +5500,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_engines }
 						remove_variable = spec_issue_engines
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_engines value = 3 days = 360 }
@@ -5625,7 +5625,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_engines }
 						remove_variable = spec_issue_engines
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_engines value = 2 days = 180 }
@@ -5709,7 +5709,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_engines }
 						remove_variable = spec_issue_engines
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_engines value = 1 days = 90 }
@@ -5985,7 +5985,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_explosives }
 						remove_variable = spec_issue_explosives
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_explosives value = 3 days = 360 }
@@ -6110,7 +6110,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_explosives }
 						remove_variable = spec_issue_explosives
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_explosives value = 2 days = 180 }
@@ -6194,7 +6194,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_explosives }
 						remove_variable = spec_issue_explosives
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_explosives value = 1 days = 90 }
@@ -6470,7 +6470,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_fabric }
 						remove_variable = spec_issue_fabric
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_fabric value = 3 days = 360 }
@@ -6595,7 +6595,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_fabric }
 						remove_variable = spec_issue_fabric
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_fabric value = 2 days = 180 }
@@ -6679,7 +6679,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_fabric }
 						remove_variable = spec_issue_fabric
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_fabric value = 1 days = 90 }
@@ -6955,7 +6955,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_fertilizer }
 						remove_variable = spec_issue_fertilizer
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_fertilizer value = 3 days = 360 }
@@ -7080,7 +7080,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_fertilizer }
 						remove_variable = spec_issue_fertilizer
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_fertilizer value = 2 days = 180 }
@@ -7164,7 +7164,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_fertilizer }
 						remove_variable = spec_issue_fertilizer
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_fertilizer value = 1 days = 90 }
@@ -7440,7 +7440,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_fine_art }
 						remove_variable = spec_issue_fine_art
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_fine_art value = 3 days = 360 }
@@ -7565,7 +7565,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_fine_art }
 						remove_variable = spec_issue_fine_art
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_fine_art value = 2 days = 180 }
@@ -7649,7 +7649,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_fine_art }
 						remove_variable = spec_issue_fine_art
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_fine_art value = 1 days = 90 }
@@ -7925,7 +7925,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_fish }
 						remove_variable = spec_issue_fish
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_fish value = 3 days = 360 }
@@ -8050,7 +8050,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_fish }
 						remove_variable = spec_issue_fish
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_fish value = 2 days = 180 }
@@ -8134,7 +8134,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_fish }
 						remove_variable = spec_issue_fish
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_fish value = 1 days = 90 }
@@ -8398,7 +8398,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_fruit }
 						remove_variable = spec_issue_fruit
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_fruit value = 3 days = 360 }
@@ -8512,7 +8512,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_fruit }
 						remove_variable = spec_issue_fruit
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_fruit value = 2 days = 180 }
@@ -8585,7 +8585,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_fruit }
 						remove_variable = spec_issue_fruit
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_fruit value = 1 days = 90 }
@@ -8861,7 +8861,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_furniture }
 						remove_variable = spec_issue_furniture
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_furniture value = 3 days = 360 }
@@ -8986,7 +8986,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_furniture }
 						remove_variable = spec_issue_furniture
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_furniture value = 2 days = 180 }
@@ -9070,7 +9070,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_furniture }
 						remove_variable = spec_issue_furniture
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_furniture value = 1 days = 90 }
@@ -9346,7 +9346,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_glass }
 						remove_variable = spec_issue_glass
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_glass value = 3 days = 360 }
@@ -9471,7 +9471,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_glass }
 						remove_variable = spec_issue_glass
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_glass value = 2 days = 180 }
@@ -9555,7 +9555,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_glass }
 						remove_variable = spec_issue_glass
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_glass value = 1 days = 90 }
@@ -9831,7 +9831,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_grain }
 						remove_variable = spec_issue_grain
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_grain value = 3 days = 360 }
@@ -9956,7 +9956,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_grain }
 						remove_variable = spec_issue_grain
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_grain value = 2 days = 180 }
@@ -10040,7 +10040,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_grain }
 						remove_variable = spec_issue_grain
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_grain value = 1 days = 90 }
@@ -10316,7 +10316,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_groceries }
 						remove_variable = spec_issue_groceries
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_groceries value = 3 days = 360 }
@@ -10441,7 +10441,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_groceries }
 						remove_variable = spec_issue_groceries
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_groceries value = 2 days = 180 }
@@ -10525,7 +10525,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_groceries }
 						remove_variable = spec_issue_groceries
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_groceries value = 1 days = 90 }
@@ -10789,7 +10789,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_hardwood }
 						remove_variable = spec_issue_hardwood
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_hardwood value = 3 days = 360 }
@@ -10903,7 +10903,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_hardwood }
 						remove_variable = spec_issue_hardwood
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_hardwood value = 2 days = 180 }
@@ -10976,7 +10976,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_hardwood }
 						remove_variable = spec_issue_hardwood
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_hardwood value = 1 days = 90 }
@@ -11252,7 +11252,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_iron }
 						remove_variable = spec_issue_iron
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_iron value = 3 days = 360 }
@@ -11377,7 +11377,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_iron }
 						remove_variable = spec_issue_iron
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_iron value = 2 days = 180 }
@@ -11461,7 +11461,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_iron }
 						remove_variable = spec_issue_iron
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_iron value = 1 days = 90 }
@@ -11737,7 +11737,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_lead }
 						remove_variable = spec_issue_lead
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_lead value = 3 days = 360 }
@@ -11862,7 +11862,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_lead }
 						remove_variable = spec_issue_lead
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_lead value = 2 days = 180 }
@@ -11946,7 +11946,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_lead }
 						remove_variable = spec_issue_lead
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_lead value = 1 days = 90 }
@@ -12222,7 +12222,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_liquor }
 						remove_variable = spec_issue_liquor
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_liquor value = 3 days = 360 }
@@ -12347,7 +12347,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_liquor }
 						remove_variable = spec_issue_liquor
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_liquor value = 2 days = 180 }
@@ -12431,7 +12431,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_liquor }
 						remove_variable = spec_issue_liquor
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_liquor value = 1 days = 90 }
@@ -12707,7 +12707,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_luxury_clothes }
 						remove_variable = spec_issue_luxury_clothes
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_luxury_clothes value = 3 days = 360 }
@@ -12832,7 +12832,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_luxury_clothes }
 						remove_variable = spec_issue_luxury_clothes
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_luxury_clothes value = 2 days = 180 }
@@ -12916,7 +12916,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_luxury_clothes }
 						remove_variable = spec_issue_luxury_clothes
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_luxury_clothes value = 1 days = 90 }
@@ -13192,7 +13192,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_luxury_furniture }
 						remove_variable = spec_issue_luxury_furniture
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_luxury_furniture value = 3 days = 360 }
@@ -13317,7 +13317,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_luxury_furniture }
 						remove_variable = spec_issue_luxury_furniture
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_luxury_furniture value = 2 days = 180 }
@@ -13401,7 +13401,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_luxury_furniture }
 						remove_variable = spec_issue_luxury_furniture
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_luxury_furniture value = 1 days = 90 }
@@ -13677,7 +13677,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_meat }
 						remove_variable = spec_issue_meat
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_meat value = 3 days = 360 }
@@ -13802,7 +13802,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_meat }
 						remove_variable = spec_issue_meat
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_meat value = 2 days = 180 }
@@ -13886,7 +13886,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_meat }
 						remove_variable = spec_issue_meat
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_meat value = 1 days = 90 }
@@ -14162,7 +14162,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_merchant_marine }
 						remove_variable = spec_issue_merchant_marine
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_merchant_marine value = 3 days = 360 }
@@ -14287,7 +14287,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_merchant_marine }
 						remove_variable = spec_issue_merchant_marine
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_merchant_marine value = 2 days = 180 }
@@ -14371,7 +14371,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_merchant_marine }
 						remove_variable = spec_issue_merchant_marine
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_merchant_marine value = 1 days = 90 }
@@ -14647,7 +14647,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_oil }
 						remove_variable = spec_issue_oil
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_oil value = 3 days = 360 }
@@ -14772,7 +14772,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_oil }
 						remove_variable = spec_issue_oil
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_oil value = 2 days = 180 }
@@ -14856,7 +14856,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_oil }
 						remove_variable = spec_issue_oil
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_oil value = 1 days = 90 }
@@ -15132,7 +15132,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_opium }
 						remove_variable = spec_issue_opium
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_opium value = 3 days = 360 }
@@ -15257,7 +15257,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_opium }
 						remove_variable = spec_issue_opium
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_opium value = 2 days = 180 }
@@ -15341,7 +15341,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_opium }
 						remove_variable = spec_issue_opium
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_opium value = 1 days = 90 }
@@ -15617,7 +15617,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_paper }
 						remove_variable = spec_issue_paper
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_paper value = 3 days = 360 }
@@ -15742,7 +15742,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_paper }
 						remove_variable = spec_issue_paper
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_paper value = 2 days = 180 }
@@ -15826,7 +15826,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_paper }
 						remove_variable = spec_issue_paper
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_paper value = 1 days = 90 }
@@ -16102,7 +16102,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_porcelain }
 						remove_variable = spec_issue_porcelain
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_porcelain value = 3 days = 360 }
@@ -16227,7 +16227,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_porcelain }
 						remove_variable = spec_issue_porcelain
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_porcelain value = 2 days = 180 }
@@ -16311,7 +16311,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_porcelain }
 						remove_variable = spec_issue_porcelain
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_porcelain value = 1 days = 90 }
@@ -16587,7 +16587,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_radios }
 						remove_variable = spec_issue_radios
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_radios value = 3 days = 360 }
@@ -16712,7 +16712,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_radios }
 						remove_variable = spec_issue_radios
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_radios value = 2 days = 180 }
@@ -16796,7 +16796,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_radios }
 						remove_variable = spec_issue_radios
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_radios value = 1 days = 90 }
@@ -17072,7 +17072,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_rubber }
 						remove_variable = spec_issue_rubber
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_rubber value = 3 days = 360 }
@@ -17197,7 +17197,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_rubber }
 						remove_variable = spec_issue_rubber
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_rubber value = 2 days = 180 }
@@ -17281,7 +17281,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_rubber }
 						remove_variable = spec_issue_rubber
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_rubber value = 1 days = 90 }
@@ -17557,7 +17557,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_silk }
 						remove_variable = spec_issue_silk
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_silk value = 3 days = 360 }
@@ -17682,7 +17682,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_silk }
 						remove_variable = spec_issue_silk
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_silk value = 2 days = 180 }
@@ -17766,7 +17766,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_silk }
 						remove_variable = spec_issue_silk
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_silk value = 1 days = 90 }
@@ -18042,7 +18042,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_small_arms }
 						remove_variable = spec_issue_small_arms
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_small_arms value = 3 days = 360 }
@@ -18167,7 +18167,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_small_arms }
 						remove_variable = spec_issue_small_arms
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_small_arms value = 2 days = 180 }
@@ -18251,7 +18251,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_small_arms }
 						remove_variable = spec_issue_small_arms
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_small_arms value = 1 days = 90 }
@@ -18527,7 +18527,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_steamers }
 						remove_variable = spec_issue_steamers
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_steamers value = 3 days = 360 }
@@ -18652,7 +18652,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_steamers }
 						remove_variable = spec_issue_steamers
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_steamers value = 2 days = 180 }
@@ -18736,7 +18736,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_steamers }
 						remove_variable = spec_issue_steamers
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_steamers value = 1 days = 90 }
@@ -19012,7 +19012,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_steel }
 						remove_variable = spec_issue_steel
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_steel value = 3 days = 360 }
@@ -19137,7 +19137,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_steel }
 						remove_variable = spec_issue_steel
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_steel value = 2 days = 180 }
@@ -19221,7 +19221,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_steel }
 						remove_variable = spec_issue_steel
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_steel value = 1 days = 90 }
@@ -19497,7 +19497,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_sugar }
 						remove_variable = spec_issue_sugar
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_sugar value = 3 days = 360 }
@@ -19622,7 +19622,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_sugar }
 						remove_variable = spec_issue_sugar
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_sugar value = 2 days = 180 }
@@ -19706,7 +19706,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_sugar }
 						remove_variable = spec_issue_sugar
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_sugar value = 1 days = 90 }
@@ -19982,7 +19982,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_sulfur }
 						remove_variable = spec_issue_sulfur
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_sulfur value = 3 days = 360 }
@@ -20107,7 +20107,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_sulfur }
 						remove_variable = spec_issue_sulfur
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_sulfur value = 2 days = 180 }
@@ -20191,7 +20191,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_sulfur }
 						remove_variable = spec_issue_sulfur
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_sulfur value = 1 days = 90 }
@@ -20467,7 +20467,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_tanks }
 						remove_variable = spec_issue_tanks
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_tanks value = 3 days = 360 }
@@ -20592,7 +20592,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_tanks }
 						remove_variable = spec_issue_tanks
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_tanks value = 2 days = 180 }
@@ -20676,7 +20676,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_tanks }
 						remove_variable = spec_issue_tanks
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_tanks value = 1 days = 90 }
@@ -20952,7 +20952,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_tea }
 						remove_variable = spec_issue_tea
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_tea value = 3 days = 360 }
@@ -21077,7 +21077,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_tea }
 						remove_variable = spec_issue_tea
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_tea value = 2 days = 180 }
@@ -21161,7 +21161,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_tea }
 						remove_variable = spec_issue_tea
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_tea value = 1 days = 90 }
@@ -21437,7 +21437,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_telephones }
 						remove_variable = spec_issue_telephones
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_telephones value = 3 days = 360 }
@@ -21562,7 +21562,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_telephones }
 						remove_variable = spec_issue_telephones
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_telephones value = 2 days = 180 }
@@ -21646,7 +21646,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_telephones }
 						remove_variable = spec_issue_telephones
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_telephones value = 1 days = 90 }
@@ -21922,7 +21922,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_tobacco }
 						remove_variable = spec_issue_tobacco
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_tobacco value = 3 days = 360 }
@@ -22047,7 +22047,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_tobacco }
 						remove_variable = spec_issue_tobacco
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_tobacco value = 2 days = 180 }
@@ -22131,7 +22131,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_tobacco }
 						remove_variable = spec_issue_tobacco
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_tobacco value = 1 days = 90 }
@@ -22407,7 +22407,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_tools }
 						remove_variable = spec_issue_tools
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_tools value = 3 days = 360 }
@@ -22532,7 +22532,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_tools }
 						remove_variable = spec_issue_tools
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_tools value = 2 days = 180 }
@@ -22616,7 +22616,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_tools }
 						remove_variable = spec_issue_tools
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_tools value = 1 days = 90 }
@@ -22892,7 +22892,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_wine }
 						remove_variable = spec_issue_wine
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_wine value = 3 days = 360 }
@@ -23017,7 +23017,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_wine }
 						remove_variable = spec_issue_wine
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_wine value = 2 days = 180 }
@@ -23101,7 +23101,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_wine }
 						remove_variable = spec_issue_wine
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_wine value = 1 days = 90 }
@@ -23365,7 +23365,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_wood }
 						remove_variable = spec_issue_wood
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_wood value = 3 days = 360 }
@@ -23479,7 +23479,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_wood }
 						remove_variable = spec_issue_wood
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_wood value = 2 days = 180 }
@@ -23552,7 +23552,7 @@ spec_monthly = {
 						limit = { has_variable = spec_issue_wood }
 						remove_variable = spec_issue_wood
 						remove_variable = spec_issue
-						set_variable = { name = spec_issue_cool value = 1 days = 365 }
+						set_variable = { name = spec_issue_cool value = 12 }
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_wood value = 1 days = 90 }
@@ -31815,6 +31815,56 @@ spec_monthly = {
 				set_variable = { name = spec_c_flight value = var:spec_flight_pending }
 				remove_variable = spec_flight_pending
 			}
+			# rival actions running (rivals.py): a Bear Raid's monthly hit, a lure's pool money, Shore Up's months
+			set_variable = { name = spec_c_rival value = 0 }
+			if = {
+				limit = { has_variable = spec_rv_raid }
+				if = {
+					limit = { NOT = { has_variable = spec_rv_raid_year } }
+					set_variable = { name = spec_rv_raid_year value = 0 }
+				}
+				set_local_variable = {
+					name = spec_rv_h
+					value = {
+						value = var:spec_rv_raid_pm
+						max = { value = 4 subtract = var:spec_rv_raid_year }
+						min = 0
+					}
+				}
+				change_variable = { name = spec_rv_raid_year add = local_var:spec_rv_h }
+				set_variable = { name = spec_c_rival value = { value = local_var:spec_rv_h multiply = -1 } }
+				change_variable = { name = spec_rv_raid add = -1 }
+				if = {
+					limit = { var:spec_rv_raid <= 0 }
+					remove_variable = spec_rv_raid
+					remove_variable = spec_rv_raid_pm
+					remove_variable = spec_rv_raider
+				}
+			}
+			if = {
+				limit = { has_variable = spec_rv_lure }
+				if = {
+					limit = { exists = var:spec_rv_lurer var:spec_rv_lurer = { is_country_alive = yes } }
+					set_local_variable = { name = spec_rv_amt value = { value = spec_pool_month multiply = var:spec_rv_lure_share } }
+					var:spec_rv_lurer = { add_investment_pool = local_var:spec_rv_amt }
+					change_local_variable = { name = spec_rv_amt multiply = -1 }
+					add_investment_pool = local_var:spec_rv_amt
+				}
+				change_variable = { name = spec_rv_lure add = -1 }
+				if = {
+					# a lurer gone (annexed, or never stored) ends it: the row showed a blank flag (2026-11-16)
+					limit = {
+						OR = {
+							var:spec_rv_lure <= 0
+							NOT = { exists = var:spec_rv_lurer }
+							var:spec_rv_lurer = { is_country_alive = no }
+						}
+					}
+					remove_variable = spec_rv_lure
+					remove_variable = spec_rv_lurer
+					remove_variable = spec_rv_lure_share
+				}
+			}
 			remove_variable = spec_fs1
 			if = {
 				limit = { has_variable = spec_fp1 }
@@ -36356,7 +36406,7 @@ add_modifier = {
 					var:spec_conf < 60
 				}
 				# a one-off jump, shown in the tab until the next monthly update
-				set_variable = { name = spec_c_burst value = { value = var:spec_heat multiply = spec_burst_per_heat multiply = -1 min = spec_burst_floor min = { value = var:spec_conf multiply = -1 } } }
+				set_variable = { name = spec_c_burst value = { value = var:spec_heat multiply = spec_burst_per_heat multiply = spec_nx_burst multiply = -1 min = spec_burst_floor min = { value = var:spec_conf multiply = -1 } } }
 				set_variable = { name = spec_conf value = { value = var:spec_conf add = var:spec_c_burst min = 0 } }
 				change_variable = { name = spec_c_total add = var:spec_c_burst }
 				remove_variable = spec_heat
@@ -38629,6 +38679,7 @@ add_modifier = {
 					remove_variable = spec_ai_risk
 				}
 			}
+			spec_issue_clock = yes
 			# for everyone: the levers' Authority cost moves with each good's share of the market, their money with its output
 			spec_update_levers = yes
 

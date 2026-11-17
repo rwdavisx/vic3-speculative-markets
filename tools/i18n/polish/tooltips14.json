@@ -1,0 +1,21 @@
+{
+ "a1cc9ffbc3": "Wielka giełda #v {1}#! wreszcie nas zauważyła i nie podoba się jej to, co widzi. ",
+ "eb64e178ce": "Od lat giełdy #v {1}#! i #v {2}#! krążą wokół siebie. To była tylko kwestia czasu. ",
+ "9686b40e2b": "Uderzyli w szczycie naszego boomu, gdy każdy inwestor i tak nie śpi po nocach w strachu przed upadkiem.\\n\\n",
+ "1705ec0c88": "Starannie wybrali chwilę: nasz rynek już ogarnęła panika, a każdy cios trafia teraz podwójnie.\\n\\n",
+ "6b4e256cfc": "Dorobkiewicze z giełdy #v {1}#! uznali, że giełdzie #v {2}#! trzeba utrzeć nosa. ",
+ "3b3c377788": "$SPEC_RV_EV_WHO$$SPEC_RV_EV_WHEN$Maklerzy na usługach rywala (#v {1}#!) rzucili naraz nasze akcje na parkiet, licząc na pogrom. Tymczasem nasze banki skupiły każdą oferowaną partię, kursy się utrzymały, a przy dzwonku na zamknięcie to napastnicy lizali rany.\\n\\nU nich [concept_spec_market_confidence] spada o #P {2}#! przez {3} mies.",
+ "22ac33d063": "$SPEC_RV_EV_WHO$$SPEC_RV_EV_WHEN$Przed dzwonkiem otwarcia maklerzy na usługach rywala (#v {1}#!) rzucili naraz na parkiet wielkie pakiety naszych akcji kolejowych i bankowych. Kursy się załamały, notowania nie nadążały, a do południa nasi właśni urzędnicy wyprzedawali w popłochu.\\n\\nU nas [concept_spec_market_confidence] spadnie o #N {2}#! przez {3} mies.",
+ "81a87a2c0e": "$SPEC_RV_EV_WHO$$SPEC_RV_EV_WHEN$Agenci rywala (#v {1}#!) wynajęli pokoje w naszych najlepszych hotelach, a nasi najwięksi inwestorzy co wieczór z nimi jadają. Ich oferta jest prosta: lepsze oprocentowanie, bezpieczniejsza przystań i żadnych niewygodnych pytań.\\n\\nPrzez {2} mies. #N {3}#! naszego dochodu z [concept_investment_pool] trafia do nich.",
+ "8570eb128f": "$SPEC_RV_EV_WHO$$SPEC_RV_EV_WHEN$Poranne gazety rywala (#v {1}#!) drukują długie szpalty o sfałszowanych bilansach i chwiejących się bankach u nas (#v {2}#!). Żadna nie jest podpisana i mało która jest prawdziwa, ale czyta się je w każdym kantorze na kontynencie.\\n\\nNasza [concept_spec_exchange] traci #N {3}#! wiarygodności.",
+ "0cb47f6b6f": "$SPEC_RV_EV_WHO$$SPEC_RV_EV_WHEN$Gazety rywala (#v {1}#!) od dawna siały wątpliwości: czy nasza [concept_spec_exchange] jest wypłacalna? Ale pewien urzędnik się wygadał i teraz wszyscy wiedzą, czyje pieniądze zapłaciły za farbę drukarską.\\n\\nTracimy wiarygodność, ale oni też, a ich dobre imię cierpi za granicą.",
+ "af6622a107": "\\\"Niedźwiedź, który sprzedaje to, czego nie ma, niech lepiej ma rację.\\\"",
+ "39e0bfbfcd": "\\\"Kapitał idzie tam, gdzie dobrze go traktują, i zostaje tam, gdzie dobrze go karmią.\\\"",
+ "95fbe10842": "\\\"Kłamstwo obiegnie pół świata, zanim prawda zdąży włożyć buty.\\\"",
+ "7202f82324": "\\\"Błoto rzucane po ciemku i tak brudzi ręce.\\\"",
+ "d2a84e0d0c": "Nieudany atak",
+ "203b7841fa": "Atak bessy na giełdę #v {1}#!!",
+ "b5ade2188d": "Ktoś zabiega o nasz kapitał",
+ "049cf4d9ea": "Kampania szeptana",
+ "2754c96593": "Opłacona kampania zdemaskowana"
+}

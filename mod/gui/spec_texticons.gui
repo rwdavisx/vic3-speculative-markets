@@ -88,3 +88,273 @@ texticon = {
 		fontsize = 18
 	}
 }
+texticon = {
+	icon = spec_blue_chip
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/blue_chip.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_market_confidence
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/je_markets.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_speculative_mania
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/state_mania.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_financial_panic
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/state_panic.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_foreign_panic
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/driver_foreign.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_boom_end
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/driver_crash.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_correction
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/ending_1.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_bust
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/ending_2.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_collapse
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/ending_3.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_investor_interest
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/driver_boom.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_speculative_excess
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/crash_risk.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_credit_policy
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/concept_credit_policy.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_outstanding_credit
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/concept_outstanding_credit.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_long_depression
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/concept_long_depression.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_sound_finance
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/concept_sound_finance.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_banking_reforms
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/concept_banking_reforms.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_intervention
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/concept_intervention.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_market_conditions
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/concept_market_conditions.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_baseline
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/concept_baseline.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_market_mood
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/concept_market_mood.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_market_tie
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/concept_market_tie.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_capital_flight
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/concept_capital_flight.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_war_news
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/concept_war_news.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_financial_centre
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/concept_financial_centre.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_company_strength
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/concept_company_strength.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_leverage
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/concept_leverage.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_bad_debts
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/concept_bad_debts.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_lending_standards
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/concept_lending_standards.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_trust
+	iconsize = {
+		texture = "gfx/interface/icons/generic_icons/legitimacy.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_exchange
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/concept_exchange.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}

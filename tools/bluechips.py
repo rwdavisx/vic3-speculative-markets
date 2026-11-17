@@ -264,7 +264,7 @@ def loc():
         ' spec_coty: "Company of the Year"\n'
         f' spec_coty_desc: "The world\'s most prosperous {bc} is ours this year"\n'
         ' spec_bc_index: "Blue Chip Index"\n'
-        f' spec_bc_index_desc: "Our {bc}s draw savings to the market and make lenders easy. Grows with each: in full up to {CAP}, half as much up to {CAP2}."\n'
+        f' spec_bc_index_desc: "Our {bc}s pull savings into the market and make loans cheaper. Each one makes it stronger. The first {CAP} count in full, and the rest up to {CAP2} count half."\n'
         ' spec_bluechip.1.t: "A New Blue Chip"\n'
         f' spec_bluechip.1.d: "After a year of steady profits, {CO} is now counted among the blue chips. Its shares are '
         'sought by every bank and widow in the land, and the brokers ask whether it will stay content with its standing or '
@@ -274,8 +274,8 @@ def loc():
         f' spec_bluechip.1.a.tt: "Our {trust}: #P +{pc(BELL_TRUST / 120)}#!"\n'
         ' spec_bluechip.1.b: "Let them issue new shares"\n'
         f' spec_bluechip.1.b.tt: "Our [concept_investment_pool]: #P +[ROOT.GetCountry.MakeScope.ScriptValue(\'spec_bc_shares\')|D]#! @money!\\n'
-        f'{CO} turns fragile for #v {FRAGILE_YEARS}#! years: one month below #v {__import__("companies").BLUE_PROSPER:g}#! '
-        '[concept_prosperity] and it is no longer a blue chip"\n'
+        f'{CO} turns fragile for #v {FRAGILE_YEARS}#! years, so one month below #v {__import__("companies").BLUE_PROSPER:g}#! '
+        '[concept_prosperity] means it is no longer a blue chip"\n'
         ' spec_bluechip.2.t: "A Blue Chip Slips"\n'
         f' spec_bluechip.2.d: "{CO} has fallen below the mark of a blue chip. If its profits do not recover within '
         f'{__import__("companies").BLUE_LOSE} months, the market will strike it from the list, and our Exchange will feel it."\n'
@@ -287,7 +287,7 @@ def loc():
         f' spec_bluechip.2.b.tt: "If it stays below the mark for #v {__import__("companies").BLUE_LOSE}#! months:\\n'
         f'Our {trust}: #N -{pc(FALL_TRUST / 120)}#!\\n[concept_spec_market_confidence]: #N -{FALL_CONF}#!"\n'
         ' spec_bluechip.3.t: "Company of the Year"\n'
-        f' spec_bluechip.3.d: "The financial press of every capital agrees: {CO} is the most prosperous company in the '
+        f' spec_bluechip.3.d: "The financial press of every capital agrees that {CO} is the most prosperous company in the '
         'world this year. Our Exchange basks in its glory."\n'
         ' spec_bluechip.3.f: "Every clerk in the City wants a share of it."\n'
         ' spec_bluechip.3.a: "A proud day"\n'
@@ -301,7 +301,7 @@ def effect_lines(val, each=False):
     adds one blue chip's figure after it, faint."""
     idx = dict(INDEX)
     rows = [("[concept_spec_market_confidence] lost to crashes and panics", "-", SHELTER * 100, "0", ""),
-            ("[concept_spec_exchange] trust", "+", DIVIDEND / 1.2, "1", " a year"),
+            ("[concept_spec_exchange] trust", "+", DIVIDEND / 1.2, "1", " of the full bar a year"),
             ("[concept_spec_exchange] contests", "+", PULL * 100, "0", " our way"),
             ("Capitalists' [concept_investment_pool] contribution", "+", idx["state_capitalists_investment_pool_contribution_add"] * 100, "1", ""),
             ("Loan interest", "-", -idx["country_loan_interest_rate_mult"] * 100, "0", "")]
@@ -311,11 +311,12 @@ def effect_lines(val, each=False):
 
 def risk_text():
     import companies  # not at the top: companies imports this file
-    return (f"#b Losing one#!\\nBelow #v {companies.BLUE_PROSPER:g}#! [concept_prosperity] for #v {companies.BLUE_LOSE}#! months running: "
-            f"[concept_spec_exchange] trust #N -{FALL_TRUST / 1.2:.1f}%#!, [concept_spec_market_confidence] #N -{FALL_CONF}#!\\n"
-            f"A Bear Raid that lands on us leaves one #N Fragile#! for a year\\n\\n"
-            f"#b Company of the Year#!\\nThe world's most prosperous one: [concept_spec_exchange] trust #P +{COTY_TRUST / 1.2:.1f}%#!, "
-            f"[concept_prestige] #P +{COTY_PRESTIGE:.0%}#! for a year")
+    return (f"#b If we lose one#!\\nIt happens after #v {companies.BLUE_LOSE}#! months in a row below #v {companies.BLUE_PROSPER:g}#! [concept_prosperity]\\n"
+            f"[concept_spec_exchange] trust: #N -{FALL_TRUST / 1.2:.1f}%#! of the full bar\\n[concept_spec_market_confidence]: #N -{FALL_CONF}#!\\n"
+            f"A Bear Raid that hits us makes one #N Fragile#! for a year. It then stops being one after a single month below "
+            f"#v {companies.BLUE_PROSPER:g}#! [concept_prosperity], not #v {companies.BLUE_LOSE}#!\\n\\n"
+            f"#b Company of the Year#!\\nIf ours is the world's most prosperous, we gain [concept_spec_exchange] trust #P +{COTY_TRUST / 1.2:.1f}%#! of the full bar, "
+            f"and [concept_prestige] #P +{COTY_PRESTIGE:.0%}#! for a year")
 
 
 # what a blue chip does, for the concept (concepts)

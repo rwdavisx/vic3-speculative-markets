@@ -1720,7 +1720,76 @@ spec_lever_toggle = {
 }
 
 spec_issue_float = {
-	set_variable = { name = spec_issue_$G$ value = 1 days = 730 }
-	set_variable = { name = spec_issue value = 1 days = 730 }
-	set_variable = { name = spec_issue_cool value = 1 days = 1095 }
+	set_variable = { name = spec_issue_$G$ value = 1 }
+	set_variable = { name = spec_issue value = 24 }
+	set_variable = { name = spec_issue_cool value = 36 }
+}
+
+spec_issue_clock = {
+	if = {
+		limit = { has_variable = spec_issue }
+		change_variable = { name = spec_issue add = -1 }
+		if = {
+			limit = { var:spec_issue <= 0 }
+			remove_variable = spec_issue
+			remove_variable = spec_issue_aeroplanes
+			remove_variable = spec_issue_ammunition
+			remove_variable = spec_issue_artillery
+			remove_variable = spec_issue_automobiles
+			remove_variable = spec_issue_clippers
+			remove_variable = spec_issue_clothes
+			remove_variable = spec_issue_coal
+			remove_variable = spec_issue_coffee
+			remove_variable = spec_issue_copper
+			remove_variable = spec_issue_dye
+			remove_variable = spec_issue_electricity
+			remove_variable = spec_issue_engines
+			remove_variable = spec_issue_explosives
+			remove_variable = spec_issue_fabric
+			remove_variable = spec_issue_fertilizer
+			remove_variable = spec_issue_fine_art
+			remove_variable = spec_issue_fish
+			remove_variable = spec_issue_fruit
+			remove_variable = spec_issue_furniture
+			remove_variable = spec_issue_glass
+			remove_variable = spec_issue_grain
+			remove_variable = spec_issue_groceries
+			remove_variable = spec_issue_hardwood
+			remove_variable = spec_issue_iron
+			remove_variable = spec_issue_lead
+			remove_variable = spec_issue_liquor
+			remove_variable = spec_issue_luxury_clothes
+			remove_variable = spec_issue_luxury_furniture
+			remove_variable = spec_issue_meat
+			remove_variable = spec_issue_merchant_marine
+			remove_variable = spec_issue_oil
+			remove_variable = spec_issue_opium
+			remove_variable = spec_issue_paper
+			remove_variable = spec_issue_porcelain
+			remove_variable = spec_issue_radios
+			remove_variable = spec_issue_rubber
+			remove_variable = spec_issue_silk
+			remove_variable = spec_issue_small_arms
+			remove_variable = spec_issue_steamers
+			remove_variable = spec_issue_steel
+			remove_variable = spec_issue_sugar
+			remove_variable = spec_issue_sulfur
+			remove_variable = spec_issue_tanks
+			remove_variable = spec_issue_tea
+			remove_variable = spec_issue_telephones
+			remove_variable = spec_issue_tobacco
+			remove_variable = spec_issue_tools
+			remove_variable = spec_issue_wine
+			remove_variable = spec_issue_wood
+			spec_update_levers = yes
+		}
+	}
+	if = {
+		limit = { has_variable = spec_issue_cool }
+		change_variable = { name = spec_issue_cool add = -1 }
+		if = {
+			limit = { var:spec_issue_cool <= 0 }
+			remove_variable = spec_issue_cool
+		}
+	}
 }

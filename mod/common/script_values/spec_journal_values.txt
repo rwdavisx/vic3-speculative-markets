@@ -110,6 +110,7 @@ spec_burst_now = {
 		limit = { has_variable = spec_heat }
 		value = var:spec_heat
 		multiply = spec_burst_per_heat
+		multiply = spec_nx_burst
 		max = spec_burst_max
 	}
 }

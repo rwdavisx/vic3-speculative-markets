@@ -41,6 +41,7 @@ REFORMS = {
     "company": {"risk": 0.7},
 }
 SOUND_RATE, SOUND_PRESTIGE = -0.05, 10
+SHELVE_CONF = 3  # Market Confidence when the inquiry is shelved
 # timed interest group modifiers: key, icon, approval, name
 IG_MODIFIERS = [
     ("spec_rentiers_cut", "modifier_coins_negative", -2, "Rentier Income Cut"),  # no apostrophe: vanilla quotes modifier names in ADD_MODIFIER tooltips
@@ -49,6 +50,8 @@ IG_MODIFIERS = [
     ("spec_free_issue", "modifier_coins_positive", 2, "Free Banking"),
     ("spec_disclosure_burden", "modifier_documents_negative", -1, "Disclosure Rules"),
     ("spec_disclosure_welcomed", "modifier_documents_positive", 1, "Disclosure Rules"),
+    ("spec_report_shelved", "modifier_coins_positive", 2, "Business as Usual"),  # the inquiry shelved (spec_reform.1.e)
+    ("spec_report_buried", "modifier_documents_negative", -2, "Inquiry Shelved"),
 ]
 STAGES = [(6, "ld"), (5, "panic"), (4, "aftermath"), (3, "mania"), (2, "buoyant"), (1, "steady"), (0, "wary")]
 INQUIRY_PICS = {"west": "unspecific_politicians_arguing", "asia": "asia_politician_parliament_motion"}
@@ -94,7 +97,7 @@ def values(k):
             + f"spec_reform_count = {{\n\tvalue = 0\n{count}}}\n"
             # display only: what the bubble would cost if it burst now, and the months until a calm inquiry
             + "spec_burst_now = {\n\tvalue = 0\n\tif = {\n\t\tlimit = { has_variable = spec_heat }\n\t\tvalue = var:spec_heat\n"
-              "\t\tmultiply = spec_burst_per_heat\n\t\tmax = spec_burst_max\n\t}\n}\n"
+              "\t\tmultiply = spec_burst_per_heat\n\t\tmultiply = spec_nx_burst\n\t\tmax = spec_burst_max\n\t}\n}\n"
             + f"spec_calm_left = {{\n\tvalue = {INQUIRY_CALM}\n\tif = {{\n\t\tlimit = {{ has_variable = spec_calm }}\n"
               "\t\tsubtract = var:spec_calm\n\t}\n\tmin = 0\n}\n"
             + flag("spec_reform_open_v", "spec_reform_open = yes")
@@ -458,13 +461,35 @@ def entry(stances):
 		name = "spec_je_history"
 		container = "custom_widget_container_4"
 	}}
+	widget = {{
+		gui = "gui/spec_journal_widgets.gui"
+		name = "spec_je_news"
+		container = "custom_widget_container_1"
+	}}
+	widget = {{
+		gui = "gui/spec_journal_widgets.gui"
+		name = "spec_je_marker"
+		container = "custom_widget_container_7"
+	}}
+
+	# on activation (a new player, or a switch to this country) the bars show their start values until the first
+	# pulse: Market Confidence read 55 in a panic at 18 (2026-11-16), so set them now
+	# spec_je: the entry itself, for the Finance window to open its panel under it (market_tab.JE_PANEL), whose map
+	# mode is the only way to show this one's
+	immediate = {{
+		je:je_spec_markets ?= {{
+			set_bar_progress = {{ name = spec_confidence_bar value = root.var:spec_conf }}
+{BARS}			root = {{ set_variable = {{ name = spec_je value = prev }} }}
+		}}
+	}}
 
 	# after the bars' periodic progress, which only itemizes the month for their tooltips
 	on_monthly_pulse = {{
 		effect = {{
 			je:je_spec_markets ?= {{
 				set_bar_progress = {{ name = spec_confidence_bar value = root.var:spec_conf }}
-{BARS}			}}
+{BARS}				root = {{ set_variable = {{ name = spec_je value = prev }} }}
+			}}
 		}}
 	}}
 
@@ -504,6 +529,19 @@ def entry(stances):
 """
 
 
+def goods_row(label, keys):
+    """A card row of the goods in spec_<key>, each icon with its name as tooltip."""
+    icons_ = "".join(f"""	icon = {{
+		visible = "[Country.MakeScope.Var('spec_{key}').IsSet]"
+		datacontext = "[Country.MakeScope.Var('spec_{key}').GetGoods]"
+		size = {{ 30 30 }}
+		texture = "[Goods.GetTexture]"
+		tooltip = "[Goods.GetName]"
+	}}
+""" for key in keys)
+    return mt.card_row(label, f"{label}_TT", icons_)
+
+
 def widgets():
     """The journal entry's two widgets, built from the Speculation tab's parts (market_tab) in the player's context, as the tab uses (the
     entry is the player's own; JournalEntry.GetCountry left the ring and pictures blank):
@@ -531,32 +569,46 @@ def widgets():
 			}}
 """ for key, vis in pics)
     width = mt.HISTORY * (mt.COL_W + mt.COL_GAP) - mt.COL_GAP
+    box_h = 4 * 36 + mt.CHART_H + 12 + 12  # two chip rows, two goods rows, the history, margins
     return f"""widget = {{
 	name = "spec_je_header"
 	datacontext = "[GetPlayer]"
-	size = {{ 560 120 }}
+	size = {{ 560 158 }}
 	parentanchor = hcenter
-	background = {{
-		texture = "gfx/interface/illustrations/journal/top_illu_journal_entries.dds"
-		using = top_illu_properties
-	}}
 	widget = {{
-		size = {{ 116 116 }}
-		parentanchor = center
-		tooltip = "SPEC_CARD_RING_TT"
+		size = {{ 560 120 }}
 		background = {{
-			using = circle_bg_simple_dark
+			texture = "gfx/interface/illustrations/journal/top_illu_journal_entries.dds"
+			using = top_illu_properties
 		}}
-		icon = {{
+		widget = {{
 			size = {{ 116 116 }}
 			parentanchor = center
-			texture = "gfx/interface/backgrounds/round_frame_dec.dds"
-		}}
-{gauge}{pictures}	}}
+			tooltip = "SPEC_CARD_RING_TT"
+			background = {{
+				using = circle_bg_simple_dark
+			}}
+			icon = {{
+				size = {{ 116 116 }}
+				parentanchor = center
+				texture = "gfx/interface/backgrounds/round_frame_dec.dds"
+			}}
+{mt.ind(gauge + pictures, 1)}		}}
+	}}
+	# under the illustration: our Exchange on the left (centres.py), the Finance window on the right
+	textbox = {{
+		position = {{ 24 -2 }}
+		size = {{ 320 30 }}
+		parentanchor = bottom|left
+		align = left|nobaseline
+		elide = right
+		text = "SPEC_JE_EXCH"
+		tooltip = "SPEC_JE_EXCH_TT"
+	}}
 	button = {{
 		using = default_button
 		size = {{ 170 30 }}
-		position = {{ -8 -8 }}
+		position = {{ -24 -2 }}
 		parentanchor = bottom|right
 		text = "SPEC_OPEN_TAB"
 		tooltip = "SPEC_OPEN_TAB_TT"
@@ -564,24 +616,67 @@ def widgets():
 	}}
 }}
 
+# a headline from the financial pages, by the stage, above the status
+widget = {{
+	name = "spec_je_news"
+	datacontext = "[GetPlayer]"
+	size = {{ 504 56 }}
+	parentanchor = hcenter
+	using = entry_bg_fancy
+	icon = {{
+		size = {{ 40 40 }}
+		position = {{ 10 0 }}
+		parentanchor = vcenter
+		texture = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	}}
+	textbox = {{
+		position = {{ 60 0 }}
+		size = {{ 432 50 }}
+		parentanchor = vcenter
+		multiline = yes
+		align = left|nobaseline
+		fontsize_min = 12
+		text = "SPEC_JE_NEWS"
+	}}
+}}
+
+# the month at a glance: the Speculation card's chip rows, the goods investors favour and shun, and the history
 widget = {{
 	name = "spec_je_history"
 	datacontext = "[GetPlayer]"
-	size = {{ 530 {mt.CHART_H + 16} }}
+	size = {{ 504 {box_h} }}
 	parentanchor = hcenter
-	tax_exp_frame = {{
-		size = {{ 530 {mt.CHART_H + 16} }}
-		tooltip = "SPEC_HISTORY_TT"
-		blockoverride "text" {{
-			text = "SPEC_HISTORY"
-		}}
-		blockoverride "text_2" {{}}
-		widget = {{
-			position = {{ 110 0 }}
-			size = {{ {width} {mt.CHART_H} }}
-			parentanchor = vcenter
-{mt.ind(mt.history_chart(), 3)}		}}
+	background = {{
+		using = entry_bg
 	}}
+	flowcontainer = {{
+		direction = vertical
+		parentanchor = hcenter
+		position = {{ 0 6 }}
+{mt.ind(mt.chip_rows() + goods_row("SPEC_JE_FAVOURED", ("top1", "top2", "top3")) + goods_row("SPEC_JE_SHUNNED", ("low1", "low2")), 2)}		widget = {{
+			size = {{ {mt.W - 2 * mt.CARD_X} {mt.CHART_H + 12} }}
+			parentanchor = hcenter
+			tooltip = "SPEC_HISTORY_TT"
+			textbox = {{
+				size = {{ {mt.LABEL_W} 30 }}
+				parentanchor = vcenter
+				align = left|nobaseline
+				elide = right
+				text = "SPEC_HISTORY"
+			}}
+			widget = {{
+				position = {{ 110 0 }}
+				size = {{ {width} {mt.CHART_H} }}
+				parentanchor = vcenter
+{mt.ind(mt.history_chart(), 4)}			}}
+		}}
+	}}
+}}
+
+# marks this entry for journal_entry.gui, which hides the Progress Conditions section here (generate.journal_entry_gui)
+widget = {{
+	name = "spec_je_marker"
+	size = {{ 0 0 }}
 }}
 """
 
@@ -704,11 +799,11 @@ spec_reform.1 = {{
 {option('b', note, tt('spec_reform_free_tt', 'set_variable = { name = spec_note value = 2 }') + ig2('industrialists', 'spec_free_issue'), 10, temper(1, 30))}
 {option('c', 'has_technology_researched = central_banking NOT = { has_variable = spec_llr }', tt('spec_reform_llr_tt', 'set_variable = spec_llr'), 25)}
 {option('d', 'has_technology_researched = joint_stock_companies NOT = { has_variable = spec_company_law }', tt('spec_reform_company_tt', 'set_variable = spec_company_law') + ig2('industrialists', 'spec_disclosure_burden') + ig2('intelligentsia', 'spec_disclosure_welcomed'), 15)}
-	option = {{
+	option = {{  # shelve it: the money men are relieved and the market with them, the reformers are not
 		name = spec_reform.1.e
 		default_option = yes
-		ai_chance = {{
-			base = 0
+{ig2('industrialists', 'spec_report_shelved')}{ig2('intelligentsia', 'spec_report_buried')}{stories.conf(SHELVE_CONF)}		ai_chance = {{
+			base = 5
 		}}
 	}}
 }}
@@ -866,6 +961,21 @@ def loc(k):
         0: f"Investors in {cap} are wary. Burned by recent losses, they keep their money close and shun {low}. Loose "
            "credit, or encouragement to invest in a good, may coax them back.",
     }
+    # the headline above the status: as the stage chain, read on the player (the widgets' context)
+    gp = "GetPlayer.MakeScope"
+    news_chain = "'SPEC_JE_NEWS_0'"
+    for n, _ in reversed(STAGES[:-1]):
+        news_chain = f"SelectLocalization(GreaterThanOrEqualTo_CFixedPoint({gp}.ScriptValue('spec_stage'), '(CFixedPoint){n}'), 'SPEC_JE_NEWS_{n}', {news_chain})"
+    hot, city = f"[{gp}.Var('spec_top1').GetGoods.GetName]", "[GetPlayer.GetCapital.GetCityHubName]"
+    news = {
+        6: "Another Lean Year: Mills Stand Silent and the Banks Will Not Lend",
+        5: f"RUN ON THE BANKS! Crowds Besiege the Counting Houses of {city}",
+        4: "Exchange Reopens to Thin Trading as Creditors Count the Cost",
+        3: f"Fever on the {city} Exchange: Clerks and Widows Buy {hot} on Borrowed Money",
+        2: f"New {hot} Issue Oversubscribed Within the Hour as Banks Lend Freely",
+        1: f"Quiet Day in {city}: {hot} Shares Firm, the Rest Unchanged",
+        0: f"Money Shy in {city}: Brokers Idle as Investors Keep Their Purses Shut",
+    }
     ig_tt = lambda key: next(f"{n:+d}" for k2, _, n, _ in IG_MODIFIERS if k2 == key)
     # the map's tooltip: the stage's short name, by the same chain as the entry's text, on the state's owner
     map_chain = "'SPEC_MAP_STAGE_0'"
@@ -876,8 +986,18 @@ def loc(k):
         "spec_map_tt_caught": f"Hit by the [concept_spec_financial_panic] in #v [{OWNER}.Var('spec_foreign_src').GetCountry.GetName]#!",
         **{f"SPEC_MAP_STAGE_{n}": t for n, t in MAP_STAGES.items()},
         "je_spec_markets": "Financial Markets",
-        "je_spec_markets_reason": f"[{chain}]\\n\\n#bold [concept_spec_banking_reforms]:#! [SelectLocalization({on('spec_reform_count')}, 'SPEC_JE_NONE', 'SPEC_JE_INST_NONE')]{inst}"
-                                  "\\n\\nThe details are shown in the #bold $SPEC_FINANCE$#! window.",
+        "je_spec_markets_reason": f"[{chain}]\\n\\n#bold [concept_spec_banking_reforms]:#! [SelectLocalization({on('spec_reform_count')}, 'SPEC_JE_NONE', 'SPEC_JE_INST_NONE')]{inst}",
+        # the widgets (widgets()), in the player's context
+        "SPEC_JE_NEWS": f"[{news_chain}]",
+        **{f"SPEC_JE_NEWS_{n}": f"#italic {t}#!" for n, t in news.items()},
+        "SPEC_JE_EXCH": ("[SelectLocalization(GetPlayer.MakeScope.Var('spec_exch_stand').IsSet, 'SPEC_JE_EXCH_ON', 'SPEC_JE_NONE')]"
+                         if __import__("centres").ON else ""),
+        "SPEC_JE_EXCH_ON": "$SPEC_EXCH_CITY_ME$ Exchange: #v $SPEC_EXCH_STAND_ME$#!",
+        "SPEC_JE_EXCH_TT": "Our [concept_spec_exchange] and its Standing. The #bold $SPEC_FIN_TAB_EXCHANGE$#! tab of the #bold $SPEC_FINANCE$#! window has the rest.",
+        "SPEC_JE_FAVOURED": "Favoured",
+        "SPEC_JE_FAVOURED_TT": "The goods investors are keenest on this month, so shares in the companies and buildings that make them sell easily",
+        "SPEC_JE_SHUNNED": "Shunned",
+        "SPEC_JE_SHUNNED_TT": "The goods investors want least to do with this month",
         **{f"SPEC_JE_STAGE_{n}": t for n, t in stage.items()},
         **{f"spec_je_status_{key}": f"{t}{stance}" for key, t in status.items()},
         "SPEC_JE_BAD_DEBTS": f", [concept_spec_bad_debts] #N -[{G}('spec_crunch_tp_pct')|1]%#! for #v [{G}('spec_crunch_months')|0]#! months",
@@ -890,75 +1010,75 @@ def loc(k):
         "SPEC_JE_INQUIRY_HINT": "\\n\\nNow is the moment to ask how it happened. A Commission of Inquiry can reform how our "
                                 "banks lend and our companies report.",
         "SPEC_JE_INST_NONE": "none yet",
-        "SPEC_JE_INST_CURRENCY": "\\n#bold Currency School:#! less credit, a slower bubble, longer panics",
-        "SPEC_JE_INST_FREE": "\\n#bold Free Banking:#! more credit, larger booms and falls",
-        "SPEC_JE_INST_LLR": "\\n#bold Lender of Last Resort:#! a cheaper, faster #v Lend to the Banks#!",
-        "SPEC_JE_INST_COMPANY": "\\n#bold Company Law:#! smaller losses when booms end",
+        "SPEC_JE_INST_CURRENCY": "\\n#bold Currency School#! (less credit, a slower bubble, longer panics)",
+        "SPEC_JE_INST_FREE": "\\n#bold Free Banking#! (more credit, larger booms and falls)",
+        "SPEC_JE_INST_LLR": "\\n#bold Lender of Last Resort#! (a cheaper, faster #v Lend to the Banks#!)",
+        "SPEC_JE_INST_COMPANY": "\\n#bold Company Law#! (smaller losses when booms end)",
         "spec_excess_bar": "Speculative Excess",
         "concept_spec_speculative_excess": "Speculative Excess",
-        "concept_spec_speculative_excess_desc": f"$concept_spec_speculative_excess$ measures the bubble building in a [concept_country]'s [concept_market] during a boom. Once {tech('stock_exchange')} has been researched, it grows in each month that [concept_spec_market_confidence] is at #v [{G}('spec_heat_from')|0]#! or more, and grows faster the higher $concept_spec_market_confidence$ climbs. While $concept_spec_market_confidence$ stays between #v {k['BURST_BELOW']}#! and #v [{G}('spec_heat_from')|0]#!, it slowly cools.\\n\\nWhen $concept_spec_market_confidence$ falls below #v {k['BURST_BELOW']}#!, the bubble bursts and $concept_spec_market_confidence$ falls further, by up to #v [{G}('spec_burst_max')|0]#!. The higher the $concept_spec_speculative_excess$, the harder the fall.",
+        "concept_spec_speculative_excess_desc": f"#italic This is the bubble in a [concept_country]'s [concept_market]. The longer a boom runs hot, the bigger it gets.#!\\n\\nNo bubble can build before {tech('stock_exchange')}.\\n#P Grows#! each month [concept_spec_market_confidence] is #v [{G}('spec_heat_from')|0]#! or more, and faster the higher it climbs\\n#v Shrinks#! slowly while it is between #v {k['BURST_BELOW']}#! and #v [{G}('spec_heat_from')|0]#!\\n#N Pops#! if it drops below #v {k['BURST_BELOW']}#!\\n\\nWhen it pops, $concept_spec_market_confidence$ drops even more, by up to #N [{G}('spec_burst_max')|0]#!. The bigger the bubble, the harder the fall.",
         "concept_spec_sound_finance": "Sound Finance",
-        "concept_spec_sound_finance_desc": f"$concept_spec_sound_finance$ is achieved by enacting all three [concept_spec_banking_reforms]: Banknote Rules, a Lender of Last Resort and Company Law.\\n\\nOnce all three are enacted, the [concept_country] gains #v {SOUND_PRESTIGE}#! [concept_prestige] and pays #v {-SOUND_RATE:.0%}#! less interest on its [concept_loans].",
+        "concept_spec_sound_finance_desc": f"#italic The prize for passing all three [concept_spec_banking_reforms], Banknote Rules, a Lender of Last Resort and Company Law.#!\\n\\nOnce a [concept_country] has all three:\\n#P +{SOUND_PRESTIGE}#! [concept_prestige]\\n#P {-SOUND_RATE:.0%}#! less interest on its [concept_loans]",
         "concept_spec_banking_reforms": "Banking Reforms",
         "concept_spec_banking_reform": "Banking Reform",
-        "concept_spec_banking_reforms_desc": f"$concept_spec_banking_reforms$ set the rules by which a [concept_country]'s banks and companies operate. Each becomes available with a technology and is enacted through a Commission of Inquiry, which can sit after a [concept_spec_financial_panic] or after #v {INQUIRY_CALM // 12}#! years without one. Each commission enacts one reform.\\n\\n#bold Banknote Rules#! ({tech('banking')}), one of two:\\n#bold Currency School:#! $spec_reform_currency_tt$\\n#bold Free Banking:#! $spec_reform_free_tt$\\n\\n#bold Lender of Last Resort#! ({tech('central_banking')}): $spec_reform_llr_tt$\\n\\n#bold Company Law#! ({tech('joint_stock_companies')}): $spec_reform_company_tt$\\n\\nEnacting all three achieves [concept_spec_sound_finance].",
+        "concept_spec_banking_reforms_desc": f"#italic The rules a [concept_country]'s banks and companies play by. Each one changes how booms and panics go.#!\\n\\nEach reform unlocks with a technology. A Commission of Inquiry passes one reform at a time. It can sit after a [concept_spec_financial_panic], or after #v {INQUIRY_CALM // 12}#! calm years with no panic.\\n\\n#bold Banknote Rules#! ({tech('banking')}), pick one:\\n#bold Currency School#!\\n$spec_reform_currency_tt$\\n#bold Free Banking#!\\n$spec_reform_free_tt$\\n\\n#bold Lender of Last Resort#! ({tech('central_banking')})\\n$spec_reform_llr_tt$\\n\\n#bold Company Law#! ({tech('joint_stock_companies')})\\n$spec_reform_company_tt$\\n\\nPass all three to earn [concept_spec_sound_finance].",
         "alert_spec_panic_risk_alert_name": "Panic Risk",
         "spec_panic_risk_alert_setting_name": "Panic Risk",
-        "alert_spec_panic_risk_alert_desc": f"If our booms ended now, {mc} would fall to #N [{G}('spec_after_collapse')|0]#!, below the #v {f"[{G}('spec_panic_at')|0]" if leverage.ON else k['PANIC']}#! where a {fp} begins.",
-        "alert_spec_panic_risk_alert_hint": "You can Restrain Speculation in the goods most at risk, or tighten [concept_spec_credit_policy], in the #bold $SPEC_FIN_TAB_BANKING$#! tab of the #bold $SPEC_FINANCE$#! window.",
+        "alert_spec_panic_risk_alert_desc": f"If all our booms end at once, {mc} drops to #N [{G}('spec_after_collapse')|0]#!.\\nA {fp} starts below #v {f"[{G}('spec_panic_at')|0]" if leverage.ON else k['PANIC']}#!.",
+        "alert_spec_panic_risk_alert_hint": "To lower the risk, Restrain Speculation in the riskiest goods or tighten [concept_spec_credit_policy]. Both are in the #bold $SPEC_FIN_TAB_BANKING$#! tab of the #bold $SPEC_FINANCE$#! window.",
         "alert_spec_panic_risk_alert_action": "Journal",
         "alert_spec_bubble_alert_name": "Speculative Excess",
         "spec_bubble_alert_setting_name": "Speculative Excess",
-        "alert_spec_bubble_alert_desc": f"Our {excess} stands at #v [GetPlayer.MakeScope.Var('spec_heat').GetValue|0]#!. When {mc} falls back below #v {k['BURST_BELOW']}#!, the bubble will burst and $concept_spec_market_confidence$ will fall a further #N [{G}('spec_burst_now')|0]#!.",
-        "alert_spec_bubble_alert_hint": f"You can let the bubble down gently by restraining the booming goods or tightening [concept_spec_credit_policy]. It grows each month that {mc} is at #v [{G}('spec_heat_from')|0]#! or more, and cools while it stays between #v {k['BURST_BELOW']}#! and that.",
+        "alert_spec_bubble_alert_desc": f"Our {excess} is #v [GetPlayer.MakeScope.Var('spec_heat').GetValue|0]#!. This is the bubble.\\n\\n#N Pops#! if {mc} drops below #v {k['BURST_BELOW']}#!\\nIf it popped now: #N -[{G}('spec_burst_now')|0]#! $concept_spec_market_confidence$ at once",
+        "alert_spec_bubble_alert_hint": f"To let it down gently, restrain the booming goods or tighten [concept_spec_credit_policy].\\n#P Grows#! while {mc} is #v [{G}('spec_heat_from')|0]#! or more\\n#v Shrinks#! slowly while it is between #v {k['BURST_BELOW']}#! and #v [{G}('spec_heat_from')|0]#!",
         "alert_spec_bubble_alert_action": "Journal",
         "alert_spec_rescue_alert_name": "Bank Rescue Available",
         "spec_rescue_alert_setting_name": "Bank Rescue Available",
-        "alert_spec_rescue_alert_desc": f"A {fp} is under way and we have not yet lent to the banks.",
-        "alert_spec_rescue_alert_hint": f"You can #v Lend to the Banks#! once per panic from the #bold $SPEC_FIN_TAB_BANKING$#! tab of the #bold $SPEC_FINANCE$#! window. This shortens the panic, halves its effects and raises {mc} by #P +{k['RESCUE_CONF']}#!.",
+        "alert_spec_rescue_alert_desc": f"A {fp} is on, and we have not lent to the banks yet.",
+        "alert_spec_rescue_alert_hint": f"Use #v Lend to the Banks#! in the #bold $SPEC_FIN_TAB_BANKING$#! tab of the #bold $SPEC_FINANCE$#! window. Once per panic.\\n#P Ends#! the panic sooner\\n#P Halves#! its penalties for the months it has left\\n{mc} #P +{k['RESCUE_CONF']}#!\\n\\n#weak Does not cut $spec_panic_relief$ payments{', clear [concept_spec_bad_debts]' if leverage.ON else ''} or win back people already radicalized#!",
         "alert_spec_rescue_alert_action": "Journal",
         "alert_spec_bailout_alert_name": "Buy Up Bad Loans Available",
         "spec_bailout_alert_setting_name": "Buy Up Bad Loans Available",
-        "alert_spec_bailout_alert_desc": "[concept_spec_bad_debts] are holding back [concept_throughput] and investment, and we have not yet bought up the bad loans.",
-        "alert_spec_bailout_alert_hint": f"You can #v Buy Up Bad Loans#! once while they last, from the #bold $SPEC_FIN_TAB_BANKING$#! tab of the #bold $SPEC_FINANCE$#! window. This halves the remaining [concept_spec_bad_debts] for #v @money![{G}('spec_bailout_cost')|D]#!.",
+        "alert_spec_bailout_alert_desc": "[concept_spec_bad_debts] are slowing our [concept_throughput] and investment, and we have not bought up the bad loans yet.",
+        "alert_spec_bailout_alert_hint": f"Use #v Buy Up Bad Loans#! in the #bold $SPEC_FIN_TAB_BANKING$#! tab of the #bold $SPEC_FINANCE$#! window. Only once while they last.\\n#P Halves#! the [concept_spec_bad_debts] left\\nCosts #v @money![{G}('spec_bailout_cost')|D]#!",
         "alert_spec_bailout_alert_action": "Journal",
         "spec_excess_bar_desc": f"[SelectLocalization({on('spec_has_stock_exchange')}, 'SPEC_EXCESS_ON', 'SPEC_EXCESS_OFF')]",
         "SPEC_EXCESS_ON": f"{excess}: #v [JournalEntry.GetCurrentBarValue(ScriptedProgressBar.Self)|0]#![SelectLocalization({on('spec_burst_now')}, 'SPEC_EXCESS_COST', 'SPEC_JE_NONE')]",
         "SPEC_EXCESS_COST": f", a fall now costs #N [{sv('spec_burst_now')}|0]#! {mc}",
         "SPEC_EXCESS_OFF": f"{excess}: none without a [GetTechnology('stock_exchange').GetName]",
-        "spec_excess_from_conf": f"{mc} at #v [{G}('spec_heat_from')|0]#! or more this month",
-        "spec_excess_cooling": f"Cooling while {mc} stays below #v [{G}('spec_heat_from')|0]#!",
+        "spec_excess_from_conf": f"Grows because {mc} is #v [{G}('spec_heat_from')|0]#! or more this month",
+        "spec_excess_cooling": f"Shrinks slowly because {mc} is below #v [{G}('spec_heat_from')|0]#!",
         "spec_finance_bar": "Sound Finance",
         "spec_finance_bar_desc": "[concept_spec_sound_finance]: #v [JournalEntry.GetCurrentBarValue(ScriptedProgressBar.Self)|0]#! of #v 3#! [concept_spec_banking_reforms]",
         "spec_inquiry_no_panic_tt": f"No {fp} is under way",
-        "spec_inquiry_reform_tt": "Our technology allows a [Concept('concept_spec_banking_reforms','$concept_spec_banking_reform$')] not yet enacted",
+        "spec_inquiry_reform_tt": "Our technology unlocks a [Concept('concept_spec_banking_reforms','$concept_spec_banking_reform$')] we have not passed yet",
         "spec_suspend_panic_tt": f"A {fp} is under way",
-        "spec_suspend_note_tt": "Banknote Rules follow the Currency School",
-        "spec_inquiry_when_tt": f"A {fp} ended within the last year and no inquiry has sat since, or #v {INQUIRY_CALM // 12}#! "
-                                f"years have passed without a panic (#v [ROOT.GetCountry.MakeScope.ScriptValue('spec_calm_left')|0]#! months to go)",
+        "spec_suspend_note_tt": "We picked the Currency School for our Banknote Rules",
+        "spec_inquiry_when_tt": f"A {fp} ended in the last year and no inquiry has sat since, or #v {INQUIRY_CALM // 12}#! "
+                                f"calm years have passed with no panic (#v [ROOT.GetCountry.MakeScope.ScriptValue('spec_calm_left')|0]#! months to go)",
         "spec_convert_conf_tt": f"{mc} is at least #v 60#!",
         "spec_convert_debt_tt": f"Our debt is at least #v {CONVERT_DEBT:.0%}#! of our [concept_credit] limit",
-        "spec_convert_cd_tt": f"The debt has not been converted in the last #v {CONVERT_COOLDOWN_YEARS}#! years",
-        "spec_convert_conf_cost_tt": f"{mc} falls by #v {CONVERT_CONF}#!",
-        "spec_relief_when_tt": f"A {fp} or the [concept_spec_long_depression] is under way",
+        "spec_convert_cd_tt": f"We have not converted the debt in the last #v {CONVERT_COOLDOWN_YEARS}#! years",
+        "spec_convert_conf_cost_tt": f"{mc} #N -{CONVERT_CONF}#!",
+        "spec_relief_when_tt": f"A {fp} or the [concept_spec_long_depression] is on",
         "spec_relief_cd_tt": f"No Relief Works in the last #v {RELIEF_MONTHS}#! months",
-        "spec_suspend_tt": f"The {fp} ends within #v {SUSPEND_MONTHS}#! months, at full strength until then\\n{mc} rises by #v {SUSPEND_CONF}#!\\n"
-                           f"For #v {HAZARD_YEARS}#! years the {excess} builds #v {HAZARD_HEAT - 1:.0%}#! faster"
-                           + ("\\n[concept_spec_lending_standards] loosen, as after a Bank Rescue" if cycle.ON else ""),
+        "spec_suspend_tt": f"The {fp} #P ends#! within #v {SUSPEND_MONTHS}#! months, but hits at full strength until then\\n{mc} #P +{SUSPEND_CONF}#!\\n"
+                           f"For #v {HAZARD_YEARS}#! years after, the {excess} grows #N {HAZARD_HEAT - 1:.0%}#! faster"
+                           + ("\\n[concept_spec_lending_standards] loosen, just like after a Bank Rescue" if cycle.ON else ""),
         "spec_suspend_act": "Suspend the Bank Act",
-        "spec_suspend_act_desc": "Let the bank lend beyond the limit the Act sets on its notes. The panic subsides within months at no "
-                                 "cost to the treasury, but investors learn that the government will always step in. This counts as "
-                                 "#v Lend to the Banks#! for the current panic.\\n\\n#lore Britain suspended its Bank Charter Act in 1847, 1857 and 1866.#!",
+        "spec_suspend_act_desc": "Let the bank print more notes than the Act allows. The panic dies down within months and costs the "
+                                 "treasury nothing. The catch is that investors learn we will always bail them out. This counts as "
+                                 "#v Lend to the Banks#! for this panic.\\n\\n#lore Britain suspended its Bank Charter Act in 1847, 1857 and 1866.#!",
         "spec_relief_works_button": "Relief Works",
-        "spec_relief_works_button_desc": "Pay for public works and relief while the slump lasts, raising welfare and construction and drawing "
-                                         f"support away from the radicals for #v {RELIEF_MONTHS}#! months. The weekly cost grows with our [concept_gdp].",
+        "spec_relief_works_button_desc": f"Pay for public works and relief while the slump lasts. For #v {RELIEF_MONTHS}#! months it lifts "
+                                         "welfare and construction and pulls support away from the radicals. The bigger our [concept_gdp], the more it costs each week.",
         "spec_convert_debt": "Convert the National Debt",
-        "spec_convert_debt_desc": "While investors are buoyant, swap our loans for new ones at a lower rate. Bondholders who lived "
+        "spec_convert_debt_desc": "While investors are in a good mood, swap our loans for new ones with lower interest. People who lived "
                                   "on the old interest will not thank us.",
         "spec_inquiry": "Commission of Inquiry",
-        "spec_inquiry_desc": "Appoint a commission to hear bankers, brokers and ruined depositors and report on how our banks and "
-                             f"companies should be run. Its report enacts one [Concept('concept_spec_banking_reforms','$concept_spec_banking_reform$')] our technology allows. "
-                             f"Its sittings take up the government's attention for #v {INQUIRY_MONTHS}#! months.",
+        "spec_inquiry_desc": "Ask a commission to hear bankers, brokers and ruined savers and say how our banks and "
+                             f"companies should be run. Its report passes one [Concept('concept_spec_banking_reforms','$concept_spec_banking_reform$')] our technology unlocks. "
+                             f"It keeps the government busy for #v {INQUIRY_MONTHS}#! months.",
         "spec_debt_converted": "Converted Debt",
         "spec_debt_converted_desc": "Our loans were converted to a lower rate while investors were eager to lend.",
         "spec_relief_works": "Relief Works",
@@ -972,15 +1092,15 @@ def loc(k):
         "spec_sound_finance": "Sound Finance",
         "spec_sound_finance_desc": "Our currency, banks and companies are run by rules that investors trust.",
         **{key: name for key, _, _, name in IG_MODIFIERS},
-        "spec_reform_currency_tt": f"Banks lend #v {1 - REFORMS['currency']['credit']:.0%}#! less, the {excess} builds "
+        "spec_reform_currency_tt": f"Banks lend #v {1 - REFORMS['currency']['credit']:.0%}#! less, the {excess} grows "
                                    f"#v {1 - REFORMS['currency']['heat']:.0%}#! slower, and [Concept('concept_spec_financial_panic','$concept_spec_financial_panics$')] last #v {REFORMS['currency']['panic_len'] - 1:.0%}#! longer\\n"
-                                   "Allows suspending the Bank Act in a panic",
-        "spec_reform_free_tt": f"Banks lend #v {REFORMS['free']['credit'] - 1:.0%}#! more, booms are #v {REFORMS['free']['boom'] - 1:.0%}#! larger, and "
-                               f"their endings cost #v {REFORMS['free']['risk'] - 1:.0%}#! more {mc}",
+                                   "You can suspend the Bank Act in a panic",
+        "spec_reform_free_tt": f"Banks lend #v {REFORMS['free']['credit'] - 1:.0%}#! more, booms get #v {REFORMS['free']['boom'] - 1:.0%}#! bigger, and "
+                               f"when they end they cost #v {REFORMS['free']['risk'] - 1:.0%}#! more {mc}",
         "spec_reform_llr_tt": f"#v Lend to the Banks#! costs #v {1 - REFORMS['llr']['rescue']:.0%}#! less and ends the panic a month sooner",
-        "spec_reform_company_tt": f"Boom endings cost #v {1 - REFORMS['company']['risk']:.0%}#! less {mc}",
+        "spec_reform_company_tt": f"When booms end, they cost #v {1 - REFORMS['company']['risk']:.0%}#! less {mc}",
         "spec_reform.1.t": "Commission of Inquiry",
-        "spec_reform.1.d_panic": "The commission appointed after the panic has delivered its report: three volumes of testimony from "
+        "spec_reform.1.d_panic": "The commission appointed after the panic has delivered its report in three volumes of testimony from "
                                  "bankers, brokers and ruined depositors. Its members agree that the panic was no act of God. On "
                                  "almost everything else they disagree, and each remedy has its champions in the chamber.",
         "spec_reform.1.d_calm": "With the markets quiet, a commission has spent the year hearing bankers, brokers and political "
@@ -992,7 +1112,7 @@ def loc(k):
         "spec_reform.1.b": "Let every sound bank issue its own notes.",
         "spec_reform.1.c": "Name a lender of last resort.",
         "spec_reform.1.d": "Make companies publish their accounts.",
-        "spec_reform.1.e": "Thank the commission for its labors.",
+        "spec_reform.1.e": "Thank the commission, and shelve its report.",
         "spec_reform.2.t": "Sound Finance",
         "spec_reform.2.d": "Our banks issue their notes by rule, a lender stands ready when panic strikes, and our companies must "
                            "show investors what they own and what they owe. Abroad, our bonds now sell at a premium, and "

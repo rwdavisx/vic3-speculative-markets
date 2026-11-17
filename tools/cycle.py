@@ -81,6 +81,35 @@ def _boosted():
     return sorted({g for gs in _GROUPS.values() for g in gs})
 
 
+LAX_FLAVOUR = ["Banks barely lend. Booms stay small and end gently.", "Banks lend carefully.", "The normal level.",
+               "Banks lend easily and chase booms.", "Banks lend to anyone. Booms run hot and end hard."]
+
+
+def level_loc(lax):
+    """A tooltip for each level of the Banking tab's Lending Standards scale: its effects against Sound, from its low
+    edge to its high (spec_lax_<k>: (2 x lax - 1) x LAX_<K>), and whether we are in it."""
+    cuts = (0, *LAX_CUTS, 1)
+    sw = lambda x: 2 * x - 1
+    def rng(n, i, bad_up):
+        lo, hi = round(sw(cuts[i]) * n * 100), round(sw(cuts[i + 1]) * n * 100)
+        col = lambda v: "v" if v == 0 else ("N" if (v > 0) == bad_up else "P")
+        f = lambda v: f"#{col(v)} {v:+d}%#!" if v else "#v 0%#!"
+        return f"{f(lo)} to {f(hi)}"
+    here = lambda i: (f"GreaterThanOrEqualTo_CFixedPoint({lax}, '(CFixedPoint){cuts[i]}')" if i == len(LAX_WORDS) - 1 else
+                      f"And(GreaterThanOrEqualTo_CFixedPoint({lax}, '(CFixedPoint){cuts[i]}'), LessThan_CFixedPoint({lax}, '(CFixedPoint){cuts[i + 1]}'))")
+    out = " SPEC_LAXL_HERE: \"\\n\\n#P We are here#!\"\n"
+    for i, w in enumerate(LAX_WORDS):
+        trust = ("#P Our [concept_spec_exchange] builds trust in quiet months#!" if cuts[i + 1] <= LAX_CUTS[2] + 1e-9 else
+                 "#N Our [concept_spec_exchange] stops building trust#!")
+        out += (f' SPEC_LAXL_{i}_TT: "#header {w}#!\\n$TOOLTIP_DELIMITER$\\n#italic {LAX_FLAVOUR[i]}#!\\n\\n'
+                f'#b Compared with #v {LAX_WORDS[2]}#!:#!\\n'
+                f'Credit lent each month: {rng(LAX_CREDIT, i, False).replace("#P", "#v").replace("#N", "#v")}\\n'
+                f'Share of it going into booms: {rng(LAX_PULL, i, True)}\\n'
+                f'Cost of a Bank Rescue: {rng(LAX_COST, i, True)}\\n\\n{trust}'
+                f'[AddLocalizationIf({here(i)}, \'SPEC_LAXL_HERE\')]"\n')
+    return out
+
+
 def values(goods, share):
     """share: the part of the market's trade a good needs before its boom counts (the boom-end notification's)."""
     if not ON:
@@ -245,20 +274,25 @@ def loc():
     over, ppl = "SCOPE.GetValue('spec_note_over')", "SCOPE.GetValue('spec_note_ppl')"
     return ("".join(f' spec_boom_build_{grp}: "Boom Construction"\n' for grp in _GROUPS)
             + "".join(f' SPEC_LAXW_{i}: "{w}"\n' for i, w in enumerate(LAX_WORDS))
+            + level_loc(lax)
             + f' SPEC_EFFECT_LAX: "Lending Standards"\n'
             f' SPEC_EFFECT_LAX_VALUE: "#v [{picks}\'SPEC_LAXW_{len(LAX_CUTS)}\'{")" * len(LAX_CUTS)}]#!"\n'
-            f' SPEC_EFFECT_LAX_TT: "#header [concept_spec_lending_standards]#!\\n$SPEC_EFFECT_LAX_VALUE$\\n$TOOLTIP_DELIMITER$\\n'
-            f'Credit lent each month: {pct("spec_lax_credit")}\\nShare of it lent into booms: {pct("spec_lax_pull")}\\n'
-            f'Bank Rescue cost: {pct("spec_lax_cost")}\\n$TOOLTIP_DELIMITER$\\n'
-            f'Banks grow careless in years without losses and after each Bank Rescue\\n'
-            f'Losses make them careful again, most of all a [concept_spec_financial_panic] left to run its course'
-            f'\\n\\n#title To Keep Them Careful#!\\n[concept_spec_credit_policy] at #v Tight#!\\n'
-            f'Restrain booms before they end badly\\nRescue the banks and suspend the Bank Act sparingly'
-            f'\\n\\nLevels: {", ".join(f"#v {w}#!" for w in LAX_WORDS)}"\n'
+            f' SPEC_EFFECT_LAX_TT: "#header [concept_spec_lending_standards]: $SPEC_EFFECT_LAX_VALUE$#!\\n$TOOLTIP_DELIMITER$\\n'
+            f'#italic How careful our banks are when they lend. Careless banks lend more, but their booms end harder.#!\\n\\n'
+            f'#b Compared with normal (#v {LAX_WORDS[2]}#!)#!\\n'
+            f'{pct("spec_lax_credit")} credit lent each month\\n{pct("spec_lax_pull")} to the usual share of that credit going into booms\\n'
+            f'{pct("spec_lax_cost")} cost of a Bank Rescue\\n\\n'
+            f'#b How it moves#!\\n'
+            f'#N Looser#! a little every quiet month (#v {LAX_WORDS[0]}#! to #v {LAX_WORDS[-1]}#! takes about #v {LAX_QUIET_YEARS}#! years)\\n'
+            f'#N Much looser#! each time we rescue the banks\\n'
+            f'#P Stricter#! when a boom ends, or when we restrain one\\n'
+            f'#P Much stricter#! when a [concept_spec_financial_panic] ends without a rescue'
+            f'\\n$TOOLTIP_DELIMITER$\\n#instruction Set [concept_spec_credit_policy] to #v Tight#! to stop it getting looser. '
+            f'A panic or Bad Debts also pause it. #v {LAX_WORDS[2]}#! or stricter also builds our [concept_spec_exchange]\'s trust.#!"\n'
             f' SPEC_TILE_CYCLE: "[SelectLocalization({gt(good_var("spec_ui_overx"), 1)}, \'SPEC_TILE_OVER_ON\', \'SPEC_GOODS_NONE\')]'
             f'[SelectLocalization({gt(good_var("spec_ui_bb"), 0)}, \'SPEC_TILE_BB_ON\', \'SPEC_GOODS_NONE\')]"\n'
-            f' SPEC_TILE_OVER_ON: "\\n\\n#title Overbuilding:#! supply is up #v [{good_var("spec_ui_over")}|%0]#! since this boom began\\n'
-            f'If its boom ended, [concept_spec_market_confidence] would fall #v x[{good_var("spec_ui_overx")}|2]#! as far"\n'
+            f' SPEC_TILE_OVER_ON: "\\n\\n#title Overbuilding:#! #v [{good_var("spec_ui_over")}|%0]#! more supply since this boom began\\n'
+            f'If the boom ends, the hit to [concept_spec_market_confidence] is #N x[{good_var("spec_ui_overx")}|2]#! as big"\n'
             f' SPEC_TILE_BB_ON: "\\n\\n#title Boom Construction:#! #P +[{good_var("spec_ui_bb")}|%0]#! construction efficiency '
             f'for its industry while investors stay this keen"\n'
             ' SPEC_NOTE_CYCLE: "'

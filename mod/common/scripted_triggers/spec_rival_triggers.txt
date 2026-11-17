@@ -1,0 +1,167 @@
+﻿# rival Exchanges (rivals.py): one named the other, both with an Exchange; scope:target = the other
+spec_rv_chose = {
+	is_target_in_variable_list = { name = spec_rv_chosen target = scope:target }
+}
+
+spec_rv_chosen_by = {
+	scope:target = { is_target_in_variable_list = { name = spec_rv_chosen target = prev } }
+}
+
+spec_rv_pair = {
+	has_variable = spec_exch_stand has_variable = spec_centre_score has_variable = spec_centre_trust
+	scope:target = { has_variable = spec_exch_stand has_variable = spec_centre_score has_variable = spec_centre_trust }
+	OR = {
+		spec_rv_chose = yes
+		spec_rv_chosen_by = yes
+	}
+}
+
+spec_can_rv_choose = {
+	custom_tooltip = {
+		text = spec_rv_exch_tt
+		has_variable = spec_exch_stand has_variable = spec_centre_score has_variable = spec_centre_trust
+	}
+	custom_tooltip = {
+		text = spec_rv_room_tt
+		OR = {
+			NOT = { has_variable = spec_rv_n_chosen }
+			var:spec_rv_n_chosen < spec_rv_slots
+		}
+	}
+	custom_tooltip = {
+		text = spec_rv_their_exch_tt
+		scope:target = { has_variable = spec_exch_stand has_variable = spec_centre_score has_variable = spec_centre_trust }
+	}
+	custom_tooltip = {
+		text = spec_rv_mutual_tt
+		scope:target = { NOT = { is_target_in_variable_list = { name = spec_rv_chosen target = prev } } }
+	}
+	custom_tooltip = {
+		text = spec_rv_interest_tt
+		scope:target = { exists = capital }
+		has_strategic_region_interest_tier = {
+			strategic_region = scope:target.capital.region
+			value >= 2
+		}
+	}
+}
+
+spec_can_rv_end = {
+	custom_tooltip = {
+		text = spec_rv_keep_tt
+		NOT = { is_target_in_variable_list = { name = spec_rv_keep target = scope:target } }
+	}
+}
+
+spec_can_rv_toggle = {
+	trigger_if = {
+		limit = { spec_rv_chose = yes }
+		spec_can_rv_end = yes
+	}
+	trigger_else = {
+		spec_can_rv_choose = yes
+	}
+}
+
+spec_can_rv_shore = {
+	custom_tooltip = {
+		text = spec_rv_pair_tt
+		spec_rv_pair = yes
+	}
+	custom_tooltip = {
+		text = spec_rv_shore_cd_tt
+		NOT = { is_target_in_variable_list = { name = spec_rv_cd_shore target = scope:target } }
+	}
+	custom_tooltip = {
+		text = spec_rv_shield_tt
+		NOT = { is_target_in_variable_list = { name = spec_rv_shield target = scope:target } }
+	}
+	custom_tooltip = {
+		text = spec_rv_gold_tt
+		gold_reserves >= spec_rv_cost
+	}
+}
+
+spec_rv_pay_raid = {
+	custom_tooltip = {
+		text = spec_rv_gold_tt
+		gold_reserves >= spec_rv_cost
+	}
+}
+
+spec_can_rv_raid = {
+	custom_tooltip = {
+		text = spec_rv_pair_tt
+		spec_rv_pair = yes
+	}
+	custom_tooltip = {
+		text = spec_rv_cd_tt
+		NOT = { is_target_in_variable_list = { name = spec_rv_cd_raid target = scope:target } }
+	}
+	spec_rv_pay_raid = yes
+}
+
+spec_rv_pay_lure = {
+	custom_tooltip = {
+		text = spec_rv_panic_tt
+		NOT = { has_variable = spec_panic }
+	}
+	custom_tooltip = {
+		text = spec_rv_lured_tt
+		scope:target = { NOT = { has_variable = spec_rv_lure } }
+	}
+}
+
+spec_can_rv_lure = {
+	custom_tooltip = {
+		text = spec_rv_pair_tt
+		spec_rv_pair = yes
+	}
+	custom_tooltip = {
+		text = spec_rv_cd_tt
+		NOT = { is_target_in_variable_list = { name = spec_rv_cd_lure target = scope:target } }
+	}
+	spec_rv_pay_lure = yes
+}
+
+spec_rv_pay_press = {
+	custom_tooltip = {
+		text = spec_rv_infl_tt
+		influence >= 75
+	}
+	custom_tooltip = {
+		text = spec_rv_slots_tt
+		NOT = { AND = { has_modifier = spec_rv_press_1 has_modifier = spec_rv_press_2 has_modifier = spec_rv_press_3 } }
+	}
+}
+
+spec_can_rv_press = {
+	custom_tooltip = {
+		text = spec_rv_pair_tt
+		spec_rv_pair = yes
+	}
+	custom_tooltip = {
+		text = spec_rv_cd_tt
+		NOT = { is_target_in_variable_list = { name = spec_rv_cd_press target = scope:target } }
+	}
+	spec_rv_pay_press = yes
+}
+
+spec_can_rv_hold = {
+	custom_tooltip = {
+		text = spec_rv_pair_tt
+		spec_rv_pair = yes
+	}
+	custom_tooltip = {
+		text = spec_rv_cd_tt
+		NOT = { is_target_in_variable_list = { name = spec_rv_cd_hold target = scope:target } }
+	}
+	custom_tooltip = {
+		text = spec_rv_pushed_tt
+		scope:target = { is_target_in_variable_list = { name = spec_rv_push_1 target = prev } }
+	}
+	custom_tooltip = {
+		text = spec_rv_gold_tt
+		gold_reserves >= spec_rv_cost
+	}
+}

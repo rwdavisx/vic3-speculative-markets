@@ -1,0 +1,21 @@
+{
+ "a1cc9ffbc3": "La gran Bolsa de #v {1}#! por fin se ha fijado en nosotros, y no le gusta lo que ve. ",
+ "eb64e178ce": "Durante años, las Bolsas de #v {1}#! y de #v {2}#! se han rondado la una a la otra. Era solo cuestión de tiempo. ",
+ "9686b40e2b": "Golpearon en pleno auge, cuando cada inversor ya pasa las noches en vela temiendo la caída.\\n\\n",
+ "1705ec0c88": "Eligieron el momento con cuidado: nuestro mercado ya está en pánico, y ahora cada golpe pega dos veces.\\n\\n",
+ "6b4e256cfc": "Los advenedizos de #v {1}#! han decidido que a #v {2}#! hay que bajarle los humos. ",
+ "3b3c377788": "$SPEC_RV_EV_WHO$$SPEC_RV_EV_WHEN$Corredores al servicio de #v {1}#! arrojaron de golpe nuestras acciones al parqué, esperando una desbandada. En cambio, nuestros bancos compraron cada lote ofrecido, los precios aguantaron y, al toque de cierre, eran los asaltantes quienes se lamían las heridas.\\n\\nSu propia [concept_spec_market_confidence] cae #P {2}#! a lo largo de {3} meses.",
+ "22ac33d063": "$SPEC_RV_EV_WHO$$SPEC_RV_EV_WHEN$Antes del toque de apertura, corredores al servicio de #v {1}#! arrojaron de golpe al parqué grandes paquetes de nuestras acciones ferroviarias y bancarias. Los precios se hundieron, las pizarras no daban abasto y, para el mediodía, nuestros propios dependientes vendían despavoridos.\\n\\nNuestra [concept_spec_market_confidence] caerá #N {2}#! a lo largo de {3} meses.",
+ "81a87a2c0e": "$SPEC_RV_EV_WHO$$SPEC_RV_EV_WHEN$Agentes de #v {1}#! se han alojado en nuestros mejores hoteles, y nuestros mayores inversores cenan con ellos cada noche. Su oferta es sencilla: mejor interés, un puerto más seguro y ninguna pregunta incómoda.\\n\\nDurante {2} meses, #N {3}#! de nuestros ingresos de [concept_investment_pool] va a parar a ellos.",
+ "8570eb128f": "$SPEC_RV_EV_WHO$$SPEC_RV_EV_WHEN$Los diarios matutinos de #v {1}#! publican largas columnas sobre balances falsificados y bancos tambaleantes en #v {2}#!. Ninguna va firmada y pocas son ciertas, pero se leen en todas las casas de comercio del continente.\\n\\nNuestra [concept_spec_exchange] pierde #N {3}#! de reputación.",
+ "0cb47f6b6f": "$SPEC_RV_EV_WHO$$SPEC_RV_EV_WHEN$Los periódicos de #v {1}#! han ido llenos de dudas sobre nuestra [concept_spec_exchange]. Pero un dependiente habló, y ahora todos saben qué dinero pagó la tinta.\\n\\nPerdemos reputación, pero ellos también, y su nombre sufre en el extranjero.",
+ "af6622a107": "\\\"Al oso que vende lo que no tiene, más le vale acertar.\\\"",
+ "39e0bfbfcd": "\\\"El capital va adonde lo tratan bien y se queda donde lo alimentan bien.\\\"",
+ "95fbe10842": "\\\"Una mentira da media vuelta al mundo mientras la verdad todavía se calza las botas.\\\"",
+ "7202f82324": "\\\"El barro lanzado a oscuras igual ensucia las manos.\\\"",
+ "d2a84e0d0c": "El asalto fallido",
+ "203b7841fa": "¡Ataque bajista contra #v {1}#!!",
+ "b5ade2188d": "Cortejan nuestro capital",
+ "049cf4d9ea": "Una campaña de rumores",
+ "2754c96593": "Una campaña pagada, al descubierto"
+}

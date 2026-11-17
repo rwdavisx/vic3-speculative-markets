@@ -218,6 +218,8 @@ spec_catch_panic = {
 				multiply = $WEIGHT$
 				multiply = root.spec_reach
 				multiply = spec_foreign_loss_mult
+				multiply = spec_world_shelter
+				multiply = spec_bc_shelter
 			}
 		}
 		if = {
@@ -389,6 +391,10 @@ spec_pick_driver = {
 	if = {
 		limit = { has_variable = spec_c_world }
 		change_variable = { name = spec_p2 add = var:spec_c_world }
+	}
+	if = {
+		limit = { has_variable = spec_c_rival }
+		change_variable = { name = spec_p2 add = var:spec_c_rival }
 	}
 	set_variable = { name = spec_p3 value = 0 }
 	if = {
@@ -2787,6 +2793,12 @@ spec_shut_down = {
 	remove_variable = spec_pw_harbour
 	remove_variable = spec_pu_companies
 	remove_variable = spec_pw_companies
+	remove_variable = spec_pu_futures
+	remove_variable = spec_pw_futures
+	remove_variable = spec_pu_lender
+	remove_variable = spec_pw_lender
+	remove_variable = spec_pu_railway
+	remove_variable = spec_pw_railway
 	remove_variable = spec_pu_floor
 	remove_variable = spec_pw_floor
 	remove_variable = spec_pu_sound
@@ -2801,6 +2813,12 @@ spec_shut_down = {
 	remove_variable = spec_lead_harbour
 	remove_variable = spec_has_companies
 	remove_variable = spec_lead_companies
+	remove_variable = spec_has_futures
+	remove_variable = spec_lead_futures
+	remove_variable = spec_has_lender
+	remove_variable = spec_lead_lender
+	remove_variable = spec_has_railway
+	remove_variable = spec_lead_railway
 	remove_variable = spec_has_floor
 	remove_variable = spec_lead_floor
 	remove_variable = spec_has_sound
@@ -2812,6 +2830,38 @@ spec_shut_down = {
 	remove_variable = spec_rival
 	remove_variable = spec_rival_lock
 	remove_variable = spec_rival_last
+	remove_variable = spec_rv_shored
+	remove_variable = spec_rv_shore_cd
+	remove_variable = spec_c_rival
+	remove_variable = spec_rv_ai_wait
+	remove_variable = spec_rv_ai_seen
+	remove_variable = spec_rv_raid_year
+	remove_variable = spec_rv_raid
+	remove_variable = spec_rv_raid_pm
+	remove_variable = spec_rv_raider
+	remove_variable = spec_rv_lure
+	remove_variable = spec_rv_lurer
+	remove_variable = spec_rv_lure_share
+	remove_variable = spec_rv_hit
+	remove_variable = spec_rv_hit_by
+	remove_variable = spec_rv_hit_ok
+	remove_variable = spec_rv_hit_recent
+	remove_variable = spec_rv_did
+	remove_variable = spec_rv_did_on
+	remove_variable = spec_rv_did_ok
+	remove_variable = spec_rv_did_recent
+	remove_variable = spec_rv_did_amt
+	remove_variable = spec_rv_did_cost
+	remove_variable = spec_rv_n_out
+	remove_variable = spec_rv_n_in
+	remove_variable = spec_rv_n_chosen
+	remove_variable = spec_rv_ui_left
+	remove_variable = spec_rv_n_all
+	remove_variable = spec_rv_focus
+	remove_variable = spec_rv_ui_p
+	remove_variable = spec_rv_ui_us
+	remove_variable = spec_rv_ui_them
+	remove_variable = spec_rv_ui_forfeit
 	clear_variable_list = spec_bank_goods
 	clear_variable_list = spec_iw_levels
 	clear_variable_list = spec_settled_plays

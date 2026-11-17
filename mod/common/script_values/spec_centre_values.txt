@@ -42,12 +42,7 @@ spec_xs_reach = {
 						is_in_power_bloc = yes
 						power_bloc ?= scope:spec_xs_me.power_bloc
 					}
-					any_scope_treaty = {
-						any_scope_article = {
-							has_type = foreign_investment_rights
-							target_country = scope:spec_xs_me
-						}
-					}
+					is_in_list = spec_xs_fir
 				}
 			}
 			add = var:spec_xs_inc
@@ -250,6 +245,123 @@ spec_centre_mult = {
 	subtract = var:spec_centre_new
 }
 
+# renown paths' levers (centres.NAME_FX)
+spec_nx_press = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_pw_price var:spec_pw_price > 0 }
+		multiply = { value = var:spec_pw_price multiply = 0.35 add = 1 }
+	}
+}
+spec_nx_raid = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_pw_railway var:spec_pw_railway > 0 }
+		multiply = { value = var:spec_pw_railway multiply = 0.35 add = 1 }
+	}
+}
+spec_nx_lure = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_pw_lender var:spec_pw_lender > 0 }
+		multiply = { value = var:spec_pw_lender multiply = 0.35 add = 1 }
+	}
+}
+spec_nx_shore = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_pw_harbour var:spec_pw_harbour > 0 }
+		multiply = { value = var:spec_pw_harbour multiply = 0.4 add = 1 }
+	}
+}
+spec_nx_crash = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_pw_companies var:spec_pw_companies > 0 }
+		multiply = { value = var:spec_pw_companies multiply = 0.1 add = 1 }
+	}
+	if = {
+		limit = { has_variable = spec_pw_futures var:spec_pw_futures > 0 }
+		multiply = { value = var:spec_pw_futures multiply = -0.25 add = 1 }
+	}
+	if = {
+		limit = { has_variable = spec_pw_railway var:spec_pw_railway > 0 }
+		multiply = { value = var:spec_pw_railway multiply = 0.2 add = 1 }
+	}
+	if = {
+		limit = { has_variable = spec_pw_door var:spec_pw_door > 0 }
+		multiply = { value = var:spec_pw_door multiply = 0.1 add = 1 }
+	}
+}
+spec_nx_panic = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_pw_harbour var:spec_pw_harbour > 0 }
+		multiply = { value = var:spec_pw_harbour multiply = -0.25 add = 1 }
+	}
+}
+spec_nx_rescue = {
+	value = 1
+}
+spec_nx_tie_inv = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_pw_lender var:spec_pw_lender > 0 }
+		multiply = { value = var:spec_pw_lender multiply = 0.3 add = 1 }
+	}
+}
+spec_nx_tie_trade = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_pw_floor var:spec_pw_floor > 0 }
+		multiply = { value = var:spec_pw_floor multiply = 0.25 add = 1 }
+	}
+	if = {
+		limit = { has_variable = spec_pw_door var:spec_pw_door > 0 }
+		multiply = { value = var:spec_pw_door multiply = 0.2 add = 1 }
+	}
+}
+spec_nx_blue = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_pw_companies var:spec_pw_companies > 0 }
+		multiply = { value = var:spec_pw_companies multiply = 0.4 add = 1 }
+	}
+}
+spec_nx_burst = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_pw_railway var:spec_pw_railway > 0 }
+		multiply = { value = var:spec_pw_railway multiply = 0.3 add = 1 }
+	}
+}
+spec_nx_bad = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_pw_lender var:spec_pw_lender > 0 }
+		multiply = { value = var:spec_pw_lender multiply = 0.2 add = 1 }
+	}
+	if = {
+		limit = { has_variable = spec_pw_sound var:spec_pw_sound > 0 }
+		multiply = { value = var:spec_pw_sound multiply = -0.25 add = 1 }
+	}
+	if = {
+		limit = { has_variable = spec_pw_pockets var:spec_pw_pockets > 0 }
+		multiply = { value = var:spec_pw_pockets multiply = 0.2 add = 1 }
+	}
+}
+spec_nx_ceiling = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_pw_sound var:spec_pw_sound > 0 }
+		multiply = { value = var:spec_pw_sound multiply = -0.15 add = 1 }
+	}
+	if = {
+		limit = { has_variable = spec_pw_pockets var:spec_pw_pockets > 0 }
+		multiply = { value = var:spec_pw_pockets multiply = 0.2 add = 1 }
+	}
+}
+
 # the Exchange (centres.py): its Standing and what it is known for
 spec_exch_hype = {
 	value = 1
@@ -274,8 +386,8 @@ spec_exch_hype = {
 		multiply = { value = var:spec_pw_price multiply = 0.15 add = 1 }
 	}
 	if = {
-		limit = { has_variable = spec_pw_floor var:spec_pw_floor > 0 }
-		multiply = { value = var:spec_pw_floor multiply = 0.1 add = 1 }
+		limit = { has_variable = spec_pw_futures var:spec_pw_futures > 0 }
+		multiply = { value = var:spec_pw_futures multiply = -0.1 add = 1 }
 	}
 }
 
@@ -291,19 +403,15 @@ spec_exch_flight = {
 	}
 	else_if = {
 		limit = { var:spec_exch_stand ?= 3 }
-		value = 3
+		value = 2
 	}
 	if = {
 		limit = { has_variable = spec_pledge }
 		multiply = 1.5
 	}
 	if = {
-		limit = { has_variable = spec_pw_harbour var:spec_pw_harbour > 0 }
-		multiply = { value = var:spec_pw_harbour multiply = 0.5 add = 1 }
-	}
-	if = {
-		limit = { has_variable = spec_pw_companies var:spec_pw_companies > 0 }
-		multiply = { value = var:spec_pw_companies multiply = -0.25 add = 1 }
+		limit = { has_variable = spec_pw_floor var:spec_pw_floor > 0 }
+		multiply = { value = var:spec_pw_floor multiply = 0.15 add = 1 }
 	}
 	if = {
 		limit = { has_variable = spec_pw_door var:spec_pw_door > 0 }
@@ -319,7 +427,7 @@ spec_exch_loss = {
 	}
 	if = {
 		limit = { has_variable = spec_pw_price var:spec_pw_price > 0 }
-		multiply = { value = var:spec_pw_price multiply = 0.25 add = 1 }
+		multiply = { value = var:spec_pw_price multiply = 0.2 add = 1 }
 	}
 	if = {
 		limit = { has_variable = spec_pw_floor var:spec_pw_floor > 0 }
@@ -328,10 +436,6 @@ spec_exch_loss = {
 	if = {
 		limit = { has_variable = spec_pw_sound var:spec_pw_sound > 0 }
 		multiply = { value = var:spec_pw_sound multiply = -0.25 add = 1 }
-	}
-	if = {
-		limit = { has_variable = spec_pw_pockets var:spec_pw_pockets > 0 }
-		multiply = { value = var:spec_pw_pockets multiply = 0.15 add = 1 }
 	}
 }
 
@@ -343,23 +447,11 @@ spec_exch_credit = {
 	}
 	if = {
 		limit = { has_variable = spec_pw_harbour var:spec_pw_harbour > 0 }
-		multiply = { value = var:spec_pw_harbour multiply = -0.1 add = 1 }
+		multiply = { value = var:spec_pw_harbour multiply = -0.15 add = 1 }
 	}
 	if = {
-		limit = { has_variable = spec_pw_companies var:spec_pw_companies > 0 }
-		multiply = { value = var:spec_pw_companies multiply = 0.15 add = 1 }
-	}
-	if = {
-		limit = { has_variable = spec_pw_sound var:spec_pw_sound > 0 }
-		multiply = { value = var:spec_pw_sound multiply = -0.1 add = 1 }
-	}
-	if = {
-		limit = { has_variable = spec_pw_pockets var:spec_pw_pockets > 0 }
-		multiply = { value = var:spec_pw_pockets multiply = 0.15 add = 1 }
-	}
-	if = {
-		limit = { has_variable = spec_pw_door var:spec_pw_door > 0 }
-		multiply = { value = var:spec_pw_door multiply = -0.05 add = 1 }
+		limit = { has_variable = spec_pw_futures var:spec_pw_futures > 0 }
+		multiply = { value = var:spec_pw_futures multiply = -0.15 add = 1 }
 	}
 }
 
@@ -445,6 +537,24 @@ spec_log_kco = {
 		add = 1
 	}
 }
+spec_log_kstr = {
+	value = 0
+	every_company = {
+		add = prosperity
+	}
+	divide = 20
+	add = {
+		value = spec_log_kbc
+		multiply = 2
+	}
+}
+spec_log_kbc = {
+	value = 0
+	every_company = {
+		limit = { has_variable = spec_blue_chip }
+		add = 1
+	}
+}
 spec_log_ksnd = {
 	value = 0
 	if = {
@@ -499,7 +609,7 @@ spec_exch_lean = {
 		value = spec_earn_co
 		subtract = 1
 		multiply = 0.2
-		min = -0.3
+		min = 0
 		max = 0.3
 	}
 }
@@ -534,11 +644,68 @@ spec_name_harbour = {
 	}
 }
 spec_name_companies = {
-	value = spec_log_kco
+	value = spec_log_kstr
 	if = {
 		limit = { has_variable = spec_pw_sum }
 		multiply = { value = var:spec_pw_companies multiply = 0.25 add = 1 }
 		multiply = { value = var:spec_pw_sum subtract = var:spec_pw_companies multiply = -0.1 add = 1 }
+	}
+}
+spec_name_futures = {
+	value = 0
+	every_scope_state = {
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_pw_sum }
+		multiply = { value = var:spec_pw_futures multiply = 0.25 add = 1 }
+		multiply = { value = var:spec_pw_sum subtract = var:spec_pw_futures multiply = -0.1 add = 1 }
+	}
+}
+spec_name_lender = {
+	value = 0
+	save_temporary_scope_as = spec_lender_me
+	every_scope_treaty = {
+		every_scope_article = {
+			limit = {
+				has_type = foreign_investment_rights
+				target_country = scope:spec_lender_me
+			}
+			add = 1
+		}
+	}
+	every_direct_subject = {
+		limit = {
+			has_diplomatic_pact = {
+				type = da_overlord_grant_investment_rights
+				who = scope:spec_lender_me
+			}
+		}
+		add = 1
+	}
+	if = {
+		limit = { has_variable = spec_pw_sum }
+		multiply = { value = var:spec_pw_lender multiply = 0.25 add = 1 }
+		multiply = { value = var:spec_pw_sum subtract = var:spec_pw_lender multiply = -0.1 add = 1 }
+	}
+}
+spec_name_railway = {
+	value = 0
+	every_scope_state = {
+		limit = { has_building = building_railway }
+		add = b:building_railway.level
+	}
+	add = {
+	value = 0
+	every_scope_state = {
+		limit = { has_building = building_port }
+		add = b:building_port.level
+	}
+	}
+	if = {
+		limit = { has_variable = spec_pw_sum }
+		multiply = { value = var:spec_pw_railway multiply = 0.25 add = 1 }
+		multiply = { value = var:spec_pw_sum subtract = var:spec_pw_railway multiply = -0.1 add = 1 }
 	}
 }
 spec_name_floor = {

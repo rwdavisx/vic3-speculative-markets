@@ -294,7 +294,7 @@ class Steam:
         tags = StringArray(strings, len(raw_tags))
         if not self.ugc_call("SetItemTags", handle, C.byref(tags)):
             raise RuntimeError("Steam rejected tags; nothing submitted")
-        change_note = f"Speculative Markets {plan['version']}"
+        change_note = plan.get("note") or f"Speculative Markets {plan['version']}"
         if content:
             change_note = plan["changelog"]
         call = self.ugc_call("SubmitItemUpdate", handle, change_note.encode("utf-8"))
@@ -314,6 +314,8 @@ def main(argv=None):
     parser.add_argument("--public", action="store_true", help="Publish update publicly; otherwise keep private")
     parser.add_argument("--description-only", action="store_true", help="Update listing metadata without replacing content or preview")
     parser.add_argument("--gate", type=Path, help="Complete automated release-gate report for stable/beta content updates")
+    parser.add_argument("--note", type=Path, help="Change note file for a --description-only update")
+    parser.add_argument("--skip-gate", action="store_true", help="Owner's call: upload without a release-gate report (recorded in the receipt)")
     args = parser.parse_args(argv)
     if args.description_only and args.command != "update":
         parser.error("--description-only requires update")
@@ -333,7 +335,10 @@ def main(argv=None):
         if args.command == "plan" or args.command in ("create", "update") and not args.execute:
             emit({"dry_run": True, "message": "No Steam mutation performed"})
             return
-        if args.command == "update" and args.channel in ("stable", "beta") and not args.description_only:
+        if args.command == "update" and args.channel in ("stable", "beta") and not args.description_only and args.skip_gate:
+            emit({"automated_release_gate": "skipped by the owner (--skip-gate)"})
+            receipt("gate_skipped", args.channel, {"plan": plan})
+        elif args.command == "update" and args.channel in ("stable", "beta") and not args.description_only:
             if args.gate is None:
                 raise ValueError("Stable/beta content uploads require --gate with a complete passing automated report; live UI requirements still apply")
             import release_gate
@@ -390,6 +395,8 @@ def main(argv=None):
         if args.channel == "stable":
             # Preserve the current published spelling of existing tags.
             submit_plan["tags"] = [tag for tag in before["tags"].split(",") if tag]
+        if args.note:
+            submit_plan["note"] = args.note.read_text(encoding="utf-8").strip()
         receipt("update_intent", args.channel, {"item_id": item, "before": before, "plan": submit_plan,
                 "description": body, "description_sha256": body_hash, "visibility": 0 if args.public else 2,
                 "description_only": args.description_only})

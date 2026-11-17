@@ -1,0 +1,16 @@
+{
+ "1df87801bb": "#header Ânimo Mercantil: {1}#!\\n$TOOLTIP_DELIMITER$\\n{2} da oscilação aleatória deste mês\\n{3} que sobrou do mês passado\\n$TOOLTIP_DELIMITER$\\n#weak Oscila ao acaso a cada mês, até #v {4}#! em qualquer direção. #v {5}%#! passa para o mês seguinte. Companhias com alta [concept_prosperity] o elevam quando nossa [concept_spec_exchange] alcança a Posição #v Nacional#!.#!",
+ "6f6df5a662": "Bolsa de $SPEC_EXCH_CITY_ME$: #v $SPEC_EXCH_STAND_ME$#!",
+ "8d0deedba3": "Nossa [concept_spec_exchange] e sua Posição. A aba #bold $SPEC_FIN_TAB_EXCHANGE$#! da janela #bold $SPEC_FINANCE$#! mostra o resto.",
+ "220d9a90d5": "Preferidas",
+ "b1cca0504f": "As mercadorias que mais atraem os investidores neste mês: ações das companhias e edifícios que as produzem vendem-se com facilidade",
+ "0ff44c8e76": "#italic Dinheiro arisco em {1}: corretores ociosos e investidores de bolsos fechados#!",
+ "5d31cf9e13": "#italic Dia calmo em {1}: ações de {2} firmes, o resto sem alteração#!",
+ "c415b9428c": "#italic Nova emissão de {1} esgotada em menos de uma hora; bancos emprestam à vontade#!",
+ "6884e4f5f9": "#italic Febre na Bolsa de {1}: caixeiros e viúvas compram {2} com dinheiro emprestado#!",
+ "35f3072dea": "#italic Bolsa reabre com negócios escassos enquanto credores contam os prejuízos#!",
+ "e59260b4e7": "#italic CORRIDA AOS BANCOS! Multidões cercam as casas bancárias de {1}#!",
+ "cffc45e57b": "#italic Mais um ano magro: fábricas paradas e bancos que não emprestam#!",
+ "5345bcbfc0": "Evitadas",
+ "a386950ee9": "As mercadorias com que os investidores menos querem se envolver neste mês"
+}

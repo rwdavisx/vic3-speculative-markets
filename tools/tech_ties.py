@@ -23,7 +23,7 @@ TYPES = {
     "country_spec_boom_end_loss_mult": ("pct", "bad", "Boom End Losses",
                                         "[concept_spec_market_confidence] lost when a boom ends"),
     "country_spec_interest_response_mult": ("pct", "neutral", "Investor Reaction",
-                                            "How quickly [concept_spec_investor_interest] follows the [concept_market_price]"),
+                                            "How fast [concept_spec_investor_interest] reacts when the [concept_market_price] moves"),
     "country_spec_confidence_recovery_mult": ("pct", "good", "Market Confidence Recovery",
                                               "How quickly [concept_spec_market_confidence] returns to normal, and the economy recovers from a [concept_spec_long_depression]"),
     "country_spec_capital_flight_mult": ("pct", "good", "Capital Flight Gains",
@@ -31,7 +31,7 @@ TYPES = {
                                          + (", or an [concept_spec_exchange] of International Standing or higher," if tuning.get("EXCHANGE_ON", 1) else "")  # centres.ON
                                          + " gains when money flees a [concept_spec_financial_panic] elsewhere"),
     "country_spec_foreign_ties_mult": ("pct", "bad", "Market and Investment Ties",
-                                       "How strongly a [concept_spec_foreign_panic] reaches a [concept_country] through a shared [concept_market] or foreign investment"),
+                                       "How hard a [concept_spec_foreign_panic] hits us through a shared [concept_market] or money invested abroad"),
     "country_spec_foreign_loss_mult": ("pct", "bad", "Foreign Panic Losses",
                                        "[concept_spec_market_confidence] lost to a [concept_spec_foreign_panic]"),
     "country_spec_company_bust_mult": ("pct", "bad", "Company Losses After a Boom",
@@ -57,7 +57,7 @@ TYPES = {
     "country_spec_panic_length_mult": ("pct", "bad", "[concept_spec_financial_panic] Length",
                                        "How long a [concept_spec_financial_panic] lasts"),
     "country_spec_trade_tie_mult": ("pct", "bad", "Trade Ties",
-                                    "How much a [concept_spec_foreign_panic] costs through heavy trade with the country in panic"),
+                                    "How much a [concept_spec_foreign_panic] costs us when we trade a lot with the country in panic"),
     "country_spec_off_bool": ("bool", "neutral", "Investors do not speculate",
                               "No booms, no [concept_spec_financial_panic] and no [concept_spec_market_confidence] under this law"),
 }

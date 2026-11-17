@@ -21,17 +21,18 @@ NOTES = {
     "spec_feverish": (
         "spec_warning_notification_group", "goods", "bad",
         f"Investors grow feverish over {GOOD}",
-        f"[concept_spec_investor_interest] in {GOOD} has become #v Feverish#!. Should it fall back now, the boom will end in a "
-        "[concept_spec_collapse] and [concept_spec_market_confidence] will fall sharply."),
+        f"[concept_spec_investor_interest] in {GOOD} is now #v Feverish#!. If it drops all the way to #v Fleeing#! while the boom is still this big, the boom ends in a "
+        "[concept_spec_collapse] and [concept_spec_market_confidence] drops hard. The boom shrinks slowly while it cools, "
+        "so a gentle cool-down ends it more softly, and Restrain Speculation lets it down slowly, as a mild Correction."),
     "spec_near_panic": (
         "spec_warning_notification_group", "rank_down", "bad",
         "Confidence nears panic",
-        "[concept_spec_market_confidence] has fallen to #v [GetPlayer.Var('spec_conf').GetValue|0]#!. "
+        "[concept_spec_market_confidence] has fallen to #v [GetPlayer.MakeScope.Var('spec_conf').GetValue|0]#!. "
         "Below #v $SPEC_PANIC_AT$#!, a [concept_spec_financial_panic] will break out."),
     "spec_nearly_broke": (
         "spec_warning_notification_group", "rank_down", "bad",
         "Treasury runs low",
-        "At our present deficit, we will face [concept_bankruptcy] in #v [GetPlayer.ScriptValue('spec_broke_weeks')|0]#! weeks. "
+        "At our present deficit, we will face [concept_bankruptcy] in #v [GetPlayer.MakeScope.ScriptValue('spec_broke_weeks')|0]#! weeks. "
         "[concept_spec_market_confidence] will keep sliding until the budget recovers."),
     # the panic is over, and the bubble has burst: until now the tab was the only place that said so
     # the Financial Centres (centres.py)
@@ -48,12 +49,13 @@ NOTES = {
     "spec_panic_over": (
         "spec_warning_notification_group", "rank_up", "good",
         "The panic subsides",
-        "The [concept_spec_financial_panic] has run its course, and its effects have lifted."),
+        "The [concept_spec_financial_panic] has run its course. Its penalties and $spec_panic_relief$ payments have ended."
+        + (" Any [concept_spec_bad_debts] it left still slow production and investment until they fade." if leverage.ON else "")),
     "spec_bubble_burst": (
         "spec_warning_notification_group", "rank_down", "bad",
         "The bubble bursts",
-        "[concept_spec_market_confidence] has fallen too low to sustain our [concept_spec_speculative_excess]. "
-        "The bubble has burst, and $concept_spec_market_confidence$ has fallen further."),
+        "[concept_spec_market_confidence] dropped too low to hold up our [concept_spec_speculative_excess]. "
+        "The bubble has popped, and $concept_spec_market_confidence$ has dropped even more."),
 } | ({"spec_lev_unsafe": (
         "spec_warning_notification_group", "rank_down", "bad",
         "Leverage passes the safe limit",

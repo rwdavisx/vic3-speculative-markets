@@ -1,0 +1,16 @@
+{
+ "1df87801bb": "#header Ánimo bursátil: {1}#!\\n$TOOLTIP_DELIMITER$\\n{2} por la oscilación aleatoria de este mes\\n{3} que queda del mes pasado\\n$TOOLTIP_DELIMITER$\\n#weak Oscila al azar cada mes, hasta #v {4}#! en cualquier sentido. El #v {5}%#! pasa al mes siguiente. Las compañías con alta [concept_prosperity] lo elevan en cuanto nuestra [concept_spec_exchange] alcanza el rango #v Nacional#!.#!",
+ "6f6df5a662": "Bolsa de $SPEC_EXCH_CITY_ME$: #v $SPEC_EXCH_STAND_ME$#!",
+ "8d0deedba3": "Nuestra [concept_spec_exchange] y su rango. La pestaña #bold $SPEC_FIN_TAB_EXCHANGE$#! de la ventana #bold $SPEC_FINANCE$#! muestra el resto.",
+ "220d9a90d5": "Preferidos",
+ "b1cca0504f": "Los bienes que más atraen a los inversores este mes: las acciones de las compañías y edificios que los producen se venden con facilidad",
+ "0ff44c8e76": "#italic Dinero esquivo en {1}: corredores ociosos mientras los inversores cierran la bolsa#!",
+ "5d31cf9e13": "#italic Jornada tranquila en {1}: firmeza en {2}, el resto sin cambios#!",
+ "c415b9428c": "#italic Nueva emisión de {1} cubierta en una hora; los bancos prestan sin reparos#!",
+ "6884e4f5f9": "#italic Fiebre en la Bolsa de {1}: dependientes y viudas compran {2} con dinero prestado#!",
+ "35f3072dea": "#italic La Bolsa reabre con escasa contratación mientras los acreedores hacen cuentas#!",
+ "e59260b4e7": "#italic ¡PÁNICO BANCARIO! Multitudes asedian las casas de banca de {1}#!",
+ "cffc45e57b": "#italic Otro año de vacas flacas: fábricas paradas y bancos que no prestan#!",
+ "5345bcbfc0": "Rehuidos",
+ "a386950ee9": "Los bienes con los que los inversores menos quieren tener que ver este mes"
+}

@@ -1,0 +1,16 @@
+{
+ "1df87801bb": "#header Humeur du marché : {1}#!\\n$TOOLTIP_DELIMITER$\\n{2} en raison de la variation aléatoire de ce mois\\n{3} reporté du mois dernier\\n$TOOLTIP_DELIMITER$\\n#weak Varie au hasard chaque mois, jusqu’à #v {4}#! dans un sens ou dans l’autre. #v {5} %#! s’en reporte sur le mois suivant. Les compagnies à forte [concept_prosperity] la relèvent dès que notre [concept_spec_exchange] atteint le rang #v Nationale#!.#!",
+ "6f6df5a662": "Bourse de $SPEC_EXCH_CITY_ME$ : #v $SPEC_EXCH_STAND_ME$#!",
+ "8d0deedba3": "Notre [concept_spec_exchange] et son rang. L’onglet #bold $SPEC_FIN_TAB_EXCHANGE$#! de la fenêtre #bold $SPEC_FINANCE$#! donne le reste.",
+ "220d9a90d5": "Prisés",
+ "b1cca0504f": "Les biens dont les investisseurs raffolent ce mois-ci : les parts des compagnies et des bâtiments qui les produisent se vendent aisément",
+ "0ff44c8e76": "#italic L’argent se terre à {1} : courtiers désœuvrés, les investisseurs gardent leur bourse fermée#!",
+ "5d31cf9e13": "#italic Séance calme à {1} : actions du secteur {2} fermes, le reste inchangé#!",
+ "c415b9428c": "#italic Nouvelle émission du secteur {1} couverte en moins d’une heure ; les banques prêtent sans compter#!",
+ "6884e4f5f9": "#italic Fièvre à la Bourse de {1} : commis et veuves achètent à crédit, le secteur {2} s’envole#!",
+ "35f3072dea": "#italic La Bourse rouvre sur un marché étroit ; les créanciers comptent leurs pertes#!",
+ "e59260b4e7": "#italic PANIQUE AUX GUICHETS ! La foule assiège les maisons de banque de {1}#!",
+ "cffc45e57b": "#italic Encore une année de vaches maigres : les fabriques se taisent et les banques refusent de prêter#!",
+ "5345bcbfc0": "Boudés",
+ "a386950ee9": "Les biens dont les investisseurs veulent le moins entendre parler ce mois-ci"
+}

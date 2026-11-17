@@ -805,7 +805,7 @@ TEXT = {  # event -> title, desc, flavor, options
         ["Protect our industry.", "Keep our markets open."]),
     3: ("Relief Works",
         f"Thousands of men stand idle in {CAP}, and the relief funds are exhausted. The city engineers have a list of works "
-        "that could employ them: drains, roads, embankments and a new market hall, if the treasury will pay for them.",
+        "that could employ them, from drains and roads to embankments and a new market hall, if the treasury will pay for them.",
         '"A man who digs a drain for his daily wage is no pauper, and he knows it."',
         ["Fund the works.", "Charity is a private matter."]),
     4: ("The Banks Under Siege",
@@ -866,13 +866,13 @@ def loc():
         ' concept_spec_long_depression: "Long Depression"',
         ' concept_spec_long_depression_desc: "The $concept_spec_long_depression$ is a crisis of the whole world economy. It '
         "begins when a [concept_great_power] falls into a [concept_spec_financial_panic]. It then reaches every country "
-        "already in a panic, and spreads along close ties: a shared [concept_market], subjects and overlords, investment "
+        "already in a panic, and spreads along close ties such as a shared [concept_market], subjects and overlords, investment "
         "rights, heavy trade and foreign ownership.\\n\\n"
-        f"{PHASES[1]} ({span(CRASH_MONTHS)}): credit freezes and [concept_spec_market_confidence] drains away.\\n"
-        f"{PHASES[2]} (up to {span(DEPRESSION_MAX)}): investment, construction and trade slow, and some pops become "
+        f"During the {PHASES[1]} ({span(CRASH_MONTHS)}), credit freezes and [concept_spec_market_confidence] drains away.\\n"
+        f"During the {PHASES[2]} (up to {span(DEPRESSION_MAX)}), investment, construction and trade slow, and some pops become "
         "[Concept('concept_radical','$concept_radicals$')].\\n"
-        f"{PHASES[3]} ({span(RECOVERY_MONTHS)}): $concept_spec_market_confidence$ returns.\\n\\n"
-        "Your choices hasten your own recovery and the world's, and a $concept_great_power$'s choices count for the most.\"",
+        f"During the {PHASES[3]} ({span(RECOVERY_MONTHS)}), $concept_spec_market_confidence$ returns.\\n\\n"
+        "Your choices speed up your own recovery and the world's. A $concept_great_power$'s choices count the most.\"",
         ' je_spec_depression: "The $SPEC_LD_NAME$"',
         ' SPEC_LD_LONG: "Long Depression"',
         ' SPEC_LD_GREAT: "Great Depression"',
@@ -889,12 +889,13 @@ def loc():
         f' spec_ld_complete_tt: "World Recovery reaches #v 100#!, or {span(DEPRESSION_MAX)} pass"',
         ' spec_ld_own_bar: "Our Recovery"',
         ' spec_ld_own_bar_desc: "Our Recovery: #v [JournalEntry.GetCurrentBarValue(ScriptedProgressBar.Self)|0]#! / 100"',
-        ' spec_ld_tariff_tt: "Countries tied to us lose [concept_spec_market_confidence], more the larger our economy is against theirs"',
+        ' spec_ld_tariff_tt: "Countries tied to us lose [concept_spec_market_confidence]. The bigger our economy is next to theirs, the more they lose"',
         ' SPEC_DRIVER_WORLD: "$SPEC_LD_NAME$"',
         f' SPEC_WORLD_TARIFF: "\\n[{tariff}|+=2] from tariffs raised by countries tied to us"',
-        f' SPEC_DRIVER_WORLD_TT: "#header $SPEC_LD_NAME$: [{world}|+=2]#!\\n$TOOLTIP_DELIMITER$\\n[{market_tab.v("spec_ld_conf")}|+=2] from the current phase'
-        f'[AddLocalizationIf({market_tab.nonzero(tariff, 0.01)}, \'SPEC_WORLD_TARIFF\')]\\n$TOOLTIP_DELIMITER$\\n'
-        + "\\n".join(f"{PHASES[p]}: {'#N' if n < 0 else '#P'} {n:+g}#! per month" for p, n in PRESSURE.items())
+        f' SPEC_DRIVER_WORLD_TT: "#header $SPEC_LD_NAME$: [{world}|+=2]#!\\n$TOOLTIP_DELIMITER$\\n#italic The whole world is in a slump, and it drags on [concept_spec_market_confidence] here too.#!\\n\\n'
+        f'[{market_tab.v("spec_ld_conf")}|+=2] from the stage the slump is in'
+        f'[AddLocalizationIf({market_tab.nonzero(tariff, 0.01)}, \'SPEC_WORLD_TARIFF\')]\\n$TOOLTIP_DELIMITER$\\n#b Each month, by stage#!\\n'
+        + "\\n".join(f"{PHASES[p]}: {'#N' if n < 0 else '#P'} {n:+g}#!" for p, n in PRESSURE.items())
         + '"',
         ' spec_ld_notification_group: "Long Depression"',
     ]

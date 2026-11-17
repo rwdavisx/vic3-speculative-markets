@@ -427,13 +427,13 @@ BAILOUT_TRIGGER = "" if not ON else """spec_can_bailout = {
 """
 ROOT = "ROOT.GetCountry.MakeScope"
 LOC = "" if not ON else f""" spec_lev_boom: "Credit Boom"
- spec_bailout_fx_tt: "[concept_spec_bad_debts]: #P halved#!, clearing in #v [{ROOT}.ScriptValue('spec_bailout_months')|0]#! months instead of #v [{ROOT}.ScriptValue('spec_crunch_months')|0]#!"
+ spec_bailout_fx_tt: "[concept_spec_bad_debts] are #P halved#!, clearing in #v [{ROOT}.ScriptValue('spec_bailout_months')|0]#! months instead of #v [{ROOT}.ScriptValue('spec_crunch_months')|0]#!"
  spec_bailout_cost_tt: "[concept_treasury]: #N -@money![{ROOT}.ScriptValue('spec_bailout_cost')|D]#!, about #v [{ROOT}.ScriptValue('spec_bailout_share')|%0]#! of [concept_gdp]"
  spec_bailout_debts_tt: "There are [concept_spec_bad_debts] to clear"
  spec_bailed_tt: "The state has not bought up bad loans since these [concept_spec_bad_debts] began"
- spec_lev_boom_desc: "Bank credit increases [concept_throughput] by #P {REWARD:+.0%}#! for each whole month of [concept_spec_leverage], up to #P {REWARD * REWARD_MAX:+.0%}#!."
+ spec_lev_boom_desc: "Borrowed money keeps the works busy, adding #P {REWARD:+.0%}#! [concept_throughput] for each whole month of [concept_spec_leverage], up to #P {REWARD * REWARD_MAX:+.0%}#!"
  spec_credit_crunch: "Bad Debts"
- spec_credit_crunch_desc: "Banks are writing off the loans of the last boom and lend nothing until this fades. #v Lend to the Banks#! does not clear it. #v Buy Up Bad Loans#! halves it, once while it lasts."
+ spec_credit_crunch_desc: "The banks are still counting their losses from the last boom. #N They lend nothing#! until this fades.\\n#v Lend to the Banks#! does not clear it\\n#v Buy Up Bad Loans#! halves it, once while it lasts"
 """
 # the AI buys up bad loans too, from money it has; about one month in seven while it can
 AI_BAILOUT = "" if not ON else """				if = {

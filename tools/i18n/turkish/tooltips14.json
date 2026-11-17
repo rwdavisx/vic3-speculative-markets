@@ -1,0 +1,21 @@
+{
+ "a1cc9ffbc3": "Büyük #v {1}#! Borsası sonunda bizi fark etti ve gördüklerinden hiç hoşlanmadı. ",
+ "eb64e178ce": "Yıllardır #v {1}#! ve #v {2}#! borsaları birbirinin etrafında dolanıyor. Bu yalnızca bir zaman meselesiydi. ",
+ "9686b40e2b": "Yükselişimizin doruğunda vurdular; her yatırımcının zaten düşüş korkusuyla geceleri uyuyamadığı bir anda.\\n\\n",
+ "1705ec0c88": "Anlarını özenle seçtiler: piyasamız zaten panik içinde ve artık her darbe iki kat etkili oluyor.\\n\\n",
+ "6b4e256cfc": "#v {1}#! borsasının sonradan görmeleri, #v {2}#! borsasına haddini bildirmeye karar verdi. ",
+ "3b3c377788": "$SPEC_RV_EV_WHO$$SPEC_RV_EV_WHEN$#v {1}#! adına çalışan simsarlar bir bozgun bekleyerek hisselerimizi bir anda piyasaya yığdı. Oysa bankalarımız sunulan her partiyi satın aldı, fiyatlar dayandı ve kapanış zili çaldığında zararını sayan baskıncılar oldu.\\n\\nOnların [concept_spec_market_confidence] değeri {3} ay içinde #P {2}#! düşer.",
+ "22ac33d063": "$SPEC_RV_EV_WHO$$SPEC_RV_EV_WHEN$Açılış zilinden önce #v {1}#! adına çalışan simsarlar demiryolu ve banka hisselerimizden büyük blokları bir anda piyasaya yığdı. Fiyatlar çöktü, kotasyonlar yetişemedi ve öğlene kadar kendi kâtiplerimiz bile korkuyla satıyordu.\\n\\n[concept_spec_market_confidence] değerimiz {3} ay içinde #N {2}#! düşecek.",
+ "81a87a2c0e": "$SPEC_RV_EV_WHO$$SPEC_RV_EV_WHEN$#v {1}#! adına gelen ajanlar en iyi otellerimize yerleşti ve en büyük yatırımcılarımız her gece onlarla yemek yiyor. Teklifleri basit: daha iyi bir faiz, daha güvenli bir liman ve hiçbir rahatsız edici soru yok.\\n\\n{2} ay boyunca [concept_investment_pool] gelirimizin #N {3}#! kadarı onlara gidiyor.",
+ "8570eb128f": "$SPEC_RV_EV_WHO$$SPEC_RV_EV_WHEN$#v {1}#! sabah gazeteleri, #v {2}#! içindeki sahte bilançolar ve sallantılı bankalar üzerine uzun sütunlar yayımlıyor. Hiçbiri imzalı değil, pek azı doğru; ama kıtadaki her yazıhanede okunuyorlar.\\n\\n[concept_spec_exchange] kurumumuz #N {3}#! güvenilirlik kaybediyor.",
+ "0cb47f6b6f": "$SPEC_RV_EV_WHO$$SPEC_RV_EV_WHEN$#v {1}#! gazeteleri [concept_spec_exchange] kurumumuz hakkında şüphelerle doluydu. Ama bir kâtip ağzından kaçırdı ve artık herkes mürekkebin parasını kimin ödediğini biliyor.\\n\\nGüvenilirlik kaybediyoruz, ama onlar da öyle ve adları yurt dışında zarar görüyor.",
+ "af6622a107": "\\\"Sahip olmadığını satan ayı, haklı çıksa iyi eder.\\\"",
+ "39e0bfbfcd": "\\\"Sermaye iyi davranıldığı yere gider, iyi beslendiği yerde kalır.\\\"",
+ "95fbe10842": "\\\"Yalan dünyayı yarı yarıya dolaşırken doğru hâlâ çizmelerini giymektedir.\\\"",
+ "7202f82324": "\\\"Karanlıkta atılan çamur yine de elleri kirletir.\\\"",
+ "d2a84e0d0c": "Başarısız Baskın",
+ "203b7841fa": "#v {1}#! Üzerine Ayı Baskını!",
+ "b5ade2188d": "Sermayemize Kur Yapılıyor",
+ "049cf4d9ea": "Fısıltı Kampanyası",
+ "2754c96593": "Parayla Yürütülen Kampanya İfşa Oldu"
+}

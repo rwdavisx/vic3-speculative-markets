@@ -171,13 +171,14 @@ CREDIT_FROM = tuning.get("CREDIT_FROM", 55)            # credit flows above this
 # ponytail: credit was 0.05% of GDP a month, about 1% of the investment pool's income in a 1836-1842 run (runs/
 # 20261103_005410_credit_sev): flavour only. Now sized on the pool: at Mania (80) banks add about 15% of a month's
 # pool income, a long boom builds up about 5 months of it owed, and a panic recalls half of that at once
-VERSION = "1.0.6"
+VERSION = "1.1.2"
 CREDIT_SHARE = tuning.get("CREDIT_SHARE", 1.5)         # monthly credit at full confidence, as a share of a month's pool income
 CREDIT_FLOW_MAX = tuning.get("CREDIT_FLOW_MAX", 0.4)       # confidence's part of a month's credit is at most this share of a month's pool income
 CREDIT_CEILING = tuning.get("CREDIT_CEILING", 0.6)        # then times the lending rate (stance, laws, techs...), and never more than this share
 CREDIT_CAP_MONTHS = 12      # banks stop lending once outstanding credit reaches this many months of pool income
 WEEKS_PER_MONTH = 4.3       # investment_pool_gross_income is weekly
 CREDIT_RUNOFF = tuning.get("CREDIT_RUNOFF", 0.02)        # share of outstanding credit repaid each month: loans of about four years (was 0.03, tune12)
+CLAW_FLOOR = tuning.get("CLAW_FLOOR", 0.25)  # the most of the pool a panic takes at low leverage; all of it from leverage.DANGER
 CLAWBACK = tuning.get("CLAWBACK", 0.5)              # share of outstanding credit a panic pulls back out of the investment pool
 RESCUE_COST = 0.04          # share of GDP, with Central Banking (was 0.02: with the discounts it fell to 0.4%)
 RESCUE_FLOOR = 0.015        # the share after every discount (reform, Lending Standards, pledge) never falls below this
@@ -500,7 +501,11 @@ def values():
     # read by the tab as well, so it must not assume the variable exists yet
     sv.extend(leverage.values(PANIC, PANIC_NEAR))
     sv.extend(leverage.BAILOUT_VALUES)
-    sv.append(f"spec_clawback = {{\n\tvalue = 0\n\tif = {{\n\t\tlimit = {{ has_variable = spec_debt }}\n\t\tvalue = var:spec_debt\n\t\tmultiply = {CLAWBACK}\n\t\tmax = investment_pool\n\t\tmin = 0\n\t}}\n}}")
+    # beta.12: the cap scales with leverage, so a panic no longer empties the pool whatever the debt (the user)
+    claw_cap = "\t\tmax = { value = investment_pool multiply = spec_claw_share }\n" if leverage.ON else ""
+    sv.append(f"spec_clawback = {{\n\tvalue = 0\n\tif = {{\n\t\tlimit = {{ has_variable = spec_debt }}\n\t\tvalue = var:spec_debt\n\t\tmultiply = {CLAWBACK}\n\t\tmax = investment_pool\n{claw_cap}\t\tmin = 0\n\t}}\n}}")
+    if leverage.ON:
+        sv.append(f"spec_claw_share = {{\n\tvalue = spec_lev\n\tdivide = {leverage.DANGER}\n\tmin = {CLAW_FLOOR}\n\tmax = 1\n}}")
     # this month's runoff of outstanding credit, and what the investment pool repays of it: never more than the pool holds
     sv.append(f"spec_credit_runoff = {{\n\tvalue = 0\n\tif = {{\n\t\tlimit = {{ has_variable = spec_debt }}\n\t\tvalue = var:spec_debt\n\t\tmultiply = {CREDIT_RUNOFF}\n\t\tmin = 0\n\t}}\n}}")
     sv.append("spec_credit_repay = {\n\tvalue = spec_credit_runoff\n\tmax = investment_pool\n\tmin = 0\n}")
@@ -1851,18 +1856,18 @@ def unwind_loc():
            f" SPEC_RISK_NONE: \"[SelectLocalization({at(1)}, 'SPEC_RISK_SLIGHT', SelectLocalization("
            f"GreaterThan_CFixedPoint({glut}, {fx(0)}), 'SPEC_RISK_GLUT', 'SPEC_RISK_CALM'))]\"",
            ' SPEC_RISK_SLIGHT: "#header Risk of a $SPEC_UNWIND$#!\\n[concept_spec_market_confidence] if the boom ends: #v Slight#!'
-           '\\n$TOOLTIP_DELIMITER$\\n$SPEC_UNWIND_DESC$"',
-           ' SPEC_RISK_GLUT: "#header Recovering#!\\n$TOOLTIP_DELIMITER$\\n[Goods.GetName] is recovering after its last boom ended. '
-           'Investors hold back, keeping [concept_spec_investor_interest] at #v Doubtful#! for a while."',
-           ' SPEC_RISK_CALM: "#header No Boom#!\\n$TOOLTIP_DELIMITER$\\n[Goods.GetName] has had no recent boom. Once '
-           '[concept_spec_investor_interest] reaches #v Keen#! or higher, a fall back to #v Doubtful#! ends the boom, and the '
-           'higher it went, the harder it falls."']
+           '\\n$TOOLTIP_DELIMITER$\\n#italic A small boom. If it ended now, it would barely hurt.#!\\n\\n$SPEC_UNWIND_DESC$"',
+           ' SPEC_RISK_GLUT: "#header Recovering#!\\n$TOOLTIP_DELIMITER$\\n#italic [Goods.GetName] is getting over its last boom.#!\\n\\n'
+           'Investors stay away for a while, so [concept_spec_investor_interest] stays at #v Doubtful#!"',
+           ' SPEC_RISK_CALM: "#header No Boom#!\\n$TOOLTIP_DELIMITER$\\n#italic Nothing to worry about. [Goods.GetName] has had no boom lately.#!\\n\\n'
+           'Once [concept_spec_investor_interest] reaches #v Keen#! or more, a drop back to #v Doubtful#! #N ends the boom#!\\n'
+           'The higher it climbs, the harder it falls"']
     for s, _, below, _, months in UNWINDS:
         end = f"the boom ends in a [concept_spec_{name[s].lower()}]"
         out += [f' SPEC_UNWIND_{s}: "{name[s]}"', f' SPEC_UNWIND_C_{s}: "[concept_spec_{name[s].lower()}]"',
-                f' SPEC_UNWIND_DESC_{s}: "Boom reached #v {peak[s]}#!\\nIf the price trend falls below #v {trend(below)}#!, '
+                f' SPEC_UNWIND_DESC_{s}: "This boom got as high as #v {peak[s]}#!\\n#N Ends#! if the price trend drops below #v {trend(below)}#!. Then '
                 f'[concept_spec_investor_interest] turns #v {"Fleeing" if s == 3 else "Doubtful"}#! '
-                f'and {end}\\nInvestors then hold back for #v {months}#! months\\nThe risk fades as the boom ages"']
+                f'and {end}\\nInvestors then stay away for #v {months}#! months\\n#P The danger fades#! as the boom gets older"']
     return "".join(line + "\n" for line in out)
 
 
@@ -1873,8 +1878,8 @@ def loc():
     root = "ROOT.GetCountry.MakeScope"
     goods = "[Concept('concept_good','$concept_goods$')]"
     bailout = next(a for key, _, a, _ in EVENT_MODIFIERS if key == "spec_bank_bailout")
-    requires = (f"Choosing it locks [concept_spec_credit_policy] for #v {STANCE_COOLDOWN}#! months. "
-                "Requires [GetTechnology('central_banking').GetName].")
+    requires = (f"Locks [concept_spec_credit_policy] for #v {STANCE_COOLDOWN}#! months\\n"
+                "Needs [GetTechnology('central_banking').GetName]")
     return f"""l_english:
  spec_confidence_bar: "Market Confidence"
  spec_confidence_bar_desc: "[concept_spec_market_confidence]: #v [JournalEntry.GetCurrentBarValue(ScriptedProgressBar.Self)|0]#!"
@@ -1885,13 +1890,13 @@ def loc():
  spec_credit_tight_fx: "[concept_spec_credit_policy] becomes #v Tight#!"
  spec_credit_normal_fx: "[concept_spec_credit_policy] becomes #v Normal#!"
  spec_credit_loose_fx: "[concept_spec_credit_policy] becomes #v Loose#!"
- spec_credit_tight_desc: "Raise the discount rate and ration credit to cool the market. Banks stop lending and investors react less to rising prices, so booms stay smaller and their endings and panics milder. Each month [concept_spec_market_confidence] loses #N {TIGHT_PULL:.0%}#! of how far it is above #v {TIGHT_FROM}#!. {requires}\\n\\n{credit_ai.ig_lines('tight')}"
+ spec_credit_tight_desc: "#italic Make borrowing dear to cool the market down.#!\\n\\n#N Banks stop lending#!\\nInvestors get less excited by rising prices\\n#P Smaller booms#!, gentler endings and milder panics\\nEach month, #N {TIGHT_PULL:.0%}#! of any [concept_spec_market_confidence] above #v {TIGHT_FROM}#! wears off\\n\\n{requires}\\n\\n{credit_ai.ig_lines('tight')}"
  spec_credit_normal: "Normal Credit"
- spec_credit_normal_desc: "Let the banks lend on ordinary terms. They lend into the [concept_investment_pool] while [concept_spec_market_confidence] is above #v {CREDIT_FROM}#!. {requires}"
+ spec_credit_normal_desc: "#italic Banks lend on ordinary terms.#!\\n\\nThey lend into the [concept_investment_pool] while [concept_spec_market_confidence] is above #v {CREDIT_FROM}#!\\n\\n{requires}"
  spec_credit_loose: "Loose Credit"
- spec_credit_loose_desc: "Lower the discount rate and let credit flow freely. Banks lend more and investors react more strongly to rising prices, so booms grow larger, and so do the losses when they end. {requires}\\n\\n{credit_ai.ig_lines('loose')}"
+ spec_credit_loose_desc: "#italic Make borrowing cheap and let the money flow.#!\\n\\n#P Banks lend more#!\\nInvestors get more excited by rising prices\\n#P Bigger booms#!, but #N bigger losses#! when they end\\n\\n{requires}\\n\\n{credit_ai.ig_lines('loose')}"
  spec_rescue_banks: "Lend to the Banks"
- spec_rescue_banks_desc: "Lend freely to the banks from the [concept_treasury], at a cost of about #v [{root}.ScriptValue('spec_rescue_share_now')|%1]#! of [concept_gdp], to end the [concept_spec_financial_panic] within #v [{root}.ScriptValue('spec_rescue_months')|0]#! months and halve its effects. [concept_spec_market_confidence] rises by #v {RESCUE_CONF}#!. The longer the panic has left to run, the more it costs, and it can be done only once per $concept_spec_financial_panic$. [GetTechnology('central_banking').GetName] makes it cheaper and faster."
+ spec_rescue_banks_desc: "#italic Pour money from the [concept_treasury] into the banks to stop the panic.#!\\n\\nCost: about #v [{root}.ScriptValue('spec_rescue_share_now')|%1]#! of [concept_gdp]\\n#P Ends#! the [concept_spec_financial_panic] within #v [{root}.ScriptValue('spec_rescue_months')|0]#! months\\n#P Halves#! its penalties for the months it has left\\n[concept_spec_market_confidence] rises by #P {RESCUE_CONF}#!\\n\\n#b Not changed#!\\n$spec_panic_relief$ payments\\nPeople already radicalized when the panic began{"\\n[concept_spec_bad_debts] it leaves behind" if leverage.ON else ""}\\n\\nThe longer the panic has left to run, the more it costs\\nOnly once per $concept_spec_financial_panic$\\n[GetTechnology('central_banking').GetName] makes it cheaper and faster"
  spec_conf_panic: "Shaken Investors"
  spec_conf_panic_held: "Shaken Investors"
  spec_conf_wary: "Wary Investors"
@@ -1934,7 +1939,24 @@ def loc():
 {"".join(f' {k}: "{name}"{chr(10)}' for k, _, _, name in EVENT_MODIFIERS)}{unwind_loc()}"""
 
 
-def information_panel_bar():
+def journal_entry_gui():
+    """The vanilla journal entry with room between its scripted progress bars: at vanilla's 2 the Financial Markets
+    entry's flat bars (Speculative Excess, Sound Finance) touched. Affects every entry's bars alike."""
+    gui = (GAME / "gui/journal_entry.gui").read_text(encoding="utf-8-sig")
+    gui, n = re.subn(r"(direction = vertical\n\t+)spacing = 2(\n\t+datamodel = \"\[JournalEntry\.GetScriptedProgressBars\]\")",
+                     r"\1spacing = 8\2", gui)
+    if n != 1:
+        sys.exit(f"journal_entry.gui changed, {n} bar lists")
+    # Progress Conditions only listed the hidden rule that removes Financial Markets: hidden where journal.widgets
+    # puts its marker in the otherwise unused custom_widget_container_7
+    old = 'visible = "[Or(Not(StringIsEmpty(JournalEntry.GetAdvanceDesc)), Not(StringIsEmpty(JournalEntry.GetDepleteDesc)))]"'
+    if gui.count(old) != 1:
+        sys.exit("journal_entry.gui changed, Progress Conditions")
+    gui = gui.replace(old, old.replace('"[Or(', '"[And(Not(JournalEntry.HasCustomWidget(\'custom_widget_container_7\')), Or(').replace(')]"', '))]"'))
+    return gui
+
+
+def information_panel_bar(k):
     """The vanilla side bar with one more large button, Finance, under Power Bloc, and the Finance window
     (market_tab.tab_type) hosted beside it where vanilla's own panels sit. The window is ours, not one of
     InformationPanelBar's, so every side bar button that opens a vanilla panel also closes it."""
@@ -1962,18 +1984,32 @@ def information_panel_bar():
     unpick = "[GetVariableSystem.Clear('spec_pick_slot')]"
     sub(r'^(\s*)(onclick = "\[InformationPanelBar\.Open[^\n]*)$',
         lambda m: f"{m[0]}\n{m[1]}onclick = \"[GetVariableSystem.Clear('{market_tab.FIN}')]\"\n{m[1]}onclick = \"{unpick}\"", None, re.M)
-    click = f"""onclick = "[InformationPanelBar.ClosePanel]"
-						onclick = "[GetVariableSystem.Toggle('{market_tab.FIN}')]"
-						onclick = "{unpick}\""""
-    is_open = f"visible = \"[GetVariableSystem.Exists('{market_tab.FIN}')]\""
-    sub(r"\t\t\t\t### POLITICS\n", lambda m: f"""				### FINANCE (Speculative Markets)
-				sidebar_label_button = {{
+    # each click the next tab, as vanilla's side bar buttons cycle their panels' tabs
+    # two of each button, by whether the journal entry has saved itself: only then open its panel under the window
+    # for its map mode (market_tab.JE_OK)
+    clicks = [(f'visible = "[{ok}]"\n' + (market_tab.JE_CONTEXT + "\n" if je else "") + "onclick = \"[InformationPanelBar.ClosePanel]\"\n"
+               + market_tab.cycle_clicks(k, je) + f'onclick = "{unpick}"').replace("\n", "\n" + "\t" * 6)
+              for ok, je in ((market_tab.JE_OK, True), (f"Not({market_tab.JE_OK})", False))]
+    label_buttons = "".join(f"""				sidebar_label_button = {{
 					position = {{ -100 @spec_finance_position }}
 					blockoverride "onclick" {{
 						{click}
 					}}
 				}}
-				sidebar_label_text = {{
+""" for click in clicks)
+    big_buttons = "".join(f"""					sidepanel_button_big = {{
+						blockoverride "icon" {{
+							texture = "{finance_icon.PATH}"
+						}}
+						blockoverride "button_selected" {{
+							visible = "[GetVariableSystem.Exists('{market_tab.FIN}')]"
+						}}
+						{click}
+					}}
+""" for click in clicks)
+    is_open = f"visible = \"[GetVariableSystem.Exists('{market_tab.FIN}')]\""
+    sub(r"\t\t\t\t### POLITICS\n", lambda m: f"""				### FINANCE (Speculative Markets)
+{label_buttons}				sidebar_label_text = {{
 					position = {{ -100 @spec_finance_position }}
 					text = "SPEC_FINANCE_BTN"
 				}}
@@ -1985,16 +2021,7 @@ def information_panel_bar():
 					blockoverride "selected_visibility" {{
 						{is_open}
 					}}
-					sidepanel_button_big = {{
-						blockoverride "icon" {{
-							texture = "{finance_icon.PATH}"
-						}}
-						blockoverride "button_selected" {{
-							{is_open}
-						}}
-						{click}
-					}}
-				}}
+{big_buttons}				}}
 				sidebar_tooltip_area = {{
 					position = {{ 0 @spec_finance_position }}
 					tooltip = "SPEC_FINANCE_BUTTON_TT"
@@ -2124,6 +2151,23 @@ def game_version():
     return re.search(r'"rawVersion":\s*"([^"]+)"', (GAME.parent / "launcher/launcher-settings.json").read_text(encoding="utf-8")).group(1)
 
 
+def panel_keys(english):
+    """Loc keys the GUI shows as panel text (text = "KEY", or 'KEY' picked inside one), and the keys those pull in."""
+    loc = dict(re.findall(r'^ ([A-Za-z0-9_.\-]+):\d* "(.*)"\s*$', english, re.M))
+    gui = "\n".join(f.read_text(encoding="utf-8-sig") for f in (MOD / "gui").glob("*.gui"))
+    todo = set()
+    for v in re.findall(r'\btext = "([^"]+)"', gui):
+        todo |= {v} if v in loc else set(re.findall(r"'([A-Za-z0-9_.]+)'", v)) & loc.keys()
+    seen = set()
+    while todo:
+        k = todo.pop()
+        if k in seen:
+            continue
+        seen.add(k)
+        todo |= (set(re.findall(r"'([A-Za-z0-9_.]+)'", loc[k])) | set(re.findall(r"\$([A-Za-z0-9_.]+)\$", loc[k]))) & loc.keys()
+    return {k for k in seen if not k.startswith("concept_")}
+
+
 def with_icons(text):
     """English loc with each concept's icon where vanilla puts one (icons.concept_icons)."""
     out = []
@@ -2216,12 +2260,14 @@ def main(log=False):
           f"{panics} will occur more often than they did in the 19th century\"\n")
     write("common/game_concepts/spec_concepts.txt", concepts.definitions())
     write("gui/spec_market_tab.gui", market_tab.tab_type(k))
-    write("gui/information_panel_bar.gui", information_panel_bar())
+    write("gui/information_panel_bar.gui", information_panel_bar(k))
+    write("gui/journal_entry.gui", journal_entry_gui())
     write("gui/goods_panel.gui", goods_panel.patch((GAME / "gui/goods_panel.gui").read_text(encoding="utf-8-sig")))
     write("gui/spec_goods_panel.gui", goods_panel.block_type())
     (MOD / tech_ties.VANILLA_FILE).unlink(missing_ok=True)  # was a copy of the vanilla file
     for rel, text in tech_ties.files(GAME, tech_table(), law_table()).items():
         write(rel, text)
+    icons.PANEL_KEYS = panel_keys(english)  # panel text keeps plain concept links; tooltips get the icons
     i18n.build(write)  # from the plain English, so translations match it; then the English gets its icons
     write("localization/english/spec_markets_l_english.yml", with_icons(english))
     meta = MOD / ".metadata/metadata.json"

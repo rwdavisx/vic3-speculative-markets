@@ -1,0 +1,10 @@
+﻿spec_coty = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
+	country_prestige_mult = 0.05
+}
+
+spec_bc_index = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
+	state_capitalists_investment_pool_contribution_add = 0.006
+	country_loan_interest_rate_mult = -0.01
+}

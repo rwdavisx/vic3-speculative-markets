@@ -1,0 +1,16 @@
+{
+ "1df87801bb": "#header Marktstimmung: {1}#!\\n$TOOLTIP_DELIMITER$\\n{2} durch die zufällige Schwankung dieses Monats\\n{3} übrig aus dem Vormonat\\n$TOOLTIP_DELIMITER$\\n#weak Schwankt jeden Monat zufällig, bis zu #v {4}#! in beide Richtungen. #v {5}%#! davon wirken im nächsten Monat nach. Kompanien mit hoher [concept_prosperity] heben sie, sobald unsere [concept_spec_exchange] die Stellung #v National#! hat.#!",
+ "6f6df5a662": "Börse $SPEC_EXCH_CITY_ME$: #v $SPEC_EXCH_STAND_ME$#!",
+ "8d0deedba3": "Unsere [concept_spec_exchange] und ihre Stellung. Der Reiter #bold $SPEC_FIN_TAB_EXCHANGE$#! im Fenster #bold $SPEC_FINANCE$#! zeigt den Rest.",
+ "220d9a90d5": "Begehrt",
+ "b1cca0504f": "Die Waren, auf die Anleger diesen Monat am meisten erpicht sind: Anteile an den Kompanien und Gebäuden, die sie herstellen, verkaufen sich leicht",
+ "0ff44c8e76": "#italic Geld scheu in {1}: Makler müßig, Anleger halten die Geldbeutel zu#!",
+ "5d31cf9e13": "#italic Ruhiger Tag in {1}: {2}-Aktien fest, der Rest unverändert#!",
+ "c415b9428c": "#italic Neue {1}-Emission binnen einer Stunde überzeichnet; Banken leihen freigiebig#!",
+ "6884e4f5f9": "#italic Fieber an der Börse von {1}: Schreiber und Witwen kaufen {2} auf Pump#!",
+ "35f3072dea": "#italic Börse öffnet wieder bei dünnem Handel, Gläubiger zählen ihre Verluste#!",
+ "e59260b4e7": "#italic STURM AUF DIE BANKEN! Menschenmengen belagern die Kontore von {1}#!",
+ "cffc45e57b": "#italic Wieder ein mageres Jahr: Die Fabriken stehen still, die Banken leihen nicht#!",
+ "5345bcbfc0": "Gemieden",
+ "a386950ee9": "Die Waren, mit denen Anleger diesen Monat am wenigsten zu tun haben wollen"
+}
