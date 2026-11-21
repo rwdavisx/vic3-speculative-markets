@@ -169,6 +169,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_aeroplanes value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_aeroplanes value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_aeroplanes value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_aeroplanes >= 0.333 }
@@ -294,6 +295,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_aeroplanes value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_aeroplanes value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_aeroplanes value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_aeroplanes >= 0.333 }
@@ -378,6 +380,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_aeroplanes value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_aeroplanes value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_aeroplanes value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_aeroplanes >= 0.333 }
@@ -654,6 +657,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_ammunition value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_ammunition value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_ammunition value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_ammunition >= 0.333 }
@@ -779,6 +783,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_ammunition value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_ammunition value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_ammunition value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_ammunition >= 0.333 }
@@ -863,6 +868,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_ammunition value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_ammunition value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_ammunition value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_ammunition >= 0.333 }
@@ -1139,6 +1145,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_artillery value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_artillery value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_artillery value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_artillery >= 0.333 }
@@ -1264,6 +1271,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_artillery value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_artillery value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_artillery value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_artillery >= 0.333 }
@@ -1348,6 +1356,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_artillery value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_artillery value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_artillery value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_artillery >= 0.333 }
@@ -1624,6 +1633,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_automobiles value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_automobiles value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_automobiles value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_automobiles >= 0.333 }
@@ -1749,6 +1759,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_automobiles value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_automobiles value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_automobiles value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_automobiles >= 0.333 }
@@ -1833,6 +1844,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_automobiles value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_automobiles value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_automobiles value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_automobiles >= 0.333 }
@@ -2109,6 +2121,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_clippers value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_clippers value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_clippers value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_clippers >= 0.333 }
@@ -2234,6 +2247,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_clippers value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_clippers value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_clippers value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_clippers >= 0.333 }
@@ -2318,6 +2332,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_clippers value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_clippers value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_clippers value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_clippers >= 0.333 }
@@ -2594,6 +2609,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_clothes value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_clothes value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_clothes value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_clothes >= 0.333 }
@@ -2719,6 +2735,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_clothes value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_clothes value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_clothes value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_clothes >= 0.333 }
@@ -2803,6 +2820,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_clothes value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_clothes value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_clothes value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_clothes >= 0.333 }
@@ -3079,6 +3097,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_coal value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_coal value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_coal value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_coal >= 0.333 }
@@ -3204,6 +3223,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_coal value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_coal value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_coal value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_coal >= 0.333 }
@@ -3288,6 +3308,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_coal value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_coal value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_coal value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_coal >= 0.333 }
@@ -3564,6 +3585,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_coffee value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_coffee value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_coffee value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_coffee >= 0.333 }
@@ -3689,6 +3711,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_coffee value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_coffee value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_coffee value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_coffee >= 0.333 }
@@ -3773,6 +3796,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_coffee value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_coffee value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_coffee value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_coffee >= 0.333 }
@@ -4049,6 +4073,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_copper value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_copper value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_copper value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_copper >= 0.333 }
@@ -4174,6 +4199,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_copper value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_copper value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_copper value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_copper >= 0.333 }
@@ -4258,6 +4284,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_copper value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_copper value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_copper value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_copper >= 0.333 }
@@ -4534,6 +4561,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_dye value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_dye value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_dye value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_dye >= 0.333 }
@@ -4659,6 +4687,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_dye value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_dye value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_dye value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_dye >= 0.333 }
@@ -4743,6 +4772,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_dye value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_dye value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_dye value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_dye >= 0.333 }
@@ -5019,6 +5049,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_electricity value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_electricity value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_electricity value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_electricity >= 0.333 }
@@ -5144,6 +5175,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_electricity value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_electricity value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_electricity value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_electricity >= 0.333 }
@@ -5228,6 +5260,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_electricity value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_electricity value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_electricity value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_electricity >= 0.333 }
@@ -5504,6 +5537,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_engines value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_engines value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_engines value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_engines >= 0.333 }
@@ -5629,6 +5663,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_engines value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_engines value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_engines value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_engines >= 0.333 }
@@ -5713,6 +5748,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_engines value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_engines value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_engines value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_engines >= 0.333 }
@@ -5989,6 +6025,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_explosives value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_explosives value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_explosives value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_explosives >= 0.333 }
@@ -6114,6 +6151,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_explosives value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_explosives value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_explosives value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_explosives >= 0.333 }
@@ -6198,6 +6236,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_explosives value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_explosives value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_explosives value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_explosives >= 0.333 }
@@ -6474,6 +6513,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_fabric value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_fabric value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_fabric value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_fabric >= 0.333 }
@@ -6599,6 +6639,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_fabric value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_fabric value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_fabric value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_fabric >= 0.333 }
@@ -6683,6 +6724,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_fabric value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_fabric value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_fabric value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_fabric >= 0.333 }
@@ -6959,6 +7001,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_fertilizer value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_fertilizer value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_fertilizer value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_fertilizer >= 0.333 }
@@ -7084,6 +7127,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_fertilizer value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_fertilizer value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_fertilizer value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_fertilizer >= 0.333 }
@@ -7168,6 +7212,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_fertilizer value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_fertilizer value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_fertilizer value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_fertilizer >= 0.333 }
@@ -7444,6 +7489,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_fine_art value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_fine_art value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_fine_art value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_fine_art >= 0.333 }
@@ -7569,6 +7615,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_fine_art value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_fine_art value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_fine_art value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_fine_art >= 0.333 }
@@ -7653,6 +7700,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_fine_art value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_fine_art value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_fine_art value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_fine_art >= 0.333 }
@@ -7929,6 +7977,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_fish value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_fish value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_fish value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_fish >= 0.333 }
@@ -8054,6 +8103,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_fish value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_fish value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_fish value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_fish >= 0.333 }
@@ -8138,6 +8188,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_fish value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_fish value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_fish value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_fish >= 0.333 }
@@ -8402,6 +8453,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_fruit value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_fruit value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_fruit value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_fruit >= 0.333 }
@@ -8516,6 +8568,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_fruit value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_fruit value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_fruit value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_fruit >= 0.333 }
@@ -8589,6 +8642,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_fruit value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_fruit value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_fruit value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_fruit >= 0.333 }
@@ -8865,6 +8919,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_furniture value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_furniture value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_furniture value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_furniture >= 0.333 }
@@ -8990,6 +9045,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_furniture value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_furniture value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_furniture value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_furniture >= 0.333 }
@@ -9074,6 +9130,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_furniture value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_furniture value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_furniture value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_furniture >= 0.333 }
@@ -9350,6 +9407,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_glass value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_glass value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_glass value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_glass >= 0.333 }
@@ -9475,6 +9533,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_glass value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_glass value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_glass value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_glass >= 0.333 }
@@ -9559,6 +9618,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_glass value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_glass value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_glass value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_glass >= 0.333 }
@@ -9835,6 +9895,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_grain value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_grain value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_grain value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_grain >= 0.333 }
@@ -9960,6 +10021,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_grain value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_grain value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_grain value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_grain >= 0.333 }
@@ -10044,6 +10106,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_grain value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_grain value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_grain value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_grain >= 0.333 }
@@ -10320,6 +10383,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_groceries value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_groceries value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_groceries value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_groceries >= 0.333 }
@@ -10445,6 +10509,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_groceries value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_groceries value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_groceries value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_groceries >= 0.333 }
@@ -10529,6 +10594,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_groceries value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_groceries value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_groceries value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_groceries >= 0.333 }
@@ -10793,6 +10859,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_hardwood value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_hardwood value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_hardwood value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_hardwood >= 0.333 }
@@ -10907,6 +10974,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_hardwood value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_hardwood value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_hardwood value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_hardwood >= 0.333 }
@@ -10980,6 +11048,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_hardwood value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_hardwood value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_hardwood value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_hardwood >= 0.333 }
@@ -11256,6 +11325,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_iron value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_iron value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_iron value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_iron >= 0.333 }
@@ -11381,6 +11451,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_iron value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_iron value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_iron value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_iron >= 0.333 }
@@ -11465,6 +11536,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_iron value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_iron value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_iron value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_iron >= 0.333 }
@@ -11741,6 +11813,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_lead value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_lead value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_lead value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_lead >= 0.333 }
@@ -11866,6 +11939,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_lead value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_lead value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_lead value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_lead >= 0.333 }
@@ -11950,6 +12024,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_lead value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_lead value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_lead value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_lead >= 0.333 }
@@ -12226,6 +12301,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_liquor value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_liquor value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_liquor value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_liquor >= 0.333 }
@@ -12351,6 +12427,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_liquor value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_liquor value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_liquor value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_liquor >= 0.333 }
@@ -12435,6 +12512,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_liquor value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_liquor value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_liquor value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_liquor >= 0.333 }
@@ -12711,6 +12789,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_luxury_clothes value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_luxury_clothes value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_luxury_clothes value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_luxury_clothes >= 0.333 }
@@ -12836,6 +12915,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_luxury_clothes value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_luxury_clothes value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_luxury_clothes value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_luxury_clothes >= 0.333 }
@@ -12920,6 +13000,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_luxury_clothes value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_luxury_clothes value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_luxury_clothes value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_luxury_clothes >= 0.333 }
@@ -13196,6 +13277,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_luxury_furniture value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_luxury_furniture value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_luxury_furniture value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_luxury_furniture >= 0.333 }
@@ -13321,6 +13403,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_luxury_furniture value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_luxury_furniture value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_luxury_furniture value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_luxury_furniture >= 0.333 }
@@ -13405,6 +13488,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_luxury_furniture value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_luxury_furniture value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_luxury_furniture value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_luxury_furniture >= 0.333 }
@@ -13681,6 +13765,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_meat value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_meat value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_meat value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_meat >= 0.333 }
@@ -13806,6 +13891,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_meat value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_meat value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_meat value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_meat >= 0.333 }
@@ -13890,6 +13976,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_meat value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_meat value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_meat value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_meat >= 0.333 }
@@ -14166,6 +14253,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_merchant_marine value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_merchant_marine value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_merchant_marine value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_merchant_marine >= 0.333 }
@@ -14291,6 +14379,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_merchant_marine value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_merchant_marine value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_merchant_marine value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_merchant_marine >= 0.333 }
@@ -14375,6 +14464,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_merchant_marine value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_merchant_marine value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_merchant_marine value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_merchant_marine >= 0.333 }
@@ -14651,6 +14741,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_oil value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_oil value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_oil value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_oil >= 0.333 }
@@ -14776,6 +14867,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_oil value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_oil value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_oil value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_oil >= 0.333 }
@@ -14860,6 +14952,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_oil value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_oil value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_oil value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_oil >= 0.333 }
@@ -15136,6 +15229,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_opium value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_opium value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_opium value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_opium >= 0.333 }
@@ -15261,6 +15355,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_opium value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_opium value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_opium value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_opium >= 0.333 }
@@ -15345,6 +15440,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_opium value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_opium value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_opium value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_opium >= 0.333 }
@@ -15621,6 +15717,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_paper value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_paper value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_paper value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_paper >= 0.333 }
@@ -15746,6 +15843,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_paper value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_paper value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_paper value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_paper >= 0.333 }
@@ -15830,6 +15928,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_paper value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_paper value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_paper value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_paper >= 0.333 }
@@ -16106,6 +16205,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_porcelain value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_porcelain value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_porcelain value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_porcelain >= 0.333 }
@@ -16231,6 +16331,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_porcelain value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_porcelain value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_porcelain value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_porcelain >= 0.333 }
@@ -16315,6 +16416,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_porcelain value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_porcelain value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_porcelain value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_porcelain >= 0.333 }
@@ -16591,6 +16693,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_radios value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_radios value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_radios value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_radios >= 0.333 }
@@ -16716,6 +16819,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_radios value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_radios value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_radios value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_radios >= 0.333 }
@@ -16800,6 +16904,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_radios value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_radios value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_radios value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_radios >= 0.333 }
@@ -17076,6 +17181,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_rubber value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_rubber value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_rubber value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_rubber >= 0.333 }
@@ -17201,6 +17307,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_rubber value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_rubber value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_rubber value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_rubber >= 0.333 }
@@ -17285,6 +17392,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_rubber value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_rubber value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_rubber value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_rubber >= 0.333 }
@@ -17561,6 +17669,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_silk value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_silk value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_silk value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_silk >= 0.333 }
@@ -17686,6 +17795,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_silk value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_silk value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_silk value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_silk >= 0.333 }
@@ -17770,6 +17880,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_silk value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_silk value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_silk value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_silk >= 0.333 }
@@ -18046,6 +18157,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_small_arms value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_small_arms value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_small_arms value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_small_arms >= 0.333 }
@@ -18171,6 +18283,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_small_arms value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_small_arms value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_small_arms value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_small_arms >= 0.333 }
@@ -18255,6 +18368,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_small_arms value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_small_arms value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_small_arms value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_small_arms >= 0.333 }
@@ -18531,6 +18645,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_steamers value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_steamers value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_steamers value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_steamers >= 0.333 }
@@ -18656,6 +18771,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_steamers value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_steamers value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_steamers value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_steamers >= 0.333 }
@@ -18740,6 +18856,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_steamers value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_steamers value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_steamers value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_steamers >= 0.333 }
@@ -19016,6 +19133,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_steel value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_steel value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_steel value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_steel >= 0.333 }
@@ -19141,6 +19259,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_steel value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_steel value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_steel value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_steel >= 0.333 }
@@ -19225,6 +19344,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_steel value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_steel value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_steel value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_steel >= 0.333 }
@@ -19501,6 +19621,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_sugar value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_sugar value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_sugar value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_sugar >= 0.333 }
@@ -19626,6 +19747,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_sugar value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_sugar value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_sugar value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_sugar >= 0.333 }
@@ -19710,6 +19832,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_sugar value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_sugar value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_sugar value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_sugar >= 0.333 }
@@ -19986,6 +20109,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_sulfur value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_sulfur value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_sulfur value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_sulfur >= 0.333 }
@@ -20111,6 +20235,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_sulfur value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_sulfur value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_sulfur value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_sulfur >= 0.333 }
@@ -20195,6 +20320,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_sulfur value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_sulfur value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_sulfur value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_sulfur >= 0.333 }
@@ -20471,6 +20597,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_tanks value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_tanks value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_tanks value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_tanks >= 0.333 }
@@ -20596,6 +20723,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_tanks value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_tanks value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_tanks value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_tanks >= 0.333 }
@@ -20680,6 +20808,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_tanks value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_tanks value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_tanks value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_tanks >= 0.333 }
@@ -20956,6 +21085,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_tea value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_tea value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_tea value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_tea >= 0.333 }
@@ -21081,6 +21211,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_tea value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_tea value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_tea value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_tea >= 0.333 }
@@ -21165,6 +21296,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_tea value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_tea value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_tea value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_tea >= 0.333 }
@@ -21441,6 +21573,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_telephones value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_telephones value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_telephones value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_telephones >= 0.333 }
@@ -21566,6 +21699,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_telephones value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_telephones value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_telephones value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_telephones >= 0.333 }
@@ -21650,6 +21784,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_telephones value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_telephones value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_telephones value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_telephones >= 0.333 }
@@ -21926,6 +22061,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_tobacco value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_tobacco value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_tobacco value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_tobacco >= 0.333 }
@@ -22051,6 +22187,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_tobacco value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_tobacco value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_tobacco value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_tobacco >= 0.333 }
@@ -22135,6 +22272,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_tobacco value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_tobacco value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_tobacco value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_tobacco >= 0.333 }
@@ -22411,6 +22549,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_tools value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_tools value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_tools value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_tools >= 0.333 }
@@ -22536,6 +22675,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_tools value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_tools value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_tools value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_tools >= 0.333 }
@@ -22620,6 +22760,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_tools value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_tools value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_tools value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_tools >= 0.333 }
@@ -22896,6 +23037,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_wine value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_wine value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_wine value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_wine >= 0.333 }
@@ -23021,6 +23163,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_wine value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_wine value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_wine value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_wine >= 0.333 }
@@ -23105,6 +23248,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_wine value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_wine value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_wine value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_wine >= 0.333 }
@@ -23369,6 +23513,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_wood value = 3 days = 360 }
+					set_variable = { name = spec_glut_until_wood value = { value = game_date add = 360 } days = 360 }
 					set_variable = { name = spec_ui_crash_wood value = 3 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_wood >= 0.333 }
@@ -23483,6 +23628,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_wood value = 2 days = 180 }
+					set_variable = { name = spec_glut_until_wood value = { value = game_date add = 180 } days = 180 }
 					set_variable = { name = spec_ui_crash_wood value = 2 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_wood >= 0.333 }
@@ -23556,6 +23702,7 @@ spec_monthly = {
 						spec_update_levers = yes
 					}
 					set_variable = { name = spec_glut_wood value = 1 days = 90 }
+					set_variable = { name = spec_glut_until_wood value = { value = game_date add = 90 } days = 90 }
 					set_variable = { name = spec_ui_crash_wood value = 1 days = 28 }
 					if = {
 						limit = { is_player = yes spec_weight_wood >= 0.333 }
@@ -29126,27 +29273,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_aeroplanes value = { value = spec_mv_aeroplanes divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_aeroplanes = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_aeroplanes }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_aeroplanes }
 					}
 					else_if = {
 						limit = { var:spec_word_aeroplanes = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_aeroplanes }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_aeroplanes }
 					}
 					else_if = {
 						limit = { var:spec_word_aeroplanes = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_aeroplanes }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_aeroplanes }
 					}
 					else_if = {
 						limit = { var:spec_word_aeroplanes = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_aeroplanes }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_aeroplanes }
 					}
 					else_if = {
 						limit = { var:spec_word_aeroplanes = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_aeroplanes }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_aeroplanes }
 					}
 					else_if = {
 						limit = { var:spec_word_aeroplanes = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_aeroplanes }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_aeroplanes }
 					}
 				}
 				else = {
@@ -29157,27 +29304,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_ammunition value = { value = spec_mv_ammunition divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_ammunition = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_ammunition }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_ammunition }
 					}
 					else_if = {
 						limit = { var:spec_word_ammunition = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_ammunition }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_ammunition }
 					}
 					else_if = {
 						limit = { var:spec_word_ammunition = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_ammunition }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_ammunition }
 					}
 					else_if = {
 						limit = { var:spec_word_ammunition = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_ammunition }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_ammunition }
 					}
 					else_if = {
 						limit = { var:spec_word_ammunition = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_ammunition }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_ammunition }
 					}
 					else_if = {
 						limit = { var:spec_word_ammunition = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_ammunition }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_ammunition }
 					}
 				}
 				else = {
@@ -29188,27 +29335,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_artillery value = { value = spec_mv_artillery divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_artillery = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_artillery }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_artillery }
 					}
 					else_if = {
 						limit = { var:spec_word_artillery = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_artillery }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_artillery }
 					}
 					else_if = {
 						limit = { var:spec_word_artillery = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_artillery }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_artillery }
 					}
 					else_if = {
 						limit = { var:spec_word_artillery = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_artillery }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_artillery }
 					}
 					else_if = {
 						limit = { var:spec_word_artillery = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_artillery }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_artillery }
 					}
 					else_if = {
 						limit = { var:spec_word_artillery = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_artillery }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_artillery }
 					}
 				}
 				else = {
@@ -29219,27 +29366,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_automobiles value = { value = spec_mv_automobiles divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_automobiles = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_automobiles }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_automobiles }
 					}
 					else_if = {
 						limit = { var:spec_word_automobiles = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_automobiles }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_automobiles }
 					}
 					else_if = {
 						limit = { var:spec_word_automobiles = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_automobiles }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_automobiles }
 					}
 					else_if = {
 						limit = { var:spec_word_automobiles = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_automobiles }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_automobiles }
 					}
 					else_if = {
 						limit = { var:spec_word_automobiles = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_automobiles }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_automobiles }
 					}
 					else_if = {
 						limit = { var:spec_word_automobiles = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_automobiles }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_automobiles }
 					}
 				}
 				else = {
@@ -29250,27 +29397,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_clippers value = { value = spec_mv_clippers divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_clippers = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_clippers }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_clippers }
 					}
 					else_if = {
 						limit = { var:spec_word_clippers = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_clippers }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_clippers }
 					}
 					else_if = {
 						limit = { var:spec_word_clippers = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_clippers }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_clippers }
 					}
 					else_if = {
 						limit = { var:spec_word_clippers = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_clippers }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_clippers }
 					}
 					else_if = {
 						limit = { var:spec_word_clippers = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_clippers }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_clippers }
 					}
 					else_if = {
 						limit = { var:spec_word_clippers = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_clippers }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_clippers }
 					}
 				}
 				else = {
@@ -29281,27 +29428,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_clothes value = { value = spec_mv_clothes divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_clothes = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_clothes }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_clothes }
 					}
 					else_if = {
 						limit = { var:spec_word_clothes = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_clothes }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_clothes }
 					}
 					else_if = {
 						limit = { var:spec_word_clothes = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_clothes }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_clothes }
 					}
 					else_if = {
 						limit = { var:spec_word_clothes = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_clothes }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_clothes }
 					}
 					else_if = {
 						limit = { var:spec_word_clothes = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_clothes }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_clothes }
 					}
 					else_if = {
 						limit = { var:spec_word_clothes = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_clothes }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_clothes }
 					}
 				}
 				else = {
@@ -29312,27 +29459,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_coal value = { value = spec_mv_coal divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_coal = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_coal }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_coal }
 					}
 					else_if = {
 						limit = { var:spec_word_coal = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_coal }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_coal }
 					}
 					else_if = {
 						limit = { var:spec_word_coal = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_coal }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_coal }
 					}
 					else_if = {
 						limit = { var:spec_word_coal = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_coal }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_coal }
 					}
 					else_if = {
 						limit = { var:spec_word_coal = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_coal }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_coal }
 					}
 					else_if = {
 						limit = { var:spec_word_coal = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_coal }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_coal }
 					}
 				}
 				else = {
@@ -29343,27 +29490,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_coffee value = { value = spec_mv_coffee divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_coffee = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_coffee }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_coffee }
 					}
 					else_if = {
 						limit = { var:spec_word_coffee = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_coffee }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_coffee }
 					}
 					else_if = {
 						limit = { var:spec_word_coffee = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_coffee }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_coffee }
 					}
 					else_if = {
 						limit = { var:spec_word_coffee = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_coffee }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_coffee }
 					}
 					else_if = {
 						limit = { var:spec_word_coffee = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_coffee }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_coffee }
 					}
 					else_if = {
 						limit = { var:spec_word_coffee = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_coffee }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_coffee }
 					}
 				}
 				else = {
@@ -29374,27 +29521,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_copper value = { value = spec_mv_copper divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_copper = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_copper }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_copper }
 					}
 					else_if = {
 						limit = { var:spec_word_copper = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_copper }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_copper }
 					}
 					else_if = {
 						limit = { var:spec_word_copper = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_copper }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_copper }
 					}
 					else_if = {
 						limit = { var:spec_word_copper = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_copper }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_copper }
 					}
 					else_if = {
 						limit = { var:spec_word_copper = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_copper }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_copper }
 					}
 					else_if = {
 						limit = { var:spec_word_copper = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_copper }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_copper }
 					}
 				}
 				else = {
@@ -29405,27 +29552,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_dye value = { value = spec_mv_dye divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_dye = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_dye }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_dye }
 					}
 					else_if = {
 						limit = { var:spec_word_dye = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_dye }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_dye }
 					}
 					else_if = {
 						limit = { var:spec_word_dye = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_dye }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_dye }
 					}
 					else_if = {
 						limit = { var:spec_word_dye = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_dye }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_dye }
 					}
 					else_if = {
 						limit = { var:spec_word_dye = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_dye }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_dye }
 					}
 					else_if = {
 						limit = { var:spec_word_dye = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_dye }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_dye }
 					}
 				}
 				else = {
@@ -29436,27 +29583,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_electricity value = { value = spec_mv_electricity divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_electricity = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_electricity }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_electricity }
 					}
 					else_if = {
 						limit = { var:spec_word_electricity = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_electricity }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_electricity }
 					}
 					else_if = {
 						limit = { var:spec_word_electricity = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_electricity }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_electricity }
 					}
 					else_if = {
 						limit = { var:spec_word_electricity = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_electricity }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_electricity }
 					}
 					else_if = {
 						limit = { var:spec_word_electricity = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_electricity }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_electricity }
 					}
 					else_if = {
 						limit = { var:spec_word_electricity = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_electricity }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_electricity }
 					}
 				}
 				else = {
@@ -29467,27 +29614,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_engines value = { value = spec_mv_engines divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_engines = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_engines }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_engines }
 					}
 					else_if = {
 						limit = { var:spec_word_engines = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_engines }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_engines }
 					}
 					else_if = {
 						limit = { var:spec_word_engines = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_engines }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_engines }
 					}
 					else_if = {
 						limit = { var:spec_word_engines = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_engines }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_engines }
 					}
 					else_if = {
 						limit = { var:spec_word_engines = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_engines }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_engines }
 					}
 					else_if = {
 						limit = { var:spec_word_engines = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_engines }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_engines }
 					}
 				}
 				else = {
@@ -29498,27 +29645,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_explosives value = { value = spec_mv_explosives divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_explosives = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_explosives }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_explosives }
 					}
 					else_if = {
 						limit = { var:spec_word_explosives = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_explosives }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_explosives }
 					}
 					else_if = {
 						limit = { var:spec_word_explosives = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_explosives }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_explosives }
 					}
 					else_if = {
 						limit = { var:spec_word_explosives = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_explosives }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_explosives }
 					}
 					else_if = {
 						limit = { var:spec_word_explosives = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_explosives }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_explosives }
 					}
 					else_if = {
 						limit = { var:spec_word_explosives = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_explosives }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_explosives }
 					}
 				}
 				else = {
@@ -29529,27 +29676,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_fabric value = { value = spec_mv_fabric divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_fabric = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_fabric }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_fabric }
 					}
 					else_if = {
 						limit = { var:spec_word_fabric = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_fabric }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_fabric }
 					}
 					else_if = {
 						limit = { var:spec_word_fabric = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_fabric }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_fabric }
 					}
 					else_if = {
 						limit = { var:spec_word_fabric = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_fabric }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_fabric }
 					}
 					else_if = {
 						limit = { var:spec_word_fabric = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_fabric }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_fabric }
 					}
 					else_if = {
 						limit = { var:spec_word_fabric = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_fabric }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_fabric }
 					}
 				}
 				else = {
@@ -29560,27 +29707,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_fertilizer value = { value = spec_mv_fertilizer divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_fertilizer = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_fertilizer }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_fertilizer }
 					}
 					else_if = {
 						limit = { var:spec_word_fertilizer = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_fertilizer }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_fertilizer }
 					}
 					else_if = {
 						limit = { var:spec_word_fertilizer = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_fertilizer }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_fertilizer }
 					}
 					else_if = {
 						limit = { var:spec_word_fertilizer = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_fertilizer }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_fertilizer }
 					}
 					else_if = {
 						limit = { var:spec_word_fertilizer = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_fertilizer }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_fertilizer }
 					}
 					else_if = {
 						limit = { var:spec_word_fertilizer = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_fertilizer }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_fertilizer }
 					}
 				}
 				else = {
@@ -29591,27 +29738,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_fine_art value = { value = spec_mv_fine_art divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_fine_art = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_fine_art }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_fine_art }
 					}
 					else_if = {
 						limit = { var:spec_word_fine_art = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_fine_art }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_fine_art }
 					}
 					else_if = {
 						limit = { var:spec_word_fine_art = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_fine_art }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_fine_art }
 					}
 					else_if = {
 						limit = { var:spec_word_fine_art = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_fine_art }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_fine_art }
 					}
 					else_if = {
 						limit = { var:spec_word_fine_art = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_fine_art }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_fine_art }
 					}
 					else_if = {
 						limit = { var:spec_word_fine_art = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_fine_art }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_fine_art }
 					}
 				}
 				else = {
@@ -29622,27 +29769,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_fish value = { value = spec_mv_fish divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_fish = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_fish }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_fish }
 					}
 					else_if = {
 						limit = { var:spec_word_fish = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_fish }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_fish }
 					}
 					else_if = {
 						limit = { var:spec_word_fish = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_fish }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_fish }
 					}
 					else_if = {
 						limit = { var:spec_word_fish = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_fish }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_fish }
 					}
 					else_if = {
 						limit = { var:spec_word_fish = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_fish }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_fish }
 					}
 					else_if = {
 						limit = { var:spec_word_fish = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_fish }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_fish }
 					}
 				}
 				else = {
@@ -29653,27 +29800,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_fruit value = { value = spec_mv_fruit divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_fruit = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_fruit }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_fruit }
 					}
 					else_if = {
 						limit = { var:spec_word_fruit = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_fruit }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_fruit }
 					}
 					else_if = {
 						limit = { var:spec_word_fruit = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_fruit }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_fruit }
 					}
 					else_if = {
 						limit = { var:spec_word_fruit = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_fruit }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_fruit }
 					}
 					else_if = {
 						limit = { var:spec_word_fruit = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_fruit }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_fruit }
 					}
 					else_if = {
 						limit = { var:spec_word_fruit = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_fruit }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_fruit }
 					}
 				}
 				else = {
@@ -29684,27 +29831,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_furniture value = { value = spec_mv_furniture divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_furniture = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_furniture }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_furniture }
 					}
 					else_if = {
 						limit = { var:spec_word_furniture = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_furniture }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_furniture }
 					}
 					else_if = {
 						limit = { var:spec_word_furniture = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_furniture }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_furniture }
 					}
 					else_if = {
 						limit = { var:spec_word_furniture = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_furniture }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_furniture }
 					}
 					else_if = {
 						limit = { var:spec_word_furniture = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_furniture }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_furniture }
 					}
 					else_if = {
 						limit = { var:spec_word_furniture = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_furniture }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_furniture }
 					}
 				}
 				else = {
@@ -29715,27 +29862,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_glass value = { value = spec_mv_glass divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_glass = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_glass }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_glass }
 					}
 					else_if = {
 						limit = { var:spec_word_glass = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_glass }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_glass }
 					}
 					else_if = {
 						limit = { var:spec_word_glass = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_glass }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_glass }
 					}
 					else_if = {
 						limit = { var:spec_word_glass = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_glass }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_glass }
 					}
 					else_if = {
 						limit = { var:spec_word_glass = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_glass }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_glass }
 					}
 					else_if = {
 						limit = { var:spec_word_glass = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_glass }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_glass }
 					}
 				}
 				else = {
@@ -29746,27 +29893,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_grain value = { value = spec_mv_grain divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_grain = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_grain }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_grain }
 					}
 					else_if = {
 						limit = { var:spec_word_grain = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_grain }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_grain }
 					}
 					else_if = {
 						limit = { var:spec_word_grain = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_grain }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_grain }
 					}
 					else_if = {
 						limit = { var:spec_word_grain = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_grain }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_grain }
 					}
 					else_if = {
 						limit = { var:spec_word_grain = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_grain }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_grain }
 					}
 					else_if = {
 						limit = { var:spec_word_grain = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_grain }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_grain }
 					}
 				}
 				else = {
@@ -29777,27 +29924,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_groceries value = { value = spec_mv_groceries divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_groceries = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_groceries }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_groceries }
 					}
 					else_if = {
 						limit = { var:spec_word_groceries = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_groceries }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_groceries }
 					}
 					else_if = {
 						limit = { var:spec_word_groceries = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_groceries }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_groceries }
 					}
 					else_if = {
 						limit = { var:spec_word_groceries = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_groceries }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_groceries }
 					}
 					else_if = {
 						limit = { var:spec_word_groceries = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_groceries }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_groceries }
 					}
 					else_if = {
 						limit = { var:spec_word_groceries = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_groceries }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_groceries }
 					}
 				}
 				else = {
@@ -29808,27 +29955,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_hardwood value = { value = spec_mv_hardwood divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_hardwood = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_hardwood }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_hardwood }
 					}
 					else_if = {
 						limit = { var:spec_word_hardwood = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_hardwood }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_hardwood }
 					}
 					else_if = {
 						limit = { var:spec_word_hardwood = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_hardwood }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_hardwood }
 					}
 					else_if = {
 						limit = { var:spec_word_hardwood = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_hardwood }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_hardwood }
 					}
 					else_if = {
 						limit = { var:spec_word_hardwood = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_hardwood }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_hardwood }
 					}
 					else_if = {
 						limit = { var:spec_word_hardwood = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_hardwood }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_hardwood }
 					}
 				}
 				else = {
@@ -29839,27 +29986,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_iron value = { value = spec_mv_iron divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_iron = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_iron }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_iron }
 					}
 					else_if = {
 						limit = { var:spec_word_iron = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_iron }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_iron }
 					}
 					else_if = {
 						limit = { var:spec_word_iron = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_iron }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_iron }
 					}
 					else_if = {
 						limit = { var:spec_word_iron = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_iron }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_iron }
 					}
 					else_if = {
 						limit = { var:spec_word_iron = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_iron }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_iron }
 					}
 					else_if = {
 						limit = { var:spec_word_iron = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_iron }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_iron }
 					}
 				}
 				else = {
@@ -29870,27 +30017,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_lead value = { value = spec_mv_lead divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_lead = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_lead }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_lead }
 					}
 					else_if = {
 						limit = { var:spec_word_lead = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_lead }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_lead }
 					}
 					else_if = {
 						limit = { var:spec_word_lead = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_lead }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_lead }
 					}
 					else_if = {
 						limit = { var:spec_word_lead = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_lead }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_lead }
 					}
 					else_if = {
 						limit = { var:spec_word_lead = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_lead }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_lead }
 					}
 					else_if = {
 						limit = { var:spec_word_lead = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_lead }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_lead }
 					}
 				}
 				else = {
@@ -29901,27 +30048,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_liquor value = { value = spec_mv_liquor divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_liquor = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_liquor }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_liquor }
 					}
 					else_if = {
 						limit = { var:spec_word_liquor = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_liquor }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_liquor }
 					}
 					else_if = {
 						limit = { var:spec_word_liquor = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_liquor }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_liquor }
 					}
 					else_if = {
 						limit = { var:spec_word_liquor = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_liquor }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_liquor }
 					}
 					else_if = {
 						limit = { var:spec_word_liquor = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_liquor }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_liquor }
 					}
 					else_if = {
 						limit = { var:spec_word_liquor = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_liquor }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_liquor }
 					}
 				}
 				else = {
@@ -29932,27 +30079,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_luxury_clothes value = { value = spec_mv_luxury_clothes divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_luxury_clothes = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_luxury_clothes }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_luxury_clothes }
 					}
 					else_if = {
 						limit = { var:spec_word_luxury_clothes = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_luxury_clothes }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_luxury_clothes }
 					}
 					else_if = {
 						limit = { var:spec_word_luxury_clothes = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_luxury_clothes }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_luxury_clothes }
 					}
 					else_if = {
 						limit = { var:spec_word_luxury_clothes = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_luxury_clothes }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_luxury_clothes }
 					}
 					else_if = {
 						limit = { var:spec_word_luxury_clothes = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_luxury_clothes }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_luxury_clothes }
 					}
 					else_if = {
 						limit = { var:spec_word_luxury_clothes = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_luxury_clothes }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_luxury_clothes }
 					}
 				}
 				else = {
@@ -29963,27 +30110,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_luxury_furniture value = { value = spec_mv_luxury_furniture divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_luxury_furniture = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_luxury_furniture }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_luxury_furniture }
 					}
 					else_if = {
 						limit = { var:spec_word_luxury_furniture = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_luxury_furniture }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_luxury_furniture }
 					}
 					else_if = {
 						limit = { var:spec_word_luxury_furniture = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_luxury_furniture }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_luxury_furniture }
 					}
 					else_if = {
 						limit = { var:spec_word_luxury_furniture = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_luxury_furniture }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_luxury_furniture }
 					}
 					else_if = {
 						limit = { var:spec_word_luxury_furniture = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_luxury_furniture }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_luxury_furniture }
 					}
 					else_if = {
 						limit = { var:spec_word_luxury_furniture = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_luxury_furniture }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_luxury_furniture }
 					}
 				}
 				else = {
@@ -29994,27 +30141,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_meat value = { value = spec_mv_meat divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_meat = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_meat }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_meat }
 					}
 					else_if = {
 						limit = { var:spec_word_meat = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_meat }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_meat }
 					}
 					else_if = {
 						limit = { var:spec_word_meat = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_meat }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_meat }
 					}
 					else_if = {
 						limit = { var:spec_word_meat = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_meat }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_meat }
 					}
 					else_if = {
 						limit = { var:spec_word_meat = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_meat }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_meat }
 					}
 					else_if = {
 						limit = { var:spec_word_meat = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_meat }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_meat }
 					}
 				}
 				else = {
@@ -30025,27 +30172,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_merchant_marine value = { value = spec_mv_merchant_marine divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_merchant_marine = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_merchant_marine }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_merchant_marine }
 					}
 					else_if = {
 						limit = { var:spec_word_merchant_marine = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_merchant_marine }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_merchant_marine }
 					}
 					else_if = {
 						limit = { var:spec_word_merchant_marine = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_merchant_marine }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_merchant_marine }
 					}
 					else_if = {
 						limit = { var:spec_word_merchant_marine = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_merchant_marine }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_merchant_marine }
 					}
 					else_if = {
 						limit = { var:spec_word_merchant_marine = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_merchant_marine }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_merchant_marine }
 					}
 					else_if = {
 						limit = { var:spec_word_merchant_marine = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_merchant_marine }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_merchant_marine }
 					}
 				}
 				else = {
@@ -30056,27 +30203,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_oil value = { value = spec_mv_oil divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_oil = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_oil }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_oil }
 					}
 					else_if = {
 						limit = { var:spec_word_oil = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_oil }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_oil }
 					}
 					else_if = {
 						limit = { var:spec_word_oil = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_oil }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_oil }
 					}
 					else_if = {
 						limit = { var:spec_word_oil = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_oil }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_oil }
 					}
 					else_if = {
 						limit = { var:spec_word_oil = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_oil }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_oil }
 					}
 					else_if = {
 						limit = { var:spec_word_oil = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_oil }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_oil }
 					}
 				}
 				else = {
@@ -30087,27 +30234,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_opium value = { value = spec_mv_opium divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_opium = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_opium }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_opium }
 					}
 					else_if = {
 						limit = { var:spec_word_opium = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_opium }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_opium }
 					}
 					else_if = {
 						limit = { var:spec_word_opium = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_opium }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_opium }
 					}
 					else_if = {
 						limit = { var:spec_word_opium = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_opium }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_opium }
 					}
 					else_if = {
 						limit = { var:spec_word_opium = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_opium }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_opium }
 					}
 					else_if = {
 						limit = { var:spec_word_opium = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_opium }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_opium }
 					}
 				}
 				else = {
@@ -30118,27 +30265,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_paper value = { value = spec_mv_paper divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_paper = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_paper }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_paper }
 					}
 					else_if = {
 						limit = { var:spec_word_paper = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_paper }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_paper }
 					}
 					else_if = {
 						limit = { var:spec_word_paper = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_paper }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_paper }
 					}
 					else_if = {
 						limit = { var:spec_word_paper = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_paper }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_paper }
 					}
 					else_if = {
 						limit = { var:spec_word_paper = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_paper }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_paper }
 					}
 					else_if = {
 						limit = { var:spec_word_paper = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_paper }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_paper }
 					}
 				}
 				else = {
@@ -30149,27 +30296,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_porcelain value = { value = spec_mv_porcelain divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_porcelain = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_porcelain }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_porcelain }
 					}
 					else_if = {
 						limit = { var:spec_word_porcelain = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_porcelain }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_porcelain }
 					}
 					else_if = {
 						limit = { var:spec_word_porcelain = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_porcelain }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_porcelain }
 					}
 					else_if = {
 						limit = { var:spec_word_porcelain = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_porcelain }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_porcelain }
 					}
 					else_if = {
 						limit = { var:spec_word_porcelain = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_porcelain }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_porcelain }
 					}
 					else_if = {
 						limit = { var:spec_word_porcelain = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_porcelain }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_porcelain }
 					}
 				}
 				else = {
@@ -30180,27 +30327,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_radios value = { value = spec_mv_radios divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_radios = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_radios }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_radios }
 					}
 					else_if = {
 						limit = { var:spec_word_radios = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_radios }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_radios }
 					}
 					else_if = {
 						limit = { var:spec_word_radios = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_radios }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_radios }
 					}
 					else_if = {
 						limit = { var:spec_word_radios = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_radios }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_radios }
 					}
 					else_if = {
 						limit = { var:spec_word_radios = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_radios }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_radios }
 					}
 					else_if = {
 						limit = { var:spec_word_radios = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_radios }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_radios }
 					}
 				}
 				else = {
@@ -30211,27 +30358,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_rubber value = { value = spec_mv_rubber divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_rubber = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_rubber }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_rubber }
 					}
 					else_if = {
 						limit = { var:spec_word_rubber = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_rubber }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_rubber }
 					}
 					else_if = {
 						limit = { var:spec_word_rubber = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_rubber }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_rubber }
 					}
 					else_if = {
 						limit = { var:spec_word_rubber = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_rubber }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_rubber }
 					}
 					else_if = {
 						limit = { var:spec_word_rubber = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_rubber }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_rubber }
 					}
 					else_if = {
 						limit = { var:spec_word_rubber = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_rubber }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_rubber }
 					}
 				}
 				else = {
@@ -30242,27 +30389,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_silk value = { value = spec_mv_silk divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_silk = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_silk }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_silk }
 					}
 					else_if = {
 						limit = { var:spec_word_silk = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_silk }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_silk }
 					}
 					else_if = {
 						limit = { var:spec_word_silk = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_silk }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_silk }
 					}
 					else_if = {
 						limit = { var:spec_word_silk = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_silk }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_silk }
 					}
 					else_if = {
 						limit = { var:spec_word_silk = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_silk }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_silk }
 					}
 					else_if = {
 						limit = { var:spec_word_silk = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_silk }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_silk }
 					}
 				}
 				else = {
@@ -30273,27 +30420,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_small_arms value = { value = spec_mv_small_arms divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_small_arms = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_small_arms }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_small_arms }
 					}
 					else_if = {
 						limit = { var:spec_word_small_arms = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_small_arms }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_small_arms }
 					}
 					else_if = {
 						limit = { var:spec_word_small_arms = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_small_arms }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_small_arms }
 					}
 					else_if = {
 						limit = { var:spec_word_small_arms = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_small_arms }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_small_arms }
 					}
 					else_if = {
 						limit = { var:spec_word_small_arms = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_small_arms }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_small_arms }
 					}
 					else_if = {
 						limit = { var:spec_word_small_arms = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_small_arms }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_small_arms }
 					}
 				}
 				else = {
@@ -30304,27 +30451,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_steamers value = { value = spec_mv_steamers divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_steamers = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_steamers }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_steamers }
 					}
 					else_if = {
 						limit = { var:spec_word_steamers = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_steamers }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_steamers }
 					}
 					else_if = {
 						limit = { var:spec_word_steamers = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_steamers }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_steamers }
 					}
 					else_if = {
 						limit = { var:spec_word_steamers = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_steamers }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_steamers }
 					}
 					else_if = {
 						limit = { var:spec_word_steamers = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_steamers }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_steamers }
 					}
 					else_if = {
 						limit = { var:spec_word_steamers = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_steamers }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_steamers }
 					}
 				}
 				else = {
@@ -30335,27 +30482,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_steel value = { value = spec_mv_steel divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_steel = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_steel }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_steel }
 					}
 					else_if = {
 						limit = { var:spec_word_steel = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_steel }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_steel }
 					}
 					else_if = {
 						limit = { var:spec_word_steel = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_steel }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_steel }
 					}
 					else_if = {
 						limit = { var:spec_word_steel = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_steel }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_steel }
 					}
 					else_if = {
 						limit = { var:spec_word_steel = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_steel }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_steel }
 					}
 					else_if = {
 						limit = { var:spec_word_steel = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_steel }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_steel }
 					}
 				}
 				else = {
@@ -30366,27 +30513,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_sugar value = { value = spec_mv_sugar divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_sugar = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_sugar }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_sugar }
 					}
 					else_if = {
 						limit = { var:spec_word_sugar = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_sugar }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_sugar }
 					}
 					else_if = {
 						limit = { var:spec_word_sugar = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_sugar }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_sugar }
 					}
 					else_if = {
 						limit = { var:spec_word_sugar = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_sugar }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_sugar }
 					}
 					else_if = {
 						limit = { var:spec_word_sugar = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_sugar }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_sugar }
 					}
 					else_if = {
 						limit = { var:spec_word_sugar = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_sugar }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_sugar }
 					}
 				}
 				else = {
@@ -30397,27 +30544,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_sulfur value = { value = spec_mv_sulfur divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_sulfur = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_sulfur }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_sulfur }
 					}
 					else_if = {
 						limit = { var:spec_word_sulfur = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_sulfur }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_sulfur }
 					}
 					else_if = {
 						limit = { var:spec_word_sulfur = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_sulfur }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_sulfur }
 					}
 					else_if = {
 						limit = { var:spec_word_sulfur = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_sulfur }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_sulfur }
 					}
 					else_if = {
 						limit = { var:spec_word_sulfur = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_sulfur }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_sulfur }
 					}
 					else_if = {
 						limit = { var:spec_word_sulfur = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_sulfur }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_sulfur }
 					}
 				}
 				else = {
@@ -30428,27 +30575,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_tanks value = { value = spec_mv_tanks divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_tanks = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_tanks }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_tanks }
 					}
 					else_if = {
 						limit = { var:spec_word_tanks = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_tanks }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_tanks }
 					}
 					else_if = {
 						limit = { var:spec_word_tanks = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_tanks }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_tanks }
 					}
 					else_if = {
 						limit = { var:spec_word_tanks = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_tanks }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_tanks }
 					}
 					else_if = {
 						limit = { var:spec_word_tanks = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_tanks }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_tanks }
 					}
 					else_if = {
 						limit = { var:spec_word_tanks = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_tanks }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_tanks }
 					}
 				}
 				else = {
@@ -30459,27 +30606,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_tea value = { value = spec_mv_tea divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_tea = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_tea }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_tea }
 					}
 					else_if = {
 						limit = { var:spec_word_tea = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_tea }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_tea }
 					}
 					else_if = {
 						limit = { var:spec_word_tea = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_tea }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_tea }
 					}
 					else_if = {
 						limit = { var:spec_word_tea = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_tea }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_tea }
 					}
 					else_if = {
 						limit = { var:spec_word_tea = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_tea }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_tea }
 					}
 					else_if = {
 						limit = { var:spec_word_tea = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_tea }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_tea }
 					}
 				}
 				else = {
@@ -30490,27 +30637,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_telephones value = { value = spec_mv_telephones divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_telephones = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_telephones }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_telephones }
 					}
 					else_if = {
 						limit = { var:spec_word_telephones = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_telephones }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_telephones }
 					}
 					else_if = {
 						limit = { var:spec_word_telephones = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_telephones }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_telephones }
 					}
 					else_if = {
 						limit = { var:spec_word_telephones = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_telephones }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_telephones }
 					}
 					else_if = {
 						limit = { var:spec_word_telephones = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_telephones }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_telephones }
 					}
 					else_if = {
 						limit = { var:spec_word_telephones = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_telephones }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_telephones }
 					}
 				}
 				else = {
@@ -30521,27 +30668,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_tobacco value = { value = spec_mv_tobacco divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_tobacco = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_tobacco }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_tobacco }
 					}
 					else_if = {
 						limit = { var:spec_word_tobacco = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_tobacco }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_tobacco }
 					}
 					else_if = {
 						limit = { var:spec_word_tobacco = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_tobacco }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_tobacco }
 					}
 					else_if = {
 						limit = { var:spec_word_tobacco = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_tobacco }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_tobacco }
 					}
 					else_if = {
 						limit = { var:spec_word_tobacco = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_tobacco }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_tobacco }
 					}
 					else_if = {
 						limit = { var:spec_word_tobacco = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_tobacco }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_tobacco }
 					}
 				}
 				else = {
@@ -30552,27 +30699,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_tools value = { value = spec_mv_tools divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_tools = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_tools }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_tools }
 					}
 					else_if = {
 						limit = { var:spec_word_tools = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_tools }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_tools }
 					}
 					else_if = {
 						limit = { var:spec_word_tools = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_tools }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_tools }
 					}
 					else_if = {
 						limit = { var:spec_word_tools = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_tools }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_tools }
 					}
 					else_if = {
 						limit = { var:spec_word_tools = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_tools }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_tools }
 					}
 					else_if = {
 						limit = { var:spec_word_tools = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_tools }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_tools }
 					}
 				}
 				else = {
@@ -30583,27 +30730,27 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_wine value = { value = spec_mv_wine divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_wine = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_wine }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_wine }
 					}
 					else_if = {
 						limit = { var:spec_word_wine = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_wine }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_wine }
 					}
 					else_if = {
 						limit = { var:spec_word_wine = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_wine }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_wine }
 					}
 					else_if = {
 						limit = { var:spec_word_wine = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_wine }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_wine }
 					}
 					else_if = {
 						limit = { var:spec_word_wine = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_wine }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_wine }
 					}
 					else_if = {
 						limit = { var:spec_word_wine = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_wine }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_wine }
 					}
 				}
 				else = {
@@ -30614,34 +30761,64 @@ spec_monthly = {
 					set_variable = { name = spec_ui_mv_wood value = { value = spec_mv_wood divide = var:spec_mv_total } }
 					if = {
 						limit = { var:spec_word_wood = 1 }
-						change_variable = { name = spec_iw_lvl1 add = var:spec_ui_mv_wood }
+						change_variable = { name = spec_iw_lvl1 add = spec_mv_wood }
 					}
 					else_if = {
 						limit = { var:spec_word_wood = 2 }
-						change_variable = { name = spec_iw_lvl2 add = var:spec_ui_mv_wood }
+						change_variable = { name = spec_iw_lvl2 add = spec_mv_wood }
 					}
 					else_if = {
 						limit = { var:spec_word_wood = 3 }
-						change_variable = { name = spec_iw_lvl3 add = var:spec_ui_mv_wood }
+						change_variable = { name = spec_iw_lvl3 add = spec_mv_wood }
 					}
 					else_if = {
 						limit = { var:spec_word_wood = 4 }
-						change_variable = { name = spec_iw_lvl4 add = var:spec_ui_mv_wood }
+						change_variable = { name = spec_iw_lvl4 add = spec_mv_wood }
 					}
 					else_if = {
 						limit = { var:spec_word_wood = 5 }
-						change_variable = { name = spec_iw_lvl5 add = var:spec_ui_mv_wood }
+						change_variable = { name = spec_iw_lvl5 add = spec_mv_wood }
 					}
 					else_if = {
 						limit = { var:spec_word_wood = 6 }
-						change_variable = { name = spec_iw_lvl6 add = var:spec_ui_mv_wood }
+						change_variable = { name = spec_iw_lvl6 add = spec_mv_wood }
 					}
 				}
 				else = {
 					remove_variable = spec_ui_mv_wood
 				}
+				set_local_variable = { name = spec_iw_total value = { value = 0 add = var:spec_iw_lvl1 add = var:spec_iw_lvl2 add = var:spec_iw_lvl3 add = var:spec_iw_lvl4 add = var:spec_iw_lvl5 add = var:spec_iw_lvl6 } }
+				set_local_variable = { name = spec_iw_sum value = 0 }
+				set_local_variable = { name = spec_iw_prior value = 0 }
+				if = {
+					limit = { local_var:spec_iw_total > 0 }
+					change_local_variable = { name = spec_iw_sum add = var:spec_iw_lvl1 }
+					set_local_variable = { name = spec_iw_edge value = { value = local_var:spec_iw_sum divide = local_var:spec_iw_total multiply = 1000 round = yes } }
+					set_variable = { name = spec_iw_lvl1 value = { value = local_var:spec_iw_edge subtract = local_var:spec_iw_prior divide = 1000 } }
+					set_local_variable = { name = spec_iw_prior value = local_var:spec_iw_edge }
+					change_local_variable = { name = spec_iw_sum add = var:spec_iw_lvl2 }
+					set_local_variable = { name = spec_iw_edge value = { value = local_var:spec_iw_sum divide = local_var:spec_iw_total multiply = 1000 round = yes } }
+					set_variable = { name = spec_iw_lvl2 value = { value = local_var:spec_iw_edge subtract = local_var:spec_iw_prior divide = 1000 } }
+					set_local_variable = { name = spec_iw_prior value = local_var:spec_iw_edge }
+					change_local_variable = { name = spec_iw_sum add = var:spec_iw_lvl3 }
+					set_local_variable = { name = spec_iw_edge value = { value = local_var:spec_iw_sum divide = local_var:spec_iw_total multiply = 1000 round = yes } }
+					set_variable = { name = spec_iw_lvl3 value = { value = local_var:spec_iw_edge subtract = local_var:spec_iw_prior divide = 1000 } }
+					set_local_variable = { name = spec_iw_prior value = local_var:spec_iw_edge }
+					change_local_variable = { name = spec_iw_sum add = var:spec_iw_lvl4 }
+					set_local_variable = { name = spec_iw_edge value = { value = local_var:spec_iw_sum divide = local_var:spec_iw_total multiply = 1000 round = yes } }
+					set_variable = { name = spec_iw_lvl4 value = { value = local_var:spec_iw_edge subtract = local_var:spec_iw_prior divide = 1000 } }
+					set_local_variable = { name = spec_iw_prior value = local_var:spec_iw_edge }
+					change_local_variable = { name = spec_iw_sum add = var:spec_iw_lvl5 }
+					set_local_variable = { name = spec_iw_edge value = { value = local_var:spec_iw_sum divide = local_var:spec_iw_total multiply = 1000 round = yes } }
+					set_variable = { name = spec_iw_lvl5 value = { value = local_var:spec_iw_edge subtract = local_var:spec_iw_prior divide = 1000 } }
+					set_local_variable = { name = spec_iw_prior value = local_var:spec_iw_edge }
+					change_local_variable = { name = spec_iw_sum add = var:spec_iw_lvl6 }
+					set_local_variable = { name = spec_iw_edge value = { value = local_var:spec_iw_sum divide = local_var:spec_iw_total multiply = 1000 round = yes } }
+					set_variable = { name = spec_iw_lvl6 value = { value = local_var:spec_iw_edge subtract = local_var:spec_iw_prior divide = 1000 } }
+					set_local_variable = { name = spec_iw_prior value = local_var:spec_iw_edge }
+				}
 				clear_variable_list = spec_iw_levels
-				set_variable = { name = spec_rank_v value = 0.01 }
+				set_variable = { name = spec_rank_v value = 0.001 }
 				remove_variable = spec_rank_w
 				if = {
 					limit = {
@@ -30697,11 +30874,8 @@ spec_monthly = {
 						var:spec_rank_w = 1
 					}
 					set_variable = spec_iw_used1
-					random_in_list = {
-						variable = spec_goods_w1
-						save_temporary_scope_as = spec_iw
-						root = { add_to_variable_list = { name = spec_iw_levels target = scope:spec_iw } }
-					}
+					set_variable = { name = spec_iw_key_grain value = 1 }
+					add_to_variable_list = { name = spec_iw_levels target = g:grain }
 				}
 				if = {
 					limit = {
@@ -30709,11 +30883,8 @@ spec_monthly = {
 						var:spec_rank_w = 2
 					}
 					set_variable = spec_iw_used2
-					random_in_list = {
-						variable = spec_goods_w2
-						save_temporary_scope_as = spec_iw
-						root = { add_to_variable_list = { name = spec_iw_levels target = scope:spec_iw } }
-					}
+					set_variable = { name = spec_iw_key_fish value = 2 }
+					add_to_variable_list = { name = spec_iw_levels target = g:fish }
 				}
 				if = {
 					limit = {
@@ -30721,11 +30892,8 @@ spec_monthly = {
 						var:spec_rank_w = 3
 					}
 					set_variable = spec_iw_used3
-					random_in_list = {
-						variable = spec_goods_w3
-						save_temporary_scope_as = spec_iw
-						root = { add_to_variable_list = { name = spec_iw_levels target = scope:spec_iw } }
-					}
+					set_variable = { name = spec_iw_key_wood value = 3 }
+					add_to_variable_list = { name = spec_iw_levels target = g:wood }
 				}
 				if = {
 					limit = {
@@ -30733,11 +30901,8 @@ spec_monthly = {
 						var:spec_rank_w = 4
 					}
 					set_variable = spec_iw_used4
-					random_in_list = {
-						variable = spec_goods_w4
-						save_temporary_scope_as = spec_iw
-						root = { add_to_variable_list = { name = spec_iw_levels target = scope:spec_iw } }
-					}
+					set_variable = { name = spec_iw_key_coal value = 4 }
+					add_to_variable_list = { name = spec_iw_levels target = g:coal }
 				}
 				if = {
 					limit = {
@@ -30745,11 +30910,8 @@ spec_monthly = {
 						var:spec_rank_w = 5
 					}
 					set_variable = spec_iw_used5
-					random_in_list = {
-						variable = spec_goods_w5
-						save_temporary_scope_as = spec_iw
-						root = { add_to_variable_list = { name = spec_iw_levels target = scope:spec_iw } }
-					}
+					set_variable = { name = spec_iw_key_iron value = 5 }
+					add_to_variable_list = { name = spec_iw_levels target = g:iron }
 				}
 				if = {
 					limit = {
@@ -30757,13 +30919,10 @@ spec_monthly = {
 						var:spec_rank_w = 6
 					}
 					set_variable = spec_iw_used6
-					random_in_list = {
-						variable = spec_goods_w6
-						save_temporary_scope_as = spec_iw
-						root = { add_to_variable_list = { name = spec_iw_levels target = scope:spec_iw } }
-					}
+					set_variable = { name = spec_iw_key_tools value = 6 }
+					add_to_variable_list = { name = spec_iw_levels target = g:tools }
 				}
-				set_variable = { name = spec_rank_v value = 0.01 }
+				set_variable = { name = spec_rank_v value = 0.001 }
 				remove_variable = spec_rank_w
 				if = {
 					limit = {
@@ -30819,11 +30978,8 @@ spec_monthly = {
 						var:spec_rank_w = 1
 					}
 					set_variable = spec_iw_used1
-					random_in_list = {
-						variable = spec_goods_w1
-						save_temporary_scope_as = spec_iw
-						root = { add_to_variable_list = { name = spec_iw_levels target = scope:spec_iw } }
-					}
+					set_variable = { name = spec_iw_key_grain value = 1 }
+					add_to_variable_list = { name = spec_iw_levels target = g:grain }
 				}
 				if = {
 					limit = {
@@ -30831,11 +30987,8 @@ spec_monthly = {
 						var:spec_rank_w = 2
 					}
 					set_variable = spec_iw_used2
-					random_in_list = {
-						variable = spec_goods_w2
-						save_temporary_scope_as = spec_iw
-						root = { add_to_variable_list = { name = spec_iw_levels target = scope:spec_iw } }
-					}
+					set_variable = { name = spec_iw_key_fish value = 2 }
+					add_to_variable_list = { name = spec_iw_levels target = g:fish }
 				}
 				if = {
 					limit = {
@@ -30843,11 +30996,8 @@ spec_monthly = {
 						var:spec_rank_w = 3
 					}
 					set_variable = spec_iw_used3
-					random_in_list = {
-						variable = spec_goods_w3
-						save_temporary_scope_as = spec_iw
-						root = { add_to_variable_list = { name = spec_iw_levels target = scope:spec_iw } }
-					}
+					set_variable = { name = spec_iw_key_wood value = 3 }
+					add_to_variable_list = { name = spec_iw_levels target = g:wood }
 				}
 				if = {
 					limit = {
@@ -30855,11 +31005,8 @@ spec_monthly = {
 						var:spec_rank_w = 4
 					}
 					set_variable = spec_iw_used4
-					random_in_list = {
-						variable = spec_goods_w4
-						save_temporary_scope_as = spec_iw
-						root = { add_to_variable_list = { name = spec_iw_levels target = scope:spec_iw } }
-					}
+					set_variable = { name = spec_iw_key_coal value = 4 }
+					add_to_variable_list = { name = spec_iw_levels target = g:coal }
 				}
 				if = {
 					limit = {
@@ -30867,11 +31014,8 @@ spec_monthly = {
 						var:spec_rank_w = 5
 					}
 					set_variable = spec_iw_used5
-					random_in_list = {
-						variable = spec_goods_w5
-						save_temporary_scope_as = spec_iw
-						root = { add_to_variable_list = { name = spec_iw_levels target = scope:spec_iw } }
-					}
+					set_variable = { name = spec_iw_key_iron value = 5 }
+					add_to_variable_list = { name = spec_iw_levels target = g:iron }
 				}
 				if = {
 					limit = {
@@ -30879,13 +31023,10 @@ spec_monthly = {
 						var:spec_rank_w = 6
 					}
 					set_variable = spec_iw_used6
-					random_in_list = {
-						variable = spec_goods_w6
-						save_temporary_scope_as = spec_iw
-						root = { add_to_variable_list = { name = spec_iw_levels target = scope:spec_iw } }
-					}
+					set_variable = { name = spec_iw_key_tools value = 6 }
+					add_to_variable_list = { name = spec_iw_levels target = g:tools }
 				}
-				set_variable = { name = spec_rank_v value = 0.01 }
+				set_variable = { name = spec_rank_v value = 0.001 }
 				remove_variable = spec_rank_w
 				if = {
 					limit = {
@@ -30941,11 +31082,8 @@ spec_monthly = {
 						var:spec_rank_w = 1
 					}
 					set_variable = spec_iw_used1
-					random_in_list = {
-						variable = spec_goods_w1
-						save_temporary_scope_as = spec_iw
-						root = { add_to_variable_list = { name = spec_iw_levels target = scope:spec_iw } }
-					}
+					set_variable = { name = spec_iw_key_grain value = 1 }
+					add_to_variable_list = { name = spec_iw_levels target = g:grain }
 				}
 				if = {
 					limit = {
@@ -30953,11 +31091,8 @@ spec_monthly = {
 						var:spec_rank_w = 2
 					}
 					set_variable = spec_iw_used2
-					random_in_list = {
-						variable = spec_goods_w2
-						save_temporary_scope_as = spec_iw
-						root = { add_to_variable_list = { name = spec_iw_levels target = scope:spec_iw } }
-					}
+					set_variable = { name = spec_iw_key_fish value = 2 }
+					add_to_variable_list = { name = spec_iw_levels target = g:fish }
 				}
 				if = {
 					limit = {
@@ -30965,11 +31100,8 @@ spec_monthly = {
 						var:spec_rank_w = 3
 					}
 					set_variable = spec_iw_used3
-					random_in_list = {
-						variable = spec_goods_w3
-						save_temporary_scope_as = spec_iw
-						root = { add_to_variable_list = { name = spec_iw_levels target = scope:spec_iw } }
-					}
+					set_variable = { name = spec_iw_key_wood value = 3 }
+					add_to_variable_list = { name = spec_iw_levels target = g:wood }
 				}
 				if = {
 					limit = {
@@ -30977,11 +31109,8 @@ spec_monthly = {
 						var:spec_rank_w = 4
 					}
 					set_variable = spec_iw_used4
-					random_in_list = {
-						variable = spec_goods_w4
-						save_temporary_scope_as = spec_iw
-						root = { add_to_variable_list = { name = spec_iw_levels target = scope:spec_iw } }
-					}
+					set_variable = { name = spec_iw_key_coal value = 4 }
+					add_to_variable_list = { name = spec_iw_levels target = g:coal }
 				}
 				if = {
 					limit = {
@@ -30989,11 +31118,8 @@ spec_monthly = {
 						var:spec_rank_w = 5
 					}
 					set_variable = spec_iw_used5
-					random_in_list = {
-						variable = spec_goods_w5
-						save_temporary_scope_as = spec_iw
-						root = { add_to_variable_list = { name = spec_iw_levels target = scope:spec_iw } }
-					}
+					set_variable = { name = spec_iw_key_iron value = 5 }
+					add_to_variable_list = { name = spec_iw_levels target = g:iron }
 				}
 				if = {
 					limit = {
@@ -31001,13 +31127,10 @@ spec_monthly = {
 						var:spec_rank_w = 6
 					}
 					set_variable = spec_iw_used6
-					random_in_list = {
-						variable = spec_goods_w6
-						save_temporary_scope_as = spec_iw
-						root = { add_to_variable_list = { name = spec_iw_levels target = scope:spec_iw } }
-					}
+					set_variable = { name = spec_iw_key_tools value = 6 }
+					add_to_variable_list = { name = spec_iw_levels target = g:tools }
 				}
-				set_variable = { name = spec_rank_v value = 0.01 }
+				set_variable = { name = spec_rank_v value = 0.001 }
 				remove_variable = spec_rank_w
 				if = {
 					limit = {
@@ -31063,11 +31186,8 @@ spec_monthly = {
 						var:spec_rank_w = 1
 					}
 					set_variable = spec_iw_used1
-					random_in_list = {
-						variable = spec_goods_w1
-						save_temporary_scope_as = spec_iw
-						root = { add_to_variable_list = { name = spec_iw_levels target = scope:spec_iw } }
-					}
+					set_variable = { name = spec_iw_key_grain value = 1 }
+					add_to_variable_list = { name = spec_iw_levels target = g:grain }
 				}
 				if = {
 					limit = {
@@ -31075,11 +31195,8 @@ spec_monthly = {
 						var:spec_rank_w = 2
 					}
 					set_variable = spec_iw_used2
-					random_in_list = {
-						variable = spec_goods_w2
-						save_temporary_scope_as = spec_iw
-						root = { add_to_variable_list = { name = spec_iw_levels target = scope:spec_iw } }
-					}
+					set_variable = { name = spec_iw_key_fish value = 2 }
+					add_to_variable_list = { name = spec_iw_levels target = g:fish }
 				}
 				if = {
 					limit = {
@@ -31087,11 +31204,8 @@ spec_monthly = {
 						var:spec_rank_w = 3
 					}
 					set_variable = spec_iw_used3
-					random_in_list = {
-						variable = spec_goods_w3
-						save_temporary_scope_as = spec_iw
-						root = { add_to_variable_list = { name = spec_iw_levels target = scope:spec_iw } }
-					}
+					set_variable = { name = spec_iw_key_wood value = 3 }
+					add_to_variable_list = { name = spec_iw_levels target = g:wood }
 				}
 				if = {
 					limit = {
@@ -31099,11 +31213,8 @@ spec_monthly = {
 						var:spec_rank_w = 4
 					}
 					set_variable = spec_iw_used4
-					random_in_list = {
-						variable = spec_goods_w4
-						save_temporary_scope_as = spec_iw
-						root = { add_to_variable_list = { name = spec_iw_levels target = scope:spec_iw } }
-					}
+					set_variable = { name = spec_iw_key_coal value = 4 }
+					add_to_variable_list = { name = spec_iw_levels target = g:coal }
 				}
 				if = {
 					limit = {
@@ -31111,11 +31222,8 @@ spec_monthly = {
 						var:spec_rank_w = 5
 					}
 					set_variable = spec_iw_used5
-					random_in_list = {
-						variable = spec_goods_w5
-						save_temporary_scope_as = spec_iw
-						root = { add_to_variable_list = { name = spec_iw_levels target = scope:spec_iw } }
-					}
+					set_variable = { name = spec_iw_key_iron value = 5 }
+					add_to_variable_list = { name = spec_iw_levels target = g:iron }
 				}
 				if = {
 					limit = {
@@ -31123,13 +31231,10 @@ spec_monthly = {
 						var:spec_rank_w = 6
 					}
 					set_variable = spec_iw_used6
-					random_in_list = {
-						variable = spec_goods_w6
-						save_temporary_scope_as = spec_iw
-						root = { add_to_variable_list = { name = spec_iw_levels target = scope:spec_iw } }
-					}
+					set_variable = { name = spec_iw_key_tools value = 6 }
+					add_to_variable_list = { name = spec_iw_levels target = g:tools }
 				}
-				set_variable = { name = spec_rank_v value = 0.01 }
+				set_variable = { name = spec_rank_v value = 0.001 }
 				remove_variable = spec_rank_w
 				if = {
 					limit = {
@@ -31185,11 +31290,8 @@ spec_monthly = {
 						var:spec_rank_w = 1
 					}
 					set_variable = spec_iw_used1
-					random_in_list = {
-						variable = spec_goods_w1
-						save_temporary_scope_as = spec_iw
-						root = { add_to_variable_list = { name = spec_iw_levels target = scope:spec_iw } }
-					}
+					set_variable = { name = spec_iw_key_grain value = 1 }
+					add_to_variable_list = { name = spec_iw_levels target = g:grain }
 				}
 				if = {
 					limit = {
@@ -31197,11 +31299,8 @@ spec_monthly = {
 						var:spec_rank_w = 2
 					}
 					set_variable = spec_iw_used2
-					random_in_list = {
-						variable = spec_goods_w2
-						save_temporary_scope_as = spec_iw
-						root = { add_to_variable_list = { name = spec_iw_levels target = scope:spec_iw } }
-					}
+					set_variable = { name = spec_iw_key_fish value = 2 }
+					add_to_variable_list = { name = spec_iw_levels target = g:fish }
 				}
 				if = {
 					limit = {
@@ -31209,11 +31308,8 @@ spec_monthly = {
 						var:spec_rank_w = 3
 					}
 					set_variable = spec_iw_used3
-					random_in_list = {
-						variable = spec_goods_w3
-						save_temporary_scope_as = spec_iw
-						root = { add_to_variable_list = { name = spec_iw_levels target = scope:spec_iw } }
-					}
+					set_variable = { name = spec_iw_key_wood value = 3 }
+					add_to_variable_list = { name = spec_iw_levels target = g:wood }
 				}
 				if = {
 					limit = {
@@ -31221,11 +31317,8 @@ spec_monthly = {
 						var:spec_rank_w = 4
 					}
 					set_variable = spec_iw_used4
-					random_in_list = {
-						variable = spec_goods_w4
-						save_temporary_scope_as = spec_iw
-						root = { add_to_variable_list = { name = spec_iw_levels target = scope:spec_iw } }
-					}
+					set_variable = { name = spec_iw_key_coal value = 4 }
+					add_to_variable_list = { name = spec_iw_levels target = g:coal }
 				}
 				if = {
 					limit = {
@@ -31233,11 +31326,8 @@ spec_monthly = {
 						var:spec_rank_w = 5
 					}
 					set_variable = spec_iw_used5
-					random_in_list = {
-						variable = spec_goods_w5
-						save_temporary_scope_as = spec_iw
-						root = { add_to_variable_list = { name = spec_iw_levels target = scope:spec_iw } }
-					}
+					set_variable = { name = spec_iw_key_iron value = 5 }
+					add_to_variable_list = { name = spec_iw_levels target = g:iron }
 				}
 				if = {
 					limit = {
@@ -31245,13 +31335,10 @@ spec_monthly = {
 						var:spec_rank_w = 6
 					}
 					set_variable = spec_iw_used6
-					random_in_list = {
-						variable = spec_goods_w6
-						save_temporary_scope_as = spec_iw
-						root = { add_to_variable_list = { name = spec_iw_levels target = scope:spec_iw } }
-					}
+					set_variable = { name = spec_iw_key_tools value = 6 }
+					add_to_variable_list = { name = spec_iw_levels target = g:tools }
 				}
-				set_variable = { name = spec_rank_v value = 0.01 }
+				set_variable = { name = spec_rank_v value = 0.001 }
 				remove_variable = spec_rank_w
 				if = {
 					limit = {
@@ -31307,11 +31394,8 @@ spec_monthly = {
 						var:spec_rank_w = 1
 					}
 					set_variable = spec_iw_used1
-					random_in_list = {
-						variable = spec_goods_w1
-						save_temporary_scope_as = spec_iw
-						root = { add_to_variable_list = { name = spec_iw_levels target = scope:spec_iw } }
-					}
+					set_variable = { name = spec_iw_key_grain value = 1 }
+					add_to_variable_list = { name = spec_iw_levels target = g:grain }
 				}
 				if = {
 					limit = {
@@ -31319,11 +31403,8 @@ spec_monthly = {
 						var:spec_rank_w = 2
 					}
 					set_variable = spec_iw_used2
-					random_in_list = {
-						variable = spec_goods_w2
-						save_temporary_scope_as = spec_iw
-						root = { add_to_variable_list = { name = spec_iw_levels target = scope:spec_iw } }
-					}
+					set_variable = { name = spec_iw_key_fish value = 2 }
+					add_to_variable_list = { name = spec_iw_levels target = g:fish }
 				}
 				if = {
 					limit = {
@@ -31331,11 +31412,8 @@ spec_monthly = {
 						var:spec_rank_w = 3
 					}
 					set_variable = spec_iw_used3
-					random_in_list = {
-						variable = spec_goods_w3
-						save_temporary_scope_as = spec_iw
-						root = { add_to_variable_list = { name = spec_iw_levels target = scope:spec_iw } }
-					}
+					set_variable = { name = spec_iw_key_wood value = 3 }
+					add_to_variable_list = { name = spec_iw_levels target = g:wood }
 				}
 				if = {
 					limit = {
@@ -31343,11 +31421,8 @@ spec_monthly = {
 						var:spec_rank_w = 4
 					}
 					set_variable = spec_iw_used4
-					random_in_list = {
-						variable = spec_goods_w4
-						save_temporary_scope_as = spec_iw
-						root = { add_to_variable_list = { name = spec_iw_levels target = scope:spec_iw } }
-					}
+					set_variable = { name = spec_iw_key_coal value = 4 }
+					add_to_variable_list = { name = spec_iw_levels target = g:coal }
 				}
 				if = {
 					limit = {
@@ -31355,11 +31430,8 @@ spec_monthly = {
 						var:spec_rank_w = 5
 					}
 					set_variable = spec_iw_used5
-					random_in_list = {
-						variable = spec_goods_w5
-						save_temporary_scope_as = spec_iw
-						root = { add_to_variable_list = { name = spec_iw_levels target = scope:spec_iw } }
-					}
+					set_variable = { name = spec_iw_key_iron value = 5 }
+					add_to_variable_list = { name = spec_iw_levels target = g:iron }
 				}
 				if = {
 					limit = {
@@ -31367,11 +31439,8 @@ spec_monthly = {
 						var:spec_rank_w = 6
 					}
 					set_variable = spec_iw_used6
-					random_in_list = {
-						variable = spec_goods_w6
-						save_temporary_scope_as = spec_iw
-						root = { add_to_variable_list = { name = spec_iw_levels target = scope:spec_iw } }
-					}
+					set_variable = { name = spec_iw_key_tools value = 6 }
+					add_to_variable_list = { name = spec_iw_levels target = g:tools }
 				}
 				remove_variable = spec_iw_used1
 				remove_variable = spec_iw_used2
@@ -31381,6 +31450,7 @@ spec_monthly = {
 				remove_variable = spec_iw_used6
 				remove_variable = spec_rank_v
 				remove_variable = spec_rank_w
+				spec_refresh_risk_list = yes
 			}
 			set_variable = { name = spec_bhype_shipyard value = spec_bhype_next_shipyard }
 			set_variable = { name = spec_bhype_electrics_industry value = spec_bhype_next_electrics_industry }
@@ -31819,20 +31889,18 @@ spec_monthly = {
 			set_variable = { name = spec_c_rival value = 0 }
 			if = {
 				limit = { has_variable = spec_rv_raid }
+				spec_rv_migrate_raid = yes
 				if = {
 					limit = { NOT = { has_variable = spec_rv_raid_year } }
 					set_variable = { name = spec_rv_raid_year value = 0 }
 				}
 				set_local_variable = {
 					name = spec_rv_h
-					value = {
-						value = var:spec_rv_raid_pm
-						max = { value = 4 subtract = var:spec_rv_raid_year }
-						min = 0
-					}
+					value = spec_rv_raid_applied
 				}
 				change_variable = { name = spec_rv_raid_year add = local_var:spec_rv_h }
 				set_variable = { name = spec_c_rival value = { value = local_var:spec_rv_h multiply = -1 } }
+				spec_rv_expire_raids = yes
 				change_variable = { name = spec_rv_raid add = -1 }
 				if = {
 					limit = { var:spec_rv_raid <= 0 }
@@ -31844,8 +31912,8 @@ spec_monthly = {
 			if = {
 				limit = { has_variable = spec_rv_lure }
 				if = {
-					limit = { exists = var:spec_rv_lurer var:spec_rv_lurer = { is_country_alive = yes } }
-					set_local_variable = { name = spec_rv_amt value = { value = spec_pool_month multiply = var:spec_rv_lure_share } }
+					limit = { spec_rv_active_lure = yes }
+					set_local_variable = { name = spec_rv_amt value = { value = spec_pool_month multiply = var:spec_rv_lure_share max = investment_pool min = 0 } }
 					var:spec_rv_lurer = { add_investment_pool = local_var:spec_rv_amt }
 					change_local_variable = { name = spec_rv_amt multiply = -1 }
 					add_investment_pool = local_var:spec_rv_amt
@@ -31856,8 +31924,7 @@ spec_monthly = {
 					limit = {
 						OR = {
 							var:spec_rv_lure <= 0
-							NOT = { exists = var:spec_rv_lurer }
-							var:spec_rv_lurer = { is_country_alive = no }
+							spec_rv_active_lure = no
 						}
 					}
 					remove_variable = spec_rv_lure
@@ -31919,6 +31986,7 @@ spec_monthly = {
 			set_variable = { name = spec_mood_shift value = { fixed_range = { min = 0 max = 1.5 } } }
 			set_variable = { name = spec_mood_shift value = spec_mood_roll }
 			change_variable = { name = spec_mood_shift multiply = spec_mood_scale }
+			set_variable = { name = spec_mood_random value = var:spec_mood_shift }
 			change_variable = { name = spec_mood_shift add = spec_exch_lean }
 			change_variable = { name = spec_c_mood add = var:spec_mood_shift }
 			set_variable = { name = spec_c_recover value = spec_conf_recover }
@@ -33693,6 +33761,12 @@ add_modifier = {
 				set_variable = { name = spec_lhist1 value = spec_lev }
 				clear_variable_list = spec_bank_goods
 				set_variable = { name = spec_bank_top value = 0 }
+				remove_variable = spec_bank_other_1
+				remove_variable = spec_bank_other_share_1
+				remove_variable = spec_bank_other_2
+				remove_variable = spec_bank_other_share_2
+				remove_variable = spec_bank_other_3
+				remove_variable = spec_bank_other_share_3
 				remove_variable = spec_bank_oth_aeroplanes
 				remove_variable = spec_bank_oth_ammunition
 				remove_variable = spec_bank_oth_artillery
@@ -33743,7 +33817,7 @@ add_modifier = {
 				remove_variable = spec_bank_oth_wine
 				remove_variable = spec_bank_oth_wood
 				if = {
-					limit = { has_variable = spec_debt var:spec_debt >= 1 spec_exp_booms > 0.001 }
+					limit = { has_variable = spec_debt var:spec_debt >= 1 spec_exp_booms > 0 }
 					set_variable = { name = spec_rank_v value = 0.001 }
 					remove_variable = spec_rank_g
 					if = {
@@ -35739,7 +35813,7 @@ add_modifier = {
 						add_to_variable_list = { name = spec_bank_goods target = var:spec_rank_g }
 						change_variable = { name = spec_bank_top add = var:spec_rank_v }
 					}
-					set_variable = { name = spec_rank_v value = 0.001 }
+					set_variable = { name = spec_rank_v value = 0 }
 					remove_variable = spec_rank_g
 					if = {
 						limit = {
@@ -36136,6 +36210,8 @@ add_modifier = {
 					if = {
 						limit = { has_variable = spec_rank_g }
 						add_to_variable_list = { name = spec_bank_goods target = var:spec_rank_g }
+						set_variable = { name = spec_bank_other_1 value = var:spec_rank_g }
+						set_variable = { name = spec_bank_other_share_1 value = var:spec_rank_v }
 						if = {
 							limit = { var:spec_rank_g = { this = g:aeroplanes } }
 							set_variable = { name = spec_bank_oth_aeroplanes value = 1 }
@@ -36331,6 +36407,857 @@ add_modifier = {
 						if = {
 							limit = { var:spec_rank_g = { this = g:wood } }
 							set_variable = { name = spec_bank_oth_wood value = 1 }
+						}
+					}
+					if = {
+						limit = { has_variable = spec_bank_other_1 }
+						set_variable = { name = spec_rank_v value = 0 }
+						remove_variable = spec_rank_g
+						if = {
+							limit = {
+								spec_exp_share_aeroplanes > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:aeroplanes } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_aeroplanes }
+							set_variable = { name = spec_rank_g value = g:aeroplanes }
+						}
+						if = {
+							limit = {
+								spec_exp_share_ammunition > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:ammunition } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_ammunition }
+							set_variable = { name = spec_rank_g value = g:ammunition }
+						}
+						if = {
+							limit = {
+								spec_exp_share_artillery > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:artillery } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_artillery }
+							set_variable = { name = spec_rank_g value = g:artillery }
+						}
+						if = {
+							limit = {
+								spec_exp_share_automobiles > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:automobiles } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_automobiles }
+							set_variable = { name = spec_rank_g value = g:automobiles }
+						}
+						if = {
+							limit = {
+								spec_exp_share_clippers > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:clippers } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_clippers }
+							set_variable = { name = spec_rank_g value = g:clippers }
+						}
+						if = {
+							limit = {
+								spec_exp_share_clothes > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:clothes } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_clothes }
+							set_variable = { name = spec_rank_g value = g:clothes }
+						}
+						if = {
+							limit = {
+								spec_exp_share_coal > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:coal } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_coal }
+							set_variable = { name = spec_rank_g value = g:coal }
+						}
+						if = {
+							limit = {
+								spec_exp_share_coffee > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:coffee } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_coffee }
+							set_variable = { name = spec_rank_g value = g:coffee }
+						}
+						if = {
+							limit = {
+								spec_exp_share_copper > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:copper } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_copper }
+							set_variable = { name = spec_rank_g value = g:copper }
+						}
+						if = {
+							limit = {
+								spec_exp_share_dye > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:dye } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_dye }
+							set_variable = { name = spec_rank_g value = g:dye }
+						}
+						if = {
+							limit = {
+								spec_exp_share_electricity > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:electricity } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_electricity }
+							set_variable = { name = spec_rank_g value = g:electricity }
+						}
+						if = {
+							limit = {
+								spec_exp_share_engines > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:engines } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_engines }
+							set_variable = { name = spec_rank_g value = g:engines }
+						}
+						if = {
+							limit = {
+								spec_exp_share_explosives > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:explosives } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_explosives }
+							set_variable = { name = spec_rank_g value = g:explosives }
+						}
+						if = {
+							limit = {
+								spec_exp_share_fabric > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:fabric } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_fabric }
+							set_variable = { name = spec_rank_g value = g:fabric }
+						}
+						if = {
+							limit = {
+								spec_exp_share_fertilizer > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:fertilizer } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_fertilizer }
+							set_variable = { name = spec_rank_g value = g:fertilizer }
+						}
+						if = {
+							limit = {
+								spec_exp_share_fine_art > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:fine_art } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_fine_art }
+							set_variable = { name = spec_rank_g value = g:fine_art }
+						}
+						if = {
+							limit = {
+								spec_exp_share_fish > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:fish } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_fish }
+							set_variable = { name = spec_rank_g value = g:fish }
+						}
+						if = {
+							limit = {
+								spec_exp_share_fruit > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:fruit } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_fruit }
+							set_variable = { name = spec_rank_g value = g:fruit }
+						}
+						if = {
+							limit = {
+								spec_exp_share_furniture > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:furniture } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_furniture }
+							set_variable = { name = spec_rank_g value = g:furniture }
+						}
+						if = {
+							limit = {
+								spec_exp_share_glass > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:glass } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_glass }
+							set_variable = { name = spec_rank_g value = g:glass }
+						}
+						if = {
+							limit = {
+								spec_exp_share_grain > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:grain } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_grain }
+							set_variable = { name = spec_rank_g value = g:grain }
+						}
+						if = {
+							limit = {
+								spec_exp_share_groceries > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:groceries } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_groceries }
+							set_variable = { name = spec_rank_g value = g:groceries }
+						}
+						if = {
+							limit = {
+								spec_exp_share_hardwood > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:hardwood } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_hardwood }
+							set_variable = { name = spec_rank_g value = g:hardwood }
+						}
+						if = {
+							limit = {
+								spec_exp_share_iron > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:iron } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_iron }
+							set_variable = { name = spec_rank_g value = g:iron }
+						}
+						if = {
+							limit = {
+								spec_exp_share_lead > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:lead } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_lead }
+							set_variable = { name = spec_rank_g value = g:lead }
+						}
+						if = {
+							limit = {
+								spec_exp_share_liquor > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:liquor } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_liquor }
+							set_variable = { name = spec_rank_g value = g:liquor }
+						}
+						if = {
+							limit = {
+								spec_exp_share_luxury_clothes > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:luxury_clothes } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_luxury_clothes }
+							set_variable = { name = spec_rank_g value = g:luxury_clothes }
+						}
+						if = {
+							limit = {
+								spec_exp_share_luxury_furniture > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:luxury_furniture } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_luxury_furniture }
+							set_variable = { name = spec_rank_g value = g:luxury_furniture }
+						}
+						if = {
+							limit = {
+								spec_exp_share_meat > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:meat } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_meat }
+							set_variable = { name = spec_rank_g value = g:meat }
+						}
+						if = {
+							limit = {
+								spec_exp_share_merchant_marine > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:merchant_marine } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_merchant_marine }
+							set_variable = { name = spec_rank_g value = g:merchant_marine }
+						}
+						if = {
+							limit = {
+								spec_exp_share_oil > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:oil } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_oil }
+							set_variable = { name = spec_rank_g value = g:oil }
+						}
+						if = {
+							limit = {
+								spec_exp_share_opium > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:opium } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_opium }
+							set_variable = { name = spec_rank_g value = g:opium }
+						}
+						if = {
+							limit = {
+								spec_exp_share_paper > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:paper } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_paper }
+							set_variable = { name = spec_rank_g value = g:paper }
+						}
+						if = {
+							limit = {
+								spec_exp_share_porcelain > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:porcelain } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_porcelain }
+							set_variable = { name = spec_rank_g value = g:porcelain }
+						}
+						if = {
+							limit = {
+								spec_exp_share_radios > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:radios } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_radios }
+							set_variable = { name = spec_rank_g value = g:radios }
+						}
+						if = {
+							limit = {
+								spec_exp_share_rubber > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:rubber } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_rubber }
+							set_variable = { name = spec_rank_g value = g:rubber }
+						}
+						if = {
+							limit = {
+								spec_exp_share_silk > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:silk } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_silk }
+							set_variable = { name = spec_rank_g value = g:silk }
+						}
+						if = {
+							limit = {
+								spec_exp_share_small_arms > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:small_arms } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_small_arms }
+							set_variable = { name = spec_rank_g value = g:small_arms }
+						}
+						if = {
+							limit = {
+								spec_exp_share_steamers > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:steamers } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_steamers }
+							set_variable = { name = spec_rank_g value = g:steamers }
+						}
+						if = {
+							limit = {
+								spec_exp_share_steel > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:steel } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_steel }
+							set_variable = { name = spec_rank_g value = g:steel }
+						}
+						if = {
+							limit = {
+								spec_exp_share_sugar > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:sugar } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_sugar }
+							set_variable = { name = spec_rank_g value = g:sugar }
+						}
+						if = {
+							limit = {
+								spec_exp_share_sulfur > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:sulfur } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_sulfur }
+							set_variable = { name = spec_rank_g value = g:sulfur }
+						}
+						if = {
+							limit = {
+								spec_exp_share_tanks > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:tanks } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_tanks }
+							set_variable = { name = spec_rank_g value = g:tanks }
+						}
+						if = {
+							limit = {
+								spec_exp_share_tea > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:tea } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_tea }
+							set_variable = { name = spec_rank_g value = g:tea }
+						}
+						if = {
+							limit = {
+								spec_exp_share_telephones > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:telephones } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_telephones }
+							set_variable = { name = spec_rank_g value = g:telephones }
+						}
+						if = {
+							limit = {
+								spec_exp_share_tobacco > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:tobacco } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_tobacco }
+							set_variable = { name = spec_rank_g value = g:tobacco }
+						}
+						if = {
+							limit = {
+								spec_exp_share_tools > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:tools } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_tools }
+							set_variable = { name = spec_rank_g value = g:tools }
+						}
+						if = {
+							limit = {
+								spec_exp_share_wine > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:wine } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_wine }
+							set_variable = { name = spec_rank_g value = g:wine }
+						}
+						if = {
+							limit = {
+								spec_exp_share_wood > var:spec_rank_v
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:wood } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_wood }
+							set_variable = { name = spec_rank_g value = g:wood }
+						}
+						if = { limit = { has_variable = spec_rank_g }
+							set_variable = { name = spec_bank_other_2 value = var:spec_rank_g }
+							set_variable = { name = spec_bank_other_share_2 value = var:spec_rank_v }
+						}
+					}
+					if = {
+						limit = { has_variable = spec_bank_other_2 }
+						set_variable = { name = spec_rank_v value = 0 }
+						remove_variable = spec_rank_g
+						if = {
+							limit = {
+								spec_exp_share_aeroplanes > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:aeroplanes }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:aeroplanes } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_aeroplanes }
+							set_variable = { name = spec_rank_g value = g:aeroplanes }
+						}
+						if = {
+							limit = {
+								spec_exp_share_ammunition > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:ammunition }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:ammunition } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_ammunition }
+							set_variable = { name = spec_rank_g value = g:ammunition }
+						}
+						if = {
+							limit = {
+								spec_exp_share_artillery > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:artillery }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:artillery } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_artillery }
+							set_variable = { name = spec_rank_g value = g:artillery }
+						}
+						if = {
+							limit = {
+								spec_exp_share_automobiles > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:automobiles }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:automobiles } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_automobiles }
+							set_variable = { name = spec_rank_g value = g:automobiles }
+						}
+						if = {
+							limit = {
+								spec_exp_share_clippers > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:clippers }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:clippers } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_clippers }
+							set_variable = { name = spec_rank_g value = g:clippers }
+						}
+						if = {
+							limit = {
+								spec_exp_share_clothes > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:clothes }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:clothes } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_clothes }
+							set_variable = { name = spec_rank_g value = g:clothes }
+						}
+						if = {
+							limit = {
+								spec_exp_share_coal > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:coal }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:coal } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_coal }
+							set_variable = { name = spec_rank_g value = g:coal }
+						}
+						if = {
+							limit = {
+								spec_exp_share_coffee > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:coffee }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:coffee } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_coffee }
+							set_variable = { name = spec_rank_g value = g:coffee }
+						}
+						if = {
+							limit = {
+								spec_exp_share_copper > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:copper }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:copper } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_copper }
+							set_variable = { name = spec_rank_g value = g:copper }
+						}
+						if = {
+							limit = {
+								spec_exp_share_dye > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:dye }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:dye } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_dye }
+							set_variable = { name = spec_rank_g value = g:dye }
+						}
+						if = {
+							limit = {
+								spec_exp_share_electricity > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:electricity }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:electricity } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_electricity }
+							set_variable = { name = spec_rank_g value = g:electricity }
+						}
+						if = {
+							limit = {
+								spec_exp_share_engines > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:engines }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:engines } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_engines }
+							set_variable = { name = spec_rank_g value = g:engines }
+						}
+						if = {
+							limit = {
+								spec_exp_share_explosives > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:explosives }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:explosives } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_explosives }
+							set_variable = { name = spec_rank_g value = g:explosives }
+						}
+						if = {
+							limit = {
+								spec_exp_share_fabric > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:fabric }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:fabric } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_fabric }
+							set_variable = { name = spec_rank_g value = g:fabric }
+						}
+						if = {
+							limit = {
+								spec_exp_share_fertilizer > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:fertilizer }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:fertilizer } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_fertilizer }
+							set_variable = { name = spec_rank_g value = g:fertilizer }
+						}
+						if = {
+							limit = {
+								spec_exp_share_fine_art > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:fine_art }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:fine_art } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_fine_art }
+							set_variable = { name = spec_rank_g value = g:fine_art }
+						}
+						if = {
+							limit = {
+								spec_exp_share_fish > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:fish }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:fish } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_fish }
+							set_variable = { name = spec_rank_g value = g:fish }
+						}
+						if = {
+							limit = {
+								spec_exp_share_fruit > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:fruit }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:fruit } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_fruit }
+							set_variable = { name = spec_rank_g value = g:fruit }
+						}
+						if = {
+							limit = {
+								spec_exp_share_furniture > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:furniture }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:furniture } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_furniture }
+							set_variable = { name = spec_rank_g value = g:furniture }
+						}
+						if = {
+							limit = {
+								spec_exp_share_glass > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:glass }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:glass } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_glass }
+							set_variable = { name = spec_rank_g value = g:glass }
+						}
+						if = {
+							limit = {
+								spec_exp_share_grain > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:grain }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:grain } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_grain }
+							set_variable = { name = spec_rank_g value = g:grain }
+						}
+						if = {
+							limit = {
+								spec_exp_share_groceries > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:groceries }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:groceries } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_groceries }
+							set_variable = { name = spec_rank_g value = g:groceries }
+						}
+						if = {
+							limit = {
+								spec_exp_share_hardwood > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:hardwood }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:hardwood } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_hardwood }
+							set_variable = { name = spec_rank_g value = g:hardwood }
+						}
+						if = {
+							limit = {
+								spec_exp_share_iron > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:iron }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:iron } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_iron }
+							set_variable = { name = spec_rank_g value = g:iron }
+						}
+						if = {
+							limit = {
+								spec_exp_share_lead > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:lead }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:lead } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_lead }
+							set_variable = { name = spec_rank_g value = g:lead }
+						}
+						if = {
+							limit = {
+								spec_exp_share_liquor > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:liquor }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:liquor } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_liquor }
+							set_variable = { name = spec_rank_g value = g:liquor }
+						}
+						if = {
+							limit = {
+								spec_exp_share_luxury_clothes > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:luxury_clothes }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:luxury_clothes } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_luxury_clothes }
+							set_variable = { name = spec_rank_g value = g:luxury_clothes }
+						}
+						if = {
+							limit = {
+								spec_exp_share_luxury_furniture > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:luxury_furniture }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:luxury_furniture } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_luxury_furniture }
+							set_variable = { name = spec_rank_g value = g:luxury_furniture }
+						}
+						if = {
+							limit = {
+								spec_exp_share_meat > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:meat }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:meat } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_meat }
+							set_variable = { name = spec_rank_g value = g:meat }
+						}
+						if = {
+							limit = {
+								spec_exp_share_merchant_marine > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:merchant_marine }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:merchant_marine } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_merchant_marine }
+							set_variable = { name = spec_rank_g value = g:merchant_marine }
+						}
+						if = {
+							limit = {
+								spec_exp_share_oil > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:oil }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:oil } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_oil }
+							set_variable = { name = spec_rank_g value = g:oil }
+						}
+						if = {
+							limit = {
+								spec_exp_share_opium > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:opium }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:opium } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_opium }
+							set_variable = { name = spec_rank_g value = g:opium }
+						}
+						if = {
+							limit = {
+								spec_exp_share_paper > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:paper }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:paper } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_paper }
+							set_variable = { name = spec_rank_g value = g:paper }
+						}
+						if = {
+							limit = {
+								spec_exp_share_porcelain > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:porcelain }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:porcelain } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_porcelain }
+							set_variable = { name = spec_rank_g value = g:porcelain }
+						}
+						if = {
+							limit = {
+								spec_exp_share_radios > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:radios }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:radios } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_radios }
+							set_variable = { name = spec_rank_g value = g:radios }
+						}
+						if = {
+							limit = {
+								spec_exp_share_rubber > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:rubber }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:rubber } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_rubber }
+							set_variable = { name = spec_rank_g value = g:rubber }
+						}
+						if = {
+							limit = {
+								spec_exp_share_silk > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:silk }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:silk } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_silk }
+							set_variable = { name = spec_rank_g value = g:silk }
+						}
+						if = {
+							limit = {
+								spec_exp_share_small_arms > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:small_arms }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:small_arms } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_small_arms }
+							set_variable = { name = spec_rank_g value = g:small_arms }
+						}
+						if = {
+							limit = {
+								spec_exp_share_steamers > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:steamers }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:steamers } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_steamers }
+							set_variable = { name = spec_rank_g value = g:steamers }
+						}
+						if = {
+							limit = {
+								spec_exp_share_steel > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:steel }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:steel } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_steel }
+							set_variable = { name = spec_rank_g value = g:steel }
+						}
+						if = {
+							limit = {
+								spec_exp_share_sugar > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:sugar }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:sugar } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_sugar }
+							set_variable = { name = spec_rank_g value = g:sugar }
+						}
+						if = {
+							limit = {
+								spec_exp_share_sulfur > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:sulfur }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:sulfur } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_sulfur }
+							set_variable = { name = spec_rank_g value = g:sulfur }
+						}
+						if = {
+							limit = {
+								spec_exp_share_tanks > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:tanks }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:tanks } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_tanks }
+							set_variable = { name = spec_rank_g value = g:tanks }
+						}
+						if = {
+							limit = {
+								spec_exp_share_tea > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:tea }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:tea } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_tea }
+							set_variable = { name = spec_rank_g value = g:tea }
+						}
+						if = {
+							limit = {
+								spec_exp_share_telephones > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:telephones }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:telephones } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_telephones }
+							set_variable = { name = spec_rank_g value = g:telephones }
+						}
+						if = {
+							limit = {
+								spec_exp_share_tobacco > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:tobacco }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:tobacco } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_tobacco }
+							set_variable = { name = spec_rank_g value = g:tobacco }
+						}
+						if = {
+							limit = {
+								spec_exp_share_tools > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:tools }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:tools } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_tools }
+							set_variable = { name = spec_rank_g value = g:tools }
+						}
+						if = {
+							limit = {
+								spec_exp_share_wine > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:wine }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:wine } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_wine }
+							set_variable = { name = spec_rank_g value = g:wine }
+						}
+						if = {
+							limit = {
+								spec_exp_share_wood > var:spec_rank_v
+								NOT = { var:spec_bank_other_2 = g:wood }
+								NOT = { is_target_in_variable_list = { name = spec_bank_goods target = g:wood } }
+							}
+							set_variable = { name = spec_rank_v value = spec_exp_share_wood }
+							set_variable = { name = spec_rank_g value = g:wood }
+						}
+						if = { limit = { has_variable = spec_rank_g }
+							set_variable = { name = spec_bank_other_3 value = var:spec_rank_g }
+							set_variable = { name = spec_bank_other_share_3 value = var:spec_rank_v }
 						}
 					}
 					remove_variable = spec_rank_v

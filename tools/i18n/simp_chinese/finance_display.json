@@ -1,0 +1,8 @@
+{
+  "aea288774d": "#header 银行贷款去向#!\\n$TOOLTIP_DELIMITER$\\n#italic 银行把新贷款投入正处于热潮的商品。#!\\n\\n规模越大、[concept_spec_investor_interest]越高的商品得到的资金越多\\n贷款在偿还之前一直留在该商品中\\n#N 如果有贷款的热潮结束#!，[concept_spec_market_confidence]会跌得更多\\n$TOOLTIP_DELIMITER$\\n#instruction 抑制投机会使该商品在分配新繁荣贷款时的权重减半。#!",
+  "76eb23a94d": "#header $SPEC_DRIVER_MOOD$: {1}#!\\n$TOOLTIP_DELIMITER$\\n上月结转  {2}\\n{3}",
+  "a10565f8a3": "本月变动  {1}",
+  "2f6857b30f": "调整后的随机波动  {1}{2}",
+  "fb37982195": "\\n公司繁荣度的影响  {1}",
+  "08b387e5ad": "$concept_spec_market_mood$会保留上月数值的#v {1}%#!。每月新增随机波动的幅度取决于金融体系。"
+}

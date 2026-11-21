@@ -1,0 +1,7 @@
+{
+ "eb4306fea3": "Nasza giełda ([concept_spec_exchange]) zyskuje #P {1}#! wiarygodności, a giełda kraju {2} traci #N {3}#!.",
+ "caf129348d": "Nasza giełda ([concept_spec_exchange]) traci #N {1}#! wiarygodności, a giełda kraju {2} zyskuje #P {3}#!.",
+ "7a4a453eaf": "Żadna strona nie zyskuje ani nie traci wiarygodności.",
+ "f71901f02c": "Gdyby rozstrzygnął się teraz, wynik byłby taki: {1}. Rozstrzygnie się za $SPEC_RV_LEFT$.",
+ "b33e629707": "#header Pojedynek: {1}#!\\n$TOOLTIP_DELIMITER$\\nStan pojedynku: $SPEC_RV_BAR_AT$. $SPEC_RV_NOW_LINE$\\n{2}\\n$TOOLTIP_DELIMITER$\\nKażdy pojedynek trwa #v {3}#! lat, po czym zaczyna się nowy."
+}

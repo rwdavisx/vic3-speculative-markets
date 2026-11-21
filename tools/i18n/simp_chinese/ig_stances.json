@@ -1,0 +1,20 @@
+{
+"542ac7a51f": "@disapproves! #bold 反对{1}#!\\n[concept_approval]变化，按其[concept_clout]缩放（#v x{2}#!）：\\n• 若我们抑制其投机：{3}，持续一年\\n• 若我们鼓励对其投资：{4}，持续一年",
+"b1e7552017": "\\n@disapproves! {1}（[concept_clout]{2}）：{3}，持续一年",
+"af5a7f0d28": "@approves! #bold 青睐{1}#!\\n[concept_approval]变化，按其[concept_clout]缩放（#v x{2}#!）：\\n• 当其[concept_spec_investor_interest]升至#v 追捧#!时：{3}，持续{4}年\\n• 当其热潮以[concept_spec_bust]或[concept_spec_collapse]告终时：{5}，持续{6}年，且他们可能不再青睐它\\n• 若我们鼓励对其投资：{7}，持续一年\\n• 若我们抑制其投机：{8}，持续一年",
+"5eb1bca902": "\\n\\n#title [concept_interest_group]支持度变化#!",
+"d780d8f880": "对此处交易的商品没有立场",
+"a365bf07e9": "#header 对商品的立场#!\\n$TOOLTIP_DELIMITER$\\n{1}@approves!青睐其国家所交易的几种商品，也可能@disapproves!反对其中一种。他们的[concept_approval]会随这些商品的热潮与暴跌以及政府对它们的干预而升降，[concept_clout]越大，变化越大。\\n\\n新领袖可能会改变其中一项立场。",
+"2a711dd264": "\\n@approves! {1}（[concept_clout]{2}）：{3}，持续一年",
+"e35a727b20": "#header [concept_interest_group]立场#!\\n$TOOLTIP_DELIMITER$\\n每个$concept_interest_group$都@approves!青睐我国[concept_market]所交易的几种{1}，有些还会@disapproves!反对其中一种。\\n\\n他们的[concept_approval]会随这些商品的热潮与暴跌以及我们对它们的干预而升降，[concept_clout]越大，变化越大。新领袖可能会改变该集团的一项立场。",
+"80db4fba72": "点击一个空闲名额并从列表中选择，或使用交易所列表中某个交易所旁边的圆形按钮，或在地图上右键点击其国家并选择#v 与其交易所竞争#!。",
+"4c5ba789f6": "选择要较量的交易所",
+"d4f7df3999": "\\n\\n#instruction 点击以开始较量#!",
+"aa3b0962ad": "#weak 得分#!",
+"f6c1ed9e2b": "#weak 地位#!",
+"d555568170": "#weak 尚无其他交易所#!",
+"498764f7fc": "#header 空闲的较量名额#!\\n$TOOLTIP_DELIMITER$\\n选择另一家[concept_spec_exchange]与之竞争。\\n\\n$SPEC_RV_NEED$\\n\\n#instruction 点击以从列表中选择#!",
+"9af79ca121": "铸币厂按固定比价同时铸造金币和银币，因此流通的铸币更多。但每当市价偏离这一比价，较贵的那种金属就会被囤积或流向国外。",
+"157eec79a8": "#header 鼓励对{1}的投资#!\\n$TOOLTIP_DELIMITER$\\n#italic 让投资者重新关注一种被冷落的[concept_good]。#!\\n\\n[concept_spec_investor_interest]在数月内升至#v 看好#!\\n{2}[concept_budget_additional_expenses]：每周#N @money!{3}#!（按基础价格计算，为其产出的#v {4}%#!）\\n一旦该[concept_good]达到#v 追捧#!，便自动结束{5}{6}{7}{8}{9}{10}{11}{12}{13}\\n\\n生效期间占用#N -{14}#![concept_authority]，不按月重复支付。解除后即可收回#indent_newline:3 \\n通常该[concept_good]为#v {15}#!，相当于对其征收一半消费税\\n按我国的交易量（占我国市场的#v {17}#!）为#v x{16}#!#!\\n\\n#lore 19世纪中叶，英属印度和法国向铁路投资者保证其资本的固定回报。#!{18}\\n\\n{19}",
+"a95d3369b7": "#header 抑制{1}的投机#!\\n$TOOLTIP_DELIMITER$\\n#italic 在一种过热的[concept_good]热潮变得太大之前，为其降温。#!\\n\\n[concept_spec_investor_interest]在数月内降至#v 平静#!\\n{2}[concept_budget_additional_income]：每周#P @money!{3}#!（按基础价格计算，为其产出的#v {4}%#!）\\n其热潮结束时，会以[concept_spec_correction]的方式在约一年内缓慢平息，而不是一下子结束{5}{6}{7}{8}{9}{10}{11}{12}{13}\\n\\n生效期间占用#N -{14}#![concept_authority]，不按月重复支付。解除后即可收回#indent_newline:3 \\n通常该[concept_good]为#v {15}#!，相当于对其征收一半消费税\\n按我国的交易量（占我国市场的#v {17}#!）为#v x{16}#!#!\\n\\n#lore 南海泡沫之后，{18}年的《泡沫法案》禁止在没有皇家特许状的情况下设立股份公司。#!{19}\\n\\n{20}"
+}

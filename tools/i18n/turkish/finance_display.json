@@ -1,0 +1,8 @@
+{
+  "aea288774d": "#header Bankaların Kredi Verdiği Yerler#!\\n$TOOLTIP_DELIMITER$\\n#italic Bankalar yeni kredilerini yükselişteki mallara akıtır.#!\\n\\nDaha büyük ve [concept_spec_investor_interest] düzeyi daha yüksek mallar paranın daha çoğunu alır\\nBir kredi geri ödenene kadar kendi malında kalır\\n#N İçinde kredi olan bir yükseliş biterse#! [concept_spec_market_confidence] daha da düşer\\n$TOOLTIP_DELIMITER$\\n#instruction Spekülasyonu dizginlemek, yükselişteki sektörlere yeni krediler dağıtılırken malın ağırlığını yarıya indirir.#!",
+  "76eb23a94d": "#header $SPEC_DRIVER_MOOD$: {1}#!\\n$TOOLTIP_DELIMITER$\\nGeçen aydan devreden  {2}\\n{3}",
+  "a10565f8a3": "Bu ayki değişim  {1}",
+  "2f6857b30f": "Ölçeklendirilmiş rastgele dalgalanma  {1}{2}",
+  "fb37982195": "\\nŞirket refahının etkisi  {1}",
+  "08b387e5ad": "$concept_spec_market_mood$ önceki ayın değerinin yüzde #v {1}#! kadarını korur. Her yeni rastgele dalgalanmanın büyüklüğü finans sistemine bağlıdır."
+}

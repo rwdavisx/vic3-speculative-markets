@@ -45,7 +45,7 @@ spec_ui_good = {
 			limit = {
 				var:spec_peak_$G$ >= 6
 				NOT = { var:spec_hype_$G$ >= { value = var:spec_peak_$G$ multiply = 0.85 } }
-				# a restrained boom eases down to Calm and cannot end there
+				# a restrained boom never falls below Calm, so cannot end (levers.RESTRAIN_TO)
 				NOT = { has_variable = spec_restrain_$G$ }
 			}
 			set_variable = { name = spec_ui_badge_$G$ value = 1 }

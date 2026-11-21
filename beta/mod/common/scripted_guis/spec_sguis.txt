@@ -27,3 +27,8 @@ spec_sgui_bailout = {
 	is_valid = { spec_can_bailout = yes }
 	effect = { spec_bailout = yes }
 }
+
+spec_sgui_igs_mark = {
+	scope = country
+	effect = { spec_igs_mark = yes }
+}

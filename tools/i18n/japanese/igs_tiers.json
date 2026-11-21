@@ -1,0 +1,20 @@
+{
+ "4aee1cc3b2": "#header {1}で大型起債を行う#!\\n$TOOLTIP_DELIMITER$\\n#italic 過熱した[concept_good]の株を我が国の取引所で売り出します。見返りも危険も大きいです。#!\\n\\n#v {2}#!年間:\\n{3}スコア: #P +{4}%#!\\n好況が終わると、そこへの銀行融資の打撃が#N x1.5#!\\n好況が終わると、得る、または失う信認が#v x2#!\\n[concept_spec_bust]または[concept_spec_collapse]で終わった場合、これを支持する集団は通常の2倍の[concept_approval]を失います{5}{6}{7}{8}{9}{10}{11}{12}{13}\\n$TOOLTIP_DELIMITER$\\n同時に1件のみ、少なくとも#v {14}#!年の間隔が必要です{15}\\n\\n{16}",
+ "f0e7498bdf": "@approves! #bold {1}を支持#!\\n[concept_approval]の変化（[concept_powerful]の場合は2倍、[concept_marginalized]の場合は変化なし）:\\n• その[concept_spec_investor_interest]が#v 意欲#!に達したとき: {3}年間{2}\\n• その好況が[concept_spec_bust]または[concept_spec_collapse]で終わったとき: {5}年間{4}、さらに支持をやめることがあります\\n• その投資を奨励した場合: 1年間{6}\\n• その投機を抑制した場合: 1年間{7}\\n• その大型起債を行った場合: {9}年間{8}、ただし起債中に好況が[concept_spec_bust]または[concept_spec_collapse]で終わると損失は2倍",
+ "06219e72de": "@disapproves! #bold {1}に反対#!\\n[concept_approval]の変化（[concept_powerful]の場合は2倍、[concept_marginalized]の場合は変化なし）:\\n• その投機を抑制した場合: 1年間{2}\\n• その投資を奨励した場合: 1年間{3}\\n• その大型起債を行った場合: {5}年間{4}",
+ "6540ebfda8": "#header [concept_interest_group]のスタンス#!\\n$TOOLTIP_DELIMITER$\\n各$concept_interest_group$は、我が国の[concept_market]で取引される{1}のうちいくつかを@approves!支持し、1つに@disapproves!反対する集団もあります。\\n\\nその[concept_approval]は、これらの商品の好況や破綻、そして我が国による介入に応じて上下します。[concept_powerful]の場合は2倍になり、[concept_marginalized]の場合はまったく変化しません。新しい指導者が集団のスタンスの1つを変えることがあります。",
+ "d084752d1d": "#header 商品へのスタンス#!\\n$TOOLTIP_DELIMITER$\\n{1}は自国が取引する商品のうちいくつかを@approves!支持し、1つに@disapproves!反対することもあります。その[concept_approval]は、これらの商品の好況や破綻、そして政府による介入に応じて上下します。[concept_powerful]の場合は2倍になり、[concept_marginalized]の場合はまったく変化しません。\\n\\n新しい指導者がこれらのスタンスの1つを変えることがあります。",
+ "c45305685b": "\\n@approves! {1}（[concept_clout] {2}）: {4}年間{3}",
+ "71fab82265": "\\n@disapproves! {1}（[concept_clout] {2}）: {4}年間{3}",
+ "877acc2735": "支持する業界の株",
+ "ba7f8afe8d": "政府はこの集団が重視する業界で大型起債を行い、彼らはその株を購入しました。",
+ "62f8a28180": "反対する業界での大型起債",
+ "d0ddbef73e": "政府はこの集団が反対する業界で大型起債を行いました。",
+ "828d103fb0": "すべての銀行券は一定量の金と交換できます。貸し手はこうした通貨を信頼しますが、恐慌の際、銀行は保有する金の範囲内でしか通貨を発行できません。\\n\\n{1}の場合:\\n#P -{2}%#! [concept_spec_trust]の損失\\n#N +{3}%#! [concept_spec_financial_panic]の期間\\n\\n{4}の下では不可能です。制定すると金本位から離脱します。",
+ "030d821fe4": "通貨の裏付けは政府の約束だけです。新たな通貨で銀行を救済し、信用の流れを保てますが、投資家からの信頼は薄れます。\\n\\n{1}の場合:\\n#P -{2}%#! [concept_spec_financial_panic]の期間\\n#N +{3}%#! 投機的好況の規模",
+ "633934acac": "古典的金本位制",
+ "9c5cb3af67": "健全な通貨と自由な市場:貸し手は我が国の通貨をいっそう信頼するが、危機の際、銀行は保有する金の範囲を超えて通貨を発行できない。",
+ "574637ad06": "最後の貸し手",
+ "bca1220150": "国家が自ら発行した通貨で銀行を支える:パニックは早く収まるが、安価な資金がブームをさらに過熱させる。",
+ "1a45cc8cce": "すべての銀行券は一定重量の金と交換できる。貸し手はこのような通貨を信頼するが、パニックの際、銀行は保有する金の範囲を超えて通貨を発行できない。\\n\\n{1}の場合:\\n#P -{2}%#! [concept_spec_trust] 損失\\n#N +{3}%#! [concept_spec_financial_panic] 期間"
+}

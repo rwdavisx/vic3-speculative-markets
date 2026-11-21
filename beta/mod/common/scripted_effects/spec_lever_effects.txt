@@ -38,15 +38,15 @@
 	}
 	else_if = {
 		limit = { var:spec_word_$G$ ?= 4 }
-		set_variable = { name = spec_ui_co_$G$ value = 3 }
+		set_variable = { name = spec_ui_co_$G$ value = 2 }
 	}
 	else_if = {
 		limit = { var:spec_word_$G$ ?= 5 }
-		set_variable = { name = spec_ui_co_$G$ value = 5 }
+		set_variable = { name = spec_ui_co_$G$ value = 4 }
 	}
 	else_if = {
 		limit = { var:spec_word_$G$ ?= 6 }
-		set_variable = { name = spec_ui_co_$G$ value = 8 }
+		set_variable = { name = spec_ui_co_$G$ value = 6 }
 	}
 	if = {
 		limit = { has_variable = spec_restrain_$G$ }
@@ -1505,6 +1505,10 @@ spec_update_levers = {
 		spec_lever_ui = { G = tools }
 		spec_lever_ui = { G = wine }
 		spec_lever_ui = { G = wood }
+		set_variable = { name = spec_c_lev_n value = spec_levers_used }
+		set_variable = { name = spec_c_lev_aut value = spec_lever_authority }
+		set_variable = { name = spec_c_xs_next value = spec_xs_next }
+		set_variable = { name = spec_c_panic_at value = spec_panic_at }
 	}
 }
 
@@ -1515,7 +1519,11 @@ spec_lever_flip = {
 	}
 	else = {
 		set_variable = { name = spec_$KIND$_$G$ value = 1 }
+		spec_igs_lever_$KIND$ = { G = $G$ }  # interest groups' approval (ig_stances.py)
 	}
+	# either way the good's levers wait (WAIT_MONTHS), after a few days to change our mind
+	set_variable = { name = spec_lever_wait_$G$ value = 3 }
+	set_variable = { name = spec_lever_grace_$G$ days = 7 }
 }
 
 # from the scripted GUIs: switch lever KIND on or off for scope:spec_good
@@ -1719,8 +1727,723 @@ spec_lever_toggle = {
 	spec_update_levers = yes
 }
 
+# monthly: the waits count down; a good whose wait ends gets its tab figures again, so its buttons light up now
+spec_lever_clock = {
+	if = {
+		limit = { is_player = yes }
+		if = {
+			limit = { has_variable = spec_lever_wait_aeroplanes }
+			change_variable = { name = spec_lever_wait_aeroplanes add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_aeroplanes <= 0 }
+				remove_variable = spec_lever_wait_aeroplanes
+				spec_lever_ui = { G = aeroplanes }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_ammunition }
+			change_variable = { name = spec_lever_wait_ammunition add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_ammunition <= 0 }
+				remove_variable = spec_lever_wait_ammunition
+				spec_lever_ui = { G = ammunition }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_artillery }
+			change_variable = { name = spec_lever_wait_artillery add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_artillery <= 0 }
+				remove_variable = spec_lever_wait_artillery
+				spec_lever_ui = { G = artillery }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_automobiles }
+			change_variable = { name = spec_lever_wait_automobiles add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_automobiles <= 0 }
+				remove_variable = spec_lever_wait_automobiles
+				spec_lever_ui = { G = automobiles }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_clippers }
+			change_variable = { name = spec_lever_wait_clippers add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_clippers <= 0 }
+				remove_variable = spec_lever_wait_clippers
+				spec_lever_ui = { G = clippers }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_clothes }
+			change_variable = { name = spec_lever_wait_clothes add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_clothes <= 0 }
+				remove_variable = spec_lever_wait_clothes
+				spec_lever_ui = { G = clothes }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_coal }
+			change_variable = { name = spec_lever_wait_coal add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_coal <= 0 }
+				remove_variable = spec_lever_wait_coal
+				spec_lever_ui = { G = coal }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_coffee }
+			change_variable = { name = spec_lever_wait_coffee add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_coffee <= 0 }
+				remove_variable = spec_lever_wait_coffee
+				spec_lever_ui = { G = coffee }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_copper }
+			change_variable = { name = spec_lever_wait_copper add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_copper <= 0 }
+				remove_variable = spec_lever_wait_copper
+				spec_lever_ui = { G = copper }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_dye }
+			change_variable = { name = spec_lever_wait_dye add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_dye <= 0 }
+				remove_variable = spec_lever_wait_dye
+				spec_lever_ui = { G = dye }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_electricity }
+			change_variable = { name = spec_lever_wait_electricity add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_electricity <= 0 }
+				remove_variable = spec_lever_wait_electricity
+				spec_lever_ui = { G = electricity }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_engines }
+			change_variable = { name = spec_lever_wait_engines add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_engines <= 0 }
+				remove_variable = spec_lever_wait_engines
+				spec_lever_ui = { G = engines }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_explosives }
+			change_variable = { name = spec_lever_wait_explosives add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_explosives <= 0 }
+				remove_variable = spec_lever_wait_explosives
+				spec_lever_ui = { G = explosives }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_fabric }
+			change_variable = { name = spec_lever_wait_fabric add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_fabric <= 0 }
+				remove_variable = spec_lever_wait_fabric
+				spec_lever_ui = { G = fabric }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_fertilizer }
+			change_variable = { name = spec_lever_wait_fertilizer add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_fertilizer <= 0 }
+				remove_variable = spec_lever_wait_fertilizer
+				spec_lever_ui = { G = fertilizer }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_fine_art }
+			change_variable = { name = spec_lever_wait_fine_art add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_fine_art <= 0 }
+				remove_variable = spec_lever_wait_fine_art
+				spec_lever_ui = { G = fine_art }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_fish }
+			change_variable = { name = spec_lever_wait_fish add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_fish <= 0 }
+				remove_variable = spec_lever_wait_fish
+				spec_lever_ui = { G = fish }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_fruit }
+			change_variable = { name = spec_lever_wait_fruit add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_fruit <= 0 }
+				remove_variable = spec_lever_wait_fruit
+				spec_lever_ui = { G = fruit }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_furniture }
+			change_variable = { name = spec_lever_wait_furniture add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_furniture <= 0 }
+				remove_variable = spec_lever_wait_furniture
+				spec_lever_ui = { G = furniture }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_glass }
+			change_variable = { name = spec_lever_wait_glass add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_glass <= 0 }
+				remove_variable = spec_lever_wait_glass
+				spec_lever_ui = { G = glass }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_grain }
+			change_variable = { name = spec_lever_wait_grain add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_grain <= 0 }
+				remove_variable = spec_lever_wait_grain
+				spec_lever_ui = { G = grain }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_groceries }
+			change_variable = { name = spec_lever_wait_groceries add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_groceries <= 0 }
+				remove_variable = spec_lever_wait_groceries
+				spec_lever_ui = { G = groceries }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_hardwood }
+			change_variable = { name = spec_lever_wait_hardwood add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_hardwood <= 0 }
+				remove_variable = spec_lever_wait_hardwood
+				spec_lever_ui = { G = hardwood }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_iron }
+			change_variable = { name = spec_lever_wait_iron add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_iron <= 0 }
+				remove_variable = spec_lever_wait_iron
+				spec_lever_ui = { G = iron }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_lead }
+			change_variable = { name = spec_lever_wait_lead add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_lead <= 0 }
+				remove_variable = spec_lever_wait_lead
+				spec_lever_ui = { G = lead }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_liquor }
+			change_variable = { name = spec_lever_wait_liquor add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_liquor <= 0 }
+				remove_variable = spec_lever_wait_liquor
+				spec_lever_ui = { G = liquor }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_luxury_clothes }
+			change_variable = { name = spec_lever_wait_luxury_clothes add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_luxury_clothes <= 0 }
+				remove_variable = spec_lever_wait_luxury_clothes
+				spec_lever_ui = { G = luxury_clothes }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_luxury_furniture }
+			change_variable = { name = spec_lever_wait_luxury_furniture add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_luxury_furniture <= 0 }
+				remove_variable = spec_lever_wait_luxury_furniture
+				spec_lever_ui = { G = luxury_furniture }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_meat }
+			change_variable = { name = spec_lever_wait_meat add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_meat <= 0 }
+				remove_variable = spec_lever_wait_meat
+				spec_lever_ui = { G = meat }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_merchant_marine }
+			change_variable = { name = spec_lever_wait_merchant_marine add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_merchant_marine <= 0 }
+				remove_variable = spec_lever_wait_merchant_marine
+				spec_lever_ui = { G = merchant_marine }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_oil }
+			change_variable = { name = spec_lever_wait_oil add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_oil <= 0 }
+				remove_variable = spec_lever_wait_oil
+				spec_lever_ui = { G = oil }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_opium }
+			change_variable = { name = spec_lever_wait_opium add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_opium <= 0 }
+				remove_variable = spec_lever_wait_opium
+				spec_lever_ui = { G = opium }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_paper }
+			change_variable = { name = spec_lever_wait_paper add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_paper <= 0 }
+				remove_variable = spec_lever_wait_paper
+				spec_lever_ui = { G = paper }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_porcelain }
+			change_variable = { name = spec_lever_wait_porcelain add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_porcelain <= 0 }
+				remove_variable = spec_lever_wait_porcelain
+				spec_lever_ui = { G = porcelain }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_radios }
+			change_variable = { name = spec_lever_wait_radios add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_radios <= 0 }
+				remove_variable = spec_lever_wait_radios
+				spec_lever_ui = { G = radios }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_rubber }
+			change_variable = { name = spec_lever_wait_rubber add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_rubber <= 0 }
+				remove_variable = spec_lever_wait_rubber
+				spec_lever_ui = { G = rubber }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_silk }
+			change_variable = { name = spec_lever_wait_silk add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_silk <= 0 }
+				remove_variable = spec_lever_wait_silk
+				spec_lever_ui = { G = silk }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_small_arms }
+			change_variable = { name = spec_lever_wait_small_arms add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_small_arms <= 0 }
+				remove_variable = spec_lever_wait_small_arms
+				spec_lever_ui = { G = small_arms }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_steamers }
+			change_variable = { name = spec_lever_wait_steamers add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_steamers <= 0 }
+				remove_variable = spec_lever_wait_steamers
+				spec_lever_ui = { G = steamers }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_steel }
+			change_variable = { name = spec_lever_wait_steel add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_steel <= 0 }
+				remove_variable = spec_lever_wait_steel
+				spec_lever_ui = { G = steel }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_sugar }
+			change_variable = { name = spec_lever_wait_sugar add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_sugar <= 0 }
+				remove_variable = spec_lever_wait_sugar
+				spec_lever_ui = { G = sugar }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_sulfur }
+			change_variable = { name = spec_lever_wait_sulfur add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_sulfur <= 0 }
+				remove_variable = spec_lever_wait_sulfur
+				spec_lever_ui = { G = sulfur }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_tanks }
+			change_variable = { name = spec_lever_wait_tanks add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_tanks <= 0 }
+				remove_variable = spec_lever_wait_tanks
+				spec_lever_ui = { G = tanks }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_tea }
+			change_variable = { name = spec_lever_wait_tea add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_tea <= 0 }
+				remove_variable = spec_lever_wait_tea
+				spec_lever_ui = { G = tea }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_telephones }
+			change_variable = { name = spec_lever_wait_telephones add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_telephones <= 0 }
+				remove_variable = spec_lever_wait_telephones
+				spec_lever_ui = { G = telephones }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_tobacco }
+			change_variable = { name = spec_lever_wait_tobacco add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_tobacco <= 0 }
+				remove_variable = spec_lever_wait_tobacco
+				spec_lever_ui = { G = tobacco }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_tools }
+			change_variable = { name = spec_lever_wait_tools add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_tools <= 0 }
+				remove_variable = spec_lever_wait_tools
+				spec_lever_ui = { G = tools }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_wine }
+			change_variable = { name = spec_lever_wait_wine add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_wine <= 0 }
+				remove_variable = spec_lever_wait_wine
+				spec_lever_ui = { G = wine }
+			}
+		}
+		if = {
+			limit = { has_variable = spec_lever_wait_wood }
+			change_variable = { name = spec_lever_wait_wood add = -1 }
+			if = {
+				limit = { var:spec_lever_wait_wood <= 0 }
+				remove_variable = spec_lever_wait_wood
+				spec_lever_ui = { G = wood }
+			}
+		}
+	}
+}
+
 spec_issue_float = {
-	set_variable = { name = spec_issue_$G$ value = 1 days = 730 }
-	set_variable = { name = spec_issue value = 1 days = 730 }
-	set_variable = { name = spec_issue_cool value = 1 days = 1095 }
+	set_variable = { name = spec_issue_$G$ value = 1 }
+	spec_igs_lever_issue = { G = $G$ }  # interest groups' approval (ig_stances.py)
+	set_variable = { name = spec_issue value = 24 }
+	set_variable = { name = spec_issue_w value = spec_weight_$G$ }
+	set_variable = { name = spec_issue_cool value = 36 }
+}
+
+spec_issue_clock = {
+	if = {
+		limit = { has_variable = spec_issue_aeroplanes }
+		set_variable = { name = spec_issue_w value = spec_weight_aeroplanes }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_ammunition }
+		set_variable = { name = spec_issue_w value = spec_weight_ammunition }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_artillery }
+		set_variable = { name = spec_issue_w value = spec_weight_artillery }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_automobiles }
+		set_variable = { name = spec_issue_w value = spec_weight_automobiles }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_clippers }
+		set_variable = { name = spec_issue_w value = spec_weight_clippers }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_clothes }
+		set_variable = { name = spec_issue_w value = spec_weight_clothes }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_coal }
+		set_variable = { name = spec_issue_w value = spec_weight_coal }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_coffee }
+		set_variable = { name = spec_issue_w value = spec_weight_coffee }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_copper }
+		set_variable = { name = spec_issue_w value = spec_weight_copper }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_dye }
+		set_variable = { name = spec_issue_w value = spec_weight_dye }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_electricity }
+		set_variable = { name = spec_issue_w value = spec_weight_electricity }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_engines }
+		set_variable = { name = spec_issue_w value = spec_weight_engines }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_explosives }
+		set_variable = { name = spec_issue_w value = spec_weight_explosives }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_fabric }
+		set_variable = { name = spec_issue_w value = spec_weight_fabric }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_fertilizer }
+		set_variable = { name = spec_issue_w value = spec_weight_fertilizer }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_fine_art }
+		set_variable = { name = spec_issue_w value = spec_weight_fine_art }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_fish }
+		set_variable = { name = spec_issue_w value = spec_weight_fish }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_fruit }
+		set_variable = { name = spec_issue_w value = spec_weight_fruit }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_furniture }
+		set_variable = { name = spec_issue_w value = spec_weight_furniture }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_glass }
+		set_variable = { name = spec_issue_w value = spec_weight_glass }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_grain }
+		set_variable = { name = spec_issue_w value = spec_weight_grain }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_groceries }
+		set_variable = { name = spec_issue_w value = spec_weight_groceries }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_hardwood }
+		set_variable = { name = spec_issue_w value = spec_weight_hardwood }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_iron }
+		set_variable = { name = spec_issue_w value = spec_weight_iron }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_lead }
+		set_variable = { name = spec_issue_w value = spec_weight_lead }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_liquor }
+		set_variable = { name = spec_issue_w value = spec_weight_liquor }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_luxury_clothes }
+		set_variable = { name = spec_issue_w value = spec_weight_luxury_clothes }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_luxury_furniture }
+		set_variable = { name = spec_issue_w value = spec_weight_luxury_furniture }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_meat }
+		set_variable = { name = spec_issue_w value = spec_weight_meat }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_merchant_marine }
+		set_variable = { name = spec_issue_w value = spec_weight_merchant_marine }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_oil }
+		set_variable = { name = spec_issue_w value = spec_weight_oil }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_opium }
+		set_variable = { name = spec_issue_w value = spec_weight_opium }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_paper }
+		set_variable = { name = spec_issue_w value = spec_weight_paper }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_porcelain }
+		set_variable = { name = spec_issue_w value = spec_weight_porcelain }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_radios }
+		set_variable = { name = spec_issue_w value = spec_weight_radios }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_rubber }
+		set_variable = { name = spec_issue_w value = spec_weight_rubber }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_silk }
+		set_variable = { name = spec_issue_w value = spec_weight_silk }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_small_arms }
+		set_variable = { name = spec_issue_w value = spec_weight_small_arms }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_steamers }
+		set_variable = { name = spec_issue_w value = spec_weight_steamers }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_steel }
+		set_variable = { name = spec_issue_w value = spec_weight_steel }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_sugar }
+		set_variable = { name = spec_issue_w value = spec_weight_sugar }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_sulfur }
+		set_variable = { name = spec_issue_w value = spec_weight_sulfur }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_tanks }
+		set_variable = { name = spec_issue_w value = spec_weight_tanks }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_tea }
+		set_variable = { name = spec_issue_w value = spec_weight_tea }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_telephones }
+		set_variable = { name = spec_issue_w value = spec_weight_telephones }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_tobacco }
+		set_variable = { name = spec_issue_w value = spec_weight_tobacco }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_tools }
+		set_variable = { name = spec_issue_w value = spec_weight_tools }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_wine }
+		set_variable = { name = spec_issue_w value = spec_weight_wine }
+	}
+	else_if = {
+		limit = { has_variable = spec_issue_wood }
+		set_variable = { name = spec_issue_w value = spec_weight_wood }
+	}
+	if = {
+		limit = { has_variable = spec_issue }
+		change_variable = { name = spec_issue add = -1 }
+		if = {
+			limit = { var:spec_issue <= 0 }
+			remove_variable = spec_issue
+			remove_variable = spec_issue_aeroplanes
+			remove_variable = spec_issue_ammunition
+			remove_variable = spec_issue_artillery
+			remove_variable = spec_issue_automobiles
+			remove_variable = spec_issue_clippers
+			remove_variable = spec_issue_clothes
+			remove_variable = spec_issue_coal
+			remove_variable = spec_issue_coffee
+			remove_variable = spec_issue_copper
+			remove_variable = spec_issue_dye
+			remove_variable = spec_issue_electricity
+			remove_variable = spec_issue_engines
+			remove_variable = spec_issue_explosives
+			remove_variable = spec_issue_fabric
+			remove_variable = spec_issue_fertilizer
+			remove_variable = spec_issue_fine_art
+			remove_variable = spec_issue_fish
+			remove_variable = spec_issue_fruit
+			remove_variable = spec_issue_furniture
+			remove_variable = spec_issue_glass
+			remove_variable = spec_issue_grain
+			remove_variable = spec_issue_groceries
+			remove_variable = spec_issue_hardwood
+			remove_variable = spec_issue_iron
+			remove_variable = spec_issue_lead
+			remove_variable = spec_issue_liquor
+			remove_variable = spec_issue_luxury_clothes
+			remove_variable = spec_issue_luxury_furniture
+			remove_variable = spec_issue_meat
+			remove_variable = spec_issue_merchant_marine
+			remove_variable = spec_issue_oil
+			remove_variable = spec_issue_opium
+			remove_variable = spec_issue_paper
+			remove_variable = spec_issue_porcelain
+			remove_variable = spec_issue_radios
+			remove_variable = spec_issue_rubber
+			remove_variable = spec_issue_silk
+			remove_variable = spec_issue_small_arms
+			remove_variable = spec_issue_steamers
+			remove_variable = spec_issue_steel
+			remove_variable = spec_issue_sugar
+			remove_variable = spec_issue_sulfur
+			remove_variable = spec_issue_tanks
+			remove_variable = spec_issue_tea
+			remove_variable = spec_issue_telephones
+			remove_variable = spec_issue_tobacco
+			remove_variable = spec_issue_tools
+			remove_variable = spec_issue_wine
+			remove_variable = spec_issue_wood
+			spec_update_levers = yes
+		}
+	}
+	if = {
+		limit = { has_variable = spec_issue_cool }
+		change_variable = { name = spec_issue_cool add = -1 }
+		if = {
+			limit = { var:spec_issue_cool <= 0 }
+			remove_variable = spec_issue_cool
+		}
+	}
 }

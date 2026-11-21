@@ -114,5 +114,9 @@
   "7ac3228a98": "Rekabetler",
   "eafcab7a35": "Rakibimiz: #v {1}#!, bizi rakip sayan: #v {2}#!",
   "5c775ad815": "#header Rekabetler#!\\n$SPEC_RIVAL_RULE$",
-  "7be1025162": "Belirlenen: #v {1}#!/#v {2}#!, bizi belirleyen: #v {3}#!"
+  "7be1025162": "Belirlenen: #v {1}#!/#v {2}#!, bizi belirleyen: #v {3}#!",
+  "56de4b931d": "#header {1}#!\\n$TOOLTIP_DELIMITER$\\n{2} grubu bu mala karşı (Mal: {3}). Bu malda spekülasyonu dizginlediğimizde [concept_approval] değerleri artar, yatırımı teşvik ettiğimizde düşer. [concept_clout] değerleri ne kadar yüksekse etki o kadar büyük olur.",
+  "d156fec2d3": "\\n#N {1} grubu bunu onaylamayacak#!",
+  "81fdbeaf1e": "#header {1}#!\\n$TOOLTIP_DELIMITER$\\n{2} grubu bu malı destekler (Mal: {3}). Bu mal yükselişe geçtiğinde ya da yatırımı teşvik ettiğimizde [concept_approval] değerleri artar; yükseliş bir [concept_spec_bust] ile bittiğinde ya da spekülasyonu dizginlediğimizde düşer. [concept_clout] değerleri ne kadar yüksekse etki o kadar büyük olur.",
+  "0c6fc679f4": "\\n#P {1} grubu bunu onaylayacak#!"
 }

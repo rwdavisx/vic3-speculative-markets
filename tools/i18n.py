@@ -221,6 +221,16 @@ def pick(table, key, masked, past):
     return None, "missing"
 
 
+def fit_icons(text, masked):
+    """A translation of the iconed English with its concept icons where the plain English has them: all removed,
+    then each set before the token it leads in the plain English (build() adds the rest back as for the English)."""
+    text = re.sub(r"@spec_(\w+)! ?", lambda m: "" if m[1] in icons.CONCEPT_ICON else m[0], text)
+    for icon, tok in re.findall(r"(@spec_\w+! )(\{\d+\}|\[concept_\w+\]|\$\w+\$)", masked):
+        if icon[6:-2] in icons.CONCEPT_ICON and tok in text:
+            text = text.replace(tok, icon + tok, 1)
+    return text
+
+
 def build(write):
     """Every language's files beside the English. The keys are all there, so a string with no translation reads English
     rather than as its key. A key whose English changed keeps its last translation until it is translated again, and
@@ -245,6 +255,8 @@ def build(write):
                 plain = value
                 masked, tokens = mask(value)
                 text, how = pick(table, key, masked, past) if has_words(masked) else (None, "")
+                if how != "own" and (t := table.get(string_id(mask(icons.concept_icons(key, value))[0]))):
+                    text, how = fit_icons(t, masked), "own"  # translated from the English with its icons (source, check)
                 if how:
                     count[how] += 1
                 if text and (bad := problems(masked, text)):

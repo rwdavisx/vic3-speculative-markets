@@ -47,6 +47,24 @@ spec_sgui_pursue_companies = {
 	effect = { spec_pursue_to_companies = yes }
 }
 
+spec_sgui_pursue_futures = {
+	scope = country
+	is_valid = { spec_can_pursue_futures = yes }
+	effect = { spec_pursue_to_futures = yes }
+}
+
+spec_sgui_pursue_lender = {
+	scope = country
+	is_valid = { spec_can_pursue_lender = yes }
+	effect = { spec_pursue_to_lender = yes }
+}
+
+spec_sgui_pursue_railway = {
+	scope = country
+	is_valid = { spec_can_pursue_railway = yes }
+	effect = { spec_pursue_to_railway = yes }
+}
+
 spec_sgui_pursue_floor = {
 	scope = country
 	is_valid = { spec_can_pursue_floor = yes }
@@ -87,6 +105,24 @@ spec_sgui_pursue_stop_companies = {
 	scope = country
 	is_valid = { spec_can_pursue_stop_companies = yes }
 	effect = { spec_pursue_stop_companies = yes }
+}
+
+spec_sgui_pursue_stop_futures = {
+	scope = country
+	is_valid = { spec_can_pursue_stop_futures = yes }
+	effect = { spec_pursue_stop_futures = yes }
+}
+
+spec_sgui_pursue_stop_lender = {
+	scope = country
+	is_valid = { spec_can_pursue_stop_lender = yes }
+	effect = { spec_pursue_stop_lender = yes }
+}
+
+spec_sgui_pursue_stop_railway = {
+	scope = country
+	is_valid = { spec_can_pursue_stop_railway = yes }
+	effect = { spec_pursue_stop_railway = yes }
 }
 
 spec_sgui_pursue_stop_floor = {
@@ -149,6 +185,42 @@ spec_sgui_pursue_right_companies = {
 	effect = { spec_pursue_right_companies = yes }
 }
 
+spec_sgui_pursue_left_futures = {
+	scope = country
+	is_valid = { spec_can_pursue_left_futures = yes }
+	effect = { spec_pursue_left_futures = yes }
+}
+
+spec_sgui_pursue_right_futures = {
+	scope = country
+	is_valid = { spec_can_pursue_right_futures = yes }
+	effect = { spec_pursue_right_futures = yes }
+}
+
+spec_sgui_pursue_left_lender = {
+	scope = country
+	is_valid = { spec_can_pursue_left_lender = yes }
+	effect = { spec_pursue_left_lender = yes }
+}
+
+spec_sgui_pursue_right_lender = {
+	scope = country
+	is_valid = { spec_can_pursue_right_lender = yes }
+	effect = { spec_pursue_right_lender = yes }
+}
+
+spec_sgui_pursue_left_railway = {
+	scope = country
+	is_valid = { spec_can_pursue_left_railway = yes }
+	effect = { spec_pursue_left_railway = yes }
+}
+
+spec_sgui_pursue_right_railway = {
+	scope = country
+	is_valid = { spec_can_pursue_right_railway = yes }
+	effect = { spec_pursue_right_railway = yes }
+}
+
 spec_sgui_pursue_left_floor = {
 	scope = country
 	is_valid = { spec_can_pursue_left_floor = yes }
@@ -195,16 +267,4 @@ spec_sgui_pursue_right_door = {
 	scope = country
 	is_valid = { spec_can_pursue_right_door = yes }
 	effect = { spec_pursue_right_door = yes }
-}
-
-spec_sgui_rival = {
-	scope = country
-	is_valid = { spec_can_rival = yes }
-	effect = { spec_rival_pick = yes }
-}
-
-spec_sgui_rival_end = {
-	scope = country
-	is_valid = { spec_can_rival_end = yes }
-	effect = { spec_rival_end = yes }
 }

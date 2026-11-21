@@ -1,6 +1,6 @@
 ﻿l_korean:
  rule_spec_market_volatility: "시장 변동성"
  setting_spec_volatility_historical: "#tooltippable #tooltip:[GetPlayer.GetTooltipTag],setting_spec_volatility_historical_desc 역사적#!#!"
- setting_spec_volatility_historical_desc: "투기 호황과 [Concept('concept_spec_financial_panic', '$concept_spec_financial_panics|q$')] 발생 빈도가 19세기 실제 역사와 비슷함"
+ setting_spec_volatility_historical_desc: "투기 호황과 [Concept('concept_spec_financial_panic', '$concept_spec_financial_panics|q$')]이(가) 19세기와 비슷한 빈도로 발생함"
  setting_spec_volatility_heightened: "#tooltippable #tooltip:[GetPlayer.GetTooltipTag],setting_spec_volatility_heightened_desc #high 높음#!#!#!"
- setting_spec_volatility_heightened_desc: "투기 호황의 규모가 더 크고 더 갑작스럽게 끝나며, [Concept('concept_spec_financial_panic', '$concept_spec_financial_panics|q$')] 발생 빈도가 19세기 실제 역사보다 높음"
+ setting_spec_volatility_heightened_desc: "투기 호황의 규모가 더 크고 더 갑작스럽게 끝나며, [Concept('concept_spec_financial_panic', '$concept_spec_financial_panics|q$')]이(가) 19세기보다 자주 발생함"

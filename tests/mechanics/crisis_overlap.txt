@@ -9,17 +9,17 @@ set_variable = { name = spec_conf value = 55 }
 set_variable = { name = spec_c_total value = 0 }
 set_variable = { name = spec_debt value = 1000 }
 add_investment_pool = { value = investment_pool multiply = -1 }
-add_investment_pool = 1000
+add_investment_pool = 4000
 set_global_variable = { name = spec_ld_phase value = 1 }
 spec_ld_join = yes
-if = { limit = { investment_pool = 500 var:spec_debt = 500 } debug_log = "HOTFIX PASS depression_recalls_half_credit_once" }
+if = { limit = { investment_pool = 3500 var:spec_debt = 500 } debug_log = "HOTFIX PASS depression_recalls_half_credit_once" }
 else = { debug_log = "HOTFIX FAIL depression_recalls_half_credit_once" }
 spec_ld_join = yes
-if = { limit = { investment_pool = 500 var:spec_debt = 500 } debug_log = "HOTFIX PASS repeat_depression_join_does_not_recall_again" }
+if = { limit = { investment_pool = 3500 var:spec_debt = 500 } debug_log = "HOTFIX PASS repeat_depression_join_does_not_recall_again" }
 else = { debug_log = "HOTFIX FAIL repeat_depression_join_does_not_recall_again" }
 
 spec_start_panic = yes
-if = { limit = { investment_pool = 250 var:spec_debt = 250 has_variable = spec_ld_half } debug_log = "HOTFIX PASS later_panic_recalls_half_remaining_credit" }
+if = { limit = { investment_pool = 3250 var:spec_debt = 250 has_variable = spec_ld_half } debug_log = "HOTFIX PASS later_panic_recalls_half_remaining_credit" }
 else = { debug_log = "HOTFIX FAIL later_panic_recalls_half_remaining_credit" }
 
 spec_ld_leave = yes
@@ -43,11 +43,13 @@ else = { debug_log = "HOTFIX FAIL active_panic_prevents_additional_depression_re
 spec_ld_leave = yes
 remove_variable = spec_panic
 remove_variable = spec_panic_cooldown
-set_variable = { name = spec_debt value = 1000 }
+# At ruin-level leverage the whole pool is callable. Keep the debt large enough to hit that cap.
+set_variable = { name = spec_debt value = { value = spec_lev_income multiply = 16 min = 1000 } }
+set_variable = { name = spec_test_remaining value = { value = var:spec_debt subtract = 100 } }
 add_investment_pool = { value = investment_pool multiply = -1 }
 add_investment_pool = 100
 spec_ld_join = yes
-if = { limit = { investment_pool = 0 var:spec_debt = 900 } debug_log = "HOTFIX PASS depression_recall_cannot_overdraw_pool" }
+if = { limit = { investment_pool = 0 var:spec_debt = var:spec_test_remaining } debug_log = "HOTFIX PASS depression_recall_cannot_overdraw_pool" }
 else = { debug_log = "HOTFIX FAIL depression_recall_cannot_overdraw_pool" }
 
 every_country = { spec_ld_leave = yes remove_variable = spec_panic remove_variable = spec_ld_origin }

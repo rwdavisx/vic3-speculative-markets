@@ -1,6 +1,6 @@
-"""Speculation levers: per good, a country can Restrain Speculation (interest eased down to Calm over a few months and
-held there, so its boom cannot grow or crash while restrained but winds down as a Correction paid month by month (generate.py spec_c_restrain), the good's producers lose throughput and pay a levy) or Encourage Investment (interest raised to
-Keen over a few months and kept there, its producers gain throughput, paid for by the state), paid in Authority every month like a vanilla
+"""Speculation levers: per good, a country can Restrain Speculation (what the market makes of its interest pushed down
+by PUSH over a few months, never below Calm, so its boom cannot crash while restrained but winds down as a Correction paid month by month (generate.py spec_c_restrain), the good's producers lose throughput and pay a levy) or Encourage Investment (interest
+pushed up by PUSH over a few months, its producers gain throughput, paid for by the state), paid in Authority every month like a vanilla
 consumption tax on the good. Throughput moves profits, which vanilla investors chase. A good has at most one lever;
 Authority is the only limit on how many.
 
@@ -12,6 +12,7 @@ player's own choices, and a subsidy only covers losses, so its cost would not fo
 generate.py writes the script from script(), clamps hype with hype_clamp(), runs ai_block() and
 then spec_update_levers in the monthly pulse (the costs move with the market) and adds loc(). The tab places strip() in a goods row (datacontext Goods)."""
 import companies
+import ig_stances
 import leverage
 import icons
 import tuning
@@ -32,21 +33,39 @@ AI_FUNDS = tuning.get("AI_FUNDS", 2)            # AI encourages only with a week
 AI_CONF = tuning.get("AI_CONF", 60)          # AI restrains its riskiest boom at this Market Confidence or above
 AI_RISK = tuning.get("AI_RISK", 5)            # and only when its end would cost this much confidence (in practice a Collapse or a large Bust)
 CALM_WORD = 3          # generate's interest word for Calm; the AI encourages only a Calm good
-LEVER_EASE = tuning.get("LEVER_EASE", 0.35)  # a lever closes this share of the gap to its target each month
-RESTRAIN_TO = 1        # Restrain eases interest down to this (Calm, above every unwind's end, so no boom ends while restrained)
-ENCOURAGE_TO = 2.2     # Encourage eases interest up toward this, and keeps it at Keen (2) once there
+LEVER_EASE = tuning.get("LEVER_EASE", 0.35)  # a lever's push closes this share of the gap to its full size each month
+RESTRAIN_TO = 1        # restrained interest never falls below this (Calm, above every unwind's end, so no boom ends while restrained)
+# 1.2: each lever multiplies what the market makes of the good's interest, rather than setting it. PUSH is its size at
+# Market Confidence PUSH_CONF (a flat market, 1, lands at Keen as the old target did); with m = confidence / PUSH_CONF
+# (push_full), a confident market runs with Encourage, x(1 + 1.2m): 2.2 at 55, 2.9 at 85, 1.3 at 15, and shrugs off
+# Restrain, /(1 + 1.2/m): 2.2 at 55, 1.8 at 85, 5.4 at 15, never below Calm. Restraining early works best; encouraging a
+# scared market barely moves it. Was a flat x2.2 and /2.2, and before that a target (Calm, Keen) whatever the market did
+PUSH = {"encourage": tuning.get("ENCOURAGE_PUSH", 2.2), "restrain": 1 / tuning.get("RESTRAIN_PUSH", 2.2)}
+PUSH_CONF = tuning.get("CONF_START", 55)  # generate.CONF_START (asserted there), read from tuning: generate imports this module
 RESTRAIN_RISK = 2      # Restrain needs Eager interest or more, or a boom whose end costs this much (a Correction never does)
 ENCOURAGE_BELOW = 4    # Encourage needs interest below this word, Keen
 # Float a Great Issue (plan_levers.md Phase 3): spec_issue_<g> and spec_issue for ISSUE_DAYS, spec_issue_cool from floating to a year past its end
 # ponytail: centres.ON read from tuning, not imported: centres imports market_tab, which imports this module
 ISSUE_ON = tuning.get("EXCHANGE_ON", 1) and tuning.get("EXCH_ISSUE_ON", 1)
-ISSUE_SCORE = tuning.get("EXCH_ISSUE_SCORE", 1.25)  # Exchange score while an issue runs
+# Exchange score while an issue runs, for a good with a full share of the market (spec_weight_<g> 1): x(1 + 0.25 x its
+# weight), so an issue on a small good is a small bet. Was a flat x1.25 whatever the good, until 1.2: a good under
+# generate.TOAST_SHARE risked no trust at its boom's end, so an issue on it was free score
+ISSUE_SCORE = tuning.get("EXCH_ISSUE_SCORE", 1.25)
 ISSUE_EXPO = tuning.get("EXCH_ISSUE_EXPO", 1.5)     # weight of the banks' loans into the good when its boom ends (exposure.py)
 ISSUE_TRUST = tuning.get("EXCH_ISSUE_TRUST", 2)     # times the boom end's trust result (centres.TRUST_END)
 # months on plain counters, not `days =` timers: after a save reload the engine sometimes kept spec_issue and
 # spec_issue_cool past their timers while spec_issue_<g>, set with them, lapsed (runs/release_gate/pool_perf_106b7_r1)
 ISSUE_MONTHS, COOL_MONTHS = 24, 12
-MONTHLY = "\t\t\tspec_issue_clock = yes\n" if ISSUE_ON else ""  # generate.monthly, for every country, after the AI floats
+# the Great Issue's paragraph in the Intervention concept (loc)
+ISSUE_CONCEPT = (f"\\n\\n#b Float a Great Issue#! sells shares in a hot $concept_good$ on our [concept_spec_exchange] for #v {ISSUE_MONTHS // 12}#! years. "
+                 f"Our [concept_spec_exchange] score rises by up to #P {ISSUE_SCORE - 1:.0%}#! for a $concept_good$ that makes up much of our trade, "
+                 f"and the trust won or lost when its boom ends counts #v x{ISSUE_TRUST:g}#!. Only one runs at a time, at least #v {COOL_MONTHS // 12}#! year apart.") if ISSUE_ON else ""
+# as vanilla's tariff levels (NDefines TARIFF_LEVEL_COOLDOWN_MONTHS, TARIFF_LEVEL_COOLDOWN_GRACE_PERIOD_DAYS): once the
+# player switches a good's lever on or off, its levers wait WAIT_MONTHS monthly pulses (counters, as the issue's) to
+# change again, save for GRACE_DAYS to change their mind. ponytail: players only, the AI's monthly rules already pace it
+WAIT_MONTHS, GRACE_DAYS = 3, 7
+# generate.monthly, for every country, after the AI floats
+MONTHLY = ("\t\t\tspec_issue_clock = yes\n" if ISSUE_ON else "") + "\t\t\tspec_lever_clock = yes\n"
 ISSUE_WORD = 5         # Eager or hotter, as cycle._hot
 ISSUE_AI_CONF = 40
 MODIFIERS = [  # name, script value giving its multiplier, icon, effects at a multiplier of 1
@@ -54,6 +73,9 @@ MODIFIERS = [  # name, script value giving its multiplier, icon, effects at a mu
     ("spec_lever_encourage", "spec_lever_spend", "lever_encourage", {"country_expenses_add": 1}),
     ("spec_levers", "spec_lever_authority", "lever_restrain", {"country_authority_add": -1}),
 ]
+# country variables spec_update_levers stores for the tab's header, and the script value each holds
+UI_CACHE = {"spec_c_lev_n": "spec_levers_used", "spec_c_lev_aut": "spec_lever_authority", "spec_c_xs_next": "spec_xs_next",
+            "spec_c_panic_at": "spec_panic_at"}  # the last for the confidence bar's hover (market_tab.panic_hover)
 LEGACY = ["spec_lever_encourage_industry", "spec_lever_encourage_land"]  # older saves' modifiers: kept empty, removed on update
 KINDS = (("restrain", -LEVER_THROUGHPUT, "lever_restrain"), ("encourage", LEVER_THROUGHPUT, "lever_encourage"))
 # building types whose own throughput modifier logs as unknown, and the group holding only them; banana plantations
@@ -75,22 +97,47 @@ def industry(sells, upgrades):
 
 # -- script ------------------------------------------------------------------------------------------------
 
-def hype_clamp(g, rising):
-    """Lines for the end of spec_hype_next_<g>: a lever eases interest toward its target, LEVER_EASE of the gap a
-    month, so the bar moves over a few months rather than jumping. Restrain caps what the market makes of it at the
-    eased level, never below RESTRAIN_TO; Encourage raises it to at least the eased level, at most Keen (rising)."""
-    h = f"var:spec_hype_{g}"
-    return (f"\tif = {{\n\t\tlimit = {{\n\t\t\thas_variable = spec_restrain_{g}\n\t\t\thas_variable = spec_hype_{g}\n\t\t}}\n"
-            f"\t\tmax = {{ value = {h} subtract = {RESTRAIN_TO} multiply = {1 - LEVER_EASE:.4g} add = {RESTRAIN_TO} }}\n"
-            f"\t\tmin = {RESTRAIN_TO}\n\t}}\n"
-            f"\telse_if = {{\n\t\tlimit = {{\n\t\t\thas_variable = spec_encourage_{g}\n\t\t\thas_variable = spec_hype_{g}\n\t\t}}\n"
-            f"\t\tmin = {{ value = {ENCOURAGE_TO} subtract = {h} multiply = {LEVER_EASE:g} add = {h} max = {rising} }}\n\t}}\n")
+def push_full():
+    """spec_push_full_<kind>: a lever's full push at our Market Confidence (country scope), m = confidence / PUSH_CONF.
+    In generate's spec_values.txt before the goods' spec_push_next_<g>, which read them."""
+    up, down = PUSH["encourage"] - 1, 1 / PUSH["restrain"] - 1
+    return [f"spec_push_m = {{\n\tvalue = var:spec_conf\n\tdivide = {PUSH_CONF:g}\n}}",
+            f"spec_push_full_encourage = {{\n\tvalue = spec_push_m\n\tmultiply = {up:.4g}\n\tadd = 1\n}}",
+            f"spec_push_full_restrain = {{\n\tvalue = spec_push_m\n\tdivide = {{\n\t\tvalue = spec_push_m\n\t\tadd = {down:.4g}\n\t}}\n}}"]
+
+
+def push_values(g):
+    """spec_push_sv_<g>: the lever's push on the good's interest, a multiplier (1 without a lever; spec_push_<g> is
+    kept only while one is on). spec_push_next_<g>: next month's, LEVER_EASE of the way to the lever's full push
+    (push_full), so it builds over a few months. Lifting a lever ends its push at once, as lifting the old target did."""
+    on = f"OR = {{ has_variable = spec_encourage_{g} has_variable = spec_restrain_{g} }}"
+    return [f"spec_push_sv_{g} = {{\n\tvalue = 1\n\tif = {{\n\t\tlimit = {{\n\t\t\thas_variable = spec_push_{g}\n\t\t\t{on}\n\t\t}}\n"
+            f"\t\tvalue = var:spec_push_{g}\n\t}}\n}}",
+            f"spec_push_next_{g} = {{\n\tvalue = 1\n"
+            + "".join(f"\t{'if' if i == 0 else 'else_if'} = {{\n\t\tlimit = {{ has_variable = spec_{k}_{g} }}\n\t\tvalue = spec_push_full_{k}\n\t}}\n"
+                      for i, k in enumerate(PUSH))
+            + f"\tsubtract = spec_push_sv_{g}\n\tmultiply = {LEVER_EASE:g}\n\tadd = spec_push_sv_{g}\n}}"]
+
+
+def hype_push(g, lo, hi):
+    """Lines for the end of spec_hype_next_<g>: what the market makes of it times the lever's push, within the market's
+    own bounds (lo, hi); restrained, never below RESTRAIN_TO."""
+    return (f"\tmultiply = spec_push_next_{g}\n\tmin = {lo:g}\n\tmax = {hi:g}\n"
+            f"\tif = {{\n\t\tlimit = {{ has_variable = spec_restrain_{g} }}\n\t\tmin = {RESTRAIN_TO}\n\t}}\n")
+
+
+# the monthly pulse, after the good's interest is set from spec_hype_next_<g> (which read this month's push)
+def push_update(g, t="\t\t\t"):
+    return (f"{t}if = {{\n{t}\tlimit = {{ OR = {{ has_variable = spec_encourage_{g} has_variable = spec_restrain_{g} }} }}\n"
+            f"{t}\tset_variable = {{ name = spec_push_{g} value = spec_push_next_{g} }}\n{t}}}\n"
+            f"{t}else_if = {{\n{t}\tlimit = {{ has_variable = spec_push_{g} }}\n{t}\tremove_variable = spec_push_{g}\n{t}}}\n")
 
 
 
 def state_vars(goods):
-    return ([f"spec_{k}_{g}" for g in goods for k in ("restrain", "encourage", "ui_r", "ui_e", "ui_co") + (("issue",) if ISSUE_ON else ())]
-            + (["spec_issue", "spec_issue_cool"] if ISSUE_ON else []))
+    return ([f"spec_{k}_{g}" for g in goods for k in ("restrain", "encourage", "push", "ui_r", "ui_e", "ui_co", "lever_wait", "lever_grace")
+             + (("issue",) if ISSUE_ON else ())]
+            + (["spec_issue", "spec_issue_cool", "spec_issue_w"] if ISSUE_ON else []))
 
 
 def ui_effect():
@@ -192,7 +239,10 @@ def script(goods, made, tax, cost):
                       f"\t\tremove_modifier = spec_lever_{k}_{g}\n\t}}\n" for g in sorted(made) for k, *_ in KINDS)
     # the tab's lever and company figures, only where the tab can show them (generate.monthly's gate)
     update += ("\tif = {\n\t\tlimit = {\n\t\t\tOR = {\n\t\t\t\tis_player = yes\n\t\t\t\tmarket ?= { owner ?= root }\n\t\t\t}\n\t\t}\n"
-               + "".join(f"\t\tspec_lever_ui = {{ G = {g} }}\n" for g in goods) + "\t}\n")
+               + "".join(f"\t\tspec_lever_ui = {{ G = {g} }}\n" for g in goods)
+               # the tab's header figures, stored: as script values the header read them every frame (a chain over
+               # every good each); the monthly pulse reaches here after the month's Excess is in
+               + "".join(f"\t\tset_variable = {{ name = {c} value = {n} }}\n" for c, n in UI_CACHE.items()) + "\t}\n")
     effects = f"""{ui_effect()}
 # the levers' modifiers: the money and Authority ones with their amount as the multiplier, and each lever's
 # throughput on its good's producers; then the tab's figures
@@ -206,21 +256,48 @@ spec_lever_flip = {{
 	}}
 	else = {{
 		set_variable = {{ name = spec_$KIND$_$G$ value = 1 }}
+		spec_igs_lever_$KIND$ = {{ G = $G$ }}  # interest groups' approval (ig_stances.py)
 	}}
+	# either way the good's levers wait (WAIT_MONTHS), after a few days to change our mind
+	set_variable = {{ name = spec_lever_wait_$G$ value = {WAIT_MONTHS} }}
+	set_variable = {{ name = spec_lever_grace_$G$ days = {GRACE_DAYS} }}
 }}
 
 # from the scripted GUIs: switch lever KIND on or off for scope:spec_good
 spec_lever_toggle = {{
 {_chain(goods, lambda g: f"spec_lever_flip = {{ KIND = $KIND$ G = {g} }}")}	spec_update_levers = yes
 }}
+
+# monthly: the waits count down; a good whose wait ends gets its tab figures again, so its buttons light up now
+spec_lever_clock = {{
+	if = {{
+		limit = {{ is_player = yes }}
+{"".join(f'''		if = {{
+			limit = {{ has_variable = spec_lever_wait_{g} }}
+			change_variable = {{ name = spec_lever_wait_{g} add = -1 }}
+			if = {{
+				limit = {{ var:spec_lever_wait_{g} <= 0 }}
+				remove_variable = spec_lever_wait_{g}
+				spec_lever_ui = {{ G = {g} }}
+			}}
+		}}
+''' for g in goods)}	}}
+}}
 """
     if ISSUE_ON:  # Float a Great Issue on good G: centres.boom_end ends it with the boom, else it lapses.
         # The cooldown starts now, to run a year past the lapse; a boom end resets it to a year from then
         # spec_issue and spec_issue_cool hold the monthly pulses left; spec_issue_clock counts them down
+        # spec_issue_w: the good's weight (spec_weight_<g>) for the score (centres._issue_score), kept monthly: a script
+        # value there cannot read spec_values.txt's, defined after it
         effects += (f"\nspec_issue_float = {{\n\tset_variable = {{ name = spec_issue_$G$ value = 1 }}\n"
+                    "\tspec_igs_lever_issue = { G = $G$ }  # interest groups' approval (ig_stances.py)\n"
                     f"\tset_variable = {{ name = spec_issue value = {ISSUE_MONTHS} }}\n"
+                    "\tset_variable = { name = spec_issue_w value = spec_weight_$G$ }\n"
                     f"\tset_variable = {{ name = spec_issue_cool value = {ISSUE_MONTHS + COOL_MONTHS} }}\n}}\n"
-                    "\nspec_issue_clock = {\n\tif = {\n\t\tlimit = { has_variable = spec_issue }\n"
+                    "\nspec_issue_clock = {\n" + "".join(
+                        f"\t{'if' if i == 0 else 'else_if'} = {{\n\t\tlimit = {{ has_variable = spec_issue_{g} }}\n"
+                        f"\t\tset_variable = {{ name = spec_issue_w value = spec_weight_{g} }}\n\t}}\n" for i, g in enumerate(goods))
+                    + "\tif = {\n\t\tlimit = { has_variable = spec_issue }\n"
                     "\t\tchange_variable = { name = spec_issue add = -1 }\n\t\tif = {\n\t\t\tlimit = { var:spec_issue <= 0 }\n"
                     "\t\t\tremove_variable = spec_issue\n" + "".join(f"\t\t\tremove_variable = spec_issue_{g}\n" for g in goods)
                     + "\t\t\tspec_update_levers = yes\n\t\t}\n\t}\n\tif = {\n\t\tlimit = { has_variable = spec_issue_cool }\n"
@@ -232,8 +309,15 @@ spec_lever_toggle = {{
 			NOT = { has_variable = spec_issue_$G$ }
 		}
 """ if ISSUE_ON else "")
-    triggers = f"""# switching lever KIND on for good G; switching it off is always possible
+    triggers = f"""# switching lever KIND on or off for good G: off needs only the wait over (WAIT_MONTHS) or its grace days left
 spec_lever_free = {{
+	custom_tooltip = {{
+		text = spec_lever_wait_tt
+		OR = {{
+			NOT = {{ has_variable = spec_lever_wait_$G$ }}
+			has_variable = spec_lever_grace_$G$
+		}}
+	}}
 	trigger_if = {{
 		limit = {{ NOT = {{ has_variable = spec_$KIND$_$G$ }} }}
 		custom_tooltip = {{
@@ -376,7 +460,8 @@ def ai_block(goods, hot, rising, cooling):
     best = "".join(f"{t}\tif = {{\n{t}\t\tlimit = {{ {free(g)} var:spec_risk_{g} > var:spec_ai_risk }}\n"
                    f"{t}\t\tset_variable = {{ name = spec_ai_risk value = var:spec_risk_{g} }}\n{t}\t}}\n" for g in goods)
     pick = "".join(f"{t}\t\t{'if' if i == 0 else 'else_if'} = {{\n{t}\t\t\tlimit = {{ {free(g)} var:spec_risk_{g} = var:spec_ai_risk }}\n"
-                   f"{t}\t\t\tset_variable = {{ name = spec_restrain_{g} value = 1 }}\n{t}\t\t}}\n" for i, g in enumerate(goods))
+                   f"{t}\t\t\tset_variable = {{ name = spec_restrain_{g} value = 1 }}\n"
+                   f"{t}\t\t\tspec_igs_lever_restrain = {{ G = {g} }}\n{t}\t\t}}\n" for i, g in enumerate(goods))
     return (f"{t}# speculation levers: restrain the riskiest boom, lift it once the boom has passed\n{lift}"
             # or, with the banks lent past the safe line, at any confidence: the booms they financed end harder (exposure.py)
             f"{t}if = {{\n{t}\tlimit = {{ OR = {{ var:spec_conf >= {AI_CONF} spec_lev >= {leverage.SAFE} }} }}\n"
@@ -433,7 +518,8 @@ def encourage(goods):
                    f"{t}\t\tset_variable = {{ name = spec_ai_risk value = var:spec_hype_{g} }}\n{t}\t}}\n" for g in goods)
     pick = "".join(f"{t}\t\t{'if' if i == 0 else 'else_if'} = {{\n{t}\t\t\tlimit = {{ var:spec_word_{g} = {CALM_WORD} "
                    f"var:spec_hype_{g} = var:spec_ai_risk {free(g)} }}\n"
-                   f"{t}\t\t\tset_variable = {{ name = spec_encourage_{g} value = 1 }}\n{t}\t\t}}\n" for i, g in enumerate(goods))
+                   f"{t}\t\t\tset_variable = {{ name = spec_encourage_{g} value = 1 }}\n"
+                   f"{t}\t\t\tspec_igs_lever_encourage = {{ G = {g} }}\n{t}\t\t}}\n" for i, g in enumerate(goods))
     return (f"{t}# and encourage the most favored Calm good while Wary, lifting it once confidence is back\n"
             f"{t}if = {{\n{t}\tlimit = {{\n{t}\t\tOR = {{\n{t}\t\t\tvar:spec_conf >= spec_ai_unloose_at\n"
             f"{t}\t\t\thas_variable = spec_panic\n{t}\t\t\tnet_total_income < 0\n{t}\t\t\tin_default = yes\n"
@@ -488,6 +574,12 @@ def _item(tooltip, texture, enabled, onclick, selected, sound, visible=None, lif
 """
 
 
+def locked():
+    """GUI test: the row's good was switched lately (spec_flip's wait) and its days to change our mind are over."""
+    has = lambda name: f"{P}.Var(Concatenate('{name}_', Goods.GetKey)).IsSet"
+    return f"And({has('spec_lever_wait')}, Not({has('spec_lever_grace')}))"
+
+
 def ui_state(kind):
     """GUI value: spec_ui_<r|e>_<good> (ui_effect()), 2 on, 1 can be switched on, 0 neither."""
     return f"{P}.Var(Concatenate('spec_ui_{kind[0]}_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')"
@@ -498,8 +590,9 @@ def strip():
     the one in effect framed, either greyed out where it can't be used. The scripted GUIs toggle, so clicking the one
     in effect lifts it. Needs datacontext Goods. The state is read from ui_state(), not the scripted GUIs' IsValid,
     which would run their triggers every frame for every tile; IsValidTooltip stays, as tooltips run on hover only."""
-    def enabled(kind):  # on, or (for the local player only, as IsValid was) can be switched on
-        return f"GreaterThan_CFixedPoint({ui_state(kind)}, Select_CFixedPoint(Country.IsLocalPlayer, '(CFixedPoint)0', '(CFixedPoint)1'))"
+    def enabled(kind):  # on, or (for the local player only, as IsValid was) can be switched on; not while it waits
+        return (f"And(GreaterThan_CFixedPoint({ui_state(kind)}, Select_CFixedPoint(Country.IsLocalPlayer, '(CFixedPoint)0', "
+                f"'(CFixedPoint)1')), Not({locked()}))")
     on = lambda kind: f"EqualTo_CFixedPoint({ui_state(kind)}, '(CFixedPoint)2')"
     items = (_item("SPEC_LEVER_RESTRAIN_TT", icons.path("lever_restrain"), enabled("restrain"),
                    _sg("restrain", "Execute"), on("restrain"), "decrease_button_sound")
@@ -520,8 +613,9 @@ def strip():
 
 
 def loc():
-    used = f"[{P}.ScriptValue('spec_levers_used')|0]"
-    cost = f"[{P}.ScriptValue('spec_lever_authority')|0]"
+    stored = lambda c: f"{P}.Var('{c}').GetValueWithDefault('(CFixedPoint)0')"  # UI_CACHE
+    used = f"[{stored('spec_c_lev_n')}|0]"
+    cost = f"[{stored('spec_c_lev_aut')}|0]"
     tp = lambda key: f"[SelectLocalization({_sg('lever_producers', 'IsValid')}, '{key}', 'SPEC_LEVER_NONE')]"
     on = lambda k, a, b: f"[SelectLocalization({active(k)}, '{a}', '{b}')]"
     head = "#header {}#!\\n$TOOLTIP_DELIMITER$\\n"
@@ -529,13 +623,12 @@ def loc():
     weight = f"Add_CFixedPoint(Multiply_CFixedPoint({gsv('spec_weight')}, '(CFixedPoint){1 - LEVER_FLOOR:g}'), '(CFixedPoint){LEVER_FLOOR:g}')"
     share = f"Divide_CFixedPoint({gsv('spec_mv')}, Max_CFixedPoint({P}.Var('spec_mv_total').GetValueWithDefault('(CFixedPoint)1'), '(CFixedPoint)1'))"
     # in vanilla's calculator form (BASE_VALUE_FOR_CALCULATOR), as cost_value() makes it
-    cost_line = (f"Ties up #N -[{gsv('spec_lever_cost')}|0]#! [concept_authority] while in effect, not paid again each month. "
-                 "We get it back when we lift it"
-                 f"#indent_newline:3 \\n#v [{gsv('spec_lever_base')}|0]#! for this [concept_good] normally, the same as "
-                 f"{'half a' if LEVER_TAX_SHARE == 0.5 else f'{LEVER_TAX_SHARE:.0%} of a'} consumption tax on it"
-                 f"\\n#v x[{weight}|%0]#! for how much we trade it (#v [{share}|%1]#! of our market)#!\\n")
+    cost_line = (f"Ties up #N [{gsv('spec_lever_cost')}|0]#! [concept_authority] while in effect, returned when lifted"
+                 f"#indent_newline:3 \\n#v [{gsv('spec_lever_base')}|0]#! from "
+                 f"{'half' if LEVER_TAX_SHARE == 0.5 else f'{LEVER_TAX_SHARE:.0%} of'} what a consumption tax on it would tie up"
+                 f"\\n#v x[{weight}|%0]#! from its #v [{share}|%1]#! share of our market's trade#!")
     money = lambda kind: f"[{P}.ScriptValue(Concatenate('spec_lever_{kind}_', Goods.GetKey))|D]"
-    n = f"{P}.ScriptValue('spec_levers_used')"
+    n = stored("spec_c_lev_n")
     gt_used = f"GreaterThan_CFixedPoint({n}, '(CFixedPoint)0')"
     one_used = f"EqualTo_CFixedPoint({n}, '(CFixedPoint)1')"
     names = "".join(f' spec_lever_restrain_{g}: "${g}$ Levy"\n spec_lever_encourage_{g}: "${g}$ Subsidy"\n' for g in sorted(_MADE))
@@ -546,20 +639,22 @@ def loc():
  spec_lever_not_encourage_tt: "Investment in this good is not encouraged"
  spec_levers: "Market Interventions"
  spec_lever_authority_tt: "Enough [concept_authority] is available"
- spec_lever_fits_restrain_tt: "[concept_spec_investor_interest] is #v Eager#! or higher, or its boom could cost #v {RESTRAIN_RISK}#! or more [concept_spec_market_confidence] when it ends"
- spec_lever_fits_encourage_tt: "[concept_spec_investor_interest] is below #v Keen#!, the [concept_good] is not still getting over a boom, and no boom here could end in a [concept_spec_bust] or [concept_spec_collapse]"
- SPEC_LEVER_RESTRAIN_TT: "{head.format('Restrain Speculation in [Goods.GetName]')}#italic Cool a hot [concept_good] down before its boom grows too big.#!\\n\\n[concept_spec_investor_interest] cools to #v Calm#! over a few months\\n{tp('SPEC_LEVER_TP_DOWN')}[concept_budget_additional_income]: #P @money!{money('levy')}#! a week (#v {LEVY_SHARE:.0%}#! of what they make, at base price)\\nWhen its boom ends, it winds down slowly over about a year as a [concept_spec_correction], not all at once\\n\\n{cost_line}\\n#lore After the South Sea Bubble, the Bubble Act of 1720 forbade the floating of joint-stock companies without a royal charter.#!{on('restrain', 'SPEC_LEVER_LIFT', 'SPEC_LEVER_NONE')}\\n\\n[{_sg('restrain', 'IsValidTooltip')}]"
- SPEC_LEVER_ENCOURAGE_TT: "{head.format('Encourage Investment in [Goods.GetName]')}#italic Warm investors up to a [concept_good] they are ignoring.#!\\n\\n[concept_spec_investor_interest] rises to #v Keen#! over a few months\\n{tp('SPEC_LEVER_TP_UP')}[concept_budget_additional_expenses]: #N @money!{money('subsidy')}#! a week (#v {SUBSIDY_SHARE:.0%}#! of what they make, at base price)\\nEnds by itself once the [concept_good] is #v Eager#!\\n\\n{cost_line}\\n#lore In the mid-1800s, British India and France guaranteed railway investors a fixed return on their capital.#!{on('encourage', 'SPEC_LEVER_LIFT', 'SPEC_LEVER_NONE')}\\n\\n[{_sg('encourage', 'IsValidTooltip')}]"
- SPEC_LEVER_TP_DOWN: "Its makers' [concept_throughput]: #N -{LEVER_THROUGHPUT:.0%}#!\\n"
- SPEC_LEVER_TP_UP: "Its makers' [concept_throughput]: #P +{LEVER_THROUGHPUT:.0%}#!\\n"
- SPEC_LEVER_LIFT: "\\n\\nIn effect\\n#instruction Click to lift it#!"
+ spec_lever_wait_tt: "Not switched on or off in the last #v {WAIT_MONTHS}#! months, or switched less than #v {GRACE_DAYS}#! days ago and can still be undone"
+ SPEC_LEVER_WAIT: "\\n#N Switched lately.#! It can change again in #v [{P}.Var(Concatenate('spec_lever_wait_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')|0]#! months"
+ spec_lever_fits_restrain_tt: "[concept_spec_investor_interest] #v Eager#! or higher, or a boom whose end costs #v {RESTRAIN_RISK}#! or more [concept_spec_market_confidence]"
+ spec_lever_fits_encourage_tt: "[concept_spec_investor_interest] below #v Keen#!, not recovering from a [concept_spec_boom_end], and no boom that could end in a [concept_spec_bust] or [concept_spec_collapse]"
+ SPEC_LEVER_RESTRAIN_TT: "{head.format('Restrain Speculation in [Goods.GetName]')}[concept_spec_investor_interest] is multiplied by #N [{P}.ScriptValue('spec_push_full_restrain')|2]#! over a few months, but never below #v Calm#!. The higher our [concept_spec_market_confidence], the less the market listens.\\n{tp('SPEC_LEVER_TP_DOWN')}Its makers pay a levy of #P @money!{money('levy')}#! a week, #v {LEVY_SHARE:.0%}#! of their output\\nIts boom cannot end all at once. It winds down over about a year, costing no more [concept_spec_market_confidence] than a [concept_spec_correction]{ig_stances.lever_lines('restrain')}\\n\\n{cost_line}{on('restrain', 'SPEC_LEVER_LIFT', 'SPEC_LEVER_NONE')}[AddLocalizationIf({locked()}, 'SPEC_LEVER_WAIT')]\\n\\n[{_sg('restrain', 'IsValidTooltip')}]"
+ SPEC_LEVER_ENCOURAGE_TT: "{head.format('Encourage Investment in [Goods.GetName]')}[concept_spec_investor_interest] is multiplied by #P [{P}.ScriptValue('spec_push_full_encourage')|2]#! over a few months. The higher our [concept_spec_market_confidence], the more the market follows.\\n{tp('SPEC_LEVER_TP_UP')}Its makers are paid a subsidy of #N @money!{money('subsidy')}#! a week, #v {SUBSIDY_SHARE:.0%}#! of their output\\nIt ends by itself once [concept_spec_investor_interest] reaches #v Eager#!{ig_stances.lever_lines('encourage')}\\n\\n{cost_line}{on('encourage', 'SPEC_LEVER_LIFT', 'SPEC_LEVER_NONE')}[AddLocalizationIf({locked()}, 'SPEC_LEVER_WAIT')]\\n\\n[{_sg('encourage', 'IsValidTooltip')}]"
+ SPEC_LEVER_TP_DOWN: "Its makers lose #N {LEVER_THROUGHPUT:.0%}#! [concept_throughput]\\n"
+ SPEC_LEVER_TP_UP: "Its makers gain #P {LEVER_THROUGHPUT:.0%}#! [concept_throughput]\\n"
+ SPEC_LEVER_LIFT: "\\n\\nIn effect, multiplying [concept_spec_investor_interest] by #v [{gsv('spec_push_sv')}|2]#! so far\\n#instruction Click to lift it#!"
  SPEC_LEVER_NONE: ""
  SPEC_LEVERS_RIGHT: "[SelectLocalization({gt_used}, SelectLocalization({one_used}, 'SPEC_LEVERS_ONE', 'SPEC_LEVERS_MANY'), 'SPEC_LEVER_NONE')]"
  SPEC_LEVERS_ONE: "1 Intervention: #N -{cost}#! @aut!"
  SPEC_LEVERS_MANY: "{used} Interventions: #N -{cost}#! @aut!"
  concept_spec_intervention: "Intervention"
- concept_spec_intervention_desc: "With an $concept_spec_intervention$ your government steps into the market for one [concept_good]. You can #v Restrain Speculation#! in it or #v Encourage Investment#! in it.\\n\\n#v Restrain Speculation#! cools [concept_spec_investor_interest] to #v Calm#!. Its makers lose #N {LEVER_THROUGHPUT:.0%}#! [concept_throughput] and pay a levy of #v {LEVY_SHARE:.0%}#! of what they make each week, at base price.\\n\\n#v Encourage Investment#! warms interest to #v Keen#!. Its makers gain #P {LEVER_THROUGHPUT:.0%}#! $concept_throughput$ and get a subsidy of #v {SUBSIDY_SHARE:.0%}#! of what they make.\\n\\nEach one costs [concept_authority] every month until you lift it. Staples cost more, and so do $concept_goods$ that make up a big part of the [concept_market]'s trade."
-{issue_loc(head)} SPEC_LEVERS_TT: "#header Market Interventions#!\\n$TOOLTIP_DELIMITER$\\n#italic Goods where our government is cooling or warming the market.#!\\n\\nCosts #N -{cost}#! [concept_authority] a month\\nRestrained: #v [{P}.ScriptValue('spec_n_restrain')|0]#!\\nEncouraged: #v [{P}.ScriptValue('spec_n_encourage')|0]#!\\n[concept_budget_additional_income]: #P @money![{P}.ScriptValue('spec_lever_levy')|D]#! a week\\n[concept_budget_additional_expenses]: #N @money![{P}.ScriptValue('spec_lever_spend')|D]#! a week"
+ concept_spec_intervention_desc: "The government stepping into the market for one [concept_good]. A good can have only one at a time, and once one is switched on or off it cannot change again for #v {WAIT_MONTHS}#! months.\\n\\n#b Restrain Speculation#! pushes [concept_spec_investor_interest] down, never below #v Calm#!, so its boom winds down as a [concept_spec_correction] instead of crashing. Its makers lose #N {LEVER_THROUGHPUT:.0%}#! [concept_throughput] and pay a levy of #v {LEVY_SHARE:.0%}#! of their output a week.\\n\\n#b Encourage Investment#! pushes $concept_spec_investor_interest$ up until it reaches #v Eager#!, then ends by itself. Its makers gain #P {LEVER_THROUGHPUT:.0%}#! $concept_throughput$ and are paid a subsidy of #v {SUBSIDY_SHARE:.0%}#! of their output a week.\\n\\nBoth build up over a few months and tie up [concept_authority] while in effect, more for staples and widely traded $concept_goods$. The higher our [concept_spec_market_confidence], the further the market follows Encourage and the less it listens to Restrain. At #v {PUSH_CONF}#! confidence, Restrain multiplies $concept_spec_investor_interest$ by #N {PUSH['restrain']:.2f}#! and Encourage by #P {PUSH['encourage']:g}#!.{ISSUE_CONCEPT}"
+{issue_loc(head)} SPEC_LEVERS_TT: "#header Market Interventions#!\\n$TOOLTIP_DELIMITER$\\nWe restrain speculation in #v [{P}.ScriptValue('spec_n_restrain')|0]#! goods and encourage investment in #v [{P}.ScriptValue('spec_n_encourage')|0]#!.\\n\\nThey tie up #N {cost}#! [concept_authority]. Levies bring in #P @money![{P}.ScriptValue('spec_lever_levy')|D]#! a week as [concept_budget_additional_income], and subsidies cost #N @money![{P}.ScriptValue('spec_lever_spend')|D]#! a week as [concept_budget_additional_expenses]."
 """
 
 
@@ -568,10 +663,10 @@ def issue_loc(head):
         return ""
     years = ISSUE_MONTHS // 12
     # the ranking concept, shown as plain "Exchange score" whatever the concept is called
-    SCORE = "[Concept('concept_spec_financial_centre','$concept_spec_exchange$')] score"
+    SCORE = "[concept_spec_exchange] score"
     on = f"[SelectLocalization({active('issue')}, 'SPEC_ISSUE_ON', 'SPEC_LEVER_NONE')]"
-    return f""" SPEC_LEVER_ISSUE_TT: "{head.format('Float a Great Issue in [Goods.GetName]')}#italic Sell shares in a hot [concept_good] on our exchange. Big rewards, big risks.#!\\n\\nFor #v {years}#! years:\\n{SCORE}: #P +{ISSUE_SCORE - 1:.0%}#!\\nWhen its boom ends, bank loans in it hurt #N x{ISSUE_EXPO:g}#! as much\\nWhen its boom ends, trust won or lost is #v x{ISSUE_TRUST:g}#! as big\\n$TOOLTIP_DELIMITER$\\nOnly one at a time, at least #v {COOL_MONTHS // 12}#! year apart{on}\\n\\n[{_sg('issue', 'IsValidTooltip')}]"
- SPEC_ISSUE_ON: "\\n\\nAn issue is running on this [concept_good]"
+    return f""" SPEC_LEVER_ISSUE_TT: "{head.format('Float a Great Issue in [Goods.GetName]')}For #v {years}#! years, our {SCORE} rises by #P [Multiply_CFixedPoint({P}.ScriptValue(Concatenate('spec_weight_', Goods.GetKey)), '(CFixedPoint){ISSUE_SCORE - 1:g}')|%0]#!, up to #P {ISSUE_SCORE - 1:.0%}#! for a [concept_good] that makes up much of our market's trade\\nWhen its boom ends, bank loans in it hurt #N x{ISSUE_EXPO:g}#! as much, and the trust won or lost is #v x{ISSUE_TRUST:g}#! as big\\nIf it ends in a [concept_spec_bust] or [concept_spec_collapse], the groups favoring it lose twice the usual [concept_approval]{ig_stances.lever_lines('issue')}\\n$TOOLTIP_DELIMITER$\\nOnly one at a time, at least #v {COOL_MONTHS // 12}#! year apart{on}\\n\\n[{_sg('issue', 'IsValidTooltip')}]"
+ SPEC_ISSUE_ON: "\\n\\nThe issue ends in #v [{P}.Var('spec_issue').GetValue|0]#! months, and the next can float in #v [{P}.Var('spec_issue_cool').GetValueWithDefault('(CFixedPoint)0')|0]#!."
  spec_issue_stand_tt: "Our [concept_spec_exchange] stands #v National#! or higher"
  spec_issue_hot_tt: "[concept_spec_investor_interest] is #v Eager#! or higher"
  spec_issue_one_tt: "No other issue is running"
@@ -599,7 +694,8 @@ if __name__ == "__main__":
     assert "add = spec_lever_levy_wine" in v.split("spec_lever_levy = ")[1].split("spec_lever_spend")[0]
     assert "add = spec_lever_subsidy_wine" in v.split("spec_lever_spend = ")[1] and "spec_lever_money" not in v + loc()
     assert f"{LEVY_SHARE:.0%}" in loc() and f"{SUBSIDY_SHARE:.0%}" in loc()
-    assert "approval" not in m + loc() and "country_authority_add = -1\n" in m
+    # approval is the interest groups' (ig_stances.py), not the levers' own modifiers
+    assert "approval" not in m and "country_authority_add = -1\n" in m
     assert "spec_lever_encourage_steel = {" in m and "building_steel_mill_throughput_add = -0.1" in m and "spec_lever_restrain_fruit" not in m
     assert "country_expenses_add = 1\n" in m and "country_tax_income_add = 1\n" in m
     assert "interest_rate" not in m and "investment_pool" not in m

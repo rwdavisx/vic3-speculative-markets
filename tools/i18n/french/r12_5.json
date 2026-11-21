@@ -1,0 +1,7 @@
+{
+ "eb4306fea3": "Notre [concept_spec_exchange] gagne #P {1}#! de réputation, et celle de {2} en perd #N {3}#!.",
+ "caf129348d": "Notre [concept_spec_exchange] perd #N {1}#! de réputation, et celle de {2} en gagne #P {3}#!.",
+ "7a4a453eaf": "Aucun camp ne gagne ni ne perd de réputation.",
+ "f71901f02c": "S’il se réglait maintenant, ce serait une {1}. Il se règle dans $SPEC_RV_LEFT$.",
+ "b33e629707": "#header Duel avec {1}#!\\n$TOOLTIP_DELIMITER$\\nLa barre en est à $SPEC_RV_BAR_AT$. $SPEC_RV_NOW_LINE$\\n{2}\\n$TOOLTIP_DELIMITER$\\nChaque duel dure #v {3}#! ans, puis un nouveau commence."
+}

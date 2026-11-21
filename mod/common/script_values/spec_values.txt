@@ -534,6 +534,34 @@ spec_panic_at = {
 	subtract = spec_shallow_panic
 }
 
+spec_panic_at_3 = {
+	value = { value = 3 subtract = 3 divide = 9 min = 0 max = 1 }
+	multiply = 40
+	add = 25
+	subtract = spec_shallow_panic
+}
+
+spec_panic_at_8 = {
+	value = { value = 8 subtract = 3 divide = 9 min = 0 max = 1 }
+	multiply = 40
+	add = 25
+	subtract = spec_shallow_panic
+}
+
+spec_panic_at_10 = {
+	value = { value = 10 subtract = 3 divide = 9 min = 0 max = 1 }
+	multiply = 40
+	add = 25
+	subtract = spec_shallow_panic
+}
+
+spec_panic_at_12 = {
+	value = { value = 12 subtract = 3 divide = 9 min = 0 max = 1 }
+	multiply = 40
+	add = 25
+	subtract = spec_shallow_panic
+}
+
 spec_near_at = {
 	value = spec_panic_at
 	add = 5
@@ -965,6 +993,62 @@ spec_mg_value = {
 	value = market_goods_sell_orders
 	multiply = goods.base_price
 }
+
+spec_calendar_day = { value = game_date }
+
+spec_goods_risk_order = {
+	value = 0
+	if = { limit = { this = g:aeroplanes } value = scope:spec_sort_owner.var:spec_risk_aeroplanes }
+	else_if = { limit = { this = g:ammunition } value = scope:spec_sort_owner.var:spec_risk_ammunition }
+	else_if = { limit = { this = g:artillery } value = scope:spec_sort_owner.var:spec_risk_artillery }
+	else_if = { limit = { this = g:automobiles } value = scope:spec_sort_owner.var:spec_risk_automobiles }
+	else_if = { limit = { this = g:clippers } value = scope:spec_sort_owner.var:spec_risk_clippers }
+	else_if = { limit = { this = g:clothes } value = scope:spec_sort_owner.var:spec_risk_clothes }
+	else_if = { limit = { this = g:coal } value = scope:spec_sort_owner.var:spec_risk_coal }
+	else_if = { limit = { this = g:coffee } value = scope:spec_sort_owner.var:spec_risk_coffee }
+	else_if = { limit = { this = g:copper } value = scope:spec_sort_owner.var:spec_risk_copper }
+	else_if = { limit = { this = g:dye } value = scope:spec_sort_owner.var:spec_risk_dye }
+	else_if = { limit = { this = g:electricity } value = scope:spec_sort_owner.var:spec_risk_electricity }
+	else_if = { limit = { this = g:engines } value = scope:spec_sort_owner.var:spec_risk_engines }
+	else_if = { limit = { this = g:explosives } value = scope:spec_sort_owner.var:spec_risk_explosives }
+	else_if = { limit = { this = g:fabric } value = scope:spec_sort_owner.var:spec_risk_fabric }
+	else_if = { limit = { this = g:fertilizer } value = scope:spec_sort_owner.var:spec_risk_fertilizer }
+	else_if = { limit = { this = g:fine_art } value = scope:spec_sort_owner.var:spec_risk_fine_art }
+	else_if = { limit = { this = g:fish } value = scope:spec_sort_owner.var:spec_risk_fish }
+	else_if = { limit = { this = g:fruit } value = scope:spec_sort_owner.var:spec_risk_fruit }
+	else_if = { limit = { this = g:furniture } value = scope:spec_sort_owner.var:spec_risk_furniture }
+	else_if = { limit = { this = g:glass } value = scope:spec_sort_owner.var:spec_risk_glass }
+	else_if = { limit = { this = g:grain } value = scope:spec_sort_owner.var:spec_risk_grain }
+	else_if = { limit = { this = g:groceries } value = scope:spec_sort_owner.var:spec_risk_groceries }
+	else_if = { limit = { this = g:hardwood } value = scope:spec_sort_owner.var:spec_risk_hardwood }
+	else_if = { limit = { this = g:iron } value = scope:spec_sort_owner.var:spec_risk_iron }
+	else_if = { limit = { this = g:lead } value = scope:spec_sort_owner.var:spec_risk_lead }
+	else_if = { limit = { this = g:liquor } value = scope:spec_sort_owner.var:spec_risk_liquor }
+	else_if = { limit = { this = g:luxury_clothes } value = scope:spec_sort_owner.var:spec_risk_luxury_clothes }
+	else_if = { limit = { this = g:luxury_furniture } value = scope:spec_sort_owner.var:spec_risk_luxury_furniture }
+	else_if = { limit = { this = g:meat } value = scope:spec_sort_owner.var:spec_risk_meat }
+	else_if = { limit = { this = g:merchant_marine } value = scope:spec_sort_owner.var:spec_risk_merchant_marine }
+	else_if = { limit = { this = g:oil } value = scope:spec_sort_owner.var:spec_risk_oil }
+	else_if = { limit = { this = g:opium } value = scope:spec_sort_owner.var:spec_risk_opium }
+	else_if = { limit = { this = g:paper } value = scope:spec_sort_owner.var:spec_risk_paper }
+	else_if = { limit = { this = g:porcelain } value = scope:spec_sort_owner.var:spec_risk_porcelain }
+	else_if = { limit = { this = g:radios } value = scope:spec_sort_owner.var:spec_risk_radios }
+	else_if = { limit = { this = g:rubber } value = scope:spec_sort_owner.var:spec_risk_rubber }
+	else_if = { limit = { this = g:silk } value = scope:spec_sort_owner.var:spec_risk_silk }
+	else_if = { limit = { this = g:small_arms } value = scope:spec_sort_owner.var:spec_risk_small_arms }
+	else_if = { limit = { this = g:steamers } value = scope:spec_sort_owner.var:spec_risk_steamers }
+	else_if = { limit = { this = g:steel } value = scope:spec_sort_owner.var:spec_risk_steel }
+	else_if = { limit = { this = g:sugar } value = scope:spec_sort_owner.var:spec_risk_sugar }
+	else_if = { limit = { this = g:sulfur } value = scope:spec_sort_owner.var:spec_risk_sulfur }
+	else_if = { limit = { this = g:tanks } value = scope:spec_sort_owner.var:spec_risk_tanks }
+	else_if = { limit = { this = g:tea } value = scope:spec_sort_owner.var:spec_risk_tea }
+	else_if = { limit = { this = g:telephones } value = scope:spec_sort_owner.var:spec_risk_telephones }
+	else_if = { limit = { this = g:tobacco } value = scope:spec_sort_owner.var:spec_risk_tobacco }
+	else_if = { limit = { this = g:tools } value = scope:spec_sort_owner.var:spec_risk_tools }
+	else_if = { limit = { this = g:wine } value = scope:spec_sort_owner.var:spec_risk_wine }
+	else_if = { limit = { this = g:wood } value = scope:spec_sort_owner.var:spec_risk_wood }
+}
+
 
 spec_market_value = {
 	value = 0

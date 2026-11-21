@@ -1,0 +1,6 @@
+﻿INJECT:law_command_economy = {
+	disallowing_laws = {
+		law_spec_gold_standard
+		law_spec_classical_gold
+	}
+}

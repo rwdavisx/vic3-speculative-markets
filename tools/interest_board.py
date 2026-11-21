@@ -71,7 +71,7 @@ spec_ui_good = {{
 			limit = {{
 				{big}
 				NOT = {{ {near} }}
-				# a restrained boom eases down to Calm and cannot end there
+				# a restrained boom never falls below Calm, so cannot end (levers.RESTRAIN_TO)
 				NOT = {{ has_variable = spec_restrain_{g} }}
 			}}
 			{put('badge', 1)}
@@ -118,16 +118,16 @@ def small_strip():
 
 def loc(k):
     conf = "[concept_spec_market_confidence]"
-    out = (" SPEC_IB_TURNING_TT: \"#header Boom Turning#!\\n$TOOLTIP_DELIMITER$\\n#italic [Goods.GetName] had a big boom, and it is fading.#!\\n"
-           "\\nIf [concept_spec_investor_interest] keeps falling, it ends in a [concept_spec_collapse]\\n"
-           f"That would cost about #N [{RISK}|1]#! {conf}\"\n"
+    out = (" SPEC_IB_TURNING_TT: \"#header Boom Turning#!\\n$TOOLTIP_DELIMITER$\\nThe big boom in [Goods.GetName] is fading.\\n"
+           "\\nIf [concept_spec_investor_interest] keeps falling, it ends in a [concept_spec_collapse], "
+           f"costing about #N [{RISK}|1]#! {conf}\"\n"
            " SPEC_IB_HEAT_TT: \"#header [concept_spec_investor_interest] in [Goods.GetName]#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_TILE_BODY$\"\n")
     # only the top band reads its bar out, as collapse danger. Below it no next band is named: that read as if interest
     # only ever rose
     pct = f"[{BAR}|%0]"
     out += (f" SPEC_TILE_NEXT: \"[SelectLocalization({eq(WORD, 6)}, 'SPEC_TILE_DANGER', 'SPEC_IB_EMPTY')]\"\n"
             " SPEC_IB_EMPTY: \"\"\n"
-            f" SPEC_TILE_DANGER: \"\\nCollapse Zone: #v {pct}#! of the way to the top\\nThe higher it climbs, the "
+            f" SPEC_TILE_DANGER: \"\\nIt is #v {pct}#! of the way to the top, and the higher it climbs, the "
             f"more {conf} a [concept_spec_collapse] would cost\"\n")
     return out
 

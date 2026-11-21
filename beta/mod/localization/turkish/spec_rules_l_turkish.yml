@@ -3,4 +3,4 @@
  setting_spec_volatility_historical: "#tooltippable #tooltip:[GetPlayer.GetTooltipTag],setting_spec_volatility_historical_desc Tarihsel#!#!"
  setting_spec_volatility_historical_desc: "Spekülatif yükselişler ve [Concept('concept_spec_financial_panic', '$concept_spec_financial_panics|q$')] olayları yaklaşık 19. yüzyıldaki sıklıkta yaşanır"
  setting_spec_volatility_heightened: "#tooltippable #tooltip:[GetPlayer.GetTooltipTag],setting_spec_volatility_heightened_desc #high Yüksek#!#!#!"
- setting_spec_volatility_heightened_desc: "Spekülatif yükselişler büyür ve daha ani sona erer. [Concept('concept_spec_financial_panic', '$concept_spec_financial_panics|q$')] olayları 19. yüzyıldakinden daha sık yaşanır"
+ setting_spec_volatility_heightened_desc: "Spekülatif yükselişler daha büyük olur ve daha ani biter, [Concept('concept_spec_financial_panic', '$concept_spec_financial_panics|q$')] olayları da 19. yüzyıldakinden daha sık yaşanır"

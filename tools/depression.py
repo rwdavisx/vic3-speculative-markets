@@ -862,17 +862,17 @@ def loc():
     gv = lambda name: f"GetGlobalVariable('{name}').GetValue"
     world = market_tab.v("spec_c_world")
     tariff = f"Subtract_CFixedPoint({world}, {market_tab.v('spec_ld_conf')})"
+    stages = [f"{'#N' if n < 0 else '#P'} {n:+g}#! in the {PHASES[p]}" for p, n in PRESSURE.items()]
     out = [
         ' concept_spec_long_depression: "Long Depression"',
-        ' concept_spec_long_depression_desc: "The $concept_spec_long_depression$ is a crisis of the whole world economy. It '
-        "begins when a [concept_great_power] falls into a [concept_spec_financial_panic]. It then reaches every country "
-        "already in a panic, and spreads along close ties such as a shared [concept_market], subjects and overlords, investment "
+        ' concept_spec_long_depression_desc: "A crisis of the whole world economy. It '
+        "begins when a [concept_great_power] falls into a [concept_spec_financial_panic], then reaches every country "
+        "already in a panic and spreads along close ties such as a shared [concept_market], subjects and overlords, investment "
         "rights, heavy trade and foreign ownership.\\n\\n"
-        f"During the {PHASES[1]} ({span(CRASH_MONTHS)}), credit freezes and [concept_spec_market_confidence] drains away.\\n"
-        f"During the {PHASES[2]} (up to {span(DEPRESSION_MAX)}), investment, construction and trade slow, and some pops become "
-        "[Concept('concept_radical','$concept_radicals$')].\\n"
-        f"During the {PHASES[3]} ({span(RECOVERY_MONTHS)}), $concept_spec_market_confidence$ returns.\\n\\n"
-        "Your choices speed up your own recovery and the world's. A $concept_great_power$'s choices count the most.\"",
+        f"It opens with a {PHASES[1]} of {span(CRASH_MONTHS)}, in which credit freezes and [concept_spec_market_confidence] drains away. "
+        f"The {PHASES[2]} follows for up to {span(DEPRESSION_MAX)}, slowing investment, construction and trade and turning some pops "
+        f"[Concept('concept_radical','$concept_radicals$')]. In the {PHASES[3]}, which lasts {span(RECOVERY_MONTHS)}, $concept_spec_market_confidence$ returns.\\n\\n"
+        "A country's choices speed up its own recovery and the world's, and a $concept_great_power$'s count the most.\"",
         ' je_spec_depression: "The $SPEC_LD_NAME$"',
         ' SPEC_LD_LONG: "Long Depression"',
         ' SPEC_LD_GREAT: "Great Depression"',
@@ -882,21 +882,20 @@ def loc():
         f"recovered, or after #v {DEPRESSION_MAX // 12}#! years at the most.\\n\\nOur choices hasten our own recovery and the "
         f"world's, and those of {GPS} count for more. Once our own recovery is complete, [concept_spec_market_confidence] returns here before it "
         'returns elsewhere."',
-        f' spec_ld_status_1: "#n {PHASES[1]}:#! #v [{gv("spec_ld_months")}|0]#! months\\n{phase_effects("spec_ld_crash")}"',
-        f' spec_ld_status_2: "#n Depression:#! At most #v [{gv("spec_ld_months")}|0]#! months\\n{phase_effects("spec_ld_depression")}"',
+        f' spec_ld_status_1: "The #n {PHASES[1]}#! ends in #v [{gv("spec_ld_months")}|0]#! months.\\n{phase_effects("spec_ld_crash")}"',
+        f' spec_ld_status_2: "The #n {PHASES[2]}#! ends within #v [{gv("spec_ld_months")}|0]#! months.\\n{phase_effects("spec_ld_depression")}"',
         ' spec_ld_world_bar: "World Recovery"',
-        ' spec_ld_world_bar_desc: "World Recovery: #v [JournalEntry.GetCurrentBarValue(ScriptedProgressBar.Self)|0]#! / 100"',
+        ' spec_ld_world_bar_desc: "The world has recovered #v [JournalEntry.GetCurrentBarValue(ScriptedProgressBar.Self)|0]#! of #v 100#!."',
         f' spec_ld_complete_tt: "World Recovery reaches #v 100#!, or {span(DEPRESSION_MAX)} pass"',
         ' spec_ld_own_bar: "Our Recovery"',
-        ' spec_ld_own_bar_desc: "Our Recovery: #v [JournalEntry.GetCurrentBarValue(ScriptedProgressBar.Self)|0]#! / 100"',
-        ' spec_ld_tariff_tt: "Countries tied to us lose [concept_spec_market_confidence]. The bigger our economy is next to theirs, the more they lose"',
+        ' spec_ld_own_bar_desc: "We have recovered #v [JournalEntry.GetCurrentBarValue(ScriptedProgressBar.Self)|0]#! of #v 100#!."',
+        ' spec_ld_tariff_tt: "Countries tied to us lose [concept_spec_market_confidence]. The bigger our economy is next to theirs, the more they lose."',
         ' SPEC_DRIVER_WORLD: "$SPEC_LD_NAME$"',
         f' SPEC_WORLD_TARIFF: "\\n[{tariff}|+=2] from tariffs raised by countries tied to us"',
-        f' SPEC_DRIVER_WORLD_TT: "#header $SPEC_LD_NAME$: [{world}|+=2]#!\\n$TOOLTIP_DELIMITER$\\n#italic The whole world is in a slump, and it drags on [concept_spec_market_confidence] here too.#!\\n\\n'
-        f'[{market_tab.v("spec_ld_conf")}|+=2] from the stage the slump is in'
-        f'[AddLocalizationIf({market_tab.nonzero(tariff, 0.01)}, \'SPEC_WORLD_TARIFF\')]\\n$TOOLTIP_DELIMITER$\\n#b Each month, by stage#!\\n'
-        + "\\n".join(f"{PHASES[p]}: {'#N' if n < 0 else '#P'} {n:+g}#!" for p, n in PRESSURE.items())
-        + '"',
+        f' SPEC_DRIVER_WORLD_TT: "#header $SPEC_LD_NAME$: [{world}|+=1]#!\\n$TOOLTIP_DELIMITER$\\n'
+        f'[{market_tab.v("spec_ld_conf")}|+=1] from the current stage of the slump'
+        f'[AddLocalizationIf({market_tab.nonzero(tariff, 0.01)}, \'SPEC_WORLD_TARIFF\')]\\n$TOOLTIP_DELIMITER$\\n#weak Each month the slump moves [concept_spec_market_confidence] by '
+        + ", ".join(stages[:-1]) + f" and {stages[-1]}.#!" + '"',
         ' spec_ld_notification_group: "Long Depression"',
     ]
     out += [f' {step_key("own", n)}: "Our recovery {"rises" if n > 0 else "falls"} by #v {abs(n):g}#!"' for n in sorted(OWN_STEPS)]

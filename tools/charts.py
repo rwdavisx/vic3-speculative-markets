@@ -27,29 +27,52 @@ CHART_MIN = 0.001
 TOP_N = 5  # vanilla's charts list their largest few; the rest is one "Other goods" line
 
 
+def sorted_list(name, goods, value, t, cond=""):
+    """name: a variable list of the goods whose value is above 0, largest first, for the chart rows' tooltips (the
+    loc can't sort): each round lists the largest not yet listed, until none is left."""
+    pick = "".join(f"{t}\tif = {{\n{t}\t\tlimit = {{\n{t}\t\t\t{cond.format(g=g)}\n{t}\t\t\t{value(g)} > var:spec_rank_v\n"
+                   f"{t}\t\t\tNOT = {{ is_target_in_variable_list = {{ name = {name} target = g:{g} }} }}\n{t}\t\t}}\n"
+                   f"{t}\t\tset_variable = {{ name = spec_rank_v value = {value(g)} }}\n"
+                   f"{t}\t\tset_variable = {{ name = spec_rank_g value = g:{g} }}\n{t}\t}}\n" for g in goods)
+    return (f"{t}clear_variable_list = {name}\n{t}set_variable = spec_sort_more\n"
+            f"{t}while = {{\n{t}\tlimit = {{ has_variable = spec_sort_more }}\n"
+            f"{t}\tset_variable = {{ name = spec_rank_v value = 0 }}\n{t}\tremove_variable = spec_rank_g\n{pick}"
+            f"{t}\tif = {{\n{t}\t\tlimit = {{ has_variable = spec_rank_g }}\n"
+            f"{t}\t\tadd_to_variable_list = {{ name = {name} target = var:spec_rank_g }}\n{t}\t}}\n"
+            f"{t}\telse = {{\n{t}\t\tremove_variable = spec_sort_more\n{t}\t}}\n{t}}}\n"
+            f"{t}remove_variable = spec_rank_v\n{t}remove_variable = spec_rank_g\n")
+
+
+BANK_SORTED, IW_SORTED = "spec_bank_sorted", "spec_iw_sorted"
+
+
 def script(goods, t="\t\t\t"):
     """The tab block: the chart's goods, the TOP_N largest boom loans (over CHART_MIN of credit), largest first as
-    vanilla sorts its charts; spec_bank_top is their sum, so the rest can show as Other goods."""
+    vanilla sorts its charts; spec_bank_top is their sum, so the rest can show as Other goods. spec_bank_in_<g> marks
+    the TOP_N, so Other goods' tooltip can list the rest."""
     pick = "".join(f"{t}if = {{\n{t}\tlimit = {{\n{t}\t\tspec_exp_share_{g} > var:spec_rank_v\n"
                    f"{t}\t\tNOT = {{ is_target_in_variable_list = {{ name = {LIST} target = g:{g} }} }}\n{t}\t}}\n"
                    f"{t}\tset_variable = {{ name = spec_rank_v value = spec_exp_share_{g} }}\n"
                    f"{t}\tset_variable = {{ name = spec_rank_g value = g:{g} }}\n{t}}}\n" for g in goods)
+    top = "".join(f"{t}if = {{ limit = {{ is_target_in_variable_list = {{ name = {LIST} target = g:{g} }} }} "
+                  f"set_variable = spec_bank_in_{g} }}\n" for g in goods)
     rank = (f"{t}set_variable = {{ name = spec_rank_v value = {CHART_MIN} }}\n{t}remove_variable = spec_rank_g\n" + pick
             + f"{t}if = {{\n{t}\tlimit = {{ has_variable = spec_rank_g }}\n"
             f"{t}\tadd_to_variable_list = {{ name = {LIST} target = var:spec_rank_g }}\n"
             f"{t}\tchange_variable = {{ name = spec_bank_top add = var:spec_rank_v }}\n{t}}}\n")
-    # the next largest stands in for every good past the TOP_N: its slice and row show Other goods (spec_bank_oth_<g>)
-    other = (f"{t}set_variable = {{ name = spec_rank_v value = {CHART_MIN} }}\n{t}remove_variable = spec_rank_g\n" + pick
+    # Any positive remainder needs a representative, even below the named-slice cutoff: its slice and row show Other goods (spec_bank_oth_<g>)
+    other = (f"{t}set_variable = {{ name = spec_rank_v value = 0 }}\n{t}remove_variable = spec_rank_g\n" + pick
              + f"{t}if = {{\n{t}\tlimit = {{ has_variable = spec_rank_g }}\n"
              f"{t}\tadd_to_variable_list = {{ name = {LIST} target = var:spec_rank_g }}\n"
              + "".join(f"{t}\tif = {{\n{t}\t\tlimit = {{ var:spec_rank_g = {{ this = g:{g} }} }}\n"
                        f"{t}\t\tset_variable = {{ name = spec_bank_oth_{g} value = 1 }}\n{t}\t}}\n" for g in goods)
              + f"{t}}}\n")
     # the passes over every good only while some credit is in boom loans: with none, the chart is empty anyway
-    passes = ind(rank * TOP_N + other + f"{t}remove_variable = spec_rank_v\n{t}remove_variable = spec_rank_g\n", 1)
-    return (f"{t}clear_variable_list = {LIST}\n{t}set_variable = {{ name = spec_bank_top value = 0 }}\n"
-            + "".join(f"{t}remove_variable = spec_bank_oth_{g}\n" for g in goods)
-            + f"{t}if = {{\n{t}\tlimit = {{ has_variable = spec_debt var:spec_debt >= 1 spec_exp_booms > {CHART_MIN} }}\n" + passes + f"{t}}}\n")
+    passes = ind(rank * TOP_N + top + other + f"{t}remove_variable = spec_rank_v\n{t}remove_variable = spec_rank_g\n"
+                 + sorted_list(BANK_SORTED, goods, lambda g: f"spec_exp_share_{g}", t, "always = yes"), 1)
+    return (f"{t}clear_variable_list = {LIST}\n{t}clear_variable_list = {BANK_SORTED}\n{t}set_variable = {{ name = spec_bank_top value = 0 }}\n"
+            + "".join(f"{t}remove_variable = spec_bank_oth_{g}\n{t}remove_variable = spec_bank_in_{g}\n" for g in goods)
+            + f"{t}if = {{\n{t}\tlimit = {{ has_variable = spec_debt var:spec_debt >= 1 spec_exp_booms > 0 }}\n" + passes + f"{t}}}\n")
 
 
 def history_shift(t="\t\t\t\t"):
@@ -59,13 +82,16 @@ def history_shift(t="\t\t\t\t"):
 
 
 STATE_VARS = [f"spec_lhist{n}" for n in range(1, HISTORY + 1)]
-LEVELS = "spec_iw_levels"  # Investor Interest chart: one good per level with trade, hottest first
-LISTS = [LIST, LEVELS]
+LEVELS = "spec_iw_levels"
+# The native chart takes a list of scopes. Each of these goods identifies one tier,
+# independently of that good's actual interest level in the player's market.
+INTEREST_KEYS = ("grain", "fish", "wood", "coal", "iron", "tools")
+LISTS = [LIST, LEVELS, BANK_SORTED, IW_SORTED]
 
 
 def state_vars(goods):
-    return (STATE_VARS + [f"spec_ui_mv_{g}" for g in goods] + [f"spec_bank_oth_{g}" for g in goods] + ["spec_bank_top"]
-            + [f"spec_iw_lvl{w}" for w in range(1, 7)])
+    return (STATE_VARS + [f"spec_ui_mv_{g}" for g in goods] + [f"spec_bank_oth_{g}" for g in goods] + [f"spec_bank_in_{g}" for g in goods] + ["spec_bank_top"]
+            + [f"spec_iw_lvl{w}" for w in range(1, 7)] + [f"spec_iw_key_{g}" for g in INTEREST_KEYS])
 
 
 # -- GUI ------------------------------------------------------------------------------------------------------
@@ -85,13 +111,43 @@ PANIC_W = 56  # Leverage History's panic thresholds, right of the columns
 AXIS_W = 26  # Leverage History's month figures, left of the columns
 
 
-def side_chart(model, title, tooltip, value, colour, cells, visible, name="SPEC_BANK_SLICE_NAME"):
+def breakdown(shown, model, item_shown, text):
+    """A row tooltip's goods, under its text as GDP's graph is under its own: the model's goods that item_shown passes,
+    in the model's order (charts.sorted_list: largest first). Shown while shown holds for the row."""
+    return f"""flowcontainer = {{
+	direction = vertical
+	visible = "[{shown}]"
+	ignoreinvisible = yes
+	margin = {{ 15 0 }}
+	margin_bottom = 10
+	datamodel = "[{model}]"
+	item = {{
+		textbox = {{
+			visible = "[{item_shown}]"
+			autoresize = yes
+			align = left|nobaseline
+			text = "{text}"
+		}}
+	}}
+}}
+"""
+
+
+def side_chart(model, title, tooltip, value, colour, cells, visible, name="SPEC_BANK_SLICE_NAME", after=""):
     """Vanilla's chart (a pie, or a treemap by the player's own toggle) laid out across: the chart on the left and,
-    in place of vanilla's three-row legend, its slices listed on the right: colour, good, cells."""
+    in place of vanilla's three-row legend, its slices listed on the right: colour, good, cells. after: what each
+    row's tooltip shows under its text (breakdown)."""
+    tip = f"""tooltipwidget = {{
+	TooltipWidgetType = {{
+		blockoverride "tooltip_content_after" {{
+{ind(after, 3)}		}}
+	}}
+}}
+""" if after else ""
     row = f"""widget = {{
 	size = {{ {LIST_W - 14} {ROW_H} }}
 	tooltip = "{tooltip}"
-	hbox = {{
+{ind(tip, 1)}	hbox = {{
 		margin = {{ 4 0 }}
 		spacing = 4
 		icon = {{
@@ -110,32 +166,47 @@ def side_chart(model, title, tooltip, value, colour, cells, visible, name="SPEC_
 {ind(cells, 2)}	}}
 }}
 """
-    return f"""chart = {{
+    # vanilla's v3_piechart and v3_treemapchart (politics_panel_types.gui:1014-1088) in a fixed size widget: theirs are
+    # containers framed at 130% and 124% of their own size, so each show grew the box chart and pushed the list right
+    # until the section was reopened (2026-11-20)
+    slice_ = f'tooltip = "{tooltip}"\nvalue = "[{value}]"\ncolor = "[{colour}]"\n'
+    drawn = lambda shown, kind, body, frame, frame_w: f"""widget = {{
+	size = {{ 100% 100% }}
+	visible = "[{shown}GetVariableSystem.Exists('piecharts'){')' if shown else ''}]"
+	{kind}chart = {{
+		size = {{ 100% 100% }}
+{ind(body, 2)}		datamodel = "[{model}]"
+		item = {{
+			{kind}slice = {{
+{ind(slice_, 4)}			}}
+		}}
+	}}
+	icon = {{
+		texture = "gfx/interface/{kind}chart/{frame}"
+		parentanchor = center
+		size = {{ {frame_w}% 110% }}
+	}}
+}}
+"""
+    pie = drawn("", "pie", "startangle = 450\nendangle = 90\n", "piechart_frame.dds", 130)
+    box = drawn("Not(", "treemap", "", "treemapchart_frame.dds", 124).replace(
+        "\t\t\ttreemapslice = {\n", '\t\t\ttreemapslice = {\n\t\t\t\ttexture = "gfx/interface/treemapchart/treemapchart.dds"\n', 1)
+    # vanilla's chart type round it (politics_panel_types.gui:648-830): the background and the toggle that shows on hover
+    return f"""container = {{
 	parentanchor = hcenter
 	visible = "[{visible}]"
-	blockoverride "direction" {{
-		direction = horizontal
-	}}
-	blockoverride "margin" {{
+	alwaystransparent = no
+	onmousehierarchyenter = "[PdxGuiWidget.FindChild('chart_button').InterruptThenTriggerAnimation('hide_chart_button','show_chart_button')]"
+	onmousehierarchyleave = "[PdxGuiWidget.FindChild('chart_button').InterruptThenTriggerAnimation('show_chart_button','hide_chart_button')]"
+	flowcontainer = {{
+		spacing = 5
 		margin = {{ 12 8 }}
-	}}
-	blockoverride "title" {{}}
-	blockoverride "piechartsize" {{
-		size = {{ {PIE} {PIE} }}
-	}}
-	blockoverride "datamodel" {{
-		datamodel = "[{model}]"
-	}}
-	blockoverride "tooltip" {{
-		tooltip = "{tooltip}"
-	}}
-	blockoverride "pieslice" {{
-		value = "[{value}]"
-	}}
-	blockoverride "color" {{
-		color = "[{colour}]"
-	}}
-	blockoverride "labels" {{
+		background = {{
+			using = entry_bg
+		}}
+		widget = {{
+			size = {{ {PIE} {PIE} }}
+{ind(pie + box, 3)}		}}
 		flowcontainer = {{
 			direction = vertical
 			margin_left = 22
@@ -151,6 +222,49 @@ def side_chart(model, title, tooltip, value, colour, cells, visible, name="SPEC_
 				datamodel = "[{model}]"
 				item = {{
 {ind(row, 5)}				}}
+			}}
+		}}
+	}}
+	widget = {{
+		name = "chart_button"
+		parentanchor = right|top
+		position = {{ -5 5 }}
+		size = {{ 30 30 }}
+		state = {{
+			name = hide_chart_button
+			trigger_on_create = yes
+			alpha = 0
+			duration = 0.2
+		}}
+		state = {{
+			name = show_chart_button
+			alpha = 1
+			duration = 0.15
+		}}
+		button_icon_round_toggle = {{
+			size = {{ 29 29 }}
+			parentanchor = right|vcenter
+			position = {{ -10 0 }}
+			blockoverride "on_click" {{
+				onclick = "[GetVariableSystem.Toggle('piecharts')]"
+			}}
+			blockoverride "view_1" {{
+				visible = "[Not(GetVariableSystem.Exists('piecharts'))]"
+			}}
+			blockoverride "view_2" {{
+				visible = "[GetVariableSystem.Exists('piecharts')]"
+			}}
+			blockoverride "icon_1" {{
+				texture = "gfx/interface/buttons/button_icons/piecharts.dds"
+			}}
+			blockoverride "icon_2" {{
+				texture = "gfx/interface/buttons/button_icons/areacharts.dds"
+			}}
+			blockoverride "tooltip_1" {{
+				tooltip = "TOOLTIP_PIE_CHART"
+			}}
+			blockoverride "tooltip_2" {{
+				tooltip = "TOOLTIP_AREA_CHART"
 			}}
 		}}
 	}}
@@ -170,11 +284,13 @@ def lent():
     chart = side_chart(f"{P}.GetList('{LIST}')", "SPEC_BANK_PIE", "SPEC_BANK_SLICE_TT",
                        f"Select_float({OTHER}, FixedPointToFloat({OTHER_SHARE}), FixedPointToFloat({SHARE}))",
                        f"Select_CVector4f({OTHER}, GetDefine('NGUI', '{INTEREST_DEFINES[3]}'), Scope.GetGoods.GetColor)",
-                       word + cell("SPEC_BANK_SLICE_SHARE", 40), f"GreaterThan_int32({SIZE}, '(int32)0')")
+                       word + cell("SPEC_BANK_SLICE_SHARE", 40) + cell("SPEC_BANK_SLICE_AMOUNT"), f"GreaterThan_int32({SIZE}, '(int32)0')",
+                       after=breakdown(OTHER, f"{P}.GetList('{BANK_SORTED}')",
+                                       f"Not({P}.Var(Concatenate('spec_bank_in_', Scope.GetGoods.GetKey)).IsSet)", "SPEC_BANK_ITEM"))
     none = f"""textbox = {{
 	parentanchor = hcenter
 	visible = "[Not(GreaterThan_int32({SIZE}, '(int32)0'))]"
-	size = {{ {W - 20} 40 }}
+	size = {{ {W - 20} 74 }}
 	align = center|nobaseline
 	multiline = yes
 	text = "SPEC_BANK_NONE_S"
@@ -332,11 +448,15 @@ def lvl(w):
     return f"{P}.Var('spec_iw_lvl{w}').GetValueWithDefault({fx(0)})"
 
 
+# the level an interest chart row stands for, by its representative good
+ROW_TIER = f"{P}.Var(Concatenate('spec_iw_key_', Scope.GetGoods.GetKey)).GetValueWithDefault({IW_WORD})"
+
+
 def by_word(level, select):
-    """A GUI expression for the list item's interest level: level(w) for its word, w 1 (Fleeing) to 6 (Feverish)."""
+    """Old saves keep their representative goods until the first monthly rebuild."""
     out = level(6)
     for w in range(5, 0, -1):
-        out = f"{select}(LessThan_CFixedPoint({IW_WORD}, {fx(CUTS[w - 1])}), {level(w)}, {out})"
+        out = f"{select}(LessThan_CFixedPoint({ROW_TIER}, {fx(CUTS[w - 1])}), {level(w)}, {out})"
     return out
 
 
@@ -348,7 +468,9 @@ def interest_chart():
     chart = side_chart(f"{P}.GetList('{LEVELS}')", "SPEC_IW_PIE", "SPEC_IW_SLICE_TT",
                        by_word(lambda w: f"FixedPointToFloat({lvl(w)})", "Select_float"),
                        by_word(lambda w: f"GetDefine('NGUI', '{INTEREST_DEFINES[w]}')", "Select_CVector4f"),
-                       cell("SPEC_IW_SLICE_SHARE", 40), f"GreaterThan_int32({size}, '(int32)0')", name="SPEC_IW_SLICE_WORD")
+                       cell("SPEC_IW_SLICE_SHARE", 56) + cell("SPEC_IW_SLICE_AMOUNT"), f"GreaterThan_int32({size}, '(int32)0')", name="SPEC_IW_CHART_WORD",
+                       after="".join(breakdown(f"EqualTo_CFixedPoint({ROW_TIER}, {fx(w)})", f"{P}.GetList('{IW_SORTED}')",
+                                               f"EqualTo_CFixedPoint({IW_WORD}, {fx(w)})", "SPEC_IW_ITEM") for w in range(1, 7)))
     # worked out in the monthly update, so a market just loaded or just formed has none yet
     none = f"""textbox = {{
 	parentanchor = hcenter
@@ -362,61 +484,86 @@ def interest_chart():
 
 
 def interest_script(goods, t="\t\t\t"):
-    """The tab block, after the word lists (spec_goods_w<w>) are built: each traded good's share of trade, added up by
-    its interest level (spec_word_<g>, 1 to 6), then one good of each level with at least 0.5% of trade (what shows as 1%)
-    into the chart's list, the largest level first as vanilla sorts its charts."""
+    """Group trade value by interest and allocate exactly 1,000 tenths of a percent across nonempty tiers."""
     shares = "".join(f"{t}if = {{\n{t}\tlimit = {{ spec_mv_{g} > 0 }}\n"
                      f"{t}\tset_variable = {{ name = spec_ui_mv_{g} value = {{ value = spec_mv_{g} divide = var:spec_mv_total }} }}\n"
                      + "".join(f"{t}\t{'if' if w == 1 else 'else_if'} = {{\n{t}\t\tlimit = {{ var:spec_word_{g} = {w} }}\n"
-                               f"{t}\t\tchange_variable = {{ name = spec_iw_lvl{w} add = var:spec_ui_mv_{g} }}\n{t}\t}}\n"
+                               f"{t}\t\tchange_variable = {{ name = spec_iw_lvl{w} add = spec_mv_{g} }}\n{t}\t}}\n"
                                for w in range(1, 7))
                      + f"{t}}}\n{t}else = {{\n{t}\tremove_variable = spec_ui_mv_{g}\n{t}}}\n" for g in goods)
-    # each round finds the largest level not yet listed (spec_iw_used<w>) and lists one of its goods
+    # Round cumulative boundaries once and subtract adjacent boundaries. The last is exactly
+    # 1,000, even when rounding each tier independently would make the legend sum to 99.9.
+    total = " ".join(f"add = var:spec_iw_lvl{w}" for w in range(1, 7))
+    normalize = (f"{t}set_local_variable = {{ name = spec_iw_total value = {{ value = 0 {total} }} }}\n"
+                 f"{t}set_local_variable = {{ name = spec_iw_sum value = 0 }}\n"
+                 f"{t}set_local_variable = {{ name = spec_iw_prior value = 0 }}\n"
+                 f"{t}if = {{\n{t}\tlimit = {{ local_var:spec_iw_total > 0 }}\n")
+    for w in range(1, 7):
+        normalize += (f"{t}\tchange_local_variable = {{ name = spec_iw_sum add = var:spec_iw_lvl{w} }}\n"
+                      f"{t}\tset_local_variable = {{ name = spec_iw_edge value = {{ value = local_var:spec_iw_sum "
+                      "divide = local_var:spec_iw_total multiply = 1000 round = yes } }\n"
+                      f"{t}\tset_variable = {{ name = spec_iw_lvl{w} value = {{ value = local_var:spec_iw_edge "
+                      "subtract = local_var:spec_iw_prior divide = 1000 } }\n"
+                      f"{t}\tset_local_variable = {{ name = spec_iw_prior value = local_var:spec_iw_edge }}\n")
+    normalize += f"{t}}}\n"
     pick = "".join(f"{t}if = {{\n{t}\tlimit = {{\n{t}\t\tvar:spec_iw_lvl{w} >= var:spec_rank_v\n{t}\t\tNOT = {{ has_variable = spec_iw_used{w} }}\n{t}\t}}\n"
                    f"{t}\tset_variable = {{ name = spec_rank_v value = var:spec_iw_lvl{w} }}\n"
                    f"{t}\tset_variable = {{ name = spec_rank_w value = {w} }}\n{t}}}\n" for w in range(1, 7))
     add = "".join(f"{t}if = {{\n{t}\tlimit = {{\n{t}\t\thas_variable = spec_rank_w\n{t}\t\tvar:spec_rank_w = {w}\n{t}\t}}\n"
                   f"{t}\tset_variable = spec_iw_used{w}\n"
-                  f"{t}\trandom_in_list = {{\n{t}\t\tvariable = spec_goods_w{w}\n{t}\t\tsave_temporary_scope_as = spec_iw\n"
-                  f"{t}\t\troot = {{ add_to_variable_list = {{ name = {LEVELS} target = scope:spec_iw }} }}\n{t}\t}}\n{t}}}\n"
-                  for w in range(1, 7))
-    # ponytail: levels under 1% are left out; the game rounds % down, so they would read 0%
-    rank = f"{t}set_variable = {{ name = spec_rank_v value = 0.01 }}\n{t}remove_variable = spec_rank_w\n" + pick + add
+                  f"{t}\tset_variable = {{ name = spec_iw_key_{good} value = {w} }}\n"
+                  f"{t}\tadd_to_variable_list = {{ name = {LEVELS} target = g:{good} }}\n{t}}}\n"
+                  for w, good in enumerate(INTEREST_KEYS, 1))
+    rank = f"{t}set_variable = {{ name = spec_rank_v value = 0.001 }}\n{t}remove_variable = spec_rank_w\n" + pick + add
     return ("".join(f"{t}set_variable = {{ name = spec_iw_lvl{w} value = 0 }}\n" for w in range(1, 7))
-            + shares + f"{t}clear_variable_list = {LEVELS}\n" + rank * 6
+            + shares + normalize + f"{t}clear_variable_list = {LEVELS}\n" + rank * 6
             + "".join(f"{t}remove_variable = spec_iw_used{w}\n" for w in range(1, 7))
-            + f"{t}remove_variable = spec_rank_v\n{t}remove_variable = spec_rank_w\n")
+            + f"{t}remove_variable = spec_rank_v\n{t}remove_variable = spec_rank_w\n"
+            + sorted_list(IW_SORTED, goods, lambda g: f"var:spec_ui_mv_{g}", t, "has_variable = spec_ui_mv_{g}"))
 
 
 def loc(k):
     when = lambda n: "This Month" if n == 1 else "Last Month" if n == 2 else f"{n - 1} Months Ago"
     lev = lambda n: v(f"spec_lhist{n}")
-    at = lambda m: round(k["PANIC"] + leverage.PANIC_SPAN * min(max((m - leverage.SAFE) / (leverage.RUIN - leverage.SAFE), 0), 1))  # the Panic Threshold there
+    at = lambda m: f"[{sv(f'spec_panic_at_{m}')}|1]"
+    # the chart lists' amounts after their shares, and a line for each good in a row's tooltip (breakdown)
+    money = lambda x: f"@money![{x}|D]"
+    debt, booms = v("spec_debt"), f"Max_CFixedPoint({sv('spec_exp_booms')}, {fx('0.00001')})"
+    trade = lambda share: f"Multiply_CFixedPoint({share}, {v('spec_mv_total')})"
+    mv = f"{P}.Var(Concatenate('spec_ui_mv_', Scope.GetGoods.GetKey)).GetValueWithDefault({fx(0)})"
     return (
+        f' SPEC_BANK_SLICE_AMOUNT: "[SelectLocalization({OTHER}, \'SPEC_BANK_OTHER_AMOUNT\', \'SPEC_BANK_GOOD_AMOUNT\')]"\n'
+        f' SPEC_BANK_GOOD_AMOUNT: "({money(f"Multiply_CFixedPoint({SHARE}, {debt})")})"\n'
+        f' SPEC_BANK_OTHER_AMOUNT: "({money(f"Multiply_CFixedPoint({OTHER_SHARE}, {debt})")})"\n'
+        f' SPEC_BANK_ITEM: "[Scope.GetGoods.GetName]  #v [Divide_CFixedPoint({SHARE}, {booms})|%1]#! ({money(f"Multiply_CFixedPoint({SHARE}, {debt})")})"\n'
+        f' SPEC_IW_ITEM: "[Scope.GetGoods.GetName]  #v [{mv}|%1]#! ({money(trade(mv))})"\n'
+        + f' SPEC_IW_SLICE_AMOUNT: "[{by_word(lambda w: f"\'SPEC_IW_AMOUNT_{w}\'", "SelectLocalization")}]"\n'
+        + "".join(f' SPEC_IW_AMOUNT_{w}: "({money(trade(lvl(w)))})"\n' for w in range(1, 7)) +
         ' SPEC_H_BANK_LENT: "Where the Banks Have Lent"\n'
-        ' SPEC_H_BANK_LENT_TT: "#header Where the Banks Have Lent#!\\n$TOOLTIP_DELIMITER$\\n#italic Banks pour new loans into the goods that are booming.#!\\n'
-        '\\nBigger goods with more [concept_spec_investor_interest] get more of the money\\nA loan stays in its good until it is paid back'
-        '\\n#N If a boom with loans in it ends#!, [concept_spec_market_confidence] falls further\\n'
-        '$TOOLTIP_DELIMITER$\\n#instruction Restrain speculation in a good to halve the new loans it gets.#!"\n'
+        ' SPEC_H_BANK_LENT_TT: "#header Where the Banks Have Lent#!\\n$TOOLTIP_DELIMITER$\\n'
+        'Banks lend new money into booming goods, more into bigger goods with more [concept_spec_investor_interest]. '
+        'A loan stays in its good until it is paid back.'
+        '\\n\\n#N When a boom with loans in it ends, [concept_spec_market_confidence] falls further.#!\\n'
+        '$TOOLTIP_DELIMITER$\\n#instruction Restraining Speculation in a good halves its share of new boom loans.#!"\n'
         ' SPEC_BANK_PIE: "Boom Loans by Good"\n'
         f' SPEC_BANK_SLICE_NAME: "[SelectLocalization({OTHER}, \'SPEC_BANK_OTHER\', \'SPEC_BANK_GOOD_NAME\')]"\n'
         ' SPEC_BANK_GOOD_NAME: "[Scope.GetGoods.GetName]"\n'
         f' SPEC_BANK_SLICE_SHARE: "[SelectLocalization({OTHER}, \'SPEC_BANK_OTHER_SHARE\', \'SPEC_BANK_GOOD_SHARE\')]"\n'
-        f' SPEC_BANK_OTHER_SHARE: "#v [Divide_CFixedPoint({OTHER_SHARE}, Max_CFixedPoint({sv("spec_exp_booms")}, {fx(0.001)}))|%0]#!"\n'
-        f' SPEC_BANK_GOOD_SHARE: "#v [Divide_CFixedPoint({SHARE}, Max_CFixedPoint({sv("spec_exp_booms")}, {fx(0.001)}))|%0]#!"\n'
+        f' SPEC_BANK_OTHER_SHARE: "#v [Divide_CFixedPoint({OTHER_SHARE}, Max_CFixedPoint({sv("spec_exp_booms")}, {fx("0.00001")}))|%0]#!"\n'
+        f' SPEC_BANK_GOOD_SHARE: "#v [Divide_CFixedPoint({SHARE}, Max_CFixedPoint({sv("spec_exp_booms")}, {fx("0.00001")}))|%0]#!"\n'
         f' SPEC_BANK_SLICE_TT: "[SelectLocalization({OTHER}, \'SPEC_BANK_OTHER_TT\', \'SPEC_BANK_GOOD_TT\')]"\n'
-        f' SPEC_BANK_GOOD_TT: "#header [Scope.GetGoods.GetName]#!\\n$TOOLTIP_DELIMITER$\\n#italic How much bank money is riding on this boom.#!\\n'
-        f'\\n#v [{SHARE}|%1]#! of all [concept_spec_outstanding_credit] is here\\nIf its boom ended, the loans make '
+        f' SPEC_BANK_GOOD_TT: "#header [Scope.GetGoods.GetName]#!\\n$TOOLTIP_DELIMITER$\\n'
+        f'#v {money(f"Multiply_CFixedPoint({SHARE}, {debt})")}#! is lent into its boom, $SPEC_BANK_GOOD_SHARE$ of boom loans and #v [{SHARE}|%1]#! of all [concept_spec_outstanding_credit].\\n\\nIf its boom ended, these loans would make '
         f'[concept_spec_market_confidence] fall #N x[{MULT}|2]#! as far"\n'
-        ' SPEC_BANK_NONE_S: "#grey No credit lent into booms#!"\n'
-        f' SPEC_BANK_NONE: "Nothing lent into booms\\nBanks only lend while [concept_spec_market_confidence] is above #v {k["CREDIT_FROM"]}#!, '
-        f'mostly into goods #v Keen#! or hotter"\n'
+        ' SPEC_BANK_NONE_S: "#grey No credit lent into booms#!\\n$SPEC_GAUGE_LEND$"\n'
+        ' SPEC_BANK_NONE: "None of our [concept_spec_outstanding_credit] is lent into booming goods.\\n$SPEC_GAUGE_LEND$"\n'
         ' SPEC_LHIST_EMPTY: "#grey Recorded each month from now on#!"\n'
         ' SPEC_H_CREDIT_HISTORY: "Credit Leverage History"\n'
-        f' SPEC_H_CREDIT_HISTORY_TT: "#header Credit Leverage History#!\\n$TOOLTIP_DELIMITER$\\n#italic How deep our banks have lent, month by month.#!\\n'
-        f'\\nThe last #v {HISTORY}#! months of [concept_spec_leverage], newest on the right\\n'
-        f'#P Safe#! up to #v {leverage.SAFE}#! months\\n#v Risky#! up to #v {leverage.DANGER}#!\\n#N Dangerous#! past #v {leverage.DANGER}#!\\n'
-        '\\nThe white line is our Lending Limit\\nThe right edge shows where a panic starts at each level"\n'
+        f' SPEC_H_CREDIT_HISTORY_TT: "#header Credit Leverage History#!\\n$TOOLTIP_DELIMITER$\\n'
+        f'Our [concept_spec_leverage] over the last #v {HISTORY}#! months, newest on the right. It is #P Safe#! up to #v {leverage.SAFE}#! months, '
+        f'#v Risky#! up to #v {leverage.DANGER}#! and #N Dangerous#! past that.\\n'
+        '\\nThe white line is our Lending Limit. Each mark on the right edge shows the [concept_spec_market_confidence] below which a '
+        '[concept_spec_financial_panic] would start at that much leverage."\n'
         f' SPEC_H_CREDIT_HISTORY_RIGHT: "Now #v [{sv("spec_lev")}|1]#! months"\n'
         f' SPEC_LHIST_OLDEST: "#grey {HISTORY - 1} Months Ago#!"\n'
         ' SPEC_LHIST_NOW: "#grey This Month#!"\n'
@@ -424,27 +571,31 @@ def loc(k):
         ' SPEC_LHIST_KEY_RISKY: "Risky"\n'
         ' SPEC_LHIST_KEY_DANGER: "Dangerous"\n'
         + "".join(f' SPEC_LHIST_PANIC_{m}: "#low Panic {at(m)}#!"\n'
-                  f' SPEC_LHIST_PANIC_{m}_TT: "#header Panic Threshold: {at(m)}#!\\n$TOOLTIP_DELIMITER$\\n#italic The point where worry turns into a panic.#!\\n'
-                  f'\\nAt #v {m}#! months of [concept_spec_leverage], a [concept_spec_financial_panic] '
+                  f' SPEC_LHIST_PANIC_{m}_TT: "#header Panic Threshold: {at(m)}#!\\n$TOOLTIP_DELIMITER$\\n'
+                  f'At #v {m}#! months of [concept_spec_leverage], a [concept_spec_financial_panic] '
                   f'starts if [concept_spec_market_confidence] drops below #v {at(m)}#!"\n' for m in (leverage.SAFE, leverage.DANGER, leverage.LADDER[-1]))
         + "".join(f' SPEC_LHIST_{n}_TT: "[SelectLocalization({P}.Var(\'spec_lhist{n}\').IsSet, \'SPEC_LHIST_{n}_ON\', \'SPEC_HIST_NONE\')]"\n'
-                  f' SPEC_LHIST_{n}_ON: "#header {when(n)}#!\\n[concept_spec_leverage]: #v [{lev(n)}|1]#! months"\n' for n in range(1, HISTORY + 1))
+                  f' SPEC_LHIST_{n}_ON: "#header {when(n)}#!\\n#v [{lev(n)}|1]#! months of [concept_spec_leverage]"\n' for n in range(1, HISTORY + 1))
         + ' SPEC_BANK_OTHER: "Other Goods"\n'
-        f' SPEC_BANK_OTHER_TT: "#header $SPEC_BANK_OTHER$#!\\n$TOOLTIP_DELIMITER$\\n#italic All the smaller booms put together.#!\\n\\n#v [{OTHER_SHARE}|%1]#! of all [concept_spec_outstanding_credit] is lent into them"\n'
+        f' SPEC_BANK_OTHER_TT: "#header $SPEC_BANK_OTHER$#!\\n$TOOLTIP_DELIMITER$\\n#v {money(f"Multiply_CFixedPoint({OTHER_SHARE}, {debt})")}#! is lent into these booms, '
+        f'$SPEC_BANK_OTHER_SHARE$ of boom loans and #v [{OTHER_SHARE}|%1]#! of all [concept_spec_outstanding_credit]."\n'
         + ' SPEC_IW_PIE: "Trade by [concept_spec_investor_interest]"\n'
         ' SPEC_IW_NONE: "#grey Shown from the start of next month#!"\n'
         f' SPEC_IW_SLICE_WORD: "{IW_WORD_TEXT}"\n'
+        + f' SPEC_IW_CHART_WORD: "[{by_word(lambda w: repr(f"SPEC_INTEREST_{w - 1}"), "SelectLocalization")}]"\n'
         + f' SPEC_IW_SLICE_TT: "[{by_word(lambda w: f"\'SPEC_IW_LVL_{w}_TT\'", "SelectLocalization")}]"\n'
         f' SPEC_IW_SLICE_SHARE: "[{by_word(lambda w: f"\'SPEC_IW_SHARE_{w}\'", "SelectLocalization")}]"\n'
-        + "".join(f' SPEC_IW_SHARE_{w}: "#v [{lvl(w)}|%0]#!"\n'
-                  f' SPEC_IW_LVL_{w}_TT: "#v [{lvl(w)}|%0]#! of the market\'s trade is in #v [{v(f"spec_n_w{w}")}|0]#! $SPEC_INTEREST_{w - 1}$ goods"\n'
+        + "".join(f' SPEC_IW_SHARE_{w}: "#v [{lvl(w)}|%1]#!"\n'
+                  f' SPEC_IW_LVL_{w}_TT: "#header $SPEC_INTEREST_{w - 1}$#!\\n$TOOLTIP_DELIMITER$\\n#v [{lvl(w)}|%1]#! of the market\'s trade, '
+                  f'#v {money(trade(lvl(w)))}#!, is in #v [{v(f"spec_n_w{w}")}|0]#! $SPEC_INTEREST_{w - 1}$ goods."\n'
                   for w in range(1, 7)))
 
 
 if __name__ == "__main__":
     for part in (lent(), credit_history(), interest_chart(), interest_script(["coal"]), script(["coal"]), history_shift(), loc({"CREDIT_FROM": 1, "PANIC": 25})):
         assert part.count("{") == part.count("}"), part[:80]
-    assert script(["coal", "iron"]).count("add_to_variable_list") == TOP_N + 1  # one pick per rank, then Other goods
+    assert script(["coal", "iron"]).count(f"add_to_variable_list = {{ name = {LIST} ") == TOP_N + 1  # one pick per rank, then Other goods
+    assert sorted_list("x", ["coal"], lambda g: g, "").count("while = {") == 1
     assert script(["coal"]).index("var:spec_debt >= 1") < script(["coal"]).index("spec_rank_v")  # no debt, no passes
-    assert interest_script(["coal"]).count("add_to_variable_list") == 36  # six rounds, each able to list any level
+    assert interest_script(["coal"]).count(f"add_to_variable_list = {{ name = {LEVELS} ") == 36  # six rounds, each able to list any level
     print("charts ok")

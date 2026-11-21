@@ -1,0 +1,121 @@
+{
+  "version": "1.1.5-beta.2",
+  "distribution": "public Workshop beta",
+  "priority_items": [
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21
+  ],
+  "archive": {
+    "path": "beta/releases/Speculative_Markets_Beta_1.1.5-beta.2.zip",
+    "sha256": "cd6e9b79bd4f41f8db321c56ac951c3f90fe5697a069faf8cbf5b8f72958fd84"
+  },
+  "manifest": {
+    "path": "beta/releases/Speculative_Markets_Beta_1.1.5-beta.2.manifest.json",
+    "sha256": "ab9916ae86063c16a2887d6caf37615decbd96c148af4d54c5dbbabbe415b0b9"
+  },
+  "baseline": {
+    "version": "1.1.4-beta.11",
+    "report": {
+      "path": "runs/quick_20261118_034736_581303/report.json",
+      "sha256": "9b54600e59be4e7b8d8ee893a19b4e23dbb3bc618e558ea9bb308f0494f23c8e"
+    },
+    "note": "The frozen beta failed the new contributor-ranking and Shore Up history assertions. Two pre-existing contest assertions also failed in this reduced case grouping. The complete regression group passed on the final build."
+  },
+  "fast_workflow": {
+    "source": "beta/mod",
+    "local_checks": [
+      "Python unit tests",
+      "generated mod",
+      "CMF tests"
+    ],
+    "engine_report": {
+      "path": "runs/quick_20261118_041914_585919/report.json",
+      "sha256": "597c477f64a086f5e09cc17618a9095890bc39f30efb9b1bae854377e42268f7"
+    },
+    "scenario_count": 23,
+    "assertions_passed": 295,
+    "blocking_errors": 0,
+    "elapsed_seconds": 43.4
+  },
+  "focused_engine_checks": {
+    "cash_shortfall": {
+      "report": {
+        "path": "runs/quick_20261118_041042_033924/report.json",
+        "sha256": "621e19be2fc09f042968db94692521e4bb26363bacbdac5f7345ca096a54eeb9"
+      },
+      "assertions_passed": 7
+    },
+    "default_and_pledge_status": {
+      "report": {
+        "path": "runs/set2_default_20261118_041527/report.json",
+        "sha256": "f8d4d0a09be9d1789173289a2a3ac1c4cfff5407f751cf3c0cf22b2eebdf3cbc"
+      },
+      "assertions_passed": 5
+    },
+    "blocking_errors": 0,
+    "tested_version": "1.1.5-beta.1",
+    "reused_evidence": "The only changes from beta.1 to beta.2 are launcher metadata and the Shore Up action icon on the Finance card."
+  },
+  "ui": {
+    "method": "Interactive English Victoria 3 1.15.1 campaign with seeded state. A temporary panel rendered production localization and UI widgets directly. The checks cover rendered values, not the physical hover path for every tooltip.",
+    "observations": [
+      "Other Goods named three contributors with their percentages, and showed separate boom-loan and total-credit shares.",
+      "The Risk header showed coal at -80.00 above iron at -30.00. Smaller hits and zeroes followed.",
+      "A charter switch showed 75.0% to 37.5% trust and loss of Railway Mania. The Great Issue showed 8 and 20 months. The recall showed the original balance, request and pool limit.",
+      "Recovery showed a 47-day remainder and an expiry date. The Russian-American Company showed distinct dates for Propped Up and Fragile.",
+      "Our Last Move showed the Shore Up icon, France, 360 days and the treasury cost."
+    ],
+    "screenshots": [
+      {
+        "path": "runs/finance_set2_ui/bank_breakdown.png",
+        "sha256": "544e4d2947b601e3c91d243ba021d5f0e9e44e9b0eda77b761d9c74560ef705e"
+      },
+      {
+        "path": "runs/finance_set2_ui/risk_numbers.png",
+        "sha256": "0f60bae03aa1a999015f15cb863ddeed75b5cd5e928e4e24ef9d7728d189b51c"
+      },
+      {
+        "path": "runs/finance_set2_ui/charter_issue_recall.png",
+        "sha256": "50021dbb5e6c29af638e57e57ca1f6e74e6b08e0dc54356268b825352b588c1b"
+      },
+      {
+        "path": "runs/finance_set2_ui/expiry_dates.png",
+        "sha256": "bff16feab5a5388596ace31c4e06aea4c398d6289a36a3c28f4da54c5ae1f1a8"
+      },
+      {
+        "path": "runs/finance_set2_ui/shore_up_card.png",
+        "sha256": "8db5edb0d67797b81eec09523c09d53f4c5ebfab31f317bd1dac18adc0727064"
+      }
+    ]
+  },
+  "localization": {
+    "translated_locales": 10,
+    "fallback_to_english_per_locale": 0,
+    "note": "Rendered spot checks used English. Existing localization history supplied 16 previously translated messages per locale."
+  },
+  "cmf": {
+    "rebuilt_files_matching_existing_patch": 3,
+    "manifest": {
+      "path": "runs/finance_set2_cmf/build_manifest.json",
+      "sha256": "e0f62e3326c6cca14f622fa9b6f10252fab7da9e5917b072be5845c41ac36ec6"
+    }
+  },
+  "save_compatibility": "Historical recalls, recovery deadlines and company deadlines display the additional detail from the first newly recorded event. Active Great Issues already stored both counters.",
+  "workshop_upload_performed": true,
+  "publication": {
+    "item_id": 3839275304,
+    "visibility": "public",
+    "pre_upload_report": "runs/quick_20261118_043142_686070/report.json",
+    "steam_result": "workshop/upload_receipts/20261118T043255.976919Z_beta_update_result_a114bfbc.json",
+    "verified_receipt": "workshop/upload_receipts/20261118T043256.184905Z_beta_update_verified_013779c5.json"
+  }
+}

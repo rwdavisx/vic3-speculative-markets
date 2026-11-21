@@ -1,0 +1,124 @@
+namespace = spec_mechanics_finance_priority
+spec_mechanics_finance_priority.1 = { type = country_event hidden = yes immediate = {
+    # Two real country events are due in the same monthly company pass.
+    add_company = company_type:company_gwr
+    every_company = { remove_variable = spec_bc_new remove_variable = spec_bc_wobble }
+    random_company = { save_scope_as = promoted set_variable = spec_bc_new set_variable = spec_blue_chip }
+    random_company = { limit = { NOT = { this = scope:promoted } } save_scope_as = slipping set_variable = spec_bc_wobble set_variable = spec_blue_chip set_variable = { name = spec_bc_low value = 1 } }
+    set_local_variable = { name = spec_bc_gained value = 1 }
+    set_local_variable = { name = spec_bc_wobbled value = 1 }
+    spec_test_dispatch_chips = yes
+    if = { limit = { exists = scope:promoted exists = scope:slipping scope:promoted = { NOT = { has_variable = spec_bc_new } } scope:slipping = { NOT = { has_variable = spec_bc_wobble } } } debug_log = "HOTFIX PASS both_company_decisions_dispatched" }
+    else = { debug_log = "HOTFIX FAIL both_company_decisions_dispatched" }
+    # Start a raid with no random success roll, then a second five monthly updates later.
+    c:FRA = { save_scope_as = target clear_variable_list = spec_rv_shield remove_variable = spec_rv_raid_year set_variable = { name = spec_conf value = 55 } }
+    save_scope_as = spec_rv_actor
+    c:FRA = { spec_rv_raided = yes }
+    c:FRA = { spec_test_rival_month = yes spec_test_rival_month = yes spec_test_rival_month = yes spec_test_rival_month = yes spec_test_rival_month = yes }
+    c:PRU = { save_scope_as = spec_rv_actor }
+    c:FRA = { spec_rv_raided = yes spec_test_rival_month = yes remove_variable = spec_rv_raid_year spec_test_rival_month = yes }
+    if = { limit = { c:FRA = { var:spec_c_rival = -0.5 var:spec_rv_raid = 4 } } debug_log = "HOTFIX PASS older_raid_expires_independently" }
+    else = { debug_log = "HOTFIX FAIL older_raid_expires_independently" }
+    # Replay an old save that only stored a combined raid rate and remaining duration.
+    c:FRA = { spec_test_rival_month = yes spec_test_rival_month = yes spec_test_rival_month = yes spec_test_rival_month = yes set_variable = { name = spec_rv_raid value = 1 } set_variable = { name = spec_rv_raid_pm value = 0.25 } set_variable = { name = spec_rv_raid_year value = 3.9 } spec_test_rival_month = yes }
+    if = { limit = { c:FRA = { var:spec_c_rival = -0.1 NOT = { has_variable = spec_rv_raid } } } debug_log = "HOTFIX PASS legacy_raid_honors_cap_and_expires" }
+    else = { debug_log = "HOTFIX FAIL legacy_raid_honors_cap_and_expires" }
+    # The target has income but only one pound left to transfer.
+    c:FRA = {
+        add_investment_pool = { value = investment_pool multiply = -1 }
+        add_investment_pool = 1
+        set_variable = { name = spec_rv_lure value = 2 }
+        set_variable = { name = spec_rv_lure_share value = 1 }
+        set_variable = { name = spec_rv_lurer value = c:GBR }
+    }
+    set_variable = { name = spec_test_credit_max value = { value = investment_pool add = 1.01 } }
+    set_variable = { name = spec_test_credit_min value = { value = investment_pool add = 0.99 } }
+    c:FRA = { spec_test_rival_month = yes }
+    if = { limit = { investment_pool >= var:spec_test_credit_min investment_pool <= var:spec_test_credit_max c:FRA = { spec_pool_month > 1 investment_pool < 0.01 investment_pool >= 0 } } debug_log = "HOTFIX PASS lure_conserves_available_cash" }
+    else = { debug_log = "HOTFIX FAIL lure_conserves_available_cash" }
+    # Compare actual and chart thresholds at the same leverage in deep and shallow markets.
+    set_variable = { name = spec_debt value = { value = spec_lev_income multiply = 3 } }
+    set_variable = { name = spec_fd value = 0 }
+    set_variable = { name = spec_test_shallow value = spec_panic_at_3 }
+    if = { limit = { spec_panic_at = var:spec_test_shallow spec_shallow_panic = 5 } debug_log = "HOTFIX PASS shallow_chart_matches_trigger" }
+    else = { debug_log = "HOTFIX FAIL shallow_chart_matches_trigger" }
+    set_variable = { name = spec_fd value = building_levels }
+    set_variable = { name = spec_test_deep value = spec_panic_at_3 }
+    if = { limit = { spec_panic_at = var:spec_test_deep spec_shallow_panic = 0 var:spec_test_deep > var:spec_test_shallow } debug_log = "HOTFIX PASS deep_chart_matches_trigger" }
+    else = { debug_log = "HOTFIX FAIL deep_chart_matches_trigger" }
+    # Eight points remain. A 1.4-point monthly advance needs six updates.
+    set_variable = { name = spec_pw_companies value = 1 }
+    scope:promoted = { set_variable = { name = spec_bc_months value = 4 } }
+    if = { limit = { scope:promoted = { spec_bc_updates_left = 6 } } debug_log = "HOTFIX PASS company_eta_rounds_up" }
+    else = { debug_log = "HOTFIX FAIL company_eta_rounds_up" }
+    remove_variable = spec_pw_companies
+    if = { limit = { scope:promoted = { spec_bc_updates_left = 8 } } debug_log = "HOTFIX PASS company_eta_plain_rate" }
+    else = { debug_log = "HOTFIX FAIL company_eta_plain_rate" }
+    # Show the earliest of an incoming and an outgoing contest.
+    every_country = { clear_variable_list = spec_rv_chosen }
+    add_to_variable_list = { name = spec_rv_chosen target = c:FRA }
+    add_to_variable_list = { name = spec_rv_age_1 target = c:FRA }
+    c:PRU = { add_to_variable_list = { name = spec_rv_chosen target = c:GBR } add_to_variable_list = { name = spec_rv_age_3 target = c:GBR } }
+    spec_rv_list = yes
+    if = { limit = { var:spec_rv_next = c:PRU var:spec_rv_next_year = 2 c:FRA = { var:spec_rv_ui_left = 4 } } debug_log = "HOTFIX PASS staggered_contests_show_earliest" }
+    else = { debug_log = "HOTFIX FAIL staggered_contests_show_earliest" }
+    # A capital lure already held by a third country survives a decisive outcome.
+    c:FRA = { set_variable = { name = spec_rv_lure value = 8 } set_variable = { name = spec_rv_lurer value = c:PRU } set_variable = { name = spec_rv_lure_share value = 0.08 } }
+    c:FRA = { save_scope_as = target }
+    set_variable = { name = spec_centre_score value = 400 }
+    c:FRA = { set_variable = { name = spec_centre_score value = 100 } }
+    clear_variable_list = spec_rv_age_1
+    add_to_variable_list = { name = spec_rv_age_4 target = c:FRA }
+    every_country = { limit = { OR = { this = c:FRA this = c:GBR } } remove_variable = spec_bc_n remove_variable = spec_rv_focus clear_variable_list = spec_rv_push_1 clear_variable_list = spec_rv_push_2 clear_variable_list = spec_rv_push_3 clear_variable_list = spec_rv_push_4 clear_variable_list = spec_rv_push_5 }
+    spec_rival_contest = yes
+    if = { limit = { c:FRA = { var:spec_rv_lurer = c:PRU var:spec_rv_lure = 8 } is_target_in_variable_list = { name = spec_rv_big target = c:FRA } } debug_log = "HOTFIX PASS exact_decisive_preserves_prior_lure" }
+    else = { debug_log = "HOTFIX FAIL exact_decisive_preserves_prior_lure" }
+    c:FRA = { save_scope_as = target }
+    remove_variable = spec_pw_harbour
+    spec_rv_shore = yes
+    set_variable = { name = spec_test_renewal value = { value = game_date add = 730 } }
+    set_variable = { name = spec_test_protection value = { value = game_date add = 360 } }
+    if = { limit = { is_target_in_variable_list = { name = spec_rv_shield target = c:FRA } is_target_in_variable_list = { name = spec_rv_cd_shore target = c:FRA } spec_rv_shore_until_date = var:spec_test_renewal spec_rv_protected_until_date = var:spec_test_protection } debug_log = "HOTFIX PASS defensive_dates_registered" }
+    else = { debug_log = "HOTFIX FAIL defensive_dates_registered" }
+    set_variable = { name = spec_pw_harbour value = 1 }
+    c:PRU = { save_scope_as = target }
+    spec_rv_shore = yes
+    set_variable = { name = spec_test_protection value = { value = game_date add = 504 } }
+    if = { limit = { spec_rv_shore_until_date = var:spec_test_renewal spec_rv_protected_until_date = var:spec_test_protection } debug_log = "HOTFIX PASS safe_harbour_extends_only_protection" }
+    else = { debug_log = "HOTFIX FAIL safe_harbour_extends_only_protection" }
+    if = { limit = { var:spec_rv_did = 5 var:spec_rv_did_on = c:PRU var:spec_rv_did_amt = 504 var:spec_rv_did_cost > 0 } debug_log = "HOTFIX PASS shore_up_records_rival_duration_and_cost" }
+    else = { debug_log = "HOTFIX FAIL shore_up_records_rival_duration_and_cost" }
+    c:SWE = {
+        spec_shut_down = yes
+        set_variable = { name = spec_word_coal value = 2 }
+        set_variable = { name = spec_word_iron value = 6 }
+        set_variable = { name = spec_word_grain value = 4 }
+        set_variable = { name = spec_risk_coal value = 5 }
+        set_variable = { name = spec_risk_iron value = 2 }
+        set_variable = { name = spec_risk_grain value = 0 }
+        spec_refresh_risk_list = yes
+        set_variable = { name = spec_test_index value = 0 }
+        every_in_list = { variable = spec_goods_by_risk
+            c:SWE = {
+                change_variable = { name = spec_test_index add = 1 }
+                if = { limit = { var:spec_test_index = 1 } set_variable = { name = spec_test_first value = prev } }
+                if = { limit = { var:spec_test_index = 3 } set_variable = { name = spec_test_last value = prev } }
+            }
+        }
+        if = { limit = { var:spec_test_index = 3 var:spec_test_first = g:coal var:spec_test_last = g:grain is_target_in_variable_list = { name = spec_goods_by_risk_industrial target = g:iron } } debug_log = "HOTFIX PASS risk_order_uses_loss_and_keeps_zeroes" }
+        else = { debug_log = "HOTFIX FAIL risk_order_uses_loss_and_keeps_zeroes" }
+        set_variable = { name = spec_word_coal value = 0 }
+        spec_refresh_risk_list = yes
+        if = { limit = { NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:coal } } } debug_log = "HOTFIX PASS risk_list_drops_untraded_goods" }
+        else = { debug_log = "HOTFIX FAIL risk_list_drops_untraded_goods" }
+        set_variable = { name = spec_debt value = 1000000 }
+        add_investment_pool = { value = investment_pool multiply = -1 }
+        add_investment_pool = 100
+        set_variable = { name = spec_test_call value = spec_clawback }
+        set_variable = { name = spec_test_pool_share value = spec_claw_share }
+        spec_test_panic_recall = yes
+        if = { limit = { var:spec_recall_balance = 1000000 var:spec_recall_requested > var:spec_clawed var:spec_clawed = var:spec_test_call var:spec_recall_pool_share = var:spec_test_pool_share } debug_log = "HOTFIX PASS recall_records_pre_panic_balance_and_cap" }
+        else = { debug_log = "HOTFIX FAIL recall_records_pre_panic_balance_and_cap" }
+    }
+    debug_log = "HOTFIX SUITE COMPLETE"
+} }

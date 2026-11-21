@@ -1,0 +1,18 @@
+{
+ "8d526a7550": "@spec_market_confidence! [concept_spec_market_confidence] #v {1}#! (выше #v {2}#!)",
+ "61a802af21": "Денежная школа",
+ "ffd08800e0": "остывание, #v {1}%#! в месяц",
+ "b16d0bc037": "политика «{1}», ещё #v {2}%#!",
+ "7f79c74bb1": "разрыв, [concept_spec_market_confidence] ниже #v {1}#!",
+ "c1a05d051f": "Ожидается в следующем месяце: {1}#indent_newline:3 {2}{3}{4}{5}{6}{7}{8}{9}#!",
+ "8846188df9": "Растёт, когда [concept_spec_market_confidence] достигнет #v {1}#!",
+ "a15ad81dfc": "\\n$TOOLTIP_DELIMITER$\\nЕсли бы он лопнул сейчас: #N -{1}#! ([concept_spec_market_confidence])",
+ "7fc56ad615": "\\n{1} ед. от: $SPEC_XS_P0$",
+ "c3a1878ca1": "\\n{1} ед. от: $SPEC_XS_P1$",
+ "4b756b134b": "\\n{1} ед. от: $SPEC_XS_P2$",
+ "b11a99c30a": "\\n{1} ед. от: $SPEC_XS_P3$",
+ "fb3e8869f0": "\\n{1} ед. от: $SPEC_XS_P4$",
+ "2842bce7e8": "\\n{1} ед. от: $SPEC_XS_PCOOL$",
+ "68d2a1c9f7": "\\n{1} ед. от: $SPEC_XS_PTIGHT$",
+ "f4d97f417b": "\\n{1} ед. от: $SPEC_XS_PPOP$"
+}

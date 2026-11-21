@@ -1478,6 +1478,7 @@
 							widget = {
 								size = { 100% 100% }
 								visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_state_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+								tooltip = "SPEC_IL_GLUT_TT"
 								flowcontainer = {
 									position = { 66 0 }
 									spacing = 8

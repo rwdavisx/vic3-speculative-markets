@@ -1,0 +1,27 @@
+﻿country_spec_bloc_contagion_mult = {
+	script_only = yes
+	decimals = 0
+	percent = yes
+	color = bad
+	game_data = {
+		ai_value = 0
+	}
+}
+
+country_spec_bloc_credit_bool = {
+	script_only = yes
+	boolean = yes
+	color = good
+	game_data = {
+		ai_value = 0
+	}
+}
+
+country_spec_bloc_reach_bool = {
+	script_only = yes
+	boolean = yes
+	color = good
+	game_data = {
+		ai_value = 0
+	}
+}

@@ -196,6 +196,132 @@ spec_can_pursue_right_companies = {
 	}
 }
 
+spec_can_pursue_futures = {
+	custom_tooltip = {
+		text = spec_pursue_current_tt
+		NOT = { has_variable = spec_pu_futures }
+	}
+	custom_tooltip = {
+		text = spec_pursue_room_tt
+		OR = {
+			NOT = { has_variable = spec_pursue_n }
+			spec_pursue_slots > var:spec_pursue_n
+		}
+	}
+	custom_tooltip = {
+		text = spec_pursue_charter_tt_1
+		var:spec_exch_known ?= 1
+	}
+}
+
+spec_can_pursue_stop_futures = {
+	has_variable = spec_pu_futures
+	custom_tooltip = {
+		text = spec_pursue_locked_tt
+		NOT = { has_variable = spec_pu_lock_futures }
+	}
+}
+
+spec_can_pursue_left_futures = {
+	has_variable = spec_pu_futures
+	custom_tooltip = {
+		text = spec_pursue_first_tt
+		var:spec_pu_futures > 1
+	}
+}
+
+spec_can_pursue_right_futures = {
+	has_variable = spec_pu_futures
+	custom_tooltip = {
+		text = spec_pursue_last_tt
+		var:spec_pu_futures < var:spec_pursue_n
+	}
+}
+
+spec_can_pursue_lender = {
+	custom_tooltip = {
+		text = spec_pursue_current_tt
+		NOT = { has_variable = spec_pu_lender }
+	}
+	custom_tooltip = {
+		text = spec_pursue_room_tt
+		OR = {
+			NOT = { has_variable = spec_pursue_n }
+			spec_pursue_slots > var:spec_pursue_n
+		}
+	}
+	custom_tooltip = {
+		text = spec_pursue_charter_tt_2
+		var:spec_exch_known ?= 2
+	}
+}
+
+spec_can_pursue_stop_lender = {
+	has_variable = spec_pu_lender
+	custom_tooltip = {
+		text = spec_pursue_locked_tt
+		NOT = { has_variable = spec_pu_lock_lender }
+	}
+}
+
+spec_can_pursue_left_lender = {
+	has_variable = spec_pu_lender
+	custom_tooltip = {
+		text = spec_pursue_first_tt
+		var:spec_pu_lender > 1
+	}
+}
+
+spec_can_pursue_right_lender = {
+	has_variable = spec_pu_lender
+	custom_tooltip = {
+		text = spec_pursue_last_tt
+		var:spec_pu_lender < var:spec_pursue_n
+	}
+}
+
+spec_can_pursue_railway = {
+	custom_tooltip = {
+		text = spec_pursue_current_tt
+		NOT = { has_variable = spec_pu_railway }
+	}
+	custom_tooltip = {
+		text = spec_pursue_room_tt
+		OR = {
+			NOT = { has_variable = spec_pursue_n }
+			spec_pursue_slots > var:spec_pursue_n
+		}
+	}
+	custom_tooltip = {
+		text = spec_pursue_charter_tt_3
+		var:spec_exch_known ?= 3
+	}
+}
+
+spec_can_pursue_stop_railway = {
+	has_variable = spec_pu_railway
+	custom_tooltip = {
+		text = spec_pursue_locked_tt
+		NOT = { has_variable = spec_pu_lock_railway }
+	}
+}
+
+spec_can_pursue_left_railway = {
+	has_variable = spec_pu_railway
+	custom_tooltip = {
+		text = spec_pursue_first_tt
+		var:spec_pu_railway > 1
+	}
+}
+
+spec_can_pursue_right_railway = {
+	has_variable = spec_pu_railway
+	custom_tooltip = {
+		text = spec_pursue_last_tt
+		var:spec_pu_railway < var:spec_pursue_n
+	}
+}
+
 spec_can_pursue_floor = {
 	custom_tooltip = {
 		text = spec_pursue_current_tt
@@ -345,46 +471,5 @@ spec_can_pursue_right_door = {
 	custom_tooltip = {
 		text = spec_pursue_last_tt
 		var:spec_pu_door < var:spec_pursue_n
-	}
-}
-
-spec_can_rival = {
-	has_technology_researched = banking
-	custom_tooltip = {
-		text = spec_rival_stand_tt
-		has_variable = spec_exch_stand
-		var:spec_exch_stand >= 1
-	}
-	custom_tooltip = {
-		text = spec_rival_reach_tt
-		NOT = { scope:target = this }
-		scope:target = { has_variable = spec_exch_stand }
-		OR = { AND = { this.var:spec_exch_stand = 1 scope:target.var:spec_exch_stand >= 1 scope:target.var:spec_exch_stand <= 2 } AND = { this.var:spec_exch_stand = 2 scope:target.var:spec_exch_stand >= 2 scope:target.var:spec_exch_stand <= 3 } AND = { this.var:spec_exch_stand = 3 scope:target.var:spec_exch_stand >= 3 scope:target.var:spec_exch_stand <= 3 } }
-	}
-	custom_tooltip = {
-		text = spec_rival_score_tt
-		has_variable = spec_centre_score
-		scope:target = { has_variable = spec_centre_score }
-		scope:target.var:spec_centre_score >= var:spec_centre_score
-	}
-	custom_tooltip = {
-		text = spec_rival_current_tt
-		NOT = { var:spec_rival ?= scope:target }
-	}
-	custom_tooltip = {
-		text = spec_rival_locked_tt
-		NOT = { has_variable = spec_rival_lock }
-	}
-	custom_tooltip = {
-		text = spec_rival_trade_tt
-		NOT = { any_scope_treaty = { binds = scope:target any_scope_article = { OR = { has_type = alliance has_type = defensive_pact has_type = foreign_investment_rights } } } }
-	}
-}
-
-spec_can_rival_end = {
-	has_variable = spec_rival
-	custom_tooltip = {
-		text = spec_rival_locked_tt
-		NOT = { has_variable = spec_rival_lock }
 	}
 }

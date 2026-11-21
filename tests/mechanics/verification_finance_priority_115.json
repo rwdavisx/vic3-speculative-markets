@@ -1,0 +1,25 @@
+{
+  "version": "1.1.5",
+  "archive": "releases/Speculative_Markets_1.1.5.zip",
+  "archive_sha256": "81dc83745b7e53f54817b026f87f4d7c6c4f770ff8559abdebda807aac41d82e",
+  "manifest": "releases/Speculative_Markets_1.1.5.manifest.json",
+  "verified_beta": "1.1.4-beta.11",
+  "beta_verification": "tests/mechanics/verification_finance_priority_114b11.json",
+  "promotion_comparison": "198 stable files match the immutable beta archive byte for byte. The stable launcher metadata identifies the stable channel and version. Both builds record Victoria 3 1.15.1, with stable build provenance stored outside the mod.",
+  "local_checks_passed": ["Python unit tests", "generated stable mod", "CMF tests"],
+  "engine_report": "runs/quick_20261118_034054_825184/report.json",
+  "engine_scenarios": 23,
+  "engine_assertions_passed": 289,
+  "blocking_engine_diagnostics": 0,
+  "fast_workflow_wall_seconds": 41.2,
+  "live_ui": "The beta verification record contains the observed Banking and Exchanges checks. The English strings and GUI files match those promoted to stable.",
+  "workshop": {
+    "item_id": 3831434383,
+    "channel": "stable",
+    "visibility": "public",
+    "staged_files_identical_to_stable_archive": 199,
+    "description_sha256": "1db75cd12b5ee007502342cdb3b6fd247beb797ad51d719883ec321a7fe33ce8",
+    "result": "workshop/upload_receipts/20261118T034231.600412Z_stable_update_result_41a8ab26.json",
+    "verification": "workshop/upload_receipts/20261118T034231.802687Z_stable_update_verified_d81dd7a6.json"
+  }
+}

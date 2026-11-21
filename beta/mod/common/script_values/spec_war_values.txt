@@ -143,7 +143,7 @@ spec_war_month = {
 }
 spec_war_stakes = {
 	value = var:spec_war_end
-	multiply = 4
+	divide = 0.25
 	min = 0.25
 	max = 1
 }

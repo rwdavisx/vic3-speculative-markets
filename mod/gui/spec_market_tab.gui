@@ -1536,6 +1536,7 @@
 						widget = {
 							size = { 100% 100% }
 							visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_state_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+							tooltip = "SPEC_IL_GLUT_TT"
 							flowcontainer = {
 								position = { 46 0 }
 								spacing = 8
@@ -1606,6 +1607,14 @@
 					size = { 32 20 }
 					tooltip = "SPEC_IL_LEVEL_6_TT"
 					using = tooltip_ws
+				}
+				textbox = {
+					visible = "[GetVariableSystem.HasValue('spec_il_sort', 'risk')]"
+					position = { 195 7 }
+					size = { 64 18 }
+					align = right|nobaseline
+					text = "SPEC_IL_RISK_VALUE"
+					tooltip = "[SelectLocalization(GreaterThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_risk_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0'), 'SPEC_IL_RISK_DETAILS', 'SPEC_IL_RISK_NONE')]"
 				}
 			}
 			vertical_divider = {}
@@ -12075,7 +12084,7 @@
 										icon = {
 											size = { 26 26 }
 											parentanchor = vcenter
-											alpha = "[TransparentIfFalse(Or(GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var('spec_p1').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0.1'), Not(GreaterThan_CFixedPoint(Country.MakeScope.Var('spec_p1').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)-0.1'))))]"
+											alpha = "[TransparentIfFalse(Or(GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var('spec_p1').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0.01'), Not(GreaterThan_CFixedPoint(Country.MakeScope.Var('spec_p1').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)-0.01'))))]"
 											texture = "gfx/interface/icons/spec_markets/driver_boom.dds"
 										}
 										textbox = {
@@ -12092,7 +12101,7 @@
 										icon = {
 											size = { 26 26 }
 											parentanchor = vcenter
-											alpha = "[TransparentIfFalse(Or(GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var('spec_p2').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0.1'), Not(GreaterThan_CFixedPoint(Country.MakeScope.Var('spec_p2').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)-0.1'))))]"
+											alpha = "[TransparentIfFalse(Or(GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var('spec_p2').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0.01'), Not(GreaterThan_CFixedPoint(Country.MakeScope.Var('spec_p2').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)-0.01'))))]"
 											texture = "gfx/interface/icons/spec_markets/driver_foreign.dds"
 										}
 										textbox = {
@@ -12109,7 +12118,7 @@
 										icon = {
 											size = { 26 26 }
 											parentanchor = vcenter
-											alpha = "[TransparentIfFalse(Or(GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var('spec_p3').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0.1'), Not(GreaterThan_CFixedPoint(Country.MakeScope.Var('spec_p3').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)-0.1'))))]"
+											alpha = "[TransparentIfFalse(Or(GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var('spec_p3').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0.01'), Not(GreaterThan_CFixedPoint(Country.MakeScope.Var('spec_p3').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)-0.01'))))]"
 											texture = "gfx/interface/icons/spec_markets/driver_turmoil.dds"
 										}
 										textbox = {
@@ -12126,7 +12135,7 @@
 										icon = {
 											size = { 26 26 }
 											parentanchor = vcenter
-											alpha = "[TransparentIfFalse(Or(GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var('spec_p4').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0.1'), Not(GreaterThan_CFixedPoint(Country.MakeScope.Var('spec_p4').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)-0.1'))))]"
+											alpha = "[TransparentIfFalse(Or(GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var('spec_p4').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0.01'), Not(GreaterThan_CFixedPoint(Country.MakeScope.Var('spec_p4').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)-0.01'))))]"
 											texture = "gfx/interface/icons/event_icons/event_newspaper.dds"
 										}
 										textbox = {
@@ -12143,7 +12152,7 @@
 										icon = {
 											size = { 26 26 }
 											parentanchor = vcenter
-											alpha = "[TransparentIfFalse(Or(GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var('spec_p5').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0.1'), Not(GreaterThan_CFixedPoint(Country.MakeScope.Var('spec_p5').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)-0.1'))))]"
+											alpha = "[TransparentIfFalse(Or(GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var('spec_p5').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0.01'), Not(GreaterThan_CFixedPoint(Country.MakeScope.Var('spec_p5').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)-0.01'))))]"
 											texture = "gfx/interface/icons/spec_markets/driver_tight.dds"
 										}
 										textbox = {
@@ -14209,10 +14218,10 @@
 										tooltip = "SPEC_IW_SLICE_TT"
 									}
 									blockoverride "pieslice" {
-										value = "[Select_float(LessThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Scope.GetGoods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)1.5'), FixedPointToFloat(Country.MakeScope.Var('spec_iw_lvl1').GetValueWithDefault('(CFixedPoint)0')), Select_float(LessThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Scope.GetGoods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)2.5'), FixedPointToFloat(Country.MakeScope.Var('spec_iw_lvl2').GetValueWithDefault('(CFixedPoint)0')), Select_float(LessThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Scope.GetGoods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3.5'), FixedPointToFloat(Country.MakeScope.Var('spec_iw_lvl3').GetValueWithDefault('(CFixedPoint)0')), Select_float(LessThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Scope.GetGoods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)4.5'), FixedPointToFloat(Country.MakeScope.Var('spec_iw_lvl4').GetValueWithDefault('(CFixedPoint)0')), Select_float(LessThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Scope.GetGoods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)5.5'), FixedPointToFloat(Country.MakeScope.Var('spec_iw_lvl5').GetValueWithDefault('(CFixedPoint)0')), FixedPointToFloat(Country.MakeScope.Var('spec_iw_lvl6').GetValueWithDefault('(CFixedPoint)0')))))))]"
+										value = "[Select_float(LessThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_iw_key_', Scope.GetGoods.GetKey)).GetValueWithDefault(Country.MakeScope.Var(Concatenate('spec_word_', Scope.GetGoods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)1.5'), FixedPointToFloat(Country.MakeScope.Var('spec_iw_lvl1').GetValueWithDefault('(CFixedPoint)0')), Select_float(LessThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_iw_key_', Scope.GetGoods.GetKey)).GetValueWithDefault(Country.MakeScope.Var(Concatenate('spec_word_', Scope.GetGoods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)2.5'), FixedPointToFloat(Country.MakeScope.Var('spec_iw_lvl2').GetValueWithDefault('(CFixedPoint)0')), Select_float(LessThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_iw_key_', Scope.GetGoods.GetKey)).GetValueWithDefault(Country.MakeScope.Var(Concatenate('spec_word_', Scope.GetGoods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)3.5'), FixedPointToFloat(Country.MakeScope.Var('spec_iw_lvl3').GetValueWithDefault('(CFixedPoint)0')), Select_float(LessThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_iw_key_', Scope.GetGoods.GetKey)).GetValueWithDefault(Country.MakeScope.Var(Concatenate('spec_word_', Scope.GetGoods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)4.5'), FixedPointToFloat(Country.MakeScope.Var('spec_iw_lvl4').GetValueWithDefault('(CFixedPoint)0')), Select_float(LessThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_iw_key_', Scope.GetGoods.GetKey)).GetValueWithDefault(Country.MakeScope.Var(Concatenate('spec_word_', Scope.GetGoods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)5.5'), FixedPointToFloat(Country.MakeScope.Var('spec_iw_lvl5').GetValueWithDefault('(CFixedPoint)0')), FixedPointToFloat(Country.MakeScope.Var('spec_iw_lvl6').GetValueWithDefault('(CFixedPoint)0')))))))]"
 									}
 									blockoverride "color" {
-										color = "[Select_CVector4f(LessThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Scope.GetGoods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)1.5'), GetDefine('NGUI', 'BUILDING_OWNERSHIP_COLOR_PLAYER_GOVERNMENT'), Select_CVector4f(LessThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Scope.GetGoods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)2.5'), GetDefine('NGUI', 'BUILDING_OWNERSHIP_COLOR_PLAYER_POPS'), Select_CVector4f(LessThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Scope.GetGoods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3.5'), GetDefine('NGUI', 'NO_STARVATION_COLOR'), Select_CVector4f(LessThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Scope.GetGoods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)4.5'), GetDefine('NGUI', 'BUILDING_OWNERSHIP_COLOR_LOCAL_NON_PLAYER_POPS'), Select_CVector4f(LessThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Scope.GetGoods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)5.5'), GetDefine('NGUI', 'MILD_STARVATION_COLOR'), GetDefine('NGUI', 'SEVERE_STARVATION_COLOR'))))))]"
+										color = "[Select_CVector4f(LessThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_iw_key_', Scope.GetGoods.GetKey)).GetValueWithDefault(Country.MakeScope.Var(Concatenate('spec_word_', Scope.GetGoods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)1.5'), GetDefine('NGUI', 'BUILDING_OWNERSHIP_COLOR_PLAYER_GOVERNMENT'), Select_CVector4f(LessThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_iw_key_', Scope.GetGoods.GetKey)).GetValueWithDefault(Country.MakeScope.Var(Concatenate('spec_word_', Scope.GetGoods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)2.5'), GetDefine('NGUI', 'BUILDING_OWNERSHIP_COLOR_PLAYER_POPS'), Select_CVector4f(LessThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_iw_key_', Scope.GetGoods.GetKey)).GetValueWithDefault(Country.MakeScope.Var(Concatenate('spec_word_', Scope.GetGoods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)3.5'), GetDefine('NGUI', 'NO_STARVATION_COLOR'), Select_CVector4f(LessThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_iw_key_', Scope.GetGoods.GetKey)).GetValueWithDefault(Country.MakeScope.Var(Concatenate('spec_word_', Scope.GetGoods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)4.5'), GetDefine('NGUI', 'BUILDING_OWNERSHIP_COLOR_LOCAL_NON_PLAYER_POPS'), Select_CVector4f(LessThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_iw_key_', Scope.GetGoods.GetKey)).GetValueWithDefault(Country.MakeScope.Var(Concatenate('spec_word_', Scope.GetGoods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)5.5'), GetDefine('NGUI', 'MILD_STARVATION_COLOR'), GetDefine('NGUI', 'SEVERE_STARVATION_COLOR'))))))]"
 									}
 									blockoverride "labels" {
 										flowcontainer = {
@@ -14238,7 +14247,7 @@
 															icon = {
 																size = { 14 14 }
 																texture = "gfx/interface/piechart/piechart_legend.dds"
-																color = "[Select_CVector4f(LessThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Scope.GetGoods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)1.5'), GetDefine('NGUI', 'BUILDING_OWNERSHIP_COLOR_PLAYER_GOVERNMENT'), Select_CVector4f(LessThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Scope.GetGoods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)2.5'), GetDefine('NGUI', 'BUILDING_OWNERSHIP_COLOR_PLAYER_POPS'), Select_CVector4f(LessThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Scope.GetGoods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3.5'), GetDefine('NGUI', 'NO_STARVATION_COLOR'), Select_CVector4f(LessThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Scope.GetGoods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)4.5'), GetDefine('NGUI', 'BUILDING_OWNERSHIP_COLOR_LOCAL_NON_PLAYER_POPS'), Select_CVector4f(LessThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_word_', Scope.GetGoods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)5.5'), GetDefine('NGUI', 'MILD_STARVATION_COLOR'), GetDefine('NGUI', 'SEVERE_STARVATION_COLOR'))))))]"
+																color = "[Select_CVector4f(LessThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_iw_key_', Scope.GetGoods.GetKey)).GetValueWithDefault(Country.MakeScope.Var(Concatenate('spec_word_', Scope.GetGoods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)1.5'), GetDefine('NGUI', 'BUILDING_OWNERSHIP_COLOR_PLAYER_GOVERNMENT'), Select_CVector4f(LessThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_iw_key_', Scope.GetGoods.GetKey)).GetValueWithDefault(Country.MakeScope.Var(Concatenate('spec_word_', Scope.GetGoods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)2.5'), GetDefine('NGUI', 'BUILDING_OWNERSHIP_COLOR_PLAYER_POPS'), Select_CVector4f(LessThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_iw_key_', Scope.GetGoods.GetKey)).GetValueWithDefault(Country.MakeScope.Var(Concatenate('spec_word_', Scope.GetGoods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)3.5'), GetDefine('NGUI', 'NO_STARVATION_COLOR'), Select_CVector4f(LessThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_iw_key_', Scope.GetGoods.GetKey)).GetValueWithDefault(Country.MakeScope.Var(Concatenate('spec_word_', Scope.GetGoods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)4.5'), GetDefine('NGUI', 'BUILDING_OWNERSHIP_COLOR_LOCAL_NON_PLAYER_POPS'), Select_CVector4f(LessThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_iw_key_', Scope.GetGoods.GetKey)).GetValueWithDefault(Country.MakeScope.Var(Concatenate('spec_word_', Scope.GetGoods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)5.5'), GetDefine('NGUI', 'MILD_STARVATION_COLOR'), GetDefine('NGUI', 'SEVERE_STARVATION_COLOR'))))))]"
 															}
 															textbox = {
 																layoutpolicy_horizontal = expanding
@@ -14246,10 +14255,10 @@
 																align = nobaseline
 																elide = right
 																fontsize_min = 12
-																text = "SPEC_IW_SLICE_WORD"
+																text = "SPEC_IW_CHART_WORD"
 															}
 															textbox = {
-																size = { 40 24 }
+																size = { 56 24 }
 																align = right|nobaseline
 																text = "SPEC_IW_SLICE_SHARE"
 															}
@@ -14723,12 +14732,21 @@
 									}
 									}
 									sort_button = {
-										size = { 268 30 }
+										size = { 176 30 }
 										text = "SPEC_IL_COL_INTEREST"
 										tooltip = "SPEC_IL_SORT_INTEREST_TT"
 										onclick = "[GetVariableSystem.Set('spec_il_sort', 'yes')]"
 									blockoverride "selected_visibility" {
-										visible = "[GetVariableSystem.Exists('spec_il_sort')]"
+										visible = "[And(GetVariableSystem.Exists('spec_il_sort'), Not(GetVariableSystem.HasValue('spec_il_sort', 'risk')))]"
+									}
+									}
+									sort_button = {
+										size = { 92 30 }
+										text = "SPEC_IL_SORT_RISK"
+										tooltip = "SPEC_IL_SORT_RISK_TT"
+										onclick = "[GetVariableSystem.Set('spec_il_sort', 'risk')]"
+									blockoverride "selected_visibility" {
+										visible = "[GetVariableSystem.HasValue('spec_il_sort', 'risk')]"
 									}
 									}
 									sort_button = {
@@ -15382,6 +15400,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_clothes').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -16175,6 +16194,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_electricity').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -16968,6 +16988,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_fabric').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -17761,6 +17782,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_fish').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -18554,6 +18576,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_furniture').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -19347,6 +19370,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_grain').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -20140,6 +20164,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_groceries').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -20933,6 +20958,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_merchant_marine').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -21726,6 +21752,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_paper').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -22519,6 +22546,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_wood').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -23318,6 +23346,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_clippers').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -24111,6 +24140,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_coal').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -24904,6 +24934,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_copper').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -25697,6 +25728,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_dye').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -26490,6 +26522,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_engines').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -27283,6 +27316,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_explosives').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -28076,6 +28110,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_fertilizer').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -28869,6 +28904,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_glass').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -29662,6 +29698,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_hardwood').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -30455,6 +30492,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_iron').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -31248,6 +31286,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_lead').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -32041,6 +32080,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_oil').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -32834,6 +32874,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_rubber').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -33627,6 +33668,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_silk').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -34420,6 +34462,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_steamers').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -35213,6 +35256,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_steel').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -36006,6 +36050,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_sulfur').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -36799,6 +36844,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_tools').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -37598,6 +37644,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_automobiles').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -38391,6 +38438,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_coffee').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -39184,6 +39232,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_fine_art').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -39977,6 +40026,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_fruit').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -40770,6 +40820,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_liquor').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -41563,6 +41614,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_luxury_clothes').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -42356,6 +42408,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_luxury_furniture').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -43149,6 +43202,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_meat').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -43942,6 +43996,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_opium').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -44735,6 +44790,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_porcelain').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -45528,6 +45584,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_radios').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -46321,6 +46378,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_sugar').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -47114,6 +47172,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_tea').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -47907,6 +47966,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_telephones').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -48700,6 +48760,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_tobacco').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -49493,6 +49554,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_wine').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -50292,6 +50354,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_aeroplanes').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -51085,6 +51148,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_ammunition').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -51878,6 +51942,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_artillery').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -52671,6 +52736,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_small_arms').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -53464,6 +53530,7 @@
 															widget = {
 																size = { 100% 100% }
 																visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var('spec_ui_state_tanks').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+																tooltip = "SPEC_IL_GLUT_TT"
 																flowcontainer = {
 																	position = { 46 0 }
 																	spacing = 8
@@ -53632,7 +53699,7 @@
 									direction = vertical
 									spacing = 2
 									ignoreinvisible = yes
-									visible = "[GetVariableSystem.Exists('spec_il_sort')]"
+									visible = "[And(GetVariableSystem.Exists('spec_il_sort'), Not(GetVariableSystem.HasValue('spec_il_sort', 'risk')))]"
 									flowcontainer = {
 										direction = vertical
 										spacing = 2
@@ -53932,6 +53999,51 @@
 												spec_il_row = {}
 											}
 										}
+									}
+								}
+								flowcontainer = {
+									direction = vertical
+									ignoreinvisible = yes
+									visible = "[GetVariableSystem.HasValue('spec_il_sort', 'risk')]"
+									flowcontainer = {
+										direction = vertical
+										ignoreinvisible = yes
+										spacing = 2
+										visible = "[Not(GetVariableSystem.Exists('spec_il_cat'))]"
+										datamodel = "[Country.MakeScope.GetList('spec_goods_by_risk')]"
+										item = { spec_il_row = {} }
+									}
+									flowcontainer = {
+										direction = vertical
+										ignoreinvisible = yes
+										spacing = 2
+										visible = "[GetVariableSystem.HasValue('spec_il_cat', 'staple')]"
+										datamodel = "[Country.MakeScope.GetList('spec_goods_by_risk_staple')]"
+										item = { spec_il_row = {} }
+									}
+									flowcontainer = {
+										direction = vertical
+										ignoreinvisible = yes
+										spacing = 2
+										visible = "[GetVariableSystem.HasValue('spec_il_cat', 'industrial')]"
+										datamodel = "[Country.MakeScope.GetList('spec_goods_by_risk_industrial')]"
+										item = { spec_il_row = {} }
+									}
+									flowcontainer = {
+										direction = vertical
+										ignoreinvisible = yes
+										spacing = 2
+										visible = "[GetVariableSystem.HasValue('spec_il_cat', 'luxury')]"
+										datamodel = "[Country.MakeScope.GetList('spec_goods_by_risk_luxury')]"
+										item = { spec_il_row = {} }
+									}
+									flowcontainer = {
+										direction = vertical
+										ignoreinvisible = yes
+										spacing = 2
+										visible = "[GetVariableSystem.HasValue('spec_il_cat', 'military')]"
+										datamodel = "[Country.MakeScope.GetList('spec_goods_by_risk_military')]"
+										item = { spec_il_row = {} }
 									}
 								}
 								flowcontainer = {
@@ -54279,21 +54391,28 @@
 																text = "SPEC_CO_TAG_COTY"
 															}
 															textbox = {
-																visible = "[And(Company.MakeScope.Var('spec_blue_chip').IsSet, Company.MakeScope.Var('spec_bc_low').IsSet)]"
+																visible = "[And(And(Company.MakeScope.Var('spec_blue_chip').IsSet, Company.MakeScope.Var('spec_bc_low').IsSet), Not(Company.MakeScope.Var('spec_coty').IsSet))]"
 																autoresize = yes
 																align = right|nobaseline
 																using = fontsize_small
 																text = "SPEC_CO_TAG_LOW"
 															}
 															textbox = {
-																visible = "[And(And(Company.MakeScope.Var('spec_blue_chip').IsSet, Company.MakeScope.Var('spec_bc_fragile').IsSet), Not(Or(Company.MakeScope.Var('spec_bc_low').IsSet, Company.MakeScope.Var('spec_coty').IsSet)))]"
+																visible = "[And(And(Company.MakeScope.Var('spec_blue_chip').IsSet, Company.MakeScope.Var('spec_bc_propped').IsSet), Not(Or(Company.MakeScope.Var('spec_coty').IsSet, Company.MakeScope.Var('spec_bc_low').IsSet)))]"
+																autoresize = yes
+																align = right|nobaseline
+																using = fontsize_small
+																text = "SPEC_CO_TAG_PROPPED"
+															}
+															textbox = {
+																visible = "[And(And(Company.MakeScope.Var('spec_blue_chip').IsSet, Company.MakeScope.Var('spec_bc_fragile').IsSet), Not(Or(Or(Company.MakeScope.Var('spec_coty').IsSet, Company.MakeScope.Var('spec_bc_low').IsSet), Company.MakeScope.Var('spec_bc_propped').IsSet)))]"
 																autoresize = yes
 																align = right|nobaseline
 																using = fontsize_small
 																text = "SPEC_CO_TAG_FRAGILE"
 															}
 															textbox = {
-																visible = "[And(Company.MakeScope.Var('spec_blue_chip').IsSet, Not(Or(Or(Company.MakeScope.Var('spec_bc_low').IsSet, Company.MakeScope.Var('spec_coty').IsSet), Company.MakeScope.Var('spec_bc_fragile').IsSet)))]"
+																visible = "[And(Company.MakeScope.Var('spec_blue_chip').IsSet, Not(Or(Or(Company.MakeScope.Var('spec_coty').IsSet, Company.MakeScope.Var('spec_bc_low').IsSet), Or(Company.MakeScope.Var('spec_bc_fragile').IsSet, Company.MakeScope.Var('spec_bc_propped').IsSet))))]"
 																autoresize = yes
 																align = right|nobaseline
 																using = fontsize_small
@@ -54733,7 +54852,7 @@
 								textbox = {
 									parentanchor = hcenter
 									visible = "[Not(GreaterThan_int32(GetDataModelSize(Country.MakeScope.GetList('spec_bank_goods')), '(int32)0'))]"
-									size = { 520 40 }
+									size = { 520 74 }
 									align = center|nobaseline
 									multiline = yes
 									text = "SPEC_BANK_NONE_S"
@@ -75229,20 +75348,6 @@
 											parentanchor = vcenter
 											texture = "gfx/interface/icons/spec_markets/rival_raid.dds"
 										}
-										button = {
-											datacontext = "[GetPlayer.MakeScope.Var('spec_rv_raider').GetCountry]"
-											position = { 44 0 }
-											size = { 34 24 }
-											parentanchor = vcenter
-											onclick = "[InformationPanelBar.OpenCountryPanel(Country.Self)]"
-											tooltipwidget = {
-												FancyTooltip_Country = {}
-											}
-											tiny_flag = {
-												parentanchor = center
-												alwaystransparent = yes
-											}
-										}
 										textbox = {
 											position = { 84 4 }
 											size = { 294 20 }
@@ -75304,8 +75409,32 @@
 											}
 										}
 									}
+									flowcontainer = {
+										direction = horizontal
+										visible = "[GetPlayer.MakeScope.Var('spec_rv_raid').IsSet]"
+										datamodel = "[GetPlayer.MakeScope.GetList('spec_rv_attackers')]"
+										item = {
+											widget = {
+												size = { 40 26 }
+												datacontext = "[Scope.GetCountry]"
+												button = {
+													position = { 2 0 }
+													size = { 34 24 }
+													parentanchor = vcenter
+													onclick = "[InformationPanelBar.OpenCountryPanel(Country.Self)]"
+													tooltipwidget = {
+														FancyTooltip_Country = {}
+													}
+													tiny_flag = {
+														parentanchor = center
+														alwaystransparent = yes
+													}
+												}
+											}
+										}
+									}
 									widget = {
-										visible = "[GetPlayer.MakeScope.Var('spec_rv_lure').IsSet]"
+										visible = "[GetScriptedGui('spec_sgui_rv_is_active_lure').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 										size = { 540 44 }
 										tooltip = "SPEC_RV_US_LURE_TT"
 										state = {
@@ -75516,7 +75645,7 @@
 									}
 								}
 								textbox = {
-									visible = "[Not(Or(GetPlayer.MakeScope.Var('spec_rv_lure').IsSet, Or(GetPlayer.MakeScope.Var('spec_rv_raid').IsSet, And(GetPlayer.MakeScope.Var('spec_rv_hit_recent').IsSet, Or(EqualTo_CFixedPoint(GetPlayer.MakeScope.Var('spec_rv_hit').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3'), And(EqualTo_CFixedPoint(GetPlayer.MakeScope.Var('spec_rv_hit').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)1'), Not(EqualTo_CFixedPoint(GetPlayer.MakeScope.Var('spec_rv_hit_ok').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)1'))))))))]"
+									visible = "[Not(Or(GetScriptedGui('spec_sgui_rv_is_active_lure').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End), Or(GetPlayer.MakeScope.Var('spec_rv_raid').IsSet, And(GetPlayer.MakeScope.Var('spec_rv_hit_recent').IsSet, Or(EqualTo_CFixedPoint(GetPlayer.MakeScope.Var('spec_rv_hit').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3'), And(EqualTo_CFixedPoint(GetPlayer.MakeScope.Var('spec_rv_hit').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)1'), Not(EqualTo_CFixedPoint(GetPlayer.MakeScope.Var('spec_rv_hit_ok').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)1'))))))))]"
 									size = { 540 44 }
 									parentanchor = hcenter
 									margin = { 12 0 }
@@ -75614,6 +75743,13 @@
 										size = { 32 32 }
 										parentanchor = vcenter
 										texture = "gfx/interface/icons/spec_markets/rival_hold.dds"
+									}
+									icon = {
+										visible = "[EqualTo_CFixedPoint(GetPlayer.MakeScope.Var('spec_rv_did').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)5')]"
+										position = { 8 0 }
+										size = { 32 32 }
+										parentanchor = vcenter
+										texture = "gfx/interface/icons/spec_markets/rival_shore.dds"
 									}
 									button = {
 										datacontext = "[GetPlayer.MakeScope.Var('spec_rv_did_on').GetCountry]"

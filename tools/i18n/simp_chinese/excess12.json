@@ -1,0 +1,6 @@
+{
+ "51fa837036": "@spec_speculative_excess! #italic 这是一个[concept_country]的[concept_market]中的泡沫。热潮过热的时间越长，泡沫越大。#!\\n\\n在{1}之前不会形成泡沫。\\n[concept_spec_market_confidence]处于#v {2}#!或以上的每个月#P 增长#!，信心攀得越高，增长越快\\n介于#v {3}#!与#v {4}#!之间时#v 缓慢缩小#!，在{5}下缩小更快\\n跌破#v {6}#!时#N 破裂#!\\n\\n破裂时，$concept_spec_market_confidence$会下降泡沫规模的#N {7}#!，最低可降至零。泡沫越大，摔得越重。",
+ "6e55854975": "若要让它慢慢消退，可抑制热潮商品或收紧[concept_spec_credit_policy]。\\n[concept_spec_market_confidence]为#v {1}#!或以上时#P 增长#!\\n介于#v {2}#!与#v {3}#!之间时#v 缓慢缩小#!，在{4}下缩小更快",
+ "79b1d3d3b1": "#header @spec_speculative_excess! $concept_spec_speculative_excess$：{1} / {2}#!\\n$TOOLTIP_DELIMITER$\\n#italic 这就是泡沫。热潮过热的时间越长，泡沫越大。#!\\n\\n[concept_spec_market_confidence]达到#v {3}#!或以上时#P 增长#!\\n介于#v {4}#!与#v {5}#!之间时#v 缓慢缩小#!，在{6}下缩小更快\\n跌破#v {7}#!时#N 破裂#!\\n\\n如果现在破裂：[concept_spec_market_confidence]立即#N -{8}#!\\n$TOOLTIP_DELIMITER$\\n#instruction 若想让它平稳消退，请将信心保持在{9}至{10}之间并收紧信贷。破裂会造成损害时，进度条会变红。#!",
+ "0b308a2598": "#header 泡沫破裂：{1}#!\\n$TOOLTIP_DELIMITER$\\n#italic 泡沫破了。#!\\n\\n[concept_spec_speculative_excess]：#v {2}#!点\\n每点#N -{3}#!\\n$TOOLTIP_DELIMITER$\\n热潮使信心超过#v {5}#!后，一旦[concept_spec_market_confidence]跌破#v {4}#!，泡沫就会破裂\\n热潮持续越久、涨得越高，破裂越猛\\n#weak 需要{6}#!"
+}

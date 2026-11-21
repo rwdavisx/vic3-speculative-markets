@@ -1,0 +1,886 @@
+{
+ "source": {
+  "games": 3,
+  "country_games": 120,
+  "country_years": 5706,
+  "since": "2026-11-07",
+  "years": [
+   1836,
+   1899
+  ],
+  "made": "2026-11-20 17:15",
+  "player": "ai"
+ },
+ "inputs": {
+  "pool_share": [
+   0.005,
+   0.0105
+  ],
+  "pool_noise": [
+   0.01967,
+   0.06125
+  ],
+  "growth": [
+   0.00252,
+   0.06
+  ],
+  "gdp_noise": [
+   0.00372,
+   0.0103
+  ],
+  "recessions": [
+   1.27594,
+   5.16251
+  ],
+  "recession_depth": [
+   0.03557,
+   0.27917
+  ],
+  "goods": [
+   9.67412,
+   24.0
+  ],
+  "good_share": [
+   0.00242,
+   0.03866
+  ],
+  "boom_rate": [
+   0.02186,
+   0.54644
+  ],
+  "boom_months": [
+   10.62169,
+   53.10845
+  ],
+  "boom_peak": [
+   0.50777,
+   14.21762
+  ],
+  "foreign_rate": [
+   0.18633,
+   3.33989
+  ],
+  "foreign_size": [
+   0.0001,
+   0.09591
+  ],
+  "war_rate": [
+   0.14193,
+   0.89315
+  ],
+  "war_months": [
+   1.0,
+   6.77027
+  ],
+  "war_cost": [
+   0.07105,
+   0.23217
+  ],
+  "approval_sd": [
+   1.16862,
+   5.0
+  ],
+  "scaled_debt": [
+   0.0,
+   0.21862
+  ],
+  "after_panic": [
+   0.06002,
+   0.06002
+  ],
+  "rough_sd": [
+   1.07334,
+   1.07334
+  ],
+  "rough_months": [
+   7.66453,
+   7.66453
+  ],
+  "flight_share": [
+   0.95098,
+   0.95098
+  ],
+  "flight_rate": [
+   6.1697,
+   148.3805
+  ],
+  "flight_size": [
+   0.0178,
+   5.2868
+  ],
+  "ai_authority": [
+   0.30628,
+   22.47337
+  ]
+ },
+ "was": {
+  "pool_share": [
+   0.012,
+   0.035
+  ],
+  "pool_noise": [
+   0.02,
+   0.08
+  ],
+  "growth": [
+   0.005,
+   0.035
+  ],
+  "gdp_noise": [
+   0.002,
+   0.006
+  ],
+  "recessions": [
+   2,
+   6
+  ],
+  "recession_depth": [
+   0.03,
+   0.1
+  ],
+  "goods": [
+   6,
+   20
+  ],
+  "good_share": [
+   0.005,
+   0.08
+  ],
+  "boom_rate": [
+   0.02,
+   0.5
+  ],
+  "boom_months": [
+   8,
+   40
+  ],
+  "boom_peak": [
+   0.5,
+   14
+  ],
+  "foreign_rate": [
+   3,
+   12
+  ],
+  "foreign_size": [
+   0.02,
+   0.6
+  ],
+  "war_rate": [
+   1,
+   5
+  ],
+  "war_months": [
+   6,
+   48
+  ],
+  "war_cost": [
+   0.35,
+   1.2
+  ],
+  "approval_sd": [
+   0.8,
+   2.0
+  ],
+  "scaled_debt": [
+   0,
+   0.8
+  ],
+  "after_panic": [
+   0.6,
+   0.6
+  ],
+  "rough_sd": [
+   1.0,
+   1.0
+  ],
+  "rough_months": [
+   6,
+   6
+  ],
+  "flight_share": 0.3,
+  "flight_rate": [
+   15,
+   240
+  ],
+  "flight_size": [
+   0.2,
+   2
+  ],
+  "ai_authority": [
+   0.1,
+   10
+  ]
+ },
+ "log": {
+  "growth": {
+   "p10": -1.0933,
+   "p50": 2.7739,
+   "p90": 4.8288,
+   "mean": 2.8362,
+   "n": 120
+  },
+  "gdp_noise": {
+   "p10": 0.87,
+   "p50": 1.3709,
+   "p90": 2.4088,
+   "mean": 1.5446,
+   "n": 120
+  },
+  "recessions": {
+   "p10": 4.9431,
+   "p50": 12.5,
+   "p90": 24.4564,
+   "mean": 14.3888,
+   "n": 102
+  },
+  "recession_depth": {
+   "p10": 3.5097,
+   "p50": 6.9303,
+   "p90": 27.5442,
+   "mean": 12.141,
+   "n": 821
+  },
+  "pool_share": {
+   "p10": 0.2585,
+   "p50": 0.5967,
+   "p90": 1.0496,
+   "mean": 0.6658,
+   "n": 120
+  },
+  "pool_noise": {
+   "p10": 2.0731,
+   "p50": 3.632,
+   "p90": 6.4566,
+   "mean": 3.9544,
+   "n": 120
+  },
+  "boom_share": {
+   "p10": 61.943,
+   "p50": 87.6701,
+   "p90": 98.0077,
+   "mean": 83.8058,
+   "n": 120
+  },
+  "boom_size": {
+   "p10": 0.0659,
+   "p50": 0.8358,
+   "p90": 2.8962,
+   "mean": 1.1715,
+   "n": 56320
+  },
+  "crash_share": {
+   "p10": 4.8721,
+   "p50": 14.2031,
+   "p90": 26.8921,
+   "mean": 15.8512,
+   "n": 120
+  },
+  "crash_size": {
+   "p10": 0.1357,
+   "p50": 1.3873,
+   "p90": 8.9449,
+   "mean": 3.6304,
+   "n": 11206
+  },
+  "foreign_rate": {
+   "p10": 6.1697,
+   "p50": 32.7095,
+   "p90": 110.5913,
+   "mean": 46.0231,
+   "n": 102
+  },
+  "foreign_size": {
+   "p10": 0.0004,
+   "p50": 0.0125,
+   "p90": 0.3829,
+   "mean": 0.1136,
+   "n": 2626
+  },
+  "war_rate": {
+   "p10": 4.6272,
+   "p50": 12.3235,
+   "p90": 29.1178,
+   "mean": 16.0713,
+   "n": 102
+  },
+  "war_months": {
+   "p10": 4.0,
+   "p50": 13.0,
+   "p90": 38.4,
+   "mean": 17.6576,
+   "n": 917
+  },
+  "war_cost": {
+   "p10": 0.3748,
+   "p50": 0.5394,
+   "p90": 1.2247,
+   "mean": 0.748,
+   "n": 917
+  },
+  "debt_drag": {
+   "p10": -0.0,
+   "p50": -0.0,
+   "p90": 0.0418,
+   "mean": 0.0085,
+   "n": 120
+  },
+  "business_share": {
+   "p10": 18.1556,
+   "p50": 51.443,
+   "p90": 78.4598,
+   "mean": 49.9,
+   "n": 120
+  },
+  "flight_share": {
+   "p10": 100.0,
+   "p50": 100.0,
+   "p90": 100.0,
+   "mean": 95.098,
+   "n": 102
+  },
+  "flight_rate": {
+   "p10": 6.1697,
+   "p50": 46.2725,
+   "p90": 148.3805,
+   "mean": 59.9211,
+   "n": 97
+  },
+  "flight_size": {
+   "p10": 0.0178,
+   "p50": 0.3833,
+   "p90": 5.2868,
+   "mean": 1.8537,
+   "n": 3419
+  },
+  "foreign_total": {
+   "p10": 1.607,
+   "p50": 65.0242,
+   "p90": 353.8613,
+   "mean": 145.5347,
+   "n": 120
+  },
+  "war_total": {
+   "p10": 44.3519,
+   "p50": 183.3549,
+   "p90": 578.6392,
+   "mean": 291.5471,
+   "n": 120
+  },
+  "boom_mean": {
+   "p10": 0.3501,
+   "p50": 0.8923,
+   "p90": 1.9787,
+   "mean": 1.0719,
+   "n": 120
+  },
+  "crash_mean": {
+   "p10": 0.0503,
+   "p50": 0.3973,
+   "p90": 1.2882,
+   "mean": 0.6188,
+   "n": 120
+  },
+  "boom_year": {
+   "p10": 0.379,
+   "p50": 8.3495,
+   "p90": 30.6835,
+   "mean": 11.9779,
+   "n": 5629
+  },
+  "crash_year": {
+   "p10": -0.0,
+   "p50": 1.7188,
+   "p90": 18.2575,
+   "mean": 7.0938,
+   "n": 5629
+  },
+  "levers_on": {
+   "p10": 8.4319,
+   "p50": 28.2812,
+   "p90": 60.7349,
+   "mean": 31.6371,
+   "n": 120
+  },
+  "levers_two": {
+   "p10": 0.0,
+   "p50": 8.4778,
+   "p90": 29.3468,
+   "mean": 12.8678,
+   "n": 120
+  },
+  "restrain_share": {
+   "p10": 5.4364,
+   "p50": 23.3139,
+   "p90": 51.2102,
+   "mean": 25.5093,
+   "n": 120
+  },
+  "convert_rate": {
+   "p10": 0.0,
+   "p50": 0.0,
+   "p90": 1.7635,
+   "mean": 0.6202,
+   "n": 102
+  },
+  "panic_rate": {
+   "p10": 0.0,
+   "p50": 6.1617,
+   "p90": 20.0658,
+   "mean": 8.5385,
+   "n": 102
+  },
+  "panic_share": {
+   "p10": 0.0,
+   "p50": 1.156,
+   "p90": 9.131,
+   "mean": 2.9046,
+   "n": 120
+  },
+  "mania_share": {
+   "p10": 0.0,
+   "p50": 2.3107,
+   "p90": 10.312,
+   "mean": 4.4566,
+   "n": 120
+  },
+  "conf_level": {
+   "p10": 35.2776,
+   "p50": 57.2701,
+   "p90": 74.8622,
+   "mean": 56.0721,
+   "n": 22876
+  },
+  "repanic": {
+   "p10": 0.0,
+   "p50": 0.0,
+   "p90": 100.0,
+   "mean": 36.3436,
+   "n": 454
+  }
+ },
+ "engine": {
+  "growth": {
+   "p10": 0.2881,
+   "p50": 2.6834,
+   "p90": 4.977,
+   "mean": 2.611,
+   "n": 1000
+  },
+  "gdp_noise": {
+   "p10": 0.4838,
+   "p50": 0.7401,
+   "p90": 1.0103,
+   "mean": 0.7478,
+   "n": 1000
+  },
+  "recessions": {
+   "p10": 1.6949,
+   "p50": 5.0847,
+   "p90": 13.5593,
+   "mean": 6.8067,
+   "n": 1000
+  },
+  "recession_depth": {
+   "p10": 3.3815,
+   "p50": 6.4635,
+   "p90": 20.1721,
+   "mean": 9.29,
+   "n": 4084
+  },
+  "pool_share": {
+   "p10": 0.5504,
+   "p50": 0.7627,
+   "p90": 0.9969,
+   "mean": 0.7677,
+   "n": 1000
+  },
+  "pool_noise": {
+   "p10": 2.8619,
+   "p50": 4.8061,
+   "p90": 6.5366,
+   "mean": 4.7569,
+   "n": 1000
+  },
+  "boom_share": {
+   "p10": 37.2944,
+   "p50": 75.9685,
+   "p90": 95.4788,
+   "mean": 70.9238,
+   "n": 1000
+  },
+  "boom_size": {
+   "p10": 0.2899,
+   "p50": 0.9971,
+   "p90": 2.5295,
+   "mean": 1.2272,
+   "n": 498641
+  },
+  "crash_share": {
+   "p10": 2.7778,
+   "p50": 7.9167,
+   "p90": 17.7778,
+   "mean": 9.2662,
+   "n": 1000
+  },
+  "crash_size": {
+   "p10": 0.7083,
+   "p50": 2.5464,
+   "p90": 9.8971,
+   "mean": 4.546,
+   "n": 66717
+  },
+  "foreign_rate": {
+   "p10": 3.3333,
+   "p50": 31.6667,
+   "p90": 151.6667,
+   "mean": 51.9917,
+   "n": 1000
+  },
+  "foreign_size": {
+   "p10": 0.0007,
+   "p50": 0.0173,
+   "p90": 0.4738,
+   "mean": 0.1352,
+   "n": 31195
+  },
+  "war_rate": {
+   "p10": 5.0,
+   "p50": 13.3333,
+   "p90": 35.0,
+   "mean": 16.825,
+   "n": 1000
+  },
+  "war_months": {
+   "p10": 3.0,
+   "p50": 12.0,
+   "p90": 38.0,
+   "mean": 18.3882,
+   "n": 10095
+  },
+  "war_cost": {
+   "p10": 0.3735,
+   "p50": 0.5624,
+   "p90": 1.2475,
+   "mean": 0.8158,
+   "n": 10095
+  },
+  "debt_drag": {
+   "p10": -0.0,
+   "p50": -0.0,
+   "p90": 0.0,
+   "mean": 0.0,
+   "n": 1000
+  },
+  "business_share": {
+   "p10": 27.6389,
+   "p50": 60.5556,
+   "p90": 74.4444,
+   "mean": 55.9026,
+   "n": 1000
+  },
+  "flight_share": {
+   "p10": 0.0,
+   "p50": 100.0,
+   "p90": 100.0,
+   "mean": 86.5,
+   "n": 1000
+  },
+  "flight_rate": {
+   "p10": 6.6667,
+   "p50": 48.3333,
+   "p90": 155.0,
+   "mean": 55.9683,
+   "n": 865
+  },
+  "flight_size": {
+   "p10": 0.0218,
+   "p50": 0.4046,
+   "p90": 5.5229,
+   "mean": 1.9369,
+   "n": 33581
+  },
+  "foreign_total": {
+   "p10": 0.5624,
+   "p50": 65.9453,
+   "p90": 306.3603,
+   "mean": 140.5651,
+   "n": 1000
+  },
+  "war_total": {
+   "p10": 49.6406,
+   "p50": 175.1536,
+   "p90": 523.522,
+   "mean": 270.0,
+   "n": 1000
+  },
+  "boom_mean": {
+   "p10": 0.2296,
+   "p50": 0.737,
+   "p90": 1.6703,
+   "mean": 0.8541,
+   "n": 1000
+  },
+  "crash_mean": {
+   "p10": 0.1002,
+   "p50": 0.326,
+   "p90": 0.854,
+   "mean": 0.4212,
+   "n": 1000
+  },
+  "boom_year": {
+   "p10": 0.0,
+   "p50": 7.726,
+   "p90": 25.1202,
+   "mean": 10.2492,
+   "n": 60000
+  },
+  "crash_year": {
+   "p10": -0.0,
+   "p50": 1.4976,
+   "p90": 14.0915,
+   "mean": 5.0549,
+   "n": 60000
+  },
+  "levers_on": {
+   "p10": 13.8889,
+   "p50": 35.2778,
+   "p90": 59.5833,
+   "mean": 36.451,
+   "n": 1000
+  },
+  "levers_two": {
+   "p10": 0.2639,
+   "p50": 10.4167,
+   "p90": 33.6111,
+   "mean": 13.9182,
+   "n": 1000
+  },
+  "restrain_share": {
+   "p10": 5.2778,
+   "p50": 21.25,
+   "p90": 45.1806,
+   "mean": 23.6704,
+   "n": 1000
+  },
+  "convert_rate": {
+   "p10": 0.0,
+   "p50": 0.0,
+   "p90": 0.0,
+   "mean": 0.5333,
+   "n": 1000
+  },
+  "panic_rate": {
+   "p10": 0.0,
+   "p50": 5.0,
+   "p90": 15.1667,
+   "mean": 6.8633,
+   "n": 1000
+  },
+  "panic_share": {
+   "p10": 0.0,
+   "p50": 1.5278,
+   "p90": 5.5556,
+   "mean": 2.3133,
+   "n": 1000
+  },
+  "mania_share": {
+   "p10": 0.0,
+   "p50": 2.4306,
+   "p90": 12.9167,
+   "mean": 4.5782,
+   "n": 1000
+  },
+  "conf_level": {
+   "p10": 32.6445,
+   "p50": 55.7639,
+   "p90": 74.3906,
+   "mean": 54.5129,
+   "n": 240000
+  },
+  "repanic": {
+   "p10": 0.0,
+   "p50": 0.0,
+   "p90": 100.0,
+   "mean": 33.9756,
+   "n": 4100
+  }
+ },
+ "stats": {
+  "growth": [
+   "GDP growth a year",
+   "%",
+   "country"
+  ],
+  "gdp_noise": [
+   "GDP noise a month",
+   "%",
+   "country"
+  ],
+  "recessions": [
+   "Years of falling GDP (over 3%) a century",
+   "",
+   "country"
+  ],
+  "recession_depth": [
+   "A falling year's drop",
+   "%",
+   "event"
+  ],
+  "pool_share": [
+   "Pool income a month, share of GDP",
+   "%",
+   "country"
+  ],
+  "pool_noise": [
+   "Pool income noise a month",
+   "%",
+   "country"
+  ],
+  "boom_share": [
+   "Months booms push confidence",
+   "%",
+   "country"
+  ],
+  "boom_size": [
+   "Booms' push in such a month",
+   "",
+   "event"
+  ],
+  "crash_share": [
+   "Months a boom ends",
+   "%",
+   "country"
+  ],
+  "crash_size": [
+   "A month's endings, at resting confidence",
+   "",
+   "event"
+  ],
+  "foreign_rate": [
+   "Foreign panics reaching us a century",
+   "",
+   "country"
+  ],
+  "foreign_size": [
+   "A foreign panic's hit, share of Contagion",
+   "",
+   "event"
+  ],
+  "war_rate": [
+   "Wars and turmoil a century",
+   "",
+   "country"
+  ],
+  "war_months": [
+   "Months they last",
+   "",
+   "event"
+  ],
+  "war_cost": [
+   "Confidence they take a month",
+   "",
+   "event"
+  ],
+  "debt_drag": [
+   "Government debt drag a month",
+   "",
+   "country"
+  ],
+  "business_share": [
+   "Months business mood moves confidence",
+   "%",
+   "country"
+  ],
+  "flight_share": [
+   "Countries capital flight reaches",
+   "%",
+   "country"
+  ],
+  "flight_rate": [
+   "Capital flights a century, where it reaches",
+   "",
+   "country"
+  ],
+  "flight_size": [
+   "A capital flight's gain",
+   "",
+   "event"
+  ],
+  "foreign_total": [
+   "Foreign panics' hits a century",
+   "",
+   "country"
+  ],
+  "war_total": [
+   "Turmoil's hits a century",
+   "",
+   "country"
+  ],
+  "boom_mean": [
+   "A country's boom push, a month's mean",
+   "",
+   "country"
+  ],
+  "crash_mean": [
+   "A country's boom endings, a month's mean",
+   "",
+   "country"
+  ],
+  "boom_year": [
+   "A year's boom push",
+   "",
+   "event"
+  ],
+  "crash_year": [
+   "A year's boom endings",
+   "",
+   "event"
+  ],
+  "levers_on": [
+   "Months the AI holds a lever",
+   "%",
+   "country"
+  ],
+  "levers_two": [
+   "Months it holds two or more",
+   "%",
+   "country"
+  ],
+  "restrain_share": [
+   "Months a restrained boom winds down",
+   "%",
+   "country"
+  ],
+  "convert_rate": [
+   "Debt conversions a century",
+   "",
+   "country"
+  ],
+  "panic_rate": [
+   "Panics a century",
+   "",
+   "country"
+  ],
+  "panic_share": [
+   "Months in panic",
+   "%",
+   "country"
+  ],
+  "mania_share": [
+   "Months in Mania",
+   "%",
+   "country"
+  ],
+  "conf_level": [
+   "Confidence, a month",
+   "",
+   "event"
+  ],
+  "repanic": [
+   "Panics back within 13 months of one's end",
+   "%",
+   "event"
+  ]
+ }
+}

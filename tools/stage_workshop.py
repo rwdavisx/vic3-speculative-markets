@@ -36,8 +36,9 @@ def main():
         if not (folder / name).resolve().is_relative_to(folder.resolve()):
             raise ValueError('Archive entry escaped staging')
     deltas = {}
-    if args.channel in ('beta', 'cmf'):
-        preview = ROOT / f'workshop/new_items/{args.channel}_preview.png'
+    if args.channel in ('beta', 'cmf', 'morgenroete', 'techres'):
+        preview = ROOT / (f'workshop/new_items/{args.channel}_preview.png' if args.channel in ('beta', 'cmf')
+                          else f'compatibility/{args.channel}/preview.png')  # workshop/make_patch_thumbnails.py
         data = preview.read_bytes()
         deltas['thumbnail.png'] = {'old_sha256': sha(files['thumbnail.png']) if 'thumbnail.png' in files else None,
                                    'new_sha256': sha(data), 'preview_source': str(preview)}

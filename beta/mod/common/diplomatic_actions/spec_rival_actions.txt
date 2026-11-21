@@ -1,0 +1,81 @@
+﻿# Compete With / Stop Competing on another Exchange (rivals.py diplo): the Exchanges list's toggle, from the map
+spec_rv_compete = {
+	groups = {
+		general
+	}
+	requires_approval = no
+	should_notify_third_parties = no
+	show_effect_in_tooltip = yes
+	texture = "gfx/interface/icons/spec_markets/rival_out.dds"
+	potential = {
+		has_variable = spec_exch_stand
+		scope:target_country = { has_variable = spec_exch_stand }
+		NOT = { is_target_in_variable_list = { name = spec_rv_chosen target = scope:target_country } }
+	}
+	possible = {
+	custom_tooltip = {
+		text = spec_rv_exch_tt
+		has_variable = spec_exch_stand has_variable = spec_centre_score has_variable = spec_centre_trust
+	}
+	custom_tooltip = {
+		text = spec_rv_room_tt
+		OR = {
+			NOT = { has_variable = spec_rv_n_chosen }
+			var:spec_rv_n_chosen < spec_rv_slots
+		}
+	}
+	custom_tooltip = {
+		text = spec_rv_their_exch_tt
+		scope:target_country = { has_variable = spec_exch_stand has_variable = spec_centre_score has_variable = spec_centre_trust }
+	}
+	custom_tooltip = {
+		text = spec_rv_mutual_tt
+		scope:target_country = { NOT = { is_target_in_variable_list = { name = spec_rv_chosen target = prev } } }
+	}
+	custom_tooltip = {
+		text = spec_rv_interest_tt
+		scope:target_country = { exists = capital }
+		has_strategic_region_interest_tier = {
+			strategic_region = scope:target_country.capital.region
+			value >= 2
+		}
+	}
+	}
+	accept_effect = {
+		scope:target_country = { save_scope_as = target }
+		spec_rv_choose = yes
+	}
+	ai = {
+		evaluation_chance = { value = 0 }
+		will_propose = { always = no }
+	}
+}
+
+spec_rv_stop = {
+	groups = {
+		general
+	}
+	requires_approval = no
+	should_notify_third_parties = no
+	show_effect_in_tooltip = yes
+	texture = "gfx/interface/icons/spec_markets/rival_out_off.dds"
+	potential = {
+		has_variable = spec_exch_stand
+		scope:target_country = { has_variable = spec_exch_stand }
+		is_target_in_variable_list = { name = spec_rv_chosen target = scope:target_country }
+	}
+	possible = {
+	custom_tooltip = {
+		text = spec_rv_keep_tt
+		NOT = { is_target_in_variable_list = { name = spec_rv_keep target = scope:target_country } }
+	}
+	}
+	accept_effect = {
+		scope:target_country = { save_scope_as = target }
+		spec_rv_end = yes
+	}
+	ai = {
+		evaluation_chance = { value = 0 }
+		will_propose = { always = no }
+	}
+}

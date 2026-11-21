@@ -1,0 +1,289 @@
+﻿# interest group scope: vanilla's clout tiers, 0 Marginalized, 1 Influential, 2 Powerful
+spec_igs_tier = {
+	value = 1
+	if = {
+		limit = { is_marginal = yes }
+		value = 0
+	}
+	if = {
+		limit = { is_powerful = yes }
+		value = 2
+	}
+}
+
+spec_igs_tier_x1 = {
+	value = spec_igs_tier
+}
+
+spec_igs_tier_x2 = {
+	value = spec_igs_tier
+	multiply = 2
+}
+
+spec_igs_nf_landowners = {
+	value = 0
+	if = {
+		limit = { var:spec_igs_landowners_grain ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_landowners_sugar ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_landowners_tobacco ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_landowners_wine ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_landowners_tea ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_landowners_coffee ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_landowners_silk ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_landowners_dye ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_landowners_meat ?= 1 }
+		add = 1
+	}
+}
+
+spec_igs_nf_industrialists = {
+	value = 0
+	if = {
+		limit = { var:spec_igs_industrialists_steel ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_industrialists_tools ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_industrialists_engines ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_industrialists_coal ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_industrialists_iron ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_industrialists_fabric ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_industrialists_explosives ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_industrialists_glass ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_industrialists_oil ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_industrialists_rubber ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_industrialists_electricity ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_industrialists_automobiles ?= 1 }
+		add = 1
+	}
+}
+
+spec_igs_nf_armed_forces = {
+	value = 0
+	if = {
+		limit = { var:spec_igs_armed_forces_small_arms ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_armed_forces_artillery ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_armed_forces_ammunition ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_armed_forces_explosives ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_armed_forces_tanks ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_armed_forces_aeroplanes ?= 1 }
+		add = 1
+	}
+}
+
+spec_igs_nf_devout = {
+	value = 0
+	if = {
+		limit = { var:spec_igs_devout_grain ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_devout_paper ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_devout_clothes ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_devout_groceries ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_devout_fine_art ?= 1 }
+		add = 1
+	}
+}
+
+spec_igs_nf_rural_folk = {
+	value = 0
+	if = {
+		limit = { var:spec_igs_rural_folk_grain ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_rural_folk_meat ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_rural_folk_fabric ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_rural_folk_fish ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_rural_folk_fruit ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_rural_folk_wood ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_rural_folk_fertilizer ?= 1 }
+		add = 1
+	}
+}
+
+spec_igs_nf_petty_bourgeoisie = {
+	value = 0
+	if = {
+		limit = { var:spec_igs_petty_bourgeoisie_furniture ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_petty_bourgeoisie_luxury_clothes ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_petty_bourgeoisie_porcelain ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_petty_bourgeoisie_liquor ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_petty_bourgeoisie_luxury_furniture ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_petty_bourgeoisie_clothes ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_petty_bourgeoisie_groceries ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_petty_bourgeoisie_glass ?= 1 }
+		add = 1
+	}
+}
+
+spec_igs_nf_intelligentsia = {
+	value = 0
+	if = {
+		limit = { var:spec_igs_intelligentsia_paper ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_intelligentsia_telephones ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_intelligentsia_radios ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_intelligentsia_glass ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_intelligentsia_fine_art ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_intelligentsia_electricity ?= 1 }
+		add = 1
+	}
+}
+
+spec_igs_nf_trade_unions = {
+	value = 0
+	if = {
+		limit = { var:spec_igs_trade_unions_groceries ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_trade_unions_clothes ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_trade_unions_coal ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_trade_unions_steel ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_trade_unions_furniture ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_trade_unions_fabric ?= 1 }
+		add = 1
+	}
+}

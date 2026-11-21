@@ -1,0 +1,10 @@
+{
+ "65d69828cb": "@spec_sound_finance! #italic 颁行全部三项[concept_spec_banking_reforms]（银行券规则、最后贷款人和公司法）的奖励。#!\\n\\n一个[concept_country]全部颁行后：\\n#P +{1}#![concept_prestige]",
+ "25ea66f796": "\\n{1}、{2}和{3}的投资：#P +{4}%#!\\n贸易量：#P +{5}%#!\\n{6}：#P +{7}#!",
+ "b5b070a24a": "{1}、{2}和{3}的投资：#P +{4}%#!\\n交易量：#P +{5}%#!\\n{6}：#P +{7}#!",
+ "56c09ee847": "#header 世界中心#!\\n投资者反应：#v +{1}%#!\\n[concept_prestige]：未跻身{3}时#P +{2}%#!\\n接收[concept_spec_capital_flight]：#P x2#!\\n[concept_spec_foreign_panic]损失：#P -{4}%#!\\n#P +{5}%#! {6}\\n一个竞争者免维护费\\n$TOOLTIP_DELIMITER$\\n#instruction 晋升世界中心#!，需要在{8}中位列前#v {7}#!名，并拥有{9}",
+ "c86b27426b": "#header 深受信任#!\\n信誉#v {1}%#!至#v {2}%#!\\n$TOOLTIP_DELIMITER$\\n{4}：#P +{3}#!",
+ "bf0a6e57a3": "#header 稳健放贷第一名#!\\n{1}\\n$TOOLTIP_DELIMITER$\\n作为我国专长，这一名次提供：\\n#P +{2}%#! {3}\\n#N -{4}#! {5}\\n#P +{6}#! {7}",
+ "8895c0f776": "#header 稳健放贷第二名#!\\n{1}\\n$TOOLTIP_DELIMITER$\\n作为我国专长，这一名次提供：\\n#P +{2}%#! {3}\\n#N -{4}#! {5}",
+ "ca16df56d4": "#header 稳健放贷第三名#!\\n{1}\\n$TOOLTIP_DELIMITER$\\n作为我国专长，这一名次提供：\\n#P +{2}%#! {3}\\n#N -{4}#! {5}"
+}

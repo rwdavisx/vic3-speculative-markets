@@ -1,0 +1,258 @@
+﻿namespace = spec_rival
+
+# a rival has acted against us (rivals.py): answer in kind, shore up, or keep calm
+spec_rival.1 = {
+	type = country_event
+	placement = root
+	# each move its own title, scene and saying; the scene opens on who struck and the state of our market (loc)
+	title = {
+		first_valid = {
+			triggered_desc = {
+				desc = spec_rival.1.t11
+				trigger = { var:spec_rv_hit ?= 1 var:spec_rv_hit_ok ?= 1 }
+			}
+			triggered_desc = {
+				desc = spec_rival.1.t10
+				trigger = { var:spec_rv_hit ?= 1 var:spec_rv_hit_ok ?= 0 }
+			}
+			triggered_desc = {
+				desc = spec_rival.1.t21
+				trigger = { var:spec_rv_hit ?= 2 var:spec_rv_hit_ok ?= 1 }
+			}
+			triggered_desc = {
+				desc = spec_rival.1.t31
+				trigger = { var:spec_rv_hit ?= 3 var:spec_rv_hit_ok ?= 1 }
+			}
+			triggered_desc = {
+				desc = spec_rival.1.t3n
+				trigger = { var:spec_rv_hit ?= 3 var:spec_rv_hit_ok ?= -1 }
+			}
+			desc = spec_rival.1.t
+		}
+	}
+	desc = {
+		# the state of our market, then who struck (by Standing) and the move in one key: only one part of an event's
+		# text keeps ROOT and SCOPE, so names in a separate opening part came out blank (2026-11-16)
+		first_valid = {
+			triggered_desc = {
+				desc = SPEC_RV_EV_PANIC
+				trigger = { has_variable = spec_panic }
+			}
+			triggered_desc = {
+				desc = SPEC_RV_EV_MANIA
+				trigger = { has_variable = spec_conf var:spec_conf >= 80 }
+			}
+			desc = SPEC_RV_EV_NONE
+		}
+		first_valid = {
+			triggered_desc = {
+				desc = spec_rival.1.d11_big
+				trigger = { var:spec_rv_hit ?= 1 var:spec_rv_hit_ok ?= 1 scope:target ?= { has_variable = spec_exch_stand } OR = { NOT = { has_variable = spec_exch_stand } scope:target.var:spec_exch_stand > var:spec_exch_stand } }
+			}
+			triggered_desc = {
+				desc = spec_rival.1.d11_small
+				trigger = { var:spec_rv_hit ?= 1 var:spec_rv_hit_ok ?= 1 has_variable = spec_exch_stand OR = { scope:target ?= { NOT = { has_variable = spec_exch_stand } } var:spec_exch_stand > scope:target.var:spec_exch_stand } }
+			}
+			triggered_desc = {
+				desc = spec_rival.1.d11_even
+				trigger = { var:spec_rv_hit ?= 1 var:spec_rv_hit_ok ?= 1  }
+			}
+			triggered_desc = {
+				desc = spec_rival.1.d10_big
+				trigger = { var:spec_rv_hit ?= 1 var:spec_rv_hit_ok ?= 0 scope:target ?= { has_variable = spec_exch_stand } OR = { NOT = { has_variable = spec_exch_stand } scope:target.var:spec_exch_stand > var:spec_exch_stand } }
+			}
+			triggered_desc = {
+				desc = spec_rival.1.d10_small
+				trigger = { var:spec_rv_hit ?= 1 var:spec_rv_hit_ok ?= 0 has_variable = spec_exch_stand OR = { scope:target ?= { NOT = { has_variable = spec_exch_stand } } var:spec_exch_stand > scope:target.var:spec_exch_stand } }
+			}
+			triggered_desc = {
+				desc = spec_rival.1.d10_even
+				trigger = { var:spec_rv_hit ?= 1 var:spec_rv_hit_ok ?= 0  }
+			}
+			triggered_desc = {
+				desc = spec_rival.1.d21_big
+				trigger = { var:spec_rv_hit ?= 2 var:spec_rv_hit_ok ?= 1 scope:target ?= { has_variable = spec_exch_stand } OR = { NOT = { has_variable = spec_exch_stand } scope:target.var:spec_exch_stand > var:spec_exch_stand } }
+			}
+			triggered_desc = {
+				desc = spec_rival.1.d21_small
+				trigger = { var:spec_rv_hit ?= 2 var:spec_rv_hit_ok ?= 1 has_variable = spec_exch_stand OR = { scope:target ?= { NOT = { has_variable = spec_exch_stand } } var:spec_exch_stand > scope:target.var:spec_exch_stand } }
+			}
+			triggered_desc = {
+				desc = spec_rival.1.d21_even
+				trigger = { var:spec_rv_hit ?= 2 var:spec_rv_hit_ok ?= 1  }
+			}
+			triggered_desc = {
+				desc = spec_rival.1.d31_big
+				trigger = { var:spec_rv_hit ?= 3 var:spec_rv_hit_ok ?= 1 scope:target ?= { has_variable = spec_exch_stand } OR = { NOT = { has_variable = spec_exch_stand } scope:target.var:spec_exch_stand > var:spec_exch_stand } }
+			}
+			triggered_desc = {
+				desc = spec_rival.1.d31_small
+				trigger = { var:spec_rv_hit ?= 3 var:spec_rv_hit_ok ?= 1 has_variable = spec_exch_stand OR = { scope:target ?= { NOT = { has_variable = spec_exch_stand } } var:spec_exch_stand > scope:target.var:spec_exch_stand } }
+			}
+			triggered_desc = {
+				desc = spec_rival.1.d31_even
+				trigger = { var:spec_rv_hit ?= 3 var:spec_rv_hit_ok ?= 1  }
+			}
+			triggered_desc = {
+				desc = spec_rival.1.d3n_big
+				trigger = { var:spec_rv_hit ?= 3 var:spec_rv_hit_ok ?= -1 scope:target ?= { has_variable = spec_exch_stand } OR = { NOT = { has_variable = spec_exch_stand } scope:target.var:spec_exch_stand > var:spec_exch_stand } }
+			}
+			triggered_desc = {
+				desc = spec_rival.1.d3n_small
+				trigger = { var:spec_rv_hit ?= 3 var:spec_rv_hit_ok ?= -1 has_variable = spec_exch_stand OR = { scope:target ?= { NOT = { has_variable = spec_exch_stand } } var:spec_exch_stand > scope:target.var:spec_exch_stand } }
+			}
+			triggered_desc = {
+				desc = spec_rival.1.d3n_even
+				trigger = { var:spec_rv_hit ?= 3 var:spec_rv_hit_ok ?= -1  }
+			}
+			desc = spec_rival.1.desc
+		}
+	}
+	flavor = {
+		first_valid = {
+			triggered_desc = {
+				desc = spec_rival.1.f11
+				trigger = { var:spec_rv_hit ?= 1 var:spec_rv_hit_ok ?= 1 }
+			}
+			triggered_desc = {
+				desc = spec_rival.1.f10
+				trigger = { var:spec_rv_hit ?= 1 var:spec_rv_hit_ok ?= 0 }
+			}
+			triggered_desc = {
+				desc = spec_rival.1.f21
+				trigger = { var:spec_rv_hit ?= 2 var:spec_rv_hit_ok ?= 1 }
+			}
+			triggered_desc = {
+				desc = spec_rival.1.f31
+				trigger = { var:spec_rv_hit ?= 3 var:spec_rv_hit_ok ?= 1 }
+			}
+			triggered_desc = {
+				desc = spec_rival.1.f3n
+				trigger = { var:spec_rv_hit ?= 3 var:spec_rv_hit_ok ?= -1 }
+			}
+			desc = spec_rival.1.f
+		}
+	}
+	duration = 3
+	event_image = {
+		texture = "gfx/interface/icons/spec_markets/picture_rival.dds"
+	}
+	icon = "gfx/interface/icons/event_icons/event_trade.dds"
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	immediate = {
+		var:spec_rv_hit_by = { save_scope_as = target }
+	}
+
+	option = {
+		name = spec_rival.1.a
+		trigger = {
+			exists = scope:target
+			spec_rv_pair = yes
+			OR = { AND = { var:spec_rv_hit = 1 spec_rv_pay_raid = yes } AND = { var:spec_rv_hit = 2 spec_rv_pay_lure = yes } AND = { var:spec_rv_hit = 3 spec_rv_pay_press = yes } }
+		}
+		custom_tooltip = spec_rival.1.a_tt
+		if = {
+			limit = { var:spec_rv_hit = 1 }
+			custom_tooltip = spec_rival.1.a_1
+			spec_rv_raid = yes
+		}
+		if = {
+			limit = { var:spec_rv_hit = 2 }
+			custom_tooltip = spec_rival.1.a_2
+			spec_rv_lure = yes
+		}
+		if = {
+			limit = { var:spec_rv_hit = 3 }
+			custom_tooltip = spec_rival.1.a_3
+			spec_rv_press = yes
+		}
+
+		ai_chance = {
+			base = 1
+		}
+	}
+	option = {
+		name = spec_rival.1.b
+		trigger = { spec_can_rv_shore = yes }
+		custom_tooltip = spec_rival.1.b_tt
+		hidden_effect = {
+			spec_rv_shore = yes
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+	option = {  # the counter fitted to the move: steady the market, match their terms, answer in our papers
+		name = spec_rival.1.d
+		trigger = { var:spec_rv_hit ?= 1 }
+		custom_tooltip = spec_rival.1.d_tt
+		hidden_effect = { add_treasury = spec_rv_counter_cost_neg }
+		hidden_effect = {
+			if = {
+				limit = { has_variable = spec_rv_raid_pm }
+				spec_rv_migrate_raid = yes
+				set_variable = { name = spec_rv_raid_pm value = 0 }
+				if = { limit = { has_variable = spec_rv_due_1 } change_variable = { name = spec_rv_due_1 multiply = 0.5 } change_variable = { name = spec_rv_raid_pm add = var:spec_rv_due_1 } }
+				if = { limit = { has_variable = spec_rv_due_2 } change_variable = { name = spec_rv_due_2 multiply = 0.5 } change_variable = { name = spec_rv_raid_pm add = var:spec_rv_due_2 } }
+				if = { limit = { has_variable = spec_rv_due_3 } change_variable = { name = spec_rv_due_3 multiply = 0.5 } change_variable = { name = spec_rv_raid_pm add = var:spec_rv_due_3 } }
+				if = { limit = { has_variable = spec_rv_due_4 } change_variable = { name = spec_rv_due_4 multiply = 0.5 } change_variable = { name = spec_rv_raid_pm add = var:spec_rv_due_4 } }
+				if = { limit = { has_variable = spec_rv_due_5 } change_variable = { name = spec_rv_due_5 multiply = 0.5 } change_variable = { name = spec_rv_raid_pm add = var:spec_rv_due_5 } }
+				if = { limit = { has_variable = spec_rv_due_6 } change_variable = { name = spec_rv_due_6 multiply = 0.5 } change_variable = { name = spec_rv_raid_pm add = var:spec_rv_due_6 } }
+
+			}
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+	option = {
+		name = spec_rival.1.e
+		trigger = { var:spec_rv_hit ?= 2 }
+		custom_tooltip = spec_rival.1.e_tt
+		hidden_effect = { add_treasury = spec_rv_counter_cost_neg }
+		hidden_effect = {
+			if = {
+				limit = { has_variable = spec_rv_lure_share }
+				change_variable = { name = spec_rv_lure_share multiply = 0.5 }
+			}
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+	option = {
+		name = spec_rival.1.g
+		trigger = { var:spec_rv_hit ?= 3 }
+		custom_tooltip = spec_rival.1.g_tt
+		hidden_effect = { add_treasury = spec_rv_counter_cost_neg }
+		hidden_effect = {
+			if = {
+				limit = { has_variable = spec_centre_trust }
+				set_variable = { name = spec_centre_trust value = { value = var:spec_centre_trust add = 1.2 max = 120 } }
+			}
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+	option = {
+		name = spec_rival.1.c
+		default_option = yes
+		custom_tooltip = spec_rival.1.c_tt
+		hidden_effect = {
+			if = {
+				limit = { has_variable = spec_centre_trust }
+				set_local_variable = { name = spec_rv_calm value = 1 }
+				if = {
+					limit = { exists = scope:target scope:target = { has_variable = spec_exch_stand } }
+					set_local_variable = { name = spec_rv_calm value = { value = scope:target.var:spec_exch_stand multiply = 1 add = 1 } }
+				}
+				set_variable = { name = spec_centre_trust value = { value = var:spec_centre_trust add = { value = local_var:spec_rv_calm multiply = 1.2 } max = 120 } }
+			}
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+}

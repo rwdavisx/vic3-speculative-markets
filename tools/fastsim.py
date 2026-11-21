@@ -28,7 +28,7 @@ import generate as g
 import leverage as lv
 
 RUNS = Path(__file__).parent.parent / "runs"
-CACHE = Path("G:/GameDev/_claude_scratch/vic/fastsim_cache10")
+CACHE = Path("G:/GameDev/_claude_scratch/vic/fastsim_cache13")
 LOG = re.compile(r"SPEC tag=([^\s#]+)\S* date=(\w+) (\d+), (\d{4}) (.*)")
 MONTHS = "January February March April May June July August September October November December".split()
 BEFORE = (0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334)  # days before each month
@@ -41,7 +41,8 @@ BASE = dict(lev_on=True, avg_income=True, reward=lv.REWARD, reward_max=lv.REWARD
             ai_limit={-1: lv.AI_LIMIT["-1"], 0: lv.AI_LIMIT["0"], 1: lv.AI_LIMIT["1"]}, share=g.CREDIT_SHARE, flow=g.CREDIT_FLOW_MAX, cap=g.CREDIT_CAP_MONTHS,
             runoff=g.CREDIT_RUNOFF, clawback=g.CLAWBACK, credit_from=g.CREDIT_FROM, panic=g.PANIC, rest=g.CONF_START, recover=g.CONF_RECOVER,
             mood_keep=g.MOOD_KEEP, mood=g.MOOD_SHOCK, mania=g.MANIA, mania_reset=g.MANIA_RESET, heat_from=g.HEAT_FROM, burst_below=g.BURST_BELOW, heat_cool=g.HEAT_COOL,
-            burst_per=g.BURST_PER_HEAT, burst_max=g.BURST_MAX, panic_back=0, cooldown=g.PANIC_COOLDOWN, rescue_conf=g.RESCUE_CONF, rescue_months=g.RESCUE_MONTHS,
+            burst_per=g.BURST_PER_HEAT, burst_max=g.BURST_BELOW,  # ponytail: no cap since 1.2; Tight cooling (HEAT_COOL_TIGHT) not modelled
+            panic_back=0, cooldown=g.PANIC_COOLDOWN, rescue_conf=g.RESCUE_CONF, rescue_months=g.RESCUE_MONTHS,
             rescue_months_private=g.RESCUE_MONTHS_PRIVATE, rescue_chance=dict(credit_ai.RESCUE_CHANCE), rescue_able=1.0, stance_cooldown=g.STANCE_COOLDOWN, tight_pull=g.TIGHT_PULL,
             tight_from=g.TIGHT_FROM, easy=0.2, ai_tight=credit_ai.AI_TIGHT, ai_loose=g.WARY, temper_shift=credit_ai.TEMPER_SHIFT, boom_scale=g.CONF_PER_HOT / .72, crash_scale=1.0, crash_max=g.CONF_CRASH_MAX,
             stance_moves_hype=True, ladder=lv.LADDER, fever=lv.FEVER, flow_top=None, played_share=g.CREDIT_SHARE, foreign_scale=1.0, tight_cap=None, scale={}, logged_stance=False, warning=g.MANIA_CAUTION, levy=g.MANIA_TAX_CONF)
@@ -115,13 +116,13 @@ def filled(rows):
                 if a["stance"] == -1 and conf > g.TIGHT_FROM:  # what the Tight pull will take from the month, so it isn't counted twice
                     pull = -(conf - g.TIGHT_FROM) * g.TIGHT_PULL / (1 - g.TIGHT_PULL)
                 # a burst lost with the month: the replay's own bubble makes it, so it mustn't be in the inputs as well
-                burst = -min(a["heat"] * g.BURST_PER_HEAT, g.BURST_MAX) if a["heat"] > 0 and r["heat"] <= 0 and r["burst"] >= 0 and n == steps - 1 else 0
+                burst = -min(a["heat"] * g.BURST_PER_HEAT, g.BURST_BELOW) if a["heat"] > 0 and r["heat"] <= 0 and r["burst"] >= 0 and n == steps - 1 else 0
                 rest = conf - burst - pull - prev["conf"] - (g.CONF_START - prev["conf"]) * pace - boom - mood - (0.2 if a["stance"] == 1 else 0)
                 for hit in (g.MANIA_CAUTION, g.MANIA_TAX_CONF):
                     if prev["conf"] >= g.MANIA and abs(rest + hit) < 2.5:
                         rest += hit
                 out.append(dict(prev, when=prev["when"] + 1, conf=conf, left=a["left"] if a["left"] > 0 and r["left"] > 0 else 0, given=0, boom=boom, crash=0, restrain=0, foreign=0, burst=burst, tight=pull,
-                                mood=mood, kept=rest, drift=(g.CONF_START - prev["conf"]) * pace, easy=0.2 if a["stance"] == 1 else 0, macro=macro, fill=True, **{k: 0 for k in KEPT}))
+                                mood=mood, kept=rest, drift=(g.CONF_START - prev["conf"]) * pace, easy=0.2 if a["stance"] == 1 else 0, macro=macro, fill=True, warend=0, caution=0, **{k: 0 for k in KEPT}))
             r["crash"] *= was / max(last, 1) if r["crash"] else 1
         out.append(r)
     return out
@@ -134,7 +135,7 @@ def country(rows):
         conf = num(d, "conf")
         r = dict(when=when, conf=conf, left=num(d, "panic"), stance=int(num(d, "stance")), debt=num(d, "debt"), given=num(d, "pool"), pool=num(d, "ipi") * g.WEEKS_PER_MONTH,
                  ip=num(d, "ip"), lev=num(d, "lev"), crunch=num(d, "crunch"), gdp=num(d, "gdp"), mood=num(d, "d_mood"), ld=num(d, "ld"), rescued=num(d, "rescued"),
-                 stock=num(d, "fin") > 0.71 or "fin" not in d, banks=num(d, "fin") >= 1.2, kept=sum(num(d, k) for k in KEPT), **{k: num(d, k) for k in KEPT}, foreign=num(d, "d_foreign"), restrain=num(d, "d_restrain"), heat=num(d, "heat"), burst=num(d, "d_burst"), tight=num(d, "d_tight"), drift=num(d, "d_drift"), easy=num(d, "d_easy"))
+                 stock=num(d, "fin") > 0.71 or "fin" not in d, banks=num(d, "fin") >= 1.2, kept=sum(num(d, k) for k in KEPT), **{k: num(d, k) for k in KEPT}, foreign=num(d, "d_foreign"), restrain=num(d, "d_restrain"), heat=num(d, "heat"), burst=num(d, "d_burst"), tight=num(d, "d_tight"), drift=num(d, "d_drift"), easy=num(d, "d_easy"), levers=num(d, "levers"), warend=num(d, "d_warend"), caution=num(d, "d_caution"))
         # booms are zero in a real panic: a replay that isn't in one needs what they would have been, so it gets the recent average
         raw = num(d, "d_boom")
         if prev and prev["left"] > 0:
@@ -261,7 +262,7 @@ def run(c, p, rng, own_mood=False):
             s["fevers"] += fever
             event = rng.choices((0, p["warning"], p["levy"]), MANIA_CHOICE[temper])[0]
         if conf >= p["heat_from"] and r["stock"]:
-            heat += conf - 70
+            heat += conf - p["heat_from"]
         elif heat and conf >= p["burst_below"]:
             heat *= p["heat_cool"]
             heat = 0 if heat < 1 else heat
@@ -505,7 +506,7 @@ def parity(games):
                     debt.append(abs(d - r["debt"]) / r["pool"])
                     lev.append(abs(d / income - r["lev"]))
                 if a["heat"] > 0 and r["burst"] < 0:
-                    burst.append(abs(max(-a["heat"] * g.BURST_PER_HEAT, -g.BURST_MAX) - r["burst"]))
+                    burst.append(abs(max(-a["heat"] * g.BURST_PER_HEAT, -g.BURST_BELOW) - r["burst"]))
                 cool = max(cool - 1, 0)
                 stress = min(max((r["lev"] - BASE["safe"]) / (BASE["ruin"] - BASE["safe"]), 0), 1)
                 if a["left"] > 0 and r["left"] <= 0:

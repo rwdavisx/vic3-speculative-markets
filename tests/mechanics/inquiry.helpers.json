@@ -12,11 +12,11 @@
   "spec_mechanics_inquiry_c": {
     "path": "events/spec_reform_events.txt",
     "start": "name = spec_reform.1.c\n\t\ttrigger = { has_technology_researched = central_banking NOT = { has_variable = spec_llr } }\n",
-    "end": "\n\t\tai_chance = {\n\t\t\tbase = 25\n\t\t}\n\t}\n\n\toption = {\n\t\tname = spec_reform.1.d\n\t\ttrigger = { has_technology_researched = joint_stock_companies NOT = { has_variable = spec_company_law } }\n\t\tcustom_tooltip = {\n\t\t\ttext = spec_reform_company_tt\n\t\t\tset_variable = spec_company_law\n\t\t}\n\t\tig:ig_industrialists ?= {\n\t\t\tadd_modifier = {\n\t\t\t\tname = spec_disclosure_burden\n\t\t\t\tdays = short_modifier_time\n\t\t\t}\n\t\t}\n\t\tig:ig_intelligentsia ?= {\n\t\t\tadd_modifier = {\n\t\t\t\tname = spec_disclosure_welcomed\n\t\t\t\tdays = short_modifier_time\n\t\t\t}\n\t\t}\n\t\tspec_reform_done = yes\n\t\tai_chance = {\n\t\t\tbase = 15\n\t\t}\n\t}\n\n\toption = {\n\t\tname = spec_reform.1.e\n\t\tdefault_option = yes\n\t\tai_c"
+    "end": "\n\t\tai_chance = {\n\t\t\tbase = 25\n\t\t}\n\t}\n\n\toption = {\n\t\tname = spec_reform.1.d"
   },
   "spec_mechanics_inquiry_d": {
     "path": "events/spec_reform_events.txt",
     "start": "name = spec_reform.1.d\n\t\ttrigger = { has_technology_researched = joint_stock_companies NOT = { has_variable = spec_company_law } }\n",
-    "end": "\n\t\tai_chance = {\n\t\t\tbase = 15\n\t\t}\n\t}\n\n\toption = {\n\t\tname = spec_reform.1.e\n\t\tdefault_option = yes\n\t\tai_chance = {\n\t\t\tbase = 0\n\t\t}\n\t}\n}\n\n# all three institutions made\nspec_reform.2 = {\n\ttype = country_event\n\tplacement = root\n\ttitle = spec_reform.2.t\n\tdesc = spec_reform.2.d\n\tflavor = spec_reform.2.f\n\tduration = 3\n\tevent_image = {\n\t\ttrigger = { spec_pic_mideast = yes }\n\t\tvideo = \"middleeast_upperclass_party\"\n\t}\n\tevent_image = {\n\t\ttrigger = { spec_pic_africa = yes }\n\t\tvideo = \"europenorthamerica_capitalists_meeting\"\n\t}\n\tevent_image = {\n\t\ttrigger = { spec_pic_asia = yes }\n\t\tvideo = \"europenorthamerica_capitalists_meeting\"\n\t}\n\tevent_image = {\n\t\ttri"
+    "end": "\n\t\tai_chance = {\n\t\t\tbase = 15\n\t\t}\n\t}\n\n\toption = {  # shelve it: the money men are relieved and the market with them, the reformers are not\n\t\tname = spec_reform.1.e"
   }
 }

@@ -103,7 +103,7 @@ def loc():
             f'#v [{good_var("spec_ui_expm")}|1]#! months of pool income\\nIf it ends, the hit to [concept_spec_market_confidence] is '
             f'#N x[{good_var("spec_ui_expx")}|2]#! as big as for a boom no bank had lent into"\n'
             ' SPEC_NOTE_BANKS: ""\n'
-            f' SPEC_NOTE_BANKS_ON: " The banks had lent heavily into it, so the fall was #N x[{note}|2]#! as hard."\n')
+            f' SPEC_NOTE_BANKS_ON: " Heavy bank lending made the hit #N x[{note}|2]#! as hard."\n')
 
 
 if __name__ == "__main__":

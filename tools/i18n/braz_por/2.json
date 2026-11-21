@@ -114,5 +114,9 @@
   "7ac3228a98": "Rivalidades",
   "eafcab7a35": "Rivalizamos com #v {1}#!; rival de #v {2}#!",
   "5c775ad815": "#header Rivalidades#!\\n$SPEC_RIVAL_RULE$",
-  "7be1025162": "Nomeamos #v {1}#! de #v {2}#!; nomeados por #v {3}#!"
+  "7be1025162": "Nomeamos #v {1}#! de #v {2}#!; nomeados por #v {3}#!",
+  "56de4b931d": "#header {1}#!\\n$TOOLTIP_DELIMITER$\\nO grupo {2} se opõe ao mercado de {3}. Sua [concept_approval] sobe quando contemos a especulação nele e cai quando incentivamos investimentos nele. Quanto mais [concept_clout] o grupo tiver, maior o efeito.",
+  "d156fec2d3": "\\n#N O grupo {1} desaprovará#!",
+  "81fdbeaf1e": "#header {1}#!\\n$TOOLTIP_DELIMITER$\\nO grupo {2} favorece o mercado de {3}. Sua [concept_approval] sobe quando ele passa por uma expansão ou quando incentivamos investimentos nele, e cai quando ele termina em [concept_spec_bust] ou quando contemos a especulação nele. Quanto mais [concept_clout] o grupo tiver, maior o efeito.",
+  "0c6fc679f4": "\\n#P O grupo {1} aprovará#!"
 }

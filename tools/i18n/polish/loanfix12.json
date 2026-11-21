@@ -1,0 +1,10 @@
+{
+ "65d69828cb": "@spec_sound_finance! #italic Nagroda za wprowadzenie wszystkich trzech reform ([concept_spec_banking_reforms]): zasad emisji banknotów, pożyczkodawcy ostatniej instancji i prawa spółek.#!\\n\\nGdy dane [concept_country] ma wszystkie trzy:\\n#P +{1}#! [concept_prestige]",
+ "25ea66f796": "\\nInwestycje ({1}, {2}, {3}): #P +{4}%#!\\nSprzedana ilość: #P +{5}%#!\\n{6}: #P +{7}#!",
+ "b5b070a24a": "Inwestycje ({1}, {2} i {3}): #P +{4}%#!\\nIlość w obrocie: #P +{5}%#!\\n{6}: #P +{7}#!",
+ "56c09ee847": "#header Światowe centrum#!\\nReakcja inwestorów: #v +{1}%#!\\n[concept_prestige]: #P +{2}%#! poza rankingiem ({3})\\nOtrzymywana [concept_spec_capital_flight]: #P x2#!\\nStraty ([concept_spec_foreign_panic]): #P -{4}%#!\\n#P +{5}%#! {6}\\nJeden konkurent bez kosztów utrzymania\\n$TOOLTIP_DELIMITER$\\n#instruction Aby osiągnąć pozycję Światowe centrum#!, potrzebujemy miejsca w czołowej #v {7}#! w rankingu ({8}), a także technologii {9}",
+ "c86b27426b": "#header Zaufana#!\\nWiarygodność od #v {1}%#! do #v {2}%#!\\n$TOOLTIP_DELIMITER$\\n#P +{3}#! {4}",
+ "bf0a6e57a3": "#header 1. miejsce: Solidne kredytowanie#!\\n{1}\\n$TOOLTIP_DELIMITER$\\nJako nasza specjalność to miejsce daje:\\n#P +{2}%#! {3}\\n#N -{4}#! {5}\\n#P +{6}#! {7}",
+ "8895c0f776": "#header 2. miejsce: Solidne kredytowanie#!\\n{1}\\n$TOOLTIP_DELIMITER$\\nJako nasza specjalność to miejsce daje:\\n#P +{2}%#! {3}\\n#N -{4}#! {5}",
+ "ca16df56d4": "#header 3. miejsce: Solidne kredytowanie#!\\n{1}\\n$TOOLTIP_DELIMITER$\\nJako nasza specjalność to miejsce daje:\\n#P +{2}%#! {3}\\n#N -{4}#! {5}"
+}

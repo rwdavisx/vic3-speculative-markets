@@ -24,7 +24,7 @@ else = { debug_log = "HOTFIX FAIL fixture_country_in_default" }
  set_variable = { name = spec_conf value = 70 }
  set_variable = { name = spec_c_total value = 0 }
  spec_mechanics_pledge_rescue = yes
-if = { limit = { has_variable = spec_pledge_unmet NOT = { has_variable = spec_rescued } } debug_log = "HOTFIX PASS default_blocks_pledged_rescue" }
+if = { limit = { has_variable = spec_pledge_unmet var:spec_pledge_reason = 2 NOT = { has_variable = spec_rescued } } debug_log = "HOTFIX PASS default_blocks_pledged_rescue" }
 else = { debug_log = "HOTFIX FAIL default_blocks_pledged_rescue" }
 
  spec_mechanics_pledge_month = yes

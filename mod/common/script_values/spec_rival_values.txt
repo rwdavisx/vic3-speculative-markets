@@ -22,6 +22,37 @@ spec_rv_heft = {
 	divide = spec_rv_vs
 }
 
+spec_rv_today = { value = game_date }
+
+spec_rv_shore_until_date = {
+	value = 0
+	if = {
+		limit = { is_key_in_variable_map = { name = spec_rv_shore_until target = scope:target } }
+		value = "variable_map(spec_rv_shore_until|scope:target)"
+	}
+}
+spec_rv_protected_until_date = {
+	value = 0
+	if = {
+		limit = { is_key_in_variable_map = { name = spec_rv_protected_until target = scope:target } }
+		value = "variable_map(spec_rv_protected_until|scope:target)"
+	}
+}
+
+
+spec_rv_raid_applied = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_rv_raid_pm }
+		value = var:spec_rv_raid_pm
+		max = {
+			value = 4
+			if = { limit = { has_variable = spec_rv_raid_year } subtract = var:spec_rv_raid_year }
+		}
+		min = 0
+	}
+}
+
 spec_rv_cost_base = {
 	value = gdp
 	multiply = 0.04

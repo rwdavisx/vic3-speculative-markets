@@ -1,0 +1,7 @@
+{
+ "eb4306fea3": "Nossa [concept_spec_exchange] ganha #P {1}#! de credibilidade, e a de {2} perde #N {3}#!.",
+ "caf129348d": "Nossa [concept_spec_exchange] perde #N {1}#! de credibilidade, e a de {2} ganha #P {3}#!.",
+ "7a4a453eaf": "Nenhum lado ganha ou perde credibilidade.",
+ "f71901f02c": "Se fosse resolvida agora, seria {1}. Ela se resolve em $SPEC_RV_LEFT$.",
+ "b33e629707": "#header Disputa com {1}#!\\n$TOOLTIP_DELIMITER$\\nA barra está $SPEC_RV_BAR_AT$. $SPEC_RV_NOW_LINE$\\n{2}\\n$TOOLTIP_DELIMITER$\\nCada disputa dura #v {3}#! anos, e então começa uma nova."
+}

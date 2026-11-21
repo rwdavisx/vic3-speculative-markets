@@ -1,0 +1,11 @@
+{
+ "7888c33fe3": "Çıkar Grubu Duruşları",
+ "be285a3780": "Artık destekliyor: {1} ({2})",
+ "f398a21ef0": "Artık desteklemiyor: {1} ({2})",
+ "5f9fa3b8ab": "Artık karşı: {1} ({2})",
+ "74c879a982": "Artık karşı değil: {1} ({2})",
+ "ca15afa086": "Destekler",
+ "eaac2ea1fe": "Karşı",
+ "5402230931": "#header Destekleyenler#!\\n$TOOLTIP_DELIMITER${1}{2}{3}{4}{5}{6}{7}{8}",
+ "e8e592c78b": "#header Karşı çıkanlar#!\\n$TOOLTIP_DELIMITER${1}{2}{3}{4}{5}{6}{7}{8}"
+}

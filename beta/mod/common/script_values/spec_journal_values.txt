@@ -46,6 +46,14 @@ spec_reform_heat = {
 		multiply = 0.75
 	}
 	if = {
+		limit = { has_law = law_type:law_spec_fiat_money }
+		multiply = 1.2
+	}
+	if = {
+		limit = { has_law = law_type:law_spec_elastic_currency }
+		multiply = 1.3
+	}
+	if = {
 		limit = { has_variable = spec_hazard }
 		multiply = 1.5
 	}
@@ -54,6 +62,14 @@ spec_reform_boom = {
 	value = 1
 	if = {
 		limit = { var:spec_note ?= 2 }
+		multiply = 1.1
+	}
+	if = {
+		limit = { has_law = law_type:law_spec_fiat_money }
+		multiply = 1.1
+	}
+	if = {
+		limit = { has_law = law_type:law_spec_elastic_currency }
 		multiply = 1.1
 	}
 }
@@ -67,6 +83,10 @@ spec_reform_risk = {
 		limit = { has_variable = spec_company_law }
 		multiply = 0.7
 	}
+	if = {
+		limit = { has_law = law_type:law_spec_bimetallism }
+		multiply = 1.1
+	}
 }
 spec_reform_panic_len = {
 	value = 1
@@ -74,12 +94,40 @@ spec_reform_panic_len = {
 		limit = { var:spec_note ?= 1 }
 		multiply = 1.25
 	}
+	if = {
+		limit = { has_law = law_type:law_spec_gold_standard }
+		multiply = 1.2
+	}
+	if = {
+		limit = { has_law = law_type:law_spec_fiat_money }
+		multiply = 0.8
+	}
+	if = {
+		limit = { has_law = law_type:law_spec_classical_gold }
+		multiply = 1.3
+	}
+	if = {
+		limit = { has_law = law_type:law_spec_elastic_currency }
+		multiply = 0.6
+	}
 }
 spec_reform_rescue = {
 	value = 1
 	if = {
 		limit = { has_variable = spec_llr }
 		multiply = 0.5
+	}
+	if = {
+		limit = { has_law = law_type:law_spec_bimetallism }
+		multiply = 0.9
+	}
+	if = {
+		limit = { has_law = law_type:law_spec_fiat_money }
+		multiply = 0.75
+	}
+	if = {
+		limit = { has_law = law_type:law_spec_elastic_currency }
+		multiply = 0.75
 	}
 }
 spec_reform_rescue_months = {
@@ -110,8 +158,132 @@ spec_burst_now = {
 		limit = { has_variable = spec_heat }
 		value = var:spec_heat
 		multiply = spec_burst_per_heat
-		max = spec_burst_max
+		multiply = spec_nx_burst
+		max = 60
 	}
+}
+spec_xs_bad_now = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_heat }
+		value = var:spec_heat
+		multiply = spec_burst_per_heat
+		multiply = spec_nx_burst
+		subtract = 60
+		multiply = spec_nx_bad
+		min = 0
+	}
+}
+spec_heat_shown = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_heat }
+		value = var:spec_heat
+	}
+}
+spec_xs_grow_0 = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_conf var:spec_conf >= spec_heat_from has_technology_researched = stock_exchange }
+		value = var:spec_conf
+		subtract = spec_heat_from
+	}
+}
+spec_xs_grow_1 = {
+	value = 0
+	if = {
+		limit = { var:spec_note ?= 1 }
+		value = spec_xs_grow_0
+		multiply = -0.25
+	}
+}
+spec_xs_grow_r1 = {
+	value = spec_xs_grow_0
+	add = spec_xs_grow_1
+}
+spec_xs_grow_2 = {
+	value = 0
+	if = {
+		limit = { has_law = law_type:law_spec_fiat_money }
+		value = spec_xs_grow_r1
+		multiply = 0.2
+	}
+}
+spec_xs_grow_r2 = {
+	value = spec_xs_grow_r1
+	add = spec_xs_grow_2
+}
+spec_xs_grow_3 = {
+	value = 0
+	if = {
+		limit = { has_law = law_type:law_spec_elastic_currency }
+		value = spec_xs_grow_r2
+		multiply = 0.3
+	}
+}
+spec_xs_grow_r3 = {
+	value = spec_xs_grow_r2
+	add = spec_xs_grow_3
+}
+spec_xs_grow_4 = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_hazard }
+		value = spec_xs_grow_r3
+		multiply = 0.5
+	}
+}
+spec_xs_grow_r4 = {
+	value = spec_xs_grow_r3
+	add = spec_xs_grow_4
+}
+spec_xs_grow = {
+	value = spec_xs_grow_r4
+}
+spec_xs_cool_0 = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_heat has_variable = spec_conf var:spec_conf >= 60 NOT = { AND = { has_variable = spec_conf var:spec_conf >= spec_heat_from has_technology_researched = stock_exchange } } }
+		value = var:spec_heat
+		multiply = -0.02
+	}
+}
+spec_xs_cool_1 = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_heat has_variable = spec_conf var:spec_conf >= 60 NOT = { AND = { has_variable = spec_conf var:spec_conf >= spec_heat_from has_technology_researched = stock_exchange } } spec_stance_value < 0 }
+		value = var:spec_heat
+		multiply = -0.03
+	}
+}
+spec_xs_cool = {
+	value = spec_xs_cool_0
+	add = spec_xs_cool_1
+}
+spec_xs_pop = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_heat has_variable = spec_conf var:spec_conf < 60 }
+		value = var:spec_heat
+		multiply = -1
+	}
+}
+spec_xs_next = {
+	value = spec_xs_grow
+	add = spec_xs_cool
+	add = spec_xs_pop
+}
+spec_xs_mania = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_conf var:spec_conf >= spec_heat_from has_technology_researched = stock_exchange var:spec_conf > 80 }
+		value = var:spec_conf
+		subtract = 80
+	}
+}
+spec_xs_boom = {
+	value = spec_xs_grow_0
+	subtract = spec_xs_mania
 }
 spec_calm_left = {
 	value = 120

@@ -1,0 +1,17 @@
+{
+  "spec_test_panic_recall": {
+    "path": "common/scripted_effects/spec_effects.txt",
+    "start": "# banks call in part of the credit they lent\n",
+    "end": "\n\tset_variable = { name = spec_centre_calm value = 0 }"
+  },
+  "spec_test_rival_month": {
+    "path": "common/on_actions/spec_on_actions.txt",
+    "start": "# rival actions running (rivals.py): a Bear Raid's monthly hit, a lure's pool money, Shore Up's months\n",
+    "end": "\n\t\t\tremove_variable = spec_fs1\n\t\t\tif = {"
+  },
+  "spec_test_dispatch_chips": {
+    "path": "common/scripted_effects/spec_company_effects.txt",
+    "start": "\t\t\tspec_story_conf = { AMOUNT = -3 }\n\t\t}\n",
+    "end": "\n\t}\n\telse = {\n\t\tif = {\n\t\t\tlimit = { has_modifier = spec_company_bust_aeroplanes }"
+  }
+}

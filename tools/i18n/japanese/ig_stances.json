@@ -1,0 +1,20 @@
+{
+"542ac7a51f": "@disapproves! #bold {1}に反対#!\\n[concept_approval]の変化（[concept_clout]に応じて#v x{2}#!）:\\n• その投機を抑制した場合: 1年間{3}\\n• その投資を奨励した場合: 1年間{4}",
+"b1e7552017": "\\n@disapproves! {1}（[concept_clout] {2}）: 1年間{3}",
+"af5a7f0d28": "@approves! #bold {1}を支持#!\\n[concept_approval]の変化（[concept_clout]に応じて#v x{2}#!）:\\n• その[concept_spec_investor_interest]が#v 意欲#!に達したとき: {4}年間{3}\\n• その好況が[concept_spec_bust]または[concept_spec_collapse]で終わったとき: {6}年間{5}、さらに支持をやめることがあります\\n• その投資を奨励した場合: 1年間{7}\\n• その投機を抑制した場合: 1年間{8}",
+"5eb1bca902": "\\n\\n#title [concept_interest_group]の支持の変化#!",
+"d780d8f880": "ここで取引される商品へのスタンスはありません",
+"a365bf07e9": "#header 商品へのスタンス#!\\n$TOOLTIP_DELIMITER$\\n{1}は自国が取引する商品のうちいくつかを@approves!支持し、1つに@disapproves!反対することもあります。その[concept_approval]は、これらの商品の好況や破綻、そして政府による介入に応じて上下し、[concept_clout]が大きいほど変化も大きくなります。\\n\\n新しい指導者がこれらのスタンスの1つを変えることがあります。",
+"2a711dd264": "\\n@approves! {1}（[concept_clout] {2}）: 1年間{3}",
+"e35a727b20": "#header [concept_interest_group]のスタンス#!\\n$TOOLTIP_DELIMITER$\\n各$concept_interest_group$は、我が国の[concept_market]で取引される{1}のうちいくつかを@approves!支持し、1つに@disapproves!反対する集団もあります。\\n\\nその[concept_approval]は、これらの商品の好況や破綻、そして我が国による介入に応じて上下し、[concept_clout]が大きいほど変化も大きくなります。新しい指導者が集団のスタンスの1つを変えることがあります。",
+"80db4fba72": "空いている枠をクリックして一覧から選ぶか、取引所一覧で取引所の横にある丸いボタンを使うか、地図上でその国を右クリックして#v 相手の取引所と競合する#!を選びます。",
+"4c5ba789f6": "勝負を挑む取引所を選ぶ",
+"d4f7df3999": "\\n\\n#instruction クリックして勝負を始めます#!",
+"aa3b0962ad": "#weak スコア#!",
+"f6c1ed9e2b": "#weak 地位#!",
+"d555568170": "#weak 他の取引所はまだありません#!",
+"498764f7fc": "#header 空いている勝負枠#!\\n$TOOLTIP_DELIMITER$\\n競合する別の[concept_spec_exchange]を選びます。\\n\\n$SPEC_RV_NEED$\\n\\n#instruction クリックして一覧から選びます#!",
+"9af79ca121": "造幣局は金と銀の両方を一定の比価で鋳造するため、出回る硬貨が増えます。しかし市場の相場がその比価から離れるたびに、割高な方の金属は退蔵されるか国外へ流出します。",
+"157eec79a8": "#header {1}への投資を奨励#!\\n$TOOLTIP_DELIMITER$\\n#italic 投資家が見向きもしない[concept_good]に関心を向けさせます。#!\\n\\n[concept_spec_investor_interest]は数か月かけて#v 積極#!まで上昇します\\n{2}[concept_budget_additional_expenses]: 毎週#N @money!{3}#!（基準価格での生産額の#v {4}%#!）\\n[concept_good]が#v 意欲#!になると自動的に終わります{5}{6}{7}{8}{9}{10}{11}{12}{13}\\n\\n有効な間、[concept_authority]を#N -{14}#!拘束します。毎月払い直すわけではなく、解除すると戻ってきます#indent_newline:3 \\n通常この[concept_good]では#v {15}#!、その消費税の半分と同じ\\n取引量に応じて#v x{16}#!（我が国の市場の#v {17}#!）#!\\n\\n#lore 1800年代半ば、イギリス領インドとフランスは鉄道投資家に資本への一定の利益を保証しました。#!{18}\\n\\n{19}",
+"a95d3369b7": "#header {1}の投機を抑制#!\\n$TOOLTIP_DELIMITER$\\n#italic 過熱した[concept_good]を、好況が大きくなりすぎる前に冷まします。#!\\n\\n[concept_spec_investor_interest]は数か月かけて#v 平静#!まで低下します\\n{2}[concept_budget_additional_income]: 毎週#P @money!{3}#!（基準価格での生産額の#v {4}%#!）\\n好況が終わるときは、一度にではなく約1年かけて[concept_spec_correction]としてゆっくり収束します{5}{6}{7}{8}{9}{10}{11}{12}{13}\\n\\n有効な間、[concept_authority]を#N -{14}#!拘束します。毎月払い直すわけではなく、解除すると戻ってきます#indent_newline:3 \\n通常この[concept_good]では#v {15}#!、その消費税の半分と同じ\\n取引量に応じて#v x{16}#!（我が国の市場の#v {17}#!）#!\\n\\n#lore 南海泡沫事件の後、{18}年の泡沫会社規制法は、国王の特許状なしに株式会社を設立することを禁じました。#!{19}\\n\\n{20}"
+}

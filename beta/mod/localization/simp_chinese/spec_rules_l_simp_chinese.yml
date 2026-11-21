@@ -3,4 +3,4 @@
  setting_spec_volatility_historical: "#tooltippable #tooltip:[GetPlayer.GetTooltipTag],setting_spec_volatility_historical_desc 历史水平#!#!"
  setting_spec_volatility_historical_desc: "投机热潮和[Concept('concept_spec_financial_panic', '$concept_spec_financial_panics|q$')]的发生频率与19世纪大致相当"
  setting_spec_volatility_heightened: "#tooltippable #tooltip:[GetPlayer.GetTooltipTag],setting_spec_volatility_heightened_desc #high 高#!#!#!"
- setting_spec_volatility_heightened_desc: "投机热潮规模更大、结束更突然，[Concept('concept_spec_financial_panic', '$concept_spec_financial_panics|q$')]比19世纪实际发生得更频繁"
+ setting_spec_volatility_heightened_desc: "投机热潮规模更大、结束更突然，[Concept('concept_spec_financial_panic', '$concept_spec_financial_panics|q$')]比19世纪发生得更频繁"

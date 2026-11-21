@@ -1,0 +1,7 @@
+{
+ "eb4306fea3": "[concept_spec_exchange] kurumumuz #P {1}#! güvenilirlik kazanır, {2} tarafı #N {3}#! kaybeder.",
+ "caf129348d": "[concept_spec_exchange] kurumumuz #N {1}#! güvenilirlik kaybeder, {2} tarafı #P {3}#! kazanır.",
+ "7a4a453eaf": "Hiçbir taraf güvenilirlik kazanmaz ya da kaybetmez.",
+ "f71901f02c": "Şimdi sonuçlansa {1} olurdu. $SPEC_RV_LEFT$ içinde sonuçlanır.",
+ "b33e629707": "#header {1} ile Yarış#!\\n$TOOLTIP_DELIMITER$\\nÇubuk şu anda $SPEC_RV_BAR_AT$. $SPEC_RV_NOW_LINE$\\n{2}\\n$TOOLTIP_DELIMITER$\\nHer yarış #v {3}#! yıl sürer, ardından yenisi başlar."
+}

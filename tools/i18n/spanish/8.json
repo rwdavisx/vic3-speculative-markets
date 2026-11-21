@@ -1,4 +1,14 @@
 {
   "0fee773c3e": "Su rango está a no más de #v {1}#! del nuestro",
-  "966425a285": "Tienen una [concept_spec_exchange]"
+  "966425a285": "Tienen una [concept_spec_exchange]",
+  "c3633b0eab": "Integración financiera",
+  "59b7c93a32": "Los bancos y bolsas de los {1} se prestan entre sí y al {2}, de modo que un {3} en un mercado sacude menos a los demás y el mercado monetario del líder sirve a todo el $concept_power_bloc$.",
+  "6bf1516990": "El gobierno respalda su sector",
+  "83f11e45f6": "El gobierno ha intervenido en un mercado que importa a este grupo, tal como deseaba.",
+  "72624fb140": "Auge de un sector predilecto",
+  "9c273eba47": "Los inversores están volcando dinero en un sector muy querido por este grupo.",
+  "f16cf710c1": "Quiebra de un sector predilecto",
+  "4587c5750d": "Un sector muy querido por este grupo ha quebrado, y culpan al gobierno que lo permitió.",
+  "0f694b87ed": "El gobierno perjudica su sector",
+  "77fe19e687": "El gobierno ha intervenido en un mercado que importa a este grupo, en contra de sus deseos."
 }

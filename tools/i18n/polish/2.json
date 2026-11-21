@@ -114,5 +114,9 @@
   "7ac3228a98": "Rywalizacja",
   "eafcab7a35": "Przez nas: #v {1}#!, przeciw nam: #v {2}#!",
   "5c775ad815": "#header Rywalizacja#!\\n$SPEC_RIVAL_RULE$",
-  "7be1025162": "Wyznaczone: #v {1}#! z #v {2}#!, wyznaczają nas: #v {3}#!"
+  "7be1025162": "Wyznaczone: #v {1}#! z #v {2}#!, wyznaczają nas: #v {3}#!",
+  "56de4b931d": "#header {1}#!\\n$TOOLTIP_DELIMITER$\\nGrupa {2} sprzeciwia się towarowi: {3}. Jej [concept_approval] rośnie, gdy ograniczamy spekulację tym towarem, i spada, gdy zachęcamy do inwestycji w niego. Im większa jej [concept_clout], tym silniejszy efekt.",
+  "d156fec2d3": "\\n#N Grupa {1} będzie temu przeciwna#!",
+  "81fdbeaf1e": "#header {1}#!\\n$TOOLTIP_DELIMITER$\\nGrupa {2} sprzyja towarowi: {3}. Jej [concept_approval] rośnie, gdy ten towar przeżywa boom lub gdy zachęcamy do inwestycji w niego, a spada, gdy jego boom ma finał [concept_spec_bust] lub gdy ograniczamy spekulację tym towarem. Im większa jej [concept_clout], tym silniejszy efekt.",
+  "0c6fc679f4": "\\n#P Grupa {1} to poprze#!"
 }

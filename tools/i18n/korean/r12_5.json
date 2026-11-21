@@ -1,0 +1,7 @@
+{
+ "eb4306fea3": "우리 [concept_spec_exchange]은(는) 신뢰를 #P {1}#! 얻고, {2}의 거래소는 #N {3}#! 잃습니다.",
+ "caf129348d": "우리 [concept_spec_exchange]은(는) 신뢰를 #N {1}#! 잃고, {2}의 거래소는 #P {3}#! 얻습니다.",
+ "7a4a453eaf": "어느 쪽도 신뢰를 얻거나 잃지 않습니다.",
+ "f71901f02c": "지금 결판나면 {1}입니다. 결판까지 $SPEC_RV_LEFT$ 남았습니다.",
+ "b33e629707": "#header {1}와(과)의 대결#!\\n$TOOLTIP_DELIMITER$\\n막대는 지금 $SPEC_RV_BAR_AT$으로 기울어 있습니다. $SPEC_RV_NOW_LINE$\\n{2}\\n$TOOLTIP_DELIMITER$\\n각 대결은 #v {3}#!년 동안 이어지고, 그 후 새 대결이 시작됩니다."
+}

@@ -1,0 +1,74 @@
+{
+  "version": "1.1.4",
+  "archive": "releases/1.1.4-workshop/Speculative_Markets_1.1.4.zip",
+  "sha256": "08d8fc5c2305f782d8482b55c855eb0f1e2a04ec4f8446805f30efa4e9487f84",
+  "beta": "1.1.4-beta.7",
+  "workshop_staging_matches_stable": true,
+  "beta_gameplay_matches_stable": true,
+  "rejected_staging_candidate": "releases/Speculative_Markets_1.1.4.rejected.json",
+  "local_checks": {
+    "python_tests": 61,
+    "cmf_tests": 9,
+    "generated_mod_check": "pass",
+    "seconds_parallel": 2.6
+  },
+  "single_instance_checks": [
+    {
+      "report": "runs/quick_20261118_001929_357236/report.json",
+      "sha256": "13456d27bf99a64b835502278a757ae9b77eb2729acf54164798f5fc8db6902e",
+      "suites": 22,
+      "assertions": 277,
+      "blocking_errors": 0,
+      "wall_seconds": 41.1
+    },
+    {
+      "report": "runs/quick_20261118_002033_683417/report.json",
+      "sha256": "ba86009a2109cec5905b1ec04cc5c3347d6c7c1ae614cafa5dc1e003e3413c69",
+      "suites": 22,
+      "assertions": 277,
+      "blocking_errors": 0,
+      "wall_seconds": 42.1
+    }
+  ],
+  "live_ui": {
+    "r7_positive_detail": {
+      "file": "runs/finance_114_live/r7_positive_detail.png",
+      "sha256": "c4c81e453852514fb522cb5e01a8cff64167e086bade3a1bc296051a6a8f4968"
+    },
+    "r7_negative_detail": {
+      "file": "runs/finance_114_live/r7_negative_detail.png",
+      "sha256": "247d5b5e46af66e9e652e69ff213acb9663b6057559012db23c5b7b927cddb97"
+    },
+    "r7_lure_active": {
+      "file": "runs/finance_114_live/r7_lure_active.png",
+      "sha256": "b7c1f3f620fa7102bf9ac4b8c2cfa60562cdec11bc04ff919a0202bd9a8988de"
+    },
+    "r7_lure_ended": {
+      "file": "runs/finance_114_live/r7_lure_ended.png",
+      "sha256": "48f530d5fdf5d919715443cbc653baa1923666c80b31c73586a3f0476ce59b28"
+    },
+    "bank_hint": {
+      "file": "runs/finance_114_live/bank_hint.png",
+      "sha256": "6bf39c9cd3fe4df453079c8330223c3ba79018baddf751ef70ca346b7dbadde1"
+    }
+  },
+  "full_inventory": {
+    "status": "stopped at owner request",
+    "reports_passed": 15,
+    "required_suites": 77,
+    "report": "runs/release_gate/finance_114_release/report.json"
+  },
+  "separate_cmf_checks": {
+    "parent_version": "1.67.8",
+    "files_matching_shipped_patch": 3
+  },
+  "focused_gameplay": {
+    "campaign_and_lure": "runs/release_gate/finance_114_lure_recheck/report.json",
+    "crisis_and_recalls": "runs/release_gate/finance_114_blockers1/report.json",
+    "rival_selection": "runs/release_gate/finance_114_picker3/report.json",
+    "contest_and_zero_size": "runs/release_gate/finance_114_fixes1/report.json",
+    "rival_actions_shields_and_companies": "runs/release_gate/finance_114_actions1/report.json"
+  },
+  "ui_log_note": "The private debug session also emitted base-game diagnostics. An invalid journal_entry_panel warning had been observed during the earlier navigation check. Screenshots document the listed controls only.",
+  "separate_manual_war_checks": "not run for this update"
+}

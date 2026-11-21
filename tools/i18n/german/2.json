@@ -114,5 +114,9 @@
   "7ac3228a98": "Rivalitäten",
   "eafcab7a35": "Wir rivalisieren mit #v {1}#!, Rivalen von #v {2}#!",
   "5c775ad815": "#header Rivalitäten#!\\n$SPEC_RIVAL_RULE$",
-  "7be1025162": "Benannt: #v {1}#! von #v {2}#!, von anderen benannt: #v {3}#!"
+  "7be1025162": "Benannt: #v {1}#! von #v {2}#!, von anderen benannt: #v {3}#!",
+  "56de4b931d": "#header {1}#!\\n$TOOLTIP_DELIMITER$\\nDie Interessengruppe {2} lehnt {3} ab. Ihre [concept_approval] steigt, wenn wir die Spekulation damit eindämmen, und sinkt, wenn wir Investitionen darin fördern. Je mehr [concept_clout] sie hat, desto stärker der Effekt.",
+  "d156fec2d3": "\\n#N Die Interessengruppe {1} wird ablehnen#!",
+  "81fdbeaf1e": "#header {1}#!\\n$TOOLTIP_DELIMITER$\\nDie Interessengruppe {2} bevorzugt {3}. Ihre [concept_approval] steigt bei einem Boom oder wenn wir Investitionen darin fördern, und sinkt, wenn der Boom in einem [concept_spec_bust] endet oder wenn wir die Spekulation damit eindämmen. Je mehr [concept_clout] sie hat, desto stärker der Effekt.",
+  "0c6fc679f4": "\\n#P Die Interessengruppe {1} wird zustimmen#!"
 }

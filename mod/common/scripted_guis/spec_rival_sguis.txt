@@ -58,6 +58,11 @@ spec_sgui_rv_end = {
 	effect = { spec_rv_end = yes }
 }
 
+spec_sgui_rv_is_active_lure = {
+	scope = country
+	is_shown = { spec_rv_active_lure = yes }
+}
+
 spec_sgui_rv_is_pair = {
 	scope = country
 	is_shown = { spec_rv_pair = yes }

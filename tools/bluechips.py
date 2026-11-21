@@ -33,7 +33,8 @@ COTY_PRESTIGE = tuning.get("BC_COTY_PRESTIGE", 0.05)
 # beta.12 second pass (the user: still lacklustre): the Blue Chip Index, a country modifier per blue chip counted, and
 # each one counted moves every Exchange contest's bar PULL our way (rivals.spec_rv_rope); a Bear Raid that lands
 # rattles one of the target's blue chips: fragile for RATTLE_DAYS (rivals.spec_rv_raided)
-INDEX = tuning.get("BC_INDEX", [["state_capitalists_investment_pool_contribution_add", 0.006], ["country_loan_interest_rate_mult", -0.01]])
+# until 1.2 also -1% loan interest each, and 0.006: with the Pockets pursuit about 35% more capital than vanilla's 0.30
+INDEX = tuning.get("BC_INDEX", [["state_capitalists_investment_pool_contribution_add", 0.004]])
 PULL = tuning.get("BC_PULL", 0.03)
 RATTLE_DAYS = tuning.get("BC_RATTLE_DAYS", 365)
 
@@ -87,12 +88,16 @@ def after_update(t="\t\t"):
 {t}	spec_story_conf = {{ AMOUNT = -{FALL_CONF} }}
 {t}}}
 {t}if = {{
-{t}	limit = {{ has_local_variable = spec_bc_gained }}
-{t}	trigger_event = {{ id = spec_bluechip.1 popup = yes }}
-{t}}}
-{t}else_if = {{
-{t}	limit = {{ has_local_variable = spec_bc_wobbled }}
-{t}	trigger_event = {{ id = spec_bluechip.2 popup = yes }}
+{t}	limit = {{ OR = {{ has_local_variable = spec_bc_gained has_local_variable = spec_bc_wobbled }} }}
+{t}	every_company = {{
+{t}		limit = {{ OR = {{ has_variable = spec_bc_new has_variable = spec_bc_wobble }} }}
+{t}		save_scope_as = spec_bc_co
+{t}		if = {{
+{t}			limit = {{ has_variable = spec_bc_wobble }}
+{t}			owner = {{ trigger_event = {{ id = spec_bluechip.2 popup = yes }} }}
+{t}		}}
+{t}		else = {{ owner = {{ trigger_event = {{ id = spec_bluechip.1 popup = yes }} }} }}
+{t}	}}
 {t}}}
 """
 
@@ -108,6 +113,15 @@ def values():
 spec_bc_shelter = {{
 	value = 1
 	subtract = {{ value = spec_bc_counted multiply = {SHELTER:g} }}
+}}
+
+# Monthly updates at the owner's current rate, from the company's saved progress.
+spec_bc_updates_left = {{
+	value = {__import__("companies").BLUE_MONTHS}
+	if = {{ limit = {{ has_variable = spec_bc_months }} subtract = var:spec_bc_months }}
+	divide = owner.spec_nx_blue
+	min = 0
+	ceiling = yes
 }}
 
 # the blue chips counted toward their effects: in full up to CAP, then HALF each up to CAP2
@@ -178,6 +192,8 @@ def pass_(t="\t"):
 
 def _event(n, pic, flag, options, icon="event_industry"):
     pics = __import__("stories").pictures(pic)
+    company_scope = "spec_coty_co" if n == 3 else "spec_bc_co"
+    consume = "" if n == 3 else f" remove_variable = {flag}"
     return f"""
 spec_bluechip.{n} = {{
 	type = country_event
@@ -190,15 +206,12 @@ spec_bluechip.{n} = {{
 	icon = "gfx/interface/icons/event_icons/{icon}.dds"
 
 	trigger = {{
-		any_company = {{ has_variable = {flag} }}
+		exists = scope:{company_scope}
+		scope:{company_scope} ?= {{ owner = root has_variable = {flag} }}
 	}}
 
 	immediate = {{
-		random_company = {{
-			limit = {{ has_variable = {flag} }}
-			save_scope_as = spec_bc_co
-		}}
-		scope:spec_bc_co = {{ remove_variable = {flag} }}
+		scope:{company_scope} = {{ save_scope_as = spec_bc_co{consume} }}
 	}}
 {"".join(options)}}}
 """
@@ -210,13 +223,17 @@ def _option(n, letter, body, ai, trigger="", default=False):
             + f"\t\tai_chance = {{\n\t\t\tbase = {ai}\n\t\t}}\n\t}}\n")
 
 
+def timed_status(name, days):
+    return f"set_variable = {{ name = {name} value = {{ value = game_date add = {days} }} days = {days} }}"
+
+
 def events():
     bell = (f"\t\tcustom_tooltip = spec_bluechip.1.a.tt\n\t\thidden_effect = {{\n\t\t\tif = {{\n\t\t\t\tlimit = {{ {EXCH} }}\n"
             f"{_gain(BELL_TRUST, chr(9) * 4)}\t\t\t}}\n\t\t}}\n")
     shares = ("\t\tcustom_tooltip = spec_bluechip.1.b.tt\n\t\thidden_effect = {\n\t\t\tadd_investment_pool = spec_bc_shares\n"
-              f"\t\t\tscope:spec_bc_co = {{ set_variable = {{ name = spec_bc_fragile days = {FRAGILE_YEARS * 365} }} }}\n\t\t}}\n")
+              f"\t\t\tscope:spec_bc_co = {{ {timed_status('spec_bc_fragile', FRAGILE_YEARS * 365)} }}\n\t\t}}\n")
     prop = ("\t\tcustom_tooltip = spec_bluechip.2.a.tt\n\t\thidden_effect = {\n\t\t\tadd_treasury = spec_bc_prop_cost_neg\n"
-            f"\t\t\tscope:spec_bc_co = {{\n\t\t\t\tset_variable = {{ name = spec_bc_propped days = {PROP_MONTHS * 30} }}\n"
+            f"\t\t\tscope:spec_bc_co = {{\n\t\t\t\t{timed_status('spec_bc_propped', PROP_MONTHS * 30)}\n"
             "\t\t\t\tremove_variable = spec_bc_low\n\t\t\t}\n\t\t}\n")
     ride = "\t\tcustom_tooltip = spec_bluechip.2.b.tt\n"
     proud = "\t\tcustom_tooltip = spec_bluechip.3.a.tt\n"
@@ -235,8 +252,7 @@ def events():
             ], icon="event_scales")
             # 3: ours is Company of the Year (players only; the award itself is in pass_)
             + _event(3, {"west": "unspecific_world_fair", "mideast": "middleeast_middleclass_cafe", "africa": "africa_city_center",
-                         "asia": "asia_farmers_market"}, "spec_coty", [_option(3, "a", proud, 1, default=True)]).replace(
-                "\t\tscope:spec_bc_co = { remove_variable = spec_coty }\n", ""))
+                         "asia": "asia_farmers_market"}, "spec_coty", [_option(3, "a", proud, 1, default=True)]))
 
 
 MODIFIERS = f"""spec_coty = {{
@@ -264,14 +280,14 @@ def loc():
         ' spec_coty: "Company of the Year"\n'
         f' spec_coty_desc: "The world\'s most prosperous {bc} is ours this year"\n'
         ' spec_bc_index: "Blue Chip Index"\n'
-        f' spec_bc_index_desc: "Our {bc}s pull savings into the market and make loans cheaper. Each one makes it stronger. The first {CAP} count in full, and the rest up to {CAP2} count half."\n'
+        f' spec_bc_index_desc: "Our {bc}s pull savings into the market. Each one makes it stronger. The first {CAP} count in full, and the rest up to {CAP2} count half."\n'
         ' spec_bluechip.1.t: "A New Blue Chip"\n'
         f' spec_bluechip.1.d: "After a year of steady profits, {CO} is now counted among the blue chips. Its shares are '
         'sought by every bank and widow in the land, and the brokers ask whether it will stay content with its standing or '
         'ask the market for more."\n'
         ' spec_bluechip.1.f: "Safe as the Bank, they say."\n'
         ' spec_bluechip.1.a: "Ring the bell for them"\n'
-        f' spec_bluechip.1.a.tt: "Our {trust}: #P +{pc(BELL_TRUST / 120)}#!"\n'
+        f' spec_bluechip.1.a.tt: "Our {trust}: #P +{BELL_TRUST / 1.2:.1f}%#! of the full bar"\n'
         ' spec_bluechip.1.b: "Let them issue new shares"\n'
         f' spec_bluechip.1.b.tt: "Our [concept_investment_pool]: #P +[ROOT.GetCountry.MakeScope.ScriptValue(\'spec_bc_shares\')|D]#! @money!\\n'
         f'{CO} turns fragile for #v {FRAGILE_YEARS}#! years, so one month below #v {__import__("companies").BLUE_PROSPER:g}#! '
@@ -281,17 +297,17 @@ def loc():
         f'{__import__("companies").BLUE_LOSE} months, the market will strike it from the list, and our Exchange will feel it."\n'
         ' spec_bluechip.2.f: "A house that stood for a generation can fall in a season."\n'
         ' spec_bluechip.2.a: "Prop it up"\n'
-        f' spec_bluechip.2.a.tt: "Cost: #N [ROOT.GetCountry.MakeScope.ScriptValue(\'spec_bc_prop_cost\')|D]#! @money!\\n'
+        f' spec_bluechip.2.a.tt: "Costs #N [ROOT.GetCountry.MakeScope.ScriptValue(\'spec_bc_prop_cost\')|D]#! @money!\\n'
         f'{CO} keeps its status for #v {PROP_MONTHS}#! months, whatever its profits"\n'
         ' spec_bluechip.2.b: "Let the market decide"\n'
         f' spec_bluechip.2.b.tt: "If it stays below the mark for #v {__import__("companies").BLUE_LOSE}#! months:\\n'
-        f'Our {trust}: #N -{pc(FALL_TRUST / 120)}#!\\n[concept_spec_market_confidence]: #N -{FALL_CONF}#!"\n'
+        f'Our {trust}: #N -{FALL_TRUST / 1.2:.1f}%#! of the full bar\\n[concept_spec_market_confidence]: #N -{FALL_CONF}#!"\n'
         ' spec_bluechip.3.t: "Company of the Year"\n'
         f' spec_bluechip.3.d: "The financial press of every capital agrees that {CO} is the most prosperous company in the '
         'world this year. Our Exchange basks in its glory."\n'
         ' spec_bluechip.3.f: "Every clerk in the City wants a share of it."\n'
         ' spec_bluechip.3.a: "A proud day"\n'
-        f' spec_bluechip.3.a.tt: "Our {trust}: #P +{pc(COTY_TRUST / 120)}#!\\n$spec_coty$ for a year: [concept_prestige] #P +{pc(COTY_PRESTIGE)}#!"\n'
+        f' spec_bluechip.3.a.tt: "Our {trust}: #P +{COTY_TRUST / 1.2:.1f}%#! of the full bar\\n$spec_coty$ for a year: [concept_prestige] #P +{pc(COTY_PRESTIGE)}#!"\n'
     )
 
 
@@ -300,28 +316,24 @@ def effect_lines(val, each=False):
     """One line per effect, vanilla style. val(per_one, fmt) gives the figure: one blue chip's, or our total's; each
     adds one blue chip's figure after it, faint."""
     idx = dict(INDEX)
-    rows = [("[concept_spec_market_confidence] lost to crashes and panics", "-", SHELTER * 100, "0", ""),
+    rows = [("[concept_spec_market_confidence] lost when booms end and in [Concept('concept_spec_foreign_panic','$concept_spec_foreign_panics$')]", "-", SHELTER * 100, "0", ""),
             ("[concept_spec_exchange] trust", "+", DIVIDEND / 1.2, "1", " of the full bar a year"),
             ("[concept_spec_exchange] contests", "+", PULL * 100, "0", " our way"),
-            ("Capitalists' [concept_investment_pool] contribution", "+", idx["state_capitalists_investment_pool_contribution_add"] * 100, "1", ""),
-            ("Loan interest", "-", -idx["country_loan_interest_rate_mult"] * 100, "0", "")]
+            ("Capitalists' [concept_investment_pool] contribution", "+", idx["state_capitalists_investment_pool_contribution_add"] * 100, "1", "")]
     return "\\n".join(f"{name}: #P {sign}{val(x, f)}%#!{tail}" + (f" #grey ({sign}{x:.{f}f}% each)#!" if each else "")
                       for name, sign, x, f, tail in rows)
 
 
 def risk_text():
     import companies  # not at the top: companies imports this file
-    return (f"#b If we lose one#!\\nIt happens after #v {companies.BLUE_LOSE}#! months in a row below #v {companies.BLUE_PROSPER:g}#! [concept_prosperity]\\n"
-            f"[concept_spec_exchange] trust: #N -{FALL_TRUST / 1.2:.1f}%#! of the full bar\\n[concept_spec_market_confidence]: #N -{FALL_CONF}#!\\n"
-            f"A Bear Raid that hits us makes one #N Fragile#! for a year. It then stops being one after a single month below "
-            f"#v {companies.BLUE_PROSPER:g}#! [concept_prosperity], not #v {companies.BLUE_LOSE}#!\\n\\n"
-            f"#b Company of the Year#!\\nIf ours is the world's most prosperous, we gain [concept_spec_exchange] trust #P +{COTY_TRUST / 1.2:.1f}%#! of the full bar, "
-            f"and [concept_prestige] #P +{COTY_PRESTIGE:.0%}#! for a year")
+    return (f"We lose one after #v {companies.BLUE_LOSE}#! months in a row below #v {companies.BLUE_PROSPER:g}#! [concept_prosperity]. "
+            f"Losing it costs #N -{FALL_TRUST / 1.2:.1f}%#! of the full [concept_spec_exchange] trust bar and #N -{FALL_CONF}#! "
+            f"[concept_spec_market_confidence].\\n"
+            f"A Bear Raid that hits us makes one #N Fragile#! for a year, so a single month below "
+            f"#v {companies.BLUE_PROSPER:g}#! [concept_prosperity] is enough to lose it.\\n\\n"
+            f"If ours is the world's most prosperous company, it becomes Company of the Year: we gain #P +{COTY_TRUST / 1.2:.1f}%#! "
+            f"of the full [concept_spec_exchange] trust bar, and #P +{COTY_PRESTIGE:.0%}#! [concept_prestige] for a year.")
 
-
-# what a blue chip does, for the concept (concepts)
-def effects_text():
-    return f"#b Each one#! #grey (the first {CAP} in full, the next {CAP2 - CAP} half as much)#!\\n" + effect_lines(lambda x, f: f"{x:.{f}f}") + "\\n\\n" + risk_text()
 
 
 if __name__ == "__main__":

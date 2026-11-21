@@ -1,4 +1,10 @@
 ﻿# rival Exchanges (rivals.py): one named the other, both with an Exchange; scope:target = the other
+spec_rv_active_lure = {
+	has_variable = spec_rv_lure
+	exists = var:spec_rv_lurer
+	var:spec_rv_lurer = { is_country_alive = yes }
+}
+
 spec_rv_chose = {
 	is_target_in_variable_list = { name = spec_rv_chosen target = scope:target }
 }
@@ -108,7 +114,7 @@ spec_rv_pay_lure = {
 	}
 	custom_tooltip = {
 		text = spec_rv_lured_tt
-		scope:target = { NOT = { has_variable = spec_rv_lure } }
+		scope:target = { spec_rv_active_lure = no }
 	}
 }
 

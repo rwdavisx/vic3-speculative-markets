@@ -12,7 +12,7 @@ every_country = { limit = { NOT = { this = prev } OR = { this = c:GBR this = c:F
 }
 c:GBR = { add_to_variable_list = { name = spec_rv_chosen target = c:FRA } }
 c:PRU = { add_to_variable_list = { name = spec_rv_chosen target = c:FRA } }
-every_country = { limit = { OR = { this = c:GBR this = c:FRA this = c:PRU } } remove_variable = spec_rv_raid remove_variable = spec_rv_raid_pm remove_variable = spec_rv_lure remove_variable = spec_rv_lurer remove_variable = spec_rv_lure_share remove_variable = spec_rv_shored remove_variable = spec_rv_shore_cd remove_variable = spec_rv_hit remove_variable = spec_rv_hit_by remove_variable = spec_rv_hit_ok remove_variable = spec_rv_hit_recent remove_variable = spec_panic clear_variable_list = spec_rv_cd_raid clear_variable_list = spec_rv_cd_lure clear_variable_list = spec_rv_cd_press if = { limit = { has_modifier = spec_rv_press_1 } remove_modifier = spec_rv_press_1 } if = { limit = { has_modifier = spec_rv_press_2 } remove_modifier = spec_rv_press_2 } if = { limit = { has_modifier = spec_rv_press_3 } remove_modifier = spec_rv_press_3 } set_variable = { name = spec_conf value = 55 } set_variable = { name = spec_centre_trust value = 60 } if = { limit = { NOT = { has_variable = spec_centre_score } } set_variable = { name = spec_centre_score value = 100 } } }
+every_country = { limit = { OR = { this = c:GBR this = c:FRA this = c:PRU } } remove_variable = spec_rv_raid remove_variable = spec_rv_raid_pm remove_variable = spec_rv_lure remove_variable = spec_rv_lurer remove_variable = spec_rv_lure_share clear_variable_list = spec_rv_shield clear_variable_list = spec_rv_cd_shore remove_variable = spec_rv_hit remove_variable = spec_rv_hit_by remove_variable = spec_rv_hit_ok remove_variable = spec_rv_hit_recent remove_variable = spec_panic clear_variable_list = spec_rv_cd_raid clear_variable_list = spec_rv_cd_lure clear_variable_list = spec_rv_cd_press if = { limit = { has_modifier = spec_rv_press_1 } remove_modifier = spec_rv_press_1 } if = { limit = { has_modifier = spec_rv_press_2 } remove_modifier = spec_rv_press_2 } if = { limit = { has_modifier = spec_rv_press_3 } remove_modifier = spec_rv_press_3 } set_variable = { name = spec_conf value = 55 } set_variable = { name = spec_centre_trust value = 60 } set_variable = { name = spec_centre_score value = 100 } }
 set_variable = { name = spec_debt value = 0 }
 c:FRA = { save_scope_as = target }
 if = { limit = { spec_can_rv_lure = yes } debug_log = "HOTFIX PASS lure_allowed_on_rival" }
@@ -20,7 +20,7 @@ else = { debug_log = "HOTFIX FAIL lure_allowed_on_rival" }
 spec_rv_lure = yes
 if = { limit = { var:spec_debt > 0 var:spec_debt = spec_rv_lure_debt } debug_log = "HOTFIX PASS lure_adds_outstanding_credit" }
 else = { debug_log = "HOTFIX FAIL lure_adds_outstanding_credit" }
-if = { limit = { c:FRA = { var:spec_rv_lure = 12 var:spec_rv_lurer = c:GBR var:spec_rv_lure_share = 0.1 var:spec_rv_hit = 2 } } debug_log = "HOTFIX PASS lure_set_on_target" }
+if = { limit = { c:FRA = { var:spec_rv_lure = 12 var:spec_rv_lurer = c:GBR var:spec_rv_lure_share = 0.05 var:spec_rv_hit = 2 } } debug_log = "HOTFIX PASS lure_set_on_target" }
 else = { debug_log = "HOTFIX FAIL lure_set_on_target" }
 if = { limit = { NOT = { spec_can_rv_lure = yes } } debug_log = "HOTFIX PASS lure_sets_cooldown" }
 else = { debug_log = "HOTFIX FAIL lure_sets_cooldown" }
@@ -28,25 +28,39 @@ c:PRU = { c:FRA = { save_scope_as = target } }
 c:PRU = { save_scope_as = spec_test_pru }
 if = { limit = { c:PRU = { NOT = { spec_can_rv_lure = yes } } } debug_log = "HOTFIX PASS one_lure_at_a_time" }
 else = { debug_log = "HOTFIX FAIL one_lure_at_a_time" }
-every_country = { limit = { OR = { this = c:FRA } } remove_variable = spec_rv_raid remove_variable = spec_rv_raid_pm remove_variable = spec_rv_lure remove_variable = spec_rv_lurer remove_variable = spec_rv_lure_share remove_variable = spec_rv_shored remove_variable = spec_rv_shore_cd remove_variable = spec_rv_hit remove_variable = spec_rv_hit_by remove_variable = spec_rv_hit_ok remove_variable = spec_rv_hit_recent remove_variable = spec_panic clear_variable_list = spec_rv_cd_raid clear_variable_list = spec_rv_cd_lure clear_variable_list = spec_rv_cd_press if = { limit = { has_modifier = spec_rv_press_1 } remove_modifier = spec_rv_press_1 } if = { limit = { has_modifier = spec_rv_press_2 } remove_modifier = spec_rv_press_2 } if = { limit = { has_modifier = spec_rv_press_3 } remove_modifier = spec_rv_press_3 } set_variable = { name = spec_conf value = 55 } set_variable = { name = spec_centre_trust value = 60 } if = { limit = { NOT = { has_variable = spec_centre_score } } set_variable = { name = spec_centre_score value = 100 } } }
+# A country scope can disappear between the monthly transfers.
+c:FRA = { remove_variable = spec_rv_lurer }
+if = { limit = { c:PRU = { spec_can_rv_lure = yes } } debug_log = "HOTFIX PASS vanished_lender_releases_target_at_once" }
+else = { debug_log = "HOTFIX FAIL vanished_lender_releases_target_at_once" }
+c:FRA = { set_variable = { name = spec_rv_lurer value = c:GBR } }
+
+every_country = { limit = { OR = { this = c:FRA } } remove_variable = spec_rv_raid remove_variable = spec_rv_raid_pm remove_variable = spec_rv_lure remove_variable = spec_rv_lurer remove_variable = spec_rv_lure_share clear_variable_list = spec_rv_shield clear_variable_list = spec_rv_cd_shore remove_variable = spec_rv_hit remove_variable = spec_rv_hit_by remove_variable = spec_rv_hit_ok remove_variable = spec_rv_hit_recent remove_variable = spec_panic clear_variable_list = spec_rv_cd_raid clear_variable_list = spec_rv_cd_lure clear_variable_list = spec_rv_cd_press if = { limit = { has_modifier = spec_rv_press_1 } remove_modifier = spec_rv_press_1 } if = { limit = { has_modifier = spec_rv_press_2 } remove_modifier = spec_rv_press_2 } if = { limit = { has_modifier = spec_rv_press_3 } remove_modifier = spec_rv_press_3 } set_variable = { name = spec_conf value = 55 } set_variable = { name = spec_centre_trust value = 60 } set_variable = { name = spec_centre_score value = 100 } }
 if = { limit = { c:PRU = { spec_can_rv_lure = yes } } debug_log = "HOTFIX PASS lure_free_again" }
 else = { debug_log = "HOTFIX FAIL lure_free_again" }
 c:PRU = { set_variable = spec_panic }
 if = { limit = { c:PRU = { NOT = { spec_can_rv_lure = yes } } } debug_log = "HOTFIX PASS panic_blocks_lure" }
 else = { debug_log = "HOTFIX FAIL panic_blocks_lure" }
 c:PRU = { remove_variable = spec_panic }
-c:FRA = { set_variable = { name = spec_rv_shored value = 12 } }
+c:FRA = { add_to_variable_list = { name = spec_rv_shield target = c:PRU } }
 c:PRU = { spec_rv_lure = yes }
-if = { limit = { c:FRA = { var:spec_rv_lure_share = 0.05 var:spec_rv_lurer = c:PRU } } debug_log = "HOTFIX PASS shore_halves_lure" }
+if = { limit = { c:FRA = { var:spec_rv_lure_share = 0.025 var:spec_rv_lurer = c:PRU } } debug_log = "HOTFIX PASS shore_halves_lure" }
 else = { debug_log = "HOTFIX FAIL shore_halves_lure" }
-c:FRA = { remove_variable = spec_rv_shored }
-every_country = { limit = { OR = { this = c:FRA } } remove_variable = spec_rv_raid remove_variable = spec_rv_raid_pm remove_variable = spec_rv_lure remove_variable = spec_rv_lurer remove_variable = spec_rv_lure_share remove_variable = spec_rv_shored remove_variable = spec_rv_shore_cd remove_variable = spec_rv_hit remove_variable = spec_rv_hit_by remove_variable = spec_rv_hit_ok remove_variable = spec_rv_hit_recent remove_variable = spec_panic clear_variable_list = spec_rv_cd_raid clear_variable_list = spec_rv_cd_lure clear_variable_list = spec_rv_cd_press if = { limit = { has_modifier = spec_rv_press_1 } remove_modifier = spec_rv_press_1 } if = { limit = { has_modifier = spec_rv_press_2 } remove_modifier = spec_rv_press_2 } if = { limit = { has_modifier = spec_rv_press_3 } remove_modifier = spec_rv_press_3 } set_variable = { name = spec_conf value = 55 } set_variable = { name = spec_centre_trust value = 60 } if = { limit = { NOT = { has_variable = spec_centre_score } } set_variable = { name = spec_centre_score value = 100 } } }
+c:FRA = { clear_variable_list = spec_rv_shield }
+every_country = { limit = { OR = { this = c:FRA } } remove_variable = spec_rv_raid remove_variable = spec_rv_raid_pm remove_variable = spec_rv_lure remove_variable = spec_rv_lurer remove_variable = spec_rv_lure_share clear_variable_list = spec_rv_shield clear_variable_list = spec_rv_cd_shore remove_variable = spec_rv_hit remove_variable = spec_rv_hit_by remove_variable = spec_rv_hit_ok remove_variable = spec_rv_hit_recent remove_variable = spec_panic clear_variable_list = spec_rv_cd_raid clear_variable_list = spec_rv_cd_lure clear_variable_list = spec_rv_cd_press if = { limit = { has_modifier = spec_rv_press_1 } remove_modifier = spec_rv_press_1 } if = { limit = { has_modifier = spec_rv_press_2 } remove_modifier = spec_rv_press_2 } if = { limit = { has_modifier = spec_rv_press_3 } remove_modifier = spec_rv_press_3 } set_variable = { name = spec_conf value = 55 } set_variable = { name = spec_centre_trust value = 60 } set_variable = { name = spec_centre_score value = 100 } }
 c:FRA = { save_scope_as = target }
 clear_variable_list = spec_rv_cd_lure
 spec_rv_lure = yes
+c:PRU = {
+    set_variable = { name = spec_rv_lure value = 8 }
+    set_variable = { name = spec_rv_lure_share value = 0.05 }
+    remove_variable = spec_rv_lurer
+}
 trigger_event = { id = spec_mechanics_rival_lure.2 days = 31 }
 } }
 spec_mechanics_rival_lure.2 = { type = country_event hidden = yes immediate = {
+if = { limit = { c:PRU = { NOR = { has_variable = spec_rv_lure has_variable = spec_rv_lurer has_variable = spec_rv_lure_share } } } debug_log = "HOTFIX PASS next_update_clears_vanished_lender" }
+else = { debug_log = "HOTFIX FAIL next_update_clears_vanished_lender" }
+
 if = { limit = { c:FRA = { var:spec_rv_lure = 11 var:spec_rv_lurer = c:GBR } } debug_log = "HOTFIX PASS lure_month_counts_down" }
 else = { debug_log = "HOTFIX FAIL lure_month_counts_down" }
 c:FRA = { set_variable = { name = spec_rv_lure value = 1 } }

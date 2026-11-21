@@ -1,7 +1,7 @@
 {
   "spec_mechanics_blue": {
     "path": "common/scripted_effects/spec_company_effects.txt",
-    "start": "\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\tevery_company = {\n",
-    "end": "\n\t\t}\n\t}\n\telse = {"
+    "start": "set_local_variable = { name = spec_bc_cnt value = 0 }\n\t\tevery_company = {\n",
+    "end": "\n\t\t\tif = {\n\t\t\t\tlimit = { has_variable = spec_blue_chip }\n\t\t\t\tchange_local_variable = { name = spec_bc_cnt add = 1 }"
   }
 }

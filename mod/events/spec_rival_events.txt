@@ -191,7 +191,15 @@ spec_rival.1 = {
 		hidden_effect = {
 			if = {
 				limit = { has_variable = spec_rv_raid_pm }
-				change_variable = { name = spec_rv_raid_pm multiply = 0.5 }
+				spec_rv_migrate_raid = yes
+				set_variable = { name = spec_rv_raid_pm value = 0 }
+				if = { limit = { has_variable = spec_rv_due_1 } change_variable = { name = spec_rv_due_1 multiply = 0.5 } change_variable = { name = spec_rv_raid_pm add = var:spec_rv_due_1 } }
+				if = { limit = { has_variable = spec_rv_due_2 } change_variable = { name = spec_rv_due_2 multiply = 0.5 } change_variable = { name = spec_rv_raid_pm add = var:spec_rv_due_2 } }
+				if = { limit = { has_variable = spec_rv_due_3 } change_variable = { name = spec_rv_due_3 multiply = 0.5 } change_variable = { name = spec_rv_raid_pm add = var:spec_rv_due_3 } }
+				if = { limit = { has_variable = spec_rv_due_4 } change_variable = { name = spec_rv_due_4 multiply = 0.5 } change_variable = { name = spec_rv_raid_pm add = var:spec_rv_due_4 } }
+				if = { limit = { has_variable = spec_rv_due_5 } change_variable = { name = spec_rv_due_5 multiply = 0.5 } change_variable = { name = spec_rv_raid_pm add = var:spec_rv_due_5 } }
+				if = { limit = { has_variable = spec_rv_due_6 } change_variable = { name = spec_rv_due_6 multiply = 0.5 } change_variable = { name = spec_rv_raid_pm add = var:spec_rv_due_6 } }
+
 			}
 		}
 		ai_chance = {

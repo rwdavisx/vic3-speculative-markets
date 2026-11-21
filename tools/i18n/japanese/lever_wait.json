@@ -1,0 +1,6 @@
+{
+ "1e9a9ada94": "過去#v {1}#!か月間に切り替えていない、または切り替えが過去#v {2}#!日以内",
+ "9d12e4293f": "\\n#N 最近切り替えました。#!再変更までの月数: #v {1}#!",
+ "063e2648d8": "#header {1}の投機を抑制#!\\n$TOOLTIP_DELIMITER$\\n#italic 過熱した[concept_good]を、好況が大きくなりすぎる前に冷まします。#!\\n\\n[concept_spec_investor_interest]は数か月かけて#v 平静#!まで低下します\\n{2}[concept_budget_additional_income]: 毎週#P @money!{3}#!（基準価格での生産額の#v {4}%#!）\\n好況が終わるときは、一度にではなく約1年かけて[concept_spec_correction]としてゆっくり収束します{5}{6}{7}{8}{9}{10}{11}{12}{13}\\n\\n有効な間、[concept_authority]を#N -{14}#!拘束します。毎月払い直すわけではなく、解除すると戻ってきます#indent_newline:3 \\n通常この[concept_good]では#v {15}#!、その消費税の半分と同じ\\n取引量に応じて#v x{16}#!（我が国の市場の#v {17}#!）#!\\n\\n#lore 南海泡沫事件の後、{18}年の泡沫会社規制法は、国王の特許状なしに株式会社を設立することを禁じました。#!{19}{20}\\n\\n{21}",
+ "fb6b445af0": "#header {1}への投資を奨励#!\\n$TOOLTIP_DELIMITER$\\n#italic 投資家が見向きもしない[concept_good]に関心を向けさせます。#!\\n\\n[concept_spec_investor_interest]は数か月かけて#v 積極#!まで上昇します\\n{2}[concept_budget_additional_expenses]: 毎週#N @money!{3}#!（基準価格での生産額の#v {4}%#!）\\n[concept_good]が#v 意欲#!になると自動的に終わります{5}{6}{7}{8}{9}{10}{11}{12}{13}\\n\\n有効な間、[concept_authority]を#N -{14}#!拘束します。毎月払い直すわけではなく、解除すると戻ってきます#indent_newline:3 \\n通常この[concept_good]では#v {15}#!、その消費税の半分と同じ\\n取引量に応じて#v x{16}#!（我が国の市場の#v {17}#!）#!\\n\\n#lore 1800年代半ば、イギリス領インドとフランスは鉄道投資家に資本への一定の利益を保証しました。#!{18}{19}\\n\\n{20}"
+}

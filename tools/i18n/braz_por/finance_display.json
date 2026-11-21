@@ -1,0 +1,8 @@
+{
+  "aea288774d": "#header Onde os Bancos Emprestaram#!\\n$TOOLTIP_DELIMITER$\\n#italic Os bancos despejam novos empréstimos nas mercadorias em expansão.#!\\n\\nMercadorias maiores e com mais [concept_spec_investor_interest] recebem mais dinheiro\\nUm empréstimo fica na sua mercadoria até ser pago\\n#N Se uma expansão com empréstimos terminar#!, a [concept_spec_market_confidence] cai mais\\n$TOOLTIP_DELIMITER$\\n#instruction Conter a especulação reduz pela metade o peso da mercadoria na distribuição de novos empréstimos aos setores em alta.#!",
+  "76eb23a94d": "#header $SPEC_DRIVER_MOOD$: {1}#!\\n$TOOLTIP_DELIMITER$\\nSaldo do mês anterior  {2}\\n{3}",
+  "a10565f8a3": "Variação neste mês  {1}",
+  "2f6857b30f": "Oscilação aleatória ajustada  {1}{2}",
+  "fb37982195": "\\nProsperidade das empresas  {1}",
+  "08b387e5ad": "O $concept_spec_market_mood$ conserva #v {1}%#! do valor do mês anterior. A intensidade de cada nova oscilação aleatória depende do sistema financeiro."
+}

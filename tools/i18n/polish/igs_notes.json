@@ -1,0 +1,11 @@
+{
+ "7888c33fe3": "Stanowiska grup interesu",
+ "be285a3780": "Popiera teraz: {1} ({2})",
+ "f398a21ef0": "Już nie popiera: {1} ({2})",
+ "5f9fa3b8ab": "Sprzeciwia się teraz: {1} ({2})",
+ "74c879a982": "Już się nie sprzeciwia: {1} ({2})",
+ "ca15afa086": "Popiera",
+ "eaac2ea1fe": "Sprzeciwia się",
+ "5402230931": "#header Popierający#!\\n$TOOLTIP_DELIMITER${1}{2}{3}{4}{5}{6}{7}{8}",
+ "e8e592c78b": "#header Przeciwni#!\\n$TOOLTIP_DELIMITER${1}{2}{3}{4}{5}{6}{7}{8}"
+}

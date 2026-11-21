@@ -19,55 +19,101 @@ concept_spec_boom_end = {
 }
 
 concept_spec_correction = {
-	texture = "gfx/interface/icons/spec_markets/driver_crash.dds"
+	texture = "gfx/interface/icons/spec_markets/ending_1.dds"
 }
 
 concept_spec_bust = {
-	texture = "gfx/interface/icons/spec_markets/driver_crash.dds"
+	texture = "gfx/interface/icons/spec_markets/ending_2.dds"
 }
 
 concept_spec_collapse = {
-	texture = "gfx/interface/icons/spec_markets/driver_crash.dds"
+	texture = "gfx/interface/icons/spec_markets/ending_3.dds"
 }
 
 concept_spec_investor_interest = {
 	texture = "gfx/interface/icons/spec_markets/driver_boom.dds"
 }
 
-concept_spec_credit_policy = {}
-
-concept_spec_outstanding_credit = {}
-
-concept_spec_long_depression = {}
-
-concept_spec_speculative_excess = {
-	texture = "gfx/interface/icons/spec_markets/crash_risk.dds"
+concept_spec_credit_policy = {
+	texture = "gfx/interface/icons/spec_markets/concept_credit_policy.dds"
 }
 
-concept_spec_sound_finance = {}
+concept_spec_outstanding_credit = {
+	texture = "gfx/interface/icons/spec_markets/concept_outstanding_credit.dds"
+}
 
-concept_spec_banking_reforms = {}
+concept_spec_long_depression = {
+	texture = "gfx/interface/icons/spec_markets/concept_long_depression.dds"
+}
 
-concept_spec_intervention = {}
+concept_spec_speculative_excess = {
+	texture = "gfx/interface/icons/spec_markets/excess_alert.dds"
+}
 
-concept_spec_market_conditions = {}
+concept_spec_sound_finance = {
+	texture = "gfx/interface/icons/spec_markets/concept_sound_finance.dds"
+}
 
-concept_spec_baseline = {}
+concept_spec_banking_reforms = {
+	texture = "gfx/interface/icons/spec_markets/concept_banking_reforms.dds"
+}
 
-concept_spec_market_mood = {}
+concept_spec_intervention = {
+	texture = "gfx/interface/icons/spec_markets/concept_intervention.dds"
+}
 
-concept_spec_market_tie = {}
+concept_spec_market_conditions = {
+	texture = "gfx/interface/icons/spec_markets/concept_market_conditions.dds"
+}
 
-concept_spec_capital_flight = {}
+concept_spec_baseline = {
+	texture = "gfx/interface/icons/spec_markets/concept_baseline.dds"
+}
 
-concept_spec_war_news = {}
+concept_spec_market_mood = {
+	texture = "gfx/interface/icons/spec_markets/concept_market_mood.dds"
+}
 
-concept_spec_financial_centre = {}
+concept_spec_market_tie = {
+	texture = "gfx/interface/icons/spec_markets/concept_market_tie.dds"
+}
 
-concept_spec_leverage = {}
+concept_spec_capital_flight = {
+	texture = "gfx/interface/icons/spec_markets/concept_capital_flight.dds"
+}
 
-concept_spec_bad_debts = {}
+concept_spec_war_news = {
+	texture = "gfx/interface/icons/spec_markets/concept_war_news.dds"
+}
 
-concept_spec_lending_standards = {}
+concept_spec_financial_centre = {
+	texture = "gfx/interface/icons/spec_markets/concept_financial_centre.dds"
+}
 
-concept_spec_exchange = {}
+concept_spec_blue_chip = {
+	texture = "gfx/interface/icons/spec_markets/blue_chip.dds"
+}
+
+concept_spec_company_strength = {
+	texture = "gfx/interface/icons/spec_markets/concept_company_strength.dds"
+}
+
+concept_spec_leverage = {
+	texture = "gfx/interface/icons/spec_markets/concept_leverage.dds"
+}
+
+concept_spec_bad_debts = {
+	texture = "gfx/interface/icons/spec_markets/concept_bad_debts.dds"
+}
+
+concept_spec_lending_standards = {
+	texture = "gfx/interface/icons/spec_markets/concept_lending_standards.dds"
+}
+
+concept_spec_exchange = {
+	texture = "gfx/interface/icons/spec_markets/concept_exchange.dds"
+}
+
+concept_spec_trust = {
+	texture = "gfx/interface/icons/generic_icons/legitimacy.dds"
+}

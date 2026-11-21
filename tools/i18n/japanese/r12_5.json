@@ -1,0 +1,7 @@
+{
+ "eb4306fea3": "我が国の[concept_spec_exchange]は信認を#P {1}#!得て、{2}の取引所は#N {3}#!失います。",
+ "caf129348d": "我が国の[concept_spec_exchange]は信認を#N {1}#!失い、{2}の取引所は#P {3}#!得ます。",
+ "7a4a453eaf": "どちらも信認を得ず、失いません。",
+ "f71901f02c": "今決着すると{1}になります。決着まで$SPEC_RV_LEFT$です。",
+ "b33e629707": "#header {1}との勝負#!\\n$TOOLTIP_DELIMITER$\\n棒の現状: $SPEC_RV_BAR_AT$。$SPEC_RV_NOW_LINE$\\n{2}\\n$TOOLTIP_DELIMITER$\\n勝負は#v {3}#!年続き、その後新しい勝負が始まります。"
+}

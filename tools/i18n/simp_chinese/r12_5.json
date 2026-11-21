@@ -1,0 +1,7 @@
+{
+ "eb4306fea3": "我国[concept_spec_exchange]获得#P {1}#!信誉，{2}失去#N {3}#!。",
+ "caf129348d": "我国[concept_spec_exchange]失去#N {1}#!信誉，{2}获得#P {3}#!。",
+ "7a4a453eaf": "双方的信誉都不增不减。",
+ "f71901f02c": "如果现在结算，结果将是{1}。距结算还有$SPEC_RV_LEFT$。",
+ "b33e629707": "#header 与{1}的较量#!\\n$TOOLTIP_DELIMITER$\\n力度条目前为$SPEC_RV_BAR_AT$。$SPEC_RV_NOW_LINE$\\n{2}\\n$TOOLTIP_DELIMITER$\\n每场较量持续#v {3}#!年，之后开始新的较量。"
+}

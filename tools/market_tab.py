@@ -8,6 +8,7 @@ Order: where confidence stands, what the player can do about it (credit, rescue)
 then the detail (what moved it, history, capital) in sections that fold away.
 """
 
+import calc
 import companies
 import credit_ai
 import cycle
@@ -26,6 +27,9 @@ BAR_W = W - 40  # every full-width bar and scale in the window, 20 in from each 
 # confidence tiers: key, from, to
 TIERS = [("panic", 0, 20), ("wary", 20, 40), ("steady", 40, 60), ("buoyant", 60, 80), ("mania", 80, 100)]
 BARS = "gfx/interface/progressbar"
+BAR_H, RISK_TAG_W, RISK_TAG_H = 22, 60, 16  # the confidence bar, and the Risk tag's row under it
+SCALE_H = 22 + BAR_H + RISK_TAG_H  # tier names, the bar, the Risk tag's row (was 44, before the tag moved under the bar)
+BAR_TONE = 0.6 / 171  # a map colour (0-255) to a tint of progressbar_white (mean grey 171) as deep as vanilla's coloured fills
 WHITE = "gfx/interface/progressbar/progressbar_white.dds"
 FLAT = "gfx/interface/graph/white.dds"
 CLEAR = "gfx/interface/icons/generic_icons/transparent.dds"
@@ -53,6 +57,48 @@ def v(name, default=0):
 
 def sv(name):
     return f"{P}.ScriptValue('{name}')"
+
+
+def share_sq(name, weight):  # War Risk's part from a share: weight x share squared (economy.MONTHLY)
+    return f"Multiply_CFixedPoint(Multiply_CFixedPoint({v(name)}, {v(name)}), {fx(weight)})"
+
+
+def rounded(value, digits):
+    """value rounded to digits decimals (of a percent, digits + 2), half away from zero. Victoria's number formats
+    truncate the rest; generate.write rounds every loc number this way, GUI text calls it itself."""
+    scale = fx(10 ** digits)
+    half = f"Select_CFixedPoint(LessThan_CFixedPoint({value}, {fx(0)}), {fx(-0.5)}, {fx(0.5)})"
+    return f"Divide_CFixedPoint(IntToFixedPoint(FixedPointToInt(Add_CFixedPoint(Multiply_CFixedPoint({value}, {scale}), {half}))), {scale})"
+
+
+def rounded_tenth(value):
+    return rounded(value, 1)
+
+
+MONTHS = ("JANUARY", "FEBRUARY", "MARCH", "APRIL", "SPEC_DATE_MAY", "JUNE",  # vanilla has no May key: MAY is the Maya tag
+          "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER")
+MONTH_START = (0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334)
+
+
+def long_date(day):
+    """day, counted as game_date counts (year x 365 + day of the year, no leap years), written as vanilla's
+    DATE_FORMATTING_LONG with vanilla's month names. TimeKeeper.GetCurrentDateWithDiff only gives the short 1851.2.1.
+    The year is printed as century and rest, so no number format can add a thousands separator."""
+    year = f"FixedPointToInt(Divide_CFixedPoint(Add_CFixedPoint({day}, {fx(0.01)}), {fx(365)}))"
+    doy = f"Subtract_CFixedPoint({day}, Multiply_CFixedPoint(IntToFixedPoint({year}), {fx(365)}))"
+    month, start = f"'{MONTHS[-1]}'", fx(MONTH_START[-1])
+    for name, first, nxt in reversed(list(zip(MONTHS, MONTH_START, MONTH_START[1:]))):
+        before = f"LessThan_CFixedPoint({doy}, {fx(nxt)})"
+        month, start = f"SelectLocalization({before}, '{name}', {month})", f"Select_CFixedPoint({before}, {fx(first)}, {start})"
+    dom = f"FixedPointToInt(Add_CFixedPoint(Subtract_CFixedPoint({doy}, {start}), {fx(1.01)}))"
+    century = f"FixedPointToInt(Divide_CFixedPoint(Add_CFixedPoint(IntToFixedPoint({year}), {fx(0.01)}), {fx(100)}))"
+    rest = f"Subtract_CFixedPoint(IntToFixedPoint({year}), Multiply_CFixedPoint(IntToFixedPoint({century}), {fx(100)}))"
+    pad = f"[AddLocalizationIf(LessThan_CFixedPoint({rest}, {fx(10)}), 'SPEC_DATE_ZERO')]"
+    return f"[{dom}] [{month}], [{century}]{pad}[FixedPointToInt(Add_CFixedPoint({rest}, {fx(0.01)}))]"  # callers add #v
+
+
+def expiry_date(day, scope=P):
+    return long_date(day)
 
 
 def gt(a, b=0):
@@ -237,12 +283,13 @@ CONF_UP = f"GreaterThanOrEqualTo_CFixedPoint({v('spec_c_total')}, {fx(0.1)})"  #
 CONF_DOWN = f"LessThanOrEqualTo_CFixedPoint({v('spec_c_total')}, {fx(-0.1)})"
 PANIC_ZONE, MANIA_ZONE = tier_test(CONF, *TIERS[0][1:3]), tier_test(CONF, *TIERS[-1][1:3])
 HISTORY = 36  # months the history chart shows: spec_hist1 (this month) to spec_hist36, kept by generate.monthly
-CHART_H, COL_W, COL_GAP = 100, 9, 1  # a pixel a point
+CHART_H, COL_W, COL_GAP = 100, 9, 1  # a pixel a point; COL_W for charts.py and the journal's charts
+CHART_W = BAR_W - 110  # the confidence history, from the card rows' 110 to their end
 GOLD, BLUE, RED = "0.80 0.62 0.28", "0.30 0.52 0.66", "0.74 0.24 0.20"  # as the bar's gold, default and bad fills
 HIST_MID = 50  # the chart's middle line: gold above, blue below (SPEC_HISTORY_TT)
 
 
-def history_chart():
+def history_chart(width=CHART_W):
     """The last HISTORY months of confidence as columns from a middle line at 50, the bar's fear and greed turned
     upright: gold up for greed, blue down for fear, the part in Panic or Mania red. Newest on the right. Each column
     is four bars reading one variable, the lower two with vanilla's reverse hack so they hang down from their top."""
@@ -263,9 +310,11 @@ def history_chart():
 	value = "[FixedPointToFloat({col(n)})]"
 }}
 """
+    # the columns share the width, so the chart ends where the rows above it do (CHART_W: 10 or 11 pixels each)
+    x = lambda i: round(i * (width + COL_GAP) / HISTORY)
     cols = "".join(f"""widget = {{
-	position = {{ {(HISTORY - n) * (COL_W + COL_GAP)} 0 }}
-	size = {{ {COL_W} {CHART_H} }}
+	position = {{ {x(HISTORY - n)} 0 }}
+	size = {{ {x(HISTORY - n + 1) - x(HISTORY - n) - COL_GAP} {CHART_H} }}
 	tooltip = "SPEC_HIST_{n}_TT"
 {ind(bar(n, HIST_MID, 100, GOLD, False) + bar(n, TIERS[-1][1], 100, RED, False) + bar(n, 0, HIST_MID, BLUE, True) + bar(n, 0, TIERS[0][2], RED, True), 1)}}}
 """ for n in range(HISTORY, 0, -1))
@@ -277,11 +326,29 @@ def history_chart():
 }}
 """ for val, alpha in ((TIERS[-1][1], 0.12), (HIST_MID, 0.35), (TIERS[0][2], 0.12)))
     return f"""widget = {{
-	size = {{ {HISTORY * (COL_W + COL_GAP) - COL_GAP} {CHART_H} }}
+	size = {{ {width} {CHART_H} }}
 {ind(lines + cols, 1)}}}
 """
 
 
+
+
+PANIC_SLICES = 100  # the panic zone's hover in 1% slices
+
+
+def panic_hover(width):
+    """The confidence bar's hover split at the panic line: the panic zone shows the Panic Threshold's breakdown, the
+    rest the bar's own tooltip. Last in the bar, over the markers' full-width progressbars, which would otherwise take
+    the hover. The zone is slices of the bar, each shown while wholly left of the line: a stretch factor split (hbox)
+    kept its first sizes and put the edge far right of the line, and a widget hung off the line's marker would reach
+    past the bar's left edge over the window beside it. Reads the threshold stored each month (levers.UI_CACHE)."""
+    at = f"Add_CFixedPoint({v('spec_c_panic_at', 25)}, '(CFixedPoint)0.5')"  # and the line itself, half a point past it
+    x = lambda i: round(i * width / PANIC_SLICES)
+    slices = "".join(f"\twidget = {{\n\t\tposition = {{ {x(i)} 0 }}\n\t\tsize = {{ {x(i + 1) - x(i)} 100% }}\n"
+                     f"\t\tvisible = \"[GreaterThanOrEqualTo_CFixedPoint({at}, {fx(100 * (i + 1) / PANIC_SLICES)})]\"\n"
+                     f"\t\ttooltip = \"SPEC_PANIC_LINE_TT\"\n\t}}\n" for i in range(PANIC_SLICES))
+    return ("### hover: the rest, then the panic zone over it\nwidget = {\n\tsize = { 100% 100% }\n"
+            "\ttooltip = \"SPEC_CARD_BAR_TT\"\n" + slices + "}\n")
 
 
 PANIC_ZONE_BAR = f"""### the panic zone: below the line a panic begins, red and pulsing as the goods list's Collapse Zone
@@ -316,10 +383,10 @@ progressbar = {{
 
 
 def tier_scale(width):
-    """Confidence as fear against greed, on vanilla's double direction bar (shared/progressbars.gui:344-456, the
-    market panel's price bar): from the middle of Steady it fills left in vanilla's blue as investors grow afraid
-    and right in gold as they grow greedy. Both ends are dangers, so Panic and Mania are tinted red and the fill
-    turns red in either. The fill end has vanilla's glow and, while confidence moves, the changed value chevrons."""
+    """Confidence filling from the left, as the mod's other bars do (the user found a fill growing out of the middle
+    read as a needle), in the map mode's colour for our stage as the ring is (icons.bars). Both ends are dangers, so
+    the Panic and Mania segments are tinted red. The fill end has vanilla's glow and, while confidence moves, the
+    changed value chevrons."""
     import interest_list as il  # imports this module
     seg = width / 5
     # the tier confidence sits in is bold; during a panic only the lowest one can be
@@ -334,50 +401,50 @@ def tier_scale(width):
 }}
 """ for i, (key, lo, hi, *_) in enumerate(TIERS))
 
-    def half(left, texture, vis):
-        """One side's fill: the left one with vanilla's reverse hack (lit past the value, not up to it), so both
-        grow out from the middle."""
-        side = "left" if left else "right"
-        glow = f"""icon = {{
+    import journal  # imports this module
+    # the end's glow in the stage's own colour at full strength, a lighter shade of the fill (white, it read as a
+    # separate pale strip)
+    lit = lambda stage: " ".join(f"{int(ch) / 255:.3f}" for ch in journal.MAP_COLORS[stage].strip("rgb{} ").split())
+    glow = lambda stage: f"""icon = {{
 	size = {{ 30 100% }}
-	widgetanchor = {side}
+	widgetanchor = right
 	alpha = 0.7
-{'	mirror = horizontal' + chr(10) if left else ''}	texture = "{BARS}/{texture}_glow.dds"
+	color = {{ {lit(stage)} 1 }}
+	texture = "{BARS}/progressbar_white_glow.dds"
 	icon = {{
 		size = {{ 3 100% }}
-		parentanchor = {side}
-		texture = "{BARS}/{texture}_glow_line.dds"
+		parentanchor = right
+		color = {{ {lit(stage)} 1 }}
+		texture = "{BARS}/progressbar_white_glow_line.dds"
 	}}
 }}
 """
-        fill = f'{BARS}/{texture}.dds'
-        return f"""widget = {{
-	size = {{ 50% 100% }}
-{'' if left else '	parentanchor = right' + chr(10)}	visible = "[{vis}]"
-	scissor = yes
-	progressbar = {{
-		size = {{ 100% 100% }}
-		progresstexture = "{CLEAR if left else fill}"
-		noprogresstexture = "{fill if left else CLEAR}"
-		spriteType = Corneredtiled
-		spriteborder = {{ 4 4 }}
-		texture_density = 2
-		using = progressbar_texture_properties
-{ind(SLIDE, 2)}		min = {0 if left else 50}
-		max = {50 if left else 100}
-		value = "[FixedPointToFloat({CONF})]"
-		marker = {{
-			widget = {{
-				size = {{ 100% 100% }}
-{ind(glow + il.chevrons(CONF_UP, CONF_DOWN, 0.25, "left" if left else "right"), 4)}			}}
-		}}
+    # one fill a stage, only ours shown (the ring's test): vanilla's white fill in the stage's map mode colour, as
+    # vanilla tints it ("should always have a scripted color"), as deep as vanilla's own coloured fills (BAR_TONE)
+    rgb = stage_rgb
+    fills = "".join(f"""progressbar = {{
+	size = {{ 100% 100% }}
+	visible = "[EqualTo_CFixedPoint({P}.ScriptValue('spec_stage'), {fx(n)})]"
+	progresstexture = "{BARS}/progressbar_white.dds"
+	noprogresstexture = "{CLEAR}"
+	color = {{ {rgb(stage)} 1 }}
+	spriteType = Corneredtiled
+	spriteborder = {{ 4 4 }}
+	texture_density = 2
+	using = progressbar_texture_properties
+{ind(SLIDE, 1)}	min = 0
+	max = 100
+	value = "[FixedPointToFloat({CONF})]"
+	marker = {{
+		widget = {{
+			size = {{ 100% 100% }}
+{ind(glow(stage) + il.chevrons(CONF_UP, CONF_DOWN, 0.25, "right"), 3)}		}}
 	}}
 }}
-"""
-    below, above = f"LessThan_CFixedPoint({CONF}, {fx(50)})", f"GreaterThan_CFixedPoint({CONF}, {fx(50)})"
-    fills = (half(True, "progressbar_default", f"And({below}, Not({PANIC_ZONE}))") + half(True, "progressbar_bad", PANIC_ZONE)
-             + half(False, "progressbar_gold", f"And({above}, Not({MANIA_ZONE}))") + half(False, "progressbar_bad", MANIA_ZONE))
-    zones = "".join(f"""icon = {{
+""" for n, stage in journal.STAGES)
+    # clipped to the bar: the end's glow and chevrons reach left of the fill's end, past the bar at low confidence
+    fills = f"widget = {{\n\tsize = {{ 100% 100% }}\n\tscissor = yes\n{ind(fills, 1)}}}\n"
+    zones ="".join(f"""icon = {{
 	position = {{ {x} 0 }}
 	size = {{ {int(seg)} 100% }}
 	texture = "{BARS}/progressbar_bad.dds"
@@ -407,9 +474,9 @@ def tier_scale(width):
 }}
 """ for i, (key, lo, hi, *_) in enumerate(TIERS))
     return f"""widget = {{
-	size = {{ {width} 44 }}
+	size = {{ {width} {SCALE_H} }}
 {ind(labels, 1)}	widget = {{
-		size = {{ {width} 22 }}
+		size = {{ {width} {BAR_H} }}
 		position = {{ 0 22 }}
 		tooltip = "SPEC_CARD_BAR_TT"
 		background = {{
@@ -456,19 +523,36 @@ def tier_scale(width):
 				}}
 			}}
 		}}
-		### the middle, as vanilla's double direction bar marks it
-		widget = {{
-			size = {{ 3 100% }}
-			parentanchor = center
-			background = {{
-				texture = "{BARS}/progressbar_center_divider.dds"
-				spriteType = Corneredstretched
-				spriteborder = {{ 0 0 }}
-				texture_density = 2
-				margin = {{ 0 1 }}
+		### where confidence would fall if every risk struck now: vanilla's white glow line (Panic's is solid red; a
+		### dark edge round it read as a black stripe on the fill); its tag in a row under the bar, centred on the
+		### line, so it never meets Panic's tag inside the bar whichever side of the Panic line it falls
+		progressbar = {{
+			size = {{ 100% 100% }}
+			visible = "[{RISKS_SHOWN}]"
+			progresstexture = "{CLEAR}"
+			noprogresstexture = "{CLEAR}"
+			min = 0
+			max = 100
+			value = "[FixedPointToFloat({RISK_FLOOR})]"
+			marker = {{
+				widget = {{
+					size = {{ 100% 100% }}
+					icon = {{
+						position = {{ -1 0 }}
+						size = {{ 2 100% }}
+						texture = "{BARS}/progressbar_white_glow_line.dds"
+					}}
+					textbox = {{  # no tooltip: panic_hover lies over the bar, its tooltip says where risks would leave it
+						position = {{ -{RISK_TAG_W // 2} {BAR_H} }}
+						size = {{ {RISK_TAG_W} {RISK_TAG_H} }}
+						align = center|nobaseline
+						using = fontsize_small
+						text = "SPEC_RISK_TAG"
+					}}
+				}}
 			}}
 		}}
-	}}
+{ind(panic_hover(width), 2)}	}}
 }}
 """
 
@@ -480,18 +564,33 @@ LABEL_W = 104  # the card rows' labels, short of the chips at 110 (German "Press
 TEXT_X = 160  # the card's text column, right of the ring
 
 
-XS_MAX, XS_ALERT = 200, 10  # journal.EXCESS_MAX, BUBBLE_ALERT (journal imports this module)
+XS_MAX, XS_ALERT = 300, 10  # journal.EXCESS_MAX, BUBBLE_ALERT (journal imports this module)
 XS = v("spec_heat")
 XS_HOT = f"GreaterThanOrEqualTo_CFixedPoint({sv('spec_burst_now')}, {fx(XS_ALERT)})"
-XS_RISK = f"{P}.Var('spec_heat').IsSet"
-XS_UP = f"GreaterThanOrEqualTo_CFixedPoint({CONF}, {sv('spec_heat_from')})"
+XS_RISK = gt(sv("spec_burst_now"), 0.05)  # was spec_heat set: at exactly the threshold heat is 0 and the chip read -0.0
+XS_NUM_W = 70  # the icon and figure left of the bar, where the chip rows above put theirs
+
+# the Risks row's chips, each counted only while its chip shows; war and default count one month
+RISK_PARTS = [("BOOMS", BAR_RISK, BAR_GAP), ("SRC", SRC_RISK, SRC_HIT), ("WAR", WAR_RISK, v("spec_war_risk")),
+              ("DEFAULT", DEFAULT_RISK, fx(economy.DEFAULT_COST)), ("BUBBLE", XS_RISK, sv("spec_burst_now"))]
+RISK_SUM = fx(0)
+for _, shows, cost in RISK_PARTS:
+    RISK_SUM = f"Add_CFixedPoint({RISK_SUM}, Select_CFixedPoint({shows}, {cost}, {fx(0)}))"
+RISK_FLOOR = f"Max_CFixedPoint(Subtract_CFixedPoint({CONF}, {RISK_SUM}), {fx(0)})"  # where all of them striking leaves it
+RISKS_SHOWN = f"GreaterThanOrEqualTo_CFixedPoint({RISK_SUM}, {fx(0.5)})"
 
 
 def excess_row():
     """Speculative Excess, the bubble a long boom builds: gold while it builds, red once a fall would cost
-    XS_ALERT or more confidence, its state written across it."""
-    bar = framed_bar(W - 2 * CARD_X - 110, 22, fill("progressbar_gold", XS_MAX, XS, f"Not({XS_HOT})")
-                     + fill("progressbar_bad", XS_MAX, XS, XS_HOT) + BAR_TEXT.format(key="SPEC_XS_BAR")[:-2] + '\ttooltip = "SPEC_XS_TT"\n}\n')
+    XS_ALERT or more confidence, its figure beside it as vanilla's involvement bar. As vanilla's will_increase and
+    will_decrease bars, a paler strip shows next month's change: red where it grows, green where it shrinks."""
+    nxt = v("spec_c_xs_next")  # stored by spec_update_levers (levers.UI_CACHE): the bar read the script value every frame
+    to = f"Add_CFixedPoint({XS}, {nxt})"
+    grows, shrinks = (f"And({XS_RISK}, {op}_CFixedPoint({nxt}, '(CFixedPoint)0'))" for op in ("GreaterThan", "LessThan"))
+    now = f"Min_CFixedPoint({XS}, {to})"  # the bar itself stops where a shrink leaves it
+    bw = W - 2 * CARD_X - 110 - XS_NUM_W
+    bar = framed_bar(bw, 22, fill("progressbar_bad", XS_MAX, to, grows, alpha=0.45) + fill("progressbar_green", XS_MAX, XS, shrinks, alpha=0.6)
+                     + fill("progressbar_gold", XS_MAX, now, f"Not({XS_HOT})") + fill("progressbar_bad", XS_MAX, now, XS_HOT))
     return f"""widget = {{
 	size = {{ {W - 2 * CARD_X} 36 }}
 	parentanchor = hcenter
@@ -505,9 +604,17 @@ def excess_row():
 		align = left|nobaseline
 		elide = right
 	}}
-	widget = {{
+	textbox = {{
 		position = {{ 110 0 }}
-		size = {{ {W - 2 * CARD_X - 110} 22 }}
+		size = {{ {XS_NUM_W} 30 }}
+		parentanchor = vcenter
+		align = left|nobaseline
+		raw_text = "@spec_speculative_excess! #v [{XS}|0]#!"
+		tooltip = "SPEC_XS_TT"
+	}}
+	widget = {{
+		position = {{ {110 + XS_NUM_W} 0 }}
+		size = {{ {bw} 22 }}
 		parentanchor = vcenter
 		tooltip = "SPEC_XS_TT"
 {ind(bar, 2)}	}}
@@ -562,34 +669,162 @@ def card_row(label, tt, chips):
 """
 
 
+PRESSURE_STEP = 0.01  # the smallest change visible in the driver breakdown
+
+
 def chip_rows():
     """The card's Pressures and Risks rows, also shown in the journal entry (journal.widgets)."""
-    return (card_row("SPEC_PRESSURES", "SPEC_PRESSURES_TT", "".join(card_chip(f"SPEC_CHIP_{n}", nonzero(v(f"spec_p{n}")), icon)
+    return (card_row("SPEC_PRESSURES", "SPEC_PRESSURES_TT", "".join(card_chip(f"SPEC_CHIP_{n}", nonzero(v(f"spec_p{n}"), PRESSURE_STEP), icon)
                                                                   for n, (_, icon, _) in enumerate(PRESSURES, 1)))
             + card_row("SPEC_RISKS", "SPEC_RISKS_TT", card_chip("SPEC_RISK_1", BAR_RISK, "crash") + card_chip("SPEC_RISK_2", SRC_RISK, "panic_risk")
                        + card_chip("SPEC_RISK_3", WAR_RISK, "war_risk") + card_chip("SPEC_RISK_4", DEFAULT_RISK, "default_risk")
                        + card_chip("SPEC_RISK_5", XS_RISK, "bubble_risk")))
 
 
-def mood_card():
-    # the ring fills with confidence, red in a panic or either end band, as the bar's fill is
-    low = f"Or({IN_PANIC}, Or({PANIC_ZONE}, {MANIA_ZONE}))"
-    gauge = "".join(f"""		round_progress_{kind} = {{
-			size = {{ 112 112 }}
-			parentanchor = center
-			visible = "[{vis}]"
-			value = "[{share(CONF)}]"
-		}}
-""" for kind, vis in [("default", f"Not({low})"), ("bad", low)])
-    # the icon in the ring changes with the state; below the wary line without a panic it stays wary
-    state_icons = "".join(f"""		icon = {{
-			size = {{ 90 90 }}
-			parentanchor = center
-			visible = "[{vis}]"
-			texture = "{icons.path(f'state_{key}')}"
-		}}
+def stage_icons(size):
+    """The state's icon, centred: below the wary line without a panic it stays wary."""
+    return "".join(f"""icon = {{
+	size = {{ {size} {size} }}
+	parentanchor = center
+	visible = "[{vis}]"
+	texture = "{icons.path(f'state_{key}')}"
+}}
 """ for key, vis in [("panic", IN_PANIC), ("wary", f"And(Not({IN_PANIC}), {tier_test(CONF, 0, TIERS[1][2])})")]
         + [(key, f"And(Not({IN_PANIC}), {tier_test(CONF, lo, hi)})") for key, lo, hi in TIERS[2:]])
+
+
+def stage_rgb(stage):
+    """A stage's map mode colour as a tint of progressbar_white, as deep as vanilla's coloured fills (BAR_TONE)."""
+    import journal  # imports this module
+    return " ".join(f"{min(1, int(ch) * BAR_TONE):.3f}" for ch in journal.MAP_COLORS[stage].strip("rgb{} ").split())
+
+
+# the icon and up to "100", as tight as vanilla's items. The state icons draw at 30 in vanilla's 26 slot: their art
+# leaves more empty edge than vanilla's icons, and at 26 looked smaller and further from the figure
+TOPBAR_W = 52
+TOPBAR_ICON = 22  # the row's icons, vanilla's 26 smaller so the row with our item in it is less cramped
+
+
+def topbar_item():
+    """The topbar's Market Confidence, last in its second row and built as vanilla's GDP there: the state's icon and
+    the figure. Its tooltip is the confidence card's monthly change, with the confidence and leverage histories under
+    it as GDP's has its graph. The first row has no room: the alerts sit at a fixed place right of the topbar.
+    A click opens Finance on Speculation."""
+    import charts  # imports this module
+    shown =f"And({ACTIVE}, Not({FRESH}))"
+    plot_w = HISTORY * (COL_W + COL_GAP) - COL_GAP  # as Leverage History's columns, so the two charts line up
+    ends = lambda y: f"""textbox = {{
+	position = {{ {charts.AXIS_W} {y} }}
+	autoresize = yes
+	fontsize = 12
+	text = "SPEC_LHIST_OLDEST"
+}}
+textbox = {{
+	position = {{ {charts.AXIS_W + plot_w - 60} {y} }}
+	size = {{ 60 16 }}
+	align = right|nobaseline
+	fontsize = 12
+	text = "SPEC_LHIST_NOW"
+}}
+"""
+    # each chart as vanilla's graphs in these tooltips (v3_plotline): on paper, under its name centred in #title
+    paper = lambda key, body: f"""flowcontainer = {{
+	direction = vertical
+	margin = {{ 10 0 }}
+	margin_bottom = 8
+	background = {{
+		using = paper_bg
+	}}
+	textbox = {{
+		parentanchor = hcenter
+		autoresize = yes
+		align = hcenter|nobaseline
+		margin_top = 10
+		margin_bottom = 10
+		default_format = "#title"
+		text = "{key}"
+	}}
+{ind(body, 1)}}}
+"""
+    conf_chart = paper("SPEC_TOP_CONF_HIST", f"""widget = {{
+	size = {{ {charts.AXIS_W + plot_w + charts.PANIC_W} {CHART_H + 18} }}
+	widget = {{
+		position = {{ {charts.AXIS_W} 0 }}
+		size = {{ {plot_w} {CHART_H} }}
+{ind(history_chart(plot_w), 2)}	}}
+{ind(ends(CHART_H + 2), 1)}}}
+""")
+    lev_chart = paper("SPEC_TOP_LEV_HIST", f"""widget = {{
+	size = {{ {charts.AXIS_W + plot_w + charts.PANIC_W} {charts.LEV_H + charts.LEV_PAD + 18} }}
+{ind(charts.lev_scale(leverage.RUIN, sv('spec_credit_limit')), 1)}{ind(ends(charts.LEV_H + charts.LEV_PAD + 2), 1)}}}
+""") if leverage.ON else ""
+    tt = f"[SelectLocalization(Not({ACTIVE}), 'SPEC_TOP_OFF_TT', SelectLocalization({FRESH}, 'SPEC_TOP_FRESH_TT', 'SPEC_TOP_TT'))]"
+    # the button twice, as the side bar's Finance button: once the journal entry has saved itself, the click also opens
+    # its panel under the window for its map mode (JE_OK, JE_PANEL); both share the template
+    click = lambda je: (f'visible = "[{JE_OK if je else f"Not({JE_OK})"}]"\n' + (JE_CONTEXT + "\n" if je else "")
+                        + open_clicks("booms") + (f'onclick = "{JE_PANEL}"\n' if je else ""))
+    item = f"""### MARKET CONFIDENCE (Speculative Markets)
+widget = {{
+	size = {{ {TOPBAR_W} 30 }}
+	button = {{
+		using = spec_topbar_confidence
+{ind(click(True), 2)}	}}
+	button = {{
+		using = spec_topbar_confidence
+{ind(click(False), 2)}	}}
+}}
+"""
+    return f"""# the topbar's Market Confidence (market_tab.topbar_item): all of its button but the click
+template spec_topbar_confidence {{
+	size = {{ {TOPBAR_W} 30 }}
+	tooltip = "{tt}"
+	tooltipwidget = {{
+		TooltipWidgetType = {{
+			blockoverride "tooltip_content_after" {{
+				flowcontainer = {{
+					direction = vertical
+					visible = "[{shown}]"
+					spacing = 10
+					margin_top = 10
+{ind(conf_chart + lev_chart, 5)}				}}
+			}}
+		}}
+	}}
+	using = tooltip_below
+	enabled = "[GetMetaPlayer.GetPlayedOrObservedCountry.IsValid]"
+
+	flowcontainer = {{
+		parentanchor = vcenter
+		spacing = 2
+		widget = {{
+			size = {{ {TOPBAR_ICON} {TOPBAR_ICON} }}  # not @secondary_icon_size: the template sits above its definition
+			parentanchor = vcenter
+{ind(stage_icons(round(TOPBAR_ICON * 30 / 26)), 3)}		}}
+		textbox = {{
+			parentanchor = vcenter
+			visible = "[{shown}]"
+			raw_text = "#variable [{CONF}|0]#!"
+			autoresize = yes
+			align = left|nobaseline
+			fontsize_min = 12
+		}}
+	}}
+}}
+""", item
+
+
+def mood_card():
+    # the ring fills with confidence in the map mode's colour for our stage (icons.rings)
+    import journal  # imports this module
+    gauge = "".join(f"""		round_progress_default = {{
+			size = {{ 112 112 }}
+			parentanchor = center
+			visible = "[EqualTo_CFixedPoint({P}.ScriptValue('spec_stage'), {fx(n)})]"
+			texture = "{icons.DIR}/ring_{stage}.dds"
+			value = "[{share(CONF)}]"
+		}}
+""" for n, stage in journal.STAGES)
+    state_icons = ind(stage_icons(90), 2)
     fresh = f"""widget = {{
 	size = {{ {W} 90 }}
 	visible = "[{FRESH}]"
@@ -617,7 +852,7 @@ def mood_card():
 	blockoverride "text_2" {{}}
 	widget = {{
 		position = {{ 110 0 }}
-		size = {{ {HISTORY * (COL_W + COL_GAP) - COL_GAP} {CHART_H} }}
+		size = {{ {CHART_W} {CHART_H} }}
 		parentanchor = vcenter
 {ind(history_chart(), 2)}	}}
 }}
@@ -629,7 +864,7 @@ def mood_card():
 	margin_bottom = 8
 	using = entry_bg_fancy
 	widget = {{
-		size = {{ {W} 204 }}
+		size = {{ {W} {150 + SCALE_H + 6} }}
 
 		### gauge: the ring around an icon, as the law enactment gauge does
 		widget = {{
@@ -671,7 +906,7 @@ def mood_card():
 
 		widget = {{
 			position = {{ {CARD_X} 150 }}
-			size = {{ {W - 2 * CARD_X} 44 }}
+			size = {{ {W - 2 * CARD_X} {SCALE_H} }}
 {ind(tier_scale(W - 2 * CARD_X), 3)}		}}
 	}}
 {ind(risk_rows, 1)}}}
@@ -929,9 +1164,9 @@ def framed_bar(width, height, inner):
 """
 
 
-def fill(texture, top, value, visible=""):
-    """A framed bar's fill, sliding to each new value."""
-    shown = f'	visible = "[{visible}]"\n' if visible else ""
+def fill(texture, top, value, visible="", alpha=None):
+    """A framed bar's fill, sliding to each new value; alpha for a paler one, as a forecast strip."""
+    shown = (f'	visible = "[{visible}]"\n' if visible else "") + (f"\talpha = {alpha:g}\n" if alpha else "")
     return f"""progressbar = {{
 	size = {{ 100% 100% }}
 {shown}	progresstexture = "{BARS}/{texture}.dds"
@@ -1103,6 +1338,12 @@ RISK_SHOWN = levers.RESTRAIN_RISK  # smaller losses get no warning
 WARNING = f"{ICONS}/warning.dds"
 # the price trend interest follows: fast minus slow average of the price against base
 TREND = f"Subtract_CFixedPoint({good_var('spec_fast')}, {good_var('spec_slow')})"
+
+
+def trend_next(fast, slow):
+    """Next month's two price averages if the price holds (generate.spec_fast_next_<g>, spec_slow_next_<g>)."""
+    step = lambda avg, rate: f"Add_CFixedPoint({avg}, Multiply_CFixedPoint(Subtract_CFixedPoint({good_sv('spec_dev')}, {avg}), {fx(rate)}))"
+    return step(good_var("spec_fast"), fast), step(good_var("spec_slow"), slow)
 NEAR_PEAK = 0.85                # interest this close to its boom's peak is still at the top
 MOVE = good_var("spec_ui_move")  # interest_board.ui_effect's monthly move: 1 rose, -1 fell, 0 neither
 LEANING = [6, 5, 4, 3, 2, 1]    # spec_word lists shown as rows, hottest first, Calm (3) in the middle
@@ -1209,14 +1450,14 @@ def level_effects():
     """Each interest level's effects, one line each as vanilla modifier tooltips list them, by level name."""
     pct = {WORDS[w]: p for w, p in companies.INTEREST_THROUGHPUT.items()}
     tp = lambda w: f"Producers' [concept_throughput]: {'#P +' if pct[w] > 0 else '#N '}{pct[w]}%#!"
-    lift = ("\\n[concept_spec_market_confidence] #P goes up#! every month (more if it is a big part of our trade, "
-            "none during a [concept_spec_financial_panic])")
-    end = lambda name: f"\\nWhen it ends: [concept_spec_{name.lower()}]"
+    lift = ("\\nRaises [concept_spec_market_confidence] every month, more if it is a big part of our trade, but not during a "
+            "[concept_spec_financial_panic]")
+    end = lambda name: f"\\nIts boom ends in a [concept_spec_{name.lower()}]"
     effects = {
         "feverish": tp("feverish") + lift + end("Collapse"),
         "eager": tp("eager") + lift + end("Bust"),
         "keen": tp("keen") + end("Correction"),
-        "calm": "Nothing happens at this level",
+        "calm": "Producers' [concept_throughput] is unchanged, and it does not lift [concept_spec_market_confidence]",
         "doubtful": tp("doubtful") + "\\nAfter a boom ends, the good stays here or lower for a while to recover",
         "fleeing": tp("fleeing") + "\\nIf a #v Feverish#! boom drops this low, it ends in a [concept_spec_collapse]",
     }
@@ -1231,16 +1472,20 @@ def band_loc(k):
         selected = (f"SelectLocalization(GetVariableSystem.HasValue('{CAT}', '{category}'), "
                     f"'{category.upper()}_FILTER_NAME', {selected})")
     out = (f' SPEC_CURRENT_GOODS_FILTERS: "[{selected}]"\n'
-           " SPEC_COL_LEVER: \"Intervention\"\n"
-           " SPEC_COL_LEVER_TT: \"#header Market Interventions#!\\n$TOOLTIP_DELIMITER$\\n#italic Step in to cool a good down or heat it up.#!\\n\\n"
-           "#v Restrain Speculation#! keeps interest #v Calm#!. Producers #N lose#! [concept_throughput] and pay a levy\\n"
-           "#v Encourage Investment#! keeps interest at least #v Keen#!. Producers #P gain#! $concept_throughput$ and the state pays\\n"
-           "$TOOLTIP_DELIMITER$\\n#weak Each one costs [concept_authority] every month until lifted, more for staples and widely traded goods#!\"\n")
+           " SPEC_COL_LEVER: \"[concept_spec_intervention]\"\n"  # a concept link, as the Investor Interest header
+           " SPEC_COL_LEVER_TT: \"#header Market Interventions#!\\n$TOOLTIP_DELIMITER$\\n"
+           "#v Restrain Speculation#! pushes [concept_spec_investor_interest] down, never below #v Calm#!. "
+           f"Its makers lose #N {levers.LEVER_THROUGHPUT:.0%}#! [concept_throughput] and pay a levy of #v {levers.LEVY_SHARE:.0%}#! of their output.\\n"
+           "#v Encourage Investment#! pushes it up until it reaches #v Eager#!. "
+           f"Its makers gain #P {levers.LEVER_THROUGHPUT:.0%}#! $concept_throughput$ and are paid a subsidy of #v {levers.SUBSIDY_SHARE:.0%}#! of their output.\\n"
+           + ("#v Float a Great Issue#! raises our [concept_spec_exchange] score, and the stakes when its boom ends.\\n" if levers.ISSUE_ON else "")
+           + "A confident market follows Encourage further and listens to Restrain less.\\n"
+           "$TOOLTIP_DELIMITER$\\n#weak Restraining or encouraging ties up [concept_authority] while in effect, more for staples and widely traded goods.#!\"\n")
     word_of = {n: w for w, n in WORDS.items()}
     for name, desc in effects.items():
         key = f"SPEC_SEP_{name.upper()}"
-        share = f"\\nShare of Our Trade: #v [{market_visual.share(word_of[name])}|%0]#!"
-        out += f" {key}_TT: \"#header @spec_interest_{name}! {name.capitalize()} [concept_spec_investor_interest]#!{share}\\n$TOOLTIP_DELIMITER$\\n#italic How keen investors are on this good.#!\\n\\n{desc}\"\n"
+        share = f"#v [{market_visual.share(word_of[name])}|%0]#! of our trade is in goods with {name.capitalize()} interest"
+        out += f" {key}_TT: \"#header @spec_interest_{name}! {name.capitalize()} [concept_spec_investor_interest]#!\\n$TOOLTIP_DELIMITER$\\n{share}\\n\\n{desc}\"\n"
     import interest_board
     import interest_list
     return out + interest_board.loc(k) + interest_list.loc(k) + __import__('exposure').loc() + __import__('charts').loc(k)
@@ -1299,13 +1544,13 @@ def good_sv(name):
 
 def cond_row(mult):
     """A multiplier from Market Conditions: its calculator on the number, the concept on the words."""
-    return f"#tooltippable #tooltip:[Country.GetTooltipTag],SPEC_WHY_COND #v x[{mult}|2]#!#!#! how hot the market is ([concept_spec_market_conditions])"
+    return f"#tooltippable #tooltip:[Country.GetTooltipTag],SPEC_WHY_COND #v x[{mult}|2]#!#!#! from [concept_spec_market_conditions]"
 
 
 def why_lines(var, val, k):
     """A boom's cost if it ended now, in vanilla's calculator form (BASE_VALUE_FOR_CALCULATOR): peak interest above 1,
     then each multiplier "from" its cause, as generate.spec_risk_next_<g> makes it: its ending's rate (UNWINDS), its
-    weight, spec_crash_scale, capped at CONF_CRASH_MAX. var(n) and val(n) read spec_<n>_<good> as a variable and a
+    trade weight, bank exposure, overbuilding and market conditions, capped at CONF_CRASH_MAX. var(n) and val(n) read spec_<n>_<good> as a variable and a
     script value."""
     sev = var("spec_sev")
     tier = (f"SelectLocalization(EqualTo_CFixedPoint({sev}, {fx(3)}), 'SPEC_WHY_END_3', "
@@ -1314,17 +1559,19 @@ def why_lines(var, val, k):
     capped = f"GreaterThan_CFixedPoint(Multiply_CFixedPoint({val('spec_risk_raw')}, {sv('spec_crash_scale')}), {fx(k['CONF_CRASH_MAX'])})"
     falling = f"LessThan_CFixedPoint({var('spec_hype')}, {var('spec_hprev')})"
     peak = var("spec_peak")
-    return (f"#v [Subtract_CFixedPoint({peak}, {fx(1)})|1]#! base, from how high [concept_spec_investor_interest] got (#v [{peak}|1]#!)\\n"
+    bank = f"#v x[{val('spec_exp_mult')}|2]#! $SPEC_CALC_BANK_EXPOSURE$\\n"
+    supply = f"#v x[{val('spec_over_mult')}|2]#! $SPEC_CALC_OVERBUILDING$\\n" if cycle.ON else ""
+    return ("$SPEC_RISK_LEAD$\\n\\n"
+            f"#v [Subtract_CFixedPoint({peak}, {fx(1)})|1]#! base, from how high [concept_spec_investor_interest] got\\n"
             f"[{tier}]\\n"
-            f"#v x[{val('spec_weight')}|%0]#! how much of our trade it is (#v [{share}|%1]#! of our [concept_market], full effect at #v {k['EXPOSURE_FULL']:.0%}#!)\\n"
-            + cond_row(sv('spec_crash_scale')) +
+            f"#v x[{val('spec_weight')}|2]#! from its #v [{share}|%1]#! share of our trade, counted in full from #v {k['EXPOSURE_FULL']:.0%}#!\\n"
+            + bank + supply + cond_row(sv('spec_crash_scale')) +
             f"[AddLocalizationIf({capped}, 'SPEC_WHY_CAP')][AddLocalizationIf({falling}, 'SPEC_WHY_FALLING')]")
 
 
 def risk_why(g, k):
     """A Booms at Risk good's nested tooltip, which has only the country in context, so one per good."""
-    return (f' SPEC_RISK_WHY_{g.upper()}: "#header [GetGoods(\'{g}\').GetName] Boom#!\\n'
-            f"If it ended now: #N -[{v(f'spec_risk_{g}')}|1]#! [concept_spec_market_confidence]\\n$TOOLTIP_DELIMITER$\\n#b Why so much#!\\n"
+    return (f' SPEC_RISK_WHY_{g.upper()}: "#header [GetGoods(\'{g}\').GetName] Boom at Risk: #N -[{rounded_tenth(v(f"spec_risk_{g}"))}|1]#!#!\\n$TOOLTIP_DELIMITER$\\n'
             + why_lines(lambda n: v(f"{n}_{g}"), lambda n: sv(f"{n}_{g}"), k) + '"\n')
 
 
@@ -1335,10 +1582,10 @@ def why_cond(k):
     rows = [("DEPTH", "spec_depth", "Financial Districts"), ("STEADY", "spec_steady", "Manor Houses"),
             ("FIN", "spec_fin_risk", "finance technologies")]
     out = (f' SPEC_WHY_COND: "#header [concept_spec_market_conditions]: x[{sv("spec_crash_scale")}|2]#!\\n$TOOLTIP_DELIMITER$\\n'
-           f"#italic The hotter the market, the more it hurts when a boom ends.#!\\n\\n"
-           f"#v x[{conf}|2]#! because [concept_spec_market_confidence] is #v [{CONF}|0]#!"
+           f"The hotter the market, the more a [concept_spec_boom_end] costs.\\n\\n"
+           f"#v x[{conf}|2]#! from our [concept_spec_market_confidence] of #v [{CONF}|0]#!"
            + "".join(f"[AddLocalizationIf(Not(EqualTo_CFixedPoint({sv(n)}, {fx(1)})), 'SPEC_WHY_COND_{key}')]" for key, n, _ in rows)
-           + f"\\n$TOOLTIP_DELIMITER$\\n#weak No effect at #v {k['CONF_START']:g}#! $concept_spec_market_confidence$. The higher it goes, the bigger the hit from a [concept_spec_boom_end]#!\"\n")
+           + f"\\n$TOOLTIP_DELIMITER$\\n#weak At #v {k['CONF_START']:g}#! $concept_spec_market_confidence$ this has no effect.#!\"\n")
     out += "".join(f' SPEC_WHY_COND_{key}: "\\n#v x[{sv(n)}|2]#! from {name}"\n' for key, n, name in rows)
     # how hard interest follows the price trend, generate.spec_hype_mult and spec_hype_mult_down; Loose credit (a
     # Credit Policy above 1) speeds rising prices only
@@ -1347,13 +1594,13 @@ def why_cond(k):
     if __import__("centres").ON:  # centres.HYPE_REF: the Exchange multiplies spec_hype_mult, not spec_hype_mult_down
         rows.append(("EXCH", "spec_exch_hype", "[concept_spec_exchange] (rising prices only)"))
     loose = f"GreaterThan_CFixedPoint({sv('spec_stance_hype')}, {fx(1)})"
-    out += (f' SPEC_WHY_SPEED: "#header Investor Reaction#!\\n$TOOLTIP_DELIMITER$\\n#italic How fast investors chase a change in price.#!\\n\\n'
-            f'When prices rise: #v x[{sv("spec_hype_mult")}|2]#!\\n'
-            f'When prices fall: #v x[{sv("spec_hype_mult_down")}|2]#!\\n$TOOLTIP_DELIMITER$\\n#b Why#!\\n'
+    out += (f' SPEC_WHY_SPEED: "#header Investor Reaction#!\\n$TOOLTIP_DELIMITER$\\n'
+            f'Investors react #v [{sv("spec_hype_mult")}|2]#! times as strongly as usual to rising prices, '
+            f'and #v [{sv("spec_hype_mult_down")}|2]#! times to falling prices.\\n\\n'
             f"#v x[{sv('spec_law_mult')}|2]#! from Economic System\\n"
             f"#v x[{sv('spec_stance_hype')}|2]#! from [concept_spec_credit_policy][AddLocalizationIf({loose}, 'SPEC_WHY_SPEED_LOOSE')]"
             + "".join(f"[AddLocalizationIf(Not(EqualTo_CFixedPoint({sv(n)}, {fx(1)})), 'SPEC_WHY_SPEED_{key}')]" for key, n, _ in rows)
-            + "\\n$TOOLTIP_DELIMITER$\\n#weak The higher it is, the faster [concept_spec_investor_interest] follows prices up or down#!\"\n"
+            + "\\n$TOOLTIP_DELIMITER$\\n#weak The stronger the reaction, the faster [concept_spec_investor_interest] follows prices.#!\"\n"
             ' SPEC_WHY_SPEED_LOOSE: " (rising prices only)"\n')
     return out + "".join(f' SPEC_WHY_SPEED_{key}: "\\n#v x[{sv(n)}|2]#! from {name}"\n' for key, n, name in rows)
 
@@ -1363,6 +1610,18 @@ def not1(name):
     return f"Not(EqualTo_CFixedPoint({sv(name)}, {fx(1)}))"
 
 
+SHELTERS = (("WORLD", "our World Centre [concept_spec_exchange]"), ("BC", "our [concept_spec_blue_chip] companies"),
+            ("PB", "our [concept_power_bloc]"))  # what spec_catch_panic multiplies a foreign panic's hit by
+
+
+def shelter_rows(prefix, *values):
+    return "".join(f"[AddLocalizationIf(Not(EqualTo_CFixedPoint({val}, {fx(1)})), '{prefix}_{key}')]" for (key, _), val in zip(SHELTERS, values))
+
+
+def shelter_keys(prefix, *values):
+    return "".join(f' {prefix}_{key}: "\\n#v x[{val}|2]#! from {name}"\n' for (key, name), val in zip(SHELTERS, values))
+
+
 def ratio(scaled, raw):
     """What a month's sum was multiplied by, read back from the two, since the multiplier moves with confidence after."""
     return f"Divide_CFixedPoint({v(scaled)}, Min_CFixedPoint({v(raw)}, {fx(-0.001)}))"
@@ -1370,18 +1629,20 @@ def ratio(scaled, raw):
 
 def business_lines():
     """economy.BUSINESS in words, so the tooltip cannot drift from what the game applies."""
-    names = {10: "Loyal", 5: "Happy", -5: "Unhappy", -10: "Angry"}
-    return "\\n".join(f"{names[at]} (#v {at}#! or {'more' if at > 0 else 'less'}): {'#P +' if val > 0 else '#N '}{val:g}#! per month"
-                       for _, at, val in sorted(economy.BUSINESS, key=lambda row: -row[1]))
+    def say(up):
+        rows = sorted((row for row in economy.BUSINESS if (row[2] > 0) == up), key=lambda row: abs(row[1]))
+        return ", or ".join(f"#{'P' if up else 'N'} {abs(val):g}#! {'while their [concept_approval] is' if i == 0 else 'at'} "
+                            f"#v {at}#! or {'more' if up else 'less'}" for i, (_, at, val) in enumerate(rows))
+    return f"Each month, [concept_spec_market_confidence] rises by {say(True)}. It falls by {say(False)}."
 
 
 def war_why(n, k):
     """A war's calculator, in vanilla's breakdown form: what each of diplomacy.WAR_ROWS adds this month, and the reading
     behind it. Rows that add nothing are left out."""
-    out = (f' SPEC_WAR_WHY_{n}: "#header [concept_war] with [{P}.Var(\'spec_war{n}\').GetCountry.GetName]#!\\n'
-           f"[concept_spec_market_confidence] a month: [{v(f'spec_war{n}_c')}|+=2]\\n$TOOLTIP_DELIMITER$\\n#N -{k['WAR_BASE']:.2f}#! just for being at war"
+    out = (f' SPEC_WAR_WHY_{n}: "#header [concept_war] with [{P}.Var(\'spec_war{n}\').GetCountry.GetName]: [{v(f"spec_war{n}_c")}|+=2]#!\\n'
+           f"$TOOLTIP_DELIMITER$\\n#N -{k['WAR_BASE']:.2f}#! from being at war"
            + "".join(f"[AddLocalizationIf({nonzero(v(f'spec_war{n}_{key}'), 0.01)}, 'SPEC_WAR_ROW_{n}_{key.upper()}')]" for key in diplomacy.WAR_ROWS)
-           + f"\\n$TOOLTIP_DELIMITER$\\n#weak One war can move it #N {k['WAR_WORST']:g}#! to #P +{k['WAR_BEST']:g}#! a month. The first #v 12#! months, and a [concept_gdp] drop of up to #v 10%#!, cost nothing extra#!\"\n")
+           + f"\\n$TOOLTIP_DELIMITER$\\n#weak A single war moves [concept_spec_market_confidence] by #N {k['WAR_WORST']:g}#! to #P +{k['WAR_BEST']:g}#! a month. The first #v {diplomacy.WAR_GRACE_MONTHS}#! months, and a [concept_gdp] fall of up to #v {diplomacy.WAR_GDP_FREE:.0%}#!, cost nothing extra.#!\"\n")
     return out + "".join(f' SPEC_WAR_ROW_{n}_{key.upper()}: "\\n[{v(f"spec_war{n}_{key}")}|+=2] from {row[0].format(r=v(f"spec_war{n}_{key}_r"), t=v(f"spec_war{n}_total"))}"\n'
                          for key, row in diplomacy.WAR_ROWS.items())
 
@@ -1412,8 +1673,8 @@ def item_loc(goods, k):
     # the same goods' parts of this month's booms and collapses, each by its own calculator
     mult = f"Divide_CFixedPoint({v('spec_c_boom')}, Max_CFixedPoint({v('spec_boom_raw')}, {fx(0.001)}))"
     out += "".join(f' SPEC_BOOM_WHY_{g.upper()}: "#header [{gv(g)}] Boom: [{boom(g)}|+=2]#!\\n$TOOLTIP_DELIMITER$\\n#P +{k["CONF_PER_HOT"]:g}#! for a boom\\n'
-                   f'#v x[{sv(f"spec_weight_{g}")}|%0]#! how much of our trade it is\\n'
-                   f'#tooltippable #tooltip:[Country.GetTooltipTag],SPEC_DRIVER_BOOM_TT #v x[{mult}|2]#!#!#! adjusted for all booms this month"\n'
+                   f'#v x[{sv(f"spec_weight_{g}")}|%0]#! from its share of our trade\\n'
+                   f'#tooltippable #tooltip:[Country.GetTooltipTag],SPEC_DRIVER_BOOM_TT #v x[{mult}|2]#!#!#! from the limit and multipliers on all booms this month"\n'
                    f' SPEC_CRASH_WHY_{g.upper()}: "#header [{gv(g)}] Boom Ending: [{crash(g)}|+=2]#!\\n$TOOLTIP_DELIMITER$\\n'
                    f'[Multiply_CFixedPoint({fx(-1)}, {v(f"spec_cc_{g}")})|+=2] from how big the boom was\\n'
                    f'{cond_row(ratio("spec_c_crash", "spec_crash_raw"))}"\n' for g in goods)
@@ -1427,22 +1688,25 @@ def item_loc(goods, k):
     out += "".join(f' SPEC_ITEM_FS_{n}: "\\nPanic in #v [{src(n)}.GetCountry.GetName]#!"\n' for n in range(1, k['SOURCES'] + 1))
     # each war by the enemy's war leader, then plays, default and revolution
     war = lambda n: f"{P}.Var('spec_war{n}')"
-    kinds = [("warcap", "Limit on All Wars"), ("play", "[concept_diplomatic_play]"), ("broke", "Treasury Running Out"), ("default", "[concept_default]"), ("revolution", "[concept_revolution]")]
+    # key, its tooltip's header, the row's "from ..." (calculator lines, not "Name: value")
+    kinds = [("warcap", "Limit on All Wars", "the limit on all our wars"), ("play", "[concept_diplomatic_play]", "a [concept_diplomatic_play]"),
+             ("broke", "Treasury Running Out", "our [concept_treasury] running out"), ("default", "[concept_default]", "[concept_default]"),
+             ("revolution", "[concept_revolution]", "a [concept_revolution]")]
     out += (' SPEC_ITEMS_TURMOIL: "#indent_newline:3 ' + "".join(f"[AddLocalizationIf({war(n)}.IsSet, 'SPEC_ITEM_WAR_{n}')]" for n in (1, 2, 3))
             + f"[AddLocalizationIf({P}.Var('spec_war_more').IsSet, 'SPEC_ITEM_WAR_MORE')]"
-            + "".join(f"[AddLocalizationIf({P}.Var('spec_tm_{t}').IsSet, 'SPEC_ITEM_TM_{t.upper()}')]" for t, _ in kinds) + '#!"\n')
-    out += "".join(f' SPEC_ITEM_WAR_{n}: "\\n[concept_war] with #v [{war(n)}.GetCountry.GetName]#!: #tooltippable #tooltip:[Country.GetTooltipTag],SPEC_WAR_WHY_{n} [{v(f"spec_war{n}_c")}|+=1]#!#!"\n' for n in (1, 2, 3))
+            + "".join(f"[AddLocalizationIf({P}.Var('spec_tm_{t}').IsSet, 'SPEC_ITEM_TM_{t.upper()}')]" for t, *_ in kinds) + '#!"\n')
+    out += "".join(f' SPEC_ITEM_WAR_{n}: "\\n#tooltippable #tooltip:[Country.GetTooltipTag],SPEC_WAR_WHY_{n} [{v(f"spec_war{n}_c")}|+=1]#!#! from the [concept_war] with #v [{war(n)}.GetCountry.GetName]#!"\n' for n in (1, 2, 3))
     out += "".join(war_why(n, k) for n in diplomacy.WAR_SLOTS)
-    out += (f' SPEC_ITEM_WAR_MORE: "\\nOther Wars: #tooltippable #tooltip:[Country.GetTooltipTag],SPEC_WAR_MORE_TT [{v("spec_war_more")}|+=1]#!#!"\n'
+    out += (f' SPEC_ITEM_WAR_MORE: "\\n#tooltippable #tooltip:[Country.GetTooltipTag],SPEC_WAR_MORE_TT [{v("spec_war_more")}|+=1]#!#! from our other wars"\n'
             ' SPEC_WAR_MORE_TT: "#header Other Wars#!\\n$TOOLTIP_DELIMITER$\\nEvery war beyond the first three, added together"\n')
-    out += "".join(f' SPEC_ITEM_TM_{t.upper()}: "\\n{name}: #tooltippable #tooltip:[Country.GetTooltipTag],SPEC_TM_{t.upper()}_TT [{v(f"spec_tm_{t}")}|+=1]#!#!"\n' for t, name in kinds)
-    head = lambda t, name: f' SPEC_TM_{t.upper()}_TT: "#header {name}: [{v(f"spec_tm_{t}")}|+=2]#!\\n$TOOLTIP_DELIMITER$\\n'
-    names = dict(kinds)
-    out += (head("warcap", names["warcap"]) + f'[{v("spec_war_sum")}|+=2] from all our wars together\\nCapped at #N {k["WAR_ALL_MIN"]:g}#! to #P +{k["WAR_ALL_MAX"]:g}#! a month"\n'
-            + head("play", names["play"]) + f'#N -{k["PLAY_TURMOIL"]:g}#! for being in a [concept_diplomatic_play]\\n$TOOLTIP_DELIMITER$\\n#weak Counts once, however many plays, until a [concept_war] starts#!"\n'
-            + head("broke", names["broke"]) + f'#v [{sv("spec_broke_weeks")}|0]#! weeks until [concept_bankruptcy] if we keep losing money like this\\n$TOOLTIP_DELIMITER$\\n#weak Starts #v {k["BROKE_WEEKS"]}#! weeks before $concept_bankruptcy$ and grows to #N -{k["BROKE_COST"]:g}#! as the [concept_treasury] runs dry#!"\n'
-            + head("default", names["default"]) + f'#N -{k["DEFAULT_COST"]}#! for being in [concept_default]"\n'
-            + head("revolution", names["revolution"]) + '#N -2#! for a [concept_revolution]"\n')
+    out += "".join(f' SPEC_ITEM_TM_{t.upper()}: "\\n#tooltippable #tooltip:[Country.GetTooltipTag],SPEC_TM_{t.upper()}_TT [{v(f"spec_tm_{t}")}|+=1]#!#! from {phrase}"\n' for t, _, phrase in kinds)
+    head = lambda t, name: f' SPEC_TM_{t.upper()}_TT: "#header {name}: [{v(f"spec_tm_{t}")}|+=1]#!\\n$TOOLTIP_DELIMITER$\\n'
+    names = {t: name for t, name, _ in kinds}
+    out += (head("warcap", names["warcap"]) + f'[{v("spec_war_sum")}|+=1] from all our wars\\n\\nTogether, our wars can move [concept_spec_market_confidence] by #N {k["WAR_ALL_MIN"]:g}#! to #P +{k["WAR_ALL_MAX"]:g}#! a month at most."\n'
+            + head("play", names["play"]) + f'#N -{k["PLAY_TURMOIL"]:g}#! from being in a [concept_diplomatic_play]\\n$TOOLTIP_DELIMITER$\\n#weak This counts once, however many plays we are in, and stops when a [concept_war] begins.#!"\n'
+            + head("broke", names["broke"]) + f'At our current losses, we face [concept_bankruptcy] in #v [{sv("spec_broke_weeks")}|0]#! weeks.\\n$TOOLTIP_DELIMITER$\\n#weak This starts #v {k["BROKE_WEEKS"]}#! weeks before $concept_bankruptcy$ and grows to #N -{k["BROKE_COST"]:g}#! a month as the [concept_treasury] runs dry.#!"\n'
+            + head("default", names["default"]) + f'#N -{k["DEFAULT_COST"]:g}#! from being in [concept_default]"\n'
+            + head("revolution", names["revolution"]) + f'#N -{k["REVOLUTION_COST"]:g}#! from a [concept_revolution]"\n')
     return out
 
 
@@ -1450,21 +1714,14 @@ def driver_rows():
     """Loc for a vanilla breakdown tooltip on the confidence line: the monthly drivers, the one-off jumps (bank
     support, the reset when a panic ends) and the 0 to 100 limit, so the rows add up to the change shown. No
     driver icons: custom textures cannot go inline in text."""
-    any_row = nonzero(v(DRIVERS[-1][1]))
-    for _, var in reversed(DRIVERS[:-1]):
-        any_row = f"Or({nonzero(v(var))}, {any_row})"
-    rows = "".join(f"[AddLocalizationIf({nonzero(v(var))}, 'SPEC_CARD_ROW_{key.upper()}')]" for key, var in DRIVERS)
-    out = f' SPEC_CARD_ROWS: "[AddLocalizationIf({any_row}, \'SPEC_CARD_ROWS_LIST\')]"\n'
-    out += f' SPEC_CARD_ROWS_LIST: "\\n$TOOLTIP_DELIMITER${rows}"\n'
     # the gauge tooltip's rows, in vanilla's breakdown form "+1 from Literacy" (CULTURAL_FERVOR_FROM_*)
-    out += ' SPEC_GAUGE_ROWS: "' + "".join(f"[AddLocalizationIf({nonzero(v(var))}, 'SPEC_GAUGE_ROW_{key.upper()}')]" for key, var in DRIVERS) + '"\n'
+    out = ' SPEC_GAUGE_ROWS: "' + "".join(f"[AddLocalizationIf({nonzero(v(var))}, 'SPEC_GAUGE_ROW_{key.upper()}')]" for key, var in DRIVERS) + '"\n'
     for key, var in DRIVERS:
         name = f"$SPEC_DRIVER_{key.upper()}$"
         # the calculator sits on the number, as the Booms at Risk rows do
         num = lambda digits: f"#tooltippable #tooltip:[Country.GetTooltipTag],SPEC_DRIVER_{key.upper()}_TT [{v(var)}|+={digits}]#!#!"
-        out += f' SPEC_CARD_ROW_{key.upper()}: "\\n{name}: {num(1)}"\n'
         out += f' SPEC_GAUGE_ROW_{key.upper()}: "\\n{num(1)} from {name}"\n'
-        out += f' SPEC_CHIP_ROW_{key.upper()}: "\\n{name}: {num(2)}"\n'
+        out += f' SPEC_CHIP_ROW_{key.upper()}: "\\n{num(2)} from {name}"\n'
     return out
 
 
@@ -1508,6 +1765,16 @@ def cycle_clicks(k, je=True):
     steps += [f"GetVariableSystem.SetIf('{FIN_TAB}', '{n}', GetVariableSystem.HasValue('{nxt}', '{n}'))" for n in names]
     steps += [f"GetVariableSystem.Clear('{nxt}')", f"GetVariableSystem.Set('{FIN}', 'open')"] + ([JE_PANEL[1:-1]] if je else [])
     return "".join(f'onclick = "[{s}]"\n' for s in steps)
+def open_clicks(tab, when=None):
+    """onclicks opening the Finance window on a tab from outside any panel (the topbar, the alert row): any vanilla
+    panel closes first, as the side bar's button does. when: the tab only if this holds (GetVariableSystem.SetIf)."""
+    steps = ["InformationPanelBar.ClosePanel", f"GetVariableSystem.Clear('{PICK}')"]
+    steps += ([f"GetVariableSystem.SetIf('{FIN_TAB}', '{t}', {w})" for t, w in when] if when else
+              [f"GetVariableSystem.Set('{FIN_TAB}', '{tab}')"])
+    steps += ["GetVariableSystem.Clear('spec_finance_next')", f"GetVariableSystem.Set('{FIN}', 'open')"]
+    return "".join(f'onclick = "[{s}]"\n' for s in steps)
+
+
 PICK = "spec_pick_slot"  # centres.py's "choose a speciality" mode: it ends whenever the window opens or closes
 # closing, as the back and close buttons do; ponytail: two onclicks through the one onclick = "..." its users write
 # Financial Markets' panel, opened under the window: the journal map mode follows the open entry's panel, and nothing
@@ -1649,8 +1916,14 @@ blockoverride "{n}_button_selected" {{
 
 def loc(k):
     panic, mania, credit_from, tight_pull, tight_from = k["PANIC"], k["MANIA"], k["CREDIT_FROM"], k["TIGHT_PULL"], k["TIGHT_FROM"]
-    panic_rise = (f"Borrowing raises it. Once [concept_spec_leverage] passes #v {leverage.SAFE}#! months it climbs, up to #v {panic + leverage.PANIC_SPAN:g}#! at #v {leverage.RUIN}#! months."
-                  if leverage.ON else "")
+    # the Panic Threshold as vanilla's Liberty Desire: the base, then a line a part (leverage.values' spec_pl_*)
+    pl_rows = [("spec_pl_lev", "SPEC_PL_LEV"), ("spec_pl_shallow", "SPEC_PL_SHALLOW")] if leverage.ON else []
+    panic_tt = (f' SPEC_PANIC_LINE_TT: "#header Panic Threshold: [{sv("spec_panic_at")}|1]#!\\n$TOOLTIP_DELIMITER$\\n'
+                f'A [concept_spec_financial_panic] will begin if [concept_spec_market_confidence] falls below this.\\n\\n'
+                f'#v {panic:.1f}#! base{calc.lines(pl_rows, sv)}"\n'
+                + (f' SPEC_PL_LEV: "{calc.line(sv("spec_pl_lev"), "-=1", f"[concept_spec_leverage] (#v [{sv("spec_lev")}|1]#! months)")}"\n'
+                   f' SPEC_PL_SHALLOW: "{calc.line(sv("spec_pl_shallow"), "-=1", "few $building_financial_district$")}"\n'
+                   if leverage.ON else ""))
     panic_months = -(-k["PANIC_DAYS"] // 30)  # rounded up, as spec_panic_months is
     exch = __import__("centres")  # imports this module
     flight_who = ("Each [concept_great_power], and each [concept_country] whose [concept_spec_exchange] is #v International#! or higher,"
@@ -1683,6 +1956,8 @@ def loc(k):
 
     pops = "$capitalists_no_icon$, $aristocrats_no_icon$ and $shopkeepers_no_icon$"
     igs = "$ig_industrialists$ and $ig_petty_bourgeoisie$"
+    rad = [f"#N {x:.0%}#! of ${p}_no_icon$" for p, x in k["PANIC_RADICALS"].items()]  # generate's spec_start_panic
+    radicals = ", ".join(rad[:-1]) + " and " + rad[-1]
     # the World Crash that opens the Long Depression stops lending (depression.NO_CREDIT: the spec_ld_crash modifier)
     ld_crash = f"{P}.Var('spec_world_crash').IsSet"  # depression.CRASH_FLAG: set exactly while the World Crash blocks lending
 
@@ -1693,23 +1968,39 @@ def loc(k):
 
     def pc(h):
         return f"{round((h - 1) * 100):+d}%"
-    no_credit, no_credit_end, no_credit_tt, lev_loc, no_rescue, panic_bad = "", "", "", "", "", ""
+    no_credit, no_credit_end, no_credit_tt, lev_loc, no_rescue, panic_bad, owed_lev, owed_lim = "", "", "", "", "", "", "", ""
     if leverage.ON:
         crunch = f"{P}.Var('spec_crunch').IsSet"
-        no_rescue = "\\n[concept_spec_bad_debts]: #N Not cleared#!\\n#v Buy Up Bad Loans#! can halve them once while they last."
+        no_rescue = "\\nIt does not clear [concept_spec_bad_debts]. #v Buy Up Bad Loans#! can halve them once while they last."
         panic_bad = f"[AddLocalizationIf({crunch}, 'SPEC_PANIC_BAD_DEBTS')]"
-        no_credit, no_credit_end, no_credit_tt = f"SelectLocalization({P}.Var('spec_crunch').IsSet, 'SPEC_CREDIT_NO_CRUNCH', ", ")", ", while [concept_spec_bad_debts] last"
+        # Bad Debts cut lending gradually (spec_crunch_lend, a row of the rate); only past their stop do banks lend nothing
+        no_credit, no_credit_end, no_credit_tt = f"SelectLocalization(Not({gt(sv('spec_crunch_lend'))}), 'SPEC_CREDIT_NO_CRUNCH', ", ")", ""
         relief = f"{P}.Var('spec_lev_fade').IsSet"
-        lev = sv("spec_lev")
+        lev, limit = sv("spec_lev"), sv("spec_credit_limit")
         inv_if = f"Multiply_CFixedPoint({sv('spec_crunch_if')}, {fx(f'{leverage.CRUNCH_INVEST * 100:g}')})"  # investment lost if a panic began now
-        lev_loc = f""" SPEC_CREDIT_NO_CRUNCH: "Not Lending: [concept_spec_bad_debts]"
- SPEC_LEV_BAD_NOW: "[concept_spec_bad_debts]: #N -[{sv('spec_crunch_tp_pct')}|1]%#! [concept_throughput] now, fading over #v [{sv('spec_crunch_months')}|0]#! more months\\n"
- SPEC_LEV_RELIEF: "We lost land, so [concept_spec_bad_debts] count only #v [{sv('spec_lev_bad')}|1]#! months of [concept_spec_leverage]. They go back to full over #v [{sv('spec_lev_fade_sv')}|0]#! more months\\n"
+        months_tt = f"#v #tooltippable #tooltip:[Country.GetTooltipTag],SPEC_LEV_MONTHS_TT [{lev}|1] months#!#!#!"
+        owed_lev = f" It comes to {months_tt} of the pool's income."
+        owed_lim = f", up to our Lending Limit of #v [{limit}|0]#! months of pool income"
+        # Bad Debts a panic would leave now, with none yet (leverage.spec_crunch_if): leverage's part in throughput
+        # points, then the specialities' multiplier
+        bad_lev = f"Multiply_CFixedPoint({sv('spec_crunch_stress')}, {fx(f'{leverage.CRUNCH_MAX * leverage.CRUNCH_THROUGHPUT * 100:g}')})"
+        # the Lending Limit as leverage.limit adds it up: the base, a step a finance technology, the Exchange's place,
+        # the power bloc's share, then the ceiling at leverage.RUIN
+        tech_rows = [(f"spec_lim_{t}", f"SPEC_LEV_LIM_{t.upper()}") for t in leverage.LADDER_TECHS]
+        parts = fx(leverage.SAFE)
+        for n in [n for n, _ in tech_rows] + ["spec_pb_limit"] + (["spec_exch_limit"] if exch.BRAKE else []):
+            parts = f"Add_CFixedPoint({parts}, {sv(n)})"
+        lim_cap = f"Subtract_CFixedPoint({limit}, {parts})"
+        lim_loc = "".join(f' {key}: "' + calc.line(sv(n), "+=0", f"[GetTechnology('{t}').GetName]") + '"\n'
+                          for t, (n, key) in zip(leverage.LADDER_TECHS, tech_rows))
+        lev_loc = f""" SPEC_CREDIT_NO_CRUNCH: "Not lending while [concept_spec_bad_debts] are past what our [concept_spec_lending_standards] allow"
+ SPEC_LEV_BAD_NOW: "\\n[concept_spec_bad_debts] cost #N -[{sv('spec_crunch_tp_pct')}|1]%#! [concept_throughput] now and clear in #v [{sv('spec_crunch_months')}|0]#! months."
+ SPEC_LEV_RELIEF: "\\nWe lost land, so [concept_spec_bad_debts] count only #v [{sv('spec_lev_bad')}|1]#! months of [concept_spec_leverage]. They go back to full over #v [{sv('spec_lev_fade_sv')}|0]#! more months."
  SPEC_LEV_NOTES: "[AddLocalizationIf({crunch}, 'SPEC_LEV_BAD_NOW')][AddLocalizationIf({relief}, 'SPEC_LEV_RELIEF')]"
- SPEC_PANIC_BAD_DEBTS: "[concept_spec_bad_debts]: #N -[{sv('spec_crunch_tp_pct')}|1]%#! [concept_throughput] now, fading over #v [{sv('spec_crunch_months')}|0]#! more months. They may outlast the panic.\\n\\n"
+ SPEC_PANIC_BAD_DEBTS: "[concept_spec_bad_debts] cost #N -[{sv('spec_crunch_tp_pct')}|1]%#! [concept_throughput] now and clear in #v [{sv('spec_crunch_months')}|0]#! months. They may outlast the panic.\\n\\n"
  SPEC_DRIVER_DROP: "Panic Begins"
- SPEC_DRIVER_DROP_TT: "#header Panic Begins: [{v('spec_c_drop')}|+=1]#!\\n$TOOLTIP_DELIMITER$\\n#italic Borrowing too much makes a panic hit harder.#!\\n\\nWhen a [concept_spec_financial_panic] starts while [concept_spec_leverage] is high, [concept_spec_market_confidence] drops straight to below #v {k['PANIC']}#!."
- SPEC_EFFECT_LEV: "Credit Leverage"
+ SPEC_DRIVER_DROP_TT: "#header Panic Begins: [{v('spec_c_drop')}|+=1]#!\\n$TOOLTIP_DELIMITER$\\nA [concept_spec_financial_panic] that begins while [concept_spec_leverage] is high drops [concept_spec_market_confidence] straight to below #v {k['PANIC']}#!."
+ SPEC_EFFECT_LEV: "[concept_spec_leverage]"
  SPEC_EFFECT_LEV_VALUE: "[SelectLocalization({gt(lev, leverage.SAFE)}, 'SPEC_LEV_HOT', 'SPEC_LEV_SAFE')]"
  SPEC_EFFECT_BAD: "[concept_spec_bad_debts]"
  SPEC_EFFECT_BAD_VALUE: "[SelectLocalization({crunch}, 'SPEC_EFFECT_BAD_ON', SelectLocalization({gt(sv('spec_crunch_if'))}, 'SPEC_EFFECT_BAD_IF', 'SPEC_GP_RISK_NONE'))]"
@@ -1717,46 +2008,55 @@ def loc(k):
  SPEC_EFFECT_BAD_ON: "#N -[{sv('spec_crunch_tp_pct')}|1]%#! for #v [{sv('spec_crunch_months')}|0]#! months"
  SPEC_LEV_SAFE: "#v [{lev}|1]#! months"
  SPEC_LEV_HOT: "#N [{lev}|1]#! months"
- SPEC_LEV_WORD_SAFE: "#P Safe#!"
- SPEC_LEV_WORD_RISKY: "#N Risky#!"
- SPEC_LEV_WORD_DANGER: "#N Dangerous#!"
- SPEC_LEV_ADVICE_SAFE: "Safe up to #v {leverage.SAFE}#! months"
- SPEC_LEV_ADVICE_RISKY: "Risky past #v {leverage.SAFE}#! months"
- SPEC_LEV_ADVICE_DANGER: "Heavy [concept_spec_bad_debts] past #v {leverage.DANGER}#! months"
- SPEC_LEV_MONTHS_TT: "[concept_spec_outstanding_credit]: #v @money![{v('spec_debt')}|D]#!\\nMonthly Pool Income: #v @money![{sv('spec_lev_income')}|D]#!\\n$TOOLTIP_DELIMITER$\\n#weak Pool income is this month's [concept_investment_pool] income or its yearly average, whichever is higher#!"
- SPEC_LEV_LIMIT: "Lending Limit: #v [{sv('spec_credit_limit')}|0] months#!{exch.LIMIT_LINE}"
- SPEC_LEV_LIMIT_KEY: "Lending Limit: #v [{sv('spec_credit_limit')}|0] months#!"
- SPEC_LEV_MAIN_TT: "#header [concept_spec_leverage]#!\\n$TOOLTIP_DELIMITER$\\n#italic How much our banks have lent out, counted in months of income.#!\\n\\nBanks have lent us #v #tooltippable #tooltip:[Country.GetTooltipTag],SPEC_LEV_MONTHS_TT [{lev}|1] months#!#!#! of pool income\\nStatus: [SelectLocalization({gt(lev, leverage.DANGER)}, 'SPEC_LEV_WORD_DANGER', SelectLocalization({gt(lev, leverage.SAFE)}, 'SPEC_LEV_WORD_RISKY', 'SPEC_LEV_WORD_SAFE'))]\\n$SPEC_LEV_LIMIT$\\n$TOOLTIP_DELIMITER$\\n[concept_throughput] from borrowed money: #P +[{sv('spec_lev_boom_pct')}|0]%#!\\nA panic starts below #v [{sv('spec_panic_at')}|0]#! [concept_spec_market_confidence]\\nIf a panic started now, [concept_spec_bad_debts] would cost #N -[{sv('spec_crunch_tp_if_pct')}|1]%#! [concept_throughput] and #N -[{inv_if}|1]%#! investment\\n[AddLocalizationIf(Or({crunch}, {relief}), 'SPEC_LEV_NOTES')]\\n[SelectLocalization({gt(lev, leverage.DANGER)}, 'SPEC_LEV_ADVICE_DANGER', SelectLocalization({gt(lev, leverage.SAFE)}, 'SPEC_LEV_ADVICE_RISKY', 'SPEC_LEV_ADVICE_SAFE'))]"
+ SPEC_LEV_ADVICE_SAFE: "Up to #v {leverage.SAFE}#! months this is #P Safe#!, and a [concept_spec_financial_panic] leaves no [concept_spec_bad_debts]."
+ SPEC_LEV_ADVICE_RISKY: "Past #v {leverage.SAFE}#! months this is #N Risky#!, as a [concept_spec_financial_panic] starts sooner and leaves [concept_spec_bad_debts]."
+ SPEC_LEV_ADVICE_DANGER: "Past #v {leverage.DANGER}#! months this is #N Dangerous#!, as a [concept_spec_financial_panic] starts much sooner and leaves heavy [concept_spec_bad_debts]."
+ SPEC_LEV_MONTHS_TT: "#header [concept_spec_leverage]: #v [{lev}|1]#! months#!\\n$TOOLTIP_DELIMITER$\\nOur banks have lent us #v @money![{v('spec_debt')}|D]#!. Our [concept_investment_pool] takes in #v @money![{sv('spec_lev_income')}|D]#! a month.\\n$TOOLTIP_DELIMITER$\\n#weak Pool income is the highest of this month's, its yearly average and #v {leverage.INCOME_FLOOR * 100:g}%#! of [concept_gdp].#!"
+ SPEC_LEV_LIMIT: "#header Lending Limit: #v [{limit}|0]#! months#!\\n$TOOLTIP_DELIMITER$\\nBanks stop lending once [concept_spec_outstanding_credit] reaches this many months of [concept_investment_pool] income.\\n\\n#v {leverage.SAFE}#! base{calc.lines(tech_rows, sv)}{exch.LIMIT_LINE}{calc.lines([('spec_pb_limit', 'SPEC_LEV_LIM_BLOC')], sv)}[AddLocalizationIf({calc.shows(lim_cap)}, 'SPEC_LEV_LIM_CAP')]"
+{lim_loc} SPEC_LEV_LIM_BLOC: "{calc.line(sv('spec_pb_limit'), '+=0', 'our [concept_power_bloc]')}"
+ SPEC_LEV_LIM_CAP: "{calc.line(lim_cap, '+=0', f'the ceiling of #v {leverage.RUIN}#! months')}"
+ SPEC_LEV_LIMIT_KEY: "Lending Limit: #v [{limit}|0] months#!"
+ SPEC_LEV_MAIN_TT: "#header [concept_spec_leverage]: $SPEC_EFFECT_LEV_VALUE$#!\\n$TOOLTIP_DELIMITER$\\nOur banks have lent us {months_tt} of [concept_investment_pool] income. [SelectLocalization({gt(lev, leverage.DANGER)}, 'SPEC_LEV_ADVICE_DANGER', SelectLocalization({gt(lev, leverage.SAFE)}, 'SPEC_LEV_ADVICE_RISKY', 'SPEC_LEV_ADVICE_SAFE'))]\\n\\n#P +[{sv('spec_lev_boom_pct')}|0]%#! [concept_throughput] from borrowed money[AddLocalizationIf({calc.shows(sv('spec_pl_lev'))}, 'SPEC_LEV_PL')][AddLocalizationIf({calc.shows(sv('spec_crunch_tp_if_pct'))}, 'SPEC_LEV_IF_PANIC_LINE')][AddLocalizationIf(Or({crunch}, {relief}), 'SPEC_LEV_NOTES')]\\n$TOOLTIP_DELIMITER$\\nBanks lend up to our Lending Limit of #v #tooltippable #tooltip:[Country.GetTooltipTag],SPEC_LEV_LIMIT [{limit}|0] months#!#!#!."
+ SPEC_LEV_PL: "\\n#N +[{sv('spec_pl_lev')}|1]#! Panic Threshold, so a panic starts sooner"
+ SPEC_LEV_IF_PANIC_LINE: "\\n#N -[{sv('spec_crunch_tp_if_pct')}|1]%#! [concept_throughput] and #N -[{inv_if}|1]%#! investment from [concept_spec_bad_debts], if a panic began now"
+ SPEC_LEV_IF_PANIC: "A [concept_spec_financial_panic] now would leave [concept_spec_bad_debts] of #N -[{sv('spec_crunch_tp_if_pct')}|1]%#! [concept_throughput] and #N -[{inv_if}|1]%#! investment."
+ SPEC_BAD_IF_NONE: "A [concept_spec_financial_panic] now would leave no [concept_spec_bad_debts]."
 """
         # each rung of the credit ladder: what it allows at its top, what unlocks it, and whether the country is on it
         edges = (0, *leverage.LADDER)
         rungs = list(zip(edges, edges[1:]))
         stress = lambda m: min(max((m - leverage.SAFE) / (leverage.RUIN - leverage.SAFE), 0), 1)
-        bad_at = lambda m, per=leverage.CRUNCH_THROUGHPUT: f"{leverage.CRUNCH_MAX * stress(m) * per * 100:.1f}".rstrip("0").rstrip(".")  # throughput %, or investment's
+        # throughput %, or investment's, times the Exchange's specialities as leverage.spec_crunch_if multiplies them
+        # (a bubble's burst adds its own, shown on the Bubble Risk chip)
+        bad_at = lambda m, per=leverage.CRUNCH_THROUGHPUT: f"[Multiply_CFixedPoint({fx(round(leverage.CRUNCH_MAX * stress(m) * per * 100, 3))}, {sv('spec_nx_bad')})|1]"
+        # each section of the bar: who lends that far, then what its top end gives and risks, against Safe's
         ib, ies = (f"[GetTechnology('{t}').GetName]" for t in leverage.LADDER_TECHS[1:])
-        unlock = ("Available from the start.", f"Unlocked by [GetTechnology('{leverage.LADDER_TECHS[0]}').GetName].",
-                  f"Unlocked by {ib} or {ies}.", f"Unlocked by {ib} and {ies} together.")
+        cb = f"[GetTechnology('{leverage.LADDER_TECHS[0]}').GetName]"
+        unlock = ("Banks lend this far from the start.", f"{cb} lets banks lend this far.",
+                  f"{ib} or {ies} lets banks lend this far.", f"{ib} and {ies} together let banks lend this far.")
+        zone = lambda hi: ("#P Safe#!" if hi <= leverage.SAFE else "#N Risky#!" if hi <= leverage.DANGER else "#N Dangerous#!")
+        safe_at = f"[{sv(f'spec_panic_at_{leverage.SAFE}')}|0]"
         for i, (lo, hi) in enumerate(rungs):
             boom = round(leverage.REWARD * 100 * min(hi, leverage.REWARD_MAX))
-            debts = "no [concept_spec_bad_debts]" if i == 0 else f"[concept_spec_bad_debts] up to #N -{bad_at(hi)}%#! [concept_throughput] and #N -{bad_at(hi, leverage.CRUNCH_INVEST)}%#! investment"
-            lev_loc += f""" SPEC_LEV_LVL_{i}: "#bold {lo} to {hi} months#!: [concept_throughput] from Credit up to #P +{boom}%#!, Panic Threshold up to #v {round(k['PANIC'] + leverage.PANIC_SPAN * stress(hi))}#!, {debts}"
- SPEC_LEV_UNLOCK_{i}: "{unlock[i]}"
- SPEC_LEV_TIER_{i}_TT: "$SPEC_LEV_LVL_{i}$\\n$SPEC_LEV_UNLOCK_{i}$\\n$TOOLTIP_DELIMITER$\\n$SPEC_LEV_YOURS$"
+            risk = (" A [concept_spec_financial_panic] leaves no [concept_spec_bad_debts]." if hi <= leverage.SAFE else
+                    f" A [concept_spec_financial_panic] starts below #N [{sv(f'spec_panic_at_{hi}')}|0]#! [concept_spec_market_confidence] instead of #v {safe_at}#!, "
+                    f"and leaves [concept_spec_bad_debts] costing up to #N -{bad_at(hi)}%#! [concept_throughput] and #N -{bad_at(hi, leverage.CRUNCH_INVEST)}%#! investment.")
+            lev_loc += f""" SPEC_LEV_TIER_{i}_TT: "#header {lo} to {hi} Months, {zone(hi)}#!\\n$TOOLTIP_DELIMITER$\\n{unlock[i]}\\n\\nAt #v {hi}#! months, borrowed money adds #P +{boom}%#! [concept_throughput].{risk}"
 """
         lev_loc += f""" SPEC_BAILOUT: "Buy Up Bad Loans"
- SPEC_BAILOUT_TT: "#header Buy Up Bad Loans#!\\n$TOOLTIP_DELIMITER$\\n#italic The state buys up the banks' bad loans and takes the loss itself.#!\\n\\n[GetScriptedGui('spec_sgui_bailout').BuildTooltip(GuiScope.SetRoot({P}).End)]"
- SPEC_BAD_SCALE: "The more [concept_spec_leverage] past #v {leverage.SAFE}#! months when a [concept_spec_financial_panic] starts, the worse they are, up to #N -{leverage.CRUNCH_MAX * leverage.CRUNCH_THROUGHPUT * 100:g}%#! [concept_throughput] and #N -{leverage.CRUNCH_MAX * leverage.CRUNCH_INVEST * 100:g}%#! investment at #v {leverage.RUIN}#! months"
- SPEC_BAD_BUILDING: "\\nStill growing, to #N -[{sv('spec_crunch_tp_full_pct')}|1]%#! (#v {leverage.CRUNCH_RAMP * leverage.CRUNCH_THROUGHPUT * 100:g}%#! per month)"
- SPEC_EFFECT_BAD_TT: "#header [concept_spec_bad_debts]#!\\n$TOOLTIP_DELIMITER$\\n#italic Loans that went bad in the panic. Until they clear, banks will not lend.#!\\n\\n[concept_throughput]: #N -[{sv('spec_crunch_tp_pct')}|1]%#!\\nInvestment: #N -[{sv('spec_crunch_invest_pct')}|0]%#!\\nClears in: #v [{sv('spec_crunch_months')}|0] months#![AddLocalizationIf({gt(sv('spec_crunch_left'))}, 'SPEC_BAD_BUILDING')]\\n$TOOLTIP_DELIMITER$\\nThe $concept_throughput$ we got from borrowed money fades away\\n#v Buy Up Bad Loans#! halves them, once\\n\\n$SPEC_BAD_SCALE$"
- SPEC_EFFECT_BAD_NONE_TT: "#header [concept_spec_bad_debts]#!\\nNothing to worry about. Our banks have no bad loans right now.\\n$TOOLTIP_DELIMITER$\\nIf a [concept_spec_financial_panic] started now: #N -[{sv('spec_crunch_tp_if_pct')}|1]%#! [concept_throughput], #N -[{inv_if}|1]%#! Investment\\n$SPEC_LEV_YOURS$\\n\\n$SPEC_BAD_SCALE$"
- SPEC_LEV_YOURS: "Our [concept_spec_leverage]: #v [{lev}|1]#! months"
- SPEC_LEV_LEVELS: "#bold Levels#!{''.join(f'\\n$SPEC_LEV_LVL_{i}$' for i in range(len(rungs)))}"
- SPEC_EFFECT_LEV_TT: "$SPEC_LEV_MAIN_TT$\\n$TOOLTIP_DELIMITER$\\n$SPEC_LEV_LEVELS$"
+ SPEC_BAILOUT_TT: "#header Buy Up Bad Loans#!\\n$TOOLTIP_DELIMITER$\\nThe state buys up the banks' bad loans and takes the loss itself.\\n\\n[GetScriptedGui('spec_sgui_bailout').BuildTooltip(GuiScope.SetRoot({P}).End)]"
+ SPEC_BAD_SCALE: "[concept_spec_bad_debts] come from a [concept_spec_financial_panic] that starts with more than #v {leverage.SAFE}#! months of [concept_spec_leverage], worse the more months, or from a bubble of [concept_spec_speculative_excess] that bursts for more than our [concept_spec_market_confidence]. Banks lend less the more there are, and nothing past #v [{sv('spec_crunch_stop')}|0]#! at our [concept_spec_lending_standards]."
+ SPEC_BAD_BUILDING: "\\nStill growing by #N {leverage.CRUNCH_RAMP * leverage.CRUNCH_THROUGHPUT * 100:g}%#! a month, to #N -[{sv('spec_crunch_tp_full_pct')}|1]%#!"
+ SPEC_EFFECT_BAD_TT: "#header [concept_spec_bad_debts]: #N -[{sv('spec_crunch_tp_pct')}|1]%#!#!\\n$TOOLTIP_DELIMITER$\\nOur banks' bad loans clear in #v [{sv('spec_crunch_months')}|0]#! months. Until then, banks lend #N [{sv('spec_crunch_lend_cut')}|0]%#! less, and nothing past #v [{sv('spec_crunch_stop')}|0]#!.\\n\\n#N -[{sv('spec_crunch_tp_pct')}|1]%#! [concept_throughput]\\n#N -[{sv('spec_crunch_invest_pct')}|0]%#! investment[AddLocalizationIf({gt(sv('spec_crunch_left'))}, 'SPEC_BAD_BUILDING')]\\n$TOOLTIP_DELIMITER$\\nOnce felt in full, they shrink by #v {leverage.CRUNCH_FADE * leverage.CRUNCH_THROUGHPUT * 100:g}%#! [concept_throughput] a month, or #v {leverage.CRUNCH_FADE_TIGHT * leverage.CRUNCH_THROUGHPUT * 100:g}%#! under [Concept('concept_spec_credit_policy','$concept_spec_credit_policy_tight$')]. The [concept_throughput] borrowed money added fades while they last. #v Buy Up Bad Loans#! halves them, once."
+ SPEC_EFFECT_BAD_NONE_TT: "#header [concept_spec_bad_debts]: #P None#!#!\\n$TOOLTIP_DELIMITER$\\n[SelectLocalization({calc.shows(sv('spec_crunch_tp_if_pct'))}, 'SPEC_BAD_IF', 'SPEC_BAD_IF_NONE')]\\n$TOOLTIP_DELIMITER$\\n$SPEC_BAD_SCALE$"
+ SPEC_BAD_IF: "$SPEC_LEV_IF_PANIC$\\n\\n#N -[{bad_lev}|1]%#! from [concept_spec_leverage] (#v [{sv('spec_lev_bad')}|1]#! months)#indent_newline:3 [AddLocalizationIf({not1('spec_nx_bad')}, 'SPEC_BAD_IF_NX')]#!"
+ SPEC_BAD_IF_NX: "\\n#v x[{sv('spec_nx_bad')}|2]#! from our [concept_spec_exchange]'s specialities"
+ SPEC_EFFECT_LEV_TT: "$SPEC_LEV_MAIN_TT$"
 """
     banking = gt(sv("spec_has_central_banking"))
     # generate.spec_credit multiplies spec_credit_mult by Lending Standards (cycle.CREDIT) and by the Exchange's
     # charter and specialities (centres.CREDIT): each gets a row, and the word reads generate's spec_credit_rate, their product
-    credit_rate, credit_rows = sv("spec_credit_rate"), f"\\n[concept_spec_banking_reforms]: {pct_neutral(sv('spec_reform_credit'))}"
+    credit_rate = sv("spec_credit_rate")
     def factor(script):  # the product of a CREDIT string's "multiply = x" lines, so it follows whatever that module multiplies
         names = [line.split("=")[1].strip() for line in script.splitlines()]
         out = sv(names[0])
@@ -1764,9 +2064,32 @@ def loc(k):
             out = f"Multiply_CFixedPoint({out}, {sv(n)})"
         return out
     extra = [(name, factor(script)) for name, script in (("[concept_spec_lending_standards]", cycle.CREDIT),
-                                                         ("[concept_spec_exchange]", exch.CREDIT)) if script]
-    for name, m in extra:
-        credit_rows += f"\\n{name}: {pct_neutral(m)}"
+                                                         ("our [concept_spec_exchange]", exch.CREDIT),
+                                                         ("[concept_spec_bad_debts]", leverage.CREDIT)) if script]
+    # the rate's calculator: a line a factor, those at x1 left out as vanilla leaves them
+    rate_parts = [("$ECONOMIC_SYSTEM_GC_LINK$", sv("spec_law_mult")), ("Finance Technologies", sv("spec_tech_credit")),
+                  ("[concept_spec_credit_policy]", sv("spec_stance_credit")), ("[concept_spec_banking_reforms]", sv("spec_reform_credit"))] + extra
+    rate_lines = "".join(f"[AddLocalizationIf(Not(EqualTo_CFixedPoint({m}, {fx(1)})), 'SPEC_RATE_{i}')]" for i, (_, m) in enumerate(rate_parts))
+    rate_loc = "".join(f' SPEC_RATE_{i}: "\\n#v x[{m}|2]#! from {name}"\n' for i, (name, m) in enumerate(rate_parts))
+    # a panic's length as generate's spec_panic_months_trust works it out, a line a factor (x1 left out)
+    len_parts = ([("spec_panic_mult", "$ECONOMIC_SYSTEM_GC_LINK$"), ("spec_nx_panic", "our [concept_spec_exchange]'s specialities"),
+                  ("spec_trust_mult", "[concept_legitimacy]"), ("spec_reform_panic_len", "[concept_spec_banking_reforms]")]
+                 + ([("spec_panic_lev_len", "[concept_spec_leverage]")] if leverage.ON else []))
+    len_lines = "".join(f"[AddLocalizationIf({not1(n)}, 'SPEC_PANIC_LEN_{i}')]" for i, (n, _) in enumerate(len_parts))
+    len_loc = "".join(f' SPEC_PANIC_LEN_{i}: "\\n#v x[{sv(n)}|2]#! from {label}"\n' for i, (n, label) in enumerate(len_parts))
+    # Withdrawn in a Panic as generate's spec_clawback works it out: the share called back, cut to what the pool allows
+    asked = f"Multiply_CFixedPoint({v('spec_debt')}, {fx(k['CLAWBACK'])})"
+    if cycle.ON:  # Lending Standards scale the share (cycle.RECALL)
+        asked = f"Multiply_CFixedPoint({asked}, {sv('spec_lax_recall')})"
+    claw_cut = f"Subtract_CFixedPoint({asked}, {sv('spec_clawback')})"
+    claw_lax = f"[AddLocalizationIf({not1('spec_lax_recall')}, 'SPEC_DEBT_LAX')]" if cycle.ON else ""
+    recall_lax = (f"[AddLocalizationIf(Not(EqualTo_CFixedPoint({v('spec_recall_lax', 1)}, {fx(1)})), 'SPEC_RECALL_LAX')]"
+                  if cycle.ON else "")
+    claw_share = sv("spec_claw_share") if leverage.ON else fx(1)
+    # confidence's recovery (generate's spec_conf_recover): our Exchange's trust scales it (centres.RECOVER_REF)
+    drift_trust = f"[AddLocalizationIf({not1('spec_exch_recover')}, 'SPEC_DRIFT_TRUST')]" if exch.RECOVER_REF else ""
+    claw_note = (f"The most a panic can take is #v {k['CLAW_FLOOR']:.0%}#! of the pool at low [concept_spec_leverage], "
+                 f"rising to all of it at #v {leverage.DANGER}#! months. " if leverage.ON else "")
     tight = f"EqualTo_CFixedPoint({STANCE}, {fx(-1)})"
     state_names = ["shaken", "wary", "steady", "buoyant", "mania"]
     # the lowest band's title is Shaken: a Financial Panic, when one runs, has its own title
@@ -1778,13 +2101,12 @@ def loc(k):
         out = f"\\nInvestment by {pops}: #{'P +' if m > 0 else 'N -'}{abs(m):.0%}#!" if m else ""
         out += f"\\n[concept_loans] interest rate: #{'N +' if r > 0 else 'P -'}{abs(r):.0%}#!" if r else ""
         return out + (f"\\nTraded Quantity: #{'P +' if tr > 0 else 'N -'}{abs(tr):.0%}#!" if tr else "")
-    tiers += "".join(f' SPEC_INVEST_{t.upper()}: "{invest(*(k[b].get(t, 0) for b in ("BAND_INVEST", "BAND_RATE", "BAND_TRADE")))}{companies.band_tip(t)}"\n' for t, *_ in TIERS)
 
     # the gauge tooltip, laid out as vanilla's value tooltips: INFAMY_TOOLTIP's header (name: level (value)),
     # CULTURE_POPULATION_CHANGE's "Monthly Change", CULTURAL_FERVOR_FROM_*'s "+1 from X" rows and
     # LEGITIMACY_LEVEL_ACTIVE_TOOLTIP's indented "Effects:" block
     def band_fx(t):
-        """A band's effects as stat lines, as SPEC_INVEST_ shows them."""
+        """A band's effects as stat lines, for the gauge and the band tooltips."""
         m = k["BAND_INVEST"].get(t, 0)
         out = invest(m, k["BAND_RATE"].get(t, 0), k["BAND_TRADE"].get(t, 0))
         out = out.removeprefix("\\n") if m else "Investment follows the market as normal" + out
@@ -1803,6 +2125,8 @@ def loc(k):
     tiers += "".join(f' SPEC_GAUGE_FX_{s.upper()}: "{band_fx(t)}"\n SPEC_GAUGE_NEXT_{s.upper()}: "{band_next(i)}"\n'
                      for i, ((t, *_), s) in enumerate(zip(TIERS, state_names)))
     months = "[SelectLocalization(EqualTo_CFixedPoint({}, " + fx(1) + "), 'SPEC_CARD_MONTH', 'SPEC_CARD_MONTHS')]"
+    mood_company_delta = f"Subtract_CFixedPoint({v('spec_mood_shift')}, {v('spec_mood_random')})"
+    mood_company = f"[AddLocalizationIf({gt(mood_company_delta)}, 'SPEC_MOOD_COMPANY')]"
     cooldown = v("spec_panic_cooldown")
     rescued = gt(sv("spec_rescued_value"))
     member = "[AddLocalizationIf(Not(ObjectsEqual(Country.Self, Country.GetCapital.GetMarket.GetOwner)), 'SPEC_CARD_MEMBER')]"
@@ -1819,93 +2143,143 @@ def loc(k):
     # each pressure chip: its group's change, a grey 0 when it is still; the tooltip lists the group's drivers
     var = dict(DRIVERS)
     chips = "".join(
-        f' SPEC_CHIP_{n}: "[SelectLocalization({nonzero(v(f"spec_p{n}"))}, \'SPEC_CHIP_{n}_V\', \'SPEC_CHIP_ZERO\')]"\n'
-        f' SPEC_CHIP_{n}_V: "[{v(f"spec_p{n}")}|+=1]"\n'
-        f' SPEC_CHIP_{n}_TT: "#header $SPEC_PRESSURE_{name.upper()}$: $SPEC_CHIP_{n}$#!\\n$TOOLTIP_DELIMITER$'
-        + "".join(f"[AddLocalizationIf({nonzero(v(var[k]))}, 'SPEC_CHIP_ROW_{k.upper()}')]"
+        f' SPEC_CHIP_{n}: "[SelectLocalization({nonzero(v(f"spec_p{n}"), 0.05)}, \'SPEC_CHIP_{n}_V\', \'SPEC_CHIP_ZERO\')]"\n'
+        f' SPEC_CHIP_{n}_V: "[{rounded_tenth(v(f"spec_p{n}"))}|+=1]"\n'
+        f' SPEC_CHIP_{n}_TT: "#header $SPEC_PRESSURE_{name.upper()}$: [{v(f"spec_p{n}")}|+=2]#!\\n$TOOLTIP_DELIMITER$'
+        + "".join(f"[AddLocalizationIf({nonzero(v(var[k]), PRESSURE_STEP)}, 'SPEC_CHIP_ROW_{k.upper()}')]"
                   + (f"[AddLocalizationIf({nonzero(v(var[k]))}, 'SPEC_ITEMS_{k.upper()}')]" if k in ITEMS else "") for k in keys)
-        + f"[AddLocalizationIf(Not({any_of([nonzero(v(var[k])) for k in keys])}), 'SPEC_CHIP_NONE')]" + '"\n'
+        + f"[AddLocalizationIf(Not({any_of([nonzero(v(var[k]), PRESSURE_STEP) for k in keys])}), 'SPEC_CHIP_NONE')]" + '"\n'
         for n, (name, _, keys) in enumerate(PRESSURES, 1))
     chips += ' SPEC_CHIP_NONE: "\\nNo change this month."\n'
+    # Speculative Excess as vanilla's Liberty Desire: next month's change, a cause a line (journal.excess_calc, calc.py)
+    xs_rows = __import__("journal").excess_calc(k)[1]
+    xs = (f' SPEC_XS_TT: "#header [concept_spec_speculative_excess]: [{XS}|0]#!\\n$TOOLTIP_DELIMITER$\\n'
+          f"[SelectLocalization({gt(sv('spec_has_stock_exchange'))}, SelectLocalization({calc.shows(sv('spec_xs_next'))}, "
+          f"'SPEC_XS_TT_NEXT', 'SPEC_XS_TT_IDLE'), 'SPEC_XS_BAR_OFF')]"
+          f"[AddLocalizationIf({P}.Var('spec_heat').IsSet, 'SPEC_XS_TT_RISK')]\"\n"
+          f' SPEC_XS_TT_NEXT: "Expected next month: [{sv("spec_xs_next")}|-=1]#indent_newline:3 {calc.lines([(n, key + "_LINE") for n, key, _ in xs_rows], sv)}#!"\n'
+          # the whole life of a bubble, since none is building to show it (2026-11-20: the top end was only told once one was)
+          f' SPEC_XS_TT_IDLE: "It grows each month [concept_spec_market_confidence] is #v [{sv("spec_heat_from")}|0]#! or more, faster the higher it is. '
+          f'Below that it shrinks by #v {1 - k["HEAT_COOL"]:.0%}#! a month, or #v {1 - k["HEAT_COOL_TIGHT"]:.0%}#! under a '
+          f"[Concept('concept_spec_credit_policy','$concept_spec_credit_policy_tight$')] credit policy.\\n\\n"
+          f'If [concept_spec_market_confidence] falls below #v {k["BURST_BELOW"]}#!, the bubble bursts and costs [concept_spec_market_confidence] '
+          f'#N [{sv("spec_burst_per_heat")}|%0]#! of its size. The bar turns red once a burst would cost #v {XS_ALERT}#! or more, and is full '
+          f'when it would take all of it.{" Past that, what a burst cannot take becomes [concept_spec_bad_debts]." if leverage.ON else ""}"\n'
+          # spec_burst_now stops at BURST_BELOW: a burst then takes all the confidence there is when it comes
+          f' SPEC_XS_TT_RISK: "\\n$TOOLTIP_DELIMITER$\\n[SelectLocalization(GreaterThanOrEqualTo_CFixedPoint({sv("spec_burst_now")}, {fx(k["BURST_BELOW"])}), '
+          f"'SPEC_XS_TT_ALL', 'SPEC_RISK_5_COST')]\"\n"  # the burst's cost, worded as on the Bubble Risk chip
+          ' SPEC_XS_TT_ALL: "$SPEC_RISK_5_ALL$\\nThe bar is full. '
+          + ('Past this, what a burst cannot take from [concept_spec_market_confidence] becomes [concept_spec_bad_debts]."\n' if leverage.ON else
+             'More $concept_spec_speculative_excess$ only makes it slower to cool off."\n')
+          + "".join(f' {key}_LINE: "{calc.line(sv(n), "-=1", "$" + key + "$")}"\n' for n, key, _ in xs_rows))
 
+    fast_n, slow_n = trend_next(k["FAST"], k["SLOW"])  # the Investor Interest forecast (SPEC_II_TREND)
+    # the Market Confidence forecast (SPEC_CONF_FORECAST), as spec_conf_pre and spec_conf_next work it out: this
+    # month's steady drivers again, mood fading by MOOD_KEEP, the pull to baseline and Tight Credit afresh. One-off
+    # jumps (ended booms, foreign panics, rescues, war ends, bursts, events) and mood's random part are left out
+    import centres  # imports this module
+    pre = CONF
+    for part in [v(f"spec_c_{d}") for d in ("boom", "restrain", "world", "turmoil", "debt", "growth", "business", "rival")] \
+            + [f"Multiply_CFixedPoint({v('spec_c_mood')}, {fx(k['MOOD_KEEP'])})", sv("spec_conf_recover")] \
+            + ([sv("spec_exch_lean")] if centres.LEAN else []):
+        pre = f"Add_CFixedPoint({pre}, {part})"
+    pull = f"Min_CFixedPoint(Multiply_CFixedPoint(Subtract_CFixedPoint({fx(k['TIGHT_FROM'])}, {pre}), {fx(k['TIGHT_PULL'])}), {fx(0)})"
+    conf_next = f"Max_CFixedPoint(Min_CFixedPoint(Add_CFixedPoint({pre}, Select_CFixedPoint({tight}, {pull}, {fx(0)})), {fx(100)}), {fx(0)})"
+    conf_move = f"Subtract_CFixedPoint({conf_next}, {CONF})"
     return f""" SPEC_OFF: "Investors do not speculate under the current $ECONOMIC_SYSTEM_GC_LINK$."
  SPEC_CONF_LINE: "[concept_spec_market_confidence]: #v [{CONF}|0]#![SelectLocalization({nonzero(v('spec_c_total'))}, 'SPEC_CONF_CHANGE', 'SPEC_CONF_NO_CHANGE')]"
  SPEC_CONF_CHANGE: " ([{v('spec_c_total')}|+=1])"
  SPEC_CONF_NO_CHANGE: ""
- SPEC_CARD_CHANGE_TT: "#header Market Confidence#!\\nMonthly Change: [{v('spec_c_total')}|+=1]$SPEC_CARD_ROWS${member}"
+ SPEC_CARD_CHANGE_TT: "$SPEC_GAUGE_HEAD$\\n$SPEC_GAUGE_CHANGE$\\n$SPEC_CONF_FORECAST${member}"
+ SPEC_CONF_FORECAST: "Expected next month: [{conf_move}|+=1]\\n#weak One-off events and swings in mood are left out#!"
  SPEC_CARD_MEMBER: "\\n\\nThis is the [concept_spec_market_confidence] of #v [Country.GetName]#!. Each [concept_country] in the [concept_market] has its own."
  SPEC_CARD_RING_TT: "[SelectLocalization({IN_PANIC}, 'SPEC_PANIC_TT', 'SPEC_GAUGE_TT')]"
- SPEC_CARD_BAR_TT: "$SPEC_CARD_RING_TT$[AddLocalizationIf(Not({IN_PANIC}), 'SPEC_PANIC_LINE_ADD')]"
- SPEC_PANIC_LINE_ADD: "\\n$TOOLTIP_DELIMITER$\\n$SPEC_PANIC_LINE_TT$"
+ SPEC_CARD_BAR_TT: "$SPEC_CARD_RING_TT$[AddLocalizationIf({RISKS_SHOWN}, 'SPEC_RISK_FALL_ADD')]"
+ SPEC_RISK_FALL_ADD: "\\n$TOOLTIP_DELIMITER$\\n$SPEC_RISK_FALL$"
+ SPEC_RISK_FALL: "If every risk struck at once, [concept_spec_market_confidence] would fall to #N [{RISK_FLOOR}|1]#! (#v [{by_tier('SPEC_TIER', value=RISK_FLOOR)}]#!)"
  SPEC_CARD_FRESH: "#grey First measured next month#!"
- SPEC_CARD_FRESH_TT: "Investors are watching prices. [concept_spec_market_confidence] is first measured next month."
+ SPEC_CARD_FRESH_TT: "#header [concept_spec_market_confidence]#!\\n$TOOLTIP_DELIMITER$\\nOur [concept_spec_market_confidence] will be measured for the first time next month."
+ SPEC_TOP_HEAD: "#header [concept_spec_market_confidence]#!"
+ SPEC_TOP_TT: "$SPEC_TOP_HEAD$\\nConfidence stands at #v [{CONF}|0]#! ($SPEC_STATE_TITLE$), and should be about #v [{conf_next}|0]#! next month\\n$TOOLTIP_DELIMITER$\\nIt changed by #tooltippable #tooltip:[Country.GetTooltipTag],SPEC_TOP_CHANGE_TT [{v('spec_c_total')}|+=1]#!#! this month.\\n\\n$SPEC_STATE_DESC${member}"
+ SPEC_TOP_CHANGE_TT: "#header Monthly Change#!\\n$TOOLTIP_DELIMITER$$SPEC_GAUGE_ROWS$"
+ SPEC_TOP_FRESH_TT: "$SPEC_TOP_HEAD$\\n$TOOLTIP_DELIMITER$\\nIt will be measured for the first time next month."
+ SPEC_TOP_OFF_TT: "$SPEC_TOP_HEAD$\\n$TOOLTIP_DELIMITER$\\n$SPEC_OFF$"
+ SPEC_TOP_CONF_HIST: "$concept_spec_market_confidence$"
+ SPEC_TOP_LEV_HIST: "$concept_spec_leverage$"
  SPEC_CARD_MONTH: "month"
  SPEC_CARD_MONTHS: "months"
-{driver_rows()} SPEC_GAUGE_TT: "$SPEC_GAUGE_HEAD$\\n$SPEC_GAUGE_CHANGE$\\n$TOOLTIP_DELIMITER$\\n#title Effects:#!#indent_newline:3 \\n[{by_tier('SPEC_GAUGE_FX', state_names)}]\\n$SPEC_GAUGE_LEND$$SPEC_DEPTH_LINE$#!\\n\\n[{by_tier('SPEC_GAUGE_NEXT', state_names)}]{member}"
+{driver_rows()} SPEC_GAUGE_TT: "$SPEC_GAUGE_HEAD$\\n$SPEC_GAUGE_CHANGE$\\n$SPEC_CONF_FORECAST$\\n$TOOLTIP_DELIMITER$\\n#title Effects:#!#indent_newline:3 \\n[{by_tier('SPEC_GAUGE_FX', state_names)}]\\n$SPEC_GAUGE_LEND$$SPEC_DEPTH_LINE$#!\\n\\n[{by_tier('SPEC_GAUGE_NEXT', state_names)}]{member}"
  SPEC_GAUGE_HEAD: "#header [concept_spec_market_confidence]: #bold $SPEC_STATE_TITLE$#! (#v [{CONF}|0]#!)#!"
  SPEC_GAUGE_CHANGE: "Monthly Change: [{v('spec_c_total')}|+=1]#indent_newline:3 $SPEC_GAUGE_ROWS$#!"
  SPEC_GAUGE_LEND: "[SelectLocalization({IN_PANIC}, 'SPEC_GAUGE_LEND_PANIC', {no_credit.replace('SPEC_CREDIT_NO_CRUNCH', 'SPEC_GAUGE_LEND_BAD')}SelectLocalization({ld_crash}, 'SPEC_GAUGE_LEND_CRASH', SelectLocalization({tight}, 'SPEC_GAUGE_LEND_TIGHT', SelectLocalization(Not({gt(CONF, credit_from)}), 'SPEC_GAUGE_LEND_ABOVE', SelectLocalization(LessThan_CFixedPoint({CONF}, {sv('spec_panic_at')}), 'SPEC_GAUGE_LEND_LINE', SelectLocalization(Not({gt(sv('spec_credit_room'))}), 'SPEC_GAUGE_LEND_LIMIT', 'SPEC_GAUGE_LENDING'))))){no_credit_end})]"
  SPEC_GAUGE_LEND_LINE: "Banks do not lend below the Panic Threshold."
  SPEC_GAUGE_LEND_LIMIT: "Banks do not lend past our Lending Limit."
  SPEC_GAUGE_LEND_PANIC: "Banks do not lend during a [concept_spec_financial_panic]."
- SPEC_GAUGE_LEND_BAD: "Banks do not lend while [concept_spec_bad_debts] last."
+ SPEC_GAUGE_LEND_BAD: "Banks do not lend while [concept_spec_bad_debts] are past what our [concept_spec_lending_standards] allow."
  SPEC_GAUGE_LEND_CRASH: "Banks do not lend in the World Crash that opens the [concept_spec_long_depression]."
  SPEC_GAUGE_LEND_TIGHT: "Banks do not lend under [Concept('concept_spec_credit_policy','$concept_spec_credit_policy_tight$')]."
  SPEC_GAUGE_LENDING: "Banks lend into the [concept_investment_pool]."
- SPEC_GAUGE_LEND_ABOVE: "Banks lend only above #v {credit_from}#!."
+ SPEC_GAUGE_LEND_ABOVE: "Banks lend only while [concept_spec_market_confidence] is above #v {credit_from}#!."
+ SPEC_DATE_ZERO: "0"
+ SPEC_DATE_MAY: "May"
  SPEC_PRESSURES: "Pressures"
- SPEC_PRESSURES_TT: "#header Pressures: [SelectLocalization({nonzero(v('spec_c_total'))}, 'SPEC_PRESSURES_SUM', 'SPEC_CHIP_ZERO')]#!\\n$TOOLTIP_DELIMITER$\\n#italic What pushed our [concept_spec_market_confidence] up or down this month.#!\\n\\n#instruction Hover over a group to see its causes#!"
+ SPEC_PRESSURES_TT: "#header Pressures: [SelectLocalization({nonzero(v('spec_c_total'))}, 'SPEC_PRESSURES_SUM', 'SPEC_CHIP_ZERO')]#!\\n$TOOLTIP_DELIMITER$\\nThe groups below show what moved our [concept_spec_market_confidence] this month.\\n\\n#instruction Hover over a group to see its causes#!"
  SPEC_PRESSURES_SUM: "[{v('spec_c_total')}|+=1]"
- SPEC_CHIP_ZERO: "#v 0#!"
+ SPEC_CHIP_ZERO: "#v 0.0#!"
  SPEC_PRESSURE_GOODS: "Economy"
  SPEC_PRESSURE_ABROAD: "Abroad"
  SPEC_PRESSURE_STATE: "War and Government"
  SPEC_PRESSURE_MOOD: "Investor Mood"
  SPEC_PRESSURE_CREDIT: "Credit"
-{chips} SPEC_DOWNSIDE_TT: "#header Booms at Risk#!\\n$TOOLTIP_DELIMITER$\\n#italic Booms do not last forever. When one ends, our [concept_spec_market_confidence] takes a hit.#!\\n\\nBiggest danger: #v [{P}.Var('spec_risk_top_good').GetGoods.GetName]#!, #N -[{BAR_GAP}|0]#! if it ended now\\nBooms that could end: #v [{v('spec_n_risk')}|0]#!\\nIf all end at once, confidence falls to #v [{BAR_FLOOR}|0]#! (#v [{by_tier('SPEC_TIER', value=BAR_FLOOR)}]#!)[AddLocalizationIf({gt(v('spec_n_held'))}, 'SPEC_RISK_HELD_LINE')]\\n$TOOLTIP_DELIMITER$\\n#title By Good:#!#indent_newline:3 $SPEC_ITEMS_RISK$#![AddLocalizationIf({market_visual.mt.gt(v('spec_heat_collapse'), market_visual.SHOWN)}, 'SPEC_RISK_SHARE')]"
+{chips} SPEC_DOWNSIDE_TT: "#header Booms at Risk: #N -[{BAR_GAP}|1]#!#!\\n$TOOLTIP_DELIMITER$\\nIf our boom in #v [{P}.Var('spec_risk_top_good').GetGoods.GetName]#! ended now, [concept_spec_market_confidence] would fall by #N [{BAR_GAP}|1]#!.\\n\\n#v [{v('spec_n_risk')}|0]#! of our booms could end. If all of them ended at once, [concept_spec_market_confidence] would fall to #v [{BAR_FLOOR}|1]#! (#v [{by_tier('SPEC_TIER', value=BAR_FLOOR)}]#!).[AddLocalizationIf({gt(v('spec_n_held'))}, 'SPEC_RISK_HELD_LINE')]\\n$TOOLTIP_DELIMITER$\\n#title By Good:#!#indent_newline:3 $SPEC_ITEMS_RISK$#![AddLocalizationIf({market_visual.mt.gt(v('spec_heat_collapse'), market_visual.SHOWN)}, 'SPEC_RISK_SHARE')]"
  SPEC_RISKS: "Risks"
  SPEC_XS: "Excess"
- SPEC_XS_BAR: "[SelectLocalization({gt(sv('spec_has_stock_exchange'))}, SelectLocalization({P}.Var('spec_heat').IsSet, SelectLocalization({XS_UP}, 'SPEC_XS_BAR_UP', 'SPEC_XS_BAR_COOL'), 'SPEC_XS_BAR_NONE'), 'SPEC_XS_BAR_OFF')]"
- SPEC_XS_BAR_UP: "[{XS}|0] and building. A fall costs #N -[{sv('spec_burst_now')}|0]#!"
- SPEC_XS_BAR_COOL: "[{XS}|0] and cooling. A fall costs #N -[{sv('spec_burst_now')}|0]#!"
- SPEC_XS_BAR_NONE: "None. It builds at #v [{sv('spec_heat_from')}|0]#! confidence"
- SPEC_XS_BAR_OFF: "None without a [GetTechnology('stock_exchange').GetName]"
- SPEC_XS_TT: "#header $concept_spec_speculative_excess$: [{XS}|0] / {XS_MAX}#!\\n$TOOLTIP_DELIMITER$\\n#italic This is the bubble. The longer a boom runs hot, the bigger it gets.#!\\n\\n#P Grows#! while [concept_spec_market_confidence] is #v [{sv('spec_heat_from')}|0]#! or more\\n#v Shrinks#! slowly while it is between #v 60#! and #v [{sv('spec_heat_from')}|0]#!\\n#N Pops#! if it drops below #v 60#!\\n\\nIf it popped now: #N -[{sv('spec_burst_now')}|0]#! [concept_spec_market_confidence] at once (never more than #N [{sv('spec_burst_max')}|0]#!)\\n$TOOLTIP_DELIMITER$\\n#instruction To let it down gently, hold confidence between 60 and [{sv('spec_heat_from')}|0]. The bar turns red when a pop would hurt.#!"
- SPEC_HISTORY: "History"
- SPEC_HISTORY_TT: "#header Market Confidence History#!\\n$TOOLTIP_DELIMITER$\\n#italic Our [concept_spec_market_confidence] over the last #v {HISTORY}#! months. Newest is on the right.#!\\n\\n#v Gold#!: above #v {HIST_MID}#!\\n#v Blue#!: below #v {HIST_MID}#!\\n#N Red#!: #v {BAND_NAMES[0]}#! (below #v {TIERS[0][2]}#!) or #v {BAND_NAMES[-1]}#! (above #v {TIERS[-1][1]}#!)"
+ SPEC_XS_BAR_OFF: "Needs [GetTechnology('stock_exchange').GetName]"
+{xs} SPEC_HISTORY: "History"
+ SPEC_HISTORY_TT: "#header Market Confidence History#!\\n$TOOLTIP_DELIMITER$\\nOur [concept_spec_market_confidence] over the last #v {HISTORY}#! months, with the newest on the right.\\n\\nBars are #v gold#! above #v {HIST_MID}#! and #v blue#! below it. They turn #N red#! when the market is #v {BAND_NAMES[0]}#!, below #v {TIERS[0][2]}#!, or in #v {BAND_NAMES[-1]}#!, above #v {TIERS[-1][1]}#!."
 {"".join(f""" SPEC_HIST_{n}_TT: "[SelectLocalization({P}.Var('spec_hist{n}').IsSet, 'SPEC_HIST_{n}_ON', 'SPEC_HIST_NONE')]"
  SPEC_HIST_{n}_ON: "#header {'This Month' if n == 1 else 'Last Month' if n == 2 else f'{n - 1} Months Ago'}#!\\n[concept_spec_market_confidence]: #v [{v(f'spec_hist{n}')}|0]#! ([{by_tier('SPEC_TIER', value=v(f'spec_hist{n}'))}])"
 """ for n in range(1, HISTORY + 1))} SPEC_HIST_NONE: "No record for this month yet."
- SPEC_RISKS_TT: "#header Risks#!\\n$TOOLTIP_DELIMITER$\\n#italic Things that could knock our [concept_spec_market_confidence] down. The bigger the red number, the harder the hit.#!\\n\\n#b Booms at Risk#! shows the hit if one of our booms ends\\n#b Panic Risk#! shows the hit if a panic in a market tied to ours spreads to us\\n#b War Risk#! shows the hit if a [concept_diplomatic_play] turns into war\\n#b Default Risk#! shows the hit if we borrow past our [Concept('concept_credit','$concept_credit_limit$')]\\n#b Bubble#! shows the hit if our $concept_spec_speculative_excess$ pops\\n$TOOLTIP_DELIMITER$\\n#instruction Hover over each one to see what is behind it#!"
+ SPEC_RISKS_TT: "[SelectLocalization({RISKS_SHOWN}, 'SPEC_RISKS_ON', 'SPEC_RISKS_NONE')]"
+ SPEC_RISKS_ON: "#header Risks: #N -[{RISK_SUM}|1]#!#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_RISK_FALL$:#indent_newline:3 {''.join(f"[AddLocalizationIf({shows}, 'SPEC_RISKS_{name}')]" for name, shows, _ in RISK_PARTS)}#!\\n$TOOLTIP_DELIMITER$\\n#weak War and Default Risk count one month#!\\n#instruction Hover over each one to see what is behind it#!"
+{''.join(f''' SPEC_RISKS_{name}: "\\n#N -[{cost}|1]#! from {label}"
+''' for (name, _, cost), label in zip(RISK_PARTS, ("Booms at Risk", "Panic Risk", "War Risk", "Default Risk", "Bubble Risk")))} SPEC_RISKS_NONE: "#header Risks#!\\n$TOOLTIP_DELIMITER$\\nNothing threatens our [concept_spec_market_confidence] right now. Each risk shows here as it appears."
  SPEC_RISK_1: "[SelectLocalization({BAR_RISK}, 'SPEC_RISK_1_V', 'SPEC_CHIP_ZERO')]"
- SPEC_RISK_1_V: "#N -[{BAR_GAP}|0]#!"
+ SPEC_RISK_1_V: "#N -[{rounded_tenth(BAR_GAP)}|1]#!"
  SPEC_RISK_1_TT: "[SelectLocalization({BAR_RISK}, 'SPEC_DOWNSIDE_TT', 'SPEC_RISK_1_NONE')]"
- SPEC_RISK_HELD_LINE: "\\nHeld back, winding down gently as a [concept_spec_correction]: #v [{v('spec_n_held')}|0]#!"
-{"".join(f''' SPEC_WHY_END_{sev}: "#v x{rate:g}#! from [concept_spec_{name}]"
+ SPEC_RISK_HELD_LINE: " #v [{v('spec_n_held')}|0]#! more are held back and will wind down gently as a [concept_spec_correction]."
+{"".join(f''' SPEC_WHY_END_{sev}: "#v x{rate:g}#! from ending in a [concept_spec_{name}]"
 ''' for (sev, _, _, rate, _), name in zip(k['UNWINDS'], ("collapse", "bust", "correction")))} SPEC_WHY_CAP: "\\nNo boom can take more than #N {k['CONF_CRASH_MAX']:g}#! in a month."
- SPEC_WHY_FALLING: "\\n\\nInterest fell this month. If it keeps falling, the boom ends."
+ SPEC_WHY_FALLING: "\\n\\n[concept_spec_investor_interest] fell this month. If it keeps falling, the boom will end."
  SPEC_RISK_1_NONE: "#header Booms at Risk#!\\nNothing to worry about. None of our booms would hurt our [concept_spec_market_confidence] if it ended."
  SPEC_RISK_2: "[SelectLocalization({SRC_RISK}, 'SPEC_RISK_2_V', 'SPEC_CHIP_ZERO')]"
- SPEC_RISK_2_V: "#N -[{SRC_HIT}|0]#!"
+ SPEC_RISK_2_V: "#N -[{rounded_tenth(SRC_HIT)}|1]#!"
  SPEC_RISK_2_TT: "[SelectLocalization({SRC_RISK}, 'SPEC_BAR_SRC_TT', 'SPEC_RISK_2_NONE')]"
  SPEC_RISK_2_NONE: "#header Panic Risk#!\\nNothing to worry about. No [concept_country] tied to ours is close to a [concept_spec_financial_panic] or in a #v {BAND_NAMES[-1]}#!."
  SPEC_RISK_3: "[SelectLocalization({WAR_RISK}, 'SPEC_RISK_3_V', 'SPEC_CHIP_ZERO')]"
- SPEC_RISK_3_V: "#N -[{v('spec_war_risk')}|1]#!"
+ SPEC_RISK_3_V: "#N -[{rounded_tenth(v('spec_war_risk'))}|1]#!"
  SPEC_RISK_3_TT: "[SelectLocalization({WAR_RISK}, 'SPEC_RISK_3_ON', 'SPEC_RISK_3_NONE')]"
- SPEC_RISK_3_ON: "#header War Risk#!\\n$TOOLTIP_DELIMITER$\\n#italic A [concept_diplomatic_play] that turns into war shakes the markets.#!\\n\\nIf war breaks out, up to #N -[{v('spec_war_risk')}|1]#! [concept_spec_market_confidence] a month\\nPlays that could become wars: #v [{v('spec_wr_n')}|0]#!\\n#N -{k['WAR_COST']:g}#! for each, from an average war#indent_newline:3 {''.join(f"[AddLocalizationIf({P}.Var('spec_wr{n}').IsSet, 'SPEC_ITEM_WR_{n}')]" for n in range(1, 4))}#!\\n$TOOLTIP_DELIMITER$\\n#weak A war that goes badly costs even more through [concept_spec_war_news].#!"
-{''.join(f""" SPEC_ITEM_WR_{n}: "\\nAgainst #v [{P}.Var('spec_wr{n}').GetCountry.GetName]#!: #N -{k['WAR_COST']:g}#!"
-""" for n in range(1, 4))} SPEC_RISK_3_NONE: "#header War Risk#!\\nNothing to worry about. We are in no [concept_diplomatic_play] that could turn into war."
+ SPEC_RISK_3_ON: "#header War Risk: #N -[{v('spec_war_risk')}|1]#!#!\\n$TOOLTIP_DELIMITER$\\nIf our [concept_diplomatic_play] became a war, [concept_spec_war_news] would take about this much more [concept_spec_market_confidence] each month than the play does now:{''.join(f"[AddLocalizationIf({P}.Var('spec_wr{n}').IsSet, 'SPEC_ITEM_WR_{n}')]" for n in range(1, 4))}[AddLocalizationIf({P}.Var('spec_wr_play').IsSet, 'SPEC_WR_PLAY')]\\n$TOOLTIP_DELIMITER$\\n#weak How the war goes decides its real cost, from #N {k['WAR_WORST']:g}#! to #P +{k['WAR_BEST']:g}#! a month#!"
+ SPEC_WR_PLAY: "\\n\\n#P +{k['PLAY_TURMOIL']:.2f}#! from the play's own cost, which stops once war begins"
+{''.join(f""" SPEC_ITEM_WR_{n}: "\\n\\n#N -[{v(f'spec_wrc{n}')}|2]#! from a war against #v [{P}.Var('spec_wr{n}').GetCountry.GetName]#!#indent_newline:3 \\n#N -{k['WAR_BASE']:.2f}#! from any war\\n#N -[{share_sq(f'spec_wra{n}', k['WAR_RISK_ARMY'])}|2]#! from their side's #v [{v(f'spec_wra{n}')}|%0]#! of the armies\\n#N -[{share_sq(f'spec_wrs{n}', k['WAR_RISK_NAVY'])}|2]#! from their side's #v [{v(f'spec_wrs{n}')}|%0]#! of the navies#!"
+""" for n in range(1, 4))} SPEC_RISK_3_NONE: "[SelectLocalization({gt(v('spec_wr_n'))}, 'SPEC_RISK_3_CHEAP', 'SPEC_RISK_3_CALM')]"
+ SPEC_RISK_3_CALM: "#header War Risk#!\\nNothing to worry about. We are in no [concept_diplomatic_play] that could turn into war."
+ SPEC_RISK_3_CHEAP: "#header War Risk#!\\nNothing to worry about. If our [concept_diplomatic_play] became a war, [concept_spec_war_news] would likely take no more [concept_spec_market_confidence] than the play does now."
  SPEC_RISK_5: "[SelectLocalization({XS_RISK}, 'SPEC_RISK_5_V', 'SPEC_CHIP_ZERO')]"
- SPEC_RISK_5_V: "#N -[{sv('spec_burst_now')}|0]#!"
- SPEC_RISK_5_TT: "[SelectLocalization({XS_RISK}, 'SPEC_XS_TT', 'SPEC_RISK_5_NONE')]"
- SPEC_RISK_5_NONE: "#header $concept_spec_speculative_excess$#!\\nNothing to worry about. There is no bubble right now. One starts to grow once [concept_spec_market_confidence] reaches #v [{sv('spec_heat_from')}|0]#!."
+ SPEC_RISK_5_V: "#N -[{rounded_tenth(sv('spec_burst_now'))}|1]#!"
+ SPEC_RISK_5_TT: "[SelectLocalization({XS_RISK}, 'SPEC_RISK_5_ON', 'SPEC_RISK_5_NONE')]"
+ SPEC_RISK_5_ON: "#header Bubble Risk: #N -[{sv('spec_burst_now')}|1]#!#!\\n$TOOLTIP_DELIMITER$\\nA bubble of #v [{XS}|0]#! [concept_spec_speculative_excess] has formed. It grows while [concept_spec_market_confidence] stays at #v [{sv('spec_heat_from')}|0]#! or more, slowly shrinks below that, and bursts if [concept_spec_market_confidence] falls below #v {k['BURST_BELOW']}#!.\\n\\n[SelectLocalization(GreaterThanOrEqualTo_CFixedPoint({sv('spec_burst_now')}, {fx(k['BURST_BELOW'])}), 'SPEC_RISK_5_ALL', 'SPEC_RISK_5_COST')]"
+ SPEC_RISK_5_COST: "If it burst now, [concept_spec_market_confidence] would fall by #N [{sv('spec_burst_now')}|1]#!."
+ SPEC_RISK_5_ALL: "If it burst now, it would take all our [concept_spec_market_confidence]{f"[AddLocalizationIf({calc.shows(sv('spec_xs_bad_now'))}, 'SPEC_RISK_5_BAD')]" if leverage.ON else ""}."
+ SPEC_RISK_5_BAD: " and leave at least #N [{sv('spec_xs_bad_now')}|0]#! [concept_spec_bad_debts]"
+ SPEC_RISK_5_NONE: "#header Bubble Risk#!\\nNothing to worry about. There is no bubble right now. One starts to grow once [concept_spec_market_confidence] reaches #v [{sv('spec_heat_from')}|0]#!."
  SPEC_RISK_4: "[SelectLocalization({DEFAULT_RISK}, 'SPEC_RISK_4_V', 'SPEC_CHIP_ZERO')]"
- SPEC_RISK_4_V: "#N -{k['DEFAULT_COST']}#!"
+ SPEC_RISK_4_V: "#N -{k['DEFAULT_COST']:.1f}#!"
  SPEC_RISK_4_TT: "[SelectLocalization({DEFAULT_RISK}, 'SPEC_RISK_4_ON', 'SPEC_RISK_4_NONE')]"
- SPEC_RISK_4_ON: "#header Default Risk#!\\n$TOOLTIP_DELIMITER$\\n#italic We are borrowing close to our limit. Go over it and we default.#!\\n\\n[concept_credit] used: #v [{v('spec_default_risk')}|%0]#![AddLocalizationIf({P}.Var('spec_tm_broke').IsSet, 'SPEC_RISK_4_BROKE')]\\nIf it passes #v 100%#!: [concept_default], #N -{k['DEFAULT_COST']}#! [concept_spec_market_confidence] every month until it ends\\n$TOOLTIP_DELIMITER$\\n#weak Shows up once we have used #v {k['DEFAULT_FROM']:.0%}#! of our $concept_credit$#!"
- SPEC_RISK_4_BROKE: "\\n#v [{sv('spec_broke_weeks')}|0]#! weeks until [concept_bankruptcy] if we keep losing money like this. Already costing [{v('spec_tm_broke')}|+=2] a month"
+ SPEC_RISK_4_ON: "#header Default Risk: #N -{k['DEFAULT_COST']:.1f}#!#!\\n$TOOLTIP_DELIMITER$\\nWe have used #v [{v('spec_default_risk')}|%0]#! of our [concept_credit]. If we go past #v 100%#!, we fall into [concept_default], and [concept_spec_market_confidence] falls by #N {k['DEFAULT_COST']:g}#! every month until it ends.[AddLocalizationIf({P}.Var('spec_tm_broke').IsSet, 'SPEC_RISK_4_BROKE')]\\n$TOOLTIP_DELIMITER$\\n#weak This risk shows once we have used #v {k['DEFAULT_FROM']:.0%}#! of our $concept_credit$#!"
+ SPEC_RISK_4_BROKE: "\\n\\nAt our current losses, we face [concept_bankruptcy] in #v [{sv('spec_broke_weeks')}|0]#! weeks. This already costs [{v('spec_tm_broke')}|+=1] [concept_spec_market_confidence] a month."
  SPEC_RISK_4_NONE: "#header Default Risk#!\\nNothing to worry about. Our debt is well within our [concept_credit] limit."
- SPEC_BAR_SRC_TT: "#header Panic Risk#!\\n$TOOLTIP_DELIMITER$\\n#italic Markets are connected. If #v [{SRC}.GetName]#!'s market panics, the panic can spread to ours.#!\\n\\nIf it spreads: #N -[{SRC_HIT}|0]#! [concept_spec_market_confidence]\\n[SelectLocalization(EqualTo_CFixedPoint({v('spec_risk_src_tie')}, {fx(1)}), 'SPEC_BAR_TIE_1', SelectLocalization(EqualTo_CFixedPoint({v('spec_risk_src_tie')}, {fx(2)}), 'SPEC_BAR_TIE_2', SelectLocalization(EqualTo_CFixedPoint({v('spec_risk_src_tie')}, {fx(3)}), 'SPEC_BAR_TIE_3', SelectLocalization(EqualTo_CFixedPoint({v('spec_risk_src_tie')}, {fx(4)}), 'SPEC_BAR_TIE_4', 'SPEC_BAR_TIE_5'))))]\\nTheir market right now: #v [{by_tier('SPEC_TIER', value=SRC_CONF)}]#!\\n$TOOLTIP_DELIMITER$\\n#b Why so much#!\\n#N -{k['CONTAGION']}#! base hit from a [concept_spec_foreign_panic]\\n#v x[{v('spec_risk_src_size')}|2]#! how big their economy is next to ours\\n#v x[{v('spec_risk_src_w')}|2]#! how closely we are tied ([concept_spec_market_tie])\\n#v x[{v('spec_risk_src_reach')}|2]#! how important they are ([concept_rank])\\n$TOOLTIP_DELIMITER$\\n#weak Only markets that are #v {BAND_NAMES[0]}#!, #v {BAND_NAMES[1]}#! or in #v {BAND_NAMES[-1]}#! can spread a panic#!"
+ SPEC_BAR_SRC_TT: "#header Panic Risk: #N -[{SRC_HIT}|1]#!#!\\n$TOOLTIP_DELIMITER$\\nIf #v [{SRC}.GetName]#! falls into a [concept_spec_financial_panic], it could spread to us and cost #N [{SRC_HIT}|1]#! [concept_spec_market_confidence]. Its market is #v [{by_tier('SPEC_TIER', value=SRC_CONF)}]#! right now.\\n\\n[SelectLocalization(EqualTo_CFixedPoint({v('spec_risk_src_tie')}, {fx(1)}), 'SPEC_BAR_TIE_1', SelectLocalization(EqualTo_CFixedPoint({v('spec_risk_src_tie')}, {fx(2)}), 'SPEC_BAR_TIE_2', SelectLocalization(EqualTo_CFixedPoint({v('spec_risk_src_tie')}, {fx(3)}), 'SPEC_BAR_TIE_3', SelectLocalization(EqualTo_CFixedPoint({v('spec_risk_src_tie')}, {fx(4)}), 'SPEC_BAR_TIE_4', 'SPEC_BAR_TIE_5'))))]\\n$TOOLTIP_DELIMITER$\\n#N -{k['CONTAGION']}#! from a [concept_spec_foreign_panic]#indent_newline:3 \\n#v x[{v('spec_risk_src_size')}|2]#! from the size of their economy next to ours\\n#v x[{v('spec_risk_src_w')}|2]#! from our [concept_spec_market_tie]\\n#v x[{v('spec_risk_src_reach')}|2]#! from their [concept_rank][AddLocalizationIf({not1('spec_foreign_loss_mult')}, 'SPEC_FOREIGN_UNSTD')]{shelter_rows('SPEC_SRC', sv('spec_world_shelter'), sv('spec_bc_shelter'), v('spec_risk_src_pb', 1))}#!\\n$TOOLTIP_DELIMITER$\\n#weak Only a market that is #v {BAND_NAMES[0]}#!, #v {BAND_NAMES[1]}#! or in #v {BAND_NAMES[-1]}#! can spread a panic#!"
  SPEC_BAR_TIE_1: "#v [{SRC}.GetName]#! shares our [concept_market]."
  SPEC_BAR_TIE_2: "#v [{SRC}.GetName]#! is our overlord or [concept_subject]."
  SPEC_BAR_TIE_3: "#v [{SRC}.GetName]#! has investment rights with us by treaty."
@@ -1920,37 +2294,41 @@ def loc(k):
 {''.join(f' SPEC_STATE_{s.upper()}: "{n}"{chr(10)}' for s, n in zip(state_names, BAND_NAMES))}
  SPEC_STATE_DESC: "[SelectLocalization({IN_PANIC}, 'SPEC_STATE_DESC_PANIC', {by_tier('SPEC_STATE_DESC', state_names)})]"
  SPEC_STATE_DESC_PANIC: "$SPEC_PANIC_LEFT$. [SelectLocalization({rescued}, 'SPEC_STATE_DESC_PANIC_RESCUED', 'SPEC_STATE_DESC_PANIC_FULL')]"
- SPEC_STATE_DESC_PANIC_FULL: "Until then [concept_private_construction] is halved."
- SPEC_STATE_DESC_PANIC_RESCUED: "After the Bank Rescue, [concept_private_construction] is #N {50 * 0.5:g}%#! lower until then."
+ SPEC_STATE_DESC_PANIC_FULL: "Until then, [concept_private_construction] is #N [{sv('spec_panic_cut_shown')}|%0]#! lower."
+ SPEC_STATE_DESC_PANIC_RESCUED: "Until then, [concept_private_construction] is #N [{sv('spec_panic_cut_shown')}|%0]#! lower, eased by the Bank Rescue."
  SPEC_STATE_DESC_SHAKEN: "{invest_line('panic')} No new [concept_spec_financial_panic] can begin for #v [{cooldown}|0]#! {months.format(cooldown)}."
  SPEC_STATE_DESC_WARY: "[SelectLocalization({gt(cooldown)}, 'SPEC_STATE_DESC_WARY_SAFE', 'SPEC_STATE_DESC_WARY_RISK')]"
- SPEC_STATE_DESC_WARY_RISK: "{invest_line('wary')} Another sharp fall in prices could cause a [concept_spec_financial_panic]."
+ SPEC_STATE_DESC_WARY_RISK: "{invest_line('wary')} A sharp fall in prices could set off a [concept_spec_financial_panic]."
  SPEC_STATE_DESC_WARY_SAFE: "{invest_line('wary')} No new [concept_spec_financial_panic] can begin for #v [{cooldown}|0]#! {months.format(cooldown)}."
  SPEC_STATE_DESC_STEADY: "Investment follows the market as normal."
  SPEC_STATE_DESC_BUOYANT: "{invest_line('buoyant')}"
  SPEC_STATE_DESC_MANIA: "{invest_line('mania')} A sharp fall in prices would hit [concept_spec_market_confidence] hard."
-{tiers} SPEC_TIER_PANIC_TT: "#header {BAND_NAMES[0]}#!\\nBelow #v {TIERS[0][2]}#!\\n$TOOLTIP_DELIMITER$\\n#italic Investors are scared.#!\\n$SPEC_INVEST_PANIC$\\n\\nA [concept_spec_financial_panic] starts below #v [{sv('spec_panic_at')}|0]#! and halves [concept_private_construction] for up to #v [{sv('spec_panic_months_trust')}|0]#! months\\n#weak After a panic, no new one can start for #v {k['PANIC_COOLDOWN']}#! months#!"
- SPEC_TIER_WARY_TT: "#header {BAND_NAMES[1]}#!\\n#v {TIERS[1][1]}#! to #v {TIERS[1][2]}#!\\n$TOOLTIP_DELIMITER$\\n#italic Investors are nervous.#!\\n$SPEC_INVEST_WARY$\\n\\nBanks will not lend. A [concept_spec_financial_panic] starts below #v [{sv('spec_panic_at')}|0]#!."
- SPEC_TIER_STEADY_TT: "#header {BAND_NAMES[2]}#!\\n#v {TIERS[2][1]}#! to #v {TIERS[2][2]}#!\\n$TOOLTIP_DELIMITER$\\n#italic Investors act normally.#!\\n$SPEC_INVEST_STEADY$\\n\\nBanks lend only while [concept_spec_market_confidence] is above #v {credit_from}#!. $concept_spec_market_confidence$ slowly drifts back toward its [concept_spec_baseline] of #v {k['CONF_START']}#!."
- SPEC_TIER_BUOYANT_TT: "#header {BAND_NAMES[3]}#!\\n#v {TIERS[3][1]}#! to #v {TIERS[3][2]}#!\\n$TOOLTIP_DELIMITER$\\n#italic Investors are in a good mood.#!\\n$SPEC_INVEST_BUOYANT$\\n\\nBanks lend into the [concept_investment_pool] while [concept_spec_market_confidence] is above #v {credit_from}#!. Only the [Concept('concept_spec_credit_policy','$concept_spec_credit_policy_tight$')] credit policy stops them."
- SPEC_TIER_MANIA_TT: "#header {BAND_NAMES[4]}#!\\nAbove #v {mania}#!\\n$TOOLTIP_DELIMITER$\\n#italic Investors are wild with excitement.#!\\n$SPEC_INVEST_MANIA$\\n\\nBanks lend the most here, but a fall in prices hurts the most too."
+{tiers} SPEC_TIER_PANIC_TT: "#header {BAND_NAMES[0]}#!\\n[concept_spec_market_confidence] below #v {TIERS[0][2]}#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_GAUGE_FX_SHAKEN$\\n\\nA [concept_spec_financial_panic] starts below #v [{sv('spec_panic_at')}|0]#!. It cuts [concept_private_construction] by #N [{sv('spec_panic_cut_if')}|%0]#! for up to #v [{sv('spec_panic_months_trust')}|0]#! months.{' [concept_spec_leverage] makes it deeper and longer.' if leverage.ON else ''}\\n\\n#weak After a panic, no new one can start for #v {k['PANIC_COOLDOWN']}#! months.#!"
+ SPEC_TIER_WARY_TT: "#header {BAND_NAMES[1]}#!\\n[concept_spec_market_confidence] from #v {TIERS[1][1]}#! to #v {TIERS[1][2]}#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_GAUGE_FX_WARY$\\n\\nBanks do not lend, and a [concept_spec_financial_panic] starts below #v [{sv('spec_panic_at')}|0]#!."
+ SPEC_TIER_STEADY_TT: "#header {BAND_NAMES[2]}#!\\n[concept_spec_market_confidence] from #v {TIERS[2][1]}#! to #v {TIERS[2][2]}#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_GAUGE_FX_STEADY$\\n\\nBanks lend only while [concept_spec_market_confidence] is above #v {credit_from}#!. It drifts back toward its [concept_spec_baseline] of #v {k['CONF_START']}#!."
+ SPEC_TIER_BUOYANT_TT: "#header {BAND_NAMES[3]}#!\\n[concept_spec_market_confidence] from #v {TIERS[3][1]}#! to #v {TIERS[3][2]}#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_GAUGE_FX_BUOYANT$\\n\\nBanks lend into the [concept_investment_pool] while [concept_spec_market_confidence] is above #v {credit_from}#!, unless [Concept('concept_spec_credit_policy','$concept_spec_credit_policy_tight$')] stops them."
+ SPEC_TIER_MANIA_TT: "#header {BAND_NAMES[4]}#!\\n[concept_spec_market_confidence] above #v {mania}#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_GAUGE_FX_MANIA$\\n\\nBanks lend the most here, but a fall in prices also hurts the most."
  SPEC_PANIC_LEFT: "Ends in #v [{PANIC_LEFT}|0]#! {months.format(PANIC_LEFT)}"
  SPEC_PANIC_NONE: "No [concept_spec_financial_panic]"
  SPEC_PANIC_BAR: "[SelectLocalization({IN_PANIC}, 'SPEC_PANIC_BAR_ON', 'SPEC_PANIC_BAR_OFF')]"
  SPEC_PANIC_BAR_ON: "#N [{v('spec_panic', 0)}|0]#! of #v [{v('spec_panic_len', 1)}|0]#! months left"
  SPEC_PANIC_BAR_OFF: "Begins below #v [{sv('spec_panic_at')}|0]#! [concept_spec_market_confidence]"
- SPEC_PANIC_NONE_TT: "#header [concept_spec_financial_panic]#!\\nNothing to worry about. There is no panic right now.\\n$TOOLTIP_DELIMITER$\\nA panic starts if [concept_spec_market_confidence] drops below #v [{sv('spec_panic_at')}|0]#!"
- SPEC_PANIC_SUB: "[SelectLocalization({gt(v('spec_clawed'))}, 'SPEC_PANIC_LOANS', 'SPEC_PANIC_NO_LOANS')]"
+ SPEC_PANIC_NONE_TT: "#header [concept_spec_financial_panic]: #P None#!#!\\n$TOOLTIP_DELIMITER$\\nNothing to worry about. There is no panic right now.\\n$TOOLTIP_DELIMITER$\\nA [concept_spec_financial_panic] will begin if [concept_spec_market_confidence] falls below #v [{sv('spec_panic_at')}|0]#!. It would last up to #v [{sv('spec_panic_months_trust')}|0]#! months.\\n\\n#v {k['PANIC_DAYS'] / 30:g}#! months base{len_lines}\\n$TOOLTIP_DELIMITER$\\n#weak Rounded up to whole months#!"
+{len_loc} SPEC_PANIC_SUB: "[SelectLocalization({gt(v('spec_clawed'))}, 'SPEC_PANIC_LOANS', 'SPEC_PANIC_NO_LOANS')]"
+ SPEC_RECALL_DETAIL: "#indent_newline:3 \\n#v @money![{v('spec_recall_balance')}|D]#! from [concept_spec_outstanding_credit] before the panic\\n#v x{k['CLAWBACK']:g}#! from the share banks call back{recall_lax}[AddLocalizationIf(LessThan_CFixedPoint({v('spec_clawed')}, {v('spec_recall_requested')}), 'SPEC_RECALL_LIMIT')]#!"
+ SPEC_RECALL_LAX: "\\n#v x[{v('spec_recall_lax', 1)}|2]#! from [concept_spec_lending_standards]"
+ SPEC_DEBT_LAX: "\\n#v x[{sv('spec_lax_recall')}|2]#! from [concept_spec_lending_standards]"
+ SPEC_RECALL_LIMIT: "\\n#N -@money![Subtract_CFixedPoint({v('spec_recall_requested')}, {v('spec_clawed')})|D]#! from the most a panic can take, #v [{v('spec_recall_pool_share', 1)}|%1]#! of our [concept_investment_pool]"
  SPEC_PANIC_LOANS: "Banks called in #v @money![{v('spec_clawed')}|D]#! of loans"
  SPEC_PANIC_NO_LOANS: "No loans were called in"
- SPEC_PANIC_TT: "$SPEC_GAUGE_HEAD$\\n$SPEC_PANIC_LEFT$\\n$SPEC_GAUGE_CHANGE$\\n$TOOLTIP_DELIMITER$\\n#title Effects:#!#indent_newline:3 \\n[SelectLocalization({rescued}, 'SPEC_PANIC_ALL_EFFECTS_RESCUED', 'SPEC_PANIC_ALL_EFFECTS')]\\n$SPEC_PANIC_SUB$.\\n$SPEC_GAUGE_LEND$#!\\n\\n[AddLocalizationIf({rescued}, 'SPEC_PANIC_RESCUED_NOTE')]{panic_bad}$SPEC_PANIC_TT_END$"
-{"".join(f""" SPEC_PANIC_EFFECTS{key}: "[concept_private_construction] is #N {50 * h:g}%#! lower.\\n{pops} invest #N {40 * h:g}%#! less.\\n[Concept('concept_company','$concept_companies$')] lose #N {-companies.PANIC_COMPANY * 100 * h:g}%#! [concept_throughput].\\n${companies.FD_SOL}$: #N {companies.FD_PANIC * h:g}#!\\n{igs}: #N {-2 * h:g}#! [concept_approval]\\nAs it began, #N 10%#! of $capitalists_no_icon$ and #N 5%#! of $aristocrats_no_icon$ and $shopkeepers_no_icon$ became [Concept('concept_radical','$concept_radicals$')]"
-""" for key, h in (("", 1), ("_RESCUED", 0.5)))} SPEC_PANIC_RESCUED_NOTE: "The Bank Rescue halves these effects. "
+ SPEC_PANIC_TT: "$SPEC_GAUGE_HEAD$\\n$SPEC_PANIC_LEFT$\\n$SPEC_GAUGE_CHANGE$\\n$TOOLTIP_DELIMITER$\\n#title Effects:#!#indent_newline:3 \\n[SelectLocalization({rescued}, 'SPEC_PANIC_ALL_EFFECTS_RESCUED', 'SPEC_PANIC_ALL_EFFECTS')]\\n$SPEC_PANIC_SUB$.[AddLocalizationIf(And({P}.Var('spec_recall_balance').IsSet, {gt(v('spec_clawed'))}), 'SPEC_RECALL_DETAIL')]\\n$SPEC_GAUGE_LEND$#!\\n\\n[AddLocalizationIf({rescued}, 'SPEC_PANIC_RESCUED_NOTE')]{panic_bad}$SPEC_PANIC_TT_END$"
+{"".join(f""" SPEC_PANIC_EFFECTS{key}: "[concept_private_construction] is #N [{sv('spec_panic_cut_shown')}|%0]#! lower.\\n{pops} invest #N {-k['PANIC_INVEST'] * 100 * h:g}%#! less.\\n[Concept('concept_company','$concept_companies$')] lose #N {-companies.PANIC_COMPANY * 100 * h:g}%#! [concept_throughput].\\n${companies.FD_SOL}$: #N {companies.FD_PANIC * h:g}#!\\n{igs}: #N {k['PANIC_APPROVAL'] * h:g}#! [concept_approval]\\nAs it began, {radicals} became [Concept('concept_radical','$concept_radicals$')]"
+""" for key, h in (("", 1), ("_RESCUED", k['RESCUE_CUT'])))} SPEC_PANIC_RESCUED_NOTE: "The Bank Rescue halves these effects. "
  SPEC_PANIC_TT_END: "$SPEC_PANIC_RELIEF_NOTE$\\n\\n$SPEC_PANIC_RECOVERY$"
  SPEC_PANIC_ALL_EFFECTS: "$SPEC_PANIC_ECONOMY$\\n$SPEC_PANIC_EFFECTS$"
  SPEC_PANIC_ALL_EFFECTS_RESCUED: "$SPEC_PANIC_ECONOMY_RESCUED$\\n$SPEC_PANIC_EFFECTS_RESCUED$"
  SPEC_PANIC_ECONOMY: "$ALL_BUILDINGS$: [concept_throughput] #N {k['PANIC_THROUGHPUT']:+.0%}#!\\n$state_tax_collection_mult$: #N {k['PANIC_TAX']:+.0%}#!"
- SPEC_PANIC_ECONOMY_RESCUED: "$ALL_BUILDINGS$: [concept_throughput] #N {k['PANIC_THROUGHPUT'] * 0.5:+.0%}#!\\n$state_tax_collection_mult$: #N {k['PANIC_TAX'] * 0.5:+.1%}#!"
+ SPEC_PANIC_ECONOMY_RESCUED: "$ALL_BUILDINGS$: [concept_throughput] #N {k['PANIC_THROUGHPUT'] * k['RESCUE_CUT']:+.0%}#!\\n$state_tax_collection_mult$: #N {k['PANIC_TAX'] * k['RESCUE_CUT']:+.1%}#!"
  spec_panic_relief: "Panic Relief"
  spec_panic_relief_desc: "The Treasury makes weekly payments to the unemployed until the [concept_spec_financial_panic] ends."
  SPEC_RESCUE_EXCEPTIONS: "#weak Does not cut $spec_panic_relief$ or win back the people radicalized when the panic began#!"
@@ -1960,12 +2338,12 @@ def loc(k):
  SPEC_RESCUE_LABEL: "Lend to the Banks"
  SPEC_RESCUED: "Lent to the Banks"
  SPEC_RESCUE_TT: "$SPEC_RESCUE_ACTION_TT$\\n\\n$SPEC_RESCUE_EXCEPTIONS$"
- SPEC_RESCUE_ACTION_TT: "#header Lend to the Banks#!\\n$TOOLTIP_DELIMITER$\\n#italic Prop up the banks with state money to stop the panic.#!\\n\\nThe panic ends within #v [{sv('spec_rescue_months')}|0]#! months\\nThe panic's ongoing penalties: #P -50%#!\\n[concept_spec_market_confidence]: #P +{k['RESCUE_CONF']}#!{no_rescue}\\n\\n#lore The Bank of England lent freely in the crises of 1847, 1857 and 1866.#!\\n\\n{sg('rescue', 'BuildTooltip')}"
+ SPEC_RESCUE_ACTION_TT: "#header Lend to the Banks#!\\n$TOOLTIP_DELIMITER$\\nThe panic ends within #v [{sv('spec_rescue_months')}|0]#! months, and its ongoing penalties are cut by #P {1 - k['RESCUE_CUT']:.0%}#!\\nOur [concept_spec_market_confidence] rises by #P {k['RESCUE_CONF']}#!{no_rescue}\\n\\n{sg('rescue', 'BuildTooltip')}"
  SPEC_H_POLICY: "Credit Policy"
- SPEC_H_POLICY_TT: "#header $concept_spec_credit_policy$#!\\n$TOOLTIP_DELIMITER$\\n$concept_spec_credit_policy_desc$\\n\\n#lore Central banks steered lending through their discount rate, as the Bank of England did with Bank Rate.#!"
+ SPEC_H_POLICY_TT: "#header $concept_spec_credit_policy$#!\\n$TOOLTIP_DELIMITER$\\n$concept_spec_credit_policy_desc$"
  SPEC_POLICY_TT: "[SelectLocalization(EqualTo_CFixedPoint({STANCE}, {fx(-1)}), 'SPEC_STANCE_TIGHT_TT', SelectLocalization(EqualTo_CFixedPoint({STANCE}, {fx(1)}), 'SPEC_STANCE_LOOSE_TT', 'SPEC_STANCE_NORMAL_TT'))]"
  SPEC_H_RESCUE: "Bank Rescue"
- SPEC_H_RESCUE_TT: "#header Bank Rescue#!\\n$TOOLTIP_DELIMITER$\\nDuring a [concept_spec_financial_panic], #v Lend to the Banks#! ends it sooner."
+ SPEC_H_RESCUE_TT: "#header Bank Rescue#!\\n$TOOLTIP_DELIMITER$\\nDuring a [concept_spec_financial_panic], #v Lend to the Banks#! ends it within #v [{sv('spec_rescue_months')}|0]#! months, cuts its penalties for the months left by #P {1 - k['RESCUE_CUT']:.0%}#! and raises [concept_spec_market_confidence] by #P {k['RESCUE_CONF']}#!. It costs about #v [{sv('spec_rescue_share_now')}|%1]#! of [concept_gdp], more the longer the panic has left to run, and can be used once per panic."
  SPEC_FINANCE: "Finance"
  SPEC_FINANCE_BUTTON_TT: "#header $SPEC_FINANCE$#!\\nBooms and panics, the banks{', our [concept_spec_exchange] and the world rankings' if exch.ON else ''}"
  SPEC_FINANCE_BTN: "Finance"
@@ -1986,30 +2364,33 @@ def loc(k):
  SPEC_CREDIT_NO_LINE: "Not lending while below the Panic Threshold"
  SPEC_CREDIT_NO_ROOM: "Not lending while at the Lending Limit"
  SPEC_CREDIT_LENDING_LOCKED: "Lending up to #v [{sv('spec_credit_limit')}|0]#! months. Policy requires [GetTechnology('central_banking').GetName]"
- SPEC_CREDIT_NO_PANIC: "Not Lending: [concept_spec_financial_panic]"
- SPEC_CREDIT_NO_CRASH: "Not Lending: World Crash"
- SPEC_CREDIT_NO_TIGHT: "Not Lending: [Concept('concept_spec_credit_policy','$concept_spec_credit_policy_tight$')]"
- SPEC_CREDIT_NO_CONF: "Not Lending: below #v {credit_from}#! [concept_spec_market_confidence]"
+ SPEC_CREDIT_NO_PANIC: "Not lending during a [concept_spec_financial_panic]"
+ SPEC_CREDIT_NO_CRASH: "Not lending in the World Crash"
+ SPEC_CREDIT_NO_TIGHT: "Not lending under [Concept('concept_spec_credit_policy','$concept_spec_credit_policy_tight$')]"
+ SPEC_CREDIT_NO_CONF: "Not lending below #v {credit_from}#! [concept_spec_market_confidence]"
  SPEC_CREDIT_LENDING: "Lending while [concept_spec_market_confidence] is above #v {credit_from}#!"
  SPEC_POLICY_COOLDOWN: "[SelectLocalization(EqualTo_CFixedPoint({cd}, {fx(1)}), 'SPEC_POLICY_COOLDOWN_ONE', 'SPEC_POLICY_COOLDOWN_MANY')]"
  SPEC_POLICY_COOLDOWN_ONE: "Can be changed in #v 1#! month"
  SPEC_POLICY_COOLDOWN_MANY: "Can be changed in #v [{cd}|0]#! months"
- SPEC_STANCE_TIGHT_TT: "#header Tight Credit#!\\nCredit Lent This Month: #v None#!\\n$TOOLTIP_DELIMITER$\\n#italic Banks stop lending to cool the market down.#!\\n\\nEach month, #N {tight_pull:.0%}#! of our [concept_spec_market_confidence] above #v {tight_from}#! drains away\\nInvestor Reaction: #N -50%#!\\n{credit_ai.ig_lines('tight')}\\n\\n#P Smaller#! booms, and #P softer#! crashes and panics{lock['tight']}"
- SPEC_STANCE_NORMAL_TT: "#header Normal Credit#!\\nCredit Lent This Month: #v @money![{sv('spec_credit_preview')}|D]#!\\n$TOOLTIP_DELIMITER$\\n#italic Banks lend as usual.#!\\n\\nBanks lend into the [concept_investment_pool] while [concept_spec_market_confidence] is above #v {credit_from}#!.{lock['normal']}"
- SPEC_STANCE_LOOSE_TT: "#header Loose Credit#!\\nCredit Lent This Month: #v @money![{sv('spec_credit_preview_loose')}|D]#!\\n$TOOLTIP_DELIMITER$\\n#italic Banks lend freely to heat the market up.#!\\n\\nInvestor Reaction to Rising Prices: #v +30%#!\\n{credit_ai.ig_lines('loose')}\\n\\n#P Bigger#! booms, but #N bigger#! losses when they end{lock['loose']}"
+ SPEC_STANCE_TIGHT_TT: "#header Tight Credit#!\\n$TOOLTIP_DELIMITER$\\nBanks stop lending. Each month, #N {tight_pull:.0%}#! of our [concept_spec_market_confidence] above #v {tight_from}#! drains away.\\n\\nInvestor Reaction: #N -{1 - k['STANCE_HYPE']['tight']:.0%}#!\\n{credit_ai.ig_lines('tight')}\\n\\n#weak Booms grow smaller, and their endings and panics are softer.#!{lock['tight']}"
+ SPEC_STANCE_NORMAL_TT: "#header Normal Credit#!\\n$TOOLTIP_DELIMITER$\\nBanks lend into the [concept_investment_pool] while [concept_spec_market_confidence] is above #v {credit_from}#!. This month they would lend #v @money![{sv('spec_credit_preview')}|D]#!.{lock['normal']}"
+ SPEC_STANCE_LOOSE_TT: "#header Loose Credit#!\\n$TOOLTIP_DELIMITER$\\nBanks lend freely into the [concept_investment_pool]. This month they would lend #v @money![{sv('spec_credit_preview_loose')}|D]#!.\\n\\nLending Rate: #P +{k['STANCE_CREDIT']['loose'] - 1:.0%}#!\\nInvestor Reaction to rising prices: #P +{k['STANCE_HYPE']['loose'] - 1:.0%}#!\\n{credit_ai.ig_lines('loose')}\\n\\n#weak Booms grow bigger, and so do the losses when they end.#!{lock['loose']}"
  SPEC_CREDIT_CURRENT: ""
 {why_loc} SPEC_CREDIT_LOCK: "\\n\\nLocks [concept_spec_credit_policy] for #v {k['STANCE_COOLDOWN']}#! months"
- SPEC_EFFECT_GIVEN_TT: "#header Credit Lent This Month#!\\n#v @money![{v('spec_credit_given')}|D]#! this month\\n$TOOLTIP_DELIMITER$\\n#italic Money our banks add to our [concept_investment_pool].#!\\n\\nLending Rate: #v {word(credit_rate, 'SPEC_CREDITW', [0.01, 0.5, 1.15, 1.8])}#!\\n#italic How freely our banks lend, not interest we pay.#!\\n\\n#b Compared with normal lending#!\\n$ECONOMIC_SYSTEM_GC_LINK$: {pct_neutral(sv('spec_law_mult'))}\\nFinance Technologies: {pct_neutral(sv('spec_tech_credit'))}\\n[concept_spec_credit_policy]: {pct_neutral(sv('spec_stance_credit'))}{credit_rows}\\n$TOOLTIP_DELIMITER$\\n#weak Banks lend every month while [concept_spec_market_confidence] is above #v {credit_from}#!, more the higher it goes, until they reach their lending limit. The [concept_investment_pool] shows it week by week.#!"
- SPEC_EFFECT_DEBT: "Withdrawn in a Panic"
+ SPEC_EFFECT_GIVEN_TT: "#header Credit Lent This Month: #v @money![{v('spec_credit_given')}|D]#!#!\\n$TOOLTIP_DELIMITER$\\nMoney our banks add to our [concept_investment_pool]. They lend every month while [concept_spec_market_confidence] is above #v {credit_from}#!, more the higher it goes, until they reach our Lending Limit.\\n\\nLending Rate: #v x[{credit_rate}|2]#! (#v {word(credit_rate, 'SPEC_CREDITW', [0.01, 0.5, 1.15, 1.8])}#!)#indent_newline:3 {rate_lines}#!\\n$TOOLTIP_DELIMITER$\\n#weak The rate is how freely our banks lend, not interest we pay. The [concept_investment_pool] shows the lending week by week.#!"
+{rate_loc} SPEC_EFFECT_DEBT: "Withdrawn in a Panic"
  SPEC_DEBT_BAR: "[SelectLocalization(GreaterThan_CFixedPoint({POOL}, {fx(0)}), 'SPEC_DEBT_BAR_ON', 'SPEC_DEBT_BAR_NONE')]"
  SPEC_DEBT_BAR_ON: "A panic would take #N @money![{sv('spec_clawback')}|D]#! of our @money![{POOL}|D] [concept_investment_pool]"
  SPEC_DEBT_BAR_NONE: "Our [concept_investment_pool] is empty, so a panic has nothing to take"
  SPEC_EFFECT_OWED: "[concept_spec_outstanding_credit]"
  SPEC_EFFECT_OWED_VALUE: "#v @money![{v('spec_debt')}|D]#!"
- SPEC_EFFECT_OWED_TT: "#header [concept_spec_outstanding_credit]#!\\n$SPEC_LEV_MONTHS_TT$"
- SPEC_PANIC_LINE_TT: "#header Panic Threshold#!\\nIf [concept_spec_market_confidence] drops below #v [{sv('spec_panic_at')}|0]#!, a [concept_spec_financial_panic] starts. {panic_rise}"\n SPEC_PANIC_TAG: "#b Panic#!"
+ SPEC_EFFECT_OWED_TT: "#header [concept_spec_outstanding_credit]: #v @money![{v('spec_debt')}|D]#!#!\\n$TOOLTIP_DELIMITER$\\nMoney our banks have lent into our [concept_investment_pool].{owed_lev}\\n[AddLocalizationIf({gt(v('spec_credit_given'))}, 'SPEC_OWED_LENT')]\\n#N -@money![{sv('spec_credit_runoff')}|D]#! repaid each month (#v {k['CREDIT_RUNOFF']:.0%}#!)\\n$TOOLTIP_DELIMITER$\\nBanks lend each month while [concept_spec_market_confidence] is above #v {credit_from}#!{owed_lim}. A [concept_spec_financial_panic] calls part of it back."
+ SPEC_OWED_LENT: "\\n#P +@money![{v('spec_credit_given')}|D]#! lent this month"
+{panic_tt} SPEC_PANIC_TAG: "#b Panic#!"
+ SPEC_RISK_TAG: "#b Risk#!"
  SPEC_EFFECT_DEBT_VALUE: "#v @money![{sv('spec_clawback')}|D]#!"
- SPEC_EFFECT_DEBT_TT: "#header Withdrawn in a Panic#!\\n#v @money![{sv('spec_clawback')}|D]#! if a panic began today\\n$TOOLTIP_DELIMITER$\\n#italic Money still in our [concept_investment_pool] for now. If a [concept_spec_financial_panic] hits, banks call back part of their loans and take it out.#!\\n\\n[concept_spec_outstanding_credit]: #v @money![{v('spec_debt')}|D]#!\\nShare called back: #v {k['CLAWBACK']:.0%}#!\\nMost it can take of our pool: #v [{sv('spec_claw_share')}|%0]#! at our [concept_spec_leverage]\\n$TOOLTIP_DELIMITER$\\n#instruction The higher our [concept_spec_leverage], the more of the pool a panic can take: #v {k['CLAW_FLOOR']:.0%}#! at low leverage, all of it once leverage turns dangerous.#!\\n\\n#weak $concept_spec_outstanding_credit$ shrinks by #v {k['CREDIT_RUNOFF']:.0%}#! a month as loans are paid off#!"
+ SPEC_EFFECT_DEBT_TT: "#header Withdrawn in a Panic: #N @money![{sv('spec_clawback')}|D]#!#!\\n$TOOLTIP_DELIMITER$\\nThis money is still in our [concept_investment_pool]. If a [concept_spec_financial_panic] began today, banks would call back part of their loans and take it out.\\n\\n#v @money![{v('spec_debt')}|D]#! from [concept_spec_outstanding_credit]#indent_newline:3 \\n#v x{k['CLAWBACK']:g}#! from the share banks call back{claw_lax}[AddLocalizationIf({gt(claw_cut, 1)}, 'SPEC_DEBT_CAP')]#!\\n$TOOLTIP_DELIMITER$\\n#weak {claw_note}$concept_spec_outstanding_credit$ shrinks by #v {k['CREDIT_RUNOFF']:.0%}#! a month as loans are paid off.#!"
+ SPEC_DEBT_CAP: "\\n#N -@money![{claw_cut}|D]#! from the most a panic can take, #v [{claw_share}|%0]#! of our [concept_investment_pool]"
 {lev_loc} SPEC_CREDITW_0: "None"
  SPEC_CREDITW_1: "Low"
  SPEC_CREDITW_2: "Normal"
@@ -2020,12 +2401,15 @@ def loc(k):
  SPEC_INTEREST: "{word(WORD, 'SPEC_INTEREST', [1.5, 2.5, 3.5, 4.5, 5.5])}"
 {"".join(f' SPEC_INTEREST_{i}: "@spec_interest_{WORDS[i + 1]}! {WORDS[i + 1].capitalize()}"' + chr(10) for i in range(6))} SPEC_GOODS_NONE: ""
  SPEC_TILE_TT: "#header [Goods.GetName]#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_TILE_BODY$\\n\\n#instruction Click to open the [Goods.GetName] panel#!"
- SPEC_TILE_BODY: "[concept_spec_investor_interest]: #v $SPEC_INTEREST$#!\\nSince Last Month: $SPEC_TILE_MOVE$\\nPrice Trend: #v [{TREND}|=+%0]#! compared with its usual price\\n#tooltippable #tooltip:[Country.GetTooltipTag],SPEC_WHY_SPEED Investor Reaction: #v x[{sv('spec_hype_mult')}|2]#!#!#!$SPEC_TILE_NEXT$\\n$TOOLTIP_DELIMITER$\\n#title Effects:#!\\nProducers' [concept_throughput]: $SPEC_PULL$$SPEC_TILE_LIFT$\\n$TOOLTIP_DELIMITER$\\n$SPEC_TILE_BOOM$$SPEC_TILE_BANKS$"
+ SPEC_II_TREND: "Price trend: #v [{TREND}|=+%1]#!, recent prices against their long-run average\\nExpected next month if prices hold: #v [Subtract_CFixedPoint({fast_n}, {slow_n})|=+%1]#!#indent_newline:3 \\n#v [{fast_n}|=+%1]#! from recent prices over [concept_base_price]\\n#v [Multiply_CFixedPoint({slow_n}, {fx(-1)})|=+%1]#! from long-run prices over [concept_base_price]#![AddLocalizationIf({P}.Var(Concatenate('spec_push_', Goods.GetKey)).IsSet, 'SPEC_II_PUSH')][AddLocalizationIf({gt(good_var('spec_glut'))}, 'SPEC_II_GLUT')]"
+ SPEC_II_PUSH: "\\n\\n[concept_spec_intervention] multiplies its interest by #v [{good_sv('spec_push_sv')}|2]#! so far"
+ SPEC_II_GLUT: "\\n\\nWhile it recovers, its interest is held at #v Doubtful#! or lower"
+ SPEC_TILE_BODY: "[concept_spec_investor_interest]: #v $SPEC_INTEREST$#! ($SPEC_TILE_MOVE$ since last month)\\n$SPEC_II_TREND$\\n#tooltippable #tooltip:[Country.GetTooltipTag],SPEC_WHY_SPEED Investors here react #v [{sv('spec_hype_mult')}|2]#! times as strongly as usual#!#!$SPEC_TILE_NEXT$\\n$TOOLTIP_DELIMITER$\\n#title Effects:#!\\nProducers' [concept_throughput]: $SPEC_PULL$$SPEC_TILE_LIFT$\\n$TOOLTIP_DELIMITER$\\n$SPEC_TILE_BOOM$$SPEC_TILE_BANKS$"
  SPEC_TILE_BOOM: "[SelectLocalization(GreaterThanOrEqualTo_CFixedPoint({good_var('spec_sev')}, {fx(1)}), 'SPEC_TILE_BOOM_ON', SelectLocalization(GreaterThan_CFixedPoint({good_var('spec_glut')}, {fx(0)}), 'SPEC_TILE_BOOM_PAST', 'SPEC_TILE_BOOM_NONE'))]"
- SPEC_TILE_BOOM_ON: "If the boom ends: $SPEC_UNWIND_LINK$[SelectLocalization(GreaterThanOrEqualTo_CFixedPoint({RISK}, {fx(0.5)}), 'SPEC_TILE_BOOM_COST', 'SPEC_TILE_BOOM_SLIGHT')]"
- SPEC_TILE_BOOM_COST: ", #N -[{RISK}|0]#! [concept_spec_market_confidence]"
- SPEC_TILE_BOOM_SLIGHT: ", a slight loss of [concept_spec_market_confidence]"
- SPEC_TILE_BOOM_PAST: "Recovering from a [SelectLocalization(GreaterThanOrEqualTo_CFixedPoint({good_var('spec_glut')}, {fx(3)}), 'SPEC_UNWIND_C_3', SelectLocalization(GreaterThanOrEqualTo_CFixedPoint({good_var('spec_glut')}, {fx(2)}), 'SPEC_UNWIND_C_2', 'SPEC_UNWIND_C_1'))], interest held at #v Doubtful#! or lower"
+ SPEC_TILE_BOOM_ON: "If the boom ended now, it would be a $SPEC_UNWIND_LINK$[SelectLocalization(GreaterThanOrEqualTo_CFixedPoint({RISK}, {fx(0.05)}), 'SPEC_TILE_BOOM_COST', 'SPEC_TILE_BOOM_SLIGHT')]"
+ SPEC_TILE_BOOM_COST: " costing #N [{RISK}|1]#! [concept_spec_market_confidence]"
+ SPEC_TILE_BOOM_SLIGHT: " costing a little [concept_spec_market_confidence]"
+ SPEC_TILE_BOOM_PAST: "Recovering from a [SelectLocalization(GreaterThanOrEqualTo_CFixedPoint({good_var('spec_glut')}, {fx(3)}), 'SPEC_UNWIND_C_3', SelectLocalization(GreaterThanOrEqualTo_CFixedPoint({good_var('spec_glut')}, {fx(2)}), 'SPEC_UNWIND_C_2', 'SPEC_UNWIND_C_1'))][AddLocalizationIf({gt(good_var('spec_glut_until'))}, 'SPEC_IL_RECOVERY_LEFT')]"
  SPEC_TILE_BOOM_NONE: "No boom until interest reaches @spec_interest_keen! #v Keen#!"
  SPEC_PULL: "{word(WORD, 'SPEC_PULL', [1.5, 2.5, 3.5, 4.5, 5.5])}"
 {"".join(f' SPEC_PULL_{w - 1}: "{"#P +" if p > 0 else "#N " if p < 0 else "#v "}{p}%#!"' + chr(10) for w, p in companies.INTEREST_THROUGHPUT.items())} SPEC_TILE_LIFT: "[SelectLocalization(GreaterThanOrEqualTo_CFixedPoint({HYPE}, {fx(k['HOT_HYPE'])}), 'SPEC_TILE_LIFTS', 'SPEC_GOODS_NONE')]"
@@ -2036,52 +2420,61 @@ def loc(k):
  SPEC_TILE_STEADY: "#v Unchanged#!"
  SPEC_RISK_NONE_TT: "$SPEC_RISK_NONE$"
  SPEC_INTEREST_TT: "#header [concept_spec_investor_interest] in [Goods.GetName]#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_TILE_BODY$"
- SPEC_RISK_TT: "#header Risk of a $SPEC_UNWIND$#!\\nIf the boom ends now: #N -[{RISK}|1]#! [concept_spec_market_confidence]\\n$TOOLTIP_DELIMITER$\\n#b Why so much#!\\n{why_lines(good_var, good_sv, k)}\\n$TOOLTIP_DELIMITER$\\n$SPEC_UNWIND_DESC$"
+ SPEC_CALC_BANK_EXPOSURE: "from bank loans tied to this good"
+ SPEC_CALC_OVERBUILDING: "from supply growth since the boom began"
+ SPEC_RISK_LEAD: "If the boom ended now, [concept_spec_market_confidence] would fall by this much."
+ SPEC_RISK_TT: "#header Risk of a $SPEC_UNWIND$: #N -[{rounded_tenth(RISK)}|1]#!#!\\n$TOOLTIP_DELIMITER$\\n{why_lines(good_var, good_sv, k)}\\n$TOOLTIP_DELIMITER$\\n$SPEC_UNWIND_DESC$"
 {band_loc(k)}
- SPEC_DRIVER_RESTRAIN_TT: "#header Restrained Booms: [{v('spec_c_restrain')}|+=2]#!\\n$TOOLTIP_DELIMITER$\\n[{v('spec_restrain_raw')}|+=2] from booms we let down gently this month\\n{cond_row(ratio('spec_c_restrain', 'spec_restrain_raw'))}\\n$TOOLTIP_DELIMITER$\\n#weak Held-back booms wind down slowly as a [concept_spec_correction] instead of crashing all at once#!"
- SPEC_DRIVER_CAUTION_TT: "#header Government and Events: [{v('spec_c_caution')}|+=1]#!\\n$TOOLTIP_DELIMITER$\\nA one-off change from our decisions and market events"
- SPEC_DRIVER_LIMIT_TT: "#header Floor and Ceiling: [{v('spec_c_limit')}|+=1]#!\\n$TOOLTIP_DELIMITER$\\n[concept_spec_market_confidence] cannot go below #v 0#! or above #v 100#!. This is the part that did not fit."
- SPEC_DRIVER_RESCUE_TT: "#header Bank Rescue: [{v('spec_c_rescue')}|+=1]#!\\n$TOOLTIP_DELIMITER$\\nA one-off boost from #v Lend to the Banks#! or #v Suspend the Bank Act#! (never above #v 100#!)"
+ SPEC_DRIVER_RESTRAIN_TT: "#header Restrained Booms: [{v('spec_c_restrain')}|+=1]#!\\n$TOOLTIP_DELIMITER$\\n[{v('spec_restrain_raw')}|+=1] from booms we are letting down gently#indent_newline:3 \\n{cond_row(ratio('spec_c_restrain', 'spec_restrain_raw'))}#!\\n$TOOLTIP_DELIMITER$\\n#weak A restrained boom winds down slowly as a [concept_spec_correction] instead of ending all at once.#!"
+ SPEC_DRIVER_CAUTION_TT: "#header Government and Events: [{v('spec_c_caution')}|+=1]#!\\n$TOOLTIP_DELIMITER$\\nOur decisions and market events changed [concept_spec_market_confidence] once this month."
+ SPEC_DRIVER_LIMIT_TT: "#header Floor and Ceiling: [{v('spec_c_limit')}|+=1]#!\\n$TOOLTIP_DELIMITER$\\n[concept_spec_market_confidence] cannot fall below #v 0#! or rise above #v 100#!, so this much of the month's change was lost."
+ SPEC_DRIVER_RESCUE_TT: "#header Bank Rescue: [{v('spec_c_rescue')}|+=1]#!\\n$TOOLTIP_DELIMITER$\\n#v $SPEC_RESCUE_LABEL$#! or #v Suspend the Bank Act#! raised our [concept_spec_market_confidence] once this month."
  SPEC_DRIVER_RESCUE: "Bank Rescue"
  SPEC_DRIVER_WAREND: "End of War"
- SPEC_DRIVER_WAREND_TT: "#header End of War: [{v('spec_c_warend')}|+=1]#!\\n$TOOLTIP_DELIMITER$\\n#v x[{v('spec_war_stakes_now')}|%0]#! of the full effect, based on our [concept_casualties]\\n$TOOLTIP_DELIMITER$\\n#title Full Effect#!\\nWon and got a [concept_war_goal]: #P +{k['WAR_END']['won'][0]}#!\\nWon, but got nothing: #P +{k['WAR_END']['won'][1]}#!\\nLost and gave up a [concept_war_goal]: #N {k['WAR_END']['lost'][0]}#!\\nLost, but gave up nothing: #N {k['WAR_END']['lost'][1]}#!\\nNobody won: #N {k['WAR_END']['drawn'][0]}#!\\n\\n#weak We always feel at least #v {diplomacy.WAR_STAKES_MIN:.0%}#! of it, and all of it once the war cost #v 25%#! of our forces#!"
+ SPEC_DRIVER_WAREND_TT: "#header End of War: [{v('spec_c_warend')}|+=1]#!\\n$TOOLTIP_DELIMITER$\\nWe felt #v [{v('spec_war_stakes_now')}|%0]#! of the full effect, because of our [concept_casualties].\\n\\nWinning a war and enforcing a [concept_war_goal] raises [concept_spec_market_confidence] by #P {k['WAR_END']['won'][0]:g}#!, and winning without one by #P {k['WAR_END']['won'][1]:g}#!. Losing and giving up a war goal lowers it by #N {-k['WAR_END']['lost'][0]:g}#!, and losing without giving one up by #N {-k['WAR_END']['lost'][1]:g}#!. A war nobody wins lowers it by #N {-k['WAR_END']['drawn'][0]:g}#!.\\n\\n#weak We always feel at least #v {diplomacy.WAR_STAKES_MIN:.0%}#! of this, and all of it once the war has cost #v {diplomacy.WAR_STAKES_FULL:.0%}#! of our forces.#!"
  SPEC_DRIVER_BURST: "Bubble Bursts"
- SPEC_DRIVER_BURST_TT: "#header Bubble Bursts: [{v('spec_c_burst')}|+=1]#!\\n$TOOLTIP_DELIMITER$\\n#italic The bubble popped.#!\\n\\n#v [Divide_CFixedPoint({v('spec_c_burst')}, Multiply_CFixedPoint({sv('spec_burst_per_heat')}, {fx(-1)}))|0]#! points of [concept_spec_speculative_excess]\\n#N -[{sv('spec_burst_per_heat')}|2]#! for each point\\nNever more than #N -[{sv('spec_burst_max')}|0]#!\\n$TOOLTIP_DELIMITER$\\nIt pops when [concept_spec_market_confidence] drops below #v {k['BURST_BELOW']}#! after a boom above #v [{sv('spec_heat_from')}|0]#!\\nThe longer and higher the boom, the bigger the pop\\n#weak Needs [GetTechnology('stock_exchange').GetName]#!"
+ SPEC_DRIVER_BURST_TT: "#header Bubble Bursts: [{v('spec_c_burst')}|+=1]#!\\n$TOOLTIP_DELIMITER$\\nOur bubble of #v [Divide_CFixedPoint({v('spec_c_burst')}, Multiply_CFixedPoint({sv('spec_burst_per_heat')}, {fx(-1)}))|0]#! [concept_spec_speculative_excess] burst. Each point cost #N [{sv('spec_burst_per_heat')}|2]#! [concept_spec_market_confidence].\\n\\n#weak A bubble grows while [concept_spec_market_confidence] stays at #v [{sv('spec_heat_from')}|0]#! or more, and bursts if it falls below #v {k['BURST_BELOW']}#!. It needs [GetTechnology('stock_exchange').GetName].#!"
  SPEC_DRIVER_CAUTION: "Government and Events"
  SPEC_DRIVER_RESTRAIN: "Restrained Booms"
  SPEC_DRIVER_LIMIT: "Floor and Ceiling"
  SPEC_DRIVER_BOOM: "Booming Goods"
- SPEC_DRIVER_BOOM_TT: "#header Booming Goods: [{v('spec_c_boom')}|+=2]#!\\n$TOOLTIP_DELIMITER$\\n[{v('spec_boom_raw')}|+=2] from #v [{v('spec_n_boom')}|0]#! booming {goods}[AddLocalizationIf({gt(v('spec_boom_raw'), k['CONF_BOOM_MAX'])}, 'SPEC_BOOM_CAP')][AddLocalizationIf({not1('spec_steady')}, 'SPEC_BOOM_STEADY')][AddLocalizationIf({not1('spec_fin_boom')}, 'SPEC_BOOM_FIN')][AddLocalizationIf({not1('spec_boom_rule')}, 'SPEC_BOOM_RULE')]\\n$TOOLTIP_DELIMITER$\\nThe bigger a good's share of our [concept_market], the more its boom adds. Nothing during a [concept_spec_financial_panic]\\n#weak [GetTechnology('stock_exchange').GetName], [GetTechnology('investment_banks').GetName] and [GetTechnology('modern_financial_instruments').GetName] make it bigger#!"
- SPEC_BOOM_CAP: "\\nCapped at #v +{k['CONF_BOOM_MAX']}#! before anything below"
+ SPEC_DRIVER_BOOM_TT: "#header Booming Goods: [{v('spec_c_boom')}|+=1]#!\\n$TOOLTIP_DELIMITER$\\n[{v('spec_boom_raw')}|+=1] from #v [{v('spec_n_boom')}|0]#! booming {goods}#indent_newline:3 [AddLocalizationIf({gt(v('spec_boom_raw'), k['CONF_BOOM_MAX'])}, 'SPEC_BOOM_CAP')][AddLocalizationIf({not1('spec_steady')}, 'SPEC_BOOM_STEADY')][AddLocalizationIf({not1('spec_fin_boom')}, 'SPEC_BOOM_FIN')][AddLocalizationIf({not1('spec_boom_rule')}, 'SPEC_BOOM_RULE')]#!\\n$TOOLTIP_DELIMITER$\\n#weak A good's boom adds more the bigger its share of our [concept_market]. [GetTechnology('stock_exchange').GetName], [GetTechnology('investment_banks').GetName] and [GetTechnology('modern_financial_instruments').GetName] make booms add more, and they add nothing during a [concept_spec_financial_panic].#!"
+ SPEC_BOOM_CAP: "\\nCapped at #v +{k['CONF_BOOM_MAX']}#! before the multipliers below"
  SPEC_BOOM_STEADY: "\\n#v x[{sv('spec_steady')}|2]#! from Manor Houses"
  SPEC_BOOM_FIN: "\\n#v x[{sv('spec_fin_boom')}|2]#! from finance technologies"
  SPEC_BOOM_RULE: "\\n#v x[{sv('spec_boom_rule')}|2]#! from Market Volatility"
  SPEC_DRIVER_CRASH: "Ended Booms"
- SPEC_DRIVER_CRASH_TT: "#header Ended Booms: [{v('spec_c_crash')}|+=2]#!\\nBiggest one last month: #v [{P}.Var('spec_crashed').GetGoods.GetName]#!\\n$TOOLTIP_DELIMITER$\\n[{v('spec_crash_raw')}|+=2] from how big the ended booms were\\n{cond_row(ratio('spec_c_crash', 'spec_crash_raw'))}[AddLocalizationIf(Not(GreaterThan_CFixedPoint({v('spec_c_crash')}, {fx(-k['CONF_CRASH_MAX'])})), 'SPEC_CRASH_CAP')]\\n$TOOLTIP_DELIMITER$\\nBigger booms, and goods with more of our [concept_market], hurt more\\n#weak [GetTechnology('mutual_funds').GetName] softens it, [GetTechnology('modern_financial_instruments').GetName] makes it worse#!"
- SPEC_CRASH_CAP: "\\nCapped at #N -{k['CONF_CRASH_MAX']}#! a month"
+ SPEC_DRIVER_CRASH_TT: "#header Ended Booms: [{v('spec_c_crash')}|+=1]#!\\n$TOOLTIP_DELIMITER$\\n[{v('spec_crash_raw')}|+=1] from how big the ended booms were#indent_newline:3 \\n{cond_row(ratio('spec_c_crash', 'spec_crash_raw'))}#![AddLocalizationIf(Not(GreaterThan_CFixedPoint({v('spec_c_crash')}, {fx(-k['CONF_CRASH_MAX'])})), 'SPEC_CRASH_CAP')]\\n\\nThe biggest loss came from the end of our #v [{P}.Var('spec_crashed').GetGoods.GetName]#! boom.\\n$TOOLTIP_DELIMITER$\\n#weak Bigger booms, and goods with more of our [concept_market], cost more. [GetTechnology('mutual_funds').GetName] softens the loss and [GetTechnology('modern_financial_instruments').GetName] deepens it.#!"
+ SPEC_CRASH_CAP: "\\nEnded booms cannot take more than #N {k['CONF_CRASH_MAX']:g}#! in a month."
  SPEC_DRIVER_FOREIGN: "Foreign Panics"
- SPEC_FOREIGN_HIT: "\\n#N -{k['CONTAGION']}#! base hit from a [concept_spec_foreign_panic]\\n#v x[{v('spec_fh_size')}|2]#! how big their economy is next to ours\\n#v x[{v('spec_fh_tie')}|2]#! how closely we are tied ([concept_spec_market_tie])\\n#v x[{v('spec_fh_reach')}|2]#! how important they are ([concept_rank])[AddLocalizationIf({not1('spec_foreign_loss_mult')}, 'SPEC_FOREIGN_UNSTD')]"
- SPEC_FOREIGN_UNSTD: "\\n#v x[{sv('spec_foreign_loss_mult')}|2]#! because we have no [GetTechnology('currency_standards').GetName]"
+ SPEC_FOREIGN_HIT: "\\n#N -{k['CONTAGION']}#! from a [concept_spec_foreign_panic]#indent_newline:3 \\n#v x[{v('spec_fh_size')}|2]#! from the size of their economy next to ours\\n#v x[{v('spec_fh_tie')}|2]#! from our [concept_spec_market_tie]\\n#v x[{v('spec_fh_reach')}|2]#! from their [concept_rank][AddLocalizationIf({not1('spec_foreign_loss_mult')}, 'SPEC_FOREIGN_UNSTD')]{shelter_rows('SPEC_FH', v('spec_fh_world', 1), v('spec_fh_bc', 1), v('spec_fh_pb', 1))}#!"
+ SPEC_FOREIGN_UNSTD: "\\n#v x[{sv('spec_foreign_loss_mult')}|2]#! from not having [GetTechnology('currency_standards').GetName]"
+{shelter_keys('SPEC_FH', v('spec_fh_world', 1), v('spec_fh_bc', 1), v('spec_fh_pb', 1))}{shelter_keys('SPEC_SRC', sv('spec_world_shelter'), sv('spec_bc_shelter'), v('spec_risk_src_pb', 1))}
  SPEC_FOREIGN_FLIGHT: "\\n[{v('spec_c_flight')}|+=2] from [concept_spec_capital_flight]"
- SPEC_DRIVER_FOREIGN_TT: "#header Foreign Panics: [{v('spec_c_foreign')}|+=2]#!\\nLatest: #v [{P}.Var('spec_foreign_src').GetCountry.GetName]#!\\n$TOOLTIP_DELIMITER$[AddLocalizationIf({nonzero(f"Subtract_CFixedPoint({v('spec_c_foreign')}, {v('spec_c_flight')})", 0.01)}, 'SPEC_FOREIGN_HIT')][AddLocalizationIf({nonzero(v('spec_c_flight'), 0.01)}, 'SPEC_FOREIGN_FLIGHT')]\\n$TOOLTIP_DELIMITER$\\n#title [concept_spec_market_tie]#!\\n#italic How much of a tied country's panic reaches us through each kind of tie. They do not add up. When several panics reach us in a month, only the biggest hit counts.#!\\nSame [concept_market]: #v [{sv('spec_tie_market')}|%0]#!\\nSubject or Overlord: #v {k['LINKS']['subject']:.0%}#!\\nForeign Investment Rights: #v [{sv('spec_tie_investment')}|%0]#!\\nHeavy Trade Between Markets: #v [{sv('spec_tie_trade')}|%0]#!\\nForeign Ownership of Our Economy: up to #v {k['LINKS']['owned']:.0%}#!\\n$TOOLTIP_DELIMITER$\\n#weak A [concept_great_power]'s panic hits us in full, a major power's by half, a small country's barely. A panic we caught from abroad does not spread on.#!"
+ SPEC_DRIVER_FOREIGN_TT: "#header Foreign Panics: [{v('spec_c_foreign')}|+=1]#!\\n$TOOLTIP_DELIMITER$\\nThe latest panic to reach us came from #v [{P}.Var('spec_foreign_src').GetCountry.GetName]#!.\\n[AddLocalizationIf({nonzero(f"Subtract_CFixedPoint({v('spec_c_foreign')}, {v('spec_c_flight')})", 0.01)}, 'SPEC_FOREIGN_HIT')][AddLocalizationIf({nonzero(v('spec_c_flight'), 0.01)}, 'SPEC_FOREIGN_FLIGHT')]\\n$TOOLTIP_DELIMITER$\\nThrough a [concept_spec_market_tie], #v [{sv('spec_tie_market')}|%0]#! of a panic reaches us from a shared [concept_market], #v {k['LINKS']['subject']:.0%}#! from a subject or overlord, #v [{sv('spec_tie_investment')}|%0]#! through investment rights, #v [{sv('spec_tie_trade')}|%0]#! through heavy trade, and up to #v {k['LINKS']['owned']:.0%}#! through foreign ownership. Ties do not add up, and only the biggest panic in a month counts.\\n\\n#weak A [concept_great_power]'s panic reaches us at #v {k['REACH'][7]:.0%}#!, a major power's at #v {k['REACH'][6]:.0%}#! and a smaller country's at #v {k['REACH_MINOR']:.0%}#!. A panic we caught from abroad does not spread on.#!"
  SPEC_DRIVER_TURMOIL: "War and Unrest"
- SPEC_DRIVER_TURMOIL_TT: "#header War and Unrest: [{v('spec_c_turmoil')}|+=2]#!$SPEC_ITEMS_TURMOIL$\\n$TOOLTIP_DELIMITER$\\nEach [concept_war] ([concept_spec_war_news]): #N {k['WAR_WORST']:g}#! to #P +{k['WAR_BEST']:g}#! a month\\nAll wars together: #N {k['WAR_ALL_MIN']:g}#! to #P +{k['WAR_ALL_MAX']:g}#! a month\\nA [concept_diplomatic_play] that is not war yet: #N -{k['PLAY_TURMOIL']:g}#! a month\\nTreasury running dry: up to #N -{k['BROKE_COST']:g}#! a month, starting #v {k['BROKE_WEEKS']}#! weeks before [concept_bankruptcy]\\n[concept_default]: #N -5#! a month\\n[concept_revolution]: #N -2#! a month\\n\\n#instruction Hover over a figure to see its causes#!"
+ SPEC_DRIVER_TURMOIL_TT: "#header War and Unrest: [{v('spec_c_turmoil')}|+=1]#!$SPEC_ITEMS_TURMOIL$\\n$TOOLTIP_DELIMITER$\\nThrough [concept_spec_war_news], each [concept_war] moves [concept_spec_market_confidence] by #N {k['WAR_WORST']:g}#! to #P +{k['WAR_BEST']:g}#! a month, and all wars together by #N {k['WAR_ALL_MIN']:g}#! to #P +{k['WAR_ALL_MAX']:g}#!.\\n\\nIt also falls by #N {k['PLAY_TURMOIL']:g}#! a month in a [concept_diplomatic_play], by up to #N {k['BROKE_COST']:g}#! from #v {k['BROKE_WEEKS']}#! weeks before [concept_bankruptcy], by #N {k['DEFAULT_COST']:g}#! in [concept_default] and by #N {k['REVOLUTION_COST']:g}#! in a [concept_revolution].\\n\\n#instruction Hover over a figure to see its causes#!"
  SPEC_DRIVER_MOOD: "Market Mood"
- SPEC_DRIVER_MOOD_TT: "#header Market Mood: [{v('spec_c_mood')}|+=2]#!\\n$TOOLTIP_DELIMITER$\\n[{v('spec_mood_shift')}|+=2] from this month's random swing\\n[Subtract_CFixedPoint({v('spec_c_mood')}, {v('spec_mood_shift')})|+=2] left over from last month\\n$TOOLTIP_DELIMITER$\\n#weak Swings at random each month, up to #v {k['MOOD_SHOCK']:g}#! either way. #v {k['MOOD_KEEP']:.0%}#! of it carries into next month.{' Companies with high [concept_prosperity] lift it once our [concept_spec_exchange] is #v National#!.' if __import__('centres').LEAN else ''}#!"
+ SPEC_DRIVER_MOOD_TT: "#header $SPEC_DRIVER_MOOD$: [{v('spec_c_mood')}|+=1]#!\\n$TOOLTIP_DELIMITER$\\n[Subtract_CFixedPoint({v('spec_c_mood')}, {v('spec_mood_shift')})|+=1] from last month's mood\\n[SelectLocalization({P}.Var('spec_mood_random').IsSet, 'SPEC_MOOD_SOURCES', 'SPEC_MOOD_COMBINED')]\\n$TOOLTIP_DELIMITER$\\n#weak Each month, [concept_spec_market_mood] keeps #v {k['MOOD_KEEP']:.0%}#! of the last month's and adds a new random swing.#!"
+ SPEC_MOOD_COMBINED: "[{v('spec_mood_shift')}|+=1] from this month's swing"
+ SPEC_MOOD_SOURCES: "[{v('spec_mood_random')}|+=1] from this month's random swing{mood_company}"
+ SPEC_MOOD_COMPANY: "\\n[Subtract_CFixedPoint({v('spec_mood_shift')}, {v('spec_mood_random')})|+=1] from how well our companies are doing"
  SPEC_DRIVER_DRIFT: "Return to Baseline"
- SPEC_DRIVER_DRIFT_TT: "#header Return to Baseline: [{v('spec_c_recover')}|+=2]#!\\n$TOOLTIP_DELIMITER$\\n[Divide_CFixedPoint({v('spec_c_recover')}, Divide_CFixedPoint({sv('spec_recover_pct')}, {fx(100)}))|+=1] how far we are from [concept_spec_baseline] (#v {k['CONF_START']}#!)\\n#v x[Divide_CFixedPoint({sv('spec_recover_pct')}, {fx(100)})|%1]#! of the gap closes each month\\n$TOOLTIP_DELIMITER$\\n#weak [GetTechnology('macroeconomics').GetName] makes this half again as fast#!"
+ SPEC_DRIVER_DRIFT_TT: "#header Return to Baseline: [{v('spec_c_recover')}|+=1]#!\\n$TOOLTIP_DELIMITER$\\n[Divide_CFixedPoint({v('spec_c_recover')}, Divide_CFixedPoint({sv('spec_recover_pct')}, {fx(100)}))|+=1] from the gap to our [concept_spec_baseline] of #v {k['CONF_START']}#!#indent_newline:3 \\n#v x{k['CONF_RECOVER']:g}#! from the share of it that closes each month[AddLocalizationIf({not1('spec_macro')}, 'SPEC_DRIFT_MACRO')]{drift_trust}#!\\n$TOOLTIP_DELIMITER$\\n#weak [GetTechnology('macroeconomics').GetName] makes the gap close faster.#!"
+ SPEC_DRIFT_MACRO: "\\n#v x[{sv('spec_macro')}|2]#! from [GetTechnology('macroeconomics').GetName]"
+ SPEC_DRIFT_TRUST: "\\n#v x[{sv('spec_exch_recover')}|2]#! from our [concept_spec_exchange]'s [concept_spec_trust]"
  SPEC_DRIVER_TIGHT: "Tight Credit"
  SPEC_DRIVER_GROWTH: "Growth"
- SPEC_DRIVER_GROWTH_TT: "#header Growth: [{v('spec_c_growth')}|+=2]#!\\n$TOOLTIP_DELIMITER$\\n#v [{v('spec_growth')}|=+%1]#! [concept_gdp] growth compared with recent months\\n#v {k['GROWTH_NORMAL']:.0%}#! growth counts as normal and changes nothing\\n$TOOLTIP_DELIMITER$\\n#weak [concept_spec_market_confidence] moves #v {k['GROWTH_K'] / 100:g}#! a month for each #v 1%#! faster or slower than normal, up to #v {k['GROWTH_MAX']:g}#! either way#!"
+ SPEC_DRIVER_GROWTH_TT: "#header Growth: [{v('spec_c_growth')}|+=1]#!\\n$TOOLTIP_DELIMITER$\\nOur [concept_gdp] growth against its average of recent months is #v [{v('spec_growth')}|=+%1]#!, and #v {k['GROWTH_NORMAL']:.0%}#! counts as normal.\\n\\n#weak [concept_spec_market_confidence] moves #v {k['GROWTH_K'] / 100:g}#! a month for each point of growth above or below normal, by up to #v {k['GROWTH_MAX']:g}#! either way.#!"
  SPEC_DRIVER_BUSINESS: "Business Mood"
- SPEC_DRIVER_BUSINESS_TT: "#header Business Mood: [{v('spec_c_business')}|+=2]#!\\n$TOOLTIP_DELIMITER$\\nIndustrialists' [concept_approval]: #v [{sv('spec_ind_approval')}|0]#!\\n\\n{business_lines()}"
- SPEC_DRIVER_TIGHT_TT: "#header Tight Credit: [{v('spec_c_tight')}|+=2]#!\\n$TOOLTIP_DELIMITER$\\n#v [Divide_CFixedPoint({v('spec_c_tight')}, {fx(-tight_pull)})|1]#! of [concept_spec_market_confidence] above #v {tight_from}#!\\n#N -{tight_pull:.0%}#! of that a month, from [Concept('concept_spec_credit_policy','$concept_spec_credit_policy_tight$')]\\n$TOOLTIP_DELIMITER$\\n#weak Cools a boom slowly over months instead of all at once#!"
+ SPEC_DRIVER_BUSINESS_TT: "#header Business Mood: [{v('spec_c_business')}|+=1]#!\\n$TOOLTIP_DELIMITER$\\nThe $ig_industrialists$ have #v [{sv('spec_ind_approval')}|0]#! [concept_approval].\\n\\n{business_lines()}"
+ SPEC_DRIVER_TIGHT_TT: "#header Tight Credit: [{v('spec_c_tight')}|+=1]#!\\n$TOOLTIP_DELIMITER$\\nOur [concept_spec_market_confidence] is #v [Divide_CFixedPoint({v('spec_c_tight')}, {fx(-tight_pull)})|1]#! above #v {tight_from}#!. Under [Concept('concept_spec_credit_policy','$concept_spec_credit_policy_tight$')], #N {tight_pull:.0%}#! of that drains away each month.\\n\\n#weak This cools a boom slowly instead of all at once.#!"
  concept_spec_market_conditions: "Market Conditions"
  concept_spec_market_conditions_desc: "$concept_spec_market_conditions$ are how hot the market is when a [concept_spec_boom_end] comes. They decide how much [concept_spec_market_confidence] the ending costs. The higher $concept_spec_market_confidence$ is at the time, the bigger the loss. At #v {k['CONF_START']:g}#! they do nothing. Financial Districts, Manor Houses and finance technologies also change them."
  concept_spec_baseline: "Baseline Confidence"
  concept_spec_baseline_desc: "$concept_spec_baseline$ is the level, #v {k['CONF_START']}#!, to which [concept_spec_market_confidence] returns when left alone, from above or below. The further it has strayed, the faster it returns."
  concept_spec_market_mood: "Market Mood"
- concept_spec_market_mood_desc: "$concept_spec_market_mood$ is the swing in investors' feelings with no single cause. Each month it shifts by chance, by up to #v {k['MOOD_SHOCK']:g}#! either way, and #v {k['MOOD_KEEP']:.0%}#! of it carries over, so good and bad spells last a while before they fade."
+ concept_spec_market_mood_desc: "A random drift in [concept_spec_market_confidence]. Each month it keeps #v {k['MOOD_KEEP']:.0%}#! of last month's mood and adds a new random swing, whose size depends on the financial system."
  concept_spec_market_tie: "Market Tie"
  concept_spec_market_tie_desc: "A $concept_spec_market_tie$ is how closely one [concept_country] follows another's [concept_market]. It sets how much of a [concept_spec_financial_panic] passes between them.\\n\\nOwnership counts once a country owns #v {k['OWNED_FROM']:.0%}#! of the other's [concept_gdp], and is strongest at #v {k['OWNED_FULL']:.0%}#!. [GetLawType('law_free_trade').GetName] strengthens the trade tie and other trade policies weaken it. [GetTechnology('international_exchange_standards').GetName] strengthens market and investment ties. An [concept_embargo] cuts the trade tie."
  concept_spec_capital_flight: "Capital Flight"

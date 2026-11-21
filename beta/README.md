@@ -2,7 +2,7 @@
 
 This is the separate testing distribution of Speculative Markets. Enable **either Speculative Markets or Speculative Markets - Beta, never both**. The two distributions intentionally use the same gameplay definitions. Beta is a complete mod, not an add-on to stable.
 
-Published on November 14, 2026: **1.0.6-beta.1**, aligned with stable **1.0.6**. Both fix duplicate rivalry notifications and AI rescue probability weights. Gameplay/UI files match the tested local beta.3 candidate. See [release evidence](../HOTFIX_1.0.6.md).
+Steam verified **1.2.0-beta.1** on November 19, 2026 (interest group stances, Monetary Standard, Financial Integration; see `workshop/new_items.md` for its validation scope). Before that, Steam verified **1.1.5-beta.2** on November 17, 2026 (US Eastern). It adds Banking breakdowns, a risk sort for goods, recovery and Great Issue timers, and clearer explanations for panic recalls, failed pledges, charter changes, and Shore Up. The packaged beta passed 295 assertions across 23 scenarios in one game instance. See the [verification record](../tests/mechanics/verification_finance_readability_115b2.json).
 
 Use a separate playset and save copies when trying beta revisions; returning a beta save to an older version is not guaranteed. Older versioned archives remain immutable and do not indicate the currently published version.
 

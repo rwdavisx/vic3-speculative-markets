@@ -8,16 +8,21 @@ import json
 from pathlib import Path
 import mechanics_testbed as testbed
 
-def prepare(source, out):
-    testbed.prepare(source, out, 'rival_notifications')
-    helper = out / 'common/scripted_effects/zz_spec_mechanics_helpers.txt'
-    text = helper.read_text(encoding='utf-8-sig')
+def instrument(text):
     assert 'is_player = yes' in text
     text = text.replace('is_player = yes', 'c:GBR ?= this')
     for kind in ('won', 'lost'):
         call = f'post_notification = spec_rival_{kind}'
         assert call in text
         text = text.replace(call, f'change_variable = {{ name = spec_test_{kind} add = 1 }}\n' + call)
+    return text
+
+
+def prepare(source, out):
+    testbed.prepare(source, out, 'rival_notifications')
+    helper = out / 'common/scripted_effects/zz_spec_mechanics_helpers.txt'
+    text = helper.read_text(encoding='utf-8-sig')
+    text = instrument(text)
     helper.write_text(text, encoding='utf-8-sig')
     manifest_path = out / 'mechanics-test-manifest.json'
     manifest = json.loads(manifest_path.read_text())

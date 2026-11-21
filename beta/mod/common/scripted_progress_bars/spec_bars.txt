@@ -131,6 +131,13 @@
 			}
 		}
 		if = {
+			limit = { has_variable = spec_c_rival OR = { var:spec_c_rival >= 0.1 var:spec_c_rival <= -0.1 } }
+			add = {
+				desc = "SPEC_DRIVER_RIVAL"
+				value = var:spec_c_rival
+			}
+		}
+		if = {
 			limit = { has_variable = spec_c_drop OR = { var:spec_c_drop >= 0.1 var:spec_c_drop <= -0.1 } }
 			add = {
 				desc = "SPEC_DRIVER_DROP"

@@ -1,4 +1,14 @@
 {
   "0fee773c3e": "Ihre Stellung weicht höchstens #v {1}#! von unserer ab",
-  "966425a285": "Sie haben eine [concept_spec_exchange]"
+  "966425a285": "Sie haben eine [concept_spec_exchange]",
+  "c3633b0eab": "Finanzielle Integration",
+  "59b7c93a32": "Die Banken und Börsen der {1} leihen einander und dem {2}, sodass eine {3} auf einem Markt die anderen weniger erschüttert und der Geldmarkt des Anführers dem ganzen $concept_power_bloc$ dient.",
+  "6bf1516990": "Regierung stützt ihre Branche",
+  "83f11e45f6": "Die Regierung hat in einen Markt eingegriffen, der dieser Gruppe wichtig ist, ganz in ihrem Sinne.",
+  "72624fb140": "Bevorzugte Branche boomt",
+  "9c273eba47": "Investoren stecken Geld in eine Branche, die dieser Gruppe am Herzen liegt.",
+  "f16cf710c1": "Bevorzugte Branche eingebrochen",
+  "4587c5750d": "Eine Branche, die dieser Gruppe am Herzen liegt, ist eingebrochen, und sie gibt der Regierung die Schuld, die das zuließ.",
+  "0f694b87ed": "Regierung durchkreuzt ihre Branche",
+  "77fe19e687": "Die Regierung hat in einen Markt eingegriffen, der dieser Gruppe wichtig ist, gegen ihren Willen."
 }

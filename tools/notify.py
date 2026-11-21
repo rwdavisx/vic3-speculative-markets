@@ -1,6 +1,7 @@
 """Toasts telling a player that a country tied to them (spec_every_tied's ties) has panicked or turned greedy."""
 
 import centres  # its switches decide which Exchange toasts exist; it does not import this module
+import ig_stances
 import leverage
 import cycle
 V = "gfx/interface/icons/notification_icons"
@@ -11,19 +12,17 @@ NOTES = {
     "spec_tied_panic": (
         "spec_foreign_panic_notification_group", "rank_down", "bad",
         f"Panic breaks out in {SRC}",
-        f"A [concept_spec_financial_panic] has broken out in {SRC}, and our ties to them have carried a [concept_spec_foreign_panic] into our own markets."),
+        f"Our ties to {SRC} have carried a [concept_spec_foreign_panic] into our own markets."),
     "spec_tied_mania": (
         "spec_foreign_mania_notification_group", "company", "neutral",
         f"Speculative mania grips {SRC}",
-        f"Investors in {SRC} have been seized by a [concept_spec_speculative_mania]. Should it end in a [concept_spec_financial_panic], "
-        "our ties to them will drag down our own [concept_spec_market_confidence]."),
+        "If it ends in a [concept_spec_financial_panic], our ties to them will drag down our [concept_spec_market_confidence]."),
     # our own market: a warning while there is still time to act, and the news when a boom ends
     "spec_feverish": (
         "spec_warning_notification_group", "goods", "bad",
         f"Investors grow feverish over {GOOD}",
-        f"[concept_spec_investor_interest] in {GOOD} is now #v Feverish#!. If it drops all the way to #v Fleeing#! while the boom is still this big, the boom ends in a "
-        "[concept_spec_collapse] and [concept_spec_market_confidence] drops hard. The boom shrinks slowly while it cools, "
-        "so a gentle cool-down ends it more softly, and Restrain Speculation lets it down slowly, as a mild Correction."),
+        "If [concept_spec_investor_interest] drops to #v Fleeing#! while the boom is this big, it ends in a [concept_spec_collapse]. "
+        "Restrain Speculation lets it down gently."),
     "spec_near_panic": (
         "spec_warning_notification_group", "rank_down", "bad",
         "Confidence nears panic",
@@ -40,39 +39,40 @@ NOTES = {
         "spec_warning_notification_group", "rank_up", "good",
         "Our exchange becomes a Financial Centre",
         "Our [concept_spec_exchange] now ranks among the world's [Concept('concept_spec_financial_centre','$concept_spec_financial_centres$')]. "
-        "While it does, we gain [concept_prestige] and pay less interest on our [concept_loans]."),
+        "While it does, we gain [concept_prestige]."),
     "spec_centre_lost": (
         "spec_warning_notification_group", "rank_down", "bad",
         "Our exchange is no longer a Financial Centre",
         "Our [concept_spec_exchange] no longer ranks among the world's [Concept('concept_spec_financial_centre','$concept_spec_financial_centres$')]. "
-        "We have lost the [concept_prestige] and the lower interest on our [concept_loans] that came with it."),
+        "We have lost the [concept_prestige] that came with it."),
     "spec_panic_over": (
         "spec_warning_notification_group", "rank_up", "good",
         "The panic subsides",
-        "The [concept_spec_financial_panic] has run its course. Its penalties and $spec_panic_relief$ payments have ended."
-        + (" Any [concept_spec_bad_debts] it left still slow production and investment until they fade." if leverage.ON else "")),
+        "Its penalties and $spec_panic_relief$ payments have ended."
+        + (" Any [concept_spec_bad_debts] it left will fade in time." if leverage.ON else "")),
     "spec_bubble_burst": (
         "spec_warning_notification_group", "rank_down", "bad",
         "The bubble bursts",
-        "[concept_spec_market_confidence] dropped too low to hold up our [concept_spec_speculative_excess]. "
-        "The bubble has popped, and $concept_spec_market_confidence$ has dropped even more."),
+        "[concept_spec_market_confidence] fell too low to hold up our [concept_spec_speculative_excess], and the burst has cut it further."
+        + ("[AddLocalizationIf(GetPlayer.MakeScope.Var('spec_xs_bad').IsSet, 'SPEC_BURST_BAD')]" if leverage.ON else "")),
 } | ({"spec_lev_unsafe": (
         "spec_warning_notification_group", "rank_down", "bad",
         "Leverage passes the safe limit",
-        f"[concept_spec_leverage] has risen above #v {leverage.SAFE}#! months, the most that is safe. From here, a "
-        "[concept_spec_financial_panic] will begin at a higher [concept_spec_market_confidence] and leave [concept_spec_bad_debts] behind it."),
+        f"[concept_spec_leverage] is past the safe #v {leverage.SAFE}#! months. A [concept_spec_financial_panic] now starts sooner and leaves "
+        "[concept_spec_bad_debts] behind."),
 } if leverage.ON else {}) | {f"spec_boom_end_{sev}": (
         "spec_boom_end_notification_group", "goods", color,
         f"{GOOD} boom ends in a {name}",
-        f"The boom in {GOOD} has ended in a [concept_spec_{key}]. [concept_spec_market_confidence] has fallen, and the industry "
-        f"built up for prices that did not last is now #v Recovering#!, shunned by investors for about #v {months}#! months.$SPEC_NOTE_BANKS$")
+        f"The [concept_spec_{key}] has cut [concept_spec_market_confidence], and investors will shun the industry for about "
+        f"#v {months}#! months.$SPEC_NOTE_BANKS$")
     for sev, key, name, color, months in
     # months: generate.UNWINDS' glut lengths (generate imports this module)
     [(1, "correction", "Correction", "neutral", 3), (2, "bust", "Bust", "bad", 6), (3, "collapse", "Collapse", "bad", 12)]}
 GROUPS = {"spec_foreign_panic_notification_group": "Foreign Panics",
           "spec_foreign_mania_notification_group": "Foreign Speculative Mania",
           "spec_warning_notification_group": "Speculation Warnings",
-          "spec_boom_end_notification_group": "Boom Endings"}
+          "spec_boom_end_notification_group": "Boom Endings"} | ig_stances.NOTE_GROUPS
+NOTES |= ig_stances.NOTES
 if centres.ON:  # its Standing toasts replace the Financial Centre ones
     EXCH = "$SPEC_EXCH_CITY_ME$ Exchange"
     NEWS = "spec_exchange_notification_group"  # the Exchange's own news, muted apart from the panic warnings
@@ -85,7 +85,7 @@ if centres.ON:  # its Standing toasts replace the Financial Centre ones
         "spec_exch_down": (
             NEWS, "rank_down", "bad",
             "Our exchange loses standing",
-            f"The {EXCH} has fallen to #v $SPEC_EXCH_STAND_ME$#!, and has lost what its higher [concept_spec_exchange] Standing brought.$SPEC_EXCH_DOWN_LOST$"),
+            f"The {EXCH} has fallen to #v $SPEC_EXCH_STAND_ME$#!.$SPEC_EXCH_DOWN_LOST$"),
     }
     # the yearly tally names the Exchange (centres._earn); with the charters (NAMES_ON) it names only the AI's, so no toast
     if centres.EARN and not centres.NAMES_ON:
@@ -94,10 +94,11 @@ if centres.ON:  # its Standing toasts replace the Financial Centre ones
             "Our exchange makes its name",
             f"The {EXCH} is now known abroad for its #v $SPEC_EXCH_KNOWN_ME$#!.")
     if centres.RIVAL_ON:  # a rivalry's contest settling (rivals.ROUND years)
+        rival = "[SCOPE.sState('spec_note_state').GetCityHubName] Exchange"  # rivals.py saves its seat or capital
         NOTES["spec_rival_won"] = (NEWS, "rank_up", "good", "Our Exchange wins a contest",
-                                   f"The {EXCH} has come out ahead in its contest with a competing Exchange, and its trust has grown.")
+                                   f"The {EXCH} has come out ahead in its contest with the {rival}, and its trust has grown.")
         NOTES["spec_rival_lost"] = (NEWS, "rank_down", "bad", "Our Exchange loses a contest",
-                                    f"The {EXCH} has come out behind in its contest with a competing Exchange, and its trust has fallen.")
+                                    f"The {EXCH} has come out behind in its contest with the {rival}, and its trust has fallen.")
 
 
 # SelectLocalization evaluates selected strings without the notification SCOPE.
@@ -190,10 +191,12 @@ def loc(panic_at):
     if leverage.ON:
         panic_at = "[GetPlayer.MakeScope.ScriptValue('spec_panic_at')|0]"
     out = f' SPEC_PANIC_AT: "{panic_at}"\n' + "".join(f' {g}: "{name}"\n' for g, name in GROUPS.items())
+    if leverage.ON:  # the burst's losses past the confidence there was (leverage.ON_BURST)
+        out += ' SPEC_BURST_BAD: " What it could not take became [concept_spec_bad_debts]."\n'
     for key, (*_, name, desc) in NOTES.items():
         n = f"notification_{key}"
-        out += (f' {n}_name: "{name}"\n {n}_desc: "{desc}"\n'
-                f' {n}_tooltip: "#header ${n}_name$#!\\n$TOOLTIP_DELIMITER$\\n${n}_desc$"\n')
+        tip = f"#header ${n}_name$#!" + (f"\\n$TOOLTIP_DELIMITER$\\n${n}_desc$" if desc else "")
+        out += f' {n}_name: "{name}"\n {n}_desc: "{desc}"\n {n}_tooltip: "{tip}"\n'
     return out
 
 

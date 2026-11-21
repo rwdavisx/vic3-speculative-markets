@@ -1,0 +1,20 @@
+{
+ "4aee1cc3b2": "#header {1} 대규모 공모 발행#!\\n$TOOLTIP_DELIMITER$\\n#italic 뜨거운 [concept_good]의 주식을 우리 거래소에서 팝니다. 보상도 위험도 큽니다.#!\\n\\n#v {2}#!년 동안:\\n{3} 점수: #P +{4}%#!\\n호황이 끝나면 이 상품에 대한 은행 대출의 피해가 #N x1.5#!\\n호황이 끝나면 얻거나 잃는 신뢰가 #v x2#!\\n[concept_spec_bust] 또는 [concept_spec_collapse](으)로 끝나면 이 상품을 선호하는 집단은 평소의 두 배만큼 [concept_approval]을(를) 잃음{5}{6}{7}{8}{9}{10}{11}{12}{13}\\n$TOOLTIP_DELIMITER$\\n한 번에 하나만, 최소 #v {14}#!년 간격{15}\\n\\n{16}",
+ "f0e7498bdf": "@approves! #bold {1} 선호#!\\n[concept_approval] 변화 ([concept_powerful] 상태면 두 배, [concept_marginalized] 상태면 없음):\\n• 이 상품의 [concept_spec_investor_interest]이(가) #v 열의#!까지 오르면: {3}년간 {2}\\n• 호황이 [concept_spec_bust] 또는 [concept_spec_collapse](으)로 끝나면: {5}년간 {4}, 그리고 더는 선호하지 않을 수 있음\\n• 우리가 이 상품의 투자를 장려하면: 1년간 {6}\\n• 우리가 이 상품의 투기를 억제하면: 1년간 {7}\\n• 우리가 이 상품의 대규모 공모를 발행하면: {9}년간 {8}, 단 발행 중 호황이 [concept_spec_bust] 또는 [concept_spec_collapse](으)로 끝나면 손실이 두 배",
+ "06219e72de": "@disapproves! #bold {1} 반대#!\\n[concept_approval] 변화 ([concept_powerful] 상태면 두 배, [concept_marginalized] 상태면 없음):\\n• 우리가 이 상품의 투기를 억제하면: 1년간 {2}\\n• 우리가 이 상품의 투자를 장려하면: 1년간 {3}\\n• 우리가 이 상품의 대규모 공모를 발행하면: {5}년간 {4}",
+ "6540ebfda8": "#header [concept_interest_group] 관점#!\\n$TOOLTIP_DELIMITER$\\n각 $concept_interest_group$은(는) 우리 [concept_market]에서 거래되는 {1} 중 몇 가지를 @approves! 선호하고, 일부는 하나를 @disapproves! 반대합니다.\\n\\n이들의 [concept_approval]은(는) 이 상품들의 호황과 급락, 그리고 우리의 개입에 따라 오르내립니다. [concept_powerful] 상태면 두 배로 움직이고, [concept_marginalized] 상태면 전혀 움직이지 않습니다. 새 지도자가 집단의 관점 중 하나를 바꿀 수 있습니다.",
+ "d084752d1d": "#header 상품에 대한 관점#!\\n$TOOLTIP_DELIMITER$\\n{1}은(는) 자국이 거래하는 상품 중 몇 가지를 @approves! 선호하고, 하나를 @disapproves! 반대할 수도 있습니다. 이들의 [concept_approval]은(는) 이 상품들의 호황과 급락, 그리고 정부의 개입에 따라 오르내립니다. [concept_powerful] 상태면 두 배로 움직이고, [concept_marginalized] 상태면 전혀 움직이지 않습니다.\\n\\n새 지도자가 이 관점 중 하나를 바꿀 수 있습니다.",
+ "c45305685b": "\\n@approves! {1} ([concept_clout] {2}): {4}년간 {3}",
+ "71fab82265": "\\n@disapproves! {1} ([concept_clout] {2}): {4}년간 {3}",
+ "877acc2735": "선호 업계의 주식",
+ "ba7f8afe8d": "정부가 이 집단이 중요하게 여기는 업계에서 대규모 공모를 발행했고, 이들이 주식을 사들였습니다.",
+ "62f8a28180": "반대하는 업계의 대규모 공모",
+ "d0ddbef73e": "정부가 이 집단이 반대하는 업계에서 대규모 공모를 발행했습니다.",
+ "828d103fb0": "모든 은행권은 정해진 무게의 금으로 교환할 수 있습니다. 대부자들은 이런 화폐를 신뢰하지만, 공황이 닥치면 은행은 보유한 금이 허락하는 만큼만 발행할 수 있습니다.\\n\\n{1} 시행 시:\\n#P -{2}%#! [concept_spec_trust] 손실\\n#N +{3}%#! [concept_spec_financial_panic] 기간\\n\\n{4} 하에서는 불가능: 이를 제정하면 금본위에서 이탈합니다.",
+ "030d821fe4": "통화는 오직 정부의 약속에만 기대고 있습니다. 새 돈으로 은행을 구제하고 신용의 흐름을 유지할 수 있지만, 투자자들은 이를 덜 신뢰합니다.\\n\\n{1} 시행 시:\\n#P -{2}%#! [concept_spec_financial_panic] 기간\\n#N +{3}%#! 투기 호황 규모",
+ "633934acac": "고전적 금본위제",
+ "9c5cb3af67": "건전한 화폐와 자유 시장: 대부자들은 우리 화폐를 더욱 신뢰하지만, 위기 시 은행은 보유한 금이 허용하는 것보다 더 많이 발행할 수 없다.",
+ "574637ad06": "최종 대부자",
+ "bca1220150": "국가가 직접 찍어낸 화폐로 은행을 뒷받침한다: 공황은 더 일찍 끝나지만, 값싼 화폐는 호황을 더욱 과열시킨다.",
+ "1a45cc8cce": "모든 은행권은 일정 중량의 금으로 교환할 수 있다. 대부자들은 이러한 화폐를 신뢰하지만, 공황 시 은행은 보유한 금이 허용하는 것보다 더 많이 발행할 수 없다.\\n\\n{1} 시:\\n#P -{2}%#! [concept_spec_trust] 손실\\n#N +{3}%#! [concept_spec_financial_panic] 지속 기간"
+}

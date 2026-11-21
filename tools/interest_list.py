@@ -1,8 +1,8 @@
 ﻿"""Investor Interest: a goods list in a fixed order. One row per traded good, in vanilla's goods
 category order (CATEGORIES, as the market panel's filters) and then by key, so a good keeps its place month to
 month. A row reads: the good; a six step scale, Fleeing to Feverish, bright up to the marker and dimmed beyond it,
-the marker being the good's tier icon; a small arrow when interest rose or fell this month; the Restrain and Encourage
-buttons. The marker also shows the good's state (interest_board.ui_effect's spec_ui_state_<g>): pulsing while a boom
+the marker being the good's tier icon; a small arrow when interest rose or fell this month; the interest groups
+favoring it, then those opposing it (ig_stances.slot); the Restrain and Encourage buttons. The marker also shows the good's state (interest_board.ui_effect's spec_ui_state_<g>): pulsing while a boom
 large enough to Collapse is turning, with a tick at the crash line; a crash icon that pops in the month a boom ends;
 the same icon, without the pop, on a muted bar while the good is in a glut. The Interest column's sort button switches
 to the monthly word lists (spec_goods_w<w>, hottest first, larger trade first within a word).
@@ -14,32 +14,42 @@ whole category's rows at once."""
 import re
 
 import icons
+import ig_stances
 import interest_board
 import levers
 from interest_board import HEAT, eq
-from market_tab import P, W, fx, gt, v, ind, good_var, sv, level_effects, FLAT, BARS, CLEAR, SLIDE, RISK, TREND, WORD, WORDS, LEANING, CATEGORIES, CAT, cat_shown, any_of, goods_filters, FIN
+from market_tab import P, W, fx, gt, v, ind, good_var, sv, rounded, rounded_tenth, expiry_date, level_effects, FLAT, BARS, CLEAR, SLIDE, RISK, TREND, WORD, WORDS, LEANING, CATEGORIES, CAT, cat_shown, any_of, goods_filters, FIN
 
 ROW_H = 52
-COLS = [("goods", 160), ("scale", 268), ("lever", 112)]
+# the groups favoring and opposing the good (ig_stances.slot) after Risk; the scale gave up the width (segments 32 to 21), the
+# lever column is its strip's width (3 x 32 + set_level_bar_background's 2 x 5)
+# Risk has its own column (it shared the tier name's line, which ran into it); goods (156 to 141) and the tier icon,
+# moved before the name, gave the width
+COLS = [("goods", 141), ("scale", 177), ("risk", 40), ("fav", ig_stances.SLOT_W), ("dis", ig_stances.SLOT_W), ("lever", 106)]
 COL = dict(COLS)
-# the interest column as vanilla's Interests list (country_diplomacy_panel.gui, strategic_region_panel.gui:716): the
-# tier icon on the left, the tier's name over a bar of six tier segments
+# the interest column: the tier icon and name over a bar of six tier segments. The icon sits before the name, so the
+# bar has the column's width (it stood left of both, as tall as the two, until 1.2; sized() keeps that for the goods panel)
 NAME_H, BAR_H = 18, 14   # the tier's name over the bar
 NAME_GAP = 6             # between the name and the bar (2 read as cramped)
-MARK = NAME_H + NAME_GAP + BAR_H  # the tier icon, as tall as the two
+TOP = (ROW_H - NAME_H - NAME_GAP - BAR_H) // 2  # the name line's top
+MARK = 22                # the tier icon, a little taller than the name it leads
 ICON_X = 6
-ICON_Y = (ROW_H - MARK) // 2
-BAR_X, BAR_Y = ICON_X + MARK + 8, ICON_Y + NAME_H + NAME_GAP
+ICON_Y = TOP - (MARK - NAME_H) // 2
+NAME_X, NAME_DY = MARK + 4, (MARK - NAME_H) // 2  # the name line, from the icon's corner
+BAR_X, BAR_Y = ICON_X, TOP + NAME_H + NAME_GAP
 NAME_FONT = ""           # the tier name's font: the default (sized() can set one)
-SEG, GAP = 32, 3         # one tier's segment, and the divider between two
+SEG, GAP = 24, 3         # one tier's segment, and the divider between two
 BAR_W = 6 * SEG + 5 * GAP
 CRASH_ICON = icons.path("crash_risk")
-CRASH_SIZE = 28          # the solid coin fills its box: smaller than the tier icons, it reads as the same weight  # the cracked coin reads better at 22 px than driver_crash's toppling stack
+CRASH_SIZE = 26          # the cracked coin, over the tier icon in the crash month and the glut
 SORT = "spec_il_sort"    # GetVariableSystem flag: set, the list is ordered by interest
 SORTED = f"GetVariableSystem.Exists('{SORT}')"
+RISK_SORT = f"GetVariableSystem.HasValue('{SORT}', 'risk')"
 ACTIVE = "spec_il_active"  # GetVariableSystem flag: set, the list shows only goods with an intervention on
+FAV_F, DIS_F = "spec_il_fav", "spec_il_dis"  # flags: set, only goods a group favors / opposes (ig_stances.mark)
+ANY_FILTER = f"Or(GetVariableSystem.Exists('{ACTIVE}'), Or(GetVariableSystem.Exists('{FAV_F}'), GetVariableSystem.Exists('{DIS_F}')))"
 assert sum(COL.values()) == W
-assert ICON_X + MARK < BAR_X and BAR_X + BAR_W <= COL["scale"] - 8
+assert BAR_X + BAR_W <= COL["scale"] - 8
 
 
 def var(g):
@@ -58,7 +68,9 @@ def intervention_on(rd):
 def matches_filters(rd):
     """The same predicate for rows, category groups and the empty-list message."""
     active = f"Or(Not(GetVariableSystem.Exists('{ACTIVE}')), {intervention_on(rd)})"
-    return f"And({gt(rd('spec_word'))}, And({tier_shown(rd)}, {active}))"
+    stances = (f"And(Or(Not(GetVariableSystem.Exists('{FAV_F}')), {gt(rd('spec_igs_fv'))}), "
+               f"Or(Not(GetVariableSystem.Exists('{DIS_F}')), {gt(rd('spec_igs_op'))}))")
+    return f"And({gt(rd('spec_word'))}, And({tier_shown(rd)}, And({active}, {stances})))"
 
 
 def marker(rd):
@@ -70,7 +82,7 @@ def marker(rd):
     st = lambda n: eq(rd("spec_ui_state"), n)
     word = rd("spec_word")
     name = lambda key, with_trend=False: f"""flowcontainer = {{
-	position = {{ {BAR_X - ICON_X} 0 }}
+	position = {{ {NAME_X} {NAME_DY} }}
 	spacing = 8
 	textbox = {{
 		size = {{ -1 {NAME_H} }}
@@ -78,8 +90,8 @@ def marker(rd):
 		align = left|nobaseline
 {NAME_FONT}		text = "{key}"
 	}}
-{ind(trend(rd), 1) if with_trend else ''}}}
-"""
+}}
+{trend(rd) if with_trend else ''}"""
     # turning: vanilla's silent two state alpha loop (country_panel.gui:3260-3281) on the icon alone, not the
     # shimmer template, which plays a sound every cycle (shared/animations.gui:548-556). It loops from creation, so
     # it needs no test of its own
@@ -195,6 +207,7 @@ state = {
 		widget = {{
 			size = {{ 100% 100% }}
 			visible = "[{st(3)}]"
+			tooltip = "SPEC_IL_GLUT_TT"
 {ind(name('SPEC_IL_WORD_GLUT'), 3)}		}}
 	}}
 }}
@@ -454,16 +467,23 @@ def levels():
 
 
 def trend(rd):
-    """The price trend against its long run average (interest_board's SPEC_IB_HEAT_TT line), after the tier's name;
-    hidden under 1%, which the game shows as 0%: |%0 cuts the fraction off rather than rounding it."""
+    """The price trend against its long run average (interest_board's SPEC_IB_HEAT_TT line), on the tier name's line
+    flush with the bar's right end, to a tenth of a percent; hidden where that rounds to 0.0%. The box spanning the bar
+    lets the mouse through, so only the figure takes its tooltip."""
     t = f"Subtract_CFixedPoint({rd('spec_fast')}, {rd('spec_slow')})"
-    return f"""textbox = {{
-	size = {{ -1 {NAME_H} }}
-	autoresize = yes
-	align = left|nobaseline
-	visible = "[Or(GreaterThanOrEqualTo_CFixedPoint({t}, {fx(0.01)}), LessThanOrEqualTo_CFixedPoint({t}, {fx(-0.01)}))]"
-	raw_text = "[{t}|=+%0]"
-	tooltip = "SPEC_IB_HEAT_TT"
+    return f"""widget = {{
+	position = {{ {BAR_X - ICON_X} {NAME_DY} }}
+	size = {{ {BAR_W} {NAME_H} }}
+	alwaystransparent = yes
+	textbox = {{
+		parentanchor = right
+		size = {{ -1 {NAME_H} }}
+		autoresize = yes
+		align = right|nobaseline
+		visible = "[Or(GreaterThanOrEqualTo_CFixedPoint({t}, {fx(0.0005)}), LessThanOrEqualTo_CFixedPoint({t}, {fx(-0.0005)}))]"
+		raw_text = "[{rounded(t, 3)}|=+%1]"
+		tooltip = "SPEC_IB_HEAT_TT"
+	}}
 }}
 """
 
@@ -502,7 +522,7 @@ def sized(rd, seg, bar_h, name_h, crash, font=""):
     g = globals()
     mark = name_h + NAME_GAP + bar_h
     geo = dict(TYPED=False, SEG=seg, BAR_H=bar_h, NAME_H=name_h, MARK=mark, BAR_W=6 * seg + 5 * GAP, ICON_Y=2,
-               BAR_X=ICON_X + mark + 10, BAR_Y=2 + name_h + NAME_GAP, CRASH_SIZE=crash,
+               BAR_X=ICON_X + mark + 10, BAR_Y=2 + name_h + NAME_GAP, CRASH_SIZE=crash, NAME_X=mark + 10, NAME_DY=0,
                NAME_FONT=f"\t\tusing = {font}\n" if font else "")
     saved = {k: g[k] for k in geo}
     g.update(geo)
@@ -552,11 +572,26 @@ textbox = {{
 	text = "[Goods.GetNameNoFormatting]"
 }}
 """
+    # an interest group's button closes Finance before its panel opens, as the row does for the goods panel
+    fav, dis = ig_stances.slot(rd, g, f"\t\tonclick = \"[GetVariableSystem.Clear('{FIN}')]\"\n")
     lever = interest_board.small_strip().replace("parentanchor = hcenter", "parentanchor = center", 1)
     if g:  # the lever flags (and the Great Issue's) by name too
         named = lambda x: re.sub(r"Concatenate\('(\w+_)', Goods\.GetKey\)", rf"'\g<1>{g}'", x)
         lever = named(lever)
-    cols = [column("goods", goods), column("scale", scale(rd) + marker(rd) + crash_flash(rd) + levels()), column("lever", lever)]
+    # on every row with a loss to show, whatever the sort. The tooltip is a plain key, built on hover: as a
+    # [SelectLocalization(...)] binding its calculator (several script values a good) was rebuilt every frame for every row
+    risk_number = f"""textbox = {{
+	visible = "[{gt(rd('spec_risk'), 0.05)}]"
+	size = {{ {COL['risk']} {NAME_H} }}
+	parentanchor = center
+	align = hcenter|nobaseline
+	fontsize_min = 12
+	text = "SPEC_IL_RISK_VALUE"
+	tooltip = "SPEC_IL_RISK_DETAILS"
+}}
+"""
+    cols = [column("goods", goods), column("scale", scale(rd) + marker(rd) + crash_flash(rd) + levels()), column("risk", risk_number),
+            column("fav", fav), column("dis", dis), column("lever", lever)]
     context, shown = (f"GetGoods('{g}')" if g else "Scope.GetGoods"), matches_filters(rd)
     return f"""button = {{
 	datacontext = "[{context}]"
@@ -602,7 +637,7 @@ def tier_filters():
 	icon = {{
 		texture = "gfx/interface/backgrounds/round_frame_dec.dds"
 		size = {{ 64 64 }}
-		visible = "[{HAS(w)}]"
+		visible = "[Or(Not(GetVariableSystem.Exists('{TIER}')), {HAS(w)})]"
 		using = default_fade_in_out
 	}}
 {"".join(f'''	goods_filter_button = {{
@@ -632,29 +667,80 @@ def order(category):
     return sorted(category, key=lambda g: (CATEGORIES.index(category[g]), g))
 
 
+def risk_order_value(goods):
+    """Read the cached loss shown on the goods row from its country's scope."""
+    ranks = "".join(f"\t{'if' if i == 0 else 'else_if'} = {{ limit = {{ this = g:{g} }} value = scope:spec_sort_owner.var:spec_risk_{g} }}\n"
+                    for i, g in enumerate(goods))
+    return "spec_goods_risk_order = {\n\tvalue = 0\n" + ranks + "}\n"
+
+
+def risk_list_effect(category):
+    goods = order(category)
+    name = "spec_goods_by_risk"
+    append = lambda group, target: f"add_to_variable_list = {{ name = {name}{group} target = {target} }}"
+    lines = ["spec_refresh_risk_list = {", "\tsave_temporary_scope_as = spec_sort_owner", "\tclear_variable_list = spec_risky_goods",
+             f"\tclear_variable_list = {name}"]
+    lines += [f"\tclear_variable_list = {name}_{c}" for c in CATEGORIES]
+    for g in goods:
+        lines.append(f"\tif = {{ limit = {{ has_variable = spec_word_{g} var:spec_word_{g} > 0 has_variable = spec_risk_{g} var:spec_risk_{g} > 0 }} add_to_variable_list = {{ name = spec_risky_goods target = g:{g} }} }}")
+    lines += ["\tordered_in_list = {", "\t\tvariable = spec_risky_goods", "\t\torder_by = spec_goods_risk_order",
+              "\t\tscope:spec_sort_owner = { " + append("", "prev") + " }"]
+    for c in CATEGORIES:
+        match = " ".join(f"this = g:{g}" for g in goods if category[g] == c)
+        if match:
+            lines.append(f"\t\tif = {{ limit = {{ OR = {{ {match} }} }} scope:spec_sort_owner = {{ {append('_' + c, 'prev')} }} }}")
+    lines.append("\t}")
+    # Most goods have zero risk. Keep these in normal goods order without sorting them.
+    for g in goods:
+        lines.append(f"\tif = {{ limit = {{ has_variable = spec_word_{g} var:spec_word_{g} > 0 NOT = {{ is_target_in_variable_list = {{ name = {name} target = g:{g} }} }} }} "
+                     f"{append('', 'g:' + g)} {append('_' + category[g], 'g:' + g)} }}")
+    return "\n".join(lines) + "\n\tclear_variable_list = spec_risky_goods\n}\n"
+
+
 def header():
     """vanilla's sort buttons over the columns: Goods (fixed order) and Investor Interest (by interest) sort, each
     setting its order, as vanilla's do. Each row's tier icon names its tier in its tooltip, so the header needs no
     legend. HEAD_H: vanilla's sort_button is 30 tall whatever size it is given (shared/buttons.gui)."""
     HEAD_H = 30
     picked = lambda on: f"""	blockoverride "selected_visibility" {{
-		visible = "[{SORTED if on else f'Not({SORTED})'}]"
+		visible = "[{on}]"
 	}}
 """
+    # Investor Interest and Risk switch their order on, and off again (back to the goods order, no header lit): two
+    # overlapping buttons each, one shown while off (sets it) and one while on (clears it), as tier_filters' are;
+    # vanilla's variable system has no conditional clear
+    toggle = lambda col, face, tooltip, value, on: "".join(f"""	sort_button = {{
+		size = {{ {COL[col]} {HEAD_H} }}
+		visible = "[{shown}]"
+{ind(face, 2)}		tooltip = "{tooltip}"
+		onclick = "[{click}]"
+{lit}	}}
+""" for shown, click, lit in ((f"Not({on})", f"GetVariableSystem.Set('{SORT}', '{value}')", ""),
+                              (on, f"GetVariableSystem.Clear('{SORT}')", picked(on))))
+    # the crash month's cracked coin, as the group headers' icons: text elides in so narrow a button
+    coin = f'icon = {{\n\tsize = {{ 24 24 }}\n\tparentanchor = center\n\ttexture = "{CRASH_ICON}"\n}}\n'
     return f"""flowcontainer = {{
 	parentanchor = hcenter
+	ignoreinvisible = yes
 	sort_button = {{
 		size = {{ {COL['goods']} {HEAD_H} }}
 		text = "SPEC_IL_COL_GOODS"
 		tooltip = "SPEC_IL_SORT_GOODS_TT"
 		onclick = "[GetVariableSystem.Clear('{SORT}')]"
-{picked(False)}	}}
-	sort_button = {{
-		size = {{ {COL['scale']} {HEAD_H} }}
-		text = "SPEC_IL_COL_INTEREST"
-		tooltip = "SPEC_IL_SORT_INTEREST_TT"
-		onclick = "[GetVariableSystem.Set('{SORT}', 'yes')]"
-{picked(True)}	}}
+	}}
+{toggle('scale', 'text = "SPEC_IL_COL_INTEREST"' + chr(10), "SPEC_IL_SORT_INTEREST_TT", "yes", f"And({SORTED}, Not({RISK_SORT}))")}{toggle('risk', coin, "SPEC_IL_SORT_RISK_TT", "risk", RISK_SORT)}
+{"".join(f'''	sort_button = {{
+		size = {{ {COL[c]} {HEAD_H} }}
+		tooltip = "SPEC_IL_COL_{c.upper()}_TT"
+		onclick = "[GetScriptedGui('spec_sgui_igs_mark').Execute(GuiScope.SetRoot({P}).End)]"
+		onclick = "[GetVariableSystem.Toggle('{flag}')]"
+		icon = {{  # vanilla's marker, as an icon: as text it elides in so narrow a button
+			size = {{ 22 22 }}
+			parentanchor = center
+			texture = "gfx/interface/icons/generic_icons/{tex}.dds"
+		}}
+	{picked(f"GetVariableSystem.Exists('{flag}')")}	}}
+''' for c, tex, flag in (("fav", "approval_icon", FAV_F), ("dis", "disapproval_icon", DIS_F)))}
 	sort_button = {{
 		size = {{ {COL['lever']} {HEAD_H} }}
 		text = "SPEC_COL_LEVER"
@@ -678,14 +764,17 @@ def board(k):
     # Counts handle ordinary tier filters; with interventions selected, test the
     # same rows so an active good hidden by another filter leaves no empty group.
     matches = lambda gs: any_of([matches_filters(var(g)) for g in gs]) if gs else 'no'
-    present = lambda c: (f"And({cat_shown(c)}, And({filled(c)}, "
-                         f"Or(Not(GetVariableSystem.Exists('{ACTIVE}')), {matches(in_cat[c])})))")
+    present = lambda c: f"And({cat_shown(c)}, And({filled(c)}, {matches(in_cat[c])}))"
+    # each row brings its own 2px gap (a 0-high lead, then the group's spacing; the parent has none), so a group whose
+    # rows a filter hides takes no room and needs no test of every good's filters each frame (Jomini's And/Or do not
+    # short-circuit: the test cost every good's filters every frame, filter or not)
+    lead = "widget = {\n\tsize = { 1 0 }\n}\n"
     fixed = "".join(f"""flowcontainer = {{
 	direction = vertical
 	spacing = 2
 	ignoreinvisible = yes
-	visible = "[{present(c)}]"
-{ind("".join(row(g) for g in in_cat[c]), 1)}}}
+	visible = "[And({cat_shown(c)}, {filled(c)})]"
+{ind(lead + "".join(row(g) for g in in_cat[c]), 1)}}}
 """ for c in CATEGORIES)
     # Hidden parents do not update their child expressions. Ordinary filters use
     # monthly category/tier counts; inspect individual interventions only while
@@ -703,31 +792,53 @@ def board(k):
 		text = "SPEC_IL_EMPTY_FILTERS"
 	}}
 }}
-""" for mode, rows in ((f"Not(GetVariableSystem.Exists('{ACTIVE}'))", ordinary),
-                        (f"GetVariableSystem.Exists('{ACTIVE}')", active_rows)))
+""" for mode, rows in ((f"Not({ANY_FILTER})", ordinary), (ANY_FILTER, active_rows)))
     # the word lists' rows, one type (overlay_types) rather than a copy in each of the lists
-    lists_of = lambda suffix: "".join(f"""flowcontainer = {{
+    lists_of = lambda suffix, item: "".join(f"""flowcontainer = {{
 	datamodel = "[{P}.GetList('spec_goods_w{w}{suffix}')]"
 	direction = vertical
 	spacing = 2
 	ignoreinvisible = yes
 	item = {{
-		spec_il_row = {{}}
-	}}
+{ind(item, 2)}	}}
 }}
 """ for w in LEANING)
-    group = lambda shown, suffix: f"""flowcontainer = {{
+    group = lambda shown, suffix, item: f"""flowcontainer = {{
 	direction = vertical
 	spacing = 2
 	ignoreinvisible = yes
 	visible = "[{shown}]"
-{ind(lists_of(suffix), 1)}}}
+{ind(lists_of(suffix, item), 1)}}}
 """
-    by_interest = group(f"Not(GetVariableSystem.Exists('{CAT}'))", "") + "".join(
-        group(f"GetVariableSystem.HasValue('{CAT}', '{c}')", f"_{c}") for c in CATEGORIES)
-    lists = f"""flowcontainer = {{
+    groups = lambda item: group(f"Not(GetVariableSystem.Exists('{CAT}'))", "", item) + "".join(
+        group(f"GetVariableSystem.HasValue('{CAT}', '{c}')", f"_{c}", item) for c in CATEGORIES)
+    by_interest = groups("spec_il_row = {}\n")
+    # beside the lists, one empty row-high slot for each row shown, never hidden by a sort: a view a sort shows reads
+    # its rows' filters a frame late, and the tab's scroll area, that frame short of rows, sprang back to the top.
+    # Fixed slots read by name: as items of the word lists (one datamodel each, names concatenated) the tab lagged
+    # Two copies, so with no tier or other filter picked a slot tests only its category and whether the good trades
+    slot = lambda g, test: (f'widget = {{\n\tsize = {{ 1 {ROW_H} }}\n'
+                            f'\tvisible = "[And({cat_shown(k["CATEGORY"][g])}, {test(var(g))})]"\n}}\n')
+    narrowed = f"Or({ANY_FILTER}, GetVariableSystem.Exists('{TIER}'))"
+    hold = "".join(f"""flowcontainer = {{
 	direction = vertical
 	spacing = 2
+	ignoreinvisible = yes
+	visible = "[{shown}]"
+{ind(lead + "".join(slot(g, test) for g in goods), 1)}}}
+""" for shown, test in ((f"Not({narrowed})", lambda rd: gt(rd('spec_word'))), (narrowed, matches_filters)))
+    selected = lambda c: f"GetVariableSystem.HasValue('{CAT}', '{c}')" if c else f"Not(GetVariableSystem.Exists('{CAT}'))"
+    risk_lists = "".join(f"""flowcontainer = {{
+	direction = vertical
+	ignoreinvisible = yes
+	spacing = 2
+	visible = "[{selected(c)}]"
+	datamodel = "[{P}.GetList('spec_goods_by_risk{('_'+c) if c else ''}')]"
+	item = {{ spec_il_row = {{}} }}
+}}
+""" for c in ("", *CATEGORIES))
+    views = f"""flowcontainer = {{
+	direction = vertical
 	ignoreinvisible = yes
 	visible = "[Not({SORTED})]"
 {ind(fixed, 1)}}}
@@ -735,8 +846,21 @@ flowcontainer = {{
 	direction = vertical
 	spacing = 2
 	ignoreinvisible = yes
-	visible = "[{SORTED}]"
+	visible = "[And({SORTED}, Not({RISK_SORT}))]"
 {ind(by_interest, 1)}}}
+flowcontainer = {{
+	direction = vertical
+	ignoreinvisible = yes
+	visible = "[{RISK_SORT}]"
+{ind(risk_lists, 1)}}}
+"""
+    lists = f"""flowcontainer = {{
+	ignoreinvisible = yes
+{ind(hold, 1)}	flowcontainer = {{
+		direction = vertical
+		ignoreinvisible = yes
+{ind(views, 2)}	}}
+}}
 {empty}"""
     return goods_filters("SPEC_IL_FILTER_TIERS", tier_filters()) + f"""flowcontainer = {{
 	direction = vertical
@@ -753,6 +877,7 @@ def loc(k):
     # Correction, Bust or Collapse (generate.unwind_loc's SPEC_UNWIND_<sev>) and its glut months, by a severity variable
     pick = lambda a, key: f"[SelectLocalization({ge(a, 3)}, '{key}_3', SelectLocalization({ge(a, 2)}, '{key}_2', '{key}_1'))]"
     crash, glut = good_var("spec_ui_crash"), good_var("spec_glut")
+    until = good_var("spec_glut_until")
     months = "".join(f' SPEC_IL_MONTHS_{s}: "#v {m}#! months"\n' for s, m in sorted(k["GLUT_MONTHS"].items()))
     loses = "\\n[Concept('concept_company','$concept_companies$')] making it #N lose#! [concept_throughput]"
     # the tier names over the bar, plain: the tier icon is beside them
@@ -762,19 +887,20 @@ def loc(k):
     cut = lambda w: f"#v [{sv(f'spec_level_from_{w}')}|=+%1]#!"
     where = {1: f"below {cut(2)}", 6: f"above {cut(6)}"} | {w: f"between {cut(w)} and {cut(w + 1)}" for w in range(2, 6)}
     effects = level_effects()
-    allows = {w: ("\\nYou can restrain speculation here" if w >= 5 else "\\nYou can encourage investment here, unless the good is recovering" if w <= 3 else "")
+    allows = {w: ("\\nWe can Restrain Speculation here" if w >= 5 else "\\nWe can Encourage Investment here, unless the good is recovering" if w <= 3 else "")
               for w in range(1, 7)}
     levels = "".join(
         f' SPEC_IL_LEVEL_{w}_TT: "#header @spec_interest_{WORDS[w]}! {WORDS[w].capitalize()}#!'
         f"[AddLocalizationIf(EqualTo_CFixedPoint({WORD}, {fx(w)}), 'SPEC_IL_LEVEL_CURRENT')]"
-        "\\n$TOOLTIP_DELIMITER$\\n#italic One of six levels of investor mood, set by how far the price runs from normal.#!\\n"
-        f"\\nA good is here when its price is {where[w]} from normal"
-        f"\\nRight now: #v [{TREND}|=+%1]#!"
+        f"\\n$TOOLTIP_DELIMITER$\\nA good is at this level while its price trend is {where[w]}.\\n\\n$SPEC_II_TREND$"
         f'\\n$TOOLTIP_DELIMITER$\\n#title Effects:#!\\n{effects[WORDS[w]]}{allows[w]}"\n'
         for w in range(1, 7))
     levels += ' SPEC_IL_LEVEL_CURRENT: "\\n#P [Goods.GetName] is at this level#!"\n'
     return months + tiers + levels + (
         ' SPEC_IL_COL_GOODS: "Goods"\n'
+        f' SPEC_IL_RISK_VALUE: "[Multiply_CFixedPoint({rounded_tenth(RISK)}, {fx(-1)})|=+1]"\n'
+        ' SPEC_IL_RISK_DETAILS: "#title [Goods.GetName]#!\\n$SPEC_RISK_TT$"\n'
+        ' SPEC_IL_SORT_RISK_TT: "#header Sort by Collapse Risk#!\\n$TOOLTIP_DELIMITER$\\nRanks goods by the [concept_spec_market_confidence] their boom would cost if it ended this month.\\n\\n#instruction Hover over a number to see its calculation.#!$SPEC_IL_SORT_OFF$"\n'
         ' SPEC_IL_EMPTY_FILTERS: "No goods match the current filters"\n'
         ' SPEC_IL_WORD_CRASHED: "#N Boom Ended#!"\n'
         ' SPEC_IL_WORD_GLUT: "#n Recovering#!"\n'
@@ -784,20 +910,25 @@ def loc(k):
         '[concept_market] in a fixed order, by category and then by name."\n'
         ' SPEC_IL_SORT_INTEREST_TT: "#header Sort by [concept_spec_investor_interest]#!\\n$TOOLTIP_DELIMITER$\\nHottest goods '
         'first, then the most traded\\n\\nThe marker shows the level, from @spec_interest_fleeing! '
-        '#v Fleeing#! to @spec_interest_feverish! #v Feverish#!\\nThe arrow shows this month\'s change"\n'
+        '#v Fleeing#! to @spec_interest_feverish! #v Feverish#!\\nThe arrow shows this month\'s change$SPEC_IL_SORT_OFF$"\n'
+        ' SPEC_IL_SORT_OFF: "\\n\\n#instruction Click again to return to the goods order#!"\n'
         f' SPEC_IL_SORT_LEVER_TT: "$SPEC_IL_SORT_LEVER_BASE_TT${"$SPEC_IL_ISSUE_FILTER$" if levers.ISSUE_ON else ""}"\n'
         ' SPEC_IL_ISSUE_FILTER: "\\n\\nRunning Great Issues are also shown."\n'
+        ' SPEC_IL_COL_FAV_TT: "$SPEC_IL_COL_IGS_TT$\\n\\n#instruction Click to show only goods a group favors, click again to show all#!"\n'
+        ' SPEC_IL_COL_DIS_TT: "$SPEC_IL_COL_IGS_TT$\\n\\n#instruction Click to show only goods a group opposes, click again to show all#!"\n'
         ' SPEC_IL_SORT_LEVER_BASE_TT: "#header Show Interventions#!\\n$TOOLTIP_DELIMITER$\\nShows only goods with an '
         '[concept_spec_intervention]\\n\\n#instruction Click to show only these goods, click again to show all#!"\n'
-        ' SPEC_IL_DANGER_TT: "#header Collapse Zone#!\\n$TOOLTIP_DELIMITER$\\n#italic The boom is so big that falling back now would end it badly.#!\\n'
-        '\\nIf [concept_spec_investor_interest] falls this far, the boom ends in a [concept_spec_collapse]\\n'
-        f'That would cost about #N [{RISK}|1]#! [concept_spec_market_confidence]"\n'
-        f' SPEC_IL_CRASHED_TT: "#header [Goods.GetName]: Boom Ended#!\\n$TOOLTIP_DELIMITER$\\n#italic The boom in this good just ended.#!\\n'
-        f'\\nIt ended this month in a {pick(crash, "SPEC_UNWIND_C")}\\n'
+        ' SPEC_IL_DANGER_TT: "#header Collapse Zone#!\\n$TOOLTIP_DELIMITER$\\n'
+        'If [concept_spec_investor_interest] falls this far, the boom ends in a [concept_spec_collapse], '
+        f'costing about #N [{RISK}|1]#! [concept_spec_market_confidence]"\n'
+        f' SPEC_IL_CRASHED_TT: "#header [Goods.GetName]: Boom Ended#!\\n$TOOLTIP_DELIMITER$\\n'
+        f'Its boom ended this month in a {pick(crash, "SPEC_UNWIND_C")}\\n'
         f'#N Investors stay away#! for {pick(crash, "SPEC_IL_MONTHS")}{loses}"\n'
-        f' SPEC_IL_GLUT_TT: "#header [Goods.GetName] Recovering#!\\n$TOOLTIP_DELIMITER$\\n#italic Investors are still wary after the last boom ended.#!\\n'
-        f'\\nThat boom ended in a {pick(glut, "SPEC_UNWIND_C")}\\n'
-        f'[concept_spec_investor_interest] #N stuck#! at #v Doubtful#! or lower for {pick(glut, "SPEC_IL_MONTHS")}{loses}"\n')
+        f' SPEC_IL_GLUT_TT: "#header [Goods.GetName] Recovering#!\\n$TOOLTIP_DELIMITER$\\n'
+        f'Investors are still wary after its boom ended in a {pick(glut, "SPEC_UNWIND_C")}\\n'
+        f'[concept_spec_investor_interest] #N stuck#! at #v Doubtful#! or lower{loses}'
+        f"[AddLocalizationIf({gt(until)}, 'SPEC_IL_RECOVERY_LEFT')]\"\n"
+        f' SPEC_IL_RECOVERY_LEFT: "\\nIt recovers on #v {expiry_date(until)}#!, in #v [Subtract_CFixedPoint({until}, {sv("spec_calendar_day")})|0]#! days"\n')
 
 
 def bindings(t):
@@ -814,7 +945,7 @@ if __name__ == "__main__":
     # a fixed row reads each figure by name: no Concatenate, no interest maths, no scripted GUI triggers, no filters
     assert "Concatenate" not in r and "Goods.GetKey" not in r and "IsValid(" not in r and "MarketPanel" not in r
     assert "GetGoods('grain')" in r and "'spec_word_grain'" in r and "'spec_ui_r_grain'" in r and "'spec_ui_e_grain'" in r
-    assert "Add_CFixedPoint" not in r + d and "Divide_CFixedPoint" not in r + d and "spec_hype_" not in r + d
+    assert "spec_hype_" not in r + d  # Divide_CFixedPoint is allowed: the risk figure's 1-decimal rounding
     # no sound on any row animation, no badge column
     # one pos read and two move tests per tier, in the one overlay set every state shares
     assert r.count("'spec_ui_pos_grain'") == 6 and r.count("'spec_ui_move_grain'") == 12
@@ -825,18 +956,19 @@ if __name__ == "__main__":
     n = bindings(r)
     # 117 written, but a frame updates about 28 (with the price trend): the row, the state widgets, one set's six tier tests, then inside
     # the one tier shown its value and two chevron tests, the flash and the lever (the old one marker bar: 28)
-    assert len(n) <= 117, len(n)
+    # the Interest Groups column: grain's groups on each side's line, and each line's test
+    assert len(n) <= 122, len(n)
     # a list row is a word list's good: hidden, not dimmed, by the filters
     assert "Scope.GetGoods" in d and "MarketPanel" not in d
     b = board({"CATEGORY": cat})
-    assert b.count("{") == b.count("}") and b.count("datacontext = \"[GetGoods('") == len(cat)
+    assert b.count("{") == b.count("}") and len(set(re.findall(r"datacontext = \"\[GetGoods\('(\w+)'\)\]\"", b))) == len(cat)
     assert b.index("GetGoods('fish')") < b.index("GetGoods('grain')") < b.index("GetGoods('tools')") < b.index("GetGoods('small_arms')")
     assert b.count("GetList('spec_goods_w") == 6 * (1 + len(CATEGORIES)) and "MarketPanel" not in b
     # the Interest header sets the sort, so a second click keeps it; Goods clears it
     assert f"GetVariableSystem.Set('{SORT}', 'yes')" in b and f"Toggle('{SORT}')" not in b and f"Clear('{SORT}')" in b
-    assert header().count(" 30 }") == 3 and " 20 }" not in header()
+    assert header().count(" 30 }") >= 6 and " 20 }" not in header()  # 30 high headers (sort buttons come in overlapping pairs)
     # the word lists share one row type
-    assert b.count("spec_il_row = {}") == 6 * (1 + len(CATEGORIES)) and "Scope.GetGoods" not in b
+    assert b.count("spec_il_row = {}") == 7 * (1 + len(CATEGORIES)) and "Scope.GetGoods" not in b
     assert "type spec_il_row = button {" in overlay_types() and "datacontext = \"[Scope.GetGoods]\"" in overlay_types()
     # a row opens the goods panel for our own market and closes Finance
     assert f"Clear('{FIN}')" in r and "OpenGoodsPanel(GetPlayer.GetMarket.Self, Goods.Self)" in r and "Market.Self" not in r.replace("GetMarket.Self", "")

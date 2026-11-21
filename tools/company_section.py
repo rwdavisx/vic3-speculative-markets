@@ -18,7 +18,7 @@ ponytail: a company with several grain farms shows grain once for each.
 import companies
 import icons
 import levers
-from market_tab import P, W, fx, gt, sv, ind, good_var, block, header, WORDS, WARNING, FIN
+from market_tab import P, W, fx, gt, sv, v, ind, good_var, block, header, expiry_date, WORDS, WARNING, FIN
 
 WORD = good_var("spec_word")  # 0 not traded here, 1 Fleeing to 6 Feverish
 GLUT = good_var("spec_glut")
@@ -290,10 +290,12 @@ def row():
 
 def tag():
     """The row's blue chip status in a word, after its name: one at a time, the most pressing first."""
+    urgent = f"Or({COTY}, {BC_LOW})"
     cases = (("SPEC_CO_TAG_COTY", f"And({BC}, {COTY})"),
-             ("SPEC_CO_TAG_LOW", f"And({BC}, {BC_LOW})"),
-             ("SPEC_CO_TAG_FRAGILE", f"And(And({BC}, {FRAGILE}), Not(Or({BC_LOW}, {COTY})))"),
-             ("SPEC_CO_TAG_BC", f"And({BC}, Not(Or(Or({BC_LOW}, {COTY}), {FRAGILE})))"),
+             ("SPEC_CO_TAG_LOW", f"And(And({BC}, {BC_LOW}), Not({COTY}))"),
+             ("SPEC_CO_TAG_PROPPED", f"And(And({BC}, {PROPPED}), Not({urgent}))"),
+             ("SPEC_CO_TAG_FRAGILE", f"And(And({BC}, {FRAGILE}), Not(Or({urgent}, {PROPPED})))"),
+             ("SPEC_CO_TAG_BC", f"And({BC}, Not(Or({urgent}, Or({FRAGILE}, {PROPPED}))))"),
              ("SPEC_CO_TAG_CLIMB", f"And({BC_CLIMB}, Not({BC}))"))
     return "".join(f"""textbox = {{
 	visible = "[{test}]"
@@ -309,7 +311,7 @@ def strip():
     """Our blue chips at a glance: the count, a slot for each that counts (up to bluechips.CAP), lit while held, and
     what they give now. Its tooltip is the header's: every effect and how a company becomes one."""
     import bluechips
-    lit = lambda i: f"Select_float({gt(sv('spec_log_kbc'), i - 0.5)}, '(float)1.0', '(float)0.18')"
+    lit = lambda i: f"Select_float({gt(v('spec_bc_n'), i - 0.5)}, '(float)1.0', '(float)0.18')"
     slots = "".join(f"""	icon = {{
 		size = {{ {26 if i <= bluechips.CAP else 18} {26 if i <= bluechips.CAP else 18} }}
 		alpha = "[{lit(i)}]"
@@ -391,61 +393,63 @@ def bc_loc():
     mul = lambda x: f"Multiply_CFixedPoint({n}, {fx(x)})"
     lo = companies.BLUE_LOSE
     return (" SPEC_BC_STRIP: \"Blue Chips\"\n"
-            f" SPEC_BC_STRIP_N: \"#v [{sv('spec_log_kbc')}|0]#! held\"\n"
+            f" SPEC_BC_STRIP_N: \"#v [{v('spec_bc_n')}|0]#! held\"\n"
             f" SPEC_BC_STRIP_FX: \"Crash shield #P [{mul(b.SHELTER * 100)}|0]%#!\\n"
             f"Contest pull #P +[{mul(b.PULL * 100)}|0]%#!\\nTrust #P +[{mul(round(b.DIVIDEND / 1.2, 3))}|1]%#! a year\"\n"
-            f" SPEC_BC_STRIP_TT: \"#header $concept_spec_blue_chips$: #v [{sv('spec_log_kbc')}|0]#!#!\\n$TOOLTIP_DELIMITER$\\n"
-            "#italic Our steadiest, most prosperous companies.#!\\n\\n"
+            f" SPEC_BC_STRIP_TT: \"#header $concept_spec_blue_chips$: #v [{v('spec_bc_n')}|0]#!#!\\n$TOOLTIP_DELIMITER$\\n"
             f"A company becomes one after #v {companies.BLUE_MONTHS}#! months in a row at "
-            f"#v {companies.BLUE_PROSPER:g}#! or more [concept_prosperity]\\n\\n"
-            "#b What ours give us#!\\n"
+            f"#v {companies.BLUE_PROSPER:g}#! or more [concept_prosperity].\\n\\n"
             + b.effect_lines(lambda x, f: f"[{mul(round(x, 4))}|{f}]", each=True)
-            + f"\\n#grey The first {b.CAP} count in full, the next {b.CAP2 - b.CAP} count half. Each one also adds #v {companies.BLUE_BONUS:g}#! to our "
-            "[concept_spec_company_strength], our score for Home of Great Companies#!"
+            + f"\\n#grey The first {b.CAP} count in full and the next {b.CAP2 - b.CAP} half. Each also adds #v {companies.BLUE_BONUS:g}#! to our "
+            "[concept_spec_company_strength].#!"
             + "\\n$TOOLTIP_DELIMITER$\\n" + b.risk_text() + "\"\n"
             " SPEC_CO_TAG_COTY: \"#P Company of the Year#!\"\n"
             f" SPEC_CO_TAG_LOW: \"#N Slipping [{_CV('spec_bc_low')}.GetValue|0]/{lo}#!\"\n"
             " SPEC_CO_TAG_FRAGILE: \"#N Fragile#!\"\n"
+            " SPEC_CO_TAG_PROPPED: \"#P Propped Up#!\"\n"
             " SPEC_CO_TAG_BC: \"#P Blue Chip#!\"\n"
-            f" SPEC_CO_TAG_CLIMB: \"#grey [{_CV('spec_bc_months')}.GetValue|0]/{companies.BLUE_MONTHS} months#!\"\n")
+            ' SPEC_CO_TAG_CLIMB: "#grey [Company.MakeScope.ScriptValue(\'spec_bc_updates_left\')|0] months left#!"\n')
 
 
 def loc():
+    status_date = lambda key: f"{_CV('spec_bc_' + key)}.GetValueWithDefault({fx(0)})"
     words = "".join(f' SPEC_CO_W{w}: "@spec_interest_{word}! #v {word.capitalize()}#!"\n' for w, word in sorted(WORDS.items()))
     pick = "".join(f"SelectLocalization(EqualTo_CFixedPoint({WORD}, {fx(w)}), 'SPEC_CO_W{w}', " for w in sorted(WORDS))
     pick = f"[{pick}'SPEC_CO_W0'{')' * len(WORDS)}]"
-    company = "[concept_company]"
+    kstr, kbc = f"{P}.ScriptValue('spec_log_kstr')", v('spec_bc_n')
+    from_bc = f"Multiply_CFixedPoint({kbc}, {fx(companies.BLUE_BONUS)})"  # centres' spec_log_kstr: prosperity / CO_STRENGTH + this
     return (" SPEC_H_COMPANIES: \"Companies\"\n"
-            f" SPEC_H_COMPANIES_TT: \"#header $concept_companies$#!\\n$TOOLTIP_DELIMITER$\\n#italic How the market's mood about a good changes the buildings that make it.#!\\n\\n"
-            "With high [concept_spec_investor_interest], its buildings get #P more#! [concept_throughput]\\n"
-            "With low interest, they get #N less#!\\n"
-            "After its boom ends, they get #N less still#! until it recovers\\n"
-            f"A {company} earns more while people want its goods\"\n"
-            f" SPEC_H_COMPANIES_RIGHT: \"[GetDataModelSize(Country.GetCompanies)]  @spec_blue_chip! #v [{P}.ScriptValue('spec_log_kbc')|0]#!\"\n"
-            f" SPEC_H_COMPANIES_RIGHT_TT: \"#header [concept_spec_company_strength]: #v [{P}.ScriptValue('spec_log_kstr')|1]#!#!\\n"
-            "$TOOLTIP_DELIMITER$\\n#italic Our score for Home of Great Companies.#!\\n\\n#b Where it comes from#!\\n"
-            f"We add up the [concept_prosperity] of all our $concept_companies$, and every #v {__import__('centres').CO_STRENGTH:g}#! of it adds #v 1#!\\n"
-            f"@spec_blue_chip! [Concept('concept_spec_blue_chip','$concept_spec_blue_chips$')]: #v [{P}.ScriptValue('spec_log_kbc')|0]#!, "
-            f"each one adds #v {companies.BLUE_BONUS:g}#! more\\n"
-            "#grey Having more companies only helps through their prosperity#!\"\n"
+            f" SPEC_H_COMPANIES_TT: \"#header $concept_companies$#!\\n$TOOLTIP_DELIMITER$\\n"
+            "High [concept_spec_investor_interest] in a [concept_good] gives the buildings that make it #P more#! [concept_throughput], "
+            "and low interest gives them #N less#!. After its boom ends they get #N less still#! until it recovers.\\n\\n"
+            "A [concept_company] making the good gains or loses [concept_prosperity] the same way.\"\n"
+            f" SPEC_H_COMPANIES_RIGHT: \"[GetDataModelSize(Country.GetCompanies)]  @spec_blue_chip! #v [{v('spec_bc_n')}|0]#!\"\n"
+            f" SPEC_H_COMPANIES_RIGHT_TT: \"#header [concept_spec_company_strength]: #v [{kstr}|1]#!#!\\n$TOOLTIP_DELIMITER$\\n"
+            f"#v [Subtract_CFixedPoint({kstr}, {from_bc})|1]#! from the [concept_prosperity] of our $concept_companies$, "
+            f"#v 1#! for every #v {__import__('centres').CO_STRENGTH:g}#!\\n"
+            f"#v [{from_bc}|1]#! from our #v [{kbc}|0]#! @spec_blue_chip! [Concept('concept_spec_blue_chip','$concept_spec_blue_chips$')], "
+            f"#v {companies.BLUE_BONUS:g}#! each\\n$TOOLTIP_DELIMITER$\\n"
+            "The strongest [concept_country] can claim Home of Great Companies as a speciality of its [concept_spec_exchange]. "
+            "More companies help only through their [concept_prosperity].\"\n"
             f" SPEC_CO_BC: \"#P [concept_spec_blue_chip]#!, adding #v {companies.BLUE_BONUS:g}#! to our [concept_spec_company_strength] "
             "and counting toward our $concept_spec_blue_chips$\"\n"
             f" SPEC_CO_BC_LOW: \"  #N Slipping#! below #v {companies.BLUE_PROSPER:g}#! [concept_prosperity] for #v [{_CV('spec_bc_low')}.GetValue|0]#! "
-            f"of #v {companies.BLUE_LOSE}#! months. At #v {companies.BLUE_LOSE}#! it stops being one\"\n"
-            f" SPEC_CO_BC_CLIMB: \"Becomes a [concept_spec_blue_chip] after #v [Subtract_CFixedPoint({fx(companies.BLUE_MONTHS)}, "
-            f"{_CV('spec_bc_months')}.GetValue)|0]#! more months at #v {companies.BLUE_PROSPER:g}#! or more [concept_prosperity]\"\n"
+            f"of #v {companies.BLUE_LOSE}#! months. At #v {companies.BLUE_LOSE}#! it stops being one.\"\n"
+            f" SPEC_CO_BC_CLIMB: \"Becomes a [concept_spec_blue_chip] after #v [Company.MakeScope.ScriptValue('spec_bc_updates_left')|0]#! more months at #v {companies.BLUE_PROSPER:g}#! or more [concept_prosperity]\"\n"
             " SPEC_CO_COTY: \"#P Company of the Year#!, the world's most prosperous [concept_spec_blue_chip]\"\n"
-            " SPEC_CO_PROPPED: \"  Propped up to keep its status for now, whatever its [concept_prosperity]\"\n"
-            f" SPEC_CO_FRAGILE: \"  #N Fragile#!, so a single month below #v {companies.BLUE_PROSPER:g}#! [concept_prosperity] loses the status\"\n"
+            f" SPEC_CO_PROPPED: \"  Propped up to keep its status, whatever its [concept_prosperity][AddLocalizationIf({gt(status_date('propped'), 1)}, 'SPEC_CO_PROPPED_END')]\"\n"
+            f" SPEC_CO_FRAGILE: \"  #N Fragile#!, so a single month below #v {companies.BLUE_PROSPER:g}#! [concept_prosperity] loses the status[AddLocalizationIf({gt(status_date('fragile'), 1)}, 'SPEC_CO_FRAGILE_END')]\"\n"
+            f" SPEC_CO_PROPPED_END: \" until #v {expiry_date(status_date('propped'), 'Company.MakeScope')}#!\"\n"
+            f" SPEC_CO_FRAGILE_END: \" until #v {expiry_date(status_date('fragile'), 'Company.MakeScope')}#!\"\n"
             " SPEC_CO_NONE: \"#low We own no companies#!\"\n"
             + bc_loc() +
             f" SPEC_CO_PCT: \"[{EFFECT}|+=0]%\"\n"
             " SPEC_CO_TT_HEAD: \"#header [concept_spec_investor_interest]#!\"\n"
-            f" SPEC_CO_LINE: \"[Goods.GetName]: {pick}, [concept_throughput] [{PCT}|+=%0]\"\n"
-            f" SPEC_CO_ENC: \"  Encourage Investment: [concept_throughput] #P +{LEVER}%#!\"\n"
-            f" SPEC_CO_RES: \"  Restrain Speculation: [concept_throughput] #N -{LEVER}%#!\"\n"
-            f" SPEC_CO_GLUT: \"  @warning! #N [Goods.GetName] Recovering#!: [concept_throughput] #N [{GLUT_LOSS}|%0]#! for #v [{GLUT_MONTHS}|0]#! months\"\n"
-            " SPEC_CO_W0: \"#low not traded here#!\"\n" + words + __import__("bluechips").loc())
+            f" SPEC_CO_LINE: \"[{PCT}|+=%0] [concept_throughput] from {pick} [Goods.GetName]\"\n"
+            f" SPEC_CO_ENC: \"  #P +{LEVER}%#! [concept_throughput] from Encourage Investment\"\n"
+            f" SPEC_CO_RES: \"  #N -{LEVER}%#! [concept_throughput] from Restrain Speculation\"\n"
+            f" SPEC_CO_GLUT: \"  @warning! #N [{GLUT_LOSS}|%0]#! [concept_throughput] for #v [{GLUT_MONTHS}|0]#! months while [Goods.GetName] recovers\"\n"
+            " SPEC_CO_W0: \"#low untraded#!\"\n" + words + __import__("bluechips").loc())
 
 
 if __name__ == "__main__":
@@ -459,6 +463,6 @@ if __name__ == "__main__":
     assert "SPEC_CO_TT_NOTE" not in gui + text and "elide_fontsize_min" in gui and "max_width" not in gui
     for k in ("SPEC_CO_BC", "SPEC_CO_BC_LOW", "SPEC_CO_BC_CLIMB"):
         assert f'text = "{k}"' in gui and f" {k}:" in text
-    assert gui.count(BC_CLIMB) == 2 and "spec_log_kbc" in text and "@spec_blue_chip!" in text
+    assert BC_CLIMB in gui and "SPEC_CO_TAG_CLIMB" in gui and "spec_bc_n" in text and "@spec_blue_chip!" in text
     assert fx(round(companies.COMPANY_BUST, 4)) in GLUT_LOSS and fx(round(companies.UNWIND[3][1] / 30)) in GLUT_MONTHS
     print("ok")

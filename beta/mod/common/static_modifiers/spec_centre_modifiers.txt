@@ -1,12 +1,15 @@
 ﻿spec_financial_centre = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
 	country_prestige_mult = 0.02
-	country_loan_interest_rate_mult = -0.02
 }
 
 spec_exch_national = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
 	country_prestige_mult = 0.02
+}
+spec_exch_world = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
+	country_influence_mult = 0.1
 }
 
 spec_pledge_broken = {
@@ -15,122 +18,213 @@ spec_pledge_broken = {
 }
 spec_pursue_price_0 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	state_trade_advantage_mult = 0.05
+	state_trade_advantage_mult = 0.03
+	interest_group_ig_trade_unions_approval_add = -1
 }
 spec_pursue_price_1 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	state_trade_advantage_mult = 0.1
+	state_trade_advantage_mult = 0.06
+	interest_group_ig_trade_unions_approval_add = -1
 }
 spec_pursue_price_2 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	state_trade_advantage_mult = 0.15
+	state_trade_advantage_mult = 0.09
+	interest_group_ig_trade_unions_approval_add = -1
 }
 spec_pursue_price_3 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	state_trade_advantage_mult = 0.2
-	country_minting_mult = 0.1
+	state_trade_advantage_mult = 0.12
+	interest_group_ig_trade_unions_approval_add = -2
+	state_export_advantage_mult = 0.1
 }
 spec_pursue_harbour_0 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	country_gold_reserve_limit_mult = 0.1
+	country_gold_reserve_limit_mult = 0.05
+	country_private_construction_allocation_mult = -0.04
 }
 spec_pursue_harbour_1 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	country_gold_reserve_limit_mult = 0.2
+	country_gold_reserve_limit_mult = 0.1
+	country_private_construction_allocation_mult = -0.04
 }
 spec_pursue_harbour_2 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	country_gold_reserve_limit_mult = 0.3
+	country_gold_reserve_limit_mult = 0.15
+	country_private_construction_allocation_mult = -0.06
 }
 spec_pursue_harbour_3 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	country_gold_reserve_limit_mult = 0.4
-	country_legitimacy_base_add = 5
+	country_gold_reserve_limit_mult = 0.2
+	country_private_construction_allocation_mult = -0.08
+	country_legitimacy_base_add = 3
 }
 spec_pursue_companies_0 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	country_company_throughput_bonus_add = 0.03
+	country_company_throughput_bonus_add = 0.02
+	interest_group_ig_petty_bourgeoisie_approval_add = -1
 }
 spec_pursue_companies_1 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	country_company_throughput_bonus_add = 0.06
+	country_company_throughput_bonus_add = 0.04
+	interest_group_ig_petty_bourgeoisie_approval_add = -1
 }
 spec_pursue_companies_2 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	country_company_throughput_bonus_add = 0.09
+	country_company_throughput_bonus_add = 0.06
+	interest_group_ig_petty_bourgeoisie_approval_add = -1
 }
 spec_pursue_companies_3 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	country_company_throughput_bonus_add = 0.12
+	country_company_throughput_bonus_add = 0.08
+	interest_group_ig_petty_bourgeoisie_approval_add = -2
 	country_max_companies_add = 1
+}
+spec_pursue_futures_0 = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
+	building_group_bg_agriculture_throughput_add = 0.02
+	interest_group_ig_rural_folk_approval_add = -1
+}
+spec_pursue_futures_1 = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
+	building_group_bg_agriculture_throughput_add = 0.04
+	interest_group_ig_rural_folk_approval_add = -1
+}
+spec_pursue_futures_2 = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
+	building_group_bg_agriculture_throughput_add = 0.06
+	interest_group_ig_rural_folk_approval_add = -1
+}
+spec_pursue_futures_3 = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
+	building_group_bg_agriculture_throughput_add = 0.08
+	interest_group_ig_rural_folk_approval_add = -2
+	state_market_access_price_impact = 0.1
+}
+spec_pursue_lender_0 = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
+	country_leverage_generation_mult = 0.05
+	state_capitalists_investment_pool_efficiency_mult = -0.02
+}
+spec_pursue_lender_1 = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
+	country_leverage_generation_mult = 0.1
+	state_capitalists_investment_pool_efficiency_mult = -0.02
+}
+spec_pursue_lender_2 = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
+	country_leverage_generation_mult = 0.15
+	state_capitalists_investment_pool_efficiency_mult = -0.03
+}
+spec_pursue_lender_3 = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
+	country_leverage_generation_mult = 0.2
+	state_capitalists_investment_pool_efficiency_mult = -0.04
+	country_leverage_resistance_mult = 0.1
+}
+spec_pursue_railway_0 = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
+	building_railway_throughput_add = 0.03
+	building_group_bg_construction_laborers_mortality_mult = 0.04
+}
+spec_pursue_railway_1 = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
+	building_railway_throughput_add = 0.06
+	building_group_bg_construction_laborers_mortality_mult = 0.04
+}
+spec_pursue_railway_2 = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
+	building_railway_throughput_add = 0.09
+	building_group_bg_construction_laborers_mortality_mult = 0.06
+}
+spec_pursue_railway_3 = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
+	building_railway_throughput_add = 0.12
+	building_group_bg_construction_laborers_mortality_mult = 0.08
+	state_infrastructure_mult = 0.1
 }
 spec_pursue_floor_0 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	state_trade_capacity_mult = 0.05
+	state_trade_capacity_mult = 0.03
+	interest_group_ig_landowners_approval_add = -1
 }
 spec_pursue_floor_1 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	state_trade_capacity_mult = 0.1
+	state_trade_capacity_mult = 0.06
+	interest_group_ig_landowners_approval_add = -1
 }
 spec_pursue_floor_2 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	state_trade_capacity_mult = 0.15
+	state_trade_capacity_mult = 0.09
+	interest_group_ig_landowners_approval_add = -1
 }
 spec_pursue_floor_3 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	state_trade_capacity_mult = 0.2
-	country_prestige_mult = 0.05
+	state_trade_capacity_mult = 0.12
+	interest_group_ig_landowners_approval_add = -2
+	building_trade_center_throughput_add = 0.1
 }
 spec_pursue_sound_0 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	country_loan_interest_rate_mult = -0.025
+	state_shopkeepers_investment_pool_efficiency_mult = 0.02
+	interest_group_ig_industrialists_approval_add = -1
 }
 spec_pursue_sound_1 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	country_loan_interest_rate_mult = -0.05
+	state_shopkeepers_investment_pool_efficiency_mult = 0.04
+	interest_group_ig_industrialists_approval_add = -1
 }
 spec_pursue_sound_2 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	country_loan_interest_rate_mult = -0.075
+	state_shopkeepers_investment_pool_efficiency_mult = 0.06
+	interest_group_ig_industrialists_approval_add = -1
 }
 spec_pursue_sound_3 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	country_loan_interest_rate_mult = -0.1
-	country_gold_reserve_limit_mult = 0.25
+	state_shopkeepers_investment_pool_efficiency_mult = 0.08
+	interest_group_ig_industrialists_approval_add = -2
+	interest_group_ig_petty_bourgeoisie_approval_add = 2
 }
 spec_pursue_pockets_0 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	state_capitalists_investment_pool_contribution_add = 0.05
+	state_capitalists_investment_pool_contribution_add = 0.015
+	state_tax_collection_mult = -0.02
 }
 spec_pursue_pockets_1 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	state_capitalists_investment_pool_contribution_add = 0.1
+	state_capitalists_investment_pool_contribution_add = 0.03
+	state_tax_collection_mult = -0.02
 }
 spec_pursue_pockets_2 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	state_capitalists_investment_pool_contribution_add = 0.15
+	state_capitalists_investment_pool_contribution_add = 0.045
+	state_tax_collection_mult = -0.03
 }
 spec_pursue_pockets_3 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	state_capitalists_investment_pool_contribution_add = 0.2
+	state_capitalists_investment_pool_contribution_add = 0.06
+	state_tax_collection_mult = -0.04
 	country_private_construction_allocation_mult = 0.1
 }
 spec_pursue_door_0 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	country_treaty_leverage_generation_mult = 0.1
+	country_influence_mult = 0.02
+	country_leverage_resistance_mult = -0.04
 }
 spec_pursue_door_1 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	country_treaty_leverage_generation_mult = 0.2
+	country_influence_mult = 0.04
+	country_leverage_resistance_mult = -0.04
 }
 spec_pursue_door_2 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	country_treaty_leverage_generation_mult = 0.3
+	country_influence_mult = 0.06
+	country_leverage_resistance_mult = -0.06
 }
 spec_pursue_door_3 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	country_treaty_leverage_generation_mult = 0.4
-	country_influence_mult = 0.05
+	country_influence_mult = 0.08
+	country_leverage_resistance_mult = -0.08
+	country_mass_migration_attraction_mult = 0.15
 }
 spec_trust_0 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
@@ -143,6 +237,5 @@ spec_trust_1 = {
 }
 spec_trust_3 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	country_loan_interest_rate_mult = -0.05
 	interest_group_ig_industrialists_approval_add = 2
 }

@@ -6,6 +6,8 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageEnhance, ImageFont, ImageOps
 
+import law_metal
+
 ART = Path(__file__).resolve().parent.parent / "art" / "raw"
 DIR = "gfx/interface/icons/spec_markets"
 V = "gfx/interface/icons"
@@ -100,8 +102,13 @@ SLOTS.update({f"name_{k}": (128, f"{V}/{fb}.dds", d) for k, fb, d in [
 ]})
 
 
+def art(name):
+    """A slot's painting; a law icon's is its flat emblem, which law_metal finishes."""
+    return ART / ("emblem" if name.startswith("law_") else "") / f"{name}.png"
+
+
 def has(name):
-    return (ART / f"{name}.png").exists()
+    return art(name).exists()
 
 
 def path(name):
@@ -118,11 +125,37 @@ SLOTS["blue_chip"] = (64, f"{V}/company_charter_icons/investment_charter.dds",
 SLOTS["excess_alert"] = (100, f"{V}/alert_icons/expensive_goods.dds",
                          "a large iridescent soap bubble swelling up out of a heap of share certificates and gold coins, "
                          "a thin bright crack running across its skin as it is about to burst" + _OUTLINE)
+# the Monetary Standard laws (monetary.py), in the style and size of vanilla's law icons
+SLOTS.update({f"law_spec_{k}": (302, f"{V}/law_icons/{fb}.dds", d) for k, fb, d in [
+    # layered, as vanilla's (laissez_faire's arrow behind its factory): every part apart from the next by a thin gap,
+    # which law_metal inks and bevels, so the emblem has internal edges and is not one flat blob
+    ("bimetallism", "mercantilism", "two round coins, the right one overlapping in front of the left one and separated "
+     "from it by a thin transparent gap that follows its edge; each coin has a raised rim, shown by a thin transparent "
+     "ring just inside its edge, and a plain round face with no hole; above them a small balance beam on a post, "
+     "standing apart from the coins with a thin gap between"),
+    ("gold_standard", "laissez_faire", "a trapezoid gold ingot seen from the front, its sloping top face drawn as a "
+     "separate band split from the front face by a thin transparent gap, a small crown cut into the front face; an "
+     "upward arrow standing behind the ingot, separated from it by a thin gap that follows the ingot's outline; a flat "
+     "base bar under the ingot, apart from it by a thin gap"),
+    ("fiat_money", "interventionism", "three rectangular banknotes fanned out, each lying in front of the one behind, "
+     "separated by thin transparent gaps that follow the front note's edge; the front note has a thin transparent "
+     "border line just inside its edge like an engraved frame, and a round seal in its middle with a raised rim shown "
+     "by a thin transparent ring"),
+]})
+# vanilla's law icons are flat emblems: a silhouette with cut-out details, in one painted metal finish. paint.sh
+# draws the emblem (art/raw/emblem/) and law_metal gives it vanilla's metal
+LAW_EMBLEM = (" Draw it as a FLAT EMBLEM exactly like the attached law icons: one bold simple silhouette with cut-out "
+              "holes and gaps for its details, no perspective, no shading, no outline drawing, a single plain light grey "
+              "fill on a transparent background.")
+# the Financial Integration power bloc principle (power_bloc.py), on vanilla's tier backgrounds as its principle icons
+SLOTS["principle_financial_integration"] = (210, f"{V}/principles_icons/foreign_investment.dds",
+                                            "three gold coins of different national mints linked together by a single gold chain, "
+                                            "resting on a ledger, in the flat engraved style of vanilla's principle icons")
 # Rival Exchanges (rivals.py): the action cards, the two parts' headers
 SLOTS.update({f"rival_{k}": (96, f"{V}/{fb}.dds", d + _OUTLINE) for k, fb, d in [
     ("raid", "generic_icons/down_down", "a heavy dark bronze bear paw pressing a share certificate down, gold coins scattering from under it"),
     ("lure", "timed_modifier_icons/modifier_coins_positive", "a red and steel horseshoe magnet pulling a stream of gold coins out of a tipped leather purse"),
-    ("press", "timed_modifier_icons/modifier_newspaper_negative", "a folded broadsheet newspaper with blank grey columns, a quill pen and a spilled ink pot on it"),
+    ("press", "timed_modifier_icons/modifier_documents_negative", "a folded broadsheet newspaper with blank grey columns, a quill pen and a spilled ink pot on it"),
     ("shore", "generic_icons/map_list_lock", "a stout wall of timber posts and sandbags standing in front of a neat stack of gold coins"),
     ("hold", "lens_toolbar_icons/rivalry", "a gloved fist gripping a thick taut hemp rope, as in a tug of war, a gold coin tied into the rope beside it"),
     ("out", "lens_toolbar_icons/rivalry", "a gentleman's slim duelling sword pointing right across a single gold coin"),
@@ -162,7 +195,7 @@ SLOTS.update({f"concept_{c}": (128, f"{V}/{fb}.dds", d + _OUTLINE) for c, fb, d 
 # every concept's icon, painted or reused (concepts.CONCEPTS takes its texture from here)
 CONCEPT_ICON = {"market_confidence": "je_markets", "speculative_mania": "state_mania", "financial_panic": "state_panic",
                 "foreign_panic": "driver_foreign", "boom_end": "driver_crash", "correction": "ending_1", "bust": "ending_2",
-                "collapse": "ending_3", "investor_interest": "driver_boom", "speculative_excess": "crash_risk",
+                "collapse": "ending_3", "investor_interest": "driver_boom", "speculative_excess": "excess_alert",
                 "blue_chip": "blue_chip", **{n[8:]: n for n in SLOTS if n.startswith("concept_")}}
 
 TEXT_ICONS = [n for n in SLOTS if n.startswith(("interest_", "ending_", "blue_"))]  # in loc as @spec_<name>!
@@ -249,12 +282,46 @@ def medallion(obj, tier, side=512):
     return out
 
 
+def rings(mod, vanilla, colours):
+    """The confidence ring in each map mode colour: vanilla's round progress texture (frame 1 the track, frame 2
+    the fill) with the fill's light and shade kept and tinted. Returns the names written, ring_<stage>."""
+    src = Image.open(vanilla).convert("RGBA")
+    h = src.height
+    fill = src.crop((h, 0, 2 * h, h))
+    lum = fill.convert("L")
+    mean = sum(v * n for v, n in enumerate(lum.histogram(fill.getchannel("A")))) / max(1, sum(lum.histogram(fill.getchannel("A"))))
+    out = []
+    for name, rgb in colours.items():
+        c = [int(x) for x in re.findall(r"\d+", rgb)]
+        # vanilla's fill shading, its grain strengthened, around a tone as muted as vanilla's own fills
+        shade = lum.point(lambda v: min(255, round((v / mean) ** 1.6 * 128)))
+        avg = sum(v * n for v, n in enumerate(shade.histogram(fill.getchannel("A")))) / max(1, sum(shade.histogram(fill.getchannel("A"))))
+        tinted = Image.merge("RGB", [shade.point(lambda v, ch=ch: min(255, round(v / avg * ch * 0.5))) for ch in c])
+        tinted.putalpha(fill.getchannel("A"))
+        img = src.copy()
+        img.paste(tinted, (h, 0))
+        dest = mod / DIR / f"ring_{name}.dds"
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        img.save(dest)
+        out.append(f"ring_{name}")
+    return out
+
+
+
+
 def build(mod):
     out = []
     for name, (size, *_) in SLOTS.items():
         if not has(name):
             continue
-        im = grade(Image.open(ART / f"{name}.png").convert("RGBA"))
+        im = Image.open(art(name)).convert("RGBA")
+        if name.startswith("law_"):
+            dest = mod / DIR / f"{name}.dds"
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            law_metal.finish(im).resize((size, size), Image.LANCZOS).save(dest)
+            out.append(name)
+            continue
+        im = grade(im)
         im = im.crop(im.getbbox() or (0, 0, *im.size))
         side = max(im.size)
         sq = Image.new("RGBA", (side, side))
@@ -265,9 +332,10 @@ def build(mod):
         canvas.paste(sq, (pad, pad))
         if name.startswith("ending_"):
             canvas = medallion(canvas, int(name[-1]))
+        canvas = canvas.resize((size, size), Image.LANCZOS)
         dest = mod / DIR / f"{name}.dds"
         dest.parent.mkdir(parents=True, exist_ok=True)
-        canvas.resize((size, size), Image.LANCZOS).save(dest)
+        canvas.save(dest)
         out.append(name)
     # the rivalry button's off state: a silhouette of our "we rival" icon, as vanilla's subsidized_not (its colour and
     # teal), so the toggle reads off-but-clickable as the subsidize button does. Our icon is a round shield, whose flat
@@ -309,6 +377,7 @@ def build(mod):
 # line or a #header/#title (tooltip heads, breakdown rows). Running text keeps plain links, as vanilla's does.
 _LEAD = re.compile(r"(?:^|(?<=\n)|(?<=#header )|(?<=#title )|(?<=#bold ))"
                    r"(?=\[concept_spec_(\w+)\]|\[Concept\('concept_spec_(\w+)'|\$concept_spec_(\w+)\$)")
+_LINK = re.compile(r"\[concept_spec_(\w+)\]|\[Concept\('concept_spec_(\w+)'")  # a link to a concept, in either form
 ICON_TAG = re.compile(r"@spec_(\w+)! (?=\[concept_spec_|\[Concept\('concept_spec_|\$concept_spec_)")
 
 
@@ -325,11 +394,18 @@ def concept_icons(key, value, allow=None):
         return f"@spec_{c}! " if c in CONCEPT_ICON and (allow is None or c in allow) else ""
     if key in PANEL_KEYS:
         return strip_concept_icons(value)
-    value = _LEAD.sub(lead, strip_concept_icons(value))
     own = re.fullmatch(r"concept_spec_(\w+)_desc", key)
-    if own and own[1] in CONCEPT_ICON and not value.startswith("@spec_"):
-        value = f"@spec_{own[1]}! {value}"
-    return value
+    if own:  # a concept's text: no icon for itself, one before the first link to each other concept
+        seen = {own[1]}
+
+        def first(m):
+            c = m[1] or m[2]
+            if c in seen or c not in CONCEPT_ICON or (allow is not None and c not in allow):
+                return m[0]
+            seen.add(c)
+            return f"@spec_{c}! {m[0]}"
+        return _LINK.sub(first, strip_concept_icons(value))
+    return _LEAD.sub(lead, strip_concept_icons(value))
 
 
 def iconed(value):
@@ -345,8 +421,10 @@ def strip_concept_icons(value):
 if __name__ == "__main__":
     t = concept_icons("x", "#header [concept_spec_leverage]#!\n[concept_spec_bad_debts]: #N -1%#!\nSee [concept_spec_exchange].")
     assert t == "#header @spec_leverage! [concept_spec_leverage]#!\n@spec_bad_debts! [concept_spec_bad_debts]: #N -1%#!\nSee [concept_spec_exchange].", t
-    d = concept_icons("concept_spec_baseline_desc", "[concept_spec_baseline] is the level")
-    assert d == "@spec_baseline! [concept_spec_baseline] is the level" and concept_icons("concept_spec_baseline_desc", d) == d, d
-    assert strip_concept_icons(d) == "[concept_spec_baseline] is the level" and strip_concept_icons(t).count("@") == 0
+    d = concept_icons("concept_spec_baseline_desc", "[concept_spec_baseline] is where [concept_spec_market_confidence] goes, [concept_spec_market_confidence] again")
+    assert d == "[concept_spec_baseline] is where @spec_market_confidence! [concept_spec_market_confidence] goes, [concept_spec_market_confidence] again", d
+    assert concept_icons("concept_spec_baseline_desc", d) == d and iconed(d) == {"market_confidence"}
+    assert concept_icons("concept_spec_baseline_desc", d, allow=set()).count("@") == 0
+    assert strip_concept_icons(d).count("@") == 0 and strip_concept_icons(t).count("@") == 0
     assert concept_icons("k", "@spec_interest_keen! #v Keen#!") == "@spec_interest_keen! #v Keen#!"
     print("icons ok")

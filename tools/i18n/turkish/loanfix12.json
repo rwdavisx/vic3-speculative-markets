@@ -1,0 +1,10 @@
+{
+ "65d69828cb": "@spec_sound_finance! #italic Üç [concept_spec_banking_reforms] düzenlemesinin tamamını, yani Banknot Kuralları, Son Kredi Mercii ve Şirketler Kanunu'nu yürürlüğe koymanın ödülü.#!\\n\\nBir [concept_country] üçüne de sahip olunca:\\n#P +{1}#! [concept_prestige]",
+ "25ea66f796": "\\n{1}, {2} ve {3} yatırımı: #P +%{4}#!\\nTicaret Miktarı: #P +%{5}#!\\n{6}: #P +{7}#!",
+ "b5b070a24a": "{1}, {2} ve {3} yatırımı: #P +%{4}#!\\nTicaret Miktarı: #P +%{5}#!\\n{6}: #P +{7}#!",
+ "56c09ee847": "#header Dünya Merkezi#!\\nYatırımcı Tepkisi: #v +%{1}#!\\n[concept_prestige]: {3} arasında değilken #P +%{2}#!\\n[concept_spec_capital_flight] alımı: #P x2#!\\n[concept_spec_foreign_panic] kayıpları: #P -%{4}#!\\n#P +%{5}#! {6}\\nBir yarışçı bakım giderinden muaf\\n$TOOLTIP_DELIMITER$\\n#instruction Dünya Merkezi düzeyine ulaşmak için#! {8} arasında ilk #v {7}#! içinde bir yer, ayrıca {9} gerekir",
+ "c86b27426b": "#header Güvenilen#!\\nGüvenilirlik: #v %{1}#! ile #v %{2}#! arası\\n$TOOLTIP_DELIMITER$\\n#P +{3}#! {4}",
+ "bf0a6e57a3": "#header Sağlam Kredi'de 1.#!\\n{1}\\n$TOOLTIP_DELIMITER$\\nUzmanlığımız olarak bu sıra şunları sağlar:\\n#P +%{2}#! {3}\\n#N -{4}#! {5}\\n#P +{6}#! {7}",
+ "8895c0f776": "#header Sağlam Kredi'de 2.#!\\n{1}\\n$TOOLTIP_DELIMITER$\\nUzmanlığımız olarak bu sıra şunları sağlar:\\n#P +%{2}#! {3}\\n#N -{4}#! {5}",
+ "ca16df56d4": "#header Sağlam Kredi'de 3.#!\\n{1}\\n$TOOLTIP_DELIMITER$\\nUzmanlığımız olarak bu sıra şunları sağlar:\\n#P +%{2}#! {3}\\n#N -{4}#! {5}"
+}

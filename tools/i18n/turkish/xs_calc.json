@@ -1,0 +1,18 @@
+{
+ "8d526a7550": "@spec_market_confidence! [concept_spec_market_confidence] #v {1}#! (#v {2}#! üzeri)",
+ "61a802af21": "Para Okulu",
+ "ffd08800e0": "soğuma, ayda #v %{1}#!",
+ "b16d0bc037": "{1} kredi politikası, #v %{2}#! fazla",
+ "7f79c74bb1": "patlama, [concept_spec_market_confidence] #v {1}#! altında",
+ "c1a05d051f": "Gelecek ay beklenen: {1}#indent_newline:3 {2}{3}{4}{5}{6}{7}{8}{9}#!",
+ "8846188df9": "[concept_spec_market_confidence] #v {1}#! düzeyine ulaşınca büyür",
+ "a15ad81dfc": "\\n$TOOLTIP_DELIMITER$\\nŞimdi patlasaydı: #N -{1}#! [concept_spec_market_confidence]",
+ "7fc56ad615": "\\n$SPEC_XS_P0$ kaynaklı {1}",
+ "c3a1878ca1": "\\n$SPEC_XS_P1$ kaynaklı {1}",
+ "4b756b134b": "\\n$SPEC_XS_P2$ kaynaklı {1}",
+ "b11a99c30a": "\\n$SPEC_XS_P3$ kaynaklı {1}",
+ "fb3e8869f0": "\\n$SPEC_XS_P4$ kaynaklı {1}",
+ "2842bce7e8": "\\n$SPEC_XS_PCOOL$ kaynaklı {1}",
+ "68d2a1c9f7": "\\n$SPEC_XS_PTIGHT$ kaynaklı {1}",
+ "f4d97f417b": "\\n$SPEC_XS_PPOP$ kaynaklı {1}"
+}

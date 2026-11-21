@@ -8,9 +8,10 @@ Reward: buildings run LEV_REWARD better per month of leverage, up to LEV_REWARD_
 pay: most large countries' pools hold more than they can spend, and whatever is lent is repaid.
 Risk: past LEV_SAFE months, stress climbs to 1 at LEV_RUIN. Stress lifts the confidence a panic starts at by up to
 LEV_PANIC_SPAN, so a boom's ordinary fall sets one off, and a panic with stress leaves a credit crunch of stress
-x LEV_CRUNCH_MAX points (8 months: about 22): each is LEV_CRUNCH_THROUGHPUT of throughput and LEV_CRUNCH_INVEST of investment, and they
-fade at LEV_CRUNCH_FADE a month, so the worst crunch lasts under six years and a small one within two. Banks lend nothing until
-it ends, a bank rescue does not clear it, and the panic takes half of what is owed, by clawback or by default.
+x LEV_CRUNCH_MAX points (8 months: about 22): each is LEV_CRUNCH_THROUGHPUT of throughput and LEV_CRUNCH_INVEST of investment. They
+bite in at LEV_CRUNCH_RAMP a month, then fade at LEV_CRUNCH_FADE a month (LEV_CRUNCH_FADE_TIGHT under Tight credit), so the worst
+crunch lasts under seven years and a small one within two. Banks lend less the more there is, nothing past
+LEV_BAD_STOP x spec_lax_badstop, a bank rescue does not clear it, and the panic takes the share of what is owed that Lending Standards call back (35% to 65%), by clawback or by default.
 A country that loses LEV_LAND_LOST or more of its people in a month has lost land, to a peace deal or a split: nothing
 else moves population that fast. It keeps its debt, and real leverage still drives panics, lending and the AI's stance.
 But the loans it had then (spec_lev_old) are measured against the income it had then (spec_lev_ref) for the crunch and
@@ -42,8 +43,21 @@ add_modifier = {{
 BONUS_END = "" if BONUS_FADE < REWARD_MAX else ("\t# the boom's bonus ends with the boom, not at the next month's update\n\tif = {\n\t\tlimit = { has_variable = spec_lev_held }\n"
                                                 "\t\tremove_modifier = spec_lev_boom\n\t\tremove_variable = spec_lev_held\n\t}\n")
 # at 1% a point and 0.25 a month the worst Bad Debts cut a country's output by about 37% for about 13 years, deeper and longer
-# than the Great Depression; 0.4% and 0.6 leave the worst at -16% clearing in about five years, a mild one within two
+# than the Great Depression; 0.4% and 0.6 leave the worst at -16% clearing in about five years once felt in full, a mild one within two
 CRUNCH_MAX, CRUNCH_FADE = tuning.get("LEV_CRUNCH_MAX", 40), tuning.get("LEV_CRUNCH_FADE", 0.6)
+# Tight credit clears them faster: the banks rebuild instead of lending (1.2; was the same 0.6, so Tight did next to nothing in a crunch)
+CRUNCH_FADE_TIGHT = tuning.get("LEV_CRUNCH_FADE_TIGHT", 0.9)
+# banks lend less the more Bad Debts they carry, nothing at BAD_STOP x spec_lax_badstop (Strict 10, Sound 20, Reckless 30)
+# (1.2; any Bad Debts stopped all lending, so a small crunch froze credit for years)
+BAD_STOP = tuning.get("LEV_BAD_STOP", 20)
+CREDIT = "\tmultiply = spec_crunch_lend\n" if ON else ""
+
+
+def months(name, share=1):
+    """Months that Bad Debts of `share` of today's last: those still biting in, when nothing fades, then those fading."""
+    cut = f"multiply = {share:g} " if share != 1 else ""
+    return (f"{name} = {{\n\tvalue = spec_crunch_sv\n\t{cut}subtract = spec_crunch_bite_sv\n\tmin = 0\n\tdivide = {CRUNCH_RAMP}\n\tceiling = yes\n"
+            f"\tadd = {{ value = spec_crunch_sv {cut}divide = spec_crunch_fade ceiling = yes }}\n}}")
 CRUNCH_THROUGHPUT = tuning.get("LEV_CRUNCH_THROUGHPUT", 0.004)  # throughput lost per point of Bad Debts
 CRUNCH_INVEST = tuning.get("LEV_CRUNCH_INVEST", 0.0075)  # investment lost per point: the worst Bad Debts (40) -30%, was 0.02 (-80%)
 LAND_LOST, RELIEF_MONTHS = tuning.get("LEV_LAND_LOST", 0.1), tuning.get("LEV_RELIEF_MONTHS", 60)
@@ -63,7 +77,7 @@ FEVER = {int(k): v for k, v in tuning.get("AI_FEVER", {"0": 10, "1": 50}).items(
 LADDER = tuple(tuning.get("LEV_LADDER", (SAFE, 8, 10, 12)))
 LADDER_STEPS = tuple(b - a for a, b in zip(LADDER, LADDER[1:]))
 LADDER_TECHS = ("central_banking", "investment_banks", "international_exchange_standards")
-STATE_VARS = ["spec_bailed", "spec_ai_fever", "spec_crunch", "spec_crunch_bite", "spec_lev_held", "spec_lev_last", "spec_lev_ready", "spec_c_drop", "spec_lev_pop", "spec_lev_avg", "spec_lev_old", "spec_lev_ref", "spec_lev_fade"]
+STATE_VARS = ["spec_bailed", "spec_ai_fever", "spec_crunch", "spec_crunch_bite", "spec_xs_bad", "spec_lev_held", "spec_lev_last", "spec_lev_ready", "spec_c_drop", "spec_lev_pop", "spec_lev_avg", "spec_lev_old", "spec_lev_ref", "spec_lev_fade"]
 
 
 def values(panic, near):
@@ -71,6 +85,9 @@ def values(panic, near):
         return []
     limit = "".join(f"\tif = {{\n\t\tlimit = {{\n\t\t\thas_variable = spec_temper\n\t\t\tvar:spec_temper = {t}\n\t\t}}\n\t\tvalue = {v}\n\t}}\n"
                     for t, v in AI_LIMIT.items() if t != "0")
+    def panic_value(name, stress):
+        return f"{name} = {{\n\tvalue = {stress}\n\tmultiply = {PANIC_SPAN}\n\tadd = {panic}\n\tsubtract = spec_shallow_panic\n}}"
+
     return [
         f"spec_lev_floor = {{\n\tvalue = gdp\n\tmultiply = {INCOME_FLOOR:g}\n}}",
         "spec_lev_income = {\n\tvalue = spec_pool_month\n\tif = {\n\t\tlimit = { has_variable = spec_lev_avg }\n\t\tmin = var:spec_lev_avg\n\t}\n\tmin = spec_lev_floor\n}",
@@ -90,7 +107,12 @@ def values(panic, near):
         "spec_lev_bad = {\n\tvalue = spec_lev\n\tif = {\n\t\tlimit = { has_variable = spec_lev_fade }\n\t\tvalue = spec_lev_adj\n\t\tsubtract = spec_lev\n"
         f"\t\tmultiply = var:spec_lev_fade\n\t\tdivide = {RELIEF_MONTHS}\n\t\tadd = spec_lev\n\t}}\n}}",
         f"spec_lev_stress = {{\n\tvalue = spec_lev\n\tsubtract = {SAFE}\n\tdivide = {RUIN - SAFE}\n\tmin = 0\n\tmax = 1\n}}",
-        f"spec_panic_at = {{\n\tvalue = spec_lev_stress\n\tmultiply = {PANIC_SPAN}\n\tadd = {panic}\n\tsubtract = spec_shallow_panic\n}}",
+        # the Panic Threshold a part a line, for its tooltip's breakdown (market_tab SPEC_PANIC_LINE_TT): panic_value's sum
+        f"spec_pl_lev = {{\n\tvalue = spec_lev_stress\n\tmultiply = {PANIC_SPAN}\n}}",
+        "spec_pl_shallow = {\n\tvalue = spec_shallow_panic\n\tmultiply = -1\n}",
+        f"spec_panic_at = {{\n\tvalue = {panic}\n\tadd = spec_pl_lev\n\tadd = spec_pl_shallow\n}}",
+        *(panic_value(f"spec_panic_at_{m}", f"{{ value = {m} subtract = {SAFE} divide = {RUIN - SAFE} min = 0 max = 1 }}")
+          for m in sorted(set((*LADDER, SAFE, DANGER, RUIN)))),
         f"spec_near_at = {{\n\tvalue = spec_panic_at\n\tadd = {near - panic}\n}}",
         # whole months, so the modifier changes rarely; nothing during a panic or a crunch
         f"spec_lev_reward = {{\n\tvalue = spec_lev_adj\n\tmax = {REWARD_MAX}\n\tfloor = yes\n\tif = {{\n\t\tlimit = {{\n\t\t\tOR = {{\n"
@@ -103,11 +125,21 @@ def values(panic, near):
         f"spec_crunch_invest_pct = {{\n\tvalue = spec_crunch_bite_sv\n\tmultiply = {CRUNCH_INVEST * 100:g}\n}}",
         "spec_crunch_left = {\n\tvalue = spec_crunch_sv\n\tsubtract = spec_crunch_bite_sv\n}",
         "spec_crunch_sv = {\n\tvalue = 0\n\tif = {\n\t\tlimit = { has_variable = spec_crunch }\n\t\tvalue = var:spec_crunch\n\t}\n}",
+        f"spec_crunch_stop = {{\n\tvalue = {BAD_STOP}\n{chr(9) + 'multiply = spec_lax_badstop' + chr(10) if cycle.ON else ''}}}",
+        "spec_crunch_lend = {\n\tvalue = spec_crunch_sv\n\tdivide = spec_crunch_stop\n\tmultiply = -1\n\tadd = 1\n\tmin = 0\n}",
+        "spec_crunch_lend_cut = {\n\tvalue = 1\n\tsubtract = spec_crunch_lend\n\tmultiply = 100\n}",
         "spec_lev_fade_sv = {\n\tvalue = 0\n\tif = {\n\t\tlimit = { has_variable = spec_lev_fade }\n\t\tvalue = var:spec_lev_fade\n\t}\n}",
         f"spec_crunch_stress = {{\n\tvalue = spec_lev_bad\n\tsubtract = {SAFE}\n\tdivide = {RUIN - SAFE}\n\tmin = 0\n\tmax = 1\n}}",
-        # what a panic would leave today, for the panic and the tab's warning: a new panic never eases bad debts already there
-        f"spec_crunch_if = {{\n\tvalue = spec_crunch_stress\n\tmultiply = {CRUNCH_MAX}\n\tmultiply = spec_nx_bad\n\tmin = spec_crunch_sv\n}}",
-        f"spec_crunch_months = {{\n\tvalue = spec_crunch_sv\n\tdivide = {CRUNCH_FADE}\n\tceiling = yes\n}}",
+        # what a panic would leave today, for the panic and the tab's warning: a new panic never eases bad debts already there,
+        # but a burst this month (ON_BURST) adds to it
+        "spec_xs_bad_sv = {\n\tvalue = 0\n\tif = {\n\t\tlimit = { has_variable = spec_xs_bad }\n\t\tvalue = var:spec_xs_bad\n\t}\n}",
+        f"spec_crunch_if = {{\n\tvalue = spec_crunch_stress\n\tmultiply = {CRUNCH_MAX}\n\tmultiply = spec_nx_bad\n\tadd = spec_xs_bad_sv\n\tmin = spec_crunch_sv\n}}",
+        f"spec_crunch_fade = {{\n\tvalue = {CRUNCH_FADE}\n\tif = {{\n\t\tlimit = {{ spec_stance_value = -1 }}\n\t\tvalue = {CRUNCH_FADE_TIGHT}\n\t}}\n}}",
+        # the months still biting in, when nothing fades, then the months fading at this credit policy's rate
+        months("spec_crunch_months"),
+        # display only: each finance technology's step of the credit limit (limit), for the Lending Limit's breakdown
+        *(f"spec_lim_{t} = {{\n\tvalue = 0\n\tif = {{\n\t\tlimit = {{ has_technology_researched = {t} }}\n\t\tvalue = {n}\n\t}}\n}}"
+          for t, n in zip(LADDER_TECHS, LADDER_STEPS)),
         # throughput lost in percent, for the texts: now, once fully bitten in, and if a panic began now
         *(f"{name} = {{\n\tvalue = {src}\n\tmultiply = {CRUNCH_THROUGHPUT * 100:g}\n}}" for name, src in
           (("spec_crunch_tp_pct", "spec_crunch_bite_sv"), ("spec_crunch_tp_full_pct", "spec_crunch_sv"), ("spec_crunch_tp_if_pct", "spec_crunch_if"))),
@@ -212,7 +244,14 @@ MONTHLY = "" if not ON else f"""			# land lost: the average income is the income
 			if = {{
 				limit = {{ has_variable = spec_crunch }}
 				remove_modifier = spec_credit_crunch
-				change_variable = {{ name = spec_crunch add = -{CRUNCH_FADE} }}
+				# they shrink only once felt in full, so they reach the size the panic showed (1.2; the worst peaked near 33 of 40)
+				if = {{
+					limit = {{
+						has_variable = spec_crunch_bite
+						var:spec_crunch_bite >= var:spec_crunch
+					}}
+					set_variable = {{ name = spec_crunch value = {{ value = var:spec_crunch subtract = spec_crunch_fade }} }}
+				}}
 				if = {{
 					limit = {{ var:spec_crunch <= 0 }}
 					remove_variable = spec_crunch
@@ -282,7 +321,7 @@ def near_limit(near):
     return "spec_near_at" if ON else f"{near}"
 
 
-NO_CREDIT = "" if not ON else "\t\t\t\t\tNOT = { has_variable = spec_crunch }\n\t\t\t\t\tvar:spec_conf >= spec_panic_at\n"
+NO_CREDIT = "" if not ON else "\t\t\t\t\tspec_crunch_lend > 0\n\t\t\t\t\tvar:spec_conf >= spec_panic_at\n"
 
 
 # in spec_start_panic, before the debt is touched
@@ -324,14 +363,16 @@ def panic_event_loc(root, keys):
     if not ON:
         return ""
     line = (f"The boom's loans have gone bad. Over the coming months [concept_spec_bad_debts] will cut [concept_throughput] by #N [{root}.ScriptValue('spec_crunch_tp_full_pct')|1]%#!, then fade, clearing in "
-            f"#v [{root}.ScriptValue('spec_crunch_months')|0]#! months. Banks will lend nothing until they clear, and #v Lend to the Banks#! will not clear them.")
+            f"#v [{root}.ScriptValue('spec_crunch_months')|0]#! months. Banks will lend less while they last, and #v Lend to the Banks#! will not clear them.")
     return f' spec_markets.2.bad_debts: "{line}"\n' + "".join(f' {k}_bad: "${k}$\\n\\n$spec_markets.2.bad_debts$"\n' for k in keys)
 
 
-# in spec_start_panic, after the clawback: what the pool couldn't pay back, the banks lose
+# in spec_start_panic, after the clawback: the debt falls by what was called back (spec_recall_requested, the share set by
+# Lending Standards); what the pool couldn't pay of it, the banks lose. Was always half, whatever was called (user, 2026-11-19)
 def after_clawback(clawback):
-    return "" if not ON else (f"\tset_variable = {{ name = spec_debt value = {{ value = var:spec_debt add = var:spec_clawed multiply = {1 - clawback:g} }} }}\n"
-                              f"\tif = {{\n\t\tlimit = {{ has_variable = spec_lev_old }}\n\t\tchange_variable = {{ name = spec_lev_old multiply = {1 - clawback:g} }}\n\t}}\n")
+    kept = f"{{ value = 1 subtract = {{ value = var:spec_recall_lax multiply = {clawback:g} }} min = 0 }}"
+    return "" if not ON else (f"\tset_variable = {{ name = spec_debt value = {{ value = var:spec_recall_balance subtract = var:spec_recall_requested min = 0 }} }}\n"
+                              f"\tif = {{\n\t\tlimit = {{ has_variable = spec_lev_old }}\n\t\tset_variable = {{ name = spec_lev_old value = {{ value = var:spec_lev_old multiply = {kept} }} }}\n\t}}\n")
 
 
 # the monthly pulse, before the runoff comes off the debt: the old loans shrink in step with it
@@ -353,11 +394,31 @@ FEVER_END = "" if not ON else ("\t\t\t\tif = {\n\t\t\t\t\tlimit = {\n\t\t\t\t\t\
                                "\t\t\t\t\tremove_variable = spec_ai_fever\n\t\t\t\t}\n")
 
 
+# in the burst, before it takes confidence (generate.py): what confidence can't absorb, the lenders lose. A point of Bad
+# Debts for each point of burst past the confidence there was, so a bigger bubble always costs more (1.2; was nothing past
+# full). spec_xs_bad lasts the month, so a panic starting this month adds its leverage Bad Debts on top (spec_crunch_if)
+ON_BURST = "" if not ON else """				set_variable = { name = spec_xs_bad value = { value = var:spec_heat multiply = spec_burst_per_heat multiply = spec_nx_burst subtract = var:spec_conf multiply = spec_nx_bad } }
+				if = {
+					limit = { var:spec_xs_bad > 0 }
+					if = {
+						limit = { has_variable = spec_crunch }
+						change_variable = { name = spec_crunch add = var:spec_xs_bad }
+					}
+					else = {
+						set_variable = { name = spec_crunch value = var:spec_xs_bad }
+						set_variable = { name = spec_crunch_bite value = 0 }
+					}
+					remove_variable = spec_bailed
+				}
+				else = {
+					remove_variable = spec_xs_bad
+				}
+"""
 # the monthly pulse, each after its neighbour in generate.py
-CLEAR_DROP = "" if not ON else "\t\t\tremove_variable = spec_c_drop\n"
+CLEAR_DROP = "" if not ON else "\t\t\tremove_variable = spec_c_drop\n\t\t\tremove_variable = spec_xs_bad\n"
 AFTER_PANIC = "" if not ON else "\t\t\t\tif = {\n\t\t\t\t\tlimit = { has_variable = spec_c_drop }\n\t\t\t\t\tspec_pick_driver = yes\n\t\t\t\t}\n"
 # no credit, for the tab's previews
-BLOCKED = ("OR = { has_variable = spec_panic has_variable = spec_crunch has_modifier = spec_ld_crash AND = { has_variable = spec_conf var:spec_conf < spec_panic_at } }"
+BLOCKED = ("OR = { has_variable = spec_panic spec_crunch_lend <= 0 has_modifier = spec_ld_crash AND = { has_variable = spec_conf var:spec_conf < spec_panic_at } }"
            if ON else "OR = { has_variable = spec_panic has_modifier = spec_ld_crash }")
 # the panic event's texts: (key suffix, extra trigger), the first that fits wins
 PANIC_DESCS = [("_bad", "has_variable = spec_crunch"), ("", "")] if ON else [("", "")]
@@ -366,12 +427,12 @@ SHUT_DOWN = "" if not ON else "".join(f"\tif = {{\n\t\tlimit = {{ has_modifier =
 # the bank bailout: Bad Debts cut by BAILOUT_CUT at a treasury cost of BAILOUT_COST x points squared of GDP. Worst case, 40 points
 # halved, about 5% of GDP: more than a rescue (2%), as the state takes over losses rather than lending through a panic. Squared, as
 # small Bad Debts were dear for what they cut (10 points cost 1.25%, now 0.3%)
-BAILOUT_CUT, BAILOUT_COST = 0.5, 0.00003
+BAILOUT_CUT, BAILOUT_COST = tuning.get("LEV_BAILOUT_CUT", 0.5), tuning.get("LEV_BAILOUT_COST", 0.00003)
 BAILOUT_VALUES = [] if not ON else [
     # in two steps: the engine reads no 3e-05, and too many decimals lose precision
     f"spec_bailout_share = {{\n\tvalue = spec_crunch_sv\n\tmultiply = spec_crunch_sv\n\tmultiply = {BAILOUT_COST * 100:g}\n\tdivide = 100\n}}",
     "spec_bailout_cost = {\n\tvalue = gdp\n\tmultiply = spec_bailout_share\n\tdivide = 1000\n\tround = yes\n\tmultiply = 1000\n\tmin = 1000\n}",
-    f"spec_bailout_months = {{\n\tvalue = spec_crunch_sv\n\tmultiply = {1 - BAILOUT_CUT:g}\n\tdivide = {CRUNCH_FADE}\n\tceiling = yes\n}}",
+    months("spec_bailout_months", 1 - BAILOUT_CUT),
 ]
 
 
@@ -433,7 +494,7 @@ LOC = "" if not ON else f""" spec_lev_boom: "Credit Boom"
  spec_bailed_tt: "The state has not bought up bad loans since these [concept_spec_bad_debts] began"
  spec_lev_boom_desc: "Borrowed money keeps the works busy, adding #P {REWARD:+.0%}#! [concept_throughput] for each whole month of [concept_spec_leverage], up to #P {REWARD * REWARD_MAX:+.0%}#!"
  spec_credit_crunch: "Bad Debts"
- spec_credit_crunch_desc: "The banks are still counting their losses from the last boom. #N They lend nothing#! until this fades.\\n#v Lend to the Banks#! does not clear it\\n#v Buy Up Bad Loans#! halves it, once while it lasts"
+ spec_credit_crunch_desc: "The banks are still counting their losses from the last boom. They lend #N less#! the more there is, and nothing while it is past what [concept_spec_lending_standards] allow.\\n#v Lend to the Banks#! does not clear it\\n#v Buy Up Bad Loans#! halves it, once while it lasts"
 """
 # the AI buys up bad loans too, from money it has; about one month in seven while it can
 AI_BAILOUT = "" if not ON else """				if = {
@@ -470,12 +531,27 @@ if __name__ == "__main__":
         crunch_if = next(v for v in values(30, 40) if v.startswith("spec_crunch_if"))
         assert crunch_if.count("spec_crunch_stress") == 1, "Bad Debts grow with stress, not stress squared"
         assert "spec_panic_at" in NO_CREDIT and "spec_ld_crash" in BLOCKED and "spec_panic_at" in BLOCKED
+        # Bad Debts cut lending gradually: the rate carries the factor, and only a full stop blocks it
+        assert "has_variable = spec_crunch" not in NO_CREDIT + BLOCKED and CREDIT.strip() in sv[sv.index("spec_credit_rate = {"):][:200]
         # the income average holds through a panic or Bad Debts; no lending this month, no bigger bonus
         assert MONTHLY.index("NOT = {{ has_variable = spec_crunch }}".replace("{{", "{").replace("}}", "}")) < MONTHLY.index("spec_lev_avg value = spec_lev_avg_next")
         assert "local_var:spec_lent <= 0" in MONTHLY and "name = spec_lent value = var:spec_credit_given" in generate.monthly(False)
         # the bailout re-arms only for bigger Bad Debts, and costs points squared: 40 points 4.8% of GDP, 10 points 0.3%
         assert "limit = { spec_crunch_if > spec_crunch_sv }\n\t\t\tremove_variable = spec_bailed" in on_panic(30)
-        assert abs(40 ** 2 * BAILOUT_COST - 0.048) < 1e-9 and abs(10 ** 2 * BAILOUT_COST - 0.003) < 1e-9
+        assert tuning.get("LEV_BAILOUT_COST", None) is not None or (abs(40 ** 2 * BAILOUT_COST - 0.048) < 1e-9 and abs(10 ** 2 * BAILOUT_COST - 0.003) < 1e-9)
+        # Bad Debts fade only once felt in full: they peak at the size shown, and last the months shown (MONTHLY's order: fade, then bite)
+        assert "var:spec_crunch_bite >= var:spec_crunch" in MONTHLY and MONTHLY.index("subtract = spec_crunch_fade") < MONTHLY.index("spec_crunch_bite add")
+        import math
+        for c, b0, f in ((40, 3, CRUNCH_FADE), (22, 3, CRUNCH_FADE), (40, 3, CRUNCH_FADE_TIGHT), (10, 10, CRUNCH_FADE), (13, 30, CRUNCH_FADE)):
+            left, b, n = c, min(b0, c), 0
+            peak = b
+            while left > 0:
+                if b >= left:
+                    left -= f
+                b, n = min(b + CRUNCH_RAMP, left), n + 1
+                peak = max(peak, b)
+            assert peak == c and n == math.ceil(max(c - b0, 0) / CRUNCH_RAMP) + math.ceil(c / f), (c, b0, n)
+        assert all(s in "\n".join(values(30, 40)) for s in ("spec_crunch_months = {\n\tvalue = spec_crunch_sv\n\tsubtract = spec_crunch_bite_sv", "divide = spec_crunch_fade"))
     # credit: confidence's share capped at CREDIT_FLOW_MAX, then the rate, then the ceiling and the room against leverage's income
     credit = sv[sv.index("spec_credit = {"):]
     credit = credit[:credit.index("\n}") + 2]

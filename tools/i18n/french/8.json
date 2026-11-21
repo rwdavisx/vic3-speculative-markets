@@ -1,4 +1,14 @@
 {
   "0fee773c3e": "Leur rang s’écarte d’au plus #v {1}#! du nôtre",
-  "966425a285": "Ils ont une [concept_spec_exchange]"
+  "966425a285": "Ils ont une [concept_spec_exchange]",
+  "c3633b0eab": "Intégration financière",
+  "59b7c93a32": "Les banques et les Bourses des {1} se prêtent entre elles et prêtent au {2}, si bien qu’une {3} sur un marché ébranle moins les autres et que le marché monétaire du chef sert l’ensemble du $concept_power_bloc$.",
+  "6bf1516990": "Le gouvernement soutient leur secteur",
+  "83f11e45f6": "Le gouvernement est intervenu sur un marché qui importe à ce groupe, comme il le souhaitait.",
+  "72624fb140": "Secteur favori en plein essor",
+  "9c273eba47": "Les investisseurs affluent dans un secteur cher à ce groupe.",
+  "f16cf710c1": "Débâcle d’un secteur favori",
+  "4587c5750d": "Un secteur cher à ce groupe s’est effondré, et il en veut au gouvernement de l’avoir laissé faire.",
+  "0f694b87ed": "Le gouvernement contrarie leur secteur",
+  "77fe19e687": "Le gouvernement est intervenu sur un marché qui importe à ce groupe, contre son gré."
 }

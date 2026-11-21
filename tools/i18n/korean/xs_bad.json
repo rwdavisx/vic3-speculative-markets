@@ -1,0 +1,6 @@
+{
+ "2095c742e7": "지금 터지면: [concept_spec_market_confidence] #N 전부#! 상실{1}\\n막대가 가득 찼습니다. 이를 넘으면 거품 붕괴가 신뢰도에서 빼앗지 못한 만큼이 [concept_spec_bad_debts](으)로 바뀝니다.",
+ "e689f1cd5e": ", [concept_spec_bad_debts] 최소 #N {1}#!",
+ "a381ebcd97": " 빼앗지 못한 만큼은 [concept_spec_bad_debts](으)로 바뀌었습니다.",
+ "a129ca9f3c": "@spec_market_confidence! [concept_spec_market_confidence]이(가) 너무 낮아져 우리의 [concept_spec_speculative_excess]을(를) 지탱할 수 없었고, 거품 붕괴로 더 떨어졌습니다.{1}"
+}

@@ -30,5 +30,46 @@ if = { limit = { var:spec_test_display_months >= -0.001 var:spec_test_display_mo
 else = { debug_log = "HOTFIX FAIL bank_tooltip_months_match_post_lending_loans" }
 if = { limit = { var:spec_test_display_mult >= -0.001 var:spec_test_display_mult <= 0.001 } debug_log = "HOTFIX PASS bank_tooltip_multiplier_matches_post_lending_loans" }
 else = { debug_log = "HOTFIX FAIL bank_tooltip_multiplier_matches_post_lending_loans" }
+ if = { limit = { has_variable = spec_mood_random } debug_log = "HOTFIX PASS mood_draw_recorded" }
+ else = { debug_log = "HOTFIX FAIL mood_draw_recorded" }
+ set_variable = { name = spec_c_mood value = 4 }
+ set_variable = { name = spec_exch_stand value = 1 }
+ spec_mechanics_mood = yes
+ set_local_variable = { name = expected value = { value = 3 add = var:spec_mood_random add = spec_exch_lean subtract = var:spec_c_mood } }
+ if = { limit = { local_var:expected >= -0.0001 local_var:expected <= 0.0001 } debug_log = "HOTFIX PASS mood_carry_draw_prosperity_reconcile" }
+ else = { debug_log = "HOTFIX FAIL mood_carry_draw_prosperity_reconcile" }
+ spec_shut_down = yes
+ set_variable = { name = spec_debt value = 10000 }
+ spec_mechanics_bank_chart = yes
+ if = { limit = { NOT = { any_in_list = { variable = spec_bank_goods always = yes } } } debug_log = "HOTFIX PASS zero_exposure_empty" }
+ else = { debug_log = "HOTFIX FAIL zero_exposure_empty" }
+ set_variable = { name = spec_exp_coal value = 0.0008 }
+ set_variable = { name = spec_exp_iron value = 0.0008 }
+ set_variable = { name = spec_exp_steel value = 0.0008 }
+ set_variable = { name = spec_exp_wood value = 0.0008 }
+ set_variable = { name = spec_exp_paper value = 0.0008 }
+ set_variable = { name = spec_exp_tools value = 0.0008 }
+ set_variable = { name = spec_exp_grain value = 0.0008 }
+ set_variable = { name = spec_exp_fish value = 0.0008 }
+ set_variable = { name = spec_exp_meat value = 0.0008 }
+ set_variable = { name = spec_exp_silk value = 0.0008 }
+ spec_mechanics_bank_chart = yes
+ if = { limit = { has_variable = spec_bank_oth_coal is_target_in_variable_list = { name = spec_bank_goods target = g:coal } var:spec_bank_top = 0 spec_exp_booms > 0.0079 spec_exp_booms < 0.0081 } debug_log = "HOTFIX PASS small_holdings_grouped" }
+ else = { debug_log = "HOTFIX FAIL small_holdings_grouped" }
+ set_variable = { name = spec_exp_steel value = 0.25 }
+ spec_mechanics_bank_chart = yes
+ if = { limit = { is_target_in_variable_list = { name = spec_bank_goods target = g:steel } var:spec_bank_top = 0.25 has_variable = spec_bank_oth_coal is_target_in_variable_list = { name = spec_bank_goods target = g:coal } } debug_log = "HOTFIX PASS small_remainder_grouped" }
+ else = { debug_log = "HOTFIX FAIL small_remainder_grouped" }
+ set_variable = { name = spec_exp_iron value = 0.0009 }
+ spec_mechanics_bank_chart = yes
+ if = { limit = { var:spec_bank_other_1 = g:iron var:spec_bank_other_2 = g:coal has_variable = spec_bank_other_3 var:spec_bank_other_share_1 = 0.0009 } debug_log = "HOTFIX PASS other_goods_ranks_smaller_contributors" }
+ else = { debug_log = "HOTFIX FAIL other_goods_ranks_smaller_contributors" }
+ set_variable = { name = spec_debt value = 0 }
+ spec_mechanics_bank_chart = yes
+ if = { limit = { NOT = { has_variable = spec_bank_other_1 } NOT = { has_variable = spec_bank_other_3 } } debug_log = "HOTFIX PASS empty_chart_clears_contributors" }
+ else = { debug_log = "HOTFIX FAIL empty_chart_clears_contributors" }
+ set_variable = { name = spec_debt value = 10000 }
+ set_variable = { name = spec_exp_iron value = 0.0008 }
+ spec_mechanics_bank_chart = yes
  debug_log = "HOTFIX SUITE COMPLETE"
 } }

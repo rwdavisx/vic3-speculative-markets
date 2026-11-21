@@ -1,0 +1,7 @@
+{
+ "eb4306fea3": "Unsere [concept_spec_exchange] gewinnt #P {1}#! Vertrauen, und die von {2} verliert #N {3}#!.",
+ "caf129348d": "Unsere [concept_spec_exchange] verliert #N {1}#! Vertrauen, und die von {2} gewinnt #P {3}#!.",
+ "7a4a453eaf": "Keine Seite gewinnt oder verliert Vertrauen.",
+ "f71901f02c": "Würde er jetzt entschieden: {1}. Entschieden wird er in $SPEC_RV_LEFT$.",
+ "b33e629707": "#header Wettstreit mit {1}#!\\n$TOOLTIP_DELIMITER$\\nDer Balken steht $SPEC_RV_BAR_AT$. $SPEC_RV_NOW_LINE$\\n{2}\\n$TOOLTIP_DELIMITER$\\nJeder Wettstreit dauert #v {3}#! Jahre, dann beginnt ein neuer."
+}

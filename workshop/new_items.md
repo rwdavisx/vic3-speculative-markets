@@ -1,4 +1,14 @@
-# Current releases
+# Latest stable update
+
+Steam verified public release **1.1.6** on November 18, 2026 (US Eastern). The release includes the Finance fixes and quality-of-life updates tested in **1.1.5-beta.4** and preserves the original 1.1 feature notes. See the [stable listing](https://steamcommunity.com/sharedfiles/filedetails/?id=3831434383), [release evidence](../tests/mechanics/verification_finance_116.json), and [Steam receipt](upload_receipts/20261118T055713.793707Z_stable_update_verified_2f27ea76.json).
+
+# Latest beta update
+
+Steam verified the public [Speculative Markets - Beta](https://steamcommunity.com/sharedfiles/filedetails/?id=3839275304) update to **1.2.0-beta.1** on November 19, 2026, 15:19 UTC: archive `beta/releases/Speculative_Markets_Beta_1.2.0-beta.1.zip` (sha256 `55b475a6b93cb5e7693923c4b6ef9d7a526d6bba4c3f63a6394ec33a34e1a99b`), [Steam receipt](upload_receipts/20261119T151915.789623Z_beta_update_verified_bd8e33ff.json). Validation: generator and packaging checks passed, and the dev game loaded the build on Victoria 3 1.15.2 with no mod entries in the error log. `quick_test.py --engine` was not run, and the 1.2 features have not been checked in game. The Morgenroete and Tech & Res patches still match stable 1.1.6, and the listing warns against using them with this beta.
+
+Previous: Steam verified the public update to **1.1.5-beta.2** on November 17, 2026 (US Eastern). The listing retains the 1.1 feature notes. See the [release evidence](../tests/mechanics/verification_finance_readability_115b2.json) and [Steam receipt](upload_receipts/20261118T043256.184905Z_beta_update_verified_013779c5.json).
+
+# November 14, 2026 releases
 
 Published and API-verified public November 14, 2026. Stable **1.0.6** and beta **1.0.6-beta.1** include the rivalry notification and AI rescue fixes. CMF **1.0.1** and Morgenroete **1.0.0** retain byte-identical patch content; their descriptions now identify the matching parent versions.
 
@@ -64,15 +74,15 @@ For a future release, first build and validate a new immutable archive and manif
 From the repository root, run the intended update without `--execute` first. This example plans a public update of the **existing Beta item**:
 
 ```powershell
-py -3 -B tools/steam_upload.py update beta --public --gate runs/release_gate/validated_run/report.json
+py -3 -B tools/steam_upload.py update beta --public
 ```
 
-Stable/beta content updates require the full automated report described in `RELEASE_TESTING.md`; subset runs are rejected. Relevant live UI checks remain required. Description-only updates do not need a gameplay rerun.
+For stable and beta content updates, run the fast checks against the intended beta and record their results as described in `RELEASE_TESTING.md`. Verify relevant UI changes in-game.
 
 Check that the plan names item `3839275304`, the intended version, source archive hash, description hash, and public visibility. When the upload is authorized and that exact plan has been reviewed, execute the same update:
 
 ```powershell
-py -3 -B tools/steam_upload.py update beta --public --gate runs/release_gate/validated_run/report.json --execute
+py -3 -B tools/steam_upload.py update beta --public --execute
 ```
 
 Use channel `cmf` for item `3839275348`, or `stable` for item `3831434383`, with the same plan-then-execute sequence. Keep `--public` on updates to these public listings; without it, the helper defaults to private visibility for Beta and CMF. Afterward, inspect the new `update_verified` receipt and live page, including description links and Required Items. If an upload is ambiguous or fails, reconcile its existing receipts and item state before retrying; never create a replacement listing as a shortcut.

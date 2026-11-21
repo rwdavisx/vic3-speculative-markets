@@ -1,0 +1,44 @@
+﻿spec_pb_shelter = {
+	value = 1
+	if = {
+		limit = {
+			is_in_power_bloc = yes
+			is_in_same_power_bloc = root
+			power_bloc = { has_principle_group = principle_group:principle_group_spec_financial_integration }
+		}
+		value = 0.75
+	}
+}
+# spec_credit_limit without this module's share, so the leader's is read without recursion
+spec_pb_base_limit = {
+	value = 3
+	if = {
+		limit = { has_technology_researched = central_banking }
+		add = 5
+	}
+	if = {
+		limit = { has_technology_researched = investment_banks }
+		add = 2
+	}
+	if = {
+		limit = { has_technology_researched = international_exchange_standards }
+		add = 2
+	}
+	add = spec_exch_limit
+	max = 12
+}
+spec_pb_limit = {
+	value = 0
+	if = {
+		limit = {
+			is_in_power_bloc = yes
+			is_power_bloc_leader = no
+			power_bloc = { OR = { has_principle = principle:principle_spec_financial_integration_2 has_principle = principle:principle_spec_financial_integration_3 } }
+		}
+		value = power_bloc.power_bloc_leader.spec_pb_base_limit
+		subtract = spec_pb_base_limit
+		multiply = 0.5
+		floor = yes
+		min = 0
+	}
+}

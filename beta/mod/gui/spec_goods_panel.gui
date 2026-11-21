@@ -1284,8 +1284,8 @@
 										size = { -1 28 }
 										autoresize = yes
 										align = left|nobaseline
-										visible = "[Or(GreaterThanOrEqualTo_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)0.01'), LessThanOrEqualTo_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)-0.01'))]"
-										raw_text = "[Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'))|=+%0]"
+										visible = "[Or(GreaterThanOrEqualTo_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)0.0005'), LessThanOrEqualTo_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)-0.0005'))]"
+										raw_text = "[Divide_CFixedPoint(IntToFixedPoint(FixedPointToInt(Add_CFixedPoint(Multiply_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)1000'), Select_CFixedPoint(LessThan_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)0'), '(CFixedPoint)-0.5', '(CFixedPoint)0.5')))), '(CFixedPoint)1000')|=+%1]"
 										tooltip = "SPEC_IB_HEAT_TT"
 									}
 								}
@@ -1307,8 +1307,8 @@
 										size = { -1 28 }
 										autoresize = yes
 										align = left|nobaseline
-										visible = "[Or(GreaterThanOrEqualTo_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)0.01'), LessThanOrEqualTo_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)-0.01'))]"
-										raw_text = "[Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'))|=+%0]"
+										visible = "[Or(GreaterThanOrEqualTo_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)0.0005'), LessThanOrEqualTo_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)-0.0005'))]"
+										raw_text = "[Divide_CFixedPoint(IntToFixedPoint(FixedPointToInt(Add_CFixedPoint(Multiply_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)1000'), Select_CFixedPoint(LessThan_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)0'), '(CFixedPoint)-0.5', '(CFixedPoint)0.5')))), '(CFixedPoint)1000')|=+%1]"
 										tooltip = "SPEC_IB_HEAT_TT"
 									}
 								}
@@ -1330,8 +1330,8 @@
 										size = { -1 28 }
 										autoresize = yes
 										align = left|nobaseline
-										visible = "[Or(GreaterThanOrEqualTo_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)0.01'), LessThanOrEqualTo_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)-0.01'))]"
-										raw_text = "[Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'))|=+%0]"
+										visible = "[Or(GreaterThanOrEqualTo_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)0.0005'), LessThanOrEqualTo_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)-0.0005'))]"
+										raw_text = "[Divide_CFixedPoint(IntToFixedPoint(FixedPointToInt(Add_CFixedPoint(Multiply_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)1000'), Select_CFixedPoint(LessThan_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)0'), '(CFixedPoint)-0.5', '(CFixedPoint)0.5')))), '(CFixedPoint)1000')|=+%1]"
 										tooltip = "SPEC_IB_HEAT_TT"
 									}
 								}
@@ -1353,8 +1353,8 @@
 										size = { -1 28 }
 										autoresize = yes
 										align = left|nobaseline
-										visible = "[Or(GreaterThanOrEqualTo_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)0.01'), LessThanOrEqualTo_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)-0.01'))]"
-										raw_text = "[Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'))|=+%0]"
+										visible = "[Or(GreaterThanOrEqualTo_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)0.0005'), LessThanOrEqualTo_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)-0.0005'))]"
+										raw_text = "[Divide_CFixedPoint(IntToFixedPoint(FixedPointToInt(Add_CFixedPoint(Multiply_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)1000'), Select_CFixedPoint(LessThan_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)0'), '(CFixedPoint)-0.5', '(CFixedPoint)0.5')))), '(CFixedPoint)1000')|=+%1]"
 										tooltip = "SPEC_IB_HEAT_TT"
 									}
 								}
@@ -1376,8 +1376,8 @@
 										size = { -1 28 }
 										autoresize = yes
 										align = left|nobaseline
-										visible = "[Or(GreaterThanOrEqualTo_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)0.01'), LessThanOrEqualTo_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)-0.01'))]"
-										raw_text = "[Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'))|=+%0]"
+										visible = "[Or(GreaterThanOrEqualTo_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)0.0005'), LessThanOrEqualTo_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)-0.0005'))]"
+										raw_text = "[Divide_CFixedPoint(IntToFixedPoint(FixedPointToInt(Add_CFixedPoint(Multiply_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)1000'), Select_CFixedPoint(LessThan_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)0'), '(CFixedPoint)-0.5', '(CFixedPoint)0.5')))), '(CFixedPoint)1000')|=+%1]"
 										tooltip = "SPEC_IB_HEAT_TT"
 									}
 								}
@@ -1399,8 +1399,8 @@
 										size = { -1 28 }
 										autoresize = yes
 										align = left|nobaseline
-										visible = "[Or(GreaterThanOrEqualTo_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)0.01'), LessThanOrEqualTo_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)-0.01'))]"
-										raw_text = "[Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'))|=+%0]"
+										visible = "[Or(GreaterThanOrEqualTo_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)0.0005'), LessThanOrEqualTo_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)-0.0005'))]"
+										raw_text = "[Divide_CFixedPoint(IntToFixedPoint(FixedPointToInt(Add_CFixedPoint(Multiply_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)1000'), Select_CFixedPoint(LessThan_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_fast_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Country.MakeScope.Var(Concatenate('spec_slow_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')), '(CFixedPoint)0'), '(CFixedPoint)-0.5', '(CFixedPoint)0.5')))), '(CFixedPoint)1000')|=+%1]"
 										tooltip = "SPEC_IB_HEAT_TT"
 									}
 								}
@@ -1478,6 +1478,7 @@
 							widget = {
 								size = { 100% 100% }
 								visible = "[EqualTo_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_state_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+								tooltip = "SPEC_IL_GLUT_TT"
 								flowcontainer = {
 									position = { 66 0 }
 									spacing = 8
@@ -1644,7 +1645,7 @@
 							texture = "gfx/interface/icons/spec_markets/lever_restrain.dds"
 						}
 						blockoverride "click" {
-							enabled = "[GreaterThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_r_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Select_CFixedPoint(Country.IsLocalPlayer, '(CFixedPoint)0', '(CFixedPoint)1'))]"
+							enabled = "[And(GreaterThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_r_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Select_CFixedPoint(Country.IsLocalPlayer, '(CFixedPoint)0', '(CFixedPoint)1')), Not(And(Country.MakeScope.Var(Concatenate('spec_lever_wait_', Goods.GetKey)).IsSet, Not(Country.MakeScope.Var(Concatenate('spec_lever_grace_', Goods.GetKey)).IsSet))))]"
 							onclick = "[GetScriptedGui('spec_sgui_restrain').Execute(GuiScope.SetRoot(Country.MakeScope).AddScope('spec_good', Goods.MakeScope).End)]"
 							using = decrease_button_sound
 						}
@@ -1658,7 +1659,7 @@
 							using = decrease_button_sound
 						}
 						blockoverride "is_clickable_alpha" {
-							alpha = "[TransparentIfFalse(GreaterThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_r_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Select_CFixedPoint(Country.IsLocalPlayer, '(CFixedPoint)0', '(CFixedPoint)1')))]"
+							alpha = "[TransparentIfFalse(And(GreaterThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_r_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Select_CFixedPoint(Country.IsLocalPlayer, '(CFixedPoint)0', '(CFixedPoint)1')), Not(And(Country.MakeScope.Var(Concatenate('spec_lever_wait_', Goods.GetKey)).IsSet, Not(Country.MakeScope.Var(Concatenate('spec_lever_grace_', Goods.GetKey)).IsSet)))))]"
 						}
 					}
 					set_level_bar_item = {
@@ -1667,7 +1668,7 @@
 							texture = "gfx/interface/icons/spec_markets/lever_encourage.dds"
 						}
 						blockoverride "click" {
-							enabled = "[GreaterThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_e_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Select_CFixedPoint(Country.IsLocalPlayer, '(CFixedPoint)0', '(CFixedPoint)1'))]"
+							enabled = "[And(GreaterThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_e_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Select_CFixedPoint(Country.IsLocalPlayer, '(CFixedPoint)0', '(CFixedPoint)1')), Not(And(Country.MakeScope.Var(Concatenate('spec_lever_wait_', Goods.GetKey)).IsSet, Not(Country.MakeScope.Var(Concatenate('spec_lever_grace_', Goods.GetKey)).IsSet))))]"
 							onclick = "[GetScriptedGui('spec_sgui_encourage').Execute(GuiScope.SetRoot(Country.MakeScope).AddScope('spec_good', Goods.MakeScope).End)]"
 							using = increase_button_sound
 						}
@@ -1681,7 +1682,7 @@
 							using = increase_button_sound
 						}
 						blockoverride "is_clickable_alpha" {
-							alpha = "[TransparentIfFalse(GreaterThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_e_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Select_CFixedPoint(Country.IsLocalPlayer, '(CFixedPoint)0', '(CFixedPoint)1')))]"
+							alpha = "[TransparentIfFalse(And(GreaterThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_ui_e_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), Select_CFixedPoint(Country.IsLocalPlayer, '(CFixedPoint)0', '(CFixedPoint)1')), Not(And(Country.MakeScope.Var(Concatenate('spec_lever_wait_', Goods.GetKey)).IsSet, Not(Country.MakeScope.Var(Concatenate('spec_lever_grace_', Goods.GetKey)).IsSet)))))]"
 						}
 					}
 					set_level_bar_item = {

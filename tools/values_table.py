@@ -31,6 +31,12 @@ signed = lambda n: f"{n * 100:+g}%"
 pairs = lambda dct, f=str: ", ".join(f"{str(k).replace('_', ' ')} {f(val)}" for k, val in dct.items())
 laws = lambda i: ", ".join(f"{row[0].replace('_', ' ')} x{row[i]:g}" for row in g.LAWS)
 war = lambda k: f"{d.WAR_ROWS[k][-2]:g} to {d.WAR_ROWS[k][-1]:+g}"
+LD_NAMES = {"state_capitalists_investment_pool_efficiency_mult": "investment", "country_loan_interest_rate_mult": "loan rate",
+            "state_construction_mult": "construction", "state_trade_quantity_mult": "trade",
+            "state_radicals_and_loyalists_from_sol_change_mult": "radicals", c.FD_SOL: "Financial District pay"}
+# a Long Depression phase modifier in words, from dp.MODS (FD_SOL is a flat value, the rest percentages)
+ld = lambda m: ", ".join(f"{n} {dp.MODS[m][1][k]:+g}" if k == c.FD_SOL else f"{n} {signed(dp.MODS[m][1][k])}"
+                        for k, n in LD_NAMES.items() if k in dp.MODS[m][1])
 
 R = j.REFORMS
 # (what it is, value in words, what it does, the code name) by system
@@ -41,9 +47,10 @@ GROUPS = [
         ("Boom bonus per month", signed(l.REWARD), "Throughput for each whole month of leverage.", "l.REWARD"),
         ("Boom bonus stops at", f"{l.REWARD_MAX} months", "Largest bonus is this many months' worth.", "l.REWARD_MAX"),
         ("Panic line rise", f"+{l.PANIC_SPAN} points", f"At full danger the panic line moves from {g.PANIC} up to {g.PANIC + l.PANIC_SPAN}.", "l.PANIC_SPAN"),
-        ("Worst Bad Debts", f"{l.CRUNCH_MAX} points", "Size of a crash at full danger. It grows with the square of the danger.", "l.CRUNCH_MAX"),
+        ("Worst Bad Debts", f"{l.CRUNCH_MAX} points", "Size of a crash at full danger. It grows in a straight line with the danger.", "l.CRUNCH_MAX"),
         ("Bad Debts on investment", signed(-l.CRUNCH_INVEST), f"Investment lost per point. Each point also costs {l.CRUNCH_THROUGHPUT:.1%} throughput.", "l.CRUNCH_INVEST"),
-        ("Bad Debts fade", f"{l.CRUNCH_FADE} a month", f"So the worst crash takes about {round(l.CRUNCH_MAX / l.CRUNCH_FADE / 12)} years to clear.", "l.CRUNCH_FADE"),
+        ("Bad Debts fade", f"{l.CRUNCH_FADE} a month", f"Once felt in full, after {l.CRUNCH_RAMP} a month build-up. So the worst crash takes about {round((l.CRUNCH_MAX / l.CRUNCH_RAMP + l.CRUNCH_MAX / l.CRUNCH_FADE) / 12)} years to clear.", "l.CRUNCH_FADE"),
+        ("Bad Debts fade, Tight credit", f"{l.CRUNCH_FADE_TIGHT} a month", f"The worst crash clears in about {round((l.CRUNCH_MAX / l.CRUNCH_RAMP + l.CRUNCH_MAX / l.CRUNCH_FADE_TIGHT) / 12)} years.", "l.CRUNCH_FADE_TIGHT"),
         ("Income average", pct(l.INCOME_SMOOTH), "What a new month counts for in the year-long income average that leverage is measured against.", "l.INCOME_SMOOTH"),
         ("Land loss that counts", pct(l.LAND_LOST), "Losing this much population stops the loss itself from inflating leverage.", "l.LAND_LOST"),
         ("Land loss relief", f"{l.RELIEF_MONTHS} months", "How long that protection fades over.", "l.RELIEF_MONTHS"),
@@ -74,7 +81,7 @@ GROUPS = [
         ("Near-panic warning", f"{g.PANIC_NEAR}", "A player is warned below this.", "g.PANIC_NEAR"),
         ("Investment by band", pairs(g.BAND_INVEST, signed), "Investment from Capitalists, Aristocrats and Shopkeepers.", "g.BAND_INVEST"),
         ("Trade by band", pairs(g.BAND_TRADE, signed), "Trade volume: merchants ship more in a boom.", "g.BAND_TRADE"),
-        ("Loan rate by band", pairs(g.BAND_RATE, signed), "Dearer in fear, cheaper as confidence climbs.", "g.BAND_RATE"),
+        ("Loan rate by band", pairs(g.BAND_RATE, signed), "Dearer in fear.", "g.BAND_RATE"),
     ]),
     ("Investor interest and booms", "How prices turn into interest, and interest into confidence.", [
         ("Fast price average", pct(g.FAST), "Monthly smoothing of the short average.", "g.FAST"),
@@ -105,9 +112,10 @@ GROUPS = [
         ("Bubble builds from", f"{g.HEAT_FROM} confidence", "Months above this add to the bubble.", "g.HEAT_FROM"),
         ("Bubble bursts below", f"{g.BURST_BELOW} confidence", "Falling under this bursts it.", "g.BURST_BELOW"),
         ("Bubble cools", pct(g.HEAT_COOL), "How much is kept each month in between.", "g.HEAT_COOL"),
+        ("Bubble cools, Tight credit", pct(g.HEAT_COOL_TIGHT), "Kept each month in between under a Tight credit policy.", "g.HEAT_COOL_TIGHT"),
         ("Burst per point", f"{g.BURST_PER_HEAT}", "Confidence lost per point of bubble.", "g.BURST_PER_HEAT"),
-        ("Biggest burst", f"-{g.BURST_MAX}", "Cap on a burst.", "g.BURST_MAX"),
-        ("Heightened volatility", f"from {g.VOLATILITY['heightened']['heat']}, {g.VOLATILITY['heightened']['per']} a point, max {g.VOLATILITY['heightened']['max']}, booms x{g.VOLATILITY['heightened']['boom']}", "The game rule's stronger setting.", "g.VOLATILITY"),
+        ("Biggest burst", "no cap", f"Takes the confidence it finds, under {g.BURST_BELOW}; each point past that is a point of Bad Debts. Was -40 until 1.2.", "l.ON_BURST"),
+        ("Heightened volatility", f"from {g.VOLATILITY['heightened']['heat']}, {g.VOLATILITY['heightened']['per']} a point, booms x{g.VOLATILITY['heightened']['boom']}", "The game rule's stronger setting.", "g.VOLATILITY"),
         ("Mania event levy", f"{pct(g.MANIA_TAX)} of GDP, -{g.MANIA_TAX_CONF} confidence", "The levy option in the mania event.", "g.MANIA_TAX"),
         ("Mania warning", f"-{g.MANIA_CAUTION}", "Confidence the warning option takes off.", "g.MANIA_CAUTION"),
         ("Mania resets below", f"{g.MANIA_RESET} confidence", "A mania ends when confidence falls under this.", "g.MANIA_RESET"),
@@ -118,6 +126,10 @@ GROUPS = [
         ("Ends early at", f"{g.PANIC_ENDS_AT}", "Confidence at which a panic ends before its months run out.", "g.PANIC_ENDS_AT"),
         ("Cooldown", f"{g.PANIC_COOLDOWN} months", "Before another can start.", "g.PANIC_COOLDOWN"),
         ("Length by legitimacy", "x0.8 to x1.2", "Low legitimacy lengthens it. Written straight into the formula.", "g.PANIC_DAYS"),
+        ("Length by leverage", f"+{pct(g.PANIC_LEV_LEN)} a month past {g.leverage.SAFE}, to x{1 + g.PANIC_LEV_LEN * (g.leverage.RUIN - g.leverage.SAFE):g}",
+         "Set as it starts. No cap on the length.", "g.PANIC_LEV_LEN"),
+        ("Private construction cut", f"{pct(g.CRUNCH_FLOOR)} to all, by leverage {g.leverage.SAFE} to {g.leverage.DANGER} months",
+         "Of the economic law's private share. A rescue halves it.", "g.CRUNCH_FLOOR"),
         ("Financial District pay", f"{c.FD_MANIA:+g} in mania, {c.FD_PANIC:+g} in a panic", "Standard of Living of its workers. A rescue halves the panic's.", "c.FD_PANIC"),
         ("Company bonus in a panic", f"{c.PANIC_COMPANY:+g}", "Company throughput bonus while it lasts.", "c.PANIC_COMPANY"),
     ]),
@@ -168,15 +180,15 @@ GROUPS = [
         ("Debt conversion needs", pct(j.CONVERT_DEBT), "Debt against the credit limit needed to convert.", "j.CONVERT_DEBT"),
         ("Conversion length", f"{j.CONVERT_YEARS} years, again after {j.CONVERT_COOLDOWN_YEARS}", "How long it lasts, and the wait to do it again.", "j.CONVERT_YEARS"),
         ("Conversion confidence", f"-{j.CONVERT_CONF}", "Confidence lost by converting.", "j.CONVERT_CONF"),
-        ("Conversion rate", signed(j.CONVERT_RATE), "Loan interest while converted.", "j.CONVERT_RATE"),
+        ("Conversion rate", signed(j.CONVERT_RATE), f"Loan interest while converted, until the debt falls below {j.CONVERT_DEBT:.0%} of the credit limit.", "j.CONVERT_RATE"),
         ("Relief length", f"{j.RELIEF_MONTHS} months", "How long relief lasts.", "j.RELIEF_MONTHS"),
         ("Suspend the Bank Act", f"panic down to {j.SUSPEND_MONTHS} months, +{j.SUSPEND_CONF} confidence", f"Costs {j.SUSPEND_LEGIT} legitimacy for {j.SUSPEND_YEARS} years.", "j.SUSPEND_MONTHS"),
         ("After a suspension", f"bubble x{j.HAZARD_HEAT} for {j.HAZARD_YEARS} years", "Investors count on the next one.", "j.HAZARD_HEAT"),
-        ("Sound finance reward", f"loan rate {signed(j.SOUND_RATE)}, +{j.SOUND_PRESTIGE} prestige", "The Sound Finance modifier.", "j.SOUND_RATE"),
+        ("Sound finance reward", f"+{j.SOUND_PRESTIGE} prestige", "The Sound Finance modifier.", "j.SOUND_PRESTIGE"),
         ("Inquiry after calm", f"{j.INQUIRY_CALM} months", "Panic-free months before an inquiry can sit outside an aftermath.", "j.INQUIRY_CALM"),
         ("Inquiry sitting", f"{j.INQUIRY_MONTHS} months, Authority {signed(j.INQUIRY_AUTHORITY)}", "How long it sits and what it costs meanwhile.", "j.INQUIRY_MONTHS"),
         ("Bubble alert", f"{j.BUBBLE_ALERT} confidence", "Shows once a burst would cost this much.", "j.BUBBLE_ALERT"),
-        ("Bubble bar top", f"{j.EXCESS_MAX}", "Where the bar fills: the point the burst reaches its cap.", "j.EXCESS_MAX"),
+        ("Bubble bar top", f"{j.EXCESS_MAX}", "Where the bar fills: a pop this big takes all the confidence a pop can find. Past it, a pop also leaves Bad Debts.", "j.EXCESS_MAX"),
     ]),
     ("War and diplomacy", "What wars do to confidence.", [
         ("Any war", f"-{d.WAR_BASE} a month", "However it's going.", "d.WAR_BASE"),
@@ -218,8 +230,8 @@ GROUPS = [
         ("Tariff hit", f"-{dp.TARIFF_HIT}", "Confidence a tied partner loses to our tariffs.", "dp.TARIFF_HIT"),
         ("Event chance", f"{dp.EVENT_CHANCE}% a month, {dp.EVENT_GAP} days apart", "Depression events.", "dp.EVENT_CHANCE"),
         ("World gauge choices", pairs(dp.WORLD, lambda n: f"{n[0]:+g} / {n[1]:+g}"), "What an event choice adds. Great Power / other.", "dp.WORLD"),
-        ("Crash modifier", "investment -20%, loan rate +25%, construction -5%, Financial District pay -2", "On countries in the crash phase.", "dp.MODS"),
-        ("Depression modifier", "investment -10%, loan rate +10%, construction -10%, trade -10%, radicals +25%", "On countries in the depression phase.", "dp.MODS"),
+        ("Crash modifier", ld("spec_ld_crash"), "On countries in the crash phase.", "dp.MODS"),
+        ("Depression modifier", ld("spec_ld_depression"), "On countries in the depression phase.", "dp.MODS"),
     ]),
     ("Market interventions", "Restrain Speculation and Encourage Investment.", [
         ("Throughput", f"±{pct(v.LEVER_THROUGHPUT)}", "For the good's producers.", "v.LEVER_THROUGHPUT"),
@@ -229,9 +241,9 @@ GROUPS = [
         ("Authority floor", pct(v.LEVER_FLOOR), "Least a small good's cost falls to.", "v.LEVER_FLOOR"),
         ("Default Authority", f"{v.DEFAULT_TAX_COST}", "Where a good has no tax cost.", "v.DEFAULT_TAX_COST"),
         ("Authority rounding", f"{v.COST_STEP}", "The cost rounds to this.", "v.COST_STEP"),
-        ("Interest ease", pct(v.LEVER_EASE), "Gap to the target closed each month.", "v.LEVER_EASE"),
-        ("Restrain target", f"{v.RESTRAIN_TO}x", "Eases interest down to this.", "v.RESTRAIN_TO"),
-        ("Encourage target", f"{v.ENCOURAGE_TO}x", "Eases interest up to this.", "v.ENCOURAGE_TO"),
+        ("Push build-up", pct(v.LEVER_EASE), "Share of the gap to the full push closed each month.", "v.LEVER_EASE"),
+        ("Restrain push", f"x{v.PUSH['restrain']:.2f}", f"At confidence {v.PUSH_CONF}; m/(m+{1 / v.PUSH['restrain'] - 1:.2g}) with m = confidence/{v.PUSH_CONF}, weaker as confidence rises. Times what the market makes of interest, never below {v.RESTRAIN_TO}x (Calm). Was flat until 1.2.", "v.PUSH"),
+        ("Encourage push", f"x{v.PUSH['encourage']:g}", f"At confidence {v.PUSH_CONF}; 1 + {v.PUSH['encourage'] - 1:.2g}m with m = confidence/{v.PUSH_CONF}, stronger as confidence rises. Times what the market makes of interest. Was flat until 1.2.", "v.PUSH"),
         ("Restrain needs", f"end costing {v.RESTRAIN_RISK}+", "Or Eager interest or more.", "v.RESTRAIN_RISK"),
         ("Encourage needs", f"below interest {v.ENCOURAGE_BELOW}", "Below Keen.", "v.ENCOURAGE_BELOW"),
         ("AI restrains at", f"{v.AI_CONF} confidence, risk {v.AI_RISK}+", "Its riskiest boom.", "v.AI_CONF"),

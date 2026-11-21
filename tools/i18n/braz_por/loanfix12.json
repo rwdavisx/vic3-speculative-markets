@@ -1,0 +1,10 @@
+{
+ "65d69828cb": "@spec_sound_finance! #italic O prêmio por adotar as três [concept_spec_banking_reforms]: Regras Monetárias, Emprestador de Última Instância e Lei das Companhias.#!\\n\\nQuando um [concept_country] tem as três:\\n#P +{1}#! de [concept_prestige]",
+ "25ea66f796": "\\nInvestimento de {1}, {2} e {3}: #P +{4}%#!\\nQuantidade Comercializada: #P +{5}%#!\\n{6}: #P +{7}#!",
+ "b5b070a24a": "Investimento de {1}, {2} e {3}: #P +{4}%#!\\nQuantidade Negociada: #P +{5}%#!\\n{6}: #P +{7}#!",
+ "56c09ee847": "#header Centro Mundial#!\\nReação dos Investidores: #v +{1}%#!\\n[concept_prestige]: #P +{2}%#! quando fora das {3}\\nRecebe [concept_spec_capital_flight]: #P x2#!\\nPerdas por [concept_spec_foreign_panic]: #P -{4}%#!\\n#P +{5}%#! {6}\\nUm concorrente sem custo de manutenção\\n$TOOLTIP_DELIMITER$\\n#instruction Para ser Centro Mundial#!, precisamos de um lugar entre as #v {7}#! primeiras das {8}, além de {9}",
+ "c86b27426b": "#header Confiável#!\\nCredibilidade de #v {1}%#! a #v {2}%#!\\n$TOOLTIP_DELIMITER$\\n#P +{3}#! {4}",
+ "bf0a6e57a3": "#header 1º em Crédito Prudente#!\\n{1}\\n$TOOLTIP_DELIMITER$\\nComo nossa especialidade, este lugar concede:\\n#P +{2}%#! {3}\\n#N -{4}#! {5}\\n#P +{6}#! {7}",
+ "8895c0f776": "#header 2º em Crédito Prudente#!\\n{1}\\n$TOOLTIP_DELIMITER$\\nComo nossa especialidade, este lugar concede:\\n#P +{2}%#! {3}\\n#N -{4}#! {5}",
+ "ca16df56d4": "#header 3º em Crédito Prudente#!\\n{1}\\n$TOOLTIP_DELIMITER$\\nComo nossa especialidade, este lugar concede:\\n#P +{2}%#! {3}\\n#N -{4}#! {5}"
+}

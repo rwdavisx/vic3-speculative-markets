@@ -31,15 +31,12 @@ spec_bluechip.1 = {
 	icon = "gfx/interface/icons/event_icons/event_industry.dds"
 
 	trigger = {
-		any_company = { has_variable = spec_bc_new }
+		exists = scope:spec_bc_co
+		scope:spec_bc_co ?= { owner = root has_variable = spec_bc_new }
 	}
 
 	immediate = {
-		random_company = {
-			limit = { has_variable = spec_bc_new }
-			save_scope_as = spec_bc_co
-		}
-		scope:spec_bc_co = { remove_variable = spec_bc_new }
+		scope:spec_bc_co = { save_scope_as = spec_bc_co remove_variable = spec_bc_new }
 	}
 
 	option = {
@@ -62,7 +59,7 @@ spec_bluechip.1 = {
 		custom_tooltip = spec_bluechip.1.b.tt
 		hidden_effect = {
 			add_investment_pool = spec_bc_shares
-			scope:spec_bc_co = { set_variable = { name = spec_bc_fragile days = 1825 } }
+			scope:spec_bc_co = { set_variable = { name = spec_bc_fragile value = { value = game_date add = 1825 } days = 1825 } }
 		}
 		ai_chance = {
 			base = 40
@@ -101,15 +98,12 @@ spec_bluechip.2 = {
 	icon = "gfx/interface/icons/event_icons/event_scales.dds"
 
 	trigger = {
-		any_company = { has_variable = spec_bc_wobble }
+		exists = scope:spec_bc_co
+		scope:spec_bc_co ?= { owner = root has_variable = spec_bc_wobble }
 	}
 
 	immediate = {
-		random_company = {
-			limit = { has_variable = spec_bc_wobble }
-			save_scope_as = spec_bc_co
-		}
-		scope:spec_bc_co = { remove_variable = spec_bc_wobble }
+		scope:spec_bc_co = { save_scope_as = spec_bc_co remove_variable = spec_bc_wobble }
 	}
 
 	option = {
@@ -119,7 +113,7 @@ spec_bluechip.2 = {
 		hidden_effect = {
 			add_treasury = spec_bc_prop_cost_neg
 			scope:spec_bc_co = {
-				set_variable = { name = spec_bc_propped days = 360 }
+				set_variable = { name = spec_bc_propped value = { value = game_date add = 360 } days = 360 }
 				remove_variable = spec_bc_low
 			}
 		}
@@ -169,14 +163,12 @@ spec_bluechip.3 = {
 	icon = "gfx/interface/icons/event_icons/event_industry.dds"
 
 	trigger = {
-		any_company = { has_variable = spec_coty }
+		exists = scope:spec_coty_co
+		scope:spec_coty_co ?= { owner = root has_variable = spec_coty }
 	}
 
 	immediate = {
-		random_company = {
-			limit = { has_variable = spec_coty }
-			save_scope_as = spec_bc_co
-		}
+		scope:spec_coty_co = { save_scope_as = spec_bc_co }
 	}
 
 	option = {

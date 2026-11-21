@@ -483,7 +483,8 @@
 "aabb1a76d3"
 ],
 "SPEC_CO_TAG_CLIMB": [
-"7ead9802ba"
+"7ead9802ba",
+"1ffef1ee9e"
 ],
 "SPEC_CO_TAG_COTY": [
 "8bdcfdd90e"
@@ -932,7 +933,8 @@
 ],
 "SPEC_DRIVER_MOOD_TT": [
 "30d0c806c9",
-"1df87801bb"
+"1df87801bb",
+"76eb23a94d"
 ],
 "SPEC_DRIVER_RESCUE": [
 "4eacb65e3b"
@@ -1580,7 +1582,8 @@
 "932d0e544c",
 "5dce84a969",
 "623090681d",
-"8e7608f37f"
+"8e7608f37f",
+"aea288774d"
 ],
 "SPEC_H_CENTRES": [
 "fb4ffbe665",
@@ -2411,6 +2414,15 @@
 ],
 "SPEC_MAP_STAGE_6": [
 "684f0a3ab2"
+],
+"SPEC_MOOD_COMBINED": [
+"a10565f8a3"
+],
+"SPEC_MOOD_COMPANY": [
+"fb37982195"
+],
+"SPEC_MOOD_SOURCES": [
+"2f6857b30f"
 ],
 "SPEC_NAME_BAR_RULE": [
 "b109ae27e4",
@@ -4193,7 +4205,8 @@
 "SPEC_RIVAL_RULE": [
 "002e0cb1f4",
 "fa232a7539",
-"66ec0c2928"
+"66ec0c2928",
+"cba0ae24b5"
 ],
 "SPEC_RIVAL_TT": [
 "e9c2f60f22",
@@ -4300,10 +4313,12 @@
 "189c68f3cf"
 ],
 "SPEC_RV_DID_S10": [
-"b5c3075dd0"
+"b5c3075dd0",
+"e35f1a2fe4"
 ],
 "SPEC_RV_DID_S11": [
-"fd7052ee93"
+"fd7052ee93",
+"1d5f77b7b6"
 ],
 "SPEC_RV_DID_S2": [
 "124bedeaec"
@@ -4366,13 +4381,26 @@
 "f73581495c"
 ],
 "SPEC_RV_LEFT_TT": [
-"74699900f9"
+"74699900f9",
+"f820a4e04c"
 ],
 "SPEC_RV_LURE": [
 "62cdbda5c2"
 ],
+"SPEC_RV_LURE_LOSS": [
+"bf76818537"
+],
+"SPEC_RV_LURE_OURS_HELD": [
+"a2f48db727"
+],
+"SPEC_RV_LURE_THEIRS_HELD": [
+"a2f48db727"
+],
 "SPEC_RV_LURE_TT": [
 "14b5c1233b"
+],
+"SPEC_RV_LURE_WIN": [
+"72ccb51fcc"
 ],
 "SPEC_RV_MARK_TT": [
 "94e1a438ab"
@@ -4385,6 +4413,12 @@
 ],
 "SPEC_RV_NEED": [
 "a7bf4a7112"
+],
+"SPEC_RV_NEXT_ROUNDS": [
+"b9f2d91cc7"
+],
+"SPEC_RV_NEXT_SETTLEMENT": [
+"9840326f43"
 ],
 "SPEC_RV_NOW_LINE": [
 "c675386d60"
@@ -4399,13 +4433,21 @@
 "7d5f7bccf0"
 ],
 "SPEC_RV_PRESS_TT": [
-"fe9809ff9a"
+"fe9809ff9a",
+"6f2f28a831"
 ],
 "SPEC_RV_RAID": [
 "2ca45fb01a"
 ],
+"SPEC_RV_RAID_CAPPED": [
+"aa3653392d"
+],
+"SPEC_RV_RAID_RATE": [
+"e7275992e8"
+],
 "SPEC_RV_RAID_TT": [
-"a41ba198fe"
+"a41ba198fe",
+"c86c4bb85a"
 ],
 "SPEC_RV_ROUND": [
 "1e96191142"
@@ -4425,8 +4467,21 @@
 "SPEC_RV_SHORE": [
 "9002b12964"
 ],
+"SPEC_RV_SHORE_OFFER": [
+"eb6e29b5d4"
+],
+"SPEC_RV_SHORE_PROTECTED": [
+"8cda8ee154"
+],
+"SPEC_RV_SHORE_RENEWAL": [
+"d161de960a"
+],
 "SPEC_RV_SHORE_TT": [
-"2358eade4a"
+"2358eade4a",
+"8ac1b4195a"
+],
+"SPEC_RV_SHORE_WAIT": [
+"63685366d8"
 ],
 "SPEC_RV_SLOTS": [
 "5c0df8b8eb"
@@ -4467,6 +4522,9 @@
 "SPEC_RV_SUB_OUT": [
 "69156d8965"
 ],
+"SPEC_RV_TERM_ROUNDS": [
+"b9f2d91cc7"
+],
 "SPEC_RV_THEIR_WAY": [
 "609c38943d"
 ],
@@ -4480,19 +4538,24 @@
 "2d03c2d5a7"
 ],
 "SPEC_RV_TIER_BIGLOSS_TT": [
-"0c63310f4f"
+"0c63310f4f",
+"7095a7accf"
 ],
 "SPEC_RV_TIER_BIGWIN_TT": [
-"3275d57326"
+"3275d57326",
+"9b4b6c1e26"
 ],
 "SPEC_RV_TIER_DRAW_TT": [
-"6ef6e5365f"
+"6ef6e5365f",
+"8e1fbfa4b1"
 ],
 "SPEC_RV_TIER_LOSS_TT": [
-"e79abf2193"
+"e79abf2193",
+"eb2133728c"
 ],
 "SPEC_RV_TIER_WIN_TT": [
-"f17907fb39"
+"f17907fb39",
+"2d4b128a6d"
 ],
 "SPEC_RV_TOGGLE_TT_OFF": [
 "13a6b113dd"
@@ -4519,13 +4582,15 @@
 "ae7255a289"
 ],
 "SPEC_RV_US_RAID": [
-"5775d62334"
+"5775d62334",
+"474d7c6ccb"
 ],
 "SPEC_RV_US_RAID_FX": [
 "e7275992e8"
 ],
 "SPEC_RV_US_RAID_TT": [
-"428826e9e1"
+"428826e9e1",
+"2bacf3182c"
 ],
 "SPEC_RV_US_TT": [
 "3d0fa15845"
@@ -5382,7 +5447,8 @@
 "02353bd927"
 ],
 "concept_spec_market_mood_desc": [
-"b0aba9073c"
+"b0aba9073c",
+"08b387e5ad"
 ],
 "concept_spec_market_tie": [
 "f9ae4e70a3"
@@ -9813,7 +9879,8 @@
 "05d8ff864f"
 ],
 "spec_rival.1.b_tt": [
-"f3dd14b290"
+"f3dd14b290",
+"ede00225b9"
 ],
 "spec_rival.1.c": [
 "c7427b58cb"
@@ -9825,28 +9892,36 @@
 "3d05a9b991"
 ],
 "spec_rival.1.d10": [
-"e567714d63"
+"e567714d63",
+"be9fbecaf4"
 ],
 "spec_rival.1.d10_big": [
-"3145ce63b4"
+"3145ce63b4",
+"c9f6945a36"
 ],
 "spec_rival.1.d10_even": [
-"09c3bfd15e"
+"09c3bfd15e",
+"beae216b96"
 ],
 "spec_rival.1.d10_small": [
-"0727e40488"
+"0727e40488",
+"8745965ad1"
 ],
 "spec_rival.1.d11": [
-"3eb91a3c5f"
+"3eb91a3c5f",
+"45e3ed77d0"
 ],
 "spec_rival.1.d11_big": [
-"b8400e59f7"
+"b8400e59f7",
+"18d628870b"
 ],
 "spec_rival.1.d11_even": [
-"6ac8e19dd8"
+"6ac8e19dd8",
+"f4838cf22d"
 ],
 "spec_rival.1.d11_small": [
-"c491537458"
+"c491537458",
+"66a2f64c51"
 ],
 "spec_rival.1.d21": [
 "1ede5a4b2c"
@@ -9861,16 +9936,20 @@
 "0b68f349bb"
 ],
 "spec_rival.1.d31": [
-"cca8ec1782"
+"cca8ec1782",
+"38a4b755cb"
 ],
 "spec_rival.1.d31_big": [
-"9dce39cf4d"
+"9dce39cf4d",
+"23a802627b"
 ],
 "spec_rival.1.d31_even": [
-"79aa0d19aa"
+"79aa0d19aa",
+"8d2cf04ac9"
 ],
 "spec_rival.1.d31_small": [
-"271a157d2a"
+"271a157d2a",
+"d75e2bd610"
 ],
 "spec_rival.1.d3n": [
 "38c9792385"
@@ -10036,13 +10115,15 @@
 "42deb03840"
 ],
 "spec_rv_press_fx": [
-"6df9a23bc1"
+"6df9a23bc1",
+"1476ec0ea4"
 ],
 "spec_rv_pushed_tt": [
 "74a6d1b3f3"
 ],
 "spec_rv_raid_fx": [
-"ccb8988b99"
+"ccb8988b99",
+"fce075fbfe"
 ],
 "spec_rv_room_tt": [
 "0edec51650"
@@ -10054,7 +10135,8 @@
 "b2d450b6a4"
 ],
 "spec_rv_shore_fx": [
-"2cd468c5f5"
+"2cd468c5f5",
+"3044367da1"
 ],
 "spec_rv_slots_tt": [
 "e951797d67"

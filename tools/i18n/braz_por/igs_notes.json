@@ -1,0 +1,11 @@
+{
+ "7888c33fe3": "Posições dos Grupos de Interesse",
+ "be285a3780": "{2}: agora favorece {1}",
+ "f398a21ef0": "{2}: deixou de favorecer {1}",
+ "5f9fa3b8ab": "{2}: agora se opõe a {1}",
+ "74c879a982": "{2}: deixou de se opor a {1}",
+ "ca15afa086": "Favorece",
+ "eaac2ea1fe": "Opõe-se",
+ "5402230931": "#header Apoiadores#!\\n$TOOLTIP_DELIMITER${1}{2}{3}{4}{5}{6}{7}{8}",
+ "e8e592c78b": "#header Opositores#!\\n$TOOLTIP_DELIMITER${1}{2}{3}{4}{5}{6}{7}{8}"
+}

@@ -1,0 +1,849 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Speculative Markets Tuner</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&family=IM+Fell+English+SC&display=swap">
+<link rel="stylesheet" href="/works.css">
+<style>
+/* the tuner's own panels, in the Waterworks' look (works.css) */
+.status { display: grid; gap: 8px; }
+.status .row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+.score { font-family: var(--display); font-size: 26px; color: var(--cream); white-space: nowrap; }
+.score b { color: var(--out); font-weight: 400; } .score b.bad { color: var(--red); }
+.showing { color: var(--dim); font-size: 16px; }
+.note { color: var(--cream); font-size: 16px; border-left: 3px solid var(--gold); padding: 2px 0 2px 10px; }
+.note:empty { display: none; }
+.status select { background: #1a1f29; border: 1px solid #3a4152; border-radius: 3px; padding: 3px 6px; max-width: 100%; }
+.status label { color: var(--dim); font-size: 15px; display: flex; align-items: center; gap: 6px; }
+.prog { height: 10px; background: #0b0e13; border: 1px solid #343a48; border-radius: 2px; overflow: hidden; width: 160px; }
+.prog i { display: block; height: 100%; width: 0; background: var(--gold); transition: width .3s; }
+.ptext { color: var(--dim); font-size: 15px; font-variant-numeric: tabular-nums; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(330px, 100%), 1fr)); gap: 12px; }
+.card { background: var(--panel-2); border: 1px solid #2c3140; border-left: 4px solid var(--mute); padding: 8px 12px 6px; min-width: 0; }
+.card.in { border-left-color: var(--out); } .card.out { border-left-color: var(--red); }
+.card .h { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.card .h span:first-child { font-family: var(--display); font-size: 18px; color: var(--cream); }
+.card .st { font-size: 14px; font-weight: 700; white-space: nowrap; }
+.card.in .st { color: var(--out); } .card.out .st { color: var(--red); } .card .st.none { color: var(--mute); }
+.card .who { color: var(--gold); font-size: 14px; }
+.card .why { color: var(--mute); font-size: 14px; margin: 0; line-height: 1.3; }
+svg.dots { display: block; width: 100%; height: auto; }
+svg.dots text { font: 500 12px var(--body); fill: var(--mute); }
+svg.dots text.rl { font-size: 14px; fill: var(--dim); }
+svg.dots text.vl { font-weight: 700; fill: #fff; font-size: 13px; }
+.series { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(560px, 100%), 1fr)); gap: 14px; }
+.series figure { margin: 0; min-width: 0; }
+.series figcaption { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.series figcaption span:first-child { font-family: var(--display); font-size: 19px; color: var(--gold); }
+.series svg { display: block; width: 100%; height: auto; }
+.series svg text { font: 500 12px var(--body); fill: var(--mute); }
+.series svg text.lg { font-size: 13px; fill: var(--dim); }
+.empty { color: var(--mute); font-style: italic; padding: 30px 0; text-align: center; }
+details.panel > summary { cursor: pointer; font-family: var(--display); font-size: 24px; color: var(--gold); list-style: none; }
+details.panel > summary::before { content: "▸ "; color: var(--edge); } details.panel[open] > summary::before { content: "▾ "; }
+details.panel > summary .hint { font-family: var(--body); margin-left: 10px; }
+.sub { margin-top: 14px; }
+.prow { display: grid; grid-template-columns: minmax(0, 1fr) 5.6em 1.4em 4.6em 4.6em; gap: 4px 6px; align-items: center; padding: 3px 0; border-bottom: 1px solid #1f2430; font-size: 15px; }
+.prow label { color: var(--dim); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.prow.changed label { color: var(--gold-hi); }
+.prow input[type=number], .tin, .num, .ttxt { background: #0b0e13; border: 1px solid #343a48; border-radius: 3px; padding: 1px 4px; width: 100%; box-sizing: border-box; font-variant-numeric: tabular-nums; }
+.prow input[type=number], .tin, .num { text-align: right; }
+.prow input[type=checkbox] { accent-color: var(--gold); width: 16px; height: 16px; justify-self: center; }
+.prow .rng:disabled { opacity: .35; }
+.pcols { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(420px, 100%), 1fr)); gap: 12px; }
+.form { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: end; }
+.form label { display: grid; gap: 2px; color: var(--dim); font-size: 14px; }
+.form .num { width: 7em; }
+table.t { width: 100%; border-collapse: collapse; font-size: 14px; }
+table.t th { color: var(--mute); font-weight: 500; text-align: left; padding: 2px 4px; border-bottom: 1px solid #2c3140; }
+table.t td { padding: 2px 4px; border-bottom: 1px solid #1f2430; }
+table.t select { background: #1a1f29; border: 1px solid #3a4152; border-radius: 3px; padding: 1px 4px; max-width: 14em; }
+.diff { font-family: ui-monospace, Consolas, monospace; font-size: 13px; white-space: pre-wrap; background: #0b0e13; border: 1px solid #2a303c; padding: 8px; margin: 6px 0; max-height: 240px; overflow-y: auto; }
+#scrub { flex: 1; min-width: 200px; accent-color: var(--gold); }
+.wstat { color: var(--dim); font-size: 15px; }
+/* live runs, and kept runs side by side */
+.lruns, .kruns { display: grid; gap: 4px; }
+.lrun, .krun { display: flex; align-items: center; gap: 8px 10px; flex-wrap: wrap; padding: 4px 0; border-bottom: 1px solid #1f2430; font-size: 15px; }
+.sw { display: inline-block; width: 14px; height: 14px; border-radius: 3px; flex: none; background: var(--mute); }
+.krun { cursor: pointer; min-height: 36px; }
+.krun input { accent-color: var(--gold); width: 18px; height: 18px; flex: none; margin: 0; }
+.krun .rn, .lrun .rn { color: var(--cream); flex: 1 1 14em; min-width: 0; }
+.krun .hint, .lrun .hint { white-space: nowrap; }
+.kruns { max-height: 360px; overflow-y: auto; }
+#bestsvg svg { display: block; width: 100%; height: auto; }
+#bestsvg svg text { font: 500 12px var(--body); fill: var(--mute); }
+.tscroll { overflow-x: auto; }
+/* a phone: one column, full-width charts, finger-sized controls */
+@media (max-width: 700px) {
+  body { font-size: 16px; padding-block: 12px 28px; }
+  .wrap { gap: 14px; }
+  .panel { padding: 12px 10px; }
+  .panel > header { flex-wrap: wrap; }
+  .btn, .status select, .bar select, .links button, table.t select, .form .num { min-height: 44px; }
+  .btn { padding: 8px 14px; }
+  .status label, .bar label { flex-wrap: wrap; width: 100%; }
+  .status select { flex: 1; min-width: 0; width: 100%; }
+  .prog { flex: 1; min-width: 100px; }
+  .spacer { display: none; }
+  .krun { min-height: 44px; }
+  .krun input { width: 24px; height: 24px; }
+  .prow { grid-template-columns: minmax(0, 1fr) 5em 32px 4.2em 4.2em; }
+  .prow input[type=number] { min-height: 40px; }
+  .prow input[type=checkbox] { width: 24px; height: 24px; }
+  .insp { height: auto; max-height: 75vh; }
+  .date { font-size: 20px; width: auto; }
+  #scrub { min-width: 0; width: 100%; height: 44px; }
+  details.panel > summary { min-height: 44px; display: flex; align-items: center; flex-wrap: wrap; }
+  .series svg text, #bestsvg svg text { font-size: 20px; } .series svg text.lg { font-size: 22px; }
+}
+</style>
+</head><body>
+<div class="wrap">
+  <header>
+    <h1>The Tuning Room</h1>
+    <p class="lede">The mod's monthly loop run on a thousand countries over a century. Green bands are where we want the market to sit; dots are where it does.</p>
+  </header>
+
+  <section class="panel status" aria-label="What the board shows">
+    <div class="row">
+      <span class="score" id="scorecard">No results yet</span>
+      <span class="showing" id="showing"></span>
+      <span class="spacer"></span>
+      <button class="btn" id="checkb" type="button">Run check</button>
+      <button class="btn quiet" id="stopb" type="button" disabled>Stop</button>
+      <div class="prog" aria-hidden="true"><i id="progf"></i></div>
+      <span class="ptext" id="progt"></span>
+    </div>
+    <div class="note" id="note"></div>
+    <div class="row">
+      <label>Showing <select id="cand"></select></label>
+      <label>Charts for <select id="player"></select></label>
+      <span class="hint">Hollow rings and grey dashes are the current numbers, when another candidate is shown.</span>
+    </div>
+  </section>
+
+  <section class="panel" aria-labelledby="lv-h" id="livesec" hidden>
+    <header><h2 id="lv-h">The Search, Live</h2><span class="hint">every try lands on the target cards as a faint dot; the ring is the best so far</span></header>
+    <div class="lruns" id="lruns"></div>
+    <figure style="margin:10px 0 0"><figcaption class="hint">Best score so far, try by try: lower is closer to the targets. A line gone flat has stopped improving.</figcaption><div id="bestsvg"></div></figure>
+  </section>
+
+  <section class="panel" aria-labelledby="kr-h">
+    <header><h2 id="kr-h">Runs Side by Side</h2><span class="hint">tick runs to lay their best over the cards and charts below, each in its colour</span></header>
+    <div class="kruns" id="kruns"><p class="empty">No runs kept yet.</p></div>
+  </section>
+
+  <section class="panel" aria-labelledby="tg-h">
+    <header><h2 id="tg-h">On Target?</h2><span class="hint">each target: the green band, the aim (dashed), the result with its 10 to 90% spread</span></header>
+    <div class="cards" id="cards"><p class="empty">No results yet.</p></div>
+  </section>
+
+  <section class="panel" aria-labelledby="ts-h">
+    <header><h2 id="ts-h">Over the Century</h2><span class="hint" id="ts-hint"></span></header>
+    <div class="series" id="series"><p class="empty">No results yet.</p></div>
+  </section>
+
+  <section class="panel" aria-labelledby="pl-h">
+    <header><h2 id="pl-h">The Players Compared</h2><span class="hint">mean of every country, with the 10 to 90% spread</span></header>
+    <div class="cards" id="players"><p class="empty">No results yet.</p></div>
+  </section>
+
+  <section class="panel" aria-labelledby="fit-h" id="fitsec" hidden>
+    <header><h2 id="fit-h">The Game's Side, Checked</h2><span class="hint" id="fit-hint"></span></header>
+    <div class="cards" id="fitcards"></div>
+  </section>
+
+  <div class="panel bar" role="group" aria-label="Watch one run">
+    <span class="date" id="date">January 1836</span>
+    <span class="pill" id="stage">Steady</span>
+    <button class="btn" id="watchb" type="button">Watch one country</button>
+    <button class="btn quiet" id="play" type="button" disabled>Play</button>
+    <button class="btn quiet" id="stepb" type="button" disabled>One month</button>
+    <label for="speed">Speed <select id="speed"><option value="1400">Slow</option><option value="700">Normal</option><option value="250" selected>Fast</option><option value="60">Very fast</option></select></label>
+    <input id="scrub" type="range" min="0" max="0" value="0" aria-label="Month">
+    <span class="wstat" id="wstat"></span>
+  </div>
+
+  <div class="grid">
+    <section class="panel works" aria-label="The machine room">
+      <div class="scroll">
+        <svg id="works" viewBox="0 0 1070 756" role="img" aria-label="Machines and the pipes between them">
+          <defs>
+            <marker id="ar-money" viewBox="0 0 10 10" refX="6" refY="5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#c9a35a"/></marker>
+            <marker id="ar-push" viewBox="0 0 10 10" refX="6" refY="5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#7d93b3"/></marker>
+            <marker id="ar-harm" viewBox="0 0 10 10" refX="6" refY="5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#e07060"/></marker>
+            <marker id="ar-gain" viewBox="0 0 10 10" refX="6" refY="5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#6fbf80"/></marker>
+            <marker id="ar-bed" viewBox="0 0 10 10" refX="6" refY="5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#3a4252"/></marker>
+          </defs>
+          <g id="pipes"></g>
+          <g id="nodes"></g>
+          <text class="legend-note" x="950" y="486" text-anchor="middle">Thicker pipes carry more.</text>
+          <text class="legend-note" x="950" y="508" text-anchor="middle">Lit pipes flow this month.</text>
+          <g class="legend" transform="translate(40,734)">
+            <line x1="0" y1="0" x2="30" y2="0" stroke="#c9a35a" stroke-width="5" stroke-dasharray="9 13"/><text x="38" y="5">money: loans and debt</text>
+            <line x1="200" y1="0" x2="230" y2="0" stroke="#7d93b3" stroke-width="5" stroke-dasharray="9 13"/><text x="238" y="5">pushes confidence</text>
+            <line x1="380" y1="0" x2="410" y2="0" stroke="#e07060" stroke-width="5" stroke-dasharray="9 13"/><text x="418" y="5">panic and its damage</text>
+            <line x1="580" y1="0" x2="610" y2="0" stroke="#6fbf80" stroke-width="5" stroke-dasharray="9 13"/><text x="618" y="5">gain to the economy</text>
+            <line x1="770" y1="0" x2="800" y2="0" stroke="#c9bc9c" stroke-width="2" stroke-dasharray="3 5"/><text x="808" y="5">a reading that sets another</text>
+          </g>
+        </svg>
+      </div>
+    </section>
+    <div class="side">
+      <section class="panel insp" aria-labelledby="insp-h">
+        <header><h2 id="insp-h">Inspector</h2><span class="hint">click any machine</span></header>
+        <div class="body" id="insp-body"><p class="hint">Watch one country, then click a machine for the engine's calculation that month.</p></div>
+        <div class="links" id="insp-links"></div>
+      </section>
+    </div>
+  </div>
+
+  <div class="lower">
+    <section class="panel chart" aria-labelledby="rec-h">
+      <header><h2 id="rec-h">The Record</h2><span class="hint">this country, start to end</span></header>
+      <svg id="chart" viewBox="0 0 660 300" role="img" aria-label="Market Confidence, the Panic Threshold and Bad Debts over the run"></svg>
+    </section>
+    <section class="panel" aria-labelledby="log-h">
+      <header><h2 id="log-h">News</h2><span class="hint">newest first</span></header>
+      <ul class="log" id="log"></ul>
+    </section>
+  </div>
+
+  <details class="panel" id="settings">
+    <summary>Settings <span class="hint">targets, the mechanics' numbers, the game's side, apply</span></summary>
+
+    <div class="sub">
+      <h3>Targets</h3>
+      <div class="tscroll"><table class="t" id="ttable"></table></div>
+      <div class="form" style="margin-top:8px"><button class="btn quiet" id="tadd" type="button">Add a target</button><button class="btn" id="tsave" type="button">Save targets</button><span class="hint" id="tmsg"></span></div>
+    </div>
+
+    <div class="sub">
+      <h3>The Mechanics' Numbers</h3>
+      <p class="hint" style="margin:2px 0 8px">Change a value and Run check tries it. Tick a row to search it between low and high, then Run sweep.</p>
+      <div class="form" style="margin-bottom:8px">
+        <label>Candidates <input class="num" id="ncand" type="number" min="2" value="48"></label>
+        <label>Countries each <input class="num" id="necon" type="number" min="10" step="100" value="1000"></label>
+        <label>Seed <input class="num" id="seed" type="number" value="1"></label>
+        <button class="btn" id="sweepb" type="button">Run sweep</button>
+      </div>
+      <div class="pcols" id="params"></div>
+    </div>
+
+    <div class="sub">
+      <h3>The Game's Side</h3>
+      <p class="hint" style="margin:2px 0 8px">Each country draws its own figures between low and high.</p>
+      <div class="pcols" id="inputs"></div>
+    </div>
+
+    <div class="sub">
+      <h3>Apply</h3>
+      <p class="hint" style="margin:2px 0 0" id="apwhere"></p>
+      <div class="diff" id="apdiff">Show a candidate first.</div>
+      <button class="btn" id="applyb" type="button" disabled>Apply the shown numbers to the mod</button>
+      <div class="diff" id="aplog" hidden></div>
+    </div>
+  </details>
+
+  <footer class="notes panel">
+    <h3>How close this is to the game</h3>
+    <ul>
+      <li>The monthly order and the formulas are spec_monthly's; each step in tools/tuner/engine.py names the generator code it mirrors, and its self-check holds them to the generated script.</li>
+      <li>The game's side is abstracted: GDP, pool income, booms, wars and foreign panics are bounded random streams, and throughput and investment feed back into GDP and pool income. Their ranges are fitted to the logged games (The Game's Side, Checked).</li>
+      <li>Not modelled yet: Restrain and Encourage, the Exchange's specialities and contests, rivals, power blocs, Relief Works, Suspend the Bank Act, the Long Depression.</li>
+      <li>Every candidate runs on the same months, so a difference between two is the mechanics, not luck.</li>
+      <li id="replay"></li>
+    </ul>
+  </footer>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const clamp = (v, a, b) => Math.min(Math.max(v, a), b);
+const f1 = v => (+v).toFixed(1);
+const sgn = (v, d = 1) => { const r = Math.abs(v) < 0.5 * 10 ** -d ? 0 : v; return (r < 0 ? "−" : "+") + Math.abs(r).toFixed(d); };
+const money = v => "£" + Math.round(v).toLocaleString("en-GB");
+const pct = (v, d = 0) => (v * 100).toFixed(d) + "%";
+const fnum = v => Math.abs(v) >= 100 ? v.toFixed(0) : Math.abs(v) >= 10 ? String(+v.toFixed(1)) : String(+v.toFixed(2));
+const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+const dateOf = m => MONTHS[m % 12] + " " + (1836 + Math.floor(m / 12));
+const cssv = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+const post = (url, body) => fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body || {}) })
+  .then(r => r.ok ? r.json() : r.text().then(t => ({ ok: false, msg: t, log: t })));
+const BOTN = { passive: "Hands off", careful: "Careful", skilled: "Skilled", reckless: "Reckless", nobuy: "Reckless, never buys up", ai: "The AI" };
+const BOTC = { passive: "#c9bc9c", careful: "#7d93b3", skilled: "#b58ad8", reckless: "#e07060", nobuy: "#9e4a44", ai: "#c9a35a" };
+const RUNC = ["#4fc3d9", "#e88ad1", "#f2d04b", "#7fd18b", "#f08f3c", "#a0a8ff"];  // runs, live or kept, apart from the players' colours
+const whoName = w => w.split("-").map(b => BOTN[b] || b).join(" minus ");
+const short = (s, n = 13) => s.length > n ? s.slice(0, n - 1) + "…" : s;
+const partOf = (parts, p) => parts?.find(q => q.metric === p.metric && q.who === p.who);
+
+let C, W, R = null, S = null, frames = [], fi = 0, timer = null, selected = "conf";
+const LIVE = new Map(), PICK = new Map();  // runs streaming now; kept runs ticked for side by side
+
+// ---------- charts: a dot-and-spread scale, and a chart over the century ----------
+function ticks(a, b, n = 4) {
+  const raw = (b - a) / n || 1, p = 10 ** Math.floor(Math.log10(raw)), s = [1, 2, 5, 10].map(m => m * p).find(x => x >= raw);
+  const out = []; for (let v = Math.ceil(a / s) * s; v <= b + 1e-9; v += s) out.push(+v.toFixed(10)); return out;
+}
+function dotChart(rows, o = {}) {
+  const clouds = (o.clouds || []).filter(c => c.vals.length), lane = clouds.length ? 18 : 0;  // a live run's tries, under the rows
+  const Wd = 340, L = o.labelW || 0, Rm = 16, top = 8, rh = 24, y1 = top + rows.length * rh + lane, H = y1 + 20;
+  const vals = rows.flatMap(r => [r.v, r.lo, r.hi, r.ghost]).concat(o.band || [], o.aim ?? [], o.zero ? [0] : []).filter(Number.isFinite);
+  let a = vals.length ? Math.min(...vals) : 0, b = vals.length ? Math.max(...vals) : 1;
+  const pad = (b - a) * 0.12 || Math.abs(a) * 0.2 || 1; a -= pad; b += pad;
+  const X = v => (L + (v - a) / (b - a) * (Wd - L - Rm)).toFixed(1), XC = v => clamp(+X(v), L + 2, Wd - Rm + 4).toFixed(1);
+  let s = "";
+  for (const t of ticks(a, b, 5)) s += `<line x1="${X(t)}" x2="${X(t)}" y1="${top - 4}" y2="${y1}" stroke="#20252f"/><text x="${X(t)}" y="${y1 + 15}" text-anchor="middle">${fnum(t)}</text>`;
+  if (o.band) s += `<rect x="${X(o.band[0])}" y="${top - 4}" width="${Math.max(X(o.band[1]) - X(o.band[0]), 1)}" height="${y1 - top + 4}" fill="${cssv("--out")}" opacity=".18"/>` +
+    o.band.map(v => `<line x1="${X(v)}" x2="${X(v)}" y1="${top - 4}" y2="${y1}" stroke="${cssv("--out")}" opacity=".6"/>`).join("");
+  if (o.aim != null) s += `<line x1="${X(o.aim)}" x2="${X(o.aim)}" y1="${top - 4}" y2="${y1}" stroke="${cssv("--out")}" stroke-dasharray="3 3"/>`;
+  rows.forEach((r, i) => {
+    const y = top + i * rh + rh / 2;
+    if (L) s += `<text class="rl" x="0" y="${y + 5}">${esc(r.label)}</text>`;
+    if (Number.isFinite(r.lo) && Number.isFinite(r.hi)) s += `<line x1="${X(r.lo)}" x2="${X(r.hi)}" y1="${y}" y2="${y}" stroke="${r.color}" stroke-width="2.5" opacity=".5" stroke-linecap="round"/>`;
+    if (Number.isFinite(r.ghost)) s += `<circle cx="${X(r.ghost)}" cy="${y}" r="5" fill="none" stroke="${cssv("--dim")}" stroke-width="1.5" opacity=".8"/>`;
+    if (Number.isFinite(r.v)) { const x = +X(r.v); s += `<circle cx="${x}" cy="${y}" r="6" fill="${r.color}" stroke="#000" stroke-width="1"/><text class="vl" x="${x + (x > Wd - 60 ? -10 : 10)}" y="${y - 7}" text-anchor="${x > Wd - 60 ? "end" : "start"}">${fnum(r.v)}${o.unit || ""}</text>`; }
+  });
+  if (lane) {
+    const y = y1 - lane / 2;
+    if (L) s += `<text class="rl" x="0" y="${y + 5}">Live tries</text>`;
+    for (const c of clouds) s += c.vals.map(v => `<circle cx="${XC(v)}" cy="${y}" r="2.6" fill="${c.color}" opacity=".38"/>`).join("") +
+      (Number.isFinite(c.best) ? `<circle cx="${XC(c.best)}" cy="${y}" r="6" fill="none" stroke="${c.color}" stroke-width="2.2"/>` : "");
+  }
+  return `<svg class="dots" viewBox="0 0 ${Wd} ${H}">${s}</svg>`;
+}
+const PHONE = matchMedia("(max-width: 700px)"), FS = () => PHONE.matches ? 1.7 : 1;  // a phone draws the wide charts taller, with larger type
+function timeSvg(o) {
+  const f = FS(), Wd = 660, x0 = f > 1 ? 66 : 44, x1 = 646, y0 = 12, y1 = f > 1 ? 330 : 222, n = o.n;
+  const X = i => (x0 + i / Math.max(n - 1, 1) * (x1 - x0)).toFixed(1), Y = v => (y1 - (clamp(v, o.ymin, o.ymax) - o.ymin) / (o.ymax - o.ymin) * (y1 - y0)).toFixed(1);
+  const pts = arr => arr.map((v, i) => `${X(i)},${Y(v)}`).join(" ");
+  let s = "";
+  for (const z of o.zones || []) s += `<rect x="${x0}" y="${Y(z.hi)}" width="${x1 - x0}" height="${Y(z.lo) - Y(z.hi)}" fill="${z.color}" opacity=".08"/>`;
+  for (const t of ticks(o.ymin, o.ymax, 5)) s += `<line x1="${x0}" x2="${x1}" y1="${Y(t)}" y2="${Y(t)}" stroke="#1d222c"/><text x="${x0 - 6}" y="${+Y(t) + 4}" text-anchor="end">${fnum(t)}${o.unit || ""}</text>`;
+  for (const b of o.bands || []) s += `<rect x="${x0}" y="${Y(b.hi)}" width="${x1 - x0}" height="${Math.max(Y(b.lo) - Y(b.hi), 1)}" fill="${cssv("--out")}" opacity=".16"/>` +
+    `<line x1="${x0}" x2="${x1}" y1="${Y(b.hi)}" y2="${Y(b.hi)}" stroke="${cssv("--out")}" opacity=".55"/><line x1="${x0}" x2="${x1}" y1="${Y(b.lo)}" y2="${Y(b.lo)}" stroke="${cssv("--out")}" opacity=".55"/>` +
+    `<text class="lg" x="${x1 - 4}" y="${+Y(b.hi) - 4}" text-anchor="end" style="fill:${cssv("--out")}">${esc(b.label)}</text>`;
+  for (const h of o.hlines || []) s += `<line x1="${x0}" x2="${x1}" y1="${Y(h.y)}" y2="${Y(h.y)}" stroke="${h.color}" stroke-dasharray="5 4" opacity=".75"/><text class="lg" x="${x0 + 4}" y="${+Y(h.y) - 4}" style="fill:${h.color}">${esc(h.label)}</text>`;
+  for (const a of o.areas || []) s += `<polygon points="${pts(a.hi)} ${a.lo.map((v, i) => `${X(i)},${Y(v)}`).reverse().join(" ")}" fill="${a.color}" opacity="${a.op || .25}"/>`;
+  for (const l of o.lines || []) s += `<polyline fill="none" stroke="${l.color}" stroke-width="${l.w || 1.6}" ${l.dash ? `stroke-dasharray="${l.dash}"` : ""} points="${pts(l.d)}"/>`;
+  for (let y = 0; y * 12 / o.every <= n - 1 + 1e-9; y += 20) s += `<text x="${X(y * 12 / o.every)}" y="${y1 + 16 * f}" text-anchor="middle">${1836 + y}</text>`;
+  const lx0 = f > 1 ? 8 : x0 + 8;
+  let lx = lx0, ly = y1 + 30 * f;  // the legend wraps onto more rows when it runs out of width
+  for (const g of o.legend || []) {
+    const w = (46 + g.label.length * 6.6) * f;
+    if (lx + w > x1 + 10 && lx > lx0) { lx = lx0; ly += 18 * f; }
+    s += `<line x1="${lx}" x2="${lx + 22}" y1="${ly}" y2="${ly}" stroke="${g.color}" stroke-width="${g.w || 2.5}" ${g.dash ? `stroke-dasharray="${g.dash}"` : ""} opacity="${g.op || 1}"/><text class="lg" x="${lx + 28}" y="${ly + 4 * f}">${esc(g.label)}</text>`;
+    lx += w;
+  }
+  return `<svg viewBox="0 0 ${Wd} ${ly + 10 * f}" role="img">${s}</svg>`;
+}
+
+// ---------- the board ----------
+const base = () => R && S && S.id !== R.baseline ? R.cands.find(c => c.id === R.baseline) : null;
+const targetFor = (metric, who) => C.targets.find(t => t.metric === metric && t.who === who);
+function loadLatest() {
+  return fetch("/api/latest").then(r => r.json()).then(r => {
+    R = r; if (!R) return;
+    const keep = S && R.cands.find(c => c.id === S.id && c.bands);
+    S = keep || R.cands.find(c => c.bands) || R.cands[0];
+    $("cand").innerHTML = R.cands.map(c => `<option value="${c.id}"${c.id === S.id ? " selected" : ""}>#${c.id}${c.id === R.baseline ? " the current numbers" : ""}: ${c.parts.filter(p => p.in).length} of ${c.parts.length} on target, score ${c.score.toFixed(2)}${c.bands ? "" : " (no charts kept)"}</option>`).join("");
+    const bots = Object.keys(S.metrics);
+    if (![...$("player").options].some(o => o.value === $("player").value && bots.includes(o.value)) || $("player").options.length !== bots.length)
+      $("player").innerHTML = bots.map(b => `<option value="${b}"${b === "passive" ? " selected" : ""}>${BOTN[b] || b}</option>`).join("");
+    board();
+  });
+}
+function board() {
+  if (!R || !S) return;
+  const B = base(), met = S.parts.filter(p => p.in).length, all = S.parts.length;
+  $("scorecard").innerHTML = `<b class="${met < all ? "bad" : ""}">${met} of ${all}</b> on target`;
+  $("showing").textContent = `${R.label} · ${R.time} · ${R.economies} countries × ${R.years} years` + (S.id !== R.baseline ? ` · showing #${S.id}` : "");
+  $("note").textContent = R.note || "";
+  cards(); series(); players(); apPanel();
+}
+// each target: the shown candidate, the ticked kept runs' best (a row each), and every live run's tries (a lane of dots)
+function cards() {
+  if (!R || !S) return;
+  const B = base(), picked = [...PICK.values()].filter(k => k.best), live = [...LIVE.values()];
+  $("cards").innerHTML = S.parts.map(p => {
+    const t = C.targets.find(t => t.metric === p.metric && t.who === p.who) || {}, m = C.metrics[p.metric], one = !p.who.includes("-");
+    const mm = one ? S.metrics[p.who]?.[p.metric] : null, bp = partOf(B?.parts, p);
+    const st = p.value == null ? ["none", "Not run"] : p.in ? ["", "On target"] : p.value > p.hi ? ["", "Too high"] : ["", "Too low"];
+    const rows = [{ label: "Shown", v: p.value, lo: mm?.p10, hi: mm?.p90, ghost: bp?.value, color: p.in ? cssv("--out") : cssv("--red") },
+      ...picked.map(k => { const km = one ? k.best.metrics[p.who]?.[p.metric] : null;
+        return { label: short(k.name), v: partOf(k.best.parts, p)?.value ?? NaN, lo: km?.p10, hi: km?.p90, color: k.color }; })];
+    const clouds = live.map(L => ({ color: L.color, vals: L.tries.map(e => partOf(e.parts, p)?.value).filter(Number.isFinite), best: partOf(L.best?.parts, p)?.value }));
+    const labelW = picked.length || clouds.some(c => c.vals.length) ? 82 : 0;
+    return `<div class="card ${p.value == null ? "" : p.in ? "in" : "out"}"><div class="h"><span>${esc(m[0])}</span><span class="st ${st[0]}">${st[1]}</span></div>` +
+      `<div class="who">${esc(whoName(p.who))}${m[1] ? ` · ${esc(m[1])}` : ""}</div>${dotChart(rows, { band: [p.lo, p.hi], aim: p.target, labelW, clouds })}<p class="why">${esc(t.why || "")}</p></div>`;
+  }).join("") || `<p class="empty">No targets set.</p>`;
+}
+function series() {
+  if (!S) return;
+  const box = $("series"), pl = $("player").value, b = S.bands?.[pl], gb = base()?.bands?.[pl];
+  if (!b) { box.innerHTML = `<p class="empty">No charts kept for this candidate. Run a check of it to see them.</p>`; return; }
+  $("ts-hint").textContent = `${BOTN[pl] || pl}: median, and the middle 80% of countries shaded`;
+  const n = b.conf[0].length, ev = b.every, K = C.consts, gold = cssv("--gold"), hi = cssv("--gold-hi"), ghost = cssv("--dim");
+  const tb = (metric, who, scale = 1, label) => { const t = targetFor(metric, who); return t ? [{ lo: t.lo * scale, hi: t.hi * scale, label: label || `target, ${C.metrics[metric][0].toLowerCase()}` }] : []; };
+  const kept = [...PICK.values()].filter(k => k.best?.bands?.[pl] && k.best.bands[pl].conf[0].length === n);
+  const ghostLine = arr => [...(gb ? [{ d: arr(gb), color: ghost, w: 1.4, dash: "5 4" }] : []), ...kept.map(k => ({ d: arr(k.best.bands[pl]), color: k.color, w: 1.7 }))];
+  const ghostLeg = [...(gb ? [{ color: ghost, label: "current numbers", dash: "5 4", w: 1.4 }] : []), ...kept.map(k => ({ color: k.color, label: short(k.name, 22) }))];
+  const figs = [];
+  figs.push(["Market Confidence", "where the market sits; coloured by mood", timeSvg({ n, every: ev, ymin: 0, ymax: 100,
+    zones: C.bands.map(([nm, lo, h]) => ({ lo, hi: h, color: cssv("--" + nm) })), bands: tb("conf_mean", pl),
+    areas: [{ lo: b.conf[0], hi: b.conf[2], color: gold, op: .25 }], lines: [...ghostLine(g => g.conf[1]), { d: b.conf[1], color: hi, w: 1.8 }],
+    legend: [{ color: hi, label: "median" }, { color: gold, label: "middle 80%", w: 8, op: .4 }, ...ghostLeg] })]);
+  const bots = Object.keys(S.bands).filter(k => S.bands[k]);
+  const pmax = Math.max(4, ...bots.flatMap(k => S.bands[k].panic.map(v => v * 100)), ...C.targets.filter(t => t.metric === "panic_months_pct").map(t => t.hi * 1.3));
+  figs.push(["Countries in a Panic", "share of all countries in a panic, every six months", timeSvg({ n, every: ev, ymin: 0, ymax: pmax, unit: "%",
+    bands: bots.flatMap(k => tb("panic_months_pct", k, 1, `target, ${BOTN[k] || k}, on average`)),
+    lines: [...bots.map(k => ({ d: S.bands[k].panic.map(v => v * 100), color: BOTC[k] || gold, w: k === pl ? 2 : 1.3 })),
+      ...kept.map(k => ({ d: k.best.bands[pl].panic.map(v => v * 100), color: k.color, w: 1.7, dash: "6 3" }))],
+    legend: [...bots.map(k => ({ color: BOTC[k] || gold, label: BOTN[k] || k })), ...kept.map(k => ({ color: k.color, label: `${short(k.name, 18)}, ${BOTN[pl] || pl}`, dash: "6 3" }))] })]);
+  const lmax = Math.max(K.LEV_RUIN + 1, ...b.lev[2], ...kept.flatMap(k => k.best.bands[pl].lev[1]));
+  figs.push(["Credit Leverage", "months of pool income owed", timeSvg({ n, every: ev, ymin: 0, ymax: lmax, bands: tb("lev_mean", pl),
+    hlines: [{ y: K.LEV_SAFE, color: cssv("--out"), label: "safe line" }, { y: K.DANGER, color: cssv("--wary"), label: "dangerous" }, { y: K.LEV_RUIN, color: cssv("--red"), label: "ruin" }],
+    areas: [{ lo: b.lev[0], hi: b.lev[2], color: gold, op: .25 }], lines: [...ghostLine(g => g.lev[1]), { d: b.lev[1], color: hi, w: 1.8 }],
+    legend: [{ color: hi, label: "median" }, { color: gold, label: "middle 80%", w: 8, op: .4 }, ...ghostLeg] })]);
+  const bmax = Math.max(K.LEV_BAD_STOP * 1.2, ...b.bad[1], ...kept.flatMap(k => k.best.bands[pl].bad[1]));
+  figs.push(["Bad Debts", "the worst tenth of countries, and the median", timeSvg({ n, every: ev, ymin: 0, ymax: bmax,
+    hlines: [{ y: K.LEV_BAD_STOP, color: cssv("--red"), label: "banks stop lending (at Sound standards)" }],
+    areas: [{ lo: b.bad[1].map(() => 0), hi: b.bad[1], color: cssv("--red"), op: .3 }], lines: [...ghostLine(g => g.bad[1]), { d: b.bad[0], color: cssv("--red"), w: 1.8 }],
+    legend: [{ color: cssv("--red"), label: "worst tenth", w: 8, op: .4 }, { color: cssv("--red"), label: "median" }, ...ghostLeg] })]);
+  figs.push(["Lending Standards", "the median country; strict at the bottom, reckless at the top", timeSvg({ n, every: ev, ymin: 0, ymax: 100,
+    zones: [[0, 20, "--in"], [20, 40, "--in"], [40, 60, "--steady"], [60, 80, "--red"], [80, 100, "--red"]].map(([lo, h, c]) => ({ lo, hi: h, color: cssv(c) })),
+    lines: [...ghostLine(g => g.lax.map(v => v * 100)), { d: b.lax.map(v => v * 100), color: hi, w: 1.8 }],
+    legend: [{ color: hi, label: "median" }, ...ghostLeg] })]);
+  box.innerHTML = figs.map(([t, h, svg]) => `<figure><figcaption><span>${t}</span><span class="hint">${h}</span></figcaption>${svg}</figure>`).join("");
+}
+function players() {
+  const bots = Object.keys(S.metrics), B = base();
+  const show = ["output_pct", "panics_per_century", "panic_months_pct", "crunch_max", "lev_mean", "conf_mean", "rescues_per_century", "spend_pct_gdp", "tight_pct", "loose_pct"];
+  $("players").innerHTML = show.map(k => {
+    const m = C.metrics[k];
+    const rows = bots.map(b => ({ label: BOTN[b] || b, v: S.metrics[b][k].mean, lo: S.metrics[b][k].p10, hi: S.metrics[b][k].p90, ghost: B?.metrics[b]?.[k]?.mean, color: BOTC[b] || cssv("--gold") }));
+    return `<div class="card"><div class="h"><span>${esc(m[0])}</span><span class="hint">${esc(m[1])}</span></div>${dotChart(rows, { labelW: 82, zero: k === "output_pct" })}</div>`;
+  }).join("");
+}
+// the inputs against the logged games they were fitted to (fit.py)
+function fitBoard() {
+  const F = C.fit; $("fitsec").hidden = !F; if (!F) return;
+  const s = F.source;
+  $("fit-hint").textContent = `${s.games} logged games, ${s.country_years.toLocaleString("en-GB")} country-years, ${s.years[0]} to ${s.years[1]}: the middle 80% of countries (or of events) and the median`;
+  $("fitcards").innerHTML = Object.entries(F.stats).map(([k, [label, unit, kind]]) => {
+    const a = F.log[k], b = F.engine[k], row = (lab, x, col) => ({ label: lab, v: x.p50, lo: x.p10, hi: x.p90, color: col });
+    return `<div class="card"><div class="h"><span>${esc(label)}</span><span class="hint">${esc(unit)}${kind === "event" ? " · each event" : " · each country"}</span></div>` +
+      dotChart([row("Game logs", a, cssv("--gold")), row("Engine", b, cssv("--in"))], { labelW: 82 }) + "</div>";
+  }).join("");
+}
+$("cand").addEventListener("change", e => { S = R.cands.find(c => c.id === +e.target.value); board(); });
+$("player").addEventListener("change", () => series());
+
+// ---------- runs: a check (the numbers as set) or a sweep (search the ticked rows) ----------
+function runSpec(sweep) {
+  const { fixed, vary } = readParams();
+  return { fixed, vary: sweep ? vary : {}, candidates: +$("ncand").value, economies: +$("necon").value, seed: +$("seed").value, bot: $("player").value || "passive", cfg: readCfg() };
+}
+function startRun(sweep) {
+  const spec = runSpec(sweep);
+  if (sweep && !Object.keys(spec.vary).length) { $("progt").textContent = "Tick a row to search first."; return; }
+  $("progt").textContent = "Starting…"; $("progf").style.width = "0";
+  post("/api/sweep", spec).then(r => { if (r && r.msg) $("progt").textContent = r.msg; });
+}
+
+// ---------- live: every run's tries as they come, from this page or the command line ----------
+let drawing = 0;
+function liveEvent(e) {
+  let L = LIVE.get(e.run);
+  if (!L) {  // a run already under way when the page opened gets a name from its first event
+    L = { id: e.run, name: "A run under way", origin: "", total: 0, done: 0, secs: 0, tries: [], seen: new Set(), best: null, hist: [], state: "running", color: RUNC[LIVE.size % RUNC.length] };
+    LIVE.set(e.run, L);
+  }
+  if (e.type === "start") Object.assign(L, { name: e.note || e.label, label: e.label, origin: e.origin, total: e.total });
+  if (e.type === "progress" && e.done >= L.done) Object.assign(L, { done: e.done, total: e.total, secs: e.secs });
+  if (e.type === "candidate" && !L.seen.has(e.id)) {  // the catch-up and the stream can both carry a try
+    L.seen.add(e.id); L.tries.push(e); if (!L.best || e.score < L.best.score) L.best = e; L.hist.push(L.best.score);
+  }
+  if (e.type === "done") Object.assign(L, { state: "done", done: L.total, secs: e.secs });
+  if (e.type === "stopped") L.state = "stopped";
+  if (!drawing) drawing = setTimeout(() => { drawing = 0; drawLive(); cards(); progress(); }, 150);  // a timer, not a frame: a hidden tab still draws
+}
+function progress(msg) {
+  const all = [...LIVE.values()], L = all.filter(x => x.state === "running").pop() || all[all.length - 1];
+  const mine = all.some(x => x.origin === "page" && x.state === "running");
+  $("checkb").disabled = $("sweepb").disabled = mine; $("stopb").disabled = !mine;
+  if (msg) { $("progt").textContent = msg; return; }
+  if (!L) return;
+  $("progf").style.width = pct(L.total ? L.done / L.total : 0);
+  $("progt").textContent = L.state === "running" ? `${short(L.name, 30)}: ${L.done} of ${L.total}` + (L.done && L.done < L.total ? `, about ${Math.round(L.secs / L.done * (L.total - L.done))}s left` : "")
+    : L.state === "done" ? `Done in ${L.secs}s.` : "Stopped.";
+}
+const metOf = e => e ? `${e.parts.filter(p => p.in).length} of ${e.parts.length} on target` : "no try finished yet";
+function drawLive() {
+  const all = [...LIVE.values()];
+  $("livesec").hidden = !all.length; if (!all.length) return;
+  $("lruns").innerHTML = all.map(L => `<div class="lrun"><i class="sw" style="background:${L.color}"></i><span class="rn">${esc(L.name)}</span>` +
+    `<span class="hint">${L.state === "running" ? `${L.tries.length} tried, ${L.done} of ${L.total} runs` : L.state === "done" ? `done, ${L.tries.length} tried` : "stopped"} · best ${metOf(L.best)}${L.best ? `, score ${L.best.score.toFixed(2)}` : ""}</span></div>`).join("");
+  $("bestsvg").innerHTML = bestSvg(all.filter(L => L.hist.length));
+}
+function bestSvg(runs) {
+  if (!runs.length) return `<p class="empty">The first tries are on their way.</p>`;
+  const f = FS(), Wd = 660, x0 = f > 1 ? 60 : 44, x1 = 646, y0 = 10, y1 = f > 1 ? 200 : 118, n = Math.max(2, ...runs.map(L => L.hist.length));
+  const all = runs.flatMap(L => L.hist).filter(v => v > 0), lo = Math.log10(Math.min(...all) * 0.8), hi = Math.log10(Math.max(...all) * 1.25);
+  const X = i => (x0 + i / (n - 1) * (x1 - x0)).toFixed(1), Y = v => (y1 - (Math.log10(Math.max(v, 1e-3)) - lo) / (hi - lo || 1) * (y1 - y0)).toFixed(1);
+  let s = "";
+  for (const t of [0.1, 0.2, 0.5, 1, 2, 5, 10, 20, 50, 100, 200, 500].filter(t => Math.log10(t) >= lo && Math.log10(t) <= hi))
+    s += `<line x1="${x0}" x2="${x1}" y1="${Y(t)}" y2="${Y(t)}" stroke="#1d222c"/><text x="${x0 - 6}" y="${+Y(t) + 4}" text-anchor="end">${t}</text>`;
+  for (const L of runs) s += `<polyline fill="none" stroke="${L.color}" stroke-width="2" points="${L.hist.map((v, i) => `${X(i)},${Y(v)}`).join(" ")}"/>` +
+    `<circle cx="${X(L.hist.length - 1)}" cy="${Y(L.hist[L.hist.length - 1])}" r="4" fill="${L.color}"/>`;
+  s += `<text x="${x0}" y="${y1 + 16 * f}">first try</text><text x="${x1}" y="${y1 + 16 * f}" text-anchor="end">try ${n}</text>`;
+  return `<svg viewBox="0 0 ${Wd} ${y1 + 22 * f}" role="img" aria-label="Best score so far, try by try">${s}</svg>`;
+}
+
+// ---------- kept runs, side by side ----------
+let KEPT = [];
+function loadRuns() {
+  return fetch("/api/runs").then(r => r.json()).then(list => { KEPT = list; drawRuns(); });
+}
+function drawRuns() {
+  $("kruns").innerHTML = KEPT.length ? KEPT.map(k => { const p = PICK.get(k.id);
+    return `<label class="krun"><input type="checkbox" data-run="${k.id}"${p ? " checked" : ""}><i class="sw" style="background:${p ? p.color : "transparent"};border:1px solid #3a4152"></i>` +
+      `<span class="rn">${esc(k.note || k.label)}</span><span class="hint">${esc(k.time)} · ${k.met} of ${k.of} on target · score ${k.score ?? "–"}</span></label>`; }).join("")
+    : `<p class="empty">No runs kept yet.</p>`;
+}
+$("kruns").addEventListener("change", e => {
+  const id = e.target.dataset.run; if (!id) return;
+  if (!e.target.checked) { PICK.delete(id); drawRuns(); cards(); series(); return; }
+  const used = new Set([...PICK.values()].map(p => p.color)), k = KEPT.find(x => x.id === id);
+  const pick = { id, name: k.note || k.label, color: RUNC.find(c => !used.has(c)) || RUNC[PICK.size % RUNC.length], best: null };
+  PICK.set(id, pick); drawRuns();
+  fetch(`/api/run?id=${encodeURIComponent(id)}`).then(r => r.json()).then(r => { pick.best = r.cands[0]; cards(); series(); });
+});
+
+const es = new EventSource("/api/events");
+es.onmessage = m => {
+  const e = JSON.parse(m.data);
+  if (e.run) liveEvent(e);
+  else if (e.type === "stopped" || e.type === "error") {
+    for (const L of LIVE.values()) if (L.origin === "page" && L.state === "running") L.state = "stopped";
+    drawLive(); progress(e.type === "error" ? `Failed: ${e.msg}` : "Stopped.");
+  }
+  if (e.type === "latest") loadLatest();
+  if (e.type === "runs") loadRuns();
+};
+$("checkb").addEventListener("click", () => startRun(false));
+$("sweepb").addEventListener("click", () => startRun(true));
+$("stopb").addEventListener("click", () => post("/api/stop"));
+
+// ---------- settings: targets, the mechanics' numbers, the game's side ----------
+function buildTargets() {
+  const whos = [...C.bots, ...C.bots.flatMap(a => C.bots.filter(b => b !== a).map(b => `${a}-${b}`))];
+  $("ttable").innerHTML = `<tr><th>Reading</th><th>Player</th><th>Aim</th><th>Low</th><th>High</th><th>Weight</th><th>Why</th><th></th></tr>` + C.targets.map((t, i) =>
+    `<tr data-i="${i}"><td><select class="tm">${Object.entries(C.metrics).map(([k, m]) => `<option value="${k}"${k === t.metric ? " selected" : ""}>${esc(m[0])}</option>`).join("")}</select></td>` +
+    `<td><select class="tw">${whos.map(w => `<option value="${w}"${w === t.who ? " selected" : ""}>${esc(whoName(w))}</option>`).join("")}</select></td>` +
+    ["aim", "lo", "hi", "weight"].map(k => `<td><input class="tin" data-k="${k}" type="number" step="any" value="${t[k] ?? 1}" style="width:4.6em"></td>`).join("") +
+    `<td><input class="ttxt" data-k="why" value="${esc(t.why || "")}"></td><td><button class="btn quiet" type="button" data-del="${i}" aria-label="Remove">✕</button></td></tr>`).join("");
+}
+function readTargetTable() {
+  return [...document.querySelectorAll("#ttable tr[data-i]")].map(tr => {
+    const t = { metric: tr.querySelector(".tm").value, who: tr.querySelector(".tw").value };
+    tr.querySelectorAll("[data-k]").forEach(x => t[x.dataset.k] = x.dataset.k === "why" ? x.value : +x.value);
+    return t;
+  });
+}
+$("ttable").addEventListener("click", e => { const d = e.target.closest("[data-del]"); if (d) { C.targets = readTargetTable(); C.targets.splice(+d.dataset.del, 1); buildTargets(); } });
+$("tadd").addEventListener("click", () => { C.targets = readTargetTable(); C.targets.push({ metric: "panics_per_century", who: "passive", aim: 4, lo: 2.5, hi: 5.5, weight: 1, why: "" }); buildTargets(); });
+$("tsave").addEventListener("click", () => post("/api/targets", { targets: readTargetTable() }).then(r => {
+  $("tmsg").textContent = r.ok ? "Saved. The board is rescored; a target for a player not yet run needs a new check." : "Not saved: " + r.msg;
+  if (r.ok) { C.targets = r.targets; buildTargets(); }
+}));
+function buildParams() {
+  const root = $("params"); root.innerHTML = "";
+  const groups = {};
+  for (const s of C.spec) (groups[s.group] ||= []).push(s);
+  for (const [g, list] of Object.entries(groups)) {
+    const fs = document.createElement("fieldset"); fs.innerHTML = `<legend>${esc(g)}</legend>`;
+    for (const s of list) {
+      const v = s.value, lo = s.int ? Math.round(v * 0.7) : +(v * 0.7).toFixed(4), hi = s.int ? Math.max(Math.round(v * 1.3), lo + 1) : +(v * 1.3 || 1).toFixed(4);
+      const row = document.createElement("div"); row.className = "prow"; row.dataset.key = s.key;
+      row.innerHTML = `<label title="${esc(s.key)}">${esc(s.label)}</label><input type="number" step="any" class="val" value="${v}" aria-label="${esc(s.label)}">` +
+        `<input type="checkbox" class="vary" aria-label="Search ${esc(s.label)}"><input type="number" step="any" class="rng lo" value="${lo}" disabled aria-label="low"><input type="number" step="any" class="rng hi" value="${hi}" disabled aria-label="high">`;
+      row.querySelector(".val").addEventListener("input", e => row.classList.toggle("changed", +e.target.value !== s.value));
+      row.querySelector(".vary").addEventListener("change", e => row.querySelectorAll(".rng").forEach(x => x.disabled = !e.target.checked));
+      fs.appendChild(row);
+    }
+    root.appendChild(fs);
+  }
+}
+function readParams() {
+  const fixed = {}, vary = {};
+  for (const row of document.querySelectorAll("#params .prow")) {
+    const k = row.dataset.key, s = C.spec.find(x => x.key === k), v = +row.querySelector(".val").value;
+    if (v !== s.value) fixed[k] = v;
+    if (row.querySelector(".vary").checked) vary[k] = [+row.querySelector(".lo").value, +row.querySelector(".hi").value];
+  }
+  return { fixed, vary };
+}
+function buildInputs() {
+  const root = $("inputs"); root.innerHTML = "";
+  const fs = document.createElement("fieldset"); fs.innerHTML = "<legend>Inputs</legend>";
+  for (const [k, [, lo, hi, label]] of Object.entries(C.inputs)) {
+    const def = C.cfg.inputs[k], two = Array.isArray(def), row = document.createElement("div"); row.className = "prow"; row.dataset.key = k;
+    row.style.gridTemplateColumns = "minmax(0,1fr) 5.6em 5.6em";
+    row.innerHTML = `<label title="${esc(k)}: ${lo} to ${hi}">${esc(label)}</label>` + (two
+      ? `<input type="number" step="any" class="a" value="${def[0]}" min="${lo}" max="${hi}" aria-label="${esc(label)} low"><input type="number" step="any" class="b" value="${def[1]}" min="${lo}" max="${hi}" aria-label="${esc(label)} high">`
+      : `<input type="number" step="any" class="a" value="${def}" min="${lo}" max="${hi}" aria-label="${esc(label)}"><span></span>`);
+    fs.appendChild(row);
+  }
+  root.appendChild(fs);
+  for (const [name, key] of [["Economic System", "econ_mix"], ["Monetary Standard", "money_mix"]]) {
+    const f = document.createElement("fieldset"); f.innerHTML = `<legend>${name} in 1836, share of countries (they change over the century)</legend>`;
+    for (const [law, w] of Object.entries(C.cfg[key])) {
+      const row = document.createElement("div"); row.className = "prow"; row.dataset.mix = key; row.dataset.key = law;
+      row.style.gridTemplateColumns = "minmax(0,1fr) 5.6em";
+      row.innerHTML = `<label>${esc(law.replace(/_/g, " "))}</label><input type="number" step="any" min="0" class="a" value="${w}">`;
+      f.appendChild(row);
+    }
+    root.appendChild(f);
+  }
+}
+function readCfg() {
+  const cfg = structuredClone(C.cfg);
+  for (const row of document.querySelectorAll("#inputs .prow")) {
+    const k = row.dataset.key, a = +row.querySelector(".a").value, b = row.querySelector(".b");
+    if (row.dataset.mix) cfg[row.dataset.mix][k] = a;
+    else { const [, lo, hi] = C.inputs[k]; cfg.inputs[k] = b ? [clamp(Math.min(a, +b.value), lo, hi), clamp(Math.max(a, +b.value), lo, hi)] : clamp(a, lo, hi); }
+  }
+  return cfg;
+}
+function apPanel() {
+  const diff = S ? Object.entries(S.changed).map(([k, [o, n]]) => `${k} (${C.spec.find(s => s.key === k)?.label || k}): ${o} → ${n}`) : [];
+  $("apdiff").textContent = diff.length ? diff.join("\n") : "The shown candidate is the current numbers. Nothing to apply.";
+  $("applyb").disabled = !diff.length;
+  $("apwhere").textContent = `Writes ${C.paths.tuning}, regenerates into ${C.paths.stage}, syncs ${C.paths.live}.`;
+}
+$("applyb").addEventListener("click", () => {
+  const vals = Object.fromEntries(Object.entries(S.changed).map(([k, [, n]]) => [k, n]));
+  $("applyb").disabled = true; $("aplog").hidden = false; $("aplog").textContent = "Writing, regenerating and syncing…";
+  post("/api/apply", { values: vals }).then(r => { $("aplog").textContent = r.log; if (r.config) { C = r.config; buildParams(); apPanel(); } })
+    .catch(e => $("aplog").textContent = "Failed: " + e);
+});
+
+// ---------- watch one country: the machine room, drawn from the engine's frames ----------
+const svgNS = "http://www.w3.org/2000/svg";
+const el = (tag, attrs, parent, text) => { const e = document.createElementNS(svgNS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (text != null) e.textContent = text; if (parent) parent.appendChild(e); return e; };
+function buildWorks() {
+  const pg = $("pipes"), ng = $("nodes");
+  for (const [id, kind, d, lab] of W.pipes) {
+    const g = el("g", { class: `pipe ${kind}`, id: `p-${id}` }, pg);
+    const sig = kind.includes("sig"), ar = kind.split(" ")[0];
+    el("path", { class: "bed", d, "stroke-width": sig ? 2 : 9, "marker-end": "url(#ar-bed)" }, g);
+    el("path", { class: "flow", id: `pf-${id}`, d, "stroke-width": sig ? 2 : 2.5, "marker-end": `url(#ar-${ar})` }, g);
+    el("text", { class: "lab", x: lab[0], y: lab[1], "text-anchor": lab[2] }, g, lab[3]);
+  }
+  for (const id in W.nodes) {
+    const n = W.nodes[id], h = n.h || 116, w = n.w || 200;
+    const g = el("g", { class: "node", id: `n-${id}`, transform: `translate(${n.x},${n.y})`, tabindex: "0", role: "button", "aria-label": n.t }, ng);
+    el("rect", { class: "outer", x: -4, y: -4, width: w + 8, height: h + 8 }, g);
+    el("rect", { class: "box", width: w, height: h }, g);
+    el("image", { href: n.icon, x: 8, y: 6, width: 30, height: 30 }, g);
+    el("text", { class: "nt", x: 44, y: 28 }, g, n.t);
+    g.addEventListener("click", () => select(id));
+    g.addEventListener("keydown", e => (e.key === "Enter" || e.key === " ") && (e.preventDefault(), select(id)));
+    if (id === "out") {
+      el("text", { class: "ns", x: 14, y: 64 }, g, "What the country feels");
+      ["Throughput", "Investment", "Private construction"].forEach((t, i) => {
+        const m = el("g", { transform: `translate(${270 + i * 245},0)` }, g), y = 32;
+        el("text", { class: "nu", x: 14, y }, m, t);
+        el("text", { class: "nv", id: `v-out${i}`, x: 186, y: y + 2, "text-anchor": "end", style: "font-size:20px" }, m, "0%");
+        el("rect", { class: "track", x: 14, y: y + 12, width: 172, height: 12 }, m);
+        el("rect", { id: `f-out${i}`, x: 100, y: y + 13, width: 0, height: 10 }, m);
+        el("line", { class: "tick", x1: i === 2 ? 14 : 100, x2: i === 2 ? 14 : 100, y1: y + 9, y2: y + 27 }, m);
+      });
+      continue;
+    }
+    el("text", { class: "nv", id: `v-${id}`, x: 14, y: 66 }, g, "");
+    el("text", { class: "nu", id: `u-${id}`, x: 186, y: 66, "text-anchor": "end" }, g, "");
+    el("text", { class: "ns", id: `s-${id}`, x: 14, y: 88 }, g, "");
+    const gauge = el("g", { id: `g-${id}`, transform: "translate(14,98)" }, g);
+    el("rect", { class: "track", width: 172, height: 12 }, gauge);
+  }
+  const segs = $("g-conf");
+  C.bands.forEach(([name, lo, hi]) => el("rect", { x: lo / 100 * 172, y: 1, width: (hi - lo) / 100 * 172, height: 10, fill: cssv("--" + name), opacity: .22 }, segs));
+  el("rect", { id: "f-conf", x: 0, y: 1, width: 0, height: 10 }, segs);
+  el("line", { id: "thr-conf", class: "tick", y1: -3, y2: 15, style: "stroke:var(--red);opacity:1;stroke-width:2" }, segs);
+  const K = C.consts, lv = $("g-lev"), ruin = K.LEV_RUIN;
+  [[0, K.LEV_SAFE, "--buoyant"], [K.LEV_SAFE, K.DANGER, "--wary"], [K.DANGER, ruin, "--panic"]].forEach(([a, b, c]) => el("rect", { x: a / ruin * 172, y: 1, width: (b - a) / ruin * 172, height: 10, fill: cssv(c), opacity: .35 }, lv));
+  el("rect", { id: "m-lev", y: -3, width: 3, height: 18, fill: "#fff" }, lv);
+  const lx = $("g-lax");
+  [0, .2, .4, .6, .8].forEach((a, i) => el("rect", { x: a * 172 + 1, y: 1, width: 32.4, height: 10, fill: i < 2 ? cssv("--in") : i === 2 ? cssv("--steady") : cssv("--red"), opacity: .25 + Math.abs(i - 2) * .12 }, lx));
+  el("rect", { id: "m-lax", y: -3, width: 3, height: 18, fill: "#fff" }, lx);
+  for (const id of ["booms", "excess", "banks", "credit", "panic", "pool"]) el("rect", { id: `f-${id}`, x: 0, y: 1, width: 0, height: 10 }, $(`g-${id}`));
+  el("rect", { id: "f-bad", x: 0, y: 1, width: 0, height: 10, fill: "#7a2a22" }, $("g-bad"));
+  el("rect", { id: "f-badfelt", x: 0, y: 3, width: 0, height: 6, fill: cssv("--red") }, $("g-bad"));
+}
+// the Waterworks' tweens: values glide from one month to the next
+const TW = new Map(), still = matchMedia("(prefers-reduced-motion: reduce)");
+let monthMs = 250, twAt = 0;
+const put = t => { const s = t.fmt ? t.fmt(t.cur) : t.cur.toFixed(2); if (t.attr === "text") { if (t.e.textContent !== s) t.e.textContent = s; } else t.e.setAttribute(t.attr, s); };
+function ease(id, attr, v, fmt) {
+  if (!Number.isFinite(v)) v = 0;
+  const k = id + "|" + attr; let t = TW.get(k);
+  if (!t) { const e = $(id); if (!e) return; t = { e, attr, cur: v, to: v, fmt }; TW.set(k, t); put(t); return; }
+  t.to = v; t.fmt = fmt; if (still.matches) { t.cur = v; put(t); }
+}
+function twLoop(now) {
+  const dt = Math.min(now - (twAt || now), 100); twAt = now;
+  const a = still.matches ? 1 : 1 - Math.exp(-dt / Math.max(monthMs * 0.28, 35));
+  for (const t of TW.values()) { if (t.cur === t.to) continue; t.cur = Math.abs(t.to - t.cur) < 1e-3 * (1 + Math.abs(t.to)) ? t.to : t.cur + (t.to - t.cur) * a; put(t); }
+  requestAnimationFrame(twLoop);
+}
+const setW = (id, w) => ease(id, "width", Math.max(w, 0));
+const num = (id, v, fmt) => ease(id, "text", v, fmt);
+const txt = (id, s, cls) => { const e = $(id); if (!e) return; TW.delete(id + "|text"); if (e.textContent !== s) e.textContent = s; if (cls !== undefined) e.setAttribute("class", cls); };
+function pipe(id, amt, on, max = 1) {
+  const g = $(`p-${id}`), lit = on ?? amt > 1e-6;
+  g.classList.toggle("on", !!lit);
+  if (!g.classList.contains("sig")) ease(`pf-${id}`, "stroke-width", lit ? 2.5 + Math.min(amt / max, 1) * 4.5 : 2.5);
+}
+const bandOf = c => C.bands.find(b => c < b[2]) || C.bands[C.bands.length - 1];
+const cap = s => s[0].toUpperCase() + s.slice(1);
+function render() {
+  const F = frames[fi]; if (!F) return;
+  const K = C.consts, b = bandOf(F.conf), pm = Math.max(F.pool_month, 1);
+  txt("date", dateOf(F.m)); const pill = $("stage"); pill.textContent = cap(b[0]); pill.style.background = cssv("--" + b[0]);
+  $("scrub").value = fi;
+  const push = F.c_boom + F.c_crash;
+  num("v-booms", push, v => sgn(v, 1)); txt("u-booms", "confidence");
+  txt("s-booms", F.c_crash < 0 ? `${F.n_end} ending` : F.n_boom ? (F.in_panic ? "Stalled by the panic" : `${F.n_boom} booming`) : "Quiet", "ns" + (F.c_crash < 0 ? " bad" : F.n_boom ? " good" : ""));
+  setW("f-booms", clamp(Math.abs(push) / 8, 0, 1) * 172); $("f-booms").setAttribute("fill", F.c_crash < 0 ? cssv("--red") : cssv("--in"));
+  num("v-conf", F.conf, f1); txt("u-conf", `line ${f1(F.panic_at)}`);
+  txt("s-conf", cap(b[0]) + (F.conf > K.CREDIT_FROM ? ", banks may lend" : ", banks hold back"), "ns");
+  setW("f-conf", F.conf / 100 * 172); $("f-conf").setAttribute("fill", cssv("--" + b[0]));
+  const tx = clamp(F.panic_at, 0, 100) / 100 * 172; ease("thr-conf", "x1", tx); ease("thr-conf", "x2", tx);
+  num("v-excess", F.heat, f1); txt("u-excess", F.heat > 0 ? `burst −${f1(F.heat * K.BURST_PER_HEAT)}` : "");
+  txt("s-excess", F.burst ? "Burst" : F.xs_grow > 0 ? "Building" : F.heat > 0 ? "Cooling" : "None", "ns" + (F.burst ? " bad" : F.xs_grow > 0 ? " warn" : ""));
+  setW("f-excess", clamp(F.heat / 400, 0, 1) * 172); $("f-excess").setAttribute("fill", cssv("--wary"));
+  num("v-banks", F.lent, money); txt("u-banks", "lent a month");
+  txt("s-banks", F.lent > 0 ? (F.lent >= F.room - 1 ? "At the Lending Limit" : "Lending") : F.in_panic ? "Closed by the panic" : F.stance === -1 ? "Closed, Tight credit" : F.conf <= K.CREDIT_FROM ? `Closed, under ${K.CREDIT_FROM}` : F.crunch_lend <= 0 ? "Closed by Bad Debts" : "Closed, at the limit", "ns" + (F.lent > 0 ? " good" : " bad"));
+  setW("f-banks", clamp(F.lent / (pm * K.CREDIT_CEILING), 0, 1) * 172); $("f-banks").setAttribute("fill", cssv("--gold"));
+  txt("v-lax", F.lax_word); txt("u-lax", `${Math.round(F.lax * 100)} points`);
+  txt("s-lax", `lends ×${F.lax_credit.toFixed(2)}, recalls ${pct(K.CLAWBACK * F.lax_recall)}`, "ns");
+  ease("m-lax", "x", F.lax * 172 - 1.5);
+  const limit = F.credit_limit * F.lev_income;
+  num("v-credit", F.debt, money); txt("u-credit", `limit ${money(limit)}`);
+  txt("s-credit", `${money(F.repaid)} repaid this month`, "ns");
+  setW("f-credit", clamp(F.debt / Math.max(limit, 1), 0, 1) * 172); $("f-credit").setAttribute("fill", cssv("--gold"));
+  num("v-lev", F.lev, f1); txt("u-lev", "months");
+  txt("s-lev", F.lev <= K.LEV_SAFE ? "Safe" : F.lev <= K.DANGER ? "Risky, a panic leaves Bad Debts" : "Dangerous", "ns" + (F.lev <= K.LEV_SAFE ? " good" : F.lev <= K.DANGER ? " warn" : " bad"));
+  ease("m-lev", "x", clamp(F.lev / K.LEV_RUIN, 0, 1) * 172 - 1.5);
+  txt("v-panic", F.in_panic ? `${F.panic} mo` : F.panic_cd > 0 ? `${F.panic_cd} mo` : "Calm"); txt("u-panic", F.in_panic ? (F.rescued ? "rescued" : "left at most") : F.panic_cd > 0 ? "of calm left" : "");
+  txt("s-panic", F.in_panic ? `Construction −${pct(F.cut_shown)}` : `Starts under ${f1(F.panic_at)}`, "ns" + (F.in_panic ? " bad" : ""));
+  setW("f-panic", F.in_panic && F.panic_len ? F.panic / F.panic_len * 172 : 0); $("f-panic").setAttribute("fill", cssv("--red"));
+  num("v-bad", F.crunch, v => v < 0.05 ? "None" : f1(v)); txt("u-bad", F.crunch > 0 ? `${f1(F.bite)} felt` : "");
+  txt("s-bad", F.crunch > 0 ? `Lending ×${F.crunch_lend.toFixed(2)}` : "Banks free to lend", "ns" + (F.crunch > 0 ? " bad" : ""));
+  const bscale = Math.max(K.LEV_CRUNCH_MAX * 1.5, F.crunch); setW("f-bad", F.crunch / bscale * 172); setW("f-badfelt", F.bite / bscale * 172);
+  num("v-pool", F.pool, money); txt("u-pool", `${money(F.pool_month)} a month`);
+  txt("s-pool", F.clawed > 0 ? `Recall takes ${money(F.clawed)}` : `Pays ${money(F.repaid)} of debt`, "ns" + (F.clawed > 0 ? " bad" : ""));
+  setW("f-pool", clamp(F.repaid / pm, 0, 1) * 172); $("f-pool").setAttribute("fill", cssv("--gold"));
+  [[F.tp * 100, 30], [F.inv * 100, 60]].forEach(([v, sc], i) => {
+    num(`v-out${i}`, v, x => `${sgn(x, 1)}%`); $(`v-out${i}`).style.fill = v > 0.05 ? cssv("--out") : v < -0.05 ? cssv("--red") : "#fff";
+    const w = clamp(Math.abs(v) / sc, 0, 1) * 86, r = $(`f-out${i}`);
+    ease(`f-out${i}`, "x", v < 0 ? 100 - w : 100); setW(`f-out${i}`, w); r.setAttribute("fill", v < 0 ? cssv("--red") : cssv("--out"));
+  });
+  num("v-out2", F.cut_shown, x => x > 0.005 ? `−${pct(x)}` : "0%"); $("v-out2").style.fill = F.cut_shown > 0 ? cssv("--red") : "#fff";
+  $("f-out2").setAttribute("x", 14); setW("f-out2", F.cut_shown * 172); $("f-out2").setAttribute("fill", cssv("--red"));
+  pipe("boom", F.c_boom, undefined, 6); pipe("pull", F.pull_lent, undefined, pm * 0.3); pipe("open", 0, F.conf > K.CREDIT_FROM);
+  pipe("lend", F.lent, undefined, pm * 0.5); pipe("steam", F.xs_grow, undefined, 15); pipe("burst", 8, F.burst);
+  pipe("laxs", 0, true); pipe("repay", F.repaid, undefined, pm * 0.3); pipe("owed", F.debt, undefined, pm * 12);
+  pipe("lift", 0, F.stress > 0); pipe("trigger", 0, F.in_panic || F.conf < F.panic_at + 8); pipe("recall", 8, F.panic_start);
+  pipe("badin", 8, F.panic_start && F.crunch > 0); pipe("badlend", 0, F.crunch > 0); pipe("burstbad", 8, F.burst && F.xs_bad > 0);
+  pipe("bonus", F.bonus_tp, undefined, 0.24); pipe("panicout", 8, F.in_panic); pipe("badout", -F.bad_tp, undefined, 0.16);
+  inspect(); cursor();
+}
+// the Inspector: the engine's own calculation rows (engine.CALC), filled from this month's frame
+const FMT = { "0": v => String(Math.round(v)), "1": f1, "2": v => v.toFixed(2), "+1": v => sgn(v, 1), "+2": v => sgn(v, 2), "£": money,
+  "x2": v => "×" + v.toFixed(2), "%0": v => pct(v), "%1": v => pct(v, 1), "+%1": v => sgn(v * 100, 1) + "%" };
+function inspect() {
+  const F = frames[fi]; if (!F) return;
+  let h = `<div class="tt-head">${esc(W.nodes[selected].t)}</div><div class="delim"></div><table class="calc">`;
+  for (const [label, field, fmt] of C.calc[selected] || []) {
+    const sum = fmt.startsWith("="), f = fmt.replace("=", ""), v = F[field];
+    if (v === undefined || (!sum && (f.startsWith("+") || f === "£") && Math.abs(v) < 1e-6 && field !== "lent")) continue;
+    h += `<tr${sum ? ' class="sum"' : ""}><td>${esc(label)}</td><td>${(FMT[f] || FMT["2"])(v)}</td></tr>`;
+  }
+  $("insp-body").innerHTML = h + "</table>";
+  $("insp-links").innerHTML = Object.keys(C.calc).filter(k => k !== selected).map(k => `<button type="button" data-go="${k}">${esc(W.nodes[k].t)}</button>`).join("");
+}
+$("insp-links").addEventListener("click", e => { const b = e.target.closest("button"); if (b) select(b.dataset.go); });
+function select(id) { selected = id; for (const k in W.nodes) $(`n-${k}`).classList.toggle("sel", k === id); inspect(); }
+function record() {
+  const n = frames.length, x0 = 44, x1 = 648, X = i => x0 + i / Math.max(n - 1, 1) * (x1 - x0);
+  const top = { y0: 14, y1: 168 }, Y = v => top.y1 - clamp(v, 0, 100) / 100 * (top.y1 - top.y0);
+  const bmax = Math.max(C.consts.LEV_CRUNCH_MAX * 1.5, ...frames.map(f => f.crunch)), YB = v => 280 - clamp(v, 0, bmax) / bmax * 84;
+  let s = "", st = -1;
+  frames.forEach((f, i) => { if (f.in_panic && st < 0) st = i; if ((!f.in_panic || i === n - 1) && st >= 0) { s += `<rect x="${X(st)}" y="${top.y0}" width="${Math.max(X(i) - X(st), 1)}" height="${top.y1 - top.y0}" fill="${cssv("--red")}" opacity=".18"/>`; st = -1; } });
+  for (const v of [0, 25, 50, 75, 100]) s += `<text x="${x0 - 6}" y="${Y(v) + 4}" text-anchor="end">${v}</text>`;
+  const line = (k, Yf, col, w, dash = "") => `<polyline fill="none" stroke="${col}" stroke-width="${w}" ${dash ? `stroke-dasharray="${dash}"` : ""} points="${frames.map((f, i) => `${X(i).toFixed(1)},${Yf(f[k]).toFixed(1)}`).join(" ")}"/>`;
+  s += line("panic_at", Y, cssv("--red"), 1, "4 3") + line("conf", Y, cssv("--gold-hi"), 1.4);
+  s += `<polygon points="${frames.map((f, i) => `${X(i).toFixed(1)},${YB(f.crunch).toFixed(1)}`).join(" ")} ${X(n - 1)},280 ${x0},280" fill="${cssv("--red")}" opacity=".45"/>`;
+  s += `<text x="${x0}" y="190">Bad Debts, up to ${f1(bmax)}</text>`;
+  for (let y = 0; y <= n / 12; y += 20) s += `<text x="${X(y * 12)}" y="296" text-anchor="middle">${1836 + y}</text>`;
+  $("chart").innerHTML = s + `<line id="cur" x1="${x0}" x2="${x0}" y1="10" y2="282" stroke="#fff" stroke-width="1" opacity=".6"/>`;
+}
+function cursor() { const c = $("cur"); if (c) { const x = 44 + fi / Math.max(frames.length - 1, 1) * 604; c.setAttribute("x1", x); c.setAttribute("x2", x); } }
+function news(F) {
+  const out = [], sv = { "-1": "Tight", "0": "Normal", "1": "Loose" };
+  if (F.panic_start) out.push(["bad", `Financial Panic: confidence ${f1(F.conf)} under the line ${f1(F.panic_at)}; ${money(F.recall)} recalled${F.crunch > 0 ? `, Bad Debts ${f1(F.crunch)}` : ""}.`]);
+  if (F.panic_end) out.push(["good", "The panic ends."]);
+  if (F.new_mania) out.push(["act", `Mania: confidence reaches ${f1(F.conf)}.`]);
+  if (F.burst) out.push(["bad", `Speculative Excess bursts: ${f1(F.c_burst)} confidence${F.xs_bad > 0 ? `, ${f1(F.xs_bad)} Bad Debts` : ""}.`]);
+  if (F.rescue_now) out.push(["act", `Lend to the Banks, about ${pct(F.rescue_cost, 1)} of GDP.`]);
+  if (F.bailout_now) out.push(["act", `Buy Up Bad Loans, about ${pct(F.bailout_cost, 1)} of GDP.`]);
+  if (F.stance_now) out.push(["act", `Credit Policy: ${sv[F.stance_now - 10]}.`]);
+  return out;
+}
+const logItem = (m, k, t) => { const li = document.createElement("li"); li.className = k; li.innerHTML = `<time>${MONTHS[m % 12].slice(0, 3)} ${1836 + Math.floor(m / 12)}</time><span>${esc(t)}</span>`; return li; };
+function rebuildLog() {
+  const ul = $("log"), items = []; ul.innerHTML = "";
+  for (let i = 0; i <= fi; i++) for (const [k, t] of news(frames[i])) items.push([frames[i].m, k, t]);
+  for (const [m, k, t] of items.slice(-120).reverse()) ul.appendChild(logItem(m, k, t));
+}
+function addLog() {
+  const ul = $("log"), F = frames[fi];
+  for (const [k, t] of news(F)) ul.prepend(logItem(F.m, k, t));
+  while (ul.children.length > 120) ul.lastChild.remove();
+}
+function watch() {
+  $("watchb").disabled = true; txt("wstat", "Running…");
+  post("/api/watch", { values: S ? S.values : {}, cfg: readCfg(), bot: $("player").value || "passive", seed: +$("seed").value }).then(r => {
+    if (!r.frames) { $("watchb").disabled = false; txt("wstat", r.msg || "Failed."); return; }
+    frames = r.frames; fi = 0; $("scrub").max = frames.length - 1;
+    $("watchb").disabled = false; $("play").disabled = false; $("stepb").disabled = false;
+    record(); rebuildLog(); render(); play(true);
+    txt("wstat", `${BOTN[$("player").value] || ""}, ${r.econ.replace(/_/g, " ")}, ${r.money.replace(/_/g, " ")}: ${f1(r.summary.panics_per_century.mean)} panics a century`);
+  });
+}
+function play(on) {
+  clearInterval(timer); timer = null;
+  if (on) timer = setInterval(() => { if (fi >= frames.length - 1) return play(false); fi++; addLog(); render(); }, monthMs);
+  $("play").textContent = on ? "Pause" : "Play";
+}
+$("watchb").addEventListener("click", watch);
+$("play").addEventListener("click", () => play(!timer));
+$("stepb").addEventListener("click", () => { play(false); if (fi < frames.length - 1) { fi++; addLog(); render(); } });
+$("speed").addEventListener("change", e => { monthMs = +e.target.value; if (timer) play(true); });
+$("scrub").addEventListener("input", e => { play(false); fi = +e.target.value; rebuildLog(); render(); });
+
+Promise.all([fetch("/api/config").then(r => r.json()), fetch("/works.json").then(r => r.json())]).then(([c, w]) => {
+  C = c; W = w;
+  $("player").innerHTML = C.bots.map(b => `<option value="${b}"${b === "passive" ? " selected" : ""}>${BOTN[b] || b}</option>`).join("");
+  buildTargets(); buildParams(); buildInputs(); buildWorks(); select("conf"); fitBoard();
+  $("replay").innerHTML = `Replay (planned): the mod's log line would add <code style="font-size:13px">${esc(C.replay.fragment)}</code>`;
+  requestAnimationFrame(twLoop);
+  loadLatest(); loadRuns();
+  fetch("/api/live").then(r => r.json()).then(evs => evs.forEach(liveEvent));
+  PHONE.addEventListener("change", () => { series(); drawLive(); });  // turned sideways, or the window resized
+});
+</script>
+</body></html>

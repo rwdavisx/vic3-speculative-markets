@@ -1,0 +1,20 @@
+[
+ {"metric": "panics_per_century", "who": "passive", "aim": 5.5, "lo": 4.0, "hi": 7.0, "weight": 1.0, "why": "A country that never touches the levers panics about as often as the 19th century's large economies did: Britain and the United States had a major crisis about once a decade."},
+ {"metric": "panic_months_pct", "who": "passive", "aim": 1.5, "lo": 0.8, "hi": 2.5, "weight": 1.0, "why": "Panics are sharp events, not a permanent state."},
+ {"metric": "panic_length", "who": "passive", "aim": 4.5, "lo": 3.0, "hi": 6.0, "weight": 1.0, "why": "A panic lasts a season or two, as the historical ones did."},
+ {"metric": "mania_pct", "who": "passive", "aim": 4.0, "lo": 2.0, "hi": 8.0, "weight": 1.0, "why": "A Mania is rare and memorable."},
+ {"metric": "mania_to_panic_pct", "who": "passive", "aim": 35.0, "lo": 25.0, "hi": 50.0, "weight": 1.0, "why": "Many Manias end in a panic, as 1825, 1837, 1847, 1857, 1873 and 1890 did; the rest cool off."},
+ {"metric": "output_pct", "who": "reckless-careful", "aim": -3.0, "lo": -8.0, "hi": -1.0, "weight": 1.0, "why": "Reckless play costs output over a century compared with careful play, once its rescues and buy-ups are paid for."},
+ {"metric": "output_pct", "who": "careful-passive", "aim": 2.0, "lo": 0.5, "hi": 5.0, "weight": 1.0, "why": "Mastery pays: a player who learns the market ends the century richer than one who leaves it alone."},
+ {"metric": "output_pct", "who": "skilled-careful", "aim": 1.0, "lo": 0.3, "hi": 3.0, "weight": 1.0, "why": "Credit used well beats credit avoided: a player who lets leverage run and reins it in on time out-earns one who never borrows."},
+ {"metric": "panics_per_century", "who": "careful", "aim": 2.0, "lo": 1.0, "hi": 3.5, "weight": 1.0, "why": "Still a challenge: even careful play meets a panic or two a century; skill softens them, it can't abolish them."},
+ {"metric": "frozen_pct", "who": "reckless", "aim": 60.0, "lo": 35.0, "hi": 90.0, "weight": 1.0, "why": "Reckless leverage stops the banks: most of a reckless player's panics freeze lending for a while."},
+ {"metric": "frozen_pct", "who": "skilled", "aim": 3.0, "lo": 0.0, "hi": 10.0, "weight": 1.0, "why": "Skilled play almost never freezes lending."},
+ {"metric": "crunch_months_pct", "who": "skilled", "aim": 3.0, "lo": 0.0, "hi": 8.0, "weight": 1.0, "why": "Skilled play rarely carries Bad Debts."},
+ {"metric": "crunch_max", "who": "skilled", "aim": 8.0, "lo": 0.0, "hi": 15.0, "weight": 1.0, "why": "And when it does, they are small."},
+ {"metric": "bad_spell", "who": "passive", "aim": 18.0, "lo": 9.0, "hi": 30.0, "weight": 1.0, "why": "Left alone, Bad Debts clear in a year or two."},
+ {"metric": "output_pct", "who": "reckless-nobuy", "aim": 0.6, "lo": 0.1, "hi": 2.0, "weight": 1.0, "why": "Buying up Bad Debts pays for itself: a reckless player who buys them up ends richer than one who never does."},
+ {"metric": "output_pct", "who": "ai-passive", "aim": 1.0, "lo": 0.0, "hi": 3.0, "weight": 1.0, "why": "The AI plays the market sensibly: AI countries end at least as rich as one that ignores it, so rivals stay competitive."},
+ {"metric": "output_pct", "who": "skilled-ai", "aim": 1.0, "lo": 0.2, "hi": 4.0, "weight": 1.0, "why": "A skilled player out-plays the AI at the market."},
+ {"metric": "panics_per_century", "who": "ai", "aim": 4.5, "lo": 3.0, "hi": 6.0, "weight": 1.0, "why": "AI countries have panics about as history did, so Great Powers meet crises and the Long Depression can start."}
+]

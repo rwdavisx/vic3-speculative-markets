@@ -1,9 +1,4 @@
-"""Finance links must prepare their destination before closing their own panel.
-
-The JE's custom widget can be destroyed by ClosePanel before later onclicks run.
-Exercise the actual generated JE button with that observed lifetime,
-not an assertion about how the shared OPEN_TAB string happens to be assembled.
-"""
+"""The 1.1 journal shortcut opens Speculation over the journal entry panel."""
 import re
 import sys
 import unittest
@@ -40,20 +35,20 @@ def click_until_panel_is_destroyed(actions, variables):
 
 
 class FinanceOpenTests(unittest.TestCase):
-    def assert_open_survives_widget_destruction(self, gui):
+    def assert_opens_over_journal(self, gui):
         actions = open_actions(gui)
         for initial in ({}, {market_tab.FIN: "open", market_tab.FIN_TAB: "world",
                              market_tab.PICK: "2", "unrelated_ui_choice": "keep"}):
             with self.subTest(initial=initial):
                 variables, closed = click_until_panel_is_destroyed(actions, initial)
-                self.assertTrue(closed, "the originating native panel must close")
+                self.assertFalse(closed, "the journal panel hosts Finance in 1.1")
                 self.assertEqual(variables.get(market_tab.FIN), "open")
                 self.assertEqual(variables.get(market_tab.FIN_TAB), "booms")
                 self.assertNotIn(market_tab.PICK, variables)
                 self.assertEqual(variables.get("unrelated_ui_choice"), initial.get("unrelated_ui_choice"))
 
-    def test_journal_entry_link_survives_closing_its_own_panel(self):
-        self.assert_open_survives_widget_destruction(journal.widgets())
+    def test_journal_entry_link_opens_speculation_over_journal(self):
+        self.assert_opens_over_journal(journal.widgets())
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

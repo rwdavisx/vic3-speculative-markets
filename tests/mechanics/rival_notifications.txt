@@ -10,37 +10,37 @@ remove_variable = spec_exch_known remove_variable = spec_pw_floor remove_variabl
 set_variable = { name = spec_exch_stand value = 1 } set_variable = { name = spec_centre_trust value = 60 }
 every_country = { limit = { NOT = { this = prev } OR = { this = c:GBR this = c:FRA this = c:PRU this = c:AUS } } set_relations = { country = prev value = 0 } }
 }
-c:GBR = { add_to_variable_list = { name = spec_rv_chosen target = c:FRA } }
-c:PRU = { add_to_variable_list = { name = spec_rv_chosen target = c:GBR } }
-c:AUS = { add_to_variable_list = { name = spec_rv_chosen target = c:GBR } }
+c:GBR = { add_to_variable_list = { name = spec_rv_chosen target = c:FRA } add_to_variable_list = { name = spec_rv_age_0 target = c:FRA } }
+c:PRU = { add_to_variable_list = { name = spec_rv_chosen target = c:GBR } add_to_variable_list = { name = spec_rv_age_0 target = c:GBR } }
+c:AUS = { add_to_variable_list = { name = spec_rv_chosen target = c:GBR } add_to_variable_list = { name = spec_rv_age_0 target = c:GBR } }
 c:GBR = { set_variable = { name = spec_centre_score value = 300 } }
 c:FRA = { set_variable = { name = spec_centre_score value = 200 } }
 c:PRU = { set_variable = { name = spec_centre_score value = 200 } }
 c:AUS = { set_variable = { name = spec_centre_score value = 200 } }
 set_variable = { name = spec_test_won value = 0 }
 set_variable = { name = spec_test_lost value = 0 }
-spec_mechanics_rival_year = yes
+while = { count = 5 spec_mechanics_rival_year = yes }
 if = { limit = { var:spec_test_won = 1 var:spec_test_lost = 0 } debug_log = "HOTFIX PASS multiple_wins_one_notification" }
 else = { debug_log = "HOTFIX FAIL multiple_wins_one_notification" }
-if = { limit = { var:spec_centre_trust = 69 } debug_log = "HOTFIX PASS all_three_win_rewards_preserved" }
+if = { limit = { var:spec_centre_trust = 78 } debug_log = "HOTFIX PASS all_three_win_rewards_preserved" }
 else = { debug_log = "HOTFIX FAIL all_three_win_rewards_preserved" }
 set_variable = { name = spec_test_won value = 0 }
-spec_mechanics_rival_year = yes
-if = { limit = { var:spec_test_won = 1 } debug_log = "HOTFIX PASS next_year_can_notify_again" }
-else = { debug_log = "HOTFIX FAIL next_year_can_notify_again" }
+while = { count = 5 spec_mechanics_rival_year = yes }
+if = { limit = { var:spec_test_won = 1 } debug_log = "HOTFIX PASS next_round_can_notify_again" }
+else = { debug_log = "HOTFIX FAIL next_round_can_notify_again" }
 c:GBR = { set_variable = { name = spec_centre_score value = 100 } }
 c:GBR = { set_variable = { name = spec_centre_trust value = 60 } }
 set_variable = { name = spec_test_won value = 0 }
 set_variable = { name = spec_test_lost value = 0 }
-spec_mechanics_rival_year = yes
+while = { count = 5 spec_mechanics_rival_year = yes }
 if = { limit = { var:spec_test_lost = 1 var:spec_test_won = 0 } debug_log = "HOTFIX PASS multiple_losses_one_notification" }
 else = { debug_log = "HOTFIX FAIL multiple_losses_one_notification" }
-if = { limit = { var:spec_centre_trust = 51 } debug_log = "HOTFIX PASS all_three_loss_penalties_preserved" }
+if = { limit = { var:spec_centre_trust = 42 } debug_log = "HOTFIX PASS all_three_loss_penalties_preserved" }
 else = { debug_log = "HOTFIX FAIL all_three_loss_penalties_preserved" }
 c:FRA = { set_variable = { name = spec_centre_score value = 50 } }
 set_variable = { name = spec_test_won value = 0 }
 set_variable = { name = spec_test_lost value = 0 }
-spec_mechanics_rival_year = yes
+while = { count = 5 spec_mechanics_rival_year = yes }
 if = { limit = { var:spec_test_won = 1 var:spec_test_lost = 1 } debug_log = "HOTFIX PASS mixed_results_keep_both_notifications" }
 else = { debug_log = "HOTFIX FAIL mixed_results_keep_both_notifications" }
 c:FRA = { set_variable = { name = spec_centre_score value = 100 } }
@@ -48,7 +48,7 @@ c:PRU = { set_variable = { name = spec_centre_score value = 100 } }
 c:AUS = { set_variable = { name = spec_centre_score value = 100 } }
 set_variable = { name = spec_test_won value = 0 }
 set_variable = { name = spec_test_lost value = 0 }
-spec_mechanics_rival_year = yes
+while = { count = 5 spec_mechanics_rival_year = yes }
 if = { limit = { var:spec_test_won = 0 var:spec_test_lost = 0 } debug_log = "HOTFIX PASS tied_year_has_no_stale_notification" }
 else = { debug_log = "HOTFIX FAIL tied_year_has_no_stale_notification" }
 debug_log = "HOTFIX SUITE COMPLETE"

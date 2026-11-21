@@ -1,0 +1,6 @@
+{
+ "2095c742e7": "今破裂した場合: [concept_spec_market_confidence]が#N すべて#!失われます{1}\\nバーは満杯です。これ以上は、破裂で信頼度から奪いきれない分が[concept_spec_bad_debts]になります。",
+ "e689f1cd5e": "（さらに[concept_spec_bad_debts]が#N {1}#!以上）",
+ "a381ebcd97": "奪いきれなかった分は[concept_spec_bad_debts]になりました。",
+ "a129ca9f3c": "@spec_market_confidence! [concept_spec_market_confidence]が下がりすぎて[concept_spec_speculative_excess]を維持できなくなり、破裂によってさらに低下しました。{1}"
+}

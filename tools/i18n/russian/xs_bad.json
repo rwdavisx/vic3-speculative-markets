@@ -1,0 +1,6 @@
+{
+ "2095c742e7": "Если бы он лопнул сейчас: #N вся#! [concept_spec_market_confidence]{1}\\nШкала заполнена. Дальше то, что лопнувший пузырь не сможет отнять у уверенности, перейдёт в [concept_spec_bad_debts].",
+ "e689f1cd5e": ", и не менее #N {1}#! ([concept_spec_bad_debts])",
+ "a381ebcd97": " То, что он не смог отнять, перешло в [concept_spec_bad_debts].",
+ "a129ca9f3c": "@spec_market_confidence! [concept_spec_market_confidence] упала слишком низко, чтобы поддерживать наш [concept_spec_speculative_excess], и лопнувший пузырь снизил её ещё сильнее.{1}"
+}

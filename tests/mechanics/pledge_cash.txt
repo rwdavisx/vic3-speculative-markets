@@ -46,9 +46,13 @@ spec_mechanics_pledge_cash.1 = {
  set_variable = { name = spec_panic value = 6 }
  add_treasury = { value = gold_reserves multiply = -1 }
  set_variable = { name = spec_test_before value = gold_reserves }
+ set_variable = { name = spec_test_required_now value = spec_rescue_cost }
+ set_variable = { name = spec_test_gap value = { value = spec_rescue_cost subtract = gold_reserves } }
  spec_mechanics_pledge_rescue = yes
  if = { limit = { has_variable = spec_pledge has_variable = spec_pledge_unmet NOT = { has_variable = spec_rescued } gold_reserves = var:spec_test_before var:spec_panic = 6 } debug_log = "HOTFIX PASS unfunded_pledge_preserves_promise_without_payment" }
  else = { debug_log = "HOTFIX FAIL unfunded_pledge_preserves_promise_without_payment" }
+ if = { limit = { var:spec_pledge_reason = 1 var:spec_pledge_required = var:spec_test_required_now var:spec_pledge_shortfall = var:spec_test_gap } debug_log = "HOTFIX PASS unmet_pledge_reports_exact_shortfall" }
+ else = { debug_log = "HOTFIX FAIL unmet_pledge_reports_exact_shortfall" }
  add_treasury = 10000000
  spec_mechanics_pledge_rescue = yes
  if = { limit = { has_variable = spec_rescued has_variable = spec_pledge } debug_log = "HOTFIX PASS funding_later_permits_rescue" }

@@ -1,0 +1,20 @@
+{
+ "4aee1cc3b2": "#header 为{1}发起大宗发行#!\\n$TOOLTIP_DELIMITER$\\n#italic 在我国交易所出售一种热门[concept_good]的股份。回报大，风险也大。#!\\n\\n在#v {2}#!年内：\\n{3}得分：#P +{4}%#!\\n其热潮结束时，其中的银行贷款造成的打击为#N x1.5#!\\n其热潮结束时，获得或损失的信誉为#v x2#!\\n若以[concept_spec_bust]或[concept_spec_collapse]告终，青睐它的集团损失的[concept_approval]为平时的两倍{5}{6}{7}{8}{9}{10}{11}{12}{13}\\n$TOOLTIP_DELIMITER$\\n同一时间只能进行一项，两次之间至少间隔#v {14}#!年{15}\\n\\n{16}",
+ "f0e7498bdf": "@approves! #bold 青睐{1}#!\\n[concept_approval]变化（[concept_powerful]时加倍，[concept_marginalized]时无变化）：\\n• 当其[concept_spec_investor_interest]升至#v 追捧#!时：{2}，持续{3}年\\n• 当其热潮以[concept_spec_bust]或[concept_spec_collapse]告终时：{4}，持续{5}年，且他们可能不再青睐它\\n• 若我们鼓励对其投资：{6}，持续一年\\n• 若我们抑制其投机：{7}，持续一年\\n• 若我们为其发起大宗发行：{8}，持续{9}年，但若发行期间其热潮以[concept_spec_bust]或[concept_spec_collapse]告终，损失加倍",
+ "06219e72de": "@disapproves! #bold 反对{1}#!\\n[concept_approval]变化（[concept_powerful]时加倍，[concept_marginalized]时无变化）：\\n• 若我们抑制其投机：{2}，持续一年\\n• 若我们鼓励对其投资：{3}，持续一年\\n• 若我们为其发起大宗发行：{4}，持续{5}年",
+ "6540ebfda8": "#header [concept_interest_group]立场#!\\n$TOOLTIP_DELIMITER$\\n每个$concept_interest_group$都@approves!青睐我国[concept_market]所交易的几种{1}，有些还会@disapproves!反对其中一种。\\n\\n他们的[concept_approval]会随这些商品的热潮与暴跌以及我们对它们的干预而升降：[concept_powerful]时变化加倍，[concept_marginalized]时完全不变。新领袖可能会改变该集团的一项立场。",
+ "d084752d1d": "#header 对商品的立场#!\\n$TOOLTIP_DELIMITER$\\n{1}@approves!青睐其国家所交易的几种商品，也可能@disapproves!反对其中一种。他们的[concept_approval]会随这些商品的热潮与暴跌以及政府对它们的干预而升降：[concept_powerful]时变化加倍，[concept_marginalized]时完全不变。\\n\\n新领袖可能会改变其中一项立场。",
+ "c45305685b": "\\n@approves! {1}（[concept_clout]{2}）：{3}，持续{4}年",
+ "71fab82265": "\\n@disapproves! {1}（[concept_clout]{2}）：{3}，持续{4}年",
+ "877acc2735": "持有青睐行业股份",
+ "ba7f8afe8d": "政府在该集团珍视的行业中发起了大宗发行，他们已认购入股。",
+ "62f8a28180": "反对行业的大宗发行",
+ "d0ddbef73e": "政府在该集团反对的行业中发起了大宗发行。",
+ "828d103fb0": "每张纸币都可兑换固定重量的黄金。放贷者信任这种货币，但在恐慌中，银行的发行量不能超过其黄金储备所允许的数额。\\n\\n实行{1}时：\\n#P -{2}%#! [concept_spec_trust]损失\\n#N +{3}%#! [concept_spec_financial_panic]持续时间\\n\\n在{4}下无法实行：颁行此法会使我们脱离金本位。",
+ "030d821fe4": "货币的价值仅以政府的信用为依托。新发行的货币可以拯救银行、维持信贷流通，但投资者对它的信任会降低。\\n\\n实行{1}时：\\n#P -{2}%#! [concept_spec_financial_panic]持续时间\\n#N +{3}%#! 投机热潮规模",
+ "633934acac": "古典金本位制",
+ "9c5cb3af67": "稳健的货币与自由的市场:债权人对我国货币更加信任,但危机时银行发行的货币不能超过其黄金储备所允许的数量。",
+ "574637ad06": "最后贷款人",
+ "bca1220150": "国家以自行发行的货币支撑银行:恐慌结束得更快,但廉价货币会使繁荣更加过热。",
+ "1a45cc8cce": "每张银行券都可按固定重量兑换黄金。债权人信任这样的货币,但恐慌时银行发行的货币不能超过其黄金储备所允许的数量。\\n\\n在{1}下:\\n#P -{2}%#! [concept_spec_trust] 损失\\n#N +{3}%#! [concept_spec_financial_panic] 持续时间"
+}

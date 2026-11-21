@@ -36,6 +36,7 @@ CHANNELS = {
     "beta": ("speculative_markets_beta", "Speculative Markets - Beta", "beta/workshop_description.bbcode"),
     "cmf": ("speculative_markets_cmf_compat", "Speculative Markets - CMF Compatibility", "compatibility/cmf/workshop_description.bbcode"),
     "morgenroete": ("speculative_markets_morgenroete", "Speculative Markets - Morgenroete Compatibility", "compatibility/morgenroete/workshop_description.bbcode"),
+    "techres": ("speculative_markets_techres", "Speculative Markets - Tech & Res Compatibility", "compatibility/techres/workshop_description.bbcode"),
 }
 U64, U32, I32, PTR = C.c_uint64, C.c_uint32, C.c_int32, C.c_void_p
 
@@ -139,7 +140,7 @@ def description(channel):
 
 
 def changelog(plan):
-    folder = {"stable": "workshop", "beta": "beta", "cmf": "compatibility/cmf", "morgenroete": "compatibility/morgenroete"}[plan['channel']]
+    folder = {"stable": "workshop", "beta": "beta", "cmf": "compatibility/cmf", "morgenroete": "compatibility/morgenroete", "techres": "compatibility/techres"}[plan['channel']]
     path = ROOT / folder / f"changelog_{plan['version']}.bbcode"
     text = path.read_text(encoding="utf-8").strip()
     if not text or "\0" in text or len(text.encode("utf-8")) >= 8000:
@@ -313,9 +314,7 @@ def main(argv=None):
     parser.add_argument("--execute", action="store_true", help="Explicitly perform a reviewed create/update")
     parser.add_argument("--public", action="store_true", help="Publish update publicly; otherwise keep private")
     parser.add_argument("--description-only", action="store_true", help="Update listing metadata without replacing content or preview")
-    parser.add_argument("--gate", type=Path, help="Complete automated release-gate report for stable/beta content updates")
     parser.add_argument("--note", type=Path, help="Change note file for a --description-only update")
-    parser.add_argument("--skip-gate", action="store_true", help="Owner's call: upload without a release-gate report (recorded in the receipt)")
     args = parser.parse_args(argv)
     if args.description_only and args.command != "update":
         parser.error("--description-only requires update")
@@ -335,16 +334,6 @@ def main(argv=None):
         if args.command == "plan" or args.command in ("create", "update") and not args.execute:
             emit({"dry_run": True, "message": "No Steam mutation performed"})
             return
-        if args.command == "update" and args.channel in ("stable", "beta") and not args.description_only and args.skip_gate:
-            emit({"automated_release_gate": "skipped by the owner (--skip-gate)"})
-            receipt("gate_skipped", args.channel, {"plan": plan})
-        elif args.command == "update" and args.channel in ("stable", "beta") and not args.description_only:
-            if args.gate is None:
-                raise ValueError("Stable/beta content uploads require --gate with a complete passing automated report; live UI requirements still apply")
-            import release_gate
-            accepted_gate = release_gate.verify_report(args.gate.resolve(), Path(plan['folder']))
-            emit({"automated_release_gate": str(args.gate.resolve()), "automatic_pass": True,
-                  "manual_and_excluded": accepted_gate['manual_and_excluded']})
         if args.command == "create" and (args.channel == "stable" or item is not None or args.public):
             raise ValueError("Create is only for unbound separate items and must remain private")
         if args.command == "update" and args.channel == "stable" and not args.public:

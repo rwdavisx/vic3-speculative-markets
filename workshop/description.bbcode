@@ -3,35 +3,38 @@ Speculative Markets adds financial booms, bank lending and market crashes to Vic
 
 Every country also gets an Exchange, with its own charter, specialities, competitors and place in the world rankings.
 
-Built and tested on [b]Victoria 3 1.15.1[/b]. You can add it to a running campaign or continue a save from an earlier version of the mod.
+Tested on [b]Victoria 3 1.15.1[/b]. Supports running campaigns and earlier mod saves.
 
-New changes go through [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3839275304]Speculative Markets - Beta[/url] before coming here. [b]Use either stable or Beta, never both.[/b]
+Try updates early on [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3839275304]Beta[/url]. [b]Enable one channel at a time.[/b]
+
+[h1]Interactive Tutorial[/h1]
+[url=https://claude.ai/artifact/RK4Lrf6U1rU7HC8Vx5pDvy][b]Open the interactive tutorial in your browser[/b][/url]
+See booms, bank lending, leverage and panics play out month by month, pull the same levers you have in the game, and take the guided tour. It runs the mod's own formulas, so it's a quick way to learn how it all fits together.
 
 [h2]Getting started[/h2]
-Click [b]Finance[/b] on the left sidebar. The panel has four tabs: Trading Floor, Speculation, Banking and Exchanges. The tooltips explain the numbers and what is affecting them.
+Open [b]Finance[/b] on the left sidebar. Hover over a value to see what affects it.
 
 [h2]Trading Floor[/h2]
 [img]https://i.imgur.com/9RsQgg4.png[/img]
-Your Exchange grows from Provincial to National and International standing. The world's top three are World Centres, with cheaper loans, more influence and smaller losses from foreign panics. Higher standing unlocks more Specialities.
+Your Exchange grows from Provincial to National and International standing. The world's top three are World Centres, with more influence and smaller losses from foreign panics. Higher standing unlocks more Specialities.
 
 Pick a charter: a [b]Commodity Exchange[/b] for stronger booms, a [b]Money Market[/b] for steadier trust, or a [b]Share Market[/b] for more credit. [b]Paths to Renown[/b] let you race other Exchanges in your Specialities, such as Futures Pit, Lender to Nations and Railway Mania. Higher places pay more, but every path has a drawback.
 
 [h2]Blue Chips[/h2]
-A company that stays prosperous for a year becomes a [b]blue chip[/b]. Blue chips soften the confidence lost to collapsing booms and foreign panics, add trust, raise Capitalist investment, cut loan interest and pull your contests your way. Losing one costs trust and confidence. Each year the most prosperous is named [b]Company of the Year[/b].
+A company that stays prosperous for a year becomes a [b]blue chip[/b]. Blue chips soften the confidence lost to collapsing booms and foreign panics, add trust, raise Capitalist investment and pull your contests your way. Losing one costs trust and confidence. Each year the most prosperous is named [b]Company of the Year[/b].
 
 [h2]Speculation[/h2]
 [img]https://i.imgur.com/IhomjxQ.png[/img]
 [b]Market Confidence[/b] runs from 0 to 100. Booms raise it; crashes, debt and lost wars bring it down. Above 80, investors become reckless. Below your Panic Threshold, a Financial Panic starts.
 
-Staying above 75 builds [b]Speculative Excess[/b], shown as a bar. It cools between 60 and 75. If confidence falls below 60, the bubble pops and costs extra confidence.
+Staying above 75 builds [b]Speculative Excess[/b], shown as a bar. It cools between 60 and 75, faster under Tight credit. If confidence falls below 60, the bubble pops and costs extra confidence, or Bad Debts once confidence runs out.
 
-During a panic, output and tax revenue fall, banks call in loans, and private construction is cut in half. The treasury also has to cover relief for the unemployed.
+During a panic, output and tax revenue fall, banks call in loans, and private construction is cut by half, or more at high leverage. The treasury also has to cover relief for the unemployed.
 
 Each good has its own [b]Investor Interest[/b], from Fleeing to Feverish. Hot goods get more investment but crash harder. Restrain a hot good, encourage a cold one, or float a Great Issue to raise your Exchange score at more risk.
-
 [h2]Banking[/h2]
 [img]https://i.imgur.com/FHX0Gaq.png[/img]
-Credit helps your economy grow, but too much makes a panic harder to recover from. Each month of [b]Credit Leverage[/b] adds 2% throughput, up to 24%. Beyond 3 months, the Panic Threshold rises and panics leave Bad Debts that reduce throughput and investment for years.
+Credit helps your economy grow, but too much makes a panic harder to recover from. Each month of [b]Credit Leverage[/b] adds 2% throughput, up to 24%. Beyond 3 months, the Panic Threshold rises, and panics last longer, cut deeper into construction and leave Bad Debts that reduce throughput and investment for years.
 
 The [b]Lending Limit[/b] starts at 3 months of investment pool income and can rise to 12. Credit policy (Tight, Normal or Loose) sets how freely banks lend. [b]Lending Standards[/b], from Strict to Reckless, drift looser in good times and tighten after crashes.
 
@@ -41,13 +44,22 @@ In a panic, banks pull back half your outstanding credit, and the higher your le
 
 [h2]Exchanges[/h2]
 [img]https://i.imgur.com/L2xgPYG.png[/img]
-Compare every Exchange at National standing or above. The top five receive prestige, cheaper loans and a higher Lending Limit.
+Compare every Exchange at National standing or above. The top five receive prestige and a higher Lending Limit.
 
 Each Exchange has [b]contest slots[/b]: one, plus one per Standing above Provincial, up to four. Start a contest from the Leading Exchanges list or by right-clicking a country on the map. You need at least Engaged interest in the strategic region of their capital, and you cannot contest an Exchange that is already contesting you.
 
-A contest is a tug of war settled 5 years after it starts. Within 20% of the middle is a draw; a decisive win needs 75% and also takes part of the loser's investment pool income for a year. Quitting early counts as a loss where the bar stands.
+Contests settle after five years. A lead under 20% is a draw. At 75% or more, a decisive win attracts available capital from the loser's investment pool for a year. Quitting early counts as a loss at the current standings.
 
-Push with a [b]Bear Raid[/b], [b]Lure Their Capital[/b] or a [b]Press Campaign[/b]. [b]Hold the Line[/b] undoes a push and [b]Shore Up[/b] halves a competitor's moves. Each can be used once a year per competitor. AI Exchanges play by the same rules.
+Push with a [b]Bear Raid[/b], [b]Lure Their Capital[/b] or a [b]Press Campaign[/b]. [b]Hold the Line[/b] undoes a push. Each of these moves has a one-year cooldown per competitor. [b]Shore Up[/b] halves a competitor's moves and can be renewed after two years. AI Exchanges play by the same rules.
+
+[h2]Interest Groups[/h2]
+Each interest group favors about two goods your country trades and may oppose one. Booms, busts and your interventions in those goods move its approval. See them in the interest group panel and on the Speculation tab.
+
+[h2]Monetary Standard[/h2]
+[b]Bimetallism[/b] makes bank rescues cheaper but booms end harder. The [b]Gold Standard[/b] cuts loan interest and trust losses but makes panics longer. [b]Fiat Money[/b] shortens panics but feeds the bubble and costs trust. Laissez-Faire and Interventionism each turn one into a stronger variant.
+
+[h2]Financial Integration[/h2]
+With Sphere of Influence, power blocs can adopt Financial Integration. Its three levels shelter members from each other's panics, share the leader's Lending Limit and feed the leader's Exchange.
 
 [h2]Other features[/h2]
 [list]
@@ -62,19 +74,20 @@ Push with a [b]Bear Raid[/b], [b]Lure Their Capital[/b] or a [b]Press Campaign[/
 [list]
 [*]Using CMF? Add the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3839275348]CMF patch[/url] and load it last.
 [*]Using Morgenroete? Add the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3839705018]Morgenroete patch[/url]. Disable the old Speculative Markets+Morgenroete patch.
+[*]Using Tech & Res? Add the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3841713072]Tech & Res patch[/url]: [b]CMF > Tech & Res > Speculative Markets > Tech & Res patch > CMF patch.[/b] It covers Morgenroete's goods too, so use it instead of the Morgenroete patch.
 [/list]
-With both, use this order: [b]CMF > Morgenroete > Speculative Markets > Morgenroete patch > CMF patch.[/b] You can use Beta in place of Speculative Markets. Don't enable both.
+With CMF and Morgenroete, load [b]CMF > Morgenroete > Speculative Markets > Morgenroete patch > CMF patch.[/b]
 
-Mods that replace the sidebar, goods panel or building definitions may need a patch.
+Mods that replace the sidebar, goods panel, interest group panel or building definitions may need a patch.
 
 For multiplayer, everyone needs the mod.
 
 Available in English, Brazilian Portuguese, French, German, Japanese, Korean, Polish, Russian, Simplified Chinese, Spanish and Turkish. Translations from English are machine translated. Please let me know if something reads badly.
 
 [h2]Feedback[/h2]
-Let me know how it plays, especially if panics seem too frequent or crashes feel too punishing. Reports from longer campaigns are useful for balancing it.
+Feedback from longer campaigns helps tune panic frequency and severity.
 
-If you find a bug, include your game and mod versions, the other mods you're using, and what happened. A screenshot or error log helps. You can post in the comments or the bug-report discussion.
+Report bugs in the comments or bug discussion. Include versions, other mods, and what happened. Screenshots and error logs help.
 
 [h2]My other mods[/h2]
 [list]
@@ -83,11 +96,4 @@ If you find a bug, include your game and mod versions, the other mods you're usi
 [/list]
 
 [h2]Latest update[/h2]
-[b]1.1.3[/b]
-[list]
-[*]Compete with other Exchanges: contest slots, map actions, five competitor actions and smarter AI.
-[*]Blue Chips and Company of the Year, three new Paths to Renown, and the top three Exchanges as World Centres.
-[*]A clearer Exchange score and Trust, renamed Finance tabs and shorter tooltips, translated into all 10 languages.
-[*]1.1.3 fixes script errors from the new Paths to Renown in saves started before 1.1.
-[*]See the change notes for the full list.
-[/list]
+[b]1.2.0[/b] adds interest group stances, the Monetary Standard and Financial Integration. The changelog lists every balance change.

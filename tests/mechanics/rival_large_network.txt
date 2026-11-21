@@ -10,25 +10,25 @@ remove_variable = spec_exch_known remove_variable = spec_pw_floor remove_variabl
 set_variable = { name = spec_exch_stand value = 1 } set_variable = { name = spec_centre_trust value = 60 }
 every_country = { limit = { NOT = { this = prev } OR = { this = c:GBR this = c:FRA this = c:PRU this = c:AUS this = c:RUS } } set_relations = { country = prev value = 0 } }
 }
-c:GBR = { add_to_variable_list = { name = spec_rv_chosen target = c:FRA } }
-c:FRA = { add_to_variable_list = { name = spec_rv_chosen target = c:PRU } }
-c:PRU = { add_to_variable_list = { name = spec_rv_chosen target = c:AUS } }
-c:AUS = { add_to_variable_list = { name = spec_rv_chosen target = c:RUS } }
-c:RUS = { add_to_variable_list = { name = spec_rv_chosen target = c:GBR } }
+c:GBR = { add_to_variable_list = { name = spec_rv_chosen target = c:FRA } add_to_variable_list = { name = spec_rv_age_0 target = c:FRA } }
+c:FRA = { add_to_variable_list = { name = spec_rv_chosen target = c:PRU } add_to_variable_list = { name = spec_rv_age_0 target = c:PRU } }
+c:PRU = { add_to_variable_list = { name = spec_rv_chosen target = c:AUS } add_to_variable_list = { name = spec_rv_age_0 target = c:AUS } }
+c:AUS = { add_to_variable_list = { name = spec_rv_chosen target = c:RUS } add_to_variable_list = { name = spec_rv_age_0 target = c:RUS } }
+c:RUS = { add_to_variable_list = { name = spec_rv_chosen target = c:GBR } add_to_variable_list = { name = spec_rv_age_0 target = c:GBR } }
 c:GBR = { set_variable = { name = spec_centre_score value = 500 } }
 c:FRA = { set_variable = { name = spec_centre_score value = 400 } }
 c:PRU = { set_variable = { name = spec_centre_score value = 300 } }
 c:AUS = { set_variable = { name = spec_centre_score value = 200 } }
 c:RUS = { set_variable = { name = spec_centre_score value = 100 } }
-spec_rival_contest = yes
-if = { limit = { c:GBR = { var:spec_centre_trust = 66 } c:GBR = { is_target_in_variable_list = { name = spec_rv_won target = c:FRA } } c:GBR = { is_target_in_variable_list = { name = spec_rv_won target = c:RUS } } } debug_log = "HOTFIX PASS year1_top_wins_twice" }
+while = { count = 5 spec_rival_contest = yes }
+if = { limit = { c:GBR = { var:spec_centre_trust = 78 } c:GBR = { is_target_in_variable_list = { name = spec_rv_won target = c:FRA } } c:GBR = { is_target_in_variable_list = { name = spec_rv_won target = c:RUS } } } debug_log = "HOTFIX PASS year1_top_wins_twice" }
 else = { debug_log = "HOTFIX FAIL year1_top_wins_twice" }
 if = { limit = { c:FRA = { var:spec_centre_trust = 60 } c:PRU = { var:spec_centre_trust = 60 } c:AUS = { var:spec_centre_trust = 60 } } debug_log = "HOTFIX PASS year1_middle_nets_zero" }
 else = { debug_log = "HOTFIX FAIL year1_middle_nets_zero" }
-if = { limit = { c:RUS = { var:spec_centre_trust = 54 } c:RUS = { is_target_in_variable_list = { name = spec_rv_lost target = c:AUS } } } debug_log = "HOTFIX PASS year1_bottom_loses_twice" }
+if = { limit = { c:RUS = { var:spec_centre_trust = 42 } c:RUS = { is_target_in_variable_list = { name = spec_rv_lost target = c:AUS } } } debug_log = "HOTFIX PASS year1_bottom_loses_twice" }
 else = { debug_log = "HOTFIX FAIL year1_bottom_loses_twice" }
-spec_rival_contest = yes
-if = { limit = { c:GBR = { var:spec_centre_trust = 72 } c:RUS = { var:spec_centre_trust = 48 } } debug_log = "HOTFIX PASS year2_accumulates_exactly" }
+while = { count = 5 spec_rival_contest = yes }
+if = { limit = { c:GBR = { var:spec_centre_trust = 96 } c:RUS = { var:spec_centre_trust = 24 } } debug_log = "HOTFIX PASS year2_accumulates_exactly" }
 else = { debug_log = "HOTFIX FAIL year2_accumulates_exactly" }
 if = { limit = { c:FRA = { var:spec_centre_trust = 60 } c:PRU = { var:spec_centre_trust = 60 } c:AUS = { var:spec_centre_trust = 60 } } debug_log = "HOTFIX PASS year2_middle_still_zero" }
 else = { debug_log = "HOTFIX FAIL year2_middle_still_zero" }
@@ -50,18 +50,18 @@ c:FRA = { remove_list_variable = { name = spec_rv_chosen target = c:PRU } }
 c:PRU = { remove_list_variable = { name = spec_rv_chosen target = c:AUS } }
 c:AUS = { remove_list_variable = { name = spec_rv_chosen target = c:RUS } }
 c:RUS = { remove_list_variable = { name = spec_rv_chosen target = c:GBR } }
-c:RUS = { add_to_variable_list = { name = spec_rv_chosen target = c:AUS } }
-c:AUS = { add_to_variable_list = { name = spec_rv_chosen target = c:PRU } }
-c:PRU = { add_to_variable_list = { name = spec_rv_chosen target = c:FRA } }
-c:FRA = { add_to_variable_list = { name = spec_rv_chosen target = c:GBR } }
-c:GBR = { add_to_variable_list = { name = spec_rv_chosen target = c:RUS } }
+c:RUS = { add_to_variable_list = { name = spec_rv_chosen target = c:AUS } add_to_variable_list = { name = spec_rv_age_0 target = c:AUS } }
+c:AUS = { add_to_variable_list = { name = spec_rv_chosen target = c:PRU } add_to_variable_list = { name = spec_rv_age_0 target = c:PRU } }
+c:PRU = { add_to_variable_list = { name = spec_rv_chosen target = c:FRA } add_to_variable_list = { name = spec_rv_age_0 target = c:FRA } }
+c:FRA = { add_to_variable_list = { name = spec_rv_chosen target = c:GBR } add_to_variable_list = { name = spec_rv_age_0 target = c:GBR } }
+c:GBR = { add_to_variable_list = { name = spec_rv_chosen target = c:RUS } add_to_variable_list = { name = spec_rv_age_0 target = c:RUS } }
 c:RUS = { set_variable = { name = spec_centre_score value = 500 } }
 c:AUS = { set_variable = { name = spec_centre_score value = 400 } }
 c:PRU = { set_variable = { name = spec_centre_score value = 300 } }
 c:FRA = { set_variable = { name = spec_centre_score value = 200 } }
 c:GBR = { set_variable = { name = spec_centre_score value = 100 } }
-spec_rival_contest = yes
-if = { limit = { c:RUS = { var:spec_centre_trust = 66 } c:GBR = { var:spec_centre_trust = 54 } c:AUS = { var:spec_centre_trust = 60 } c:PRU = { var:spec_centre_trust = 60 } c:FRA = { var:spec_centre_trust = 60 } } debug_log = "HOTFIX PASS reversed_roles_same_result" }
+while = { count = 5 spec_rival_contest = yes }
+if = { limit = { c:RUS = { var:spec_centre_trust = 78 } c:GBR = { var:spec_centre_trust = 42 } c:AUS = { var:spec_centre_trust = 60 } c:PRU = { var:spec_centre_trust = 60 } c:FRA = { var:spec_centre_trust = 60 } } debug_log = "HOTFIX PASS reversed_roles_same_result" }
 else = { debug_log = "HOTFIX FAIL reversed_roles_same_result" }
 debug_log = "HOTFIX SUITE COMPLETE"
 } }

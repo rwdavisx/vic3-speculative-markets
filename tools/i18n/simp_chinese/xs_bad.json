@@ -1,0 +1,6 @@
+{
+ "2095c742e7": "如果现在破裂：将失去#N 全部#![concept_spec_market_confidence]{1}\\n进度条已满。超过此点后，破裂无法从信心中扣除的部分将变为[concept_spec_bad_debts]。",
+ "e689f1cd5e": "，并产生至少#N {1}#![concept_spec_bad_debts]",
+ "a381ebcd97": "未能扣除的部分已变为[concept_spec_bad_debts]。",
+ "a129ca9f3c": "@spec_market_confidence! [concept_spec_market_confidence]跌得太低，无法维持我国的[concept_spec_speculative_excess]，泡沫破裂又使其进一步下降。{1}"
+}

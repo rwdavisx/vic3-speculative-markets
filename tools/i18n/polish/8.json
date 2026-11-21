@@ -1,4 +1,14 @@
 {
   "0fee773c3e": "Ich pozycja różni się od naszej najwyżej o #v {1}#!",
-  "966425a285": "Mają giełdę ([concept_spec_exchange])"
+  "966425a285": "Mają giełdę ([concept_spec_exchange])",
+  "c3633b0eab": "Integracja finansowa",
+  "59b7c93a32": "{1} i {2} pożyczają sobie nawzajem przez swoje banki i giełdy, więc {3} na jednym rynku słabiej wstrząsa pozostałymi, a rynek pieniężny przywódcy obsługuje cały $concept_power_bloc$.",
+  "6bf1516990": "Rząd wspiera ich branżę",
+  "83f11e45f6": "Rząd interweniował na rynku ważnym dla tej grupy, zgodnie z jej życzeniem.",
+  "72624fb140": "Boom ulubionej branży",
+  "9c273eba47": "Inwestorzy pompują pieniądze w branżę bliską sercu tej grupy.",
+  "f16cf710c1": "Zapaść ulubionej branży",
+  "4587c5750d": "Branża bliska sercu tej grupy upadła, a grupa obwinia rząd, który do tego dopuścił.",
+  "0f694b87ed": "Rząd szkodzi ich branży",
+  "77fe19e687": "Rząd interweniował na rynku ważnym dla tej grupy, wbrew jej woli."
 }

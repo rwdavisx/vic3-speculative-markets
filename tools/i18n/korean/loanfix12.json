@@ -1,0 +1,10 @@
+{
+ "65d69828cb": "@spec_sound_finance! #italic 은행권 규칙, 최종 대부자, 회사법의 세 가지 [concept_spec_banking_reforms]을(를) 모두 시행한 보상입니다.#!\\n\\n[concept_country]이(가) 세 가지를 모두 갖추면:\\n[concept_prestige] #P +{1}#!",
+ "25ea66f796": "\\n{1}, {2}, {3}의 투자: #P +{4}%#!\\n무역량: #P +{5}%#!\\n{6}: #P +{7}#!",
+ "b5b070a24a": "{1}, {2}, {3}의 투자: #P +{4}%#!\\n거래량: #P +{5}%#!\\n{6}: #P +{7}#!",
+ "56c09ee847": "#header 세계 중심#!\\n투자자 반응: #v +{1}%#!\\n{3}에 들지 못했을 때 [concept_prestige]: #P +{2}%#!\\n[concept_spec_capital_flight] 유입: #P x2#!\\n[concept_spec_foreign_panic] 손실: #P -{4}%#!\\n{6} #P +{5}%#!\\n경쟁자 하나는 유지비 무료\\n$TOOLTIP_DELIMITER$\\n#instruction 세계 중심이 되려면#! {8} 중 상위 #v {7}#!위, 그리고 {9}이(가) 필요합니다",
+ "c86b27426b": "#header 신임#!\\n신뢰 #v {1}%#!~#v {2}%#!\\n$TOOLTIP_DELIMITER$\\n#P +{3}#! {4}",
+ "bf0a6e57a3": "#header 건전한 대출 1위#!\\n{1}\\n$TOOLTIP_DELIMITER$\\n특화 분야로서 이 순위의 효과:\\n{3} #P +{2}%#!\\n{5} #N -{4}#!\\n{7} #P +{6}#!",
+ "8895c0f776": "#header 건전한 대출 2위#!\\n{1}\\n$TOOLTIP_DELIMITER$\\n특화 분야로서 이 순위의 효과:\\n{3} #P +{2}%#!\\n{5} #N -{4}#!",
+ "ca16df56d4": "#header 건전한 대출 3위#!\\n{1}\\n$TOOLTIP_DELIMITER$\\n특화 분야로서 이 순위의 효과:\\n{3} #P +{2}%#!\\n{5} #N -{4}#!"
+}

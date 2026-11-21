@@ -1,0 +1,191 @@
+{
+  "version": "1.1.6",
+  "game_version": "Victoria 3 1.15.1",
+  "date_utc": "2026-11-18",
+  "stable_archive": {
+    "path": "releases/Speculative_Markets_1.1.6.zip",
+    "sha256": "e4210543c48760b33f74d8426de7d933497f36911b968061f86a3e01199aff61",
+    "files": 199
+  },
+  "beta_candidate": {
+    "path": "beta/releases/Speculative_Markets_Beta_1.1.5-beta.4.zip",
+    "sha256": "a402146b6705bf7826a8a95eeb2b9d090128419a3cab7d3a201e041d97016d21",
+    "identical_content_files": 198,
+    "differences_from_stable": [
+      "Channel metadata",
+      "Beta-only built_against.txt"
+    ]
+  },
+  "automation": [
+    {
+      "target": "beta candidate",
+      "fast_checks": [
+        "Python",
+        "generated mod",
+        "CMF"
+      ],
+      "one_game_report": "runs/quick_20261118_055150_997623/report.json",
+      "scenarios": 23,
+      "passed_assertions": 295,
+      "elapsed_seconds_total": 37.1,
+      "error_categories": {
+        "engine_or_basegame_other": 1353,
+        "mod_variable_load_warnings": 33
+      },
+      "blocking_errors": 0
+    },
+    {
+      "target": "stable output with matching beta in engine",
+      "fast_checks": [
+        "Python",
+        "generated mod",
+        "CMF"
+      ],
+      "one_game_report": "runs/quick_20261118_055415_396469/report.json",
+      "scenarios": 23,
+      "passed_assertions": 295,
+      "elapsed_seconds_total": 36.0,
+      "error_categories": {
+        "engine_or_basegame_other": 1353,
+        "mod_variable_load_warnings": 33
+      },
+      "blocking_errors": 0
+    }
+  ],
+  "cmf": {
+    "rebuilt_against_candidate": true,
+    "byte_identical_files": [
+      ".metadata/metadata.json",
+      "gui/com_gui_sidebar.gui",
+      "gui/information_panel_bar.gui"
+    ]
+  },
+  "live_ui": {
+    "language": "English",
+    "method": "Clicked the normal Finance sidebar, tabs, controls and tooltips in a private copy of Victoria 3. The normal monthly chart was checked in an existing Russia save. Rare states used private fixtures.",
+    "identical_to_stable": "All shipped GUI, gameplay, and English localization. Ten additional languages were regenerated and statically checked.",
+    "private_fixture_files_excluded_from_archives": [
+      "common/scripted_effects/zz_click_chart.txt",
+      "events/zz_click_conditions.txt"
+    ],
+    "label_stability": "Changing representative goods between monthly updates left the stored interest tiers unchanged.",
+    "pressure_rounding": {
+      "input": [
+        0.24,
+        0.26,
+        -0.24,
+        -0.26,
+        0.04
+      ],
+      "observed": [
+        "+0.2",
+        "+0.3",
+        "-0.2",
+        "-0.3",
+        "0.0"
+      ]
+    },
+    "specialities": "The extra card came from setting a speciality without its active count in the original private fixture. The corrected fixture used the normal game action.",
+    "notes": "An earlier private game crashed while repeating a debug-console event. The final UI pass used a fresh private game. Before the localization fix the failed pledge event showed only its first line and logged root-scope errors.",
+    "screenshots": [
+      {
+        "path": "runs/set2_player_finance_1118/calc_natural.png",
+        "sha256": "96743b6f80d621ea4fc2e1ead74a4bf582a584f7dfbe9b52701c163937ec1ca8",
+        "observation": "Market-confidence loss calculator for Fruit at -0.2, with peak, crash severity, trade weight, bank exposure, overbuilding and market conditions. The monthly chart on May 1, 1844 showed Calm 85.3%, Doubtful 14.5%, Eager 0.1%, Keen 0.1%."
+      },
+      {
+        "path": "runs/set2_player_finance_1118/interest_recalculated.png",
+        "sha256": "be12b7d25b7864cbde7bf6ad659d28a9202d690595725b0ef40e86a360c9bcab",
+        "observation": "Existing Russia save recalculated to 99.0%, 0.8%, 0.1%, 0.1%."
+      },
+      {
+        "path": "runs/set2_player_finance_1118/risk_zero.png",
+        "sha256": "e5bb97f50e25b6b1bd548d9ff98e14867113e0fa77d17251c2f1b9598f91ea51",
+        "observation": "Zero projected loss state."
+      },
+      {
+        "path": "runs/set2_player_finance_1118/recovery_final.png",
+        "sha256": "6a31f522a05b6ca21411025543e1f207e2c10adbc66765b2329da5ad05ac7472",
+        "observation": "Pressure and recovery row in a controlled scenario."
+      },
+      {
+        "path": "runs/set2_player_finance_1118/recovery_good.png",
+        "sha256": "24bccdbfe4fe1d3c027e2ae7b59592f9d9e896e7c844046c514649ddd05e5fd0",
+        "observation": "Recovery tooltip on an individual good."
+      },
+      {
+        "path": "runs/set2_player_finance_1118/speciality_player_choice.png",
+        "sha256": "f4da645b9a433049cf27f653d5a1d4ef8bfebde6d19886ab2cee6605173ab34e",
+        "observation": "Used the real Choose action. One of two available specialities was active. All four cards fit."
+      },
+      {
+        "path": "runs/set2_player_finance_1118/charter_correct_slots.png",
+        "sha256": "0c023ed80de6e5a9c4007c10dd09a0e70656c8464cc93e09541dda6de95cdc57",
+        "observation": "Charter preview with two legitimate specialities."
+      },
+      {
+        "path": "runs/set2_player_finance_1118/bank_other.png",
+        "sha256": "7c846228a07f612e315ece69a10f2ccd0cdab8b7752706748790ea3164223599",
+        "observation": "Hovered Other Goods on the loan chart."
+      },
+      {
+        "path": "runs/set2_player_finance_1118/bank_coal_share.png",
+        "sha256": "04e7d703f82a85b5531cde3c57c971cd87ce01f7f5323368c59f08ac79c657a5",
+        "observation": "Coal loan share tooltip."
+      },
+      {
+        "path": "runs/set2_player_finance_1118/empty_final.png",
+        "sha256": "43a86f699a9714a6c66082902ce795a9b059dad70d668732b0801c7c51ed0eb3",
+        "observation": "Both lines of the empty loan chart fit. The tooltip explains why banks cannot lend in a Financial Panic."
+      },
+      {
+        "path": "runs/set2_player_finance_1118/panic_recall.png",
+        "sha256": "9cc58077ae2df7093c0a7f7895765b9aecfa59555ce92173eb853287beec27ca",
+        "observation": "Panic credit recall tooltip."
+      },
+      {
+        "path": "runs/set2_player_finance_1118/pledge_final.png",
+        "sha256": "da136f7163d535f36a4dcdf09a397ca7697ebc666230c441900b9433b09293b5",
+        "observation": "Failed rescue pledge event showed required reserves of 50.0K, a shortfall of 20.0K and the pledge status."
+      },
+      {
+        "path": "runs/set2_player_finance_1118/issue_stationary.png",
+        "sha256": "765d642c94d26da8ccc9064bf8b3fd7d43b7835175249739c525523e216beb67",
+        "observation": "Great Issue active duration and later eligibility."
+      },
+      {
+        "path": "runs/set2_player_finance_1118/company_hover.png",
+        "sha256": "737d28051bbfbe21677e2b4f5d2b2bd0828ee7dc781c1f26c9dcb9c722adc857",
+        "observation": "Russian-American Company with separate expirations for its two effects."
+      },
+      {
+        "path": "runs/set2_player_finance_1118/shore_actual.png",
+        "sha256": "d3e41745026b54a41cd47508f1d42534e2399f5c1197008def837fc530b517ed",
+        "observation": "Shore Up record with France, 360 days and the treasury cost."
+      },
+      {
+        "path": "runs/set2_player_finance_1118/category_filter.png",
+        "sha256": "2eeb34dc448fa088926d7a49e907924bd879d171a5ec261847f352e6f8ef1fd4",
+        "observation": "Category filter through the Finance list."
+      },
+      {
+        "path": "runs/set2_player_finance_1118/interest_filter.png",
+        "sha256": "26c6217d4501d4f5c864cac3c09af92025bac15673ee73e9186e0fd9a90e4dbe",
+        "observation": "Investor interest filter through the Finance list."
+      },
+      {
+        "path": "runs/set2_player_finance_1118/intervention_filter.png",
+        "sha256": "68c7ca468b9f8d839e9ae1ef93d74c74f74d14d96018be6a8091043d792506df",
+        "observation": "Intervention filter through the Finance list."
+      }
+    ]
+  },
+  "workshop": {
+    "stable_item": 3831434383,
+    "visibility": "public",
+    "verified_utc": "20261118T055713.793707Z",
+    "receipt": "workshop/upload_receipts/20261118T055713.793707Z_stable_update_verified_2f27ea76.json",
+    "description_sha256": "a88ca689f90a56ef98ebcbe1516dfdfb7f11332b2e693fc8335a679104d9f344",
+    "listing_preservation": "Compared with previous stable upload intent. The only changes were the latest version heading and one new update bullet."
+  }
+}

@@ -1,5 +1,12 @@
-﻿# switching lever KIND on for good G; switching it off is always possible
+﻿# switching lever KIND on or off for good G: off needs only the wait over (WAIT_MONTHS) or its grace days left
 spec_lever_free = {
+	custom_tooltip = {
+		text = spec_lever_wait_tt
+		OR = {
+			NOT = { has_variable = spec_lever_wait_$G$ }
+			has_variable = spec_lever_grace_$G$
+		}
+	}
 	trigger_if = {
 		limit = { NOT = { has_variable = spec_$KIND$_$G$ } }
 		custom_tooltip = {

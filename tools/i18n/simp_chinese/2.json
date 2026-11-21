@@ -114,5 +114,9 @@
   "7ac3228a98": "对手关系",
   "eafcab7a35": "我们的对手：#v {1}#!，视我们为对手：#v {2}#!",
   "5c775ad815": "#header 对手关系#!\\n$SPEC_RIVAL_RULE$",
-  "7be1025162": "已指定#v {1}#!/#v {2}#!，被指定#v {3}#!"
+  "7be1025162": "已指定#v {1}#!/#v {2}#!，被指定#v {3}#!",
+  "56de4b931d": "#header {1}#!\\n$TOOLTIP_DELIMITER$\\n{2}反对{3}。当我们抑制该商品的投机时，他们的[concept_approval]会上升；当我们鼓励对其投资时，则会下降。他们的[concept_clout]越大，变化幅度越大。",
+  "d156fec2d3": "\\n#N {1}会表示反对#!",
+  "81fdbeaf1e": "#header {1}#!\\n$TOOLTIP_DELIMITER$\\n{2}青睐{3}。当该商品出现热潮或我们鼓励对其投资时，他们的[concept_approval]会上升；当其热潮以[concept_spec_bust]告终或我们抑制其投机时，则会下降。他们的[concept_clout]越大，变化幅度越大。",
+  "0c6fc679f4": "\\n#P {1}会表示支持#!"
 }

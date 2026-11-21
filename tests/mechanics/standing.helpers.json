@@ -1,7 +1,7 @@
 {
   "spec_mechanics_standing": {
     "path": "common/scripted_effects/spec_centre_effects.txt",
-    "start": " = { has_variable = spec_lead_door }\n\t\t\t\tremove_variable = spec_lead_door\n\t\t\t}\n\t\t\tif = {\n\t\t\t\tlimit = { has_modifier = spec_exch_national }\n\t\t\t\tremove_modifier = spec_exch_national\n\t\t\t}\n\t\t}\n\t\telse = {\n",
-    "end": "\t\t\tif = {\n\t\t\t\tlimit = {\n\t\t\t\t\tOR = {\n\t\t\t\t\t\thas_variable = spec_centre_new\n\t\t\t\t\t\thas_variable = spec_xs_regtop\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\tset_variable = { name = spec_exch_hold days = 365 }\n\t\t\t}\n\t\t\tif = {\n\t\t\t\tlim"
+    "start": "limit = { has_modifier = spec_exch_world }\n\t\t\t\tremove_modifier = spec_exch_world\n\t\t\t}\n\t\t}\n\t\telse = {\n\t\t\t",
+    "end": "\t\t\tif = {\n\t\t\t\tlimit = {\n\t\t\t\t\tOR = {\n\t\t\t\t\t\thas_variable = spec_centre_new\n\t\t\t\t\t\thas_variable = spec_xs_regtop\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\tset_variable = { name = spec_exch_hold days = 365 }"
   }
 }

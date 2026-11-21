@@ -170,25 +170,21 @@ class CompatibilityTests(unittest.TestCase):
         self.assertEqual(required[0]["version"], "*", "any CMF version, so CMF bugfixes don't mark the patch outdated")
         self.assertTrue(all(relation["resource_type"] == "mod" for relation in relationships))
 
-    def test_finance_buttons_close_cmf_and_ledger_then_toggle_finance(self):
-        clicks = [actions for actions in handlers(type_block(self.merged, "information_panel_bar"))
-                  if "GetVariableSystem.Toggle('spec_finance')" in actions]
-        self.assertEqual(len(clicks), 2, "both icon and expanded label must work")
-        for index, actions in enumerate(clicks):
-            for already_open in (False, True):
-                with self.subTest(button=index, already_open=already_open):
-                    initial = {"com_open_window": "old_cmf_window", "spec_pick_slot": 2,
-                               "native": True, "ledger": True}
-                    if already_open:
-                        initial["spec_finance"] = True
-                    final = run_actions(actions, initial)
-                    self.assertEqual("spec_finance" in final, not already_open)
-                    self.assertNotIn("com_open_window", final)
-                    self.assertNotIn("spec_pick_slot", final)
-                    self.assertFalse(final["native"])
-                    self.assertFalse(final["ledger"])
-                    self.assertLess(actions.index("GetVariableSystem.Clear('com_open_window')"),
-                                    actions.index("GetVariableSystem.Toggle('spec_finance')"))
+    def test_finance_buttons_preserve_parent_tab_cycle_after_closing_cmf_and_ledger(self):
+        anchor = "GetVariableSystem.Clear('spec_finance_next')"
+        parent = [actions for actions in handlers(self.spec) if anchor in actions]
+        merged = [actions for actions in handlers(self.merged) if anchor in actions]
+        self.assertEqual(len(parent), 4, "icon and label each support a valid or absent journal entry")
+        self.assertEqual(len(merged), len(parent))
+        for original, patched in zip(parent, merged):
+            with self.subTest(original=original[-1]):
+                self.assertEqual(original[0], "InformationPanelBar.ClosePanel")
+                self.assertEqual(patched, [original[0], "MapListPanelManager.CloseCurrentPanel",
+                                           "GetVariableSystem.Clear('com_open_window')", *original[1:]])
+                state = run_actions(patched[:3], {"native": True, "ledger": True, "com_open_window": "old"})
+                self.assertFalse(state["native"])
+                self.assertFalse(state["ledger"])
+                self.assertNotIn("com_open_window", state)
 
     def test_cmf_buttons_yield_finance_before_executing_the_selected_window(self):
         clicks = handlers(type_block(self.merged, "com_sidebar_button"))
@@ -239,7 +235,7 @@ class CompatibilityTests(unittest.TestCase):
     def test_missing_parent_anchors_fail_before_any_output(self):
         mutations = (
             ("spec", "spec_finance_window = {}", "spec_finance_window_removed = {}"),
-            ("spec", "GetVariableSystem.Toggle('spec_finance')", "GetVariableSystem.Toggle('removed_finance')"),
+            ("spec", "GetVariableSystem.Clear('spec_finance_next')", "GetVariableSystem.Clear('removed_finance_next')"),
             ("cmf", "type custom_sidebar =", "type missing_custom_sidebar ="),
             ("cmf", "type com_sidebar_button =", "type missing_com_sidebar_button ="),
             ("cmf", "GetVariableSystem.Set('com_open_window', Scope.GetFlagName)",

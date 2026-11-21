@@ -1,0 +1,307 @@
+﻿law_spec_bimetallism = {
+	group = lawgroup_spec_monetary_standard
+	icon = "gfx/interface/icons/spec_markets/law_spec_bimetallism.dds"
+
+	progressiveness = 0
+
+	modifier = {
+		country_spec_rescue_cost_mult = -0.1
+		country_spec_boom_end_loss_mult = 0.1
+	}
+
+	ai_enact_weight_modifier = {
+		value = 0
+		if = {
+			limit = { game_date >= 1873.1.1 }
+			add = -50
+		}
+		if = {
+			limit = { game_date >= 1890.1.1 }
+			add = -50
+		}
+	}
+}
+
+law_spec_gold_standard = {
+	group = lawgroup_spec_monetary_standard
+	is_visible = {
+		NOT = { has_law_or_variant = law_type:law_laissez_faire }
+	}
+
+	icon = "gfx/interface/icons/spec_markets/law_spec_gold_standard.dds"
+
+	progressiveness = 0
+
+	disallowing_laws = {
+		law_command_economy
+	}
+
+	modifier = {
+		country_loan_interest_rate_mult = -0.1
+		country_spec_panic_length_mult = 0.2
+		country_spec_trust_loss_mult = -0.2
+	}
+
+	ai_enact_weight_modifier = {
+		value = 0
+		if = {
+			limit = { has_technology_researched = central_banking }
+			add = 50
+		}
+		if = {
+			limit = { country_rank >= rank_value:great_power }
+			add = 50
+		}
+		if = {
+			limit = { country_rank = rank_value:major_power }
+			add = 25
+		}
+		if = {
+			limit = { has_law = law_type:law_free_trade }
+			add = 25
+		}
+		if = {
+			limit = { game_date >= 1870.1.1 }
+			add = 50
+		}
+		if = {
+			limit = { game_date >= 1890.1.1 }
+			add = 50
+		}
+		if = {
+			limit = { game_date >= 1854.1.1 OR = { c:POR ?= this } }
+			add = 200
+		}
+		if = {
+			limit = { game_date >= 1871.1.1 OR = { c:GER ?= this c:PRU ?= this c:NGF ?= this } }
+			add = 200
+		}
+		if = {
+			limit = { game_date >= 1873.1.1 OR = { c:USA ?= this c:SWE ?= this c:NOR ?= this c:DEN ?= this c:SCA ?= this } }
+			add = 200
+		}
+		if = {
+			limit = { game_date >= 1875.1.1 OR = { c:NET ?= this } }
+			add = 200
+		}
+		if = {
+			limit = { game_date >= 1876.1.1 OR = { c:FRA ?= this c:BEL ?= this c:SWI ?= this c:ITA ?= this } }
+			add = 200
+		}
+		if = {
+			limit = { game_date >= 1892.1.1 OR = { c:AUS ?= this c:HUN ?= this } }
+			add = 200
+		}
+		if = {
+			limit = { game_date >= 1897.1.1 OR = { c:JAP ?= this c:RUS ?= this } }
+			add = 200
+		}
+		if = {
+			limit = { OR = { is_at_war = yes in_default = yes } }
+			add = -150
+		}
+	}
+}
+
+law_spec_classical_gold = {
+	group = lawgroup_spec_monetary_standard
+	parent = law_spec_gold_standard
+
+	is_visible = {
+		has_law_or_variant = law_type:law_laissez_faire
+	}
+
+	icon = "gfx/interface/icons/spec_markets/law_spec_gold_standard.dds"
+
+	progressiveness = 0
+
+	disallowing_laws = {
+		law_command_economy
+	}
+
+	modifier = {
+		country_loan_interest_rate_mult = -0.1
+		country_spec_panic_length_mult = 0.3
+		country_spec_trust_loss_mult = -0.3
+	}
+
+	ai_enact_weight_modifier = {
+		value = 0
+		if = {
+			limit = { has_technology_researched = central_banking }
+			add = 50
+		}
+		if = {
+			limit = { country_rank >= rank_value:great_power }
+			add = 50
+		}
+		if = {
+			limit = { country_rank = rank_value:major_power }
+			add = 25
+		}
+		if = {
+			limit = { has_law = law_type:law_free_trade }
+			add = 25
+		}
+		if = {
+			limit = { game_date >= 1870.1.1 }
+			add = 50
+		}
+		if = {
+			limit = { game_date >= 1890.1.1 }
+			add = 50
+		}
+		if = {
+			limit = { game_date >= 1854.1.1 OR = { c:POR ?= this } }
+			add = 200
+		}
+		if = {
+			limit = { game_date >= 1871.1.1 OR = { c:GER ?= this c:PRU ?= this c:NGF ?= this } }
+			add = 200
+		}
+		if = {
+			limit = { game_date >= 1873.1.1 OR = { c:USA ?= this c:SWE ?= this c:NOR ?= this c:DEN ?= this c:SCA ?= this } }
+			add = 200
+		}
+		if = {
+			limit = { game_date >= 1875.1.1 OR = { c:NET ?= this } }
+			add = 200
+		}
+		if = {
+			limit = { game_date >= 1876.1.1 OR = { c:FRA ?= this c:BEL ?= this c:SWI ?= this c:ITA ?= this } }
+			add = 200
+		}
+		if = {
+			limit = { game_date >= 1892.1.1 OR = { c:AUS ?= this c:HUN ?= this } }
+			add = 200
+		}
+		if = {
+			limit = { game_date >= 1897.1.1 OR = { c:JAP ?= this c:RUS ?= this } }
+			add = 200
+		}
+		if = {
+			limit = { OR = { is_at_war = yes in_default = yes } }
+			add = -150
+		}
+	}
+}
+
+law_spec_fiat_money = {
+	group = lawgroup_spec_monetary_standard
+	is_visible = {
+		NOT = { has_law_or_variant = law_type:law_interventionism }
+	}
+
+	icon = "gfx/interface/icons/spec_markets/law_spec_fiat_money.dds"
+
+	progressiveness = 50
+
+	unlocking_technologies = {
+		central_banking
+	}
+
+	modifier = {
+		country_spec_panic_length_mult = -0.2
+		country_spec_rescue_cost_mult = -0.25
+		country_spec_boom_size_mult = 0.1
+		country_spec_excess_growth_mult = 0.2
+		country_spec_trust_loss_mult = 0.25
+	}
+
+	ai_enact_weight_modifier = {
+		value = -50
+		if = {
+			limit = { is_at_war = yes }
+			add = 150
+		}
+		if = {
+			limit = { in_default = yes }
+			add = 150
+		}
+		if = {
+			limit = { scaled_debt >= 0.5 }
+			add = 75
+		}
+		if = {
+			limit = { has_variable = spec_panic }
+			add = 50
+		}
+		if = {
+			limit = { has_variable = spec_ld }
+			add = 75
+		}
+		if = {
+			limit = { is_at_war = yes OR = { c:USA ?= this c:ITA ?= this c:SAR ?= this c:AUS ?= this c:RUS ?= this } }
+			add = 100
+		}
+		if = {
+			limit = { game_date >= 1900.1.1 has_law = law_type:law_interventionism }
+			add = 50
+		}
+		if = {
+			limit = { has_law = law_type:law_command_economy }
+			add = 100
+		}
+	}
+}
+
+law_spec_elastic_currency = {
+	group = lawgroup_spec_monetary_standard
+	parent = law_spec_fiat_money
+
+	is_visible = {
+		has_law_or_variant = law_type:law_interventionism
+	}
+
+	icon = "gfx/interface/icons/spec_markets/law_spec_fiat_money.dds"
+
+	progressiveness = 50
+
+	unlocking_technologies = {
+		central_banking
+	}
+
+	modifier = {
+		country_spec_panic_length_mult = -0.4
+		country_spec_rescue_cost_mult = -0.25
+		country_spec_boom_size_mult = 0.1
+		country_spec_excess_growth_mult = 0.3
+		country_spec_trust_loss_mult = 0.25
+	}
+
+	ai_enact_weight_modifier = {
+		value = -50
+		if = {
+			limit = { is_at_war = yes }
+			add = 150
+		}
+		if = {
+			limit = { in_default = yes }
+			add = 150
+		}
+		if = {
+			limit = { scaled_debt >= 0.5 }
+			add = 75
+		}
+		if = {
+			limit = { has_variable = spec_panic }
+			add = 50
+		}
+		if = {
+			limit = { has_variable = spec_ld }
+			add = 75
+		}
+		if = {
+			limit = { is_at_war = yes OR = { c:USA ?= this c:ITA ?= this c:SAR ?= this c:AUS ?= this c:RUS ?= this } }
+			add = 100
+		}
+		if = {
+			limit = { game_date >= 1900.1.1 has_law = law_type:law_interventionism }
+			add = 50
+		}
+		if = {
+			limit = { has_law = law_type:law_command_economy }
+			add = 100
+		}
+	}
+}

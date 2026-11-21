@@ -2,7 +2,7 @@
 Industrialists' mood, easy money under Loose credit) and two risks the tab shows (diplomatic plays that could become
 wars, debt near default). generate.py adds MONTHLY to spec_monthly and the drivers to spec_conf_pre; market_tab.py
 groups the drivers into its pressure chips and shows the risks."""
-from diplomacy import WAR_COST
+from diplomacy import PLAY_TURMOIL, WAR_ALL_MIN, WAR_BASE, WAR_RISK_ARMY, WAR_RISK_NAVY
 
 GROWTH_KEEP = 0.92          # the GDP average keeps this share a month: about a year's memory
 GROWTH_K = 10               # confidence a month per 100% of GDP above its average (5% a year reads about +0.5)
@@ -14,12 +14,14 @@ GROWTH_NORMAL = 0.02
 BUSINESS = [(">=", 10, 0.4), (">=", 5, 0.2), ("<=", -10, -0.4), ("<=", -5, -0.2)]
 DEFAULT_FROM = 0.8          # Default Risk shows from this share of the credit limit borrowed
 DEFAULT_COST = 5            # what default costs a month (generate.monthly's turmoil)
+REVOLUTION_COST = 2         # and a revolution
 PLAYS = 3                   # plays named in the War Risk tooltip
 BROKE_WEEKS = 20            # the warning starts this many weeks from bankruptcy at the current deficit, as vanilla's war support
 BROKE_COST = 3              # confidence a month at the last moment, rising from 0 at BROKE_WEEKS; default itself costs DEFAULT_COST
 
 STATE_VARS = (["spec_gdp_avg", "spec_growth", "spec_c_growth", "spec_c_business", "spec_wr_n",
-               "spec_war_risk", "spec_default_risk", "spec_broke_warned"] + [f"spec_wr{n}" for n in range(1, PLAYS + 1)])
+               "spec_war_risk", "spec_wr_play", "spec_default_risk", "spec_broke_warned"]
+              + [f"spec_wr{k}{n}" for n in range(1, PLAYS + 1) for k in ("", "c", "a", "s")])
 
 MONTHLY = f"""			# growth: GDP against its average over about a year
 			if = {{
@@ -39,9 +41,12 @@ MONTHLY = f"""			# growth: GDP against its average over about a year
 				limit = {{ ig:ig_industrialists ?= {{ ig_approval {op} {at} }} }}
 				set_variable = {{ name = spec_c_business value = {val} }}
 			}}
-''' for i, (op, at, val) in enumerate(BUSINESS))}			# war risk: the plays short of war we are in, each a war that could cost WAR_COST a month
+''' for i, (op, at, val) in enumerate(BUSINESS))}			# war risk: the plays short of war we are in, each the war it could become a month, by the enemy side's
+			# share of both sides' armies and navies (diplomacy.WAR_RISK_ARMY, WAR_RISK_NAVY)
 			set_variable = {{ name = spec_wr_n value = 0 }}
-{"".join(f"			remove_variable = spec_wr{n}{chr(10)}" for n in range(1, PLAYS + 1))}			# every play worldwide (vanilla has no list of a country's own), kept where we take part; only scanned
+			set_variable = {{ name = spec_war_risk value = 0 }}
+			remove_variable = spec_wr_play
+{"".join(f"			remove_variable = spec_wr{k}{n}{chr(10)}" for n in range(1, PLAYS + 1) for k in ("", "c", "a", "s"))}			# every play worldwide (vanilla has no list of a country's own), kept where we take part; only scanned
 			# while we are in one, as most countries are not in any
 			if = {{
 				limit = {{
@@ -64,16 +69,48 @@ MONTHLY = f"""			# growth: GDP against its average over about a year
 					else = {{
 						initiator = {{ save_scope_as = spec_rival }}
 					}}
-					root = {{
+					# each side's armies and navies: the enemy side, and ours (us and our backers)
+{"".join(f"					set_local_variable = {{ name = spec_w{s} value = 0 }}{chr(10)}" for s in ("ea", "en", "oa", "on"))}					every_scope_play_involved = {{
+						if = {{
+							limit = {{ is_diplomatic_play_enemy_of = root }}
+							change_local_variable = {{ name = spec_wea add = army_size }}
+							change_local_variable = {{ name = spec_wen add = navy_size }}
+						}}
+						else_if = {{
+							limit = {{
+								OR = {{
+									this = root
+									is_diplomatic_play_ally_of = root
+								}}
+							}}
+							change_local_variable = {{ name = spec_woa add = army_size }}
+							change_local_variable = {{ name = spec_won add = navy_size }}
+						}}
+					}}
+{"".join(f'''					set_local_variable = {{ name = spec_w{s} value = {{ value = local_var:spec_we{f} divide = {{ value = local_var:spec_we{f} add = local_var:spec_wo{f} min = 1 }} }} }}
+''' for s, f in (("a", "a"), ("s", "n")))}					root = {{
 						change_variable = {{ name = spec_wr_n add = 1 }}
+						set_local_variable = {{ name = spec_wc value = {{ value = local_var:spec_wa multiply = local_var:spec_wa multiply = {WAR_RISK_ARMY}
+							add = {{ value = local_var:spec_ws multiply = local_var:spec_ws multiply = {WAR_RISK_NAVY} }} add = {WAR_BASE} }} }}
+						change_variable = {{ name = spec_war_risk add = local_var:spec_wc }}
 {"".join(f'''						{"if" if n == 1 else "else_if"} = {{
 							limit = {{ var:spec_wr_n = {n} }}
 							set_variable = {{ name = spec_wr{n} value = scope:spec_rival }}
+							set_variable = {{ name = spec_wrc{n} value = local_var:spec_wc }}
+							set_variable = {{ name = spec_wra{n} value = local_var:spec_wa }}
+							set_variable = {{ name = spec_wrs{n} value = local_var:spec_ws }}
 						}}
 ''' for n in range(1, PLAYS + 1))}					}}
 				}}
+				# what war would add: it replaces the play's own cost (spec_monthly, paid while at no war), and all wars
+				# together are capped as in diplomacy.MONTHLY
+				if = {{
+					limit = {{ is_at_war = no }}
+					change_variable = {{ name = spec_war_risk add = -{PLAY_TURMOIL} }}
+					set_variable = {{ name = spec_wr_play value = {PLAY_TURMOIL} }}
+				}}
+				clamp_variable = {{ name = spec_war_risk min = 0 max = {-WAR_ALL_MIN} }}
 			}}
-			set_variable = {{ name = spec_war_risk value = {{ value = var:spec_wr_n multiply = {WAR_COST} }} }}
 			# default risk: debt near the credit limit
 			remove_variable = spec_default_risk
 			if = {{
@@ -141,7 +178,7 @@ def build(write):
 if __name__ == "__main__":
     assert MONTHLY.count("{") == MONTHLY.count("}")
     assert "ig_approval >= 10" in MONTHLY and "ig_approval <= -5" in MONTHLY and "else_if" in MONTHLY
-    assert "every_diplomatic_play" in MONTHLY and "every_scope_play_involved" not in MONTHLY
+    assert MONTHLY.index("every_diplomatic_play") < MONTHLY.index("every_scope_play_involved")
     assert MONTHLY.index("is_diplomatic_play_committed_participant = yes") < MONTHLY.index("every_diplomatic_play")
-    assert "remove_variable = spec_wr3" in MONTHLY and "multiply = 0.6" in MONTHLY and "multiply = 0.08" in MONTHLY
+    assert "remove_variable = spec_wrs3" in MONTHLY and f"multiply = {WAR_RISK_ARMY}" in MONTHLY and f"add = {WAR_BASE}" in MONTHLY
     print("economy ok")

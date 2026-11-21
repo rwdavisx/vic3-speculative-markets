@@ -16,8 +16,8 @@ c:FRA = { set_variable = { name = spec_exch_stand value = 1 } set_variable = { n
 c:PRU = { set_variable = { name = spec_exch_stand value = 2 } set_variable = { name = spec_centre_score value = 100 } }
 c:AUS = { set_variable = { name = spec_exch_stand value = 3 } set_variable = { name = spec_centre_score value = 100 } }
 c:AUS = { save_scope_as = target }
-if = { limit = { NOT = { spec_can_rv_choose = yes } } debug_log = "HOTFIX PASS reach_blocks_two_standings_away" }
-else = { debug_log = "HOTFIX FAIL reach_blocks_two_standings_away" }
+if = { limit = { spec_can_rv_choose = yes } debug_log = "HOTFIX PASS engaged_player_can_name_distant_standing" }
+else = { debug_log = "HOTFIX FAIL engaged_player_can_name_distant_standing" }
 c:PRU = { save_scope_as = target }
 if = { limit = { spec_can_rv_choose = yes } debug_log = "HOTFIX PASS reach_allows_one_standing_away" }
 else = { debug_log = "HOTFIX FAIL reach_allows_one_standing_away" }
@@ -31,8 +31,8 @@ c:GBR = { save_scope_as = target }
 if = { limit = { c:FRA = { spec_rv_pair = yes spec_rv_chosen_by = yes spec_rv_chose = no } } debug_log = "HOTFIX PASS pair_seen_from_the_named_side" }
 else = { debug_log = "HOTFIX FAIL pair_seen_from_the_named_side" }
 c:PRU = { save_scope_as = target }
-if = { limit = { NOT = { spec_can_rv_choose = yes } } debug_log = "HOTFIX PASS one_slot_below_international" }
-else = { debug_log = "HOTFIX FAIL one_slot_below_international" }
+if = { limit = { spec_can_rv_choose = yes } debug_log = "HOTFIX PASS national_has_second_slot" }
+else = { debug_log = "HOTFIX FAIL national_has_second_slot" }
 c:FRA = { save_scope_as = target }
 if = { limit = { NOT = { spec_can_rv_end = yes } } debug_log = "HOTFIX PASS kept_a_year" }
 else = { debug_log = "HOTFIX FAIL kept_a_year" }
@@ -49,15 +49,29 @@ if = { limit = { spec_can_rv_choose = yes } debug_log = "HOTFIX PASS two_slots_f
 else = { debug_log = "HOTFIX FAIL two_slots_from_international" }
 spec_rv_choose = yes
 c:AUS = { save_scope_as = target }
-if = { limit = { c:GBR = { var:spec_rv_n_chosen = 2 } NOT = { spec_can_rv_choose = yes } } debug_log = "HOTFIX PASS third_refused" }
-else = { debug_log = "HOTFIX FAIL third_refused" }
+if = { limit = { c:GBR = { var:spec_rv_n_chosen = 2 } spec_can_rv_choose = yes } debug_log = "HOTFIX PASS international_has_third_slot" }
+else = { debug_log = "HOTFIX FAIL international_has_third_slot" }
+set_variable = { name = spec_exch_stand value = 1 }
+if = { limit = { NOT = { spec_can_rv_choose = yes } } debug_log = "HOTFIX PASS full_national_exchange_refuses_third" }
+else = { debug_log = "HOTFIX FAIL full_national_exchange_refuses_third" }
+set_variable = { name = spec_exch_stand value = 2 }
 c:AUS = { remove_variable = spec_exch_stand }
 if = { limit = { NOT = { spec_can_rv_choose = yes } } debug_log = "HOTFIX PASS no_exchange_refused" }
 else = { debug_log = "HOTFIX FAIL no_exchange_refused" }
 c:AUS = { set_variable = { name = spec_exch_stand value = 1 } set_variable = { name = spec_centre_score value = 100 } }
 c:AUS = { add_to_variable_list = { name = spec_rv_chosen target = c:GBR } }
 c:AUS = { save_scope_as = target }
-if = { limit = { spec_rv_pair = yes spec_rv_chosen_by = yes spec_rv_chose = no } debug_log = "HOTFIX PASS named_by_them_is_a_pair" }
+if = { limit = { spec_rv_pair = yes spec_rv_chosen_by = yes spec_rv_chose = no NOT = { spec_can_rv_choose = yes } } debug_log = "HOTFIX PASS named_by_them_is_a_pair" }
 else = { debug_log = "HOTFIX FAIL named_by_them_is_a_pair" }
+random_country = {
+    limit = { is_country_alive = yes exists = capital c:GBR = { NOT = { has_strategic_region_interest_tier = { strategic_region = prev.capital.region value >= 2 } } } }
+    save_scope_as = spec_test_remote
+    save_scope_as = target
+    set_variable = { name = spec_exch_stand value = 2 }
+    set_variable = { name = spec_centre_score value = 100 }
+    set_variable = { name = spec_centre_trust value = 60 }
+}
+if = { limit = { exists = scope:spec_test_remote NOT = { spec_can_rv_choose = yes } } debug_log = "HOTFIX PASS remote_capital_requires_interest" }
+else = { debug_log = "HOTFIX FAIL remote_capital_requires_interest" }
 debug_log = "HOTFIX SUITE COMPLETE"
 } }

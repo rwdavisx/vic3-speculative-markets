@@ -114,5 +114,9 @@
   "7ac3228a98": "Rivalités",
   "eafcab7a35": "Nous rivalisons avec #v {1}#!, rivaux de #v {2}#!",
   "5c775ad815": "#header Rivalités#!\\n$SPEC_RIVAL_RULE$",
-  "7be1025162": "Désignées : #v {1}#! sur #v {2}#!, nous désignent : #v {3}#!"
+  "7be1025162": "Désignées : #v {1}#! sur #v {2}#!, nous désignent : #v {3}#!",
+  "56de4b931d": "#header {1}#!\\n$TOOLTIP_DELIMITER$\\nLe groupe {2} est hostile au secteur {3}. Son [concept_approval] augmente quand nous y freinons la spéculation et baisse quand nous y encourageons l’investissement. Plus son [concept_clout] est grand, plus l’effet est fort.",
+  "d156fec2d3": "\\n#N Le groupe {1} désapprouvera#!",
+  "81fdbeaf1e": "#header {1}#!\\n$TOOLTIP_DELIMITER$\\nLe groupe {2} soutient le secteur {3}. Son [concept_approval] augmente quand ce secteur connaît un essor ou quand nous y encourageons l’investissement, et baisse quand il finit en [concept_spec_bust] ou quand nous y freinons la spéculation. Plus son [concept_clout] est grand, plus l’effet est fort.",
+  "0c6fc679f4": "\\n#P Le groupe {1} approuvera#!"
 }

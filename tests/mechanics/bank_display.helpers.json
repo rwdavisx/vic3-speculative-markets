@@ -3,5 +3,15 @@
     "path": "common/on_actions/spec_on_actions.txt",
     "start": "spec_monthly = {\n\teffect = {\n",
     "end": "\n\t}\n}\n"
+  },
+  "spec_mechanics_bank_chart": {
+    "path": "common/on_actions/spec_on_actions.txt",
+    "start": "set_variable = { name = spec_lhist1 value = spec_lev }\n",
+    "end": "\n\t\t\t}\n\t\t\t# mania warning"
+  },
+  "spec_mechanics_mood": {
+    "path": "common/on_actions/spec_on_actions.txt",
+    "start": "# market mood: a random shift that fades over some months (fixed_range as in vanilla's krakatoa_events.txt)\n",
+    "end": "\n\t\t\tset_variable = { name = spec_c_recover value = spec_conf_recover }"
   }
 }

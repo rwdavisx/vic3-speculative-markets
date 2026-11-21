@@ -10,18 +10,18 @@ remove_variable = spec_exch_known remove_variable = spec_pw_floor remove_variabl
 set_variable = { name = spec_exch_stand value = 1 } set_variable = { name = spec_centre_trust value = 60 }
 every_country = { limit = { NOT = { this = prev } OR = { this = c:GBR this = c:FRA this = c:PRU } } set_relations = { country = prev value = 0 } }
 }
-c:GBR = { add_to_variable_list = { name = spec_rv_chosen target = c:FRA } }
-c:FRA = { add_to_variable_list = { name = spec_rv_chosen target = c:PRU } }
-c:PRU = { add_to_variable_list = { name = spec_rv_chosen target = c:GBR } }
+c:GBR = { add_to_variable_list = { name = spec_rv_chosen target = c:FRA } add_to_variable_list = { name = spec_rv_age_0 target = c:FRA } }
+c:FRA = { add_to_variable_list = { name = spec_rv_chosen target = c:PRU } add_to_variable_list = { name = spec_rv_age_0 target = c:PRU } }
+c:PRU = { add_to_variable_list = { name = spec_rv_chosen target = c:GBR } add_to_variable_list = { name = spec_rv_age_0 target = c:GBR } }
 c:GBR = { set_variable = { name = spec_centre_score value = 300 } }
 c:FRA = { set_variable = { name = spec_centre_score value = 200 } }
 c:PRU = { set_variable = { name = spec_centre_score value = 100 } }
-spec_rival_contest = yes
-if = { limit = { c:GBR = { var:spec_centre_trust = 66 } } debug_log = "HOTFIX PASS cycle_neutral_gbr" }
+while = { count = 5 spec_rival_contest = yes }
+if = { limit = { c:GBR = { var:spec_centre_trust = 72 } } debug_log = "HOTFIX PASS cycle_neutral_gbr" }
 else = { debug_log = "HOTFIX FAIL cycle_neutral_gbr" }
 if = { limit = { c:FRA = { var:spec_centre_trust = 60 } } debug_log = "HOTFIX PASS cycle_neutral_fra" }
 else = { debug_log = "HOTFIX FAIL cycle_neutral_fra" }
-if = { limit = { c:PRU = { var:spec_centre_trust = 54 } } debug_log = "HOTFIX PASS cycle_neutral_pru" }
+if = { limit = { c:PRU = { var:spec_centre_trust = 48 } } debug_log = "HOTFIX PASS cycle_neutral_pru" }
 else = { debug_log = "HOTFIX FAIL cycle_neutral_pru" }
 c:GBR = { set_variable = { name = spec_centre_trust value = 60 } }
 c:FRA = { set_variable = { name = spec_centre_trust value = 60 } }
@@ -29,12 +29,12 @@ c:PRU = { set_variable = { name = spec_centre_trust value = 60 } }
 set_relations = { country = c:FRA value = -100 }
 set_relations = { country = c:PRU value = -100 }
 c:FRA = { set_relations = { country = c:PRU value = -100 } }
-spec_rival_contest = yes
-if = { limit = { c:GBR = { var:spec_centre_trust = 66 } } debug_log = "HOTFIX PASS cycle_hostile_gbr" }
+while = { count = 5 spec_rival_contest = yes }
+if = { limit = { c:GBR = { var:spec_centre_trust = 72 } } debug_log = "HOTFIX PASS cycle_hostile_gbr" }
 else = { debug_log = "HOTFIX FAIL cycle_hostile_gbr" }
-if = { limit = { c:FRA = { var:spec_centre_trust = 58.5 } } debug_log = "HOTFIX PASS cycle_hostile_fra" }
+if = { limit = { c:FRA = { var:spec_centre_trust = 57 } } debug_log = "HOTFIX PASS cycle_hostile_fra" }
 else = { debug_log = "HOTFIX FAIL cycle_hostile_fra" }
-if = { limit = { c:PRU = { var:spec_centre_trust = 51 } } debug_log = "HOTFIX PASS cycle_hostile_pru" }
+if = { limit = { c:PRU = { var:spec_centre_trust = 42 } } debug_log = "HOTFIX PASS cycle_hostile_pru" }
 else = { debug_log = "HOTFIX FAIL cycle_hostile_pru" }
 debug_log = "HOTFIX SUITE COMPLETE"
 } }

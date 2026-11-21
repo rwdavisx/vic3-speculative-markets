@@ -14,6 +14,8 @@ spec_rival_contest = {
 				scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_4 target = prev } }
 				NOT = { is_target_in_variable_list = { name = spec_rv_settled target = scope:spec_rival_me } }
 			}
+			# Snapshot the final bar while both competitors still have their pushes.
+			set_local_variable = { name = spec_rv_p value = spec_rv_rope }
 			# this pair's last result and pushes go; it settles once this year
 			save_temporary_scope_as = spec_rv_x
 			add_to_variable_list = { name = spec_rv_settled target = scope:spec_rival_me }
@@ -36,7 +38,6 @@ spec_rival_contest = {
 			scope:spec_rival_me = { remove_list_variable = { name = spec_rv_push_4 target = scope:spec_rv_x } }
 			remove_list_variable = { name = spec_rv_push_5 target = scope:spec_rival_me }
 			scope:spec_rival_me = { remove_list_variable = { name = spec_rv_push_5 target = scope:spec_rv_x } }
-			set_local_variable = { name = spec_rv_p value = spec_rv_rope }
 			set_local_variable = { name = spec_rv_big value = 0 }
 			if = {
 				limit = { local_var:spec_rv_p >= 0.75 }
@@ -92,7 +93,7 @@ spec_rival_contest = {
 						limit = { local_var:spec_rv_big = 1 }
 						add_to_variable_list = { name = spec_rv_big target = scope:spec_rv_w }
 						if = {
-							limit = { NOT = { has_variable = spec_rv_lure } }
+							limit = { spec_rv_active_lure = no }
 							set_variable = { name = spec_rv_lure value = 12 }
 							set_variable = { name = spec_rv_lurer value = scope:spec_rv_w }
 							set_variable = { name = spec_rv_lure_share value = 0.05 }
@@ -195,6 +196,8 @@ spec_rv_list = {
 # copies if that matters
 spec_rv_ui = {
 	save_scope_as = spec_rival_me
+	remove_variable = spec_rv_next
+	remove_variable = spec_rv_next_year
 	every_in_list = {
 		variable = spec_rv_outs
 		spec_rv_ui_row = yes
@@ -213,6 +216,14 @@ spec_rv_ui_row = {
 		}
 		set_variable = { name = spec_rv_ui_p value = spec_rv_rope }
 		set_variable = { name = spec_rv_ui_left value = { value = 5 subtract = spec_rv_age_m } }
+		save_temporary_scope_as = spec_rv_row
+		scope:spec_rival_me = {
+			if = {
+				limit = { OR = { NOT = { has_variable = spec_rv_next_year } scope:spec_rv_row.var:spec_rv_ui_left < var:spec_rv_next_year } }
+				set_variable = { name = spec_rv_next value = scope:spec_rv_row }
+				set_variable = { name = spec_rv_next_year value = scope:spec_rv_row.var:spec_rv_ui_left }
+			}
+		}
 		set_variable = { name = spec_rv_ui_us value = spec_rv_n_push_me }
 		set_variable = { name = spec_rv_ui_them value = spec_rv_n_push_it }
 		set_variable = {
@@ -356,9 +367,8 @@ spec_rv_sour = {
 spec_rv_forfeit = {
 	if = {
 		limit = {
-			has_variable = spec_centre_trust
-			has_variable = spec_exch_stand
-			scope:target = { is_country_alive = yes has_variable = spec_centre_trust has_variable = spec_exch_stand }
+			has_variable = spec_exch_stand has_variable = spec_centre_score has_variable = spec_centre_trust
+			scope:target = { is_country_alive = yes has_variable = spec_exch_stand has_variable = spec_centre_score has_variable = spec_centre_trust }
 		}
 		custom_tooltip = spec_rv_forfeit_tt
 		hidden_effect = {
@@ -398,7 +408,7 @@ spec_rv_forfeit = {
 					limit = { local_var:spec_rv_big = 1 }
 					add_to_variable_list = { name = spec_rv_big target = scope:spec_rv_w }
 					if = {
-						limit = { NOT = { has_variable = spec_rv_lure } }
+						limit = { spec_rv_active_lure = no }
 						set_variable = { name = spec_rv_lure value = 12 }
 						set_variable = { name = spec_rv_lurer value = scope:spec_rv_w }
 						set_variable = { name = spec_rv_lure_share value = 0.05 }
@@ -498,6 +508,7 @@ spec_rv_unpush = {
 # the last action against scope:target, for both rows and the targeted player's event (spec_rv_ok: 1 worked, 0 failed, -1 exposed)
 spec_rv_log = {
 	spec_rv_did = { CODE = $CODE$ }
+	save_scope_value_as = { name = spec_rv_event_amount value = var:spec_rv_did_amt }
 	scope:target = {
 		set_variable = { name = spec_rv_hit value = $CODE$ }
 		set_variable = { name = spec_rv_hit_by value = scope:spec_rv_actor }
@@ -542,7 +553,170 @@ spec_rv_did = {
 }
 
 # Bear Raid's confidence hit, in the scope that takes it
+
+spec_rv_migrate_raid = {
+	if = {
+		limit = { has_variable = spec_rv_raid has_variable = spec_rv_raid_pm NOR = { has_variable = spec_rv_due_1 has_variable = spec_rv_due_2 has_variable = spec_rv_due_3 has_variable = spec_rv_due_4 has_variable = spec_rv_due_5 has_variable = spec_rv_due_6 } }
+		if = {
+			limit = { var:spec_rv_raid = 1 }
+			set_variable = { name = spec_rv_due_1 value = var:spec_rv_raid_pm }
+			if = {
+				limit = { exists = var:spec_rv_raider }
+				add_to_variable_list = { name = spec_rv_from_1 target = var:spec_rv_raider }
+				if = {
+					limit = { NOT = { is_target_in_variable_list = { name = spec_rv_attackers target = var:spec_rv_raider } } }
+					add_to_variable_list = { name = spec_rv_attackers target = var:spec_rv_raider }
+				}
+			}
+		}
+		else_if = {
+			limit = { var:spec_rv_raid = 2 }
+			set_variable = { name = spec_rv_due_2 value = var:spec_rv_raid_pm }
+			if = {
+				limit = { exists = var:spec_rv_raider }
+				add_to_variable_list = { name = spec_rv_from_2 target = var:spec_rv_raider }
+				if = {
+					limit = { NOT = { is_target_in_variable_list = { name = spec_rv_attackers target = var:spec_rv_raider } } }
+					add_to_variable_list = { name = spec_rv_attackers target = var:spec_rv_raider }
+				}
+			}
+		}
+		else_if = {
+			limit = { var:spec_rv_raid = 3 }
+			set_variable = { name = spec_rv_due_3 value = var:spec_rv_raid_pm }
+			if = {
+				limit = { exists = var:spec_rv_raider }
+				add_to_variable_list = { name = spec_rv_from_3 target = var:spec_rv_raider }
+				if = {
+					limit = { NOT = { is_target_in_variable_list = { name = spec_rv_attackers target = var:spec_rv_raider } } }
+					add_to_variable_list = { name = spec_rv_attackers target = var:spec_rv_raider }
+				}
+			}
+		}
+		else_if = {
+			limit = { var:spec_rv_raid = 4 }
+			set_variable = { name = spec_rv_due_4 value = var:spec_rv_raid_pm }
+			if = {
+				limit = { exists = var:spec_rv_raider }
+				add_to_variable_list = { name = spec_rv_from_4 target = var:spec_rv_raider }
+				if = {
+					limit = { NOT = { is_target_in_variable_list = { name = spec_rv_attackers target = var:spec_rv_raider } } }
+					add_to_variable_list = { name = spec_rv_attackers target = var:spec_rv_raider }
+				}
+			}
+		}
+		else_if = {
+			limit = { var:spec_rv_raid = 5 }
+			set_variable = { name = spec_rv_due_5 value = var:spec_rv_raid_pm }
+			if = {
+				limit = { exists = var:spec_rv_raider }
+				add_to_variable_list = { name = spec_rv_from_5 target = var:spec_rv_raider }
+				if = {
+					limit = { NOT = { is_target_in_variable_list = { name = spec_rv_attackers target = var:spec_rv_raider } } }
+					add_to_variable_list = { name = spec_rv_attackers target = var:spec_rv_raider }
+				}
+			}
+		}
+		else_if = {
+			limit = { var:spec_rv_raid = 6 }
+			set_variable = { name = spec_rv_due_6 value = var:spec_rv_raid_pm }
+			if = {
+				limit = { exists = var:spec_rv_raider }
+				add_to_variable_list = { name = spec_rv_from_6 target = var:spec_rv_raider }
+				if = {
+					limit = { NOT = { is_target_in_variable_list = { name = spec_rv_attackers target = var:spec_rv_raider } } }
+					add_to_variable_list = { name = spec_rv_attackers target = var:spec_rv_raider }
+				}
+			}
+		}
+	}
+}
+
+spec_rv_register_raid = {
+	if = {
+		limit = { NOT = { has_variable = spec_rv_due_6 } }
+		set_variable = { name = spec_rv_due_6 value = 0 }
+	}
+	change_variable = { name = spec_rv_due_6 add = local_var:spec_rv_pm }
+	add_to_variable_list = { name = spec_rv_from_6 target = var:spec_rv_raider }
+	if = {
+		limit = { NOT = { is_target_in_variable_list = { name = spec_rv_attackers target = var:spec_rv_raider } } }
+		add_to_variable_list = { name = spec_rv_attackers target = var:spec_rv_raider }
+	}
+}
+
+spec_rv_expire_raids = {
+	if = {
+		limit = { has_variable = spec_rv_due_1 }
+		change_variable = { name = spec_rv_raid_pm subtract = var:spec_rv_due_1 }
+		remove_variable = spec_rv_due_1
+		every_in_list = {
+			variable = spec_rv_from_1
+			limit = { prev = { NOR = { is_target_in_variable_list = { name = spec_rv_from_2 target = prev } is_target_in_variable_list = { name = spec_rv_from_3 target = prev } is_target_in_variable_list = { name = spec_rv_from_4 target = prev } is_target_in_variable_list = { name = spec_rv_from_5 target = prev } is_target_in_variable_list = { name = spec_rv_from_6 target = prev } } } }
+			save_temporary_scope_as = spec_rv_source
+			prev = { remove_list_variable = { name = spec_rv_attackers target = scope:spec_rv_source } }
+		}
+		clear_variable_list = spec_rv_from_1
+	}
+	if = {
+		limit = { has_variable = spec_rv_due_2 }
+		set_variable = { name = spec_rv_due_1 value = var:spec_rv_due_2 }
+		remove_variable = spec_rv_due_2
+		every_in_list = {
+			variable = spec_rv_from_2
+			save_temporary_scope_as = spec_rv_source
+			prev = { add_to_variable_list = { name = spec_rv_from_1 target = scope:spec_rv_source } }
+		}
+		clear_variable_list = spec_rv_from_2
+	}
+	if = {
+		limit = { has_variable = spec_rv_due_3 }
+		set_variable = { name = spec_rv_due_2 value = var:spec_rv_due_3 }
+		remove_variable = spec_rv_due_3
+		every_in_list = {
+			variable = spec_rv_from_3
+			save_temporary_scope_as = spec_rv_source
+			prev = { add_to_variable_list = { name = spec_rv_from_2 target = scope:spec_rv_source } }
+		}
+		clear_variable_list = spec_rv_from_3
+	}
+	if = {
+		limit = { has_variable = spec_rv_due_4 }
+		set_variable = { name = spec_rv_due_3 value = var:spec_rv_due_4 }
+		remove_variable = spec_rv_due_4
+		every_in_list = {
+			variable = spec_rv_from_4
+			save_temporary_scope_as = spec_rv_source
+			prev = { add_to_variable_list = { name = spec_rv_from_3 target = scope:spec_rv_source } }
+		}
+		clear_variable_list = spec_rv_from_4
+	}
+	if = {
+		limit = { has_variable = spec_rv_due_5 }
+		set_variable = { name = spec_rv_due_4 value = var:spec_rv_due_5 }
+		remove_variable = spec_rv_due_5
+		every_in_list = {
+			variable = spec_rv_from_5
+			save_temporary_scope_as = spec_rv_source
+			prev = { add_to_variable_list = { name = spec_rv_from_4 target = scope:spec_rv_source } }
+		}
+		clear_variable_list = spec_rv_from_5
+	}
+	if = {
+		limit = { has_variable = spec_rv_due_6 }
+		set_variable = { name = spec_rv_due_5 value = var:spec_rv_due_6 }
+		remove_variable = spec_rv_due_6
+		every_in_list = {
+			variable = spec_rv_from_6
+			save_temporary_scope_as = spec_rv_source
+			prev = { add_to_variable_list = { name = spec_rv_from_5 target = scope:spec_rv_source } }
+		}
+		clear_variable_list = spec_rv_from_6
+	}
+}
+
 spec_rv_raided = {
+	spec_rv_migrate_raid = yes
 	set_local_variable = { name = spec_rv_pm value = 0.5 }
 	if = {
 		limit = { has_local_variable = spec_rv_amp }
@@ -567,7 +741,7 @@ spec_rv_raided = {
 			has_variable = spec_blue_chip
 			NOT = { has_variable = spec_bc_fragile }
 		}
-		set_variable = { name = spec_bc_fragile days = 365 }
+		set_variable = { name = spec_bc_fragile value = { value = game_date add = 365 } days = 365 }
 	}
 	if = {
 		limit = { this = scope:spec_rv_actor }
@@ -576,6 +750,7 @@ spec_rv_raided = {
 	else = {
 		set_variable = { name = spec_rv_raider value = scope:spec_rv_actor }
 	}
+	spec_rv_register_raid = yes
 }
 
 spec_rv_raid = {
@@ -663,7 +838,9 @@ spec_rv_press = {
 			limit = { OR = { AND = { this = scope:spec_rv_actor is_target_in_variable_list = { name = spec_rv_shield target = scope:target } } AND = { NOT = { this = scope:spec_rv_actor } is_target_in_variable_list = { name = spec_rv_shield target = scope:spec_rv_actor } } } }
 			change_local_variable = { name = spec_rv_t multiply = 0.5 }
 		}
+		set_local_variable = { name = spec_rv_before value = var:spec_centre_trust }
 		set_variable = { name = spec_centre_trust value = { value = var:spec_centre_trust subtract = { value = local_var:spec_rv_t multiply = spec_exch_loss } min = 0 } }
+		set_local_variable = { name = spec_rv_t value = { value = local_var:spec_rv_before subtract = var:spec_centre_trust } }
 	}
 	set_local_variable = { name = spec_rv_roll value = { fixed_range = { min = 0 max = 100 } } }
 	scope:target = { set_local_variable = { name = spec_rv_x value = spec_rv_press_expose } }
@@ -704,17 +881,26 @@ spec_rv_hold = {
 spec_rv_shore = {
 	custom_tooltip = spec_rv_shore_fx
 	hidden_effect = {
+	set_local_variable = { name = spec_rv_did_cost value = spec_rv_cost }
 	add_treasury = spec_rv_cost_neg
 	# ponytail: a list's days take no script value, so two lengths: the Safe Harbour's (centres.NX, shore 1.4) or the
 	# plain one; more steps here if more specialities lengthen it
 	if = {
 		limit = { spec_nx_shore > 1.05 }
 		add_to_variable_list = { name = spec_rv_shield target = scope:target days = 504 }
+		set_local_variable = { name = spec_rv_until value = { value = game_date add = 504 } }
 	}
 	else = {
 		add_to_variable_list = { name = spec_rv_shield target = scope:target days = 360 }
+		set_local_variable = { name = spec_rv_until value = { value = game_date add = 360 } }
 	}
 	add_to_variable_list = { name = spec_rv_cd_shore target = scope:target days = 730 }
+	add_to_variable_map = { name = spec_rv_protected_until key = scope:target value = local_var:spec_rv_until }
+	set_local_variable = { name = spec_rv_did_amt value = { value = local_var:spec_rv_until subtract = game_date } }
+	set_local_variable = { name = spec_rv_ok value = 1 }
+	spec_rv_did = { CODE = 5 }
+	set_local_variable = { name = spec_rv_until value = { value = game_date add = 730 } }
+	add_to_variable_map = { name = spec_rv_shore_until key = scope:target value = local_var:spec_rv_until }
 	}
 }
 
@@ -853,11 +1039,13 @@ spec_rv_ai = {
 		remove_local_variable = spec_rv_ai_moved  # one move a look, in whichever contest calls for it first
 		every_in_list = {
 			variable = spec_rv_chosen
+			limit = { is_country_alive = yes has_variable = spec_exch_stand has_variable = spec_centre_score has_variable = spec_centre_trust }
 			save_scope_as = target
 			scope:spec_rv_ai_me = { spec_rv_ai_act = yes }
 		}
 		every_country = {
 			limit = {
+				is_country_alive = yes has_variable = spec_exch_stand has_variable = spec_centre_score has_variable = spec_centre_trust
 				is_target_in_variable_list = { name = spec_rv_chosen target = scope:spec_rv_ai_me }
 				NOT = { scope:spec_rv_ai_me = { is_target_in_variable_list = { name = spec_rv_chosen target = prev } } }
 			}
@@ -887,6 +1075,7 @@ spec_rv_ai_pick = {
 					is_country_alive = no
 					NOT = { has_variable = spec_exch_stand }
 					NOT = { has_variable = spec_centre_score }
+					NOT = { has_variable = spec_centre_trust }
 					# (Standing drifting out of reach no longer drops one: quitting is a loss now, spec_rv_forfeit)
 					any_country = { count = 4 is_target_in_variable_list = { name = spec_rv_chosen target = prev } }
 					# no longer Engaged in their capital's region (INTEREST_TIER, which came after many contests began)
@@ -895,6 +1084,7 @@ spec_rv_ai_pick = {
 					# cutting a losing contest: a plain Loss now beats a Decisive Loss later; once the bar shows a
 					# Decisive Loss quitting costs the same as staying, so it stays and hopes to recover
 					AND = {
+						has_variable = spec_exch_stand has_variable = spec_centre_score has_variable = spec_centre_trust
 						spec_rv_rope <= -0.65
 						spec_rv_rope > -0.75
 						scope:spec_rv_ai_me = { NOT = { is_target_in_variable_list = { name = spec_rv_keep target = prev } } }
@@ -923,6 +1113,7 @@ spec_rv_ai_pick = {
 				ordered_country = {
 					limit = { is_country_alive = yes has_variable = spec_exch_stand has_variable = spec_centre_score has_variable = spec_centre_trust NOT = { this = scope:spec_rv_ai_me } NOT = { scope:spec_rv_ai_me = { is_target_in_variable_list = { name = spec_rv_chosen target = prev } } } var:spec_exch_stand >= local_var:spec_rv_lo var:spec_exch_stand <= local_var:spec_rv_hi spec_rv_rope >= -0.3 NOT = { is_target_in_variable_list = { name = spec_rv_chosen target = scope:spec_rv_ai_me } } exists = capital scope:spec_rv_ai_me = { has_strategic_region_interest_tier = { strategic_region = prev.capital.region value >= 2 } } NOT = { any_country = { count = 3 is_target_in_variable_list = { name = spec_rv_chosen target = prev } } } }
 					order_by = spec_rv_ai_pick_v
+					position = 0
 					save_scope_as = target
 				}
 				spec_rv_choose = yes

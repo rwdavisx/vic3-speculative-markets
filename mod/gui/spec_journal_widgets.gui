@@ -148,7 +148,7 @@ widget = {
 					icon = {
 						size = { 26 26 }
 						parentanchor = vcenter
-						alpha = "[TransparentIfFalse(Or(GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var('spec_p1').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0.1'), Not(GreaterThan_CFixedPoint(Country.MakeScope.Var('spec_p1').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)-0.1'))))]"
+						alpha = "[TransparentIfFalse(Or(GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var('spec_p1').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0.01'), Not(GreaterThan_CFixedPoint(Country.MakeScope.Var('spec_p1').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)-0.01'))))]"
 						texture = "gfx/interface/icons/spec_markets/driver_boom.dds"
 					}
 					textbox = {
@@ -165,7 +165,7 @@ widget = {
 					icon = {
 						size = { 26 26 }
 						parentanchor = vcenter
-						alpha = "[TransparentIfFalse(Or(GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var('spec_p2').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0.1'), Not(GreaterThan_CFixedPoint(Country.MakeScope.Var('spec_p2').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)-0.1'))))]"
+						alpha = "[TransparentIfFalse(Or(GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var('spec_p2').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0.01'), Not(GreaterThan_CFixedPoint(Country.MakeScope.Var('spec_p2').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)-0.01'))))]"
 						texture = "gfx/interface/icons/spec_markets/driver_foreign.dds"
 					}
 					textbox = {
@@ -182,7 +182,7 @@ widget = {
 					icon = {
 						size = { 26 26 }
 						parentanchor = vcenter
-						alpha = "[TransparentIfFalse(Or(GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var('spec_p3').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0.1'), Not(GreaterThan_CFixedPoint(Country.MakeScope.Var('spec_p3').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)-0.1'))))]"
+						alpha = "[TransparentIfFalse(Or(GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var('spec_p3').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0.01'), Not(GreaterThan_CFixedPoint(Country.MakeScope.Var('spec_p3').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)-0.01'))))]"
 						texture = "gfx/interface/icons/spec_markets/driver_turmoil.dds"
 					}
 					textbox = {
@@ -199,7 +199,7 @@ widget = {
 					icon = {
 						size = { 26 26 }
 						parentanchor = vcenter
-						alpha = "[TransparentIfFalse(Or(GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var('spec_p4').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0.1'), Not(GreaterThan_CFixedPoint(Country.MakeScope.Var('spec_p4').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)-0.1'))))]"
+						alpha = "[TransparentIfFalse(Or(GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var('spec_p4').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0.01'), Not(GreaterThan_CFixedPoint(Country.MakeScope.Var('spec_p4').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)-0.01'))))]"
 						texture = "gfx/interface/icons/event_icons/event_newspaper.dds"
 					}
 					textbox = {
@@ -216,7 +216,7 @@ widget = {
 					icon = {
 						size = { 26 26 }
 						parentanchor = vcenter
-						alpha = "[TransparentIfFalse(Or(GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var('spec_p5').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0.1'), Not(GreaterThan_CFixedPoint(Country.MakeScope.Var('spec_p5').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)-0.1'))))]"
+						alpha = "[TransparentIfFalse(Or(GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var('spec_p5').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0.01'), Not(GreaterThan_CFixedPoint(Country.MakeScope.Var('spec_p5').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)-0.01'))))]"
 						texture = "gfx/interface/icons/spec_markets/driver_tight.dds"
 					}
 					textbox = {

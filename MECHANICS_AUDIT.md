@@ -389,7 +389,7 @@ The accepted report combines the unchanged 63 passing suites with that corrected
 
 Evidence: `tests/mechanics/verification_release_gate_106.json`; original run under `runs/release_gate/full_106_r1/`, corrected inquiry under `runs/release_gate/inquiry_fixture_106/`, accepted report under `runs/release_gate/full_106_verified/`. No production output or Workshop listing changed in this pass.
 
-`tools/release_gate.py` now runs the explicit inventory in `tests/release_suites.json`. Stable/beta content uploads require a complete verified report via `--gate`; a selected subset cannot certify a release. The two live war fixtures, other relevant UI checks, and excluded compatibility tests remain separate and are not reported as automated passes. See `RELEASE_TESTING.md` for commands and limits. Passing these contracts is not proof that no bugs remain.
+That release used a complete multi-process inventory. The current workflow uses the fast checks documented in `RELEASE_TESTING.md`.
 
 ## Live war repeats on 1.0.6
 

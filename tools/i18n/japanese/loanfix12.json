@@ -1,0 +1,10 @@
+{
+ "65d69828cb": "@spec_sound_finance! #italic 銀行券の規則、最後の貸し手、会社法の3つの[concept_spec_banking_reforms]をすべて実施した報酬。#!\\n\\n[concept_country]が3つすべてを実施すると:\\n[concept_prestige] #P +{1}#!",
+ "25ea66f796": "\\n{1}、{2}、{3}の投資: #P +{4}%#!\\n貿易量: #P +{5}%#!\\n{6}: #P +{7}#!",
+ "b5b070a24a": "{1}、{2}、{3}の投資: #P +{4}%#!\\n取引量: #P +{5}%#!\\n{6}: #P +{7}#!",
+ "56c09ee847": "#header 世界中心#!\\n投資家の反応: #v +{1}%#!\\n[concept_prestige]: {3}に入っていない場合#P +{2}%#!\\n[concept_spec_capital_flight]の受け入れ: #P x2#!\\n[concept_spec_foreign_panic]の損失: #P -{4}%#!\\n#P +{5}%#! {6}\\n競合相手1つの維持費が無料\\n$TOOLTIP_DELIMITER$\\n#instruction 世界中心になるには#!、{8}で上位#v {7}#!に加えて、{9}が必要です",
+ "c86b27426b": "#header 信任#!\\n信認#v {1}%#!から#v {2}%#!\\n$TOOLTIP_DELIMITER$\\n#P +{3}#! {4}",
+ "bf0a6e57a3": "#header 堅実な融資で1位#!\\n{1}\\n$TOOLTIP_DELIMITER$\\n専門分野として、この順位で得る効果:\\n#P +{2}%#! {3}\\n#N -{4}#! {5}\\n#P +{6}#! {7}",
+ "8895c0f776": "#header 堅実な融資で2位#!\\n{1}\\n$TOOLTIP_DELIMITER$\\n専門分野として、この順位で得る効果:\\n#P +{2}%#! {3}\\n#N -{4}#! {5}",
+ "ca16df56d4": "#header 堅実な融資で3位#!\\n{1}\\n$TOOLTIP_DELIMITER$\\n専門分野として、この順位で得る効果:\\n#P +{2}%#! {3}\\n#N -{4}#! {5}"
+}

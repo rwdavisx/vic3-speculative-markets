@@ -1,0 +1,6 @@
+{
+ "51fa837036": "@spec_speculative_excess! #italic [concept_country]の[concept_market]のバブル。好況が過熱したまま長く続くほど大きくなります。#!\\n\\n{1}より前にはバブルは生じません。\\n[concept_spec_market_confidence]が#v {2}#!以上の月ごとに#P 膨張#!し、高いほど速く膨らみます\\n#v {3}#!から#v {4}#!の間はゆっくり#v 縮小#!（{5}の下ではより速い）\\n#v {6}#!を下回ると#N 破裂#!\\n\\n破裂すると、$concept_spec_market_confidence$はバブルの大きさの#N {7}#!分低下し、0まで下がることもあります。バブルが大きいほど下落も激しくなります。",
+ "6e55854975": "穏やかに縮ませるには、好況の物資を抑制するか、[concept_spec_credit_policy]を引き締めてください。\\n[concept_spec_market_confidence]が#v {1}#!以上の間は#P 膨らみます#!\\n#v {2}#!から#v {3}#!の間はゆっくり#v 縮みます#!（{4}の下ではより速い）",
+ "79b1d3d3b1": "#header @spec_speculative_excess! $concept_spec_speculative_excess$: {1} / {2}#!\\n$TOOLTIP_DELIMITER$\\n#italic これがバブルです。好況が過熱したまま長く続くほど大きくなります。#!\\n\\n[concept_spec_market_confidence]が#v {3}#!以上の間は#P 膨張#!\\n#v {4}#!から#v {5}#!の間はゆっくり#v 縮小#!（{6}の下ではより速い）\\n#v {7}#!を下回ると#N 破裂#!\\n\\n今破裂した場合: [concept_spec_market_confidence]が即座に#N -{8}#!\\n$TOOLTIP_DELIMITER$\\n#instruction 穏やかにしぼませるには、信頼度を{9}から{10}の間に保ち、信用を引き締めます。破裂で痛手を受ける状態になるとバーが赤くなります。#!",
+ "0b308a2598": "#header バブルの破裂: {1}#!\\n$TOOLTIP_DELIMITER$\\n#italic バブルがはじけました。#!\\n\\n[concept_spec_speculative_excess]: #v {2}#!ポイント\\n1ポイントにつき#N -{3}#!\\n$TOOLTIP_DELIMITER$\\n好況で#v {5}#!を超えた[concept_spec_market_confidence]が#v {4}#!を下回るとはじけます\\n好況が長く高いほど、はじけたときの損失も大きくなります\\n#weak {6}が必要です#!"
+}

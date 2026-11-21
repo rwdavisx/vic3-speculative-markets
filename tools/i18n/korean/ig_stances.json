@@ -1,0 +1,20 @@
+{
+"542ac7a51f": "@disapproves! #bold {1} 반대#!\\n[concept_approval] 변화, [concept_clout]에 따라 조정 (#v x{2}#!):\\n• 우리가 이 상품의 투기를 억제하면: 1년간 {3}\\n• 우리가 이 상품의 투자를 장려하면: 1년간 {4}",
+"b1e7552017": "\\n@disapproves! {1} ([concept_clout] {2}): 1년간 {3}",
+"af5a7f0d28": "@approves! #bold {1} 선호#!\\n[concept_approval] 변화, [concept_clout]에 따라 조정 (#v x{2}#!):\\n• 이 상품의 [concept_spec_investor_interest]이(가) #v 열의#!까지 오르면: {4}년간 {3}\\n• 호황이 [concept_spec_bust] 또는 [concept_spec_collapse](으)로 끝나면: {6}년간 {5}, 그리고 더는 선호하지 않을 수 있음\\n• 우리가 이 상품의 투자를 장려하면: 1년간 {7}\\n• 우리가 이 상품의 투기를 억제하면: 1년간 {8}",
+"5eb1bca902": "\\n\\n#title [concept_interest_group] 찬성 변화#!",
+"d780d8f880": "이곳에서 거래되는 상품에 대한 관점 없음",
+"a365bf07e9": "#header 상품에 대한 관점#!\\n$TOOLTIP_DELIMITER$\\n{1}은(는) 자국이 거래하는 상품 중 몇 가지를 @approves! 선호하고, 하나를 @disapproves! 반대할 수도 있습니다. 이들의 [concept_approval]은(는) 이 상품들의 호황과 급락, 그리고 정부의 개입에 따라 오르내리며, [concept_clout]이(가) 클수록 더 크게 움직입니다.\\n\\n새 지도자가 이 관점 중 하나를 바꿀 수 있습니다.",
+"2a711dd264": "\\n@approves! {1} ([concept_clout] {2}): 1년간 {3}",
+"e35a727b20": "#header [concept_interest_group] 관점#!\\n$TOOLTIP_DELIMITER$\\n각 $concept_interest_group$은(는) 우리 [concept_market]에서 거래되는 {1} 중 몇 가지를 @approves! 선호하고, 일부는 하나를 @disapproves! 반대합니다.\\n\\n이들의 [concept_approval]은(는) 이 상품들의 호황과 급락, 그리고 우리의 개입에 따라 오르내리며, [concept_clout]이(가) 클수록 더 크게 움직입니다. 새 지도자가 집단의 관점 중 하나를 바꿀 수 있습니다.",
+"80db4fba72": "빈 자리를 클릭해 목록에서 고르거나, 거래소 목록에서 거래소 옆의 둥근 버튼을 쓰거나, 지도에서 그 나라를 우클릭해 #v 상대 거래소와 경쟁#!을(를) 고르세요.",
+"4c5ba789f6": "대결할 거래소 선택",
+"d4f7df3999": "\\n\\n#instruction 클릭하여 대결을 시작합니다#!",
+"aa3b0962ad": "#weak 점수#!",
+"f6c1ed9e2b": "#weak 위상#!",
+"d555568170": "#weak 아직 다른 거래소가 없음#!",
+"498764f7fc": "#header 빈 대결 자리#!\\n$TOOLTIP_DELIMITER$\\n경쟁할 다른 [concept_spec_exchange]을(를) 고르세요.\\n\\n$SPEC_RV_NEED$\\n\\n#instruction 클릭하여 목록에서 고릅니다#!",
+"9af79ca121": "조폐국이 금화와 은화를 정해진 비율로 함께 주조하므로 유통되는 주화가 늘어납니다. 그러나 시장 시세가 그 비율에서 벗어날 때마다 더 비싼 금속은 사장되거나 해외로 빠져나갑니다.",
+"157eec79a8": "#header {1} 투자 장려#!\\n$TOOLTIP_DELIMITER$\\n#italic 투자자들이 외면하는 [concept_good]에 관심을 불러일으킵니다.#!\\n\\n[concept_spec_investor_interest]이(가) 몇 달에 걸쳐 #v 관심#!까지 상승\\n{2}[concept_budget_additional_expenses]: 매주 #N @money!{3}#! (기본 가격 기준 생산액의 #v {4}%#!)\\n[concept_good]이(가) #v 열의#!에 이르면 저절로 끝남{5}{6}{7}{8}{9}{10}{11}{12}{13}\\n\\n시행하는 동안 [concept_authority] #N -{14}#!을(를) 묶어 둡니다. 매달 다시 내는 것이 아니며, 해제하면 돌려받습니다#indent_newline:3 \\n이 [concept_good]의 기본값 #v {15}#!, 해당 상품 소비세의 절반과 같음\\n우리 거래량에 따라 #v x{16}#! (우리 시장의 #v {17}#!)#!\\n\\n#lore 1800년대 중반, 영국령 인도와 프랑스는 철도 투자자에게 정해진 수익을 보장했습니다.#!{18}\\n\\n{19}",
+"a95d3369b7": "#header {1} 투기 억제#!\\n$TOOLTIP_DELIMITER$\\n#italic 뜨거운 [concept_good]을(를) 호황이 너무 커지기 전에 식힙니다.#!\\n\\n[concept_spec_investor_interest]이(가) 몇 달에 걸쳐 #v 관망#!까지 하락\\n{2}[concept_budget_additional_income]: 매주 #P @money!{3}#! (기본 가격 기준 생산액의 #v {4}%#!)\\n호황이 끝날 때는 한꺼번에가 아니라 약 1년에 걸쳐 [concept_spec_correction](으)로 천천히 가라앉음{5}{6}{7}{8}{9}{10}{11}{12}{13}\\n\\n시행하는 동안 [concept_authority] #N -{14}#!을(를) 묶어 둡니다. 매달 다시 내는 것이 아니며, 해제하면 돌려받습니다#indent_newline:3 \\n이 [concept_good]의 기본값 #v {15}#!, 해당 상품 소비세의 절반과 같음\\n우리 거래량에 따라 #v x{16}#! (우리 시장의 #v {17}#!)#!\\n\\n#lore 남해 거품 사건 이후, {18}년의 거품법은 왕의 인가 없이 주식회사를 세우는 것을 금지했습니다.#!{19}\\n\\n{20}"
+}

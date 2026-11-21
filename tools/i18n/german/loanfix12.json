@@ -1,0 +1,10 @@
+{
+ "65d69828cb": "@spec_sound_finance! #italic Der Lohn für die Umsetzung aller drei [concept_spec_banking_reforms]: Banknotenregeln, ein Kreditgeber letzter Instanz und Gesellschaftsrecht.#!\\n\\nSobald ein [concept_country] alle drei hat:\\n#P +{1}#! [concept_prestige]",
+ "25ea66f796": "\\nInvestitionen ({1}, {2}, {3}): #P +{4}%#!\\nGehandelte Menge: #P +{5}%#!\\n{6}: #P +{7}#!",
+ "b5b070a24a": "Investitionen von {1}, {2} und {3}: #P +{4}%#!\\nGehandelte Menge: #P +{5}%#!\\n{6}: #P +{7}#!",
+ "56c09ee847": "#header Weltzentrum#!\\nAnlegerreaktion: #v +{1}%#!\\n[concept_prestige]: #P +{2}%#!, wenn nicht unter den {3}\\nErhält [concept_spec_capital_flight]: #P x2#!\\nVerluste durch [concept_spec_foreign_panic]: #P -{4}%#!\\n#P +{5}%#! {6}\\nEin Konkurrent ohne Unterhaltskosten\\n$TOOLTIP_DELIMITER$\\n#instruction Für die Stellung Weltzentrum#! brauchen wir einen Platz unter den ersten #v {7}#! der {8}, dazu {9}",
+ "c86b27426b": "#header Vertrauenswürdig#!\\nVertrauen von #v {1}%#! bis #v {2}%#!\\n$TOOLTIP_DELIMITER$\\n#P +{3}#! {4}",
+ "bf0a6e57a3": "#header Solide Kreditvergabe: 1. Platz#!\\n{1}\\n$TOOLTIP_DELIMITER$\\nAls unser Schwerpunkt bringt dieser Platz:\\n#P +{2}%#! {3}\\n#N -{4}#! {5}\\n#P +{6}#! {7}",
+ "8895c0f776": "#header Solide Kreditvergabe: 2. Platz#!\\n{1}\\n$TOOLTIP_DELIMITER$\\nAls unser Schwerpunkt bringt dieser Platz:\\n#P +{2}%#! {3}\\n#N -{4}#! {5}",
+ "ca16df56d4": "#header Solide Kreditvergabe: 3. Platz#!\\n{1}\\n$TOOLTIP_DELIMITER$\\nAls unser Schwerpunkt bringt dieser Platz:\\n#P +{2}%#! {3}\\n#N -{4}#! {5}"
+}

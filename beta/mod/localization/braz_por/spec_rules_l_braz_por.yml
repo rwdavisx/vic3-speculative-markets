@@ -1,6 +1,6 @@
 ﻿l_braz_por:
  rule_spec_market_volatility: "Volatilidade Mercantil"
  setting_spec_volatility_historical: "#tooltippable #tooltip:[GetPlayer.GetTooltipTag],setting_spec_volatility_historical_desc Histórica#!#!"
- setting_spec_volatility_historical_desc: "As expansões especulativas e os episódios de [Concept('concept_spec_financial_panic', '$concept_spec_financial_panics|q$')] ocorrem com frequência semelhante à do século XIX"
+ setting_spec_volatility_historical_desc: "As expansões especulativas e os episódios de [Concept('concept_spec_financial_panic', '$concept_spec_financial_panics|q$')] ocorrerão com frequência semelhante à do século XIX"
  setting_spec_volatility_heightened: "#tooltippable #tooltip:[GetPlayer.GetTooltipTag],setting_spec_volatility_heightened_desc #high Alta#!#!#!"
- setting_spec_volatility_heightened_desc: "As expansões especulativas são maiores e terminam mais abruptamente, e episódios de [Concept('concept_spec_financial_panic', '$concept_spec_financial_panics|q$')] ocorrem com mais frequência que no século XIX"
+ setting_spec_volatility_heightened_desc: "As expansões especulativas serão maiores e terminarão mais abruptamente, e os episódios de [Concept('concept_spec_financial_panic', '$concept_spec_financial_panics|q$')] ocorrerão com mais frequência que no século XIX"

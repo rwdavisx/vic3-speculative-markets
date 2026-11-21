@@ -1,0 +1,6 @@
+{
+ "1e9a9ada94": "过去#v {1}#!个月内未开启或关闭，或仅在过去#v {2}#!天内",
+ "9d12e4293f": "\\n#N 近期已切换。#!距可再次更改还有#v {1}#!个月",
+ "063e2648d8": "#header 抑制{1}的投机#!\\n$TOOLTIP_DELIMITER$\\n#italic 在一种过热的[concept_good]热潮变得太大之前，为其降温。#!\\n\\n[concept_spec_investor_interest]在数月内降至#v 平静#!\\n{2}[concept_budget_additional_income]：每周#P @money!{3}#!（按基础价格计算，为其产出的#v {4}%#!）\\n其热潮结束时，会以[concept_spec_correction]的方式在约一年内缓慢平息，而不是一下子结束{5}{6}{7}{8}{9}{10}{11}{12}{13}\\n\\n生效期间占用#N -{14}#![concept_authority]，不按月重复支付。解除后即可收回#indent_newline:3 \\n通常该[concept_good]为#v {15}#!，相当于对其征收一半消费税\\n按我国的交易量（占我国市场的#v {17}#!）为#v x{16}#!#!\\n\\n#lore 南海泡沫之后，{18}年的《泡沫法案》禁止在没有皇家特许状的情况下设立股份公司。#!{19}{20}\\n\\n{21}",
+ "fb6b445af0": "#header 鼓励对{1}的投资#!\\n$TOOLTIP_DELIMITER$\\n#italic 让投资者重新关注一种被冷落的[concept_good]。#!\\n\\n[concept_spec_investor_interest]在数月内升至#v 看好#!\\n{2}[concept_budget_additional_expenses]：每周#N @money!{3}#!（按基础价格计算，为其产出的#v {4}%#!）\\n一旦该[concept_good]达到#v 追捧#!，便自动结束{5}{6}{7}{8}{9}{10}{11}{12}{13}\\n\\n生效期间占用#N -{14}#![concept_authority]，不按月重复支付。解除后即可收回#indent_newline:3 \\n通常该[concept_good]为#v {15}#!，相当于对其征收一半消费税\\n按我国的交易量（占我国市场的#v {17}#!）为#v x{16}#!#!\\n\\n#lore 19世纪中叶，英属印度和法国向铁路投资者保证其资本的固定回报。#!{18}{19}\\n\\n{20}"
+}

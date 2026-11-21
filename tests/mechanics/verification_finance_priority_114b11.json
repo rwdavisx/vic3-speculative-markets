@@ -1,0 +1,89 @@
+{
+  "version": "1.1.4-beta.11",
+  "archive": {
+    "path": "beta/releases/Speculative_Markets_Beta_1.1.4-beta.11.zip",
+    "sha256": "448ab6f305b4b9943ac3a0667c0faf04f5f9509f18aedb39d73a7b2765eebff2"
+  },
+  "manifest": "beta/releases/Speculative_Markets_Beta_1.1.4-beta.11.manifest.json",
+  "frozen_reproduction": {
+    "report": {
+      "path": "runs/quick_20261118_021448_999542/report.json",
+      "sha256": "fd2574531d53d16a650f239dc2b38edabe9205b44b9daeba7bbb6f8da474bdc0"
+    },
+    "version": "1.1.4-beta.7",
+    "assertions_passed": 1,
+    "failures": [
+      "simultaneous company decisions",
+      "independent raid expiration",
+      "cash conservation"
+    ]
+  },
+  "focused_replay": {
+    "report": {
+      "path": "runs/quick_20261118_022756_475607/report.json",
+      "sha256": "9aa254d1c8bbc79282f4496cf6a9dced2ad43bae015adc7550825635da00e8a3"
+    },
+    "assertions_passed": 4
+  },
+  "final_packaged_beta": {
+    "report": {
+      "path": "runs/quick_20261118_031652_004931/report.json",
+      "sha256": "eb9c095a3f4642a2abf5996a32e5e50fe19462431f7b9dbb284b6ba6ad7deba3"
+    },
+    "scenarios": 23,
+    "assertions_passed": 289,
+    "priority_assertions": 12,
+    "blocking_engine_diagnostics": 0,
+    "diagnostic_categories": {
+      "engine_or_basegame_other": 1353,
+      "mod_variable_load_warnings": 34
+    },
+    "workflow_wall_seconds": 45.4,
+    "local_checks_passed": [
+      "Python unit tests",
+      "generated mod",
+      "CMF tests"
+    ]
+  },
+  "live_ui": {
+    "locale": "english",
+    "fixture": "Disposable interactive Victoria 3 1.15.1 session with scripted Finance tab selection and a seeded French rivalry. English, gameplay and production GUI matched the archive before fixture instrumentation.",
+    "banking": {
+      "path": "runs/priority_beta_render/priority_banking.png",
+      "sha256": "b3adb3e280e943b5ace4d11a33d05600caf987d03fccc71bcf13e7792f4cc4fa"
+    },
+    "banking_observed": "Banking tab and Credit Leverage History rendered three distinct panic threshold labels.",
+    "exchanges": {
+      "path": "runs/priority_beta_render/priority_exchanges.png",
+      "sha256": "3a93da81cdadae13581dd58164e17eb43e2bcf38970d7ed6594681be2723bcd2"
+    },
+    "exchanges_observed": "The next rival and the contest row both showed France settling in 2/1838. The incoming French Bear Raid showed -0.50 per month with six months left.",
+    "scope": "Only the pictured controls were visually checked. Other language layouts, navigation transitions, and individual hover tooltips were not reviewed in this pass."
+  },
+  "compatibility": {
+    "cmf_version": "1.67.8",
+    "manifest": {
+      "path": "runs/priority_beta_cmf/build_manifest.json",
+      "sha256": "b08a4106aaa132cda4120dbf38382dcab245ed9ab8b41fb06705e6dea8d92a08"
+    },
+    "rebuilt_files_identical_to_shipped_patch": 3,
+    "parent_sidebar_identical_to_beta": true
+  },
+  "workshop": {
+    "channel": "beta",
+    "item_id": 3839275304,
+    "visibility": "public",
+    "description_sha256": "5ba784bbd078c9beab091330409f58dde67ab17bf2b0999da14053a12c866d7d",
+    "staged_differences_from_archive": [
+      "thumbnail.png"
+    ],
+    "result": {
+      "path": "workshop/upload_receipts/20261118T032046.283096Z_beta_update_result_30a6804f.json",
+      "sha256": "894a3bbbc6b9da379e0da0b60f84ec98a9f8a786e3413e5276ffbb10155416a1"
+    },
+    "verification": {
+      "path": "workshop/upload_receipts/20261118T032046.485273Z_beta_update_verified_40a4aeb6.json",
+      "sha256": "fb9aea0a5ceaa2eeba1b1fea0252df5c3998ad015c22155e974117f725f32230"
+    }
+  }
+}

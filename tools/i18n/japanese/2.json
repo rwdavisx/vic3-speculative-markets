@@ -114,5 +114,9 @@
   "7ac3228a98": "ライバル",
   "eafcab7a35": "我が国が宣言 #v {1}#!、相手が宣言 #v {2}#!",
   "5c775ad815": "#header ライバル#!\\n$SPEC_RIVAL_RULE$",
-  "7be1025162": "指名 #v {1}#!/#v {2}#!、被指名 #v {3}#!"
+  "7be1025162": "指名 #v {1}#!/#v {2}#!、被指名 #v {3}#!",
+  "56de4b931d": "#header {1}#!\\n$TOOLTIP_DELIMITER$\\n{2}は{3}に反対しています。この商品の投機を抑制すると[concept_approval]が上がり、投資を奨励すると下がります。[concept_clout]が大きいほど、変動も大きくなります。",
+  "d156fec2d3": "\\n#N {1}が反対します#!",
+  "81fdbeaf1e": "#header {1}#!\\n$TOOLTIP_DELIMITER$\\n{2}は{3}を支持しています。この商品が好況になるか投資を奨励すると[concept_approval]が上がり、[concept_spec_bust]で終わるか投機を抑制すると下がります。[concept_clout]が大きいほど、変動も大きくなります。",
+  "0c6fc679f4": "\\n#P {1}が賛成します#!"
 }

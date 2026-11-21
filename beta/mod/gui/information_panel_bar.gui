@@ -277,8 +277,40 @@ types information_panel_bar_types {
 				sidebar_label_button = {
 					position = { -100 @spec_finance_position }
 					blockoverride "onclick" {
+						visible = "[GetPlayer.MakeScope.Var('spec_je').GetJournalEntry.IsValid]"
+						datacontext = "[GetPlayer.MakeScope.Var('spec_je').GetJournalEntry]"
 						onclick = "[InformationPanelBar.ClosePanel]"
-						onclick = "[GetVariableSystem.Toggle('spec_finance')]"
+						onclick = "[GetVariableSystem.Clear('spec_finance_next')]"
+						onclick = "[GetVariableSystem.SetIf('spec_finance_next', 'booms', And(GetVariableSystem.Exists('spec_finance'), Or(Not(GetVariableSystem.Exists('spec_finance_tab')), GetVariableSystem.HasValue('spec_finance_tab', 'exchange'))))]"
+						onclick = "[GetVariableSystem.SetIf('spec_finance_next', 'banking', And(GetVariableSystem.Exists('spec_finance'), GetVariableSystem.HasValue('spec_finance_tab', 'booms')))]"
+						onclick = "[GetVariableSystem.SetIf('spec_finance_next', 'world', And(GetVariableSystem.Exists('spec_finance'), GetVariableSystem.HasValue('spec_finance_tab', 'banking')))]"
+						onclick = "[GetVariableSystem.SetIf('spec_finance_next', 'exchange', Not(GetVariableSystem.Exists('spec_finance_next')))]"
+						onclick = "[GetVariableSystem.SetIf('spec_finance_tab', 'exchange', GetVariableSystem.HasValue('spec_finance_next', 'exchange'))]"
+						onclick = "[GetVariableSystem.SetIf('spec_finance_tab', 'booms', GetVariableSystem.HasValue('spec_finance_next', 'booms'))]"
+						onclick = "[GetVariableSystem.SetIf('spec_finance_tab', 'banking', GetVariableSystem.HasValue('spec_finance_next', 'banking'))]"
+						onclick = "[GetVariableSystem.SetIf('spec_finance_tab', 'world', GetVariableSystem.HasValue('spec_finance_next', 'world'))]"
+						onclick = "[GetVariableSystem.Clear('spec_finance_next')]"
+						onclick = "[GetVariableSystem.Set('spec_finance', 'open')]"
+						onclick = "[InformationPanelBar.OpenJournalEntryPanel(JournalEntry.AccessSelf)]"
+						onclick = "[GetVariableSystem.Clear('spec_pick_slot')]"
+					}
+				}
+				sidebar_label_button = {
+					position = { -100 @spec_finance_position }
+					blockoverride "onclick" {
+						visible = "[Not(GetPlayer.MakeScope.Var('spec_je').GetJournalEntry.IsValid)]"
+						onclick = "[InformationPanelBar.ClosePanel]"
+						onclick = "[GetVariableSystem.Clear('spec_finance_next')]"
+						onclick = "[GetVariableSystem.SetIf('spec_finance_next', 'booms', And(GetVariableSystem.Exists('spec_finance'), Or(Not(GetVariableSystem.Exists('spec_finance_tab')), GetVariableSystem.HasValue('spec_finance_tab', 'exchange'))))]"
+						onclick = "[GetVariableSystem.SetIf('spec_finance_next', 'banking', And(GetVariableSystem.Exists('spec_finance'), GetVariableSystem.HasValue('spec_finance_tab', 'booms')))]"
+						onclick = "[GetVariableSystem.SetIf('spec_finance_next', 'world', And(GetVariableSystem.Exists('spec_finance'), GetVariableSystem.HasValue('spec_finance_tab', 'banking')))]"
+						onclick = "[GetVariableSystem.SetIf('spec_finance_next', 'exchange', Not(GetVariableSystem.Exists('spec_finance_next')))]"
+						onclick = "[GetVariableSystem.SetIf('spec_finance_tab', 'exchange', GetVariableSystem.HasValue('spec_finance_next', 'exchange'))]"
+						onclick = "[GetVariableSystem.SetIf('spec_finance_tab', 'booms', GetVariableSystem.HasValue('spec_finance_next', 'booms'))]"
+						onclick = "[GetVariableSystem.SetIf('spec_finance_tab', 'banking', GetVariableSystem.HasValue('spec_finance_next', 'banking'))]"
+						onclick = "[GetVariableSystem.SetIf('spec_finance_tab', 'world', GetVariableSystem.HasValue('spec_finance_next', 'world'))]"
+						onclick = "[GetVariableSystem.Clear('spec_finance_next')]"
+						onclick = "[GetVariableSystem.Set('spec_finance', 'open')]"
 						onclick = "[GetVariableSystem.Clear('spec_pick_slot')]"
 					}
 				}
@@ -301,8 +333,43 @@ types information_panel_bar_types {
 						blockoverride "button_selected" {
 							visible = "[GetVariableSystem.Exists('spec_finance')]"
 						}
+						visible = "[GetPlayer.MakeScope.Var('spec_je').GetJournalEntry.IsValid]"
+						datacontext = "[GetPlayer.MakeScope.Var('spec_je').GetJournalEntry]"
 						onclick = "[InformationPanelBar.ClosePanel]"
-						onclick = "[GetVariableSystem.Toggle('spec_finance')]"
+						onclick = "[GetVariableSystem.Clear('spec_finance_next')]"
+						onclick = "[GetVariableSystem.SetIf('spec_finance_next', 'booms', And(GetVariableSystem.Exists('spec_finance'), Or(Not(GetVariableSystem.Exists('spec_finance_tab')), GetVariableSystem.HasValue('spec_finance_tab', 'exchange'))))]"
+						onclick = "[GetVariableSystem.SetIf('spec_finance_next', 'banking', And(GetVariableSystem.Exists('spec_finance'), GetVariableSystem.HasValue('spec_finance_tab', 'booms')))]"
+						onclick = "[GetVariableSystem.SetIf('spec_finance_next', 'world', And(GetVariableSystem.Exists('spec_finance'), GetVariableSystem.HasValue('spec_finance_tab', 'banking')))]"
+						onclick = "[GetVariableSystem.SetIf('spec_finance_next', 'exchange', Not(GetVariableSystem.Exists('spec_finance_next')))]"
+						onclick = "[GetVariableSystem.SetIf('spec_finance_tab', 'exchange', GetVariableSystem.HasValue('spec_finance_next', 'exchange'))]"
+						onclick = "[GetVariableSystem.SetIf('spec_finance_tab', 'booms', GetVariableSystem.HasValue('spec_finance_next', 'booms'))]"
+						onclick = "[GetVariableSystem.SetIf('spec_finance_tab', 'banking', GetVariableSystem.HasValue('spec_finance_next', 'banking'))]"
+						onclick = "[GetVariableSystem.SetIf('spec_finance_tab', 'world', GetVariableSystem.HasValue('spec_finance_next', 'world'))]"
+						onclick = "[GetVariableSystem.Clear('spec_finance_next')]"
+						onclick = "[GetVariableSystem.Set('spec_finance', 'open')]"
+						onclick = "[InformationPanelBar.OpenJournalEntryPanel(JournalEntry.AccessSelf)]"
+						onclick = "[GetVariableSystem.Clear('spec_pick_slot')]"
+					}
+					sidepanel_button_big = {
+						blockoverride "icon" {
+							texture = "gfx/interface/main_hud/spec_finance_btn.dds"
+						}
+						blockoverride "button_selected" {
+							visible = "[GetVariableSystem.Exists('spec_finance')]"
+						}
+						visible = "[Not(GetPlayer.MakeScope.Var('spec_je').GetJournalEntry.IsValid)]"
+						onclick = "[InformationPanelBar.ClosePanel]"
+						onclick = "[GetVariableSystem.Clear('spec_finance_next')]"
+						onclick = "[GetVariableSystem.SetIf('spec_finance_next', 'booms', And(GetVariableSystem.Exists('spec_finance'), Or(Not(GetVariableSystem.Exists('spec_finance_tab')), GetVariableSystem.HasValue('spec_finance_tab', 'exchange'))))]"
+						onclick = "[GetVariableSystem.SetIf('spec_finance_next', 'banking', And(GetVariableSystem.Exists('spec_finance'), GetVariableSystem.HasValue('spec_finance_tab', 'booms')))]"
+						onclick = "[GetVariableSystem.SetIf('spec_finance_next', 'world', And(GetVariableSystem.Exists('spec_finance'), GetVariableSystem.HasValue('spec_finance_tab', 'banking')))]"
+						onclick = "[GetVariableSystem.SetIf('spec_finance_next', 'exchange', Not(GetVariableSystem.Exists('spec_finance_next')))]"
+						onclick = "[GetVariableSystem.SetIf('spec_finance_tab', 'exchange', GetVariableSystem.HasValue('spec_finance_next', 'exchange'))]"
+						onclick = "[GetVariableSystem.SetIf('spec_finance_tab', 'booms', GetVariableSystem.HasValue('spec_finance_next', 'booms'))]"
+						onclick = "[GetVariableSystem.SetIf('spec_finance_tab', 'banking', GetVariableSystem.HasValue('spec_finance_next', 'banking'))]"
+						onclick = "[GetVariableSystem.SetIf('spec_finance_tab', 'world', GetVariableSystem.HasValue('spec_finance_next', 'world'))]"
+						onclick = "[GetVariableSystem.Clear('spec_finance_next')]"
+						onclick = "[GetVariableSystem.Set('spec_finance', 'open')]"
 						onclick = "[GetVariableSystem.Clear('spec_pick_slot')]"
 					}
 				}

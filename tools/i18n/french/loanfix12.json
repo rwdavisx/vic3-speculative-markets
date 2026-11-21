@@ -1,0 +1,10 @@
+{
+ "65d69828cb": "@spec_sound_finance! #italic La récompense pour l’adoption des trois [concept_spec_banking_reforms] : règles d’émission des billets, prêteur en dernier ressort et droit des sociétés.#!\\n\\nUne fois les trois adoptées par un [concept_country] :\\n#P +{1}#! de [concept_prestige]",
+ "25ea66f796": "\\nInvestissement de {1}, {2} et {3} : #P +{4} %#!\\nQuantité échangée : #P +{5} %#!\\n{6} : #P +{7}#!",
+ "b5b070a24a": "Investissement ({1}, {2} et {3}) : #P +{4} %#!\\nQuantité échangée : #P +{5} %#!\\n{6} : #P +{7}#!",
+ "56c09ee847": "#header Centre mondial#!\\nRéaction des investisseurs : #v +{1} %#!\\n[concept_prestige] : #P +{2} %#! hors des {3}\\nReçoit la [concept_spec_capital_flight] : #P x2#!\\nPertes par [concept_spec_foreign_panic] : #P -{4} %#!\\n#P +{5} %#! {6}\\nUne concurrente sans frais d’entretien\\n$TOOLTIP_DELIMITER$\\n#instruction Pour devenir Centre mondial#!, il nous faut une place dans les #v {7}#! premières parmi les {8}, ainsi que {9}",
+ "c86b27426b": "#header Fiable#!\\nRéputation de #v {1} %#! à #v {2} %#!\\n$TOOLTIP_DELIMITER$\\n#P +{3}#! {4}",
+ "bf0a6e57a3": "#header 1re place en Prêts prudents#!\\n{1}\\n$TOOLTIP_DELIMITER$\\nComme spécialité, cette place donne :\\n#P +{2} %#! {3}\\n#N -{4}#! {5}\\n#P +{6}#! {7}",
+ "8895c0f776": "#header 2e place en Prêts prudents#!\\n{1}\\n$TOOLTIP_DELIMITER$\\nComme spécialité, cette place donne :\\n#P +{2} %#! {3}\\n#N -{4}#! {5}",
+ "ca16df56d4": "#header 3e place en Prêts prudents#!\\n{1}\\n$TOOLTIP_DELIMITER$\\nComme spécialité, cette place donne :\\n#P +{2} %#! {3}\\n#N -{4}#! {5}"
+}

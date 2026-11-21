@@ -25,9 +25,10 @@ def evaluate(expression, country, selected):
     expression = re.sub(r"GetVariableSystem\.HasValue\('([^']+)', '([^']+)'\)",
                         lambda m: repr(selected.get(m[1]) == m[2]), expression)
     return eval(expression, {"__builtins__": {}}, {
-        "And": lambda a, b: a and b, "Or": lambda a, b: a or b,
+        "And3": lambda a, b, c: a and b and c, "And": lambda a, b: a and b, "Or": lambda a, b: a or b,
         "Not": lambda a: not a, "GreaterThan_CFixedPoint": lambda a, b: a > b,
         "EqualTo_CFixedPoint": lambda a, b: a == b, "no": False,
+        "GreaterThanOrEqualTo_CFixedPoint": lambda a, b: a >= b,
         "SelectLocalization": lambda test, yes, no: yes if test else no,
         "Select_CFixedPoint": lambda test, yes, no: yes if test else no,
     })
@@ -91,6 +92,17 @@ class FinanceUiTests(unittest.TestCase):
         for category in mt.CATEGORIES:
             self.assertEqual(evaluate(expression, {}, {mt.CAT: category}), category.upper() + "_FILTER_NAME")
 
+    def test_pressure_chip_uses_tenths_and_keeps_precision_on_hover(self):
+        for total in (0, 0.01, -0.01, 0.049, -0.049, 0.05, -0.05, 0.09, -0.09, 1, -1):
+            with self.subTest(total=total):
+                country = {"spec_p4": total}
+                key = evaluate(self.loc["SPEC_CHIP_4"][1:-1], country, {})
+                if abs(total) < 0.05:
+                    self.assertEqual(key, "SPEC_CHIP_ZERO")
+                else:
+                    self.assertIn("|+=1]", self.loc[key])
+                self.assertIn("|+=2]", self.loc["SPEC_CHIP_4_TT"])
+
     def test_panic_explains_output_tax_and_relief(self):
         self.assertIn("SPEC_PANIC_ALL_EFFECTS", self.loc["SPEC_PANIC_TT"])
         self.assertIn("#N -10%#!", self.loc["SPEC_PANIC_ECONOMY"])
@@ -98,23 +110,27 @@ class FinanceUiTests(unittest.TestCase):
         self.assertIn("#N -5%#!", self.loc["SPEC_PANIC_ECONOMY_RESCUED"])
         self.assertIn("#N -7.5%#!", self.loc["SPEC_PANIC_ECONOMY_RESCUED"])
         self.assertEqual(self.loc["spec_panic_relief"], "Panic Relief")
-        self.assertIn("SPEC_PANIC_RELIEF_NOTE", self.loc["SPEC_RESCUE_TT"])
+        self.assertIn("$SPEC_RESCUE_EXCEPTIONS$", self.loc["SPEC_RESCUE_TT"])
+        self.assertIn("Does not cut $spec_panic_relief$", self.loc["SPEC_RESCUE_EXCEPTIONS"])
         self.assertIn("SPEC_PANIC_RELIEF_NOTE", self.loc["SPEC_PANIC_TT_END"])
 
     def test_external_panel_navigation_closes_finance_and_disarms_slot(self):
         guard = mt.navigation_guard()
         trigger = re.search(r'trigger_when = "\[([^\n]+)\]"', guard)[1]
         for finance_open in (False, True):
-            for panel_open in (False, True):
-                with self.subTest(finance=finance_open, panel=panel_open):
+            for panel in (None, "market", "journal_entry", "journal_entry_panel"):
+                panel_open = panel is not None
+                with self.subTest(finance=finance_open, panel=panel):
                     selected = {mt.FIN: "open"} if finance_open else {}
                     expression = trigger.replace("InformationPanelBar.IsAnyPanelOpen", repr(panel_open))
-                    self.assertEqual(evaluate(expression, {}, selected), finance_open and panel_open)
+                    expression = re.sub(r"InformationPanelBar.IsPanelOpen\('([^']+)'\)",
+                                        lambda m: repr(m[1] == panel), expression)
+                    self.assertEqual(evaluate(expression, {}, selected), finance_open and panel == "market")
         clears = re.findall(r'on_start = "\[GetVariableSystem.Clear\(\'([^\']+)\'\)\]"', guard)
         self.assertEqual(clears, [mt.FIN, mt.PICK])
         self.assertNotIn("InformationPanelBar.ClosePanel", guard)
         self.assertNotIn("visible =", guard)
-        host = generate.information_panel_bar()
+        host = generate.information_panel_bar(self.constants)
         self.assertEqual(host.count("spec_finance_navigation_guard = {}"), 1)
         self.assertLess(host.index("spec_finance_navigation_guard = {}"), host.index("spec_finance_window = {}"))
 

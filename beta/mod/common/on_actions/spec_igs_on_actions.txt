@@ -1,0 +1,55 @@
+﻿# Root = Character: a new interest group leader may re-roll one of the group's stances on goods
+on_new_interest_group_leader = {
+	on_actions = { spec_igs_new_leader }
+}
+
+spec_igs_new_leader = {
+	trigger = {
+		interest_group ?= {
+			owner ?= {
+				has_variable = spec_igs_rolled
+				has_variable = spec_mv_total
+				var:spec_mv_total > 0  # spec_weight_<g> divides by it
+			}
+		}
+	}
+	effect = {
+		random = {
+			chance = 33
+			interest_group ?= {
+				if = {
+					limit = { is_interest_group_type = ig_landowners }
+					owner = { spec_igs_reroll_landowners = yes }
+				}
+				else_if = {
+					limit = { is_interest_group_type = ig_industrialists }
+					owner = { spec_igs_reroll_industrialists = yes }
+				}
+				else_if = {
+					limit = { is_interest_group_type = ig_armed_forces }
+					owner = { spec_igs_reroll_armed_forces = yes }
+				}
+				else_if = {
+					limit = { is_interest_group_type = ig_devout }
+					owner = { spec_igs_reroll_devout = yes }
+				}
+				else_if = {
+					limit = { is_interest_group_type = ig_rural_folk }
+					owner = { spec_igs_reroll_rural_folk = yes }
+				}
+				else_if = {
+					limit = { is_interest_group_type = ig_petty_bourgeoisie }
+					owner = { spec_igs_reroll_petty_bourgeoisie = yes }
+				}
+				else_if = {
+					limit = { is_interest_group_type = ig_intelligentsia }
+					owner = { spec_igs_reroll_intelligentsia = yes }
+				}
+				else_if = {
+					limit = { is_interest_group_type = ig_trade_unions }
+					owner = { spec_igs_reroll_trade_unions = yes }
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,54 @@
+{
+  "baseline": {
+    "file": "beta/finance_review_baseline/releases/Speculative_Markets_Beta_1.1.3-beta.1.zip",
+    "sha256": "d46ec4b53c35a650dc16493debfd2cc8f70f5f32d0cd956122f2e82b236f5db9"
+  },
+  "candidate": {
+    "file": "beta/finance_review/releases/Speculative_Markets_Beta_1.1.3-beta.3.zip",
+    "sha256": "8488862af88bd30a55015768fe99eb77fa5483865508a43c6e3389c25dff0818"
+  },
+  "frozen_beta_reproduction": {
+    "failed": [
+      "small_holdings_grouped",
+      "small_remainder_grouped",
+      "mood_draw_recorded"
+    ],
+    "passed": 5,
+    "assertions": "runs/sweep_finance_review_red/test_01/assertions.log",
+    "assertions_sha256": "636dd5e0854b0ec61285112768d041c3c5af98fca81afa36923ef24561bf9e1e",
+    "blocking_mod_or_harness_diagnostics": 0,
+    "error_log_sha256": "fc6e88ec1ec4df67ded629711bd03a89946ff8e8ee9d7995749a26f6ca7a4343"
+  },
+  "candidate_engine_tests": {
+    "bank_display": {
+      "assertions_passed": 9,
+      "assertions_failed": [],
+      "blocking_mod_or_harness_diagnostics": 0,
+      "report": "runs/finance_review_final_checks/bank_display.json",
+      "report_sha256": "41ac0e16b01bf7b8cc29e57bfb32645a39b2c7720fd5024b69a8cc8a4fe05708"
+    },
+    "confidence_accounting": {
+      "assertions_passed": 12,
+      "assertions_failed": [],
+      "blocking_mod_or_harness_diagnostics": 0,
+      "report": "runs/finance_review_final_checks/confidence_accounting.json",
+      "report_sha256": "4a0e269ef74271c283a7131e5d7db8d33888aedc78dfdd91074d498b01961692"
+    },
+    "exposure_transfer": {
+      "assertions_passed": 30,
+      "assertions_failed": [],
+      "blocking_mod_or_harness_diagnostics": 0,
+      "report": "runs/finance_review_final_checks/exposure_transfer.json",
+      "report_sha256": "2d08a9a03e731a28facf1c32c853dc16790de2fcec0c84c847507947c1179f96"
+    }
+  },
+  "localization": "All six affected entries in each of ten translated locales matched their current templates. Native GUI files match the baseline byte for byte.",
+  "python": "60 tests executed. Three failing and five erroring subtests match the unmodified generators.",
+  "python_logs_sha256": {
+    "runs/finance_review_baseline_python.log": "406481e3b1e1140ee057f20b2f889f81836e0f73284ca122476143c3e9e72f4f",
+    "runs/finance_review_final_checks/python.log": "75ad35a3c5728a58f27ffcb203b4e3a76e5ffe400a3ef2e49f5e940c739d905a"
+  },
+  "live_tooltip_inspection": "Not performed.",
+  "full_release_gate": "Not certified. Focused engine cases ran independently after the Python precheck stopped the gate.",
+  "workshop_upload": false
+}

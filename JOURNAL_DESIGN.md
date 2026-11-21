@@ -52,7 +52,7 @@ authority. Cooldowns use `cooldown` and a readable variable; an active choice is
 
 | decision | stage | effect | price | history |
 |---|---|---|---|---|
-| Convert the National Debt | Buoyant or Mania, with debt | loan interest -25% for 5 years | confidence -5, Aristocrats -2 approval; once per 10 years | Goschen 1888, France 1852 |
+| Convert the National Debt | Buoyant or Mania, with debt | loan interest -10% for 5 years, ending early once debt falls below 20% of the credit limit | confidence -5, Aristocrats -2 approval; once per 10 years | Goschen 1888, France 1852 |
 | Support the Banks | Panic, Banking | as now | as now | Bank of England 1866 |
 | Suspend the Bank Act | Panic, after the Note Issue reform chose the Currency School | panic ends in 3 months, no treasury cost | legitimacy -10; Speculative Excess builds 25% faster for 10 years | Treasury letters 1847, 1857, 1866 |
 | Relief Works | Panic or Depression | radicals from the panic halved, Trade Unions +2 | expense modifier for 12 months (medium); cooldown 365 days | Ateliers nationaux 1848 |

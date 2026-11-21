@@ -16457,6 +16457,8 @@ spec_update_companies = {
 		set_local_variable = { name = spec_nx_bc value = spec_nx_blue }
 		set_local_variable = { name = spec_bc_cnt value = 0 }
 		every_company = {
+			remove_variable = spec_bc_new
+			remove_variable = spec_bc_wobble
 			if = {
 				limit = { prosperity >= 70 }
 				remove_variable = spec_bc_low
@@ -16547,12 +16549,16 @@ spec_update_companies = {
 			spec_story_conf = { AMOUNT = -3 }
 		}
 		if = {
-			limit = { has_local_variable = spec_bc_gained }
-			trigger_event = { id = spec_bluechip.1 popup = yes }
-		}
-		else_if = {
-			limit = { has_local_variable = spec_bc_wobbled }
-			trigger_event = { id = spec_bluechip.2 popup = yes }
+			limit = { OR = { has_local_variable = spec_bc_gained has_local_variable = spec_bc_wobbled } }
+			every_company = {
+				limit = { OR = { has_variable = spec_bc_new has_variable = spec_bc_wobble } }
+				save_scope_as = spec_bc_co
+				if = {
+					limit = { has_variable = spec_bc_wobble }
+					owner = { trigger_event = { id = spec_bluechip.2 popup = yes } }
+				}
+				else = { owner = { trigger_event = { id = spec_bluechip.1 popup = yes } } }
+			}
 		}
 	}
 	else = {

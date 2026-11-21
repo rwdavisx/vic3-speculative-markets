@@ -3397,46 +3397,58 @@ spec_rank_centres = {
 				remove_from_list = spec_xs_fir
 			}
 			set_local_variable = { name = spec_sq_x value = { value = var:spec_xs_own_v add = var:spec_xs_reach_v min = 0 } }
-			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = 40 add = 2 } }
-			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
-			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
-			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
-			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
-			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
-			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
-			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
-			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
-			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
-			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
-			set_variable = { name = spec_xs_size_v value = local_var:spec_sq }
+			if = {
+				limit = { local_var:spec_sq_x > 0 }
+				set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = 40 add = 2 } }
+				set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+				set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+				set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+				set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+				set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+				set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+				set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+				set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+				set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+				set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+				set_variable = { name = spec_xs_size_v value = local_var:spec_sq }
+			}
+			else = { set_variable = { name = spec_xs_size_v value = 0 } }
 			set_local_variable = { name = spec_sq_x value = { value = var:spec_xs_size_v min = 0 } }
-			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = 40 add = 2 } }
-			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
-			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
-			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
-			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
-			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
-			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
-			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
-			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
-			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
-			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
-			set_variable = { name = spec_xs_size_v value = local_var:spec_sq }
+			if = {
+				limit = { local_var:spec_sq_x > 0 }
+				set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = 40 add = 2 } }
+				set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+				set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+				set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+				set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+				set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+				set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+				set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+				set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+				set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+				set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+				set_variable = { name = spec_xs_size_v value = local_var:spec_sq }
+			}
+			else = { set_variable = { name = spec_xs_size_v value = 0 } }
 			set_variable = { name = spec_xs_size_v value = { value = var:spec_xs_size_v multiply = 10 } }
 			set_variable = { name = spec_xs_ratio_v value = spec_xs_ratio }
 			set_local_variable = { name = spec_sq_x value = { value = var:spec_xs_ratio_v min = 0 } }
-			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = 40 add = 2 } }
-			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
-			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
-			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
-			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
-			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
-			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
-			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
-			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
-			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
-			set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
-			set_variable = { name = spec_xs_wealth_v value = local_var:spec_sq }
+			if = {
+				limit = { local_var:spec_sq_x > 0 }
+				set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = 40 add = 2 } }
+				set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+				set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+				set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+				set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+				set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+				set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+				set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+				set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+				set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+				set_local_variable = { name = spec_sq value = { value = local_var:spec_sq_x divide = local_var:spec_sq add = local_var:spec_sq multiply = 0.5 } }
+				set_variable = { name = spec_xs_wealth_v value = local_var:spec_sq }
+			}
+			else = { set_variable = { name = spec_xs_wealth_v value = 0 } }
 			set_variable = { name = spec_xs_wealth_v value = { value = var:spec_xs_wealth_v min = 0.75 max = 1.5 } }
 			if = {
 				limit = {
@@ -6905,6 +6917,9 @@ spec_rank_centres = {
 	if = {
 		limit = { NOT = { has_global_variable = spec_rival_year } }
 		set_global_variable = { name = spec_rival_year days = 365 }
+		set_global_variable = { name = spec_rv_epoch_year value = year }
+		set_global_variable = { name = spec_rv_epoch_month value = { value = month add = 1 } }
+		set_global_variable = { name = spec_rv_epoch_day value = game_date }
 		spec_rv_ai_pick = yes
 		if = {
 			limit = { has_global_variable = spec_rival_started }

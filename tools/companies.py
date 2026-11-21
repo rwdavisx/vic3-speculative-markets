@@ -33,7 +33,7 @@ import tuning
 import mod_sources
 
 # interest word (1 Fleeing to 6 Feverish) -> throughput of the good's buildings, in percent
-INTEREST_THROUGHPUT = tuning.get("INTEREST_THROUGHPUT", {1: -10, 2: -5, 3: 0, 4: 3, 5: 5, 6: 8})
+INTEREST_THROUGHPUT = tuning.get("INTEREST_THROUGHPUT", {1: -10, 2: -5, 3: 0, 4: 2, 5: 4, 6: 6})  # 3/5/8 stacked to +23% with the boom and Blue Chips
 COMPANY_BUST = tuning.get("COMPANY_BUST", -0.1)      # after a good's boom collapses, for BUST_DAYS
 # blue chips (design_companies.md): a company at BLUE_PROSPER+ for BLUE_MONTHS months running earns the status; below it
 # for BLUE_LOSE months running loses it, and the count starts again. Counted on the company (companies keep variables:
@@ -48,6 +48,8 @@ BLUE_BONUS = tuning.get("BLUE_BONUS", 2)
 BLUE_UPDATE = f"""		set_local_variable = {{ name = spec_nx_bc value = spec_nx_blue }}
 		set_local_variable = {{ name = spec_bc_cnt value = 0 }}
 		every_company = {{
+			remove_variable = spec_bc_new
+			remove_variable = spec_bc_wobble
 			if = {{
 				limit = {{ prosperity >= {BLUE_PROSPER:g} }}
 				remove_variable = spec_bc_low
@@ -168,6 +170,8 @@ def _industry(sells, upgrades):
 BT_MAP = "spec_bt_map_1"
 if mod_sources.MR:
     BT_MAP = "spec_bt_map_morgenroete_1"  # populate extra building mappings in existing saves too
+if mod_sources.TR:
+    BT_MAP = "spec_bt_map_techres_1"
 BT_SLOT = "spec_bt_g{}_"
 BT_SLOTS = 3  # the most goods one building type makes (automotive industry)
 

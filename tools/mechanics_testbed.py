@@ -21,15 +21,7 @@ def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def prepare(source, out, suite):
-    source, out = source.resolve(), out.resolve()
-    if not out.is_relative_to(ROOT / "runs") or out == ROOT / "runs":
-        raise ValueError("Test builds must be a new child of runs/")
-    if out.exists():
-        raise ValueError("Use a new test directory; previous evidence is immutable")
-    metadata = json.loads((source / ".metadata/metadata.json").read_text(encoding="utf-8-sig"))
-    if metadata["id"] != "speculative_markets_beta":
-        raise ValueError("Mechanics tests require the beta distribution")
+def fixture_contract(suite):
     fixture = ROOT / "tests/mechanics" / f"{suite}.txt"
     script = fixture.read_text(encoding="utf-8-sig")
     expected = re.findall(r'"HOTFIX PASS (\w+)"', script)
@@ -41,6 +33,38 @@ def prepare(source, out, suite):
     markers = re.findall(r'"(HOTFIX (?:PASS|FAIL)[^"\n]*)"', script)
     if any(not re.fullmatch(r"HOTFIX (?:PASS|FAIL) \w+", marker) for marker in markers):
         raise ValueError("Malformed assertion marker")
+    return fixture, script, expected
+
+
+def fixture_helpers(source, suite):
+    # Helpers only expose otherwise embedded production blocks. Read the actual
+    # beta files, never a second implementation of a mechanic.
+    helper_file = ROOT / "tests/mechanics" / f"{suite}.helpers.json"
+    helpers = {}
+    helper_text = []
+    if helper_file.exists():
+        for name, spec in json.loads(helper_file.read_text()).items():
+            original = (source / spec["path"]).read_text(encoding="utf-8-sig")
+            if original.count(spec["start"]) != 1 or original.count(spec["end"]) != 1:
+                raise ValueError(f"Ambiguous production helper boundary: {name}")
+            snippet = original.split(spec["start"], 1)[1].split(spec["end"], 1)[0]
+            if snippet.count("{") != snippet.count("}"):
+                raise ValueError(f"Helper must contain complete production blocks: {name}")
+            helpers[name] = {**spec, "sha256": hashlib.sha256(snippet.encode()).hexdigest()}
+            helper_text.append(f"{name} = {{\n{snippet}\n}}\n")
+    return helpers, helper_text
+
+
+def prepare(source, out, suite):
+    source, out = source.resolve(), out.resolve()
+    if not out.is_relative_to(ROOT / "runs") or out == ROOT / "runs":
+        raise ValueError("Test builds must be a new child of runs/")
+    if out.exists():
+        raise ValueError("Use a new test directory; previous evidence is immutable")
+    metadata = json.loads((source / ".metadata/metadata.json").read_text(encoding="utf-8-sig"))
+    if metadata["id"] != "speculative_markets_beta":
+        raise ValueError("Mechanics tests require the beta distribution")
+    fixture, script, expected = fixture_contract(suite)
     # Capture source hashes before copying; no regenerated production substitute.
     hashes = {p.relative_to(source).as_posix(): digest(p) for p in sorted(source.rglob("*")) if p.is_file()}
     shutil.copytree(source, out)
@@ -66,21 +90,7 @@ spec_mechanics_start = {{
         target = out / "common/static_modifiers/zz_spec_mechanics_modifiers.txt"
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(modifiers.read_text(encoding="utf-8-sig"), encoding="utf-8-sig")
-    # Helpers only expose otherwise embedded production blocks. Read the actual
-    # beta files, never a second implementation of a mechanic.
-    helper_file = ROOT / "tests/mechanics" / f"{suite}.helpers.json"
-    helpers = {}
-    helper_text = []
-    if helper_file.exists():
-        for name, spec in json.loads(helper_file.read_text()).items():
-            original = (source / spec["path"]).read_text(encoding="utf-8-sig")
-            if original.count(spec["start"]) != 1 or original.count(spec["end"]) != 1:
-                raise ValueError(f"Ambiguous production helper boundary: {name}")
-            snippet = original.split(spec["start"], 1)[1].split(spec["end"], 1)[0]
-            if snippet.count("{") != snippet.count("}"):
-                raise ValueError(f"Helper must contain complete production blocks: {name}")
-            helpers[name] = {**spec, "sha256": hashlib.sha256(snippet.encode()).hexdigest()}
-            helper_text.append(f"{name} = {{\n{snippet}\n}}\n")
+    helpers, helper_text = fixture_helpers(source, suite)
     if helper_text:
         (out / "common/scripted_effects/zz_spec_mechanics_helpers.txt").write_text("".join(helper_text), encoding="utf-8-sig")
     manifest = {"kind": KIND, "suite": suite, "source": str(source), "source_version": metadata["version"],

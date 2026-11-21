@@ -1,6 +1,9 @@
 ﻿je_spec_markets = {
 	icon = "gfx/interface/icons/spec_markets/je_markets.dds"
 	group = je_group_internal_affairs
+	# Each country already has its own finance entry. A victorious revolution
+	# must not copy the defeated parent's entry over that existing instance.
+	can_revolution_inherit = no
 
 	# players get it from spec_monthly; AI countries follow scripted rules instead of buttons (journal.MONTHLY_AI).
 	# Shown (and so activated) for a player whenever investors are let in: an entry left inactive, as one was for
@@ -65,15 +68,27 @@
 		name = "spec_je_history"
 		container = "custom_widget_container_4"
 	}
+	widget = {
+		gui = "gui/spec_journal_widgets.gui"
+		name = "spec_je_news"
+		container = "custom_widget_container_1"
+	}
+	widget = {
+		gui = "gui/spec_journal_widgets.gui"
+		name = "spec_je_marker"
+		container = "custom_widget_container_7"
+	}
 
-	# after the bars' periodic progress, which only itemizes the month for their tooltips
-	on_monthly_pulse = {
-		effect = {
-			je:je_spec_markets ?= {
-				set_bar_progress = { name = spec_confidence_bar value = root.var:spec_conf }
+	# on activation (a new player, or a switch to this country) the bars show their start values until the first
+	# pulse: Market Confidence read 55 in a panic at 18 (2026-11-16), so set them now
+	# spec_je: the entry itself, for the Finance window to open its panel under it (market_tab.JE_PANEL), whose map
+	# mode is the only way to show this one's
+	immediate = {
+		je:je_spec_markets ?= {
+			set_bar_progress = { name = spec_confidence_bar value = root.var:spec_conf }
 				if = {
 					limit = { root = { has_variable = spec_heat } }
-					set_bar_progress = { name = spec_excess_bar value = { value = root.var:spec_heat max = 200 } }
+					set_bar_progress = { name = spec_excess_bar value = { value = root.var:spec_heat max = 300 } }
 				}
 				else = {
 					set_bar_progress = { name = spec_excess_bar value = 0 }
@@ -82,6 +97,27 @@
 					limit = { root = { has_variable = spec_reforms } }
 					set_bar_progress = { name = spec_finance_bar value = root.var:spec_reforms }
 				}
+			root = { set_variable = { name = spec_je value = prev } }
+		}
+	}
+
+	# after the bars' periodic progress, which only itemizes the month for their tooltips
+	on_monthly_pulse = {
+		effect = {
+			je:je_spec_markets ?= {
+				set_bar_progress = { name = spec_confidence_bar value = root.var:spec_conf }
+				if = {
+					limit = { root = { has_variable = spec_heat } }
+					set_bar_progress = { name = spec_excess_bar value = { value = root.var:spec_heat max = 300 } }
+				}
+				else = {
+					set_bar_progress = { name = spec_excess_bar value = 0 }
+				}
+				if = {
+					limit = { root = { has_variable = spec_reforms } }
+					set_bar_progress = { name = spec_finance_bar value = root.var:spec_reforms }
+				}
+				root = { set_variable = { name = spec_je value = prev } }
 			}
 		}
 	}

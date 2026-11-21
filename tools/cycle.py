@@ -25,6 +25,8 @@ LAX_PANIC = tuning.get("LAX_PANIC", 0.4)             # lost when a panic ends wi
 LAX_CREDIT = tuning.get("LAX_CREDIT", 0.25)
 LAX_PULL = tuning.get("LAX_PULL", 0.5)
 LAX_COST = tuning.get("LAX_COST", 0.5)
+LAX_RECALL = tuning.get("LAX_RECALL", 0.3)  # the share of credit a panic calls back: 1.2 made it x0.7 Strict to x1.3 Reckless, was a flat 50%
+LAX_BADSTOP = tuning.get("LAX_BADSTOP", 0.5)  # the Bad Debts that stop lending: x0.5 Strict to x1.5 Reckless (1.2; any Bad Debts stopped it)
 LAX_CUTS = [0.2, 0.4, 0.6, 0.8]
 LAX_WORDS = ["Strict", "Cautious", "Sound", "Lax", "Reckless"]
 
@@ -42,6 +44,7 @@ _MAKERS = {}  # good -> every building making it
 CREDIT = "\tmultiply = spec_lax_credit\n" if ON else ""
 PULL = "\tmultiply = spec_lax_pull\n" if ON else ""
 COST = "\tmultiply = spec_lax_cost\n" if ON else ""
+RECALL = "\t\tmultiply = spec_lax_recall\n" if ON else ""  # in generate's spec_clawback, inside its if
 TILE_REF = "$SPEC_TILE_CYCLE$" if ON else ""
 NOTE_REF = "$SPEC_NOTE_CYCLE$" if ON else ""
 # ScriptValue, not Var: an unset Var ends the log line
@@ -51,7 +54,7 @@ LOG = " lax=[THIS.ScriptValue('spec_lax_value')] bb=[THIS.ScriptValue('spec_bb_t
 def setup(game, sells, upgrades):
     """Reads vanilla's buildings for each good's building group. Called once, where generate defines its goods."""
     def blocks(d):  # top-level name -> its text, up to the next name (vanilla's closing braces are not all at column 0)
-        parts = re.split(r"^(\w+)\s*=\s*\{", "\n".join(
+        parts = re.split(r"^(?:\w+:)?(\w+)\s*=\s*\{", "\n".join(  # Tech & Res prefixes REPLACE:
             f.read_text(encoding="utf-8-sig") for f in mod_sources.files(game, d)), flags=re.M)
         return zip(parts[1::2], parts[2::2])
     field = lambda body, key: (re.search(rf"^\t{key}\s*=\s*(\w+)", body, re.M) or [None, None])[1]
@@ -81,10 +84,6 @@ def _boosted():
     return sorted({g for gs in _GROUPS.values() for g in gs})
 
 
-LAX_FLAVOUR = ["Banks barely lend. Booms stay small and end gently.", "Banks lend carefully.", "The normal level.",
-               "Banks lend easily and chase booms.", "Banks lend to anyone. Booms run hot and end hard."]
-
-
 def level_loc(lax):
     """A tooltip for each level of the Banking tab's Lending Standards scale: its effects against Sound, from its low
     edge to its high (spec_lax_<k>: (2 x lax - 1) x LAX_<K>), and whether we are in it."""
@@ -99,13 +98,15 @@ def level_loc(lax):
                       f"And(GreaterThanOrEqualTo_CFixedPoint({lax}, '(CFixedPoint){cuts[i]}'), LessThan_CFixedPoint({lax}, '(CFixedPoint){cuts[i + 1]}'))")
     out = " SPEC_LAXL_HERE: \"\\n\\n#P We are here#!\"\n"
     for i, w in enumerate(LAX_WORDS):
-        trust = ("#P Our [concept_spec_exchange] builds trust in quiet months#!" if cuts[i + 1] <= LAX_CUTS[2] + 1e-9 else
-                 "#N Our [concept_spec_exchange] stops building trust#!")
-        out += (f' SPEC_LAXL_{i}_TT: "#header {w}#!\\n$TOOLTIP_DELIMITER$\\n#italic {LAX_FLAVOUR[i]}#!\\n\\n'
-                f'#b Compared with #v {LAX_WORDS[2]}#!:#!\\n'
-                f'Credit lent each month: {rng(LAX_CREDIT, i, False).replace("#P", "#v").replace("#N", "#v")}\\n'
-                f'Share of it going into booms: {rng(LAX_PULL, i, True)}\\n'
-                f'Cost of a Bank Rescue: {rng(LAX_COST, i, True)}\\n\\n{trust}'
+        # centres._trust: Sound or stricter gains, Lax nothing, Reckless loses
+        trust = ("$SPEC_LAX_TRUST$" if cuts[i + 1] <= LAX_CUTS[2] + 1e-9 else
+                 "$SPEC_LAX_NO_TRUST$" if cuts[i + 1] <= LAX_CUTS[3] + 1e-9 else "$SPEC_LAX_LOSE_TRUST$")
+        out += (f' SPEC_LAXL_{i}_TT: "#header {w}#!\\n[concept_spec_lending_standards] from #v {cuts[i] * 100:g}#! to #v {cuts[i + 1] * 100:g}#!\\n$TOOLTIP_DELIMITER$\\n'
+                f'{rng(LAX_CREDIT, i, False).replace("#P", "#v").replace("#N", "#v")} credit lent each month, against #v {LAX_WORDS[2]}#!\\n'
+                f'{rng(LAX_PULL, i, True)} share of it lent into booms\\n'
+                f'{rng(LAX_RECALL, i, True)} credit called back in a panic\\n'
+                f'{rng(LAX_BADSTOP, i, False).replace("#P", "#v").replace("#N", "#v")} [concept_spec_bad_debts] the banks will lend through\\n'
+                f'{rng(LAX_COST, i, True)} cost of a Bank Rescue\\n\\n{trust}'
                 f'[AddLocalizationIf({here(i)}, \'SPEC_LAXL_HERE\')]"\n')
     return out
 
@@ -119,7 +120,7 @@ def values(goods, share):
            "spec_lax_swing = {\n\tvalue = 0\n\tif = {\n\t\tlimit = { has_variable = spec_lax }\n\t\tvalue = var:spec_lax\n"
            "\t\tsubtract = 0.5\n\t\tmultiply = 2\n\t}\n}"]
     out += [f"spec_lax_{k} = {{\n\tvalue = spec_lax_swing\n\tmultiply = {n}\n\tadd = 1\n}}"
-            for k, n in (("credit", LAX_CREDIT), ("pull", LAX_PULL), ("cost", LAX_COST))]
+            for k, n in (("credit", LAX_CREDIT), ("pull", LAX_PULL), ("cost", LAX_COST), ("recall", LAX_RECALL), ("badstop", LAX_BADSTOP))]
     for grp, gs in _GROUPS.items():
         out.append(f"spec_bb_{grp} = {{\n\tvalue = 0\n" + "".join(
             f"\tif = {{\n\t\tlimit = {{ OR = {{ {' '.join(_hot(g, w, share) for g in gs)} }} }}\n\t\tvalue = {n}\n\t}}\n"
@@ -265,43 +266,50 @@ def shut_down(t="\t"):
 def loc():
     if not ON:
         return ""
-    from market_tab import fx, good_var, sv, v
+    import calc
+    from market_tab import IN_PANIC, P, STANCE, fx, good_var, sv, v
     gt = lambda a, b: f"GreaterThan_CFixedPoint({a}, {fx(b)})"
     pct = lambda name: f"#v [Subtract_CFixedPoint({sv(name)}, {fx(1)})|+%0]#!"
     lax = v("spec_lax", LAX_START)
+    pts = f"Multiply_CFixedPoint({lax}, {fx(100)})"  # shown 0 to 100
+    # monthly()'s drift test as things stand, and this month's change from booms ending (spec_c_crash and spec_c_restrain, negative)
+    quiet = f"And(Not({IN_PANIC}), And(Not(EqualTo_CFixedPoint({STANCE}, {fx(-1)})), Not({P}.Var('spec_crunch').IsSet)))"
+    booms = f"Multiply_CFixedPoint(Add_CFixedPoint({v('spec_c_crash')}, {v('spec_c_restrain')}), {fx(LAX_PER_CONF * 100)})"
     picks = "".join(f"SelectLocalization(LessThan_CFixedPoint({lax}, {fx(c)}), 'SPEC_LAXW_{i}', " for i, c in enumerate(LAX_CUTS))
     # Each toast carries its own captured numbers, including when several goods end together.
     over, ppl = "SCOPE.GetValue('spec_note_over')", "SCOPE.GetValue('spec_note_ppl')"
     return ("".join(f' spec_boom_build_{grp}: "Boom Construction"\n' for grp in _GROUPS)
             + "".join(f' SPEC_LAXW_{i}: "{w}"\n' for i, w in enumerate(LAX_WORDS))
             + level_loc(lax)
-            + f' SPEC_EFFECT_LAX: "Lending Standards"\n'
+            + f' SPEC_EFFECT_LAX: "[concept_spec_lending_standards]"\n'
             f' SPEC_EFFECT_LAX_VALUE: "#v [{picks}\'SPEC_LAXW_{len(LAX_CUTS)}\'{")" * len(LAX_CUTS)}]#!"\n'
-            f' SPEC_EFFECT_LAX_TT: "#header [concept_spec_lending_standards]: $SPEC_EFFECT_LAX_VALUE$#!\\n$TOOLTIP_DELIMITER$\\n'
-            f'#italic How careful our banks are when they lend. Careless banks lend more, but their booms end harder.#!\\n\\n'
-            f'#b Compared with normal (#v {LAX_WORDS[2]}#!)#!\\n'
-            f'{pct("spec_lax_credit")} credit lent each month\\n{pct("spec_lax_pull")} to the usual share of that credit going into booms\\n'
-            f'{pct("spec_lax_cost")} cost of a Bank Rescue\\n\\n'
-            f'#b How it moves#!\\n'
-            f'#N Looser#! a little every quiet month (#v {LAX_WORDS[0]}#! to #v {LAX_WORDS[-1]}#! takes about #v {LAX_QUIET_YEARS}#! years)\\n'
-            f'#N Much looser#! each time we rescue the banks\\n'
-            f'#P Stricter#! when a boom ends, or when we restrain one\\n'
-            f'#P Much stricter#! when a [concept_spec_financial_panic] ends without a rescue'
-            f'\\n$TOOLTIP_DELIMITER$\\n#instruction Set [concept_spec_credit_policy] to #v Tight#! to stop it getting looser. '
-            f'A panic or Bad Debts also pause it. #v {LAX_WORDS[2]}#! or stricter also builds our [concept_spec_exchange]\'s trust.#!"\n'
+            f' SPEC_EFFECT_LAX_TT: "#header [concept_spec_lending_standards]: $SPEC_EFFECT_LAX_VALUE$ (#v [{pts}|0]#!)#!\\n$TOOLTIP_DELIMITER$\\n'
+            f'[SelectLocalization({quiet}, \'SPEC_LAX_DRIFT\', \'SPEC_LAX_PAUSED\')][AddLocalizationIf({calc.shows(booms)}, \'SPEC_LAX_BOOMS\')]\\n\\n'
+            f'{pct("spec_lax_credit")} credit lent each month, against #v {LAX_WORDS[2]}#!\\n{pct("spec_lax_pull")} share of it lent into booms\\n'
+            f'{pct("spec_lax_recall")} credit called back in a panic\\n'
+            f'{pct("spec_lax_cost")} cost of a Bank Rescue\\n'
+            f'[SelectLocalization(LessThan_CFixedPoint({lax}, {fx(LAX_CUTS[2])}), \'SPEC_LAX_TRUST\', SelectLocalization(LessThan_CFixedPoint({lax}, {fx(LAX_CUTS[3])}), \'SPEC_LAX_NO_TRUST\', \'SPEC_LAX_LOSE_TRUST\'))]\\n$TOOLTIP_DELIMITER$\\n'
+            f'Banks get #N {LAX_RESCUE * 100:g}#! laxer each time we rescue them or buy up their bad loans, and #P {LAX_PANIC * 100:g}#! stricter '
+            f'when a [concept_spec_financial_panic] ends without a rescue. [Concept(\'concept_spec_credit_policy\',\'$concept_spec_credit_policy_tight$\')] stops them getting laxer."\n'
+            f' SPEC_LAX_DRIFT: "#N +{100 / (12 * LAX_QUIET_YEARS):.1f}#! a month in quiet months"\n'
+            f' SPEC_LAX_PAUSED: "#v 0#! a month, as no month is quiet during a [concept_spec_financial_panic], [Concept(\'concept_spec_credit_policy\',\'$concept_spec_credit_policy_tight$\')] or [concept_spec_bad_debts]"\n'
+            f' SPEC_LAX_BOOMS: "{calc.line(booms, "-=1", "booms that ended or were restrained this month")}"\n'
+            f' SPEC_LAX_TRUST: "#P Our [concept_spec_exchange] builds trust in quiet months#!"\n'
+            f' SPEC_LAX_NO_TRUST: "#N Our [concept_spec_exchange] stops building trust#!"\n'
+            f' SPEC_LAX_LOSE_TRUST: "#N Our [concept_spec_exchange] loses trust every month#!"\n'
             f' SPEC_TILE_CYCLE: "[SelectLocalization({gt(good_var("spec_ui_overx"), 1)}, \'SPEC_TILE_OVER_ON\', \'SPEC_GOODS_NONE\')]'
             f'[SelectLocalization({gt(good_var("spec_ui_bb"), 0)}, \'SPEC_TILE_BB_ON\', \'SPEC_GOODS_NONE\')]"\n'
-            f' SPEC_TILE_OVER_ON: "\\n\\n#title Overbuilding:#! #v [{good_var("spec_ui_over")}|%0]#! more supply since this boom began\\n'
-            f'If the boom ends, the hit to [concept_spec_market_confidence] is #N x[{good_var("spec_ui_overx")}|2]#! as big"\n'
-            f' SPEC_TILE_BB_ON: "\\n\\n#title Boom Construction:#! #P +[{good_var("spec_ui_bb")}|%0]#! construction efficiency '
-            f'for its industry while investors stay this keen"\n'
+            f' SPEC_TILE_OVER_ON: "\\n\\nSupply has grown #v [{good_var("spec_ui_over")}|%0]#! since this boom began, so if it ends, '
+            f'the hit to [concept_spec_market_confidence] is #N x[{good_var("spec_ui_overx")}|2]#! as big"\n'
+            f' SPEC_TILE_BB_ON: "\\n\\n#P +[{good_var("spec_ui_bb")}|%0]#! construction efficiency for its industry from Boom Construction, '
+            f'while investors stay this keen"\n'
             ' SPEC_NOTE_CYCLE: "'
             f'[SelectLocalization({gt(ppl, 2.5)}, \'SPEC_NOTE_PPL_3\', SelectLocalization({gt(ppl, 1.5)}, \'SPEC_NOTE_PPL_2\', '
             f'SelectLocalization({gt(ppl, 0.5)}, \'SPEC_NOTE_PPL_1\', \'SPEC_GOODS_NONE\')))]"\n'
-            f' SPEC_NOTE_OVER_ON: " So much had been built during the boom that the fall was #N x[{over}|2]#! as hard."\n'
-            f' SPEC_NOTE_PPL_1: " The workers who owned its industry bore the losses, and some have become [Concept(\'concept_radical\', \'$concept_radicals$\')] in the states where it stands."\n'
-            f' SPEC_NOTE_PPL_2: " Its owners bore the losses, and some have become [Concept(\'concept_radical\', \'$concept_radicals$\')] in the states where it stands."\n'
-            f' SPEC_NOTE_PPL_3: " Its owners and ordinary savers bore the losses, and many have become [Concept(\'concept_radical\', \'$concept_radicals$\')] in the states where it stands."\n')
+            f' SPEC_NOTE_OVER_ON: " Overbuilding made the hit #N x[{over}|2]#! as hard."\n'
+            f' SPEC_NOTE_PPL_1: " Losses have turned some of its worker-owners into [Concept(\'concept_radical\', \'$concept_radicals$\')]."\n'
+            f' SPEC_NOTE_PPL_2: " Losses have turned some of its owners into [Concept(\'concept_radical\', \'$concept_radicals$\')]."\n'
+            f' SPEC_NOTE_PPL_3: " Losses have turned many of its owners and savers into [Concept(\'concept_radical\', \'$concept_radicals$\')]."\n')
 
 
 if __name__ == "__main__":

@@ -1,0 +1,6 @@
+{
+ "2095c742e7": "Gdyby pękła teraz: #N całe#! [concept_spec_market_confidence]{1}\\nPasek jest pełny. Odtąd to, czego pęknięcie nie odbierze zaufaniu, zamienia się w [concept_spec_bad_debts].",
+ "e689f1cd5e": ", a do tego co najmniej #N {1}#! ([concept_spec_bad_debts])",
+ "a381ebcd97": " To, czego nie zdołało odebrać, zamieniło się w [concept_spec_bad_debts].",
+ "a129ca9f3c": "@spec_market_confidence! [concept_spec_market_confidence] spadło zbyt nisko, by podtrzymać nasz [concept_spec_speculative_excess], a pęknięcie bańki obniżyło je jeszcze bardziej.{1}"
+}

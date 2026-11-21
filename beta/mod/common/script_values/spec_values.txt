@@ -110,14 +110,52 @@ spec_alloc_base = {
 	}
 }
 
-spec_alloc_half = {
+spec_panic_cut_if = {
+	value = 0.5
+	add = {
+		value = spec_lev
+		subtract = 3
+		min = 0
+		multiply = 0.1
+	}
+	max = 1
+}
+
+spec_panic_cut_now = {
+	value = spec_panic_cut_if
+	if = {
+		limit = { has_variable = spec_panic_cut }
+		value = var:spec_panic_cut
+	}
+}
+
+spec_panic_crunch_full = {
 	value = spec_alloc_base
+	multiply = spec_panic_cut_now
+}
+
+spec_panic_crunch_rescued = {
+	value = spec_panic_crunch_full
 	multiply = 0.5
 }
 
-spec_alloc_quarter = {
-	value = spec_alloc_base
-	multiply = 0.25
+spec_panic_cut_shown = {
+	value = spec_panic_cut_now
+	if = {
+		limit = { has_variable = spec_rescued }
+		multiply = 0.5
+	}
+}
+
+spec_panic_lev_len = {
+	value = 1
+	add = {
+		value = spec_lev
+		subtract = 3
+		min = 0
+		max = 9
+		multiply = 0.1
+	}
 }
 
 spec_stance_hype = {
@@ -270,6 +308,7 @@ spec_mood_roll = {
 spec_credit_ceiling = {
 	value = spec_pool_month
 	multiply = 0.6
+	multiply = spec_nx_ceiling
 }
 
 spec_credit_limit = {
@@ -287,6 +326,7 @@ spec_credit_limit = {
 		add = 2
 	}
 	add = spec_exch_limit
+	add = spec_pb_limit
 	max = 12
 }
 
@@ -526,8 +566,45 @@ spec_lev_stress = {
 	max = 1
 }
 
-spec_panic_at = {
+spec_pl_lev = {
 	value = spec_lev_stress
+	multiply = 40
+}
+
+spec_pl_shallow = {
+	value = spec_shallow_panic
+	multiply = -1
+}
+
+spec_panic_at = {
+	value = 25
+	add = spec_pl_lev
+	add = spec_pl_shallow
+}
+
+spec_panic_at_3 = {
+	value = { value = 3 subtract = 3 divide = 9 min = 0 max = 1 }
+	multiply = 40
+	add = 25
+	subtract = spec_shallow_panic
+}
+
+spec_panic_at_8 = {
+	value = { value = 8 subtract = 3 divide = 9 min = 0 max = 1 }
+	multiply = 40
+	add = 25
+	subtract = spec_shallow_panic
+}
+
+spec_panic_at_10 = {
+	value = { value = 10 subtract = 3 divide = 9 min = 0 max = 1 }
+	multiply = 40
+	add = 25
+	subtract = spec_shallow_panic
+}
+
+spec_panic_at_12 = {
+	value = { value = 12 subtract = 3 divide = 9 min = 0 max = 1 }
 	multiply = 40
 	add = 25
 	subtract = spec_shallow_panic
@@ -636,9 +713,19 @@ spec_crunch_stress = {
 	max = 1
 }
 
+spec_xs_bad_sv = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_xs_bad }
+		value = var:spec_xs_bad
+	}
+}
+
 spec_crunch_if = {
 	value = spec_crunch_stress
 	multiply = 40
+	multiply = spec_nx_bad
+	add = spec_xs_bad_sv
 	min = spec_crunch_sv
 }
 
@@ -646,6 +733,30 @@ spec_crunch_months = {
 	value = spec_crunch_sv
 	divide = 0.6
 	ceiling = yes
+}
+
+spec_lim_central_banking = {
+	value = 0
+	if = {
+		limit = { has_technology_researched = central_banking }
+		value = 5
+	}
+}
+
+spec_lim_investment_banks = {
+	value = 0
+	if = {
+		limit = { has_technology_researched = investment_banks }
+		value = 2
+	}
+}
+
+spec_lim_international_exchange_standards = {
+	value = 0
+	if = {
+		limit = { has_technology_researched = international_exchange_standards }
+		value = 2
+	}
 }
 
 spec_crunch_tp_pct = {
@@ -693,8 +804,16 @@ spec_clawback = {
 		value = var:spec_debt
 		multiply = 0.5
 		max = investment_pool
+		max = { value = investment_pool multiply = spec_claw_share }
 		min = 0
 	}
+}
+
+spec_claw_share = {
+	value = spec_lev
+	divide = 8
+	min = 0.25
+	max = 1
 }
 
 spec_credit_runoff = {
@@ -717,7 +836,7 @@ spec_rescue_share = {
 	value = 0.06
 	if = {
 		limit = { has_technology_researched = central_banking }
-		value = 0.04
+		value = 0.042
 	}
 	multiply = spec_reform_rescue
 	multiply = spec_lax_cost
@@ -738,11 +857,11 @@ spec_fin_boom = {
 	value = 0.7
 	if = {
 		limit = { has_technology_researched = stock_exchange }
-		add = 0.25
+		add = 0.245
 	}
 	if = {
 		limit = { has_technology_researched = investment_banks }
-		add = 0.3
+		add = 0.28
 	}
 	if = {
 		limit = { has_technology_researched = modern_financial_instruments }
@@ -780,14 +899,6 @@ spec_burst_per_heat = {
 	}
 }
 
-spec_burst_max = {
-	value = 40
-	if = {
-		limit = { has_game_rule = spec_volatility_heightened }
-		value = 45
-	}
-}
-
 spec_boom_rule = {
 	value = 1
 	if = {
@@ -796,9 +907,12 @@ spec_boom_rule = {
 	}
 }
 
-spec_burst_floor = {
-	value = 0
-	subtract = spec_burst_max
+spec_heat_cool = {
+	value = 0.98
+	if = {
+		limit = { spec_stance_value < 0 }
+		value = 0.95
+	}
 }
 
 spec_macro = {
@@ -831,6 +945,14 @@ spec_flight_mult = {
 		add = 1
 	}
 	multiply = spec_exch_flight
+}
+
+spec_world_shelter = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_exch_stand var:spec_exch_stand = 3 }
+		value = 0.7
+	}
 }
 
 spec_foreign_loss_mult = {
@@ -871,6 +993,7 @@ spec_panic_relief_week = {
 spec_rescue_cost = {
 	value = gdp
 	multiply = spec_rescue_share_now
+	multiply = spec_nx_rescue
 	divide = 1000
 	round = yes
 	multiply = 1000
@@ -889,6 +1012,7 @@ spec_speculator_tax = {
 spec_panic_months = {
 	value = 6.5
 	multiply = spec_panic_mult
+	multiply = spec_nx_panic
 	ceiling = yes
 	min = 1
 }
@@ -914,6 +1038,7 @@ spec_conf_pre = {
 	add = var:spec_c_mood
 	add = var:spec_c_growth
 	add = var:spec_c_business
+	add = var:spec_c_rival
 }
 
 spec_tight_pull = {
@@ -936,12 +1061,70 @@ spec_crash_scale = {
 	multiply = spec_depth
 	multiply = spec_steady
 	multiply = spec_fin_risk
+	multiply = spec_nx_crash
+	multiply = spec_bc_shelter
 }
 
 spec_mg_value = {
 	value = market_goods_sell_orders
 	multiply = goods.base_price
 }
+
+spec_calendar_day = { value = game_date }
+
+spec_goods_risk_order = {
+	value = 0
+	if = { limit = { this = g:aeroplanes } value = scope:spec_sort_owner.var:spec_risk_aeroplanes }
+	else_if = { limit = { this = g:ammunition } value = scope:spec_sort_owner.var:spec_risk_ammunition }
+	else_if = { limit = { this = g:artillery } value = scope:spec_sort_owner.var:spec_risk_artillery }
+	else_if = { limit = { this = g:automobiles } value = scope:spec_sort_owner.var:spec_risk_automobiles }
+	else_if = { limit = { this = g:clippers } value = scope:spec_sort_owner.var:spec_risk_clippers }
+	else_if = { limit = { this = g:clothes } value = scope:spec_sort_owner.var:spec_risk_clothes }
+	else_if = { limit = { this = g:coal } value = scope:spec_sort_owner.var:spec_risk_coal }
+	else_if = { limit = { this = g:coffee } value = scope:spec_sort_owner.var:spec_risk_coffee }
+	else_if = { limit = { this = g:copper } value = scope:spec_sort_owner.var:spec_risk_copper }
+	else_if = { limit = { this = g:dye } value = scope:spec_sort_owner.var:spec_risk_dye }
+	else_if = { limit = { this = g:electricity } value = scope:spec_sort_owner.var:spec_risk_electricity }
+	else_if = { limit = { this = g:engines } value = scope:spec_sort_owner.var:spec_risk_engines }
+	else_if = { limit = { this = g:explosives } value = scope:spec_sort_owner.var:spec_risk_explosives }
+	else_if = { limit = { this = g:fabric } value = scope:spec_sort_owner.var:spec_risk_fabric }
+	else_if = { limit = { this = g:fertilizer } value = scope:spec_sort_owner.var:spec_risk_fertilizer }
+	else_if = { limit = { this = g:fine_art } value = scope:spec_sort_owner.var:spec_risk_fine_art }
+	else_if = { limit = { this = g:fish } value = scope:spec_sort_owner.var:spec_risk_fish }
+	else_if = { limit = { this = g:fruit } value = scope:spec_sort_owner.var:spec_risk_fruit }
+	else_if = { limit = { this = g:furniture } value = scope:spec_sort_owner.var:spec_risk_furniture }
+	else_if = { limit = { this = g:glass } value = scope:spec_sort_owner.var:spec_risk_glass }
+	else_if = { limit = { this = g:grain } value = scope:spec_sort_owner.var:spec_risk_grain }
+	else_if = { limit = { this = g:groceries } value = scope:spec_sort_owner.var:spec_risk_groceries }
+	else_if = { limit = { this = g:hardwood } value = scope:spec_sort_owner.var:spec_risk_hardwood }
+	else_if = { limit = { this = g:iron } value = scope:spec_sort_owner.var:spec_risk_iron }
+	else_if = { limit = { this = g:lead } value = scope:spec_sort_owner.var:spec_risk_lead }
+	else_if = { limit = { this = g:liquor } value = scope:spec_sort_owner.var:spec_risk_liquor }
+	else_if = { limit = { this = g:luxury_clothes } value = scope:spec_sort_owner.var:spec_risk_luxury_clothes }
+	else_if = { limit = { this = g:luxury_furniture } value = scope:spec_sort_owner.var:spec_risk_luxury_furniture }
+	else_if = { limit = { this = g:meat } value = scope:spec_sort_owner.var:spec_risk_meat }
+	else_if = { limit = { this = g:merchant_marine } value = scope:spec_sort_owner.var:spec_risk_merchant_marine }
+	else_if = { limit = { this = g:oil } value = scope:spec_sort_owner.var:spec_risk_oil }
+	else_if = { limit = { this = g:opium } value = scope:spec_sort_owner.var:spec_risk_opium }
+	else_if = { limit = { this = g:paper } value = scope:spec_sort_owner.var:spec_risk_paper }
+	else_if = { limit = { this = g:porcelain } value = scope:spec_sort_owner.var:spec_risk_porcelain }
+	else_if = { limit = { this = g:radios } value = scope:spec_sort_owner.var:spec_risk_radios }
+	else_if = { limit = { this = g:rubber } value = scope:spec_sort_owner.var:spec_risk_rubber }
+	else_if = { limit = { this = g:silk } value = scope:spec_sort_owner.var:spec_risk_silk }
+	else_if = { limit = { this = g:small_arms } value = scope:spec_sort_owner.var:spec_risk_small_arms }
+	else_if = { limit = { this = g:steamers } value = scope:spec_sort_owner.var:spec_risk_steamers }
+	else_if = { limit = { this = g:steel } value = scope:spec_sort_owner.var:spec_risk_steel }
+	else_if = { limit = { this = g:sugar } value = scope:spec_sort_owner.var:spec_risk_sugar }
+	else_if = { limit = { this = g:sulfur } value = scope:spec_sort_owner.var:spec_risk_sulfur }
+	else_if = { limit = { this = g:tanks } value = scope:spec_sort_owner.var:spec_risk_tanks }
+	else_if = { limit = { this = g:tea } value = scope:spec_sort_owner.var:spec_risk_tea }
+	else_if = { limit = { this = g:telephones } value = scope:spec_sort_owner.var:spec_risk_telephones }
+	else_if = { limit = { this = g:tobacco } value = scope:spec_sort_owner.var:spec_risk_tobacco }
+	else_if = { limit = { this = g:tools } value = scope:spec_sort_owner.var:spec_risk_tools }
+	else_if = { limit = { this = g:wine } value = scope:spec_sort_owner.var:spec_risk_wine }
+	else_if = { limit = { this = g:wood } value = scope:spec_sort_owner.var:spec_risk_wood }
+}
+
 
 spec_market_value = {
 	value = 0
@@ -4379,6 +4562,25 @@ spec_over_mult_wood = {
 	add = 1
 }
 
+spec_push_m = {
+	value = var:spec_conf
+	divide = 55
+}
+
+spec_push_full_encourage = {
+	value = spec_push_m
+	multiply = 1.2
+	add = 1
+}
+
+spec_push_full_restrain = {
+	value = spec_push_m
+	divide = {
+		value = spec_push_m
+		add = 1.2
+	}
+}
+
 spec_dev_aeroplanes = {
 	value = 0
 	market ?= {
@@ -4452,26 +4654,44 @@ spec_hype_raw_aeroplanes = {
 	max = 20
 }
 
+spec_push_sv_aeroplanes = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_aeroplanes
+			OR = { has_variable = spec_encourage_aeroplanes has_variable = spec_restrain_aeroplanes }
+		}
+		value = var:spec_push_aeroplanes
+	}
+}
+
+spec_push_next_aeroplanes = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_aeroplanes }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_aeroplanes }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_aeroplanes
+	multiply = 0.35
+	add = spec_push_sv_aeroplanes
+}
+
 spec_hype_next_aeroplanes = {
 	value = spec_hype_raw_aeroplanes
 	if = {
 		limit = { has_variable = spec_glut_aeroplanes }
 		value = 0.4
 	}
+	multiply = spec_push_next_aeroplanes
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_aeroplanes
-			has_variable = spec_hype_aeroplanes
-		}
-		max = { value = var:spec_hype_aeroplanes subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_aeroplanes }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_aeroplanes
-			has_variable = spec_hype_aeroplanes
-		}
-		min = { value = 2.2 subtract = var:spec_hype_aeroplanes multiply = 0.35 add = var:spec_hype_aeroplanes max = 2 }
 	}
 }
 
@@ -4626,26 +4846,44 @@ spec_hype_raw_ammunition = {
 	max = 20
 }
 
+spec_push_sv_ammunition = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_ammunition
+			OR = { has_variable = spec_encourage_ammunition has_variable = spec_restrain_ammunition }
+		}
+		value = var:spec_push_ammunition
+	}
+}
+
+spec_push_next_ammunition = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_ammunition }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_ammunition }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_ammunition
+	multiply = 0.35
+	add = spec_push_sv_ammunition
+}
+
 spec_hype_next_ammunition = {
 	value = spec_hype_raw_ammunition
 	if = {
 		limit = { has_variable = spec_glut_ammunition }
 		value = 0.4
 	}
+	multiply = spec_push_next_ammunition
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_ammunition
-			has_variable = spec_hype_ammunition
-		}
-		max = { value = var:spec_hype_ammunition subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_ammunition }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_ammunition
-			has_variable = spec_hype_ammunition
-		}
-		min = { value = 2.2 subtract = var:spec_hype_ammunition multiply = 0.35 add = var:spec_hype_ammunition max = 2 }
 	}
 }
 
@@ -4800,26 +5038,44 @@ spec_hype_raw_artillery = {
 	max = 20
 }
 
+spec_push_sv_artillery = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_artillery
+			OR = { has_variable = spec_encourage_artillery has_variable = spec_restrain_artillery }
+		}
+		value = var:spec_push_artillery
+	}
+}
+
+spec_push_next_artillery = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_artillery }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_artillery }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_artillery
+	multiply = 0.35
+	add = spec_push_sv_artillery
+}
+
 spec_hype_next_artillery = {
 	value = spec_hype_raw_artillery
 	if = {
 		limit = { has_variable = spec_glut_artillery }
 		value = 0.4
 	}
+	multiply = spec_push_next_artillery
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_artillery
-			has_variable = spec_hype_artillery
-		}
-		max = { value = var:spec_hype_artillery subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_artillery }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_artillery
-			has_variable = spec_hype_artillery
-		}
-		min = { value = 2.2 subtract = var:spec_hype_artillery multiply = 0.35 add = var:spec_hype_artillery max = 2 }
 	}
 }
 
@@ -4974,26 +5230,44 @@ spec_hype_raw_automobiles = {
 	max = 20
 }
 
+spec_push_sv_automobiles = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_automobiles
+			OR = { has_variable = spec_encourage_automobiles has_variable = spec_restrain_automobiles }
+		}
+		value = var:spec_push_automobiles
+	}
+}
+
+spec_push_next_automobiles = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_automobiles }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_automobiles }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_automobiles
+	multiply = 0.35
+	add = spec_push_sv_automobiles
+}
+
 spec_hype_next_automobiles = {
 	value = spec_hype_raw_automobiles
 	if = {
 		limit = { has_variable = spec_glut_automobiles }
 		value = 0.4
 	}
+	multiply = spec_push_next_automobiles
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_automobiles
-			has_variable = spec_hype_automobiles
-		}
-		max = { value = var:spec_hype_automobiles subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_automobiles }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_automobiles
-			has_variable = spec_hype_automobiles
-		}
-		min = { value = 2.2 subtract = var:spec_hype_automobiles multiply = 0.35 add = var:spec_hype_automobiles max = 2 }
 	}
 }
 
@@ -5148,26 +5422,44 @@ spec_hype_raw_clippers = {
 	max = 20
 }
 
+spec_push_sv_clippers = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_clippers
+			OR = { has_variable = spec_encourage_clippers has_variable = spec_restrain_clippers }
+		}
+		value = var:spec_push_clippers
+	}
+}
+
+spec_push_next_clippers = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_clippers }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_clippers }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_clippers
+	multiply = 0.35
+	add = spec_push_sv_clippers
+}
+
 spec_hype_next_clippers = {
 	value = spec_hype_raw_clippers
 	if = {
 		limit = { has_variable = spec_glut_clippers }
 		value = 0.4
 	}
+	multiply = spec_push_next_clippers
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_clippers
-			has_variable = spec_hype_clippers
-		}
-		max = { value = var:spec_hype_clippers subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_clippers }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_clippers
-			has_variable = spec_hype_clippers
-		}
-		min = { value = 2.2 subtract = var:spec_hype_clippers multiply = 0.35 add = var:spec_hype_clippers max = 2 }
 	}
 }
 
@@ -5322,26 +5614,44 @@ spec_hype_raw_clothes = {
 	max = 20
 }
 
+spec_push_sv_clothes = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_clothes
+			OR = { has_variable = spec_encourage_clothes has_variable = spec_restrain_clothes }
+		}
+		value = var:spec_push_clothes
+	}
+}
+
+spec_push_next_clothes = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_clothes }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_clothes }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_clothes
+	multiply = 0.35
+	add = spec_push_sv_clothes
+}
+
 spec_hype_next_clothes = {
 	value = spec_hype_raw_clothes
 	if = {
 		limit = { has_variable = spec_glut_clothes }
 		value = 0.4
 	}
+	multiply = spec_push_next_clothes
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_clothes
-			has_variable = spec_hype_clothes
-		}
-		max = { value = var:spec_hype_clothes subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_clothes }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_clothes
-			has_variable = spec_hype_clothes
-		}
-		min = { value = 2.2 subtract = var:spec_hype_clothes multiply = 0.35 add = var:spec_hype_clothes max = 2 }
 	}
 }
 
@@ -5496,26 +5806,44 @@ spec_hype_raw_coal = {
 	max = 20
 }
 
+spec_push_sv_coal = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_coal
+			OR = { has_variable = spec_encourage_coal has_variable = spec_restrain_coal }
+		}
+		value = var:spec_push_coal
+	}
+}
+
+spec_push_next_coal = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_coal }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_coal }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_coal
+	multiply = 0.35
+	add = spec_push_sv_coal
+}
+
 spec_hype_next_coal = {
 	value = spec_hype_raw_coal
 	if = {
 		limit = { has_variable = spec_glut_coal }
 		value = 0.4
 	}
+	multiply = spec_push_next_coal
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_coal
-			has_variable = spec_hype_coal
-		}
-		max = { value = var:spec_hype_coal subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_coal }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_coal
-			has_variable = spec_hype_coal
-		}
-		min = { value = 2.2 subtract = var:spec_hype_coal multiply = 0.35 add = var:spec_hype_coal max = 2 }
 	}
 }
 
@@ -5670,26 +5998,44 @@ spec_hype_raw_coffee = {
 	max = 20
 }
 
+spec_push_sv_coffee = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_coffee
+			OR = { has_variable = spec_encourage_coffee has_variable = spec_restrain_coffee }
+		}
+		value = var:spec_push_coffee
+	}
+}
+
+spec_push_next_coffee = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_coffee }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_coffee }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_coffee
+	multiply = 0.35
+	add = spec_push_sv_coffee
+}
+
 spec_hype_next_coffee = {
 	value = spec_hype_raw_coffee
 	if = {
 		limit = { has_variable = spec_glut_coffee }
 		value = 0.4
 	}
+	multiply = spec_push_next_coffee
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_coffee
-			has_variable = spec_hype_coffee
-		}
-		max = { value = var:spec_hype_coffee subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_coffee }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_coffee
-			has_variable = spec_hype_coffee
-		}
-		min = { value = 2.2 subtract = var:spec_hype_coffee multiply = 0.35 add = var:spec_hype_coffee max = 2 }
 	}
 }
 
@@ -5844,26 +6190,44 @@ spec_hype_raw_copper = {
 	max = 20
 }
 
+spec_push_sv_copper = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_copper
+			OR = { has_variable = spec_encourage_copper has_variable = spec_restrain_copper }
+		}
+		value = var:spec_push_copper
+	}
+}
+
+spec_push_next_copper = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_copper }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_copper }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_copper
+	multiply = 0.35
+	add = spec_push_sv_copper
+}
+
 spec_hype_next_copper = {
 	value = spec_hype_raw_copper
 	if = {
 		limit = { has_variable = spec_glut_copper }
 		value = 0.4
 	}
+	multiply = spec_push_next_copper
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_copper
-			has_variable = spec_hype_copper
-		}
-		max = { value = var:spec_hype_copper subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_copper }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_copper
-			has_variable = spec_hype_copper
-		}
-		min = { value = 2.2 subtract = var:spec_hype_copper multiply = 0.35 add = var:spec_hype_copper max = 2 }
 	}
 }
 
@@ -6018,26 +6382,44 @@ spec_hype_raw_dye = {
 	max = 20
 }
 
+spec_push_sv_dye = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_dye
+			OR = { has_variable = spec_encourage_dye has_variable = spec_restrain_dye }
+		}
+		value = var:spec_push_dye
+	}
+}
+
+spec_push_next_dye = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_dye }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_dye }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_dye
+	multiply = 0.35
+	add = spec_push_sv_dye
+}
+
 spec_hype_next_dye = {
 	value = spec_hype_raw_dye
 	if = {
 		limit = { has_variable = spec_glut_dye }
 		value = 0.4
 	}
+	multiply = spec_push_next_dye
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_dye
-			has_variable = spec_hype_dye
-		}
-		max = { value = var:spec_hype_dye subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_dye }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_dye
-			has_variable = spec_hype_dye
-		}
-		min = { value = 2.2 subtract = var:spec_hype_dye multiply = 0.35 add = var:spec_hype_dye max = 2 }
 	}
 }
 
@@ -6192,26 +6574,44 @@ spec_hype_raw_electricity = {
 	max = 20
 }
 
+spec_push_sv_electricity = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_electricity
+			OR = { has_variable = spec_encourage_electricity has_variable = spec_restrain_electricity }
+		}
+		value = var:spec_push_electricity
+	}
+}
+
+spec_push_next_electricity = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_electricity }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_electricity }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_electricity
+	multiply = 0.35
+	add = spec_push_sv_electricity
+}
+
 spec_hype_next_electricity = {
 	value = spec_hype_raw_electricity
 	if = {
 		limit = { has_variable = spec_glut_electricity }
 		value = 0.4
 	}
+	multiply = spec_push_next_electricity
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_electricity
-			has_variable = spec_hype_electricity
-		}
-		max = { value = var:spec_hype_electricity subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_electricity }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_electricity
-			has_variable = spec_hype_electricity
-		}
-		min = { value = 2.2 subtract = var:spec_hype_electricity multiply = 0.35 add = var:spec_hype_electricity max = 2 }
 	}
 }
 
@@ -6366,26 +6766,44 @@ spec_hype_raw_engines = {
 	max = 20
 }
 
+spec_push_sv_engines = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_engines
+			OR = { has_variable = spec_encourage_engines has_variable = spec_restrain_engines }
+		}
+		value = var:spec_push_engines
+	}
+}
+
+spec_push_next_engines = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_engines }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_engines }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_engines
+	multiply = 0.35
+	add = spec_push_sv_engines
+}
+
 spec_hype_next_engines = {
 	value = spec_hype_raw_engines
 	if = {
 		limit = { has_variable = spec_glut_engines }
 		value = 0.4
 	}
+	multiply = spec_push_next_engines
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_engines
-			has_variable = spec_hype_engines
-		}
-		max = { value = var:spec_hype_engines subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_engines }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_engines
-			has_variable = spec_hype_engines
-		}
-		min = { value = 2.2 subtract = var:spec_hype_engines multiply = 0.35 add = var:spec_hype_engines max = 2 }
 	}
 }
 
@@ -6540,26 +6958,44 @@ spec_hype_raw_explosives = {
 	max = 20
 }
 
+spec_push_sv_explosives = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_explosives
+			OR = { has_variable = spec_encourage_explosives has_variable = spec_restrain_explosives }
+		}
+		value = var:spec_push_explosives
+	}
+}
+
+spec_push_next_explosives = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_explosives }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_explosives }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_explosives
+	multiply = 0.35
+	add = spec_push_sv_explosives
+}
+
 spec_hype_next_explosives = {
 	value = spec_hype_raw_explosives
 	if = {
 		limit = { has_variable = spec_glut_explosives }
 		value = 0.4
 	}
+	multiply = spec_push_next_explosives
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_explosives
-			has_variable = spec_hype_explosives
-		}
-		max = { value = var:spec_hype_explosives subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_explosives }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_explosives
-			has_variable = spec_hype_explosives
-		}
-		min = { value = 2.2 subtract = var:spec_hype_explosives multiply = 0.35 add = var:spec_hype_explosives max = 2 }
 	}
 }
 
@@ -6714,26 +7150,44 @@ spec_hype_raw_fabric = {
 	max = 20
 }
 
+spec_push_sv_fabric = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_fabric
+			OR = { has_variable = spec_encourage_fabric has_variable = spec_restrain_fabric }
+		}
+		value = var:spec_push_fabric
+	}
+}
+
+spec_push_next_fabric = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_fabric }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_fabric }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_fabric
+	multiply = 0.35
+	add = spec_push_sv_fabric
+}
+
 spec_hype_next_fabric = {
 	value = spec_hype_raw_fabric
 	if = {
 		limit = { has_variable = spec_glut_fabric }
 		value = 0.4
 	}
+	multiply = spec_push_next_fabric
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_fabric
-			has_variable = spec_hype_fabric
-		}
-		max = { value = var:spec_hype_fabric subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_fabric }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_fabric
-			has_variable = spec_hype_fabric
-		}
-		min = { value = 2.2 subtract = var:spec_hype_fabric multiply = 0.35 add = var:spec_hype_fabric max = 2 }
 	}
 }
 
@@ -6888,26 +7342,44 @@ spec_hype_raw_fertilizer = {
 	max = 20
 }
 
+spec_push_sv_fertilizer = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_fertilizer
+			OR = { has_variable = spec_encourage_fertilizer has_variable = spec_restrain_fertilizer }
+		}
+		value = var:spec_push_fertilizer
+	}
+}
+
+spec_push_next_fertilizer = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_fertilizer }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_fertilizer }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_fertilizer
+	multiply = 0.35
+	add = spec_push_sv_fertilizer
+}
+
 spec_hype_next_fertilizer = {
 	value = spec_hype_raw_fertilizer
 	if = {
 		limit = { has_variable = spec_glut_fertilizer }
 		value = 0.4
 	}
+	multiply = spec_push_next_fertilizer
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_fertilizer
-			has_variable = spec_hype_fertilizer
-		}
-		max = { value = var:spec_hype_fertilizer subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_fertilizer }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_fertilizer
-			has_variable = spec_hype_fertilizer
-		}
-		min = { value = 2.2 subtract = var:spec_hype_fertilizer multiply = 0.35 add = var:spec_hype_fertilizer max = 2 }
 	}
 }
 
@@ -7062,26 +7534,44 @@ spec_hype_raw_fine_art = {
 	max = 20
 }
 
+spec_push_sv_fine_art = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_fine_art
+			OR = { has_variable = spec_encourage_fine_art has_variable = spec_restrain_fine_art }
+		}
+		value = var:spec_push_fine_art
+	}
+}
+
+spec_push_next_fine_art = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_fine_art }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_fine_art }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_fine_art
+	multiply = 0.35
+	add = spec_push_sv_fine_art
+}
+
 spec_hype_next_fine_art = {
 	value = spec_hype_raw_fine_art
 	if = {
 		limit = { has_variable = spec_glut_fine_art }
 		value = 0.4
 	}
+	multiply = spec_push_next_fine_art
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_fine_art
-			has_variable = spec_hype_fine_art
-		}
-		max = { value = var:spec_hype_fine_art subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_fine_art }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_fine_art
-			has_variable = spec_hype_fine_art
-		}
-		min = { value = 2.2 subtract = var:spec_hype_fine_art multiply = 0.35 add = var:spec_hype_fine_art max = 2 }
 	}
 }
 
@@ -7236,26 +7726,44 @@ spec_hype_raw_fish = {
 	max = 20
 }
 
+spec_push_sv_fish = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_fish
+			OR = { has_variable = spec_encourage_fish has_variable = spec_restrain_fish }
+		}
+		value = var:spec_push_fish
+	}
+}
+
+spec_push_next_fish = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_fish }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_fish }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_fish
+	multiply = 0.35
+	add = spec_push_sv_fish
+}
+
 spec_hype_next_fish = {
 	value = spec_hype_raw_fish
 	if = {
 		limit = { has_variable = spec_glut_fish }
 		value = 0.4
 	}
+	multiply = spec_push_next_fish
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_fish
-			has_variable = spec_hype_fish
-		}
-		max = { value = var:spec_hype_fish subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_fish }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_fish
-			has_variable = spec_hype_fish
-		}
-		min = { value = 2.2 subtract = var:spec_hype_fish multiply = 0.35 add = var:spec_hype_fish max = 2 }
 	}
 }
 
@@ -7410,26 +7918,44 @@ spec_hype_raw_fruit = {
 	max = 20
 }
 
+spec_push_sv_fruit = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_fruit
+			OR = { has_variable = spec_encourage_fruit has_variable = spec_restrain_fruit }
+		}
+		value = var:spec_push_fruit
+	}
+}
+
+spec_push_next_fruit = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_fruit }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_fruit }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_fruit
+	multiply = 0.35
+	add = spec_push_sv_fruit
+}
+
 spec_hype_next_fruit = {
 	value = spec_hype_raw_fruit
 	if = {
 		limit = { has_variable = spec_glut_fruit }
 		value = 0.4
 	}
+	multiply = spec_push_next_fruit
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_fruit
-			has_variable = spec_hype_fruit
-		}
-		max = { value = var:spec_hype_fruit subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_fruit }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_fruit
-			has_variable = spec_hype_fruit
-		}
-		min = { value = 2.2 subtract = var:spec_hype_fruit multiply = 0.35 add = var:spec_hype_fruit max = 2 }
 	}
 }
 
@@ -7584,26 +8110,44 @@ spec_hype_raw_furniture = {
 	max = 20
 }
 
+spec_push_sv_furniture = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_furniture
+			OR = { has_variable = spec_encourage_furniture has_variable = spec_restrain_furniture }
+		}
+		value = var:spec_push_furniture
+	}
+}
+
+spec_push_next_furniture = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_furniture }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_furniture }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_furniture
+	multiply = 0.35
+	add = spec_push_sv_furniture
+}
+
 spec_hype_next_furniture = {
 	value = spec_hype_raw_furniture
 	if = {
 		limit = { has_variable = spec_glut_furniture }
 		value = 0.4
 	}
+	multiply = spec_push_next_furniture
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_furniture
-			has_variable = spec_hype_furniture
-		}
-		max = { value = var:spec_hype_furniture subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_furniture }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_furniture
-			has_variable = spec_hype_furniture
-		}
-		min = { value = 2.2 subtract = var:spec_hype_furniture multiply = 0.35 add = var:spec_hype_furniture max = 2 }
 	}
 }
 
@@ -7758,26 +8302,44 @@ spec_hype_raw_glass = {
 	max = 20
 }
 
+spec_push_sv_glass = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_glass
+			OR = { has_variable = spec_encourage_glass has_variable = spec_restrain_glass }
+		}
+		value = var:spec_push_glass
+	}
+}
+
+spec_push_next_glass = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_glass }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_glass }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_glass
+	multiply = 0.35
+	add = spec_push_sv_glass
+}
+
 spec_hype_next_glass = {
 	value = spec_hype_raw_glass
 	if = {
 		limit = { has_variable = spec_glut_glass }
 		value = 0.4
 	}
+	multiply = spec_push_next_glass
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_glass
-			has_variable = spec_hype_glass
-		}
-		max = { value = var:spec_hype_glass subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_glass }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_glass
-			has_variable = spec_hype_glass
-		}
-		min = { value = 2.2 subtract = var:spec_hype_glass multiply = 0.35 add = var:spec_hype_glass max = 2 }
 	}
 }
 
@@ -7932,26 +8494,44 @@ spec_hype_raw_grain = {
 	max = 20
 }
 
+spec_push_sv_grain = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_grain
+			OR = { has_variable = spec_encourage_grain has_variable = spec_restrain_grain }
+		}
+		value = var:spec_push_grain
+	}
+}
+
+spec_push_next_grain = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_grain }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_grain }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_grain
+	multiply = 0.35
+	add = spec_push_sv_grain
+}
+
 spec_hype_next_grain = {
 	value = spec_hype_raw_grain
 	if = {
 		limit = { has_variable = spec_glut_grain }
 		value = 0.4
 	}
+	multiply = spec_push_next_grain
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_grain
-			has_variable = spec_hype_grain
-		}
-		max = { value = var:spec_hype_grain subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_grain }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_grain
-			has_variable = spec_hype_grain
-		}
-		min = { value = 2.2 subtract = var:spec_hype_grain multiply = 0.35 add = var:spec_hype_grain max = 2 }
 	}
 }
 
@@ -8106,26 +8686,44 @@ spec_hype_raw_groceries = {
 	max = 20
 }
 
+spec_push_sv_groceries = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_groceries
+			OR = { has_variable = spec_encourage_groceries has_variable = spec_restrain_groceries }
+		}
+		value = var:spec_push_groceries
+	}
+}
+
+spec_push_next_groceries = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_groceries }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_groceries }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_groceries
+	multiply = 0.35
+	add = spec_push_sv_groceries
+}
+
 spec_hype_next_groceries = {
 	value = spec_hype_raw_groceries
 	if = {
 		limit = { has_variable = spec_glut_groceries }
 		value = 0.4
 	}
+	multiply = spec_push_next_groceries
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_groceries
-			has_variable = spec_hype_groceries
-		}
-		max = { value = var:spec_hype_groceries subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_groceries }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_groceries
-			has_variable = spec_hype_groceries
-		}
-		min = { value = 2.2 subtract = var:spec_hype_groceries multiply = 0.35 add = var:spec_hype_groceries max = 2 }
 	}
 }
 
@@ -8280,26 +8878,44 @@ spec_hype_raw_hardwood = {
 	max = 20
 }
 
+spec_push_sv_hardwood = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_hardwood
+			OR = { has_variable = spec_encourage_hardwood has_variable = spec_restrain_hardwood }
+		}
+		value = var:spec_push_hardwood
+	}
+}
+
+spec_push_next_hardwood = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_hardwood }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_hardwood }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_hardwood
+	multiply = 0.35
+	add = spec_push_sv_hardwood
+}
+
 spec_hype_next_hardwood = {
 	value = spec_hype_raw_hardwood
 	if = {
 		limit = { has_variable = spec_glut_hardwood }
 		value = 0.4
 	}
+	multiply = spec_push_next_hardwood
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_hardwood
-			has_variable = spec_hype_hardwood
-		}
-		max = { value = var:spec_hype_hardwood subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_hardwood }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_hardwood
-			has_variable = spec_hype_hardwood
-		}
-		min = { value = 2.2 subtract = var:spec_hype_hardwood multiply = 0.35 add = var:spec_hype_hardwood max = 2 }
 	}
 }
 
@@ -8454,26 +9070,44 @@ spec_hype_raw_iron = {
 	max = 20
 }
 
+spec_push_sv_iron = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_iron
+			OR = { has_variable = spec_encourage_iron has_variable = spec_restrain_iron }
+		}
+		value = var:spec_push_iron
+	}
+}
+
+spec_push_next_iron = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_iron }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_iron }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_iron
+	multiply = 0.35
+	add = spec_push_sv_iron
+}
+
 spec_hype_next_iron = {
 	value = spec_hype_raw_iron
 	if = {
 		limit = { has_variable = spec_glut_iron }
 		value = 0.4
 	}
+	multiply = spec_push_next_iron
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_iron
-			has_variable = spec_hype_iron
-		}
-		max = { value = var:spec_hype_iron subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_iron }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_iron
-			has_variable = spec_hype_iron
-		}
-		min = { value = 2.2 subtract = var:spec_hype_iron multiply = 0.35 add = var:spec_hype_iron max = 2 }
 	}
 }
 
@@ -8628,26 +9262,44 @@ spec_hype_raw_lead = {
 	max = 20
 }
 
+spec_push_sv_lead = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_lead
+			OR = { has_variable = spec_encourage_lead has_variable = spec_restrain_lead }
+		}
+		value = var:spec_push_lead
+	}
+}
+
+spec_push_next_lead = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_lead }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_lead }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_lead
+	multiply = 0.35
+	add = spec_push_sv_lead
+}
+
 spec_hype_next_lead = {
 	value = spec_hype_raw_lead
 	if = {
 		limit = { has_variable = spec_glut_lead }
 		value = 0.4
 	}
+	multiply = spec_push_next_lead
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_lead
-			has_variable = spec_hype_lead
-		}
-		max = { value = var:spec_hype_lead subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_lead }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_lead
-			has_variable = spec_hype_lead
-		}
-		min = { value = 2.2 subtract = var:spec_hype_lead multiply = 0.35 add = var:spec_hype_lead max = 2 }
 	}
 }
 
@@ -8802,26 +9454,44 @@ spec_hype_raw_liquor = {
 	max = 20
 }
 
+spec_push_sv_liquor = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_liquor
+			OR = { has_variable = spec_encourage_liquor has_variable = spec_restrain_liquor }
+		}
+		value = var:spec_push_liquor
+	}
+}
+
+spec_push_next_liquor = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_liquor }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_liquor }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_liquor
+	multiply = 0.35
+	add = spec_push_sv_liquor
+}
+
 spec_hype_next_liquor = {
 	value = spec_hype_raw_liquor
 	if = {
 		limit = { has_variable = spec_glut_liquor }
 		value = 0.4
 	}
+	multiply = spec_push_next_liquor
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_liquor
-			has_variable = spec_hype_liquor
-		}
-		max = { value = var:spec_hype_liquor subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_liquor }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_liquor
-			has_variable = spec_hype_liquor
-		}
-		min = { value = 2.2 subtract = var:spec_hype_liquor multiply = 0.35 add = var:spec_hype_liquor max = 2 }
 	}
 }
 
@@ -8976,26 +9646,44 @@ spec_hype_raw_luxury_clothes = {
 	max = 20
 }
 
+spec_push_sv_luxury_clothes = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_luxury_clothes
+			OR = { has_variable = spec_encourage_luxury_clothes has_variable = spec_restrain_luxury_clothes }
+		}
+		value = var:spec_push_luxury_clothes
+	}
+}
+
+spec_push_next_luxury_clothes = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_luxury_clothes }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_luxury_clothes }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_luxury_clothes
+	multiply = 0.35
+	add = spec_push_sv_luxury_clothes
+}
+
 spec_hype_next_luxury_clothes = {
 	value = spec_hype_raw_luxury_clothes
 	if = {
 		limit = { has_variable = spec_glut_luxury_clothes }
 		value = 0.4
 	}
+	multiply = spec_push_next_luxury_clothes
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_luxury_clothes
-			has_variable = spec_hype_luxury_clothes
-		}
-		max = { value = var:spec_hype_luxury_clothes subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_luxury_clothes }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_luxury_clothes
-			has_variable = spec_hype_luxury_clothes
-		}
-		min = { value = 2.2 subtract = var:spec_hype_luxury_clothes multiply = 0.35 add = var:spec_hype_luxury_clothes max = 2 }
 	}
 }
 
@@ -9150,26 +9838,44 @@ spec_hype_raw_luxury_furniture = {
 	max = 20
 }
 
+spec_push_sv_luxury_furniture = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_luxury_furniture
+			OR = { has_variable = spec_encourage_luxury_furniture has_variable = spec_restrain_luxury_furniture }
+		}
+		value = var:spec_push_luxury_furniture
+	}
+}
+
+spec_push_next_luxury_furniture = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_luxury_furniture }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_luxury_furniture }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_luxury_furniture
+	multiply = 0.35
+	add = spec_push_sv_luxury_furniture
+}
+
 spec_hype_next_luxury_furniture = {
 	value = spec_hype_raw_luxury_furniture
 	if = {
 		limit = { has_variable = spec_glut_luxury_furniture }
 		value = 0.4
 	}
+	multiply = spec_push_next_luxury_furniture
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_luxury_furniture
-			has_variable = spec_hype_luxury_furniture
-		}
-		max = { value = var:spec_hype_luxury_furniture subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_luxury_furniture }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_luxury_furniture
-			has_variable = spec_hype_luxury_furniture
-		}
-		min = { value = 2.2 subtract = var:spec_hype_luxury_furniture multiply = 0.35 add = var:spec_hype_luxury_furniture max = 2 }
 	}
 }
 
@@ -9324,26 +10030,44 @@ spec_hype_raw_meat = {
 	max = 20
 }
 
+spec_push_sv_meat = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_meat
+			OR = { has_variable = spec_encourage_meat has_variable = spec_restrain_meat }
+		}
+		value = var:spec_push_meat
+	}
+}
+
+spec_push_next_meat = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_meat }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_meat }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_meat
+	multiply = 0.35
+	add = spec_push_sv_meat
+}
+
 spec_hype_next_meat = {
 	value = spec_hype_raw_meat
 	if = {
 		limit = { has_variable = spec_glut_meat }
 		value = 0.4
 	}
+	multiply = spec_push_next_meat
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_meat
-			has_variable = spec_hype_meat
-		}
-		max = { value = var:spec_hype_meat subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_meat }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_meat
-			has_variable = spec_hype_meat
-		}
-		min = { value = 2.2 subtract = var:spec_hype_meat multiply = 0.35 add = var:spec_hype_meat max = 2 }
 	}
 }
 
@@ -9498,26 +10222,44 @@ spec_hype_raw_merchant_marine = {
 	max = 20
 }
 
+spec_push_sv_merchant_marine = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_merchant_marine
+			OR = { has_variable = spec_encourage_merchant_marine has_variable = spec_restrain_merchant_marine }
+		}
+		value = var:spec_push_merchant_marine
+	}
+}
+
+spec_push_next_merchant_marine = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_merchant_marine }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_merchant_marine }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_merchant_marine
+	multiply = 0.35
+	add = spec_push_sv_merchant_marine
+}
+
 spec_hype_next_merchant_marine = {
 	value = spec_hype_raw_merchant_marine
 	if = {
 		limit = { has_variable = spec_glut_merchant_marine }
 		value = 0.4
 	}
+	multiply = spec_push_next_merchant_marine
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_merchant_marine
-			has_variable = spec_hype_merchant_marine
-		}
-		max = { value = var:spec_hype_merchant_marine subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_merchant_marine }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_merchant_marine
-			has_variable = spec_hype_merchant_marine
-		}
-		min = { value = 2.2 subtract = var:spec_hype_merchant_marine multiply = 0.35 add = var:spec_hype_merchant_marine max = 2 }
 	}
 }
 
@@ -9672,26 +10414,44 @@ spec_hype_raw_oil = {
 	max = 20
 }
 
+spec_push_sv_oil = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_oil
+			OR = { has_variable = spec_encourage_oil has_variable = spec_restrain_oil }
+		}
+		value = var:spec_push_oil
+	}
+}
+
+spec_push_next_oil = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_oil }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_oil }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_oil
+	multiply = 0.35
+	add = spec_push_sv_oil
+}
+
 spec_hype_next_oil = {
 	value = spec_hype_raw_oil
 	if = {
 		limit = { has_variable = spec_glut_oil }
 		value = 0.4
 	}
+	multiply = spec_push_next_oil
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_oil
-			has_variable = spec_hype_oil
-		}
-		max = { value = var:spec_hype_oil subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_oil }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_oil
-			has_variable = spec_hype_oil
-		}
-		min = { value = 2.2 subtract = var:spec_hype_oil multiply = 0.35 add = var:spec_hype_oil max = 2 }
 	}
 }
 
@@ -9846,26 +10606,44 @@ spec_hype_raw_opium = {
 	max = 20
 }
 
+spec_push_sv_opium = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_opium
+			OR = { has_variable = spec_encourage_opium has_variable = spec_restrain_opium }
+		}
+		value = var:spec_push_opium
+	}
+}
+
+spec_push_next_opium = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_opium }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_opium }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_opium
+	multiply = 0.35
+	add = spec_push_sv_opium
+}
+
 spec_hype_next_opium = {
 	value = spec_hype_raw_opium
 	if = {
 		limit = { has_variable = spec_glut_opium }
 		value = 0.4
 	}
+	multiply = spec_push_next_opium
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_opium
-			has_variable = spec_hype_opium
-		}
-		max = { value = var:spec_hype_opium subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_opium }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_opium
-			has_variable = spec_hype_opium
-		}
-		min = { value = 2.2 subtract = var:spec_hype_opium multiply = 0.35 add = var:spec_hype_opium max = 2 }
 	}
 }
 
@@ -10020,26 +10798,44 @@ spec_hype_raw_paper = {
 	max = 20
 }
 
+spec_push_sv_paper = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_paper
+			OR = { has_variable = spec_encourage_paper has_variable = spec_restrain_paper }
+		}
+		value = var:spec_push_paper
+	}
+}
+
+spec_push_next_paper = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_paper }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_paper }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_paper
+	multiply = 0.35
+	add = spec_push_sv_paper
+}
+
 spec_hype_next_paper = {
 	value = spec_hype_raw_paper
 	if = {
 		limit = { has_variable = spec_glut_paper }
 		value = 0.4
 	}
+	multiply = spec_push_next_paper
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_paper
-			has_variable = spec_hype_paper
-		}
-		max = { value = var:spec_hype_paper subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_paper }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_paper
-			has_variable = spec_hype_paper
-		}
-		min = { value = 2.2 subtract = var:spec_hype_paper multiply = 0.35 add = var:spec_hype_paper max = 2 }
 	}
 }
 
@@ -10194,26 +10990,44 @@ spec_hype_raw_porcelain = {
 	max = 20
 }
 
+spec_push_sv_porcelain = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_porcelain
+			OR = { has_variable = spec_encourage_porcelain has_variable = spec_restrain_porcelain }
+		}
+		value = var:spec_push_porcelain
+	}
+}
+
+spec_push_next_porcelain = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_porcelain }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_porcelain }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_porcelain
+	multiply = 0.35
+	add = spec_push_sv_porcelain
+}
+
 spec_hype_next_porcelain = {
 	value = spec_hype_raw_porcelain
 	if = {
 		limit = { has_variable = spec_glut_porcelain }
 		value = 0.4
 	}
+	multiply = spec_push_next_porcelain
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_porcelain
-			has_variable = spec_hype_porcelain
-		}
-		max = { value = var:spec_hype_porcelain subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_porcelain }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_porcelain
-			has_variable = spec_hype_porcelain
-		}
-		min = { value = 2.2 subtract = var:spec_hype_porcelain multiply = 0.35 add = var:spec_hype_porcelain max = 2 }
 	}
 }
 
@@ -10368,26 +11182,44 @@ spec_hype_raw_radios = {
 	max = 20
 }
 
+spec_push_sv_radios = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_radios
+			OR = { has_variable = spec_encourage_radios has_variable = spec_restrain_radios }
+		}
+		value = var:spec_push_radios
+	}
+}
+
+spec_push_next_radios = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_radios }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_radios }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_radios
+	multiply = 0.35
+	add = spec_push_sv_radios
+}
+
 spec_hype_next_radios = {
 	value = spec_hype_raw_radios
 	if = {
 		limit = { has_variable = spec_glut_radios }
 		value = 0.4
 	}
+	multiply = spec_push_next_radios
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_radios
-			has_variable = spec_hype_radios
-		}
-		max = { value = var:spec_hype_radios subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_radios }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_radios
-			has_variable = spec_hype_radios
-		}
-		min = { value = 2.2 subtract = var:spec_hype_radios multiply = 0.35 add = var:spec_hype_radios max = 2 }
 	}
 }
 
@@ -10542,26 +11374,44 @@ spec_hype_raw_rubber = {
 	max = 20
 }
 
+spec_push_sv_rubber = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_rubber
+			OR = { has_variable = spec_encourage_rubber has_variable = spec_restrain_rubber }
+		}
+		value = var:spec_push_rubber
+	}
+}
+
+spec_push_next_rubber = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_rubber }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_rubber }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_rubber
+	multiply = 0.35
+	add = spec_push_sv_rubber
+}
+
 spec_hype_next_rubber = {
 	value = spec_hype_raw_rubber
 	if = {
 		limit = { has_variable = spec_glut_rubber }
 		value = 0.4
 	}
+	multiply = spec_push_next_rubber
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_rubber
-			has_variable = spec_hype_rubber
-		}
-		max = { value = var:spec_hype_rubber subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_rubber }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_rubber
-			has_variable = spec_hype_rubber
-		}
-		min = { value = 2.2 subtract = var:spec_hype_rubber multiply = 0.35 add = var:spec_hype_rubber max = 2 }
 	}
 }
 
@@ -10716,26 +11566,44 @@ spec_hype_raw_silk = {
 	max = 20
 }
 
+spec_push_sv_silk = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_silk
+			OR = { has_variable = spec_encourage_silk has_variable = spec_restrain_silk }
+		}
+		value = var:spec_push_silk
+	}
+}
+
+spec_push_next_silk = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_silk }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_silk }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_silk
+	multiply = 0.35
+	add = spec_push_sv_silk
+}
+
 spec_hype_next_silk = {
 	value = spec_hype_raw_silk
 	if = {
 		limit = { has_variable = spec_glut_silk }
 		value = 0.4
 	}
+	multiply = spec_push_next_silk
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_silk
-			has_variable = spec_hype_silk
-		}
-		max = { value = var:spec_hype_silk subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_silk }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_silk
-			has_variable = spec_hype_silk
-		}
-		min = { value = 2.2 subtract = var:spec_hype_silk multiply = 0.35 add = var:spec_hype_silk max = 2 }
 	}
 }
 
@@ -10890,26 +11758,44 @@ spec_hype_raw_small_arms = {
 	max = 20
 }
 
+spec_push_sv_small_arms = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_small_arms
+			OR = { has_variable = spec_encourage_small_arms has_variable = spec_restrain_small_arms }
+		}
+		value = var:spec_push_small_arms
+	}
+}
+
+spec_push_next_small_arms = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_small_arms }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_small_arms }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_small_arms
+	multiply = 0.35
+	add = spec_push_sv_small_arms
+}
+
 spec_hype_next_small_arms = {
 	value = spec_hype_raw_small_arms
 	if = {
 		limit = { has_variable = spec_glut_small_arms }
 		value = 0.4
 	}
+	multiply = spec_push_next_small_arms
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_small_arms
-			has_variable = spec_hype_small_arms
-		}
-		max = { value = var:spec_hype_small_arms subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_small_arms }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_small_arms
-			has_variable = spec_hype_small_arms
-		}
-		min = { value = 2.2 subtract = var:spec_hype_small_arms multiply = 0.35 add = var:spec_hype_small_arms max = 2 }
 	}
 }
 
@@ -11064,26 +11950,44 @@ spec_hype_raw_steamers = {
 	max = 20
 }
 
+spec_push_sv_steamers = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_steamers
+			OR = { has_variable = spec_encourage_steamers has_variable = spec_restrain_steamers }
+		}
+		value = var:spec_push_steamers
+	}
+}
+
+spec_push_next_steamers = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_steamers }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_steamers }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_steamers
+	multiply = 0.35
+	add = spec_push_sv_steamers
+}
+
 spec_hype_next_steamers = {
 	value = spec_hype_raw_steamers
 	if = {
 		limit = { has_variable = spec_glut_steamers }
 		value = 0.4
 	}
+	multiply = spec_push_next_steamers
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_steamers
-			has_variable = spec_hype_steamers
-		}
-		max = { value = var:spec_hype_steamers subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_steamers }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_steamers
-			has_variable = spec_hype_steamers
-		}
-		min = { value = 2.2 subtract = var:spec_hype_steamers multiply = 0.35 add = var:spec_hype_steamers max = 2 }
 	}
 }
 
@@ -11238,26 +12142,44 @@ spec_hype_raw_steel = {
 	max = 20
 }
 
+spec_push_sv_steel = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_steel
+			OR = { has_variable = spec_encourage_steel has_variable = spec_restrain_steel }
+		}
+		value = var:spec_push_steel
+	}
+}
+
+spec_push_next_steel = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_steel }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_steel }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_steel
+	multiply = 0.35
+	add = spec_push_sv_steel
+}
+
 spec_hype_next_steel = {
 	value = spec_hype_raw_steel
 	if = {
 		limit = { has_variable = spec_glut_steel }
 		value = 0.4
 	}
+	multiply = spec_push_next_steel
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_steel
-			has_variable = spec_hype_steel
-		}
-		max = { value = var:spec_hype_steel subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_steel }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_steel
-			has_variable = spec_hype_steel
-		}
-		min = { value = 2.2 subtract = var:spec_hype_steel multiply = 0.35 add = var:spec_hype_steel max = 2 }
 	}
 }
 
@@ -11412,26 +12334,44 @@ spec_hype_raw_sugar = {
 	max = 20
 }
 
+spec_push_sv_sugar = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_sugar
+			OR = { has_variable = spec_encourage_sugar has_variable = spec_restrain_sugar }
+		}
+		value = var:spec_push_sugar
+	}
+}
+
+spec_push_next_sugar = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_sugar }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_sugar }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_sugar
+	multiply = 0.35
+	add = spec_push_sv_sugar
+}
+
 spec_hype_next_sugar = {
 	value = spec_hype_raw_sugar
 	if = {
 		limit = { has_variable = spec_glut_sugar }
 		value = 0.4
 	}
+	multiply = spec_push_next_sugar
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_sugar
-			has_variable = spec_hype_sugar
-		}
-		max = { value = var:spec_hype_sugar subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_sugar }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_sugar
-			has_variable = spec_hype_sugar
-		}
-		min = { value = 2.2 subtract = var:spec_hype_sugar multiply = 0.35 add = var:spec_hype_sugar max = 2 }
 	}
 }
 
@@ -11586,26 +12526,44 @@ spec_hype_raw_sulfur = {
 	max = 20
 }
 
+spec_push_sv_sulfur = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_sulfur
+			OR = { has_variable = spec_encourage_sulfur has_variable = spec_restrain_sulfur }
+		}
+		value = var:spec_push_sulfur
+	}
+}
+
+spec_push_next_sulfur = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_sulfur }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_sulfur }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_sulfur
+	multiply = 0.35
+	add = spec_push_sv_sulfur
+}
+
 spec_hype_next_sulfur = {
 	value = spec_hype_raw_sulfur
 	if = {
 		limit = { has_variable = spec_glut_sulfur }
 		value = 0.4
 	}
+	multiply = spec_push_next_sulfur
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_sulfur
-			has_variable = spec_hype_sulfur
-		}
-		max = { value = var:spec_hype_sulfur subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_sulfur }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_sulfur
-			has_variable = spec_hype_sulfur
-		}
-		min = { value = 2.2 subtract = var:spec_hype_sulfur multiply = 0.35 add = var:spec_hype_sulfur max = 2 }
 	}
 }
 
@@ -11760,26 +12718,44 @@ spec_hype_raw_tanks = {
 	max = 20
 }
 
+spec_push_sv_tanks = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_tanks
+			OR = { has_variable = spec_encourage_tanks has_variable = spec_restrain_tanks }
+		}
+		value = var:spec_push_tanks
+	}
+}
+
+spec_push_next_tanks = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_tanks }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_tanks }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_tanks
+	multiply = 0.35
+	add = spec_push_sv_tanks
+}
+
 spec_hype_next_tanks = {
 	value = spec_hype_raw_tanks
 	if = {
 		limit = { has_variable = spec_glut_tanks }
 		value = 0.4
 	}
+	multiply = spec_push_next_tanks
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_tanks
-			has_variable = spec_hype_tanks
-		}
-		max = { value = var:spec_hype_tanks subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_tanks }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_tanks
-			has_variable = spec_hype_tanks
-		}
-		min = { value = 2.2 subtract = var:spec_hype_tanks multiply = 0.35 add = var:spec_hype_tanks max = 2 }
 	}
 }
 
@@ -11934,26 +12910,44 @@ spec_hype_raw_tea = {
 	max = 20
 }
 
+spec_push_sv_tea = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_tea
+			OR = { has_variable = spec_encourage_tea has_variable = spec_restrain_tea }
+		}
+		value = var:spec_push_tea
+	}
+}
+
+spec_push_next_tea = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_tea }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_tea }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_tea
+	multiply = 0.35
+	add = spec_push_sv_tea
+}
+
 spec_hype_next_tea = {
 	value = spec_hype_raw_tea
 	if = {
 		limit = { has_variable = spec_glut_tea }
 		value = 0.4
 	}
+	multiply = spec_push_next_tea
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_tea
-			has_variable = spec_hype_tea
-		}
-		max = { value = var:spec_hype_tea subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_tea }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_tea
-			has_variable = spec_hype_tea
-		}
-		min = { value = 2.2 subtract = var:spec_hype_tea multiply = 0.35 add = var:spec_hype_tea max = 2 }
 	}
 }
 
@@ -12108,26 +13102,44 @@ spec_hype_raw_telephones = {
 	max = 20
 }
 
+spec_push_sv_telephones = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_telephones
+			OR = { has_variable = spec_encourage_telephones has_variable = spec_restrain_telephones }
+		}
+		value = var:spec_push_telephones
+	}
+}
+
+spec_push_next_telephones = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_telephones }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_telephones }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_telephones
+	multiply = 0.35
+	add = spec_push_sv_telephones
+}
+
 spec_hype_next_telephones = {
 	value = spec_hype_raw_telephones
 	if = {
 		limit = { has_variable = spec_glut_telephones }
 		value = 0.4
 	}
+	multiply = spec_push_next_telephones
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_telephones
-			has_variable = spec_hype_telephones
-		}
-		max = { value = var:spec_hype_telephones subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_telephones }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_telephones
-			has_variable = spec_hype_telephones
-		}
-		min = { value = 2.2 subtract = var:spec_hype_telephones multiply = 0.35 add = var:spec_hype_telephones max = 2 }
 	}
 }
 
@@ -12282,26 +13294,44 @@ spec_hype_raw_tobacco = {
 	max = 20
 }
 
+spec_push_sv_tobacco = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_tobacco
+			OR = { has_variable = spec_encourage_tobacco has_variable = spec_restrain_tobacco }
+		}
+		value = var:spec_push_tobacco
+	}
+}
+
+spec_push_next_tobacco = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_tobacco }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_tobacco }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_tobacco
+	multiply = 0.35
+	add = spec_push_sv_tobacco
+}
+
 spec_hype_next_tobacco = {
 	value = spec_hype_raw_tobacco
 	if = {
 		limit = { has_variable = spec_glut_tobacco }
 		value = 0.4
 	}
+	multiply = spec_push_next_tobacco
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_tobacco
-			has_variable = spec_hype_tobacco
-		}
-		max = { value = var:spec_hype_tobacco subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_tobacco }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_tobacco
-			has_variable = spec_hype_tobacco
-		}
-		min = { value = 2.2 subtract = var:spec_hype_tobacco multiply = 0.35 add = var:spec_hype_tobacco max = 2 }
 	}
 }
 
@@ -12456,26 +13486,44 @@ spec_hype_raw_tools = {
 	max = 20
 }
 
+spec_push_sv_tools = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_tools
+			OR = { has_variable = spec_encourage_tools has_variable = spec_restrain_tools }
+		}
+		value = var:spec_push_tools
+	}
+}
+
+spec_push_next_tools = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_tools }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_tools }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_tools
+	multiply = 0.35
+	add = spec_push_sv_tools
+}
+
 spec_hype_next_tools = {
 	value = spec_hype_raw_tools
 	if = {
 		limit = { has_variable = spec_glut_tools }
 		value = 0.4
 	}
+	multiply = spec_push_next_tools
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_tools
-			has_variable = spec_hype_tools
-		}
-		max = { value = var:spec_hype_tools subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_tools }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_tools
-			has_variable = spec_hype_tools
-		}
-		min = { value = 2.2 subtract = var:spec_hype_tools multiply = 0.35 add = var:spec_hype_tools max = 2 }
 	}
 }
 
@@ -12630,26 +13678,44 @@ spec_hype_raw_wine = {
 	max = 20
 }
 
+spec_push_sv_wine = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_wine
+			OR = { has_variable = spec_encourage_wine has_variable = spec_restrain_wine }
+		}
+		value = var:spec_push_wine
+	}
+}
+
+spec_push_next_wine = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_wine }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_wine }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_wine
+	multiply = 0.35
+	add = spec_push_sv_wine
+}
+
 spec_hype_next_wine = {
 	value = spec_hype_raw_wine
 	if = {
 		limit = { has_variable = spec_glut_wine }
 		value = 0.4
 	}
+	multiply = spec_push_next_wine
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_wine
-			has_variable = spec_hype_wine
-		}
-		max = { value = var:spec_hype_wine subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_wine }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_wine
-			has_variable = spec_hype_wine
-		}
-		min = { value = 2.2 subtract = var:spec_hype_wine multiply = 0.35 add = var:spec_hype_wine max = 2 }
 	}
 }
 
@@ -12804,26 +13870,44 @@ spec_hype_raw_wood = {
 	max = 20
 }
 
+spec_push_sv_wood = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = spec_push_wood
+			OR = { has_variable = spec_encourage_wood has_variable = spec_restrain_wood }
+		}
+		value = var:spec_push_wood
+	}
+}
+
+spec_push_next_wood = {
+	value = 1
+	if = {
+		limit = { has_variable = spec_encourage_wood }
+		value = spec_push_full_encourage
+	}
+	else_if = {
+		limit = { has_variable = spec_restrain_wood }
+		value = spec_push_full_restrain
+	}
+	subtract = spec_push_sv_wood
+	multiply = 0.35
+	add = spec_push_sv_wood
+}
+
 spec_hype_next_wood = {
 	value = spec_hype_raw_wood
 	if = {
 		limit = { has_variable = spec_glut_wood }
 		value = 0.4
 	}
+	multiply = spec_push_next_wood
+	min = 0.05
+	max = 20
 	if = {
-		limit = {
-			has_variable = spec_restrain_wood
-			has_variable = spec_hype_wood
-		}
-		max = { value = var:spec_hype_wood subtract = 1 multiply = 0.65 add = 1 }
+		limit = { has_variable = spec_restrain_wood }
 		min = 1
-	}
-	else_if = {
-		limit = {
-			has_variable = spec_encourage_wood
-			has_variable = spec_hype_wood
-		}
-		min = { value = 2.2 subtract = var:spec_hype_wood multiply = 0.35 add = var:spec_hype_wood max = 2 }
 	}
 }
 
@@ -13719,6 +14803,7 @@ spec_panic_months_trust = {
 	value = spec_panic_months
 	multiply = spec_trust_mult
 	multiply = spec_reform_panic_len
+	multiply = spec_panic_lev_len
 	ceiling = yes
 	min = 1
 }

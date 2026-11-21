@@ -10,32 +10,32 @@ remove_variable = spec_exch_known remove_variable = spec_pw_floor remove_variabl
 set_variable = { name = spec_exch_stand value = 1 } set_variable = { name = spec_centre_trust value = 60 }
 every_country = { limit = { NOT = { this = prev } OR = { this = c:GBR this = c:FRA this = c:PRU } } set_relations = { country = prev value = 0 } }
 }
-c:GBR = { add_to_variable_list = { name = spec_rv_chosen target = c:FRA } }
-c:FRA = { add_to_variable_list = { name = spec_rv_chosen target = c:PRU } }
-c:PRU = { add_to_variable_list = { name = spec_rv_chosen target = c:GBR } }
+c:GBR = { add_to_variable_list = { name = spec_rv_chosen target = c:FRA } add_to_variable_list = { name = spec_rv_age_0 target = c:FRA } }
+c:FRA = { add_to_variable_list = { name = spec_rv_chosen target = c:PRU } add_to_variable_list = { name = spec_rv_age_0 target = c:PRU } }
+c:PRU = { add_to_variable_list = { name = spec_rv_chosen target = c:GBR } add_to_variable_list = { name = spec_rv_age_0 target = c:GBR } }
 c:GBR = { set_variable = { name = spec_centre_score value = 300 } }
 c:FRA = { set_variable = { name = spec_centre_score value = 200 } }
 c:PRU = { set_variable = { name = spec_centre_score value = 100 } }
 c:GBR = { set_variable = { name = spec_centre_trust value = 0 } }
 c:FRA = { set_variable = { name = spec_centre_trust value = 0 } }
 c:PRU = { set_variable = { name = spec_centre_trust value = 0 } }
-spec_rival_contest = yes
-if = { limit = { c:GBR = { var:spec_centre_trust = 6 } } debug_log = "HOTFIX PASS floor_winner" }
+while = { count = 5 spec_rival_contest = yes }
+if = { limit = { c:GBR = { var:spec_centre_trust = 12 } } debug_log = "HOTFIX PASS floor_winner" }
 else = { debug_log = "HOTFIX FAIL floor_winner" }
 if = { limit = { c:PRU = { var:spec_centre_trust = 0 } } debug_log = "HOTFIX PASS floor_loser" }
 else = { debug_log = "HOTFIX FAIL floor_loser" }
-if = { limit = { c:FRA = { var:spec_centre_trust >= 0 } c:FRA = { var:spec_centre_trust <= 3 } } debug_log = "HOTFIX PASS floor_mixed_clipping" }
+if = { limit = { c:FRA = { var:spec_centre_trust >= 0 } c:FRA = { var:spec_centre_trust <= 6 } } debug_log = "HOTFIX PASS floor_mixed_clipping" }
 else = { debug_log = "HOTFIX FAIL floor_mixed_clipping" }
 c:FRA = { debug_log = "HOTFIX INFO floor_mixed_trust=[THIS.Var('spec_centre_trust').GetValue]" }
 c:GBR = { set_variable = { name = spec_centre_trust value = 120 } }
 c:FRA = { set_variable = { name = spec_centre_trust value = 120 } }
 c:PRU = { set_variable = { name = spec_centre_trust value = 120 } }
-spec_rival_contest = yes
+while = { count = 5 spec_rival_contest = yes }
 if = { limit = { c:GBR = { var:spec_centre_trust = 120 } } debug_log = "HOTFIX PASS ceiling_winner" }
 else = { debug_log = "HOTFIX FAIL ceiling_winner" }
-if = { limit = { c:PRU = { var:spec_centre_trust = 114 } } debug_log = "HOTFIX PASS ceiling_loser" }
+if = { limit = { c:PRU = { var:spec_centre_trust = 108 } } debug_log = "HOTFIX PASS ceiling_loser" }
 else = { debug_log = "HOTFIX FAIL ceiling_loser" }
-if = { limit = { c:FRA = { var:spec_centre_trust >= 117 } c:FRA = { var:spec_centre_trust <= 120 } } debug_log = "HOTFIX PASS ceiling_mixed_clipping" }
+if = { limit = { c:FRA = { var:spec_centre_trust >= 114 } c:FRA = { var:spec_centre_trust <= 120 } } debug_log = "HOTFIX PASS ceiling_mixed_clipping" }
 else = { debug_log = "HOTFIX FAIL ceiling_mixed_clipping" }
 c:FRA = { debug_log = "HOTFIX INFO ceiling_mixed_trust=[THIS.Var('spec_centre_trust').GetValue]" }
 c:GBR = { set_variable = { name = spec_centre_trust value = 0 } }
@@ -44,12 +44,12 @@ c:PRU = { set_variable = { name = spec_centre_trust value = 0 } }
 set_relations = { country = c:FRA value = -100 }
 set_relations = { country = c:PRU value = -100 }
 c:FRA = { set_relations = { country = c:PRU value = -100 } }
-spec_rival_contest = yes
-if = { limit = { c:GBR = { var:spec_centre_trust = 6 } } debug_log = "HOTFIX PASS hostile_floor_winner" }
+while = { count = 5 spec_rival_contest = yes }
+if = { limit = { c:GBR = { var:spec_centre_trust = 12 } } debug_log = "HOTFIX PASS hostile_floor_winner" }
 else = { debug_log = "HOTFIX FAIL hostile_floor_winner" }
 if = { limit = { c:PRU = { var:spec_centre_trust = 0 } } debug_log = "HOTFIX PASS hostile_floor_loser" }
 else = { debug_log = "HOTFIX FAIL hostile_floor_loser" }
-if = { limit = { c:FRA = { var:spec_centre_trust >= 0 } c:FRA = { var:spec_centre_trust <= 3 } } debug_log = "HOTFIX PASS hostile_floor_mixed_clipping" }
+if = { limit = { c:FRA = { var:spec_centre_trust >= 0 } c:FRA = { var:spec_centre_trust <= 6 } } debug_log = "HOTFIX PASS hostile_floor_mixed_clipping" }
 else = { debug_log = "HOTFIX FAIL hostile_floor_mixed_clipping" }
 c:FRA = { debug_log = "HOTFIX INFO hostile_floor_mixed_trust=[THIS.Var('spec_centre_trust').GetValue]" }
 c:GBR = { set_variable = { name = spec_centre_trust value = 120 } }
@@ -58,12 +58,12 @@ c:PRU = { set_variable = { name = spec_centre_trust value = 120 } }
 set_relations = { country = c:FRA value = -100 }
 set_relations = { country = c:PRU value = -100 }
 c:FRA = { set_relations = { country = c:PRU value = -100 } }
-spec_rival_contest = yes
+while = { count = 5 spec_rival_contest = yes }
 if = { limit = { c:GBR = { var:spec_centre_trust = 120 } } debug_log = "HOTFIX PASS hostile_ceiling_winner" }
 else = { debug_log = "HOTFIX FAIL hostile_ceiling_winner" }
-if = { limit = { c:PRU = { var:spec_centre_trust = 111 } } debug_log = "HOTFIX PASS hostile_ceiling_loser" }
+if = { limit = { c:PRU = { var:spec_centre_trust = 102 } } debug_log = "HOTFIX PASS hostile_ceiling_loser" }
 else = { debug_log = "HOTFIX FAIL hostile_ceiling_loser" }
-if = { limit = { c:FRA = { var:spec_centre_trust >= 115.5 } c:FRA = { var:spec_centre_trust <= 120 } } debug_log = "HOTFIX PASS hostile_ceiling_mixed_clipping" }
+if = { limit = { c:FRA = { var:spec_centre_trust >= 111 } c:FRA = { var:spec_centre_trust <= 120 } } debug_log = "HOTFIX PASS hostile_ceiling_mixed_clipping" }
 else = { debug_log = "HOTFIX FAIL hostile_ceiling_mixed_clipping" }
 c:FRA = { debug_log = "HOTFIX INFO hostile_ceiling_mixed_trust=[THIS.Var('spec_centre_trust').GetValue]" }
 debug_log = "HOTFIX SUITE COMPLETE"

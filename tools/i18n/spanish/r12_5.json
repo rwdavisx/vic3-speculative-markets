@@ -1,0 +1,7 @@
+{
+ "eb4306fea3": "Nuestra [concept_spec_exchange] gana #P {1}#! de reputación, y la de {2} pierde #N {3}#!.",
+ "caf129348d": "Nuestra [concept_spec_exchange] pierde #N {1}#! de reputación, y la de {2} gana #P {3}#!.",
+ "7a4a453eaf": "Ningún lado gana ni pierde reputación.",
+ "f71901f02c": "Si se resolviera ahora, el resultado sería {1}. Se resuelve en $SPEC_RV_LEFT$.",
+ "b33e629707": "#header Pulso con {1}#!\\n$TOOLTIP_DELIMITER$\\nLa barra está al $SPEC_RV_BAR_AT$. $SPEC_RV_NOW_LINE$\\n{2}\\n$TOOLTIP_DELIMITER$\\nCada pulso dura #v {3}#! años y después empieza otro."
+}

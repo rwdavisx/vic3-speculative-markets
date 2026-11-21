@@ -1,0 +1,10 @@
+{
+ "65d69828cb": "@spec_sound_finance! #italic El premio por aprobar las tres [concept_spec_banking_reforms]: normas de emisión, prestamista de última instancia y ley de sociedades.#!\\n\\nCuando un [concept_country] tiene las tres:\\n#P +{1}#! de [concept_prestige]",
+ "25ea66f796": "\\nInversión de {1}, {2} y {3}: #P +{4}%#!\\nCantidad comerciada: #P +{5}%#!\\n{6}: #P +{7}#!",
+ "b5b070a24a": "Inversión de {1}, {2} y {3}: #P +{4}%#!\\nCantidad comerciada: #P +{5}%#!\\n{6}: #P +{7}#!",
+ "56c09ee847": "#header Centro mundial#!\\nReacción inversora: #v +{1}%#!\\n[concept_prestige]: #P +{2}%#! si no está entre las {3}\\nRecibe [concept_spec_capital_flight]: #P x2#!\\nPérdidas por [concept_spec_foreign_panic]: #P -{4}%#!\\n#P +{5}%#! {6}\\nUn competidor sin coste de mantenimiento\\n$TOOLTIP_DELIMITER$\\n#instruction Para alcanzar el rango Centro mundial#!, necesitamos un puesto entre las #v {7}#! primeras de las {8}, además de {9}",
+ "c86b27426b": "#header Fiable#!\\nReputación de #v {1}%#! a #v {2}%#!\\n$TOOLTIP_DELIMITER$\\n#P +{3}#! {4}",
+ "bf0a6e57a3": "#header 1.º en Préstamo prudente#!\\n{1}\\n$TOOLTIP_DELIMITER$\\nComo nuestra especialidad, este puesto otorga:\\n#P +{2}%#! {3}\\n#N -{4}#! {5}\\n#P +{6}#! {7}",
+ "8895c0f776": "#header 2.º en Préstamo prudente#!\\n{1}\\n$TOOLTIP_DELIMITER$\\nComo nuestra especialidad, este puesto otorga:\\n#P +{2}%#! {3}\\n#N -{4}#! {5}",
+ "ca16df56d4": "#header 3.º en Préstamo prudente#!\\n{1}\\n$TOOLTIP_DELIMITER$\\nComo nuestra especialidad, este puesto otorga:\\n#P +{2}%#! {3}\\n#N -{4}#! {5}"
+}

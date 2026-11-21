@@ -1,0 +1,6 @@
+{
+ "2095c742e7": "Si estallara ahora: #N toda#! la [concept_spec_market_confidence]{1}\\nLa barra está llena. A partir de aquí, lo que un estallido no pueda quitarle a la confianza se convierte en [concept_spec_bad_debts].",
+ "e689f1cd5e": ", y al menos #N {1}#! de [concept_spec_bad_debts]",
+ "a381ebcd97": " Lo que no pudo quitarle se convirtió en [concept_spec_bad_debts].",
+ "a129ca9f3c": "@spec_market_confidence! La [concept_spec_market_confidence] cayó demasiado para sostener nuestro [concept_spec_speculative_excess], y el estallido la ha reducido aún más.{1}"
+}

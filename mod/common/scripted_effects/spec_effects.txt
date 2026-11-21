@@ -116,6 +116,10 @@ add_modifier = {
 	add_radicals = { value = 0.05 pop_type = aristocrats }
 	add_radicals = { value = 0.05 pop_type = shopkeepers }
 	# banks call in part of the credit they lent
+	set_variable = { name = spec_recall_balance value = 0 }
+	if = { limit = { has_variable = spec_debt } set_variable = { name = spec_recall_balance value = var:spec_debt } }
+	set_variable = { name = spec_recall_requested value = { value = var:spec_recall_balance multiply = 0.5 } }
+	set_variable = { name = spec_recall_pool_share value = spec_claw_share }
 	set_variable = { name = spec_clawed value = spec_clawback }
 	add_investment_pool = { value = var:spec_clawed multiply = -1 }
 	change_variable = { name = spec_debt subtract = var:spec_clawed }
@@ -141,6 +145,13 @@ add_modifier = {
 		}
 		else = {
 			set_variable = { name = spec_pledge_unmet days = 30 }
+			if = { limit = { in_default = yes } set_variable = { name = spec_pledge_reason value = 2 days = 30 } }
+			else_if = { limit = { NOT = { has_technology_researched = banking } } set_variable = { name = spec_pledge_reason value = 3 days = 30 } }
+			else_if = { limit = { gold_reserves < spec_rescue_cost }
+				set_variable = { name = spec_pledge_reason value = 1 days = 30 }
+				set_variable = { name = spec_pledge_required value = spec_rescue_cost days = 30 }
+				set_variable = { name = spec_pledge_shortfall value = { value = spec_rescue_cost subtract = gold_reserves } days = 30 }
+			}
 		}
 	}
 	trigger_event = { id = spec_markets.2 popup = yes }
@@ -991,294 +1002,343 @@ spec_shut_down = {
 	remove_variable = spec_risk_aeroplanes
 	remove_variable = spec_sev_aeroplanes
 	remove_variable = spec_glut_aeroplanes
+	remove_variable = spec_glut_until_aeroplanes
 	remove_variable = spec_cb_aeroplanes
 	remove_variable = spec_cc_aeroplanes
 	remove_variable = spec_word_ammunition
 	remove_variable = spec_risk_ammunition
 	remove_variable = spec_sev_ammunition
 	remove_variable = spec_glut_ammunition
+	remove_variable = spec_glut_until_ammunition
 	remove_variable = spec_cb_ammunition
 	remove_variable = spec_cc_ammunition
 	remove_variable = spec_word_artillery
 	remove_variable = spec_risk_artillery
 	remove_variable = spec_sev_artillery
 	remove_variable = spec_glut_artillery
+	remove_variable = spec_glut_until_artillery
 	remove_variable = spec_cb_artillery
 	remove_variable = spec_cc_artillery
 	remove_variable = spec_word_automobiles
 	remove_variable = spec_risk_automobiles
 	remove_variable = spec_sev_automobiles
 	remove_variable = spec_glut_automobiles
+	remove_variable = spec_glut_until_automobiles
 	remove_variable = spec_cb_automobiles
 	remove_variable = spec_cc_automobiles
 	remove_variable = spec_word_clippers
 	remove_variable = spec_risk_clippers
 	remove_variable = spec_sev_clippers
 	remove_variable = spec_glut_clippers
+	remove_variable = spec_glut_until_clippers
 	remove_variable = spec_cb_clippers
 	remove_variable = spec_cc_clippers
 	remove_variable = spec_word_clothes
 	remove_variable = spec_risk_clothes
 	remove_variable = spec_sev_clothes
 	remove_variable = spec_glut_clothes
+	remove_variable = spec_glut_until_clothes
 	remove_variable = spec_cb_clothes
 	remove_variable = spec_cc_clothes
 	remove_variable = spec_word_coal
 	remove_variable = spec_risk_coal
 	remove_variable = spec_sev_coal
 	remove_variable = spec_glut_coal
+	remove_variable = spec_glut_until_coal
 	remove_variable = spec_cb_coal
 	remove_variable = spec_cc_coal
 	remove_variable = spec_word_coffee
 	remove_variable = spec_risk_coffee
 	remove_variable = spec_sev_coffee
 	remove_variable = spec_glut_coffee
+	remove_variable = spec_glut_until_coffee
 	remove_variable = spec_cb_coffee
 	remove_variable = spec_cc_coffee
 	remove_variable = spec_word_copper
 	remove_variable = spec_risk_copper
 	remove_variable = spec_sev_copper
 	remove_variable = spec_glut_copper
+	remove_variable = spec_glut_until_copper
 	remove_variable = spec_cb_copper
 	remove_variable = spec_cc_copper
 	remove_variable = spec_word_dye
 	remove_variable = spec_risk_dye
 	remove_variable = spec_sev_dye
 	remove_variable = spec_glut_dye
+	remove_variable = spec_glut_until_dye
 	remove_variable = spec_cb_dye
 	remove_variable = spec_cc_dye
 	remove_variable = spec_word_electricity
 	remove_variable = spec_risk_electricity
 	remove_variable = spec_sev_electricity
 	remove_variable = spec_glut_electricity
+	remove_variable = spec_glut_until_electricity
 	remove_variable = spec_cb_electricity
 	remove_variable = spec_cc_electricity
 	remove_variable = spec_word_engines
 	remove_variable = spec_risk_engines
 	remove_variable = spec_sev_engines
 	remove_variable = spec_glut_engines
+	remove_variable = spec_glut_until_engines
 	remove_variable = spec_cb_engines
 	remove_variable = spec_cc_engines
 	remove_variable = spec_word_explosives
 	remove_variable = spec_risk_explosives
 	remove_variable = spec_sev_explosives
 	remove_variable = spec_glut_explosives
+	remove_variable = spec_glut_until_explosives
 	remove_variable = spec_cb_explosives
 	remove_variable = spec_cc_explosives
 	remove_variable = spec_word_fabric
 	remove_variable = spec_risk_fabric
 	remove_variable = spec_sev_fabric
 	remove_variable = spec_glut_fabric
+	remove_variable = spec_glut_until_fabric
 	remove_variable = spec_cb_fabric
 	remove_variable = spec_cc_fabric
 	remove_variable = spec_word_fertilizer
 	remove_variable = spec_risk_fertilizer
 	remove_variable = spec_sev_fertilizer
 	remove_variable = spec_glut_fertilizer
+	remove_variable = spec_glut_until_fertilizer
 	remove_variable = spec_cb_fertilizer
 	remove_variable = spec_cc_fertilizer
 	remove_variable = spec_word_fine_art
 	remove_variable = spec_risk_fine_art
 	remove_variable = spec_sev_fine_art
 	remove_variable = spec_glut_fine_art
+	remove_variable = spec_glut_until_fine_art
 	remove_variable = spec_cb_fine_art
 	remove_variable = spec_cc_fine_art
 	remove_variable = spec_word_fish
 	remove_variable = spec_risk_fish
 	remove_variable = spec_sev_fish
 	remove_variable = spec_glut_fish
+	remove_variable = spec_glut_until_fish
 	remove_variable = spec_cb_fish
 	remove_variable = spec_cc_fish
 	remove_variable = spec_word_fruit
 	remove_variable = spec_risk_fruit
 	remove_variable = spec_sev_fruit
 	remove_variable = spec_glut_fruit
+	remove_variable = spec_glut_until_fruit
 	remove_variable = spec_cb_fruit
 	remove_variable = spec_cc_fruit
 	remove_variable = spec_word_furniture
 	remove_variable = spec_risk_furniture
 	remove_variable = spec_sev_furniture
 	remove_variable = spec_glut_furniture
+	remove_variable = spec_glut_until_furniture
 	remove_variable = spec_cb_furniture
 	remove_variable = spec_cc_furniture
 	remove_variable = spec_word_glass
 	remove_variable = spec_risk_glass
 	remove_variable = spec_sev_glass
 	remove_variable = spec_glut_glass
+	remove_variable = spec_glut_until_glass
 	remove_variable = spec_cb_glass
 	remove_variable = spec_cc_glass
 	remove_variable = spec_word_grain
 	remove_variable = spec_risk_grain
 	remove_variable = spec_sev_grain
 	remove_variable = spec_glut_grain
+	remove_variable = spec_glut_until_grain
 	remove_variable = spec_cb_grain
 	remove_variable = spec_cc_grain
 	remove_variable = spec_word_groceries
 	remove_variable = spec_risk_groceries
 	remove_variable = spec_sev_groceries
 	remove_variable = spec_glut_groceries
+	remove_variable = spec_glut_until_groceries
 	remove_variable = spec_cb_groceries
 	remove_variable = spec_cc_groceries
 	remove_variable = spec_word_hardwood
 	remove_variable = spec_risk_hardwood
 	remove_variable = spec_sev_hardwood
 	remove_variable = spec_glut_hardwood
+	remove_variable = spec_glut_until_hardwood
 	remove_variable = spec_cb_hardwood
 	remove_variable = spec_cc_hardwood
 	remove_variable = spec_word_iron
 	remove_variable = spec_risk_iron
 	remove_variable = spec_sev_iron
 	remove_variable = spec_glut_iron
+	remove_variable = spec_glut_until_iron
 	remove_variable = spec_cb_iron
 	remove_variable = spec_cc_iron
 	remove_variable = spec_word_lead
 	remove_variable = spec_risk_lead
 	remove_variable = spec_sev_lead
 	remove_variable = spec_glut_lead
+	remove_variable = spec_glut_until_lead
 	remove_variable = spec_cb_lead
 	remove_variable = spec_cc_lead
 	remove_variable = spec_word_liquor
 	remove_variable = spec_risk_liquor
 	remove_variable = spec_sev_liquor
 	remove_variable = spec_glut_liquor
+	remove_variable = spec_glut_until_liquor
 	remove_variable = spec_cb_liquor
 	remove_variable = spec_cc_liquor
 	remove_variable = spec_word_luxury_clothes
 	remove_variable = spec_risk_luxury_clothes
 	remove_variable = spec_sev_luxury_clothes
 	remove_variable = spec_glut_luxury_clothes
+	remove_variable = spec_glut_until_luxury_clothes
 	remove_variable = spec_cb_luxury_clothes
 	remove_variable = spec_cc_luxury_clothes
 	remove_variable = spec_word_luxury_furniture
 	remove_variable = spec_risk_luxury_furniture
 	remove_variable = spec_sev_luxury_furniture
 	remove_variable = spec_glut_luxury_furniture
+	remove_variable = spec_glut_until_luxury_furniture
 	remove_variable = spec_cb_luxury_furniture
 	remove_variable = spec_cc_luxury_furniture
 	remove_variable = spec_word_meat
 	remove_variable = spec_risk_meat
 	remove_variable = spec_sev_meat
 	remove_variable = spec_glut_meat
+	remove_variable = spec_glut_until_meat
 	remove_variable = spec_cb_meat
 	remove_variable = spec_cc_meat
 	remove_variable = spec_word_merchant_marine
 	remove_variable = spec_risk_merchant_marine
 	remove_variable = spec_sev_merchant_marine
 	remove_variable = spec_glut_merchant_marine
+	remove_variable = spec_glut_until_merchant_marine
 	remove_variable = spec_cb_merchant_marine
 	remove_variable = spec_cc_merchant_marine
 	remove_variable = spec_word_oil
 	remove_variable = spec_risk_oil
 	remove_variable = spec_sev_oil
 	remove_variable = spec_glut_oil
+	remove_variable = spec_glut_until_oil
 	remove_variable = spec_cb_oil
 	remove_variable = spec_cc_oil
 	remove_variable = spec_word_opium
 	remove_variable = spec_risk_opium
 	remove_variable = spec_sev_opium
 	remove_variable = spec_glut_opium
+	remove_variable = spec_glut_until_opium
 	remove_variable = spec_cb_opium
 	remove_variable = spec_cc_opium
 	remove_variable = spec_word_paper
 	remove_variable = spec_risk_paper
 	remove_variable = spec_sev_paper
 	remove_variable = spec_glut_paper
+	remove_variable = spec_glut_until_paper
 	remove_variable = spec_cb_paper
 	remove_variable = spec_cc_paper
 	remove_variable = spec_word_porcelain
 	remove_variable = spec_risk_porcelain
 	remove_variable = spec_sev_porcelain
 	remove_variable = spec_glut_porcelain
+	remove_variable = spec_glut_until_porcelain
 	remove_variable = spec_cb_porcelain
 	remove_variable = spec_cc_porcelain
 	remove_variable = spec_word_radios
 	remove_variable = spec_risk_radios
 	remove_variable = spec_sev_radios
 	remove_variable = spec_glut_radios
+	remove_variable = spec_glut_until_radios
 	remove_variable = spec_cb_radios
 	remove_variable = spec_cc_radios
 	remove_variable = spec_word_rubber
 	remove_variable = spec_risk_rubber
 	remove_variable = spec_sev_rubber
 	remove_variable = spec_glut_rubber
+	remove_variable = spec_glut_until_rubber
 	remove_variable = spec_cb_rubber
 	remove_variable = spec_cc_rubber
 	remove_variable = spec_word_silk
 	remove_variable = spec_risk_silk
 	remove_variable = spec_sev_silk
 	remove_variable = spec_glut_silk
+	remove_variable = spec_glut_until_silk
 	remove_variable = spec_cb_silk
 	remove_variable = spec_cc_silk
 	remove_variable = spec_word_small_arms
 	remove_variable = spec_risk_small_arms
 	remove_variable = spec_sev_small_arms
 	remove_variable = spec_glut_small_arms
+	remove_variable = spec_glut_until_small_arms
 	remove_variable = spec_cb_small_arms
 	remove_variable = spec_cc_small_arms
 	remove_variable = spec_word_steamers
 	remove_variable = spec_risk_steamers
 	remove_variable = spec_sev_steamers
 	remove_variable = spec_glut_steamers
+	remove_variable = spec_glut_until_steamers
 	remove_variable = spec_cb_steamers
 	remove_variable = spec_cc_steamers
 	remove_variable = spec_word_steel
 	remove_variable = spec_risk_steel
 	remove_variable = spec_sev_steel
 	remove_variable = spec_glut_steel
+	remove_variable = spec_glut_until_steel
 	remove_variable = spec_cb_steel
 	remove_variable = spec_cc_steel
 	remove_variable = spec_word_sugar
 	remove_variable = spec_risk_sugar
 	remove_variable = spec_sev_sugar
 	remove_variable = spec_glut_sugar
+	remove_variable = spec_glut_until_sugar
 	remove_variable = spec_cb_sugar
 	remove_variable = spec_cc_sugar
 	remove_variable = spec_word_sulfur
 	remove_variable = spec_risk_sulfur
 	remove_variable = spec_sev_sulfur
 	remove_variable = spec_glut_sulfur
+	remove_variable = spec_glut_until_sulfur
 	remove_variable = spec_cb_sulfur
 	remove_variable = spec_cc_sulfur
 	remove_variable = spec_word_tanks
 	remove_variable = spec_risk_tanks
 	remove_variable = spec_sev_tanks
 	remove_variable = spec_glut_tanks
+	remove_variable = spec_glut_until_tanks
 	remove_variable = spec_cb_tanks
 	remove_variable = spec_cc_tanks
 	remove_variable = spec_word_tea
 	remove_variable = spec_risk_tea
 	remove_variable = spec_sev_tea
 	remove_variable = spec_glut_tea
+	remove_variable = spec_glut_until_tea
 	remove_variable = spec_cb_tea
 	remove_variable = spec_cc_tea
 	remove_variable = spec_word_telephones
 	remove_variable = spec_risk_telephones
 	remove_variable = spec_sev_telephones
 	remove_variable = spec_glut_telephones
+	remove_variable = spec_glut_until_telephones
 	remove_variable = spec_cb_telephones
 	remove_variable = spec_cc_telephones
 	remove_variable = spec_word_tobacco
 	remove_variable = spec_risk_tobacco
 	remove_variable = spec_sev_tobacco
 	remove_variable = spec_glut_tobacco
+	remove_variable = spec_glut_until_tobacco
 	remove_variable = spec_cb_tobacco
 	remove_variable = spec_cc_tobacco
 	remove_variable = spec_word_tools
 	remove_variable = spec_risk_tools
 	remove_variable = spec_sev_tools
 	remove_variable = spec_glut_tools
+	remove_variable = spec_glut_until_tools
 	remove_variable = spec_cb_tools
 	remove_variable = spec_cc_tools
 	remove_variable = spec_word_wine
 	remove_variable = spec_risk_wine
 	remove_variable = spec_sev_wine
 	remove_variable = spec_glut_wine
+	remove_variable = spec_glut_until_wine
 	remove_variable = spec_cb_wine
 	remove_variable = spec_cc_wine
 	remove_variable = spec_word_wood
 	remove_variable = spec_risk_wood
 	remove_variable = spec_sev_wood
 	remove_variable = spec_glut_wood
+	remove_variable = spec_glut_until_wood
 	remove_variable = spec_cb_wood
 	remove_variable = spec_cc_wood
 	remove_variable = spec_n_w1
@@ -1287,6 +1347,13 @@ spec_shut_down = {
 	remove_variable = spec_n_w4
 	remove_variable = spec_n_w5
 	remove_variable = spec_n_w6
+	remove_variable = spec_recall_balance
+	remove_variable = spec_recall_requested
+	remove_variable = spec_recall_pool_share
+	remove_variable = spec_pledge_unmet
+	remove_variable = spec_pledge_reason
+	remove_variable = spec_pledge_required
+	remove_variable = spec_pledge_shortfall
 	remove_variable = spec_boom_raw
 	remove_variable = spec_crash_raw
 	remove_variable = spec_tm_play
@@ -1361,6 +1428,7 @@ spec_shut_down = {
 	remove_variable = spec_risk_src_w
 	remove_variable = spec_risk_src_reach
 	remove_variable = spec_risk_src_size
+	remove_variable = spec_mood_random
 	remove_variable = spec_mood_shift
 	remove_variable = spec_restrain_raw
 	remove_variable = spec_fh_size
@@ -2564,6 +2632,12 @@ spec_shut_down = {
 	remove_variable = spec_lhist34
 	remove_variable = spec_lhist35
 	remove_variable = spec_lhist36
+	remove_variable = spec_bank_other_1
+	remove_variable = spec_bank_other_share_1
+	remove_variable = spec_bank_other_2
+	remove_variable = spec_bank_other_share_2
+	remove_variable = spec_bank_other_3
+	remove_variable = spec_bank_other_share_3
 	remove_variable = spec_ui_mv_aeroplanes
 	remove_variable = spec_ui_mv_ammunition
 	remove_variable = spec_ui_mv_artillery
@@ -2669,6 +2743,12 @@ spec_shut_down = {
 	remove_variable = spec_iw_lvl4
 	remove_variable = spec_iw_lvl5
 	remove_variable = spec_iw_lvl6
+	remove_variable = spec_iw_key_grain
+	remove_variable = spec_iw_key_fish
+	remove_variable = spec_iw_key_wood
+	remove_variable = spec_iw_key_coal
+	remove_variable = spec_iw_key_iron
+	remove_variable = spec_iw_key_tools
 	remove_variable = spec_flight_pending
 	remove_variable = spec_war_more
 	remove_variable = spec_war_n
@@ -2862,8 +2942,28 @@ spec_shut_down = {
 	remove_variable = spec_rv_ui_us
 	remove_variable = spec_rv_ui_them
 	remove_variable = spec_rv_ui_forfeit
+	remove_variable = spec_rv_due_1
+	remove_variable = spec_rv_due_2
+	remove_variable = spec_rv_due_3
+	remove_variable = spec_rv_due_4
+	remove_variable = spec_rv_due_5
+	remove_variable = spec_rv_due_6
+	remove_variable = spec_rv_next
+	remove_variable = spec_rv_next_year
 	clear_variable_list = spec_bank_goods
 	clear_variable_list = spec_iw_levels
+	clear_variable_list = spec_goods_by_risk
+	clear_variable_list = spec_goods_by_risk_staple
+	clear_variable_list = spec_goods_by_risk_industrial
+	clear_variable_list = spec_goods_by_risk_luxury
+	clear_variable_list = spec_goods_by_risk_military
+	clear_variable_list = spec_rv_attackers
+	clear_variable_list = spec_rv_from_1
+	clear_variable_list = spec_rv_from_2
+	clear_variable_list = spec_rv_from_3
+	clear_variable_list = spec_rv_from_4
+	clear_variable_list = spec_rv_from_5
+	clear_variable_list = spec_rv_from_6
 	clear_variable_list = spec_settled_plays
 	clear_variable_list = spec_defeat_goal_plays
 	clear_variable_list = spec_goods_w1
@@ -2898,4 +2998,122 @@ spec_shut_down = {
 	clear_variable_list = spec_goods_w6_military
 	spec_update_levers = yes
 	spec_update_companies = yes
+}
+
+spec_refresh_risk_list = {
+	save_temporary_scope_as = spec_sort_owner
+	clear_variable_list = spec_risky_goods
+	clear_variable_list = spec_goods_by_risk
+	clear_variable_list = spec_goods_by_risk_staple
+	clear_variable_list = spec_goods_by_risk_industrial
+	clear_variable_list = spec_goods_by_risk_luxury
+	clear_variable_list = spec_goods_by_risk_military
+	if = { limit = { has_variable = spec_word_clothes var:spec_word_clothes > 0 has_variable = spec_risk_clothes var:spec_risk_clothes > 0 } add_to_variable_list = { name = spec_risky_goods target = g:clothes } }
+	if = { limit = { has_variable = spec_word_electricity var:spec_word_electricity > 0 has_variable = spec_risk_electricity var:spec_risk_electricity > 0 } add_to_variable_list = { name = spec_risky_goods target = g:electricity } }
+	if = { limit = { has_variable = spec_word_fabric var:spec_word_fabric > 0 has_variable = spec_risk_fabric var:spec_risk_fabric > 0 } add_to_variable_list = { name = spec_risky_goods target = g:fabric } }
+	if = { limit = { has_variable = spec_word_fish var:spec_word_fish > 0 has_variable = spec_risk_fish var:spec_risk_fish > 0 } add_to_variable_list = { name = spec_risky_goods target = g:fish } }
+	if = { limit = { has_variable = spec_word_furniture var:spec_word_furniture > 0 has_variable = spec_risk_furniture var:spec_risk_furniture > 0 } add_to_variable_list = { name = spec_risky_goods target = g:furniture } }
+	if = { limit = { has_variable = spec_word_grain var:spec_word_grain > 0 has_variable = spec_risk_grain var:spec_risk_grain > 0 } add_to_variable_list = { name = spec_risky_goods target = g:grain } }
+	if = { limit = { has_variable = spec_word_groceries var:spec_word_groceries > 0 has_variable = spec_risk_groceries var:spec_risk_groceries > 0 } add_to_variable_list = { name = spec_risky_goods target = g:groceries } }
+	if = { limit = { has_variable = spec_word_merchant_marine var:spec_word_merchant_marine > 0 has_variable = spec_risk_merchant_marine var:spec_risk_merchant_marine > 0 } add_to_variable_list = { name = spec_risky_goods target = g:merchant_marine } }
+	if = { limit = { has_variable = spec_word_paper var:spec_word_paper > 0 has_variable = spec_risk_paper var:spec_risk_paper > 0 } add_to_variable_list = { name = spec_risky_goods target = g:paper } }
+	if = { limit = { has_variable = spec_word_wood var:spec_word_wood > 0 has_variable = spec_risk_wood var:spec_risk_wood > 0 } add_to_variable_list = { name = spec_risky_goods target = g:wood } }
+	if = { limit = { has_variable = spec_word_clippers var:spec_word_clippers > 0 has_variable = spec_risk_clippers var:spec_risk_clippers > 0 } add_to_variable_list = { name = spec_risky_goods target = g:clippers } }
+	if = { limit = { has_variable = spec_word_coal var:spec_word_coal > 0 has_variable = spec_risk_coal var:spec_risk_coal > 0 } add_to_variable_list = { name = spec_risky_goods target = g:coal } }
+	if = { limit = { has_variable = spec_word_copper var:spec_word_copper > 0 has_variable = spec_risk_copper var:spec_risk_copper > 0 } add_to_variable_list = { name = spec_risky_goods target = g:copper } }
+	if = { limit = { has_variable = spec_word_dye var:spec_word_dye > 0 has_variable = spec_risk_dye var:spec_risk_dye > 0 } add_to_variable_list = { name = spec_risky_goods target = g:dye } }
+	if = { limit = { has_variable = spec_word_engines var:spec_word_engines > 0 has_variable = spec_risk_engines var:spec_risk_engines > 0 } add_to_variable_list = { name = spec_risky_goods target = g:engines } }
+	if = { limit = { has_variable = spec_word_explosives var:spec_word_explosives > 0 has_variable = spec_risk_explosives var:spec_risk_explosives > 0 } add_to_variable_list = { name = spec_risky_goods target = g:explosives } }
+	if = { limit = { has_variable = spec_word_fertilizer var:spec_word_fertilizer > 0 has_variable = spec_risk_fertilizer var:spec_risk_fertilizer > 0 } add_to_variable_list = { name = spec_risky_goods target = g:fertilizer } }
+	if = { limit = { has_variable = spec_word_glass var:spec_word_glass > 0 has_variable = spec_risk_glass var:spec_risk_glass > 0 } add_to_variable_list = { name = spec_risky_goods target = g:glass } }
+	if = { limit = { has_variable = spec_word_hardwood var:spec_word_hardwood > 0 has_variable = spec_risk_hardwood var:spec_risk_hardwood > 0 } add_to_variable_list = { name = spec_risky_goods target = g:hardwood } }
+	if = { limit = { has_variable = spec_word_iron var:spec_word_iron > 0 has_variable = spec_risk_iron var:spec_risk_iron > 0 } add_to_variable_list = { name = spec_risky_goods target = g:iron } }
+	if = { limit = { has_variable = spec_word_lead var:spec_word_lead > 0 has_variable = spec_risk_lead var:spec_risk_lead > 0 } add_to_variable_list = { name = spec_risky_goods target = g:lead } }
+	if = { limit = { has_variable = spec_word_oil var:spec_word_oil > 0 has_variable = spec_risk_oil var:spec_risk_oil > 0 } add_to_variable_list = { name = spec_risky_goods target = g:oil } }
+	if = { limit = { has_variable = spec_word_rubber var:spec_word_rubber > 0 has_variable = spec_risk_rubber var:spec_risk_rubber > 0 } add_to_variable_list = { name = spec_risky_goods target = g:rubber } }
+	if = { limit = { has_variable = spec_word_silk var:spec_word_silk > 0 has_variable = spec_risk_silk var:spec_risk_silk > 0 } add_to_variable_list = { name = spec_risky_goods target = g:silk } }
+	if = { limit = { has_variable = spec_word_steamers var:spec_word_steamers > 0 has_variable = spec_risk_steamers var:spec_risk_steamers > 0 } add_to_variable_list = { name = spec_risky_goods target = g:steamers } }
+	if = { limit = { has_variable = spec_word_steel var:spec_word_steel > 0 has_variable = spec_risk_steel var:spec_risk_steel > 0 } add_to_variable_list = { name = spec_risky_goods target = g:steel } }
+	if = { limit = { has_variable = spec_word_sulfur var:spec_word_sulfur > 0 has_variable = spec_risk_sulfur var:spec_risk_sulfur > 0 } add_to_variable_list = { name = spec_risky_goods target = g:sulfur } }
+	if = { limit = { has_variable = spec_word_tools var:spec_word_tools > 0 has_variable = spec_risk_tools var:spec_risk_tools > 0 } add_to_variable_list = { name = spec_risky_goods target = g:tools } }
+	if = { limit = { has_variable = spec_word_automobiles var:spec_word_automobiles > 0 has_variable = spec_risk_automobiles var:spec_risk_automobiles > 0 } add_to_variable_list = { name = spec_risky_goods target = g:automobiles } }
+	if = { limit = { has_variable = spec_word_coffee var:spec_word_coffee > 0 has_variable = spec_risk_coffee var:spec_risk_coffee > 0 } add_to_variable_list = { name = spec_risky_goods target = g:coffee } }
+	if = { limit = { has_variable = spec_word_fine_art var:spec_word_fine_art > 0 has_variable = spec_risk_fine_art var:spec_risk_fine_art > 0 } add_to_variable_list = { name = spec_risky_goods target = g:fine_art } }
+	if = { limit = { has_variable = spec_word_fruit var:spec_word_fruit > 0 has_variable = spec_risk_fruit var:spec_risk_fruit > 0 } add_to_variable_list = { name = spec_risky_goods target = g:fruit } }
+	if = { limit = { has_variable = spec_word_liquor var:spec_word_liquor > 0 has_variable = spec_risk_liquor var:spec_risk_liquor > 0 } add_to_variable_list = { name = spec_risky_goods target = g:liquor } }
+	if = { limit = { has_variable = spec_word_luxury_clothes var:spec_word_luxury_clothes > 0 has_variable = spec_risk_luxury_clothes var:spec_risk_luxury_clothes > 0 } add_to_variable_list = { name = spec_risky_goods target = g:luxury_clothes } }
+	if = { limit = { has_variable = spec_word_luxury_furniture var:spec_word_luxury_furniture > 0 has_variable = spec_risk_luxury_furniture var:spec_risk_luxury_furniture > 0 } add_to_variable_list = { name = spec_risky_goods target = g:luxury_furniture } }
+	if = { limit = { has_variable = spec_word_meat var:spec_word_meat > 0 has_variable = spec_risk_meat var:spec_risk_meat > 0 } add_to_variable_list = { name = spec_risky_goods target = g:meat } }
+	if = { limit = { has_variable = spec_word_opium var:spec_word_opium > 0 has_variable = spec_risk_opium var:spec_risk_opium > 0 } add_to_variable_list = { name = spec_risky_goods target = g:opium } }
+	if = { limit = { has_variable = spec_word_porcelain var:spec_word_porcelain > 0 has_variable = spec_risk_porcelain var:spec_risk_porcelain > 0 } add_to_variable_list = { name = spec_risky_goods target = g:porcelain } }
+	if = { limit = { has_variable = spec_word_radios var:spec_word_radios > 0 has_variable = spec_risk_radios var:spec_risk_radios > 0 } add_to_variable_list = { name = spec_risky_goods target = g:radios } }
+	if = { limit = { has_variable = spec_word_sugar var:spec_word_sugar > 0 has_variable = spec_risk_sugar var:spec_risk_sugar > 0 } add_to_variable_list = { name = spec_risky_goods target = g:sugar } }
+	if = { limit = { has_variable = spec_word_tea var:spec_word_tea > 0 has_variable = spec_risk_tea var:spec_risk_tea > 0 } add_to_variable_list = { name = spec_risky_goods target = g:tea } }
+	if = { limit = { has_variable = spec_word_telephones var:spec_word_telephones > 0 has_variable = spec_risk_telephones var:spec_risk_telephones > 0 } add_to_variable_list = { name = spec_risky_goods target = g:telephones } }
+	if = { limit = { has_variable = spec_word_tobacco var:spec_word_tobacco > 0 has_variable = spec_risk_tobacco var:spec_risk_tobacco > 0 } add_to_variable_list = { name = spec_risky_goods target = g:tobacco } }
+	if = { limit = { has_variable = spec_word_wine var:spec_word_wine > 0 has_variable = spec_risk_wine var:spec_risk_wine > 0 } add_to_variable_list = { name = spec_risky_goods target = g:wine } }
+	if = { limit = { has_variable = spec_word_aeroplanes var:spec_word_aeroplanes > 0 has_variable = spec_risk_aeroplanes var:spec_risk_aeroplanes > 0 } add_to_variable_list = { name = spec_risky_goods target = g:aeroplanes } }
+	if = { limit = { has_variable = spec_word_ammunition var:spec_word_ammunition > 0 has_variable = spec_risk_ammunition var:spec_risk_ammunition > 0 } add_to_variable_list = { name = spec_risky_goods target = g:ammunition } }
+	if = { limit = { has_variable = spec_word_artillery var:spec_word_artillery > 0 has_variable = spec_risk_artillery var:spec_risk_artillery > 0 } add_to_variable_list = { name = spec_risky_goods target = g:artillery } }
+	if = { limit = { has_variable = spec_word_small_arms var:spec_word_small_arms > 0 has_variable = spec_risk_small_arms var:spec_risk_small_arms > 0 } add_to_variable_list = { name = spec_risky_goods target = g:small_arms } }
+	if = { limit = { has_variable = spec_word_tanks var:spec_word_tanks > 0 has_variable = spec_risk_tanks var:spec_risk_tanks > 0 } add_to_variable_list = { name = spec_risky_goods target = g:tanks } }
+	ordered_in_list = {
+		variable = spec_risky_goods
+		order_by = spec_goods_risk_order
+		scope:spec_sort_owner = { add_to_variable_list = { name = spec_goods_by_risk target = prev } }
+		if = { limit = { OR = { this = g:clothes this = g:electricity this = g:fabric this = g:fish this = g:furniture this = g:grain this = g:groceries this = g:merchant_marine this = g:paper this = g:wood } } scope:spec_sort_owner = { add_to_variable_list = { name = spec_goods_by_risk_staple target = prev } } }
+		if = { limit = { OR = { this = g:clippers this = g:coal this = g:copper this = g:dye this = g:engines this = g:explosives this = g:fertilizer this = g:glass this = g:hardwood this = g:iron this = g:lead this = g:oil this = g:rubber this = g:silk this = g:steamers this = g:steel this = g:sulfur this = g:tools } } scope:spec_sort_owner = { add_to_variable_list = { name = spec_goods_by_risk_industrial target = prev } } }
+		if = { limit = { OR = { this = g:automobiles this = g:coffee this = g:fine_art this = g:fruit this = g:liquor this = g:luxury_clothes this = g:luxury_furniture this = g:meat this = g:opium this = g:porcelain this = g:radios this = g:sugar this = g:tea this = g:telephones this = g:tobacco this = g:wine } } scope:spec_sort_owner = { add_to_variable_list = { name = spec_goods_by_risk_luxury target = prev } } }
+		if = { limit = { OR = { this = g:aeroplanes this = g:ammunition this = g:artillery this = g:small_arms this = g:tanks } } scope:spec_sort_owner = { add_to_variable_list = { name = spec_goods_by_risk_military target = prev } } }
+	}
+	if = { limit = { has_variable = spec_word_clothes var:spec_word_clothes > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:clothes } } } add_to_variable_list = { name = spec_goods_by_risk target = g:clothes } add_to_variable_list = { name = spec_goods_by_risk_staple target = g:clothes } }
+	if = { limit = { has_variable = spec_word_electricity var:spec_word_electricity > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:electricity } } } add_to_variable_list = { name = spec_goods_by_risk target = g:electricity } add_to_variable_list = { name = spec_goods_by_risk_staple target = g:electricity } }
+	if = { limit = { has_variable = spec_word_fabric var:spec_word_fabric > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:fabric } } } add_to_variable_list = { name = spec_goods_by_risk target = g:fabric } add_to_variable_list = { name = spec_goods_by_risk_staple target = g:fabric } }
+	if = { limit = { has_variable = spec_word_fish var:spec_word_fish > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:fish } } } add_to_variable_list = { name = spec_goods_by_risk target = g:fish } add_to_variable_list = { name = spec_goods_by_risk_staple target = g:fish } }
+	if = { limit = { has_variable = spec_word_furniture var:spec_word_furniture > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:furniture } } } add_to_variable_list = { name = spec_goods_by_risk target = g:furniture } add_to_variable_list = { name = spec_goods_by_risk_staple target = g:furniture } }
+	if = { limit = { has_variable = spec_word_grain var:spec_word_grain > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:grain } } } add_to_variable_list = { name = spec_goods_by_risk target = g:grain } add_to_variable_list = { name = spec_goods_by_risk_staple target = g:grain } }
+	if = { limit = { has_variable = spec_word_groceries var:spec_word_groceries > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:groceries } } } add_to_variable_list = { name = spec_goods_by_risk target = g:groceries } add_to_variable_list = { name = spec_goods_by_risk_staple target = g:groceries } }
+	if = { limit = { has_variable = spec_word_merchant_marine var:spec_word_merchant_marine > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:merchant_marine } } } add_to_variable_list = { name = spec_goods_by_risk target = g:merchant_marine } add_to_variable_list = { name = spec_goods_by_risk_staple target = g:merchant_marine } }
+	if = { limit = { has_variable = spec_word_paper var:spec_word_paper > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:paper } } } add_to_variable_list = { name = spec_goods_by_risk target = g:paper } add_to_variable_list = { name = spec_goods_by_risk_staple target = g:paper } }
+	if = { limit = { has_variable = spec_word_wood var:spec_word_wood > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:wood } } } add_to_variable_list = { name = spec_goods_by_risk target = g:wood } add_to_variable_list = { name = spec_goods_by_risk_staple target = g:wood } }
+	if = { limit = { has_variable = spec_word_clippers var:spec_word_clippers > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:clippers } } } add_to_variable_list = { name = spec_goods_by_risk target = g:clippers } add_to_variable_list = { name = spec_goods_by_risk_industrial target = g:clippers } }
+	if = { limit = { has_variable = spec_word_coal var:spec_word_coal > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:coal } } } add_to_variable_list = { name = spec_goods_by_risk target = g:coal } add_to_variable_list = { name = spec_goods_by_risk_industrial target = g:coal } }
+	if = { limit = { has_variable = spec_word_copper var:spec_word_copper > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:copper } } } add_to_variable_list = { name = spec_goods_by_risk target = g:copper } add_to_variable_list = { name = spec_goods_by_risk_industrial target = g:copper } }
+	if = { limit = { has_variable = spec_word_dye var:spec_word_dye > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:dye } } } add_to_variable_list = { name = spec_goods_by_risk target = g:dye } add_to_variable_list = { name = spec_goods_by_risk_industrial target = g:dye } }
+	if = { limit = { has_variable = spec_word_engines var:spec_word_engines > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:engines } } } add_to_variable_list = { name = spec_goods_by_risk target = g:engines } add_to_variable_list = { name = spec_goods_by_risk_industrial target = g:engines } }
+	if = { limit = { has_variable = spec_word_explosives var:spec_word_explosives > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:explosives } } } add_to_variable_list = { name = spec_goods_by_risk target = g:explosives } add_to_variable_list = { name = spec_goods_by_risk_industrial target = g:explosives } }
+	if = { limit = { has_variable = spec_word_fertilizer var:spec_word_fertilizer > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:fertilizer } } } add_to_variable_list = { name = spec_goods_by_risk target = g:fertilizer } add_to_variable_list = { name = spec_goods_by_risk_industrial target = g:fertilizer } }
+	if = { limit = { has_variable = spec_word_glass var:spec_word_glass > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:glass } } } add_to_variable_list = { name = spec_goods_by_risk target = g:glass } add_to_variable_list = { name = spec_goods_by_risk_industrial target = g:glass } }
+	if = { limit = { has_variable = spec_word_hardwood var:spec_word_hardwood > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:hardwood } } } add_to_variable_list = { name = spec_goods_by_risk target = g:hardwood } add_to_variable_list = { name = spec_goods_by_risk_industrial target = g:hardwood } }
+	if = { limit = { has_variable = spec_word_iron var:spec_word_iron > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:iron } } } add_to_variable_list = { name = spec_goods_by_risk target = g:iron } add_to_variable_list = { name = spec_goods_by_risk_industrial target = g:iron } }
+	if = { limit = { has_variable = spec_word_lead var:spec_word_lead > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:lead } } } add_to_variable_list = { name = spec_goods_by_risk target = g:lead } add_to_variable_list = { name = spec_goods_by_risk_industrial target = g:lead } }
+	if = { limit = { has_variable = spec_word_oil var:spec_word_oil > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:oil } } } add_to_variable_list = { name = spec_goods_by_risk target = g:oil } add_to_variable_list = { name = spec_goods_by_risk_industrial target = g:oil } }
+	if = { limit = { has_variable = spec_word_rubber var:spec_word_rubber > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:rubber } } } add_to_variable_list = { name = spec_goods_by_risk target = g:rubber } add_to_variable_list = { name = spec_goods_by_risk_industrial target = g:rubber } }
+	if = { limit = { has_variable = spec_word_silk var:spec_word_silk > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:silk } } } add_to_variable_list = { name = spec_goods_by_risk target = g:silk } add_to_variable_list = { name = spec_goods_by_risk_industrial target = g:silk } }
+	if = { limit = { has_variable = spec_word_steamers var:spec_word_steamers > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:steamers } } } add_to_variable_list = { name = spec_goods_by_risk target = g:steamers } add_to_variable_list = { name = spec_goods_by_risk_industrial target = g:steamers } }
+	if = { limit = { has_variable = spec_word_steel var:spec_word_steel > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:steel } } } add_to_variable_list = { name = spec_goods_by_risk target = g:steel } add_to_variable_list = { name = spec_goods_by_risk_industrial target = g:steel } }
+	if = { limit = { has_variable = spec_word_sulfur var:spec_word_sulfur > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:sulfur } } } add_to_variable_list = { name = spec_goods_by_risk target = g:sulfur } add_to_variable_list = { name = spec_goods_by_risk_industrial target = g:sulfur } }
+	if = { limit = { has_variable = spec_word_tools var:spec_word_tools > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:tools } } } add_to_variable_list = { name = spec_goods_by_risk target = g:tools } add_to_variable_list = { name = spec_goods_by_risk_industrial target = g:tools } }
+	if = { limit = { has_variable = spec_word_automobiles var:spec_word_automobiles > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:automobiles } } } add_to_variable_list = { name = spec_goods_by_risk target = g:automobiles } add_to_variable_list = { name = spec_goods_by_risk_luxury target = g:automobiles } }
+	if = { limit = { has_variable = spec_word_coffee var:spec_word_coffee > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:coffee } } } add_to_variable_list = { name = spec_goods_by_risk target = g:coffee } add_to_variable_list = { name = spec_goods_by_risk_luxury target = g:coffee } }
+	if = { limit = { has_variable = spec_word_fine_art var:spec_word_fine_art > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:fine_art } } } add_to_variable_list = { name = spec_goods_by_risk target = g:fine_art } add_to_variable_list = { name = spec_goods_by_risk_luxury target = g:fine_art } }
+	if = { limit = { has_variable = spec_word_fruit var:spec_word_fruit > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:fruit } } } add_to_variable_list = { name = spec_goods_by_risk target = g:fruit } add_to_variable_list = { name = spec_goods_by_risk_luxury target = g:fruit } }
+	if = { limit = { has_variable = spec_word_liquor var:spec_word_liquor > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:liquor } } } add_to_variable_list = { name = spec_goods_by_risk target = g:liquor } add_to_variable_list = { name = spec_goods_by_risk_luxury target = g:liquor } }
+	if = { limit = { has_variable = spec_word_luxury_clothes var:spec_word_luxury_clothes > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:luxury_clothes } } } add_to_variable_list = { name = spec_goods_by_risk target = g:luxury_clothes } add_to_variable_list = { name = spec_goods_by_risk_luxury target = g:luxury_clothes } }
+	if = { limit = { has_variable = spec_word_luxury_furniture var:spec_word_luxury_furniture > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:luxury_furniture } } } add_to_variable_list = { name = spec_goods_by_risk target = g:luxury_furniture } add_to_variable_list = { name = spec_goods_by_risk_luxury target = g:luxury_furniture } }
+	if = { limit = { has_variable = spec_word_meat var:spec_word_meat > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:meat } } } add_to_variable_list = { name = spec_goods_by_risk target = g:meat } add_to_variable_list = { name = spec_goods_by_risk_luxury target = g:meat } }
+	if = { limit = { has_variable = spec_word_opium var:spec_word_opium > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:opium } } } add_to_variable_list = { name = spec_goods_by_risk target = g:opium } add_to_variable_list = { name = spec_goods_by_risk_luxury target = g:opium } }
+	if = { limit = { has_variable = spec_word_porcelain var:spec_word_porcelain > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:porcelain } } } add_to_variable_list = { name = spec_goods_by_risk target = g:porcelain } add_to_variable_list = { name = spec_goods_by_risk_luxury target = g:porcelain } }
+	if = { limit = { has_variable = spec_word_radios var:spec_word_radios > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:radios } } } add_to_variable_list = { name = spec_goods_by_risk target = g:radios } add_to_variable_list = { name = spec_goods_by_risk_luxury target = g:radios } }
+	if = { limit = { has_variable = spec_word_sugar var:spec_word_sugar > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:sugar } } } add_to_variable_list = { name = spec_goods_by_risk target = g:sugar } add_to_variable_list = { name = spec_goods_by_risk_luxury target = g:sugar } }
+	if = { limit = { has_variable = spec_word_tea var:spec_word_tea > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:tea } } } add_to_variable_list = { name = spec_goods_by_risk target = g:tea } add_to_variable_list = { name = spec_goods_by_risk_luxury target = g:tea } }
+	if = { limit = { has_variable = spec_word_telephones var:spec_word_telephones > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:telephones } } } add_to_variable_list = { name = spec_goods_by_risk target = g:telephones } add_to_variable_list = { name = spec_goods_by_risk_luxury target = g:telephones } }
+	if = { limit = { has_variable = spec_word_tobacco var:spec_word_tobacco > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:tobacco } } } add_to_variable_list = { name = spec_goods_by_risk target = g:tobacco } add_to_variable_list = { name = spec_goods_by_risk_luxury target = g:tobacco } }
+	if = { limit = { has_variable = spec_word_wine var:spec_word_wine > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:wine } } } add_to_variable_list = { name = spec_goods_by_risk target = g:wine } add_to_variable_list = { name = spec_goods_by_risk_luxury target = g:wine } }
+	if = { limit = { has_variable = spec_word_aeroplanes var:spec_word_aeroplanes > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:aeroplanes } } } add_to_variable_list = { name = spec_goods_by_risk target = g:aeroplanes } add_to_variable_list = { name = spec_goods_by_risk_military target = g:aeroplanes } }
+	if = { limit = { has_variable = spec_word_ammunition var:spec_word_ammunition > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:ammunition } } } add_to_variable_list = { name = spec_goods_by_risk target = g:ammunition } add_to_variable_list = { name = spec_goods_by_risk_military target = g:ammunition } }
+	if = { limit = { has_variable = spec_word_artillery var:spec_word_artillery > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:artillery } } } add_to_variable_list = { name = spec_goods_by_risk target = g:artillery } add_to_variable_list = { name = spec_goods_by_risk_military target = g:artillery } }
+	if = { limit = { has_variable = spec_word_small_arms var:spec_word_small_arms > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:small_arms } } } add_to_variable_list = { name = spec_goods_by_risk target = g:small_arms } add_to_variable_list = { name = spec_goods_by_risk_military target = g:small_arms } }
+	if = { limit = { has_variable = spec_word_tanks var:spec_word_tanks > 0 NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:tanks } } } add_to_variable_list = { name = spec_goods_by_risk target = g:tanks } add_to_variable_list = { name = spec_goods_by_risk_military target = g:tanks } }
+	clear_variable_list = spec_risky_goods
 }

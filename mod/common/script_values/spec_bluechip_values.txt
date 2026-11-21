@@ -4,6 +4,15 @@ spec_bc_shelter = {
 	subtract = { value = spec_bc_counted multiply = 0.04 }
 }
 
+# Monthly updates at the owner's current rate, from the company's saved progress.
+spec_bc_updates_left = {
+	value = 12
+	if = { limit = { has_variable = spec_bc_months } subtract = var:spec_bc_months }
+	divide = owner.spec_nx_blue
+	min = 0
+	ceiling = yes
+}
+
 # the blue chips counted toward their effects: in full up to CAP, then HALF each up to CAP2
 spec_bc_counted = {
 	value = 0

@@ -1,0 +1,18 @@
+{
+ "8d526a7550": "@spec_market_confidence! [concept_spec_market_confidence] #v {1}#!（#v {2}#!超）",
+ "61a802af21": "通貨学派",
+ "ffd08800e0": "冷却（月#v {1}%#!）",
+ "b16d0bc037": "{1}（さらに#v {2}%#!）",
+ "7f79c74bb1": "破裂（[concept_spec_market_confidence]が#v {1}#!未満）",
+ "c1a05d051f": "来月の予測: {1}#indent_newline:3 {2}{3}{4}{5}{6}{7}{8}{9}#!",
+ "8846188df9": "[concept_spec_market_confidence]が#v {1}#!に達すると膨張します",
+ "a15ad81dfc": "\\n$TOOLTIP_DELIMITER$\\n今破裂した場合: [concept_spec_market_confidence]が#N -{1}#!",
+ "7fc56ad615": "\\n$SPEC_XS_P0$により{1}",
+ "c3a1878ca1": "\\n$SPEC_XS_P1$により{1}",
+ "4b756b134b": "\\n$SPEC_XS_P2$により{1}",
+ "b11a99c30a": "\\n$SPEC_XS_P3$により{1}",
+ "fb3e8869f0": "\\n$SPEC_XS_P4$により{1}",
+ "2842bce7e8": "\\n$SPEC_XS_PCOOL$により{1}",
+ "68d2a1c9f7": "\\n$SPEC_XS_PTIGHT$により{1}",
+ "f4d97f417b": "\\n$SPEC_XS_PPOP$により{1}"
+}

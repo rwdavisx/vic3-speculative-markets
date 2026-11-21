@@ -66,5 +66,5 @@ def script(k):
 def loc(k):
     p = "GetPlayer.MakeScope"
     return f""" SPEC_DRIVER_DEBT: "Government Debt"
- SPEC_DRIVER_DEBT_TT: "#header Government Debt: [{p}.Var('spec_c_debt').GetValue|+=2]#!\\n$TOOLTIP_DELIMITER$\\n#italic Investors get nervous when we borrow too much.#!\\n\\nWe have used #v [{p}.ScriptValue('spec_debt_share')|%0]#! of our [concept_credit] ([concept_principal])\\n#P Safe#! up to #v {DEBT_FROM:.0%}#!\\nEach #v 10%#! above that: #N -{DEBT_MAX / (1 - DEBT_FROM) / 10:g}#! [concept_spec_market_confidence] a month (never more than #N -{DEBT_MAX:g}#!)\\n$TOOLTIP_DELIMITER$\\n#instruction Pay debt back below {DEBT_FROM:.0%} and this goes away.#!"
+ SPEC_DRIVER_DEBT_TT: "#header Government Debt: [{p}.Var('spec_c_debt').GetValue|+=1]#!\\n$TOOLTIP_DELIMITER$\\nOur [concept_principal] has used #v [{p}.ScriptValue('spec_debt_share')|%0]#! of our [concept_credit].\\n\\nInvestors grow nervous once we pass #v {DEBT_FROM:.0%}#!. [concept_spec_market_confidence] then falls each month, by up to #N {DEBT_MAX:g}#! once all our $concept_credit$ is used.\\n\\n#instruction Pay our debt back below #v {DEBT_FROM:.0%}#! to end this#!"
 """

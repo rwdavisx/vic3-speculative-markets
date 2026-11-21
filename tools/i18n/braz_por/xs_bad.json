@@ -1,0 +1,6 @@
+{
+ "2095c742e7": "Se estourasse agora: #N toda#! a [concept_spec_market_confidence]{1}\\nA barra está cheia. Daqui em diante, o que um estouro não puder tirar da confiança vira [concept_spec_bad_debts].",
+ "e689f1cd5e": ", e pelo menos #N {1}#! de [concept_spec_bad_debts]",
+ "a381ebcd97": " O que ele não pôde tirar virou [concept_spec_bad_debts].",
+ "a129ca9f3c": "@spec_market_confidence! A [concept_spec_market_confidence] caiu demais para sustentar nosso [concept_spec_speculative_excess], e o estouro a reduziu ainda mais.{1}"
+}

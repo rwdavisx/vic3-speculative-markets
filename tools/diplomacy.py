@@ -5,6 +5,14 @@ PLAY_TURMOIL = 0.5          # confidence lost a month in an active diplomatic pl
 WAR_COST = 0.6              # what an average war should cost a month: the target for WAR_ROWS, and War Risk's estimate
 WAR_BASE = 0.35             # confidence any war costs a month, however it is going
 WAR_ALL_MIN, WAR_ALL_MAX = -4, 0.5  # all of a country's wars together, a month
+# War Risk's estimate of a play's war, a month: WAR_BASE plus each weight times the enemy side's share of both sides'
+# armies (navies), squared, so an even fight is the average war and an overwhelming foe costs up to 1.35. Armies weigh
+# most, as casualties, battles, occupation and devastation do in WAR_ROWS; navies blockade (1.2; was WAR_COST a play)
+WAR_RISK_ARMY, WAR_RISK_NAVY = 0.75, 0.25
+assert abs(WAR_BASE + (WAR_RISK_ARMY + WAR_RISK_NAVY) * 0.25 - WAR_COST) < 1e-9, "an even fight must read as the average war"
+
+WAR_GRACE_MONTHS, WAR_GDP_FREE = 12, 0.1  # a war's length costs nothing before this, nor a GDP drop up to this
+WAR_STAKES_FULL = 0.25      # a war end counts in full once this share of our forces was lost
 
 # A war's monthly change in confidence, row by row, on the country with scope:war set: key -> (name in the calculator,
 # reading, script turning the reading into points, the row's worst, the row's best). Each row is capped by itself, so
@@ -17,7 +25,7 @@ WAR_ROWS = {
                    "multiply = -6", -0.75, 0),
     "blockade": ("[concept_gdp] in [Concept('concept_blockade','$concept_blockaded$')] [Concept('concept_state','$concept_states$')] (" + PCT + ")", 'add = "scope:war.blockaded_gdp_share(root)"', "multiply = -1", -0.35, 0),
     "gdp": ("[concept_gdp] since the war began (" + PCT + ")", 'add = "scope:war.gdp_change_since_war_start(root)"',
-            "add = 0.1\n\tmax = 0", -0.35, 0),
+            f"add = {WAR_GDP_FREE:g}\n\tmax = 0", -0.35, 0),
     "devastation": ("[concept_devastation] (" + PCT + ")", "add = average_devastation", "multiply = -1", -0.2, 0),
     "battles": ("[Concept('concept_battle','$concept_battles$')] Won against Lost (" + PCT + ")",
                 'add = "size_weighted_won_battles_fraction(scope:war)"\n\tsubtract = "size_weighted_lost_battles_fraction(scope:war)"\n\tmultiply = {\n\t\tvalue = "scope:war.num_significant_battles"\n\t\tdivide = define:NWar|WAR_SUPPORT_BATTLES_RAMP_THRESHOLD\n\t\tmax = 1\n\t}',
@@ -25,7 +33,7 @@ WAR_ROWS = {
     "held": ("Enemy Land Occupied (" + PCT + ")", 'add = "enemy_side_occupation(scope:war)"', "multiply = 0.25", 0, 0.25),
     "pressure": ("[concept_war_pressure] (" + PCT + ")", 'add = "scope:war.enemy_pressure(root)"', "multiply = -0.35", -0.35, 0),
     "land": ("Land Lost to Enforced [Concept('concept_war_goal','$concept_war_goals$')] (" + PCT + ")", 'add = "scope:war.land_lost_since_war_start(root)"', "multiply = -1", -0.1, 0),
-    "length": ("A Long War (#v [{r}|0]#! months)", 'add = "scope:war.war_duration_months"', "subtract = 12\n\tmin = 0\n\tmultiply = -0.0083", -0.2, 0),
+    "length": ("A Long War (#v [{r}|0]#! months)", 'add = "scope:war.war_duration_months"', f"subtract = {WAR_GRACE_MONTHS}\n\tmin = 0\n\tmultiply = -0.0083", -0.2, 0),
     "stalemate": ("Stalemate", "if = {\n\t\tlimit = { scope:war = { war_is_in_stalemate = yes } }\n\t\tadd = 1\n\t}", "multiply = -0.1", -0.1, 0),
 }
 WAR_WORST = round(sum(row[3] for row in WAR_ROWS.values()) - WAR_BASE, 2)
@@ -147,7 +155,7 @@ def war_values():
     for key, (_, read, score, lo, hi) in WAR_ROWS.items():
         out += f"spec_wv_{key} = {{\n\tvalue = 0\n\t{read}\n}}\nspec_wc_{key} = {{\n\tvalue = spec_wv_{key}\n\t{score}\n\tmin = {lo}\n\tmax = {hi}\n}}\n"
     out += f"spec_war_month = {{\n\tvalue = -{WAR_BASE}\n" + "".join(f"\tadd = spec_wc_{key}\n" for key in WAR_ROWS) + "}\n"
-    return out + f"spec_war_stakes = {{\n\tvalue = var:spec_war_end\n\tmultiply = 4\n\tmin = {WAR_STAKES_MIN}\n\tmax = 1\n}}\n"
+    return out + f"spec_war_stakes = {{\n\tvalue = var:spec_war_end\n\tdivide = {WAR_STAKES_FULL:g}\n\tmin = {WAR_STAKES_MIN}\n\tmax = 1\n}}\n"
 
 
 def _slot(n):

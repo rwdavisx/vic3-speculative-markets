@@ -25,7 +25,7 @@ if = { limit = { NOT = { var:spec_test_str = 0 } } change_global_variable = { na
 # every pair of company-holding countries, counted once each way: equal scores are ties
 every_country = { limit = { has_variable = spec_test_has_co } save_scope_as = spec_test_a
 every_country = { limit = { has_variable = spec_test_has_co NOT = { this = scope:spec_test_a } }
-if = { limit = { var:spec_test_str = scope:spec_test_a.var:spec_test_str } change_global_variable = { name = spec_test_ties_new add = 1 } debug_log = "HOTFIX INFO tie [THIS.GetCountry.GetTagName]=[scope:spec_test_a.GetCountry.GetTagName] str=[THIS.Var('spec_test_str').GetValue] companies=[THIS.MakeScope.ScriptValue('spec_xs_co')]" }
+if = { limit = { var:spec_test_str = scope:spec_test_a.var:spec_test_str } change_global_variable = { name = spec_test_ties_new add = 1 } debug_log = "HOTFIX INFO tie [THIS.GetCountry.GetTagName] str=[THIS.Var('spec_test_str').GetValue]" }
 if = { limit = { var:spec_test_old = scope:spec_test_a.var:spec_test_old } change_global_variable = { name = spec_test_ties_old add = 1 } }
 } }
 debug_log = "HOTFIX INFO countries_with_companies=[GetGlobalVariable('spec_test_with').GetValue] ties_new=[GetGlobalVariable('spec_test_ties_new').GetValue] ties_old=[GetGlobalVariable('spec_test_ties_old').GetValue] gbr_strength=[THIS.Var('spec_test_str').GetValue]"
