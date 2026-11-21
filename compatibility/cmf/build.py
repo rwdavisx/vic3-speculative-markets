@@ -18,7 +18,12 @@ ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_SPEC = ROOT / "mod"
 DEFAULT_CMF = Path("G:/SteamLibrary/steamapps/workshop/content/529340/3385002128")
 DEFAULT_OUT = Path(__file__).resolve().parent / "mod"
-VERSION = "1.0.3"
+VERSION = "1.0.4"
+SPEC_ALERT = "gui/topfrontend.gui"
+CMF_ALERT = "gui/00_com_topfrontend.gui"
+SPEC_JOURNAL = "gui/journal_entry.gui"
+CMF_JOURNAL = "gui/com_gui_journal_entry.gui"
+VANILLA_ALERT = Path("G:/SteamLibrary/steamapps/common/Victoria 3/game") / SPEC_ALERT
 SPEC_ID = "speculative_markets"
 CMF_ID = "com.github.Victoria-3-Modding-Co-op.Community-Mod-Framework"
 SPEC_GUI = "gui/information_panel_bar.gui"
@@ -175,8 +180,48 @@ def merge_gui(spec_text, cmf_text):
     return merged
 
 
+def merge_alert_gui(spec, cmf, vanilla):
+    """Preserve the SM Finance branch and the upstream CMF action on regular alerts."""
+    action = 'onclick = "[PopupManager.OpenAlert(Alert.AccessSelf)]"'
+    dispatch = "onclick = \"[GetVariableSystem.Set('com_alert_action', Alert.GetAction)]\""
+    hide = 'onrightclick = "[Alert.MarkAsHidden]"'
+    tooltip = 'tooltip = "[Alert.GetToolTip]"'
+    parent = _type(cmf, "topfrontend", "widget")
+    additions = ((action, dispatch), (hide, tooltip))
+
+    def after(text, anchor, line, count):
+        return _replace(text, r"^(?P<t>[ \t]*)" + re.escape(anchor) + "$",
+                        lambda m: m[0] + "\n" + m["t"] + line, count, anchor)
+
+    expected = _type(vanilla, "topfrontend", "widget")
+    for anchor, line in additions:
+        expected = after(expected, anchor, line, 1)
+    if parent != expected:
+        raise ValueError("Upstream CMF alert type changed; review the merge")
+    merged = after(after(spec, action, dispatch, 1), hide, tooltip, 2)
+    close = 'onclick = "[InformationPanelBar.ClosePanel]"'
+    merged = after(merged, close, '''onclick = "[GetVariableSystem.Clear('com_open_window')]"''', 1)
+    merged = after(merged, close, 'onclick = "[MapListPanelManager.CloseCurrentPanel]"', 1)
+    _validate_gui(merged)
+    return merged, cmf.replace(parent, "# Merged topfrontend is supplied in topfrontend.gui.")
+
+
 def _sha(data):
     return hashlib.sha256(data).hexdigest()
+
+
+def merge_journal_guard(spec, cmf):
+    marker = "name = spec_finance_yield_to_other_entry"
+    if marker not in spec:
+        return None
+    anchor = 'datacontext = "[JournalEntryPanel.AccessJournalEntryType]"'
+    match = re.search(r'\n\s*state = \{\s*' + re.escape(marker), spec)
+    if not match or spec.count(marker) != 1 or cmf.count(anchor) != 1 or marker in cmf:
+        raise ValueError("Journal panel guard or CMF journal context changed; review the merge")
+    end = _block_end(spec, spec.index("{", match.start())) + 1
+    merged = cmf.replace(anchor, anchor + spec[match.start():end])
+    _validate_gui(merged)
+    return merged
 
 
 def build(spec=DEFAULT_SPEC, cmf=DEFAULT_CMF, out=DEFAULT_OUT):
@@ -186,10 +231,10 @@ def build(spec=DEFAULT_SPEC, cmf=DEFAULT_CMF, out=DEFAULT_OUT):
             raise ValueError(f"Output must not overlap a parent mod: {out}")
     source_files = {}
     parents = {}
-    for name, folder, expected, gui in (("speculative_markets", spec, SPEC_ID, SPEC_GUI),
-                                        ("community_mod_framework", cmf, CMF_ID, CMF_GUI)):
+    for name, folder, expected, gui in (("speculative_markets", spec, {SPEC_ID, "speculative_markets_beta"}, SPEC_GUI),
+                                        ("community_mod_framework", cmf, {CMF_ID}, CMF_GUI)):
         metadata = json.loads((folder / METADATA).read_text(encoding="utf-8-sig"))
-        if metadata.get("id") != expected:
+        if metadata.get("id") not in expected:
             raise ValueError(f"Wrong {name} mod id at {folder}: {metadata.get('id')!r}")
         data = (folder / gui).read_bytes()
         source_files[name] = data.decode("utf-8-sig")
@@ -221,6 +266,26 @@ def build(spec=DEFAULT_SPEC, cmf=DEFAULT_CMF, out=DEFAULT_OUT):
                    "# Mask the parent file so only one information_panel_bar type is loaded.\n").encode("utf-8-sig"),
         METADATA: (json.dumps(metadata, indent=2) + "\n").encode("utf-8"),
     }
+    if (spec / SPEC_ALERT).exists():
+        alerts = []
+        for name, folder, rel in (("speculative_markets", spec, SPEC_ALERT),
+                                  ("community_mod_framework", cmf, CMF_ALERT)):
+            data = (folder / rel).read_bytes()
+            parents[name]["files"][rel] = _sha(data)
+            alerts.append(data.decode("utf-8-sig").replace("\r\n", "\n"))
+        merged_alert, mask = merge_alert_gui(*alerts, VANILLA_ALERT.read_text(encoding="utf-8-sig"))
+        files[SPEC_ALERT] = merged_alert.encode("utf-8-sig")
+        files[CMF_ALERT] = mask.encode("utf-8-sig")
+    # CMF supplies its own journal_entry_panel type. Preserve its extensions
+    # when applying the Finance guard to that version of the native window.
+    if (spec / SPEC_JOURNAL).exists():
+        source = (spec / SPEC_JOURNAL).read_bytes()
+        if b"name = spec_finance_yield_to_other_entry" in source:
+            framework = (cmf / CMF_JOURNAL).read_bytes()
+            merged_journal = merge_journal_guard(source.decode("utf-8-sig"), framework.decode("utf-8-sig").replace("\r\n", "\n"))
+            parents["speculative_markets"]["files"][SPEC_JOURNAL] = _sha(source)
+            parents["community_mod_framework"]["files"][CMF_JOURNAL] = _sha(framework)
+            files[CMF_JOURNAL] = merged_journal.encode("utf-8-sig")
     # Validate every layout before touching the destination; never remove an
     # unexpected file or follow a redirected output path into a parent mod.
     for rel in files:

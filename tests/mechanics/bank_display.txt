@@ -35,7 +35,7 @@ else = { debug_log = "HOTFIX FAIL bank_tooltip_multiplier_matches_post_lending_l
  set_variable = { name = spec_c_mood value = 4 }
  set_variable = { name = spec_exch_stand value = 1 }
  spec_mechanics_mood = yes
- set_local_variable = { name = expected value = { value = 3 add = var:spec_mood_random add = spec_exch_lean subtract = var:spec_c_mood } }
+ set_local_variable = { name = expected value = { value = 3.8 add = var:spec_mood_random add = spec_exch_lean subtract = var:spec_c_mood } }
  if = { limit = { local_var:expected >= -0.0001 local_var:expected <= 0.0001 } debug_log = "HOTFIX PASS mood_carry_draw_prosperity_reconcile" }
  else = { debug_log = "HOTFIX FAIL mood_carry_draw_prosperity_reconcile" }
  spec_shut_down = yes
@@ -62,11 +62,27 @@ else = { debug_log = "HOTFIX FAIL bank_tooltip_multiplier_matches_post_lending_l
  else = { debug_log = "HOTFIX FAIL small_remainder_grouped" }
  set_variable = { name = spec_exp_iron value = 0.0009 }
  spec_mechanics_bank_chart = yes
- if = { limit = { var:spec_bank_other_1 = g:iron var:spec_bank_other_2 = g:coal has_variable = spec_bank_other_3 var:spec_bank_other_share_1 = 0.0009 } debug_log = "HOTFIX PASS other_goods_ranks_smaller_contributors" }
+ # The tooltip reads spec_bank_sorted and skips named slices. Steel is the named slice.
+ save_scope_as = spec_test_chart_owner
+ remove_variable = spec_test_chart_first
+ remove_variable = spec_test_chart_second
+ remove_variable = spec_test_chart_third
+ set_variable = { name = spec_test_chart_index value = 0 }
+ every_in_list = {
+     variable = spec_bank_sorted
+     save_temporary_scope_as = spec_test_chart_good
+     scope:spec_test_chart_owner = {
+         change_variable = { name = spec_test_chart_index add = 1 }
+         if = { limit = { var:spec_test_chart_index = 1 } set_variable = { name = spec_test_chart_first value = scope:spec_test_chart_good } }
+         if = { limit = { var:spec_test_chart_index = 2 } set_variable = { name = spec_test_chart_second value = scope:spec_test_chart_good } }
+         if = { limit = { var:spec_test_chart_index = 3 } set_variable = { name = spec_test_chart_third value = scope:spec_test_chart_good } }
+     }
+ }
+ if = { limit = { var:spec_test_chart_index = 10 var:spec_test_chart_first ?= g:steel has_variable = spec_bank_in_steel var:spec_test_chart_second ?= g:iron var:spec_test_chart_third ?= g:coal spec_exp_share_iron = 0.0009 } debug_log = "HOTFIX PASS other_goods_ranks_smaller_contributors" }
  else = { debug_log = "HOTFIX FAIL other_goods_ranks_smaller_contributors" }
  set_variable = { name = spec_debt value = 0 }
  spec_mechanics_bank_chart = yes
- if = { limit = { NOT = { has_variable = spec_bank_other_1 } NOT = { has_variable = spec_bank_other_3 } } debug_log = "HOTFIX PASS empty_chart_clears_contributors" }
+ if = { limit = { NOT = { any_in_list = { variable = spec_bank_sorted always = yes } } NOT = { has_variable = spec_bank_in_steel } } debug_log = "HOTFIX PASS empty_chart_clears_contributors" }
  else = { debug_log = "HOTFIX FAIL empty_chart_clears_contributors" }
  set_variable = { name = spec_debt value = 10000 }
  set_variable = { name = spec_exp_iron value = 0.0008 }

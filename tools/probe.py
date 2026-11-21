@@ -12,15 +12,26 @@ VALUES = "common/script_values/spec_probe_values.txt"
 ACTIONS = "common/on_actions/spec_probe_on_actions.txt"
 FIELDS = {"gdp": "gdp", "sol": "average_sol", "debt": "principal", "inv": "investment_pool_income"}
 FLAGS = {"war": "is_at_war = yes", "default": "in_default = yes"}
+FINANCE_TECHS = ("banking", "currency_standards", "international_trade", "stock_exchange", "joint_stock_companies",
+                 "central_banking", "investment_banks", "international_exchange_standards", "mutual_funds",
+                 "modern_financial_instruments", "macroeconomics")
 # weekly construction goods spending (all, private) and construction points used: engine data functions, no script value
 CALLS = {"cg": "GetConstructionGoodsExpenses", "pcg": "GetPrivateConstructionGoodsExpenses", "cu": "CalcUsedConstruction"}
 
 
-def files():
-    values = "".join(f"spec_probe_{k} = {{\n\tvalue = {v}\n}}\n" for k, v in FIELDS.items())
+def files(*, fiscal=False):
+    sampled, flags = FIELDS, FLAGS
+    if fiscal:
+        sampled = {**FIELDS, "cash": "gold_reserves", "sdebt": "scaled_debt", "net": "net_total_income",
+                   "auth": "authority", "grant": "spec_lever_spend", "levy": "spec_lever_levy", "used": "spec_lever_authority"}
+        flags = {**FLAGS, "near": "spec_nearly_broke = yes", "gp": "country_rank = rank_value:great_power",
+                 "ind": "ig:ig_industrialists ?= { is_in_government = yes }",
+                 "intel": "ig:ig_intelligentsia ?= { is_in_government = yes }"}
+        flags.update((tech, f"has_technology_researched = {tech}") for tech in FINANCE_TECHS)
+    values = "".join(f"spec_probe_{k} = {{\n\tvalue = {v}\n}}\n" for k, v in sampled.items())
     values += "".join(f"spec_probe_{k} = {{\n\tvalue = 0\n\tif = {{\n\t\tlimit = {{ {t} }}\n\t\tvalue = 1\n\t}}\n}}\n"
-                      for k, t in FLAGS.items())
-    fields = " ".join(f"{k}=[THIS.ScriptValue('spec_probe_{k}')]" for k in (*FIELDS, *FLAGS))
+                      for k, t in flags.items())
+    fields = " ".join(f"{k}=[THIS.ScriptValue('spec_probe_{k}')]" for k in (*sampled, *flags))
     fields += "".join(f" {k}=[THIS.GetCountry.{f}]" for k, f in CALLS.items())
     # only on_actions lists on the vanilla on_actions, never an effect block, which would replace vanilla's
     actions = f"""on_monthly_pulse_country = {{

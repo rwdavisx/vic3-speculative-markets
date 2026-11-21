@@ -114,5 +114,12 @@ class MechanicsHarnessTests(unittest.TestCase):
         self.assertEqual(testbed.hotfix_testbed.check_error_logs([error])["blocking_error_count"], 2)
 
 
+    def test_native_invalid_journal_widget_lookup_blocks_the_error_gate(self):
+        error = self.root / "error.log"
+        error.write_text("[08:53:23][informationpanelmanager.cpp:683]: Trying to get invalid panel type 'journal_entry_panel'\n")
+        gate = testbed.hotfix_testbed.check_error_logs([error])
+        self.assertEqual(gate["blocking_error_count"], 1)
+
+
 if __name__ == "__main__":
     unittest.main()

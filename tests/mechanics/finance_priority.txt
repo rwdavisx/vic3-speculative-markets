@@ -40,11 +40,12 @@ spec_mechanics_finance_priority.1 = { type = country_event hidden = yes immediat
     set_variable = { name = spec_debt value = { value = spec_lev_income multiply = 3 } }
     set_variable = { name = spec_fd value = 0 }
     set_variable = { name = spec_test_shallow value = spec_panic_at_3 }
-    if = { limit = { spec_panic_at = var:spec_test_shallow spec_shallow_panic = 5 } debug_log = "HOTFIX PASS shallow_chart_matches_trigger" }
+    set_local_variable = { name = spec_expected_deep value = { value = spec_panic_at add = spec_shallow_panic } }
+    if = { limit = { spec_panic_at = var:spec_test_shallow spec_shallow = 1 spec_shallow_panic > 0 } debug_log = "HOTFIX PASS shallow_chart_matches_trigger" }
     else = { debug_log = "HOTFIX FAIL shallow_chart_matches_trigger" }
     set_variable = { name = spec_fd value = building_levels }
     set_variable = { name = spec_test_deep value = spec_panic_at_3 }
-    if = { limit = { spec_panic_at = var:spec_test_deep spec_shallow_panic = 0 var:spec_test_deep > var:spec_test_shallow } debug_log = "HOTFIX PASS deep_chart_matches_trigger" }
+    if = { limit = { spec_panic_at = var:spec_test_deep spec_shallow_panic = 0 var:spec_test_deep = local_var:spec_expected_deep var:spec_test_deep > var:spec_test_shallow } debug_log = "HOTFIX PASS deep_chart_matches_trigger" }
     else = { debug_log = "HOTFIX FAIL deep_chart_matches_trigger" }
     # Eight points remain. A 1.4-point monthly advance needs six updates.
     set_variable = { name = spec_pw_companies value = 1 }
@@ -56,9 +57,15 @@ spec_mechanics_finance_priority.1 = { type = country_event hidden = yes immediat
     else = { debug_log = "HOTFIX FAIL company_eta_plain_rate" }
     # Show the earliest of an incoming and an outgoing contest.
     every_country = { clear_variable_list = spec_rv_chosen }
+    every_country = {
+        limit = { OR = { this = c:GBR this = c:FRA this = c:PRU } }
+        set_variable = { name = spec_exch_stand value = 1 }
+        set_variable = { name = spec_centre_trust value = 60 }
+        set_variable = { name = spec_centre_score value = 100 }
+    }
     add_to_variable_list = { name = spec_rv_chosen target = c:FRA }
-    add_to_variable_list = { name = spec_rv_age_1 target = c:FRA }
-    c:PRU = { add_to_variable_list = { name = spec_rv_chosen target = c:GBR } add_to_variable_list = { name = spec_rv_age_3 target = c:GBR } }
+    add_to_variable_list = { name = spec_rv_age_12 target = c:FRA }
+    c:PRU = { add_to_variable_list = { name = spec_rv_chosen target = c:GBR } add_to_variable_list = { name = spec_rv_age_36 target = c:GBR } }
     spec_rv_list = yes
     if = { limit = { var:spec_rv_next = c:PRU var:spec_rv_next_year = 2 c:FRA = { var:spec_rv_ui_left = 4 } } debug_log = "HOTFIX PASS staggered_contests_show_earliest" }
     else = { debug_log = "HOTFIX FAIL staggered_contests_show_earliest" }
@@ -67,8 +74,8 @@ spec_mechanics_finance_priority.1 = { type = country_event hidden = yes immediat
     c:FRA = { save_scope_as = target }
     set_variable = { name = spec_centre_score value = 400 }
     c:FRA = { set_variable = { name = spec_centre_score value = 100 } }
-    clear_variable_list = spec_rv_age_1
-    add_to_variable_list = { name = spec_rv_age_4 target = c:FRA }
+    clear_variable_list = spec_rv_age_12
+    add_to_variable_list = { name = spec_rv_age_59 target = c:FRA }
     every_country = { limit = { OR = { this = c:FRA this = c:GBR } } remove_variable = spec_bc_n remove_variable = spec_rv_focus clear_variable_list = spec_rv_push_1 clear_variable_list = spec_rv_push_2 clear_variable_list = spec_rv_push_3 clear_variable_list = spec_rv_push_4 clear_variable_list = spec_rv_push_5 }
     spec_rival_contest = yes
     if = { limit = { c:FRA = { var:spec_rv_lurer = c:PRU var:spec_rv_lure = 8 } is_target_in_variable_list = { name = spec_rv_big target = c:FRA } } debug_log = "HOTFIX PASS exact_decisive_preserves_prior_lure" }
@@ -105,12 +112,47 @@ spec_mechanics_finance_priority.1 = { type = country_event hidden = yes immediat
                 if = { limit = { var:spec_test_index = 3 } set_variable = { name = spec_test_last value = prev } }
             }
         }
-        if = { limit = { var:spec_test_index = 3 var:spec_test_first = g:coal var:spec_test_last = g:grain is_target_in_variable_list = { name = spec_goods_by_risk_industrial target = g:iron } } debug_log = "HOTFIX PASS risk_order_uses_loss_and_keeps_zeroes" }
+        if = { limit = { var:spec_test_index = 3 var:spec_test_first = g:coal var:spec_test_last = g:grain is_target_in_variable_list = { name = spec_goods_by_risk_materials target = g:iron } } debug_log = "HOTFIX PASS risk_order_uses_loss_and_keeps_zeroes" }
         else = { debug_log = "HOTFIX FAIL risk_order_uses_loss_and_keeps_zeroes" }
         set_variable = { name = spec_word_coal value = 0 }
         spec_refresh_risk_list = yes
         if = { limit = { NOT = { is_target_in_variable_list = { name = spec_goods_by_risk target = g:coal } } } debug_log = "HOTFIX PASS risk_list_drops_untraded_goods" }
         else = { debug_log = "HOTFIX FAIL risk_list_drops_untraded_goods" }
+        clear_variable_list = spec_sector_chart
+        set_variable = { name = spec_sector_share_industry value = 0.08 }
+        add_to_variable_list = { name = spec_sector_chart target = g:tools }
+        set_variable = { name = spec_sector_share_materials value = 0.30 }
+        add_to_variable_list = { name = spec_sector_chart target = g:wood }
+        set_variable = { name = spec_sector_share_energy value = 0.10 }
+        add_to_variable_list = { name = spec_sector_chart target = g:coal }
+        set_variable = { name = spec_sector_share_food value = 0.25 }
+        add_to_variable_list = { name = spec_sector_chart target = g:grain }
+        set_variable = { name = spec_sector_share_plantation value = 0.05 }
+        add_to_variable_list = { name = spec_sector_chart target = g:tea }
+        set_variable = { name = spec_sector_share_household value = 0.20 }
+        add_to_variable_list = { name = spec_sector_chart target = g:fabric }
+        set_variable = { name = spec_sector_share_defence value = 0.02 }
+        add_to_variable_list = { name = spec_sector_chart target = g:small_arms }
+        spec_refresh_sector_chart = yes
+        set_variable = { name = spec_test_index value = 0 }
+        set_variable = { name = spec_test_rank_matches value = 0 }
+        every_in_list = { variable = spec_sector_ranked
+            c:SWE = {
+                change_variable = { name = spec_test_index add = 1 }
+                if = { limit = { var:spec_test_index = 1 prev = { this = g:wood } } change_variable = { name = spec_test_rank_matches add = 1 } }
+                if = { limit = { var:spec_test_index = 2 prev = { this = g:grain } } change_variable = { name = spec_test_rank_matches add = 1 } }
+                if = { limit = { var:spec_test_index = 3 prev = { this = g:fabric } } change_variable = { name = spec_test_rank_matches add = 1 } }
+                if = { limit = { var:spec_test_index = 4 prev = { this = g:coal } } change_variable = { name = spec_test_rank_matches add = 1 } }
+                if = { limit = { var:spec_test_index = 5 prev = { this = g:fish } } change_variable = { name = spec_test_rank_matches add = 1 } }
+            }
+        }
+        if = { limit = { var:spec_test_index = 5 var:spec_test_rank_matches = 5 var:spec_sector_share_other = 0.15 var:spec_sector_rank_industry = 5 var:spec_sector_rank_plantation = 6 var:spec_sector_rank_defence = 7 } debug_log = "HOTFIX PASS sector_chart_top_four_and_remainder" }
+        else = { debug_log = "HOTFIX FAIL sector_chart_top_four_and_remainder" }
+        clear_variable_list = spec_sector_chart
+        add_to_variable_list = { name = spec_sector_chart target = g:wood }
+        spec_refresh_sector_chart = yes
+        if = { limit = { var:spec_sector_share_other = 0 NOT = { has_variable = spec_sector_rank_defence } NOT = { is_target_in_variable_list = { name = spec_sector_ranked target = g:fish } } } debug_log = "HOTFIX PASS sector_chart_clears_old_remainder" }
+        else = { debug_log = "HOTFIX FAIL sector_chart_clears_old_remainder" }
         set_variable = { name = spec_debt value = 1000000 }
         add_investment_pool = { value = investment_pool multiply = -1 }
         add_investment_pool = 100

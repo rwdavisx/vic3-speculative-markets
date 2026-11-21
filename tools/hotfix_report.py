@@ -150,6 +150,8 @@ def error_records(text):
 
 def classify(record):
     own = bool(MOD_PATH.search(record) or MOD_NAME.search(record))
+    if "[informationpanelmanager.cpp:" in record and "Trying to get invalid panel type 'journal_entry_panel'" in record:
+        return "invalid_journal_panel"
     if TEST_PATH.search(record.replace("\\", "/")):
         return "test_harness_script_errors"
     if ".metadata/metadata.json" in record.replace("\\", "/"):
@@ -359,7 +361,7 @@ def render(report):
                   "  Error records: " + (", ".join(f"{key}={value}" for key, value in counts.items()) if run["error_log_present"] else "UNAVAILABLE (not zero)"),
                   f"  Capture: {run['error_capture_note']}",
                   f"  Shared/ambiguous SPEC tags: {', '.join(run['identity']['ambiguous_spec_tags']) or 'none detected'}."]
-        for category in ("mod_script_errors", "mod_runtime_list_warnings", "test_harness_script_errors", "mod_other_diagnostics"):
+        for category in ("mod_script_errors", "mod_runtime_list_warnings", "test_harness_script_errors", "mod_other_diagnostics", "invalid_journal_panel"):
             for item in run["errors"]["groups"].get(category, [])[:6]:
                 example = " | ".join(line.strip() for line in item["example"].splitlines() if line.strip())
                 lines.append(f"    {category} x{item['count']}: {example}")

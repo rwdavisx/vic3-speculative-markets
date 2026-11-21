@@ -2,6 +2,7 @@
 
 import centres  # its switches decide which Exchange toasts exist; it does not import this module
 import ig_stances
+import market_news
 import leverage
 import cycle
 V = "gfx/interface/icons/notification_icons"
@@ -73,6 +74,8 @@ GROUPS = {"spec_foreign_panic_notification_group": "Foreign Panics",
           "spec_warning_notification_group": "Speculation Warnings",
           "spec_boom_end_notification_group": "Boom Endings"} | ig_stances.NOTE_GROUPS
 NOTES |= ig_stances.NOTES
+NOTES["spec_market_bulletin"] = ("spec_boom_end_notification_group", "goods", "neutral",
+                                 "Domestic market bulletin", market_news.description())
 if centres.ON:  # its Standing toasts replace the Financial Centre ones
     EXCH = "$SPEC_EXCH_CITY_ME$ Exchange"
     NEWS = "spec_exchange_notification_group"  # the Exchange's own news, muted apart from the panic warnings
@@ -197,9 +200,9 @@ def loc(panic_at):
         n = f"notification_{key}"
         tip = f"#header ${n}_name$#!" + (f"\\n$TOOLTIP_DELIMITER$\\n${n}_desc$" if desc else "")
         out += f' {n}_name: "{name}"\n {n}_desc: "{desc}"\n {n}_tooltip: "{tip}"\n'
-    return out
+    return out + market_news.loc()
 
 
 def build(write):
     write("common/messages/spec_messages.txt", messages())
-    write("common/scripted_effects/spec_notify_effects.txt", EFFECTS)
+    write("common/scripted_effects/spec_notify_effects.txt", EFFECTS + market_news.effects())

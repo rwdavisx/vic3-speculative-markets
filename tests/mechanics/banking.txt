@@ -5,6 +5,7 @@ spec_mechanics_banking.1 = {
     hidden = yes
     immediate = {
         activate_law = law_type:law_interventionism
+        set_variable = spec_debt_units_v2
         remove_variable = spec_panic
         remove_variable = spec_crunch
         remove_variable = spec_lev_old
@@ -14,10 +15,10 @@ spec_mechanics_banking.1 = {
         if = { limit = { spec_lev >= 2.999 spec_lev <= 3.001 spec_lev_stress <= 0.001 } debug_log = "HOTFIX PASS leverage_safe_boundary" }
         else = { debug_log = "HOTFIX FAIL leverage_safe_boundary" }
         set_variable = { name = spec_debt value = { value = spec_lev_income multiply = 12 } }
-        if = { limit = { spec_lev >= 11.999 spec_lev <= 12.001 spec_lev_stress = 1 spec_lev_reward = 12 } debug_log = "HOTFIX PASS leverage_ruin_boundary" }
+        if = { limit = { spec_lev >= 11.999 spec_lev <= 12.001 spec_lev_stress = 1 spec_lev_reward = 4 } debug_log = "HOTFIX PASS leverage_ruin_boundary" }
         else = { debug_log = "HOTFIX FAIL leverage_ruin_boundary" }
         set_variable = { name = spec_debt value = { value = spec_lev_income multiply = 30 } }
-        if = { limit = { spec_lev_stress = 1 spec_lev_reward = 12 spec_credit_room = 0 } debug_log = "HOTFIX PASS leverage_caps_and_no_credit_room" }
+        if = { limit = { spec_lev_stress = 1 spec_lev_reward = 4 spec_credit_room = 0 } debug_log = "HOTFIX PASS leverage_caps_and_no_credit_room" }
         else = { debug_log = "HOTFIX FAIL leverage_caps_and_no_credit_room" }
         set_variable = { name = spec_crunch value = 10 }
         if = { limit = { spec_lev_reward = 0 spec_credit_preview = 0 spec_credit_preview_loose = 0 } debug_log = "HOTFIX PASS bad_debts_block_reward_and_preview" }
@@ -28,7 +29,8 @@ spec_mechanics_banking.1 = {
         else = { debug_log = "HOTFIX FAIL panic_blocks_reward_and_preview" }
         remove_variable = spec_panic
         set_variable = { name = spec_debt value = 1000 }
-        if = { limit = { spec_credit_runoff = 20 spec_credit_repay >= 0 spec_credit_repay <= 20 spec_credit_repay <= investment_pool spec_clawback >= 0 spec_clawback <= 500 spec_clawback <= investment_pool } debug_log = "HOTFIX PASS debt_repayments_bounded_by_balance" }
+        set_variable = { name = spec_lax value = 0.5 }
+        if = { limit = { spec_credit_runoff = 9.5 spec_credit_repay >= 0 spec_credit_repay <= 9.5 spec_credit_repay <= investment_pool spec_clawback >= 0 spec_clawback <= 750 spec_clawback <= investment_pool } debug_log = "HOTFIX PASS debt_repayments_bounded_by_balance" }
         else = { debug_log = "HOTFIX FAIL debt_repayments_bounded_by_balance" }
         set_variable = { name = spec_debt value = 0 }
         set_variable = { name = spec_conf value = 100 }
@@ -46,13 +48,13 @@ spec_mechanics_banking.1 = {
         if = { limit = { spec_lax_credit = 1 spec_lax_pull = 1 spec_lax_cost = 1 } debug_log = "HOTFIX PASS missing_standards_neutral" }
         else = { debug_log = "HOTFIX FAIL missing_standards_neutral" }
         set_variable = { name = spec_lax value = 0 }
-        if = { limit = { spec_lax_credit = 0.75 spec_lax_pull = 0.5 spec_lax_cost = 0.5 } debug_log = "HOTFIX PASS strict_standards_multipliers" }
+        if = { limit = { spec_lax_credit = 0.65 spec_lax_pull = 0.5 spec_lax_cost = 0.5 } debug_log = "HOTFIX PASS strict_standards_multipliers" }
         else = { debug_log = "HOTFIX FAIL strict_standards_multipliers" }
         set_variable = { name = spec_lax value = 1 }
-        if = { limit = { spec_lax_credit = 1.25 spec_lax_pull = 1.5 spec_lax_cost = 1.5 } debug_log = "HOTFIX PASS reckless_standards_multipliers" }
+        if = { limit = { spec_lax_credit = 1.35 spec_lax_pull = 1.5 spec_lax_cost = 1.5 } debug_log = "HOTFIX PASS reckless_standards_multipliers" }
         else = { debug_log = "HOTFIX FAIL reckless_standards_multipliers" }
 
-        # A bailout halves remaining bad debt, cannot increase its current bite,
+        # A bailout clears 30% of remaining bad debt, cannot increase its current bite,
         # and is unavailable a second time during the same spell.
         if = { limit = { NOT = { has_technology_researched = banking } } add_technology_researched = banking }
         remove_variable = spec_bailed
@@ -60,7 +62,7 @@ spec_mechanics_banking.1 = {
         set_variable = { name = spec_crunch_bite value = 15 }
         set_variable = { name = spec_lax value = 0.9 }
         spec_bailout = yes
-        if = { limit = { var:spec_crunch = 10 var:spec_crunch_bite = 10 var:spec_lax = 1 has_modifier = spec_credit_crunch NOT = { spec_can_bailout = yes } } debug_log = "HOTFIX PASS bailout_cuts_debt_caps_bite_and_repeats" }
+        if = { limit = { var:spec_crunch = 14 var:spec_crunch_bite = 14 var:spec_lax = 1 has_variable = spec_bailed has_modifier = spec_credit_crunch_v2 NOT = { spec_can_bailout = yes } } debug_log = "HOTFIX PASS bailout_cuts_debt_caps_bite_and_repeats" }
         else = { debug_log = "HOTFIX FAIL bailout_cuts_debt_caps_bite_and_repeats" }
         debug_log = "HOTFIX SUITE COMPLETE"
     }

@@ -1,0 +1,14 @@
+{
+  "086b1ead63": "[concept_spec_bad_debts]が[concept_spec_lending_standards]で許容される限度を超えている間、銀行は融資を停止します",
+  "11d5c39c51": "銀行は前回の好況の損失をまだ処理しています。損失が大きいほど#N 融資は減少#!し、[concept_spec_lending_standards]の許容限度を超えると融資は停止します。\\n#v 銀行に融資する#!では解消できません。\\n#v 不良債権を買い取る#!は損失が残っている間に一度だけ、その{1}%を解消します。",
+  "154ba54579": "\\n#v x{1}#! （[concept_spec_bad_debts]の影響）",
+  "40d398c68c": "直近#v {1}#!か月間に切り替えていないか、開始から#v {2}#!日未満でまだ取り消せます。",
+  "508f3e9b55": "好況期の融資が不良債権になりました。今後数か月で[concept_spec_bad_debts]により[concept_throughput]が#N {1}%#!低下し、その後は影響が弱まり、#v {2}#!か月で解消します。それまでは銀行の融資が減少します。#v 銀行に融資する#!では解消できません。",
+  "923b245d95": "[concept_spec_bad_debts]が[concept_spec_lending_standards]で許容される限度を超えている間、銀行は融資を停止します。",
+  "a01525d299": "\\nペナルティは毎月#N {1}%#!ずつ拡大し、最大で#N -{2}%#!に達します。",
+  "c465eba044": "@spec_bad_debts! [concept_spec_bad_debts]が#P {1}%#!減少し、解消までの期間が#v {3}#!か月から#v {2}#!か月に短縮されます。",
+  "c55c523e35": "\\n#P +@money!{1}#! 今月の新規融資",
+  "d1f5b6ea71": "#bold $SPEC_FINANCE$#!ウィンドウの#bold $SPEC_FIN_TAB_BANKING$#!タブで#v 不良債権を買い取る#!を選択します。不良債権が解消するまでは一度だけ実行できます。\\n残りの[concept_spec_bad_debts]の#P {1}%#!を解消\\n費用：#v @money!{2}#!",
+  "d4fbe0f156": "リスクを下げるには、#bold $SPEC_FIN_TAB_BOOMS$#!タブで特に危険な商品の投機を抑制するか、#bold $SPEC_FIN_TAB_BANKING$#!タブで[concept_spec_credit_policy]を引き締めてください。",
+  "dccbb4fb0f": "銀行は[concept_investment_pool]への#N 融資を停止#!\\n価格変動に対する投資家の反応が#N {1}%#!低下\\n#P 好況は小さく#!、終わりは穏やかに、恐慌は軽くなります\\n[concept_spec_bad_debts]の解消が#P {2}%#!速くなる\\n毎月、[concept_spec_market_confidence]の#v {4}#!を超える部分の#N {3}%#!が消えます\\n\\n[concept_spec_credit_policy]を#v {5}#!か月間固定\\n{6}が必要\\n\\n[concept_in_government]の@intelligentsia! 知識人: [concept_approval] #P +{7}#!\\n[concept_in_government]の@industrialists! 実業家: [concept_approval] #N -{8}#!"
+}

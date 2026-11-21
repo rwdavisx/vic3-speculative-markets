@@ -17,6 +17,7 @@ interest_list.row() places slot() in its Interest Groups column; levers.loc() pl
 
 import sys
 from functools import reduce
+import market_news
 
 P = "Country.MakeScope"  # as market_tab.P; not imported, market_tab imports levers, which imports this
 DEAL = 0.1              # spec_weight: a share of the market's trade of 0.1 x generate.EXPOSURE_FULL (0.3%) counts as dealing in it
@@ -26,7 +27,7 @@ REROLL_CHANCE = 33      # % a new leader re-rolls one stance
 DROP = {2: 25, 3: 50}   # % a group drops a favored good when it ends in a Bust (2) or Collapse (3)
 EAGER = 5               # generate's interest word for Eager: rising to it is a boom
 # modifier: approval for an Influential group (Powerful: twice it), days, vanilla icon
-MODS = {"spec_igs_boom": (1, 730, "modifier_coins_positive"), "spec_igs_bust": (-1, 730, "modifier_coins_negative"),
+MODS = {"spec_igs_boom": (1, 180, "modifier_coins_positive"), "spec_igs_bust": (-1, 180, "modifier_coins_negative"),
         "spec_igs_backed": (1, 365, "modifier_flag_positive"), "spec_igs_crossed": (-1, 365, "modifier_flag_negative"),
         # a Great Issue (levers.py), as long as it runs (levers.ISSUE_MONTHS)
         "spec_igs_issue": (1, 730, "modifier_documents_positive"), "spec_igs_issue_against": (-1, 730, "modifier_documents_negative")}
@@ -119,9 +120,10 @@ NOTE_GROUPS = {NOTE_GROUP: "Interest Group Stances"}
 def _note(ig, g, kind, t):
     """Country scope: the player's toast that group ig's stance on g changed (kind a NOTES key's end); none while
     the first stances are rolled (spec_igs_rolled is set after)."""
+    detailed = (f"{t}\tig:ig_{ig} = {{ save_scope_as = spec_note_ig }}\n{t}\tg:{g} = {{ save_scope_as = spec_note_good }}\n"
+                f"{t}\tpost_notification = spec_igs_{kind}\n")
     return (f"{t}if = {{\n{t}\tlimit = {{ is_player = yes has_variable = spec_igs_rolled }}\n"
-            f"{t}\tig:ig_{ig} = {{ save_scope_as = spec_note_ig }}\n{t}\tg:{g} = {{ save_scope_as = spec_note_good }}\n"
-            f"{t}\tpost_notification = spec_igs_{kind}\n{t}}}\n")
+            + market_news.alternate(detailed, 'opinions', t + "\t") + f"{t}}}\n")
 
 
 def _pick(ig, pool, value):
@@ -258,7 +260,10 @@ def _amount(mod, scope="InterestGroup"):
 
 
 def _years(mod):
-    d = MODS[mod][1] // 365
+    days = MODS[mod][1]
+    if days < 365:
+        return f"{days // 30} months"
+    d = days // 365
     return "a year" if d == 1 else f"{d} years"
 
 

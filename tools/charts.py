@@ -7,6 +7,7 @@ Investor Interest section: interest_chart() is the market's trade as one bar spl
 Charts show; the actions stay on their buttons."""
 from market_tab import (P, W, FLAT, CLEAR, GOLD, RED, HISTORY, CHART_H, COL_W, COL_GAP, fx, v, sv, ind, header,
                         block)
+from sectors import CHART_NAMED_SECTORS, GROUPS
 import exposure
 import leverage
 
@@ -24,7 +25,7 @@ INTEREST_DEFINES = {1: "BUILDING_OWNERSHIP_COLOR_PLAYER_GOVERNMENT", 2: "BUILDIN
 
 # boom lending spreads thinly: 4% of loans in booms can be under 1% in every good, so the pie keeps slices of 0.1%
 CHART_MIN = 0.001
-TOP_N = 5  # vanilla's charts list their largest few; the rest is one "Other goods" line
+TOP_N = 4  # Largest individual loans, followed by Other goods if a balance remains.
 
 
 def sorted_list(name, goods, value, t, cond=""):
@@ -86,11 +87,12 @@ LEVELS = "spec_iw_levels"
 # The native chart takes a list of scopes. Each of these goods identifies one tier,
 # independently of that good's actual interest level in the player's market.
 INTEREST_KEYS = ("grain", "fish", "wood", "coal", "iron", "tools")
-LISTS = [LIST, LEVELS, BANK_SORTED, IW_SORTED]
+SECTOR_LIST = "spec_sector_chart"
+LISTS = [LIST, LEVELS, BANK_SORTED, IW_SORTED, SECTOR_LIST, "spec_sector_ranked"]
 
 
 def state_vars(goods):
-    return (STATE_VARS + [f"spec_ui_mv_{g}" for g in goods] + [f"spec_bank_oth_{g}" for g in goods] + [f"spec_bank_in_{g}" for g in goods] + ["spec_bank_top"]
+    return (STATE_VARS + ["spec_sector_share_other"] + [f"spec_sector_rank_{s}" for s in GROUPS] + [f"spec_ui_mv_{g}" for g in goods] + [f"spec_bank_oth_{g}" for g in goods] + [f"spec_bank_in_{g}" for g in goods] + ["spec_bank_top"]
             + [f"spec_iw_lvl{w}" for w in range(1, 7)] + [f"spec_iw_key_{g}" for g in INTEREST_KEYS])
 
 
@@ -133,7 +135,7 @@ def breakdown(shown, model, item_shown, text):
 """
 
 
-def side_chart(model, title, tooltip, value, colour, cells, visible, name="SPEC_BANK_SLICE_NAME", after=""):
+def side_chart(model, title, tooltip, value, colour, cells, visible, name="SPEC_BANK_SLICE_NAME", after="", box_only=False):
     """Vanilla's chart (a pie, or a treemap by the player's own toggle) laid out across: the chart on the left and,
     in place of vanilla's three-row legend, its slices listed on the right: colour, good, cells. after: what each
     row's tooltip shows under its text (breakdown)."""
@@ -170,9 +172,11 @@ def side_chart(model, title, tooltip, value, colour, cells, visible, name="SPEC_
     # containers framed at 130% and 124% of their own size, so each show grew the box chart and pushed the list right
     # until the section was reopened (2026-11-20)
     slice_ = f'tooltip = "{tooltip}"\nvalue = "[{value}]"\ncolor = "[{colour}]"\n'
-    drawn = lambda shown, kind, body, frame, frame_w: f"""widget = {{
+    def drawn(shown, kind, body, frame, frame_w):
+        visibility = "" if box_only else f'visible = "[{shown}]"'
+        return f"""widget = {{
 	size = {{ 100% 100% }}
-	visible = "[{shown}GetVariableSystem.Exists('piecharts'){')' if shown else ''}]"
+	{visibility}
 	{kind}chart = {{
 		size = {{ 100% 100% }}
 {ind(body, 2)}		datamodel = "[{model}]"
@@ -188,43 +192,14 @@ def side_chart(model, title, tooltip, value, colour, cells, visible, name="SPEC_
 	}}
 }}
 """
-    pie = drawn("", "pie", "startangle = 450\nendangle = 90\n", "piechart_frame.dds", 130)
-    box = drawn("Not(", "treemap", "", "treemapchart_frame.dds", 124).replace(
+    pie = drawn("GetVariableSystem.Exists('piecharts')", "pie", "startangle = 450\nendangle = 90\n", "piechart_frame.dds", 130)
+    box = drawn("Not(GetVariableSystem.Exists('piecharts'))", "treemap", "", "treemapchart_frame.dds", 124).replace(
         "\t\t\ttreemapslice = {\n", '\t\t\ttreemapslice = {\n\t\t\t\ttexture = "gfx/interface/treemapchart/treemapchart.dds"\n', 1)
     # vanilla's chart type round it (politics_panel_types.gui:648-830): the background and the toggle that shows on hover
-    return f"""container = {{
-	parentanchor = hcenter
-	visible = "[{visible}]"
-	alwaystransparent = no
-	onmousehierarchyenter = "[PdxGuiWidget.FindChild('chart_button').InterruptThenTriggerAnimation('hide_chart_button','show_chart_button')]"
+    hover = "" if box_only else """onmousehierarchyenter = "[PdxGuiWidget.FindChild('chart_button').InterruptThenTriggerAnimation('hide_chart_button','show_chart_button')]"
 	onmousehierarchyleave = "[PdxGuiWidget.FindChild('chart_button').InterruptThenTriggerAnimation('show_chart_button','hide_chart_button')]"
-	flowcontainer = {{
-		spacing = 5
-		margin = {{ 12 8 }}
-		background = {{
-			using = entry_bg
-		}}
-		widget = {{
-			size = {{ {PIE} {PIE} }}
-{ind(pie + box, 3)}		}}
-		flowcontainer = {{
-			direction = vertical
-			margin_left = 22
-			spacing = 2
-			textbox = {{
-				size = {{ {LIST_W} 22 }}
-				align = left|nobaseline
-				default_format = "#title"
-				text = "{title}"
-			}}
-			flowcontainer = {{
-				direction = vertical
-				datamodel = "[{model}]"
-				item = {{
-{ind(row, 5)}				}}
-			}}
-		}}
-	}}
+"""
+    toggle = "" if box_only else f"""
 	widget = {{
 		name = "chart_button"
 		parentanchor = right|top
@@ -268,6 +243,41 @@ def side_chart(model, title, tooltip, value, colour, cells, visible, name="SPEC_
 			}}
 		}}
 	}}
+"""
+    return f"""container = {{
+	parentanchor = hcenter
+	visible = "[{visible}]"
+	alwaystransparent = no
+	{hover}
+	flowcontainer = {{
+		spacing = 5
+		margin = {{ 12 8 }}
+		background = {{
+			using = entry_bg
+		}}
+		widget = {{
+			size = {{ {PIE} {PIE} }}
+{ind(box if box_only else pie + box, 3)}		}}
+		flowcontainer = {{
+			direction = vertical
+			margin_left = 22
+			spacing = 2
+			textbox = {{
+				size = {{ {LIST_W} 22 }}
+				align = left|nobaseline
+				default_format = "#title"
+				text = "{title}"
+			}}
+			flowcontainer = {{
+				direction = vertical
+				datamodel = "[{model}]"
+				item = {{
+{ind(row, 5)}				}}
+			}}
+		}}
+	}}
+{toggle}
+
 }}
 """
 
@@ -460,6 +470,39 @@ def by_word(level, select):
     return out
 
 
+def sector_chart():
+    model = f"{P}.GetList('spec_sector_ranked')"
+    share = fx(0)
+    representatives = [(members.split()[0], sector) for sector, (_, members) in GROUPS.items()]
+    for good, sector in [*representatives, ("fish", "other")]:
+        share = f"Select_CFixedPoint(EqualTo_string(Scope.GetGoods.GetKey, '{good}'), {v('spec_sector_share_' + sector)}, {share})"
+    return side_chart(model, "SPEC_SECTOR_TURNOVER_LINK", "SPEC_SECTOR_CHART_TT", f"FixedPointToFloat({share})",
+                      "Scope.GetGoods.GetColor", cell(f"[{share}|%1]", 62),
+                      f"GreaterThan_int32(GetDataModelSize({model}), '(int32)0')", name="SPEC_SECTOR_CHART_NAME", box_only=True)
+
+
+def sector_tooltips(k):
+    def label(suffix):
+        result = "'SPEC_IB_EMPTY'"
+        for sector, (_, members) in reversed(GROUPS.items()):
+            result = f"SelectLocalization(EqualTo_string(Scope.GetGoods.GetKey, '{members.split()[0]}'), 'SPEC_SECTOR_{sector.upper()}{suffix}', {result})"
+        return f"[SelectLocalization(EqualTo_string(Scope.GetGoods.GetKey, 'fish'), 'SPEC_SECTOR_OTHER{suffix}', {result})]"
+    lines = [f' SPEC_SECTOR_CHART_NAME: "{label("")}"', f' SPEC_SECTOR_CHART_TT: "{label("_TT")}"']
+    tail = "".join(f"[AddLocalizationIf(EqualTo_CFixedPoint({v('spec_sector_rank_' + sec)}, {fx(rank)}), 'SPEC_SECTOR_{sec.upper()}_ITEM')]" for rank in range(CHART_NAMED_SECTORS + 1, len(GROUPS) + 1) for sec in GROUPS)
+    lines.append(f' SPEC_SECTOR_OTHER_TT: "#header $SPEC_SECTOR_OTHER$#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_SECTOR_TURNOVER$  #v [{v("spec_sector_share_other")}|%1]#!{tail}"')
+    for sector in GROUPS:
+        name = "SPEC_SECTOR_" + sector.upper()
+        share = v("spec_sector_share_" + sector)
+        trend = v("spec_review_" + sector)
+        lines.append(f' {name}_ITEM: "\\n#tooltippable #tooltip:[Country.GetTooltipTag],{name}_TT '
+                     f'@spec_sector_{sector}! ${name}$  #v [{share}|%1]#!#!#!"')
+        names = ", ".join(f"[GetGoods('{g}').GetName]" for g in sorted(k["CATEGORY"]) if k["CATEGORY"][g] == sector)
+        lines.append(f' {name}_TREND: "$SPEC_SECTOR_PRICE_TREND$  #v [{trend}|=+%1]#!"')
+        review = f"[SelectLocalization({P}.Var('spec_review_{sector}').IsSet, '{name}_TREND', 'SPEC_SECTOR_WAIT')]"
+        lines.append(f' {name}_TT: "#header [Concept(\'concept_spec_market_sector\',\'${name}$\')]#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_SECTOR_TURNOVER$  #v [{share}|%1]#!\\n{review}\\n\\n{names}"')
+    return "\n".join(lines) + "\n"
+
+
 def interest_chart():
     """The market's trade by interest level as the bank chart: a slice a level, hottest first, in vanilla's own colour
     defines (blue Fleeing to red Feverish). The list holds one good per level; its word picks the level's figures.
@@ -531,7 +574,7 @@ def loc(k):
     debt, booms = v("spec_debt"), f"Max_CFixedPoint({sv('spec_exp_booms')}, {fx('0.00001')})"
     trade = lambda share: f"Multiply_CFixedPoint({share}, {v('spec_mv_total')})"
     mv = f"{P}.Var(Concatenate('spec_ui_mv_', Scope.GetGoods.GetKey)).GetValueWithDefault({fx(0)})"
-    return (
+    return sector_tooltips(k) + (
         f' SPEC_BANK_SLICE_AMOUNT: "[SelectLocalization({OTHER}, \'SPEC_BANK_OTHER_AMOUNT\', \'SPEC_BANK_GOOD_AMOUNT\')]"\n'
         f' SPEC_BANK_GOOD_AMOUNT: "({money(f"Multiply_CFixedPoint({SHARE}, {debt})")})"\n'
         f' SPEC_BANK_OTHER_AMOUNT: "({money(f"Multiply_CFixedPoint({OTHER_SHARE}, {debt})")})"\n'

@@ -18,7 +18,7 @@ import unittest
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
-SPEC = ROOT / "mod"
+SPEC = Path(os.environ.get("SPEC_CMF_TEST_PARENT", ROOT / "mod"))
 CMF = Path(os.environ.get("CMF_MOD_ROOT",
     "G:/SteamLibrary/steamapps/workshop/content/529340/3385002128"))
 SPEC_GUI = Path("gui/information_panel_bar.gui")
@@ -155,8 +155,36 @@ class CompatibilityTests(unittest.TestCase):
         patched_button = re.sub(r"(?m)^[ \t]*onclick = \"\[GetVariableSystem.Clear\('(spec_finance|spec_pick_slot)'\)\]\"\n", "", patched_button)
         self.assertEqual(normalized(patched_button), original_button)
 
+    def test_framework_journal_inherits_finance_guard(self):
+        builder = self.builder
+        spec = read(SPEC / builder.SPEC_JOURNAL)
+        if "spec_finance_yield_to_other_entry" not in spec:
+            self.assertFalse((self.out / builder.CMF_JOURNAL).is_file())
+            return
+        original = read(CMF / builder.CMF_JOURNAL)
+        merged = read(self.out / builder.CMF_JOURNAL)
+        guard = re.search(r"\n\s*state = \{\s*name = spec_finance_yield_to_other_entry[^}]+\}", spec)[0]
+        self.assertEqual(merged.count(guard), 1)
+        self.assertEqual(merged.replace(guard, ""), original)
+
     def test_pure_merge_matches_written_sidebar(self):
         self.assertEqual(self.builder.merge_gui(self.spec, self.cmf), self.merged)
+
+    def test_alert_clicks_preserve_both_parents(self):
+        if not (SPEC / self.builder.SPEC_ALERT).is_file():
+            self.skipTest("This SM version has no alert-row override")
+        merged = read(self.out / self.builder.SPEC_ALERT)
+        mask = read(self.out / self.builder.CMF_ALERT)
+        self.assertNotIn("type topfrontend =", mask)
+        plain, finance = merged.split("### ALERT BUTTON", 1)[1].split("button = {", 2)[1:]
+        self.assertIn("PopupManager.OpenAlert", plain)
+        self.assertIn("com_alert_action", plain)
+        button = finance[:finance.index("### ALERT VFX")]
+        self.assertIn("spec_panic_risk_alert", button)
+        self.assertIn("spec_bubble_alert", button)
+        self.assertIn("spec_finance", button)
+        self.assertNotIn("com_alert_action", button)
+        self.assertNotIn("PopupManager.OpenAlert", button)
 
     def test_metadata_uses_game_supported_cmf_dependency_only(self):
         metadata = json.loads(read(self.out / ".metadata/metadata.json"))

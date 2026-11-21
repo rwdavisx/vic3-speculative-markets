@@ -1,0 +1,60 @@
+namespace = spec_mechanics_feedback_politics
+spec_mechanics_feedback_politics.1 = { type = country_event hidden = yes immediate = {
+    remove_variable = spec_panic
+    remove_variable = spec_crunch
+    set_variable = { name = spec_c_crash value = 0 }
+    set_variable = { name = spec_c_restrain value = 0 }
+    set_variable = { name = spec_stance value = -1 }
+    set_variable = { name = spec_centre_trust value = 30 }
+    set_variable = { name = spec_lax value = 0.75 }
+    set_variable = { name = spec_exch_known value = 2 }
+    while = { count = 72
+        spec_test_feedback_standards = yes
+        spec_test_feedback_trust = yes
+    }
+    if = { limit = { var:spec_lax = 0.5 var:spec_centre_trust > 60 } debug_log = "HOTFIX PASS six_quiet_years_rebuild_damaged_money_market_trust" }
+    else = { debug_log = "HOTFIX FAIL six_quiet_years_rebuild_damaged_money_market_trust" }
+    remove_modifier = spec_trust_0
+    trigger_event = { id = spec_mechanics_feedback_politics.4 days = 2 }
+    set_variable = { name = spec_igs_industrialists_steel value = 1 }
+    ig:ig_industrialists = { remove_modifier = spec_igs_bust }
+    spec_igs_on_bust_steel = { CHANCE = 0 }
+    if = { limit = { ig:ig_industrialists = { has_modifier = spec_igs_bust } } debug_log = "HOTFIX PASS industrialists_react_to_their_favored_steel_bust" }
+    else = { debug_log = "HOTFIX FAIL industrialists_react_to_their_favored_steel_bust" }
+    remove_variable = spec_igs_industrialists_steel
+    remove_variable = spec_igs_industrialists_tools
+    remove_variable = spec_igs_industrialists_engines
+    remove_variable = spec_igs_industrialists_coal
+    remove_variable = spec_igs_industrialists_iron
+    remove_variable = spec_igs_industrialists_fabric
+    remove_variable = spec_igs_industrialists_explosives
+    remove_variable = spec_igs_industrialists_glass
+    remove_variable = spec_igs_industrialists_oil
+    remove_variable = spec_igs_industrialists_rubber
+    remove_variable = spec_igs_industrialists_electricity
+    remove_variable = spec_igs_industrialists_automobiles
+    remove_variable = spec_igs_industrialists_steamers
+    trigger_event = { id = spec_mechanics_feedback_politics.2 days = 179 }
+    trigger_event = { id = spec_mechanics_feedback_politics.3 days = 181 }
+} }
+spec_mechanics_feedback_politics.4 = { type = country_event hidden = yes immediate = {
+    set_variable = { name = spec_before_ind value = modifier:interest_group_ig_industrialists_approval_add }
+    set_variable = { name = spec_before_rate value = modifier:country_loan_interest_rate_mult }
+    add_modifier = { name = spec_trust_0 }
+    trigger_event = { id = spec_mechanics_feedback_politics.5 days = 2 }
+} }
+spec_mechanics_feedback_politics.5 = { type = country_event hidden = yes immediate = {
+    if = { limit = { has_modifier = spec_trust_0 modifier:country_loan_interest_rate_mult > var:spec_before_rate } debug_log = "HOTFIX PASS distrust_still_increases_loan_interest" }
+    else = { debug_log = "HOTFIX FAIL distrust_still_increases_loan_interest" }
+    if = { limit = { modifier:interest_group_ig_industrialists_approval_add = var:spec_before_ind } debug_log = "HOTFIX PASS distrust_adds_no_automatic_industrialist_blame" }
+    else = { debug_log = "HOTFIX FAIL distrust_adds_no_automatic_industrialist_blame" }
+} }
+spec_mechanics_feedback_politics.2 = { type = country_event hidden = yes immediate = {
+    if = { limit = { ig:ig_industrialists = { has_modifier = spec_igs_bust } } debug_log = "HOTFIX PASS ordinary_bust_still_opposed_on_day_179" }
+    else = { debug_log = "HOTFIX FAIL ordinary_bust_still_opposed_on_day_179" }
+} }
+spec_mechanics_feedback_politics.3 = { type = country_event hidden = yes immediate = {
+    if = { limit = { ig:ig_industrialists = { NOT = { has_modifier = spec_igs_bust } } } debug_log = "HOTFIX PASS ordinary_bust_expires_by_day_181" }
+    else = { debug_log = "HOTFIX FAIL ordinary_bust_expires_by_day_181" }
+    debug_log = "HOTFIX SUITE COMPLETE"
+} }

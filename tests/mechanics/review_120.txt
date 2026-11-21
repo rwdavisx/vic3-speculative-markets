@@ -1,0 +1,67 @@
+namespace = spec_mechanics_review_120
+spec_mechanics_review_120.1 = { type = country_event hidden = yes immediate = {
+activate_law = law_type:law_interventionism
+if = { limit = { NOT = { has_technology_researched = central_banking } } add_technology_researched = central_banking }
+set_variable = { name = spec_conf value = 66 }
+set_variable = { name = spec_temper value = -1 }
+set_variable = { name = spec_debt value = { value = spec_lev_income multiply = 2.55 } }
+spec_stance_to_tight = yes
+remove_variable = spec_stance_cooldown
+spec_mechanics_ai_policy = yes
+if = { limit = { spec_stance_value = 0 } debug_log = "HOTFIX PASS cools_to_normal" }
+else = { debug_log = "HOTFIX FAIL cools_to_normal" }
+set_variable = { name = spec_conf value = 0 }
+set_variable = { name = spec_heat value = 10000 }
+set_variable = { name = spec_c_total value = 0 }
+set_variable = { name = spec_crunch value = 19 }
+set_variable = { name = spec_crunch_bite value = 5 }
+spec_mechanics_burst = yes
+if = { limit = { var:spec_crunch = 20 } debug_log = "HOTFIX PASS burst_caps_accumulated_debts" }
+else = { debug_log = "HOTFIX FAIL burst_caps_accumulated_debts" }
+if = { limit = { spec_crunch_if <= 20 } debug_log = "HOTFIX PASS panic_forecast_respects_cap" }
+else = { debug_log = "HOTFIX FAIL panic_forecast_respects_cap" }
+spec_start_panic = yes
+if = { limit = { var:spec_crunch = 20 var:spec_crunch_bite <= 20 } debug_log = "HOTFIX PASS panic_respects_cap" }
+else = { debug_log = "HOTFIX FAIL panic_respects_cap" }
+c:JAP = {
+if = { limit = { NOT = { has_technology_researched = banking } } add_technology_researched = banking }
+set_variable = { name = spec_conf value = 10 }
+set_variable = { name = spec_debt value = 0 }
+set_variable = { name = spec_panic_len value = 3 }
+set_variable = { name = spec_panic_cut value = 0.5 }
+set_variable = { name = spec_c_total value = 0 }
+set_variable = { name = spec_panic value = 3 }
+if = { limit = { spec_can_rescue = yes NOT = { has_technology_researched = central_banking } var:spec_panic > spec_rescue_months } debug_log = "HOTFIX PASS private_rescue_available" }
+else = { debug_log = "HOTFIX FAIL private_rescue_available" }
+spec_rescue = yes
+if = { limit = { var:spec_panic < 3 has_variable = spec_rescued } debug_log = "HOTFIX PASS private_rescue_shortens" }
+else = { debug_log = "HOTFIX FAIL private_rescue_shortens" }
+}
+# One legacy point cost 0.4% throughput. Simulate loading a 1.1.6 midway through the ramp.
+remove_variable = spec_debt_units_v2
+remove_modifier = spec_credit_crunch_v2
+set_variable = { name = spec_crunch value = 30 }
+set_variable = { name = spec_crunch_bite value = 15 }
+add_modifier = { name = spec_credit_crunch multiplier = 15 }
+if = { limit = { spec_crunch_tp_pct = 6 spec_crunch_tp_full_pct = 12 } debug_log = "HOTFIX PASS legacy_preview_preserves_bite" }
+else = { debug_log = "HOTFIX FAIL legacy_preview_preserves_bite" }
+spec_migrate_debt_units = yes
+spec_migrate_debt_units = yes
+if = { limit = { var:spec_crunch = 6 var:spec_crunch_bite = 3 has_modifier = spec_credit_crunch_v2 NOT = { has_modifier = spec_credit_crunch } } debug_log = "HOTFIX PASS legacy_conversion_once" }
+else = { debug_log = "HOTFIX FAIL legacy_conversion_once" }
+# A reversible click must not earn approval or reopen the lever during its three-month wait.
+remove_variable = spec_encourage_steel
+remove_variable = spec_restrain_steel
+set_variable = { name = spec_word_steel value = 2 }
+spec_lever_flip = { KIND = encourage G = steel }
+if = { limit = { has_variable = spec_lever_pending_steel has_variable = spec_lever_grace_steel } debug_log = "HOTFIX PASS approval_pending_during_grace" }
+else = { debug_log = "HOTFIX FAIL approval_pending_during_grace" }
+spec_lever_flip = { KIND = encourage G = steel }
+if = { limit = { has_variable = spec_lever_wait_steel NOR = { has_variable = spec_encourage_steel has_variable = spec_lever_pending_steel has_variable = spec_lever_grace_steel } } debug_log = "HOTFIX PASS undo_consumes_grace" }
+else = { debug_log = "HOTFIX FAIL undo_consumes_grace" }
+activate_law = law_type:law_spec_gold_standard
+activate_law = law_type:law_command_economy
+if = { limit = { has_law = law_type:law_command_economy has_law = law_type:law_spec_fiat_money } debug_log = "HOTFIX PASS command_economy_leaves_gold" }
+else = { debug_log = "HOTFIX FAIL command_economy_leaves_gold" }
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

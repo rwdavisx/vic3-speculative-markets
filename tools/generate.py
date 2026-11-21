@@ -50,6 +50,9 @@ import ig_stances
 import market_visual
 import movements
 import notify
+import sectors
+import investor_sentiment
+import market_news
 import power_bloc
 import probe
 import stories
@@ -347,8 +350,8 @@ def vanilla_block(path, key):
 
 @functools.cache
 def categories():
-    """Each good's vanilla category (staple, industrial, luxury or military), for the goods board's filters."""
-    return {g: re.search(r"\bcategory = (\w+)", vanilla_block("common/goods/00_goods.txt", g)).group(1) for g in GOODS}
+    """Finance sector of each good in the selected distribution."""
+    return {good: sectors.BY_GOOD[good] for good in GOODS}
 
 
 def law_alloc():
@@ -569,7 +572,8 @@ def values():
     sv.append(f"spec_rescue_share = {{\n\tvalue = {RESCUE_COST_PRIVATE}\n\tif = {{\n\t\tlimit = {{ has_technology_researched = central_banking }}\n"
               f"\t\tvalue = {RESCUE_COST}\n\t}}\n\tmultiply = spec_reform_rescue\n{cycle.COST}{centres.PLEDGE_COST}\tmin = {RESCUE_FLOOR}\n}}")
     sv.append(f"spec_rescue_months = {{\n\tvalue = {RESCUE_MONTHS_PRIVATE}\n\tif = {{\n\t\tlimit = {{ has_technology_researched = central_banking }}\n"
-              f"\t\tvalue = {RESCUE_MONTHS}\n\t}}\n\tadd = spec_reform_rescue_months\n}}")
+              f"\t\tvalue = {RESCUE_MONTHS}\n\t}}\n\tadd = spec_reform_rescue_months\n"
+              "\tif = { limit = { has_variable = spec_panic } max = { value = var:spec_panic divide = 2 ceiling = yes min = 1 } }\n}")
     tech = lambda t: f"\tif = {{\n\t\tlimit = {{ has_technology_researched = {t} }}\n"
     sv.append(f"spec_fin_boom = {{\n\tvalue = {FIN_BOOM_BASE:g}\n" + "".join(f"{tech(t)}\t\tadd = {n:g}\n\t}}\n" for t, n in FIN_BOOM.items())
               + f"{tech(FIN_LEVERAGE[0])}\t\tmultiply = {FIN_LEVERAGE[1]:g}\n\t}}\n\tmultiply = spec_reform_boom\n}}")
@@ -612,6 +616,7 @@ def values():
     sv.append("spec_mg_value = {\n\tvalue = market_goods_sell_orders\n\tmultiply = goods.base_price\n}")
     sv.append("spec_calendar_day = { value = game_date }")
     sv.append(interest_list.risk_order_value(GOODS))
+    sv.append(sectors.chart_order_value())
     sv.append("spec_market_value = {\n\tvalue = 0\n" + "".join(f"\tadd = spec_mv_{g}\n" for g in GOODS) + "\tmin = 1\n}")
     sv.extend(exposure.values(GOODS))
     sv.extend(cycle.values(GOODS, TOAST_SHARE / EXPOSURE_FULL))
@@ -628,15 +633,17 @@ def values():
         sv.append(f"spec_slow_next_{g} = {{\n\tvalue = var:spec_slow_{g}\n\tmultiply = {1 - SLOW:g}\n"
                   f"\tadd = {{\n\t\tvalue = spec_dev_{g}\n\t\tmultiply = {SLOW}\n\t}}\n}}")
         # raw: what the market alone makes of it; next: after the speculation levers (levers.py)
-        sv.append(f"spec_trend_{g} = {{\n\tvalue = var:spec_fast_{g}\n\tsubtract = var:spec_slow_{g}\n"
+        sv.append(sectors.price_signal(g, sectors.BY_GOOD[g]))
+        sv.append(f"spec_trend_{g} = {{\n\tvalue = spec_supported_spread_{g}\n"
                   f"\tmultiply = {HYPE_GAIN}\n\tif = {{\n\t\tlimit = {{ var:spec_fast_{g} >= var:spec_slow_{g} }}\n\t\tmultiply = var:spec_hm\n\t}}\n"
                   f"\telse = {{\n\t\tmultiply = var:spec_hmd\n\t}}\n}}")
         sv.append(f"spec_hype_raw_{g} = {{\n\tvalue = 1\n\tif = {{\n\t\tlimit = {{ spec_trend_{g} >= 0 }}\n\t\tadd = spec_trend_{g}\n\t}}\n"
                   f"\telse = {{\n\t\tdivide = {{\n\t\t\tvalue = 1\n\t\t\tsubtract = spec_trend_{g}\n\t\t}}\n\t}}\n"
                   f"\tmin = {HYPE_MIN}\n\tmax = {HYPE_MAX}\n}}")
         # a glut sets interest to Doubtful; a lever (levers.py) then pushes it, but Encourage is not allowed in a glut
+        sv.append(investor_sentiment.factor(g))
         sv += levers.push_values(g)
-        sv.append(f"spec_hype_next_{g} = {{\n\tvalue = spec_hype_raw_{g}\n"
+        sv.append(f"spec_hype_next_{g} = {{\n\tvalue = spec_hype_raw_{g}\n\tmultiply = spec_sentiment_factor_{g}\n"
                   f"\tif = {{\n\t\tlimit = {{ has_variable = spec_glut_{g} }}\n\t\tvalue = {GLUT_HYPE}\n\t}}\n"
                   f"{levers.hype_push(g, HYPE_MIN, HYPE_MAX)}}}")
         # the peak drifts back to 1 so an old boom stops counting; pushed down, a restrained boom only drifts
@@ -691,13 +698,16 @@ def state_vars():
              "spec_panic_cooldown", "spec_mania", "spec_debt", "spec_clawed", "spec_crashed", "spec_crash_top",
              "spec_foreign_pending", "spec_foreign_src", "spec_caught", "spec_src_gdp", "spec_je_added", "spec_temper",
              "spec_calm", "spec_inquired"]
-            + per_good + [f"spec_bhype_{b}" for b in UPGRADES] + ranks + market_visual.STATE_VARS
+            + per_good + investor_sentiment.state_vars(GOODS) + market_news.STATE + [f"spec_cat_trend_{c}" for c in (*sectors.CATEGORIES, *sectors.GROUPS)]
+            + [f"spec_review_{c}" for c in sectors.GROUPS] + [f"spec_sector_share_{c}" for c in sectors.GROUPS]
+            + [f"spec_bhype_{b}" for b in UPGRADES] + ranks + market_visual.STATE_VARS
             + [f"spec_{k}_{g}" for g in GOODS for k in ("word", "risk", "sev", "glut", "glut_until", "cb", "cc")] + [f"spec_n_w{i}" for i in range(1, 7)]
             + ["spec_recall_balance", "spec_recall_lax", "spec_recall_requested", "spec_recall_pool_share", "spec_pledge_unmet",
                "spec_pledge_reason", "spec_pledge_required", "spec_pledge_shortfall"]
             + ["spec_boom_raw", "spec_crash_raw"] + [f"spec_tm_{k}" for k in ("play", "default", "revolution", "broke", "warcap")]
             + [f"spec_hist{n}" for n in range(1, market_tab.HISTORY + 1)]
-            + [f"spec_n_w{i}_{c}" for i in range(1, 7) for c in market_tab.CATEGORIES]
+            + [f"spec_n_w{i}_{c}" for i in range(1, 7) for c in (*sectors.CATEGORIES, *sectors.GROUPS)]
+            + [f"spec_review_{c}" for c in sectors.GROUPS] + [f"spec_sector_share_{c}" for c in sectors.GROUPS]
             + ["spec_exposure", "spec_risk_src", "spec_risk_src_hit", "spec_risk_src_tie", "spec_risk_src_w", "spec_risk_src_reach", "spec_risk_src_size", "spec_risk_src_pb"]
             + ["spec_mood_random", "spec_mood_shift", "spec_restrain_raw", "spec_fh_size", "spec_fh_tie", "spec_fh_reach", "spec_fh_world", "spec_fh_bc", "spec_fh_pb"]
             + ["spec_expo_raw", "spec_n_risk", "spec_n_held", "spec_risk_top", "spec_risk_top_good", "spec_n_end_1", "spec_n_end_2", "spec_n_end_3"]
@@ -764,6 +774,36 @@ def risk_refresh():
     return "\t\t\tif = {\n\t\t\t\tlimit = { is_player = yes }\n" + market_tab.ind(body, 1) + "\t\t\t}\n"
 
 
+def ranked_interest_effect():
+    # Shared by Finance and the journal. Rank the traded goods of each viewable market.
+    rank = []
+    for g in GOODS:
+        h = f"var:spec_hype_{g}"
+        rank.append(
+            f"\t\t\t\tif = {{\n\t\t\t\t\tlimit = {{ {h} > var:spec_top1_v }}\n"
+            "\t\t\t\t\tset_variable = { name = spec_top3 value = var:spec_top2 }\n\t\t\t\t\tset_variable = { name = spec_top3_v value = var:spec_top2_v }\n"
+            "\t\t\t\t\tset_variable = { name = spec_top2 value = var:spec_top1 }\n\t\t\t\t\tset_variable = { name = spec_top2_v value = var:spec_top1_v }\n"
+            f"\t\t\t\t\tset_variable = {{ name = spec_top1 value = g:{g} }}\n\t\t\t\t\tset_variable = {{ name = spec_top1_v value = {h} }}\n\t\t\t\t}}\n"
+            f"\t\t\t\telse_if = {{\n\t\t\t\t\tlimit = {{ {h} > var:spec_top2_v }}\n"
+            "\t\t\t\t\tset_variable = { name = spec_top3 value = var:spec_top2 }\n\t\t\t\t\tset_variable = { name = spec_top3_v value = var:spec_top2_v }\n"
+            f"\t\t\t\t\tset_variable = {{ name = spec_top2 value = g:{g} }}\n\t\t\t\t\tset_variable = {{ name = spec_top2_v value = {h} }}\n\t\t\t\t}}\n"
+            f"\t\t\t\telse_if = {{\n\t\t\t\t\tlimit = {{ {h} > var:spec_top3_v }}\n"
+            f"\t\t\t\t\tset_variable = {{ name = spec_top3 value = g:{g} }}\n\t\t\t\t\tset_variable = {{ name = spec_top3_v value = {h} }}\n\t\t\t\t}}\n"
+            f"\t\t\t\tif = {{\n\t\t\t\t\tlimit = {{ {h} < var:spec_low1_v }}\n"
+            "\t\t\t\t\tset_variable = { name = spec_low2 value = var:spec_low1 }\n\t\t\t\t\tset_variable = { name = spec_low2_v value = var:spec_low1_v }\n"
+            f"\t\t\t\t\tset_variable = {{ name = spec_low1 value = g:{g} }}\n\t\t\t\t\tset_variable = {{ name = spec_low1_v value = {h} }}\n\t\t\t\t}}\n"
+            f"\t\t\t\telse_if = {{\n\t\t\t\t\tlimit = {{ {h} < var:spec_low2_v }}\n"
+            f"\t\t\t\t\tset_variable = {{ name = spec_low2 value = g:{g} }}\n\t\t\t\t\tset_variable = {{ name = spec_low2_v value = {h} }}\n\t\t\t\t}}\n")
+        rank[-1] = (f"\t\t\t\tif = {{ limit = {{ has_variable = spec_hype_{g} has_variable = spec_word_{g} var:spec_word_{g} > 0 }}\n"
+                    + market_tab.ind(rank[-1], 1) + "\t\t\t\t}\n")
+    first = GOODS[0]
+    rank_init = "".join(f"\t\t\t\tset_variable = {{ name = spec_{k} value = g:{first} }}\n\t\t\t\tset_variable = {{ name = spec_{k}_v value = {v} }}\n"
+                        for k, v in (("top1", -1), ("top2", -1), ("top3", -1), ("low1", 99), ("low2", 99)))
+    rank_cleanup = "".join(f"\t\t\t\tif = {{ limit = {{ var:spec_{key}_v = {sentinel} }} remove_variable = spec_{key} }}\n"
+                           for key, sentinel in (("top1", -1), ("top2", -1), ("top3", -1), ("low1", 99), ("low2", 99)))
+    return "spec_refresh_ranked_interest = {\n" + rank_init + "".join(rank) + rank_cleanup + "}\n"
+
+
 def monthly(log):
     # the goods board's interest words start at these levels: Doubtful, Calm, Keen, Eager, Feverish
     word_cuts = [CRASH_BELOW, COOLING_HYPE, RISING_HYPE, HOT_HYPE, PEAK_FOR_CRASH]
@@ -782,6 +822,7 @@ def monthly(log):
     # D4: the country-wide interest multipliers, worked out once here instead of twice for each good
     goods = ["\t\t\tset_variable = { name = spec_hm value = spec_hype_mult }\n"
              "\t\t\tset_variable = { name = spec_hmd value = spec_hype_mult_down }\n"]
+    goods.append(sectors.start(sectors.GROUPS, "\t\t\t"))
     for g in GOODS:
         goods.append(skip_idle(g,
             f"\t\t\tif = {{\n\t\t\t\tlimit = {{ NOT = {{ has_variable = spec_fast_{g} }} }}\n"
@@ -790,6 +831,7 @@ def monthly(log):
             f"\t\t\t\tset_variable = {{ name = spec_peak_{g} value = 1 }}\n\t\t\t}}\n"
             f"\t\t\tset_variable = {{ name = spec_fast_{g} value = spec_fast_next_{g} }}\n"
             f"\t\t\tset_variable = {{ name = spec_slow_{g} value = spec_slow_next_{g} }}\n"
+            + sectors.accumulate(g, sectors.BY_GOOD[g], "\t\t\t") +
             # last month's interest, so the tab can show which way it is moving
             f"\t\t\tif = {{\n\t\t\t\tlimit = {{ has_variable = spec_hype_{g} }}\n"
             f"\t\t\t\tset_variable = {{ name = spec_hprev_{g} value = var:spec_hype_{g} }}\n\t\t\t}}\n"
@@ -823,9 +865,11 @@ def monthly(log):
                       f"\t\t\t\tset_variable = {{ name = spec_glut_until_{g} value = {{ value = game_date add = {months * 30} }} days = {months * 30} }}\n"
                       # the Investor Interest row's crash month (interest_board.ui_effect, later this month)
                       f"\t\t\t\tset_variable = {{ name = spec_ui_crash_{g} value = {sev} days = 28 }}\n"
-                      f"\t\t\t\tif = {{\n\t\t\t\t\tlimit = {{ is_player = yes spec_weight_{g} >= {TOAST_SHARE / EXPOSURE_FULL:.3f} }}\n\t\t\t\t\tg:{g} = {{ save_scope_as = spec_note_good }}\n"
-                      f"\t\t\t\t\t{exposure.note(g)}{cycle.note(g)}{notify.boom_note_scopes(g)}"
-                      f"{notify.boom_post(sev)}\t\t\t\t}}\n"
+                      f"\t\t\t\tif = {{\n\t\t\t\t\tlimit = {{ is_player = yes spec_weight_{g} >= {TOAST_SHARE / EXPOSURE_FULL:.3f} }}\n"
+                      + market_news.alternate(f"\t\t\t\t\tg:{g} = {{ save_scope_as = spec_note_good }}\n"
+                                              f"\t\t\t\t\t{exposure.note(g)}{cycle.note(g)}{notify.boom_note_scopes(g)}{notify.boom_post(sev)}",
+                                              f"{sectors.BY_GOOD[g]}_{market_news.KINDS[sev]}", "\t\t\t\t\t", urgent=sev >= 2)
+                      + "\t\t\t\t}\n"
                       f"\t\t\t\tset_variable = {{ name = spec_peak_{g} value = 1 }}\n{exposure.ended(g)}"
                       f"\t\t\t\tset_variable = {{ name = spec_sev_{g} value = 0 }}\n\t\t\t}}\n"
                       for i, (sev, _, below, _, months) in enumerate(UNWINDS))
@@ -838,8 +882,10 @@ def monthly(log):
             + word_block(g, word_cuts) + ig_stances.boom(g)
             + f"\t\t\tif = {{\n\t\t\t\tlimit = {{\n\t\t\t\t\tis_player = yes\n\t\t\t\t\tvar:spec_word_{g} = 6\n"
             f"\t\t\t\t\tlocal_var:spec_wold > 0\n\t\t\t\t\tlocal_var:spec_wold < 6\n\t\t\t\t\tspec_weight_{g} >= {TOAST_SHARE / EXPOSURE_FULL:.3f}\n\t\t\t\t}}\n"
-            f"\t\t\t\tg:{g} = {{ save_scope_as = spec_note_good }}\n\t\t\t\tpost_notification = spec_feverish\n\t\t\t}}\n"
+            + market_news.alternate(f"\t\t\t\tg:{g} = {{ save_scope_as = spec_note_good }}\n\t\t\t\tpost_notification = spec_feverish\n",
+                                    f"{sectors.BY_GOOD[g]}_hot", "\t\t\t\t") + "\t\t\t}\n"
             + f"\t\t\tset_variable = {{ name = spec_risk_{g} value = spec_risk_next_{g} }}\n"))
+    goods.append(sectors.finish(sectors.GROUPS, "\t\t\t"))
     goods.append("\t\t\tset_variable = { name = spec_exposure value = spec_exposure_next }\n"
                  + ("\t\t\tset_variable = { name = spec_expo_raw value = spec_expo_raw_next }\n" if log else "") +  # a sum over every good that only the log line reads
                  "\t\t\tset_variable = { name = spec_n_risk value = spec_n_risk_next }\n"
@@ -868,6 +914,7 @@ def monthly(log):
                            for w in range(6, 0, -1) for c in market_tab.CATEGORIES)
                  + "\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n"
                  + "".join(f"\t\t\tclear_variable_list = spec_goods_t{w}_{c}\n" for w in range(1, 7) for c in market_tab.CATEGORIES))
+    shown.append("\t\t\tspec_refresh_sector_chart = yes\n")
     shown.append(charts.interest_script(GOODS))  # needs the word lists just built
     shown.append("\t\t\tspec_refresh_risk_list = yes\n")
     # the tab's own figures: a player's country (its own market tab), or a market owner (any other market's tab shows
@@ -876,28 +923,6 @@ def monthly(log):
                  "\t\t\t\t\t\tmarket ?= { owner ?= root }\n\t\t\t\t\t}\n\t\t\t\t}\n"
                  + market_tab.ind("".join(shown), 1) + "\t\t\t}\n")
     baskets ="".join(f"\t\t\tset_variable = {{ name = spec_bhype_{b} value = spec_bhype_next_{b} }}\n" for b in UPGRADES)
-    # for the journal entry: the three most and two least hyped goods, players only
-    rank = []
-    for g in GOODS:
-        h = f"var:spec_hype_{g}"
-        rank.append(
-            f"\t\t\t\tif = {{\n\t\t\t\t\tlimit = {{ {h} > var:spec_top1_v }}\n"
-            "\t\t\t\t\tset_variable = { name = spec_top3 value = var:spec_top2 }\n\t\t\t\t\tset_variable = { name = spec_top3_v value = var:spec_top2_v }\n"
-            "\t\t\t\t\tset_variable = { name = spec_top2 value = var:spec_top1 }\n\t\t\t\t\tset_variable = { name = spec_top2_v value = var:spec_top1_v }\n"
-            f"\t\t\t\t\tset_variable = {{ name = spec_top1 value = g:{g} }}\n\t\t\t\t\tset_variable = {{ name = spec_top1_v value = {h} }}\n\t\t\t\t}}\n"
-            f"\t\t\t\telse_if = {{\n\t\t\t\t\tlimit = {{ {h} > var:spec_top2_v }}\n"
-            "\t\t\t\t\tset_variable = { name = spec_top3 value = var:spec_top2 }\n\t\t\t\t\tset_variable = { name = spec_top3_v value = var:spec_top2_v }\n"
-            f"\t\t\t\t\tset_variable = {{ name = spec_top2 value = g:{g} }}\n\t\t\t\t\tset_variable = {{ name = spec_top2_v value = {h} }}\n\t\t\t\t}}\n"
-            f"\t\t\t\telse_if = {{\n\t\t\t\t\tlimit = {{ {h} > var:spec_top3_v }}\n"
-            f"\t\t\t\t\tset_variable = {{ name = spec_top3 value = g:{g} }}\n\t\t\t\t\tset_variable = {{ name = spec_top3_v value = {h} }}\n\t\t\t\t}}\n"
-            f"\t\t\t\tif = {{\n\t\t\t\t\tlimit = {{ {h} < var:spec_low1_v }}\n"
-            "\t\t\t\t\tset_variable = { name = spec_low2 value = var:spec_low1 }\n\t\t\t\t\tset_variable = { name = spec_low2_v value = var:spec_low1_v }\n"
-            f"\t\t\t\t\tset_variable = {{ name = spec_low1 value = g:{g} }}\n\t\t\t\t\tset_variable = {{ name = spec_low1_v value = {h} }}\n\t\t\t\t}}\n"
-            f"\t\t\t\telse_if = {{\n\t\t\t\t\tlimit = {{ {h} < var:spec_low2_v }}\n"
-            f"\t\t\t\t\tset_variable = {{ name = spec_low2 value = g:{g} }}\n\t\t\t\t\tset_variable = {{ name = spec_low2_v value = {h} }}\n\t\t\t\t}}\n")
-    first = GOODS[0]
-    rank_init = "".join(f"\t\t\t\tset_variable = {{ name = spec_{k} value = g:{first} }}\n\t\t\t\tset_variable = {{ name = spec_{k}_v value = {v} }}\n"
-                        for k, v in (("top1", 0), ("top2", 0), ("top3", 0), ("low1", 99), ("low2", 99)))
     log_line = ""
     if log:
         log_line = ("\t\t\tdebug_log = \"SPEC tag=[THIS.GetCountry.GetTagName] date=[TimeKeeper.GetCurrentDate.GetString]"
@@ -961,6 +986,7 @@ spec_monthly = {{
 		}}
 		else_if = {{
 			limit = {{ spec_law_mult > 0 }}
+			{leverage.MIGRATE_CALL}
 			if = {{
 				limit = {{ NOT = {{ has_variable = spec_conf }} }}
 				set_variable = {{ name = spec_conf value = {CONF_START} }}
@@ -971,6 +997,7 @@ spec_monthly = {{
 				set_variable = {{ name = spec_debt value = 0 }}
 			}}
 {counters}{vanilla_ties.MONTHLY}			set_variable = {{ name = spec_mv_total value = spec_market_value }}
+			spec_sentiment_monthly = yes
 {"".join(goods)}{baskets}			if = {{
 				limit = {{ var:spec_c_boom > {CONF_BOOM_MAX} }}
 				set_variable = {{ name = spec_c_boom value = {CONF_BOOM_MAX} }}
@@ -1250,7 +1277,7 @@ spec_monthly = {{
 					limit = {{
 						spec_stance_value = -1
 						var:spec_conf < spec_ai_untight_at
-{leverage.AI_BACK}						spec_can_stance_normal = yes
+{leverage.AI_EXIT_TIGHT}						spec_can_stance_normal = yes
 					}}
 					spec_stance_to_normal = yes
 				}}
@@ -1291,15 +1318,19 @@ spec_monthly = {{
 {leverage.AI_BAILOUT}{journal.MONTHLY_AI}{levers.ai_block(GOODS, HOT_HYPE, RISING_HYPE, COOLING_HYPE)}			}}
 {levers.MONTHLY}{ig_stances.MONTHLY}			# for everyone: the levers' Authority cost moves with each good's share of the market, their money with its output
 			spec_update_levers = yes
+			if = {{
+				limit = {{ has_variable = spec_news_age }}
+				if = {{ limit = {{ is_player = yes }} spec_deliver_market_news = yes }}
+				else = {{ spec_clear_market_news = yes }}
+			}}
 
 			je:je_spec_markets ?= {{
 				set_bar_progress = {{ name = spec_confidence_bar value = root.var:spec_conf }}
 {journal.BARS}			}}
 
-			# the most and least favored goods, for the tab and the journal entry
 			if = {{
 				limit = {{ is_player = yes }}
-{rank_init}{"".join(rank)}				spec_find_risk_src = yes
+				spec_find_risk_src = yes
 			}}
 {log_line}		}}
 	}}
@@ -1356,7 +1387,9 @@ def effects(log=False):
 spec_update_band = {{
 {band}}}
 
+{leverage.MIGRATE}
 {owned_log_def}spec_start_panic = {{
+	{leverage.MIGRATE_CALL}
 	# months left, counted down monthly; the one clock for the panic
 	set_variable = {{ name = spec_panic value = spec_panic_months_trust }}
 	set_variable = {{ name = spec_panic_len value = var:spec_panic }}
@@ -2048,6 +2081,21 @@ def journal_entry_gui():
     if gui.count(old) != 1:
         sys.exit("journal_entry.gui changed, Progress Conditions")
     gui = gui.replace(old, old.replace('"[Or(', '"[And(Not(JournalEntry.HasCustomWidget(\'custom_widget_container_7\')), Or(').replace(')]"', '))]"'))
+    # Several native shortcuts switch between entries without changing the panel ID.
+    # Only the player's Financial Markets entry supplies the map beneath Finance.
+    anchor = 'datacontext = "[JournalEntryPanel.AccessJournalEntryType]"'
+    if gui.count(anchor) != 1:
+        sys.exit("journal_entry.gui changed, journal panel context")
+    own_entry = "GetPlayer.MakeScope.Var('spec_je').GetJournalEntry.Self"
+    gui = gui.replace(anchor, anchor + f"""
+
+		state = {{
+			name = spec_finance_yield_to_other_entry
+			trigger_when = "[And3({market_tab.JOURNAL_MAP}, {market_tab.JE_PANEL_OPEN}, Not(ObjectsEqual(JournalEntryPanel.GetJournalEntry.Self, {own_entry})))]"
+			on_start = "[GetVariableSystem.Clear('{market_tab.FIN}')]"
+			on_start = "[GetVariableSystem.Clear('{market_tab.PICK}')]"
+			duration = 0
+		}}""")
     return gui
 
 
@@ -2365,7 +2413,7 @@ def main(log=False):
     for rel, text in companies.script(GAME, SELLS, UPGRADES, lambda n: f"gfx/interface/icons/timed_modifier_icons/{n}.dds").items():
         write(rel, text)
     write("common/on_actions/spec_on_actions.txt", monthly(log))
-    write("common/scripted_effects/spec_effects.txt", effects(log) + "\n" + interest_list.risk_list_effect(categories()))
+    write("common/scripted_effects/spec_effects.txt", effects(log) + "\n" + interest_list.risk_list_effect(categories()) + ranked_interest_effect() + sectors.rank_chart() + investor_sentiment.effects(GOODS))
     write("common/scripted_triggers/spec_triggers.txt", triggers())
     (MOD / "common/scripted_buttons/spec_buttons.txt").unlink(missing_ok=True)  # the journal's Credit Policy and Lend: tab only now
     write("common/scripted_guis/spec_sguis.txt", sguis() + ig_stances.SGUI)
@@ -2407,7 +2455,7 @@ def main(log=False):
     write("localization/english/spec_markets_l_english.yml", english)
     write("localization/english/replace/spec_markets_replace_l_english.yml", pool_breakdown())
     write("common/game_rules/spec_game_rules.txt", "spec_market_volatility = {\n\tdefault = spec_volatility_historical\n\n"
-          + "".join(f"\tspec_volatility_{n} = {{\n\t}}\n" for n in VOLATILITY) + "}\n")
+          + "".join(f"\tspec_volatility_{n} = {{\n\t}}\n" for n in VOLATILITY) + "}\n" + market_news.RULE)
     tip = lambda n, name: f"#tooltippable #tooltip:[GetPlayer.GetTooltipTag],setting_spec_volatility_{n}_desc {name}#!#!"
     # worded as vanilla's rules (game_rules_l_english.yml, rule_ai_aggression): a short setting name, the non-default
     # one in #high, and one sentence on what it does

@@ -1,5 +1,7 @@
 # Speculative Markets — CMF Compatibility
 
+The local 1.2.0-beta.16 candidate was rebuilt against CMF 1.68.0 and passed a joint engine smoke test with Tech & Res. Its six payload files match the beta.10 patch. The [candidate manifest](../../beta/feedback_120/releases/compatibility.manifest.json) identifies the tested archive.
+
 Version **1.0.1** is an optional, separate compatibility mod for **Speculative Markets 1.0.2** and **Community Mod Framework 1.67.6**, built against Victoria 3 **1.15.1**. Players who do not use CMF do not need this patch.
 
 Also verified with **Speculative Markets 1.0.3 / Beta 1.0.3-beta.2**: the notification hotfix changes no GUI files, both parent GUI hashes still match this build, and the beta with CMF and this patch completed the notification regression run. Patch 1.0.1 remains the current release; no rebuild is required for this hotfix.

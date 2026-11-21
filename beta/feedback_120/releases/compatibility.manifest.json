@@ -1,0 +1,23 @@
+{
+  "channel": "1.2.0-beta.16",
+  "parent_sha256": "459ded2bde83928dec51f77106db6075e07560f9f185425ed592d1c41dd0daca",
+  "patches": {
+    "TechRes": {
+      "version": "1.2.0-test",
+      "id": "speculative_markets_techres",
+      "archive": "Speculative_Markets_TechRes_for_1.2.0-beta.16.zip",
+      "sha256": "4974c9c2adc6825f05560c1016cb30db50023bf303bc3dd4a480fcc98961bcce",
+      "files": 39
+    },
+    "CMF": {
+      "version": "1.0.4",
+      "id": "speculative_markets_cmf_compat",
+      "archive": "Speculative_Markets_CMF_for_1.2.0-beta.16.zip",
+      "sha256": "94fc0273d72f8ab1c3b2f3fb7e8ebb18eba42d347f5088c88aa0dcfc94d23943",
+      "files": 6,
+      "changed_since_beta10": []
+    }
+  },
+  "stack_evidence": "runs/feedback_120_stack/profile/logs",
+  "published": false
+}

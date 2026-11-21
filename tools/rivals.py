@@ -67,7 +67,10 @@ STATE_VARS = OLD_VARS + ["spec_c_rival", "spec_rv_ai_wait", "spec_rv_ai_seen", "
                          "spec_rv_n_out", "spec_rv_n_in", "spec_rv_n_chosen", "spec_rv_ui_left", "spec_rv_n_all", "spec_rv_focus", "spec_rv_ui_p", "spec_rv_ui_us", "spec_rv_ui_them", "spec_rv_ui_forfeit"]
 # scripted GUIs with root = the player and scope:target = the row's country
 CALL = "GetScriptedGui('spec_sgui_{}').{}(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Country.MakeScope).End)"
-US, THEM = "GetPlayer.MakeScope", "Country.MakeScope"
+US, THEM = "GetMetaPlayer.GetPlayedOrObservedCountry.MakeScope", "Country.MakeScope"
+CAN_MANAGE = "Not(GetMetaPlayer.IsObserver)"
+OUTGOING = f"{US}.GetList(Select_CString(GetMetaPlayer.IsObserver, 'spec_rv_observed_out', 'spec_rv_outs'))"
+INCOMING = f"{US}.GetList(Select_CString(GetMetaPlayer.IsObserver, 'spec_rv_observed_in', 'spec_rv_ins'))"
 PICK = "spec_rv_pick"  # GetVariableSystem flag: set, the contest picker under the slots is open (_picker)
 pc = lambda x: f"{round(x * 100, 1):g}%"
 RAID_TERMS = range(1, RAID_MONTHS + 1)
@@ -131,7 +134,7 @@ def _year_log(t):
 
 
 def shown(key):
-    return CALL.format(key, "IsShown")
+    return CALL.format(key, "IsShown").replace("GetPlayer.MakeScope", US)
 
 
 # -- script -----------------------------------------------------------------------------------------------------------
@@ -464,7 +467,10 @@ spec_rv_it_eff = {{
 # years into a contest (its clock in months, spec_rv_age_<k> on the side that named the other): from this to scope:target
 spec_rv_age_t = {{
 	value = 0
-{"".join(f"	if = {{ limit = {{ OR = {{ is_target_in_variable_list = {{ name = spec_rv_age_{k} target = scope:target }} scope:target = {{ is_target_in_variable_list = {{ name = spec_rv_age_{k} target = prev }} }} }} }} value = {k} }}" + chr(10) for k in range(1, MONTHS))}	divide = 12
+	if = {{
+		limit = {{ exists = scope:target }}
+{"".join(f"		if = {{ limit = {{ OR = {{ is_target_in_variable_list = {{ name = spec_rv_age_{k} target = scope:target }} scope:target = {{ is_target_in_variable_list = {{ name = spec_rv_age_{k} target = prev }} }} }} }} value = {k} }}" + chr(10) for k in range(1, MONTHS))}	}}
+	divide = 12
 }}
 
 # the same from scope:spec_rival_me to this (a player's rows)
@@ -931,9 +937,20 @@ spec_rv_forfeit = {{
 	}}
 }}
 
+# Clear the departing nomination immediately. A reciprocal nomination keeps its own clock and moves.
+spec_rv_drop_pair = {{
+    save_temporary_scope_as = spec_rv_departing
+    remove_list_variable = {{ name = spec_rv_chosen target = scope:target }}
+    remove_list_variable = {{ name = spec_rv_keep target = scope:target }}
+{"".join(f"    remove_list_variable = {{ name = spec_rv_age_{k} target = scope:target }}{chr(10)}" for k in range(MONTHS))}
+    if = {{
+        limit = {{ NOT = {{ scope:target = {{ is_target_in_variable_list = {{ name = spec_rv_chosen target = scope:spec_rv_departing }} }} }} }}
+{"".join(f"        remove_list_variable = {{ name = {key} target = scope:target }}{chr(10)}        scope:target = {{ remove_list_variable = {{ name = {key} target = scope:spec_rv_departing }} }}{chr(10)}" for key in tuple(f"spec_rv_push_{k}" for k in range(1, PUSHES + 1)) + ("spec_rv_won", "spec_rv_lost", "spec_rv_big", "spec_rv_tied"))}    }}
+}}
+
 spec_rv_end = {{
 	spec_rv_forfeit = yes
-	remove_list_variable = {{ name = spec_rv_chosen target = scope:target }}
+	spec_rv_drop_pair = yes
 	spec_rv_count = yes
 	if = {{
 		limit = {{ is_player = yes }}
@@ -1392,7 +1409,7 @@ spec_rv_ai_pick = {{
 					limit = {{ scope:spec_rv_x = {{ exists = capital }} has_strategic_region_interest_tier = {{ strategic_region = scope:spec_rv_x.capital.region value >= {INTEREST_TIER} }} }}
 					spec_rv_forfeit = yes
 				}}
-				remove_list_variable = {{ name = spec_rv_chosen target = scope:spec_rv_x }}
+				spec_rv_drop_pair = yes
 			}}
 		}}
 		spec_rv_count = yes
@@ -1542,6 +1559,22 @@ def pass_(t="\t"):
 {t}	spec_rv_ai = yes
 {t}}}
 {t}every_country = {{
+{t}	limit = {{ OR = {{ has_variable_list = spec_rv_observed_in has_variable_list = spec_rv_observed_out }} }}
+{t}	clear_variable_list = spec_rv_observed_in
+{t}	clear_variable_list = spec_rv_observed_out
+{t}}}
+{t}every_country = {{
+{t}	limit = {{ has_variable_list = spec_rv_chosen }}
+{t}	save_temporary_scope_as = spec_observed_challenger
+{t}	every_in_list = {{
+{t}		variable = spec_rv_chosen
+{t}		limit = {{ is_country_alive = yes }}
+{t}		save_temporary_scope_as = spec_observed_opponent
+{t}		scope:spec_observed_challenger = {{ add_to_variable_list = {{ name = spec_rv_observed_out target = scope:spec_observed_opponent }} }}
+{t}		add_to_variable_list = {{ name = spec_rv_observed_in target = scope:spec_observed_challenger }}
+{t}	}}
+{t}}}
+{t}every_country = {{
 {t}	limit = {{ is_player = yes }}
 {t}	spec_rv_list = yes
 {t}}}
@@ -1630,7 +1663,8 @@ def sguis():
                         "\t\t\t\t\tadd_to_variable_list = { name = spec_rv_cands target = scope:target }\n\t\t\t\t}\n\t\t\t}\n\t\t}\n")
     act += ("\nspec_sgui_rv_pick = {\n\tscope = country\n\teffect = {\n\t\tclear_variable_list = spec_rv_cands\n"
             + every("spec_can_rv_choose = yes") + every("NOT = { spec_can_rv_choose = yes }") + "\t}\n}\n")
-    return act + "".join(f"\nspec_sgui_rv_is_{k} = {{\n\tscope = country\n\tis_shown = {{ {t} }}\n}}\n" for k, t in tests.items())
+    return act + "".join(f"\nspec_sgui_rv_is_{k} = {{\n\tscope = country\n\tis_shown = {{ "
+                         f"{'' if k == 'active_lure' else 'exists = scope:target '}{t} }}\n}}\n" for k, t in tests.items())
 
 
 def picture():
@@ -1960,7 +1994,7 @@ def _toggle(x=None):
     return f"""widget = {{
 {pos}	size = {{ 32 32 }}
 	parentanchor = vcenter
-	visible = "[{call('IsShown')}]"
+	visible = "[And({CAN_MANAGE}, {call('IsShown')})]"
 	icon = {{
 		visible = "[{on}]"
 		using = rotate_glow_blue
@@ -2009,16 +2043,25 @@ def _sum(terms):
     return out
 
 
+def contest_value(cache, script):
+    # The player has precomputed rows. Observers can switch country at any time, so
+    # evaluate the same script value with the row as root and the viewed country as its opponent.
+    pair = f"GuiScope.SetRoot({THEM}).AddScope('spec_rival_me', {US})"
+    return (f"Select_CFixedPoint(GetMetaPlayer.IsObserver, {pair}.ScriptValue('{script}'), "
+            f"{THEM}.Var('{cache}').GetValueWithDefault({fx(0)}))")
+
+
 def rope():
-    """The contest from our side, -1 to 1 (rivals' spec_rv_rope), as spec_rv_ui stores it on the row's country."""
-    return f"{THEM}.Var('spec_rv_ui_p').GetValue"
+    return contest_value("spec_rv_ui_p", "spec_rv_rope")
 
 
 def pushes(key):
-    return f"{THEM}.Var('spec_rv_ui_{'us' if key == 'push' else 'them'}').GetValue"
+    if key == "push":
+        return contest_value("spec_rv_ui_us", "spec_rv_n_push_me")
+    return contest_value("spec_rv_ui_them", "spec_rv_n_push_it")
 
 
-PAIR = f"{THEM}.Var('spec_rv_ui_p').IsSet"  # both have an Exchange, so there is a contest
+PAIR = f"And(Country.IsValid, {shown('rv_is_pair')})"
 
 
 def _score():
@@ -2220,7 +2263,7 @@ textbox = {{
 def _lock(x):
     """A small lock on the toggle's corner while the rivalry is in its first year and cannot be ended."""
     return f"""icon = {{
-	visible = "[{shown('rv_is_locked')}]"
+	visible = "[And({CAN_MANAGE}, {shown('rv_is_locked')})]"
 	position = {{ {x + 20} 4 }}
 	size = {{ 14 14 }}
 	alwaystransparent = yes
@@ -2437,7 +2480,7 @@ textbox = {{
 	text = "SPEC_RV_CARD_NONE"
 }}
 """
-    return section("SPEC_RV_CARD_TITLE", "spec_hide_rv_us", body, right="SPEC_RV_ROUND", tooltip="SPEC_RV_US_TT")
+    return section("SPEC_RV_CARD_TITLE", "spec_hide_rv_us", body, right="SPEC_RV_ROUND", right_visible=CAN_MANAGE, tooltip="SPEC_RV_US_TT")
 
 
 def _shored_badge():
@@ -2457,7 +2500,7 @@ def _slots():
     """Top of the Competition section: our contest slots as cards (a flag and the years left; a + while free; a lock
     past what our Standing allows), then the flags of every Exchange contesting us. The player sees at once how many
     contests they may run and why the compete buttons are greyed when the slots are full (2026-11-16)."""
-    outs, ins = f"{US}.GetList('spec_rv_outs')", f"{US}.GetList('spec_rv_ins')"
+    outs, ins = OUTGOING, INCOMING
     n = f"GetDataModelSize({outs})"
     sv = f"{US}.ScriptValue('spec_rv_slots')"
     bg = "\ticon = {\n\t\tsize = { 100% 100% }\n\t\tusing = entry_bg_simple\n\t\talwaystransparent = yes\n\t}\n"
@@ -2487,7 +2530,7 @@ def _slots():
 		texture = "gfx/interface/buttons/button_icons/lock.dds"
 	}}
 	close_button = {{
-		visible = "[Not({shown('rv_is_locked')})]"
+		visible = "[And({CAN_MANAGE}, Not({shown('rv_is_locked')}))]"
 		position = {{ 0 0 }}
 		size = {{ 18 18 }}
 		parentanchor = right
@@ -2505,7 +2548,7 @@ def _slots():
 	}}
 """, "SPEC_RV_SLOT_USED_TT")
     free = "".join(card(big_icon("gfx/interface/buttons/button_icons/plus.dds", 0.8), "SPEC_RV_SLOT_FREE_TT",
-                        f"And(Not(GreaterThan_int32({n}, '(int32){k - 1}')), GreaterThan_CFixedPoint({sv}, {fx(k - 0.5)}))",
+                        f"And({CAN_MANAGE}, And(Not(GreaterThan_int32({n}, '(int32){k - 1}')), GreaterThan_CFixedPoint({sv}, {fx(k - 0.5)})))",
                         (f"GetScriptedGui('spec_sgui_rv_pick').Execute(GuiScope.SetRoot({US}).End)", f"GetVariableSystem.Toggle('{PICK}')"))
                    for k in range(1, NAMED_HIGH + 1))
     shut = "".join(card(big_icon("gfx/interface/buttons/button_icons/lock.dds", 0.5), "SPEC_RV_SLOT_SHUT_TT",
@@ -2605,7 +2648,7 @@ def _picker():
                         f"\talwaystransparent = yes\n\tbackground = {{\n\t\tusing = fade_right_colored\n\t\tcolor = {{ {c} 1 }}\n"
                         f"\t\talpha = {__import__('centres').ROW_TINT}\n\t}}\n}}\n" for t, c in __import__("centres").TIER_COL.items()), 7)
     return f"""flowcontainer = {{
-	visible = "[And(GetVariableSystem.Exists('{PICK}'), {room})]"
+	visible = "[And({CAN_MANAGE}, And(GetVariableSystem.Exists('{PICK}'), {room}))]"
 	direction = vertical
 	parentanchor = hcenter
 	margin_bottom = 8
@@ -2696,20 +2739,30 @@ def block():
 	tooltip = "SPEC_RV_LEFT_TT"
 }}
 """
-    in_row = _flag((C_NAME[1] - 34) // 2) + _shored_badge() + _score() + left + _strip(acts, C_ACT[0])
-    out_row = in_row  # the rivalry itself is named and ended from the Leading Exchanges list (marker)
-    outs, ins = f"{US}.GetList('spec_rv_outs')", f"{US}.GetList('spec_rv_ins')"
-    h = heads([(x, w, k, "center", bool(i)) for i, ((x, w), k) in
-               enumerate([(C_NAME, "SPEC_RV_COL_EXCH"), (C_SCORE, "SPEC_RV_COL_SCORE"), (C_LEFT, "SPEC_RV_COL_LEFT"), (C_ACT, "SPEC_RV_COL_ACT")])])
+    row = _flag((C_NAME[1] - 34) // 2) + _shored_badge() + _score() + left + _strip(acts, C_ACT[0], CAN_MANAGE)
+    columns = [(C_NAME, "SPEC_RV_COL_EXCH"), (C_SCORE, "SPEC_RV_COL_SCORE"),
+               (C_LEFT, "SPEC_RV_COL_LEFT"), (C_ACT, "SPEC_RV_COL_ACT")]
+    header = heads([(x, w, key, "center", bool(i)) for i, ((x, w), key) in enumerate(columns)],
+                   visibility={"SPEC_RV_COL_ACT": CAN_MANAGE})
     return (_slots() + _picker() + _ours()
-            + section("SPEC_RV_SUB_OUT", "spec_hide_rv_out", _did_row() + h + _list(outs, out_row, "SPEC_RV_EMPTY_OUT"), right="SPEC_RV_SUB_OUT_RIGHT")
-            + section("SPEC_RV_SUB_IN", "spec_hide_rv_in", h + _list(ins, in_row, "SPEC_RV_EMPTY_IN"), right="SPEC_RV_SUB_IN_RIGHT"))
+            + section("SPEC_RV_SUB_OUT", "spec_hide_rv_out", _did_row() + header + _list(OUTGOING, row, "SPEC_RV_EMPTY_OUT"),
+                      right="SPEC_RV_SUB_OUT_RIGHT")
+            + section("SPEC_RV_SUB_IN", "spec_hide_rv_in", header + _list(INCOMING, row, "SPEC_RV_EMPTY_IN"),
+                      right="SPEC_RV_SUB_IN_RIGHT"))
 
 
 def marker():
     """Leading Exchanges row, Rival column (the row's Country is the listed one): the rivalry icon button, framed
     while we rival them, and a small shield when they rival us."""
     return ind(_toggle(314) + _lock(314) + f"""icon = {{
+    visible = "[And(GetMetaPlayer.IsObserver, {shown('rv_is_out')})]"
+    position = {{ 314 0 }}
+    size = {{ 32 32 }}
+    parentanchor = vcenter
+    texture = "{icons.RIVALRY}"
+    tooltip = "SPEC_RV_ROW_TT"
+}}
+icon = {{
 	visible = "[And(Not(ObjectsEqual(Country.Self, GetPlayer.Self)), {shown('rv_is_in')})]"
 	position = {{ 350 0 }}
 	size = {{ 22 22 }}
@@ -2872,8 +2925,8 @@ def loc():
         ("SPEC_H_RIVAL_TT", "#header Competition#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_RIVAL_RULE$"),
         ("SPEC_H_RIVAL_RIGHT", f"#N -[{upk}|0]#! @inf!"),
         ("SPEC_RIVAL_RULE", rule),
-        ("SPEC_RV_SUB_OUT", "Our Competitors"), ("SPEC_RV_SUB_OUT_RIGHT", f"#v [{num(US, 'spec_rv_n_out')}|0]#!"),
-        ("SPEC_RV_SUB_IN", "Competing With Us"), ("SPEC_RV_SUB_IN_RIGHT", f"#v [{num(US, 'spec_rv_n_in')}|0]#!"),
+        ("SPEC_RV_SUB_OUT", "Our Competitors"), ("SPEC_RV_SUB_OUT_RIGHT", f"#v [GetDataModelSize({OUTGOING})]#!"),
+        ("SPEC_RV_SUB_IN", "Competing With Us"), ("SPEC_RV_SUB_IN_RIGHT", f"#v [GetDataModelSize({INCOMING})]#!"),
         ("SPEC_RV_COL_EXCH", "$concept_country$"),
         ("SPEC_RV_COL_SCORE", "Contest"), ("SPEC_RV_COL_SCORE_TT", f"Who is ahead, with our score next to theirs and how many times each side has pushed. Each contest settles #v {ROUND}#! years after it starts, and the side the bar ends on takes trust from the other."),
         ("SPEC_RV_COL_LEFT", "Ends"), ("SPEC_RV_COL_LEFT_TT", f"When this contest settles. Each one runs #v {ROUND}#! years, then it ends and frees its slot."),
@@ -3006,9 +3059,10 @@ def loc():
                                          "[concept_strategic_region]"),
         ("spec_rv_forfeit_tt", "We #N forfeit#! the contest. Ending it before it settles counts as a $SPEC_RV_BAND_LOSS$, or a $SPEC_RV_BAND_BIGLOSS$ "
                                "if the contest already shows one."),
-        ("SPEC_RV_EMPTY_OUT", "#weak None yet. Fill a free contest slot above.#!"),
+        ("SPEC_RV_EMPTY_OUT", f"[SelectLocalization(GetMetaPlayer.IsObserver, 'SPEC_RV_EMPTY_IN', 'SPEC_RV_EMPTY_OUT_PLAYER')]"),
+        ("SPEC_RV_EMPTY_OUT_PLAYER", "#weak None yet. Fill a free contest slot above.#!"),
         # the contest slots strip (_slots) and the map's diplomatic actions (diplo)
-        ("SPEC_RV_SLOTS", f"Our Contests #v [{num(US, 'spec_rv_n_out')}|0]#! of #v [{US}.ScriptValue('spec_rv_slots')|0]#!"),
+        ("SPEC_RV_SLOTS", f"Our Contests #v [GetDataModelSize({OUTGOING})]#! of #v [{US}.ScriptValue('spec_rv_slots')|0]#!"),
         ("SPEC_RV_HOW", "Click a free slot and choose from the list, use the round button beside an Exchange in the Exchanges list, "
                         "or right-click its country on the map and choose #v Compete With Their Exchange#!."),
         ("SPEC_RV_SLOTS_TT", f"#header Contest Slots#!\\n$TOOLTIP_DELIMITER$\\nOur [concept_spec_exchange] can run #v {NAMED}#! contest at Provincial "
@@ -3017,7 +3071,7 @@ def loc():
                          "in the [concept_strategic_region] of its capital, and not one already contesting us."),
         ("SPEC_RV_SLOT_USED_TT", "#header Contest With [Country.GetNameNoFormatting]#!\\n$TOOLTIP_DELIMITER$\\n"
                                  f"[SelectLocalization({PAIR}, 'SPEC_RV_ROW_NOW', 'SPEC_RV_SLOT_SETTLES')]"
-                                 f"[SelectLocalization({shown('rv_is_locked')}, 'SPEC_RV_SLOT_LOCKED', 'SPEC_RV_SLOT_END')]"),
+                                 f"[AddLocalizationIf({CAN_MANAGE}, SelectLocalization({shown('rv_is_locked')}, 'SPEC_RV_SLOT_LOCKED', 'SPEC_RV_SLOT_END'))]"),
         ("SPEC_RV_SLOT_SETTLES", "It settles in $SPEC_RV_LEFT$.\\n\\n"),
         ("SPEC_RV_SLOT_CANCEL_TT", "#header End Contest With [Country.GetNameNoFormatting]#!\\n$TOOLTIP_DELIMITER$\\n"
                                    "It settles in $SPEC_RV_LEFT$. Ending it now counts as losing it, a $SPEC_RV_BAND_BIGLOSS$ "
@@ -3044,7 +3098,7 @@ def loc():
         ("SPEC_RV_PICK_ROW_TT", f"$SPEC_RV_TOGGLE_TT$[AddLocalizationIf({CALL.format('rv_toggle', 'IsValid')}, 'SPEC_RV_PICK_CLICK')]"),
         ("SPEC_RV_PICK_CLICK", "\\n\\n#instruction Click to start the contest#!"),
         ("SPEC_RV_SLOT_SHUT_TT", f"#header Locked Contest Slot#!\\n$TOOLTIP_DELIMITER$\\nOur [concept_spec_exchange] can run more contests at a higher Standing: {opens}."),
-        ("SPEC_RV_AGAINST", f"Contesting Us #v [{num(US, 'spec_rv_n_in')}|0]#!"),
+        ("SPEC_RV_AGAINST", f"Contesting Us #v [GetDataModelSize({INCOMING})]#!"),
         ("SPEC_RV_AGAINST_TT", "#header Contesting Us#!\\n$TOOLTIP_DELIMITER$\\nThe Exchanges that picked ours as a competitor. "
                                "Their contests take none of our slots."),
         ("SPEC_RV_AGAINST_NONE", "#weak No one#!"),
@@ -3076,7 +3130,7 @@ def loc():
         ("SPEC_DATE_SHORE_UNTIL", date_at(shore_until)), ("SPEC_DATE_PROTECTED_UNTIL", date_at(protected_until)),
         ("SPEC_RV_SHORE_OFFER", f"If used now, their actions do #P half#! as much until {shore_protection}. It can be used again on {shore_renewal}."),
         ("SPEC_RV_SHORE_WAIT", "Shore Up is on cooldown against this competitor."),
-        ("SPEC_RV_LAST", f"[SelectLocalization({by(THEM, 'GetPlayer.Self')}, 'SPEC_RV_LAST_OURS', "
+        ("SPEC_RV_LAST", f"[SelectLocalization({by(THEM, 'GetMetaPlayer.GetPlayedOrObservedCountry.Self')}, 'SPEC_RV_LAST_OURS', "
                          f"{sel(by(US, 'Country.Self'), 'SPEC_RV_LAST_THEIRS', 'SPEC_RV_LAST_NONE')})]"),
         ("SPEC_RV_LAST_OURS", f"Our last action was #v {act(THEM)}#!, and {res(THEM)}."),
         ("SPEC_RV_LAST_THEIRS", f"Their last action was #v {act(US)}#!, and {res(US)}."),

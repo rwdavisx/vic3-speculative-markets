@@ -107,6 +107,7 @@ table.t select { background: #1a1f29; border: 1px solid #3a4152; border-radius: 
     <div class="row">
       <span class="score" id="scorecard">No results yet</span>
       <span class="showing" id="showing"></span>
+      <span class="bad" id="creditTierNote" hidden></span>
       <span class="spacer"></span>
       <button class="btn" id="checkb" type="button">Run check</button>
       <button class="btn quiet" id="stopb" type="button" disabled>Stop</button>
@@ -247,10 +248,10 @@ table.t select { background: #1a1f29; border: 1px solid #3a4152; border-radius: 
   <footer class="notes panel">
     <h3>How close this is to the game</h3>
     <ul>
-      <li>The monthly order and the formulas are spec_monthly's; each step in tools/tuner/engine.py names the generator code it mirrors, and its self-check holds them to the generated script.</li>
-      <li>The game's side is abstracted: GDP, pool income, booms, wars and foreign panics are bounded random streams, and throughput and investment feed back into GDP and pool income. Their ranges are fitted to the logged games (The Game's Side, Checked).</li>
-      <li>Not modelled yet: Restrain and Encourage, the Exchange's specialities and contests, rivals, power blocs, Relief Works, Suspend the Bank Act, the Long Depression.</li>
-      <li>Every candidate runs on the same months, so a difference between two is the mechanics, not luck.</li>
+      <li>Credit policy requires Central Banking and a six-month wait after a switch. The AI uses its temperament, governing interest groups, leverage and confidence to decide when to move.</li>
+      <li>By default each economy draws its budget, reserves, government debt and spare Authority together from recorded countries. Research follows the prerequisite tree and observed unlock dates. AI goods interventions use per-good Authority costs and subsidies. Rescue and loan buy-ups spend from the same treasury.</li>
+      <li>A Long Depression needs an eligible Great Power in an active panic. Its spread and recovery are approximations. Goods use bounded price episodes and the previous month's category trend. Player scenarios can specify an Exchange charter and credit policy. AI charter choices, contests, Great Issues, rivals, power blocs and Relief Works are outside the model.</li>
+      <li>Each candidate receives the same seeded input draws. Repeating a check with a different seed shows how much the results depend on the sampled economies and worlds.</li>
       <li id="replay"></li>
     </ul>
   </footer>
@@ -358,6 +359,9 @@ function board() {
   const B = base(), met = S.parts.filter(p => p.in).length, all = S.parts.length;
   $("scorecard").innerHTML = `<b class="${met < all ? "bad" : ""}">${met} of ${all}</b> on target`;
   $("showing").textContent = `${R.label} · ${R.time} · ${R.economies} countries × ${R.years} years` + (S.id !== R.baseline ? ` · showing #${S.id}` : "");
+  if (R.seed != null) $("showing").textContent += ` · seed ${R.seed}`;
+  $("creditTierNote").textContent = S.credit_tier_note || "";
+  $("creditTierNote").hidden = !S.credit_tier_note;
   $("note").textContent = R.note || "";
   cards(); series(); players(); apPanel();
 }
@@ -606,9 +610,18 @@ function buildInputs() {
     }
     root.appendChild(f);
   }
+  const orders = document.createElement("fieldset");
+  const finance = document.createElement("fieldset");
+  finance.innerHTML = '<legend>Player finance policy</legend><label for="playercharter">Exchange charter when eligible</label> <select id="playercharter"><option value="">No charter order</option><option value="commodity">Commodity Exchange</option><option value="money">Money Market</option><option value="share">Share Market</option></select> <label for="playercredit">Credit policy when eligible</label> <select id="playercredit"><option value="">Follow player strategy</option><option value="normal">Hold Normal</option><option value="tight">Hold Tight</option><option value="loose">Hold Loose</option></select>';
+  root.appendChild(finance);
+  orders.innerHTML = '<legend>Player goods orders</legend><label for="leverorders">Optional. Enter one date, good and action per line. Use encourage or restrain. Repeating an action asks to lift it.</label><textarea id="leverorders" rows="3" placeholder="1836-02-01 grain encourage"></textarea>';
+  root.appendChild(orders);
 }
 function readCfg() {
   const cfg = structuredClone(C.cfg);
+  cfg.player_charter = $("playercharter").value || null;
+  cfg.player_credit = $("playercredit").value || null;
+  cfg.player_lever_orders = $("leverorders").value.split(/\r?\n/).map(s => s.trim()).filter(Boolean);
   for (const row of document.querySelectorAll("#inputs .prow")) {
     const k = row.dataset.key, a = +row.querySelector(".a").value, b = row.querySelector(".b");
     if (row.dataset.mix) cfg[row.dataset.mix][k] = a;

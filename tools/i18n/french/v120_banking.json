@@ -1,0 +1,14 @@
+{
+  "086b1ead63": "Les banques suspendent les prêts tant que les [concept_spec_bad_debts] dépassent la limite fixée par nos [concept_spec_lending_standards]",
+  "11d5c39c51": "Les banques comptabilisent encore les pertes du dernier essor. Plus les pertes sont élevées, #N moins elles prêtent#!. Au-delà du seuil prévu par les [concept_spec_lending_standards], les prêts cessent.\\n#v Prêter aux banques#! n’efface pas ces pertes.\\n#v Racheter les créances douteuses#! en efface {1} %, une seule fois par épisode.",
+  "154ba54579": "\\n#v x{1}#! en raison des [concept_spec_bad_debts]",
+  "40d398c68c": "Aucune activation ni désactivation au cours des #v {1}#! derniers mois, ou activation il y a moins de #v {2}#! jours et annulation encore possible.",
+  "508f3e9b55": "Les prêts accordés pendant l’essor sont devenus douteux. Dans les mois qui viennent, les [concept_spec_bad_debts] réduiront le [concept_throughput] de #N {1} %#!. Elles diminueront ensuite pour disparaître en #v {2}#! mois. D’ici là, les banques prêteront moins. #v Prêter aux banques#! ne les efface pas.",
+  "923b245d95": "Les banques suspendent les prêts tant que les [concept_spec_bad_debts] dépassent la limite fixée par nos [concept_spec_lending_standards].",
+  "a01525d299": "\\nLa pénalité augmente encore de #N {1}%#! par mois, jusqu’à #N -{2}%#!.",
+  "c465eba044": "@spec_bad_debts! [concept_spec_bad_debts] diminuent de #P {1}%#! et seront apurées en #v {2}#! mois au lieu de #v {3}#!.",
+  "c55c523e35": "\\n#P +@money!{1}#! prêtés ce mois-ci",
+  "d1f5b6ea71": "Utilisez #v Racheter les créances douteuses#! dans l’onglet #bold $SPEC_FIN_TAB_BANKING$#! de la fenêtre #bold $SPEC_FINANCE$#!. Une seule fois par épisode.\\nRéduit les [concept_spec_bad_debts] restantes de #P {1}%#!.\\nCoût : #v @money!{2}#!",
+  "d4fbe0f156": "Pour réduire le risque, freinez la spéculation sur les biens les plus risqués dans l’onglet #bold $SPEC_FIN_TAB_BOOMS$#! ou durcissez la [concept_spec_credit_policy] dans l’onglet #bold $SPEC_FIN_TAB_BANKING$#!.",
+  "dccbb4fb0f": "#N Les banques cessent de prêter#! au [concept_investment_pool]\\nLes investisseurs réagissent #N {1}%#! moins aux variations de prix\\n#P Des essors plus petits#!, des fins plus douces et des paniques plus légères\\nLes [concept_spec_bad_debts] sont apurées #P {2}%#! plus vite\\nChaque mois, #N {3} %#! de la [concept_spec_market_confidence] au-dessus de #v {4}#! s’évapore\\n\\nVerrouille la [concept_spec_credit_policy] pendant #v {5}#! mois\\nNécessite {6}\\n\\n@intelligentsia! Intelligentsia [concept_in_government] : #P +{7}#! d’[concept_approval]\\n@industrialists! Industriels [concept_in_government] : #N -{8}#! d’[concept_approval]"
+}

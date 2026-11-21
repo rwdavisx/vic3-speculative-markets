@@ -1,0 +1,217 @@
+{
+  "candidate": "1.2.0-beta.4",
+  "game": "1.15.2",
+  "date": "2026-11-21",
+  "release_decision": "Hold stable publication and further balance changes.",
+  "package": {
+    "zip": "beta/review_candidate_120/releases/Speculative_Markets_Beta_1.2.0-beta.4.zip",
+    "sha256": "974c87defa74cf949af18cdaa82de65e9ccd88130a8c736700166feb6a23aaf1",
+    "files": 226,
+    "identical_to": [
+      "build_scratch/rivals_live",
+      "beta/review_candidate_120/mod"
+    ],
+    "regeneration": "225 generator outputs matched the packaging source. The thumbnail was supplied at packaging.",
+    "prior_dev_backup": "runs/review_dev_backup"
+  },
+  "focused_engine": {
+    "frozen": {
+      "report": "runs/quick_20261121_110156_424698/report.json",
+      "result": false,
+      "passed_assertions": 0,
+      "failed_assertions": [
+        "review_120__cools_to_normal",
+        "review_120__burst_caps_accumulated_debts",
+        "review_120__panic_forecast_respects_cap",
+        "review_120__panic_respects_cap",
+        "review_120__private_rescue_available",
+        "review_120__private_rescue_shortens"
+      ],
+      "blocking_error_count": 0
+    },
+    "candidate": {
+      "report": "runs/quick_20261121_111107_049184/report.json",
+      "result": true,
+      "passed_assertions": 41,
+      "failed_assertions": [],
+      "blocking_error_count": 0
+    }
+  },
+  "routine": {
+    "static_source": "build_scratch/review_candidate_120_final",
+    "result": "Python, generated source and CMF passed. Default stable layout still reports the 1.1.6/1.15.1 versus 1.2.0/1.15.2 version mismatch. --source expects the unbranded generated layout; --engine takes the packaged beta."
+  },
+  "broader_engine": {
+    "frozen_report": "runs/quick_20261121_110740_370855/report.json",
+    "candidate": {
+      "report": "runs/quick_20261121_111010_091076/report.json",
+      "result": false,
+      "passed_assertions": 268,
+      "failed_assertions": [
+        "bank_display__mood_carry_draw_prosperity_reconcile",
+        "bank_display__other_goods_ranks_smaller_contributors",
+        "banking__leverage_ruin_boundary",
+        "banking__leverage_caps_and_no_credit_room",
+        "banking__debt_repayments_bounded_by_balance",
+        "banking__strict_standards_multipliers",
+        "banking__reckless_standards_multipliers",
+        "banking__bailout_cuts_debt_caps_bite_and_repeats",
+        "confidence__caution_lower_bound_actual_delta",
+        "credit_cycle__boom_losses_tighten_standards",
+        "credit_cycle__standards_floor",
+        "credit_cycle__bad_debts_fade_while_bite_ramps",
+        "exchange_monthly__reckless_month_loses_trust",
+        "exchange_monthly__bad_debts_lose_trust_and_prevent_promotion",
+        "journal__currency_school_tradeoff",
+        "journal__free_banking_tradeoff",
+        "journal__reforms_combine_once",
+        "pursuit_weights__dropped_specialities_fade_without_immediate_loss",
+        "rival_notifications__multiple_wins_one_notification",
+        "rival_notifications__all_three_win_rewards_preserved",
+        "rival_notifications__next_round_can_notify_again",
+        "rival_notifications__multiple_losses_one_notification",
+        "rival_notifications__all_three_loss_penalties_preserved",
+        "rival_notifications__mixed_results_keep_both_notifications",
+        "finance_priority__shallow_chart_matches_trigger",
+        "finance_priority__staggered_contests_show_earliest",
+        "finance_priority__exact_decisive_preserves_prior_lure"
+      ],
+      "blocking_error_count": 1
+    },
+    "comparison": "268/295 on both builds, with identical failing assertions. Both report one unset spec_bank_other_1 read in the bank_display fixture."
+  },
+  "legacy_save": {
+    "seed_mod": "Archived 1.1.6 with 30 points of Bad Debts in Great Britain",
+    "save": "G:/GameDev/_claude_scratch/vic/saves/review_116_gbr30.v3",
+    "frozen_reload": "runs/sweep_review_reload_red/legacy_01/assertions.log",
+    "candidate_reload": "runs/sweep_review_final_reload/legacy_01/assertions.log",
+    "candidate_gate": {
+      "blocking_error_count": 0,
+      "error_categories": {
+        "engine_or_basegame_other": 1359,
+        "mod_variable_load_warnings": 66
+      }
+    },
+    "mechanics": "Controlled conversion preserved 12% full penalty and the 6% applied bite, including after a second migration. In the live old-save reload, the first three monthly samples showed 7%, 5%, and 3% after debt reduction. The frozen first sample was 58%.",
+    "law_effects": "Checked the active law, Bimetallism, Gold, Fiat or its variant, and Classical Gold on Laissez-Faire in the reloaded campaign.",
+    "live_laws_ui": {
+      "profile": "runs/review_116_native_085502/profile",
+      "setup": "A private copy of the archived 1.1.6 save with only beta.4 enabled. Selected Great Britain in the lobby.",
+      "on_load": "February 1, 1836: Politics > Laws had no Monetary Standard row.",
+      "after_monthly_update": "March 8, 1836: opened the Monetary Standard row in Economy. Bimetallism was active, Gold Standard was selectable and its tooltip said Can be Enacted. Elastic Currency (Fiat Money) was visible and disabled under the current conditions.",
+      "error_gate": {
+        "blocking_error_count": 0,
+        "error_categories": {
+          "engine_or_basegame_other": 84,
+          "mod_variable_load_warnings": 66
+        }
+      }
+    }
+  },
+  "late_campaign": {
+    "run": "runs/sweep_review_1896_year_repeat/candidate_01",
+    "save": "full2_b_big2_1_1896",
+    "period": "January 1896 through January 1, 1897",
+    "country_observations": 2325,
+    "distinct_tags": 190,
+    "max_debt_points": 16.8494,
+    "max_projected_throughput_penalty_pct": 33.6988,
+    "britain_stances_in_order": [
+      "loose",
+      "normal",
+      "normal",
+      "normal",
+      "normal",
+      "normal",
+      "normal",
+      "normal",
+      "tight",
+      "tight",
+      "tight",
+      "tight"
+    ],
+    "error_gate": {
+      "blocking_error_count": 0,
+      "error_categories": {
+        "basegame_script_errors": 170,
+        "engine_or_basegame_other": 2884,
+        "mod_variable_load_warnings": 66
+      }
+    },
+    "coverage": "One archived late-game year. Long Depression frequency and multi-decade Great Power behavior remain open."
+  },
+  "compatibility": {
+    "cmf_manifest": "runs/cmf_review_120_final/build_manifest.json",
+    "cmf_patch_delta_from_previous": {
+      ".metadata/metadata.json": "changed",
+      "gui/00_com_topfrontend.gui": "added",
+      "gui/com_gui_sidebar.gui": "same",
+      "gui/information_panel_bar.gui": "same",
+      "gui/topfrontend.gui": "added"
+    },
+    "techres_manifest": "runs/techres/review_120_locfix/manifest.json",
+    "stack_log": "runs/review_stack_locfix.log",
+    "stack_order": [
+      "CMF 1.68.0",
+      "Tech & Res",
+      "SM beta.4",
+      "Tech & Res compatibility candidate",
+      "CMF compatibility 1.0.4",
+      "test-only assertion fixture"
+    ],
+    "stack_result": "Tech & Res cosmetics initialization and 40% full-debt cap passed together. Four localization collisions from the first build were removed.",
+    "stack_gate": {
+      "blocking_error_count": 0,
+      "error_categories": {
+        "basegame_script_errors": 35,
+        "engine_or_basegame_other": 2533,
+        "mod_variable_load_warnings": 66
+      }
+    },
+    "distribution": "Local test builds only."
+  },
+  "live_navigation": {
+    "profile": "runs/review_alert_routes/profile",
+    "conditions": "1844 Russian save. A QA fixture kept the two SM alerts visible and enabled the Organizations sidebar. The alert handlers and GUI were shipping bytes.",
+    "observations": [
+      "Financial Markets > Open Finance opened the populated Speculation tab.",
+      "CMF International Organizations > Panic Risk replaced Organizations with Finance on Speculation.",
+      "Speculative Excess opened Finance on Banking.",
+      "No Active Research replaced Finance with the native Technology Tree.",
+      "Bank Rescue Available opened the Journal.",
+      "Russian Market > Grain has no Open Finance shortcut. Commit 1fe5f6a removed that shortcut in beta."
+    ],
+    "gate": {
+      "blocking_error_count": 0,
+      "error_categories": {
+        "engine_or_basegame_other": 261,
+        "mod_variable_load_warnings": 66
+      }
+    },
+    "diagnostic": "The UI log contains an invalid journal_entry_panel lookup. It is categorized as engine_or_basegame_other by the automated gate."
+  },
+  "tuner": {
+    "log": "runs/review_final_tuner_check.log",
+    "command": "py -3 -B tools/tuner/lab.py check --n 500 --seed 7",
+    "targets_met": 14,
+    "target_count": 18,
+    "ai_panics_per_century": 2.36,
+    "ai_target": [
+      3,
+      6
+    ],
+    "other_misses": [
+      "reckless minus careful GDP",
+      "careful minus passive GDP",
+      "skilled minus AI GDP"
+    ],
+    "values": "Reviewed tuning inputs retained for comparison. No balance promotion."
+  },
+  "localization": {
+    "generated_report": "runs/review_final_generate.log",
+    "remaining_per_language": {
+      "english_fallback": 342,
+      "older_source": 45
+    }
+  }
+}

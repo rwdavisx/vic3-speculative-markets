@@ -1,0 +1,21 @@
+{
+  "048c689ff2": "Los inversores están más dispuestos a financiar los edificios que producen estos bienes.",
+  "04d0476db0": "Los bienes en venta cuyo precio se mantenga al menos un {1}% por debajo del [concept_base_price] durante {2} meses consecutivos pueden perder el apoyo de los inversores cada mes. Hasta {3} bienes pierden un {4}% de [concept_spec_investor_interest] durante {5} meses.$SPEC_TERM_ODDS$",
+  "16d85d0cd2": "Los inversores están menos dispuestos a financiar los edificios que producen estos bienes.",
+  "1bd7d60ba4": "Una industria que consuma este bien puede aprovechar los insumos baratos y sostener la demanda.",
+  "386887ea06": "\\nEl exceso de oferta suspende temporalmente este efecto.",
+  "3c25676a9b": "Preferidos",
+  "5a0e210375": "\\n$SPEC_JE_FAVOURED$ · Precios altos sostenidos · +{1}% [concept_spec_investor_interest] · Meses restantes: {2}",
+  "7b44aceea9": "Un bien entra en el sorteo mensual tras {1} meses consecutivos con órdenes de venta y un precio al menos un {2} % superior al [concept_base_price].",
+  "7f140061bd": "Los bienes en venta cuyo precio supere en al menos un {1}% el [concept_base_price] durante {2} meses consecutivos pueden ganarse el favor de los inversores cada mes. Hasta {3} bienes ganan un {4}% de [concept_spec_investor_interest] durante {5} meses.$SPEC_TERM_ODDS$",
+  "8657700118": "\\n$SPEC_JE_SHUNNED$ · Precios bajos sostenidos · −{1}% [concept_spec_investor_interest] · Meses restantes: {2}",
+  "93d5a8e665": "Bolsas que compiten con {1}",
+  "b3f9880984": "Cada bien registrado pertenece a un sector. El gráfico valora todos los bienes registrados que se ofrecen en venta a su [concept_base_price]. Los bienes que representan una mayor parte de esa oferta tienen más peso en la tendencia del sector. Si el sector se mueve menos que el bien o en sentido contrario, la presión de su precio sobre el [concept_spec_investor_interest] puede reducirse hasta la mitad.",
+  "c4281b915f": "Comprueba el coste de los insumos y la exposición al auge antes de ampliar la producción.",
+  "d7920e3b73": "Competidores elegidos por {1}",
+  "e01f2a24fa": "#header $SPEC_JE_SHUNNED$#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_SHUN_IMPACT$\\n\\n#N −{1}%#! [concept_spec_investor_interest] · {2} meses · Hasta {3} bienes\\n\\n$SPEC_SHUN_REASON$$SPEC_TERM_ODDS$",
+  "e577858e6d": "Un bien entra en el sorteo mensual tras {1} meses consecutivos con órdenes de venta y un precio al menos un {2} % inferior al [concept_base_price].",
+  "ef12a1b38e": "#header $SPEC_JE_FAVOURED$#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_FAV_IMPACT$\\n\\n#P +{1}%#! [concept_spec_investor_interest] · {2} meses · Hasta {3} bienes\\n\\n$SPEC_FAV_REASON$$SPEC_TERM_ODDS$",
+  "fc2d9763d8": "\\nLos bienes con poca oferta también pueden optar. Las probabilidades aumentan tras {1} meses en esas condiciones o al alcanzar el {2}% del valor de la oferta del mercado.",
+  "fd3d5b6ca0": "Oferta del mercado por sector"
+}

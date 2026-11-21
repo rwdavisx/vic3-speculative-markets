@@ -326,8 +326,11 @@ if __name__ == "__main__":
         base = engine.defaults(fitted=False)
         cfg = json.loads(json.dumps(base))
         cfg["inputs"]["years"] = 60  # the logs cover 1836 to 1920, most of them before 1890
-        cfg["inputs"] |= direct(L)
+        measured = {"scaled_debt", "ai_authority"} if cfg["inputs"]["fiscal_profiles"] else set()
+        cfg["inputs"].update((k, v) for k, v in direct(L).items() if k not in measured)
         for name, keys, aims in BLOCKS:
+            if measured.intersection(keys):
+                continue
             cfg = search(pool, cfg, L, name, keys, aims)
         E = engine_stats((cfg, 1000, 3))
         lift = (L["growth"]["p50"] - E["growth"]["p50"]) / 100  # recessions take their part of the growth: give it back

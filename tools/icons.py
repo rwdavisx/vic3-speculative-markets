@@ -102,6 +102,12 @@ SLOTS.update({f"name_{k}": (128, f"{V}/{fb}.dds", d) for k, fb, d in [
 ]})
 
 
+from sectors import GROUPS
+
+for sector, (title, members) in GROUPS.items():
+    SLOTS[f"sector_{sector}"] = (96, f"{V}/goods_icons/{members.split()[0]}.dds", title)
+
+
 def art(name):
     """A slot's painting; a law icon's is its flat emblem, which law_metal finishes."""
     return ART / ("emblem" if name.startswith("law_") else "") / f"{name}.png"
@@ -193,12 +199,12 @@ SLOTS.update({f"concept_{c}": (128, f"{V}/{fb}.dds", d + _OUTLINE) for c, fb, d 
     ("exchange", "invention_icons/stock_exchanges", "the columned front of a small classical stock exchange with a pediment and a flag on its roof"),
 ]})
 # every concept's icon, painted or reused (concepts.CONCEPTS takes its texture from here)
-CONCEPT_ICON = {"market_confidence": "je_markets", "speculative_mania": "state_mania", "financial_panic": "state_panic",
+CONCEPT_ICON = {"market_sector": "je_markets", "market_confidence": "je_markets", "speculative_mania": "state_mania", "financial_panic": "state_panic",
                 "foreign_panic": "driver_foreign", "boom_end": "driver_crash", "correction": "ending_1", "bust": "ending_2",
                 "collapse": "ending_3", "investor_interest": "driver_boom", "speculative_excess": "excess_alert",
                 "blue_chip": "blue_chip", **{n[8:]: n for n in SLOTS if n.startswith("concept_")}}
 
-TEXT_ICONS = [n for n in SLOTS if n.startswith(("interest_", "ending_", "blue_"))]  # in loc as @spec_<name>!
+TEXT_ICONS = [n for n in SLOTS if n.startswith(("interest_", "ending_", "blue_", "sector_"))]  # in loc as @spec_<name>!
 
 
 def texticons():

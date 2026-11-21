@@ -1,0 +1,14 @@
+{
+  "086b1ead63": "Die Banken vergeben keine Kredite, solange [concept_spec_bad_debts] die durch [concept_spec_lending_standards] gesetzte Grenze übersteigen",
+  "11d5c39c51": "Die Banken rechnen noch mit den Verlusten aus dem letzten Boom. Je höher die Verluste sind, #N desto weniger verleihen sie#!. Oberhalb der durch die [concept_spec_lending_standards] festgelegten Grenze vergeben sie keine Kredite mehr.\\n#v Banken Kredit gewähren#! beseitigt die Verluste nicht.\\n#v Faule Kredite aufkaufen#! baut einmal pro Schuldenphase {1}% davon ab.",
+  "154ba54579": "\\n#v x{1}#! aufgrund von [concept_spec_bad_debts]",
+  "40d398c68c": "In den letzten #v {1}#! Monaten weder ein- noch ausgeschaltet oder vor weniger als #v {2}#! Tagen aktiviert und noch widerrufbar.",
+  "508f3e9b55": "Die Kredite aus dem Boom sind ausgefallen. In den kommenden Monaten senken [concept_spec_bad_debts] den [concept_throughput] um #N {1}%#!. Dann gehen sie zurück und sind nach #v {2}#! Monaten abgebaut. Solange sie bestehen, vergeben die Banken weniger Kredite. #v Banken Kredit gewähren#! baut sie nicht ab.",
+  "923b245d95": "Die Banken vergeben keine Kredite, solange [concept_spec_bad_debts] die durch [concept_spec_lending_standards] gesetzte Grenze übersteigen.",
+  "a01525d299": "\\nDer Malus steigt weiter um #N {1}%#! pro Monat, bis auf #N -{2}%#!.",
+  "c465eba044": "@spec_bad_debts! [concept_spec_bad_debts] sinken um #P {1}%#! und sind nach #v {2}#! Monaten abgebaut statt nach #v {3}#!.",
+  "c55c523e35": "\\n#P +@money!{1}#! in diesem Monat verliehen",
+  "d1f5b6ea71": "Unter #bold $SPEC_FIN_TAB_BANKING$#! im Fenster #bold $SPEC_FINANCE$#! die Aktion #v Faule Kredite aufkaufen#! wählen. Einmal pro Schuldenphase möglich.\\nBaut #P {1}%#! der verbleibenden [concept_spec_bad_debts] ab.\\nKosten: #v @money!{2}#!",
+  "d4fbe0f156": "Um das Risiko zu senken, dämpft unter #bold $SPEC_FIN_TAB_BOOMS$#! die Spekulation mit den riskantesten Waren oder strafft unter #bold $SPEC_FIN_TAB_BANKING$#! die [concept_spec_credit_policy].",
+  "dccbb4fb0f": "#N Die Banken stellen ihre Kreditvergabe#! an den [concept_investment_pool] ein\\nAnleger reagieren um #N {1}%#! schwächer auf Preisänderungen\\n#P Kleinere Booms#!, sanftere Enden und mildere Paniken\\n[concept_spec_bad_debts] werden um #P {2}%#! schneller abgebaut\\nJeden Monat schwinden #N {3}%#! des [concept_spec_market_confidence] über #v {4}#!\\n\\nSperrt [concept_spec_credit_policy] für #v {5}#! Monate\\nErfordert {6}\\n\\n@intelligentsia! Intellektuelle [concept_in_government]: #P +{7}#! [concept_approval]\\n@industrialists! Industrielle [concept_in_government]: #N -{8}#! [concept_approval]"
+}

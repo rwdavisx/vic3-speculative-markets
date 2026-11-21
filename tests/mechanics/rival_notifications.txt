@@ -1,55 +1,98 @@
 namespace = spec_mechanics_rival_notifications
 spec_mechanics_rival_notifications.1 = { type = country_event hidden = yes immediate = {
-set_global_variable = { name = spec_rival_year days = 3650 }
-every_country = { limit = { OR = { this = c:GBR this = c:FRA this = c:PRU this = c:AUS } }
-save_scope_as = spec_t
-every_rival_country = { save_temporary_scope_as = spec_tx scope:spec_t = { remove_diplomatic_pact = { country = scope:spec_tx type = rivalry } } }
-every_rivaling_country = { remove_diplomatic_pact = { country = scope:spec_t type = rivalry } }
-clear_variable_list = spec_rv_chosen clear_variable_list = spec_rv_keep remove_variable = spec_rv_n_chosen
-remove_variable = spec_exch_known remove_variable = spec_pw_floor remove_variable = spec_pw_pockets remove_variable = spec_pw_price remove_variable = spec_pw_sound
-set_variable = { name = spec_exch_stand value = 1 } set_variable = { name = spec_centre_trust value = 60 }
-every_country = { limit = { NOT = { this = prev } OR = { this = c:GBR this = c:FRA this = c:PRU this = c:AUS } } set_relations = { country = prev value = 0 } }
-}
-c:GBR = { add_to_variable_list = { name = spec_rv_chosen target = c:FRA } add_to_variable_list = { name = spec_rv_age_0 target = c:FRA } }
-c:PRU = { add_to_variable_list = { name = spec_rv_chosen target = c:GBR } add_to_variable_list = { name = spec_rv_age_0 target = c:GBR } }
-c:AUS = { add_to_variable_list = { name = spec_rv_chosen target = c:GBR } add_to_variable_list = { name = spec_rv_age_0 target = c:GBR } }
-c:GBR = { set_variable = { name = spec_centre_score value = 300 } }
-c:FRA = { set_variable = { name = spec_centre_score value = 200 } }
-c:PRU = { set_variable = { name = spec_centre_score value = 200 } }
-c:AUS = { set_variable = { name = spec_centre_score value = 200 } }
-set_variable = { name = spec_test_won value = 0 }
-set_variable = { name = spec_test_lost value = 0 }
-while = { count = 5 spec_mechanics_rival_year = yes }
-if = { limit = { var:spec_test_won = 1 var:spec_test_lost = 0 } debug_log = "HOTFIX PASS multiple_wins_one_notification" }
-else = { debug_log = "HOTFIX FAIL multiple_wins_one_notification" }
-if = { limit = { var:spec_centre_trust = 78 } debug_log = "HOTFIX PASS all_three_win_rewards_preserved" }
-else = { debug_log = "HOTFIX FAIL all_three_win_rewards_preserved" }
-set_variable = { name = spec_test_won value = 0 }
-while = { count = 5 spec_mechanics_rival_year = yes }
-if = { limit = { var:spec_test_won = 1 } debug_log = "HOTFIX PASS next_round_can_notify_again" }
-else = { debug_log = "HOTFIX FAIL next_round_can_notify_again" }
-c:GBR = { set_variable = { name = spec_centre_score value = 100 } }
-c:GBR = { set_variable = { name = spec_centre_trust value = 60 } }
-set_variable = { name = spec_test_won value = 0 }
-set_variable = { name = spec_test_lost value = 0 }
-while = { count = 5 spec_mechanics_rival_year = yes }
-if = { limit = { var:spec_test_lost = 1 var:spec_test_won = 0 } debug_log = "HOTFIX PASS multiple_losses_one_notification" }
-else = { debug_log = "HOTFIX FAIL multiple_losses_one_notification" }
-if = { limit = { var:spec_centre_trust = 42 } debug_log = "HOTFIX PASS all_three_loss_penalties_preserved" }
-else = { debug_log = "HOTFIX FAIL all_three_loss_penalties_preserved" }
-c:FRA = { set_variable = { name = spec_centre_score value = 50 } }
-set_variable = { name = spec_test_won value = 0 }
-set_variable = { name = spec_test_lost value = 0 }
-while = { count = 5 spec_mechanics_rival_year = yes }
-if = { limit = { var:spec_test_won = 1 var:spec_test_lost = 1 } debug_log = "HOTFIX PASS mixed_results_keep_both_notifications" }
-else = { debug_log = "HOTFIX FAIL mixed_results_keep_both_notifications" }
-c:FRA = { set_variable = { name = spec_centre_score value = 100 } }
-c:PRU = { set_variable = { name = spec_centre_score value = 100 } }
-c:AUS = { set_variable = { name = spec_centre_score value = 100 } }
-set_variable = { name = spec_test_won value = 0 }
-set_variable = { name = spec_test_lost value = 0 }
-while = { count = 5 spec_mechanics_rival_year = yes }
-if = { limit = { var:spec_test_won = 0 var:spec_test_lost = 0 } debug_log = "HOTFIX PASS tied_year_has_no_stale_notification" }
-else = { debug_log = "HOTFIX FAIL tied_year_has_no_stale_notification" }
-debug_log = "HOTFIX SUITE COMPLETE"
+    # Only these pairs participate in the synthetic monthly settlements.
+    every_country = { clear_variable_list = spec_rv_chosen clear_variable_list = spec_rv_age_59 }
+    every_country = {
+        limit = { OR = { this = c:GBR this = c:FRA this = c:PRU this = c:AUS } }
+        save_scope_as = spec_t
+        activate_law = law_type:law_interventionism
+        activate_law = law_type:law_spec_bimetallism
+        remove_variable = spec_exch_known remove_variable = spec_bc_n
+        set_variable = { name = spec_pw_floor value = 0 }
+        set_variable = { name = spec_pw_pockets value = 0 }
+        set_variable = { name = spec_pw_price value = 0 }
+        set_variable = { name = spec_pw_sound value = 0 }
+        set_variable = { name = spec_exch_stand value = 1 }
+        every_country = { limit = { NOT = { this = prev } OR = { this = c:GBR this = c:FRA this = c:PRU this = c:AUS } } set_relations = { country = prev value = 0 } }
+    }
+    # The rendered notice uses the state, with a capital fallback for an Exchange without a seat.
+    c:FRA = { remove_variable = spec_exch_seat capital = { save_scope_as = spec_test_french_seat } }
+    c:PRU = { capital = { save_scope_as = spec_test_prussian_seat } set_variable = { name = spec_exch_seat value = scope:spec_test_prussian_seat } }
+    c:AUS = { remove_variable = spec_exch_seat capital = { save_scope_as = spec_test_austrian_seat } }
+    set_variable = { name = spec_test_round value = 0 }
+    while = { count = 5 # independent settlement scenarios
+        change_variable = { name = spec_test_round add = 1 }
+        set_variable = { name = spec_test_won value = 0 }
+        set_variable = { name = spec_test_lost value = 0 }
+        clear_variable_list = spec_test_won_opponents
+        clear_variable_list = spec_test_lost_opponents
+        clear_variable_list = spec_test_won_seats
+        clear_variable_list = spec_test_lost_seats
+        every_country = {
+            limit = { OR = { this = c:GBR this = c:FRA this = c:PRU this = c:AUS } }
+            set_variable = { name = spec_centre_trust value = 60 }
+            set_variable = { name = spec_centre_score value = 200 }
+            set_variable = { name = spec_rv_focus value = 1 }
+            clear_variable_list = spec_rival_vs_won clear_variable_list = spec_rival_vs_lost
+            clear_variable_list = spec_rv_push_1 clear_variable_list = spec_rv_push_2 clear_variable_list = spec_rv_push_3
+            clear_variable_list = spec_rv_push_4 clear_variable_list = spec_rv_push_5
+        }
+        # Each completed contest frees its slot. Name the three opponents afresh and advance their final month.
+        c:GBR = { add_to_variable_list = { name = spec_rv_chosen target = c:FRA } add_to_variable_list = { name = spec_rv_age_59 target = c:FRA } }
+        c:PRU = { add_to_variable_list = { name = spec_rv_chosen target = c:GBR } add_to_variable_list = { name = spec_rv_age_59 target = c:GBR } }
+        c:AUS = { add_to_variable_list = { name = spec_rv_chosen target = c:GBR } add_to_variable_list = { name = spec_rv_age_59 target = c:GBR } }
+        if = { limit = { var:spec_test_round <= 2 } set_variable = { name = spec_centre_score value = 300 } }
+        else_if = { limit = { var:spec_test_round <= 4 } set_variable = { name = spec_centre_score value = 100 } }
+        if = { limit = { var:spec_test_round = 4 } c:FRA = { set_variable = { name = spec_centre_score value = 50 } } }
+        spec_mechanics_rival_month = yes
+        if = { limit = { var:spec_test_round = 1 }
+            if = { limit = { var:spec_test_won = 3 var:spec_test_lost = 0
+                is_target_in_variable_list = { name = spec_test_won_opponents target = c:FRA }
+                is_target_in_variable_list = { name = spec_test_won_opponents target = c:PRU }
+                is_target_in_variable_list = { name = spec_test_won_opponents target = c:AUS }
+                is_target_in_variable_list = { name = spec_test_won_seats target = scope:spec_test_french_seat }
+                is_target_in_variable_list = { name = spec_test_won_seats target = scope:spec_test_prussian_seat }
+                is_target_in_variable_list = { name = spec_test_won_seats target = scope:spec_test_austrian_seat }
+            } debug_log = "HOTFIX PASS separate_named_win_for_each_opponent" }
+            else = { debug_log = "HOTFIX FAIL separate_named_win_for_each_opponent" }
+            if = { limit = { var:spec_centre_trust = 78 } debug_log = "HOTFIX PASS all_three_win_rewards_preserved" }
+            else = { debug_log = "HOTFIX FAIL all_three_win_rewards_preserved" }
+            spec_mechanics_rival_month = yes
+            if = { limit = { var:spec_test_won = 3 var:spec_test_lost = 0 var:spec_centre_trust = 78 } debug_log = "HOTFIX PASS finished_contests_do_not_notify_again" }
+            else = { debug_log = "HOTFIX FAIL finished_contests_do_not_notify_again" }
+        }
+        else_if = { limit = { var:spec_test_round = 2 }
+            if = { limit = { var:spec_test_won = 3 var:spec_test_lost = 0 } debug_log = "HOTFIX PASS new_contests_can_notify_again" }
+            else = { debug_log = "HOTFIX FAIL new_contests_can_notify_again" }
+        }
+        else_if = { limit = { var:spec_test_round = 3 }
+            if = { limit = { var:spec_test_lost = 3 var:spec_test_won = 0
+                is_target_in_variable_list = { name = spec_test_lost_opponents target = c:FRA }
+                is_target_in_variable_list = { name = spec_test_lost_opponents target = c:PRU }
+                is_target_in_variable_list = { name = spec_test_lost_opponents target = c:AUS }
+                is_target_in_variable_list = { name = spec_test_lost_seats target = scope:spec_test_french_seat }
+                is_target_in_variable_list = { name = spec_test_lost_seats target = scope:spec_test_prussian_seat }
+                is_target_in_variable_list = { name = spec_test_lost_seats target = scope:spec_test_austrian_seat }
+            } debug_log = "HOTFIX PASS separate_named_loss_for_each_opponent" }
+            else = { debug_log = "HOTFIX FAIL separate_named_loss_for_each_opponent" }
+            if = { limit = { var:spec_centre_trust = 42 } debug_log = "HOTFIX PASS all_three_loss_penalties_preserved" }
+            else = { debug_log = "HOTFIX FAIL all_three_loss_penalties_preserved" }
+        }
+        else_if = { limit = { var:spec_test_round = 4 }
+            if = { limit = { var:spec_test_won = 1 var:spec_test_lost = 2
+                is_target_in_variable_list = { name = spec_test_won_opponents target = c:FRA }
+                is_target_in_variable_list = { name = spec_test_lost_opponents target = c:PRU }
+                is_target_in_variable_list = { name = spec_test_lost_opponents target = c:AUS }
+                is_target_in_variable_list = { name = spec_test_won_seats target = scope:spec_test_french_seat }
+                is_target_in_variable_list = { name = spec_test_lost_seats target = scope:spec_test_prussian_seat }
+                is_target_in_variable_list = { name = spec_test_lost_seats target = scope:spec_test_austrian_seat }
+            } debug_log = "HOTFIX PASS mixed_results_name_the_correct_opponents" }
+            else = { debug_log = "HOTFIX FAIL mixed_results_name_the_correct_opponents" }
+        }
+        else = {
+            if = { limit = { var:spec_test_won = 0 var:spec_test_lost = 0 } debug_log = "HOTFIX PASS ties_have_no_stale_notifications" }
+            else = { debug_log = "HOTFIX FAIL ties_have_no_stale_notifications" }
+        }
+    }
+    debug_log = "HOTFIX SUITE COMPLETE"
 } }

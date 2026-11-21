@@ -18,7 +18,7 @@ LANGUAGES = ('english', 'braz_por', 'french', 'german', 'japanese', 'korean', 'p
              'spanish', 'turkish')
 
 
-def build(parent, tr, out, version='0.1.0-test'):
+def build(parent, tr, out, version='0.1.0-test', tuning=None):
     if not re.fullmatch(r'\d+\.\d+\.\d+(?:-test)?', version):
         raise ValueError('Invalid patch version')
     parent, tr, out = (p.resolve() for p in (parent, tr, out))
@@ -26,11 +26,15 @@ def build(parent, tr, out, version='0.1.0-test'):
         raise ValueError('Use a new output folder; previous candidates are immutable')
     if not out.is_relative_to(ROOT / 'runs'):
         raise ValueError('Unverified patches must be built beneath runs/')
+    if tuning:
+        tuning = tuning.resolve(strict=True)
     original = hashes(parent)
     out.mkdir(parents=True)
     for name, extension in [('baseline', False), ('extended', True)]:
         env = {k: v for k, v in os.environ.items() if k not in ('SPEC_MOD_OUT', 'SPEC_MORGENROETE', 'SPEC_TECHRES', 'SPEC_TUNING')}
         env['SPEC_MOD_OUT'] = str(out / name)
+        if tuning:
+            env['SPEC_TUNING'] = str(tuning)
         if extension:
             env['SPEC_TECHRES'] = str(tr)
         subprocess.run([sys.executable, '-B', str(ROOT / 'tools/generate.py')], env=env, cwd=ROOT, check=True)
@@ -59,12 +63,21 @@ def build(parent, tr, out, version='0.1.0-test'):
         target.write_text(''.join(f'building_{b}_throughput_add = {{\n\tdecimals = 1\n\tcolor = good\n\tpercent = yes\n'
                                   f'\tgame_data = {{ ai_value = 0 }}\n}}\n' for b in missing), encoding='utf-8-sig')
         for language in LANGUAGES:
-            target = patch / f'localization/{language}/spec_tr_l_{language}.yml'
-            target.parent.mkdir(parents=True, exist_ok=True)
-            target.write_text(f'l_{language}:\n' + ''.join(
-                f' building_{b}_throughput_add: "$building_{b}$ Throughput"\n'
-                f' building_{b}_throughput_add_desc: "A bonus or penalty to the input and output of $building_{b}$."\n'
-                for b in missing), encoding='utf-8-sig')
+            # Tech & Res supplies some names without declaring a modifier type.
+            # Check names and descriptions independently in each language.
+            defined = set()
+            for source in (tr / 'localization').rglob(f'*_l_{language}.yml'):
+                defined.update(re.findall(r'^\s*([\w]+):', source.read_text(encoding='utf-8-sig'), re.M))
+            fallback = {}
+            for building in missing:
+                key = f'building_{building}_throughput_add'
+                fallback[key] = f'$building_{building}$ ($concept_throughput$)'
+                fallback[key + '_desc'] = '$building_throughput_add_desc$'
+            lines = [f' {key}: "{value}"\n' for key, value in fallback.items() if key not in defined]
+            if lines:
+                target = patch / f'localization/{language}/spec_tr_l_{language}.yml'
+                target.parent.mkdir(parents=True, exist_ok=True)
+                target.write_text(f'l_{language}:\n' + ''.join(lines), encoding='utf-8-sig')
     meta = json.loads((parent / '.metadata/metadata.json').read_text(encoding='utf-8-sig'))
     tr_meta = json.loads((tr / '.metadata/metadata.json').read_text(encoding='utf-8-sig'))
     metadata = {'name': 'Speculative Markets - Tech & Res Compatibility' + (' (Test)' if version.endswith('-test') else ''),
@@ -86,6 +99,8 @@ def build(parent, tr, out, version='0.1.0-test'):
                 'upstream_inputs': hashes(tr, ('common/goods/', 'common/buildings/', 'common/building_groups/',
                                                'common/company_types/', 'common/modifier_type_definitions/')),
                 'scope': goods, 'excluded': mod_sources.TR_EXCLUDED, 'added_modifier_types': missing}
+    if tuning:
+        manifest['tuning_sha256'] = hashlib.sha256(tuning.read_bytes()).hexdigest()
     if hashes(parent) != original:
         raise ValueError('Parent changed during build')
     (out / 'manifest.json').write_text(json.dumps(manifest, indent=2) + '\n', encoding='utf-8')
@@ -99,5 +114,6 @@ if __name__ == '__main__':
     parser.add_argument('--techres', type=Path, default=Path('G:/SteamLibrary/steamapps/workshop/content/529340/3472248460'))
     parser.add_argument('--out', type=Path, required=True)
     parser.add_argument('--version', default='0.1.0-test')
+    parser.add_argument('--tuning', type=Path, help='Explicit tuning file used to generate the chosen parent')
     args = parser.parse_args()
-    build(args.parent, args.techres, args.out, args.version)
+    build(args.parent, args.techres, args.out, args.version, args.tuning)

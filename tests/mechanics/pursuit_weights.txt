@@ -28,8 +28,8 @@ set_variable = { name = spec_exch_stand value = 0 }
 spec_mechanics_pursuit_month = yes
 if = { limit = { var:spec_pursue_n = 1 var:spec_pu_harbour = 1 NOR = { has_variable = spec_pu_floor has_variable = spec_pu_sound } } debug_log = "HOTFIX PASS standing_loss_drops_last_choices_first" }
 else = { debug_log = "HOTFIX FAIL standing_loss_drops_last_choices_first" }
-if = { limit = { var:spec_pw_harbour = 1 var:spec_pw_floor = 0.916 var:spec_pw_sound = 0.916 var:spec_pw_sum = 2.832 } debug_log = "HOTFIX PASS dropped_specialities_fade_without_immediate_loss" }
-else = { debug_log = "HOTFIX FAIL dropped_specialities_fade_without_immediate_loss" }
+if = { limit = { var:spec_pw_harbour = 1 var:spec_pw_floor = 0 var:spec_pw_sound = 0 var:spec_pw_sum = 1 NOR = { has_modifier = spec_pursue_floor_0 has_modifier = spec_pursue_sound_0 } } debug_log = "HOTFIX PASS dropped_specialities_end_immediately" }
+else = { debug_log = "HOTFIX FAIL dropped_specialities_end_immediately" }
 spec_mechanics_pursuit_month = yes
 spec_mechanics_pursuit_month = yes
 spec_mechanics_pursuit_month = yes
@@ -55,5 +55,11 @@ remove_variable = spec_lead_harbour
 spec_mechanics_pursuit_month = yes
 if = { limit = { has_modifier = spec_pursue_harbour_0 NOT = { has_modifier = spec_pursue_harbour_1 } } debug_log = "HOTFIX PASS unranked_speciality_retains_only_base_modifier" }
 else = { debug_log = "HOTFIX FAIL unranked_speciality_retains_only_base_modifier" }
+# A newly introduced path has no local weight until the next monthly repair.
+set_variable = { name = spec_pw_floor value = 0 }
+set_local_variable = { name = spec_zero_weight_score value = spec_name_floor }
+remove_variable = spec_pw_floor
+if = { limit = { spec_name_floor = local_var:spec_zero_weight_score } debug_log = "HOTFIX PASS missing_path_weight_ranks_as_zero" }
+else = { debug_log = "HOTFIX FAIL missing_path_weight_ranks_as_zero" }
 debug_log = "HOTFIX SUITE COMPLETE"
 } }

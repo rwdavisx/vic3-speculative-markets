@@ -28,6 +28,7 @@ LAX_COST = tuning.get("LAX_COST", 0.5)
 LAX_RECALL = tuning.get("LAX_RECALL", 0.3)  # the share of credit a panic calls back: 1.2 made it x0.7 Strict to x1.3 Reckless, was a flat 50%
 LAX_BADSTOP = tuning.get("LAX_BADSTOP", 0.5)  # the Bad Debts that stop lending: x0.5 Strict to x1.5 Reckless (1.2; any Bad Debts stopped it)
 LAX_CUTS = [0.2, 0.4, 0.6, 0.8]
+SOUND_MID = (LAX_CUTS[1] + LAX_CUTS[2]) / 2
 LAX_WORDS = ["Strict", "Cautious", "Sound", "Lax", "Reckless"]
 
 BB_STEP = tuning.get("BB_STEP", 0.1)      # construction efficiency at Eager; twice it at Feverish
@@ -162,6 +163,9 @@ def monthly(t="\t\t\t"):
          f"{t}if = {{\n{t}\tlimit = {{\n{t}\t\tNOT = {{ has_variable = spec_panic }}\n{t}\t\tNOT = {{ spec_stance_value = -1 }}\n"
          f"{t}\t\tNOT = {{ has_variable = spec_crunch }}\n{t}\t}}\n"
          f"{t}\tchange_variable = {{ name = spec_lax add = {1 / (12 * LAX_QUIET_YEARS):.5f} }}\n{t}}}\n"
+         f"{t}else_if = {{\n{t}\tlimit = {{ spec_stance_value = -1 var:spec_lax > {SOUND_MID:g} "
+         f"NOR = {{ has_variable = spec_panic has_variable = spec_crunch }} }}\n"
+         f"{t}\tset_variable = {{ name = spec_lax value = {{ value = var:spec_lax subtract = {1 / (12 * LAX_QUIET_YEARS):.5f} min = {SOUND_MID:g} }} }}\n{t}}}\n"
          # spec_c_crash and spec_c_restrain are the month's loss from booms ending and wound down, negative numbers
          f"{t}change_variable = {{ name = spec_lax add = {{ value = var:spec_c_crash add = var:spec_c_restrain multiply = {LAX_PER_CONF} }} }}\n"
          f"{t}set_variable = {{ name = spec_lax value = {{ value = var:spec_lax min = 0 max = 1 }} }}\n")
@@ -274,6 +278,7 @@ def loc():
     pts = f"Multiply_CFixedPoint({lax}, {fx(100)})"  # shown 0 to 100
     # monthly()'s drift test as things stand, and this month's change from booms ending (spec_c_crash and spec_c_restrain, negative)
     quiet = f"And(Not({IN_PANIC}), And(Not(EqualTo_CFixedPoint({STANCE}, {fx(-1)})), Not({P}.Var('spec_crunch').IsSet)))"
+    repair = f"And(Not({IN_PANIC}), And(EqualTo_CFixedPoint({STANCE}, {fx(-1)}), And(Not({P}.Var('spec_crunch').IsSet), GreaterThan_CFixedPoint({lax}, {fx(SOUND_MID)}))))"
     booms = f"Multiply_CFixedPoint(Add_CFixedPoint({v('spec_c_crash')}, {v('spec_c_restrain')}), {fx(LAX_PER_CONF * 100)})"
     picks = "".join(f"SelectLocalization(LessThan_CFixedPoint({lax}, {fx(c)}), 'SPEC_LAXW_{i}', " for i, c in enumerate(LAX_CUTS))
     # Each toast carries its own captured numbers, including when several goods end together.
@@ -284,15 +289,16 @@ def loc():
             + f' SPEC_EFFECT_LAX: "[concept_spec_lending_standards]"\n'
             f' SPEC_EFFECT_LAX_VALUE: "#v [{picks}\'SPEC_LAXW_{len(LAX_CUTS)}\'{")" * len(LAX_CUTS)}]#!"\n'
             f' SPEC_EFFECT_LAX_TT: "#header [concept_spec_lending_standards]: $SPEC_EFFECT_LAX_VALUE$ (#v [{pts}|0]#!)#!\\n$TOOLTIP_DELIMITER$\\n'
-            f'[SelectLocalization({quiet}, \'SPEC_LAX_DRIFT\', \'SPEC_LAX_PAUSED\')][AddLocalizationIf({calc.shows(booms)}, \'SPEC_LAX_BOOMS\')]\\n\\n'
+            f'[SelectLocalization({repair}, \'SPEC_LAX_REPAIR\', SelectLocalization({quiet}, \'SPEC_LAX_DRIFT\', \'SPEC_LAX_PAUSED\'))][AddLocalizationIf({calc.shows(booms)}, \'SPEC_LAX_BOOMS\')]\\n\\n'
             f'{pct("spec_lax_credit")} credit lent each month, against #v {LAX_WORDS[2]}#!\\n{pct("spec_lax_pull")} share of it lent into booms\\n'
             f'{pct("spec_lax_recall")} credit called back in a panic\\n'
             f'{pct("spec_lax_cost")} cost of a Bank Rescue\\n'
             f'[SelectLocalization(LessThan_CFixedPoint({lax}, {fx(LAX_CUTS[2])}), \'SPEC_LAX_TRUST\', SelectLocalization(LessThan_CFixedPoint({lax}, {fx(LAX_CUTS[3])}), \'SPEC_LAX_NO_TRUST\', \'SPEC_LAX_LOSE_TRUST\'))]\\n$TOOLTIP_DELIMITER$\\n'
             f'Banks get #N {LAX_RESCUE * 100:g}#! laxer each time we rescue them or buy up their bad loans, and #P {LAX_PANIC * 100:g}#! stricter '
-            f'when a [concept_spec_financial_panic] ends without a rescue. [Concept(\'concept_spec_credit_policy\',\'$concept_spec_credit_policy_tight$\')] stops them getting laxer."\n'
+            f'when a [concept_spec_financial_panic] ends without a rescue. In calm months, [Concept(\'concept_spec_credit_policy\',\'$concept_spec_credit_policy_tight$\')] gradually brings loose standards back to Sound."\n'
+            f' SPEC_LAX_REPAIR: "Up to #P −{100 / (12 * LAX_QUIET_YEARS):.1f}#! a month under Tight Credit until standards reach #v {SOUND_MID * 100:g}#! (Sound)"\n'
             f' SPEC_LAX_DRIFT: "#N +{100 / (12 * LAX_QUIET_YEARS):.1f}#! a month in quiet months"\n'
-            f' SPEC_LAX_PAUSED: "#v 0#! a month, as no month is quiet during a [concept_spec_financial_panic], [Concept(\'concept_spec_credit_policy\',\'$concept_spec_credit_policy_tight$\')] or [concept_spec_bad_debts]"\n'
+            f' SPEC_LAX_PAUSED: "#v 0#! this month from lending policy"\n'
             f' SPEC_LAX_BOOMS: "{calc.line(booms, "-=1", "booms that ended or were restrained this month")}"\n'
             f' SPEC_LAX_TRUST: "#P Our [concept_spec_exchange] builds trust in quiet months#!"\n'
             f' SPEC_LAX_NO_TRUST: "#N Our [concept_spec_exchange] stops building trust#!"\n'

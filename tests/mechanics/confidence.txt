@@ -50,6 +50,7 @@ spec_mechanics_confidence.1 = {
         else = { debug_log = "HOTFIX FAIL story_lower_bound_actual_delta" }
         set_variable = { name = spec_conf value = 3 }
         set_variable = { name = spec_c_total value = 4 }
+        set_variable = { name = spec_c_caution value = 0 }
         spec_cool_conf = { AMOUNT = 10 }
         if = { limit = { var:spec_conf = 0 var:spec_c_total = 1 var:spec_c_caution = -3 } debug_log = "HOTFIX PASS caution_lower_bound_actual_delta" }
         else = { debug_log = "HOTFIX FAIL caution_lower_bound_actual_delta" }

@@ -562,17 +562,26 @@ def entry(stances):
 """
 
 
+RANKED_GOODS = (("SPEC_JE_FAVOURED", ("fav1", "fav2", "fav3")), ("SPEC_JE_SHUNNED", ("shun1", "shun2")))
+
+
 def goods_row(label, keys):
-    """A card row of the goods in spec_<key>, each icon with its name as tooltip."""
-    icons_ = "".join(f"""	icon = {{
-		visible = "[Country.MakeScope.Var('spec_{key}').IsSet]"
-		datacontext = "[Country.MakeScope.Var('spec_{key}').GetGoods]"
-		size = {{ 30 30 }}
-		texture = "[Goods.GetTexture]"
-		tooltip = "[Goods.GetName]"
-	}}
-""" for key in keys)
-    return mt.card_row(label, f"{label}_TT", icons_)
+    """Active investor preferences in the journal and Finance."""
+    chips = [f'''textbox = {{
+                visible = "[Not({mt.P}.Var('spec_{keys[0]}').IsSet)]"
+                text = "NONE"
+                align = left|vcenter
+            }}''']
+    for key in keys:
+        scope = f"{mt.P}.Var('spec_{key}')"
+        chips.append(f"""icon = {{
+                visible = "[{scope}.IsSet]"
+                datacontext = "[{scope}.GetGoods]"
+                size = {{ 30 30 }}
+                texture = "[Goods.GetTexture]"
+                tooltip = "{label}_GOOD_TT"
+            }}""")
+    return mt.card_row(label, f"{label}_TT", "\n".join(chips))
 
 
 def widgets():
@@ -686,7 +695,7 @@ widget = {{
 		direction = vertical
 		parentanchor = hcenter
 		position = {{ 0 6 }}
-{mt.ind(mt.chip_rows() + goods_row("SPEC_JE_FAVOURED", ("top1", "top2", "top3")) + goods_row("SPEC_JE_SHUNNED", ("low1", "low2")), 2)}		widget = {{
+{mt.ind(mt.chip_rows() + "".join(goods_row(label, keys) for label, keys in RANKED_GOODS), 2)}		widget = {{
 			size = {{ {mt.W - 2 * mt.CARD_X} {mt.CHART_H + 12} }}
 			parentanchor = hcenter
 			tooltip = "SPEC_HISTORY_TT"
@@ -1041,10 +1050,19 @@ def loc(k):
                          if __import__("centres").ON else ""),
         "SPEC_JE_EXCH_ON": "$SPEC_EXCH_CITY_ME$ Exchange: #v $SPEC_EXCH_STAND_ME$#!",
         "SPEC_JE_EXCH_TT": "Our [concept_spec_exchange] and its Standing, which rises and falls with its score. A higher Standing makes booms run hotter and fall harder. The #bold $SPEC_FIN_TAB_EXCHANGE$#! tab of the #bold $SPEC_FINANCE$#! window shows its charter and specialities.",
-        "SPEC_JE_FAVOURED": "Favoured",
-        "SPEC_JE_FAVOURED_TT": "Our three goods with the highest [concept_spec_investor_interest] this month. High interest gives the buildings that make a good more [concept_throughput].",
+        "SPEC_JE_FAVOURED": "Favored",
+        "SPEC_OBS_RV_OUT": "Competitors named by [GetMetaPlayer.GetPlayedOrObservedCountry.GetName]",
+        "SPEC_OBS_RV_IN": "Exchanges contesting [GetMetaPlayer.GetPlayedOrObservedCountry.GetName]",
+        "SPEC_JE_FAVOURED_TT": "#header $SPEC_JE_FAVOURED$#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_FAV_IMPACT$\\n\\n#P +12%#! [concept_spec_investor_interest] · 12 months · Up to 3 goods\\n\\n$SPEC_FAV_REASON$$SPEC_TERM_ODDS$",
         "SPEC_JE_SHUNNED": "Shunned",
-        "SPEC_JE_SHUNNED_TT": "Our two goods with the lowest [concept_spec_investor_interest] this month. Low interest gives the buildings that make a good less [concept_throughput].",
+        "SPEC_JE_SHUNNED_TT": "#header $SPEC_JE_SHUNNED$#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_SHUN_IMPACT$\\n\\n#N −12%#! [concept_spec_investor_interest] · 12 months · Up to 2 goods\\n\\n$SPEC_SHUN_REASON$$SPEC_TERM_ODDS$",
+        "SPEC_FAV_REASON": "A good enters the monthly draw after 6 straight months with sell orders and a price at least 10% above [concept_base_price].",
+        "SPEC_SHUN_REASON": "A good enters the monthly draw after 6 straight months with sell orders and a price at least 10% below [concept_base_price].",
+        "SPEC_FAV_IMPACT": "Investors are more willing to finance buildings that produce these goods.",
+        "SPEC_SHUN_IMPACT": "Investors are less willing to finance buildings that produce these goods.",
+        "SPEC_FAV_PLAY": "Check input costs and boom exposure before expanding production.",
+        "SPEC_SHUN_PLAY": "An industry that uses this good can benefit from cheap inputs and support demand.",
+        "SPEC_TERM_ODDS": "\\nSmall goods can qualify. After 9 qualifying months, or with at least 1% of market supply by value, a good has a better chance.",
         **{f"SPEC_JE_STAGE_{n}": t for n, t in stage.items()},
         **{f"spec_je_status_{key}": f"{t}{stance}" for key, t in status.items()},
         "SPEC_JE_BAD_DEBTS": f", [concept_spec_bad_debts] #N -[{G}('spec_crunch_tp_pct')|1]%#! for #v [{G}('spec_crunch_months')|0]#! months",
@@ -1088,7 +1106,7 @@ def loc(k):
         "alert_spec_bailout_alert_name": "Buy Up Bad Loans Available",
         "spec_bailout_alert_setting_name": "Buy Up Bad Loans Available",
         "alert_spec_bailout_alert_desc": "[concept_spec_bad_debts] are slowing our [concept_throughput] and investment, and we have not bought up the bad loans yet.",
-        "alert_spec_bailout_alert_hint": f"Use #v Buy Up Bad Loans#! in the #bold $SPEC_FIN_TAB_BANKING$#! tab of the #bold $SPEC_FINANCE$#! window. Only once while they last.\\n#P Halves#! the [concept_spec_bad_debts] left\\nCosts #v @money![{G}('spec_bailout_cost')|D]#!",
+        "alert_spec_bailout_alert_hint": f"Use #v Buy Up Bad Loans#! in the #bold $SPEC_FIN_TAB_BANKING$#! tab of the #bold $SPEC_FINANCE$#! window. Only once while they last.\\n#P Clears {leverage.BAILOUT_CUT:.0%}#! of the remaining [concept_spec_bad_debts]\\nCosts #v @money![{G}('spec_bailout_cost')|D]#!",
         "alert_spec_bailout_alert_action": "Journal",
         "spec_excess_bar_desc": f"[SelectLocalization({on('spec_has_stock_exchange')}, 'SPEC_EXCESS_ON', 'SPEC_EXCESS_OFF')]",
         "SPEC_EXCESS_ON": f"{excess}: #v [{sv('spec_heat_shown')}|0]#![SelectLocalization({on('spec_burst_now')}, 'SPEC_EXCESS_COST', 'SPEC_JE_NONE')]",

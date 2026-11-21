@@ -1,0 +1,61 @@
+namespace = spec_mechanics_player_feedback
+spec_mechanics_player_feedback.1 = { type = country_event hidden = yes immediate = {
+    set_variable = { name = spec_hm value = 1 }
+    set_variable = { name = spec_hmd value = 1 }
+    set_variable = { name = spec_fast_grain value = 0.1 }
+    set_variable = { name = spec_slow_grain value = 0 }
+    set_variable = { name = spec_review_food value = 0.05 }
+    set_variable = { name = spec_cat_trend_food value = -0.2 }
+    if = { limit = { spec_review_has_grain = 1 spec_review_mean_grain = 0.05 spec_review_reduction_grain = 0.25 }
+        debug_log = "HOTFIX PASS finance_uses_completed_sector_review" }
+    else = { debug_log = "HOTFIX FAIL finance_uses_completed_sector_review" }
+    remove_variable = spec_review_food
+    if = { limit = { spec_review_has_grain = 0 spec_review_reduction_grain = 0 }
+        debug_log = "HOTFIX PASS finance_handles_first_sector_month" }
+    else = { debug_log = "HOTFIX FAIL finance_handles_first_sector_month" }
+    set_variable = { name = spec_cat_trend_food value = 0.1 }
+    set_local_variable = { name = spec_supported value = spec_trend_grain }
+    set_variable = { name = spec_cat_trend_food value = 0 }
+    if = { limit = { spec_trend_grain > 0 spec_trend_grain < local_var:spec_supported } debug_log = "HOTFIX PASS isolated_gain_smaller_than_broad_gain" }
+    else = { debug_log = "HOTFIX FAIL isolated_gain_smaller_than_broad_gain" }
+    set_variable = { name = spec_fast_grain value = -0.1 }
+    set_variable = { name = spec_cat_trend_food value = -0.1 }
+    set_local_variable = { name = spec_supported value = spec_trend_grain }
+    set_variable = { name = spec_cat_trend_food value = 0.1 }
+    if = { limit = { spec_trend_grain < 0 spec_trend_grain > local_var:spec_supported } debug_log = "HOTFIX PASS isolated_fall_tempered_without_reversal" }
+    else = { debug_log = "HOTFIX FAIL isolated_fall_tempered_without_reversal" }
+    set_variable = { name = spec_fast_grain value = 0 }
+    if = { limit = { spec_trend_grain = 0 } debug_log = "HOTFIX PASS a_flat_good_does_not_follow_its_peers" }
+    else = { debug_log = "HOTFIX FAIL a_flat_good_does_not_follow_its_peers" }
+    if = { limit = { spec_lever_cost_grain > 0 spec_lever_cost_grain <= 50 } debug_log = "HOTFIX PASS staple_intervention_within_ordinary_authority_budget" }
+    else = { debug_log = "HOTFIX FAIL staple_intervention_within_ordinary_authority_budget" }
+    ig:ig_industrialists = {
+        remove_modifier = spec_igs_bust
+        spec_igs_approval = { M = spec_igs_bust DAYS = 730 X = x1 }
+        set_local_variable = { name = spec_first_reaction value = modifier:interest_group_approval_add }
+        spec_igs_approval = { M = spec_igs_bust DAYS = 730 X = x1 }
+        spec_igs_approval = { M = spec_igs_bust DAYS = 730 X = x1 }
+        if = { limit = { has_modifier = spec_igs_bust modifier:interest_group_approval_add = local_var:spec_first_reaction } debug_log = "HOTFIX PASS repeated_busts_refresh_the_same_political_reaction" }
+        else = { debug_log = "HOTFIX FAIL repeated_busts_refresh_the_same_political_reaction" }
+    }
+    spec_clear_market_news = yes
+    spec_queue_market_news = { FIELD = food_hot }
+    spec_queue_market_news = { FIELD = food_hot }
+    spec_queue_market_news = { FIELD = industry_correction }
+    spec_queue_market_news = { FIELD = opinions }
+    spec_deliver_market_news = yes
+    spec_deliver_market_news = yes
+    if = { limit = { var:spec_news_age = 2 var:spec_news_food_hot = 2 var:spec_news_industry_correction = 1 var:spec_news_opinions = 1 var:spec_news_defence_collapse = 0 } debug_log = "HOTFIX PASS routine_bulletin_keeps_categories_and_counts_for_two_pulses" }
+    else = { debug_log = "HOTFIX FAIL routine_bulletin_keeps_categories_and_counts_for_two_pulses" }
+    spec_deliver_market_news = yes
+    if = { limit = { NOR = { has_variable = spec_news_age has_variable = spec_news_food_hot has_variable = spec_news_opinions } } debug_log = "HOTFIX PASS third_pulse_delivers_and_clears_one_bulletin" }
+    else = { debug_log = "HOTFIX FAIL third_pulse_delivers_and_clears_one_bulletin" }
+    spec_queue_market_news = { FIELD = industry_bust }
+    spec_queue_market_news = { FIELD = defence_collapse }
+    set_variable = spec_news_urgent
+    spec_deliver_market_news = yes
+    spec_deliver_market_news = yes
+    if = { limit = { NOR = { has_variable = spec_news_age has_variable = spec_news_urgent has_variable = spec_news_industry_bust has_variable = spec_news_defence_collapse } } debug_log = "HOTFIX PASS multiple_urgent_events_flush_in_one_pulse" }
+    else = { debug_log = "HOTFIX FAIL multiple_urgent_events_flush_in_one_pulse" }
+    debug_log = "HOTFIX SUITE COMPLETE"
+} }

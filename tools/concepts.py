@@ -6,7 +6,7 @@ import leverage
 import tuning
 
 # concept key suffix -> icon slot shown in its tooltip (None: no icon, like most vanilla concepts)
-CONCEPTS = {"market_confidence": "je_markets", "speculative_mania": "state_mania", "financial_panic": "state_panic",
+CONCEPTS = {"market_sector": "je_markets", "market_confidence": "je_markets", "speculative_mania": "state_mania", "financial_panic": "state_panic",
             "foreign_panic": "driver_foreign", "boom_end": "driver_crash", "correction": "driver_crash", "bust": "driver_crash", "collapse": "driver_crash", "investor_interest": "driver_boom",
             "credit_policy": None, "outstanding_credit": None, "long_depression": None,
             "speculative_excess": "excess_alert", "sound_finance": None, "banking_reforms": None,
@@ -17,7 +17,7 @@ CONCEPTS = {"market_confidence": "je_markets", "speculative_mania": "state_mania
 LEVERAGE_LOC = "" if not leverage.ON else (
     ' concept_spec_leverage: "Credit Leverage"\n concept_spec_leverage_desc: "How much a [concept_country]\'s banks have lent, its [concept_spec_outstanding_credit] '
     "counted in months of [concept_investment_pool] income. "
-    f"Each whole month of it gives #P {leverage.REWARD:+.0%}#! [concept_throughput], up to #P {leverage.REWARD * leverage.REWARD_MAX:+.0%}#!. The bonus fades during a "
+    f"Each whole month of it gives #P {leverage.REWARD * 100:+g}%#! [concept_throughput], up to #P {leverage.REWARD * leverage.REWARD_MAX * 100:+g}%#!. The bonus fades during a "
     f"[concept_spec_financial_panic] and while [concept_spec_bad_debts] remain.\\n\\nPast #v {leverage.SAFE}#! months it gets risky. "
     f'A $concept_spec_financial_panic$ then starts sooner, at a higher [concept_spec_market_confidence], and leaves $concept_spec_bad_debts$ behind."\n'
     ' concept_spec_bad_debts: "Bad Debts"\n concept_spec_bad_debts_desc: "The losses left on the books of a [concept_country]\'s banks. A [concept_spec_financial_panic] leaves more of them '
@@ -28,16 +28,16 @@ LEVERAGE_LOC = "" if not leverage.ON else (
     f"or #v {round((leverage.CRUNCH_MAX / leverage.CRUNCH_RAMP + leverage.CRUNCH_MAX / leverage.CRUNCH_FADE_TIGHT) / 12)}#! under "
     "[Concept('concept_spec_credit_policy','$concept_spec_credit_policy_tight$')]. Banks lend less the more of them there are, "
     f"and nothing past #v {leverage.BAD_STOP}#! at Sound [concept_spec_lending_standards], "
-    f"#v {round(leverage.BAD_STOP * (1 - cycle.LAX_BADSTOP))}#! at the strictest and #v {round(leverage.BAD_STOP * (1 + cycle.LAX_BADSTOP))}#! at the most reckless."
-    '\\n\\n#v Lend to the Banks#! does not clear them, but #v Buy Up Bad Loans#! halves them, once while they last."\n')
+    f"#v {leverage.BAD_STOP * (1 - cycle.LAX_BADSTOP):g}#! at the strictest and #v {leverage.BAD_STOP * (1 + cycle.LAX_BADSTOP):g}#! at the most reckless."
+    f'\\n\\n#v Lend to the Banks#! does not clear them, but #v Buy Up Bad Loans#! clears {leverage.BAILOUT_CUT:.0%} of them, once while they last."\n')
 # cycle.py's spec_lax: what the banks' care does and what moves it
 LENDING_LOC = "" if not cycle.ON else (
     ' concept_spec_lending_standards: "Lending Standards"\n concept_spec_lending_standards_desc: "How '
     f'carefully a [concept_country]\'s banks lend, from #v {cycle.LAX_WORDS[0]}#! through {", ".join(f"#v {w}#!" for w in cycle.LAX_WORDS[1:-2])} '
     f'and #v {cycle.LAX_WORDS[-2]}#! to #v {cycle.LAX_WORDS[-1]}#!. '
     "Laxer banks lend more into the [concept_investment_pool] and put more of it into booms, so booms end harder, a [concept_spec_financial_panic] calls back more of their loans and a Bank Rescue costs more."
-    f"\\n\\nBanks get a little laxer each month without a [concept_spec_financial_panic], going from #v {cycle.LAX_WORDS[0]}#! to #v {cycle.LAX_WORDS[-1]}#! "
-    f"in about #v {cycle.LAX_QUIET_YEARS}#! quiet years, and laxer still after each Bank Rescue or #v Buy Up Bad Loans#!. They get stricter when a boom ends, "
+    f"\\n\\nUnder Normal or Loose Credit, banks get a little laxer each month without a [concept_spec_financial_panic] or [concept_spec_bad_debts], going from #v {cycle.LAX_WORDS[0]}#! to #v {cycle.LAX_WORDS[-1]}#! "
+    f"in about #v {cycle.LAX_QUIET_YEARS}#! quiet years. Under Tight Credit, quiet months bring lax banks back toward #v Sound#!. A Bank Rescue or #v Buy Up Bad Loans#! makes them laxer. They get stricter when a boom ends, "
     'most of all when a $concept_spec_financial_panic$ runs its course without a Bank Rescue."\n')
 
 

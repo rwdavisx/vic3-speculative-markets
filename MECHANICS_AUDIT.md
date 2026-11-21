@@ -1,6 +1,14 @@
 # Mechanics correctness audit
 
-Balance is frozen at 1.0.3. The isolated and integration passes now have **806 passing engine
+The staged candidate is **1.2.0-beta.35**. The observer Competition table and sector header fixes are hotloaded. Native verification of the final observer rows, rolling sentiment and the release engine suite remains open. [November 21 handoff and checks](beta/observer_rows_120/README.md)
+
+The last campaign-tested candidate is **1.2.0-beta.16**. Victoria 3 1.15.2 passed 309 assertions across 24 suites in one process. A separate elapsed-time test covered Money Market Trust recovery and how long Industrialists object to a bust. The Trust tooltip, grouped domestic bulletin and names on Exchange contest notices were checked on the player interface. The six experimental economic settings are in the beta's own tuning file. [Candidate verification](tests/mechanics/verification_feedback_120.json) · [Tuning and player comparisons](tools/tuner/PARITY.md#player-feedback-candidate)
+
+The final beta completed February 1836 through January 1900 in one Victoria 3 process. The full log had zero blocking mod diagnostics. Across 173,007 active country-months, Bad Debts reached 20 points and the throughput penalty reached 40%, with zero breaches. Five Great Power tags had observable panic starts and the United States originated a Long Depression in November 1876. Britain used all three credit policies between 1868 and 1899. Industrialist approval reached −15 or worse in 1.8% of sampled country-months. The game records include approval from vanilla politics as well as the mod.
+
+The earlier tuned beta.11 comparison also reached 1900 after a checkpoint recovery. The frozen beta.10 comparison has observations through March 1872. Windows reported a fatal hardware error during a further attempt to resume it. Two optional player-feedback replays were prepared. One adds a textile mill in Uruguay. The other holds Tight or Normal Credit for five years in the Austrian and Belgian Money Markets. Each pair uses the same starting save. Both remain open in the verification record.
+
+The following historical audit froze balance at 1.0.3. Its isolated and integration passes recorded **806 passing engine
 contracts in 68 base suites**, plus **60 Python tests** and **9 historical CMF source tests**.
 These are contract results, not a claim that every possible campaign works.
 The open checks below remain prerequisites to the broader balance pass.

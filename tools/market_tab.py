@@ -18,6 +18,8 @@ import icons
 import levers
 import leverage
 import market_visual
+from sectors import GROUPS
+CATEGORIES = tuple(GROUPS)
 import vanilla_ties
 
 P = "Country.MakeScope"  # the player, or the owner of a market that isn't theirs (generate.market_panel)
@@ -169,7 +171,7 @@ def block(head, body, gap=0):
 """
 
 
-def heads(cols, w=W):
+def heads(cols, w=W, visibility=None):
     """A table's row of column heads, drawn as vanilla's sort buttons are. cols: (x, width, key, align, has a tooltip);
     the tooltip is key_TT, or tip itself when it is a key. A key ending .dds draws that icon, as vanilla's rank head.
     ponytail: they sort nothing, since no table here has enough rows to sort."""
@@ -180,8 +182,12 @@ def heads(cols, w=W):
 		alwaystransparent = yes
 	}}
 """)
+    visibility = visibility or {}
+    def visible_line(key):
+        return f'	visible = "[{visibility[key]}]"\n' if key in visibility else ""
+
     cells = "".join(f"""sort_button = {{
-	position = {{ {x} 0 }}
+{visible_line(key)}	position = {{ {x} 0 }}
 	size = {{ {cw} 30 }}
 	{f'tooltip = "{tip if isinstance(tip, str) else key + "_TT"}"' if tip else ""}
 {icon(key) if key.endswith(".dds") else f"""	textbox = {{
@@ -762,7 +768,7 @@ textbox = {{
     # the button twice, as the side bar's Finance button: once the journal entry has saved itself, the click also opens
     # its panel under the window for its map mode (JE_OK, JE_PANEL); both share the template
     click = lambda je: (f'visible = "[{JE_OK if je else f"Not({JE_OK})"}]"\n' + (JE_CONTEXT + "\n" if je else "")
-                        + open_clicks("booms") + (f'onclick = "{JE_PANEL}"\n' if je else ""))
+                        + open_clicks("booms", journal_map=je) + (f'onclick = "{JE_PANEL}"\n' if je else ""))
     item = f"""### MARKET CONFIDENCE (Speculative Markets)
 widget = {{
 	size = {{ {TOPBAR_W} 30 }}
@@ -1348,10 +1354,7 @@ NEAR_PEAK = 0.85                # interest this close to its boom's peak is stil
 MOVE = good_var("spec_ui_move")  # interest_board.ui_effect's monthly move: 1 rose, -1 fell, 0 neither
 LEANING = [6, 5, 4, 3, 2, 1]    # spec_word lists shown as rows, hottest first, Calm (3) in the middle
 WORDS = {6: "feverish", 5: "eager", 4: "keen", 3: "calm", 2: "doubtful", 1: "fleeing"}
-CATEGORIES = ["staple", "industrial", "luxury", "military"]  # vanilla's goods filters
-CAT = "spec_il_cat"  # the category picked in the Speculation list (none: all)
-CAT_TT = {"staple": "STAPLE_FILTER", "industrial": "INDUSTRIAL_GOODS_FILTER", "luxury": "LUXURY_GOODS_FILTER",
-          "military": "MILITARY_GOODS_FILTER"}
+CAT = "spec_il_sector"  # the category picked in the Speculation list (none: all)
 
 
 def cat_shown(c):
@@ -1359,36 +1362,43 @@ def cat_shown(c):
 
 
 def cat_filters():
-    """vanilla's four category buttons (goods_filters), but on our variable: the vanilla ones act on MarketPanel,
-    which the Finance window has none of. As vanilla: all lit at first, a click keeps only that one, again shows all."""
-    on = lambda c: f"GetVariableSystem.HasValue('{CAT}', '{c}')"
-    out = ""
-    for c in CATEGORIES:
-        btn = lambda shown, click, tex: f"""	goods_filter_button = {{
-		visible = "[{shown}]"
-		onclick = "[{click}]"
-		tooltip = "{CAT_TT[c]}"
-		using = tooltip_ne
-		using = market_filter_{c}_button_sound
-		blockoverride "icon" {{
-			texture = "gfx/interface/market_view/{tex}.dds"
-		}}
-	}}
-"""
-        out += f"""widget = {{
-	size = {{ 75 75 }}
-	icon = {{
-		visible = "[{cat_shown(c)}]"
-		size = {{ 100% 100% }}
-		texture = "gfx/interface/backgrounds/round_frame_dec.dds"
-		using = default_fade_in_out
-	}}
-{btn(f"Not({cat_shown(c)})", f"GetVariableSystem.Set('{CAT}', '{c}')", f"filter_{c}_goods")}{btn(f"Not(GetVariableSystem.Exists('{CAT}'))", f"GetVariableSystem.Set('{CAT}', '{c}')", f"filter_{c}_goods_selected")}{btn(on(c), f"GetVariableSystem.Clear('{CAT}')", f"filter_{c}_goods_selected")}}}
-"""
-    return f"""flowcontainer = {{
-	parentanchor = center
-{ind(out, 1)}}}
-"""
+    """One icon per sector. Selecting the active sector again restores all goods."""
+    buttons = []
+    for sector in CATEGORIES:
+        selected = f"GetVariableSystem.HasValue('{CAT}', '{sector}')"
+        no_filter = f"Not(GetVariableSystem.Exists('{CAT}'))"
+        ring = f"Or({no_filter}, {selected})"
+        states = []
+        for active, visible, click in ((False, f"Not({selected})", f"GetVariableSystem.Set('{CAT}', '{sector}')"),
+                                       (True, selected, f"GetVariableSystem.Clear('{CAT}')")):
+            fade = "" if active else f'alpha = "[TransparentIfFalse({no_filter})]"'
+            states.append(f"""goods_filter_button = {{
+                size = {{ 52 52 }}
+                visible = "[{visible}]"
+                {fade}
+                onclick = "[{click}]"
+                tooltip = "SPEC_SECTOR_{sector.upper()}_TT"
+                blockoverride "wood_texture" {{ texture = "gfx/interface/buttons/round_button_big_wood_map_interaction.dds" }}
+                blockoverride "icon" {{ texture = "{icons.path('sector_' + sector)}" }}
+                blockoverride "icon_size" {{ size = {{ 40 40 }} }}
+            }}""")
+        buttons.append(f"""widget = {{
+            size = {{ 64 64 }}
+            icon = {{ size = {{ 64 64 }} parentanchor = center texture = "gfx/interface/backgrounds/round_frame_dec.dds"
+                visible = "[{ring}]" using = default_fade_in_out }}
+            {' '.join(states)}
+        }}""")
+    # A fixed slot gives each row its own centre, including the shorter second row.
+    rows = []
+    for start in range(0, len(buttons), 5):
+        content = "\n".join(buttons[start:start + 5])
+        rows.append(f"""widget = {{
+            size = {{ 332 64 }}
+            flowcontainer = {{ parentanchor = center spacing = 3
+                {content}
+            }}
+        }}""")
+    return "flowcontainer = { parentanchor = center direction = vertical spacing = 3\n" + "\n".join(rows) + "\n}\n"
 
 
 def any_of(tests):
@@ -1403,6 +1413,7 @@ def goods_filters(label, row):
     in a column, one divider, the filter rows in a column. label and row are the second row, 64 high, under the goods
     categories."""
     width = W - 95 - 2 * 10  # the rest of the row: the label, two spacings and the divider
+    sector_height = 144  # two 64px rings, their 3px gap and outer padding
     labels = "".join(f"""	textbox = {{
 		text = "{text}"
 		multiline = yes
@@ -1412,7 +1423,7 @@ def goods_filters(label, row):
 		margin_left = 10
 		using = elide_fontsize_min
 	}}
-""" for text, height in (("GOODS_CATEGORY", 75), (label, 64)))
+""" for text, height in (("SPEC_SECTOR_FILTER_LINK", sector_height), (label, 64)))
     body = f"""flowcontainer = {{
 	minimumsize = {{ {W} -1 }}
 	parentanchor = hcenter
@@ -1429,7 +1440,7 @@ def goods_filters(label, row):
 	flowcontainer = {{
 		direction = vertical
 		widget = {{
-			size = {{ {width} 75 }}
+			size = {{ {width} {sector_height} }}
 {ind(cat_filters(), 3)}		}}
 		widget = {{
 			size = {{ {width} 64 }}
@@ -1443,7 +1454,7 @@ def goods_filters(label, row):
 
 def goods_board(k):
     import interest_list  # imports this module
-    return section("CHARTS", "spec_hide_charts_interest", __import__("charts").interest_chart()) + interest_list.board(k)
+    return section("CHARTS", "spec_hide_charts_interest", __import__("charts").interest_chart() + 'widget = { size = { 1 10 } }\n' + __import__("charts").sector_chart()) + interest_list.board(k)
 
 
 def level_effects():
@@ -1470,7 +1481,7 @@ def band_loc(k):
     selected = "'ALL_GOODS'"
     for category in reversed(CATEGORIES):
         selected = (f"SelectLocalization(GetVariableSystem.HasValue('{CAT}', '{category}'), "
-                    f"'{category.upper()}_FILTER_NAME', {selected})")
+                    f"'SPEC_SECTOR_{category.upper()}', {selected})")
     out = (f' SPEC_CURRENT_GOODS_FILTERS: "[{selected}]"\n'
            " SPEC_COL_LEVER: \"[concept_spec_intervention]\"\n"  # a concept link, as the Investor Interest header
            " SPEC_COL_LEVER_TT: \"#header Market Interventions#!\\n$TOOLTIP_DELIMITER$\\n"
@@ -1763,15 +1774,19 @@ def cycle_clicks(k, je=True):
         steps.append(f"GetVariableSystem.SetIf('{nxt}', '{n}', {cond})")
     steps.append(f"GetVariableSystem.SetIf('{nxt}', '{names[0]}', Not(GetVariableSystem.Exists('{nxt}')))")
     steps += [f"GetVariableSystem.SetIf('{FIN_TAB}', '{n}', GetVariableSystem.HasValue('{nxt}', '{n}'))" for n in names]
-    steps += [f"GetVariableSystem.Clear('{nxt}')", f"GetVariableSystem.Set('{FIN}', 'open')"] + ([JE_PANEL[1:-1]] if je else [])
+    mode = 'journal_map' if je else 'open'
+    steps += [f"GetVariableSystem.Clear('{nxt}')", f"GetVariableSystem.Set('{FIN}', '{mode}')"]
+    if je:
+        steps.append(JE_PANEL[1:-1])
     return "".join(f'onclick = "[{s}]"\n' for s in steps)
-def open_clicks(tab, when=None):
+def open_clicks(tab, when=None, *, journal_map=False):
     """onclicks opening the Finance window on a tab from outside any panel (the topbar, the alert row): any vanilla
     panel closes first, as the side bar's button does. when: the tab only if this holds (GetVariableSystem.SetIf)."""
     steps = ["InformationPanelBar.ClosePanel", f"GetVariableSystem.Clear('{PICK}')"]
     steps += ([f"GetVariableSystem.SetIf('{FIN_TAB}', '{t}', {w})" for t, w in when] if when else
               [f"GetVariableSystem.Set('{FIN_TAB}', '{tab}')"])
-    steps += ["GetVariableSystem.Clear('spec_finance_next')", f"GetVariableSystem.Set('{FIN}', 'open')"]
+    mode = 'journal_map' if journal_map else 'open'
+    steps += ["GetVariableSystem.Clear('spec_finance_next')", f"GetVariableSystem.Set('{FIN}', '{mode}')"]
     return "".join(f'onclick = "[{s}]"\n' for s in steps)
 
 
@@ -1785,7 +1800,8 @@ JE_CONTEXT = "datacontext = \"[GetPlayer.MakeScope.Var('spec_je').GetJournalEntr
 # only then: an empty panel, opened before the entry first saved itself, checked its triggers on no country every
 # frame (error.log, 2026-11-16)
 JE_OK = "GetPlayer.MakeScope.Var('spec_je').GetJournalEntry.IsValid"
-JE_PANEL_OPEN = "Or(InformationPanelBar.IsPanelOpen('journal_entry'), InformationPanelBar.IsPanelOpen('journal_entry_panel'))"
+JE_PANEL_OPEN = "InformationPanelBar.IsPanelOpen('journal_entry')"
+JOURNAL_MAP = f"GetVariableSystem.HasValue('{FIN}', 'journal_map')"
 CLOSE = (f"[GetVariableSystem.Clear('{FIN}')]\"\n\t\t\t\tonclick = \"[GetVariableSystem.Clear('{PICK}')]\"\n"
          "\t\t\t\tonclick = \"[InformationPanelBar.ClosePanel]")
 
@@ -1802,7 +1818,7 @@ def navigation_guard():
 	alwaystransparent = yes
 	state = {{
 		name = spec_finance_yield_to_panel
-		trigger_when = "[And3(GetVariableSystem.Exists('{FIN}'), InformationPanelBar.IsAnyPanelOpen, Not({JE_PANEL_OPEN}))]"
+		trigger_when = "[And3(GetVariableSystem.Exists('{FIN}'), InformationPanelBar.IsAnyPanelOpen, Not(And({JOURNAL_MAP}, {JE_PANEL_OPEN})))]"
 		on_start = "[GetVariableSystem.Clear('{FIN}')]"
 		on_start = "[GetVariableSystem.Clear('{PICK}')]"
 		duration = 0
@@ -1993,6 +2009,7 @@ def loc(k):
         lim_cap = f"Subtract_CFixedPoint({limit}, {parts})"
         lim_loc = "".join(f' {key}: "' + calc.line(sv(n), "+=0", f"[GetTechnology('{t}').GetName]") + '"\n'
                           for t, (n, key) in zip(leverage.LADDER_TECHS, tech_rows))
+        reward_decimals = len(f"{leverage.REWARD * 100:g}".partition(".")[2])
         lev_loc = f""" SPEC_CREDIT_NO_CRUNCH: "Not lending while [concept_spec_bad_debts] are past what our [concept_spec_lending_standards] allow"
  SPEC_LEV_BAD_NOW: "\\n[concept_spec_bad_debts] cost #N -[{sv('spec_crunch_tp_pct')}|1]%#! [concept_throughput] now and clear in #v [{sv('spec_crunch_months')}|0]#! months."
  SPEC_LEV_RELIEF: "\\nWe lost land, so [concept_spec_bad_debts] count only #v [{sv('spec_lev_bad')}|1]#! months of [concept_spec_leverage]. They go back to full over #v [{sv('spec_lev_fade_sv')}|0]#! more months."
@@ -2016,7 +2033,7 @@ def loc(k):
 {lim_loc} SPEC_LEV_LIM_BLOC: "{calc.line(sv('spec_pb_limit'), '+=0', 'our [concept_power_bloc]')}"
  SPEC_LEV_LIM_CAP: "{calc.line(lim_cap, '+=0', f'the ceiling of #v {leverage.RUIN}#! months')}"
  SPEC_LEV_LIMIT_KEY: "Lending Limit: #v [{limit}|0] months#!"
- SPEC_LEV_MAIN_TT: "#header [concept_spec_leverage]: $SPEC_EFFECT_LEV_VALUE$#!\\n$TOOLTIP_DELIMITER$\\nOur banks have lent us {months_tt} of [concept_investment_pool] income. [SelectLocalization({gt(lev, leverage.DANGER)}, 'SPEC_LEV_ADVICE_DANGER', SelectLocalization({gt(lev, leverage.SAFE)}, 'SPEC_LEV_ADVICE_RISKY', 'SPEC_LEV_ADVICE_SAFE'))]\\n\\n#P +[{sv('spec_lev_boom_pct')}|0]%#! [concept_throughput] from borrowed money[AddLocalizationIf({calc.shows(sv('spec_pl_lev'))}, 'SPEC_LEV_PL')][AddLocalizationIf({calc.shows(sv('spec_crunch_tp_if_pct'))}, 'SPEC_LEV_IF_PANIC_LINE')][AddLocalizationIf(Or({crunch}, {relief}), 'SPEC_LEV_NOTES')]\\n$TOOLTIP_DELIMITER$\\nBanks lend up to our Lending Limit of #v #tooltippable #tooltip:[Country.GetTooltipTag],SPEC_LEV_LIMIT [{limit}|0] months#!#!#!."
+ SPEC_LEV_MAIN_TT: "#header [concept_spec_leverage]: $SPEC_EFFECT_LEV_VALUE$#!\\n$TOOLTIP_DELIMITER$\\nOur banks have lent us {months_tt} of [concept_investment_pool] income. [SelectLocalization({gt(lev, leverage.DANGER)}, 'SPEC_LEV_ADVICE_DANGER', SelectLocalization({gt(lev, leverage.SAFE)}, 'SPEC_LEV_ADVICE_RISKY', 'SPEC_LEV_ADVICE_SAFE'))]\\n\\n#P +[{sv('spec_lev_boom_pct')}|{reward_decimals}]%#! [concept_throughput] from borrowed money[AddLocalizationIf({calc.shows(sv('spec_pl_lev'))}, 'SPEC_LEV_PL')][AddLocalizationIf({calc.shows(sv('spec_crunch_tp_if_pct'))}, 'SPEC_LEV_IF_PANIC_LINE')][AddLocalizationIf(Or({crunch}, {relief}), 'SPEC_LEV_NOTES')]\\n$TOOLTIP_DELIMITER$\\nBanks lend up to our Lending Limit of #v #tooltippable #tooltip:[Country.GetTooltipTag],SPEC_LEV_LIMIT [{limit}|0] months#!#!#!."
  SPEC_LEV_PL: "\\n#N +[{sv('spec_pl_lev')}|1]#! Panic Threshold, so a panic starts sooner"
  SPEC_LEV_IF_PANIC_LINE: "\\n#N -[{sv('spec_crunch_tp_if_pct')}|1]%#! [concept_throughput] and #N -[{inv_if}|1]%#! investment from [concept_spec_bad_debts], if a panic began now"
  SPEC_LEV_IF_PANIC: "A [concept_spec_financial_panic] now would leave [concept_spec_bad_debts] of #N -[{sv('spec_crunch_tp_if_pct')}|1]%#! [concept_throughput] and #N -[{inv_if}|1]%#! investment."
@@ -2037,17 +2054,17 @@ def loc(k):
         zone = lambda hi: ("#P Safe#!" if hi <= leverage.SAFE else "#N Risky#!" if hi <= leverage.DANGER else "#N Dangerous#!")
         safe_at = f"[{sv(f'spec_panic_at_{leverage.SAFE}')}|0]"
         for i, (lo, hi) in enumerate(rungs):
-            boom = round(leverage.REWARD * 100 * min(hi, leverage.REWARD_MAX))
+            boom = leverage.REWARD * 100 * min(hi, leverage.REWARD_MAX)
             risk = (" A [concept_spec_financial_panic] leaves no [concept_spec_bad_debts]." if hi <= leverage.SAFE else
                     f" A [concept_spec_financial_panic] starts below #N [{sv(f'spec_panic_at_{hi}')}|0]#! [concept_spec_market_confidence] instead of #v {safe_at}#!, "
                     f"and leaves [concept_spec_bad_debts] costing up to #N -{bad_at(hi)}%#! [concept_throughput] and #N -{bad_at(hi, leverage.CRUNCH_INVEST)}%#! investment.")
-            lev_loc += f""" SPEC_LEV_TIER_{i}_TT: "#header {lo} to {hi} Months, {zone(hi)}#!\\n$TOOLTIP_DELIMITER$\\n{unlock[i]}\\n\\nAt #v {hi}#! months, borrowed money adds #P +{boom}%#! [concept_throughput].{risk}"
+            lev_loc += f""" SPEC_LEV_TIER_{i}_TT: "#header {lo} to {hi} Months, {zone(hi)}#!\\n$TOOLTIP_DELIMITER$\\n{unlock[i]}\\n\\nAt #v {hi}#! months, borrowed money adds #P +{boom:g}%#! [concept_throughput].{risk}"
 """
         lev_loc += f""" SPEC_BAILOUT: "Buy Up Bad Loans"
  SPEC_BAILOUT_TT: "#header Buy Up Bad Loans#!\\n$TOOLTIP_DELIMITER$\\nThe state buys up the banks' bad loans and takes the loss itself.\\n\\n[GetScriptedGui('spec_sgui_bailout').BuildTooltip(GuiScope.SetRoot({P}).End)]"
  SPEC_BAD_SCALE: "[concept_spec_bad_debts] come from a [concept_spec_financial_panic] that starts with more than #v {leverage.SAFE}#! months of [concept_spec_leverage], worse the more months, or from a bubble of [concept_spec_speculative_excess] that bursts for more than our [concept_spec_market_confidence]. Banks lend less the more there are, and nothing past #v [{sv('spec_crunch_stop')}|0]#! at our [concept_spec_lending_standards]."
  SPEC_BAD_BUILDING: "\\nStill growing by #N {leverage.CRUNCH_RAMP * leverage.CRUNCH_THROUGHPUT * 100:g}%#! a month, to #N -[{sv('spec_crunch_tp_full_pct')}|1]%#!"
- SPEC_EFFECT_BAD_TT: "#header [concept_spec_bad_debts]: #N -[{sv('spec_crunch_tp_pct')}|1]%#!#!\\n$TOOLTIP_DELIMITER$\\nOur banks' bad loans clear in #v [{sv('spec_crunch_months')}|0]#! months. Until then, banks lend #N [{sv('spec_crunch_lend_cut')}|0]%#! less, and nothing past #v [{sv('spec_crunch_stop')}|0]#!.\\n\\n#N -[{sv('spec_crunch_tp_pct')}|1]%#! [concept_throughput]\\n#N -[{sv('spec_crunch_invest_pct')}|0]%#! investment[AddLocalizationIf({gt(sv('spec_crunch_left'))}, 'SPEC_BAD_BUILDING')]\\n$TOOLTIP_DELIMITER$\\nOnce felt in full, they shrink by #v {leverage.CRUNCH_FADE * leverage.CRUNCH_THROUGHPUT * 100:g}%#! [concept_throughput] a month, or #v {leverage.CRUNCH_FADE_TIGHT * leverage.CRUNCH_THROUGHPUT * 100:g}%#! under [Concept('concept_spec_credit_policy','$concept_spec_credit_policy_tight$')]. The [concept_throughput] borrowed money added fades while they last. #v Buy Up Bad Loans#! halves them, once."
+ SPEC_EFFECT_BAD_TT: "#header [concept_spec_bad_debts]: #N -[{sv('spec_crunch_tp_pct')}|1]%#!#!\\n$TOOLTIP_DELIMITER$\\nOur banks' bad loans clear in #v [{sv('spec_crunch_months')}|0]#! months. Until then, banks lend #N [{sv('spec_crunch_lend_cut')}|0]%#! less, and nothing past #v [{sv('spec_crunch_stop')}|0]#!.\\n\\n#N -[{sv('spec_crunch_tp_pct')}|1]%#! [concept_throughput]\\n#N -[{sv('spec_crunch_invest_pct')}|0]%#! investment[AddLocalizationIf({gt(sv('spec_crunch_left'))}, 'SPEC_BAD_BUILDING')]\\n$TOOLTIP_DELIMITER$\\nOnce felt in full, they shrink by #v {leverage.CRUNCH_FADE * leverage.CRUNCH_THROUGHPUT * 100:g}%#! [concept_throughput] a month, or #v {leverage.CRUNCH_FADE_TIGHT * leverage.CRUNCH_THROUGHPUT * 100:g}%#! under [Concept('concept_spec_credit_policy','$concept_spec_credit_policy_tight$')]. The [concept_throughput] borrowed money added fades while they last. #v Buy Up Bad Loans#! clears {leverage.BAILOUT_CUT:.0%} of them, once."
  SPEC_EFFECT_BAD_NONE_TT: "#header [concept_spec_bad_debts]: #P None#!#!\\n$TOOLTIP_DELIMITER$\\n[SelectLocalization({calc.shows(sv('spec_crunch_tp_if_pct'))}, 'SPEC_BAD_IF', 'SPEC_BAD_IF_NONE')]\\n$TOOLTIP_DELIMITER$\\n$SPEC_BAD_SCALE$"
  SPEC_BAD_IF: "$SPEC_LEV_IF_PANIC$\\n\\n#N -[{bad_lev}|1]%#! from [concept_spec_leverage] (#v [{sv('spec_lev_bad')}|1]#! months)#indent_newline:3 [AddLocalizationIf({not1('spec_nx_bad')}, 'SPEC_BAD_IF_NX')]#!"
  SPEC_BAD_IF_NX: "\\n#v x[{sv('spec_nx_bad')}|2]#! from our [concept_spec_exchange]'s specialities"
@@ -2173,6 +2190,11 @@ def loc(k):
              'More $concept_spec_speculative_excess$ only makes it slower to cool off."\n')
           + "".join(f' {key}_LINE: "{calc.line(sv(n), "-=1", "$" + key + "$")}"\n' for n, key, _ in xs_rows))
 
+    sector_name = "'SPEC_IB_EMPTY'"
+    for index, sector in reversed(list(enumerate(GROUPS, 1))):
+        sector_name = f"SelectLocalization(EqualTo_CFixedPoint({good_var('spec_ui_cat')}, {fx(index)}), 'SPEC_SECTOR_{sector.upper()}', {sector_name})"
+    mean = good_sv("spec_review_mean")
+    direction = f"SelectLocalization({gt(mean)}, 'SPEC_SECTOR_RISING', SelectLocalization(LessThan_CFixedPoint({mean}, {fx(0)}), 'SPEC_SECTOR_FALLING', 'SPEC_SECTOR_FLAT'))"
     fast_n, slow_n = trend_next(k["FAST"], k["SLOW"])  # the Investor Interest forecast (SPEC_II_TREND)
     # the Market Confidence forecast (SPEC_CONF_FORECAST), as spec_conf_pre and spec_conf_next work it out: this
     # month's steady drivers again, mood fading by MOOD_KEEP, the pull to baseline and Tight Credit afresh. One-off
@@ -2401,10 +2423,26 @@ def loc(k):
  SPEC_INTEREST: "{word(WORD, 'SPEC_INTEREST', [1.5, 2.5, 3.5, 4.5, 5.5])}"
 {"".join(f' SPEC_INTEREST_{i}: "@spec_interest_{WORDS[i + 1]}! {WORDS[i + 1].capitalize()}"' + chr(10) for i in range(6))} SPEC_GOODS_NONE: ""
  SPEC_TILE_TT: "#header [Goods.GetName]#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_TILE_BODY$\\n\\n#instruction Click to open the [Goods.GetName] panel#!"
- SPEC_II_TREND: "Price trend: #v [{TREND}|=+%1]#!, recent prices against their long-run average\\nExpected next month if prices hold: #v [Subtract_CFixedPoint({fast_n}, {slow_n})|=+%1]#!#indent_newline:3 \\n#v [{fast_n}|=+%1]#! from recent prices over [concept_base_price]\\n#v [Multiply_CFixedPoint({slow_n}, {fx(-1)})|=+%1]#! from long-run prices over [concept_base_price]#![AddLocalizationIf({P}.Var(Concatenate('spec_push_', Goods.GetKey)).IsSet, 'SPEC_II_PUSH')][AddLocalizationIf({gt(good_var('spec_glut'))}, 'SPEC_II_GLUT')]"
+ SPEC_II_TREND: "Recent prices differ from their long-run average by #v [{TREND}|=+%1]#!\\nExpected next month if prices hold: #v [Subtract_CFixedPoint({fast_n}, {slow_n})|=+%1]#!#indent_newline:3 \\n#v [{fast_n}|=+%1]#! from recent prices over [concept_base_price]\\n#v [Multiply_CFixedPoint({slow_n}, {fx(-1)})|=+%1]#! from long-run prices over [concept_base_price]#![AddLocalizationIf({P}.Var(Concatenate('spec_push_', Goods.GetKey)).IsSet, 'SPEC_II_PUSH')][AddLocalizationIf({gt(good_var('spec_glut'))}, 'SPEC_II_GLUT')]"
  SPEC_II_PUSH: "\\n\\n[concept_spec_intervention] multiplies its interest by #v [{good_sv('spec_push_sv')}|2]#! so far"
  SPEC_II_GLUT: "\\n\\nWhile it recovers, its interest is held at #v Doubtful#! or lower"
- SPEC_TILE_BODY: "[concept_spec_investor_interest]: #v $SPEC_INTEREST$#! ($SPEC_TILE_MOVE$ since last month)\\n$SPEC_II_TREND$\\n#tooltippable #tooltip:[Country.GetTooltipTag],SPEC_WHY_SPEED Investors here react #v [{sv('spec_hype_mult')}|2]#! times as strongly as usual#!#!$SPEC_TILE_NEXT$\\n$TOOLTIP_DELIMITER$\\n#title Effects:#!\\nProducers' [concept_throughput]: $SPEC_PULL$$SPEC_TILE_LIFT$\\n$TOOLTIP_DELIMITER$\\n$SPEC_TILE_BOOM$$SPEC_TILE_BANKS$"
+ concept_spec_market_sector: "Market Sector"
+ concept_spec_market_sector_desc: "Each tracked good belongs to one sector. The chart values all tracked goods offered for sale at their [concept_base_price]. Goods with a larger share of this supply count more toward their sector’s trend. If the sector moves less than the good or moves the other way, its price pressure on [concept_spec_investor_interest] can fall by up to half."
+ SPEC_SECTOR_OTHER: "Other sectors"
+ SPEC_SECTOR_TURNOVER_LINK: "[Concept('concept_spec_market_sector','$SPEC_SECTOR_TURNOVER$')]"
+ SPEC_SECTOR_FILTER_LINK: "[Concept('concept_spec_market_sector','$SPEC_MARKET_SECTORS$')]"
+ SPEC_MARKET_SECTORS: "Market sectors"
+ SPEC_SECTOR_PRICE_TREND: "Previous sector price trend"
+ SPEC_SECTOR_TURNOVER: "Market supply by sector"
+ SPEC_SECTOR_RISING: "rising"
+ SPEC_SECTOR_FALLING: "falling"
+ SPEC_SECTOR_FLAT: "flat"
+ SPEC_SECTOR_WAIT: "Awaiting the first sector comparison."
+ SPEC_SECTOR_NO_MOVE: "This good had no price pressure to dampen."
+ SPEC_SECTOR_EFFECT: "Sector conditions softened this good's price pressure on Investor Interest by #v [{good_sv('spec_review_reduction')}|%0]#!."
+ SPEC_SECTOR_REVIEW: "Previous sector trend was #v [{direction}]#! ([{mean}|=+%1]). [SelectLocalization(EqualTo_CFixedPoint({TREND}, {fx(0)}), 'SPEC_SECTOR_NO_MOVE', 'SPEC_SECTOR_EFFECT')]"
+ SPEC_SECTOR_LINE: "[concept_spec_market_sector] · #v [{sector_name}]#!  [SelectLocalization({gt(good_sv('spec_review_has'))}, 'SPEC_SECTOR_REVIEW', 'SPEC_SECTOR_WAIT')]"
+ SPEC_TILE_BODY: "[concept_spec_investor_interest]: #v $SPEC_INTEREST$#! ($SPEC_TILE_MOVE$ since last month)\\n$SPEC_II_TREND$\\n$SPEC_SECTOR_LINE$\\n#tooltippable #tooltip:[Country.GetTooltipTag],SPEC_WHY_SPEED Investors here react #v [{sv('spec_hype_mult')}|2]#! times as strongly as usual#!#!$SPEC_TILE_NEXT$\\n$TOOLTIP_DELIMITER$\\n#title Effects:#!\\nProducers' [concept_throughput]: $SPEC_PULL$$SPEC_TILE_LIFT$\\n$TOOLTIP_DELIMITER$\\n$SPEC_TILE_BOOM$$SPEC_TILE_BANKS$"
  SPEC_TILE_BOOM: "[SelectLocalization(GreaterThanOrEqualTo_CFixedPoint({good_var('spec_sev')}, {fx(1)}), 'SPEC_TILE_BOOM_ON', SelectLocalization(GreaterThan_CFixedPoint({good_var('spec_glut')}, {fx(0)}), 'SPEC_TILE_BOOM_PAST', 'SPEC_TILE_BOOM_NONE'))]"
  SPEC_TILE_BOOM_ON: "If the boom ended now, it would be a $SPEC_UNWIND_LINK$[SelectLocalization(GreaterThanOrEqualTo_CFixedPoint({RISK}, {fx(0.05)}), 'SPEC_TILE_BOOM_COST', 'SPEC_TILE_BOOM_SLIGHT')]"
  SPEC_TILE_BOOM_COST: " costing #N [{RISK}|1]#! [concept_spec_market_confidence]"

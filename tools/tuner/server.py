@@ -271,6 +271,13 @@ class H(BaseHTTPRequestHandler):
         if not self.allowed(url, True):
             return
         path, b = url.path, self.body()
+        if path in ("/api/sweep", "/api/watch"):
+            try:
+                cfg = b.get("cfg") or {}
+                engine.player_finance_orders(cfg)
+                engine.player_lever_orders(cfg.get("player_lever_orders", ()))
+            except (TypeError, ValueError) as err:
+                return self.send(str(err), "text/plain", 400)
         if path == "/api/sweep":
             threading.Thread(target=run_sweep, args=(b,), daemon=True).start()
             return self.send("{}")

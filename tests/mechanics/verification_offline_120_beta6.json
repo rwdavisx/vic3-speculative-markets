@@ -1,0 +1,254 @@
+{
+  "date": "2026-11-21",
+  "candidate": "1.2.0-beta.6",
+  "scope": "Offline validation only. No Victoria 3 session, installation or Workshop publication. Release balance remains frozen.",
+  "archive": {
+    "path": "beta/offline_review_120/releases/Speculative_Markets_Beta_1.2.0-beta.6.zip",
+    "sha256": "c2c7fd56f30e8fb05fb87cb38d54b0bbda3a2384e82767b78222b874be637c75",
+    "files": 226,
+    "delta_from_beta_4_excluding_launcher_metadata": "The Finance navigation guard and ten translated language files changed. Economic scripts and English localization match beta.4."
+  },
+  "checks": {
+    "python_tests": 69,
+    "cmf_tests": 10,
+    "generated_mod_static": "pass",
+    "tuner_regressions_in_python_count": 21,
+    "tuner_constants_matching_generator": 66,
+    "quick_test_log": "runs/offline_120_guard_static.log",
+    "tuner_selfcheck_log": "runs/offline_120_selfcheck.log",
+    "finance_guard": {
+      "archived_log": "runs/review_alert_routes/profile/logs/error.log",
+      "beta4_signature_count": 1,
+      "fixture_before_fix": "failed",
+      "fixture_after_fix": "passed",
+      "runtime_after_fix": "pending",
+      "checks": "The native panel manager rejected the journal_entry_panel widget ID. The generator now checks the journal_entry panel only. Reclassification of the original log produces one blocking invalid_journal_panel diagnostic."
+    },
+    "native_mechanics": {
+      "last_executed_on": "1.2.0-beta.4",
+      "last_focused_result": "41/41",
+      "last_broad_result": "268/295 and one blocking fixture diagnostic",
+      "revised_tests_assembled": 297,
+      "suites_assembled": 23,
+      "executed_in_game_this_pass": false,
+      "corrected_suites": [
+        "bank_display",
+        "banking",
+        "confidence",
+        "credit_cycle",
+        "exchange_monthly",
+        "journal",
+        "pursuit_weights",
+        "rival_notifications",
+        "finance_priority"
+      ],
+      "dispatch": "One notice per decided contest. The scratch fixture checks the opposing country and the state supplying the displayed Exchange city. Includes wins, losses, mixed results, ties and the following month."
+    }
+  },
+  "localization": {
+    "languages": 10,
+    "previous_per_language": {
+      "english_fallback": 342,
+      "older_source": 45
+    },
+    "current_per_language": {
+      "current_source": 3040,
+      "english_fallback": 85,
+      "older_source": 12
+    },
+    "scope": "Exchange rankings, opposing Exchanges in settlement notices, and banking, bailout and intervention text. Generated markup and placeholders checked; language and UI review remain."
+  },
+  "compatibility": {
+    "cmf": {
+      "manifest": "runs/cmf_offline_120_guard/build_manifest.json",
+      "matching_prior_patch_bytes": 5,
+      "parent_gui_verified_against": "unbranded generator output corresponding to beta.6"
+    },
+    "techres": {
+      "manifest": "runs/techres/offline_120_guard/manifest.json",
+      "parent_version": "1.2.0-beta.6",
+      "version": "1.1.0-test",
+      "added_modifier_types": [
+        "fusion_power_plant",
+        "geothermal_power_plant",
+        "hydroelectric_power_plant",
+        "instrument_workshops"
+      ],
+      "changed_patch_files_vs_beta4": [
+        "gui/spec_market_tab.gui",
+        "localization/braz_por/spec_markets_l_braz_por.yml",
+        "localization/french/spec_markets_l_french.yml",
+        "localization/german/spec_markets_l_german.yml",
+        "localization/japanese/spec_markets_l_japanese.yml",
+        "localization/korean/spec_markets_l_korean.yml",
+        "localization/polish/spec_markets_l_polish.yml",
+        "localization/russian/spec_markets_l_russian.yml",
+        "localization/simp_chinese/spec_markets_l_simp_chinese.yml",
+        "localization/spanish/spec_markets_l_spanish.yml",
+        "localization/turkish/spec_markets_l_turkish.yml"
+      ],
+      "status": "generated and statically checked locally"
+    }
+  },
+  "tuner": {
+    "candidate_status": "Offline comparison only",
+    "overrides": {
+      "LEV_PANIC_SPAN": {
+        "beta": 30,
+        "candidate": 50
+      },
+      "LEV_REWARD": {
+        "beta": 0.02,
+        "candidate": 0.018
+      },
+      "LEV_CRUNCH_RAMP": {
+        "beta": 1,
+        "candidate": 2
+      },
+      "LEV_CRUNCH_FADE": {
+        "beta": 1.0,
+        "candidate": 0.43
+      },
+      "LEV_BAD_STOP": {
+        "beta": 15,
+        "candidate": 12
+      }
+    },
+    "economies_per_strategy": 500,
+    "years": 100,
+    "presets": [
+      "ai",
+      "careful",
+      "nobuy",
+      "passive",
+      "reckless",
+      "skilled"
+    ],
+    "preserved_lending_tiers_months": [
+      3,
+      8,
+      10,
+      12
+    ],
+    "selection_run_id": "20261121-101826-0dba",
+    "confirmation": [
+      {
+        "seed": 61,
+        "role": "held out",
+        "run_id": "20261121-101959-533d",
+        "frozen_targets_met": 13,
+        "candidate_targets_met": 18,
+        "candidate_misses": [],
+        "careful_minus_passive": 0.58167,
+        "skilled_minus_ai": 0.376745,
+        "reckless_minus_careful": -1.504743,
+        "ai_panics_per_century": 4.038
+      },
+      {
+        "seed": 179,
+        "role": "held out",
+        "run_id": "20261121-102010-d740",
+        "frozen_targets_met": 13,
+        "candidate_targets_met": 18,
+        "candidate_misses": [],
+        "careful_minus_passive": 0.5417,
+        "skilled_minus_ai": 0.333782,
+        "reckless_minus_careful": -1.487888,
+        "ai_panics_per_century": 3.914
+      },
+      {
+        "seed": 223,
+        "role": "held out",
+        "run_id": "20261121-102019-5022",
+        "frozen_targets_met": 13,
+        "candidate_targets_met": 17,
+        "candidate_misses": [
+          {
+            "who": "careful-passive",
+            "metric": "output_pct",
+            "value": 0.425083,
+            "band": [
+              0.5,
+              5.0
+            ]
+          }
+        ],
+        "careful_minus_passive": 0.425083,
+        "skilled_minus_ai": 0.308951,
+        "reckless_minus_careful": -1.333045,
+        "ai_panics_per_century": 3.842
+      },
+      {
+        "seed": 7,
+        "role": "earlier comparison",
+        "run_id": "20261121-102027-3c1d",
+        "frozen_targets_met": 13,
+        "candidate_targets_met": 18,
+        "candidate_misses": [],
+        "careful_minus_passive": 0.502428,
+        "skilled_minus_ai": 0.323589,
+        "reckless_minus_careful": -1.437861,
+        "ai_panics_per_century": 4.208
+      },
+      {
+        "seed": 19,
+        "role": "earlier comparison",
+        "run_id": "20261121-102034-36c4",
+        "frozen_targets_met": 13,
+        "candidate_targets_met": 18,
+        "candidate_misses": [],
+        "careful_minus_passive": 0.522471,
+        "skilled_minus_ai": 0.340796,
+        "reckless_minus_careful": -1.379135,
+        "ai_panics_per_century": 3.978
+      }
+    ],
+    "paired_comparisons": {
+      "61": {
+        "economies": 500,
+        "strict_wins": {
+          "skilled>passive": 436,
+          "skilled>reckless": 470,
+          "skilled>both": 426,
+          "careful>passive": 352
+        }
+      },
+      "179": {
+        "economies": 500,
+        "strict_wins": {
+          "skilled>passive": 424,
+          "skilled>reckless": 453,
+          "skilled>both": 409,
+          "careful>passive": 335
+        }
+      },
+      "223": {
+        "economies": 500,
+        "strict_wins": {
+          "skilled>passive": 414,
+          "skilled>reckless": 449,
+          "skilled>both": 398,
+          "careful>passive": 316
+        }
+      },
+      "all": {
+        "economies": 1500,
+        "strict_wins": {
+          "skilled>passive": 1274,
+          "skilled>reckless": 1372,
+          "skilled>both": 1233,
+          "careful>passive": 1003
+        }
+      }
+    },
+    "metric": "Average modeled GDP effect over the century minus rescue and loan buy-up costs, measured on the same seeded economy for each strategy.",
+    "paired_script": "runs/offline_120_open_paired.py",
+    "command_line_reproduction": "runs/offline_120_reproduction.log"
+  },
+  "pending": [
+    "Run the revised 297 assertions on the packaged beta and check the complete error log.",
+    "Exercise Finance-to-Journal/native/CMF transitions and rendered multi-opponent notices on this beta.",
+    "Translate the remaining English and outdated text and review it in context.",
+    "After isolated mechanics pass, compare the proposed tune against the unchanged beta in a held-out campaign before promotion."
+  ]
+}

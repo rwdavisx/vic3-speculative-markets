@@ -1,4 +1,4 @@
-"""Count actual notification call sites in an isolated annual rivalry pass.
+"""Record each actual notification and its named opponent in an isolated monthly rivalry settlement.
 
 Observer GBR stands in for a human player only in the extracted helper. Actual
 production post_notification calls remain in place, alongside test counters.
@@ -14,7 +14,9 @@ def instrument(text):
     for kind in ('won', 'lost'):
         call = f'post_notification = spec_rival_{kind}'
         assert call in text
-        text = text.replace(call, f'change_variable = {{ name = spec_test_{kind} add = 1 }}\n' + call)
+        text = text.replace(call, f'change_variable = {{ name = spec_test_{kind} add = 1 }}\n'
+                            f'add_to_variable_list = {{ name = spec_test_{kind}_opponents target = scope:spec_note_src }}\n'
+                            f'add_to_variable_list = {{ name = spec_test_{kind}_seats target = scope:spec_note_state }}\n' + call)
     return text
 
 
@@ -27,8 +29,8 @@ def prepare(source, out):
     manifest_path = out / 'mechanics-test-manifest.json'
     manifest = json.loads(manifest_path.read_text())
     manifest['instrumentation'] = (
-        'Extracted production annual scoring body; player guard substitutes GBR in observer; '
-        'each actual notification call also increments a counter. '
+        'Extracted production monthly settlement body. GBR stands in for the player. '
+        'Each actual notification call increments a counter and records its named opponent. '
         'This counts dispatch calls, not rendered toast instances.'
     )
     manifest['instrumented_helper_sha256'] = testbed.digest(helper)

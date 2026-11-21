@@ -184,12 +184,40 @@ def _gain(by, t):
     return f"{t}set_variable = {{ name = spec_centre_trust value = {{ value = var:spec_centre_trust add = {by} max = {CALM} }} }}\n"
 
 
+TRUST_CAUSES = ("goods", "panics", "lending", "debts")
+TRUST_RECORD = ["spec_trust_review", "spec_trust_change", *[f"spec_trust_{cause}_{period}"
+                for cause in TRUST_CAUSES for period in ("pending", "last")]]
+
+
+def _record_trust(effect, cause, t):
+    tracking = "is_player = yes has_variable = spec_trust_review"
+    pending = f"spec_trust_{cause}_pending"
+    return (f"{t}if = {{ limit = {{ {tracking} }} set_local_variable = {{ name = spec_before_trust value = var:spec_centre_trust }} }}\n"
+            + effect
+            + f"{t}if = {{ limit = {{ {tracking} }} change_variable = {{ name = {pending} "
+              f"add = {{ value = var:spec_centre_trust subtract = local_var:spec_before_trust }} }} }}\n")
+
+
+def _trust_review(t):
+    # Compare like points in consecutive monthly reviews. Count event effects after caps and charter reductions.
+    snapshot = "".join(f"{t}\t\tset_variable = {{ name = spec_trust_{c}_last value = {{ value = 0 "
+                       f"if = {{ limit = {{ has_variable = spec_trust_{c}_pending }} value = var:spec_trust_{c}_pending }} }} }}\n"
+                       for c in TRUST_CAUSES)
+    reset = "".join(f"{t}\tset_variable = {{ name = spec_trust_{c}_pending value = 0 }}\n" for c in TRUST_CAUSES)
+    clear = "".join(f"{t}\tremove_variable = {key}\n" for key in TRUST_RECORD)
+    return (f"{t}if = {{\n{t}\tlimit = {{ is_player = yes }}\n"
+            f"{t}\tif = {{\n{t}\t\tlimit = {{ has_variable = spec_trust_review }}\n"
+            f"{t}\t\tset_variable = {{ name = spec_trust_change value = {{ value = var:spec_centre_trust subtract = var:spec_trust_review }} }}\n"
+            f"{snapshot}{t}\t}}\n{reset}{t}\tset_variable = {{ name = spec_trust_review value = var:spec_centre_trust }}\n"
+            f"{t}}}\n{t}else_if = {{\n{t}\tlimit = {{ has_variable = spec_trust_review }}\n{clear}{t}}}\n")
+
+
 def boom_end(g, sev, share, t="\t\t\t\t"):
     """In g's boom-ending branch, country scope, for goods that matter to the market (the boom-end toast's gate)."""
     if not ON:
         return ""
     d = TRUST_END[sev]
-    apply = lambda d, t: _gain(d, t) if d > 0 else _lose(-d, t)
+    apply = lambda d, t: _record_trust(_gain(d, t) if d > 0 else _lose(-d, t), "goods", t)
     if not levers.ISSUE_ON:
         return f"{t}if = {{\n{t}\tlimit = {{ has_variable = spec_centre_trust spec_weight_{g} >= {share:.3f} }}\n" + apply(d, t + "\t") + f"{t}}}\n"
     # a Great Issue on g (levers.py): the result counts ISSUE_TRUST times, then the issue is over and the market rests
@@ -204,10 +232,10 @@ HALF = f"var:spec_centre_trust multiply = {PANIC_OVER_CUT:g}"
 # in spec_start_panic; and in spec_end_panic before spec_rescued and spec_panic are cleared, so a rescued panic, or one that
 # ended early as confidence came back, loses trust only once
 PANIC = (f"\tif = {{\n\t\tlimit = {{ has_variable = spec_centre_trust }}\n"
-         f"{_lose('var:spec_centre_trust multiply = spec_exch_panic_cut', chr(9) * 2)}\t}}\n") if ON else ""
+         f"{_record_trust(_lose('var:spec_centre_trust multiply = spec_exch_panic_cut', chr(9) * 2), 'panics', chr(9) * 2)}\t}}\n") if ON else ""
 PANIC_OVER = ("\tif = {\n\t\tlimit = {\n\t\t\thas_variable = spec_centre_trust\n\t\t\tNOT = { has_variable = spec_rescued }\n"
               "\t\t\tvar:spec_panic <= 0\n\t\t}\n"
-              f"{_lose(HALF, chr(9) * 2)}" + ("\t\tset_variable = { name = spec_exch_sound value = 0 }\n" if EARN else "")
+              f"{_record_trust(_lose(HALF, chr(9) * 2), 'panics', chr(9) * 2)}" + ("\t\tset_variable = { name = spec_exch_sound value = 0 }\n" if EARN else "")
               + "\t}\n") if ON else ""
 # a quiet month under sound Lending Standards counts towards Deposit Banks
 SOUND = lambda t: f"{t}set_variable = {{ name = spec_exch_sound value = {{ value = spec_log_ksnd add = 1 }} }}\n" if EARN else ""
@@ -606,7 +634,7 @@ PLACE_WORDS = ["Outside the top three", "Third", "Second", "First"]
 PLACE_SHORT = ["Unranked", "3rd", "2nd", "1st"]  # the tooltips' place lists
 # trust's own effects at each level (Distrusted, Doubted, Respected, Trusted: a quarter of CALM each)
 TRUST_FX = tuning.get("CENTRE_TRUST_FX", [
-    [["country_loan_interest_rate_mult", 0.1], ["interest_group_ig_industrialists_approval_add", -2]],
+    [["country_loan_interest_rate_mult", 0.1]],
     [["country_loan_interest_rate_mult", 0.05]], [],
     [["interest_group_ig_industrialists_approval_add", 2]]])  # Trusted was also -5% loan interest until 1.2
 ICON = lambda k: icons.path(f"name_{k}")  # icons.py: our painting, else its vanilla stand-in
@@ -624,8 +652,12 @@ def _name_tail(hook):
 
 
 def _name_values():
-    tail = lambda k: (f"\tif = {{\n\t\tlimit = {{ has_variable = spec_pw_sum }}\n"
-                      f"\t\tmultiply = {{ value = var:spec_pw_sum subtract = var:spec_pw_{k} multiply = {PURSUE_COST - 1:g} add = 1 }}\n\t}}\n")
+    def tail(k):
+        # A save can already have the total before its first tick initializes a new path.
+        return (f"\tif = {{\n\t\tlimit = {{ has_variable = spec_pw_sum }}\n"
+                f"\t\tmultiply = {{\n\t\t\tvalue = var:spec_pw_sum\n"
+                f"\t\t\tif = {{ limit = {{ has_variable = spec_pw_{k} }} subtract = var:spec_pw_{k} }}\n"
+                f"\t\t\tmultiply = {PURSUE_COST - 1:g}\n\t\t\tadd = 1\n\t\t}}\n\t}}\n")
     # the order the places go by (2026-11-19): the tally, and on a tie the one holding the higher place keeps it, so
     # passing takes more, not as much. Its place last month while the ranking runs (spec_ldw), its place otherwise.
     rank = lambda k: (f"spec_rank_{k} = {{\n\tvalue = spec_name_{k}\n"
@@ -1989,14 +2021,17 @@ def _trust(t="\t\t\t"):
     u = t + "\t\t"
     # Strict, Cautious or Sound +1, Lax nothing, Reckless -1; no gain while Bad Debts drain it (_crunch)
     calm = "NOT = { has_variable = spec_crunch } " if CRUNCH else ""
-    month = (f"{t}\tif = {{\n{u}limit = {{ has_variable = spec_lax var:spec_lax >= {cycle.LAX_CUTS[3]:g} }}\n{_lose(TRUST_MONTH, u)}{t}\t}}\n"
+    lose = _record_trust(_lose(TRUST_MONTH, u), "lending", u)
+    gain = _record_trust(_gain(TRUST_MONTH, u), "lending", u)
+    month = (f"{t}\tif = {{\n{u}limit = {{ has_variable = spec_lax var:spec_lax >= {cycle.LAX_CUTS[3]:g} }}\n{lose}{t}\t}}\n"
              f"{t}\telse_if = {{\n{u}limit = {{ {calm}OR = {{ NOT = {{ has_variable = spec_lax }} var:spec_lax < {cycle.LAX_CUTS[2]:g} }} }}\n"
-             f"{_gain(TRUST_MONTH, u)}{SOUND(u)}{t}\t}}\n"
-             if cycle.ON else f"{t}\tif = {{\n{u}limit = {{ {calm}always = yes }}\n{_gain(TRUST_MONTH, u)}{SOUND(u)}{t}\t}}\n")
+             f"{gain}{SOUND(u)}{t}\t}}\n"
+             if cycle.ON else f"{t}\tif = {{\n{u}limit = {{ {calm}always = yes }}\n{gain}{SOUND(u)}{t}\t}}\n")
     # a new Exchange starts Respected (half of CALM), or from its quiet months if more
     return (f"{t}if = {{\n{t}\tlimit = {{ NOT = {{ has_variable = spec_centre_trust }} }}\n"
             f"{t}\tset_variable = {{ name = spec_centre_trust value = {{ value = var:spec_centre_calm min = {CALM / 2:g} max = {CALM} }} }}\n{t}}}\n"
-            f"{t}if = {{\n{t}\tlimit = {{ NOT = {{ has_variable = spec_panic }} }}\n{month}{t}}}\n"
+            + _trust_review(t)
+            + f"{t}if = {{\n{t}\tlimit = {{ NOT = {{ has_variable = spec_panic }} }}\n{month}{t}}}\n"
             + levers.TR("pledge", t) + _pledge_month(t) + levers.TR("trustdone", t) + _pursue_month(t) + _trust_mods(t) + _shares(t) + _seat(t))
 
 
@@ -2191,7 +2226,8 @@ def _crunch(t):
     """Under Bad Debts the Standing cannot rise above last month's, and trust falls each month."""
     if not CRUNCH:
         return ""
-    return (f"{t}if = {{\n{t}\tlimit = {{ has_variable = spec_crunch }}\n{_lose(LINK_CRUNCH, t + chr(9))}"
+    loss = _record_trust(_lose(LINK_CRUNCH, t + "\t"), "debts", t + "\t")
+    return (f"{t}if = {{\n{t}\tlimit = {{ has_variable = spec_crunch }}\n{loss}"
             f"{t}\tif = {{\n{t}\t\tlimit = {{ var:spec_exch_stand > local_var:spec_exch_was }}\n"
             f"{t}\t\tset_variable = {{ name = spec_exch_stand value = local_var:spec_exch_was }}\n{t}\t}}\n{t}}}\n")
 
@@ -2224,7 +2260,7 @@ def _exch_clear():
              "spec_centre_trust", "spec_centre_calm", "spec_centre_yrs", "spec_exch_known", "spec_exch_tally",
              "spec_exch_sound", "spec_exch_hold", "spec_charter_lock", "spec_exch_seat", "spec_exch_seat_t", "spec_pledge",
              "spec_pledge_leave", "spec_xs_inc", "spec_xs_raw", "spec_xs_reg", "spec_xs_regtop", "spec_xs_regshare", "spec_xs_trust_v"]
-            + (["spec_exch_best"] if not EARN else [])  # current builds never set the legacy standing-choice variable
+            + TRUST_RECORD + (["spec_exch_best"] if not EARN else [])  # current builds never set the legacy standing-choice variable
             + [f"spec_xs_{k}_v" for k in XS_KEEP + ["own", "reach", "size", "ratio", "wealth"]]
             + (["spec_pursue_n", "spec_pw_sum"] + [f"spec_{p}_{k}" for k, *_ in NAMES
                                                    for p in ("pu", "pw", "has", "pu_lock", "pu_lost", "lead", "sh", "shl")] if NAMES_ON else []))
@@ -3383,11 +3419,19 @@ def _exch_loc(score, rank, centres):
             + ([f"[concept_spec_market_mood] swings by #v x[{P}.ScriptValue('spec_exch_mood')|2]#!"] if MOOD_REF else [])
             + ([f"[concept_spec_market_confidence] recovery by #v x[{P}.ScriptValue('spec_exch_recover')|2]#!"] if RECOVER_REF else []))
     does = ", ".join(does[:-1]) + " and " + does[-1] if len(does) > 1 else does[0]
+    # Trust is displayed on a 0–100 scale. Changes are points on that same scale.
+    points = lambda key: f"Multiply_CFixedPoint({share(v(key))}, {fx(100)})"
+    changes = {c: points(f"spec_trust_{c}_last") for c in TRUST_CAUSES}
+    net = points("spec_trust_change")
+    other = net
+    for amount in changes.values():
+        other = f"Subtract_CFixedPoint({other}, {amount})"
     trust_loc = (' SPEC_EXCH_G_TRUST_TT: "#header [concept_spec_trust]: #v $SPEC_EXCH_TRUST$#!#!\\n$TOOLTIP_DELIMITER$\\n'
+                 f"[AddLocalizationIf({P}.Var('spec_trust_change').IsSet, 'SPEC_TRUST_LAST_REVIEW')]"
                  f"Our trust multiplies {does}.\\n\\n"
-                 + (f"Trust grows in calm months while [concept_spec_lending_standards] are #v {lx[2]}#! or stricter, and falls while they are #v {lx[-1]}#!.\\n\\n"
+                 + (f"Trust grows in calm months while [concept_spec_lending_standards] are #v {lx[2]}#! or stricter, and falls while they are #v {lx[-1]}#!. Tight Credit gradually brings lax banks back to Sound during quiet months. A Money Market charter reduces trust losses.\\n\\n"
                     if cycle.ON else "Trust grows in calm months.\\n\\n")
-                 + f"Monthly Change: [{total}|+=%1]#indent_newline:3 "
+                 + f"At present conditions  [{total}|+=%1] per month#indent_newline:3 "
                  + "".join(f"[AddLocalizationIf({cond}, 'SPEC_TRUST_M_{key}')]" for key, cond, _, _ in month)
                  + f"[AddLocalizationIf({month_cut}, 'SPEC_TRUST_M_CUT')]"
                  + f"#!\\n$TOOLTIP_DELIMITER$\\nA [concept_spec_financial_panic] now would cost #N [Multiply_CFixedPoint({P}.ScriptValue('spec_exch_panic_cut'), {loss})|%0]#! of it, "
@@ -3398,7 +3442,8 @@ def _exch_loc(score, rank, centres):
                  + (f"\\n#v x{levers.ISSUE_TRUST:g}#! for the good of a Great Issue" if levers.ISSUE_ON else "")
                  + '#!\\n\\n#instruction Hover a level on the bar to see what it does.#!"\n'
                  + "".join(f' SPEC_TRUST_M_{key}: "\\n[{val}|+=%1] from {label}"\n' for key, _, val, label in month)
-                 + f' SPEC_TRUST_M_CUT: "\\n[{cut}|+=%1] from trust already at #v [{held}|%0]#!"\n')
+                 + f' SPEC_TRUST_M_CUT: "\\n[{cut}|+=%1] from trust already at #v [{held}|%0]#!"\n'
+                 + f' SPEC_TRUST_LAST_REVIEW: "#b Last monthly review#!  [{net}|+=1] points\\nBoom endings  [{changes["goods"]}|+=1]\\nPanics  [{changes["panics"]}|+=1]\\nLending standards  [{changes["lending"]}|+=1]\\nBad Debts  [{changes["debts"]}|+=1]\\nOther changes  [{other}|+=1]\\n\\n"\n')
     # Phase 5's links, in the Exchange row's tooltip
     links = ((f"\\n[concept_spec_market_mood] swings: #v x[{P}.ScriptValue('spec_exch_mood')|2]#!" if MOOD_REF else "")
              + (f"\\n[concept_spec_market_confidence] recovery: #v x[{P}.ScriptValue('spec_exch_recover')|2]#!" if RECOVER_REF else "")
@@ -3491,7 +3536,8 @@ def _exch_loc(score, rank, centres):
           + "".join(f' SPEC_EXCH_TRUST_LV_TT_{i}: "#header {w}#!\\nTrust #v {i * band:g}%#! to #v {(i + 1) * band:g}%#!{_trust_words(i)}"\n'
                     for band in (100 / len(TRUST_LV),) for i, w in enumerate(TRUST_LV))
           + ' SPEC_EXCH_TRUST_LBL: "[concept_spec_trust]"\n'
-          + ' SPEC_EXCH_TRUST_NUM: "#b $SPEC_EXCH_TRUST$#!"\n'
+          + f''' SPEC_EXCH_TRUST_NUM: "#b $SPEC_EXCH_TRUST$#![AddLocalizationIf({P}.Var('spec_trust_change').IsSet, 'SPEC_TRUST_REVIEW_DELTA')]"\n'''
+          + f''' SPEC_TRUST_REVIEW_DELTA: " ([Multiply_CFixedPoint(Divide_CFixedPoint({v("spec_trust_change")}, {fx(CALM)}), {fx(100)})|+=1] pts)"\n'''
           + trust_loc
           + ' SPEC_H_KNOWN: "Specialities"\n'
           ' SPEC_H_KNOWN_TT: "#header Known For#!\\n$SPEC_EXCH_CARD_NOTE$"\n'
@@ -3563,6 +3609,7 @@ def _exch_loc(score, rank, centres):
             + ", and falls with [Concept('concept_spec_financial_panic','$concept_spec_financial_panics$')]"
             + (", [concept_spec_bad_debts]" if CRUNCH else "")
             + f' and a [concept_spec_bust] or [concept_spec_collapse] in a good worth {MAIN_SHARE:.0%} or more of the market\'s trade. Low trust raises the interest rate on the [concept_country]\'s [concept_loans]."\n'
+            ' spec_exch_world: "World Centre"\n'
             ' spec_exch_national: "Exchange Standing"\n'
             + "".join(f' spec_trust_{i}: "{TRUST_LV[i]} Exchange"\n spec_trust_{i}_desc: "The '
                       f'[concept_country]\'s [concept_spec_exchange] is #v {TRUST_LV[i]}#! by investors."\n' for i, f in enumerate(TRUST_FX) if f) +

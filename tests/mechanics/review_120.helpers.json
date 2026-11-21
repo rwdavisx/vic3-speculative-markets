@@ -1,0 +1,12 @@
+{
+  "spec_mechanics_ai_policy": {
+    "path": "common/on_actions/spec_on_actions.txt",
+    "start": "# thresholds move with temperament and the interest groups in government (credit_ai.py)\n",
+    "end": "\t\t\t\tif = {\n\t\t\t\t\tlimit = {\n\t\t\t\t\t\tspec_can_rescue = yes"
+  },
+  "spec_mechanics_burst": {
+    "path": "common/on_actions/spec_on_actions.txt",
+    "start": "\t\t\t\t\thas_variable = spec_heat\n\t\t\t\t\tvar:spec_conf < 60\n\t\t\t\t}\n",
+    "end": "\t\t\t\tif = {\n\t\t\t\t\tlimit = { is_player = yes }\n\t\t\t\t\tpost_notification = spec_bubble_burst"
+  }
+}

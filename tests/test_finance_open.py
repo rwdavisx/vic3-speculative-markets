@@ -42,7 +42,7 @@ class FinanceOpenTests(unittest.TestCase):
             with self.subTest(initial=initial):
                 variables, closed = click_until_panel_is_destroyed(actions, initial)
                 self.assertFalse(closed, "the journal panel hosts Finance in 1.1")
-                self.assertEqual(variables.get(market_tab.FIN), "open")
+                self.assertEqual(variables.get(market_tab.FIN), "journal_map")
                 self.assertEqual(variables.get(market_tab.FIN_TAB), "booms")
                 self.assertNotIn(market_tab.PICK, variables)
                 self.assertEqual(variables.get("unrelated_ui_choice"), initial.get("unrelated_ui_choice"))

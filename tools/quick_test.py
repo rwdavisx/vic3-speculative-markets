@@ -26,7 +26,7 @@ IMMEDIATE = (
     "construction", "credit_cycle", "economy", "exchange",
     "exchange_monthly", "goods", "interventions", "journal",
     "output_baskets", "politics", "pursuit_weights", "renown_reach",
-    "rival_notifications", "technology", "finance_priority",
+    "rival_notifications", "technology", "finance_priority", "player_feedback",
 )
 
 
@@ -40,9 +40,13 @@ def local_checks(source):
     def run(item):
         name, args = item
         started = time.monotonic()
+        env = os.environ.copy()
+        if name == "Generated mod":
+            env["SPEC_MOD_OUT"] = str(source)
+        elif name == "CMF":
+            env["SPEC_CMF_TEST_PARENT"] = str(source)
         result = subprocess.run([sys.executable, "-B", *args], cwd=ROOT, text=True, errors="replace",
-                                stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                                env={**os.environ, "SPEC_MOD_OUT": str(source)} if name == "Generated mod" else os.environ)
+                                stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=env)
         return name, result, time.monotonic() - started
 
     ok = True
@@ -61,7 +65,7 @@ def immediate_cases():
         "ai_frequency", "capitulation", "cashflow", "contagion", "crisis_overlap",
         "depression", "depression_options", "depression_pops", "depression_social",
         "panic", "pledge_cash", "renown_score", "rival_ai", "rival_bounds", "rival_choose",
-        "rival_large_network", "rival_network", "rival_press", "rival_year", "standing",
+        "review_120", "investor_sentiment", "rival_large_network", "rival_network", "rival_press", "rival_year", "standing",
     )
     available = []
     for case in sorted((*IMMEDIATE, *individual)):

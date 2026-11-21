@@ -1,0 +1,21 @@
+{
+  "048c689ff2": "Investoren finanzieren Gebäude, die diese Waren herstellen, bereitwilliger.",
+  "04d0476db0": "Waren, deren Preis bei bestehendem Angebot {2} Monate in Folge mindestens {1} % unter dem [concept_base_price] liegt, können jeden Monat die Gunst der Anleger verlieren. Bis zu {3} Waren erhalten für {5} Monate {4} % weniger [concept_spec_investor_interest].$SPEC_TERM_ODDS$",
+  "16d85d0cd2": "Investoren finanzieren Gebäude, die diese Waren herstellen, weniger bereitwillig.",
+  "1bd7d60ba4": "Eine Branche, die diese Ware verbraucht, kann günstige Vorleistungen nutzen und die Nachfrage stützen.",
+  "386887ea06": "\\nEin Überangebot setzt diesen Effekt vorübergehend außer Kraft.",
+  "3c25676a9b": "Begehrt",
+  "5a0e210375": "\\n$SPEC_JE_FAVOURED$ · Anhaltend hohe Preise · +{1}% [concept_spec_investor_interest] · Verbleibende Monate: {2}",
+  "7b44aceea9": "Eine Ware nimmt an der monatlichen Auslosung teil, wenn sie {1} Monate in Folge Verkaufsaufträge hatte und ihr Preis mindestens {2} % über dem [concept_base_price] lag.",
+  "7f140061bd": "Waren, deren Preis bei bestehendem Angebot {2} Monate in Folge mindestens {1} % über dem [concept_base_price] liegt, können jeden Monat die Gunst der Anleger gewinnen. Bis zu {3} Waren erhalten für {5} Monate {4} % mehr [concept_spec_investor_interest].$SPEC_TERM_ODDS$",
+  "8657700118": "\\n$SPEC_JE_SHUNNED$ · Anhaltend niedrige Preise · −{1}% [concept_spec_investor_interest] · Verbleibende Monate: {2}",
+  "93d5a8e665": "Börsen im Wettbewerb mit {1}",
+  "b3f9880984": "Jede erfasste Ware gehört zu einem Sektor. Das Diagramm bewertet alle angebotenen erfassten Waren zum [concept_base_price]. Waren mit größerem Anteil am Angebotswert haben mehr Gewicht im Sektortrend. Bewegt sich der Sektor weniger stark oder in die Gegenrichtung, kann sich der Preisdruck auf das [concept_spec_investor_interest] um bis zur Hälfte verringern.",
+  "c4281b915f": "Prüft vor einer Ausweitung der Produktion die Kosten der Vorleistungen und die Risiken eines Booms.",
+  "d7920e3b73": "Von {1} benannte Konkurrenten",
+  "e01f2a24fa": "#header $SPEC_JE_SHUNNED$#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_SHUN_IMPACT$\\n\\n#N −{1}%#! [concept_spec_investor_interest] · {2} Monate · Bis zu {3} Waren\\n\\n$SPEC_SHUN_REASON$$SPEC_TERM_ODDS$",
+  "e577858e6d": "Eine Ware nimmt an der monatlichen Auslosung teil, wenn sie {1} Monate in Folge Verkaufsaufträge hatte und ihr Preis mindestens {2} % unter dem [concept_base_price] lag.",
+  "ef12a1b38e": "#header $SPEC_JE_FAVOURED$#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_FAV_IMPACT$\\n\\n#P +{1}%#! [concept_spec_investor_interest] · {2} Monate · Bis zu {3} Waren\\n\\n$SPEC_FAV_REASON$$SPEC_TERM_ODDS$",
+  "fc2d9763d8": "\\nAuch in kleinen Mengen angebotene Waren kommen infrage. Nach {1} Monaten oder ab {2} % des gesamten Angebotswerts steigen die Chancen.",
+  "fd3d5b6ca0": "Marktangebot nach Sektor"
+}

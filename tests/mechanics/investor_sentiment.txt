@@ -1,0 +1,40 @@
+namespace = spec_mechanics_investor_sentiment
+spec_mechanics_investor_sentiment.1 = {
+    type = country_event
+    hidden = yes
+    immediate = {
+        remove_variable = spec_term_grain
+        remove_variable = spec_case_grain
+        set_variable = { name = spec_test_supply value = 0.01 }
+        set_variable = { name = spec_test_price value = 0.10 }
+        while = { count = 6
+            spec_sentiment_observe = { G = grain TURNOVER = var:spec_test_supply PRICE = var:spec_test_price }
+        }
+        if = { limit = { var:spec_case_grain = 6 }
+            debug_log = "HOTFIX PASS small_good_qualifies" }
+        else = { debug_log = "HOTFIX FAIL small_good_qualifies" }
+        set_variable = { name = spec_test_price value = -0.10 }
+        spec_sentiment_observe = { G = grain TURNOVER = var:spec_test_supply PRICE = var:spec_test_price }
+        if = { limit = { var:spec_case_grain = -1 }
+            debug_log = "HOTFIX PASS opposite_price_restarts_evidence" }
+        else = { debug_log = "HOTFIX FAIL opposite_price_restarts_evidence" }
+        spec_grant_fav = { G = grain }
+        while = { count = 11
+            remove_variable = spec_fav1
+            spec_sentiment_observe = { G = grain TURNOVER = var:spec_test_supply PRICE = var:spec_test_price }
+        }
+        if = { limit = { var:spec_fav1 = g:grain var:spec_term_grain = 1 spec_sentiment_factor_grain = 1.12 NOT = { has_variable = spec_case_grain } }
+            debug_log = "HOTFIX PASS full_year_no_early_reversal" }
+        else = { debug_log = "HOTFIX FAIL full_year_no_early_reversal" }
+        remove_variable = spec_fav1
+        spec_sentiment_observe = { G = grain TURNOVER = var:spec_test_supply PRICE = var:spec_test_price }
+        if = { limit = { NOT = { has_variable = spec_term_grain } var:spec_case_grain = -1 spec_sentiment_factor_grain = 1 }
+            debug_log = "HOTFIX PASS expiry_removes_bonus" }
+        else = { debug_log = "HOTFIX FAIL expiry_removes_bonus" }
+        spec_grant_shun = { G = grain }
+        if = { limit = { var:spec_term_grain = -12 spec_sentiment_factor_grain = 0.88 }
+            debug_log = "HOTFIX PASS shunning_penalizes_interest" }
+        else = { debug_log = "HOTFIX FAIL shunning_penalizes_interest" }
+        debug_log = "HOTFIX SUITE COMPLETE"
+    }
+}

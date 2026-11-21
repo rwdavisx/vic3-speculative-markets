@@ -41,7 +41,7 @@ def script(k):
             + "".join(f"\tif = {{\n\t\tlimit = {{ ig:ig_{ig} ?= {{ is_in_government = yes }} }}\n\t\tadd = {pref * IG_SHIFT}\n\t}}\n"
                       for ig, pref in PREFS.items()) + "}")
     # a positive lean means the AI tightens later, loosens sooner and stays loose longer
-    at = {"tight": AI_TIGHT, "untight": k["MANIA_RESET"], "loose": tuning.get("AI_LOOSE", k["WARY"]), "unloose": k["CREDIT_FROM"]}
+    at = {"tight": AI_TIGHT, "untight": AI_TIGHT - 1, "loose": tuning.get("AI_LOOSE", k["WARY"]), "unloose": k["CREDIT_FROM"]}
     # confidence drifts to CONF_START, so the way back to Normal must lie on its far side or a stance can stick:
     # leave Tight below at least CONF_START + 3, leave Loose from at most CONF_START - 1 (still above the highest
     # loosen point, WARY + TEMPER_SHIFT + IG_SHIFT = 52, so the AI does not flip back and forth)
@@ -127,7 +127,7 @@ if __name__ == "__main__":
     fx = out["common/scripted_effects/spec_credit_ai_effects.txt"]
     assert fx.count("{") == fx.count("}"), "unbalanced effects"
     v = out["common/script_values/spec_credit_ai_values.txt"]
-    assert "spec_ai_untight_at = {\n\tvalue = 65\n\tadd = spec_ai_lean\n\tmin = 58\n}" in v and "\tmax = 54\n" in v
+    assert f"spec_ai_untight_at = {{\n\tvalue = {AI_TIGHT - 1}\n\tadd = spec_ai_lean\n\tmin = 58\n}}" in v and "\tmax = 54\n" in v
     assert f"spec_ai_tight_at = {{\n\tvalue = {AI_TIGHT}\n\tadd = spec_ai_lean\n}}" in v
     assert k["WARY"] + TEMPER_SHIFT + IG_SHIFT < k["CONF_START"] - 1, "the highest loosen point must stay below the unloose cap"
     assert "ig:ig_intelligentsia ?= { is_in_government = no has_modifier = spec_tight_credit }" in fx

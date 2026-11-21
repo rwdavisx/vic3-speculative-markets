@@ -268,7 +268,7 @@ def check_error_logs(logs):
 
     blocking_categories = {
         "mod_script_errors", "mod_runtime_list_warnings",
-        "test_harness_script_errors", "mod_other_diagnostics",
+        "test_harness_script_errors", "mod_other_diagnostics", "invalid_journal_panel",
     }
     text = "\n".join(Path(log).read_text(encoding="utf-8-sig", errors="replace") for log in logs)
     counts, blocking = Counter(), []

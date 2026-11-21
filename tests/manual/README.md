@@ -1,5 +1,7 @@
 # Live player takeover test
 
+For the 1.2 Money Market Trust and domestic bulletin UI check, stage `py -3 -B tests/manual/market_feedback.py --source beta/feedback_120/mod --out runs/unique_feedback_run/mod`. Launch that copy in a private profile. Use the test decision, open the Finance Trust tooltip and inspect the domestic bulletin. The production Trust components must add to the monthly change. The bulletin should show the seeded category counts after its counters have cleared.
+
 Build a disposable copy of a chosen beta:
 
 ```powershell
@@ -68,8 +70,9 @@ and immediate effects, not natural event scheduling, cooldowns, or every locale.
 
 ## Rival win popup
 
-`rival_popup.py --source beta/.../mod --out runs/unique_run/mod` retains only
-the first annual pass of the existing rivalry notification fixture. Play Britain
-and watch January 31 at low speed. Capture the win toast and subsequent queue;
-evaluate both dispatch/reward contracts and the cumulative error log. This is
-one three-rival win case, not the reporter's full playset or every outcome.
+`rival_popup.py --source beta/.../mod --out runs/unique_run/mod --decision`
+prepares three simultaneous wins against France, Prussia and Austria. Play Britain,
+or add `--host RUS` to use a Russian save. Once Finance has initialized, pause,
+close open events and choose **Settle Three Test Contests** in Journal > Decisions.
+Capture each named toast and check the three dispatch, reward and repeat assertions
+and the error log. Omitting `--decision` runs the same scenario on the monthly pulse.

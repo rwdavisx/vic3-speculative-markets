@@ -55,6 +55,15 @@ def current():
     return {k: v for k, v in engine.current().items() if k in KEYS}
 
 
+def credit_tier_note(values):
+    ceiling = values.get("LEV_RUIN", engine.lv.RUIN)
+    top = engine.lv.LADDER[-1]
+    if ceiling < top:
+        return (f"The {ceiling:g}-month lending ceiling cuts off the top of the "
+                f"{top:g}-month technology tier.")
+    return ""
+
+
 def rescore(result, ts=None):
     """Score a saved result against the targets as they are now (the page edits them after a run)."""
     tr = rows(ts or targets())
@@ -154,7 +163,8 @@ def sweep(spec, pool, cur=None, emit=lambda e: None, stop=None):
                 res = {b: s for b, (s, _) in got[cid].items()}
                 score, parts = engine.score(res, tr)
                 c = {"id": cid, "score": round(score, 4), "parts": parts, "metrics": res, "bands": {b: bd for b, (_, bd) in got[cid].items()},
-                     "values": cands[cid], "changed": {k: [cur[k], v] for k, v in cands[cid].items() if v != cur[k]}}
+                     "values": cands[cid], "credit_tier_note": credit_tier_note(cands[cid]),
+                     "changed": {k: [cur[k], v] for k, v in cands[cid].items() if v != cur[k]}}
                 out.append(c)
                 tell({"type": "candidate", "run": rid, "id": cid, "score": c["score"], "changed": c["changed"],
                       "parts": [{k: p[k] for k in ("metric", "who", "value", "in")} for p in parts]})
@@ -163,8 +173,8 @@ def sweep(spec, pool, cur=None, emit=lambda e: None, stop=None):
             if c["id"] != 0:
                 c["bands"] = None
         result = {"id": rid, "label": label, "note": spec.get("note", ""), "time": time.strftime("%Y-%m-%d %H:%M"), "secs": round(time.time() - t0, 1),
-                  "economies": n, "years": (cfg.get("inputs") or {}).get("years", engine.INPUTS["years"][0]), "bots": bots,
-                  "baseline": 0, "cands": out}
+                  "economies": n, "seed": seed, "years": (cfg.get("inputs") or {}).get("years", engine.INPUTS["years"][0]), "bots": bots,
+                  "cfg": cfg, "baseline": 0, "cands": out}
         body = dumps(result)
         write(RUNS / f"{rid}.json", body)
         write(LATEST, body)
@@ -210,9 +220,12 @@ def load_run(rid):
 def report(result):
     """The result as a few lines: each target in or out for the best candidate, then the runners-up."""
     best, M = result["cands"][0], engine.METRICS
-    lines = [f"{result['label']}  ({result['economies']} economies x {result['years']} years, {', '.join(result['bots'])}, {result['secs']}s)"]
+    seed = f", seed {result['seed']}" if "seed" in result else ""
+    lines = [f"{result['label']}  ({result['economies']} economies x {result['years']} years{seed}, {', '.join(result['bots'])}, {result['secs']}s)"]
     if best["changed"]:
         lines.append("Best: " + ", ".join(f"{k} {o:g} -> {n:g}" for k, (o, n) in best["changed"].items()))
+    if best.get("credit_tier_note"):
+        lines.append(best["credit_tier_note"])
     for p in best["parts"]:
         m = best["metrics"].get(p["who"], {}).get(p["metric"], {})
         rng = f"  (10-90%: {m['p10']:.1f}-{m['p90']:.1f})" if "p10" in m else ""
@@ -222,6 +235,8 @@ def report(result):
     for c in result["cands"][1:6] if len(result["cands"]) > 2 else []:
         lines.append(f"  #{c['id']} score {c['score']:.2f}, {sum(p['in'] for p in c['parts'])} met: " +
                      (", ".join(f"{k} {n:g}" for k, (o, n) in c["changed"].items()) or "the current numbers"))
+        if c.get("credit_tier_note"):
+            lines.append("    " + c["credit_tier_note"])
     return "\n".join(lines)
 
 

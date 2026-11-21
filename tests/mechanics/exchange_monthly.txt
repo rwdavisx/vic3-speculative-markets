@@ -2,6 +2,8 @@
 namespace = spec_mechanics_exchange_monthly
 spec_mechanics_exchange_monthly.1 = { type = country_event hidden = yes immediate = {
 spec_exch_clear = yes
+activate_law = law_type:law_interventionism
+activate_law = law_type:law_spec_gold_standard
 remove_variable = spec_panic
 remove_variable = spec_crunch
 set_variable = { name = spec_lax value = 0.5 }
@@ -16,7 +18,7 @@ else = { debug_log = "HOTFIX FAIL middling_standards_hold_trust" }
 set_variable = { name = spec_exch_known value = 1 }
 set_variable = { name = spec_lax value = 0.8 }
 spec_mechanics_exchange_trust = yes
-if = { limit = { var:spec_centre_trust = 60 } debug_log = "HOTFIX PASS reckless_month_loses_trust" }
+if = { limit = { spec_exch_loss = 0.8 var:spec_centre_trust = 60.2 } debug_log = "HOTFIX PASS reckless_month_loses_trust" }
 else = { debug_log = "HOTFIX FAIL reckless_month_loses_trust" }
 set_variable = { name = spec_lax value = 0.5 }
 set_variable = { name = spec_centre_trust value = 120 }
@@ -33,7 +35,7 @@ set_variable = { name = spec_crunch value = 10 }
 set_variable = { name = spec_exch_stand value = 3 }
 set_local_variable = { name = spec_exch_was value = 0 }
 spec_mechanics_exchange_crunch = yes
-if = { limit = { var:spec_centre_trust = 49 var:spec_exch_stand = 0 } debug_log = "HOTFIX PASS bad_debts_lose_trust_and_prevent_promotion" }
+if = { limit = { var:spec_centre_trust = 49.2 var:spec_exch_stand = 0 } debug_log = "HOTFIX PASS bad_debts_lose_trust_and_prevent_promotion" }
 else = { debug_log = "HOTFIX FAIL bad_debts_lose_trust_and_prevent_promotion" }
 remove_variable = spec_crunch
 set_variable = spec_pledge

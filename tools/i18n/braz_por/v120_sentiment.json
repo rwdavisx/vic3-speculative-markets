@@ -1,0 +1,21 @@
+{
+  "048c689ff2": "Os investidores estão mais dispostos a financiar construções que produzem essas mercadorias.",
+  "04d0476db0": "Mercadorias à venda por pelo menos {1}% abaixo de [concept_base_price] durante {2} meses consecutivos podem perder o apoio dos investidores a cada mês. Até {3} mercadorias perdem {4}% de [concept_spec_investor_interest] por {5} meses.$SPEC_TERM_ODDS$",
+  "16d85d0cd2": "Os investidores estão menos dispostos a financiar construções que produzem essas mercadorias.",
+  "1bd7d60ba4": "Uma indústria que consome essa mercadoria pode aproveitar insumos baratos e sustentar a demanda.",
+  "386887ea06": "\\nO excesso de oferta suspende temporariamente esse efeito.",
+  "3c25676a9b": "Preferidas",
+  "5a0e210375": "\\n$SPEC_JE_FAVOURED$ · Preços altos persistentes · +{1}% [concept_spec_investor_interest] · Meses restantes: {2}",
+  "7b44aceea9": "Uma mercadoria entra no sorteio mensal após {1} meses consecutivos com ordens de venda e preço pelo menos {2}% acima do [concept_base_price].",
+  "7f140061bd": "Mercadorias à venda por pelo menos {1}% acima de [concept_base_price] durante {2} meses consecutivos podem conquistar o favor dos investidores a cada mês. Até {3} mercadorias ganham {4}% de [concept_spec_investor_interest] por {5} meses.$SPEC_TERM_ODDS$",
+  "8657700118": "\\n$SPEC_JE_SHUNNED$ · Preços baixos persistentes · −{1}% [concept_spec_investor_interest] · Meses restantes: {2}",
+  "93d5a8e665": "Bolsas que competem com {1}",
+  "b3f9880984": "Cada mercadoria acompanhada pertence a um setor. O gráfico avalia todas as mercadorias acompanhadas à venda pelo [concept_base_price]. As que representam uma parcela maior dessa oferta têm mais peso na tendência do setor. Se o setor se mover menos ou em direção oposta, o efeito do preço sobre o [concept_spec_investor_interest] pode cair pela metade.",
+  "c4281b915f": "Confira o custo dos insumos e a exposição ao boom antes de expandir a produção.",
+  "d7920e3b73": "Concorrentes escolhidos por {1}",
+  "e01f2a24fa": "#header $SPEC_JE_SHUNNED$#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_SHUN_IMPACT$\\n\\n#N −{1}%#! [concept_spec_investor_interest] · {2} meses · Até {3} mercadorias\\n\\n$SPEC_SHUN_REASON$$SPEC_TERM_ODDS$",
+  "e577858e6d": "Uma mercadoria entra no sorteio mensal após {1} meses consecutivos com ordens de venda e preço pelo menos {2}% abaixo do [concept_base_price].",
+  "ef12a1b38e": "#header $SPEC_JE_FAVOURED$#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_FAV_IMPACT$\\n\\n#P +{1}%#! [concept_spec_investor_interest] · {2} meses · Até {3} mercadorias\\n\\n$SPEC_FAV_REASON$$SPEC_TERM_ODDS$",
+  "fc2d9763d8": "\\nMercadorias com pouca oferta também podem se qualificar. As chances aumentam após {1} meses nessas condições ou com pelo menos {2}% do valor da oferta do mercado.",
+  "fd3d5b6ca0": "Oferta do mercado por setor"
+}

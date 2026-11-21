@@ -1,0 +1,14 @@
+{
+  "086b1ead63": "只要[concept_spec_bad_debts]超过[concept_spec_lending_standards]所允许的限额，银行就会暂停放贷",
+  "11d5c39c51": "银行仍在清点上次繁荣期间的损失。损失越大，#N 放贷越少#!；当损失超过[concept_spec_lending_standards]允许的限额时，贷款将完全停止。\\n#v 向银行放贷#!无法清偿这笔损失。\\n损失尚存期间，#v 收购不良贷款#!可清偿其中的{1}%，仅限一次。",
+  "154ba54579": "\\n#v x{1}#! （来自[concept_spec_bad_debts]）",
+  "40d398c68c": "过去#v {1}#!个月内未启用或停用此干预措施，或启用尚不足#v {2}#!天且仍可撤销。",
+  "508f3e9b55": "繁荣期的贷款已变为坏账。接下来的几个月，[concept_spec_bad_debts]将使[concept_throughput]降低#N {1}%#!，随后影响逐渐减弱，在#v {2}#!个月后消失。在此期间银行将减少放贷，#v 向银行放贷#!无法清除这些坏账。",
+  "923b245d95": "只要[concept_spec_bad_debts]超过[concept_spec_lending_standards]所允许的限额，银行就会暂停放贷。",
+  "a01525d299": "\\n惩罚仍在每月加重#N {1}%#!，直至达到#N -{2}%#!。",
+  "c465eba044": "@spec_bad_debts! [concept_spec_bad_debts]减少#P {1}%#!，清偿时间由#v {3}#!个月缩短为#v {2}#!个月。",
+  "c55c523e35": "\\n#P +@money!{1}#! 本月新增贷款",
+  "d1f5b6ea71": "在#bold $SPEC_FINANCE$#!窗口的#bold $SPEC_FIN_TAB_BANKING$#!标签页选择#v 收购不良贷款#!。本轮坏账清偿前只能使用一次。\\n清除剩余[concept_spec_bad_debts]的#P {1}%#!\\n费用：#v @money!{2}#!",
+  "d4fbe0f156": "要降低风险，可在#bold $SPEC_FIN_TAB_BOOMS$#!标签页抑制风险最高的商品投机，或在#bold $SPEC_FIN_TAB_BANKING$#!标签页收紧[concept_spec_credit_policy]。",
+  "dccbb4fb0f": "银行#N 停止#!向[concept_investment_pool]放贷\\n投资者对价格变动的反应减弱#N {1}%#!\\n#P 热潮更小#!，结束更温和，恐慌也更轻\\n[concept_spec_bad_debts]的清偿速度提高#P {2}%#!\\n每月，[concept_spec_market_confidence]高于#v {4}#!的部分会流失#N {3}%#!\\n\\n锁定[concept_spec_credit_policy]#v {5}#!个月\\n需要{6}\\n\\n@intelligentsia! 知识分子[concept_in_government]：#P +{7}#![concept_approval]\\n@industrialists! 工业家[concept_in_government]：#N -{8}#![concept_approval]"
+}

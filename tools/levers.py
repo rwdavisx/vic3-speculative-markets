@@ -19,7 +19,8 @@ import tuning
 
 # Authority a month per lever, like a vanilla consumption tax on the good (its consumption_tax_cost, else
 # NPolitics DEFAULT_GOODS_TAX_COST): LEVER_TAX_SHARE of it, from LEVER_FLOOR of that for a good with no share of the
-# market's trade up to all of it at generate.EXPOSURE_FULL (spec_weight_<g>). Steel 25 to 50, grain 125 to 250.
+# market's trade up to all of it at generate.EXPOSURE_FULL (spec_weight_<g>). A staple's high consumption-tax
+# price measures the political cost of taxing households. Intervening in its producers uses the ordinary base instead.
 DEFAULT_TAX_COST = 100
 LEVER_TAX_SHARE = tuning.get("LEVER_TAX_SHARE", 0.5)
 LEVER_FLOOR = 0.5
@@ -135,7 +136,7 @@ def push_update(g, t="\t\t\t"):
 
 
 def state_vars(goods):
-    return ([f"spec_{k}_{g}" for g in goods for k in ("restrain", "encourage", "push", "ui_r", "ui_e", "ui_co", "lever_wait", "lever_grace")
+    return ([f"spec_{k}_{g}" for g in goods for k in ("restrain", "encourage", "push", "ui_r", "ui_e", "ui_co", "lever_wait", "lever_grace", "lever_pending")
              + (("issue",) if ISSUE_ON else ())]
             + (["spec_issue", "spec_issue_cool", "spec_issue_w"] if ISSUE_ON else []))
 
@@ -194,10 +195,11 @@ def _chain(goods, body, trigger=False):
 def cost_value(g, tax):
     """spec_lever_cost_<g>: the good's Authority a month (LEVER_TAX_SHARE); tax is its vanilla consumption_tax_cost."""
     # spec_lever_base_<g>: the cost before the share of trade, for the tooltip's breakdown
-    return (f"spec_lever_base_{g} = {(tax or DEFAULT_TAX_COST) * LEVER_TAX_SHARE:g}\n"
+    base = min(tax or DEFAULT_TAX_COST, DEFAULT_TAX_COST) * LEVER_TAX_SHARE
+    return (f"spec_lever_base_{g} = {base:g}\n"
             f"spec_lever_cost_{g} = {{\n\tvalue = 0\n\tif = {{\n\t\tlimit = {{ has_variable = spec_mv_total }}\n"
             f"\t\tvalue = spec_weight_{g}\n\t}}\n\tmultiply = {1 - LEVER_FLOOR:g}\n\tadd = {LEVER_FLOOR:g}\n"
-            f"\tmultiply = {(tax or DEFAULT_TAX_COST) * LEVER_TAX_SHARE / COST_STEP:g}\n\tround = yes\n\tmultiply = {COST_STEP}\n}}")
+            f"\tmultiply = {base / COST_STEP:g}\n\tround = yes\n\tmultiply = {COST_STEP}\n}}")
 
 
 def money_values(g, cost):
@@ -253,14 +255,16 @@ spec_lever_flip = {{
 	if = {{
 		limit = {{ has_variable = spec_$KIND$_$G$ }}
 		remove_variable = spec_$KIND$_$G$
+		remove_variable = spec_lever_pending_$G$
+		remove_variable = spec_lever_grace_$G$
 	}}
 	else = {{
 		set_variable = {{ name = spec_$KIND$_$G$ value = 1 }}
-		spec_igs_lever_$KIND$ = {{ G = $G$ }}  # interest groups' approval (ig_stances.py)
+		set_variable = spec_lever_pending_$G$
+		set_variable = {{ name = spec_lever_grace_$G$ days = {GRACE_DAYS} }}
 	}}
 	# either way the good's levers wait (WAIT_MONTHS), after a few days to change our mind
 	set_variable = {{ name = spec_lever_wait_$G$ value = {WAIT_MONTHS} }}
-	set_variable = {{ name = spec_lever_grace_$G$ days = {GRACE_DAYS} }}
 }}
 
 # from the scripted GUIs: switch lever KIND on or off for scope:spec_good
@@ -274,6 +278,12 @@ spec_lever_clock = {{
 		limit = {{ is_player = yes }}
 {"".join(f'''		if = {{
 			limit = {{ has_variable = spec_lever_wait_{g} }}
+            if = {{
+                limit = {{ has_variable = spec_lever_pending_{g} NOT = {{ has_variable = spec_lever_grace_{g} }} }}
+                remove_variable = spec_lever_pending_{g}
+                if = {{ limit = {{ has_variable = spec_encourage_{g} }} spec_igs_lever_encourage = {{ G = {g} }} }}
+                else_if = {{ limit = {{ has_variable = spec_restrain_{g} }} spec_igs_lever_restrain = {{ G = {g} }} }}
+            }}
 			change_variable = {{ name = spec_lever_wait_{g} add = -1 }}
 			if = {{
 				limit = {{ var:spec_lever_wait_{g} <= 0 }}
@@ -315,7 +325,7 @@ spec_lever_free = {{
 		text = spec_lever_wait_tt
 		OR = {{
 			NOT = {{ has_variable = spec_lever_wait_$G$ }}
-			has_variable = spec_lever_grace_$G$
+			AND = {{ has_variable = spec_lever_grace_$G$ has_variable = spec_$KIND$_$G$ }}
 		}}
 	}}
 	trigger_if = {{
@@ -624,8 +634,7 @@ def loc():
     share = f"Divide_CFixedPoint({gsv('spec_mv')}, Max_CFixedPoint({P}.Var('spec_mv_total').GetValueWithDefault('(CFixedPoint)1'), '(CFixedPoint)1'))"
     # in vanilla's calculator form (BASE_VALUE_FOR_CALCULATOR), as cost_value() makes it
     cost_line = (f"Ties up #N [{gsv('spec_lever_cost')}|0]#! [concept_authority] while in effect, returned when lifted"
-                 f"#indent_newline:3 \\n#v [{gsv('spec_lever_base')}|0]#! from "
-                 f"{'half' if LEVER_TAX_SHARE == 0.5 else f'{LEVER_TAX_SHARE:.0%} of'} what a consumption tax on it would tie up"
+                 f"#indent_newline:3 \\n#v [{gsv('spec_lever_base')}|0]#! base cost, capped at #v {DEFAULT_TAX_COST * LEVER_TAX_SHARE:g}#!"
                  f"\\n#v x[{weight}|%0]#! from its #v [{share}|%1]#! share of our market's trade#!")
     money = lambda kind: f"[{P}.ScriptValue(Concatenate('spec_lever_{kind}_', Goods.GetKey))|D]"
     n = stored("spec_c_lev_n")
@@ -639,7 +648,7 @@ def loc():
  spec_lever_not_encourage_tt: "Investment in this good is not encouraged"
  spec_levers: "Market Interventions"
  spec_lever_authority_tt: "Enough [concept_authority] is available"
- spec_lever_wait_tt: "Not switched on or off in the last #v {WAIT_MONTHS}#! months, or switched less than #v {GRACE_DAYS}#! days ago and can still be undone"
+ spec_lever_wait_tt: "Not switched on or off in the last #v {WAIT_MONTHS}#! months, or activated less than #v {GRACE_DAYS}#! days ago and can still be undone"
  SPEC_LEVER_WAIT: "\\n#N Switched lately.#! It can change again in #v [{P}.Var(Concatenate('spec_lever_wait_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0')|0]#! months"
  spec_lever_fits_restrain_tt: "[concept_spec_investor_interest] #v Eager#! or higher, or a boom whose end costs #v {RESTRAIN_RISK}#! or more [concept_spec_market_confidence]"
  spec_lever_fits_encourage_tt: "[concept_spec_investor_interest] below #v Keen#!, not recovering from a [concept_spec_boom_end], and no boom that could end in a [concept_spec_bust] or [concept_spec_collapse]"
@@ -653,7 +662,7 @@ def loc():
  SPEC_LEVERS_ONE: "1 Intervention: #N -{cost}#! @aut!"
  SPEC_LEVERS_MANY: "{used} Interventions: #N -{cost}#! @aut!"
  concept_spec_intervention: "Intervention"
- concept_spec_intervention_desc: "The government stepping into the market for one [concept_good]. A good can have only one at a time, and once one is switched on or off it cannot change again for #v {WAIT_MONTHS}#! months.\\n\\n#b Restrain Speculation#! pushes [concept_spec_investor_interest] down, never below #v Calm#!, so its boom winds down as a [concept_spec_correction] instead of crashing. Its makers lose #N {LEVER_THROUGHPUT:.0%}#! [concept_throughput] and pay a levy of #v {LEVY_SHARE:.0%}#! of their output a week.\\n\\n#b Encourage Investment#! pushes $concept_spec_investor_interest$ up until it reaches #v Eager#!, then ends by itself. Its makers gain #P {LEVER_THROUGHPUT:.0%}#! $concept_throughput$ and are paid a subsidy of #v {SUBSIDY_SHARE:.0%}#! of their output a week.\\n\\nBoth build up over a few months and tie up [concept_authority] while in effect, more for staples and widely traded $concept_goods$. The higher our [concept_spec_market_confidence], the further the market follows Encourage and the less it listens to Restrain. At #v {PUSH_CONF}#! confidence, Restrain multiplies $concept_spec_investor_interest$ by #N {PUSH['restrain']:.2f}#! and Encourage by #P {PUSH['encourage']:g}#!.{ISSUE_CONCEPT}"
+ concept_spec_intervention_desc: "The government stepping into the market for one [concept_good]. A good can have only one at a time, and once one is switched on or off it cannot change again for #v {WAIT_MONTHS}#! months.\\n\\n#b Restrain Speculation#! pushes [concept_spec_investor_interest] down, never below #v Calm#!, so its boom winds down as a [concept_spec_correction] instead of crashing. Its makers lose #N {LEVER_THROUGHPUT:.0%}#! [concept_throughput] and pay a levy of #v {LEVY_SHARE:.0%}#! of their output a week.\\n\\n#b Encourage Investment#! pushes $concept_spec_investor_interest$ up until it reaches #v Eager#!, then ends by itself. Its makers gain #P {LEVER_THROUGHPUT:.0%}#! $concept_throughput$ and are paid a subsidy of #v {SUBSIDY_SHARE:.0%}#! of their output a week.\\n\\nBoth build up over a few months and tie up [concept_authority] while in effect, up to #v {LEVER_TAX_SHARE * DEFAULT_TAX_COST:g}#! per good. Widely traded $concept_goods$ cost more to manage. The higher our [concept_spec_market_confidence], the further the market follows Encourage and the less it listens to Restrain. At #v {PUSH_CONF}#! confidence, Restrain multiplies $concept_spec_investor_interest$ by #N {PUSH['restrain']:.2f}#! and Encourage by #P {PUSH['encourage']:g}#!.{ISSUE_CONCEPT}"
 {issue_loc(head)} SPEC_LEVERS_TT: "#header Market Interventions#!\\n$TOOLTIP_DELIMITER$\\nWe restrain speculation in #v [{P}.ScriptValue('spec_n_restrain')|0]#! goods and encourage investment in #v [{P}.ScriptValue('spec_n_encourage')|0]#!.\\n\\nThey tie up #N {cost}#! [concept_authority]. Levies bring in #P @money![{P}.ScriptValue('spec_lever_levy')|D]#! a week as [concept_budget_additional_income], and subsidies cost #N @money![{P}.ScriptValue('spec_lever_spend')|D]#! a week as [concept_budget_additional_expenses]."
 """
 

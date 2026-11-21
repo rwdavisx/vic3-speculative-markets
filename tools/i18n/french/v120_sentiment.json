@@ -1,0 +1,21 @@
+{
+  "048c689ff2": "Les investisseurs financent plus volontiers les bâtiments qui produisent ces biens.",
+  "04d0476db0": "Chaque mois, les biens mis en vente au moins {1} % au-dessous du [concept_base_price] pendant {2} mois consécutifs peuvent perdre le soutien des investisseurs. Jusqu’à {3} biens perdent {4} % d’[concept_spec_investor_interest] pendant {5} mois.$SPEC_TERM_ODDS$",
+  "16d85d0cd2": "Les investisseurs financent moins volontiers les bâtiments qui produisent ces biens.",
+  "1bd7d60ba4": "Une industrie qui consomme ce bien peut profiter d’intrants bon marché et soutenir la demande.",
+  "386887ea06": "\\nLa surproduction suspend temporairement cet effet.",
+  "3c25676a9b": "Prisés",
+  "5a0e210375": "\\n$SPEC_JE_FAVOURED$ · Prix durablement élevés · +{1}% [concept_spec_investor_interest] · Mois restants: {2}",
+  "7b44aceea9": "Un bien participe au tirage mensuel après {1} mois consécutifs avec des ordres de vente et un prix supérieur d’au moins {2} % au [concept_base_price].",
+  "7f140061bd": "Chaque mois, les biens mis en vente au moins {1} % au-dessus du [concept_base_price] pendant {2} mois consécutifs peuvent gagner la faveur des investisseurs. Jusqu’à {3} biens gagnent {4} % d’[concept_spec_investor_interest] pendant {5} mois.$SPEC_TERM_ODDS$",
+  "8657700118": "\\n$SPEC_JE_SHUNNED$ · Prix durablement bas · −{1}% [concept_spec_investor_interest] · Mois restants: {2}",
+  "93d5a8e665": "Bourses en concurrence avec {1}",
+  "b3f9880984": "Chaque bien suivi appartient à un secteur. Le graphique évalue les biens mis en vente à leur [concept_base_price]. Les biens qui représentent une plus grande part de l’offre pèsent davantage dans la tendance de leur secteur. Si le secteur évolue moins que le bien ou en sens inverse, la pression de son prix sur l’[concept_spec_investor_interest] peut diminuer de moitié.",
+  "c4281b915f": "Avant d’accroître la production, vérifiez le coût des intrants et l’exposition aux booms.",
+  "d7920e3b73": "Concurrents désignés par {1}",
+  "e01f2a24fa": "#header $SPEC_JE_SHUNNED$#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_SHUN_IMPACT$\\n\\n#N −{1}%#! [concept_spec_investor_interest] · {2} mois · Jusqu’à {3} biens\\n\\n$SPEC_SHUN_REASON$$SPEC_TERM_ODDS$",
+  "e577858e6d": "Un bien participe au tirage mensuel après {1} mois consécutifs avec des ordres de vente et un prix inférieur d’au moins {2} % au [concept_base_price].",
+  "ef12a1b38e": "#header $SPEC_JE_FAVOURED$#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_FAV_IMPACT$\\n\\n#P +{1}%#! [concept_spec_investor_interest] · {2} mois · Jusqu’à {3} biens\\n\\n$SPEC_FAV_REASON$$SPEC_TERM_ODDS$",
+  "fc2d9763d8": "\\nLes biens peu échangés peuvent aussi être retenus. Les chances augmentent après {1} mois remplissant ces conditions ou si le bien représente au moins {2} % de la valeur de l’offre.",
+  "fd3d5b6ca0": "Offre du marché par secteur"
+}

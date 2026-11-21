@@ -1,0 +1,981 @@
+{
+  "date": "2026-11-21",
+  "candidate": "1.2.0-beta.16",
+  "game": "Victoria 3 1.15.2",
+  "publication": "Local beta candidate. Stable and the public Workshop items were not updated.",
+  "package": {
+    "path": "beta/feedback_120/releases/Speculative_Markets_Beta_1.2.0-beta.16.zip",
+    "sha256": "459ded2bde83928dec51f77106db6075e07560f9f185425ed592d1c41dd0daca",
+    "files": 225,
+    "test_fixtures": 0,
+    "changed_from_beta15": [
+      ".metadata/metadata.json",
+      "localization/braz_por/spec_markets_l_braz_por.yml",
+      "localization/french/spec_markets_l_french.yml",
+      "localization/german/spec_markets_l_german.yml",
+      "localization/japanese/spec_markets_l_japanese.yml",
+      "localization/korean/spec_markets_l_korean.yml",
+      "localization/polish/spec_markets_l_polish.yml",
+      "localization/russian/spec_markets_l_russian.yml",
+      "localization/simp_chinese/spec_markets_l_simp_chinese.yml",
+      "localization/spanish/spec_markets_l_spanish.yml",
+      "localization/turkish/spec_markets_l_turkish.yml"
+    ],
+    "candidate_tuning": "beta/feedback_120/tuning.json",
+    "active_overrides": {
+      "LEV_PANIC_SPAN": [
+        30,
+        50
+      ],
+      "LEV_REWARD": [
+        0.02,
+        0.018
+      ],
+      "LEV_CRUNCH_RAMP": [
+        1,
+        2
+      ],
+      "LEV_CRUNCH_FADE": [
+        1,
+        0.47
+      ],
+      "LEV_BAD_STOP": [
+        15,
+        11
+      ],
+      "PANIC_SHALLOW": [
+        20,
+        14
+      ]
+    }
+  },
+  "focused_engine": {
+    "earlier_package": "1.2.0-beta.10",
+    "earlier_goods_assertions": {
+      "passed": 2,
+      "failed": [
+        "player_feedback__isolated_gain_smaller_than_broad_gain",
+        "player_feedback__isolated_fall_tempered_without_reversal",
+        "player_feedback__staple_intervention_within_ordinary_authority_budget"
+      ]
+    },
+    "broad_report": "runs/quick_20261121_173654_706158/report.json",
+    "native_passed": 309,
+    "native_failed": [],
+    "missing": [],
+    "suites": [
+      "ai_policy",
+      "all_goods_endings",
+      "bank_display",
+      "banking",
+      "burst_accounting",
+      "capital_flight",
+      "confidence",
+      "confidence_accounting",
+      "construction",
+      "credit_cycle",
+      "economy",
+      "exchange",
+      "exchange_monthly",
+      "goods",
+      "interventions",
+      "journal",
+      "output_baskets",
+      "politics",
+      "pursuit_weights",
+      "renown_reach",
+      "rival_notifications",
+      "technology",
+      "finance_priority",
+      "player_feedback"
+    ],
+    "error_gate": {
+      "error_logs_checked": [
+        "G:\\GameDev\\speculative-markets\\runs\\sweep_quick_20261121_173654_706158\\test_01\\error.log"
+      ],
+      "error_categories": {
+        "basegame_script_errors": 8,
+        "engine_or_basegame_other": 1353,
+        "mod_variable_load_warnings": 67
+      },
+      "blocking_error_count": 0,
+      "blocking_error_examples": []
+    },
+    "timed_politics_unchanged_gameplay_from_beta15": {
+      "assertions": "runs/sweep_feedback_120_politics_r2_candidate/candidate_01/assertions.log",
+      "passed": [
+        "six_quiet_years_rebuild_damaged_money_market_trust",
+        "industrialists_react_to_their_favored_steel_bust",
+        "distrust_still_increases_loan_interest",
+        "distrust_adds_no_automatic_industrialist_blame",
+        "ordinary_bust_still_opposed_on_day_179",
+        "ordinary_bust_expires_by_day_181"
+      ],
+      "failed": [],
+      "error_gate": {
+        "path": "runs/sweep_feedback_120_politics_r2_candidate/candidate_01/error.log",
+        "categories": {
+          "engine_or_basegame_other": 1356,
+          "mod_variable_load_warnings": 66
+        },
+        "blocking": 0
+      }
+    },
+    "timed_politics_frozen": {
+      "assertions": "runs/sweep_feedback_120_politics_r2_control/control_01/assertions.log",
+      "passed": [
+        "industrialists_react_to_their_favored_steel_bust",
+        "distrust_still_increases_loan_interest",
+        "ordinary_bust_still_opposed_on_day_179"
+      ],
+      "failed": [
+        "six_quiet_years_rebuild_damaged_money_market_trust",
+        "distrust_adds_no_automatic_industrialist_blame",
+        "ordinary_bust_expires_by_day_181"
+      ],
+      "error_gate": {
+        "path": "runs/sweep_feedback_120_politics_r2_control/control_01/error.log",
+        "categories": {
+          "engine_or_basegame_other": 1357,
+          "mod_variable_load_warnings": 66
+        },
+        "blocking": 0
+      }
+    },
+    "static_report": "runs/feedback_120_verified_static.log",
+    "python_unit_tests": 74,
+    "tuner_parity_tests": 26,
+    "cmf_tests": 11,
+    "tuner_self_check": "66 constants matched; runs/feedback_120_verified_selfcheck.log"
+  },
+  "player_ui": {
+    "source": "1.2.0-beta.15, English. The beta.16 changes are ten translations and launcher metadata.",
+    "receipt": {
+      "screenshot": "runs/feedback_120_ui_r2/trust_breakdown.png",
+      "score_percent": 40,
+      "change_points": -9.9,
+      "displayed_components": {
+        "boom_endings": -3.8,
+        "panics": -6.9,
+        "lending": 0,
+        "bad_debts": 0,
+        "other": 0.8
+      },
+      "assertion": "actual_player_trust_receipt_reconciles"
+    },
+    "bulletin": {
+      "screenshot": "runs/feedback_120_ui_r2/market_bulletin.png",
+      "staple_fever": 2,
+      "industrial_corrections": 1,
+      "military_collapses": 1,
+      "stance_changes": 1
+    },
+    "error_gate": {
+      "path": "runs/feedback_120_ui_r2/profile/logs/error.log",
+      "categories": {
+        "engine_or_basegame_other": 255,
+        "mod_variable_load_warnings": 66
+      },
+      "blocking": 0
+    },
+    "named_rivals": {
+      "screenshot": "runs/continued_120_named/names_contact.png",
+      "opponents": [
+        "Paris",
+        "Berlin",
+        "Vienna"
+      ],
+      "ui_gate": {
+        "path": "runs/continued_120_named/profile/logs/error.log",
+        "categories": {
+          "basegame_script_errors": 1,
+          "engine_or_basegame_other": 262,
+          "mod_other_diagnostics": 2,
+          "mod_variable_load_warnings": 66
+        },
+        "blocking": 2
+      },
+      "old_save_before": {
+        "path": "runs/sweep_continued_120_rank_fixture/control_01/error.log",
+        "categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1538,
+          "mod_other_diagnostics": 2,
+          "mod_variable_load_warnings": 66
+        },
+        "blocking": 2
+      },
+      "old_save_after": {
+        "path": "runs/sweep_continued_120_rank_repaired/guarded_01/error.log",
+        "categories": {
+          "basegame_script_errors": 2,
+          "engine_or_basegame_other": 1538,
+          "mod_variable_load_warnings": 66
+        },
+        "blocking": 0
+      }
+    },
+    "financial_navigation": "Journal > Finance, CMF Organizations and native Ledger transitions were checked in the archived Russian save. Grain has per-good interventions; the removed Open Finance shortcut was absent.",
+    "legacy_debt_and_monetary_laws": "tests/mechanics/verification_review_120.json#legacy_save"
+  },
+  "compatibility": {
+    "packages": {
+      "channel": "1.2.0-beta.16",
+      "parent_sha256": "459ded2bde83928dec51f77106db6075e07560f9f185425ed592d1c41dd0daca",
+      "patches": {
+        "TechRes": {
+          "version": "1.2.0-test",
+          "id": "speculative_markets_techres",
+          "archive": "Speculative_Markets_TechRes_for_1.2.0-beta.16.zip",
+          "sha256": "4974c9c2adc6825f05560c1016cb30db50023bf303bc3dd4a480fcc98961bcce",
+          "files": 39
+        },
+        "CMF": {
+          "version": "1.0.4",
+          "id": "speculative_markets_cmf_compat",
+          "archive": "Speculative_Markets_CMF_for_1.2.0-beta.16.zip",
+          "sha256": "94fc0273d72f8ab1c3b2f3fb7e8ebb18eba42d347f5088c88aa0dcfc94d23943",
+          "files": 6,
+          "changed_since_beta10": []
+        }
+      },
+      "stack_evidence": "runs/feedback_120_stack/profile/logs",
+      "published": false
+    },
+    "joint_stack": {
+      "path": "runs/feedback_120_stack/profile/logs/error.log",
+      "categories": {
+        "basegame_script_errors": 35,
+        "engine_or_basegame_other": 2532,
+        "mod_variable_load_warnings": 66
+      },
+      "blocking": 0
+    },
+    "source": "runs/feedback_120_stack.py",
+    "assertion": "stack_techres_and_debt",
+    "techres_goods": 85,
+    "techres_parent_files_regenerated": 26,
+    "techres_extra_modifier_types": 4
+  },
+  "translation": {
+    "languages": 10,
+    "base_translated_per_language": 3147,
+    "techres_translated_per_language": 3847,
+    "earlier_source_fallback": 0,
+    "english_fallback": 0,
+    "missing_keys": 0,
+    "broken_placeholders": 0,
+    "evidence": [
+      "runs/feedback_120_release_gen.log",
+      "runs/feedback_120_release_i18n.log",
+      "runs/feedback_120_techres_build.log"
+    ],
+    "note": "Some language-native labels have the same spelling as English. Native-language UI and editorial review remain open."
+  },
+  "tuner": {
+    "default_policy_gates": "Central Banking and six monthly pulses between credit policy switches.",
+    "personalities": {
+      "country_temperaments": [
+        "Cautious",
+        "Balanced",
+        "Bold"
+      ],
+      "leverage_threshold_months": [
+        5,
+        8,
+        9.5
+      ],
+      "eligible_rescue_pct_per_month": [
+        15,
+        30,
+        50
+      ],
+      "credit_confidence_threshold_with_neutral_government": [
+        72,
+        80,
+        88
+      ],
+      "source": "tools/credit_ai.py",
+      "persistence": "One weighted roll per AI country, influenced by ruler, heir and economic law. Government lean changes with its interest groups. The AI preset models the country rules with economic-law weights. Player strategy presets and tuner target bands are offline benchmarks."
+    },
+    "selector": "The player finance policy scenario accepts a charter and fixed credit policy. Native AI decision rules stay active for peers.",
+    "exact_scope": "Per-good category confirmation uses the last complete turnover-weighted set of traded goods, including the good itself. Both prices and market composition are approximated offline.",
+    "corrected_regression": "The simulated episode endpoint formerly canceled the policy response. The neutral endpoint now passes the identical falling-price-path test.",
+    "selection_seed": 19,
+    "held_out": [
+      {
+        "seed": 911,
+        "run": "20261121-124228-3d49",
+        "original": 13,
+        "candidate": 18,
+        "means": {
+          "careful": {
+            "output_pct": 2.2213,
+            "pool_pct": 5.2228,
+            "panics_per_century": 1.128
+          },
+          "ai": {
+            "output_pct": 2.1862,
+            "pool_pct": 5.1077,
+            "panics_per_century": 4.144
+          },
+          "passive": {
+            "output_pct": 1.4993,
+            "pool_pct": 4.4721,
+            "panics_per_century": 5.708
+          },
+          "nobuy": {
+            "output_pct": -0.1888,
+            "pool_pct": 5.0771,
+            "panics_per_century": 9.454
+          },
+          "reckless": {
+            "output_pct": 0.5739,
+            "pool_pct": 5.5516,
+            "panics_per_century": 10.374
+          },
+          "skilled": {
+            "output_pct": 2.7065,
+            "pool_pct": 5.4236,
+            "panics_per_century": 1.978
+          }
+        }
+      },
+      {
+        "seed": 1123,
+        "run": "20261121-124300-1e32",
+        "original": 12,
+        "candidate": 18,
+        "means": {
+          "careful": {
+            "output_pct": 2.2664,
+            "pool_pct": 5.2857,
+            "panics_per_century": 1.052
+          },
+          "ai": {
+            "output_pct": 2.2204,
+            "pool_pct": 5.2322,
+            "panics_per_century": 4.084
+          },
+          "passive": {
+            "output_pct": 1.5573,
+            "pool_pct": 4.5741,
+            "panics_per_century": 5.672
+          },
+          "nobuy": {
+            "output_pct": -0.0467,
+            "pool_pct": 5.192,
+            "panics_per_century": 9.42
+          },
+          "reckless": {
+            "output_pct": 0.6863,
+            "pool_pct": 5.649,
+            "panics_per_century": 10.334
+          },
+          "skilled": {
+            "output_pct": 2.7568,
+            "pool_pct": 5.4966,
+            "panics_per_century": 1.944
+          }
+        }
+      },
+      {
+        "seed": 1301,
+        "run": "20261121-124331-0380",
+        "original": 13,
+        "candidate": 18,
+        "means": {
+          "careful": {
+            "output_pct": 2.2193,
+            "pool_pct": 5.2382,
+            "panics_per_century": 1.112
+          },
+          "ai": {
+            "output_pct": 2.2331,
+            "pool_pct": 5.2016,
+            "panics_per_century": 3.966
+          },
+          "nobuy": {
+            "output_pct": -0.0846,
+            "pool_pct": 5.1108,
+            "panics_per_century": 9.304
+          },
+          "passive": {
+            "output_pct": 1.5435,
+            "pool_pct": 4.5644,
+            "panics_per_century": 5.636
+          },
+          "skilled": {
+            "output_pct": 2.6903,
+            "pool_pct": 5.4196,
+            "panics_per_century": 1.992
+          },
+          "reckless": {
+            "output_pct": 0.6453,
+            "pool_pct": 5.5742,
+            "panics_per_century": 10.236
+          }
+        }
+      }
+    ],
+    "matched_starts": 1500,
+    "wins": {
+      "skilled_over_passive": 1363,
+      "skilled_over_reckless": 1421,
+      "skilled_over_both": 1336,
+      "careful_over_passive": 1128
+    },
+    "money_market_paired_starts": 900,
+    "money_market_eligible_country_months": {
+      "911": {
+        "normal": {
+          "months": 261823,
+          "mean_trust_pct": 31.40023642239378,
+          "distrusted_pct": 57.941051779255446,
+          "panic_pct": 2.5597445602563567,
+          "mean_lax": 0.5350213638973478
+        },
+        "tight": {
+          "months": 261823,
+          "mean_trust_pct": 89.00592607926464,
+          "distrusted_pct": 7.785030344927681,
+          "panic_pct": 0.027499493932924154,
+          "mean_lax": 0.33059631274469337
+        }
+      },
+      "1123": {
+        "normal": {
+          "months": 271365,
+          "mean_trust_pct": 34.39623156026301,
+          "distrusted_pct": 54.245757559007245,
+          "panic_pct": 2.481897075894091,
+          "mean_lax": 0.5113910580289054
+        },
+        "tight": {
+          "months": 271365,
+          "mean_trust_pct": 89.13533579881435,
+          "distrusted_pct": 7.650949827722808,
+          "panic_pct": 0.035376706649715324,
+          "mean_lax": 0.3147954543846873
+        }
+      },
+      "1301": {
+        "normal": {
+          "months": 271343,
+          "mean_trust_pct": 36.73719856170092,
+          "distrusted_pct": 52.34039573528707,
+          "panic_pct": 2.353110270027235,
+          "mean_lax": 0.4979340290295785
+        },
+        "tight": {
+          "months": 271343,
+          "mean_trust_pct": 89.57517916391923,
+          "distrusted_pct": 7.236597221966294,
+          "panic_pct": 0.039064947317601705,
+          "mean_lax": 0.30253239091662415
+        }
+      }
+    },
+    "watch_endpoint": "runs/feedback_120_watch_policy.log",
+    "price_regression_before": "runs/feedback_120_matched_red.log",
+    "limits": "GDP and investment pool effects are modeled. Building construction, full diplomatic networks and long-run interest-group approval are outside the strategy comparison."
+  },
+  "real_campaign_protocol": {
+    "opening": "The three builds share a February 1836 save. The earlier tuning and frozen controls continued from checkpoints. The final beta started again from the opening save.",
+    "original_save_sha256": "ed50b37928cf5b0a013757e026e044f0cc21f7661f230ad0938c394f1cb03791",
+    "provenance": "runs/feedback_120_release_campaigns/segments.json",
+    "game_end_target": "1900-01-02",
+    "diagnostics": "The beta.10 frozen control crashed with C0000005 in March 1856. A replay from the 1850 checkpoint passed that date. Windows later restarted during concurrent campaigns. The exact cause was unconfirmed. Recovery used one game process at a time.",
+    "subsequent_host_restart": {
+      "local_time": "2026-11-21 14:34 Eastern",
+      "windows_event_ids": {
+        "Kernel-Power": 41,
+        "WHEA-Logger": 1,
+        "stornvme": 11
+      },
+      "evidence": "Windows recorded a fatal hardware error and an unclean reboot with BugcheckCode 0. No additional probe samples survived the serial frozen control launch. The candidate and tuned control completed through 1900 before the restart. The error record alone does not identify the failing component or establish mod causation."
+    },
+    "crash_dump": "runs/continued_120_campaign/frozen_1856_crash/exception.txt",
+    "summarization": "One record per country tag and calendar month, choosing the largest GDP when multiple entities share a tag. Resumed timelines replace earlier segments from their first observed month. A panic start requires consecutive active observations. Shared starts do not guarantee the AI histories remain matched."
+  },
+  "real_campaigns": {
+    "candidate": {
+      "segments": [
+        {
+          "name": "feedback_120_release_candidate",
+          "recorded_state": "done",
+          "samples": 173007,
+          "source": "runs\\sweep_feedback_120_release_candidate\\candidate_01\\probe.log",
+          "first": "1836-02-02",
+          "last": "1900-01-01",
+          "error_log": "runs\\sweep_feedback_120_release_candidate\\candidate_01\\error.log",
+          "error_categories": {
+            "basegame_script_errors": 17124,
+            "engine_or_basegame_other": 3708,
+            "mod_variable_load_warnings": 66
+          },
+          "blocking_errors": 0
+        }
+      ],
+      "countries": 334,
+      "country_months": 173007,
+      "maxima": {
+        "bad": 20.0,
+        "bite": 20.0,
+        "bite_pct": 40.0
+      },
+      "first_at_max": {
+        "bad": [
+          "BGI",
+          "1850-05-02"
+        ],
+        "bite": [
+          "BGI",
+          "1851-01-27"
+        ],
+        "bite_pct": [
+          "BGI",
+          "1851-01-27"
+        ]
+      },
+      "breaching_tags": [],
+      "totals": {
+        "rescued_months": 271,
+        "gp_months": 4630,
+        "industrialist_bust_months": 884,
+        "panic_months": 756,
+        "panic_starts": 294,
+        "rescue_starts": 170
+      },
+      "gp_panic_starts": {
+        "FRA": 6,
+        "GBR": 5,
+        "PRU": 1,
+        "USA": 1,
+        "BHT": 1
+      },
+      "gp_panic_start_dates": [
+        [
+          "FRA",
+          "1846-11-02"
+        ],
+        [
+          "GBR",
+          "1853-08-03"
+        ],
+        [
+          "PRU",
+          "1856-07-14"
+        ],
+        [
+          "FRA",
+          "1859-06-30"
+        ],
+        [
+          "GBR",
+          "1862-01-20"
+        ],
+        [
+          "FRA",
+          "1867-12-17"
+        ],
+        [
+          "GBR",
+          "1876-10-07"
+        ],
+        [
+          "USA",
+          "1876-10-28"
+        ],
+        [
+          "FRA",
+          "1884-10-23"
+        ],
+        [
+          "GBR",
+          "1886-06-19"
+        ],
+        [
+          "FRA",
+          "1888-07-05"
+        ],
+        [
+          "BHT",
+          "1892-08-26"
+        ],
+        [
+          "FRA",
+          "1893-01-11"
+        ],
+        [
+          "GBR",
+          "1895-03-06"
+        ]
+      ],
+      "long_depressions_first_seen": {
+        "1": "1876-11-02"
+      },
+      "origins": {
+        "USA": "1876-11-27"
+      },
+      "britain_1868_1899": {
+        "months": {
+          "normal": 295,
+          "tight": 50,
+          "loose": 34
+        },
+        "longest_tight_months": 6
+      },
+      "eligible_money_market_trust": {
+        "normal": {
+          "months": 14746,
+          "mean_pct": 44.2,
+          "distrusted_pct": 47.68
+        },
+        "tight": {
+          "months": 592,
+          "mean_pct": 34.73,
+          "distrusted_pct": 54.39
+        },
+        "loose": {
+          "months": 940,
+          "mean_pct": 27.68,
+          "distrusted_pct": 64.68
+        }
+      },
+      "sustained_money_market_tight": {
+        "minimum_months": 24,
+        "episodes": 1,
+        "longest": {
+          "tag": "BRE",
+          "start": "1895-06-23",
+          "months": 24,
+          "first_pct": 13.333341666666666,
+          "last_pct": 18.435175,
+          "end": "1897-05-14"
+        },
+        "median_change_points": 5.1
+      },
+      "industrialist_approval": {
+        "months": 173007,
+        "median": -2.0,
+        "min": -20.0,
+        "max": 20.0,
+        "at_or_below_minus_15": 3106,
+        "countries_observed_at_least_five_years": 300,
+        "half_or_more_months_at_or_below_minus_15": []
+      }
+    },
+    "trial": {
+      "segments": [
+        {
+          "name": "continued_120_campaign",
+          "recorded_state": "running",
+          "samples": 135057,
+          "source": "G:\\GameDev\\_claude_scratch\\vic\\g1795277478366975300\\mirror.log",
+          "first": "1836-02-02",
+          "last": "1883-03-11",
+          "error_log": "G:\\GameDev\\_claude_scratch\\vic\\g1795277478366975300\\error_mirror.log",
+          "error_categories": {
+            "basegame_script_errors": 549,
+            "engine_or_basegame_other": 2854,
+            "mod_variable_load_warnings": 66
+          },
+          "blocking_errors": 0
+        },
+        {
+          "name": "feedback_120_release_trial",
+          "recorded_state": "done",
+          "samples": 39132,
+          "source": "runs\\sweep_feedback_120_release_trial\\trial_01\\probe.log",
+          "first": "1883-01-02",
+          "last": "1900-01-01",
+          "error_log": "runs\\sweep_feedback_120_release_trial\\trial_01\\error.log",
+          "error_categories": {
+            "basegame_script_errors": 2830,
+            "engine_or_basegame_other": 4542,
+            "mod_variable_load_warnings": 66
+          },
+          "blocking_errors": 0
+        }
+      ],
+      "countries": 327,
+      "country_months": 173711,
+      "maxima": {
+        "bad": 20.0,
+        "bite": 20.0,
+        "bite_pct": 40.0
+      },
+      "first_at_max": {
+        "bad": [
+          "BIK",
+          "1840-10-01"
+        ],
+        "bite": [
+          "WLT",
+          "1844-05-18"
+        ],
+        "bite_pct": [
+          "WLT",
+          "1844-05-18"
+        ]
+      },
+      "breaching_tags": [],
+      "totals": {
+        "rescued_months": 269,
+        "gp_months": 4593,
+        "panic_months": 851,
+        "panic_starts": 332,
+        "rescue_starts": 171
+      },
+      "gp_panic_starts": {
+        "USA": 1,
+        "FRA": 6,
+        "PRU": 2,
+        "GBR": 4,
+        "SPA": 1
+      },
+      "gp_panic_start_dates": [
+        [
+          "USA",
+          "1838-08-09"
+        ],
+        [
+          "FRA",
+          "1844-02-15"
+        ],
+        [
+          "FRA",
+          "1845-06-10"
+        ],
+        [
+          "PRU",
+          "1846-02-04"
+        ],
+        [
+          "FRA",
+          "1847-05-01"
+        ],
+        [
+          "PRU",
+          "1847-10-27"
+        ],
+        [
+          "FRA",
+          "1853-06-30"
+        ],
+        [
+          "GBR",
+          "1854-06-29"
+        ],
+        [
+          "GBR",
+          "1855-09-22"
+        ],
+        [
+          "GBR",
+          "1860-09-27"
+        ],
+        [
+          "FRA",
+          "1876-09-03"
+        ],
+        [
+          "FRA",
+          "1878-06-25"
+        ],
+        [
+          "GBR",
+          "1889-04-05"
+        ],
+        [
+          "SPA",
+          "1893-08-06"
+        ]
+      ],
+      "long_depressions_first_seen": {
+        "1": "1876-10-02"
+      },
+      "origins": {
+        "FRA": "1876-10-03"
+      },
+      "britain_1868_1899": {
+        "months": {
+          "normal": 175,
+          "tight": 204
+        },
+        "longest_tight_months": 23
+      },
+      "eligible_money_market_trust": {},
+      "sustained_money_market_tight": {
+        "minimum_months": 24,
+        "episodes": 0,
+        "longest": null,
+        "median_change_points": null
+      },
+      "industrialist_approval": null
+    },
+    "frozen": {
+      "segments": [
+        {
+          "name": "continued_120_campaign",
+          "recorded_state": "crashed",
+          "samples": 65519,
+          "source": "runs\\sweep_continued_120_campaign\\frozen_01\\probe.log",
+          "first": "1836-02-02",
+          "last": "1856-03-13",
+          "error_log": "runs\\sweep_continued_120_campaign\\frozen_01\\error.log",
+          "error_categories": {
+            "basegame_script_errors": 1767,
+            "engine_or_basegame_other": 1666,
+            "mod_variable_load_warnings": 66
+          },
+          "blocking_errors": 0
+        },
+        {
+          "name": "continued_120_frozen_resume",
+          "recorded_state": "running",
+          "samples": 59561,
+          "source": "G:\\GameDev\\_claude_scratch\\vic\\g1795279678276351000\\mirror.log",
+          "first": "1850-01-02",
+          "last": "1872-03-01",
+          "error_log": "G:\\GameDev\\_claude_scratch\\vic\\g1795279678276351000\\error_mirror.log",
+          "error_categories": {
+            "basegame_script_errors": 5855,
+            "engine_or_basegame_other": 2676,
+            "mod_variable_load_warnings": 66
+          },
+          "blocking_errors": 0
+        }
+      ],
+      "countries": 321,
+      "country_months": 105859,
+      "maxima": {
+        "bad": 20.0,
+        "bite": 20.0,
+        "bite_pct": 40.0
+      },
+      "first_at_max": {
+        "bad": [
+          "WTU",
+          "1854-12-05"
+        ],
+        "bite": [
+          "WTU",
+          "1856-06-28"
+        ],
+        "bite_pct": [
+          "WTU",
+          "1856-06-28"
+        ]
+      },
+      "breaching_tags": [],
+      "totals": {
+        "rescued_months": 137,
+        "gp_months": 3138,
+        "panic_months": 324,
+        "panic_starts": 127,
+        "rescue_starts": 72
+      },
+      "gp_panic_starts": {
+        "FRA": 2,
+        "SPA": 1,
+        "PRU": 1,
+        "GBR": 2,
+        "USA": 2,
+        "TUR": 2,
+        "RUS": 1
+      },
+      "gp_panic_start_dates": [
+        [
+          "FRA",
+          "1843-03-22"
+        ],
+        [
+          "SPA",
+          "1845-11-04"
+        ],
+        [
+          "FRA",
+          "1849-02-20"
+        ],
+        [
+          "PRU",
+          "1852-08-03"
+        ],
+        [
+          "GBR",
+          "1853-07-04"
+        ],
+        [
+          "USA",
+          "1862-11-07"
+        ],
+        [
+          "TUR",
+          "1866-03-26"
+        ],
+        [
+          "USA",
+          "1869-04-06"
+        ],
+        [
+          "RUS",
+          "1871-03-04"
+        ],
+        [
+          "TUR",
+          "1871-04-30"
+        ],
+        [
+          "GBR",
+          "1871-07-04"
+        ]
+      ],
+      "long_depressions_first_seen": {
+        "1": "1871-04-02"
+      },
+      "origins": {
+        "RUS": "1871-04-03"
+      },
+      "britain_1868_1899": {
+        "months": {
+          "normal": 34,
+          "tight": 16
+        },
+        "longest_tight_months": 16
+      },
+      "eligible_money_market_trust": {},
+      "sustained_money_market_tight": {
+        "minimum_months": 24,
+        "episodes": 0,
+        "longest": null,
+        "median_change_points": null
+      },
+      "industrialist_approval": null
+    }
+  },
+  "supplemental_test_status": {
+    "building": {
+      "status": "prepared; no result",
+      "procedure": "Uruguay 1836, same save with or without one new textile mill. Observe native clothes prices, original price spread, category-supported spread and interest."
+    },
+    "money_market": {
+      "status": "prepared; no result",
+      "procedure": "Austria and Belgium already held Money Market in the 1860 candidate save. Replay each on Tight and Normal for five native years through the same credit-policy eligibility and button effects."
+    }
+  },
+  "development_install": {
+    "folder": "build_scratch/rivals_live",
+    "previous_version": "1.2.0-beta.4",
+    "version": "1.2.0-beta.16",
+    "previous_backup": "runs/feedback_120_prior_dev",
+    "payload_files_verified": 225,
+    "written": 29,
+    "additional_launcher_artwork": {
+      "thumbnail.png": "2d6c240c2656a1014974ad8c9a3a0b7d7bfbf1a9194824038e01263cc0ffe68a"
+    },
+    "native_campaign_uses_separate_copy": true,
+    "changed_playset": false
+  }
+}

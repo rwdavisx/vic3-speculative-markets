@@ -6,7 +6,7 @@ The GUI re-evaluates every visible expression every frame, so the rows read figu
 (spec_ui_*_<good>, one variable read per test) instead of working them out from interest, peak and risk; tooltips,
 which run on hover only, keep their own expressions."""
 import levers
-from market_tab import fx, good_var, RISK, WORD, TREND, LEANING, CATEGORIES, NEAR_PEAK, any_of
+from market_tab import fx, good_var, gt, RISK, WORD, TREND, LEANING, CATEGORIES, NEAR_PEAK, any_of
 
 # the interest words' colours, warm to cold; Calm has none
 HEAT = {6: "0.80 0.32 0.22", 5: "0.78 0.52 0.24", 4: "0.70 0.64 0.36", 3: None, 2: "0.34 0.48 0.64", 1: "0.28 0.34 0.68"}
@@ -125,7 +125,22 @@ def loc(k):
     # only the top band reads its bar out, as collapse danger. Below it no next band is named: that read as if interest
     # only ever rose
     pct = f"[{BAR}|%0]"
-    out += (f" SPEC_TILE_NEXT: \"[SelectLocalization({eq(WORD, 6)}, 'SPEC_TILE_DANGER', 'SPEC_IB_EMPTY')]\"\n"
+    term = good_var("spec_term")
+    remaining = f"Multiply_CFixedPoint({term}, {fx(-1)})"
+    status = (f"[AddLocalizationIf({gt(term)}, 'SPEC_TERM_FAV')]"
+              f"[AddLocalizationIf(LessThan_CFixedPoint({term}, {fx(0)}), 'SPEC_TERM_SHUN')]"
+              f"[AddLocalizationIf(And(Not({eq(term, 0)}), {gt(good_var('spec_glut'))}), 'SPEC_TERM_GLUT')]")
+    out += (f' SPEC_TERM_FAV: "\\n$SPEC_JE_FAVOURED$ · Sustained high prices · +12% [concept_spec_investor_interest] · Months remaining: [{term}|0]"\n'
+            f' SPEC_TERM_SHUN: "\\n$SPEC_JE_SHUNNED$ · Sustained low prices · −12% [concept_spec_investor_interest] · Months remaining: [{remaining}|0]"\n'
+            ' SPEC_TERM_GLUT: "\\nThe glut temporarily overrides this effect."\n')
+    for label, side, modifier, months in (("FAVOURED", "FAV", "#P +12%#!", term), ("SHUNNED", "SHUN", "#N −12%#!", remaining)):
+        left = f"[SelectLocalization({eq(months, 1)}, 'SPEC_RV_MONTH_LEFT', 'SPEC_RV_MONTHS_LEFT')]"
+        out += (f' SPEC_JE_{label}_GOOD_TT: "#header [Goods.GetName] · $SPEC_JE_{label}$#!\\n$TOOLTIP_DELIMITER$\\n'
+                f'{modifier} [concept_spec_investor_interest]   ·   #v [{months}|0]#! {left}'
+                f"[AddLocalizationIf({gt(good_var('spec_glut'))}, 'SPEC_TERM_GLUT')]\\n"
+                f'[concept_spec_investor_interest]   $SPEC_INTEREST$\\n[concept_throughput]   $SPEC_PULL$'
+                f'\\n\\n$SPEC_{side}_REASON$\\n#weak $SPEC_{side}_PLAY$#!"\n')
+    out += (f" SPEC_TILE_NEXT: \"[SelectLocalization({eq(WORD, 6)}, 'SPEC_TILE_DANGER', 'SPEC_IB_EMPTY')]{status}\"\n"
             " SPEC_IB_EMPTY: \"\"\n"
             f" SPEC_TILE_DANGER: \"\\nIt is #v {pct}#! of the way to the top, and the higher it climbs, the "
             f"more {conf} a [concept_spec_collapse] would cost\"\n")

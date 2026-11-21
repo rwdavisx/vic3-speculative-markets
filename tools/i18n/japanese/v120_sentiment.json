@@ -1,0 +1,21 @@
+{
+  "048c689ff2": "投資家はこれらの商品を生産する施設に積極的に資金を提供します。",
+  "04d0476db0": "売り注文があり、価格が{2}か月連続で[concept_base_price]を{1}%以上下回った商品は、毎月、投資家に敬遠される可能性があります。最大{3}商品で、{5}か月間[concept_spec_investor_interest]が{4}%低下します。$SPEC_TERM_ODDS$",
+  "16d85d0cd2": "投資家はこれらの商品を生産する施設への資金提供に消極的です。",
+  "1bd7d60ba4": "この商品を消費する産業は、安い投入財を活用しながら需要を下支えできます。",
+  "386887ea06": "\\n供給過剰の間、この効果は一時停止します。",
+  "3c25676a9b": "人気",
+  "5a0e210375": "\\n$SPEC_JE_FAVOURED$ · 高値が持続 · +{1}% [concept_spec_investor_interest] · 残り月数: {2}",
+  "7b44aceea9": "売り注文があり、価格が[concept_base_price]を{2}%以上上回る月が{1}か月続くと、その商品は毎月の抽選対象になります。",
+  "7f140061bd": "売り注文があり、価格が{2}か月連続で[concept_base_price]を{1}%以上上回った商品は、毎月、投資家に選ばれる可能性があります。最大{3}商品で、{5}か月間[concept_spec_investor_interest]が{4}%上昇します。$SPEC_TERM_ODDS$",
+  "8657700118": "\\n$SPEC_JE_SHUNNED$ · 安値が持続 · −{1}% [concept_spec_investor_interest] · 残り月数: {2}",
+  "93d5a8e665": "{1}に競争を挑んでいる取引所",
+  "b3f9880984": "各対象商品は一つの部門に属します。グラフは売りに出ている対象商品の価値を[concept_base_price]で計算します。供給額の割合が大きい商品ほど部門の傾向に強く影響します。部門の動きが商品より小さいか逆方向なら、価格が[concept_spec_investor_interest]に与える影響は最大で半減します。",
+  "c4281b915f": "増産する前に、投入財の費用と好況に伴うリスクを確認しましょう。",
+  "d7920e3b73": "{1}が指名した競争相手",
+  "e01f2a24fa": "#header $SPEC_JE_SHUNNED$#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_SHUN_IMPACT$\\n\\n#N −{1}%#! [concept_spec_investor_interest] · {2}か月 · 最大{3}品目\\n\\n$SPEC_SHUN_REASON$$SPEC_TERM_ODDS$",
+  "e577858e6d": "売り注文があり、価格が[concept_base_price]を{2}%以上下回る月が{1}か月続くと、その商品は毎月の抽選対象になります。",
+  "ef12a1b38e": "#header $SPEC_JE_FAVOURED$#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_FAV_IMPACT$\\n\\n#P +{1}%#! [concept_spec_investor_interest] · {2}か月 · 最大{3}品目\\n\\n$SPEC_FAV_REASON$$SPEC_TERM_ODDS$",
+  "fc2d9763d8": "\\n供給量が少ない商品も対象です。条件を{1}か月満たすか、供給額が市場全体の{2}%以上になると、選ばれる確率が上がります。",
+  "fd3d5b6ca0": "部門別の市場供給"
+}

@@ -1,5 +1,7 @@
 ﻿# Speculative Markets - Tech & Res Compatibility
 
+The local 1.2.0-beta.16 candidate uses the current beta as its parent and covers 85 goods. It includes the same category trends, Authority cap and domestic bulletin as the parent. The [candidate manifest](../../beta/feedback_120/releases/compatibility.manifest.json) identifies the 39-file candidate used in the joint engine smoke test.
+
 **Published 1.0.0** (2026-11-18), Workshop [3841713072](https://steamcommunity.com/sharedfiles/filedetails/?id=3841713072), built against Speculative Markets 1.1.4, Tech & Res 1.7 (Workshop 3472248460), Victoria 3 1.15.1.
 **Published 1.0.1** (2026-11-18 UTC, public, receipt `20261118T023337.975103Z_techres_update_verified_ee8d5d6e.json`):
 `runs/techres/v1_0_1_meta/mod`, archive `releases/Speculative_Markets_TechRes_Compatibility_1.0.1.zip`, the 1.0.0 files with only the metadata changed.

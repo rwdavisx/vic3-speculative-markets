@@ -1,0 +1,12 @@
+{
+  "spec_test_feedback_standards": {
+    "path": "common/on_actions/spec_on_actions.txt",
+    "start": "# lending standards and boom construction (cycle.py)\n",
+    "end": "# land lost: the average income is the income these loans were taken on. A repeat loss during the relief adds nothing"
+  },
+  "spec_test_feedback_trust": {
+    "path": "common/scripted_effects/spec_centre_effects.txt",
+    "start": "\t\t\t\t\tset_variable = { name = spec_centre_calm value = var:spec_calm }\n\t\t\t\t}\n\t\t\t}\n",
+    "end": "\t\t\tif = {\n\t\t\t\tlimit = { is_player = no }\n\t\t\t\tif = {\n\t\t\t\t\tlimit = {\n\t\t\t\t\t\tspec_can_pledge = yes"
+  }
+}

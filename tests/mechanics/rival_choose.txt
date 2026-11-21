@@ -39,11 +39,16 @@ else = { debug_log = "HOTFIX FAIL kept_a_year" }
 clear_variable_list = spec_rv_keep
 if = { limit = { spec_can_rv_end = yes } debug_log = "HOTFIX PASS may_drop_after_a_year" }
 else = { debug_log = "HOTFIX FAIL may_drop_after_a_year" }
+remove_list_variable = { name = spec_rv_age_0 target = c:FRA }
+add_to_variable_list = { name = spec_rv_age_17 target = c:FRA }
+add_to_variable_list = { name = spec_rv_push_1 target = c:FRA }
 spec_rv_end = yes
 if = { limit = { NOT = { c:GBR = { is_target_in_variable_list = { name = spec_rv_chosen target = c:FRA } } } c:GBR = { var:spec_rv_n_chosen = 0 } NOT = { spec_rv_pair = yes } } debug_log = "HOTFIX PASS drop_removes_and_counts" }
 else = { debug_log = "HOTFIX FAIL drop_removes_and_counts" }
 c:GBR = { set_variable = { name = spec_exch_stand value = 2 } set_variable = { name = spec_centre_score value = 100 } }
 spec_rv_choose = yes
+if = { limit = { is_target_in_variable_list = { name = spec_rv_age_0 target = c:FRA } NOR = { is_target_in_variable_list = { name = spec_rv_age_17 target = c:FRA } is_target_in_variable_list = { name = spec_rv_push_1 target = c:FRA } } } debug_log = "HOTFIX PASS renaming_starts_fresh_contest" }
+else = { debug_log = "HOTFIX FAIL renaming_starts_fresh_contest" }
 c:PRU = { save_scope_as = target }
 if = { limit = { spec_can_rv_choose = yes } debug_log = "HOTFIX PASS two_slots_from_international" }
 else = { debug_log = "HOTFIX FAIL two_slots_from_international" }

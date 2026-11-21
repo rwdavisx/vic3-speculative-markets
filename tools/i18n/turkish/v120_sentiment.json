@@ -1,0 +1,21 @@
+{
+  "048c689ff2": "Yatırımcılar bu malları üreten binaları finanse etmeye daha isteklidir.",
+  "04d0476db0": "Satışa sunulan ve fiyatı art arda {2} ay boyunca [concept_base_price] düzeyinin en az %{1} altında kalan mallar her ay yatırımcıların gözünden düşebilir. En fazla {3} malın [concept_spec_investor_interest] değeri {5} ay boyunca %{4} azalır.$SPEC_TERM_ODDS$",
+  "16d85d0cd2": "Yatırımcılar bu malları üreten binaları finanse etmeye daha az isteklidir.",
+  "1bd7d60ba4": "Bu malı kullanan bir sektör ucuz girdilerden yararlanabilir ve talebi destekleyebilir.",
+  "386887ea06": "\\nArz fazlası bu etkiyi geçici olarak devre dışı bırakır.",
+  "3c25676a9b": "Gözde",
+  "5a0e210375": "\\n$SPEC_JE_FAVOURED$ · Süregelen yüksek fiyatlar · +{1}% [concept_spec_investor_interest] · Kalan ay: {2}",
+  "7b44aceea9": "Bir mal, art arda {1} ay boyunca satış emri varsa ve fiyatı [concept_base_price] düzeyinin en az %{2} üzerindeyse aylık çekilişe katılır.",
+  "7f140061bd": "Satışa sunulan ve fiyatı art arda {2} ay boyunca [concept_base_price] düzeyinin en az %{1} üzerinde kalan mallar her ay yatırımcıların gözdesi olabilir. En fazla {3} malın [concept_spec_investor_interest] değeri {5} ay boyunca %{4} artar.$SPEC_TERM_ODDS$",
+  "8657700118": "\\n$SPEC_JE_SHUNNED$ · Süregelen düşük fiyatlar · −{1}% [concept_spec_investor_interest] · Kalan ay: {2}",
+  "93d5a8e665": "{1} ile rekabet eden borsalar",
+  "b3f9880984": "İzlenen her mal tek bir sektöre aittir. Grafik, satışa sunulan tüm izlenen malları [concept_base_price] üzerinden değerlendirir. Arz değerinde daha büyük paya sahip mallar sektör eğilimini daha fazla etkiler. Sektördeki hareket daha zayıfsa veya ters yöndeyse fiyatın [concept_spec_investor_interest] üzerindeki etkisi yarıya kadar düşebilir.",
+  "c4281b915f": "Üretimi artırmadan önce girdi maliyetlerini ve patlamadan kaynaklanan riskleri kontrol et.",
+  "d7920e3b73": "{1} tarafından seçilen rakipler",
+  "e01f2a24fa": "#header $SPEC_JE_SHUNNED$#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_SHUN_IMPACT$\\n\\n#N −{1}%#! [concept_spec_investor_interest] · {2} ay · En fazla {3} mal\\n\\n$SPEC_SHUN_REASON$$SPEC_TERM_ODDS$",
+  "e577858e6d": "Bir mal, art arda {1} ay boyunca satış emri varsa ve fiyatı [concept_base_price] düzeyinin en az %{2} altındaysa aylık çekilişe katılır.",
+  "ef12a1b38e": "#header $SPEC_JE_FAVOURED$#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_FAV_IMPACT$\\n\\n#P +{1}%#! [concept_spec_investor_interest] · {2} ay · En fazla {3} mal\\n\\n$SPEC_FAV_REASON$$SPEC_TERM_ODDS$",
+  "fc2d9763d8": "\\nAz miktarda sunulan mallar da seçilebilir. Koşulları {1} ay karşılamak veya piyasa arzının değer olarak en az %{2} kadarını oluşturmak seçilme şansını artırır.",
+  "fd3d5b6ca0": "Sektörlere göre piyasa arzı"
+}

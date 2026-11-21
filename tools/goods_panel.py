@@ -166,12 +166,11 @@ def block_type():
 
 # Shared Finance destination for the journal shortcut.
 # ponytail: four onclicks through the one onclick = "{OPEN_TAB}" its users write
-# Closing the native panel destroys its custom widgets and can stop the remaining
-# onclicks. Prepare the destination first; ClosePanel must be the final action.
+# Keep the Financial Markets entry underneath Finance for its map mode.
 OPEN_TAB = ("[GetVariableSystem.Clear('spec_pick_slot')]\"\n"
             "\t\tonclick = \"[GetVariableSystem.Set('spec_finance_tab', 'booms')]\"\n"
-            "\t\tonclick = \"[GetVariableSystem.Set('spec_finance', 'open')]\"\n"
-            "\t\tonclick = \"[GetVariableSystem.Clear('spec_finance_next')]")  # no-op: the entry's panel stays open under Finance (market_tab.JE_PANEL)
+            "\t\tonclick = \"[GetVariableSystem.Set('spec_finance', 'journal_map')]\"\n"
+            "\t\tonclick = \"[GetVariableSystem.Clear('spec_finance_next')]")
 
 
 def patch(gui):

@@ -1,0 +1,14 @@
+{
+  "086b1ead63": "Banki wstrzymują udzielanie kredytów, gdy [concept_spec_bad_debts] przekraczają limit wynikający z [concept_spec_lending_standards]",
+  "11d5c39c51": "Banki wciąż podliczają straty z ostatniej hossy. Im wyższe straty, #N tym mniej kredytów udzielają#!. Po przekroczeniu limitu wyznaczonego przez [concept_spec_lending_standards] wstrzymują kredyty.\\nDziałanie #v Pożycz bankom#! nie usuwa tych strat.\\nDziałanie #v Wykup złe kredyty#! usuwa {1}% strat, raz na okres zadłużenia.",
+  "154ba54579": "\\n#v x{1}#! z powodu [concept_spec_bad_debts]",
+  "40d398c68c": "W ciągu ostatnich #v {1}#! mies. nie włączano ani nie wyłączano tej interwencji albo od jej włączenia minęło mniej niż #v {2}#! dni i nadal można ją cofnąć.",
+  "508f3e9b55": "Kredyty z okresu hossy okazały się nieściągalne. W nadchodzących miesiącach [concept_spec_bad_debts] zmniejszą [concept_throughput] o #N {1}%#!. Następnie będą maleć i znikną w ciągu #v {2}#! mies. Do tego czasu banki udzielą mniej kredytów. Działanie #v Pożycz bankom#! nie usuwa tych długów.",
+  "923b245d95": "Banki wstrzymują udzielanie kredytów, gdy [concept_spec_bad_debts] przekraczają limit wynikający z [concept_spec_lending_standards].",
+  "a01525d299": "\\nKara nadal rośnie o #N {1}%#! miesięcznie, aż do #N -{2}%#!.",
+  "c465eba044": "@spec_bad_debts! [concept_spec_bad_debts] maleją o #P {1}%#!. Ich spłata zajmie #v {2}#! mies. zamiast #v {3}#!.",
+  "c55c523e35": "\\n#P +@money!{1}#! udzielono w tym miesiącu",
+  "d1f5b6ea71": "Wybierz #v Wykup złe kredyty#! na karcie #bold $SPEC_FIN_TAB_BANKING$#! w oknie #bold $SPEC_FINANCE$#!. Dostępne raz w trakcie tego zadłużenia.\\nRedukuje pozostałe [concept_spec_bad_debts] o #P {1}%#!.\\nKoszt: #v @money!{2}#!",
+  "d4fbe0f156": "Aby zmniejszyć ryzyko, ogranicz spekulację najbardziej ryzykownymi towarami na karcie #bold $SPEC_FIN_TAB_BOOMS$#! lub zaostrz [concept_spec_credit_policy] na karcie #bold $SPEC_FIN_TAB_BANKING$#!.",
+  "dccbb4fb0f": "#N Banki przestają udzielać kredytów#! na rzecz [concept_investment_pool]\\nInwestorzy reagują na zmiany cen o #N {1}%#! słabiej\\n#P Mniejsze boomy#!, łagodniejsze finały i słabsze paniki\\n[concept_spec_bad_debts] są likwidowane o #P {2}%#! szybciej\\nCo miesiąc znika #N {3}%#! zaufania ([concept_spec_market_confidence]) powyżej #v {4}#!\\n\\nBlokuje [concept_spec_credit_policy] na #v {5}#! mies.\\nWymaga: {6}\\n\\n@intelligentsia! Inteligencja ([concept_in_government]): #P +{7}#! [concept_approval]\\n@industrialists! Przemysłowcy ([concept_in_government]): #N -{8}#! [concept_approval]"
+}

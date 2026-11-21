@@ -1,0 +1,14 @@
+{
+  "086b1ead63": "[concept_spec_bad_debts] tutarı [concept_spec_lending_standards] kapsamında izin verilen sınırı aştığı sürece bankalar kredi vermez",
+  "11d5c39c51": "Bankalar son yükselişin zararlarını hâlâ hesaplıyor. Zarar arttıkça #N daha az kredi verirler#!. Zarar, [concept_spec_lending_standards] kapsamında izin verilen sınırı aştığında krediler durur.\\n#v Bankalara Borç Ver#! bu zararı temizlemez.\\n#v Batık Kredileri Satın Al#! zarar devam ederken bir kez kullanılarak zararın {1}% kadarını temizler.",
+  "154ba54579": "\\n#v x{1}#! [concept_spec_bad_debts] nedeniyle",
+  "40d398c68c": "Son #v {1}#! ay içinde açılıp kapatılmadı veya #v {2}#! günden kısa süre önce etkinleştirildiği için hâlâ geri alınabilir.",
+  "508f3e9b55": "Yükseliş döneminde verilen krediler battı. Önümüzdeki aylarda [concept_spec_bad_debts], [concept_throughput] düzeyini #N {1}%#! azaltacak. Etkisi giderek zayıflayacak ve #v {2}#! ayda ortadan kalkacak. Bu sürede bankalar daha az kredi verecek. #v Bankalara Borç Ver#! bu borçları temizlemez.",
+  "923b245d95": "[concept_spec_bad_debts] tutarı [concept_spec_lending_standards] kapsamında izin verilen sınırı aştığı sürece bankalar kredi vermez.",
+  "a01525d299": "\\nCeza ayda #N {1}%#! büyümeye devam eder ve #N -{2}%#! düzeyine ulaşır.",
+  "c465eba044": "@spec_bad_debts! [concept_spec_bad_debts] #P {1}%#! azalır ve #v {3}#! ay yerine #v {2}#! ayda temizlenir.",
+  "c55c523e35": "\\n#P +@money!{1}#! bu ay verilen kredi",
+  "d1f5b6ea71": "#bold $SPEC_FINANCE$#! penceresinin #bold $SPEC_FIN_TAB_BANKING$#! sekmesinde #v Batık Kredileri Satın Al#! eylemini seçin. Bu borç dönemi boyunca bir kez kullanılabilir.\\nKalan [concept_spec_bad_debts] tutarının #P {1}%#! kadarı temizlenir.\\nMaliyet: #v @money!{2}#!",
+  "d4fbe0f156": "Riski azaltmak için #bold $SPEC_FIN_TAB_BOOMS$#! sekmesinde en riskli mallardaki spekülasyonu kısıtlayın veya #bold $SPEC_FIN_TAB_BANKING$#! sekmesinde [concept_spec_credit_policy] uygulamasını sıkılaştırın.",
+  "dccbb4fb0f": "Bankalar [concept_investment_pool] için #N kredi vermeyi durdurur#!\\nYatırımcılar fiyat hareketlerine #N {1}%#! daha az tepki verir\\n#P Daha küçük yükselişler#!, daha yumuşak bitişler ve daha hafif panikler\\n[concept_spec_bad_debts] #P {2}%#! daha hızlı temizlenir\\nHer ay [concept_spec_market_confidence] değerinin #v {4}#! üzerindeki kısmının #N %{3}#! kadarı erir\\n\\n[concept_spec_credit_policy] #v {5}#! ay kilitlenir\\n{6} gerekir\\n\\n@intelligentsia! Aydınlar [concept_in_government]: #P +{7}#! [concept_approval]\\n@industrialists! Sanayiciler [concept_in_government]: #N -{8}#! [concept_approval]"
+}

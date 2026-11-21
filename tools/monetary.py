@@ -32,8 +32,7 @@ VARIANTS = {
 }
 for _v, (_p, _, _x, *_) in VARIANTS.items():  # a variant's figures: its parent's, with its own in place
     FX[_v] = {**FX[_p], **_x}
-# a planned economy issues its own money: each law disallows the other (the vanilla law by INJECT, which appends to its
-# disallowing_laws); SWAP moves a country an event put on both onto Fiat Money
+# Command Economy can be enacted while on gold. SWAP then moves the country to Fiat Money.
 NO_GOLD = "command_economy"
 GOLD_AT_START = ["GBR"]     # on gold since 1821; the rest of the world was on silver or both metals in 1836
 FIAT_TECH = "central_banking"
@@ -53,6 +52,8 @@ VIEWS = {
     "ideology_paternalistic": ("approve", "neutral", "disapprove"),         # Landowners: the bimetallist leagues
     "ideology_republican_paternalistic": ("approve", "neutral", "disapprove"),  # Landowners in a republic (history/global)
     "ideology_junker_paternalistic": ("approve", "neutral", "disapprove"),  # Prussia's: the Junkers led the bimetallists
+    "ideology_magnatial": ("approve", "neutral", "disapprove"),  # British landed gentry
+    "ideology_agrarian_jeffersonian": ("approve", "disapprove", "neutral"),
     "ideology_agrarian": ("approve", "disapprove", "neutral"),              # Rural Folk: indebted farmers, free silver
     "ideology_populist": ("neutral", "disapprove", "approve"),              # Trade Unions: the greenbackers
 }
@@ -115,8 +116,7 @@ def _law(law):
     tech = f"\tunlocking_technologies = {{\n\t\t{FIAT_TECH}\n\t}}\n\n" if parent == "fiat_money" else ""
     if parent == "gold_standard":
         tech = f"\tdisallowing_laws = {{\n\t\tlaw_{NO_GOLD}\n\t}}\n\n"
-    # a variant shows only beside its Economic System, its parent only elsewhere. A save from before a law existed
-    # has no entry for it, so the variants show only in campaigns started with them
+    # Show each variant beside its Economic System, and its parent elsewhere.
     var = [e for p, e, *_ in VARIANTS.values() if p == law]
     vis = (f"\tparent = law_spec_{parent}\n\n\tis_visible = {{\n\t\thas_law_or_variant = law_type:law_{econ}\n\t}}\n\n" if econ
            else f"\tis_visible = {{\n\t\tNOT = {{ has_law_or_variant = law_type:law_{var[0]} }}\n\t}}\n\n" if var else "")
@@ -150,8 +150,6 @@ def build(write):
     # each variant after its parent: the law panel lists them in file order
     write("common/laws/spec_monetary_laws.txt", "\n".join(
         _law(law) for p in LAWS for law in [p] + [v for v, (vp, *_) in VARIANTS.items() if vp == p]))
-    write("common/laws/zzz_spec_monetary_inject.txt",
-          f"INJECT:law_{NO_GOLD} = {{\n\tdisallowing_laws = {{\n\t\tlaw_spec_gold_standard\n\t\tlaw_spec_classical_gold\n\t}}\n}}\n")
     # INJECT adds the views beside vanilla's and other mods'; zzz_ loads after files that REPLACE these ideologies
     write("common/ideologies/zzz_spec_monetary_ideologies.txt", "".join(
         f"INJECT:{ideology} = {{\n\t{GROUP} = {{\n" + "".join(f"\t\tlaw_spec_{law} = {v}\n" for law, v in zip(LAWS, views))
@@ -200,7 +198,7 @@ if __name__ == "__main__":
     assert laws.index("law_spec_gold_standard =") < laws.index("law_spec_classical_gold =") < laws.index("law_spec_fiat_money =")
     on = out["common/on_actions/spec_monetary_on_actions.txt"]
     assert "activate_law = law_type:law_spec_elastic_currency" in on and "law_command_economy" in SWAP
-    assert "law_spec_classical_gold" in FILL and "law_spec_classical_gold" in out["common/laws/zzz_spec_monetary_inject.txt"]
+    assert "law_spec_classical_gold" in FILL and "common/laws/zzz_spec_monetary_inject.txt" not in out
     assert "disallowing_laws = {\n\t\tlaw_command_economy" in laws and "With [" not in loc()
     assert "country_spec_rescue_cost_mult = -0.1" in laws and "country_spec_boom_end_loss_mult = 0.1" in laws
     assert "game_date >= 1871.1.1 OR = { c:GER ?= this" in laws and laws.count("add = 200") == 2 * len(GOLD_DATES)  # gold and its variant

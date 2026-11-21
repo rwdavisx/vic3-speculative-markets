@@ -1,0 +1,14 @@
+{
+  "086b1ead63": "Los bancos suspenden los préstamos mientras las [concept_spec_bad_debts] superen el límite que permiten nuestras [concept_spec_lending_standards]",
+  "11d5c39c51": "Los bancos aún contabilizan las pérdidas del último auge. Cuanto mayores son las pérdidas, #N menos prestan#!. Si superan el límite de los [concept_spec_lending_standards], los préstamos se detienen.\\n#v Prestar a los bancos#! no elimina estas pérdidas.\\n#v Comprar préstamos incobrables#! elimina un {1}% de ellas, una vez por episodio.",
+  "154ba54579": "\\n#v x{1}#! debido a las [concept_spec_bad_debts]",
+  "40d398c68c": "La intervención no se ha activado ni desactivado en los últimos #v {1}#! meses, o se activó hace menos de #v {2}#! días y todavía puede anularse.",
+  "508f3e9b55": "Los préstamos del auge se han vuelto incobrables. En los próximos meses, las [concept_spec_bad_debts] reducirán el [concept_throughput] un #N {1}%#!. El efecto irá remitiendo y desaparecerá en #v {2}#! meses. Mientras tanto, los bancos prestarán menos. #v Prestar a los bancos#! no elimina estas deudas.",
+  "923b245d95": "Los bancos suspenden los préstamos mientras las [concept_spec_bad_debts] superen el límite que permiten nuestras [concept_spec_lending_standards].",
+  "a01525d299": "\\nLa penalización sigue aumentando un #N {1}%#! al mes, hasta #N -{2}%#!.",
+  "c465eba044": "@spec_bad_debts! [concept_spec_bad_debts] disminuyen un #P {1}%#! y se liquidarán en #v {2}#! meses en vez de #v {3}#!.",
+  "c55c523e35": "\\n#P +@money!{1}#! prestados este mes",
+  "d1f5b6ea71": "Usa #v Comprar préstamos incobrables#! en la pestaña #bold $SPEC_FIN_TAB_BANKING$#! de la ventana #bold $SPEC_FINANCE$#!. Disponible una vez por episodio.\\nElimina el #P {1}%#! de las [concept_spec_bad_debts] restantes.\\nCoste: #v @money!{2}#!",
+  "d4fbe0f156": "Para reducir el riesgo, frena la especulación con los bienes más arriesgados en la pestaña #bold $SPEC_FIN_TAB_BOOMS$#! o endurece la [concept_spec_credit_policy] en la pestaña #bold $SPEC_FIN_TAB_BANKING$#!.",
+  "dccbb4fb0f": "#N Los bancos dejan de prestar#! al [concept_investment_pool]\\nLos inversores reaccionan un #N {1}%#! menos a las variaciones de precios\\n#P Auges menores#!, finales más suaves y pánicos más leves\\nLas [concept_spec_bad_debts] se liquidan un #P {2}%#! más rápido\\nCada mes se pierde el #N {3}%#! de la [concept_spec_market_confidence] que esté por encima de #v {4}#!\\n\\nBloquea la [concept_spec_credit_policy] durante #v {5}#! meses\\nRequiere {6}\\n\\n@intelligentsia! Intelectualidad [concept_in_government]: #P +{7}#! de [concept_approval]\\n@industrialists! Industriales [concept_in_government]: #N -{8}#! de [concept_approval]"
+}

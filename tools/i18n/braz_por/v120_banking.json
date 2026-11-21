@@ -1,0 +1,14 @@
+{
+  "086b1ead63": "Os bancos suspendem os empréstimos enquanto [concept_spec_bad_debts] excederem o limite de [concept_spec_lending_standards]",
+  "11d5c39c51": "Os bancos ainda apuram as perdas do último boom. Quanto maior o saldo, #N menos emprestam#!. Quando ele excede o limite dos [concept_spec_lending_standards], os empréstimos param.\\n#v Emprestar aos Bancos#! não elimina essas perdas.\\n#v Comprar Créditos Podres#! elimina {1}% do saldo, uma vez por episódio.",
+  "154ba54579": "\\n#v x{1}#! devido a [concept_spec_bad_debts]",
+  "40d398c68c": "A intervenção não foi ativada nem desativada nos últimos #v {1}#! meses, ou foi ativada há menos de #v {2}#! dias e ainda pode ser desfeita.",
+  "508f3e9b55": "Os empréstimos do boom se tornaram incobráveis. Nos próximos meses, as [concept_spec_bad_debts] reduzirão o [concept_throughput] em #N {1}%#!. Depois, diminuirão até desaparecer em #v {2}#! meses. Enquanto durarem, os bancos emprestarão menos. #v Emprestar aos Bancos#! não as elimina.",
+  "923b245d95": "Os bancos suspendem os empréstimos enquanto [concept_spec_bad_debts] excederem o limite de [concept_spec_lending_standards].",
+  "a01525d299": "\\nA penalidade ainda cresce #N {1}%#! ao mês, até #N -{2}%#!.",
+  "c465eba044": "@spec_bad_debts! [concept_spec_bad_debts] caem #P {1}%#! e serão liquidadas em #v {2}#! meses, em vez de #v {3}#!.",
+  "c55c523e35": "\\n#P +@money!{1}#! emprestados neste mês",
+  "d1f5b6ea71": "Use #v Comprar Créditos Podres#! na aba #bold $SPEC_FIN_TAB_BANKING$#! da janela #bold $SPEC_FINANCE$#!. Disponível uma vez por episódio.\\n#P {1}%#! das dívidas restantes: [concept_spec_bad_debts].\\nCusto: #v @money!{2}#!",
+  "d4fbe0f156": "Para reduzir o risco, contenha a especulação nos bens mais arriscados na aba #bold $SPEC_FIN_TAB_BOOMS$#! ou aperte a [concept_spec_credit_policy] na aba #bold $SPEC_FIN_TAB_BANKING$#!.",
+  "dccbb4fb0f": "#N Os bancos deixam de emprestar#! ao [concept_investment_pool]\\nOs investidores reagem #N {1}%#! menos às variações de preços\\n#P Expansões menores#!, fins mais suaves e pânicos mais brandos\\nAs [concept_spec_bad_debts] são liquidadas #P {2}%#! mais rápido\\nTodo mês, #N {3}%#! de qualquer [concept_spec_market_confidence] acima de #v {4}#! se esvai\\n\\nTrava a [concept_spec_credit_policy] por #v {5}#! meses\\nExige {6}\\n\\n@intelligentsia! Intelectualidade [concept_in_government]: #P +{7}#! de [concept_approval]\\n@industrialists! Industriais [concept_in_government]: #N -{8}#! de [concept_approval]"
+}

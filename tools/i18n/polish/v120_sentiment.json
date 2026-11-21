@@ -1,0 +1,21 @@
+{
+  "048c689ff2": "Inwestorzy chętniej finansują budynki wytwarzające te towary.",
+  "04d0476db0": "Towary oferowane po cenie niższej od [concept_base_price] o co najmniej {1}% przez {2} kolejne miesiące mogą co miesiąc stracić poparcie inwestorów. Maksymalnie {3} towary tracą {4}% [concept_spec_investor_interest] na {5} mies.$SPEC_TERM_ODDS$",
+  "16d85d0cd2": "Inwestorzy mniej chętnie finansują budynki wytwarzające te towary.",
+  "1bd7d60ba4": "Branża zużywająca ten towar może korzystać z tanich surowców i podtrzymać popyt.",
+  "386887ea06": "\\nNadpodaż tymczasowo zawiesza ten efekt.",
+  "3c25676a9b": "W łaskach",
+  "5a0e210375": "\\n$SPEC_JE_FAVOURED$ · Utrzymujące się wysokie ceny · +{1}% [concept_spec_investor_interest] · Pozostałe miesiące: {2}",
+  "7b44aceea9": "Towar bierze udział w comiesięcznym losowaniu, jeśli przez {1} kolejnych miesięcy miał zlecenia sprzedaży, a jego cena była o co najmniej {2}% wyższa od ceny bazowej ([concept_base_price]).",
+  "7f140061bd": "Towary oferowane po cenie wyższej od [concept_base_price] o co najmniej {1}% przez {2} kolejne miesiące mogą co miesiąc zyskać przychylność inwestorów. Maksymalnie {3} towary zyskują {4}% [concept_spec_investor_interest] na {5} mies.$SPEC_TERM_ODDS$",
+  "8657700118": "\\n$SPEC_JE_SHUNNED$ · Utrzymujące się niskie ceny · −{1}% [concept_spec_investor_interest] · Pozostałe miesiące: {2}",
+  "93d5a8e665": "Giełdy rywalizujące z {1}",
+  "b3f9880984": "Każdy śledzony towar należy do jednego sektora. Wykres wycenia śledzone towary oferowane na sprzedaż według [concept_base_price]. Większy udział w wartości podaży oznacza większy wpływ na trend sektora. Gdy ruch sektora jest słabszy lub przeciwny, wpływ ceny na [concept_spec_investor_interest] może spaść nawet o połowę.",
+  "c4281b915f": "Przed zwiększeniem produkcji sprawdź koszty surowców i ryzyko związane z boomem.",
+  "d7920e3b73": "Konkurenci wskazani przez {1}",
+  "e01f2a24fa": "#header $SPEC_JE_SHUNNED$#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_SHUN_IMPACT$\\n\\n#N −{1}%#! [concept_spec_investor_interest] · Liczba miesięcy: {2} · Maks. liczba towarów: {3}\\n\\n$SPEC_SHUN_REASON$$SPEC_TERM_ODDS$",
+  "e577858e6d": "Towar bierze udział w comiesięcznym losowaniu, jeśli przez {1} kolejnych miesięcy miał zlecenia sprzedaży, a jego cena była o co najmniej {2}% niższa od ceny bazowej ([concept_base_price]).",
+  "ef12a1b38e": "#header $SPEC_JE_FAVOURED$#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_FAV_IMPACT$\\n\\n#P +{1}%#! [concept_spec_investor_interest] · Liczba miesięcy: {2} · Maks. liczba towarów: {3}\\n\\n$SPEC_FAV_REASON$$SPEC_TERM_ODDS$",
+  "fc2d9763d8": "\\nTowary o niewielkiej podaży również się kwalifikują. Szanse rosną po {1} miesiącach spełniania warunków lub po osiągnięciu {2}% wartości podaży na rynku.",
+  "fd3d5b6ca0": "Podaż rynkowa według sektorów"
+}

@@ -542,25 +542,12 @@ def column(name, body):
 def row(g=None):
     """One good's row: fixed for good g, else a list row (datacontext Scope.GetGoods, hidden by the filters)."""
     rd = var(g)
-    # vanilla's goods list item (market_panel.gui goods_list_item) at row size
+    # Keep the native good icon at its original center on the neutral row.
     goods = f"""icon = {{
-	position = {{ 14 0 }}
-	size = {{ {COL['goods'] - 22} 34 }}
+	position = {{ 7 0 }}
+	size = {{ 30 30 }}
 	parentanchor = vcenter
-	texture = "gfx/interface/market_view/trade_good_list_bg.dds"
-	color = "[Goods.GetCategoryColor]"
-}}
-icon = {{
-	position = {{ 2 0 }}
-	size = {{ 40 40 }}
-	parentanchor = vcenter
-	texture = "gfx/interface/market_view/trade_good_icon_bg.dds"
-	color = "[Goods.GetCategoryColor]"
-	icon = {{
-		size = {{ 30 30 }}
-		parentanchor = center
-		texture = "[Goods.GetTexture]"
-	}}
+	texture = "[Goods.GetTexture]"
 }}
 textbox = {{
 	position = {{ 48 0 }}
@@ -597,7 +584,7 @@ textbox = {{
 	datacontext = "[{context}]"
 	visible = "[{shown}]"
 	size = {{ {W} {ROW_H} }}
-	using = default_button
+	background = {{ using = dark_area }}
 	using = select_button_sound
 	onclick = "[GetVariableSystem.Clear('{FIN}')]"
 	onclick = "[InformationPanelBar.OpenGoodsPanel(GetPlayer.GetMarket.Self, Goods.Self)]"
@@ -678,7 +665,7 @@ def risk_list_effect(category):
     goods = order(category)
     name = "spec_goods_by_risk"
     append = lambda group, target: f"add_to_variable_list = {{ name = {name}{group} target = {target} }}"
-    lines = ["spec_refresh_risk_list = {", "\tsave_temporary_scope_as = spec_sort_owner", "\tclear_variable_list = spec_risky_goods",
+    lines = ["spec_refresh_risk_list = {", "\tspec_refresh_ranked_interest = yes", "\tsave_temporary_scope_as = spec_sort_owner", "\tclear_variable_list = spec_risky_goods",
              f"\tclear_variable_list = {name}"]
     lines += [f"\tclear_variable_list = {name}_{c}" for c in CATEGORIES]
     for g in goods:
@@ -769,16 +756,6 @@ def board(k):
     # rows a filter hides takes no room and needs no test of every good's filters each frame (Jomini's And/Or do not
     # short-circuit: the test cost every good's filters every frame, filter or not)
     lead = "widget = {\n\tsize = { 1 0 }\n}\n"
-    fixed = "".join(f"""flowcontainer = {{
-	direction = vertical
-	spacing = 2
-	ignoreinvisible = yes
-	visible = "[And({cat_shown(c)}, {filled(c)})]"
-{ind(lead + "".join(row(g) for g in in_cat[c]), 1)}}}
-""" for c in CATEGORIES)
-    # Hidden parents do not update their child expressions. Ordinary filters use
-    # monthly category/tier counts; inspect individual interventions only while
-    # that filter is actually selected.
     ordinary = any_of([f"And({cat_shown(c)}, {filled(c)})" for c in CATEGORIES])
     active_rows = any_of([present(c) for c in CATEGORIES])
     empty = "".join(f"""flowcontainer = {{
@@ -803,16 +780,6 @@ def board(k):
 {ind(item, 2)}	}}
 }}
 """ for w in LEANING)
-    group = lambda shown, suffix, item: f"""flowcontainer = {{
-	direction = vertical
-	spacing = 2
-	ignoreinvisible = yes
-	visible = "[{shown}]"
-{ind(lists_of(suffix, item), 1)}}}
-"""
-    groups = lambda item: group(f"Not(GetVariableSystem.Exists('{CAT}'))", "", item) + "".join(
-        group(f"GetVariableSystem.HasValue('{CAT}', '{c}')", f"_{c}", item) for c in CATEGORIES)
-    by_interest = groups("spec_il_row = {}\n")
     # beside the lists, one empty row-high slot for each row shown, never hidden by a sort: a view a sort shows reads
     # its rows' filters a frame late, and the tab's scroll area, that frame short of rows, sprang back to the top.
     # Fixed slots read by name: as items of the word lists (one datamodel each, names concatenated) the tab lagged
@@ -827,33 +794,44 @@ def board(k):
 	visible = "[{shown}]"
 {ind(lead + "".join(slot(g, test) for g in goods), 1)}}}
 """ for shown, test in ((f"Not({narrowed})", lambda rd: gt(rd('spec_word'))), (narrowed, matches_filters)))
-    selected = lambda c: f"GetVariableSystem.HasValue('{CAT}', '{c}')" if c else f"Not(GetVariableSystem.Exists('{CAT}'))"
-    risk_lists = "".join(f"""flowcontainer = {{
-	direction = vertical
-	ignoreinvisible = yes
-	spacing = 2
-	visible = "[{selected(c)}]"
-	datamodel = "[{P}.GetList('spec_goods_by_risk{('_'+c) if c else ''}')]"
-	item = {{ spec_il_row = {{}} }}
-}}
-""" for c in ("", *CATEGORIES))
-    views = f"""flowcontainer = {{
-	direction = vertical
-	ignoreinvisible = yes
-	visible = "[Not({SORTED})]"
-{ind(fixed, 1)}}}
-flowcontainer = {{
-	direction = vertical
-	spacing = 2
-	ignoreinvisible = yes
-	visible = "[And({SORTED}, Not({RISK_SORT}))]"
-{ind(by_interest, 1)}}}
-flowcontainer = {{
-	direction = vertical
-	ignoreinvisible = yes
-	visible = "[{RISK_SORT}]"
-{ind(risk_lists, 1)}}}
-"""
+    sections = []
+    for sector, members in in_cat.items():
+        if not members:
+            continue
+        # Tier counts suffice until the player enables an intervention or political filter.
+        visible = f"And({cat_shown(sector)}, And({filled(sector)}, Or(Not({ANY_FILTER}), {matches(members)})))"
+        fixed = "".join(row(g) for g in members)
+        sorted_rows = lists_of("_" + sector, "spec_il_row = {}\n")
+        sections.append(f"""flowcontainer = {{
+            direction = vertical
+            ignoreinvisible = yes
+            spacing = 2
+            visible = "[{visible}]"
+            widget = {{
+                size = {{ {W} 38 }}
+                tooltip = "SPEC_SECTOR_{sector.upper()}_TT"
+                background = {{
+                    texture = "gfx/interface/buttons/expand_button_bg.dds"
+                    spriteType = Corneredtiled
+                    spriteborder = {{ 20 20 }}
+                    texture_density = 2
+                }}
+                icon = {{ parentanchor = left|vcenter position = {{ 9 0 }} size = {{ 30 30 }} texture = "{icons.path('sector_' + sector)}" alwaystransparent = yes }}
+                textbox = {{ parentanchor = left|vcenter position = {{ 48 0 }} size = {{ {W - 150} 36 }} using = fontsize_large default_format = "#title" align = left|nobaseline elide = right fontsize_min = 12 text = "SPEC_SECTOR_{sector.upper()}" alwaystransparent = yes }}
+                textbox = {{ parentanchor = right|vcenter margin_right = 12 size = {{ 82 36 }} align = right|nobaseline text = "[{v('spec_sector_share_' + sector)}|%1]" alwaystransparent = yes }}
+            }}
+            flowcontainer = {{ direction = vertical spacing = 2 ignoreinvisible = yes visible = "[Not({SORTED})]"
+                {fixed}
+            }}
+            flowcontainer = {{ direction = vertical spacing = 2 ignoreinvisible = yes visible = "[And({SORTED}, Not({RISK_SORT}))]"
+                {sorted_rows}
+            }}
+            flowcontainer = {{ direction = vertical spacing = 2 ignoreinvisible = yes visible = "[{RISK_SORT}]"
+                datamodel = "[{P}.GetList('spec_goods_by_risk_{sector}')]"
+                item = {{ spec_il_row = {{}} }}
+            }}
+        }}""")
+    views = "\n".join(sections)
     lists = f"""flowcontainer = {{
 	ignoreinvisible = yes
 {ind(hold, 1)}	flowcontainer = {{
@@ -862,7 +840,16 @@ flowcontainer = {{
 {ind(views, 2)}	}}
 }}
 {empty}"""
-    return goods_filters("SPEC_IL_FILTER_TIERS", tier_filters()) + f"""flowcontainer = {{
+    import journal
+    rows = "".join(journal.goods_row(label, keys) for label, keys in journal.RANKED_GOODS)
+    summary = f"""flowcontainer = {{
+        direction = vertical
+        parentanchor = hcenter
+        visible = "[{P}.Var('spec_conf').IsSet]"
+        {rows}
+    }}
+"""
+    return goods_filters("SPEC_IL_FILTER_TIERS", tier_filters()) + summary + f"""flowcontainer = {{
 	direction = vertical
 	parentanchor = hcenter
 	margin_top = 12
@@ -937,8 +924,8 @@ def bindings(t):
 
 
 if __name__ == "__main__":
-    cat = {"grain": "staple", "wine": "luxury", "tools": "industrial", "fish": "staple", "small_arms": "military"}
-    assert order(cat) == ["fish", "grain", "tools", "wine", "small_arms"]
+    cat = {"grain": "food", "wine": "plantation", "tools": "industry", "fish": "food", "small_arms": "defence"}
+    assert order(cat) == ["fish", "grain", "wine", "tools", "small_arms"]
     r, d = row("grain"), row()
     for t in (r, d):
         assert t.count("{") == t.count("}")
@@ -963,12 +950,12 @@ if __name__ == "__main__":
     b = board({"CATEGORY": cat})
     assert b.count("{") == b.count("}") and len(set(re.findall(r"datacontext = \"\[GetGoods\('(\w+)'\)\]\"", b))) == len(cat)
     assert b.index("GetGoods('fish')") < b.index("GetGoods('grain')") < b.index("GetGoods('tools')") < b.index("GetGoods('small_arms')")
-    assert b.count("GetList('spec_goods_w") == 6 * (1 + len(CATEGORIES)) and "MarketPanel" not in b
+    assert b.count("GetList('spec_goods_w") == 6 * len(set(cat.values())) and "MarketPanel" not in b
     # the Interest header sets the sort, so a second click keeps it; Goods clears it
     assert f"GetVariableSystem.Set('{SORT}', 'yes')" in b and f"Toggle('{SORT}')" not in b and f"Clear('{SORT}')" in b
     assert header().count(" 30 }") >= 6 and " 20 }" not in header()  # 30 high headers (sort buttons come in overlapping pairs)
     # the word lists share one row type
-    assert b.count("spec_il_row = {}") == 7 * (1 + len(CATEGORIES)) and "Scope.GetGoods" not in b
+    assert b.count("spec_il_row = {}") == 7 * len(set(cat.values())) and "Scope.GetGoods" not in b
     assert "type spec_il_row = button {" in overlay_types() and "datacontext = \"[Scope.GetGoods]\"" in overlay_types()
     # a row opens the goods panel for our own market and closes Finance
     assert f"Clear('{FIN}')" in r and "OpenGoodsPanel(GetPlayer.GetMarket.Self, Goods.Self)" in r and "Market.Self" not in r.replace("GetMarket.Self", "")
@@ -976,7 +963,7 @@ if __name__ == "__main__":
     # Show Interventions hides groups with no lever, and an empty list says so
     assert b.count(f"Not(GetVariableSystem.Exists('{ACTIVE}')), Or(") >= 1 and "'spec_ui_r_fish'" in b.split("GetGoods('fish')")[0]
     assert b.count("SPEC_IL_EMPTY_FILTERS") == 2
-    assert all(icons.path("interest_" + WORDS[w]) in b for w in LEANING) and "SPEC_IL_N" not in b and b.count("Var('spec_n_w") == 18 * len(CATEGORIES)
+    assert all(icons.path("interest_" + WORDS[w]) in b for w in LEANING) and "SPEC_IL_N" not in b and all("SPEC_SECTOR_" + c.upper() in b for c in cat.values())
     lo = loc({"GLUT_MONTHS": {3: 12, 2: 6, 1: 3}})
     # no dashes in the text; a minus before a number is a figure, a hyphen inside a word ("long-run") is spelling
     assert "SPEC_IL_N" not in lo and "SPEC_IL_COL_BADGE_TT" not in lo and not re.search(r"(?<!\w)-(?!\d)|-(?!\w)", lo.replace("_", ""))

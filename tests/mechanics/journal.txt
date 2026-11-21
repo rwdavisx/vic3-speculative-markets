@@ -38,17 +38,19 @@ spec_mechanics_journal.1 = {
         remove_variable = spec_llr
         remove_variable = spec_company_law
         remove_variable = spec_hazard
-        if = { limit = { spec_reform_count = 0 spec_reform_credit = 1 spec_reform_risk = 1 } debug_log = "HOTFIX PASS absent_reforms_neutral" }
-        else = { debug_log = "HOTFIX FAIL absent_reforms_neutral" }
+        activate_law = law_type:law_interventionism
+        activate_law = law_type:law_spec_bimetallism
+        if = { limit = { spec_reform_count = 0 spec_reform_credit = 1 spec_reform_risk = 1.1 spec_reform_rescue = 0.9 } debug_log = "HOTFIX PASS absent_reforms_keep_monetary_law" }
+        else = { debug_log = "HOTFIX FAIL absent_reforms_keep_monetary_law" }
         set_variable = { name = spec_note value = 1 }
         if = { limit = { spec_reform_count = 1 spec_reform_credit = 0.75 spec_reform_heat = 0.75 spec_reform_panic_len = 1.25 } debug_log = "HOTFIX PASS currency_school_tradeoff" }
         else = { debug_log = "HOTFIX FAIL currency_school_tradeoff" }
         set_variable = { name = spec_note value = 2 }
-        if = { limit = { spec_reform_count = 1 spec_reform_credit = 1.25 spec_reform_boom = 1.1 spec_reform_risk = 1.1 } debug_log = "HOTFIX PASS free_banking_tradeoff" }
+        if = { limit = { spec_reform_count = 1 spec_reform_credit = 1.25 spec_reform_boom = 1.1 spec_reform_risk = 1.21 } debug_log = "HOTFIX PASS free_banking_tradeoff" }
         else = { debug_log = "HOTFIX FAIL free_banking_tradeoff" }
         set_variable = spec_llr
         set_variable = spec_company_law
-        if = { limit = { spec_reform_count = 3 spec_reform_rescue = 0.5 spec_reform_rescue_months = -1 spec_reform_risk = 0.77 } debug_log = "HOTFIX PASS reforms_combine_once" }
+        if = { limit = { spec_reform_count = 3 spec_reform_rescue = 0.45 spec_reform_rescue_months = -1 spec_reform_risk = 0.847 } debug_log = "HOTFIX PASS reforms_combine_once" }
         else = { debug_log = "HOTFIX FAIL reforms_combine_once" }
         set_variable = { name = spec_conf value = 80 }
         set_variable = { name = spec_c_total value = 0 }
