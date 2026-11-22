@@ -209,7 +209,7 @@ SLOTS.update({f"concept_{c}": (128, f"{V}/{fb}.dds", d + _OUTLINE) for c, fb, d 
 CONCEPT_ICON = {"market_sector": "je_markets", "market_confidence": "je_markets", "speculative_mania": "state_mania", "financial_panic": "state_panic",
                 "foreign_panic": "driver_foreign", "boom_end": "driver_crash", "correction": "ending_1", "bust": "ending_2",
                 "collapse": "ending_3", "investor_interest": "driver_boom", "speculative_excess": "excess_alert",
-                "blue_chip": "blue_chip", **{n[8:]: n for n in SLOTS if n.startswith("concept_")}}
+                "blue_chip": "blue_chip", "investor_sentiment": "so_invest", **{n[8:]: n for n in SLOTS if n.startswith("concept_")}}
 
 TEXT_ICONS = [n for n in SLOTS if n.startswith(("interest_", "ending_", "blue_", "sector_"))]  # in loc as @spec_<name>!
 

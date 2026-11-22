@@ -9,6 +9,7 @@ from market_tab import (P, W, FLAT, CLEAR, GOLD, RED, HISTORY, CHART_H, COL_W, C
                         block)
 from sectors import CHART_NAMED_SECTORS, GROUPS
 import exposure
+import icons
 import leverage
 
 LIST = "spec_bank_goods"
@@ -135,7 +136,7 @@ def breakdown(shown, model, item_shown, text):
 """
 
 
-def side_chart(model, title, tooltip, value, colour, cells, visible, name="SPEC_BANK_SLICE_NAME", after="", box_only=False):
+def side_chart(model, title, tooltip, value, colour, cells, visible, name="SPEC_BANK_SLICE_NAME", after="", box_only=False, icon=""):
     """Vanilla's chart (a pie, or a treemap by the player's own toggle) laid out across: the chart on the left and,
     in place of vanilla's three-row legend, its slices listed on the right: colour, good, cells. after: what each
     row's tooltip shows under its text (breakdown)."""
@@ -157,7 +158,7 @@ def side_chart(model, title, tooltip, value, colour, cells, visible, name="SPEC_
 			texture = "{SWATCH}"
 			color = "[{colour}]"
 		}}
-		textbox = {{
+{ind(icon, 2)}		textbox = {{
 			layoutpolicy_horizontal = expanding
 			size = {{ 0 {ROW_H} }}
 			align = nobaseline
@@ -472,15 +473,36 @@ def by_word(level, select):
     return out
 
 
+def sector_share():
+    """The legend row's sector share, by its representative good (Other's is fish)."""
+    share = fx(0)
+    for good, sector in [*[(members.split()[0], s) for s, (_, members) in GROUPS.items()], ("fish", "other")]:
+        share = f"Select_CFixedPoint(EqualTo_string(Scope.GetGoods.GetKey, '{good}'), {v('spec_sector_share_' + sector)}, {share})"
+    return share
+
+
 def sector_chart():
     model = f"{P}.GetList('spec_sector_ranked')"
-    share = fx(0)
+    share = sector_share()
     representatives = [(members.split()[0], sector) for sector, (_, members) in GROUPS.items()]
-    for good, sector in [*representatives, ("fish", "other")]:
-        share = f"Select_CFixedPoint(EqualTo_string(Scope.GetGoods.GetKey, '{good}'), {v('spec_sector_share_' + sector)}, {share})"
     return side_chart(model, "SPEC_SECTOR_TURNOVER_LINK", "SPEC_SECTOR_CHART_TT", f"FixedPointToFloat({share})",
-                      "Scope.GetGoods.GetColor", cell(f"[{share}|%1]", 62),
-                      f"GreaterThan_int32(GetDataModelSize({model}), '(int32)0')", name="SPEC_SECTOR_CHART_NAME", box_only=True)
+                      "Scope.GetGoods.GetColor", cell(f"[{share}|%1]", 56)
+                      + cell("SPEC_SECTOR_SLICE_AMOUNT"),
+                      f"GreaterThan_int32(GetDataModelSize({model}), '(int32)0')", name="SPEC_SECTOR_CHART_NAME", box_only=True,
+                      icon=sector_icon(representatives))
+
+
+def sector_icon(representatives):
+    """Each legend row's sector icon (the goods icon the filters use); Other has none, an empty slot keeps the names in line."""
+    return "widget = {\n\tsize = { " + str(ROW_H) + " " + str(ROW_H) + " }\n" + "".join(
+        f'\ticon = {{ size = {{ 100% 100% }} texture = "{icons.path("sector_" + s)}" visible = "[EqualTo_string(Scope.GetGoods.GetKey, \'{g}\')]" }}\n'
+        for g, s in representatives) + "}\n"
+
+
+SHORT = {"food": "Food", "plantation": "Plantations", "household": "Textiles", "materials": "Materials",
+         "energy": "Fuel & Power", "industry": "Machinery", "transport": "Transport", "defence": "Arms",
+         "communications": "Electronics", "other": "Other"}
+assert set(SHORT) == {*GROUPS, "other"}
 
 
 def sector_tooltips(k):
@@ -489,20 +511,25 @@ def sector_tooltips(k):
         for sector, (_, members) in reversed(GROUPS.items()):
             result = f"SelectLocalization(EqualTo_string(Scope.GetGoods.GetKey, '{members.split()[0]}'), 'SPEC_SECTOR_{sector.upper()}{suffix}', {result})"
         return f"[SelectLocalization(EqualTo_string(Scope.GetGoods.GetKey, 'fish'), 'SPEC_SECTOR_OTHER{suffix}', {result})]"
-    lines = [f' SPEC_SECTOR_CHART_NAME: "{label("")}"', f' SPEC_SECTOR_CHART_TT: "{label("_TT")}"']
+    # the legend's short names: the full ones elided beside the icon, share and amount (2026-11-21); tooltips keep them
+    lines = [f' SPEC_SECTOR_CHART_NAME: "{label("_SHORT")}"', f' SPEC_SECTOR_CHART_TT: "{label("_TT")}"']
+    lines += [f' SPEC_SECTOR_{s.upper()}_SHORT: "{n}"' for s, n in SHORT.items()]
+    # the amount as a loc key: raw text in a textbox logs as unlocalized (2026-11-22)
+    lines.append(f' SPEC_SECTOR_SLICE_AMOUNT: "(@money![Multiply_CFixedPoint({sector_share()}, {v("spec_mv_total")})|D])"')
     tail = "".join(f"[AddLocalizationIf(EqualTo_CFixedPoint({v('spec_sector_rank_' + sec)}, {fx(rank)}), 'SPEC_SECTOR_{sec.upper()}_ITEM')]" for rank in range(CHART_NAMED_SECTORS + 1, len(GROUPS) + 1) for sec in GROUPS)
-    lines.append(f' SPEC_SECTOR_OTHER_TT: "#header $SPEC_SECTOR_OTHER$#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_SECTOR_TURNOVER$  #v [{v("spec_sector_share_other")}|%1]#!{tail}"')
+    lines.append(f' SPEC_SECTOR_OTHER_TT: "#header $SPEC_SECTOR_OTHER$#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_SECTOR_SHARE$  #v [{v("spec_sector_share_other")}|%1]#!{tail}"')
     for sector in GROUPS:
         name = "SPEC_SECTOR_" + sector.upper()
         share = v("spec_sector_share_" + sector)
         trend = v("spec_review_" + sector)
-        lines.append(f' {name}_ITEM: "\\n#tooltippable #tooltip:[Country.GetTooltipTag],{name}_TT '
-                     f'@spec_sector_{sector}! ${name}$  #v [{share}|%1]#!#!#!"')
+        # only the name opens the sector's tooltip, as vanilla's links: the whole line underlined read oddly (2026-11-21)
+        lines.append(f' {name}_ITEM: "\\n@spec_sector_{sector}! #tooltippable #tooltip:[Country.GetTooltipTag],{name}_TT '
+                     f'${name}$#!#!  #v [{share}|%1]#!"')
         names = ", ".join(f"[GetGoods('{g}').GetName]" for g in sorted(k["CATEGORY"]) if k["CATEGORY"][g] == sector)
         lines.append(f' {name}_SHARE_TT: "${name}$ goods make up #v [{share}|%1]#! of the goods for sale in our market, valued at their [concept_base_price]."')
         lines.append(f' {name}_TREND: "$SPEC_SECTOR_PRICE_TREND$  #v [{trend}|=+%1]#!"')
         review = f"[SelectLocalization({P}.Var('spec_review_{sector}').IsSet, '{name}_TREND', 'SPEC_SECTOR_WAIT')]"
-        lines.append(f' {name}_TT: "#header [Concept(\'concept_spec_market_sector\',\'${name}$\')]#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_SECTOR_TURNOVER$  #v [{share}|%1]#!\\n{review}\\n\\n{names}"')
+        lines.append(f' {name}_TT: "#header [Concept(\'concept_spec_market_sector\',\'${name}$\')]#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_SECTOR_SHARE$  #v [{share}|%1]#!\\n{review}\\n\\n{names}"')
     # these open from chart rows, filter buttons, headers and each other, and some of those tooltips arrive without the
     # window's Country (log, 2026-11-21); the Finance window always shows the played or observed country, so name it
     return ("\n".join(lines) + "\n").replace("Country.", "GetMetaPlayer.GetPlayedOrObservedCountry.")

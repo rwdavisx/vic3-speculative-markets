@@ -16,5 +16,11 @@
  {"metric": "output_pct", "who": "reckless-nobuy", "aim": 0.6, "lo": 0.1, "hi": 2.0, "weight": 1.0, "why": "Buying up Bad Debts pays for itself: a reckless player who buys them up ends richer than one who never does."},
  {"metric": "output_pct", "who": "ai-passive", "aim": 1.0, "lo": 0.0, "hi": 3.0, "weight": 1.0, "why": "The AI plays the market sensibly: AI countries end at least as rich as one that ignores it, so rivals stay competitive."},
  {"metric": "output_pct", "who": "skilled-ai", "aim": 1.0, "lo": 0.2, "hi": 4.0, "weight": 1.0, "why": "A skilled player out-plays the AI at the market."},
- {"metric": "panics_per_century", "who": "ai", "aim": 4.5, "lo": 3.0, "hi": 6.0, "weight": 1.0, "why": "AI countries have panics about as history did, so Great Powers meet crises and the Long Depression can start."}
+ {"metric": "panics_per_century", "who": "ai", "aim": 4.5, "lo": 3.0, "hi": 6.0, "weight": 1.0, "why": "AI countries have panics about as history did, so Great Powers meet crises and the Long Depression can start."},
+ {"metric": "trust_top_pct", "who": "passive", "aim": 65.0, "lo": 50.0, "hi": 90.0, "weight": 1.0, "why": "The Exchange is usually Respected or Trusted: trust is earned in calm years under sound lending and lost in panics, busts and reckless lending, so only a country that keeps losing it sits Doubted or Distrusted."},
+ {"metric": "trust_top_pct", "who": "careful", "aim": 80.0, "lo": 65.0, "hi": 100.0, "weight": 1.0, "why": "Careful play keeps the Exchange Respected or better almost all the time."},
+ {"metric": "trust_top_pct", "who": "ai", "aim": 65.0, "lo": 50.0, "hi": 90.0, "weight": 1.0, "why": "AI Exchanges are usually Respected or Trusted too, so trust is a normal state and losing it means something."},
+ {"metric": "panic_output_loss", "who": "passive", "aim": 10.0, "lo": 5.0, "hi": 15.0, "weight": 1.0, "why": "A hands-off country pays for the leverage it let build: a panic and its Bad Debts cost about a tenth of a year's output, from its start to a year after it ends, as the long slump after 1873 did."},
+ {"metric": "panic_invest_pct", "who": "passive", "aim": -40.0, "lo": -60.0, "hi": -30.0, "weight": 1.0, "why": "Investment falls hard in a panic: railway investment roughly halved after 1873."},
+ {"metric": "boom_output_pct", "who": "passive", "aim": 2.0, "lo": 1.0, "hi": 4.0, "weight": 1.0, "why": "Good years pay: output runs a little above Steady while confidence is Buoyant or in a Mania."}
 ]

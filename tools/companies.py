@@ -124,8 +124,9 @@ PANIC_COMPANY = -0.05    # company throughput bonus in a panic; vanilla's base i
 NO_THROUGHPUT = {"logging_camp", "oil_rig", "banana_plantation"}
 COMPANY_DIR = "common/company_types"
 FD_SOL = "building_group_bg_financial_districts_standard_of_living_add"
-FD_MANIA, FD_PANIC = 1, -2   # Standard of Living of Financial District employees; a rescue halves the panic's
-FD_BANDS = {"mania": FD_MANIA}
+FD_MANIA, FD_PANIC = 3, -2   # Standard of Living of Financial District employees; a rescue halves the panic's
+# by confidence band (2026-11-21: Shaken -3, Wary -1, Buoyant +1, Mania +3); a panic's FD_PANIC adds to Shaken's
+FD_BANDS = {"panic": -3, "wary": -1, "buoyant": 1, "mania": FD_MANIA}
 
 PANIC = f"\tcountry_company_throughput_bonus_add = {PANIC_COMPANY:g}\n\t{FD_SOL} = {FD_PANIC:g}\n"
 
@@ -135,7 +136,7 @@ def band(t):
 
 
 def band_tip(t):
-    return f"\\n${FD_SOL}$: #P +{FD_BANDS[t]:g}#!" if t in FD_BANDS else ""
+    return f"\\n${FD_SOL}$: #{'P' if FD_BANDS[t] > 0 else 'N'} {FD_BANDS[t]:+g}#!" if t in FD_BANDS else ""
 
 
 @functools.cache
@@ -376,5 +377,5 @@ if __name__ == "__main__":
     assert "spec_company_tie_2 = {\n\tvalue = spec_company_tie\n\tmultiply = 0.5" in out["common/script_values/spec_company_values.txt"]
     assert "building_oil_rig" not in out["common/static_modifiers/spec_company_modifiers.txt"]
     assert FD_SOL in out["common/modifier_type_definitions/spec_modifier_types.txt"] and FD_SOL in PANIC
-    assert band("mania").strip() == f"{FD_SOL} = {FD_MANIA}" and band("wary") == "" and band_tip("panic") == ""
+    assert band("mania").strip() == f"{FD_SOL} = {FD_MANIA}" and band("steady") == "" and "#N -3#!" in band_tip("panic")
     print("ok")

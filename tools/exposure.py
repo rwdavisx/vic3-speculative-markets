@@ -100,8 +100,8 @@ def loc():
     note = "SCOPE.GetValue('spec_note_bank')"
     return (f' SPEC_TILE_BANKS: "[SelectLocalization({has}, \'SPEC_TILE_BANKS_ON\', \'SPEC_GOODS_NONE\')]{cycle.TILE_REF}"\n'
             f' SPEC_TILE_BANKS_ON: "\\n\\n#title Bank Loans#!\\n#v [{good_var("spec_exp")}|%0]#! of all [concept_spec_outstanding_credit] is in this boom, worth '
-            f'#v [{good_var("spec_ui_expm")}|1]#! months of pool income\\nIf it ends, the hit to [concept_spec_market_confidence] is '
-            f'#N x[{good_var("spec_ui_expx")}|2]#! as big as for a boom no bank had lent into"\n'
+            f'#v [{good_var("spec_ui_expm")}|1]#! months of pool income.\\nIf it ends, the hit to [concept_spec_market_confidence] is '
+            f'#N x[{good_var("spec_ui_expx")}|2]#! as big as for a boom no bank had lent into."\n'
             ' SPEC_NOTE_BANKS: ""\n'
             f' SPEC_NOTE_BANKS_ON: " Heavy bank lending made the hit #N x[{note}|2]#! as hard."\n')
 

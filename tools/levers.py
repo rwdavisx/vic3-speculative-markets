@@ -640,7 +640,8 @@ def loc():
     n = stored("spec_c_lev_n")
     gt_used = f"GreaterThan_CFixedPoint({n}, '(CFixedPoint)0')"
     one_used = f"EqualTo_CFixedPoint({n}, '(CFixedPoint)1')"
-    names = "".join(f' spec_lever_restrain_{g}: "${g}$ Levy"\n spec_lever_encourage_{g}: "${g}$ Subsidy"\n' for g in sorted(_MADE))
+    names = "".join(f' spec_lever_restrain_{g}: "${g}$ Levy"\n spec_lever_encourage_{g}: "${g}$ Subsidy"\n'
+                    f' spec_term_up_{g}: "$SPEC_JE_FAVOURED$ ${g}$"\n spec_term_down_{g}: "$SPEC_JE_SHUNNED$ ${g}$"\n' for g in sorted(_MADE))
     return names + f""" spec_lever_restrain: "Speculation Levies"
  spec_lever_encourage: "Investment Subsidies"
  spec_lever_market_tt: "Our $ECONOMIC_SYSTEM_GC_LINK$ lets investors chase prices"

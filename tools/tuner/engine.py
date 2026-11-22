@@ -118,7 +118,8 @@ SPEC = [
     (None, g, "RESCUE_REF_MONTHS", "Rescue", "Rescue reference months"), (None, g, "RESCUE_CUT", "Rescue", "Rescued penalties"),
     (None, g, "STANCE_COOLDOWN", "Credit", "Months between stances"), (None, g, "MANIA_CAUTION", "Confidence", "Mania warning"),
     (None, g, "MANIA_TAX_CONF", "Confidence", "Mania levy"), (None, g, "MANIA_TAX", "Confidence", "Mania levy, share of GDP"),
-    (None, g, "PANIC_THROUGHPUT", "Panic", "Panic throughput"), (None, g, "PANIC_INVEST", "Panic", "Panic investment"),
+    ("PANIC_THROUGHPUT", g, "PANIC_THROUGHPUT", "Panic", "Panic throughput"), ("PANIC_INVEST", g, "PANIC_INVEST", "Panic", "Panic investment"),
+    ("BAND_INVEST_STEP", g, "BAND_INVEST_STEP", "Confidence", "Investment per tier (Wary -1, Mania +2)"),
     (None, g, "PANIC_APPROVAL", "Panic", "Panic approval"), (None, g, "HOT_HYPE", "Booms", "Booming at"),
     (None, g, "GLUT_HYPE", "Booms", "Glut interest"), (None, g, "EXPOSURE_FULL", "Booms", "Share of trade at full weight"),
     (None, g, "HYPE_MAX", "Booms", "Interest at most"), (None, lv, "DANGER", "Leverage", "Dangerous from"),
@@ -157,6 +158,7 @@ CREDIT_TECHS = g.CREDIT_TECHS
 TECHS = sorted({"banking", "stock_exchange", "central_banking", "joint_stock_companies", "macroeconomics", "currency_standards",
                 *CREDIT_TECHS, *LADDER_TECHS, *g.FIN_BOOM, *g.FIN_RISK, g.FIN_LEVERAGE[0]})
 BANDS = market_tab.TIERS  # (name, from, to)
+TIER = {b[0]: b[1:3] for b in BANDS}
 WORDS = cycle.LAX_WORDS
 
 # ---------- the game's side, abstracted: bounded input streams ----------
@@ -543,6 +545,7 @@ class Economies:
         self.price_premium = np.zeros_like(self.share)
         self.sentiment_term = np.zeros_like(self.share, dtype=np.int16)
         self.sentiment_case = np.zeros_like(self.sentiment_term)
+        self.term_effect = np.zeros_like(self.share)
         self.lever_cost = np.floor(base_cost * (levers.LEVER_FLOOR + (1 - levers.LEVER_FLOOR) * self.w) / levers.COST_STEP + 0.5) * levers.COST_STEP
         self.boom_p = _draw(rng, I["boom_rate"], n, log=True)[:, None] / 12 * (self.share > 0)
         # a few countries see most of the wars and foreign panics: their rates even on a log scale
@@ -656,11 +659,14 @@ class Economies:
             self.lever_wait = np.zeros((n, G), int)
             self.grace_until = np.zeros((n, G), int)
         # results
-        self.stats = {k: z.copy() for k in ("panics", "panic_months", "panic_len_sum", "mania_months", "manias", "mania_panics",
+        self.stats = {k: z.copy() for k in ("trust_top_months", "panics", "panic_months", "panic_len_sum", "mania_months", "manias", "mania_panics",
                                            "bursts", "crunch_max", "crunch_months", "crunch_spells", "frozen", "rescues", "rescue_cost", "bailouts",
                                            "bailout_cost", "restrains", "restrain_months", "reforms", "tight_months", "loose_months", "lev_sum", "lev_max", "gdp_gap_sum",
-                                           "pool_gap_sum", "conf_sum", "lent_sum", "debt_sum")}
+                                           "pool_gap_sum", "conf_sum", "lent_sum", "debt_sum", "panic_loss_sum", "inv_panic_sum", "inv_calm_sum",
+                                           "boom_gap_sum", "boom_months", "steady_gap_sum", "steady_months", "low_months", "up_months", "reckless_months",
+                                           "late_panic_months")}
         self.was_bad = f.copy()
+        self.loss_left = z.copy()
         self.hist = [] if trace else None
         self.snap = []
 
@@ -879,11 +885,13 @@ class Economies:
         e_gdp, the investing classes' investment moves pool income by e_pool. ponytail: a level, not a growth path."""
         K = self.K
         pm = np.where(self.funded_rescue, K["RESCUE_CUT"], 1.0) * self.in_panic
-        band = _first([self.conf < b[2] for b in BANDS], [g.BAND_INVEST[b[0]] for b in BANDS], g.BAND_INVEST["mania"])
+        step = K["BAND_INVEST_STEP"]  # generate.BAND_INVEST: the tier's place times the step, read from K so a sweep reaches it
+        band = _first([self.conf < b[2] for b in BANDS], [g.TIER_STEPS[b[0]] * step for b in BANDS], g.TIER_STEPS["mania"] * step)
         band = np.where(self.in_panic & (self.conf < BANDS[0][2]), 0, band)  # spec_conf_panic_held carries no investment
         self.bonus_tp, self.panic_tp, self.bad_tp = self.held * K["LEV_REWARD"], pm * K["PANIC_THROUGHPUT"], -self.bite * K["LEV_CRUNCH_THROUGHPUT"]
         self.bad_inv = -self.bite * K["LEV_CRUNCH_INVEST"]
         self.lever_tp = (self.lever * self.share).sum(1) * levers.LEVER_THROUGHPUT  # the levered goods' producers
+        self.lever_tp = self.lever_tp + (self.term_effect * sentiment.TP_SHARE * self.share).sum(1)  # Favored/Shunned producers
         self.tp = self.bonus_tp + self.panic_tp + self.bad_tp + self.lever_tp
         self.inv = band + pm * K["PANIC_INVEST"] + self.bad_inv
         self.gdp = self.gdp_base * np.maximum(1 + self.I["e_gdp"] * self.tp, 0.05)
@@ -978,7 +986,8 @@ class Economies:
         h = np.where(self.glut > 0, self.kg("GLUT_HYPE"), h)
         # the speculation levers (levers.push_values, hype_push): LEVER_EASE of the way to the full push at last month's confidence
         self.h_raw = h
-        h = np.where((self.glut > 0) | (self.share == 0), h, h * (1 + np.sign(self.sentiment_term) * sentiment.BONUS))
+        self.term_effect = sentiment.effect_np(np, np.sign(self.sentiment_term), self.sentiment_term, self.price_premium, self.conf[:, None], self.share)
+        h = np.where((self.glut > 0) | (self.share == 0), h, h * np.maximum(1 + self.term_effect, 0))
         mp = (self.conf / K["CONF_START"])[:, None]
         full = np.where(self.lever < 0, mp / (mp + 1 / levers.PUSH["restrain"] - 1), np.where(self.lever > 0, 1 + (levers.PUSH["encourage"] - 1) * mp, 1))
         self.push = np.where(self.lever != 0, self.push + (full - self.push) * levers.LEVER_EASE, 1)
@@ -1092,14 +1101,15 @@ class Economies:
         upd = (tot > 0)[:, None] & ((self.exp > 0) | (pull > 0))
         self.exp = np.where(upd, np.clip((self.exp * d0[:, None] + pull * new[:, None]) / np.where(tot > 0, tot, 1)[:, None], 0, 1), self.exp)
         self.pool += lent
+        self.lent_yr = lent * 12 / np.maximum(self.gdp, 1e-9) * 100  # the chart's new lending, % of GDP a year
         self.debt += lent
 
         # cycle.monthly: Lending Standards drift
         quiet = ~self.in_panic & (self.stance != -1) & ~(self.crunch > 0)
         drift_step = np.round(1 / (12 * K["LAX_QUIET_YEARS"]), 5)
         repairing = ~self.in_panic & (self.stance == -1) & (self.crunch <= 0)
-        lax_drift = quiet * drift_step - repairing * np.clip(self.lax - cycle.SOUND_MID, 0, drift_step)
-        lax_booms = (c_crash + c_restrain) * K["LAX_PER_CONF"]
+        lax_drift = quiet * drift_step * cycle.LAX_SCALE * (1 - self.lax) - repairing * np.clip(self.lax - cycle.SOUND_MID, 0, drift_step)
+        lax_booms = (c_crash + c_restrain) * K["LAX_PER_CONF"] * cycle.LAX_SCALE * self.lax
         self.lax = np.clip(self.lax + lax_drift + lax_booms, 0, 1)
 
         # leverage.MONTHLY: the income average, Bad Debts fading and biting, the leverage bonus
@@ -1130,7 +1140,7 @@ class Economies:
             chance = self.fever_p
             self.fever |= new_mania & (self.ai_u[:, 0] < chance)  # leverage.FEVER_ROLL
         self.mania_pick = np.where(new_mania, self.pick_mania(), self.mania_pick)
-        heat_from = g.VOLATILITY[self.rule]["heat"]
+        heat_from = K["HEAT_FROM"] if self.rule == "historical" else g.VOLATILITY[self.rule]["heat"]  # the swept value, not the import-time table
         grows = (self.conf >= heat_from) & self.has("stock_exchange")
         xs_over = np.where(grows, self.conf - heat_from, 0)
         xs_grow = xs_over * self.reform["heat"] * np.where(self.hazard > 0, journal.HAZARD_HEAT, 1)  # journal.excess_calc: spec_xs_grow
@@ -1142,7 +1152,7 @@ class Economies:
         self.has_heat &= ~(cools & (self.heat < 1))
         self.mania &= ~(self.mania & (self.conf < K["MANIA_RESET"]))
         burst = self.has_heat & (self.conf < K["BURST_BELOW"])
-        per = g.VOLATILITY[self.rule]["per"]
+        per = K["BURST_PER_HEAT"] if self.rule == "historical" else g.VOLATILITY[self.rule]["per"]
         xs = np.minimum((self.heat * per - self.conf) * self.debt_point_scale, K["LEV_CRUNCH_MAX"])  # leverage.ON_BURST (spec_nx_burst and spec_nx_bad are 1: no Exchange specialities)
         self.xs_bad = np.where(burst & (xs > 0), xs, 0)
         newc = burst & (xs > 0)
@@ -1164,7 +1174,7 @@ class Economies:
         lev3 = self.lev(pm)
         p_at = self.panic_at(lev3)
         start = ~was & (self.conf < p_at) & (self.panic_cd <= 0)
-        lax_jump = np.where(end & ~self.rescued, -np.minimum(K["LAX_PANIC"], self.lax), 0)  # cycle.panic_over
+        lax_jump = np.where(end & ~self.rescued, -K["LAX_PANIC"] * self.lax, 0)  # cycle.panic_over
         over = end & ~self.rescued & (self.panic <= 0)  # centres.PANIC_OVER: it ran its full course unrescued
         self.ld_recent = np.where(start, depression.WINDOW_DAYS // 30, np.maximum(self.ld_recent - 1, 0))
         self.lax += lax_jump
@@ -1234,6 +1244,7 @@ class Economies:
         s = self.stats
         s["panic_months"] += self.in_panic
         s["mania_months"] += self.conf >= K["MANIA"]
+        s["trust_top_months"] += self.trust >= centres.CALM / 2  # Respected or Trusted (centres.TRUST_LV, quarters of CALM)
         s["manias"] += new_mania
         s["bursts"] += burst
         s["restrain_months"] += c_restrain < -1e-6
@@ -1246,7 +1257,24 @@ class Economies:
         lev4 = self.lev(pm)
         s["lev_sum"] += lev4
         s["lev_max"] = np.maximum(s["lev_max"], lev4)
-        s["gdp_gap_sum"] += self.gdp / self.gdp_base - 1
+        gap = self.gdp / self.gdp_base - 1
+        s["gdp_gap_sum"] += gap
+        # output lost over a panic, against no market: from its start to a year after its end (a panic inside the last
+        # one's year extends the window, so the pair counts as two panics sharing it)
+        self.loss_left = np.where(self.in_panic, 13, np.maximum(self.loss_left - 1, 0))
+        s["panic_loss_sum"] += np.where(self.loss_left > 0, -gap, 0)
+        s["inv_panic_sum"] += np.where(self.in_panic, self.pool_inv, 0)
+        s["inv_calm_sum"] += np.where(self.in_panic, 0, self.pool_inv)
+        up = ~self.in_panic & (self.conf >= TIER["buoyant"][0])
+        steady = ~self.in_panic & (self.conf >= TIER["steady"][0]) & (self.conf < TIER["steady"][1])
+        s["boom_gap_sum"] += up * gap
+        s["boom_months"] += up
+        s["steady_gap_sum"] += steady * gap
+        s["steady_months"] += steady
+        s["low_months"] += self.conf < TIER["steady"][0]  # Wary or Panic, as the gauge shows it
+        s["up_months"] += self.conf >= TIER["buoyant"][0]  # Buoyant or Mania
+        s["reckless_months"] += self.lax >= cycle.LAX_CUTS[3]
+        s["late_panic_months"] += self.in_panic & (self.m >= self.months * 0.7)  # the last 30 years
         s["pool_gap_sum"] += self.pool_inv - 1
         s["conf_sum"] += self.conf
         s["lent_sum"] += lent / np.maximum(pm, 1)
@@ -1258,7 +1286,8 @@ class Economies:
                                   panic=self.in_panic[:k].copy(), levers=(self.lever[:k] != 0).sum(1) * 1.0, restrain=c_restrain[:k].copy(),
                                   convert=self.did_convert[:k] * 1.0))
         if self.m % SNAP == 0:
-            self.snap.append((self.conf.copy(), self.in_panic.copy(), lev4.copy(), self.crunch.copy(), self.lax.copy()))
+            self.snap.append((self.conf.copy(), self.in_panic.copy(), lev4.copy(), self.crunch.copy(), self.lax.copy(),
+                              self.trust / centres.CALM, (self.ep_t >= 0).sum(1), (self.sentiment_term != 0).sum(1), self.lent_yr.copy()))
         if self.trace:
             i = 0
             band = next(b[0] for b in BANDS[::-1] if self.conf[i] >= b[1])
@@ -1500,6 +1529,12 @@ METRICS = {  # name: (label, unit)
     "output_pct": ("GDP against no market, after rescue and buy-up costs", "%"), "pool_pct": ("Pool income against no market", "%"),
     "conf_mean": ("Confidence, mean", ""), "tight_pct": ("Months Tight", "%"), "loose_pct": ("Months Loose", "%"),
     "rescues_per_century": ("Rescues a century", ""), "spend_pct_gdp": ("Rescues and buy-ups, % of a year's GDP", "%"),
+    "trust_top_pct": ("Months with the Exchange Respected or Trusted", "%"),
+    "panic_output_loss": ("Output lost over one panic, % of a year's GDP", "%"), "panic_invest_pct": ("Investment in a panic against calm months", "%"),
+    "boom_output_pct": ("GDP in Buoyant and Mania months against Steady", "%"),
+    "low_pct": ("Months Wary or in Panic", "%"), "up_pct": ("Months Buoyant or in Mania", "%"),
+    "reckless_pct": ("Months with Reckless Lending Standards", "%"), "late_panic_pct": ("Months in panic, last 30 years", "%"),
+    "rescue_share": ("Panics rescued", "%"),
 }
 
 
@@ -1516,6 +1551,9 @@ def summarize(e):
         "output_pct": s["gdp_gap_sum"] / T * 100 - spend / (T / 12), "pool_pct": s["pool_gap_sum"] / T * 100, "conf_mean": s["conf_sum"] / T,
         "tight_pct": s["tight_months"] / T * 100, "loose_pct": s["loose_months"] / T * 100,
         "rescues_per_century": s["rescues"] * cent, "spend_pct_gdp": spend,
+        "trust_top_pct": s["trust_top_months"] / T * 100,
+        "low_pct": s["low_months"] / T * 100, "up_pct": s["up_months"] / T * 100, "reckless_pct": s["reckless_months"] / T * 100,
+        "late_panic_pct": s["late_panic_months"] / (T - int(T * 0.7)) * 100,
     }
     out = {k: dict(zip(("p10", "p50", "p90"), map(float, np.percentile(v, [10, 50, 90])))) | {"mean": float(np.mean(v))} for k, v in per.items()}
     # pooled ratios: the panic length and manias ending in a panic over every economy at once
@@ -1523,6 +1561,12 @@ def summarize(e):
     out["mania_to_panic_pct"] = {"mean": float(s["mania_panics"].sum() / max(s["manias"].sum(), 1) * 100)}
     out["frozen_pct"] = {"mean": float(s["frozen"].sum() / max(s["panics"].sum(), 1) * 100)}
     out["bad_spell"] = {"mean": float(s["crunch_months"].sum() / max(s["crunch_spells"].sum(), 1))}
+    out["rescue_share"] = {"mean": float(s["rescues"].sum() / max(s["panics"].sum(), 1) * 100)}
+    out["panic_output_loss"] = {"mean": float(s["panic_loss_sum"].sum() / max(s["panics"].sum(), 1) / 12 * 100)}
+    out["panic_invest_pct"] = {"mean": float((s["inv_panic_sum"].sum() / max(s["panic_months"].sum(), 1))
+                                             / (s["inv_calm_sum"].sum() / max(T * len(s["panics"]) - s["panic_months"].sum(), 1)) * 100 - 100)}
+    out["boom_output_pct"] = {"mean": float((s["boom_gap_sum"].sum() / max(s["boom_months"].sum(), 1)
+                                             - s["steady_gap_sum"].sum() / max(s["steady_months"].sum(), 1)) * 100)}
     out["_hist"] = np.histogram(per["panics_per_century"], bins=np.arange(0, 16))[0].tolist()  # panics a century, 0 to 15
     return out
 
@@ -1533,10 +1577,13 @@ SNAP = 6  # months between the snapshots the charts draw
 def bands(e):
     """The charts over the run, a point every SNAP months: confidence, leverage (10/50/90% across the economies),
     Bad Debts (50/90%), Lending Standards (50%), and the share of economies in a panic."""
-    c, p, lev, bad, lax = (np.array(a) for a in zip(*e.snap))
+    c, p, lev, bad, lax, trust, booms, terms, lent = (np.array(a) for a in zip(*e.snap))
     q = lambda a, *k: [np.percentile(a, x, 1).round(2).tolist() for x in k]
     return {"every": SNAP, "conf": q(c, 10, 50, 90), "lev": q(lev, 10, 50, 90), "bad": q(bad, 50, 90), "lax": q(lax, 50)[0],
-            "panic": p.mean(1).round(3).tolist()}
+            "panic": p.mean(1).round(3).tolist(),
+            # the middle 80% (10/50/90%) of the rest of the loop, for the charts
+            "bad80": q(bad, 10, 50, 90), "lax80": q(lax, 10, 50, 90), "trust": q(trust, 10, 50, 90),
+            "booms": q(booms, 10, 50, 90), "terms": q(terms, 10, 50, 90), "lent": q(lent, 10, 50, 90)}
 
 
 def run(values, cfg, bot, n, seed, trace=False, keep=0):
@@ -1714,7 +1761,7 @@ if __name__ == "__main__":
               f"var:spec_conf >= {K['PANIC_ENDS_AT']}", f"spec_panic_run >= {K['PANIC_MIN_MONTHS']}", f"multiply = {K['MOOD_KEEP']:g}",
               f"var:spec_c_boom > {K['CONF_BOOM_MAX']}", f"value = -{K['CONF_CRASH_MAX']}", f"add = {K['LEV_CRUNCH_RAMP']}"):
         assert p in monthly, p
-    assert f"change_variable = {{ name = spec_lax add = {1 / (12 * K['LAX_QUIET_YEARS']):.5f} }}" in cycle.monthly()
+    assert f"spec_lax add = {{ value = 1 subtract = var:spec_lax multiply = {cycle.LAX_SCALE / (12 * K['LAX_QUIET_YEARS']):.5f} }}" in cycle.monthly()
     # 3. the engine's Bad Debts curve is leverage's own model: they peak at the size set and last the months shown
     e = Economies(K, defaults(), "passive", 1, 0)
     for c, b0, tight in ((40, 3, 0), (22, 3, 0), (40, 3, 1), (13, 30, 0)):

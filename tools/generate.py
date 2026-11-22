@@ -168,11 +168,16 @@ MANIA, MANIA_RESET, PANIC = tuning.get("MANIA", 80), 65, tuning.get("PANIC", 25)
 PANIC_NEAR = PANIC + 5                                 # a player is warned when confidence first falls below this
 WARY = tuning.get("WARY", 35)                   # AI loosens credit below this (40 had it Loose 43% of the time, feeding panics)
 # investment by Capitalists, Aristocrats and Shopkeepers in each confidence band (market_tab.TIERS); Steady has none
-BAND_INVEST = {"panic": -0.2, "wary": -0.1, "steady": 0, "buoyant": 0.1, "mania": 0.2}
+# each table is one step times the tier's place, so the ladder stays symmetric: Panic < Wary < Steady 0 < Buoyant < Mania
+TIER_STEPS = {"panic": -2, "wary": -1, "steady": 0, "buoyant": 1, "mania": 2}
+BAND_INVEST_STEP = tuning.get("BAND_INVEST_STEP", 0.1)
+BAND_INVEST = {t: n and round(n * BAND_INVEST_STEP, 4) for t, n in TIER_STEPS.items()}
 # the loan interest rate: dearer in fear, vanilla's otherwise (1.2: the cheaper Steady, Buoyant and Mania rates stacked
 # past -100% with the other cuts; centres.LOAN_NOTE)
-BAND_RATE = {"panic": 0.2, "wary": 0.1}
-BAND_TRADE = {"panic": -0.1, "wary": -0.05, "buoyant": 0.05, "mania": 0.1}  # trade volume: merchants ship more in a boom
+BAND_RATE_STEP = tuning.get("BAND_RATE_STEP", 0.1)
+BAND_RATE = {t: round(-TIER_STEPS[t] * BAND_RATE_STEP, 4) for t in ("panic", "wary")}
+BAND_TRADE_STEP = tuning.get("BAND_TRADE_STEP", 0.05)  # trade volume: merchants ship more in a boom
+BAND_TRADE = {t: round(TIER_STEPS[t] * BAND_TRADE_STEP, 4) for t in ("panic", "wary", "buoyant", "mania")}
 PANIC_DAYS = tuning.get("PANIC_DAYS", 195)  # 6.5 months, rounded up by law: 4 to 8 months, 7 at x1; no cap, so a reckless stack (Laissez-Faire, Classical Gold, Currency School, weak legitimacy) runs 16, and about 30 at ruinous leverage (PANIC_LEV_LEN). 180 cuts a month at x0.8 and x1, 210 adds one at x0.6 and x1.2
 PANIC_ENDS_AT = tuning.get("PANIC_ENDS_AT", 40)      # a panic ends early once confidence is back here (out of Wary), PANIC_DAYS at the latest
 PANIC_MIN_MONTHS = 2       # but never sooner than this
@@ -206,7 +211,7 @@ PANIC_TAX = tuning.get("PANIC_TAX", -0.15)
 PANIC_RELIEF = tuning.get("PANIC_RELIEF", 0.04)
 # the panic's own modifier (spec_panic): the investing classes' investment and their interest groups' approval; and
 # the share of each investing class radicalized as it begins (spec_start_panic)
-PANIC_INVEST, PANIC_APPROVAL = -0.4, -2
+PANIC_INVEST, PANIC_APPROVAL = tuning.get("PANIC_INVEST", -0.4), -2
 PANIC_RADICALS = {"capitalists": 0.1, "aristocrats": 0.05, "shopkeepers": 0.05}
 RESCUE_MONTHS = 2
 # Banking alone: private banks club together, dearer and slower
@@ -617,6 +622,7 @@ def values():
     sv.append("spec_mg_value = {\n\tvalue = market_goods_sell_orders\n\tmultiply = goods.base_price\n}")
     sv.append("spec_calendar_day = { value = game_date }")
     sv.append(interest_list.risk_order_value(GOODS))
+    sv.append(interest_list.trend_order_value(GOODS))
     sv.append(sectors.chart_order_value())
     sv.append("spec_market_value = {\n\tvalue = 0\n" + "".join(f"\tadd = spec_mv_{g}\n" for g in GOODS) + "\tmin = 1\n}")
     sv.extend(exposure.values(GOODS))
@@ -643,7 +649,7 @@ def values():
                   f"\telse = {{\n\t\tdivide = {{\n\t\t\tvalue = 1\n\t\t\tsubtract = spec_trend_{g}\n\t\t}}\n\t}}\n"
                   f"\tmin = {HYPE_MIN}\n\tmax = {HYPE_MAX}\n}}")
         # a glut sets interest to Doubtful; a lever (levers.py) then pushes it, but Encourage is not allowed in a glut
-        sv.append(investor_sentiment.factor(g))
+        sv.extend(investor_sentiment.values(g))
         sv += levers.push_values(g)
         sv.append(f"spec_hype_next_{g} = {{\n\tvalue = spec_hype_raw_{g}\n\tmultiply = spec_sentiment_factor_{g}\n"
                   f"\tif = {{\n\t\tlimit = {{ has_variable = spec_glut_{g} }}\n\t\tvalue = {GLUT_HYPE}\n\t}}\n"
@@ -696,7 +702,7 @@ def state_vars():
     """Every variable the mod keeps on a country, so leaving the market economy can clear them."""
     per_good = [f"spec_{k}_{g}" for g in GOODS for k in ("fast", "slow", "hype", "hprev", "peak")]
     ranks = [f"spec_{k}{s}" for k in ("top1", "top2", "top3", "low1", "low2") for s in ("", "_v")]
-    return (["spec_centre_score", "spec_conf", "spec_stance", "spec_stance_cooldown", "spec_panic", "spec_panic_len", "spec_panic_elapsed", "spec_panic_cut", "spec_rescued",
+    return (["spec_centre_score", "spec_conf", "spec_conf_shown", "spec_conf_aim", "spec_conf_step", "spec_stance", "spec_stance_cooldown", "spec_panic", "spec_panic_len", "spec_panic_elapsed", "spec_panic_cut", "spec_rescued",
              "spec_panic_cooldown", "spec_mania", "spec_debt", "spec_clawed", "spec_crashed", "spec_crash_top",
              "spec_foreign_pending", "spec_foreign_src", "spec_caught", "spec_src_gdp", "spec_je_added", "spec_temper",
              "spec_calm", "spec_inquired"]
@@ -919,6 +925,7 @@ def monthly(log):
     shown.append("\t\t\tspec_refresh_sector_chart = yes\n")
     shown.append(charts.interest_script(GOODS))  # needs the word lists just built
     shown.append("\t\t\tspec_refresh_risk_list = yes\n")
+    shown.append("\t\t\tspec_refresh_trend_list = yes\n")
     # the tab's own figures: a player's country (its own market tab), or a market owner (any other market's tab shows
     # its owner's figures, for whoever opens it, observers too). Market members that are neither never show them
     goods.append("\t\t\tif = {\n\t\t\t\tlimit = {\n\t\t\t\t\tOR = {\n\t\t\t\t\t\tis_player = yes\n"
@@ -1358,6 +1365,7 @@ def effects(log=False):
     clear = "".join(f"\tremove_variable = {v}\n" for v in state_vars())
     clear += "".join(f"\tclear_variable_list = {l}\n" for l in charts.LISTS + investor_sentiment.LISTS)
     clear += "\tclear_variable_list = spec_goods_by_risk\n" + "".join(f"\tclear_variable_list = spec_goods_by_risk_{c}\n" for c in market_tab.CATEGORIES)
+    clear += "".join(f"\tclear_variable_list = spec_goods_by_trend{d}_{c}\n" for d in ("", "_up") for c in market_tab.CATEGORIES)
     if centres.RIVAL_ON:
         import rivals
         clear += "\tclear_variable_list = spec_rv_attackers\n"
@@ -2415,22 +2423,27 @@ def main(log=False):
     for rel, text in companies.script(GAME, SELLS, UPGRADES, lambda n: f"gfx/interface/icons/timed_modifier_icons/{n}.dds").items():
         write(rel, text)
     write("common/on_actions/spec_on_actions.txt", monthly(log))
-    write("common/scripted_effects/spec_effects.txt", effects(log) + "\n" + interest_list.risk_list_effect(categories()) + ranked_interest_effect() + sectors.rank_chart() + investor_sentiment.effects(GOODS))
+    write("common/scripted_effects/spec_effects.txt", effects(log) + "\n" + interest_list.risk_list_effect(categories()) + interest_list.trend_list_effect(categories()) + ranked_interest_effect() + sectors.rank_chart() + investor_sentiment.effects(GOODS))
     write("common/scripted_triggers/spec_triggers.txt", triggers())
     (MOD / "common/scripted_buttons/spec_buttons.txt").unlink(missing_ok=True)  # the journal's Credit Policy and Lend: tab only now
     write("common/scripted_guis/spec_sguis.txt", sguis() + ig_stances.SGUI)
     write("common/journal_entries/spec_journal.txt", journal.entry(STANCES))
     write("common/scripted_progress_bars/spec_bars.txt", bar())
     write("common/static_modifiers/spec_modifiers.txt", modifiers())
-    for rel, text in levers.script(GOODS, levers.industry(SELLS, UPGRADES), goods_tax_cost(), goods_cost()).items():
+    made = levers.industry(SELLS, UPGRADES)
+    for rel, text in levers.script(GOODS, made, goods_tax_cost(), goods_cost()).items():
         write(rel, text)
+    # a Favored or Shunned good's producers: the term's throughput (investor_sentiment.TP_SHARE of its effect)
+    write("common/static_modifiers/spec_term_modifiers.txt", investor_sentiment.modifiers(
+        made, "gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds", "gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds"))
+    write("common/scripted_effects/spec_term_effects.txt", investor_sentiment.apply_throughput(made))
     write("events/spec_markets_events.txt", events() + (test_events() if log else ""))
     k = {name: value for name, value in globals().items() if name.isupper() and isinstance(value, (int, float, dict))}
     # for the goods chart's category filters: staple, industrial, luxury or military
     k["CATEGORY"] = categories()
     k["UNWINDS"] = UNWINDS
     journal.build(write, k)
-    write("common/scripted_effects/spec_ui_effects.txt", interest_board.ui_effect(k))
+    write("common/scripted_effects/spec_ui_effects.txt", interest_board.ui_effect(k) + interest_board.glide(GOODS))
     for rel, text in {**credit_ai.script(k), **movements.script(k)}.items():
         write(rel, text)
     stories.build(write, k, log)

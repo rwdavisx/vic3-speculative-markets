@@ -37,15 +37,18 @@ FLAT = "gfx/interface/graph/white.dds"
 CLEAR = "gfx/interface/icons/generic_icons/transparent.dds"
 # a bar's fill slides to a new value rather than snapping, as vanilla's bars do (progressbar_properties,
 # progressbars.gui:35, with progressbar_changed_animation), slower than vanilla's half second: these values change
-# once a month, so the slide stands in for the weekly steps vanilla's interests take
+# once a month; 6 seconds (was 1.5) keeps the bar gliding for most of a month at normal speed
 SLIDE = """skip_initial_animation = yes
 animate_negative_changes = yes
 state = {
 	name = progress_changed
 	using = Animation_Curve_Default
-	duration = 1.5
+	duration = 6
 }
 """
+# and the monthly figures behind the bars that slide reach each month's figure in GLIDE weekly steps (journal's
+# Market Confidence, interest_board's Investor Interest, rivals' contests), so a bar creeps through the month
+GLIDE = 4
 ICONS = "gfx/interface/icons/generic_icons"
 
 
@@ -108,6 +111,9 @@ def gt(a, b=0):
 
 
 CONF = v("spec_conf", 55)
+# what the bar, ring, stage icon and figure show: spec_conf_shown glides weekly to each month's figure (journal.GLIDE);
+# tooltips keep the real one
+SHOWN = f"{P}.Var('spec_conf_shown').GetValueWithDefault({CONF})"
 # variable reads, not the script values spec_stance_value and spec_in_panic: the tab evaluates these every frame
 STANCE = v("spec_stance", 0)
 IN_PANIC = f"{P}.Var('spec_panic').IsSet"  # spec_panic counts the months left, from 1 up, while a panic runs
@@ -402,7 +408,7 @@ def tier_scale(width):
 	align = center|nobaseline
 	using = fontsize_small
 	fontsize_min = 10
-	text = "[SelectLocalization({tier_test(CONF, lo, hi) if i == 0 else f'And(Not({IN_PANIC}), {tier_test(CONF, lo, hi)})'}, 'SPEC_TIER_{key.upper()}_ON', 'SPEC_TIER_{key.upper()}')]"
+	text = "[SelectLocalization({tier_test(SHOWN, lo, hi) if i == 0 else f'And(Not({IN_PANIC}), {tier_test(SHOWN, lo, hi)})'}, 'SPEC_TIER_{key.upper()}_ON', 'SPEC_TIER_{key.upper()}')]"
 	tooltip = "SPEC_TIER_{key.upper()}_TT"
 }}
 """ for i, (key, lo, hi, *_) in enumerate(TIERS))
@@ -440,16 +446,38 @@ def tier_scale(width):
 	using = progressbar_texture_properties
 {ind(SLIDE, 1)}	min = 0
 	max = 100
-	value = "[FixedPointToFloat({CONF})]"
+	value = "[FixedPointToFloat({SHOWN})]"
 	marker = {{
 		widget = {{
 			size = {{ 100% 100% }}
-{ind(glow(stage) + il.chevrons(CONF_UP, CONF_DOWN, 0.25, "right"), 3)}		}}
+{ind(glow(stage), 3)}		}}
 	}}
 }}
 """ for n, stage in journal.STAGES)
-    # clipped to the bar: the end's glow and chevrons reach left of the fill's end, past the bar at low confidence
+    # clipped to the bar: the end's glow reaches left of the fill's end, past the bar at low confidence
     fills = f"widget = {{\n\tsize = {{ 100% 100% }}\n\tscissor = yes\n{ind(fills, 1)}}}\n"
+    # while confidence moves, the changed value chevrons run only through the lit part of the tier it sits in, as
+    # the Investor Interest bars run theirs (interest_list.tier_overlay): a clear bar per tier, clipped to its segment
+    fills += "".join(f"""widget = {{
+	position = {{ {int(i * seg)} 0 }}
+	size = {{ {int(seg)} 100% }}
+	visible = "[{tier_test(SHOWN, lo, hi)}]"
+	scissor = yes
+	progressbar = {{
+		size = {{ 100% 100% }}
+		progresstexture = "{CLEAR}"
+		noprogresstexture = "{CLEAR}"
+{ind(SLIDE, 2)}		min = {lo}
+		max = {hi}
+		value = "[FixedPointToFloat({SHOWN})]"
+		marker = {{
+			widget = {{
+				size = {{ 100% 100% }}
+{ind(il.chevrons(CONF_UP, CONF_DOWN, 0.25, "right"), 4)}			}}
+		}}
+	}}
+}}
+""" for i, (key, lo, hi, *_) in enumerate(TIERS))
     zones ="".join(f"""icon = {{
 	position = {{ {x} 0 }}
 	size = {{ {int(seg)} 100% }}
@@ -472,7 +500,7 @@ def tier_scale(width):
     active = "".join(f"""icon = {{
 	position = {{ {int(i * seg)} 0 }}
 	size = {{ {int(seg)} 100% }}
-	visible = "[{tier_test(CONF, lo, hi) if i == 0 else f'And(Not({IN_PANIC}), {tier_test(CONF, lo, hi)})'}]"
+	visible = "[{tier_test(SHOWN, lo, hi) if i == 0 else f'And(Not({IN_PANIC}), {tier_test(SHOWN, lo, hi)})'}]"
 	texture = "{BARS}/progressbar_active_level.dds"
 	spriteType = Corneredstretched
 	spriteborder = {{ 6 6 }}
@@ -695,8 +723,8 @@ def stage_icons(size):
 	visible = "[{vis}]"
 	texture = "{icons.path(f'state_{key}')}"
 }}
-""" for key, vis in [("panic", IN_PANIC), ("wary", f"And(Not({IN_PANIC}), {tier_test(CONF, 0, TIERS[1][2])})")]
-        + [(key, f"And(Not({IN_PANIC}), {tier_test(CONF, lo, hi)})") for key, lo, hi in TIERS[2:]])
+""" for key, vis in [("panic", IN_PANIC), ("wary", f"And(Not({IN_PANIC}), {tier_test(SHOWN, 0, TIERS[1][2])})")]
+        + [(key, f"And(Not({IN_PANIC}), {tier_test(SHOWN, lo, hi)})") for key, lo, hi in TIERS[2:]])
 
 
 def stage_rgb(stage):
@@ -809,7 +837,7 @@ template spec_topbar_confidence {{
 		textbox = {{
 			parentanchor = vcenter
 			visible = "[{shown}]"
-			raw_text = "#variable [{CONF}|0]#!"
+			raw_text = "#variable [{SHOWN}|0]#!"
 			autoresize = yes
 			align = left|nobaseline
 			fontsize_min = 12
@@ -827,7 +855,7 @@ def mood_card():
 			parentanchor = center
 			visible = "[EqualTo_CFixedPoint({P}.ScriptValue('spec_stage'), {fx(n)})]"
 			texture = "{icons.DIR}/ring_{stage}.dds"
-			value = "[{share(CONF)}]"
+			value = "[{share(SHOWN)}]"
 		}}
 """ for n, stage in journal.STAGES)
     state_icons = ind(stage_icons(90), 2)
@@ -966,7 +994,7 @@ def panic_block():
 		position = {{ 70 50 }}
 		size = {{ {W - 20 - BTN_W - 10 - 70} 22 }}
 {ind(framed_bar(W - 20 - BTN_W - 10 - 70, 22, fill("progressbar_bad", 1, f"Max_CFixedPoint(Min_CFixedPoint(Divide_CFixedPoint({PANIC_LEFT}, {PANIC_LEN}), {fx(1)}), {fx(0)})")
-                 + fill("progressbar_default", 100, CONF, f"Not({IN_PANIC})") + f"widget = {{\n\tsize = {{ 100% 100% }}\n\tvisible = \"[Not({IN_PANIC})]\"\n\talwaystransparent = yes\n{ind(PANIC_ZONE_BAR, 1)}}}\n"
+                 + fill("progressbar_default", 100, SHOWN, f"Not({IN_PANIC})") + f"widget = {{\n\tsize = {{ 100% 100% }}\n\tvisible = \"[Not({IN_PANIC})]\"\n\talwaystransparent = yes\n{ind(PANIC_ZONE_BAR, 1)}}}\n"
                  + BAR_TEXT.format(key="SPEC_PANIC_BAR")), 2)}	}}
 	button = {{
 		size = {{ {BTN_W} {BTN_H} }}
@@ -1372,33 +1400,31 @@ def cat_filters():
         for active, visible, click in ((False, f"Not({selected})", f"GetVariableSystem.Set('{CAT}', '{sector}')"),
                                        (True, selected, f"GetVariableSystem.Clear('{CAT}')")):
             fade = "" if active else f'alpha = "[TransparentIfFalse({no_filter})]"'
-            states.append(f"""goods_filter_button = {{
-                size = {{ 52 52 }}
+            states.append(f"""button_icon_round_big = {{ using = tooltip_above
+                size = {{ {FILTER_BTN} {FILTER_BTN} }}
+                parentanchor = center
                 visible = "[{visible}]"
                 {fade}
                 onclick = "[{click}]"
                 tooltip = "SPEC_SECTOR_{sector.upper()}_TT"
                 blockoverride "wood_texture" {{ texture = "gfx/interface/buttons/round_button_big_wood_map_interaction.dds" }}
                 blockoverride "icon" {{ texture = "{icons.path('sector_' + sector)}" }}
-                blockoverride "icon_size" {{ size = {{ 40 40 }} }}
+                blockoverride "icon_size" {{ size = {{ {FILTER_ICON} {FILTER_ICON} }} }}
             }}""")
         buttons.append(f"""widget = {{
-            size = {{ 64 64 }}
-            icon = {{ size = {{ 64 64 }} parentanchor = center texture = "gfx/interface/backgrounds/round_frame_dec.dds"
+            size = {{ {FILTER_RING} {FILTER_RING} }}
+            icon = {{ size = {{ {FILTER_RING} {FILTER_RING} }} parentanchor = center texture = "gfx/interface/backgrounds/round_frame_dec.dds"
                 visible = "[{ring}]" using = default_fade_in_out }}
             {' '.join(states)}
         }}""")
-    # A fixed slot gives each row its own centre, including the shorter second row.
-    rows = []
-    for start in range(0, len(buttons), 5):
-        content = "\n".join(buttons[start:start + 5])
-        rows.append(f"""widget = {{
-            size = {{ 332 64 }}
-            flowcontainer = {{ parentanchor = center spacing = 3
-                {content}
-            }}
-        }}""")
-    return "flowcontainer = { parentanchor = center direction = vertical spacing = 3\n" + "\n".join(rows) + "\n}\n"
+    # one row: nine 44px rings fit the row's 425px
+    return "flowcontainer = { parentanchor = center spacing = 3\n" + "\n".join(buttons) + "\n}\n"
+
+
+# the goods filters' round buttons (cat_filters, interest_list's tier filters): vanilla's 64px ring with a 52px button
+# and 40px icon, scaled down so the nine sectors fit one row
+# goods_filter_button forces a 48px icon over any icon_size, so these use its parent button_icon_round_big
+FILTER_RING, FILTER_BTN, FILTER_ICON, FILTER_ROW = 44, 36, 40, 50
 
 
 def any_of(tests):
@@ -1408,27 +1434,32 @@ def any_of(tests):
     return out
 
 
-def goods_filters(label, row):
+def goods_filters(label, row, more=()):
     """Vanilla's filter block (market_panel.gui ~391-446) under a collapsible Filters header: one dark area, the labels
     in a column, one divider, the filter rows in a column. label and row are the second row, 64 high, under the goods
-    categories."""
+    categories; more: further (label, row, height) rows."""
     width = W - 95 - 2 * 10  # the rest of the row: the label, two spacings and the divider
-    sector_height = 144  # two 64px rings, their 3px gap and outer padding
+    # 2026-11-21 polish: smaller rings, the sectors on one row (they took two at 64), labels centred on their rows
+    sector_height = FILTER_ROW
     labels = "".join(f"""	textbox = {{
 		text = "{text}"
 		multiline = yes
 		size = {{ 95 {height} }}
-		align = right|nobaseline
+		align = right|vcenter|nobaseline
 		margin_right = 10
 		margin_left = 10
-		using = elide_fontsize_min
+		fontsize = 14
 	}}
-""" for text, height in (("SPEC_SECTOR_FILTER_LINK", sector_height), (label, 64)))
+""" for text, height in (("SPEC_SECTOR_FILTER_LINK", sector_height), (label, FILTER_ROW), *((l, h) for l, _, h in more)))
+    rows = "".join(f"""		widget = {{
+			size = {{ {width} {h} }}
+{ind(r, 3)}		}}
+""" for r, h in ((row, FILTER_ROW), *((r, h) for _, r, h in more)))
     body = f"""flowcontainer = {{
 	minimumsize = {{ {W} -1 }}
 	parentanchor = hcenter
-	margin_top = 5
-	margin_bottom = 10
+	margin_top = 6
+	margin_bottom = 6
 	spacing = 10
 	background = {{
 		using = dark_area
@@ -1442,10 +1473,7 @@ def goods_filters(label, row):
 		widget = {{
 			size = {{ {width} {sector_height} }}
 {ind(cat_filters(), 3)}		}}
-		widget = {{
-			size = {{ {width} 64 }}
-{ind(row, 3)}		}}
-	}}
+{rows}	}}
 }}
 """
     # Finance has no MarketPanel context; its filters use our own selection.
@@ -1478,11 +1506,30 @@ def level_effects():
 def band_loc(k):
     """The lever column's label, and each interest word's tooltip."""
     effects = level_effects()
-    selected = "'ALL_GOODS'"
-    for category in reversed(CATEGORIES):
-        selected = (f"SelectLocalization(GetVariableSystem.HasValue('{CAT}', '{category}'), "
-                    f"'SPEC_SECTOR_{category.upper()}', {selected})")
-    out = (f' SPEC_CURRENT_GOODS_FILTERS: "[{selected}]"\n'
+    # the Filters header's summary (2026-11-22): the sector, then the interest level and the sentiment when picked,
+    # comma separated; the sector's short chart name when it shares the line, "All Goods" only when nothing is picked
+    from interest_list import TIER, SENT_F
+    has = lambda flag: f"GetVariableSystem.Exists('{flag}')"
+    def by_sector(suffix):
+        out = "'SPEC_IB_EMPTY'"
+        for category in reversed(CATEGORIES):
+            out = (f"SelectLocalization(GetVariableSystem.HasValue('{CAT}', '{category}'), "
+                   f"'SPEC_SECTOR_{category.upper()}{suffix}', {out})")
+        return out
+    extra = f"Or({has(TIER)}, {has(SENT_F)})"
+    selected = (f"SelectLocalization({has(CAT)}, SelectLocalization({extra}, {by_sector('_SHORT')}, {by_sector('')}), "
+                f"SelectLocalization({extra}, 'SPEC_IB_EMPTY', 'ALL_GOODS'))")
+    tier = "'SPEC_IB_EMPTY'"
+    for w in range(6, 0, -1):
+        tier = f"SelectLocalization(GetVariableSystem.HasValue('{TIER}', '{w}'), 'SPEC_FILTER_TIER_{w}', {tier})"
+    sep = lambda before: f"SelectLocalization({before}, 'SPEC_FILTER_SEP', 'SPEC_IB_EMPTY')"
+    tier_words = "".join(f' SPEC_FILTER_TIER_{w}: "{WORDS[w].capitalize()}"\n' for w in range(1, 7))
+    out = (f' SPEC_CURRENT_GOODS_FILTERS: "[{selected}][AddLocalizationIf({has(TIER)}, \'SPEC_FILTER_TIER_PART\')]'
+           f'[AddLocalizationIf({has(SENT_F)}, \'SPEC_FILTER_SENT_PART\')]"\n'
+           f' SPEC_FILTER_TIER_PART: "[{sep(has(CAT))}][{tier}]"\n'
+           f" SPEC_FILTER_SENT_PART: \"[{sep(f'Or({has(CAT)}, {has(TIER)})')}][SelectLocalization(GetVariableSystem.HasValue('{SENT_F}', 'fav'), 'SPEC_JE_FAVOURED', 'SPEC_JE_SHUNNED')]\"\n"
+           ' SPEC_FILTER_SEP: ", "\n'
+           f'{tier_words}'
            " SPEC_COL_LEVER: \"[concept_spec_intervention]\"\n"  # a concept link, as the Investor Interest header
            " SPEC_COL_LEVER_TT: \"#header Market Interventions#!\\n$TOOLTIP_DELIMITER$\\n"
            "#v Restrain Speculation#! pushes [concept_spec_investor_interest] down, never below #v Calm#!. "
@@ -2209,7 +2256,7 @@ def loc(k):
     conf_next = f"Max_CFixedPoint(Min_CFixedPoint(Add_CFixedPoint({pre}, Select_CFixedPoint({tight}, {pull}, {fx(0)})), {fx(100)}), {fx(0)})"
     conf_move = f"Subtract_CFixedPoint({conf_next}, {CONF})"
     return f""" SPEC_OFF: "Investors do not speculate under the current $ECONOMIC_SYSTEM_GC_LINK$."
- SPEC_CONF_LINE: "[concept_spec_market_confidence]: #v [{CONF}|0]#![SelectLocalization({nonzero(v('spec_c_total'))}, 'SPEC_CONF_CHANGE', 'SPEC_CONF_NO_CHANGE')]"
+ SPEC_CONF_LINE: "[concept_spec_market_confidence]: #v [{SHOWN}|0]#![SelectLocalization({nonzero(v('spec_c_total'))}, 'SPEC_CONF_CHANGE', 'SPEC_CONF_NO_CHANGE')]"
  SPEC_CONF_CHANGE: " ([{v('spec_c_total')}|+=1])"
  SPEC_CONF_NO_CHANGE: ""
  SPEC_CARD_CHANGE_TT: "$SPEC_GAUGE_HEAD$\\n$SPEC_GAUGE_CHANGE$\\n$SPEC_CONF_FORECAST${member}"
@@ -2311,7 +2358,8 @@ def loc(k):
  SPEC_DEPTH_0: "\\nWe have few $building_financial_district$, so booms and their endings are milder here."
  SPEC_DEPTH_1: ""
  SPEC_DEPTH_2: "\\nOur $building_financial_district$ make booms and their endings stronger here."
- SPEC_STATE_TITLE: "[SelectLocalization({IN_PANIC}, 'SPEC_STATE_PANIC', {by_tier('SPEC_STATE', state_names)})]"
+ SPEC_STATE_TITLE: "[SelectLocalization({IN_PANIC}, 'SPEC_STATE_PANIC', {by_tier('SPEC_STATE', state_names)})][AddLocalizationIf(EqualTo_CFixedPoint({P}.ScriptValue('spec_stage'), {fx(6)}), 'SPEC_STATE_LD')]"
+ SPEC_STATE_LD: " in the [concept_spec_long_depression]"
  SPEC_STATE_PANIC: "#n Financial Panic#!"
 {''.join(f' SPEC_STATE_{s.upper()}: "{n}"{chr(10)}' for s, n in zip(state_names, BAND_NAMES))}
  SPEC_STATE_DESC: "[SelectLocalization({IN_PANIC}, 'SPEC_STATE_DESC_PANIC', {by_tier('SPEC_STATE_DESC', state_names)})]"
@@ -2425,39 +2473,43 @@ def loc(k):
  SPEC_INTEREST: "{word(WORD, 'SPEC_INTEREST', [1.5, 2.5, 3.5, 4.5, 5.5])}"
 {"".join(f' SPEC_INTEREST_{i}: "@spec_interest_{WORDS[i + 1]}! {WORDS[i + 1].capitalize()}"' + chr(10) for i in range(6))} SPEC_GOODS_NONE: ""
  SPEC_TILE_TT: "#header [Goods.GetName]#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_TILE_BODY$\\n\\n#instruction Click to open the [Goods.GetName] panel#!"
- SPEC_II_TREND: "Recent prices differ from their long-run average by #v [{TREND}|=+%1]#!\\nExpected next month if prices hold: #v [Subtract_CFixedPoint({fast_n}, {slow_n})|=+%1]#!#indent_newline:3 \\n#v [{fast_n}|=+%1]#! from recent prices over [concept_base_price]\\n#v [Multiply_CFixedPoint({slow_n}, {fx(-1)})|=+%1]#! from long-run prices over [concept_base_price]#![AddLocalizationIf({P}.Var(Concatenate('spec_push_', Goods.GetKey)).IsSet, 'SPEC_II_PUSH')][AddLocalizationIf({gt(good_var('spec_glut'))}, 'SPEC_II_GLUT')]"
- SPEC_II_PUSH: "\\n\\n[concept_spec_intervention] multiplies its interest by #v [{good_sv('spec_push_sv')}|2]#! so far"
- SPEC_II_GLUT: "\\n\\nWhile it recovers, its interest is held at #v Doubtful#! or lower"
+ SPEC_II_TREND: "Recent prices are #v [{TREND}|=+%1]#! from their long-run average, which sets its [concept_spec_investor_interest].\\nIf prices hold, the trend will be #v [Subtract_CFixedPoint({fast_n}, {slow_n})|=+%1]#! next month.#indent_newline:3 \\n#v [{fast_n}|=+%1]#! from recent prices over [concept_base_price]\\n#v [Multiply_CFixedPoint({slow_n}, {fx(-1)})|=+%1]#! from long-run prices over [concept_base_price]#![AddLocalizationIf({P}.Var(Concatenate('spec_push_', Goods.GetKey)).IsSet, 'SPEC_II_PUSH')][AddLocalizationIf({gt(good_var('spec_glut'))}, 'SPEC_II_GLUT')]"
+ SPEC_II_PUSH: "\\n\\n[concept_spec_intervention] multiplies its interest by #v [{good_sv('spec_push_sv')}|2]#! so far."
+ SPEC_II_GLUT: "\\n\\nWhile it recovers, its interest is held at #v Doubtful#! or lower."
  concept_spec_market_sector: "Market Sector"
  concept_spec_market_sector_desc: "Each tracked good belongs to one sector. The chart values all tracked goods offered for sale at their [concept_base_price]. Goods with a larger share of this supply count more toward their sector’s trend. If the sector moves less than the good or moves the other way, its price pressure on [concept_spec_investor_interest] can fall by up to half."
  SPEC_SECTOR_OTHER: "Other sectors"
  SPEC_SECTOR_TURNOVER_LINK: "[Concept('concept_spec_market_sector','$SPEC_SECTOR_TURNOVER$')]"
  SPEC_SECTOR_FILTER_LINK: "[Concept('concept_spec_market_sector','$SPEC_MARKET_SECTORS$')]"
- SPEC_MARKET_SECTORS: "Market sectors"
+ SPEC_MARKET_SECTORS: "Market Sectors"
  SPEC_SECTOR_PRICE_TREND: "Previous sector price trend"
- SPEC_SECTOR_TURNOVER: "Market supply by sector"
+ SPEC_SECTOR_TURNOVER: "Goods for sale by sector"
+ SPEC_SECTOR_SHARE: "Share of goods for sale"
  SPEC_SECTOR_RISING: "rising"
  SPEC_SECTOR_FALLING: "falling"
  SPEC_SECTOR_FLAT: "flat"
  SPEC_SECTOR_WAIT: "Awaiting the first sector comparison."
  SPEC_SECTOR_NO_MOVE: "This good had no price pressure to dampen."
- SPEC_SECTOR_EFFECT: "Sector conditions softened this good's price pressure on Investor Interest by #v [{good_sv('spec_review_reduction')}|%0]#!."
- SPEC_SECTOR_REVIEW: "Previous sector trend was #v [{direction}]#! ([{mean}|=+%1]). [SelectLocalization(EqualTo_CFixedPoint({TREND}, {fx(0)}), 'SPEC_SECTOR_NO_MOVE', 'SPEC_SECTOR_EFFECT')]"
- SPEC_SECTOR_LINE: "[concept_spec_market_sector] · #v [{sector_name}]#!  [SelectLocalization({gt(good_sv('spec_review_has'))}, 'SPEC_SECTOR_REVIEW', 'SPEC_SECTOR_WAIT')]"
- SPEC_TILE_BODY: "[concept_spec_investor_interest]: #v $SPEC_INTEREST$#! ($SPEC_TILE_MOVE$ since last month)\\n$SPEC_II_TREND$\\n$SPEC_SECTOR_LINE$\\n#tooltippable #tooltip:[Country.GetTooltipTag],SPEC_WHY_SPEED Investors here react #v [{sv('spec_hype_mult')}|2]#! times as strongly as usual#!#!$SPEC_TILE_NEXT$\\n$TOOLTIP_DELIMITER$\\n#title Effects:#!\\nProducers' [concept_throughput]: $SPEC_PULL$$SPEC_TILE_LIFT$\\n$TOOLTIP_DELIMITER$\\n$SPEC_TILE_BOOM$$SPEC_TILE_BANKS$"
- SPEC_TILE_BOOM: "[SelectLocalization(GreaterThanOrEqualTo_CFixedPoint({good_var('spec_sev')}, {fx(1)}), 'SPEC_TILE_BOOM_ON', SelectLocalization(GreaterThan_CFixedPoint({good_var('spec_glut')}, {fx(0)}), 'SPEC_TILE_BOOM_PAST', 'SPEC_TILE_BOOM_NONE'))]"
- SPEC_TILE_BOOM_ON: "If the boom ended now, it would be a $SPEC_UNWIND_LINK$[SelectLocalization(GreaterThanOrEqualTo_CFixedPoint({RISK}, {fx(0.05)}), 'SPEC_TILE_BOOM_COST', 'SPEC_TILE_BOOM_SLIGHT')]"
+ SPEC_SECTOR_EFFECT: "That softened this good's pull on [concept_spec_investor_interest] by #v [{good_sv('spec_review_reduction')}|%0]#!."
+ SPEC_SECTOR_REVIEW: "Last month its sector's prices were #v [{direction}]#! ([{mean}|=+%1]). [SelectLocalization(EqualTo_CFixedPoint({TREND}, {fx(0)}), 'SPEC_SECTOR_NO_MOVE', 'SPEC_SECTOR_EFFECT')]"
+ SPEC_SECTOR_LINE: "It belongs to the #v [{sector_name}]#! [concept_spec_market_sector]. [SelectLocalization({gt(good_sv('spec_review_has'))}, 'SPEC_SECTOR_REVIEW', 'SPEC_SECTOR_WAIT')]"
+ SPEC_TILE_REACT: "#tooltippable #tooltip:[Country.GetTooltipTag],SPEC_WHY_SPEED Investors here react #v [{sv('spec_hype_mult')}|2]#! times as strongly as usual.#!#!"
+ SPEC_TILE_TREND: "\\nRecent prices are #v [{TREND}|=+%1]#! from their long-run average."
+ SPEC_TILE_BODY: "Investors are #v $SPEC_INTEREST$#! about [Goods.GetName], $SPEC_TILE_MOVE$.$SPEC_TILE_TREND$$SPEC_TILE_NEXT$\\n$TOOLTIP_DELIMITER$\\nIts producers' [concept_throughput] changes by $SPEC_PULL$.$SPEC_TILE_LIFT$\\n$TOOLTIP_DELIMITER$\\n$SPEC_TILE_BOOM$$SPEC_TILE_BANKS$"
+ SPEC_IL_TREND_TT: "#header Price Trend of [Goods.GetName]#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_II_TREND$\\n\\n$SPEC_SECTOR_LINE$\\n\\n$SPEC_TILE_REACT$"
+ SPEC_TILE_BOOM:"[SelectLocalization(GreaterThanOrEqualTo_CFixedPoint({good_var('spec_sev')}, {fx(1)}), 'SPEC_TILE_BOOM_ON', SelectLocalization(GreaterThan_CFixedPoint({good_var('spec_glut')}, {fx(0)}), 'SPEC_TILE_BOOM_PAST', 'SPEC_TILE_BOOM_NONE'))]"
+ SPEC_TILE_BOOM_ON: "If the boom ended now, it would be a $SPEC_UNWIND_LINK$[SelectLocalization(GreaterThanOrEqualTo_CFixedPoint({RISK}, {fx(0.05)}), 'SPEC_TILE_BOOM_COST', 'SPEC_TILE_BOOM_SLIGHT')]."
  SPEC_TILE_BOOM_COST: " costing #N [{RISK}|1]#! [concept_spec_market_confidence]"
  SPEC_TILE_BOOM_SLIGHT: " costing a little [concept_spec_market_confidence]"
- SPEC_TILE_BOOM_PAST: "Recovering from a [SelectLocalization(GreaterThanOrEqualTo_CFixedPoint({good_var('spec_glut')}, {fx(3)}), 'SPEC_UNWIND_C_3', SelectLocalization(GreaterThanOrEqualTo_CFixedPoint({good_var('spec_glut')}, {fx(2)}), 'SPEC_UNWIND_C_2', 'SPEC_UNWIND_C_1'))][AddLocalizationIf({gt(good_var('spec_glut_until'))}, 'SPEC_IL_RECOVERY_LEFT')]"
- SPEC_TILE_BOOM_NONE: "No boom until interest reaches @spec_interest_keen! #v Keen#!"
+ SPEC_TILE_BOOM_PAST: "It is recovering from a [SelectLocalization(GreaterThanOrEqualTo_CFixedPoint({good_var('spec_glut')}, {fx(3)}), 'SPEC_UNWIND_C_3', SelectLocalization(GreaterThanOrEqualTo_CFixedPoint({good_var('spec_glut')}, {fx(2)}), 'SPEC_UNWIND_C_2', 'SPEC_UNWIND_C_1'))].[AddLocalizationIf({gt(good_var('spec_glut_until'))}, 'SPEC_IL_RECOVERY_LEFT')]"
+ SPEC_TILE_BOOM_NONE: "It cannot boom until its interest reaches @spec_interest_keen! #v Keen#!."
  SPEC_PULL: "{word(WORD, 'SPEC_PULL', [1.5, 2.5, 3.5, 4.5, 5.5])}"
 {"".join(f' SPEC_PULL_{w - 1}: "{"#P +" if p > 0 else "#N " if p < 0 else "#v "}{p}%#!"' + chr(10) for w, p in companies.INTEREST_THROUGHPUT.items())} SPEC_TILE_LIFT: "[SelectLocalization(GreaterThanOrEqualTo_CFixedPoint({HYPE}, {fx(k['HOT_HYPE'])}), 'SPEC_TILE_LIFTS', 'SPEC_GOODS_NONE')]"
- SPEC_TILE_LIFTS: "\\nBooming, so it lifts [concept_spec_market_confidence] each month"
+ SPEC_TILE_LIFTS: "\\nIt is booming, so it lifts [concept_spec_market_confidence] each month."
  SPEC_TILE_MOVE: "[SelectLocalization(EqualTo_CFixedPoint({MOVE}, {fx(1)}), 'SPEC_TILE_RISING', SelectLocalization(EqualTo_CFixedPoint({MOVE}, {fx(-1)}), 'SPEC_TILE_FALLING', 'SPEC_TILE_STEADY'))]"
- SPEC_TILE_RISING: "#P Rising#!"
- SPEC_TILE_FALLING: "#N Falling#!"
- SPEC_TILE_STEADY: "#v Unchanged#!"
+ SPEC_TILE_RISING: "#P up#! from last month"
+ SPEC_TILE_FALLING: "#N down#! from last month"
+ SPEC_TILE_STEADY: "the same as last month"
  SPEC_RISK_NONE_TT: "$SPEC_RISK_NONE$"
  SPEC_INTEREST_TT: "#header [concept_spec_investor_interest] in [Goods.GetName]#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_TILE_BODY$"
  SPEC_CALC_BANK_EXPOSURE: "from bank loans tied to this good"

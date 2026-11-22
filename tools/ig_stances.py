@@ -112,7 +112,7 @@ NOTE_GROUP = "spec_igs_notification_group"
 _IG, _GOOD = "[SCOPE.gsInterestGroup('spec_note_ig').GetName]", "[SCOPE.sGoods('spec_note_good').GetName]"
 # the good first, so a group's name reads as singular or plural alike ("Catholic Church", "Landowners"); no body
 NOTES = {f"spec_igs_{k}": (NOTE_GROUP, "goods", "neutral", f"{_GOOD} {what} by {_IG}", "") for k, what in (
-    ("fav_new", "now favored"), ("fav_lost", "no longer favored"),
+    ("fav_new", "now supported"), ("fav_lost", "no longer supported"),
     ("dis_new", "now opposed"), ("dis_lost", "no longer opposed"))}
 NOTE_GROUPS = {NOTE_GROUP: "Interest Group Stances"}
 
@@ -509,22 +509,22 @@ def loc():
     fav_issue = (f"\\n• {amt('spec_igs_issue')} {iss}, and twice the loss from a [concept_spec_bust] or "
                  "[concept_spec_collapse] while it runs") if levers.ISSUE_ON else ""
     dis_issue = f"\\n• {amt('spec_igs_issue_against')} {iss}" if levers.ISSUE_ON else ""
-    out = (f' SPEC_IGS_FAV_TT: "@approves! #bold Favors [Goods.GetNameNoFormatting]#!\\n{scaled}'
+    out = (f' SPEC_IGS_FAV_TT: "@approves! #bold Supports [Goods.GetNameNoFormatting]#!\\n{scaled}'
            f"\\n• {amt('spec_igs_boom')} when [concept_spec_investor_interest] in it rises to #v Eager#!"
            f"\\n• {amt('spec_igs_bust')} when its boom ends in a [concept_spec_bust] or [concept_spec_collapse], "
-           f"and they may stop favoring it\\n• {both('spec_igs_backed', enc, 'spec_igs_crossed', res)}{fav_issue}\"\n"
+           f"and they may stop supporting it\\n• {both('spec_igs_backed', enc, 'spec_igs_crossed', res)}{fav_issue}\"\n"
            f' SPEC_IGS_DIS_TT: "@disapproves! #bold Opposes [Goods.GetNameNoFormatting]#!\\n{scaled}'
            f"\\n• {both('spec_igs_backed', res, 'spec_igs_crossed', enc)}{dis_issue}\"\n"
            # the column's header
            ' SPEC_IL_COL_IGS_TT: "#header [concept_interest_group] Stances#!\\n$TOOLTIP_DELIMITER$\\nEach '
-           "$concept_interest_group$ @approves! favors a few of the [Concept('concept_good','$concept_goods$')] our "
+           "$concept_interest_group$ @approves! supports a few of the [Concept('concept_good','$concept_goods$')] our "
            "[concept_market] trades, and some @disapproves! oppose one.\\n\\nTheir [concept_approval] rises and falls "
            "with the booms and busts of these goods and with our interventions in them, twice as much while "
            "[concept_powerful] and not at all while [concept_marginalized]. A new leader may change one of the group's stances.\"\n"
            # the interest group panel's section (panel_patch), headed as its Ideologies (IDEOLOGY_HEADER)
            " SPEC_IGS_PANEL_HEAD: \"[Concept('concept_good','$concept_goods$')]\"\n"
            ' SPEC_IGS_PANEL_TT: "#header Stances on Goods#!\\n$TOOLTIP_DELIMITER$\\nThe [InterestGroup.GetName] '
-           "@approves! favor a few of the goods their country trades, and may @disapproves! oppose one. Their "
+           "@approves! support a few of the goods their country trades, and may @disapproves! oppose one. Their "
            "[concept_approval] rises and falls with the booms and busts of these goods and with the government's "
            "interventions in them, twice as much while [concept_powerful] and not at all while [concept_marginalized]."
            "\\n\\nA new leader may change one of "
@@ -535,7 +535,7 @@ def loc():
     # the strongest group's icon: every group holding the stance, strongest or not (context Goods, from the row)
     for op, key, _ in SIDES:
         has = _has(_stance, op)
-        word, mark = ("Favored", "approves") if key == "FAV" else ("Opposed", "disapproves")
+        word, mark = ("Supported", "approves") if key == "FAV" else ("Opposed", "disapproves")
         out += (f' SPEC_IGS_ROW_{key}_ALL_TT: "#header {word} by#!\\n$TOOLTIP_DELIMITER$'
                 + "".join(f"[AddLocalizationIf({has(ig)}, 'SPEC_IGS_WHO_{key}_{ig}')]" for ig in POOLS) + '"\n')
         out += "".join(f' SPEC_IGS_WHO_{key}_{ig}: "\\n@{mark}! [{_ig(ig)}.GetName] ([{_ig(ig)}.GetClout|v%1] '
@@ -545,8 +545,8 @@ def loc():
         for k, up, down in (("", "spec_igs_backed", "spec_igs_crossed"), ("ISSUE_", "spec_igs_issue", "spec_igs_issue_against")):
             out += (f' SPEC_IGS_{k}UP_{ig}: "\\n@approves! {who}: [{_amount(up, _ig(ig))}|+=0] for {_years(up)}"\n'
                     f' SPEC_IGS_{k}DOWN_{ig}: "\\n@disapproves! {who}: [{_amount(down, _ig(ig))}|+=0] for {_years(down)}"\n')
-    names = {"spec_igs_boom": ("Favored Trade Booming", "Investors are pouring money into a trade this group holds dear."),
-             "spec_igs_bust": ("Favored Trade Bust", "A trade this group holds dear has gone bust, and they blame the government that let it happen."),
+    names = {"spec_igs_boom": ("Supported Trade Booming", "Investors are pouring money into a trade this group holds dear."),
+             "spec_igs_bust": ("Supported Trade Bust", "A trade this group holds dear has gone bust, and they blame the government that let it happen."),
              "spec_igs_backed": ("Government Backs Their Trade", "The government has stepped into a market this group cares about, as they wished."),
              "spec_igs_crossed": ("Government Crosses Their Trade", "The government has stepped into a market this group cares about, against their wishes."),
              "spec_igs_issue": ("Shares in Their Trade", "The government has floated a Great Issue in a trade this group holds dear, and they have bought in."),

@@ -6,7 +6,7 @@ The GUI re-evaluates every visible expression every frame, so the rows read figu
 (spec_ui_*_<good>, one variable read per test) instead of working them out from interest, peak and risk; tooltips,
 which run on hover only, keep their own expressions."""
 import levers
-from market_tab import fx, good_var, gt, RISK, WORD, TREND, LEANING, CATEGORIES, NEAR_PEAK, any_of
+from market_tab import fx, good_var, gt, RISK, WORD, TREND, LEANING, CATEGORIES, NEAR_PEAK, GLIDE, any_of
 
 # the interest words' colours, warm to cold; Calm has none
 HEAT = {6: "0.80 0.32 0.22", 5: "0.78 0.52 0.24", 4: "0.70 0.64 0.36", 3: None, 2: "0.34 0.48 0.64", 1: "0.28 0.34 0.68"}
@@ -91,9 +91,40 @@ spec_ui_good = {{
 			limit = {{ var:spec_ui_badge_{g} = 1 }}
 			{put('state', 1)}
 		}}
+		# the bar shows spec_ui_shown, which glide() steps to pos over the month; a collapse shows at once
+		if = {{
+			limit = {{ OR = {{ NOT = {{ has_variable = spec_ui_shown_{g} }} var:spec_ui_state_{g} = 2 }} }}
+			{put('shown', f'var:spec_ui_pos_{g}')}
+			{put('step', 0)}
+		}}
+		else = {{
+			{put('step', f'{{ value = var:spec_ui_pos_{g} subtract = var:spec_ui_shown_{g} divide = {GLIDE} }}')}
+		}}
 	}}
 }}
 """
+
+
+def glide(goods):
+    """spec_ui_glide_all, weekly for a player (journal's on_weekly_pulse): each bar a step to its month's figure."""
+    one = """spec_ui_glide = {
+	if = {
+		limit = { has_variable = spec_ui_step_$G$ NOT = { var:spec_ui_step_$G$ = 0 } }
+		change_variable = { name = spec_ui_shown_$G$ add = var:spec_ui_step_$G$ }
+		if = {
+			limit = {
+				OR = {
+					AND = { var:spec_ui_step_$G$ > 0 var:spec_ui_shown_$G$ > var:spec_ui_pos_$G$ }
+					AND = { var:spec_ui_step_$G$ < 0 var:spec_ui_shown_$G$ < var:spec_ui_pos_$G$ }
+				}
+			}
+			set_variable = { name = spec_ui_shown_$G$ value = var:spec_ui_pos_$G$ }
+			set_variable = { name = spec_ui_step_$G$ value = 0 }
+		}
+	}
+}
+"""
+    return one + "spec_ui_glide_all = {\n" + "".join(f"\tspec_ui_glide = {{ G = {g} }}\n" for g in goods) + "}\n"
 
 
 def monthly(goods, category):
@@ -103,7 +134,7 @@ def monthly(goods, category):
 
 
 def state_vars(goods):
-    return [f"spec_ui_{n}_{g}" for g in goods for n in ("bar", "pos", "move", "badge", "cat", "state", "crash")]
+    return [f"spec_ui_{n}_{g}" for g in goods for n in ("bar", "pos", "move", "badge", "cat", "state", "crash", "shown", "step")]
 
 
 # -- interface ---------------------------------------------------------------------------------------------
@@ -120,7 +151,7 @@ def loc(k):
     conf = "[concept_spec_market_confidence]"
     out = (" SPEC_IB_TURNING_TT: \"#header Boom Turning#!\\n$TOOLTIP_DELIMITER$\\nThe big boom in [Goods.GetName] is fading.\\n"
            "\\nIf [concept_spec_investor_interest] keeps falling, it ends in a [concept_spec_collapse], "
-           f"costing about #N [{RISK}|1]#! {conf}\"\n"
+           f"costing about #N [{RISK}|1]#! {conf}.\"\n"
            " SPEC_IB_HEAT_TT: \"#header [concept_spec_investor_interest] in [Goods.GetName]#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_TILE_BODY$\"\n")
     # only the top band reads its bar out, as collapse danger. Below it no next band is named: that read as if interest
     # only ever rose
@@ -129,21 +160,42 @@ def loc(k):
     remaining = f"Multiply_CFixedPoint({term}, {fx(-1)})"
     status = (f"[AddLocalizationIf({gt(term)}, 'SPEC_TERM_FAV')]"
               f"[AddLocalizationIf(LessThan_CFixedPoint({term}, {fx(0)}), 'SPEC_TERM_SHUN')]"
-              f"[AddLocalizationIf(And(Not({eq(term, 0)}), {gt(good_var('spec_glut'))}), 'SPEC_TERM_GLUT')]")
-    out += (f' SPEC_TERM_FAV: "\\n$SPEC_JE_FAVOURED$ · Sustained high prices · +12% [concept_spec_investor_interest] · Months remaining: [{term}|0]"\n'
-            f' SPEC_TERM_SHUN: "\\n$SPEC_JE_SHUNNED$ · Sustained low prices · −12% [concept_spec_investor_interest] · Months remaining: [{remaining}|0]"\n'
-            ' SPEC_TERM_GLUT: "\\nThe glut temporarily overrides this effect."\n')
-    for label, side, modifier, months in (("FAVOURED", "FAV", "#P +12%#!", term), ("SHUNNED", "SHUN", "#N −12%#!", remaining)):
-        left = f"[SelectLocalization({eq(months, 1)}, 'SPEC_RV_MONTH_LEFT', 'SPEC_RV_MONTHS_LEFT')]"
-        out += (f' SPEC_JE_{label}_GOOD_TT: "#header [Goods.GetName] · $SPEC_JE_{label}$#!\\n$TOOLTIP_DELIMITER$\\n'
-                f'{modifier} [concept_spec_investor_interest]   ·   #v [{months}|0]#! {left}'
-                f"[AddLocalizationIf({gt(good_var('spec_glut'))}, 'SPEC_TERM_GLUT')]\\n"
-                f'[concept_spec_investor_interest]   $SPEC_INTEREST$\\n[concept_throughput]   $SPEC_PULL$'
-                f'\\n\\n$SPEC_{side}_REASON$\\n#weak $SPEC_{side}_PLAY$#!"\n')
+              f"[AddLocalizationIf(And(Not({eq(term, 0)}), {gt(good_var('spec_glut'))}), 'SPEC_TERM_GLUT')]"
+              f"[AddLocalizationIf({eq(term, 0)}, 'SPEC_TERM_NONE')]")
+    import investor_sentiment as sent
+    from market_tab import P
+    plural = lambda n: f"[SelectLocalization({eq(n, 1)}, 'SPEC_TERM_MONTH', 'SPEC_TERM_MONTHS')]"
+    tv = lambda k: f"{P}.ScriptValue(Concatenate('spec_term_{k}_', Goods.GetKey))"
+    effect, tp = f"[{tv('effect')}|+=%1]", f"[{tv('tp')}|+=%1]"
+    # vanilla sentences, no "Label: value" (2026-11-21); the numbers come from investor_sentiment
+    out += (f' SPEC_TERM_FAV: "\\nIt is #v $SPEC_JE_FAVOURED$#! for #v [{term}|0]#! more {plural(term)}, which changes its '
+            f'[concept_spec_investor_interest] by {effect} and its producers\' [concept_throughput] by {tp}."\n'
+            f' SPEC_TERM_SHUN: "\\nIt is #v $SPEC_JE_SHUNNED$#! for #v [{remaining}|0]#! more {plural(remaining)}, which changes its '
+            f'[concept_spec_investor_interest] by {effect} and its producers\' [concept_throughput] by {tp}."\n'
+            ' SPEC_TERM_MONTH: "month"\n SPEC_TERM_MONTHS: "months"\n'
+            ' SPEC_TERM_GLUT: "\\nThe glut overrides this for now."\n'
+            " SPEC_TERM_NONE: \"\\nInvestors neither [Concept('concept_spec_investor_sentiment','favor nor shun')] it.\"\n")
+    # the calculator: the base effect, then each factor that scales it (investor_sentiment.values)
+    gap_pct = f"[Multiply_CFixedPoint({tv('gap')}, {fx(sent.GAP_FULL)})|%0]"
+    out += (f' SPEC_TERM_BREAKDOWN: "\\n\\n[SelectLocalization({gt(tv("side"))}, \'SPEC_TERM_BASE_FAV\', \'SPEC_TERM_BASE_SHUN\')]'
+            f'\\n#v ×[{tv("gap")}|2]#! from its price, #v {gap_pct}#! [SelectLocalization({gt(tv("side"))}, \'SPEC_TERM_ABOVE\', \'SPEC_TERM_BELOW\')] its [concept_base_price]'
+            f'\\n#v ×[{tv("fade")}|2]#! from the months left in its term'
+            f'\\n#v ×[{tv("conf")}|2]#! from our [concept_spec_market_confidence]'
+            f'\\n#v ×[{tv("share")}|2]#! from its #v [{tv("supply")}|%1]#! of our market\'s supply'
+            f'\\n$TOOLTIP_DELIMITER$\\n{effect} [concept_spec_investor_interest], and half of it, {tp}, as its producers\' [concept_throughput]"\n'
+            f' SPEC_TERM_BASE_FAV: "#P +{sent.BONUS:.0%}#! base effect"\n SPEC_TERM_BASE_SHUN: "#N −{sent.BONUS:.0%}#! base effect"\n'
+            ' SPEC_TERM_ABOVE: "above"\n SPEC_TERM_BELOW: "below"\n')
+    for label, mood, verb, months, side in (("FAVOURED", "high", "favor", term, "FAV"), ("SHUNNED", "low", "shun", remaining, "SHUN")):
+        out += (f' SPEC_JE_{label}_GOOD_TT: "#header [Goods.GetName]#!\\n$TOOLTIP_DELIMITER$\\n'
+                f'After a long run of {mood} prices, investors {verb} [Goods.GetName] for #v [{months}|0]#! more {plural(months)}. '
+                f'Its [concept_spec_investor_interest] changes by {effect} and its producers\' [concept_throughput] by {tp}.'
+                f"[AddLocalizationIf({gt(good_var('spec_glut'))}, 'SPEC_TERM_GLUT')]$SPEC_TERM_BREAKDOWN$\\n\\n"
+                f'Investors are $SPEC_INTEREST$ about it, which also changes its producers\' [concept_throughput] by $SPEC_PULL$.'
+                f'\\n\\n#weak $SPEC_{side}_PLAY$#!"\n')
     out += (f" SPEC_TILE_NEXT: \"[SelectLocalization({eq(WORD, 6)}, 'SPEC_TILE_DANGER', 'SPEC_IB_EMPTY')]{status}\"\n"
             " SPEC_IB_EMPTY: \"\"\n"
             f" SPEC_TILE_DANGER: \"\\nIt is #v {pct}#! of the way to the top, and the higher it climbs, the "
-            f"more {conf} a [concept_spec_collapse] would cost\"\n")
+            f"more {conf} a [concept_spec_collapse] would cost.\"\n")
     return out
 
 
@@ -161,6 +213,6 @@ if __name__ == "__main__":
     assert "spec_ui_state_grain" in state_vars(["grain"]) and "spec_ui_crash_grain" in state_vars(["grain"])
     lo = loc(k)
     assert "SPEC_IB_TURNING_TT:" in lo and "SPEC_IB_TREND_TT" not in lo
-    m = monthly(["grain"], {"grain": "staple"})
+    m = monthly(["grain"], {"grain": CATEGORIES[0]})
     assert "spec_ui_good = { G = grain CAT = 1 }" in m and "spec_ui_rows_w" not in m
     print("interest_board ok")

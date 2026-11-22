@@ -1,6 +1,7 @@
 """Game concepts for the mod's own terms: hoverable [concept_spec_x] links and entries in the concept browser."""
 import companies
 import cycle
+import investor_sentiment as sent
 import icons
 import leverage
 import tuning
@@ -8,7 +9,7 @@ import tuning
 # concept key suffix -> icon slot shown in its tooltip (None: no icon, like most vanilla concepts)
 CONCEPTS = {"market_sector": "je_markets", "market_confidence": "je_markets", "speculative_mania": "state_mania", "financial_panic": "state_panic",
             "foreign_panic": "driver_foreign", "boom_end": "driver_crash", "correction": "driver_crash", "bust": "driver_crash", "collapse": "driver_crash", "investor_interest": "driver_boom",
-            "credit_policy": None, "outstanding_credit": None, "long_depression": None,
+            "investor_sentiment": None, "credit_policy": None, "outstanding_credit": None, "long_depression": None,
             "speculative_excess": "excess_alert", "sound_finance": None, "banking_reforms": None,
             "intervention": None, "market_conditions": None, "baseline": None, "market_mood": None, "market_tie": None,
             "capital_flight": None, "war_news": None, "financial_centre": None, "blue_chip": "blue_chip", "company_strength": None, **({"leverage": None, "bad_debts": None} if leverage.ON else {}),
@@ -126,6 +127,8 @@ def loc(k):
  concept_spec_foreign_panic_desc: "A panic abroad that spills over into a [concept_market]. When a [concept_spec_financial_panic] starts in a [concept_country] tied to ours, our [{mc}] drops, more the closer the tie.\\n\\nCountries are tied by a shared [concept_market], one being the other's subject, investment rights, heavy trade, or one owning part of the other's economy. [GetLawType('law_free_trade').GetName] makes trade ties stronger and other trade policies make them weaker, while an [concept_embargo] cuts the trade tie."
 {boom_end_loc(k, mc)} concept_spec_investor_interest: "Investor Interest"
  concept_spec_investor_interest_desc: "How keen investors are on the {buildings} that make a [concept_good], from #v Fleeing#! to #v Feverish#!. It rises while the [concept_market_price] is above its long-run average, and falls while it is below.\\n\\nThose buildings' [concept_throughput] follows it, from #N {companies.INTEREST_THROUGHPUT[1]:+g}%#! at #v Fleeing#! up to #P {companies.INTEREST_THROUGHPUT[6]:+g}%#! at #v Feverish#!, and so does the [concept_prosperity] of [Concept('concept_company','$concept_companies$')] making the $concept_good$. A booming $concept_good$ raises [{mc}], and when interest drops back the boom ends in a [concept_spec_boom_end]."
+ concept_spec_investor_sentiment: "Investor Sentiment"
+ concept_spec_investor_sentiment_desc: "How investors judge a [concept_good] after a long run of prices. When its [concept_market_price] stays #v {sent.PREMIUM:.0%}#! or more above its [concept_base_price] for about #v {sent.QUALIFY}#! months, investors may come to #v Favor#! it; when it stays that far below, they may #v Shun#! it. Either lasts #v {sent.MONTHS}#! months.\\n\\nA #v Favored#! good gains [concept_spec_investor_interest] and a #v Shunned#! one loses it, starting from #v {sent.BONUS:.0%}#! and more the further the price is from its $concept_base_price$, and the larger the good's share of our [concept_market]. A high [{mc}] strengthens Favor and softens Shunning, and a low one does the reverse. It fades over the last #v {sent.FADE_FROM}#! months, and the good's producers get #v {sent.TP_SHARE:.0%}#! of it as [concept_throughput]."
  concept_spec_credit_policy: "Credit Policy"
  concept_spec_credit_policy_tight: "Tight Credit"
  concept_spec_credit_policy_normal: "Normal Credit"

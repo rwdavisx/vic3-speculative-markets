@@ -12,7 +12,7 @@ from pathlib import Path
 import re
 import tuning
 import bluechips as BC
-from market_tab import W, fx, ind, heads, section, SLIDE, CLEAR, long_date, rounded
+from market_tab import W, fx, ind, heads, section, SLIDE, GLIDE, CLEAR, long_date, rounded
 
 STAKE = tuning.get("RIVAL_STAKE", 3)          # contest trust at an equal standing (out of CALM)
 BITTER = tuning.get("EXCH_RIVAL_BITTER", 1.5)  # the loser's loss times this on poor relations or worse
@@ -64,7 +64,7 @@ OLD_VARS = ["spec_rival", "spec_rival_lock", "spec_rival_last", "spec_rv_shored"
 STATE_VARS = OLD_VARS + ["spec_c_rival", "spec_rv_ai_wait", "spec_rv_ai_seen", "spec_rv_raid_year", "spec_rv_raid", "spec_rv_raid_pm", "spec_rv_raider", "spec_rv_lure", "spec_rv_lurer", "spec_rv_lure_share",
                          "spec_rv_hit", "spec_rv_hit_by", "spec_rv_hit_ok", "spec_rv_hit_recent",
                          "spec_rv_did", "spec_rv_did_on", "spec_rv_did_ok", "spec_rv_did_recent", "spec_rv_did_amt", "spec_rv_did_cost",
-                         "spec_rv_n_out", "spec_rv_n_in", "spec_rv_n_chosen", "spec_rv_ui_left", "spec_rv_n_all", "spec_rv_focus", "spec_rv_ui_p", "spec_rv_ui_us", "spec_rv_ui_them", "spec_rv_ui_forfeit"]
+                         "spec_rv_n_out", "spec_rv_n_in", "spec_rv_n_chosen", "spec_rv_ui_left", "spec_rv_n_all", "spec_rv_focus", "spec_rv_ui_p", "spec_rv_ui_shown", "spec_rv_ui_step", "spec_rv_ui_us", "spec_rv_ui_them", "spec_rv_ui_forfeit"]
 # scripted GUIs with root = the player and scope:target = the row's country
 CALL = "GetScriptedGui('spec_sgui_{}').{}(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Country.MakeScope).End)"
 US, THEM = "GetMetaPlayer.GetPlayedOrObservedCountry.MakeScope", "Country.MakeScope"
@@ -785,6 +785,12 @@ spec_rv_ui_row = {{
 			scope:spec_rival_me = {{ {exch} }}
 		}}
 		set_variable = {{ name = spec_rv_ui_p value = spec_rv_rope }}
+		# the bar shows spec_rv_ui_shown, which spec_rv_glide steps to the new figure over GLIDE weeks
+		if = {{
+			limit = {{ NOT = {{ has_variable = spec_rv_ui_shown }} }}
+			set_variable = {{ name = spec_rv_ui_shown value = var:spec_rv_ui_p }}
+		}}
+		set_variable = {{ name = spec_rv_ui_step value = {{ value = var:spec_rv_ui_p subtract = var:spec_rv_ui_shown divide = {GLIDE} }} }}
 		set_variable = {{ name = spec_rv_ui_left value = {{ value = {ROUND} subtract = spec_rv_age_m }} }}
 		save_temporary_scope_as = spec_rv_row
 		scope:spec_rival_me = {{
@@ -819,6 +825,37 @@ spec_rv_ui_row = {{
 	else_if = {{
 		limit = {{ has_variable = spec_rv_ui_p }}
 		remove_variable = spec_rv_ui_p
+		remove_variable = spec_rv_ui_shown
+		remove_variable = spec_rv_ui_step
+	}}
+}}
+
+# weekly for a player (journal's on_weekly_pulse): each contest bar a step to its month's figure
+spec_rv_glide = {{
+	every_in_list = {{
+		variable = spec_rv_outs
+		spec_rv_glide_row = yes
+	}}
+	every_in_list = {{
+		variable = spec_rv_ins
+		spec_rv_glide_row = yes
+	}}
+}}
+
+spec_rv_glide_row = {{
+	if = {{
+		limit = {{ has_variable = spec_rv_ui_step NOT = {{ var:spec_rv_ui_step = 0 }} }}
+		change_variable = {{ name = spec_rv_ui_shown add = var:spec_rv_ui_step }}
+		if = {{
+			limit = {{
+				OR = {{
+					AND = {{ var:spec_rv_ui_step > 0 var:spec_rv_ui_shown > var:spec_rv_ui_p }}
+					AND = {{ var:spec_rv_ui_step < 0 var:spec_rv_ui_shown < var:spec_rv_ui_p }}
+				}}
+			}}
+			set_variable = {{ name = spec_rv_ui_shown value = var:spec_rv_ui_p }}
+			set_variable = {{ name = spec_rv_ui_step value = 0 }}
+		}}
 	}}
 }}
 
@@ -2073,7 +2110,11 @@ def _score():
     import interest_list as il
     x, w = C_SCORE
     bw = w - 6
-    at = f"Subtract_CFixedPoint({fx(50)}, Multiply_CFixedPoint({fx(50)}, {rope()}))"  # 0 all ours, 50 even, 100 theirs
+    # 0 all ours, 50 even, 100 theirs; a player's bar glides weekly to the month's figure (spec_rv_ui_shown)
+    glided = rope().replace(f"{THEM}.Var('spec_rv_ui_p').GetValueWithDefault({fx(0)})",
+                            f"{THEM}.Var('spec_rv_ui_shown').GetValueWithDefault({THEM}.Var('spec_rv_ui_p').GetValueWithDefault({fx(0)}))")
+    assert glided != rope()
+    at = f"Subtract_CFixedPoint({fx(50)}, Multiply_CFixedPoint({fx(50)}, {glided}))"
     ours_more = f"GreaterThan_CFixedPoint({pushes('push')}, {pushes('pushed')})"
     theirs_more = f"GreaterThan_CFixedPoint({pushes('pushed')}, {pushes('push')})"
     edges = [0, 50 - 50 * DECISIVE, 50 - 50 * DRAW, 50 + 50 * DRAW, 50 + 50 * DECISIVE, 100]

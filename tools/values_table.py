@@ -130,7 +130,7 @@ GROUPS = [
          "Set as it starts. No cap on the length.", "g.PANIC_LEV_LEN"),
         ("Private construction cut", f"{pct(g.CRUNCH_FLOOR)} to all, by leverage {g.leverage.SAFE} to {g.leverage.DANGER} months",
          "Of the economic law's private share. A rescue halves it.", "g.CRUNCH_FLOOR"),
-        ("Financial District pay", f"{c.FD_MANIA:+g} in mania, {c.FD_PANIC:+g} in a panic", "Standard of Living of its workers. A rescue halves the panic's.", "c.FD_PANIC"),
+        ("Financial District pay", ", ".join(f"{v:+g} {t}" for t, v in c.FD_BANDS.items()) + f", {c.FD_PANIC:+g} more in a panic", "Standard of Living of its workers by confidence band. A rescue halves the panic's.", "c.FD_PANIC"),
         ("Company bonus in a panic", f"{c.PANIC_COMPANY:+g}", "Company throughput bonus while it lasts.", "c.PANIC_COMPANY"),
     ]),
     ("Panics spreading", "How a panic reaches other countries.", [

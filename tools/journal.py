@@ -12,6 +12,7 @@ rule (MONTHLY_AI); the reform event weighs their options by credit temperament.
 generate.py calls build() and loc(k), uses entry(stances) for the journal entry, puts MONTHLY in spec_monthly for
 everyone and MONTHLY_AI in its AI block, and BARS in its bar update.
 """
+import investor_sentiment as sent
 import calc
 import cycle
 import goods_panel
@@ -445,6 +446,35 @@ spec_finance_bar = {{
 """
 
 
+GLIDE = mt.GLIDE  # weekly steps the shown confidence takes to reach each month's figure (market_tab.SHOWN)
+GLIDE_VARS = ["spec_conf_shown", "spec_conf_aim", "spec_conf_step"]
+# a new month's figure sets the step; a panic or a Mania shows at once, as do the first weeks
+GLIDE_EFFECT = f"""			root = {{
+				if = {{
+					limit = {{ has_variable = spec_conf }}
+					if = {{
+						limit = {{ OR = {{ NOT = {{ has_variable = spec_conf_shown }} has_variable = spec_panic var:spec_conf >= {mt.TIERS[-1][1]} }} }}
+						set_variable = {{ name = spec_conf_shown value = var:spec_conf }}
+						set_variable = {{ name = spec_conf_aim value = var:spec_conf }}
+						set_variable = {{ name = spec_conf_step value = 0 }}
+					}}
+					else = {{
+						if = {{
+							limit = {{ NOT = {{ var:spec_conf_aim = var:spec_conf }} }}
+							set_variable = {{ name = spec_conf_aim value = var:spec_conf }}
+							set_variable = {{ name = spec_conf_step value = {{ value = var:spec_conf subtract = var:spec_conf_shown divide = {GLIDE} }} }}
+						}}
+						change_variable = {{ name = spec_conf_shown add = var:spec_conf_step }}
+						if = {{
+							limit = {{ OR = {{ AND = {{ var:spec_conf_step > 0 var:spec_conf_shown > var:spec_conf }} AND = {{ var:spec_conf_step < 0 var:spec_conf_shown < var:spec_conf }} }} }}
+							set_variable = {{ name = spec_conf_shown value = var:spec_conf }}
+						}}
+					}}
+				}}
+			}}
+"""
+
+
 def entry(stances):
     status = "".join(f"\t\t\ttriggered_desc = {{\n\t\t\t\tdesc = spec_je_status_{name}\n"
                      f"\t\t\t\ttrigger = {{ spec_stage = {n} }}\n\t\t\t}}\n" for n, name in STAGES)
@@ -513,6 +543,20 @@ def entry(stances):
 		je:je_spec_markets ?= {{
 			set_bar_progress = {{ name = spec_confidence_bar value = root.var:spec_conf }}
 {BARS}			root = {{ set_variable = {{ name = spec_je value = prev }} }}
+		}}
+	}}
+
+	# the shown confidence glides to each month's figure in GLIDE weekly steps (market_tab.SHOWN)
+	# as do a player's Investor Interest bars and contest bars (interest_board.glide, rivals' spec_rv_glide)
+	on_weekly_pulse = {{
+		effect = {{
+{GLIDE_EFFECT}			root = {{
+				if = {{
+					limit = {{ is_player = yes }}
+					spec_ui_glide_all = yes
+					spec_rv_glide = yes
+				}}
+			}}
 		}}
 	}}
 
@@ -592,7 +636,7 @@ def widgets():
     entry is the player's own; JournalEntry.GetCountry left the ring and pictures blank):
     the header, vanilla's journal illustration with the stage's painting in the tab's confidence ring, and the tab's
     history chart in a budget row."""
-    P, conf = mt.P, mt.CONF
+    P, conf = mt.P, mt.SHOWN
     slump = f"Or({mt.IN_PANIC}, And({P}.Var('spec_ld').IsSet, LessThan_CFixedPoint({mt.v('spec_ld')}, {mt.fx(3)})))"
     after = f"{P}.Var('spec_panic_cooldown').IsSet"
     calm = f"Not(Or({slump}, {after}))"
@@ -1056,16 +1100,16 @@ def loc(k):
         "SPEC_JE_FAVOURED": "Favored",
         "SPEC_OBS_RV_OUT": "Competitors named by [GetMetaPlayer.GetPlayedOrObservedCountry.GetName]",
         "SPEC_OBS_RV_IN": "Exchanges contesting [GetMetaPlayer.GetPlayedOrObservedCountry.GetName]",
-        "SPEC_JE_FAVOURED_TT": "#header $SPEC_JE_FAVOURED$#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_FAV_IMPACT$\\n\\n#P +12%#! [concept_spec_investor_interest] · 12 months\\n\\n$SPEC_FAV_REASON$$SPEC_TERM_ODDS$",
+        "SPEC_JE_FAVOURED_TT": f"#header $SPEC_JE_FAVOURED$#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_FAV_IMPACT$ This [concept_spec_investor_sentiment] lasts #v {sent.MONTHS}#! months. Its effect on [concept_spec_investor_interest] starts from #P +{sent.BONUS:.0%}#! and grows the further the price runs above [concept_base_price], the larger the good's share of our market and the higher our [concept_spec_market_confidence]. It fades over the last #v {sent.FADE_FROM}#! months. The good's producers get half of it as [concept_throughput].\\n\\n$SPEC_FAV_REASON$\\n\\n$SPEC_TERM_ODDS$",
         "SPEC_JE_SHUNNED": "Shunned",
-        "SPEC_JE_SHUNNED_TT": "#header $SPEC_JE_SHUNNED$#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_SHUN_IMPACT$\\n\\n#N −12%#! [concept_spec_investor_interest] · 12 months\\n\\n$SPEC_SHUN_REASON$$SPEC_TERM_ODDS$",
-        "SPEC_FAV_REASON": "A good enters the monthly draw after 6 straight months with sell orders and a price at least 10% above [concept_base_price].",
-        "SPEC_SHUN_REASON": "A good enters the monthly draw after 6 straight months with sell orders and a price at least 10% below [concept_base_price].",
+        "SPEC_JE_SHUNNED_TT": f"#header $SPEC_JE_SHUNNED$#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_SHUN_IMPACT$ This [concept_spec_investor_sentiment] lasts #v {sent.MONTHS}#! months. Its effect on [concept_spec_investor_interest] starts from #N −{sent.BONUS:.0%}#! and grows the further the price falls below [concept_base_price], the larger the good's share of our market and the lower our [concept_spec_market_confidence]. It fades over the last #v {sent.FADE_FROM}#! months. The good's producers get half of it as [concept_throughput].\\n\\n$SPEC_SHUN_REASON$\\n\\n$SPEC_TERM_ODDS$",
+        "SPEC_FAV_REASON": f"A good can become $SPEC_JE_FAVOURED$ after #v {sent.QUALIFY}#! straight months with sell orders and a price at least #v {sent.PREMIUM:.0%}#! above its [concept_base_price].",
+        "SPEC_SHUN_REASON": f"A good can become $SPEC_JE_SHUNNED$ after #v {sent.QUALIFY}#! straight months with sell orders and a price at least #v {sent.PREMIUM:.0%}#! below its [concept_base_price].",
         "SPEC_FAV_IMPACT": "Investors are more willing to finance buildings that produce these goods.",
         "SPEC_SHUN_IMPACT": "Investors are less willing to finance buildings that produce these goods.",
         "SPEC_FAV_PLAY": "Check input costs and boom exposure before expanding production.",
         "SPEC_SHUN_PLAY": "An industry that uses this good can benefit from cheap inputs and support demand.",
-        "SPEC_TERM_ODDS": "\\nSmall goods can qualify. After 9 qualifying months, or with at least 1% of market supply by value, a good has a better chance. Each good already Favored or Shunned makes a new term less likely. High [concept_spec_market_confidence] favors new Favored terms, and low confidence favors Shunned ones.",
+        "SPEC_TERM_ODDS": f"Small goods can qualify too. A run of #v {sent.MATURE}#! months or more, or at least #v {sent.SHARE:.0%}#! of our market's supply by value, improves a good's chances. Each good already $SPEC_JE_FAVOURED$ or $SPEC_JE_SHUNNED$ makes new terms less likely. High [concept_spec_market_confidence] makes $SPEC_JE_FAVOURED$ terms more likely, and low confidence makes $SPEC_JE_SHUNNED$ terms more likely.",
         **{f"SPEC_JE_STAGE_{n}": t for n, t in stage.items()},
         **{f"spec_je_status_{key}": f"{t}{stance}" for key, t in status.items()},
         "SPEC_JE_BAD_DEBTS": f", [concept_spec_bad_debts] #N -[{G}('spec_crunch_tp_pct')|1]%#! for #v [{G}('spec_crunch_months')|0]#! months",

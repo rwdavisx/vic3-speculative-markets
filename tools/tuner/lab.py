@@ -26,6 +26,7 @@ LATEST = REPO / "build_scratch" / "tuner" / "latest.json"
 RUNS = LATEST.parent / "runs"
 RUN_ID = re.compile(r"^[0-9]{8}-[0-9]{6}-[0-9a-f]{4}$")
 KEYS = {s[0]: s for s in engine.TUNABLE}
+CORES = int(os.environ.get("SPEC_TUNER_CORES") or os.cpu_count() or 1)  # set lower to leave the game room
 KEEP_BANDS = 12  # candidates whose charts the saved result keeps, best first
 FIELDS = ("metric", "who", "aim", "lo", "hi", "weight")
 
@@ -129,7 +130,7 @@ def sweep(spec, pool, cur=None, emit=lambda e: None, stop=None):
     if fixed:  # a check of new numbers also runs the current ones, for the ghost marks
         cands.insert(0, dict(cur))
     bots = sorted({spec.get("bot", "passive"), *(b for t in tr for b in t[1].split("-"))})
-    B = max(1, min(8, BATCH_ECON // n, -(-len(cands) * len(bots) // (2 * (os.cpu_count() or 1)))))  # two jobs a core at least
+    B = max(1, min(8, BATCH_ECON // n, -(-len(cands) * len(bots) // (2 * CORES))))  # two jobs a core at least
     jobs = [(list(range(i, min(i + B, len(cands)))), b, cands[i:i + B], cfg, n, seed) for i in range(0, len(cands), B) for b in bots]
     total = len(cands) * len(bots)
     label = ("Sweep of " + ", ".join(vary) + f" ({len(cands)} candidates)") if vary else \
@@ -146,7 +147,7 @@ def sweep(spec, pool, cur=None, emit=lambda e: None, stop=None):
         live.write(dumps(ev) + "\n")
         live.flush()
 
-    tell({"type": "start", "run": rid, "origin": spec.get("origin", "command line"), "total": total, "cores": os.cpu_count(), "bots": bots,
+    tell({"type": "start", "run": rid, "origin": spec.get("origin", "command line"), "total": total, "cores": CORES, "bots": bots,
           "candidates": len(cands), "label": label, "note": spec.get("note", "")})
     got, done, t0, out, shown = {}, 0, time.time(), [], 0.0
     try:
@@ -264,5 +265,5 @@ if __name__ == "__main__":
     assert cmd in ("check", "sweep"), "check or sweep"
     if cmd == "check":
         spec["vary"] = {}
-    with mp.get_context("spawn").Pool(os.cpu_count()) as pool:
+    with mp.get_context("spawn").Pool(CORES) as pool:
         print(report(sweep(spec, pool)))

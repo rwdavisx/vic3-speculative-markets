@@ -14,8 +14,7 @@ TILES = [  # key, vanilla icon, big-number format
     ("build", icons.path("so_build"), "+=%0"),
     ("trade", icons.path("so_trade"), "+=%0"),
 ]
-GAP, TILE_H = 4, 118
-TILE_W = (W - 3 * GAP) // 4
+ROW_H, ICON, PCT_W = 60, 52, 84  # a ledger row each: the icon, a sentence with the figure in it, the percent at the right
 INVEST = ("capitalists", "aristocrats", "shopkeepers")
 
 
@@ -71,49 +70,89 @@ def values(band_invest, band_rate, band_trade, panic_invest, panic_tp, rescue_cu
     return out
 
 
+def _active(key):
+    """GUI test: the market is doing something to this part of the economy right now."""
+    some = lambda n: f"GreaterThanOrEqualTo_CFixedPoint(Abs_CFixedPoint({sv(n)}), {fx('0.0005')})"
+    if key == "build":
+        return f"Or(GreaterThanOrEqualTo_CFixedPoint({sv('spec_so_build_n')}, {fx(1)}), LessThan_CFixedPoint({sv('spec_so_private')}, {fx(0)}))"
+    return some(f"spec_so_{key}")
+
+
 def _tile(key, icon, _fmt):
+    # a row of the ledger; an effect the market isn't having right now fades back
     return f"""widget = {{
-	size = {{ {TILE_W} {TILE_H} }}
-	background = {{
-		using = entry_bg
-	}}
+	size = {{ {W} {ROW_H} }}
 	tooltip = "SPEC_SO_{key.upper()}_TT"
+	alpha = "[TransparentIfFalse({_active(key)})]"
 	icon = {{
-		size = {{ 38 38 }}
-		position = {{ 0 8 }}
-		parentanchor = hcenter
+		size = {{ {ICON} {ICON} }}
+		position = {{ 6 0 }}
+		parentanchor = vcenter
 		texture = "{icon}"
 	}}
 	textbox = {{
-		size = {{ {TILE_W} 30 }}
-		position = {{ 0 46 }}
-		align = center|nobaseline
-		using = fontsize_xl
-		text = "SPEC_SO_{key.upper()}_BIG"
-	}}
-	textbox = {{
-		size = {{ {TILE_W - 10} 40 }}
-		position = {{ 5 74 }}
-		align = hcenter|top
+		size = {{ {W - ICON - 22 - PCT_W} {ROW_H} }}
+		position = {{ {ICON + 16} 0 }}
+		align = left|vcenter
 		multiline = yes
 		elide = right
-		using = fontsize_small
-		default_format = "#weak"
-		text = "SPEC_SO_{key.upper()}_LABEL"
+		text = "SPEC_SO_{key.upper()}_SAY"
+	}}
+	textbox = {{
+		size = {{ {PCT_W} {ROW_H} }}
+		parentanchor = right
+		position = {{ -8 0 }}
+		align = right|vcenter
+		using = fontsize_large
+		text = "SPEC_SO_{key.upper()}_PCT"
 	}}
 }}
 """
 
 
 def section():
+    rule = f"divider_clean = {{ size = {{ {W - 20} 2 }} parentanchor = hcenter }}\n"
     row = f"""flowcontainer = {{
 	parentanchor = hcenter
-	spacing = {GAP}
-	margin_top = 4
+	direction = vertical
+	margin_top = 2
 	margin_bottom = 8
-{ind("".join(_tile(*t) for t in TILES), 1)}}}
+{ind(rule.join(_tile(*t) for t in TILES), 1)}}}
 """
     return block(header("SPEC_H_SOWHAT"), row)
+
+
+def _say():
+    """Each row's sentence, worded by the figure's sign, and its percent."""
+    a = lambda n: f"Abs_CFixedPoint({sv(n)})"
+    pos, neg = (lambda n: f"GreaterThanOrEqualTo_CFixedPoint({sv(n)}, {fx('0.0005')})"), (lambda n: f"LessThanOrEqualTo_CFixedPoint({sv(n)}, {fx('-0.0005')})")
+    pick = lambda k, n: f"[SelectLocalization({pos(n)}, 'SPEC_SO_{k}_UP', SelectLocalization({neg(n)}, 'SPEC_SO_{k}_DOWN', 'SPEC_SO_{k}_FLAT'))]"
+    pct = lambda n, fmt: f"[SelectLocalization(Or({pos(n)}, {neg(n)}), 'SPEC_SO_PCT_{n.upper()}', 'SPEC_SO_DASH')]"
+    booming = f"GreaterThanOrEqualTo_CFixedPoint({sv('spec_so_build_n')}, {fx(1)})"
+    panicking = f"LessThan_CFixedPoint({sv('spec_so_private')}, {fx(0)})"
+    out = [f' SPEC_SO_INVEST_SAY: "{pick("INVEST", "spec_so_invest")}"',
+           f' SPEC_SO_INVEST_UP: "Investors put in #P @money![{a("spec_so_invest_amt")}|D]#! more each week"',
+           f' SPEC_SO_INVEST_DOWN: "Investors put in #N @money![{a("spec_so_invest_amt")}|D]#! less each week"',
+           ' SPEC_SO_INVEST_FLAT: "Investment runs at its normal pace"',
+           f' SPEC_SO_TP_SAY: "{pick("TP", "spec_so_tp")}"',
+           f' SPEC_SO_TP_UP: "Our economy makes #P @money![{a("spec_so_tp_amt")}|D]#! more a year"',
+           f' SPEC_SO_TP_DOWN: "Our economy makes #N @money![{a("spec_so_tp_amt")}|D]#! less a year"',
+           ' SPEC_SO_TP_FLAT: "Output runs at its normal level"',
+           f' SPEC_SO_BUILD_SAY: "[SelectLocalization({panicking}, \'SPEC_SO_BUILD_CUT\', SelectLocalization({booming}, \'SPEC_SO_BUILD_BOOMS\', \'SPEC_SO_BUILD_FLAT\'))]"',
+           f' SPEC_SO_BUILD_CUT: "The panic has stopped #N [{a("spec_so_private")}|%0]#! of private construction"',
+           f' SPEC_SO_BUILD_BOOMS: "#P [{sv("spec_so_build_n")}|0]#! booming [SelectLocalization(GreaterThanOrEqualTo_CFixedPoint({sv("spec_so_build_n")}, {fx(2)}), \'SPEC_SO_INDUSTRIES\', \'SPEC_SO_INDUSTRY\')] faster"',
+           ' SPEC_SO_INDUSTRY: "industry builds"', ' SPEC_SO_INDUSTRIES: "industries build"',
+           ' SPEC_SO_BUILD_FLAT: "No industry is booming"',
+           f' SPEC_SO_TRADE_SAY: "{pick("TRADE", "spec_so_trade")}"',
+           f' SPEC_SO_TRADE_UP: "Our merchants trade #P [{a("spec_so_trade")}|%0]#! more goods"',
+           f' SPEC_SO_TRADE_DOWN: "Our merchants trade #N [{a("spec_so_trade")}|%0]#! fewer goods"',
+           ' SPEC_SO_TRADE_FLAT: "Our merchants trade as normal"',
+           ' SPEC_SO_DASH: "#weak –#!"',
+           f' SPEC_SO_INVEST_PCT: "{pct("spec_so_invest", "+=%0")}"', f' SPEC_SO_PCT_SPEC_SO_INVEST: "[{sv("spec_so_invest")}|+=%0]"',
+           f' SPEC_SO_TP_PCT: "{pct("spec_so_tp", "+=%1")}"', f' SPEC_SO_PCT_SPEC_SO_TP: "[{sv("spec_so_tp")}|+=%1]"',
+           f' SPEC_SO_BUILD_PCT: "{pct("spec_so_build", "+=%0")}"', f' SPEC_SO_PCT_SPEC_SO_BUILD: "[{sv("spec_so_build")}|+=%0]"',
+           f' SPEC_SO_TRADE_PCT: "{pct("spec_so_trade", "+=%0")}"', f' SPEC_SO_PCT_SPEC_SO_TRADE: "[{sv("spec_so_trade")}|+=%0]"']
+    return out
 
 
 def loc():
@@ -157,6 +196,7 @@ def loc():
         ' SPEC_SO_PRIVATE_LABEL: "private construction lost to the panic"',
         f' SPEC_SO_BOOM_LABEL: "booming industries ({f("spec_so_build_top", "+=%0")} speed)"',
         ' SPEC_SO_TRADE_LABEL: "goods traded by our merchants"',
+        *_say(),
         f' SPEC_SO_INVEST_TT: "{head("Investment")}The market changes how efficiently Capitalists, Aristocrats and Shopkeepers invest through the '
         f'[concept_investment_pool] by #v {f("spec_so_invest", "+=%0")}#!.\\n{lines["invest"]}'
         f'{none.format(sv("spec_so_invest"), fx("0.0005"))}"',
