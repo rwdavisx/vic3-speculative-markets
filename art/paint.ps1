@@ -1,9 +1,10 @@
 # paint icon slots or event pictures with Codex, in parallel: ./paint.ps1 <name> [<name> ...]   (PowerShell twin of paint.sh)
-param([Parameter(Mandatory)][string[]]$Names)
+param([Parameter(Mandatory)][string[]]$Names, [string]$Model)
 Set-Location $PSScriptRoot
 $refs = @{ excess = 'refs/alert_expensive_goods.png refs/alert_market_over_capacity.png raw/crash_risk.png'
            rival = 'refs/investment_banks.png refs/rivalry.png raw/name_companies.png'
            name = 'raw/name_price.png raw/name_harbour.png raw/name_companies.png'
+           so = 'refs/investment_charter.png refs/gdp.png refs/basic_construction.png refs/trade.png'
            picture ='refs/event_trade.png refs/investment_banks.png' }
 $jobs = foreach ($n in $Names) {
     if (Test-Path "raw/$n.png") { "skip $n"; continue }
@@ -15,11 +16,12 @@ $jobs = foreach ($n in $Names) {
     }
     $r = $refs[$n.Split('_')[0]].Split(' ')
     Start-Job -Name $n -ScriptBlock {
-        param($dir, $n, $ask, $r)
+        param($dir, $n, $ask, $r, $Model)
         Set-Location $dir
-        $null | codex exec --skip-git-repo-check -s workspace-write -C . $ask -i @r *> "log_$n.txt"
+        $m = if ($Model) { @('-m', $Model) } else { @() }
+        $null | codex exec @m --skip-git-repo-check -s workspace-write -C . $ask -i @r *> "log_$n.txt"
         if (Test-Path "raw/$n.png") { "done $n" } else { "FAILED $n" }
-    } -ArgumentList $PSScriptRoot, $n, $ask, $r
+    } -ArgumentList $PSScriptRoot, $n, $ask, $r, $Model
 }
 $jobs | Where-Object { $_ -is [string] }
 $jobs | Where-Object { $_ -isnot [string] } | Wait-Job -Timeout 1800 | Receive-Job

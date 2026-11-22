@@ -900,12 +900,15 @@ class Economies:
                         np.where(material & (premium <= -sentiment.PREMIUM), -1, 0))
         case = self.sentiment_case
         case[:] = side * np.minimum(sentiment.MATURE, np.maximum(0, side * case) + 1)
-        for column, (_, sign, cap) in enumerate(sentiment.SIDES):
+        for column, (_, sign) in enumerate(sentiment.SIDES):
             weights = (sign * case >= sentiment.QUALIFY).astype(int) + (sign * case >= sentiment.MATURE)
             weights += (sign * case >= sentiment.QUALIFY) & (self.share >= sentiment.SHARE)
             totals = weights.cumsum(axis=1)
-            ticket = rolls[:, column] * (sentiment.PASS_WEIGHT + totals[:, -1]) - sentiment.PASS_WEIGHT
-            awarded = (ticket >= 0) & ((sign * term > 0).sum(axis=1) < cap)
+            # no cap: every running term, either side, adds no-award tickets (the Favored draw's award counts for the Shunned one)
+            passes = sentiment.PASS_WEIGHT + sentiment.PASS_PER_TERM * (term != 0).sum(axis=1)
+            passes = passes * (1 - sign * sentiment.TILT * (self.conf - sentiment.CONF_MID) / sentiment.CONF_MID)
+            ticket = rolls[:, column] * (passes + totals[:, -1]) - passes
+            awarded = ticket >= 0
             rows = np.flatnonzero(awarded)
             goods = (totals[rows] > ticket[rows, None]).argmax(axis=1)
             term[rows, goods] = sign * sentiment.MONTHS

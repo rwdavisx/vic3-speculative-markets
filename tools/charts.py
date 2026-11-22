@@ -171,7 +171,9 @@ def side_chart(model, title, tooltip, value, colour, cells, visible, name="SPEC_
     # vanilla's v3_piechart and v3_treemapchart (politics_panel_types.gui:1014-1088) in a fixed size widget: theirs are
     # containers framed at 130% and 124% of their own size, so each show grew the box chart and pushed the list right
     # until the section was reopened (2026-11-20)
-    slice_ = f'tooltip = "{tooltip}"\nvalue = "[{value}]"\ncolor = "[{colour}]"\n'
+    # no slice tooltip: the engine opens it with only the slice's Goods context, so every Country.MakeScope in it failed
+    # (SPEC_SECTOR_*_TT, 2026-11-21); the legend rows beside the chart carry the same tooltip
+    slice_ = f'value = "[{value}]"\ncolor = "[{colour}]"\n'
     def drawn(shown, kind, body, frame, frame_w):
         visibility = "" if box_only else f'visible = "[{shown}]"'
         return f"""widget = {{
@@ -497,10 +499,13 @@ def sector_tooltips(k):
         lines.append(f' {name}_ITEM: "\\n#tooltippable #tooltip:[Country.GetTooltipTag],{name}_TT '
                      f'@spec_sector_{sector}! ${name}$  #v [{share}|%1]#!#!#!"')
         names = ", ".join(f"[GetGoods('{g}').GetName]" for g in sorted(k["CATEGORY"]) if k["CATEGORY"][g] == sector)
+        lines.append(f' {name}_SHARE_TT: "${name}$ goods make up #v [{share}|%1]#! of the goods for sale in our market, valued at their [concept_base_price]."')
         lines.append(f' {name}_TREND: "$SPEC_SECTOR_PRICE_TREND$  #v [{trend}|=+%1]#!"')
         review = f"[SelectLocalization({P}.Var('spec_review_{sector}').IsSet, '{name}_TREND', 'SPEC_SECTOR_WAIT')]"
         lines.append(f' {name}_TT: "#header [Concept(\'concept_spec_market_sector\',\'${name}$\')]#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_SECTOR_TURNOVER$  #v [{share}|%1]#!\\n{review}\\n\\n{names}"')
-    return "\n".join(lines) + "\n"
+    # these open from chart rows, filter buttons, headers and each other, and some of those tooltips arrive without the
+    # window's Country (log, 2026-11-21); the Finance window always shows the played or observed country, so name it
+    return ("\n".join(lines) + "\n").replace("Country.", "GetMetaPlayer.GetPlayedOrObservedCountry.")
 
 
 def interest_chart():
@@ -635,7 +640,7 @@ def loc(k):
 
 
 if __name__ == "__main__":
-    for part in (lent(), credit_history(), interest_chart(), interest_script(["coal"]), script(["coal"]), history_shift(), loc({"CREDIT_FROM": 1, "PANIC": 25})):
+    for part in (lent(), credit_history(), interest_chart(), interest_script(["coal"]), script(["coal"]), history_shift(), loc({"CREDIT_FROM": 1, "PANIC": 25, "CATEGORY": {"coal": "energy"}})):
         assert part.count("{") == part.count("}"), part[:80]
     assert script(["coal", "iron"]).count(f"add_to_variable_list = {{ name = {LIST} ") == TOP_N + 1  # one pick per rank, then Other goods
     assert sorted_list("x", ["coal"], lambda g: g, "").count("while = {") == 1

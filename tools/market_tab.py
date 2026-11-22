@@ -1846,7 +1846,7 @@ def tabs(k):
                         ) if exch.NAMES_ON else
                        block(header("SPEC_H_KNOWN", "SPEC_H_KNOWN_RIGHT"), exch.known_block()) if exch.EARN else "")))
     return out + [
-        ("booms", card + block(header("SPEC_H_GOODS", "SPEC_LEVERS_RIGHT", "SPEC_LEVERS_TT"), goods_board(k))
+        ("booms", block(header("SPEC_H_MOOD"), card) + __import__("hero").section() + block(header("SPEC_H_GOODS", "SPEC_LEVERS_RIGHT", "SPEC_LEVERS_TT"), goods_board(k))
          + __import__("company_section").section()),
         # every tab the same way: large headers for its sections, folding ones only inside a section
         ("banking", section("CHARTS", "spec_hide_charts_bank", charts.lent() + charts.credit_history())
@@ -2418,6 +2418,8 @@ def loc(k):
  SPEC_CREDITW_2: "Normal"
  SPEC_CREDITW_3: "High"
  SPEC_CREDITW_4: "Very High"
+ SPEC_H_MOOD: "Market Confidence"
+ SPEC_H_MOOD_TT: "#header $concept_spec_market_confidence$#!\\n$TOOLTIP_DELIMITER$\\n$concept_spec_market_confidence_desc$"
  SPEC_H_GOODS: "Investor Interest"
  SPEC_H_GOODS_TT: "#header $concept_spec_investor_interest$#!\\n$TOOLTIP_DELIMITER$\\n$concept_spec_investor_interest_desc$"
  SPEC_INTEREST: "{word(WORD, 'SPEC_INTEREST', [1.5, 2.5, 3.5, 4.5, 5.5])}"

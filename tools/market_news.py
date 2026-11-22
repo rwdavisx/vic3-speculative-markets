@@ -69,7 +69,7 @@ def description():
         test = f"Or(Or({checks[0]}, {checks[1]}), Or({checks[2]}, {checks[3]}))"
         # The nested localization for a row has no notification SCOPE. Format the saved
         # counts in the outer description and localize only the static sector label.
-        values = [f"IntToString(FixedPointToInt(SCOPE.GetValue('spec_news_{cat}_{kind}')))" for kind in KINDS]
+        values = [f"ToString_int32(FixedPointToInt(SCOPE.GetValue('spec_news_{cat}_{kind}')))" for kind in KINDS]
         counts = values[0]
         for value in values[1:]:
             counts = f"Concatenate({counts}, Concatenate(' / ', {value}))"

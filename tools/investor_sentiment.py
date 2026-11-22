@@ -7,11 +7,17 @@ PREMIUM = 0.10
 SHARE = 0.01
 BONUS = 0.12
 PASS_WEIGHT = 4
-SIDES = (("fav", 1, 3), ("shun", -1, 2))
+# ponytail: no cap on terms; each running term, Favored or Shunned, adds this many no-pick tickets to both draws
+PASS_PER_TERM = 4
+# Market Confidence tilts the draws: at 100 the Favored no-pick weight is x(1 - TILT) and the Shunned x(1 + TILT); at 0 the reverse
+TILT = 0.5
+CONF_MID = 50
+SIDES = (("fav", 1), ("shun", -1))
+LISTS = [f"spec_{kind}_goods" for kind, _ in SIDES]  # the running terms, rebuilt monthly, for the journal and Finance
 
 
 def slots():
-    return [f"spec_{kind}{i}" for kind, _, cap in SIDES for i in range(1, cap + 1)]
+    return [f"spec_{kind}_n" for kind, _ in SIDES]
 
 
 def state_vars(goods):
@@ -22,7 +28,7 @@ def effects(goods):
     # Signed remaining months and consecutive observations. A running term earns no new evidence.
     term, case = "spec_term_$G$", "spec_case_$G$"
     side_blocks = []
-    for kind, sign, cap in SIDES:
+    for kind, sign in SIDES:
         op = ">" if sign == 1 else "<"
         below_limit = "<" if sign == 1 else ">"
         variable = f"var:{case}"
@@ -32,11 +38,12 @@ def effects(goods):
     if = {{ limit = {{ {variable} {op}= {sign * QUALIFY} }} set_local_variable = {{ name = spec_offer_{kind} value = yes }} }}
 }}
 """)
-        assignments = "\n".join(
-            f"    {'if' if i == 1 else 'else_if'} = {{ limit = {{ NOT = {{ has_variable = spec_{kind}{i} }} }} "
-            f"set_variable = {{ name = spec_{kind}{i} value = g:$G$ }} }}"
-            for i in range(1, cap + 1))
-        side_blocks.append(f"spec_list_{kind} = {{\n{assignments}\n}}\n")
+        side_blocks.append(f"""spec_list_{kind} = {{
+    add_to_variable_list = {{ name = spec_{kind}_goods target = g:$G$ }}
+    change_variable = {{ name = spec_{kind}_n add = 1 }}
+    change_local_variable = {{ name = spec_sentiment_active add = 1 }}
+}}
+""")
     clock = f"""spec_sentiment_observe = {{
     if = {{ limit = {{ has_variable = {term} }}
         if = {{ limit = {{ var:{term} > 0 }} change_variable = {{ name = {term} subtract = 1 }} }}
@@ -56,12 +63,16 @@ def effects(goods):
 """
     pulse = ["spec_sentiment_monthly = {",
              f"    set_local_variable = {{ name = spec_sentiment_min value = {{ value = var:spec_mv_total multiply = {SHARE} min = 0.001 }} }}"]
-    pulse += [f"    remove_variable = {slot}" for slot in slots()]
+    pulse += ["    set_local_variable = { name = spec_sentiment_active value = 0 }"]
+    pulse += [f"    set_variable = {{ name = {slot} value = 0 }}" for slot in slots()] + [f"    clear_variable_list = {l}" for l in LISTS]
     pulse += [f"    spec_sentiment_observe = {{ G = {g} TURNOVER = spec_mv_{g} PRICE = spec_dev_{g} }}" for g in goods]
-    for kind, sign, cap in SIDES:
+    for kind, sign in SIDES:
         op = ">=" if sign == 1 else "<="
-        pulse += [f"    if = {{ limit = {{ has_local_variable = spec_offer_{kind} NOT = {{ has_variable = spec_{kind}{cap} }} }}", "        random_list = {",
-                  f"            {PASS_WEIGHT} = {{ }}"]
+        pulse += [f"    if = {{ limit = {{ has_local_variable = spec_offer_{kind} }}",
+                  f"        set_local_variable = {{ name = spec_sentiment_pass value = {{ value = local_var:spec_sentiment_active multiply = {PASS_PER_TERM} add = {PASS_WEIGHT}",
+                  f"            if = {{ limit = {{ has_variable = spec_conf }} multiply = {{ value = var:spec_conf subtract = {CONF_MID} divide = {CONF_MID} multiply = {-sign * TILT:g} add = 1 }} }} }} }}",
+                  "        random_list = {",
+                  "            0 = { modifier = { add = local_var:spec_sentiment_pass } }"]
         for g in goods:
             # A longer case and an established share of supply each add one ticket.
             for months, extra in ((QUALIFY, ""), (MATURE, ""), (QUALIFY, f" spec_mv_{g} >= local_var:spec_sentiment_min")):

@@ -167,6 +167,13 @@ SLOTS.update({f"rival_{k}": (96, f"{V}/{fb}.dds", d + _OUTLINE) for k, fb, d in 
     ("out", "lens_toolbar_icons/rivalry", "a gentleman's slim duelling sword pointing right across a single gold coin"),
     ("in", "lens_toolbar_icons/rivalry", "a round dented iron shield with a deep red stripe, a broken arrow glancing off it"),
 ]})
+# the Speculation tab's Effects on Our Economy tiles (hero.TILES), replacing the vanilla icons they borrowed
+SLOTS.update({f"so_{k}": (96, f"{V}/{fb}.dds", d + _OUTLINE) for k, fb, d in [
+    ("invest", "company_charter_icons/investment_charter", "a fat leather money bag pouring gold coins onto a small red brick factory with a smoking chimney"),
+    ("tp", "generic_icons/gdp", "a large brass cogwheel with wooden crates of finished goods stacked against it and a green upward arrow rising behind"),
+    ("build", "company_icons/basic_construction", "a wooden scaffold around a half built red brick wall, a timber crane lifting a stone block onto it"),
+    ("trade", "generic_icons/trade", "a merchant's cargo of a wooden crate, a barrel and a tied sack on a dockside, a small sailing ship's bow behind them"),
+]})
 # event pictures (stories): the event window stretches its picture over the whole window, 1120 wide and about 650 to 750
 # high (it grows with the text), so 1.65 to 1; made 2.1 to 1 the painting came out tall and thin (2026-11-16)
 PICTURES = {"picture_rival": "two rival stockbrokers in top hats and frock coats glaring at each other across a crowded "

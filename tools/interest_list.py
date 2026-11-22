@@ -1,4 +1,4 @@
-﻿"""Investor Interest: a goods list in a fixed order. One row per traded good, in vanilla's goods
+"""Investor Interest: a goods list in a fixed order. One row per traded good, in vanilla's goods
 category order (CATEGORIES, as the market panel's filters) and then by key, so a good keeps its place month to
 month. A row reads: the good; a six step scale, Fleeing to Feverish, bright up to the marker and dimmed beyond it,
 the marker being the good's tier icon; a small arrow when interest rose or fell this month; the interest groups
@@ -15,6 +15,7 @@ import re
 
 import icons
 import ig_stances
+from sectors import GROUPS, BY_GOOD
 import interest_board
 import levers
 from interest_board import HEAT, eq
@@ -539,6 +540,25 @@ def column(name, body):
 """
 
 
+def sector_colour(sector):
+    """The colour of the sector's representative good, as the sector chart draws it (charts.sector_chart)."""
+    return f"[GetGoods('{GROUPS[sector][1].split()[0]}').GetColor]"
+
+
+def icon_disc(colour, x):
+    """vanilla's coloured disc behind a goods icon (market_panel.gui, trade_good_icon_bg), centred on a 30px icon at x."""
+    return (f'icon = {{ position = {{ {x - 3} 0 }} size = {{ 36 36 }} parentanchor = vcenter color = "{colour}" '
+            f'texture = "gfx/interface/market_view/trade_good_icon_bg.dds" alwaystransparent = yes }}\n')
+
+
+def sector_tint(sector):
+    """A row in its sector's colour, as vanilla's market panel colours a goods row by its category: the leafy band
+    fading out behind the name (trade_good_list_bg) and the disc behind the icon."""
+    colour = sector_colour(sector)
+    return (f'icon = {{ size = {{ 200 100% }} color = "{colour}" texture = "gfx/interface/market_view/trade_good_list_bg.dds" alwaystransparent = yes }}\n'
+            + icon_disc(colour, 7))
+
+
 def row(g=None):
     """One good's row: fixed for good g, else a list row (datacontext Scope.GetGoods, hidden by the filters)."""
     rd = var(g)
@@ -580,12 +600,13 @@ textbox = {{
     cols = [column("goods", goods), column("scale", scale(rd) + marker(rd) + crash_flash(rd) + levels()), column("risk", risk_number),
             column("fav", fav), column("dis", dis), column("lever", lever)]
     context, shown = (f"GetGoods('{g}')" if g else "Scope.GetGoods"), matches_filters(rd)
+    tint = sector_tint(BY_GOOD[g]) if g else 'block "sector_tint" {}\n'
     return f"""button = {{
 	datacontext = "[{context}]"
 	visible = "[{shown}]"
 	size = {{ {W} {ROW_H} }}
-	background = {{ using = dark_area }}
-	using = select_button_sound
+	using = default_button
+{ind(tint, 1)}	using = select_button_sound
 	onclick = "[GetVariableSystem.Clear('{FIN}')]"
 	onclick = "[InformationPanelBar.OpenGoodsPanel(GetPlayer.GetMarket.Self, Goods.Self)]"
 	onrightclick = "[RightClickMenuManager.ShowForGoods(Goods.AccessSelf)]"
@@ -801,34 +822,35 @@ def board(k):
         # Tier counts suffice until the player enables an intervention or political filter.
         visible = f"And({cat_shown(sector)}, And({filled(sector)}, Or(Not({ANY_FILTER}), {matches(members)})))"
         fixed = "".join(row(g) for g in members)
-        sorted_rows = lists_of("_" + sector, "spec_il_row = {}\n")
+        tinted = 'spec_il_row = { blockoverride "sector_tint" { ' + sector_tint(sector).replace(chr(10), ' ') + '} }\n'
+        sorted_rows = lists_of("_" + sector, tinted)
+        shut = f"spec_il_shut_{sector}"  # GetVariableSystem flag: this sector's rows folded away under vanilla's section header
+        open_ = f"Not(GetVariableSystem.Exists('{shut}'))"
         sections.append(f"""flowcontainer = {{
             direction = vertical
             ignoreinvisible = yes
             spacing = 2
             visible = "[{visible}]"
-            widget = {{
-                size = {{ {W} 38 }}
+            section_header_button = {{
                 tooltip = "SPEC_SECTOR_{sector.upper()}_TT"
-                background = {{
-                    texture = "gfx/interface/buttons/expand_button_bg.dds"
-                    spriteType = Corneredtiled
-                    spriteborder = {{ 20 20 }}
-                    texture_density = 2
-                }}
-                icon = {{ parentanchor = left|vcenter position = {{ 9 0 }} size = {{ 30 30 }} texture = "{icons.path('sector_' + sector)}" alwaystransparent = yes }}
-                textbox = {{ parentanchor = left|vcenter position = {{ 48 0 }} size = {{ {W - 150} 36 }} using = fontsize_large default_format = "#title" align = left|nobaseline elide = right fontsize_min = 12 text = "SPEC_SECTOR_{sector.upper()}" alwaystransparent = yes }}
-                textbox = {{ parentanchor = right|vcenter margin_right = 12 size = {{ 82 36 }} align = right|nobaseline text = "[{v('spec_sector_share_' + sector)}|%1]" alwaystransparent = yes }}
+                blockoverride "layout" {{ size = {{ {W} 38 }} }}
+                blockoverride "left_text" {{ text = "SPEC_SECTOR_{sector.upper()}" }}
+                blockoverride "left_textbox_margin_left" {{ margin_left = 70 }}
+                icon = {{ parentanchor = left|vcenter position = {{ 34 0 }} size = {{ 30 30 }} texture = "{icons.path('sector_' + sector)}" alwaystransparent = yes }}
+                blockoverride "right_text" {{ section_header_right_text = {{ text = "[{v('spec_sector_share_' + sector)}|%1]" alwaystransparent = no tooltip = "SPEC_SECTOR_{sector.upper()}_SHARE_TT" }} }}
+                blockoverride "onclick" {{ onclick = "[GetVariableSystem.Toggle('{shut}')]" }}
+                blockoverride "onclick_showmore" {{ visible = "[GetVariableSystem.Exists('{shut}')]" }}
+                blockoverride "onclick_showless" {{ visible = "[Not(GetVariableSystem.Exists('{shut}'))]" }}
             }}
-            flowcontainer = {{ direction = vertical spacing = 2 ignoreinvisible = yes visible = "[Not({SORTED})]"
+            flowcontainer = {{ direction = vertical spacing = 2 ignoreinvisible = yes visible = "[And({open_}, Not({SORTED}))]"
                 {fixed}
             }}
-            flowcontainer = {{ direction = vertical spacing = 2 ignoreinvisible = yes visible = "[And({SORTED}, Not({RISK_SORT}))]"
+            flowcontainer = {{ direction = vertical spacing = 2 ignoreinvisible = yes visible = "[And({open_}, And({SORTED}, Not({RISK_SORT})))]"
                 {sorted_rows}
             }}
-            flowcontainer = {{ direction = vertical spacing = 2 ignoreinvisible = yes visible = "[{RISK_SORT}]"
+            flowcontainer = {{ direction = vertical spacing = 2 ignoreinvisible = yes visible = "[And({open_}, {RISK_SORT})]"
                 datamodel = "[{P}.GetList('spec_goods_by_risk_{sector}')]"
-                item = {{ spec_il_row = {{}} }}
+                item = {{ spec_il_row = {{ blockoverride "sector_tint" {{ {sector_tint(sector).replace(chr(10), ' ')}}} }} }}
             }}
         }}""")
     views = "\n".join(sections)
@@ -837,6 +859,7 @@ def board(k):
 {ind(hold, 1)}	flowcontainer = {{
 		direction = vertical
 		ignoreinvisible = yes
+		spacing = 12
 {ind(views, 2)}	}}
 }}
 {empty}"""
@@ -949,13 +972,15 @@ if __name__ == "__main__":
     assert "Scope.GetGoods" in d and "MarketPanel" not in d
     b = board({"CATEGORY": cat})
     assert b.count("{") == b.count("}") and len(set(re.findall(r"datacontext = \"\[GetGoods\('(\w+)'\)\]\"", b))) == len(cat)
-    assert b.index("GetGoods('fish')") < b.index("GetGoods('grain')") < b.index("GetGoods('tools')") < b.index("GetGoods('small_arms')")
+    dc = lambda g: b.index(f'datacontext = "[GetGoods(\'{g}\')]"')
+    assert dc('fish') < dc('grain') < dc('tools') < dc('small_arms')
     assert b.count("GetList('spec_goods_w") == 6 * len(set(cat.values())) and "MarketPanel" not in b
     # the Interest header sets the sort, so a second click keeps it; Goods clears it
     assert f"GetVariableSystem.Set('{SORT}', 'yes')" in b and f"Toggle('{SORT}')" not in b and f"Clear('{SORT}')" in b
     assert header().count(" 30 }") >= 6 and " 20 }" not in header()  # 30 high headers (sort buttons come in overlapping pairs)
     # the word lists share one row type
-    assert b.count("spec_il_row = {}") == 7 * len(set(cat.values())) and "Scope.GetGoods" not in b
+    assert b.count("spec_il_row = {") == 7 * len(set(cat.values()))
+    assert b.count("Scope.GetGoods") == len(journal_lists := __import__("journal").RANKED_GOODS)  # only the Favored and Shunned chips
     assert "type spec_il_row = button {" in overlay_types() and "datacontext = \"[Scope.GetGoods]\"" in overlay_types()
     # a row opens the goods panel for our own market and closes Finance
     assert f"Clear('{FIN}')" in r and "OpenGoodsPanel(GetPlayer.GetMarket.Self, Goods.Self)" in r and "Market.Self" not in r.replace("GetMarket.Self", "")

@@ -562,25 +562,28 @@ def entry(stances):
 """
 
 
-RANKED_GOODS = (("SPEC_JE_FAVOURED", ("fav1", "fav2", "fav3")), ("SPEC_JE_SHUNNED", ("shun1", "shun2")))
+RANKED_GOODS = (("SPEC_JE_FAVOURED", "fav"), ("SPEC_JE_SHUNNED", "shun"))
 
 
-def goods_row(label, keys):
-    """Active investor preferences in the journal and Finance."""
+def goods_row(label, kind):
+    """Active investor preferences in the journal and Finance: every good with a running term (investor_sentiment.LISTS)."""
+    # ponytail: one line of 30px icons, about 11 fit; wrap it if more terms ever run at once
     chips = [f'''textbox = {{
-                visible = "[Not({mt.P}.Var('spec_{keys[0]}').IsSet)]"
+                visible = "[Not({mt.gt(mt.v(f'spec_{kind}_n'))})]"
                 text = "NONE"
                 align = left|vcenter
-            }}''']
-    for key in keys:
-        scope = f"{mt.P}.Var('spec_{key}')"
-        chips.append(f"""icon = {{
-                visible = "[{scope}.IsSet]"
-                datacontext = "[{scope}.GetGoods]"
-                size = {{ 30 30 }}
-                texture = "[Goods.GetTexture]"
-                tooltip = "{label}_GOOD_TT"
-            }}""")
+            }}''', f"""flowcontainer = {{
+                spacing = 6
+                datamodel = "[{mt.P}.GetList('spec_{kind}_goods')]"
+                item = {{
+                    icon = {{
+                        datacontext = "[Scope.GetGoods]"
+                        size = {{ 30 30 }}
+                        texture = "[Goods.GetTexture]"
+                        tooltip = "{label}_GOOD_TT"
+                    }}
+                }}
+            }}"""]
     return mt.card_row(label, f"{label}_TT", "\n".join(chips))
 
 
@@ -1053,16 +1056,16 @@ def loc(k):
         "SPEC_JE_FAVOURED": "Favored",
         "SPEC_OBS_RV_OUT": "Competitors named by [GetMetaPlayer.GetPlayedOrObservedCountry.GetName]",
         "SPEC_OBS_RV_IN": "Exchanges contesting [GetMetaPlayer.GetPlayedOrObservedCountry.GetName]",
-        "SPEC_JE_FAVOURED_TT": "#header $SPEC_JE_FAVOURED$#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_FAV_IMPACT$\\n\\n#P +12%#! [concept_spec_investor_interest] · 12 months · Up to 3 goods\\n\\n$SPEC_FAV_REASON$$SPEC_TERM_ODDS$",
+        "SPEC_JE_FAVOURED_TT": "#header $SPEC_JE_FAVOURED$#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_FAV_IMPACT$\\n\\n#P +12%#! [concept_spec_investor_interest] · 12 months\\n\\n$SPEC_FAV_REASON$$SPEC_TERM_ODDS$",
         "SPEC_JE_SHUNNED": "Shunned",
-        "SPEC_JE_SHUNNED_TT": "#header $SPEC_JE_SHUNNED$#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_SHUN_IMPACT$\\n\\n#N −12%#! [concept_spec_investor_interest] · 12 months · Up to 2 goods\\n\\n$SPEC_SHUN_REASON$$SPEC_TERM_ODDS$",
+        "SPEC_JE_SHUNNED_TT": "#header $SPEC_JE_SHUNNED$#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_SHUN_IMPACT$\\n\\n#N −12%#! [concept_spec_investor_interest] · 12 months\\n\\n$SPEC_SHUN_REASON$$SPEC_TERM_ODDS$",
         "SPEC_FAV_REASON": "A good enters the monthly draw after 6 straight months with sell orders and a price at least 10% above [concept_base_price].",
         "SPEC_SHUN_REASON": "A good enters the monthly draw after 6 straight months with sell orders and a price at least 10% below [concept_base_price].",
         "SPEC_FAV_IMPACT": "Investors are more willing to finance buildings that produce these goods.",
         "SPEC_SHUN_IMPACT": "Investors are less willing to finance buildings that produce these goods.",
         "SPEC_FAV_PLAY": "Check input costs and boom exposure before expanding production.",
         "SPEC_SHUN_PLAY": "An industry that uses this good can benefit from cheap inputs and support demand.",
-        "SPEC_TERM_ODDS": "\\nSmall goods can qualify. After 9 qualifying months, or with at least 1% of market supply by value, a good has a better chance.",
+        "SPEC_TERM_ODDS": "\\nSmall goods can qualify. After 9 qualifying months, or with at least 1% of market supply by value, a good has a better chance. Each good already Favored or Shunned makes a new term less likely. High [concept_spec_market_confidence] favors new Favored terms, and low confidence favors Shunned ones.",
         **{f"SPEC_JE_STAGE_{n}": t for n, t in stage.items()},
         **{f"spec_je_status_{key}": f"{t}{stance}" for key, t in status.items()},
         "SPEC_JE_BAD_DEBTS": f", [concept_spec_bad_debts] #N -[{G}('spec_crunch_tp_pct')|1]%#! for #v [{G}('spec_crunch_months')|0]#! months",

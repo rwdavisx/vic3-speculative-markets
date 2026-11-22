@@ -48,6 +48,7 @@ import charts
 import interest_list
 import ig_stances
 import market_visual
+import hero
 import movements
 import notify
 import sectors
@@ -620,6 +621,7 @@ def values():
     sv.append("spec_market_value = {\n\tvalue = 0\n" + "".join(f"\tadd = spec_mv_{g}\n" for g in GOODS) + "\tmin = 1\n}")
     sv.extend(exposure.values(GOODS))
     sv.extend(cycle.values(GOODS, TOAST_SHARE / EXPOSURE_FULL))
+    sv.extend(hero.values(BAND_INVEST, BAND_RATE, BAND_TRADE, PANIC_INVEST, PANIC_THROUGHPUT, RESCUE_CUT))
     sv.extend(levers.push_full())
     for g in GOODS:
         # market_goods_pricier is signed: negative when the good sits below base price
@@ -1354,7 +1356,7 @@ def effects(log=False):
                          "\t\tdebug_log = \"SPECOWN tag=[THIS.GetCountry.GetTagName] date=[TimeKeeper.GetCurrentDate.GetString] share=[THIS.Var('spec_own_log').GetValue]\"\n"
                          "\t\tremove_variable = spec_own_log\n\t}\n}\n\n")
     clear = "".join(f"\tremove_variable = {v}\n" for v in state_vars())
-    clear += "".join(f"\tclear_variable_list = {l}\n" for l in charts.LISTS)
+    clear += "".join(f"\tclear_variable_list = {l}\n" for l in charts.LISTS + investor_sentiment.LISTS)
     clear += "\tclear_variable_list = spec_goods_by_risk\n" + "".join(f"\tclear_variable_list = spec_goods_by_risk_{c}\n" for c in market_tab.CATEGORIES)
     if centres.RIVAL_ON:
         import rivals
@@ -2449,7 +2451,7 @@ def main(log=False):
     ig_stances.build(write, GOODS)
     power_bloc.build(write)
     english = (
-          loc() + journal.loc(k) + market_tab.loc(k) + market_tab.item_loc(GOODS, k) + concepts.loc(k) + levers.loc() + stories.loc(k) + notify.loc(PANIC) + movements.loc() + vanilla_ties.loc(k) + companies.loc() + __import__("company_section").loc() + __import__("centres").loc() + market_visual.loc(k) + goods_panel.loc() + depression.loc() + tech_ties.loc() + cycle.loc() + ig_stances.loc())
+          loc() + journal.loc(k) + market_tab.loc(k) + hero.loc() + market_tab.item_loc(GOODS, k) + concepts.loc(k) + levers.loc() + stories.loc(k) + notify.loc(PANIC) + movements.loc() + vanilla_ties.loc(k) + companies.loc() + __import__("company_section").loc() + __import__("centres").loc() + market_visual.loc(k) + goods_panel.loc() + depression.loc() + tech_ties.loc() + cycle.loc() + ig_stances.loc())
     english += power_bloc.loc()
     english += __import__("monetary").loc()
     write("localization/english/spec_markets_l_english.yml", english)
