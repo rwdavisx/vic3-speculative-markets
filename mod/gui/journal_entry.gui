@@ -17,6 +17,14 @@ types journal_entry_panel_types
 		name = "journal_entry_panel"
 		datacontext = "[JournalEntryPanel.AccessJournalEntryType]"
 
+		state = {
+			name = spec_finance_yield_to_other_entry
+			trigger_when = "[And3(GetVariableSystem.HasValue('spec_finance', 'journal_map'), InformationPanelBar.IsPanelOpen('journal_entry'), Not(ObjectsEqual(JournalEntryPanel.GetJournalEntry.Self, GetPlayer.MakeScope.Var('spec_je').GetJournalEntry.Self)))]"
+			on_start = "[GetVariableSystem.Clear('spec_finance')]"
+			on_start = "[GetVariableSystem.Clear('spec_pick_slot')]"
+			duration = 0
+		}
+
 		blockoverride "animation_state_block" {
 			state = {
 				name = _show

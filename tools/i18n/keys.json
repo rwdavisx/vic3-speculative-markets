@@ -6,34 +6,50 @@
 "acb7bc5351"
 ],
 "SPEC_BAD_BUILDING": [
+"a01525d299",
 "3854907d9f",
 "4c569f9549",
 "6e619e4a33"
 ],
+"SPEC_BAD_IF": [
+"f0ae52ee81"
+],
+"SPEC_BAD_IF_NONE": [
+"04b4de6ba2"
+],
+"SPEC_BAD_IF_NX": [
+"8a23fdbdd5"
+],
 "SPEC_BAD_SCALE": [
+"f73638ff9e",
 "a4683276d1",
 "4b8fb3c1b8",
-"e76932cb29"
+"e76932cb29",
+"63e81e614c"
 ],
 "SPEC_BAILOUT": [
 "e2a0f65eb8"
 ],
 "SPEC_BAILOUT_TT": [
+"45f1860bcf",
 "c96fbc447b",
 "4359957bd3"
 ],
 "SPEC_BANK_GOOD_TT": [
+"88d32f8169",
 "f2c4b3c332",
 "e577317c0b",
 "269395959c",
 "a0163d1a56"
 ],
 "SPEC_BANK_NONE": [
+"cf6b698407",
 "2ebfbb2fbc",
 "acf708311d",
 "978687248d"
 ],
 "SPEC_BANK_NONE_S": [
+"e683ad8e27",
 "dc8eba7077",
 "73a93b2506"
 ],
@@ -42,6 +58,7 @@
 "1e6430ad4f"
 ],
 "SPEC_BANK_OTHER_TT": [
+"f4e0cc4dcc",
 "ff02941358",
 "449306133f"
 ],
@@ -49,6 +66,7 @@
 "a77891aed1"
 ],
 "SPEC_BAR_SRC_TT": [
+"59b205e2a2",
 "1ba2796102",
 "63f914d69c",
 "9d6ef46461"
@@ -68,6 +86,15 @@
 "SPEC_BAR_TIE_5": [
 "5ad860c432"
 ],
+"SPEC_BC_FX_PULL_LBL": [
+"f381d2ea6d"
+],
+"SPEC_BC_FX_SHIELD_LBL": [
+"820aa31b53"
+],
+"SPEC_BC_FX_TRUST_LBL": [
+"eb2a2432e3"
+],
 "SPEC_BC_STRIP": [
 "f72e0eeaa5"
 ],
@@ -78,9 +105,12 @@
 "936c9d03a3"
 ],
 "SPEC_BC_STRIP_TT": [
-"939b610c8e"
+"315d1aadd9",
+"939b610c8e",
+"36a7aaceae"
 ],
 "SPEC_BOOM_CAP": [
+"feb9189471",
 "afcca6a646",
 "244024dc91",
 "1f3cc5fd2d"
@@ -96,206 +126,264 @@
 "78bc24024b"
 ],
 "SPEC_BOOM_WHY_AEROPLANES": [
+"4457bc3116",
 "2f2d3de38e",
 "c333eb1e79"
 ],
 "SPEC_BOOM_WHY_AMMUNITION": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_ARTILLERY": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_AUTOMOBILES": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_CLIPPERS": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_CLOTHES": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_COAL": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_COFFEE": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_COPPER": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_DYE": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_ELECTRICITY": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_ENGINES": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_EXPLOSIVES": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_FABRIC": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_FERTILIZER": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_FINE_ART": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_FISH": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_FRUIT": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_FURNITURE": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_GLASS": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_GRAIN": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_GROCERIES": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_HARDWOOD": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_IRON": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_LEAD": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_LIQUOR": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_LUXURY_CLOTHES": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_LUXURY_FURNITURE": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_MEAT": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_MERCHANT_MARINE": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_OIL": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_OPIUM": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_PAPER": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_PORCELAIN": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_RADIOS": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_RUBBER": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_SILK": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_SMALL_ARMS": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_STEAMERS": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_STEEL": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_SUGAR": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_SULFUR": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_TANKS": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_TEA": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_TELEPHONES": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_TOBACCO": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_TOOLS": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_WINE": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BOOM_WHY_WOOD": [
 "2f2d3de38e",
-"c333eb1e79"
+"c333eb1e79",
+"4457bc3116"
 ],
 "SPEC_BUDGET_BANKING_TAB": [
 "bf8e5c092d"
 ],
 "SPEC_BUDGET_BANKING_TAB_TT": [
 "1349a20a3b"
+],
+"SPEC_BURST_BAD": [
+"a381ebcd97"
+],
+"SPEC_CALC_BANK_EXPOSURE": [
+"860fc328e7"
+],
+"SPEC_CALC_OVERBUILDING": [
+"b7e56c248f"
 ],
 "SPEC_CARD_CHANGE_TT": [
 "ca054da3bf",
@@ -306,7 +394,9 @@
 "3536b8f5f1"
 ],
 "SPEC_CARD_FRESH_TT": [
-"f98e5dc587"
+"a3d0e361f1",
+"f98e5dc587",
+"fa2d4879b1"
 ],
 "SPEC_CARD_MEMBER": [
 "c3569352b9"
@@ -338,6 +428,7 @@
 "42450bff31"
 ],
 "SPEC_CENTRE_COL_RIVAL_TT": [
+"ed61ae31f7",
 "f23d907962",
 "eef05c7da0",
 "dfae2d1a85"
@@ -346,6 +437,7 @@
 "5dd135d1bc"
 ],
 "SPEC_CENTRE_COL_SCORE_TT": [
+"896997c570",
 "d80779dff3",
 "aa965499f0",
 "57590bcc93",
@@ -355,10 +447,21 @@
 "2f81eae071"
 ],
 "SPEC_CENTRE_COL_TRUST_TT": [
-"334883ff6b"
+"e28f75fd39",
+"334883ff6b",
+"648372301b"
 ],
 "SPEC_CENTRE_EMPTY": [
 "99d871c6cc"
+],
+"SPEC_CENTRE_MONTH": [
+"7436f942d5"
+],
+"SPEC_CENTRE_MONTHS": [
+"da36cfaf48"
+],
+"SPEC_CENTRE_PLACE_LIMIT": [
+"df32b7a146"
 ],
 "SPEC_CENTRE_PLACE_TT": [
 "2016ca8f91"
@@ -368,6 +471,7 @@
 "b879949b02"
 ],
 "SPEC_CENTRE_TT_1": [
+"900854afc1",
 "480beebd2a",
 "c327452909",
 "effca294f6",
@@ -378,21 +482,25 @@
 "c327452909",
 "effca294f6",
 "8c644c1631",
-"e6eda9ee3f"
+"e6eda9ee3f",
+"900854afc1"
 ],
 "SPEC_CENTRE_TT_3": [
 "c327452909",
 "effca294f6",
 "8c644c1631",
-"e6eda9ee3f"
+"e6eda9ee3f",
+"900854afc1"
 ],
 "SPEC_CENTRE_TT_4": [
 "c327452909",
 "effca294f6",
 "8c644c1631",
-"e6eda9ee3f"
+"e6eda9ee3f",
+"900854afc1"
 ],
 "SPEC_CENTRE_TT_5": [
+"2fbfa566ad",
 "c327452909",
 "effca294f6",
 "ae1c049d91",
@@ -409,21 +517,104 @@
 "SPEC_CHARTER_HELD": [
 "66ebd43d98"
 ],
+"SPEC_CHARTER_LOSES_companies": [
+"1164c62469"
+],
+"SPEC_CHARTER_LOSES_futures": [
+"7114e14a26"
+],
+"SPEC_CHARTER_LOSES_harbour": [
+"ad9962a8c8"
+],
+"SPEC_CHARTER_LOSES_lender": [
+"6ba85c47fd"
+],
+"SPEC_CHARTER_LOSES_price": [
+"40703029c0"
+],
+"SPEC_CHARTER_LOSES_railway": [
+"c04a9a27bb"
+],
 "SPEC_CHARTER_RULE": [
+"196c7ae0a5",
 "4bfca26595",
 "cf9aade1c4",
 "d73767479b"
 ],
+"SPEC_CHARTER_TRUST_CHANGE": [
+"099bc46d21"
+],
 "SPEC_CHIP_NONE": [
 "848d26eade"
+],
+"SPEC_CHIP_ROW_BOOM": [
+"23219f8312"
+],
+"SPEC_CHIP_ROW_BURST": [
+"53dbe89f5c"
+],
+"SPEC_CHIP_ROW_BUSINESS": [
+"99dea8ad5d"
+],
+"SPEC_CHIP_ROW_CAUTION": [
+"8f6f8a7f21"
+],
+"SPEC_CHIP_ROW_CRASH": [
+"785b653d88"
+],
+"SPEC_CHIP_ROW_DEBT": [
+"e08eecfa89"
+],
+"SPEC_CHIP_ROW_DRIFT": [
+"df855569de"
+],
+"SPEC_CHIP_ROW_DROP": [
+"53ce523b31"
+],
+"SPEC_CHIP_ROW_FOREIGN": [
+"a89722232f"
+],
+"SPEC_CHIP_ROW_GROWTH": [
+"d936168457"
+],
+"SPEC_CHIP_ROW_LIMIT": [
+"982dedfdad"
+],
+"SPEC_CHIP_ROW_MOOD": [
+"a18c3849d8"
+],
+"SPEC_CHIP_ROW_RESCUE": [
+"deb5a81714"
+],
+"SPEC_CHIP_ROW_RESTRAIN": [
+"228b9afd06"
+],
+"SPEC_CHIP_ROW_RIVAL": [
+"3ecd7db822"
+],
+"SPEC_CHIP_ROW_TIGHT": [
+"e3cbce8d5d"
+],
+"SPEC_CHIP_ROW_TURMOIL": [
+"7cdf749e02"
+],
+"SPEC_CHIP_ROW_WAREND": [
+"a4b2aa0959"
+],
+"SPEC_CHIP_ROW_WORLD": [
+"a0807ade39"
 ],
 "SPEC_COL_LEVER": [
 "c143a24309"
 ],
 "SPEC_COL_LEVER_TT": [
+"2a8b55da68",
 "07055946b6",
 "44bdcb37ce",
 "c3e15bdc57"
+],
+"SPEC_CONF_FORECAST": [
+"c50a7d0d58"
 ],
 "SPEC_CONF_LINE": [
 "e53c08621f"
@@ -436,6 +627,7 @@
 "ac2e3af4ff"
 ],
 "SPEC_CONTEST_NOTE": [
+"21dc4e16e5",
 "1aee9a72cd",
 "07830887d0"
 ],
@@ -455,29 +647,81 @@
 "094d972a0b"
 ],
 "SPEC_CO_BC_LOW": [
+"8f0186e861",
 "463d835078"
+],
+"SPEC_CO_COL_GOODS": [
+"9b2cfa29e7"
+],
+"SPEC_CO_COL_GOODS_TT": [
+"4253a6c6e2"
+],
+"SPEC_CO_COL_NAME": [
+"1c76cbfe21"
+],
+"SPEC_CO_COL_NAME_TT": [
+"5dc9a2b1fe"
+],
+"SPEC_CO_COL_STRENGTH": [
+"5a455a6120"
+],
+"SPEC_CO_COL_STRENGTH_TT": [
+"83efd012dd"
 ],
 "SPEC_CO_COTY": [
 "a6236de53c"
 ],
 "SPEC_CO_ENC": [
+"ace5a842e8",
 "4998ecb882"
 ],
 "SPEC_CO_FRAGILE": [
+"3ce9297282",
 "e2b5d7b74a"
 ],
+"SPEC_CO_FRAGILE_END": [
+"69f03edd11"
+],
 "SPEC_CO_GLUT": [
+"c84cd59ca4",
 "daf4231908"
+],
+"SPEC_CO_LINE": [
+"b7c9c6b4e6"
 ],
 "SPEC_CO_NONE": [
 "b8fc8d675e",
 "e4826c75f7"
 ],
 "SPEC_CO_PROPPED": [
+"1e89b6ece0",
 "f12af8643a"
 ],
+"SPEC_CO_PROPPED_END": [
+"69f03edd11"
+],
 "SPEC_CO_RES": [
+"cbec7cefb1",
 "3415030865"
+],
+"SPEC_CO_STR_LBL": [
+"f9cd1cc404"
+],
+"SPEC_CO_STR_LINE": [
+"b9627a3772"
+],
+"SPEC_CO_STR_LINE_BC": [
+"47c426a832",
+"14b07e661a"
+],
+"SPEC_CO_STR_NOTE": [
+"ad08e7e170"
+],
+"SPEC_CO_STR_ROW_BC": [
+"86f60f839a"
+],
+"SPEC_CO_STR_ROW_TT": [
+"2f0c2e8b66"
 ],
 "SPEC_CO_TAG_BC": [
 "aabb1a76d3"
@@ -495,7 +739,11 @@
 "SPEC_CO_TAG_LOW": [
 "b05966b8cd"
 ],
+"SPEC_CO_TAG_PROPPED": [
+"d6a2ac134e"
+],
 "SPEC_CO_W0": [
+"b442539de1",
 "7eee81b602"
 ],
 "SPEC_CO_W1": [
@@ -517,11 +765,13 @@
 "bfc41c0c91"
 ],
 "SPEC_CRASH_CAP": [
+"52b9c1573f",
 "bfa4e9e41e",
 "3c3dfdc5e9",
 "bc2909eece"
 ],
 "SPEC_CRASH_WHY_AEROPLANES": [
+"8844badad7",
 "cf62c359a4",
 "97f8fbb19e",
 "edd4d5ace3"
@@ -529,242 +779,290 @@
 "SPEC_CRASH_WHY_AMMUNITION": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_ARTILLERY": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_AUTOMOBILES": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_CLIPPERS": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_CLOTHES": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_COAL": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_COFFEE": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_COPPER": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_DYE": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_ELECTRICITY": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_ENGINES": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_EXPLOSIVES": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_FABRIC": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_FERTILIZER": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_FINE_ART": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_FISH": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_FRUIT": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_FURNITURE": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_GLASS": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_GRAIN": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_GROCERIES": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_HARDWOOD": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_IRON": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_LEAD": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_LIQUOR": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_LUXURY_CLOTHES": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_LUXURY_FURNITURE": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_MEAT": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_MERCHANT_MARINE": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_OIL": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_OPIUM": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_PAPER": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_PORCELAIN": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_RADIOS": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_RUBBER": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_SILK": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_SMALL_ARMS": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_STEAMERS": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_STEEL": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_SUGAR": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_SULFUR": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_TANKS": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_TEA": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_TELEPHONES": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_TOBACCO": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_TOOLS": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_WINE": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CRASH_WHY_WOOD": [
 "cf62c359a4",
 "97f8fbb19e",
-"edd4d5ace3"
+"edd4d5ace3",
+"8844badad7"
 ],
 "SPEC_CREDITW_0": [
 "6adf97f83a"
@@ -799,13 +1097,16 @@
 "605bc80091"
 ],
 "SPEC_CREDIT_NO_CONF": [
+"b58e2f8cce",
 "d53b31a0b9",
 "659fec9cb1"
 ],
 "SPEC_CREDIT_NO_CRASH": [
+"5203689b08",
 "97dc53e946"
 ],
 "SPEC_CREDIT_NO_CRUNCH": [
+"086b1ead63",
 "09ac5eef08",
 "e77ae5a6b4"
 ],
@@ -814,6 +1115,7 @@
 "5c2ab9d40c"
 ],
 "SPEC_CREDIT_NO_PANIC": [
+"41fdde5140",
 "d75c97567b"
 ],
 "SPEC_CREDIT_NO_ROOM": [
@@ -822,16 +1124,26 @@
 "876225423a"
 ],
 "SPEC_CREDIT_NO_TIGHT": [
+"7e1f0a634f",
 "28f759cb48"
 ],
 "SPEC_CREDIT_SUMMARY": [
 "a5fe541ba3"
+],
+"SPEC_DATE_MAY": [
+"195fbb57ff"
 ],
 "SPEC_DEBT_BAR_NONE": [
 "5766219aac"
 ],
 "SPEC_DEBT_BAR_ON": [
 "c75594fd15"
+],
+"SPEC_DEBT_CAP": [
+"85ffad3dd9"
+],
+"SPEC_DEBT_LAX": [
+"26ac613939"
 ],
 "SPEC_DEPTH_0": [
 "d1a6f807df",
@@ -842,13 +1154,21 @@
 "33a1a6aa8e"
 ],
 "SPEC_DOWNSIDE_TT": [
+"d2b8ad4f22",
 "1f562a5109",
 "b2d87f9b07"
+],
+"SPEC_DRIFT_MACRO": [
+"d19f53c675"
+],
+"SPEC_DRIFT_TRUST": [
+"c53fbe5d22"
 ],
 "SPEC_DRIVER_BOOM": [
 "1dfc922a8e"
 ],
 "SPEC_DRIVER_BOOM_TT": [
+"069e6e7f70",
 "c3bd997ded",
 "2bb51b7278"
 ],
@@ -856,6 +1176,7 @@
 "53ce94938d"
 ],
 "SPEC_DRIVER_BURST_TT": [
+"4b23063c5d",
 "03a9c1753e",
 "7a1a0b1b87",
 "e80cce0236"
@@ -864,6 +1185,7 @@
 "f34f443caa"
 ],
 "SPEC_DRIVER_BUSINESS_TT": [
+"d304a9fab2",
 "6a2608e4a5",
 "47553a5653"
 ],
@@ -871,6 +1193,7 @@
 "87accf3a9a"
 ],
 "SPEC_DRIVER_CAUTION_TT": [
+"8f1525cd8b",
 "2c61e5414e",
 "20a64f5bef"
 ],
@@ -879,6 +1202,7 @@
 "480db33d9c"
 ],
 "SPEC_DRIVER_CRASH_TT": [
+"b1801802da",
 "43d47c4c26",
 "fe44525445",
 "be82575733"
@@ -887,6 +1211,7 @@
 "458b88caf2"
 ],
 "SPEC_DRIVER_DEBT_TT": [
+"050c58bc4f",
 "9905069937",
 "f12a4dbbc9",
 "b3388d5b81"
@@ -895,14 +1220,17 @@
 "370f8401a9"
 ],
 "SPEC_DRIVER_DRIFT_TT": [
+"825be134a1",
 "1e6af07c01",
 "3173454e7c",
-"d0c5eb2bd4"
+"d0c5eb2bd4",
+"f8cff85a3d"
 ],
 "SPEC_DRIVER_DROP": [
 "c18a7e148f"
 ],
 "SPEC_DRIVER_DROP_TT": [
+"5aab0928a7",
 "6f91445225",
 "3d887e3199"
 ],
@@ -910,6 +1238,7 @@
 "2ef10bd952"
 ],
 "SPEC_DRIVER_FOREIGN_TT": [
+"3f9995fd02",
 "8b7336c087",
 "d0ae538f0d"
 ],
@@ -917,6 +1246,7 @@
 "699aed86da"
 ],
 "SPEC_DRIVER_GROWTH_TT": [
+"24327fedfc",
 "8a6e14de4d",
 "93b87cdd29",
 "b16f8f357e"
@@ -925,6 +1255,7 @@
 "f83c409220"
 ],
 "SPEC_DRIVER_LIMIT_TT": [
+"96f989e2ce",
 "a7a18f2ddc",
 "7893250dc7"
 ],
@@ -932,6 +1263,7 @@
 "02353bd927"
 ],
 "SPEC_DRIVER_MOOD_TT": [
+"8480a7293a",
 "30d0c806c9",
 "1df87801bb",
 "76eb23a94d"
@@ -940,6 +1272,7 @@
 "4eacb65e3b"
 ],
 "SPEC_DRIVER_RESCUE_TT": [
+"79df54526c",
 "b468a3f73c",
 "9d8023dc87",
 "060fafd13c"
@@ -948,6 +1281,7 @@
 "051d3b3d3b"
 ],
 "SPEC_DRIVER_RESTRAIN_TT": [
+"4c18c51fa1",
 "c62f982d4e",
 "f2555aa3cd"
 ],
@@ -955,12 +1289,14 @@
 "73e434c4f9"
 ],
 "SPEC_DRIVER_RIVAL_TT": [
+"1721de281a",
 "84cf078127"
 ],
 "SPEC_DRIVER_TIGHT": [
 "a71462baff"
 ],
 "SPEC_DRIVER_TIGHT_TT": [
+"9189e0ca9d",
 "e0719d1266",
 "5af2f0bc0f",
 "eaf00ee624"
@@ -969,6 +1305,7 @@
 "decf074b7a"
 ],
 "SPEC_DRIVER_TURMOIL_TT": [
+"a4b88f1dde",
 "adf6357267",
 "173d98ee3e",
 "25b337dcea"
@@ -977,11 +1314,13 @@
 "e289ae0da4"
 ],
 "SPEC_DRIVER_WAREND_TT": [
+"503f9a06b5",
 "9adba3c5d3",
 "7ee4b30116",
 "9095ca2bc1"
 ],
 "SPEC_DRIVER_WORLD_TT": [
+"0378e00a0e",
 "d79bbdb0bd",
 "3f2f10fd54",
 "9a4e5222fd",
@@ -991,23 +1330,28 @@
 "303f02b33e"
 ],
 "SPEC_EFFECT_BAD_NONE_TT": [
+"f421bf1247",
 "9ca5273438",
 "2a4a18092c",
-"c40344ad85"
+"c40344ad85",
+"1166e9cc7b"
 ],
 "SPEC_EFFECT_BAD_ON": [
 "4266feed2d"
 ],
 "SPEC_EFFECT_BAD_TT": [
+"9e9f60ce52",
 "52b4bb0e0d",
 "f584597e57",
 "53afaa739e",
-"8b5d76bbc7"
+"8b5d76bbc7",
+"e3b008ad2d"
 ],
 "SPEC_EFFECT_DEBT": [
 "106526c8ae"
 ],
 "SPEC_EFFECT_DEBT_TT": [
+"f0b3ed5f87",
 "9acf8baed3",
 "41834065a7"
 ],
@@ -1015,11 +1359,13 @@
 "db1f221466"
 ],
 "SPEC_EFFECT_EXCH_TT": [
+"f3044999be",
 "0062788f0f",
 "d18c20aa17",
 "f7c86a1f5a"
 ],
 "SPEC_EFFECT_GIVEN_TT": [
+"a85799cd30",
 "81b21e3d45",
 "1441362c5c",
 "9e9709ec43",
@@ -1032,30 +1378,43 @@
 "de5070519b"
 ],
 "SPEC_EFFECT_LAX_TT": [
+"9507e89dd9",
+"3ed6408b36",
 "bfea33a4d9",
 "8740520517",
 "8faa60fcbe",
-"0f33b6c0fd"
+"0f33b6c0fd",
+"ff28210b84"
 ],
 "SPEC_EFFECT_LEV": [
 "f6d322d1c8",
 "fd347bb5e7"
 ],
+"SPEC_EFFECT_OWED_TT": [
+"893fb90988",
+"f614639bd6"
+],
 "SPEC_EFFECT_OWED_VALUE": [
 "e6a3390851"
 ],
 "SPEC_EXCESS_COST": [
+"84bee0f144",
 "f2169bc68f"
 ],
 "SPEC_EXCESS_OFF": [
-"b09c1a46d8"
+"9a2cd4e9a8",
+"b09c1a46d8",
+"93176ef8a8"
 ],
 "SPEC_EXCH_CALC_TT": [
+"f89d4d8ced",
 "b6dfe862bc",
 "770ac5d8a2",
-"1903f02396"
+"1903f02396",
+"c6be2fca4f"
 ],
 "SPEC_EXCH_CARD_NOTE": [
+"5c0bdb0f2a",
 "f92b1bb484",
 "b2a23f27a9",
 "899df78527"
@@ -1068,25 +1427,31 @@
 "0026df9e0d"
 ],
 "SPEC_EXCH_CARD_N_3": [
+"4048f721f8",
 "31e2348efe"
 ],
 "SPEC_EXCH_CARD_TT_1": [
+"08f09362a9",
 "f45b0dc19b",
 "357307c63e",
 "ce037e65bf"
 ],
 "SPEC_EXCH_CARD_TT_2": [
+"ac003be938",
 "1d9c43b9e5",
 "7276292c70"
 ],
 "SPEC_EXCH_CARD_TT_3": [
+"c73970f17f",
 "bd4cf88e8a",
 "3ae092afe0"
 ],
 "SPEC_EXCH_FX_CREDIT": [
+"9250c7b9a2",
 "3af5ccfe5e"
 ],
 "SPEC_EXCH_FX_CRUNCH": [
+"641a87d786",
 "46789cb697",
 "f1cc5cc52a"
 ],
@@ -1094,18 +1459,23 @@
 "f25a24bec1"
 ],
 "SPEC_EXCH_FX_FLIGHT_GP": [
+"31751a7522",
 "b46098967c"
 ],
 "SPEC_EXCH_FX_LEAN": [
+"ab22d799c2",
 "7cf8230eb5"
 ],
 "SPEC_EXCH_FX_LOSS": [
 "66df652992"
 ],
 "SPEC_EXCH_G_TRUST_TT": [
+"12350f88aa",
+"98a3a5f12b",
 "b09d7ee630",
 "706c072979",
-"d6722fe6bf"
+"d6722fe6bf",
+"fda130ac6b"
 ],
 "SPEC_EXCH_KNOWN_0": [
 "4e6d327262"
@@ -1120,12 +1490,14 @@
 "ebcb79d8a1"
 ],
 "SPEC_EXCH_LIMIT_OFF": [
+"987f88e1d1",
 "a6a7963784",
 "a449ca44da",
 "45dbcaf044",
 "763d29079b"
 ],
 "SPEC_EXCH_LIMIT_ON": [
+"ac53e82465",
 "41f75d7d5e",
 "98703a170f",
 "72ef395429"
@@ -1184,34 +1556,46 @@
 "4fa5d3d5c0"
 ],
 "SPEC_EXCH_TIER_EMPTY": [
+"daf23a84f5",
 "d6d9547030"
 ],
 "SPEC_EXCH_TIER_N_0": [
+"9818feb8cc",
 "b3968a6c07"
 ],
 "SPEC_EXCH_TIER_N_1": [
-"b3968a6c07"
+"b3968a6c07",
+"9818feb8cc"
 ],
 "SPEC_EXCH_TIER_N_2": [
-"b3968a6c07"
+"b3968a6c07",
+"9818feb8cc"
 ],
 "SPEC_EXCH_TIER_N_3": [
-"b3968a6c07"
+"b3968a6c07",
+"9818feb8cc"
+],
+"SPEC_EXCH_TIER_OURS": [
+"24dc196a6a"
 ],
 "SPEC_EXCH_TIER_TT_0": [
+"3158c0537b",
 "d07414704b"
 ],
 "SPEC_EXCH_TIER_TT_1": [
+"7c6fb766d3",
 "03333ef3b0",
 "114f428201",
 "76d23781e9"
 ],
 "SPEC_EXCH_TIER_TT_2": [
+"7618a02dff",
 "c24a0011fb",
 "8a4869aacc",
 "3df3bf75bf"
 ],
 "SPEC_EXCH_TIER_TT_3": [
+"2a4778d9a2",
 "759906bd2c",
 "0f6488d5ad",
 "352176bf63"
@@ -1248,20 +1632,26 @@
 "537d2d9890"
 ],
 "SPEC_EXCH_TRUST_LV_TT_0": [
+"8f6cfc1bb3",
 "fb93356577",
-"e2a044699c"
+"e2a044699c",
+"b0ea5d2527"
 ],
 "SPEC_EXCH_TRUST_LV_TT_1": [
 "ee1aee0cf3",
-"9958d02d2e"
+"9958d02d2e",
+"7fea7d1b50"
 ],
 "SPEC_EXCH_TRUST_LV_TT_2": [
 "949eda5167",
-"34b338cea6"
+"34b338cea6",
+"1c40ca7822"
 ],
 "SPEC_EXCH_TRUST_LV_TT_3": [
+"c86b27426b",
 "9829808f00",
-"79e7061001"
+"79e7061001",
+"3a70fc6ba8"
 ],
 "SPEC_EXCH_W_0": [
 "ac88b0ef66"
@@ -1274,6 +1664,42 @@
 ],
 "SPEC_EXCH_W_3": [
 "03dd0ead60"
+],
+"SPEC_FAV_IMPACT": [
+"048c689ff2"
+],
+"SPEC_FAV_PLAY": [
+"c4281b915f"
+],
+"SPEC_FAV_REASON": [
+"032d7d9147"
+],
+"SPEC_FH_BC": [
+"9b354c6bfb"
+],
+"SPEC_FH_PB": [
+"1a09e50144"
+],
+"SPEC_FH_WORLD": [
+"684f424c08"
+],
+"SPEC_FILTER_TIER_1": [
+"2f0cb9310b"
+],
+"SPEC_FILTER_TIER_2": [
+"edf230cd7f"
+],
+"SPEC_FILTER_TIER_3": [
+"75b58bbe3e"
+],
+"SPEC_FILTER_TIER_4": [
+"5e1d431d79"
+],
+"SPEC_FILTER_TIER_5": [
+"483c336d7d"
+],
+"SPEC_FILTER_TIER_6": [
+"a64201d9b5"
 ],
 "SPEC_FINANCE": [
 "c482980d38"
@@ -1288,6 +1714,7 @@
 "bf8e5c092d"
 ],
 "SPEC_FIN_TAB_BANKING_TT": [
+"4a60451593",
 "0ad237463e",
 "c32eb06d2c"
 ],
@@ -1295,6 +1722,7 @@
 "bdc861dc6b"
 ],
 "SPEC_FIN_TAB_BOOMS_TT": [
+"b7a61f7ff6",
 "9fc07ccaf5"
 ],
 "SPEC_FIN_TAB_EXCHANGE": [
@@ -1319,11 +1747,13 @@
 "5a0a24e7cf"
 ],
 "SPEC_FOREIGN_HIT": [
+"9333cc2c63",
 "3c94716ee1",
 "2d15e9e196",
 "eb0927b59c"
 ],
 "SPEC_FOREIGN_UNSTD": [
+"b4efc5020e",
 "cde6fd6e3c",
 "0eeb42d1f5"
 ],
@@ -1331,11 +1761,14 @@
 "cb91cddf40"
 ],
 "SPEC_GAUGE_FX_BUOYANT": [
+"d0bc23495b",
 "6bd5bbf33d",
 "878ee1dda5",
-"f777bb37cd"
+"f777bb37cd",
+"b5b070a24a"
 ],
 "SPEC_GAUGE_FX_MANIA": [
+"b5b070a24a",
 "69f943e744",
 "cf5c16bc87",
 "f47612bbc8"
@@ -1343,23 +1776,28 @@
 "SPEC_GAUGE_FX_SHAKEN": [
 "b83adb35ed",
 "50829d659e",
-"7c8e576b45"
+"7c8e576b45",
+"b722910540"
 ],
 "SPEC_GAUGE_FX_STEADY": [
+"83fb8029e1",
 "c62421aa56",
 "c499033f65"
 ],
 "SPEC_GAUGE_FX_WARY": [
 "50829d659e",
-"7c8e576b45"
+"7c8e576b45",
+"b722910540"
 ],
 "SPEC_GAUGE_LENDING": [
 "38386b03ae"
 ],
 "SPEC_GAUGE_LEND_ABOVE": [
+"120b1d1144",
 "9e56138896"
 ],
 "SPEC_GAUGE_LEND_BAD": [
+"923b245d95",
 "dc4ddbfb1e"
 ],
 "SPEC_GAUGE_LEND_CRASH": [
@@ -1451,6 +1889,7 @@
 "a0807ade39"
 ],
 "SPEC_GAUGE_TT": [
+"d7df1cdbb3",
 "e51894f82f"
 ],
 "SPEC_GP_RISK_NONE": [
@@ -1460,6 +1899,7 @@
 "16d2b386b2"
 ],
 "SPEC_HISTORY_TT": [
+"49aeb14948",
 "6e484c679b",
 "964518733c",
 "8ddfd9e333"
@@ -1579,6 +2019,7 @@
 "2523e47c00"
 ],
 "SPEC_H_BANK_LENT_TT": [
+"ac03e91fc4",
 "932d0e544c",
 "5dce84a969",
 "623090681d",
@@ -1594,6 +2035,7 @@
 "7a3bb96417"
 ],
 "SPEC_H_CHARTER_TT": [
+"f8fbd1c47d",
 "781e5dc490",
 "62f6379ba0",
 "83b1a23547"
@@ -1602,9 +2044,11 @@
 "edefbda3a2"
 ],
 "SPEC_H_COMPANIES_RIGHT_TT": [
+"230891b771",
 "a3e0fc569c"
 ],
 "SPEC_H_COMPANIES_TT": [
+"0208d655fd",
 "d6e00572b6",
 "bf46432619"
 ],
@@ -1612,6 +2056,7 @@
 "3676a5525f"
 ],
 "SPEC_H_CONTEST_TT": [
+"224fbb54b2",
 "e26f6f265c",
 "aa247392d0"
 ],
@@ -1623,6 +2068,7 @@
 "c1488a6133"
 ],
 "SPEC_H_CREDIT_HISTORY_TT": [
+"78eea57ab5",
 "88bc5abc59",
 "90d8e7950e",
 "86300d8a58",
@@ -1635,6 +2081,7 @@
 "30cf61129c"
 ],
 "SPEC_H_KNOWN_TT": [
+"f073495c09",
 "a379c10240",
 "ff68ff266a",
 "78f3b988b4"
@@ -1644,6 +2091,9 @@
 ],
 "SPEC_H_LEDGER_TT": [
 "116dd7e6ed"
+],
+"SPEC_H_MOOD": [
+"498a538b90"
 ],
 "SPEC_H_NAMES_RIGHT": [
 "33d0585506"
@@ -1663,6 +2113,7 @@
 "4eacb65e3b"
 ],
 "SPEC_H_RESCUE_TT": [
+"d4789cb645",
 "eadef26dae",
 "8041217ce4"
 ],
@@ -1676,21 +2127,178 @@
 "f476b153b6",
 "90d77adeac"
 ],
+"SPEC_H_SOWHAT": [
+"c828d58b59"
+],
+"SPEC_H_SOWHAT_TT": [
+"525a5e7307"
+],
 "SPEC_IB_HEAT_TT": [
 "ff59c791e8"
 ],
 "SPEC_IB_TURNING_TT": [
+"f59b66fe96",
 "b726f5a556",
-"31192176df"
+"31192176df",
+"069ebad92d"
+],
+"SPEC_IGS_DIS_TT": [
+"d9b5497c65"
+],
+"SPEC_IGS_DOWN_armed_forces": [
+"b1e7552017"
+],
+"SPEC_IGS_DOWN_devout": [
+"b1e7552017"
+],
+"SPEC_IGS_DOWN_industrialists": [
+"b1e7552017"
+],
+"SPEC_IGS_DOWN_intelligentsia": [
+"b1e7552017"
+],
+"SPEC_IGS_DOWN_landowners": [
+"b1e7552017"
+],
+"SPEC_IGS_DOWN_petty_bourgeoisie": [
+"b1e7552017"
+],
+"SPEC_IGS_DOWN_rural_folk": [
+"b1e7552017"
+],
+"SPEC_IGS_DOWN_trade_unions": [
+"b1e7552017"
+],
+"SPEC_IGS_FAV_TT": [
+"129a7662a4",
+"70008c2824"
+],
+"SPEC_IGS_ISSUE_DOWN_armed_forces": [
+"71fab82265"
+],
+"SPEC_IGS_ISSUE_DOWN_devout": [
+"71fab82265"
+],
+"SPEC_IGS_ISSUE_DOWN_industrialists": [
+"71fab82265"
+],
+"SPEC_IGS_ISSUE_DOWN_intelligentsia": [
+"71fab82265"
+],
+"SPEC_IGS_ISSUE_DOWN_landowners": [
+"71fab82265"
+],
+"SPEC_IGS_ISSUE_DOWN_petty_bourgeoisie": [
+"71fab82265"
+],
+"SPEC_IGS_ISSUE_DOWN_rural_folk": [
+"71fab82265"
+],
+"SPEC_IGS_ISSUE_DOWN_trade_unions": [
+"71fab82265"
+],
+"SPEC_IGS_ISSUE_UP_armed_forces": [
+"c45305685b"
+],
+"SPEC_IGS_ISSUE_UP_devout": [
+"c45305685b"
+],
+"SPEC_IGS_ISSUE_UP_industrialists": [
+"c45305685b"
+],
+"SPEC_IGS_ISSUE_UP_intelligentsia": [
+"c45305685b"
+],
+"SPEC_IGS_ISSUE_UP_landowners": [
+"c45305685b"
+],
+"SPEC_IGS_ISSUE_UP_petty_bourgeoisie": [
+"c45305685b"
+],
+"SPEC_IGS_ISSUE_UP_rural_folk": [
+"c45305685b"
+],
+"SPEC_IGS_ISSUE_UP_trade_unions": [
+"c45305685b"
+],
+"SPEC_IGS_LEVER_HEAD": [
+"5eb1bca902"
+],
+"SPEC_IGS_PANEL_NONE": [
+"d780d8f880"
+],
+"SPEC_IGS_PANEL_TT": [
+"8c89307fd4",
+"ad0f3da26c"
+],
+"SPEC_IGS_ROW_DIS_ALL_TT": [
+"e8e592c78b"
+],
+"SPEC_IGS_ROW_FAV_ALL_TT": [
+"5402230931",
+"318d9957af"
+],
+"SPEC_IGS_UP_armed_forces": [
+"2a711dd264"
+],
+"SPEC_IGS_UP_devout": [
+"2a711dd264"
+],
+"SPEC_IGS_UP_industrialists": [
+"2a711dd264"
+],
+"SPEC_IGS_UP_intelligentsia": [
+"2a711dd264"
+],
+"SPEC_IGS_UP_landowners": [
+"2a711dd264"
+],
+"SPEC_IGS_UP_petty_bourgeoisie": [
+"2a711dd264"
+],
+"SPEC_IGS_UP_rural_folk": [
+"2a711dd264"
+],
+"SPEC_IGS_UP_trade_unions": [
+"2a711dd264"
+],
+"SPEC_II_GLUT": [
+"6321197d42",
+"e748da1b77"
+],
+"SPEC_II_PUSH": [
+"46bc1b1c17",
+"745f1c82ab"
+],
+"SPEC_II_TREND": [
+"f7b93e914b",
+"4779f99250"
+],
+"SPEC_IL_COL_DIS_TT": [
+"fff681b6ed"
+],
+"SPEC_IL_COL_FAV_TT": [
+"6240f6ebb4",
+"c1d23daa31"
 ],
 "SPEC_IL_COL_GOODS": [
 "9b2cfa29e7"
 ],
+"SPEC_IL_COL_IGS_TT": [
+"59691b9d5a",
+"14fa7b57b3"
+],
+"SPEC_IL_COL_TREND": [
+"349d789f5d"
+],
 "SPEC_IL_CRASHED_TT": [
+"f8a25327f6",
 "4fde4de203",
-"72a65ededc"
+"72a65ededc",
+"2c2d3dab8c"
 ],
 "SPEC_IL_DANGER_TT": [
+"2478846f23",
 "28a330914d",
 "abc44e1670"
 ],
@@ -1702,38 +2310,46 @@
 "caf15187ef"
 ],
 "SPEC_IL_GLUT_TT": [
+"634c1159d0",
 "03f8551949",
-"f5ae3c245e"
+"f5ae3c245e",
+"ca5e8e277e"
 ],
 "SPEC_IL_ISSUE_FILTER": [
 "76831f2b73"
 ],
 "SPEC_IL_LEVEL_1_TT": [
+"97461d1e06",
 "e0196f6e1b",
 "6e1384fbc5",
 "a55e340490"
 ],
 "SPEC_IL_LEVEL_2_TT": [
+"2a0ad5be7e",
 "7e1c423428",
 "795de0219b",
 "fbbe0b4eb7"
 ],
 "SPEC_IL_LEVEL_3_TT": [
+"4fec445076",
 "bce3af0444",
 "95d5e276cb",
 "2c18b59912"
 ],
 "SPEC_IL_LEVEL_4_TT": [
+"58e78ea2a6",
 "59804329ea",
 "297611fd0c",
 "544329e117"
 ],
 "SPEC_IL_LEVEL_5_TT": [
+"70f6909c4b",
 "797151bbf9",
 "a9fc655b00",
 "d65f57c37a"
 ],
 "SPEC_IL_LEVEL_6_TT": [
+"b41e2f286d",
 "15682a8d03",
 "593e69efbb",
 "9b4745073e"
@@ -1751,11 +2367,27 @@
 "SPEC_IL_MONTHS_3": [
 "d8c3fa7152"
 ],
+"SPEC_IL_MONTHS_WORD": [
+"da36cfaf48"
+],
+"SPEC_IL_MONTH_WORD": [
+"7436f942d5"
+],
+"SPEC_IL_RECOVERY_LEFT": [
+"7992ebddfe"
+],
+"SPEC_IL_SENT_FAV_TT": [
+"f9be2259e4"
+],
+"SPEC_IL_SENT_SHUN_TT": [
+"07696c5bf6"
+],
 "SPEC_IL_SORT_GOODS_TT": [
 "9e66c6a43d",
 "83ded54202"
 ],
 "SPEC_IL_SORT_INTEREST_TT": [
+"7d5ba582f0",
 "c5c51b2232",
 "4d55324afa",
 "9a31a24702",
@@ -1768,6 +2400,21 @@
 "SPEC_IL_SORT_LEVER_TT": [
 "7123ddfac3",
 "ad046d4f50"
+],
+"SPEC_IL_SORT_OFF": [
+"6a7f2f3718"
+],
+"SPEC_IL_SORT_RISK_TT": [
+"1ea440a0f3"
+],
+"SPEC_IL_SORT_TREND_DOWN_TT": [
+"6020a91599"
+],
+"SPEC_IL_SORT_TREND_TT": [
+"218c4ec1d8"
+],
+"SPEC_IL_SORT_TREND_UP_TT": [
+"d8364490d1"
 ],
 "SPEC_IL_TIER_1": [
 "2f0cb9310b"
@@ -1786,6 +2433,9 @@
 ],
 "SPEC_IL_TIER_6": [
 "a64201d9b5"
+],
+"SPEC_IL_TREND_TT": [
+"29d1a13fe1"
 ],
 "SPEC_IL_WORD_CRASHED": [
 "bc5895d71d"
@@ -1812,6 +2462,7 @@
 "e0af9555c3"
 ],
 "SPEC_INTEREST_TT": [
+"7bad533071",
 "ff59c791e8"
 ],
 "SPEC_INVEST_BUOYANT": [
@@ -1833,6 +2484,7 @@
 "4032fde15f"
 ],
 "SPEC_ISSUE_ON": [
+"5f76f5823f",
 "a9887f358b"
 ],
 "SPEC_ITEM_FS_1": [
@@ -1845,54 +2497,78 @@
 "39584b5894"
 ],
 "SPEC_ITEM_TM_BROKE": [
+"03c16ace26",
 "80893c48c4"
 ],
+"SPEC_ITEM_TM_DEFAULT": [
+"a93721453a"
+],
+"SPEC_ITEM_TM_PLAY": [
+"323b12e0ec"
+],
+"SPEC_ITEM_TM_REVOLUTION": [
+"171ea38f94"
+],
 "SPEC_ITEM_TM_WARCAP": [
+"39efba900b",
 "cf12923cae"
 ],
 "SPEC_ITEM_WAR_1": [
+"86c0b2d468",
 "43675bc979"
 ],
 "SPEC_ITEM_WAR_2": [
-"43675bc979"
+"43675bc979",
+"86c0b2d468"
 ],
 "SPEC_ITEM_WAR_3": [
-"43675bc979"
+"43675bc979",
+"86c0b2d468"
 ],
 "SPEC_ITEM_WAR_MORE": [
+"bd37782601",
 "b7be1cef75",
 "cf0df1608c"
 ],
 "SPEC_ITEM_WR_1": [
+"da87c48001",
 "eb459e2584"
 ],
 "SPEC_ITEM_WR_2": [
-"eb459e2584"
+"eb459e2584",
+"da87c48001"
 ],
 "SPEC_ITEM_WR_3": [
-"eb459e2584"
+"eb459e2584",
+"da87c48001"
 ],
 "SPEC_IW_LVL_1_TT": [
+"2eff29426f",
 "28a6891ce7",
 "63430e0e66"
 ],
 "SPEC_IW_LVL_2_TT": [
+"1bd282dd96",
 "eeb2be2e02",
 "b7c1a2198c"
 ],
 "SPEC_IW_LVL_3_TT": [
+"20c90fb796",
 "27d5160117",
 "4dc60b05e7"
 ],
 "SPEC_IW_LVL_4_TT": [
+"d91edfec5b",
 "4d49c6c22b",
 "86626dd5f1"
 ],
 "SPEC_IW_LVL_5_TT": [
+"60703c5b88",
 "b3ab9f2b6e",
 "ccafa44d5c"
 ],
 "SPEC_IW_LVL_6_TT": [
+"07528a954b",
 "ee82dd90e3",
 "a3b87a4f75"
 ],
@@ -1919,37 +2595,52 @@
 "6f6df5a662"
 ],
 "SPEC_JE_EXCH_TT": [
+"69938540d2",
 "8d0deedba3"
 ],
 "SPEC_JE_FAVOURED": [
-"220d9a90d5"
+"220d9a90d5",
+"3c25676a9b"
+],
+"SPEC_JE_FAVOURED_GOOD_TT": [
+"91154cadb8"
 ],
 "SPEC_JE_FAVOURED_TT": [
-"0723312641"
+"7fcc1f1447",
+"0723312641",
+"9af50c0388"
 ],
 "SPEC_JE_INQUIRY_HINT": [
 "00f09b95d2"
 ],
 "SPEC_JE_INST_COMPANY": [
+"ea23efb4e1",
 "bbf14baf3a",
 "4973c8bdd7"
 ],
 "SPEC_JE_INST_CURRENCY": [
+"b6ee9aed11",
 "74fdfba498",
 "ce41cc87fc"
 ],
 "SPEC_JE_INST_FREE": [
+"e69e0a2c1f",
 "0f71c6cb07",
 "3ba80d5779"
 ],
 "SPEC_JE_INST_LLR": [
+"4d8819d2bf",
 "3422ce5801",
 "ed41c010bf",
 "c517da0d5a",
 "6325730c6a"
 ],
 "SPEC_JE_INST_NONE": [
+"807499f38c",
 "f0cb0fabf7"
+],
+"SPEC_JE_INST_SOME": [
+"5c83bd7d69"
 ],
 "SPEC_JE_NEWS_0": [
 "0ff44c8e76"
@@ -1975,8 +2666,13 @@
 "SPEC_JE_SHUNNED": [
 "5345bcbfc0"
 ],
+"SPEC_JE_SHUNNED_GOOD_TT": [
+"46bbdb42f0"
+],
 "SPEC_JE_SHUNNED_TT": [
-"a386950ee9"
+"523a387ad0",
+"a386950ee9",
+"38acc6cf93"
 ],
 "SPEC_JE_STAGE_0": [
 "a36df613d2",
@@ -2000,6 +2696,7 @@
 "f586449d2b"
 ],
 "SPEC_JE_STAGE_5": [
+"e583cf8c48",
 "c3c749516f",
 "0cac9a0b0f",
 "7a7b2b4514",
@@ -2014,19 +2711,29 @@
 "7eb2b68685"
 ],
 "SPEC_LAXL_0_TT": [
-"cfb69c0cc7"
+"bf80f97b49",
+"cfb69c0cc7",
+"2c6918b020"
 ],
 "SPEC_LAXL_1_TT": [
-"fbbd41bc6f"
+"456f30d807",
+"fbbd41bc6f",
+"28913731e8"
 ],
 "SPEC_LAXL_2_TT": [
-"83d2a7ec54"
+"c7a7cc23ec",
+"83d2a7ec54",
+"efff01f0ce"
 ],
 "SPEC_LAXL_3_TT": [
-"f1b96131ce"
+"25c2503eae",
+"f1b96131ce",
+"36bfacad4b"
 ],
 "SPEC_LAXL_4_TT": [
-"936f43a422"
+"fb3f48ec6f",
+"936f43a422",
+"f2c82c35b9"
 ],
 "SPEC_LAXL_HERE": [
 "050bc7a23f"
@@ -2045,6 +2752,46 @@
 ],
 "SPEC_LAXW_4": [
 "46c670cebb"
+],
+"SPEC_LAX_BOOMS": [
+"974de12fe8",
+"686aec8b6e"
+],
+"SPEC_LAX_DRIFT": [
+"4720caed0e",
+"fae2054c39"
+],
+"SPEC_LAX_LOSE_TRUST": [
+"29a2beff77"
+],
+"SPEC_LAX_NO_TRUST": [
+"6955413760"
+],
+"SPEC_LAX_PAUSED": [
+"f2d9112c74",
+"c40fadfddf"
+],
+"SPEC_LAX_REPAIR": [
+"d3f1e3e78d",
+"3bb3194ccd"
+],
+"SPEC_LAX_TRUST": [
+"0f3c394a21"
+],
+"SPEC_LAX_TRUST_0": [
+"29fa2a1eb2"
+],
+"SPEC_LAX_TRUST_1": [
+"29fa2a1eb2"
+],
+"SPEC_LAX_TRUST_2": [
+"29fa2a1eb2"
+],
+"SPEC_LAX_TRUST_3": [
+"7b172642cc"
+],
+"SPEC_LAX_TRUST_4": [
+"9a991e1156"
 ],
 "SPEC_LD_GREAT": [
 "7ffbce7d50"
@@ -2125,57 +2872,78 @@
 "454d358d6d"
 ],
 "SPEC_LEVERS_TT": [
+"18258c39fa",
 "8a1b6b72b0",
 "76415f0585",
 "175dd70f0a"
 ],
 "SPEC_LEVER_ENCOURAGE_TT": [
+"d5a721c905",
 "0198603996",
 "6bcb3ba505",
 "af6b666455"
 ],
 "SPEC_LEVER_ISSUE_TT": [
+"7e91b371e5",
 "3fe761449f",
 "5eb7072520",
 "4f6c930a26"
 ],
 "SPEC_LEVER_LIFT": [
+"83df2dcbe9",
 "56da218c7a"
 ],
 "SPEC_LEVER_RESTRAIN_TT": [
+"3eb6bb9c61",
 "a2654484a5",
 "be131d0f70",
 "fedd687912"
 ],
 "SPEC_LEVER_TP_DOWN": [
+"7207ecb8cf",
 "0b2d438a4d",
 "0b2a18fdca"
 ],
 "SPEC_LEVER_TP_UP": [
+"ade646fd40",
 "b268dcc98a",
 "dbace4255c"
 ],
+"SPEC_LEVER_WAIT": [
+"1c813df1d8"
+],
 "SPEC_LEV_ADVICE_DANGER": [
+"bd7bef9d7f",
 "c500c89bce",
 "06b70d27b5"
 ],
 "SPEC_LEV_ADVICE_RISKY": [
+"3be5f3cda5",
 "46852e02d5",
 "aa49324484"
 ],
 "SPEC_LEV_ADVICE_SAFE": [
+"ea0e6ae11c",
 "bd5d2d08d9"
 ],
 "SPEC_LEV_BAD_NOW": [
+"c9301bc54e",
 "94db779f7e"
 ],
 "SPEC_LEV_HOT": [
 "779bdaaebf"
 ],
+"SPEC_LEV_IF_PANIC": [
+"93b1daafb8"
+],
+"SPEC_LEV_IF_PANIC_LINE": [
+"45ebee7292"
+],
 "SPEC_LEV_LEVELS": [
 "8a75a02dd9"
 ],
 "SPEC_LEV_LIMIT": [
+"33cba3492b",
 "889d3e584a",
 "909ca282e5",
 "6737724280"
@@ -2183,6 +2951,21 @@
 "SPEC_LEV_LIMIT_KEY": [
 "889d3e584a",
 "8e6c38b4d2"
+],
+"SPEC_LEV_LIM_BLOC": [
+"185081b414"
+],
+"SPEC_LEV_LIM_CAP": [
+"6d5d91a98c"
+],
+"SPEC_LEV_LIM_CENTRAL_BANKING": [
+"609355db13"
+],
+"SPEC_LEV_LIM_INTERNATIONAL_EXCHANGE_STANDARDS": [
+"609355db13"
+],
+"SPEC_LEV_LIM_INVESTMENT_BANKS": [
+"609355db13"
 ],
 "SPEC_LEV_LVL_0": [
 "1210e4282b"
@@ -2200,21 +2983,41 @@
 "ef394c8f53"
 ],
 "SPEC_LEV_MAIN_TT": [
+"83f0c488c8",
 "cbc58a6b68",
 "1ccd507438",
-"50a6f2cdb1"
+"50a6f2cdb1",
+"7fd21549e2"
 ],
 "SPEC_LEV_MONTHS_TT": [
+"e4e369e95e",
 "bc99612baf",
-"364d422dba"
+"364d422dba",
+"2efa921a10"
+],
+"SPEC_LEV_PL": [
+"9fb9ab4540"
 ],
 "SPEC_LEV_RELIEF": [
+"682f3a9392",
 "3adf5cdd86",
 "30cd486b87",
 "ae24824618"
 ],
 "SPEC_LEV_SAFE": [
 "d8c3fa7152"
+],
+"SPEC_LEV_TIER_0_TT": [
+"4829f99fac"
+],
+"SPEC_LEV_TIER_1_TT": [
+"170ba5bda8"
+],
+"SPEC_LEV_TIER_2_TT": [
+"6a0f5e6aea"
+],
+"SPEC_LEV_TIER_3_TT": [
+"9a96a45bbd"
 ],
 "SPEC_LEV_UNLOCK_0": [
 "c6321b0bf4"
@@ -2242,112 +3045,148 @@
 "d246250368"
 ],
 "SPEC_LHIST_10_ON": [
-"c866d03845"
+"c866d03845",
+"a4e60e0cb2"
 ],
 "SPEC_LHIST_11_ON": [
-"c866d03845"
+"c866d03845",
+"a4e60e0cb2"
 ],
 "SPEC_LHIST_12_ON": [
-"c866d03845"
+"c866d03845",
+"a4e60e0cb2"
 ],
 "SPEC_LHIST_13_ON": [
-"c866d03845"
+"c866d03845",
+"a4e60e0cb2"
 ],
 "SPEC_LHIST_14_ON": [
-"c866d03845"
+"c866d03845",
+"a4e60e0cb2"
 ],
 "SPEC_LHIST_15_ON": [
-"c866d03845"
+"c866d03845",
+"a4e60e0cb2"
 ],
 "SPEC_LHIST_16_ON": [
-"c866d03845"
+"c866d03845",
+"a4e60e0cb2"
 ],
 "SPEC_LHIST_17_ON": [
-"c866d03845"
+"c866d03845",
+"a4e60e0cb2"
 ],
 "SPEC_LHIST_18_ON": [
-"c866d03845"
+"c866d03845",
+"a4e60e0cb2"
 ],
 "SPEC_LHIST_19_ON": [
-"c866d03845"
+"c866d03845",
+"a4e60e0cb2"
 ],
 "SPEC_LHIST_1_ON": [
+"37a416adbc",
 "99f6f8b6fa"
 ],
 "SPEC_LHIST_20_ON": [
-"c866d03845"
+"c866d03845",
+"a4e60e0cb2"
 ],
 "SPEC_LHIST_21_ON": [
-"c866d03845"
+"c866d03845",
+"a4e60e0cb2"
 ],
 "SPEC_LHIST_22_ON": [
-"c866d03845"
+"c866d03845",
+"a4e60e0cb2"
 ],
 "SPEC_LHIST_23_ON": [
-"c866d03845"
+"c866d03845",
+"a4e60e0cb2"
 ],
 "SPEC_LHIST_24_ON": [
-"c866d03845"
+"c866d03845",
+"a4e60e0cb2"
 ],
 "SPEC_LHIST_25_ON": [
-"c866d03845"
+"c866d03845",
+"a4e60e0cb2"
 ],
 "SPEC_LHIST_26_ON": [
-"c866d03845"
+"c866d03845",
+"a4e60e0cb2"
 ],
 "SPEC_LHIST_27_ON": [
-"c866d03845"
+"c866d03845",
+"a4e60e0cb2"
 ],
 "SPEC_LHIST_28_ON": [
-"c866d03845"
+"c866d03845",
+"a4e60e0cb2"
 ],
 "SPEC_LHIST_29_ON": [
-"c866d03845"
+"c866d03845",
+"a4e60e0cb2"
 ],
 "SPEC_LHIST_2_ON": [
+"66c7c66156",
 "57da154fe8"
 ],
 "SPEC_LHIST_30_ON": [
-"c866d03845"
+"c866d03845",
+"a4e60e0cb2"
 ],
 "SPEC_LHIST_31_ON": [
-"c866d03845"
+"c866d03845",
+"a4e60e0cb2"
 ],
 "SPEC_LHIST_32_ON": [
-"c866d03845"
+"c866d03845",
+"a4e60e0cb2"
 ],
 "SPEC_LHIST_33_ON": [
-"c866d03845"
+"c866d03845",
+"a4e60e0cb2"
 ],
 "SPEC_LHIST_34_ON": [
-"c866d03845"
+"c866d03845",
+"a4e60e0cb2"
 ],
 "SPEC_LHIST_35_ON": [
-"c866d03845"
+"c866d03845",
+"a4e60e0cb2"
 ],
 "SPEC_LHIST_36_ON": [
-"c866d03845"
+"c866d03845",
+"a4e60e0cb2"
 ],
 "SPEC_LHIST_3_ON": [
+"a4e60e0cb2",
 "c866d03845"
 ],
 "SPEC_LHIST_4_ON": [
-"c866d03845"
+"c866d03845",
+"a4e60e0cb2"
 ],
 "SPEC_LHIST_5_ON": [
-"c866d03845"
+"c866d03845",
+"a4e60e0cb2"
 ],
 "SPEC_LHIST_6_ON": [
-"c866d03845"
+"c866d03845",
+"a4e60e0cb2"
 ],
 "SPEC_LHIST_7_ON": [
-"c866d03845"
+"c866d03845",
+"a4e60e0cb2"
 ],
 "SPEC_LHIST_8_ON": [
-"c866d03845"
+"c866d03845",
+"a4e60e0cb2"
 ],
 "SPEC_LHIST_9_ON": [
-"c866d03845"
+"c866d03845",
+"a4e60e0cb2"
 ],
 "SPEC_LHIST_EMPTY": [
 "d5638eebb3",
@@ -2376,13 +3215,15 @@
 ],
 "SPEC_LHIST_PANIC_12_TT": [
 "89e4c4f249",
-"3bf14c16b0"
+"3bf14c16b0",
+"df869e87ba"
 ],
 "SPEC_LHIST_PANIC_3": [
 "3f7ea0fd81",
 "9a52a04f0b"
 ],
 "SPEC_LHIST_PANIC_3_TT": [
+"df869e87ba",
 "89e4c4f249",
 "3bf14c16b0"
 ],
@@ -2392,7 +3233,8 @@
 ],
 "SPEC_LHIST_PANIC_8_TT": [
 "89e4c4f249",
-"3bf14c16b0"
+"3bf14c16b0",
+"df869e87ba"
 ],
 "SPEC_MAP_STAGE_0": [
 "c9a89cc8c5"
@@ -2415,54 +3257,73 @@
 "SPEC_MAP_STAGE_6": [
 "684f0a3ab2"
 ],
+"SPEC_MARKET_SECTORS": [
+"e255c749d3",
+"cc4b0e30e7"
+],
 "SPEC_MOOD_COMBINED": [
+"716ecf48f9",
 "a10565f8a3"
 ],
 "SPEC_MOOD_COMPANY": [
+"6c55e2de7a",
 "fb37982195"
 ],
 "SPEC_MOOD_SOURCES": [
+"d627454f6d",
 "2f6857b30f"
 ],
 "SPEC_NAME_BAR_RULE": [
+"0fba1526fa",
 "b109ae27e4",
 "43a29cfe68",
 "9cd9a446f8"
 ],
 "SPEC_NAME_BAR_TT_companies": [
+"84f2e6d0db",
 "941198ac10",
-"38f81b9997"
+"38f81b9997",
+"e5fc913a12"
 ],
 "SPEC_NAME_BAR_TT_door": [
+"1a5e8f2d8e",
 "9b5b7288dc",
 "27a3eba2f0"
 ],
 "SPEC_NAME_BAR_TT_floor": [
+"df9b54c7d8",
 "1cae23cca7",
 "5e38025fca"
 ],
 "SPEC_NAME_BAR_TT_futures": [
+"95a62c646f",
 "743587f3fd"
 ],
 "SPEC_NAME_BAR_TT_harbour": [
+"6442e86567",
 "939b1cf351",
 "ab2688c1f5"
 ],
 "SPEC_NAME_BAR_TT_lender": [
+"5a26194ebe",
 "bd938c36c9"
 ],
 "SPEC_NAME_BAR_TT_pockets": [
+"4dc273ca7e",
 "407fb6d16d",
 "ec2878c516"
 ],
 "SPEC_NAME_BAR_TT_price": [
+"e068ddfd77",
 "db31e28291",
 "d8ecfefa97"
 ],
 "SPEC_NAME_BAR_TT_railway": [
+"fc095402a8",
 "ab3af250c1"
 ],
 "SPEC_NAME_BAR_TT_sound": [
+"aaace264f0",
 "2ed331e3de",
 "55fe912aba"
 ],
@@ -2507,184 +3368,244 @@
 "b83c4b46fb"
 ],
 "SPEC_NAME_FLAG_TT_companies1": [
+"2100276a43",
 "71a3024712"
 ],
 "SPEC_NAME_FLAG_TT_companies2": [
+"1c9f67bcf8",
 "55f8b3e733"
 ],
 "SPEC_NAME_FLAG_TT_companies3": [
+"6e75b8a06d",
 "f44985944d"
 ],
 "SPEC_NAME_FLAG_TT_door1": [
+"8f9c30f523",
 "a5b070a55c"
 ],
 "SPEC_NAME_FLAG_TT_door2": [
+"33ac4e904a",
 "c2810d41c0"
 ],
 "SPEC_NAME_FLAG_TT_door3": [
+"7826a508ac",
 "2e660497dc"
 ],
 "SPEC_NAME_FLAG_TT_floor1": [
+"1ca318a7d3",
 "3061534cbc"
 ],
 "SPEC_NAME_FLAG_TT_floor2": [
+"a280c1041b",
 "ff3f848f4b"
 ],
 "SPEC_NAME_FLAG_TT_floor3": [
+"90ee48ea5d",
 "7670cc8393"
 ],
 "SPEC_NAME_FLAG_TT_futures1": [
+"66ec5a126b",
 "f501b26d0e"
 ],
 "SPEC_NAME_FLAG_TT_futures2": [
+"6d66ed40b4",
 "f3590e5fac"
 ],
 "SPEC_NAME_FLAG_TT_futures3": [
+"635ac80de7",
 "75520b6553"
 ],
 "SPEC_NAME_FLAG_TT_harbour1": [
+"229802e822",
 "31b08f52ca"
 ],
 "SPEC_NAME_FLAG_TT_harbour2": [
+"2a9c452874",
 "ea762f13ad"
 ],
 "SPEC_NAME_FLAG_TT_harbour3": [
+"fcccef9e14",
 "91eb4f95ef"
 ],
 "SPEC_NAME_FLAG_TT_lender1": [
+"ce6271369d",
 "9565d772dc"
 ],
 "SPEC_NAME_FLAG_TT_lender2": [
+"b13acb0c7e",
 "9f60da4a8c"
 ],
 "SPEC_NAME_FLAG_TT_lender3": [
+"7f0f24ce7f",
 "2ded9f9951"
 ],
 "SPEC_NAME_FLAG_TT_pockets1": [
+"44f0fdebdc",
 "aaf6e1318f"
 ],
 "SPEC_NAME_FLAG_TT_pockets2": [
+"f181959eec",
 "8755263b78"
 ],
 "SPEC_NAME_FLAG_TT_pockets3": [
+"f861ec27f3",
 "76d9a996c0"
 ],
 "SPEC_NAME_FLAG_TT_price1": [
+"57f6436005",
 "c76a892a3e"
 ],
 "SPEC_NAME_FLAG_TT_price2": [
+"723b20c032",
 "1e4ab66f15"
 ],
 "SPEC_NAME_FLAG_TT_price3": [
+"65078d20b5",
 "593fc5520e"
 ],
 "SPEC_NAME_FLAG_TT_railway1": [
+"3c3e152629",
 "51edb41b52"
 ],
 "SPEC_NAME_FLAG_TT_railway2": [
+"9a503c868b",
 "63a98d794d"
 ],
 "SPEC_NAME_FLAG_TT_railway3": [
+"2214dbdbcf",
 "9b6f341415"
 ],
 "SPEC_NAME_FLAG_TT_sound1": [
+"2cfe24d421",
 "a77d2ed6f4"
 ],
 "SPEC_NAME_FLAG_TT_sound2": [
+"718960a569",
 "2eb7c32ede"
 ],
 "SPEC_NAME_FLAG_TT_sound3": [
+"9c2d8d9a61",
 "1b5463f19f"
 ],
 "SPEC_NAME_FW_companies1": [
+"140415cff1",
 "f39acce74e"
 ],
 "SPEC_NAME_FW_companies2": [
-"f39acce74e"
+"f39acce74e",
+"140415cff1"
 ],
 "SPEC_NAME_FW_companies3": [
-"f39acce74e"
+"f39acce74e",
+"140415cff1"
 ],
 "SPEC_NAME_FW_door1": [
+"87f8e2479c",
 "5e9189fccc"
 ],
 "SPEC_NAME_FW_door2": [
-"5e9189fccc"
+"5e9189fccc",
+"87f8e2479c"
 ],
 "SPEC_NAME_FW_door3": [
-"5e9189fccc"
+"5e9189fccc",
+"87f8e2479c"
 ],
 "SPEC_NAME_FW_floor1": [
-"89f54d35a3"
+"89f54d35a3",
+"4d207d1536"
 ],
 "SPEC_NAME_FW_floor2": [
-"89f54d35a3"
+"89f54d35a3",
+"4d207d1536"
 ],
 "SPEC_NAME_FW_floor3": [
-"89f54d35a3"
+"89f54d35a3",
+"4d207d1536"
 ],
 "SPEC_NAME_FW_futures1": [
+"f682ebfc76",
 "9dca2fc9e6"
 ],
 "SPEC_NAME_FW_futures2": [
-"9dca2fc9e6"
+"9dca2fc9e6",
+"f682ebfc76"
 ],
 "SPEC_NAME_FW_futures3": [
-"9dca2fc9e6"
+"9dca2fc9e6",
+"f682ebfc76"
 ],
 "SPEC_NAME_FW_harbour1": [
+"b576bec67e",
 "273860f57f"
 ],
 "SPEC_NAME_FW_harbour2": [
-"273860f57f"
+"273860f57f",
+"b576bec67e"
 ],
 "SPEC_NAME_FW_harbour3": [
-"273860f57f"
+"273860f57f",
+"b576bec67e"
 ],
 "SPEC_NAME_FW_lender1": [
+"efdedfe9b4",
 "317eab7b0d"
 ],
 "SPEC_NAME_FW_lender2": [
-"317eab7b0d"
+"317eab7b0d",
+"efdedfe9b4"
 ],
 "SPEC_NAME_FW_lender3": [
-"317eab7b0d"
+"317eab7b0d",
+"efdedfe9b4"
 ],
 "SPEC_NAME_FW_pockets1": [
+"7435a9897e",
 "9e0be2c618"
 ],
 "SPEC_NAME_FW_pockets2": [
-"9e0be2c618"
+"9e0be2c618",
+"7435a9897e"
 ],
 "SPEC_NAME_FW_pockets3": [
-"9e0be2c618"
+"9e0be2c618",
+"7435a9897e"
 ],
 "SPEC_NAME_FW_price1": [
+"d2093c4c47",
 "31d65aee1a"
 ],
 "SPEC_NAME_FW_price2": [
-"31d65aee1a"
+"31d65aee1a",
+"d2093c4c47"
 ],
 "SPEC_NAME_FW_price3": [
-"31d65aee1a"
+"31d65aee1a",
+"d2093c4c47"
 ],
 "SPEC_NAME_FW_railway1": [
+"4d207d1536",
 "89f54d35a3"
 ],
 "SPEC_NAME_FW_railway2": [
-"89f54d35a3"
+"89f54d35a3",
+"4d207d1536"
 ],
 "SPEC_NAME_FW_railway3": [
-"89f54d35a3"
+"89f54d35a3",
+"4d207d1536"
 ],
 "SPEC_NAME_FW_sound1": [
+"0c317088d0",
 "bc1790ca9c"
 ],
 "SPEC_NAME_FW_sound2": [
-"bc1790ca9c"
+"bc1790ca9c",
+"0c317088d0"
 ],
 "SPEC_NAME_FW_sound3": [
-"bc1790ca9c"
+"bc1790ca9c",
+"0c317088d0"
 ],
 "SPEC_NAME_FX_companies": [
 "f8641942e8",
@@ -2843,12 +3764,15 @@
 "259b79bb80"
 ],
 "SPEC_NAME_NEEDS_1": [
+"33f69c3185",
 "f9063684bd"
 ],
 "SPEC_NAME_NEEDS_2": [
+"ee6850cc1a",
 "04afaae0aa"
 ],
 "SPEC_NAME_NEEDS_3": [
+"9c3d1fe83b",
 "48ca1e710c"
 ],
 "SPEC_NAME_NEED_1": [
@@ -2861,6 +3785,7 @@
 "48fee373e5"
 ],
 "SPEC_NAME_NOLEAD": [
+"04fc3f4782",
 "612fcea3a1"
 ],
 "SPEC_NAME_NOONE": [
@@ -3019,45 +3944,56 @@
 ],
 "SPEC_NAME_PW_TT_companies": [
 "4c5baddfed",
-"0dc759d3e5"
+"0dc759d3e5",
+"aec85ddb44"
 ],
 "SPEC_NAME_PW_TT_door": [
 "4c5baddfed",
-"0dc759d3e5"
+"0dc759d3e5",
+"aec85ddb44"
 ],
 "SPEC_NAME_PW_TT_floor": [
 "4c5baddfed",
-"0dc759d3e5"
+"0dc759d3e5",
+"aec85ddb44"
 ],
 "SPEC_NAME_PW_TT_futures": [
-"0dc759d3e5"
+"0dc759d3e5",
+"aec85ddb44"
 ],
 "SPEC_NAME_PW_TT_harbour": [
 "4c5baddfed",
-"0dc759d3e5"
+"0dc759d3e5",
+"aec85ddb44"
 ],
 "SPEC_NAME_PW_TT_lender": [
-"0dc759d3e5"
+"0dc759d3e5",
+"aec85ddb44"
 ],
 "SPEC_NAME_PW_TT_pockets": [
 "4c5baddfed",
-"0dc759d3e5"
+"0dc759d3e5",
+"aec85ddb44"
 ],
 "SPEC_NAME_PW_TT_price": [
+"aec85ddb44",
 "4c5baddfed",
 "0dc759d3e5"
 ],
 "SPEC_NAME_PW_TT_railway": [
-"0dc759d3e5"
+"0dc759d3e5",
+"aec85ddb44"
 ],
 "SPEC_NAME_PW_TT_sound": [
 "4c5baddfed",
-"0dc759d3e5"
+"0dc759d3e5",
+"aec85ddb44"
 ],
 "SPEC_NAME_PW_UP": [
 "72a745265a"
 ],
 "SPEC_NAME_RULE": [
+"6d4a1d51db",
 "2fcb980a15",
 "6bf725f9b9",
 "2084cf2b89"
@@ -3131,61 +4067,146 @@
 "abe6fb2f98"
 ],
 "SPEC_NAME_TT_companies": [
+"c720eacc51",
 "32ea58088f",
 "eebfc4717d"
 ],
 "SPEC_NAME_TT_door": [
+"0d120a8eeb",
 "dd21cbb7f7",
 "f70e0e67b4"
 ],
 "SPEC_NAME_TT_floor": [
+"e00527e083",
 "ec0f3dbc1b",
 "b3d6a2c8ee",
 "4e2f4dd0f7"
 ],
 "SPEC_NAME_TT_futures": [
+"e3c8dbecd1",
 "e0ddd6a615"
 ],
 "SPEC_NAME_TT_harbour": [
+"8a1f87043a",
 "fd4d55afcb",
 "63d153e9dd"
 ],
 "SPEC_NAME_TT_lender": [
+"5bd90cdc27",
 "266f18b93e"
 ],
 "SPEC_NAME_TT_pockets": [
+"f53c6b8fd1",
 "f27be96f8c",
 "6b2d515ebb"
 ],
 "SPEC_NAME_TT_price": [
+"9b71f30321",
 "a0b7cf0545",
 "f6031ab4ec",
 "0d32bb6a4e"
 ],
 "SPEC_NAME_TT_railway": [
+"aeecb48547",
 "84474cc122"
 ],
 "SPEC_NAME_TT_sound": [
+"f7b9bf9ca8",
 "bdd9e4cac7",
 "5ec660ead3"
 ],
 "SPEC_NAME_UP": [
 "6fb2ef8529"
 ],
+"SPEC_NAME_VAL_NOT": [
+"dac43904c1"
+],
+"SPEC_NAME_VAL_PU_companies": [
+"b6faf3ffd2"
+],
+"SPEC_NAME_VAL_PU_door": [
+"d53fc1a6b5"
+],
+"SPEC_NAME_VAL_PU_floor": [
+"af3cc133c8"
+],
+"SPEC_NAME_VAL_PU_futures": [
+"4574cbbbcc"
+],
+"SPEC_NAME_VAL_PU_harbour": [
+"49c8109a33"
+],
+"SPEC_NAME_VAL_PU_lender": [
+"8b63098974"
+],
+"SPEC_NAME_VAL_PU_pockets": [
+"d7335f6451"
+],
+"SPEC_NAME_VAL_PU_price": [
+"c561ad2271"
+],
+"SPEC_NAME_VAL_PU_railway": [
+"cf691b04f6"
+],
+"SPEC_NAME_VAL_PU_sound": [
+"2408f2f626"
+],
+"SPEC_NAME_VAL_TT_companies": [
+"c740942bed",
+"19b2d45579"
+],
+"SPEC_NAME_VAL_TT_door": [
+"0613b213b1"
+],
+"SPEC_NAME_VAL_TT_floor": [
+"b6385cdbea"
+],
+"SPEC_NAME_VAL_TT_futures": [
+"8d13d2e19d"
+],
+"SPEC_NAME_VAL_TT_harbour": [
+"0ddd2fa512"
+],
+"SPEC_NAME_VAL_TT_lender": [
+"7575d87c85"
+],
+"SPEC_NAME_VAL_TT_pockets": [
+"4b9791504a"
+],
+"SPEC_NAME_VAL_TT_price": [
+"200c1c30a0"
+],
+"SPEC_NAME_VAL_TT_railway": [
+"a08d17a618"
+],
+"SPEC_NAME_VAL_TT_sound": [
+"8544f25226"
+],
 "SPEC_NOTE_BANKS_ON": [
+"d71f086574",
 "599efded61"
 ],
 "SPEC_NOTE_OVER_ON": [
+"ff8875ceaa",
 "1368999b01"
 ],
 "SPEC_NOTE_PPL_1": [
+"dba058e8e0",
 "3ba2f648b3"
 ],
 "SPEC_NOTE_PPL_2": [
+"eee3d19d1c",
 "cfd0072317"
 ],
 "SPEC_NOTE_PPL_3": [
+"10cb5241c6",
 "0a82a5acde"
+],
+"SPEC_OBS_RV_IN": [
+"93d5a8e665"
+],
+"SPEC_OBS_RV_OUT": [
+"d7920e3b73"
 ],
 "SPEC_OFF": [
 "98cb2f5a91"
@@ -3204,9 +4225,53 @@
 "c05d1cce36",
 "1f81f042c7"
 ],
+"SPEC_ORD_1": [
+"bd04c9b531"
+],
+"SPEC_ORD_2": [
+"11fda6c6b4"
+],
+"SPEC_ORD_3": [
+"ce9236d243"
+],
+"SPEC_ORD_companies_0": [
+"da8223d3d2"
+],
+"SPEC_ORD_door_0": [
+"da8223d3d2"
+],
+"SPEC_ORD_floor_0": [
+"da8223d3d2"
+],
+"SPEC_ORD_futures_0": [
+"da8223d3d2"
+],
+"SPEC_ORD_harbour_0": [
+"da8223d3d2"
+],
+"SPEC_ORD_lender_0": [
+"da8223d3d2"
+],
+"SPEC_ORD_pockets_0": [
+"da8223d3d2"
+],
+"SPEC_ORD_price_0": [
+"da8223d3d2"
+],
+"SPEC_ORD_railway_0": [
+"da8223d3d2"
+],
+"SPEC_ORD_sound_0": [
+"da8223d3d2"
+],
+"SPEC_OWED_LENT": [
+"c55c523e35"
+],
 "SPEC_PANIC_BAD_DEBTS": [
+"1060bacdf1",
 "3cafce71a4",
-"06616345a7"
+"06616345a7",
+"f8a1f33ec6"
 ],
 "SPEC_PANIC_BAR_OFF": [
 "9239b00ab3",
@@ -3216,18 +4281,36 @@
 "21680a1cbd"
 ],
 "SPEC_PANIC_EFFECTS": [
+"535ad40207",
 "5cf719f993",
 "bcd342a282",
 "65c34ce1b0"
 ],
 "SPEC_PANIC_EFFECTS_RESCUED": [
 "bcd342a282",
-"65c34ce1b0"
+"65c34ce1b0",
+"535ad40207"
 ],
 "SPEC_PANIC_LEFT": [
 "0d1756248c"
 ],
+"SPEC_PANIC_LEN_0": [
+"d19f53c675"
+],
+"SPEC_PANIC_LEN_1": [
+"8a23fdbdd5"
+],
+"SPEC_PANIC_LEN_2": [
+"0a73dbe25a"
+],
+"SPEC_PANIC_LEN_3": [
+"1ee5811014"
+],
+"SPEC_PANIC_LEN_4": [
+"7d0ec831ec"
+],
 "SPEC_PANIC_LINE_TT": [
+"79834ae7c2",
 "09a3819059",
 "4e66b4f23f",
 "ec489b8378",
@@ -3240,9 +4323,11 @@
 "0ebd3fb32a"
 ],
 "SPEC_PANIC_NONE_TT": [
+"2f681a060a",
 "91b987bf1f",
 "48e2255de9",
-"7f792c96de"
+"7f792c96de",
+"b2a4baa425"
 ],
 "SPEC_PANIC_NO_LOANS": [
 "89d396ed3d"
@@ -3261,10 +4346,17 @@
 "61f0086334"
 ],
 "SPEC_PANIC_TT": [
+"296ac038df",
 "e56cdea362"
 ],
 "SPEC_PANIC_TT_END": [
 "56f90339ec"
+],
+"SPEC_PLEDGE_CASH": [
+"ec250a4da8"
+],
+"SPEC_PLEDGE_DEFAULT": [
+"eaedf8f43f"
 ],
 "SPEC_PLEDGE_LEAVING": [
 "adce1d0024"
@@ -3274,6 +4366,7 @@
 "3d3a2d0623"
 ],
 "SPEC_PLEDGE_MAKE_TT": [
+"6a6a079e1f",
 "61aadaa9f9",
 "44bccb9712",
 "f1827a8e2e",
@@ -3282,6 +4375,9 @@
 "SPEC_PLEDGE_NONE": [
 "cd294a45ec"
 ],
+"SPEC_PLEDGE_NOTICE_STATUS": [
+"c87fe760fd"
+],
 "SPEC_PLEDGE_ON": [
 "4b87af53de"
 ],
@@ -3289,6 +4385,7 @@
 "402edb8948"
 ],
 "SPEC_PLEDGE_OUT_TT": [
+"51e106e3df",
 "e288e52271",
 "1b03ce2629",
 "fec1bdb54d",
@@ -3299,13 +4396,23 @@
 "be49bf1b78",
 "8bab35a540"
 ],
+"SPEC_PLEDGE_TECH": [
+"624d978ab2"
+],
 "SPEC_PLEDGE_UNMET": [
+"cc10817b50",
 "112a65f450",
 "bb0a0bad3b",
 "281245f6b1"
 ],
 "SPEC_PLEDGE_WITHDRAW": [
 "402edb8948"
+],
+"SPEC_PL_LEV": [
+"ddc021f7cf"
+],
+"SPEC_PL_SHALLOW": [
+"a72c738715"
 ],
 "SPEC_POLICY_COOLDOWN_MANY": [
 "6bd861f5be"
@@ -3317,19 +4424,23 @@
 "be75acfe1c"
 ],
 "SPEC_POOL_BAD": [
+"6d290a89df",
 "f1e1c77bab"
 ],
 "SPEC_POOL_CREDIT": [
+"75f2008a8c",
 "aad8c942a9",
 "cdb6eee95d"
 ],
 "SPEC_POOL_RECALL": [
+"2992e8ba60",
 "15a52f9f22"
 ],
 "SPEC_PRESSURES": [
 "97fd475288"
 ],
 "SPEC_PRESSURES_TT": [
+"d11305e08f",
 "b453c9c67c",
 "947936be0a"
 ],
@@ -3422,24 +4533,28 @@
 "593c4ec524"
 ],
 "SPEC_PURSUE_LV_companies_0_ON": [
-"6e73457961"
+"6e73457961",
+"3fd6a49a3c"
 ],
 "SPEC_PURSUE_LV_companies_1": [
 "4f11d2ff66"
 ],
 "SPEC_PURSUE_LV_companies_1_ON": [
-"686a5579be"
+"686a5579be",
+"d5d8701216"
 ],
 "SPEC_PURSUE_LV_companies_2": [
 "6f1268d83f"
 ],
 "SPEC_PURSUE_LV_companies_2_ON": [
-"5cb4d99614"
+"5cb4d99614",
+"449a5d02ee"
 ],
 "SPEC_PURSUE_LV_companies_3": [
 "73ee0e7e53"
 ],
 "SPEC_PURSUE_LV_companies_3_ON": [
+"494f7f97ef",
 "dc122f7f33"
 ],
 "SPEC_PURSUE_LV_door": [
@@ -3449,25 +4564,29 @@
 "049efd0702"
 ],
 "SPEC_PURSUE_LV_door_0_ON": [
-"3586e2e7c5"
+"3586e2e7c5",
+"a77b410f7c"
 ],
 "SPEC_PURSUE_LV_door_1": [
 "b5b1996e82"
 ],
 "SPEC_PURSUE_LV_door_1_ON": [
-"cc5a8236d6"
+"cc5a8236d6",
+"f7203bbd9a"
 ],
 "SPEC_PURSUE_LV_door_2": [
 "74d12cbec2"
 ],
 "SPEC_PURSUE_LV_door_2_ON": [
-"98e02735b5"
+"98e02735b5",
+"0be6224ff9"
 ],
 "SPEC_PURSUE_LV_door_3": [
 "d5e77f4707"
 ],
 "SPEC_PURSUE_LV_door_3_ON": [
-"a88c0d5e4c"
+"a88c0d5e4c",
+"1d640777ff"
 ],
 "SPEC_PURSUE_LV_floor": [
 "e2352d22a0"
@@ -3476,49 +4595,57 @@
 "593c4ec524"
 ],
 "SPEC_PURSUE_LV_floor_0_ON": [
-"6e73457961"
+"6e73457961",
+"3fd6a49a3c"
 ],
 "SPEC_PURSUE_LV_floor_1": [
 "4f11d2ff66"
 ],
 "SPEC_PURSUE_LV_floor_1_ON": [
-"686a5579be"
+"686a5579be",
+"d5d8701216"
 ],
 "SPEC_PURSUE_LV_floor_2": [
 "6f1268d83f"
 ],
 "SPEC_PURSUE_LV_floor_2_ON": [
-"5cb4d99614"
+"5cb4d99614",
+"449a5d02ee"
 ],
 "SPEC_PURSUE_LV_floor_3": [
 "9acbc29ce5"
 ],
 "SPEC_PURSUE_LV_floor_3_ON": [
-"3eea33ee8c"
+"3eea33ee8c",
+"0de9c90a14"
 ],
 "SPEC_PURSUE_LV_futures_0": [
 "593c4ec524"
 ],
 "SPEC_PURSUE_LV_futures_0_ON": [
-"6e73457961"
+"6e73457961",
+"3fd6a49a3c"
 ],
 "SPEC_PURSUE_LV_futures_1": [
 "4f11d2ff66"
 ],
 "SPEC_PURSUE_LV_futures_1_ON": [
-"686a5579be"
+"686a5579be",
+"d5d8701216"
 ],
 "SPEC_PURSUE_LV_futures_2": [
 "6f1268d83f"
 ],
 "SPEC_PURSUE_LV_futures_2_ON": [
-"5cb4d99614"
+"5cb4d99614",
+"449a5d02ee"
 ],
 "SPEC_PURSUE_LV_futures_3": [
 "9acbc29ce5"
 ],
 "SPEC_PURSUE_LV_futures_3_ON": [
-"3eea33ee8c"
+"3eea33ee8c",
+"0de9c90a14"
 ],
 "SPEC_PURSUE_LV_harbour": [
 "fb2c032273"
@@ -3527,48 +4654,56 @@
 "049efd0702"
 ],
 "SPEC_PURSUE_LV_harbour_0_ON": [
+"a77b410f7c",
 "3586e2e7c5"
 ],
 "SPEC_PURSUE_LV_harbour_1": [
 "b5b1996e82"
 ],
 "SPEC_PURSUE_LV_harbour_1_ON": [
+"f7203bbd9a",
 "cc5a8236d6"
 ],
 "SPEC_PURSUE_LV_harbour_2": [
 "74d12cbec2"
 ],
 "SPEC_PURSUE_LV_harbour_2_ON": [
+"0be6224ff9",
 "98e02735b5"
 ],
 "SPEC_PURSUE_LV_harbour_3": [
 "ffbded90e4"
 ],
 "SPEC_PURSUE_LV_harbour_3_ON": [
+"fdd110e92b",
 "5837bd2762"
 ],
 "SPEC_PURSUE_LV_lender_0": [
 "049efd0702"
 ],
 "SPEC_PURSUE_LV_lender_0_ON": [
-"3586e2e7c5"
+"3586e2e7c5",
+"a77b410f7c"
 ],
 "SPEC_PURSUE_LV_lender_1": [
 "b5b1996e82"
 ],
 "SPEC_PURSUE_LV_lender_1_ON": [
-"cc5a8236d6"
+"cc5a8236d6",
+"f7203bbd9a"
 ],
 "SPEC_PURSUE_LV_lender_2": [
 "74d12cbec2"
 ],
 "SPEC_PURSUE_LV_lender_2_ON": [
-"98e02735b5"
+"98e02735b5",
+"0be6224ff9"
 ],
 "SPEC_PURSUE_LV_lender_3": [
 "dde9ee18da"
 ],
 "SPEC_PURSUE_LV_lender_3_ON": [
+"1d640777ff",
 "fe01587528"
 ],
 "SPEC_PURSUE_LV_pockets": [
@@ -3578,25 +4713,29 @@
 "049efd0702"
 ],
 "SPEC_PURSUE_LV_pockets_0_ON": [
-"3586e2e7c5"
+"3586e2e7c5",
+"a77b410f7c"
 ],
 "SPEC_PURSUE_LV_pockets_1": [
 "b5b1996e82"
 ],
 "SPEC_PURSUE_LV_pockets_1_ON": [
-"cc5a8236d6"
+"cc5a8236d6",
+"f7203bbd9a"
 ],
 "SPEC_PURSUE_LV_pockets_2": [
 "74d12cbec2"
 ],
 "SPEC_PURSUE_LV_pockets_2_ON": [
-"98e02735b5"
+"98e02735b5",
+"0be6224ff9"
 ],
 "SPEC_PURSUE_LV_pockets_3": [
 "d5e77f4707"
 ],
 "SPEC_PURSUE_LV_pockets_3_ON": [
-"a88c0d5e4c"
+"a88c0d5e4c",
+"1d640777ff"
 ],
 "SPEC_PURSUE_LV_price": [
 "e2352d22a0"
@@ -3605,48 +4744,56 @@
 "593c4ec524"
 ],
 "SPEC_PURSUE_LV_price_0_ON": [
+"3fd6a49a3c",
 "6e73457961"
 ],
 "SPEC_PURSUE_LV_price_1": [
 "4f11d2ff66"
 ],
 "SPEC_PURSUE_LV_price_1_ON": [
+"d5d8701216",
 "686a5579be"
 ],
 "SPEC_PURSUE_LV_price_2": [
 "6f1268d83f"
 ],
 "SPEC_PURSUE_LV_price_2_ON": [
+"449a5d02ee",
 "5cb4d99614"
 ],
 "SPEC_PURSUE_LV_price_3": [
 "9acbc29ce5"
 ],
 "SPEC_PURSUE_LV_price_3_ON": [
+"0de9c90a14",
 "3eea33ee8c"
 ],
 "SPEC_PURSUE_LV_railway_0": [
 "e325f95ffe"
 ],
 "SPEC_PURSUE_LV_railway_0_ON": [
+"7e4ba25089",
 "cad093ca7a"
 ],
 "SPEC_PURSUE_LV_railway_1": [
 "9a1b240d6c"
 ],
 "SPEC_PURSUE_LV_railway_1_ON": [
+"7652df10e1",
 "ce77ea1be2"
 ],
 "SPEC_PURSUE_LV_railway_2": [
 "aed7c50d5e"
 ],
 "SPEC_PURSUE_LV_railway_2_ON": [
+"2a13375336",
 "483d7c86bf"
 ],
 "SPEC_PURSUE_LV_railway_3": [
 "a82c98bb1f"
 ],
 "SPEC_PURSUE_LV_railway_3_ON": [
+"908acbee85",
 "e5c7abedad"
 ],
 "SPEC_PURSUE_LV_sound": [
@@ -3656,25 +4803,29 @@
 "f89cfdca0e"
 ],
 "SPEC_PURSUE_LV_sound_0_ON": [
-"8165d407dd"
+"8165d407dd",
+"3fd6a49a3c"
 ],
 "SPEC_PURSUE_LV_sound_1": [
 "540c3b3c2d"
 ],
 "SPEC_PURSUE_LV_sound_1_ON": [
-"4202e9a931"
+"4202e9a931",
+"d5d8701216"
 ],
 "SPEC_PURSUE_LV_sound_2": [
 "9d65e89a31"
 ],
 "SPEC_PURSUE_LV_sound_2_ON": [
-"4f59ecbaa2"
+"4f59ecbaa2",
+"449a5d02ee"
 ],
 "SPEC_PURSUE_LV_sound_3": [
 "6fd047db3c"
 ],
 "SPEC_PURSUE_LV_sound_3_ON": [
-"5c50154176"
+"5c50154176",
+"494f7f97ef"
 ],
 "SPEC_PURSUE_NOW": [
 "f910816a78"
@@ -3714,11 +4865,13 @@
 "fdd7532cee"
 ],
 "SPEC_PURSUE_RULE": [
+"4924a71fcf",
 "3a8b1965fb",
 "0ef75b8642",
 "42b2e915ce"
 ],
 "SPEC_PURSUE_SLOT_TT": [
+"a0b5d5d787",
 "cfe295d35c",
 "ce5841e403"
 ],
@@ -3726,46 +4879,423 @@
 "3e679cff5b"
 ],
 "SPEC_PURSUE_STOP_TT_companies": [
+"306d4cc39c",
 "1473fd513f",
 "63a011ca2b"
 ],
 "SPEC_PURSUE_STOP_TT_door": [
+"41d5152e59",
 "2332692fe1",
 "7d08268383"
 ],
 "SPEC_PURSUE_STOP_TT_floor": [
+"78ae8333b8",
 "4dc7afded2",
 "1003e64de9"
 ],
 "SPEC_PURSUE_STOP_TT_futures": [
+"6665576031",
 "562d959872"
 ],
 "SPEC_PURSUE_STOP_TT_harbour": [
+"89aa1d611d",
 "888e7fdf4d",
 "df155e40c1"
 ],
 "SPEC_PURSUE_STOP_TT_lender": [
+"2b2689d360",
 "6baebff837"
 ],
 "SPEC_PURSUE_STOP_TT_pockets": [
+"0802e77bbd",
 "d06771cfb1",
 "3c7985d0ee"
 ],
 "SPEC_PURSUE_STOP_TT_price": [
+"3f556e609a",
 "b28d66a686",
 "f6463dd382"
 ],
 "SPEC_PURSUE_STOP_TT_railway": [
+"edce357604",
 "48a8c9d46e"
 ],
 "SPEC_PURSUE_STOP_TT_sound": [
+"f0626cae90",
 "8b3c893ff3",
 "6b57922527"
+],
+"SPEC_RANK_AHEAD_companies": [
+"61f0547121"
+],
+"SPEC_RANK_AHEAD_door": [
+"6fdc8b3453"
+],
+"SPEC_RANK_AHEAD_floor": [
+"2eb0dd9a7a"
+],
+"SPEC_RANK_AHEAD_futures": [
+"56c92dfb7c"
+],
+"SPEC_RANK_AHEAD_harbour": [
+"3594d67074"
+],
+"SPEC_RANK_AHEAD_lender": [
+"9139482d34"
+],
+"SPEC_RANK_AHEAD_pockets": [
+"bdd90a2f75"
+],
+"SPEC_RANK_AHEAD_price": [
+"a52089272d"
+],
+"SPEC_RANK_AHEAD_railway": [
+"2eb0dd9a7a"
+],
+"SPEC_RANK_AHEAD_sound": [
+"48cdcce6b4"
+],
+"SPEC_RANK_G2_companies": [
+"1ba78f829e"
+],
+"SPEC_RANK_G2_door": [
+"1cd247394b"
+],
+"SPEC_RANK_G2_floor": [
+"85c3e76383"
+],
+"SPEC_RANK_G2_futures": [
+"56f433a28c"
+],
+"SPEC_RANK_G2_harbour": [
+"6117259e84"
+],
+"SPEC_RANK_G2_lender": [
+"0c80182371"
+],
+"SPEC_RANK_G2_pockets": [
+"ffde51052e"
+],
+"SPEC_RANK_G2_price": [
+"52a84b7250"
+],
+"SPEC_RANK_G2_railway": [
+"85c3e76383"
+],
+"SPEC_RANK_G2_sound": [
+"5eb57d4681"
+],
+"SPEC_RANK_G3_companies": [
+"1ba78f829e"
+],
+"SPEC_RANK_G3_door": [
+"1cd247394b"
+],
+"SPEC_RANK_G3_floor": [
+"85c3e76383"
+],
+"SPEC_RANK_G3_futures": [
+"56f433a28c"
+],
+"SPEC_RANK_G3_harbour": [
+"6117259e84"
+],
+"SPEC_RANK_G3_lender": [
+"0c80182371"
+],
+"SPEC_RANK_G3_pockets": [
+"ffde51052e"
+],
+"SPEC_RANK_G3_price": [
+"52a84b7250"
+],
+"SPEC_RANK_G3_railway": [
+"85c3e76383"
+],
+"SPEC_RANK_G3_sound": [
+"5eb57d4681"
+],
+"SPEC_RANK_GN_companies": [
+"2ef0b7688e"
+],
+"SPEC_RANK_GN_door": [
+"7115e31521"
+],
+"SPEC_RANK_GN_floor": [
+"a45ba7c6a1"
+],
+"SPEC_RANK_GN_futures": [
+"9a9e1d5538"
+],
+"SPEC_RANK_GN_harbour": [
+"152ab69f71"
+],
+"SPEC_RANK_GN_lender": [
+"3b6d6e318b"
+],
+"SPEC_RANK_GN_pockets": [
+"ac585e67c8"
+],
+"SPEC_RANK_GN_price": [
+"f17bacd1d3"
+],
+"SPEC_RANK_GN_railway": [
+"a45ba7c6a1"
+],
+"SPEC_RANK_GN_sound": [
+"587d0ddc50"
+],
+"SPEC_RANK_IFPU": [
+"730906d35e"
+],
+"SPEC_RANK_NEAR_companies": [
+"6341138643"
+],
+"SPEC_RANK_NEAR_door": [
+"0d468b95de"
+],
+"SPEC_RANK_NEAR_floor": [
+"fe1bb9358a"
+],
+"SPEC_RANK_NEAR_futures": [
+"d110daac52"
+],
+"SPEC_RANK_NEAR_harbour": [
+"a94d8c0e5d"
+],
+"SPEC_RANK_NEAR_lender": [
+"a4b0fabbad"
+],
+"SPEC_RANK_NEAR_pockets": [
+"2a17d22138"
+],
+"SPEC_RANK_NEAR_price": [
+"57b0e18b1e"
+],
+"SPEC_RANK_NEAR_railway": [
+"fe1bb9358a"
+],
+"SPEC_RANK_NEAR_sound": [
+"ed1a469c7a"
+],
+"SPEC_RANK_NEEDNAT": [
+"4a116be17a"
+],
+"SPEC_RANK_WO1_companies": [
+"d2dd45f2bb"
+],
+"SPEC_RANK_WO1_door": [
+"4e89bc3ffa"
+],
+"SPEC_RANK_WO1_floor": [
+"476996768e"
+],
+"SPEC_RANK_WO1_futures": [
+"19e0120cbb"
+],
+"SPEC_RANK_WO1_harbour": [
+"c920ddf7d5"
+],
+"SPEC_RANK_WO1_lender": [
+"703d231d35"
+],
+"SPEC_RANK_WO1_pockets": [
+"dc2c3ac185"
+],
+"SPEC_RANK_WO1_price": [
+"bf5f77fd3d"
+],
+"SPEC_RANK_WO1_railway": [
+"476996768e"
+],
+"SPEC_RANK_WO1_sound": [
+"939170f6a6"
+],
+"SPEC_RANK_WO2_companies": [
+"214b07937a"
+],
+"SPEC_RANK_WO2_door": [
+"b2ea54e20f"
+],
+"SPEC_RANK_WO2_floor": [
+"c2258b04b7"
+],
+"SPEC_RANK_WO2_futures": [
+"15a5b85a95"
+],
+"SPEC_RANK_WO2_harbour": [
+"881868c1af"
+],
+"SPEC_RANK_WO2_lender": [
+"37fc2a168f"
+],
+"SPEC_RANK_WO2_pockets": [
+"cbb203a5b4"
+],
+"SPEC_RANK_WO2_price": [
+"62f7c2b6d8"
+],
+"SPEC_RANK_WO2_railway": [
+"c2258b04b7"
+],
+"SPEC_RANK_WO2_sound": [
+"169d880261"
+],
+"SPEC_RANK_WO3_companies": [
+"d9eac73e8e"
+],
+"SPEC_RANK_WO3_door": [
+"92df77709c"
+],
+"SPEC_RANK_WO3_floor": [
+"6ac7d4151f"
+],
+"SPEC_RANK_WO3_futures": [
+"d6c4188cc8"
+],
+"SPEC_RANK_WO3_harbour": [
+"3245c2dadc"
+],
+"SPEC_RANK_WO3_lender": [
+"621e5b457e"
+],
+"SPEC_RANK_WO3_pockets": [
+"54b55104e3"
+],
+"SPEC_RANK_WO3_price": [
+"54114b7173"
+],
+"SPEC_RANK_WO3_railway": [
+"6ac7d4151f"
+],
+"SPEC_RANK_WO3_sound": [
+"eaad4ad545"
+],
+"SPEC_RANK_WU1_companies": [
+"7147ac9fb7"
+],
+"SPEC_RANK_WU1_door": [
+"8c6c0e36a4"
+],
+"SPEC_RANK_WU1_floor": [
+"32fedf92b9"
+],
+"SPEC_RANK_WU1_futures": [
+"8a9dcb9286"
+],
+"SPEC_RANK_WU1_harbour": [
+"af148144be"
+],
+"SPEC_RANK_WU1_lender": [
+"8e3abaa33e"
+],
+"SPEC_RANK_WU1_pockets": [
+"fa82288f70"
+],
+"SPEC_RANK_WU1_price": [
+"e725d4f26d"
+],
+"SPEC_RANK_WU1_railway": [
+"32fedf92b9"
+],
+"SPEC_RANK_WU1_sound": [
+"02e8f39f6a"
+],
+"SPEC_RANK_WU2_companies": [
+"d0199ec4b6"
+],
+"SPEC_RANK_WU2_door": [
+"a46930eff1"
+],
+"SPEC_RANK_WU2_floor": [
+"37d3eacc47"
+],
+"SPEC_RANK_WU2_futures": [
+"52ead665eb"
+],
+"SPEC_RANK_WU2_harbour": [
+"362443a92c"
+],
+"SPEC_RANK_WU2_lender": [
+"3eee24eb57"
+],
+"SPEC_RANK_WU2_pockets": [
+"2667b20c16"
+],
+"SPEC_RANK_WU2_price": [
+"2cddcc5a02"
+],
+"SPEC_RANK_WU2_railway": [
+"37d3eacc47"
+],
+"SPEC_RANK_WU2_sound": [
+"d0cbe7b864"
+],
+"SPEC_RANK_WU3_companies": [
+"f7328ee51c"
+],
+"SPEC_RANK_WU3_door": [
+"7f27cd883c"
+],
+"SPEC_RANK_WU3_floor": [
+"875c4bf55a"
+],
+"SPEC_RANK_WU3_futures": [
+"5996176f4a"
+],
+"SPEC_RANK_WU3_harbour": [
+"693c42dbb6"
+],
+"SPEC_RANK_WU3_lender": [
+"d6febd3c91"
+],
+"SPEC_RANK_WU3_pockets": [
+"d8b5376499"
+],
+"SPEC_RANK_WU3_price": [
+"c40a46a940"
+],
+"SPEC_RANK_WU3_railway": [
+"875c4bf55a"
+],
+"SPEC_RANK_WU3_sound": [
+"2e1c765ff3"
+],
+"SPEC_RATE_0": [
+"d19f53c675"
+],
+"SPEC_RATE_1": [
+"c8854b92bf"
+],
+"SPEC_RATE_2": [
+"77deea602a"
+],
+"SPEC_RATE_3": [
+"1ee5811014"
+],
+"SPEC_RATE_4": [
+"26ac613939"
+],
+"SPEC_RATE_5": [
+"214df8bbd5"
+],
+"SPEC_RATE_6": [
+"154ba54579"
+],
+"SPEC_RECALL_DETAIL": [
+"b24622efa9"
+],
+"SPEC_RECALL_LAX": [
+"26ac613939"
+],
+"SPEC_RECALL_LIMIT": [
+"85ffad3dd9"
 ],
 "SPEC_RESCUED": [
 "e1f860ea67"
 ],
 "SPEC_RESCUE_ACTION_TT": [
+"1a47018893",
 "bf61de0994",
 "b008f59e32"
 ],
@@ -3786,11 +5316,32 @@
 "SPEC_RISKS": [
 "d179c45ac1"
 ],
+"SPEC_RISKS_BOOMS": [
+"f81b45d71f"
+],
+"SPEC_RISKS_BUBBLE": [
+"196ab8b0a0"
+],
+"SPEC_RISKS_DEFAULT": [
+"984a2b5820"
+],
+"SPEC_RISKS_NONE": [
+"7ddd8995fa"
+],
+"SPEC_RISKS_ON": [
+"2ec0630b7c"
+],
+"SPEC_RISKS_SRC": [
+"a39056f8eb"
+],
 "SPEC_RISKS_TT": [
 "2abc57cc33",
 "6b44cf345e",
 "c2e37a7f4a",
 "6766198960"
+],
+"SPEC_RISKS_WAR": [
+"3e07af3c43"
 ],
 "SPEC_RISK_1_NONE": [
 "6efd53a3d0",
@@ -3801,16 +5352,24 @@
 "6022dd554c",
 "040fa07160"
 ],
+"SPEC_RISK_3_CALM": [
+"07d7491f35"
+],
+"SPEC_RISK_3_CHEAP": [
+"ef8c8140ef"
+],
 "SPEC_RISK_3_NONE": [
 "abf765063d",
 "07d7491f35"
 ],
 "SPEC_RISK_3_ON": [
+"633a8134e4",
 "96cd641ec7",
 "6c0cd7c5ee",
 "6a518e3872"
 ],
 "SPEC_RISK_4_BROKE": [
+"df7c58e2e8",
 "c92303db59",
 "22e07a9dfe",
 "0f582ba11d"
@@ -3820,42 +5379,71 @@
 "b123f6a642"
 ],
 "SPEC_RISK_4_ON": [
+"e332be565e",
 "fb81818598",
 "b64f799ba9",
 "512e2d8d09",
 "cd5c17ae02"
 ],
+"SPEC_RISK_5_ALL": [
+"823ddc4f77"
+],
+"SPEC_RISK_5_BAD": [
+"ca7f88dffc"
+],
+"SPEC_RISK_5_COST": [
+"ee134f8407"
+],
 "SPEC_RISK_5_NONE": [
+"c3249eaba2",
 "241399aea0"
 ],
+"SPEC_RISK_5_ON": [
+"362d93bd58"
+],
 "SPEC_RISK_CALM": [
+"efc7a048fb",
 "db1e7ccf0a",
 "f9d4d7e8fa"
 ],
+"SPEC_RISK_FALL": [
+"c2ff8d6fff"
+],
 "SPEC_RISK_GLUT": [
+"3219877f67",
 "746e13b0f4",
 "66cdbb831f"
 ],
 "SPEC_RISK_HELD_LINE": [
+"1f0d8ee175",
 "57c821ad97",
 "1de4279586",
 "055e8d48ea",
 "ccd5d6fb5e"
 ],
+"SPEC_RISK_LEAD": [
+"9ba3ade934"
+],
 "SPEC_RISK_SHARE": [
 "7abd34a9ce"
 ],
 "SPEC_RISK_SLIGHT": [
+"9c0854ce36",
 "38d432b835",
 "a671735706"
 ],
+"SPEC_RISK_TAG": [
+"c86fddaddc"
+],
 "SPEC_RISK_TT": [
+"e89a5570bc",
 "d8bce9f41b",
 "3ca8290368",
 "91bcde051e",
 "e4e82a8a30"
 ],
 "SPEC_RISK_WHY_AEROPLANES": [
+"dbe1443df0",
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
@@ -3865,289 +5453,337 @@
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_ARTILLERY": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_AUTOMOBILES": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_CLIPPERS": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_CLOTHES": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_COAL": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_COFFEE": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_COPPER": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_DYE": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_ELECTRICITY": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_ENGINES": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_EXPLOSIVES": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_FABRIC": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_FERTILIZER": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_FINE_ART": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_FISH": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_FRUIT": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_FURNITURE": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_GLASS": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_GRAIN": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_GROCERIES": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_HARDWOOD": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_IRON": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_LEAD": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_LIQUOR": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_LUXURY_CLOTHES": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_LUXURY_FURNITURE": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_MEAT": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_MERCHANT_MARINE": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_OIL": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_OPIUM": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_PAPER": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_PORCELAIN": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_RADIOS": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_RUBBER": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_SILK": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_SMALL_ARMS": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_STEAMERS": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_STEEL": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_SUGAR": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_SULFUR": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_TANKS": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_TEA": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_TELEPHONES": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_TOBACCO": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_TOOLS": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_WINE": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RISK_WHY_WOOD": [
 "2e18c198d1",
 "952e79ac0d",
 "e3e58c4367",
-"a5a3f10c37"
+"a5a3f10c37",
+"dbe1443df0"
 ],
 "SPEC_RIVAL_CHOOSE": [
 "961f2247a2"
@@ -4203,10 +5839,12 @@
 "6dd6d0121e"
 ],
 "SPEC_RIVAL_RULE": [
+"03384d7a0e",
 "002e0cb1f4",
 "fa232a7539",
 "66ec0c2928",
-"cba0ae24b5"
+"cba0ae24b5",
+"aef0e240a0"
 ],
 "SPEC_RIVAL_TT": [
 "e9c2f60f22",
@@ -4253,27 +5891,35 @@
 "06df33001c"
 ],
 "SPEC_RV_COL_ACT_TT": [
+"c729377467",
 "d4ffb14ca1"
 ],
 "SPEC_RV_COL_LAST": [
 "8093904453"
 ],
 "SPEC_RV_COL_LAST_TT": [
+"f6ceeff6b9",
 "6da3dc253a"
 ],
 "SPEC_RV_COL_LEFT": [
 "da22a18379"
 ],
 "SPEC_RV_COL_LEFT_TT": [
+"a6f4a08489",
 "9331300149"
 ],
 "SPEC_RV_COL_SCORE": [
 "57fb27deb6"
 ],
 "SPEC_RV_COL_SCORE_TT": [
+"e64a4e819e",
 "e603f6e7bb"
 ],
+"SPEC_RV_COST_WORLD": [
+"993b1338a8"
+],
 "SPEC_RV_DID": [
+"fffece9e79",
 "838fb1cf57"
 ],
 "SPEC_RV_DID_COST1": [
@@ -4329,13 +5975,20 @@
 "SPEC_RV_DID_S3N": [
 "9345568148"
 ],
+"SPEC_RV_DID_SHORE": [
+"e267fbc105"
+],
 "SPEC_RV_DID_TT": [
+"c4c96b01fe",
 "7b6320b8fe"
 ],
 "SPEC_RV_EMPTY_IN": [
 "6b4a70918d"
 ],
 "SPEC_RV_EMPTY_OUT": [
+"180e554bef"
+],
+"SPEC_RV_EMPTY_OUT_PLAYER": [
 "180e554bef"
 ],
 "SPEC_RV_EV_MANIA": [
@@ -4354,9 +6007,11 @@
 "a6a9d45734"
 ],
 "SPEC_RV_HOLD_TT": [
+"5e72939794",
 "d41ac948f0"
 ],
 "SPEC_RV_HOW": [
+"80db4fba72",
 "57f379a8be"
 ],
 "SPEC_RV_LAST_EXPOSED": [
@@ -4369,18 +6024,21 @@
 "476ade636b"
 ],
 "SPEC_RV_LAST_OURS": [
+"9316468ef4",
 "5187940a93"
 ],
 "SPEC_RV_LAST_PRESS": [
 "7420fd602b"
 ],
 "SPEC_RV_LAST_THEIRS": [
+"714b4db5ed",
 "85fd6b7177"
 ],
 "SPEC_RV_LEFT": [
 "f73581495c"
 ],
 "SPEC_RV_LEFT_TT": [
+"d9418b68a7",
 "74699900f9",
 "f820a4e04c"
 ],
@@ -4397,6 +6055,7 @@
 "a2f48db727"
 ],
 "SPEC_RV_LURE_TT": [
+"e7deb8171e",
 "14b5c1233b"
 ],
 "SPEC_RV_LURE_WIN": [
@@ -4414,13 +6073,25 @@
 "SPEC_RV_NEED": [
 "a7bf4a7112"
 ],
+"SPEC_RV_NEXT_DATE_D": [
+"e1c020b979"
+],
+"SPEC_RV_NEXT_DATE_M": [
+"f3f9752a71"
+],
+"SPEC_RV_NEXT_DATE_Y": [
+"4efefd4526"
+],
 "SPEC_RV_NEXT_ROUNDS": [
-"b9f2d91cc7"
+"b9f2d91cc7",
+"4efefd4526"
 ],
 "SPEC_RV_NEXT_SETTLEMENT": [
-"9840326f43"
+"9840326f43",
+"0979ba8404"
 ],
 "SPEC_RV_NOW_LINE": [
+"f71901f02c",
 "c675386d60"
 ],
 "SPEC_RV_OK": [
@@ -4429,10 +6100,26 @@
 "SPEC_RV_OUR_WAY": [
 "2ac4a8cb89"
 ],
+"SPEC_RV_PICK": [
+"4c5ba789f6"
+],
+"SPEC_RV_PICK_CLICK": [
+"d4f7df3999"
+],
+"SPEC_RV_PICK_COL_SCORE": [
+"aa3b0962ad"
+],
+"SPEC_RV_PICK_COL_STAND": [
+"f6c1ed9e2b"
+],
+"SPEC_RV_PICK_EMPTY": [
+"d555568170"
+],
 "SPEC_RV_PRESS": [
 "7d5f7bccf0"
 ],
 "SPEC_RV_PRESS_TT": [
+"f379b59946",
 "fe9809ff9a",
 "6f2f28a831"
 ],
@@ -4446,37 +6133,48 @@
 "e7275992e8"
 ],
 "SPEC_RV_RAID_TT": [
+"9e54fc209b",
 "a41ba198fe",
 "c86c4bb85a"
 ],
 "SPEC_RV_ROUND": [
 "1e96191142"
 ],
+"SPEC_RV_ROW_NOW": [
+"c5b1f09ff5"
+],
 "SPEC_RV_SCORE_BODY": [
+"1784486175",
 "8eb4141117"
 ],
 "SPEC_RV_SCORE_OFF": [
 "68f7ede1c7"
 ],
 "SPEC_RV_SCORE_TT": [
+"895cae6c2b",
 "ab568d7536"
 ],
 "SPEC_RV_SHIELDED_TT": [
+"62b2fe4105",
 "9f77155b5d"
 ],
 "SPEC_RV_SHORE": [
 "9002b12964"
 ],
 "SPEC_RV_SHORE_OFFER": [
+"eaa61a04ff",
 "eb6e29b5d4"
 ],
 "SPEC_RV_SHORE_PROTECTED": [
+"1202350fc2",
 "8cda8ee154"
 ],
 "SPEC_RV_SHORE_RENEWAL": [
+"f457b40653",
 "d161de960a"
 ],
 "SPEC_RV_SHORE_TT": [
+"847091d3bc",
 "2358eade4a",
 "8ac1b4195a"
 ],
@@ -4487,6 +6185,7 @@
 "5c0df8b8eb"
 ],
 "SPEC_RV_SLOTS_TT": [
+"859eb7e064",
 "4e67599103"
 ],
 "SPEC_RV_SLOT_CANCEL_CLICK": [
@@ -4499,21 +6198,28 @@
 "6ffa614892"
 ],
 "SPEC_RV_SLOT_CANCEL_TT": [
+"5ddddb5986",
 "915a4fc358"
 ],
 "SPEC_RV_SLOT_END": [
 "d2f133f7e4"
 ],
 "SPEC_RV_SLOT_FREE_TT": [
+"498764f7fc",
 "7d6f2db978"
 ],
 "SPEC_RV_SLOT_LOCKED": [
 "753147fa13"
 ],
+"SPEC_RV_SLOT_SETTLES": [
+"8772efd369"
+],
 "SPEC_RV_SLOT_SHUT_TT": [
+"7e9da25399",
 "c0db6270ea"
 ],
 "SPEC_RV_SLOT_USED_TT": [
+"a3515d1df7",
 "7e24b1ec46"
 ],
 "SPEC_RV_SUB_IN": [
@@ -4521,6 +6227,21 @@
 ],
 "SPEC_RV_SUB_OUT": [
 "69156d8965"
+],
+"SPEC_RV_SWING_BIGLOSS": [
+"caf129348d"
+],
+"SPEC_RV_SWING_BIGWIN": [
+"eb4306fea3"
+],
+"SPEC_RV_SWING_DRAW": [
+"7a4a453eaf"
+],
+"SPEC_RV_SWING_LOSS": [
+"caf129348d"
+],
+"SPEC_RV_SWING_WIN": [
+"eb4306fea3"
 ],
 "SPEC_RV_TERM_ROUNDS": [
 "b9f2d91cc7"
@@ -4538,29 +6259,36 @@
 "2d03c2d5a7"
 ],
 "SPEC_RV_TIER_BIGLOSS_TT": [
+"21ae0bdb6c",
 "0c63310f4f",
 "7095a7accf"
 ],
 "SPEC_RV_TIER_BIGWIN_TT": [
+"28b77d1546",
 "3275d57326",
 "9b4b6c1e26"
 ],
 "SPEC_RV_TIER_DRAW_TT": [
+"db330d87c5",
 "6ef6e5365f",
 "8e1fbfa4b1"
 ],
 "SPEC_RV_TIER_LOSS_TT": [
+"184070226f",
 "e79abf2193",
 "eb2133728c"
 ],
 "SPEC_RV_TIER_WIN_TT": [
+"84a8d5b8c4",
 "f17907fb39",
 "2d4b128a6d"
 ],
 "SPEC_RV_TOGGLE_TT_OFF": [
+"8911fb12c9",
 "13a6b113dd"
 ],
 "SPEC_RV_TOGGLE_TT_ON": [
+"ffa492a22c",
 "dbfc6b774a"
 ],
 "SPEC_RV_US_LAST": [
@@ -4579,6 +6307,7 @@
 "dee27d7e34"
 ],
 "SPEC_RV_US_LURE_TT": [
+"94375a39c0",
 "ae7255a289"
 ],
 "SPEC_RV_US_RAID": [
@@ -4593,33 +6322,176 @@
 "2bacf3182c"
 ],
 "SPEC_RV_US_TT": [
+"19bd50dd71",
 "3d0fa15845"
 ],
+"SPEC_SECTOR_COMMUNICATIONS": [
+"d7b4be2838"
+],
+"SPEC_SECTOR_COMMUNICATIONS_SHARE_TT": [
+"c5b654076b"
+],
+"SPEC_SECTOR_COMMUNICATIONS_SHORT": [
+"ee3c6e8ed9"
+],
+"SPEC_SECTOR_DEFENCE": [
+"348c3e256e"
+],
+"SPEC_SECTOR_DEFENCE_SHARE_TT": [
+"d06ffcfe9b"
+],
+"SPEC_SECTOR_DEFENCE_SHORT": [
+"4b9b1c9686"
+],
+"SPEC_SECTOR_EFFECT": [
+"20cf091f15",
+"9f9f9ff18b"
+],
+"SPEC_SECTOR_ENERGY": [
+"a335a99b60"
+],
+"SPEC_SECTOR_ENERGY_SHARE_TT": [
+"a5bd653be2"
+],
+"SPEC_SECTOR_ENERGY_SHORT": [
+"a335a99b60"
+],
+"SPEC_SECTOR_FALLING": [
+"465223d165"
+],
+"SPEC_SECTOR_FLAT": [
+"37fc7edee2"
+],
+"SPEC_SECTOR_FOOD": [
+"e0e0a0751d"
+],
+"SPEC_SECTOR_FOOD_SHARE_TT": [
+"96664dba9a"
+],
+"SPEC_SECTOR_FOOD_SHORT": [
+"0a38e7286e"
+],
+"SPEC_SECTOR_HOUSEHOLD": [
+"8359bc2754"
+],
+"SPEC_SECTOR_HOUSEHOLD_SHARE_TT": [
+"513272141a"
+],
+"SPEC_SECTOR_HOUSEHOLD_SHORT": [
+"2c001b115e"
+],
+"SPEC_SECTOR_INDUSTRY": [
+"3cc234868b"
+],
+"SPEC_SECTOR_INDUSTRY_SHARE_TT": [
+"7915a668bb"
+],
+"SPEC_SECTOR_INDUSTRY_SHORT": [
+"ede53f937a"
+],
+"SPEC_SECTOR_LINE": [
+"15d4d8ecc6"
+],
+"SPEC_SECTOR_MATERIALS": [
+"4fd4bfe2ab"
+],
+"SPEC_SECTOR_MATERIALS_SHARE_TT": [
+"8a664630a1"
+],
+"SPEC_SECTOR_MATERIALS_SHORT": [
+"23ce0eb7d1"
+],
+"SPEC_SECTOR_NO_MOVE": [
+"c789294cc8"
+],
+"SPEC_SECTOR_OTHER": [
+"5fb643bf5f"
+],
+"SPEC_SECTOR_OTHER_SHORT": [
+"6311ae17c1"
+],
+"SPEC_SECTOR_PLANTATION": [
+"32c63ea54c"
+],
+"SPEC_SECTOR_PLANTATION_SHARE_TT": [
+"5a31f5c0f9"
+],
+"SPEC_SECTOR_PLANTATION_SHORT": [
+"9f1fa68f1c"
+],
+"SPEC_SECTOR_PRICE_TREND": [
+"df3ea72aab"
+],
+"SPEC_SECTOR_PRIOR": [
+"e83cdada3f"
+],
+"SPEC_SECTOR_REVIEW": [
+"0341ceac2c",
+"f9077b901e"
+],
+"SPEC_SECTOR_RISING": [
+"637aa1a3f3"
+],
+"SPEC_SECTOR_SHARE": [
+"d3edd27618"
+],
+"SPEC_SECTOR_TRANSPORT": [
+"1dfd7b64dc"
+],
+"SPEC_SECTOR_TRANSPORT_SHARE_TT": [
+"528f1a3bf7"
+],
+"SPEC_SECTOR_TRANSPORT_SHORT": [
+"f5f0c488ed"
+],
+"SPEC_SECTOR_TURNOVER": [
+"6fc917e8ff",
+"cd497eb3c6"
+],
+"SPEC_SECTOR_WAIT": [
+"9bf4710a0c"
+],
 "SPEC_SEP_CALM_TT": [
+"5b9abd01a9",
 "df6c09cfec",
 "c5bb3093fd"
 ],
 "SPEC_SEP_DOUBTFUL_TT": [
+"781f8743cb",
 "26be65574e",
 "4de44ebfd8"
 ],
 "SPEC_SEP_EAGER_TT": [
+"7efcec344e",
 "c083c7e2d7",
 "d1a453224d"
 ],
 "SPEC_SEP_FEVERISH_TT": [
+"b0f8db2815",
 "db681d30c6",
 "6c01b3ecc1"
 ],
 "SPEC_SEP_FLEEING_TT": [
+"20a72e1785",
 "b36a3b43fc",
 "3e7e7e56f1"
 ],
 "SPEC_SEP_KEEN_TT": [
+"744d46dde6",
 "31138fbe71",
 "38f71daaba"
 ],
+"SPEC_SHUN_IMPACT": [
+"16d85d0cd2"
+],
+"SPEC_SHUN_PLAY": [
+"1bd7d60ba4"
+],
+"SPEC_SHUN_REASON": [
+"0372763e02"
+],
 "SPEC_SLOT_LATER_TT": [
+"d710811e5e",
 "24ff50a8f1"
 ],
 "SPEC_SLOT_LOCK_1": [
@@ -4669,19 +6541,151 @@
 "cf3476d61b",
 "1839a4b93e"
 ],
+"SPEC_SO_BOOM_LABEL": [
+"a677dc8632"
+],
+"SPEC_SO_BUILD_BOOM": [
+"9fd3e43e08"
+],
+"SPEC_SO_BUILD_BOOMS": [
+"1b10e8408b"
+],
+"SPEC_SO_BUILD_CUT": [
+"2298808cfe"
+],
+"SPEC_SO_BUILD_FLAT": [
+"abdfb20bf7"
+],
+"SPEC_SO_BUILD_LD": [
+"424f1823ee"
+],
+"SPEC_SO_BUILD_NONE": [
+"38f9b52093"
+],
+"SPEC_SO_BUILD_PANIC": [
+"f5cb2d199d"
+],
+"SPEC_SO_BUILD_TT": [
+"fa59957a37"
+],
+"SPEC_SO_INDUSTRIES": [
+"b14d1b9936"
+],
+"SPEC_SO_INDUSTRY": [
+"8453324f4e"
+],
+"SPEC_SO_INVEST_DOWN": [
+"9927af01ad"
+],
+"SPEC_SO_INVEST_FLAT": [
+"6a3285cffd"
+],
+"SPEC_SO_INVEST_LABEL": [
+"877aabbf3b"
+],
+"SPEC_SO_INVEST_TT": [
+"a176fd6913"
+],
+"SPEC_SO_INVEST_UP": [
+"34f3c5785a"
+],
+"SPEC_SO_L_SPEC_SO_INVEST_DEBTS": [
+"8140fbe356"
+],
+"SPEC_SO_L_SPEC_SO_INVEST_LD": [
+"9a66a82d66"
+],
+"SPEC_SO_L_SPEC_SO_INVEST_MOOD": [
+"b5a20bb6ce"
+],
+"SPEC_SO_L_SPEC_SO_INVEST_PANIC": [
+"992b5985ed"
+],
+"SPEC_SO_L_SPEC_SO_RATE_LD": [
+"9a66a82d66"
+],
+"SPEC_SO_L_SPEC_SO_RATE_MOOD": [
+"b5a20bb6ce"
+],
+"SPEC_SO_L_SPEC_SO_TP_DEBTS": [
+"8140fbe356"
+],
+"SPEC_SO_L_SPEC_SO_TP_LEV": [
+"1b47b38147"
+],
+"SPEC_SO_L_SPEC_SO_TP_PANIC": [
+"992b5985ed"
+],
+"SPEC_SO_L_SPEC_SO_TRADE_LD": [
+"9a66a82d66"
+],
+"SPEC_SO_L_SPEC_SO_TRADE_MOOD": [
+"b5a20bb6ce"
+],
+"SPEC_SO_NONE": [
+"ad8b4bc75f"
+],
+"SPEC_SO_PRIVATE_LABEL": [
+"275d839441"
+],
+"SPEC_SO_RATE": [
+"302081b881"
+],
+"SPEC_SO_TP_DOWN": [
+"1a80d6bc7b"
+],
+"SPEC_SO_TP_FLAT": [
+"b4851f268f"
+],
+"SPEC_SO_TP_LABEL": [
+"35a2cbb6ca"
+],
+"SPEC_SO_TP_TT": [
+"8c3d727ee1"
+],
+"SPEC_SO_TP_UP": [
+"f5bffd3e6a"
+],
+"SPEC_SO_TRADE_DOWN": [
+"b28fb33da2"
+],
+"SPEC_SO_TRADE_FLAT": [
+"45aebdaae7"
+],
+"SPEC_SO_TRADE_LABEL": [
+"ae9957168b"
+],
+"SPEC_SO_TRADE_TT": [
+"c457b461f6"
+],
+"SPEC_SO_TRADE_UP": [
+"cc419b2ec2"
+],
+"SPEC_SRC_BC": [
+"9b354c6bfb"
+],
+"SPEC_SRC_PB": [
+"1a09e50144"
+],
+"SPEC_SRC_WORLD": [
+"684f424c08"
+],
 "SPEC_STANCE_LOOSE_TT": [
+"0114cca9ef",
 "478420a4f0",
 "7ab882046d",
 "c81eb81701",
 "fb47454374"
 ],
 "SPEC_STANCE_NORMAL_TT": [
+"848ecf20bf",
 "4970701bb4",
 "fb4836a376",
 "3105ac0c0b",
 "efa12c8d54"
 ],
 "SPEC_STANCE_TIGHT_TT": [
+"5b15e4a4c6",
 "608b1ff1d4",
 "1578bcdc11",
 "b03b0f493b",
@@ -4700,9 +6704,11 @@
 "8ba8606075"
 ],
 "SPEC_STATE_DESC_PANIC_FULL": [
+"160356534e",
 "a4894353e2"
 ],
 "SPEC_STATE_DESC_PANIC_RESCUED": [
+"18e8877683",
 "3ecd1b1647",
 "596f228cd9",
 "e848d94a40"
@@ -4715,11 +6721,15 @@
 "0fec2d2e08"
 ],
 "SPEC_STATE_DESC_WARY_RISK": [
+"a331819efb",
 "671fca83ec",
 "912b4c4b4d"
 ],
 "SPEC_STATE_DESC_WARY_SAFE": [
 "8063a99681"
+],
+"SPEC_STATE_LD": [
+"133887b306"
 ],
 "SPEC_STATE_MANIA": [
 "0ce3f285ac"
@@ -4736,6 +6746,43 @@
 "SPEC_STATE_WARY": [
 "c9a89cc8c5"
 ],
+"SPEC_TERM_ABOVE": [
+"55a9d6aa25"
+],
+"SPEC_TERM_BASE_FAV": [
+"a51ec21af6"
+],
+"SPEC_TERM_BASE_SHUN": [
+"49ff179932"
+],
+"SPEC_TERM_BELOW": [
+"6cede1cfde"
+],
+"SPEC_TERM_BREAKDOWN": [
+"e332fa61ea"
+],
+"SPEC_TERM_FAV": [
+"aae8f7ec7d"
+],
+"SPEC_TERM_GLUT": [
+"2804aab241"
+],
+"SPEC_TERM_MONTH": [
+"7436f942d5"
+],
+"SPEC_TERM_MONTHS": [
+"da36cfaf48"
+],
+"SPEC_TERM_NONE": [
+"8d42edae08",
+"8c6600bf87"
+],
+"SPEC_TERM_ODDS": [
+"0ba4d1e276"
+],
+"SPEC_TERM_SHUN": [
+"5c31a71498"
+],
 "SPEC_TIER_BUOYANT": [
 "3c0647a96e"
 ],
@@ -4743,6 +6790,7 @@
 "ae3af734aa"
 ],
 "SPEC_TIER_BUOYANT_TT": [
+"2b162a2f63",
 "9bfc5c89a2",
 "635e05e2bf"
 ],
@@ -4753,6 +6801,7 @@
 "7955136d86"
 ],
 "SPEC_TIER_MANIA_TT": [
+"419fad406c",
 "ea244ff391",
 "0fd2f33552"
 ],
@@ -4763,6 +6812,7 @@
 "6fd1915b13"
 ],
 "SPEC_TIER_PANIC_TT": [
+"ad09bdb6c5",
 "423710f632",
 "c75e308a7c",
 "e5c009e6d8"
@@ -4774,6 +6824,7 @@
 "dd68599221"
 ],
 "SPEC_TIER_STEADY_TT": [
+"d1859b2163",
 "283c068ec3",
 "851a1eae94",
 "dc7908d3bc"
@@ -4785,71 +6836,103 @@
 "80e8c2e082"
 ],
 "SPEC_TIER_WARY_TT": [
+"a6adb00518",
 "8ae010126a",
 "9ed4b6172d"
 ],
 "SPEC_TILE_BANKS_ON": [
 "02cdee371e",
-"f89bd1fa9b"
+"f89bd1fa9b",
+"7dfe8d5164"
 ],
 "SPEC_TILE_BB_ON": [
-"21cbf9d995"
+"7568a363dc",
+"21cbf9d995",
+"3e6b24c899"
 ],
 "SPEC_TILE_BODY": [
+"75e1f7ec39",
 "018ebf341d",
 "2684f3103c",
 "099b735303",
-"815f0b67ad"
+"815f0b67ad",
+"9a7075f923"
+],
+"SPEC_TILE_BOOM_COST": [
+"ec799eb5d0"
 ],
 "SPEC_TILE_BOOM_NONE": [
 "4a31b33b43",
-"6b65e754e4"
+"6b65e754e4",
+"e9e4d538c0"
 ],
 "SPEC_TILE_BOOM_ON": [
-"58fc8e128a"
+"4aedca9526",
+"58fc8e128a",
+"43cfeb9f4a"
 ],
 "SPEC_TILE_BOOM_PAST": [
+"1c07a966f9",
 "2be899f4a2",
-"e1bb64a28e"
+"e1bb64a28e",
+"2830c36498"
 ],
 "SPEC_TILE_BOOM_SLIGHT": [
+"6752f6153a",
 "4317e92351"
 ],
 "SPEC_TILE_DANGER": [
+"f86ed45cfd",
 "7c84929ed4",
 "2a47016642",
-"47ff604f28"
+"47ff604f28",
+"0cfb28dbe0"
 ],
 "SPEC_TILE_FALLING": [
-"a6ac2e42fe"
+"a6ac2e42fe",
+"09b950ac78"
 ],
 "SPEC_TILE_LIFTS": [
 "e5ee8aa7e1",
-"0ee0021ed7"
+"0ee0021ed7",
+"0fbcaca37c"
 ],
 "SPEC_TILE_OVER_ON": [
+"07049ddfba",
 "02406cfa5b",
-"30df2b5613"
+"30df2b5613",
+"81e36ce381"
+],
+"SPEC_TILE_REACT": [
+"d6eff968d0"
 ],
 "SPEC_TILE_RISING": [
-"79645baa17"
+"79645baa17",
+"57938ad452"
 ],
 "SPEC_TILE_STEADY": [
-"f593b1e20e"
+"f593b1e20e",
+"3370567aee"
+],
+"SPEC_TILE_TREND": [
+"40d78e1f8d"
 ],
 "SPEC_TILE_TT": [
 "1c93872364"
 ],
 "SPEC_TM_BROKE_TT": [
+"9247307de9",
 "e903a66790",
 "16de034561",
 "86181299e0"
 ],
 "SPEC_TM_DEFAULT_TT": [
+"a2a809e7c1",
 "b0f2c2d00c",
 "cde3f5153d"
 ],
 "SPEC_TM_PLAY_TT": [
+"3c0a824dd8",
 "2010fb205e",
 "ddb8f9f1f3",
 "c597152db9"
@@ -4859,9 +6942,67 @@
 "4d667570ec"
 ],
 "SPEC_TM_WARCAP_TT": [
+"d6540c38dd",
 "c0264f0f29",
 "fe35e6d1e2",
 "3986db6897"
+],
+"SPEC_TOP_CHANGE_TT": [
+"b8249fda09"
+],
+"SPEC_TOP_FRESH_TT": [
+"1eab78b7c6"
+],
+"SPEC_TOP_TT": [
+"eda26fb874"
+],
+"SPEC_TRUST_LAST_CHARTER": [
+"523ca983ae"
+],
+"SPEC_TRUST_LAST_CHIPS": [
+"7a2b4154cf"
+],
+"SPEC_TRUST_LAST_DEBTS": [
+"8140fbe356"
+],
+"SPEC_TRUST_LAST_GOODS": [
+"aefe73723a"
+],
+"SPEC_TRUST_LAST_LENDING": [
+"b12b1cd1c8"
+],
+"SPEC_TRUST_LAST_PANICS": [
+"fc2818d1d0"
+],
+"SPEC_TRUST_LAST_REVIEW": [
+"f99bdc6473",
+"4467b8e775"
+],
+"SPEC_TRUST_LAST_RIVALS": [
+"90dada4a9e"
+],
+"SPEC_TRUST_M_CAUTIOUS": [
+"9b814b7fc5"
+],
+"SPEC_TRUST_M_CRUNCH": [
+"8140fbe356"
+],
+"SPEC_TRUST_M_CUT": [
+"e7083ff1bc",
+"dcbd675326"
+],
+"SPEC_TRUST_M_RECKLESS": [
+"c51cc3d344"
+],
+"SPEC_TRUST_M_SOUND": [
+"1f68a1ee61",
+"bb43201e40"
+],
+"SPEC_TRUST_M_STRICT": [
+"e06ecd5457"
+],
+"SPEC_TRUST_REVIEW_DELTA": [
+"ba6c54d045"
 ],
 "SPEC_UNWIND_1": [
 "8e42c4bdb2"
@@ -4873,14 +7014,17 @@
 "2b31634e3c"
 ],
 "SPEC_UNWIND_DESC_1": [
+"073dbf5045",
 "882f1542a4",
 "6442d23522"
 ],
 "SPEC_UNWIND_DESC_2": [
+"90bb483a78",
 "4ce8231da8",
 "23b66864ad"
 ],
 "SPEC_UNWIND_DESC_3": [
+"771cbf2023",
 "665d38bf9a",
 "6b11b9b9c1"
 ],
@@ -4993,26 +7137,31 @@
 "7a9a3684df"
 ],
 "SPEC_WAR_WHY_1": [
+"84cf864383",
 "cd181be14a",
 "e350d165fb",
 "0b78658afb"
 ],
 "SPEC_WAR_WHY_2": [
 "e350d165fb",
-"0b78658afb"
+"0b78658afb",
+"84cf864383"
 ],
 "SPEC_WAR_WHY_3": [
 "e350d165fb",
-"0b78658afb"
+"0b78658afb",
+"84cf864383"
 ],
 "SPEC_WHY_CAP": [
 "09412edcd0"
 ],
 "SPEC_WHY_COND": [
+"23e095d772",
 "7f3752ca49",
 "33b3104c73",
 "7b2b38d9e5",
-"e0d06245fa"
+"e0d06245fa",
+"b522226969"
 ],
 "SPEC_WHY_COND_DEPTH": [
 "92178472b0"
@@ -5025,18 +7174,24 @@
 "78bc24024b"
 ],
 "SPEC_WHY_END_1": [
+"0c7a74d3c0",
 "633e180433"
 ],
 "SPEC_WHY_END_2": [
+"2cf6bae578",
 "d8ee50c712"
 ],
 "SPEC_WHY_END_3": [
-"6af01d8426"
+"47ae674633",
+"6af01d8426",
+"848953aae4"
 ],
 "SPEC_WHY_FALLING": [
+"aeace5e6e0",
 "7fd74662a7"
 ],
 "SPEC_WHY_SPEED": [
+"b21380619d",
 "dff48f310c",
 "10de587804",
 "b9dfc480b1"
@@ -5059,6 +7214,9 @@
 "SPEC_WORLD_TARIFF": [
 "a6fd05c170"
 ],
+"SPEC_WR_PLAY": [
+"21bab8d055"
+],
 "SPEC_XS": [
 "d1d25b9ff7"
 ],
@@ -5069,48 +7227,105 @@
 "17f767d01e"
 ],
 "SPEC_XS_BAR_OFF": [
+"4238b02c31",
 "476adf008d"
 ],
 "SPEC_XS_BAR_UP": [
 "803d18888c"
 ],
 "SPEC_XS_CAP_TT": [
+"420fa48e26",
 "44a6aa9925",
 "02c0074103"
 ],
 "SPEC_XS_ECON_TT": [
+"14090cfeff",
 "39511f184f",
 "763849c2d3",
 "12440e0461"
 ],
+"SPEC_XS_P0": [
+"b9ab1e48c3",
+"a01f96af33"
+],
+"SPEC_XS_P0_LINE": [
+"7fc56ad615"
+],
+"SPEC_XS_P1": [
+"61a802af21"
+],
+"SPEC_XS_P1_LINE": [
+"c3a1878ca1"
+],
+"SPEC_XS_P2_LINE": [
+"4b756b134b"
+],
+"SPEC_XS_P3_LINE": [
+"b11a99c30a"
+],
+"SPEC_XS_P4_LINE": [
+"fb3e8869f0"
+],
+"SPEC_XS_PCOOL": [
+"ffd08800e0"
+],
+"SPEC_XS_PCOOL_LINE": [
+"2842bce7e8"
+],
+"SPEC_XS_PMANIA": [
+"9ab83bf7ed"
+],
+"SPEC_XS_PMANIA_LINE": [
+"e3a0b91b71"
+],
+"SPEC_XS_PPOP": [
+"7f79c74bb1"
+],
+"SPEC_XS_PPOP_LINE": [
+"f4d97f417b"
+],
+"SPEC_XS_PTIGHT": [
+"b16d0bc037"
+],
+"SPEC_XS_PTIGHT_LINE": [
+"68d2a1c9f7"
+],
 "SPEC_XS_REGLINE_1": [
+"92df44cb94",
 "30d76d1d45",
 "9cfbbcaf46"
 ],
 "SPEC_XS_REGLINE_2": [
+"2e1783153f",
 "3c236524ae",
 "7f4cea86e8"
 ],
 "SPEC_XS_REGLINE_3": [
+"667d3cabd4",
 "fc21453d45",
 "1dcc3fe28d"
 ],
 "SPEC_XS_REGLINE_4": [
+"9a9a48d386",
 "4cf32e5cc6",
 "fcf1228607"
 ],
 "SPEC_XS_REGLINE_5": [
+"034ee3764e",
 "d9dbde2533",
 "d63fd715b8"
 ],
 "SPEC_XS_REGLINE_6": [
+"73572a6acb",
 "eb331d8d99",
 "a8c8ddf20d"
 ],
 "SPEC_XS_ROW_CO": [
+"ce55ba528d",
 "ce0e740661"
 ],
 "SPEC_XS_ROW_CO_N": [
+"4cc14feacf",
 "e83516095e"
 ],
 "SPEC_XS_ROW_ECON": [
@@ -5120,12 +7335,15 @@
 "b187593498"
 ],
 "SPEC_XS_ROW_FD": [
+"a84d6153bc",
 "2d6edda35b"
 ],
 "SPEC_XS_ROW_FD_N": [
+"61b4d3b8f7",
 "eed1369a85"
 ],
 "SPEC_XS_ROW_ISSUE": [
+"9a6342bb56",
 "525c0ceb86"
 ],
 "SPEC_XS_ROW_RANK": [
@@ -5135,9 +7353,11 @@
 "ac51797834"
 ],
 "SPEC_XS_ROW_TECH": [
+"a4dd227618",
 "8ad1a74294"
 ],
 "SPEC_XS_ROW_TECH_N": [
+"29d5946805",
 "25f1e66cd2"
 ],
 "SPEC_XS_ROW_TRUST": [
@@ -5153,13 +7373,24 @@
 "87e37f7063"
 ],
 "SPEC_XS_TECH_TT": [
+"e019541840",
 "71488c7b0a",
 "dffcf0bbad"
 ],
 "SPEC_XS_TT": [
 "54c4c098a1"
 ],
+"SPEC_XS_TT_ALL": [
+"9056becfbb"
+],
+"SPEC_XS_TT_IDLE": [
+"f151276ac0"
+],
+"SPEC_XS_TT_NEXT": [
+"559256ac1c"
+],
 "SPEC_XS_WEALTH_TT": [
+"f95ec13f94",
 "c29d2e0a84",
 "263ad7b6f5"
 ],
@@ -5167,10 +7398,12 @@
 "6b2b5614a2"
 ],
 "alert_spec_bailout_alert_desc": [
+"c44e50107c",
 "c21cc74b35",
 "8101bb9328"
 ],
 "alert_spec_bailout_alert_hint": [
+"d1f5b6ea71",
 "6e21d422e9",
 "6f2912409c",
 "2f602a216e",
@@ -5184,10 +7417,12 @@
 "6b2b5614a2"
 ],
 "alert_spec_bubble_alert_desc": [
+"36cb738af7",
 "3f074e84cc",
 "334e6c91e9"
 ],
 "alert_spec_bubble_alert_hint": [
+"6e55854975",
 "04478f6699",
 "cbc89b27f0"
 ],
@@ -5204,6 +7439,7 @@
 "881252aa4e"
 ],
 "alert_spec_panic_risk_alert_hint": [
+"d4fbe0f156",
 "f17c6ac198",
 "9a8c6242a4",
 "20e85034da",
@@ -5239,11 +7475,13 @@
 "df1e224396"
 ],
 "concept_spec_bad_debts_desc": [
+"e6133869f9",
 "1176abfe06",
 "5ad651e831",
 "7c2355b716",
 "885586ff6c",
-"fb0328375d"
+"fb0328375d",
+"568efb8336"
 ],
 "concept_spec_banking_reform": [
 "b8c53d159f"
@@ -5252,15 +7490,18 @@
 "ebd4dce688"
 ],
 "concept_spec_banking_reforms_desc": [
+"aed9e76006",
 "afb794c27a",
 "3401f81f5a",
 "99e5be457f",
-"34f49b2824"
+"34f49b2824",
+"d36231a28e"
 ],
 "concept_spec_baseline": [
 "ba0821e305"
 ],
 "concept_spec_baseline_desc": [
+"4cc7631bb5",
 "2be129198e",
 "73ab0a0c30"
 ],
@@ -5268,7 +7509,10 @@
 "4e1738cc73"
 ],
 "concept_spec_blue_chip_desc": [
-"472d3e6229"
+"d0bed451a6",
+"aad16e364c",
+"472d3e6229",
+"c914da02f8"
 ],
 "concept_spec_blue_chips": [
 "f72e0eeaa5"
@@ -5277,9 +7521,11 @@
 "dfe57e3d5c"
 ],
 "concept_spec_boom_end_desc": [
+"0261c13e02",
 "cc8c369f7a",
 "1c0892a166",
-"912ff23001"
+"912ff23001",
+"1c8fe0e885"
 ],
 "concept_spec_boom_ends": [
 "b32a90db1d"
@@ -5288,14 +7534,17 @@
 "8e374c79f7"
 ],
 "concept_spec_bust_desc": [
+"3fafa3a594",
 "4fc42ef515",
 "462c29e768",
-"ab0c8c32c3"
+"ab0c8c32c3",
+"93135d3bb4"
 ],
 "concept_spec_capital_flight": [
 "d31b0cd54b"
 ],
 "concept_spec_capital_flight_desc": [
+"538f6facd8",
 "c4d7a75a1c",
 "5e85ff75b6"
 ],
@@ -5303,32 +7552,40 @@
 "2b31634e3c"
 ],
 "concept_spec_collapse_desc": [
+"7ac0afe6c3",
 "41cf7e989f",
 "4f1ba3d388",
-"6ea6b43669"
+"6ea6b43669",
+"3334d2361b"
 ],
 "concept_spec_company_strength": [
 "f9cd1cc404"
 ],
 "concept_spec_company_strength_desc": [
-"40cb60ffd0"
+"cb1e61c9c3",
+"40cb60ffd0",
+"0ffe8139f4"
 ],
 "concept_spec_correction": [
 "8e42c4bdb2"
 ],
 "concept_spec_correction_desc": [
+"4b2f63bbf6",
 "407272646d",
 "50a0946dae",
-"79738e45ff"
+"79738e45ff",
+"237b69543f"
 ],
 "concept_spec_credit_policy": [
 "33a234e313"
 ],
 "concept_spec_credit_policy_desc": [
+"aee4d43548",
 "d7cb9922e6",
 "bb757479bd",
 "ef57aa5aec",
-"6ce9373e87"
+"6ce9373e87",
+"ae1f0f02d9"
 ],
 "concept_spec_credit_policy_loose": [
 "0c6e567f2f"
@@ -5343,21 +7600,25 @@
 "992374d8e2"
 ],
 "concept_spec_exchange_desc": [
+"52a6865d92",
 "6e69ac2e7c",
 "17a31aa013",
 "9ae1b0f505",
-"992e22aa37"
+"992e22aa37",
+"9f41758c38"
 ],
 "concept_spec_financial_centre": [
 "a9d251244d",
 "6bc433f0a3"
 ],
 "concept_spec_financial_centre_desc": [
+"5ada3487a1",
 "a570c4aefc",
 "456c51eec3",
 "444e80ede4",
 "d33f100fd8",
-"51a655efd3"
+"51a655efd3",
+"ea52fc00e2"
 ],
 "concept_spec_financial_centres": [
 "77f8472d92"
@@ -5366,10 +7627,12 @@
 "41113483a4"
 ],
 "concept_spec_financial_panic_desc": [
+"5b680df790",
 "58faedf45b",
 "e4293c07e5",
 "ca1cb3b63d",
-"d6d479e01e"
+"d6d479e01e",
+"3e0f88ab76"
 ],
 "concept_spec_financial_panics": [
 "e3e347ef73"
@@ -5378,8 +7641,10 @@
 "a80a2378fb"
 ],
 "concept_spec_foreign_panic_desc": [
+"ea894ff6e2",
 "d977d9e3db",
-"18c75a8753"
+"18c75a8753",
+"6a1ba9dae3"
 ],
 "concept_spec_foreign_panics": [
 "2ef10bd952"
@@ -5388,48 +7653,66 @@
 "c143a24309"
 ],
 "concept_spec_intervention_desc": [
+"203b7dfe88",
 "f896140dde",
 "61e4fae6ee",
 "56833a4c7f",
-"48562c8ff3"
+"48562c8ff3",
+"b983f2dcce"
 ],
 "concept_spec_investor_interest": [
 "a7e91a0465"
 ],
 "concept_spec_investor_interest_desc": [
+"0ba91abfc9",
 "e8c60c8545",
 "85e03658ac",
 "75f86d4679",
-"1781807417"
+"1781807417",
+"e5b2b2e1a6"
+],
+"concept_spec_investor_sentiment": [
+"ff079b2ee4"
+],
+"concept_spec_investor_sentiment_desc": [
+"463a2aa598",
+"e1ee60fc04"
 ],
 "concept_spec_lending_standards": [
 "de5070519b"
 ],
 "concept_spec_lending_standards_desc": [
+"8e7a466d7c",
 "2cf23bb2d9",
-"942784b6ca"
+"942784b6ca",
+"677f254c25"
 ],
 "concept_spec_leverage": [
 "fd347bb5e7"
 ],
 "concept_spec_leverage_desc": [
+"1b071487bb",
 "d8ecd7846b",
 "8af61519d6",
 "adce6d9708",
-"d025aaea32"
+"d025aaea32",
+"1bff994045"
 ],
 "concept_spec_long_depression": [
 "684f0a3ab2"
 ],
 "concept_spec_long_depression_desc": [
+"346f8a0344",
 "12f147d1f2",
 "fd860f666b",
-"4ead71cb26"
+"4ead71cb26",
+"5ca6cc1dc7"
 ],
 "concept_spec_market_conditions": [
 "1bac189549"
 ],
 "concept_spec_market_conditions_desc": [
+"e4f53853da",
 "f8c5a90775",
 "34825c833e",
 "daffcc809d",
@@ -5439,21 +7722,34 @@
 "498a538b90"
 ],
 "concept_spec_market_confidence_desc": [
+"684bdf73ba",
 "68f203a446",
 "f770e75cba",
-"1898959028"
+"1898959028",
+"ba8072de02"
 ],
 "concept_spec_market_mood": [
 "02353bd927"
 ],
 "concept_spec_market_mood_desc": [
+"8216fd41e0",
 "b0aba9073c",
-"08b387e5ad"
+"08b387e5ad",
+"b0030b010d"
+],
+"concept_spec_market_sector": [
+"043378e3c7"
+],
+"concept_spec_market_sector_desc": [
+"70ee464893",
+"0faf74051c",
+"b3f9880984"
 ],
 "concept_spec_market_tie": [
 "f9ae4e70a3"
 ],
 "concept_spec_market_tie_desc": [
+"122498b6de",
 "89bca3845d",
 "2f912a3a3d"
 ],
@@ -5461,43 +7757,55 @@
 "b1381ea64a"
 ],
 "concept_spec_outstanding_credit_desc": [
+"6aab49f2a7",
 "ff87da08e4",
 "61ef4f3af3",
-"c42914e576"
+"c42914e576",
+"00ce25b45f"
 ],
 "concept_spec_sound_finance": [
 "13deb2ed5d"
 ],
 "concept_spec_sound_finance_desc": [
+"61086d0400",
 "72f32b39e5",
 "b93dc2fb56",
-"606480cd05"
+"606480cd05",
+"9cf8de612e"
 ],
 "concept_spec_speculative_excess": [
 "aacac2ac3d"
 ],
 "concept_spec_speculative_excess_desc": [
+"6970de9c83",
 "788186a952",
 "cbdf4b94f4",
-"4ea6898455"
+"4ea6898455",
+"e577f27173"
 ],
 "concept_spec_speculative_mania": [
 "11e9a23006"
 ],
 "concept_spec_speculative_mania_desc": [
+"df36fe18d8",
 "33519a2660",
-"797dd4ca9d"
+"797dd4ca9d",
+"48352e20cf"
 ],
 "concept_spec_trust": [
 "2f81eae071"
 ],
 "concept_spec_trust_desc": [
-"38c130bd37"
+"812bd64d65",
+"ad4ad2c87b",
+"38c130bd37",
+"c8cff0c58d"
 ],
 "concept_spec_war_news": [
 "f604936621"
 ],
 "concept_spec_war_news_desc": [
+"b1a0c82e5f",
 "fe731b9b4a",
 "db56a185f2",
 "1e38302934"
@@ -5510,15 +7818,36 @@
 "4f402c22f1"
 ],
 "country_spec_banknote_bool": [
+"92510508d4",
 "d766a6eded"
 ],
 "country_spec_banknote_bool_desc": [
 "cfad0d5317"
 ],
+"country_spec_bloc_contagion_mult": [
+"c939d9db16"
+],
+"country_spec_bloc_contagion_mult_desc": [
+"2ffebe187d",
+"b4a53a8ea5"
+],
+"country_spec_bloc_credit_bool": [
+"c636c0ec3e"
+],
+"country_spec_bloc_credit_bool_desc": [
+"888c47b27e"
+],
+"country_spec_bloc_reach_bool": [
+"9b4eb06b99"
+],
+"country_spec_bloc_reach_bool_desc": [
+"971b509f1c"
+],
 "country_spec_boom_end_loss_mult": [
 "5462c2c530"
 ],
 "country_spec_boom_end_loss_mult_desc": [
+"c0d4624e64",
 "a6cc1ea8e8"
 ],
 "country_spec_boom_size_mult": [
@@ -5531,6 +7860,7 @@
 "1f782c14c5"
 ],
 "country_spec_capital_flight_mult_desc": [
+"00dbeeed09",
 "0090dc71ab",
 "5c6477db8c",
 "87df50633d"
@@ -5542,6 +7872,7 @@
 "11dd71bb9e"
 ],
 "country_spec_company_law_bool": [
+"d68cf2e9cd",
 "05d4d9bbff"
 ],
 "country_spec_company_law_bool_desc": [
@@ -5572,10 +7903,18 @@
 "country_spec_excess_bool_desc": [
 "fdb30e5438"
 ],
+"country_spec_excess_growth_mult": [
+"ca119da992",
+"9ef84fc30d"
+],
+"country_spec_excess_growth_mult_desc": [
+"ca97f5a383"
+],
 "country_spec_foreign_loss_mult": [
 "9470d782fd"
 ],
 "country_spec_foreign_loss_mult_desc": [
+"8cb07bdf74",
 "47e1d26a98"
 ],
 "country_spec_foreign_ties_mult": [
@@ -5595,6 +7934,7 @@
 "62a83aaac0"
 ],
 "country_spec_llr_bool": [
+"f8a69005be",
 "410e8448c6"
 ],
 "country_spec_llr_bool_desc": [
@@ -5607,6 +7947,7 @@
 "8944a0645f"
 ],
 "country_spec_panic_length_mult": [
+"67aa414f26",
 "36e29b73ab"
 ],
 "country_spec_panic_length_mult_desc": [
@@ -5642,6 +7983,13 @@
 "6812770157",
 "09340bd3e9"
 ],
+"country_spec_trust_loss_mult": [
+"af3d3bcd7c",
+"1e9c6a1259"
+],
+"country_spec_trust_loss_mult_desc": [
+"6f768225b3"
+],
 "je_spec_depression": [
 "482d52facd",
 "10e38f17e2"
@@ -5656,7 +8004,44 @@
 "e1ce298c04",
 "e9ace685db"
 ],
+"law_spec_bimetallism": [
+"af02ebef15"
+],
+"law_spec_bimetallism_desc": [
+"9af79ca121"
+],
+"law_spec_classical_gold": [
+"633934acac"
+],
+"law_spec_classical_gold_desc": [
+"a8033ebd92"
+],
+"law_spec_elastic_currency": [
+"1981cc69f2"
+],
+"law_spec_elastic_currency_desc": [
+"711eff1d81"
+],
+"law_spec_fiat_money": [
+"f4e68f0628"
+],
+"law_spec_fiat_money_desc": [
+"da8cbed78e"
+],
+"law_spec_gold_standard": [
+"9cbbfd9205"
+],
+"law_spec_gold_standard_desc": [
+"56e54099f5"
+],
+"lawgroup_spec_monetary_standard": [
+"cebe755dcd"
+],
+"lawgroup_spec_monetary_standard_desc": [
+"d47130e80d"
+],
 "notification_spec_boom_end_1_desc": [
+"043bbfea7b",
 "d03259f79d",
 "a0cebacd00"
 ],
@@ -5665,6 +8050,7 @@
 "2e9cce9e3b"
 ],
 "notification_spec_boom_end_2_desc": [
+"362f0ea29f",
 "08d361204e",
 "220d88d313"
 ],
@@ -5673,6 +8059,7 @@
 "2c63e4c985"
 ],
 "notification_spec_boom_end_3_desc": [
+"32716d006a",
 "dd2274153a",
 "677a7602d0"
 ],
@@ -5681,9 +8068,11 @@
 "1c1e2adcbb"
 ],
 "notification_spec_bubble_burst_desc": [
+"a129ca9f3c",
 "6d16f8dd32",
 "86a9e5489b",
-"1160a77b43"
+"1160a77b43",
+"ef4cdf2d67"
 ],
 "notification_spec_bubble_burst_name": [
 "876a4c1a92",
@@ -5702,6 +8091,7 @@
 "eece573f22"
 ],
 "notification_spec_exch_down_desc": [
+"70ce838785",
 "edb7dd6e5f",
 "246cf391ec"
 ],
@@ -5719,12 +8109,27 @@
 "09f4f1c9ee"
 ],
 "notification_spec_feverish_desc": [
+"f92ae871d1",
 "cffbf74ee7",
 "d1796a6fc4"
 ],
 "notification_spec_feverish_name": [
 "5bda88d571",
 "4690e61d90"
+],
+"notification_spec_igs_dis_lost_name": [
+"74c879a982"
+],
+"notification_spec_igs_dis_new_name": [
+"5f9fa3b8ab"
+],
+"notification_spec_igs_fav_lost_name": [
+"f398a21ef0",
+"49f13f82d3"
+],
+"notification_spec_igs_fav_new_name": [
+"be285a3780",
+"2603127a2f"
 ],
 "notification_spec_ld_deepens_desc": [
 "a46f04d7c9",
@@ -5761,6 +8166,7 @@
 "6087c0bdce"
 ],
 "notification_spec_ld_started_desc": [
+"4c00145e1a",
 "22202cb71b",
 "fe03fbd2e9",
 "738d24d5bf"
@@ -5770,15 +8176,24 @@
 "fc672b1299"
 ],
 "notification_spec_lev_unsafe_desc": [
+"835c6b4a9e",
 "2ec6f6d0f2",
-"09f6d985f9"
+"09f6d985f9",
+"323c628198"
 ],
 "notification_spec_lev_unsafe_name": [
 "8478aba7db",
 "24d345bc9a",
 "6c4d307070"
 ],
+"notification_spec_market_bulletin_desc": [
+"74bcfeaf3d"
+],
+"notification_spec_market_bulletin_name": [
+"055928de5b"
+],
 "notification_spec_near_panic_desc": [
+"40f243c196",
 "964e8ff609",
 "ac06313569"
 ],
@@ -5795,6 +8210,7 @@
 "64c5a365bf"
 ],
 "notification_spec_panic_over_desc": [
+"a0d9a4bb77",
 "d330937d50",
 "ba613f18f8"
 ],
@@ -5812,6 +8228,7 @@
 "90308f5975"
 ],
 "notification_spec_rival_lost_desc": [
+"82a9665015",
 "c1bddbd86f",
 "a34ac2d173",
 "14b465a5bc",
@@ -5823,6 +8240,7 @@
 "b8f65dc2d2"
 ],
 "notification_spec_rival_won_desc": [
+"e274eff785",
 "5e8f78415d",
 "6cd90be7e4",
 "c6da8556d8",
@@ -5834,6 +8252,7 @@
 "911308955e"
 ],
 "notification_spec_tied_mania_desc": [
+"d92a1889ba",
 "87e73038ec",
 "ee074e7dd4"
 ],
@@ -5842,6 +8261,7 @@
 "7e798f5bf9"
 ],
 "notification_spec_tied_panic_desc": [
+"8b8365a5f8",
 "18c555615c",
 "acabd762a8"
 ],
@@ -5849,8 +8269,29 @@
 "96172927e8",
 "2f19db31c0"
 ],
+"principle_group_spec_financial_integration": [
+"c3633b0eab"
+],
+"principle_group_spec_financial_integration_desc": [
+"59b7c93a32"
+],
+"rule_spec_goods_news": [
+"f313c3c774"
+],
 "rule_spec_market_volatility": [
 "3bc020ef1c"
+],
+"setting_spec_goods_news_bulletin": [
+"d6d260f022"
+],
+"setting_spec_goods_news_bulletin_desc": [
+"445caf6884"
+],
+"setting_spec_goods_news_detailed": [
+"ef8fbe354b"
+],
+"setting_spec_goods_news_detailed_desc": [
+"b9d7b1de33"
 ],
 "setting_spec_volatility_heightened": [
 "84e374eadf"
@@ -5887,8 +8328,10 @@
 "9bbdf689c3"
 ],
 "spec_bailout_fx_tt": [
+"c465eba044",
 "ee27d38701",
-"54b905784f"
+"54b905784f",
+"0971d62299"
 ],
 "spec_bank_bailout": [
 "4eacb65e3b"
@@ -5900,7 +8343,9 @@
 "18c0673850"
 ],
 "spec_bc_index_desc": [
-"c1475c48ef"
+"86f099035f",
+"c1475c48ef",
+"01d6db6417"
 ],
 "spec_blamed_for_panic": [
 "f9b7e8ca5b"
@@ -5909,6 +8354,7 @@
 "03a042da2f"
 ],
 "spec_bluechip.1.a.tt": [
+"033f976bbd",
 "37d1357ae8"
 ],
 "spec_bluechip.1.b": [
@@ -5930,12 +8376,14 @@
 "ef69d1ee23"
 ],
 "spec_bluechip.2.a.tt": [
+"a5b65bf3e4",
 "ee341e5bbe"
 ],
 "spec_bluechip.2.b": [
 "de434fbf2b"
 ],
 "spec_bluechip.2.b.tt": [
+"b6aac62821",
 "68ea7ba571"
 ],
 "spec_bluechip.2.d": [
@@ -5951,6 +8399,7 @@
 "e3b26578c7"
 ],
 "spec_bluechip.3.a.tt": [
+"7e389989e4",
 "01a451480b"
 ],
 "spec_bluechip.3.d": [
@@ -6520,6 +8969,7 @@
 "025c46853e"
 ],
 "spec_convert_conf_tt": [
+"0f3e1b8113",
 "3729ab9382"
 ],
 "spec_convert_debt": [
@@ -6542,6 +8992,7 @@
 "df1e224396"
 ],
 "spec_credit_crunch_desc": [
+"11d5c39c51",
 "24e39a6848",
 "8fcae15ed6",
 "7026b3918c",
@@ -6551,31 +9002,37 @@
 "0c6e567f2f"
 ],
 "spec_credit_loose_desc": [
+"b7510e64d8",
 "004a6726e9",
 "99377190b7"
 ],
 "spec_credit_loose_fx": [
+"9aa2106cb1",
 "e4a9d04295"
 ],
 "spec_credit_normal": [
 "ead474ff42"
 ],
 "spec_credit_normal_desc": [
+"132c73b407",
 "2d46582ee0",
 "a37be87058"
 ],
 "spec_credit_normal_fx": [
+"995e68da18",
 "3188548def"
 ],
 "spec_credit_tight": [
 "a71462baff"
 ],
 "spec_credit_tight_desc": [
+"dccbb4fb0f",
 "4243e6ec4e",
 "7b4ee44884",
 "a9451ae29e"
 ],
 "spec_credit_tight_fx": [
+"25b8db5d8a",
 "99d21f1d85"
 ],
 "spec_dear_money": [
@@ -6585,6 +9042,7 @@
 "27be72955c"
 ],
 "spec_debt_converted_desc": [
+"f5d520965b",
 "0825c00f0a",
 "2ad3aac805",
 "c1f76002b8"
@@ -6740,6 +9198,9 @@
 "75ed8e8eb8",
 "60b97dc462"
 ],
+"spec_exch_world": [
+"03dd0ead60"
+],
 "spec_exchange_notification_group": [
 "e8d5d4251d"
 ],
@@ -6747,6 +9208,7 @@
 "13deb2ed5d"
 ],
 "spec_finance_bar_desc": [
+"528887626e",
 "8d8a560c2a"
 ],
 "spec_financial_centre": [
@@ -6766,6 +9228,47 @@
 ],
 "spec_free_issue": [
 "bfbe7cf97a"
+],
+"spec_igs_backed": [
+"6bf1516990"
+],
+"spec_igs_backed_desc": [
+"83f11e45f6"
+],
+"spec_igs_boom": [
+"72624fb140",
+"dd571527c5"
+],
+"spec_igs_boom_desc": [
+"9c273eba47"
+],
+"spec_igs_bust": [
+"f16cf710c1",
+"da0304421b"
+],
+"spec_igs_bust_desc": [
+"4587c5750d"
+],
+"spec_igs_crossed": [
+"0f694b87ed"
+],
+"spec_igs_crossed_desc": [
+"77fe19e687"
+],
+"spec_igs_issue": [
+"877acc2735"
+],
+"spec_igs_issue_against": [
+"62f8a28180"
+],
+"spec_igs_issue_against_desc": [
+"d0ddbef73e"
+],
+"spec_igs_issue_desc": [
+"ba7f8afe8d"
+],
+"spec_igs_notification_group": [
+"7888c33fe3"
 ],
 "spec_inquiry": [
 "190ff144e8"
@@ -8728,6 +11231,7 @@
 "211a0d572f"
 ],
 "spec_issue_hot_tt": [
+"baa5aead58",
 "224c623600"
 ],
 "spec_issue_no_lever_tt": [
@@ -8750,6 +11254,7 @@
 "4b3b793f0e"
 ],
 "spec_je_status_panic": [
+"3e9678ce3a",
 "d08cc6bc12"
 ],
 "spec_je_status_steady": [
@@ -8822,6 +11327,7 @@
 "a3484c967d"
 ],
 "spec_ld_own_bar_desc": [
+"9278336d6b",
 "ec1e943d76"
 ],
 "spec_ld_own_down_5": [
@@ -8876,11 +11382,13 @@
 "812b0300ec"
 ],
 "spec_ld_status_1": [
+"ba6b925544",
 "f7fe5183ca",
 "28fe083164",
 "7df0404dc3"
 ],
 "spec_ld_status_2": [
+"1176aad0b0",
 "b24675915d",
 "d28af253d4",
 "62e8192dc1"
@@ -8889,6 +11397,7 @@
 "b0aff1ee45"
 ],
 "spec_ld_tariff_tt": [
+"ff48f8efc6",
 "9519499297",
 "68f1aa488a"
 ],
@@ -8896,6 +11405,7 @@
 "2f4cd53f5b"
 ],
 "spec_ld_world_bar_desc": [
+"566eed50ff",
 "659b6433d9"
 ],
 "spec_ld_world_down_0_1": [
@@ -9075,12 +11585,16 @@
 "7fe071a7ef"
 ],
 "spec_lever_fits_encourage_tt": [
+"7d7e3c1e22",
 "21617f8760",
-"534663dc77"
+"534663dc77",
+"6afb7e7dfa"
 ],
 "spec_lever_fits_restrain_tt": [
+"67202b9ef0",
 "ec6f73e4dd",
-"01d749564b"
+"01d749564b",
+"9851d48c6c"
 ],
 "spec_lever_market_tt": [
 "d9a223306b",
@@ -9242,6 +11756,9 @@
 "spec_lever_restrain_wood": [
 "37b5621b97"
 ],
+"spec_lever_wait_tt": [
+"40d398c68c"
+],
 "spec_levers": [
 "99821c9aee"
 ],
@@ -9275,6 +11792,7 @@
 "444c89ff7e"
 ],
 "spec_markets.1.b.tt": [
+"9eea63e42e",
 "025c46853e"
 ],
 "spec_markets.1.c": [
@@ -9312,6 +11830,7 @@
 "ee7d1ff7d6"
 ],
 "spec_markets.2.bad_debts": [
+"508f3e9b55",
 "de6a7c4b26",
 "7a292a7acf"
 ],
@@ -9319,31 +11838,37 @@
 "81a62baf44"
 ],
 "spec_markets.2.d_crash": [
+"55f1922ff9",
 "a887e4ca08",
 "78ce489619",
 "c2424efe52"
 ],
 "spec_markets.2.d_crash_no_loans": [
+"bca18250ef",
 "1947d1a997",
 "37fa10c34b",
 "bbbff7976d"
 ],
 "spec_markets.2.d_foreign": [
+"d802ea86ac",
 "bbf8dca115",
 "682537c773",
 "e7252c9394"
 ],
 "spec_markets.2.d_foreign_no_loans": [
+"ab858134a8",
 "d6293f1c92",
 "c7c8491fd7",
 "85c7af92a5"
 ],
 "spec_markets.2.d_other": [
+"84d6f22a01",
 "19bc3bb6ad",
 "6524762d2c",
 "9a7ab4da54"
 ],
 "spec_markets.2.d_other_no_loans": [
+"fb46ed92ed",
 "3fb39bff81",
 "df2172466e",
 "1ba8689846"
@@ -9617,6 +12142,7 @@
 "d6ae664633"
 ],
 "spec_pursue_locked_tt": [
+"020961bd73",
 "f1fedfc247"
 ],
 "spec_pursue_pockets_0": [
@@ -9708,6 +12234,7 @@
 "d6ae664633"
 ],
 "spec_pursue_room_tt": [
+"3c722b9622",
 "d59fccbc99"
 ],
 "spec_pursue_sound_0": [
@@ -9799,6 +12326,7 @@
 "2d277d149c"
 ],
 "spec_reform_llr_tt": [
+"55f152ed99",
 "1240f0832c",
 "7900317989",
 "a2996f23ed"
@@ -9850,6 +12378,7 @@
 "d92422eaef"
 ],
 "spec_rescue_banks_desc": [
+"4f71ebb3ca",
 "7b0aa73ba6",
 "bff8bfd720"
 ],
@@ -9864,21 +12393,26 @@
 "87d1e136de"
 ],
 "spec_rival.1.a_1": [
+"a4c83dc844",
 "2fc56bb374"
 ],
 "spec_rival.1.a_2": [
+"7a41712e1b",
 "8884c841d8"
 ],
 "spec_rival.1.a_3": [
+"940b50f699",
 "88495b3249"
 ],
 "spec_rival.1.a_tt": [
+"03bd880927",
 "ad0d4b9cff"
 ],
 "spec_rival.1.b": [
 "05d8ff864f"
 ],
 "spec_rival.1.b_tt": [
+"2311f06f3e",
 "f3dd14b290",
 "ede00225b9"
 ],
@@ -10061,12 +12595,14 @@
 "231075accb"
 ],
 "spec_rv_forfeit_tt": [
+"3230783fbf",
 "e48c3c90a2"
 ],
 "spec_rv_gold_tt": [
 "8f6043d989"
 ],
 "spec_rv_hold_fx": [
+"fc001b609c",
 "df9496aa4d"
 ],
 "spec_rv_infl_tt": [
@@ -10082,12 +12618,14 @@
 "2be95d5f48"
 ],
 "spec_rv_lure_fx": [
+"9b5327c6f9",
 "c3574e36ad"
 ],
 "spec_rv_lured_tt": [
 "ca3526d097"
 ],
 "spec_rv_mutual_tt": [
+"013576e760",
 "be9b98e828"
 ],
 "spec_rv_pair_tt": [
@@ -10115,6 +12653,7 @@
 "42deb03840"
 ],
 "spec_rv_press_fx": [
+"ca7e26c72c",
 "6df9a23bc1",
 "1476ec0ea4"
 ],
@@ -10122,10 +12661,12 @@
 "74a6d1b3f3"
 ],
 "spec_rv_raid_fx": [
+"16b2ac326e",
 "ccb8988b99",
 "fce075fbfe"
 ],
 "spec_rv_room_tt": [
+"afdb7e0a8d",
 "0edec51650"
 ],
 "spec_rv_shield_tt": [
@@ -10135,6 +12676,7 @@
 "b2d450b6a4"
 ],
 "spec_rv_shore_fx": [
+"4d481ba3ea",
 "2cd468c5f5",
 "3044367da1"
 ],
@@ -10183,6 +12725,7 @@
 "31671aa033"
 ],
 "spec_stance_cooldown_tt": [
+"7551838c49",
 "743964aca6"
 ],
 "spec_stance_current_tt": [
@@ -10304,6 +12847,7 @@
 "f0151bd735"
 ],
 "spec_story.6.a.tt": [
+"b4440848ab",
 "747fe7f776",
 "31f466d957"
 ],
@@ -10490,6 +13034,7 @@
 "8383e7d8a3"
 ],
 "spec_suspend_act_desc": [
+"e534a16c6e",
 "3602a34beb",
 "a0f76eddb7",
 "4cd9c9d596"

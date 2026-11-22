@@ -38,6 +38,22 @@ INJECT:ideology_junker_paternalistic = {
 	}
 }
 
+INJECT:ideology_magnatial = {
+	lawgroup_spec_monetary_standard = {
+		law_spec_bimetallism = approve
+		law_spec_gold_standard = neutral
+		law_spec_fiat_money = disapprove
+	}
+}
+
+INJECT:ideology_agrarian_jeffersonian = {
+	lawgroup_spec_monetary_standard = {
+		law_spec_bimetallism = approve
+		law_spec_gold_standard = disapprove
+		law_spec_fiat_money = neutral
+	}
+}
+
 INJECT:ideology_agrarian = {
 	lawgroup_spec_monetary_standard = {
 		law_spec_bimetallism = approve

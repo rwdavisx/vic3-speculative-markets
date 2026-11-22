@@ -10,7 +10,7 @@
 		spec_after_collapse < spec_panic_at
 	}
 
-	# an alert can only open a vanilla panel: the journal entry, whose header opens the Finance window
+	# the alert row opens Finance for it (ALERT_TABS); this is the popup's fallback
 	open_panel = journal
 	type = alert
 	color = red

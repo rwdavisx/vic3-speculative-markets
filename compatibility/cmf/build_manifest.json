@@ -1,6 +1,6 @@
 {
-  "built_at_utc": "2026-11-17T03:54:21.656294+00:00",
-  "builder_version": "1.0.3",
+  "built_at_utc": "2026-11-22T07:50:58.438417+00:00",
+  "builder_version": "1.0.4",
   "output": "G:\\GameDev\\speculative-markets\\compatibility\\cmf\\mod",
   "parents": {
     "speculative_markets": {
@@ -8,7 +8,7 @@
       "metadata": {
         "name": "Speculative Markets",
         "id": "speculative_markets",
-        "version": "1.1.2",
+        "version": "1.2.0",
         "supported_game_version": "1.15.*",
         "short_description": "Investors chase rising prices, booms turn to panics, and you set credit policy.",
         "tags": [
@@ -22,8 +22,10 @@
         }
       },
       "files": {
-        "gui/information_panel_bar.gui": "d20c5419552afed6c6040ee067cd4a909193f2d343954a64fda5fc38d47fd420",
-        ".metadata/metadata.json": "40b3b2de2947b2d33cab3c9627afe57af76df1e45aa095fc16e34d9a40435b1a"
+        "gui/information_panel_bar.gui": "19de9140a6253ff58fedbbbb6279d823db8fd79fc28a3f3b899c1e4f079739f1",
+        ".metadata/metadata.json": "93929fce3fda0f7ce2bb58d08f2ab092e0b6cba38fd3906f2ec902369ddebdee",
+        "gui/topfrontend.gui": "d4fb6235c57f68ca8ec69a055aa23e6ca28edc9806a89afebcd67a0de13684f0",
+        "gui/journal_entry.gui": "8a9d3c08d5babade0de4bcd45f2bd380a478e1f8909937dc59bd05a164d23543"
       }
     },
     "community_mod_framework": {
@@ -31,7 +33,7 @@
       "metadata": {
         "name": "[1.15] Community Mod Framework",
         "id": "com.github.Victoria-3-Modding-Co-op.Community-Mod-Framework",
-        "version": "1.67.8",
+        "version": "1.68.0",
         "game_id": "victoria3",
         "supported_game_version": "1.15.*",
         "short_description": "This is a framework to enable easy integration between mods.",
@@ -46,14 +48,19 @@
       },
       "files": {
         "gui/com_gui_sidebar.gui": "2b6dfe6067f45cc55fd807392c13e31d7d20f54dbadf76d70af19c6ad97402b4",
-        ".metadata/metadata.json": "6501a06c5d0a33ac1b58c09e14a6d64b6e307d61e80715857acfce78b1448d94"
+        ".metadata/metadata.json": "bafdad1b3bbb59b0d846e3648ed66ffcc9abaf187f9069d45ab0f2f7fdc841bf",
+        "gui/00_com_topfrontend.gui": "7438102164c20ecb15bcf6c4df57d6142891ff214f19ab03e74dc0a22c49aa13",
+        "gui/com_gui_journal_entry.gui": "76f47d7f4966a87f2cfd811f23fa20917edc10dcdbcab00465139b5411de92c8"
       }
     }
   },
   "output_files": {
-    "gui/com_gui_sidebar.gui": "b4068a684e19970e1ddbcb8b057245a7798183f26fcd6fd6f090d94153748bd0",
+    "gui/com_gui_sidebar.gui": "0e97ebec6d91dfd2cd2e51adb59fe962eb60a3ee909585c5491021069877b95c",
     "gui/information_panel_bar.gui": "734a0a8a8a118a4f0d9d9850599aced636d885f4cf47e80301812fd5c304105c",
-    ".metadata/metadata.json": "18ea9902f867d02d14d9cb6e7a9d6201626bd8016bd4d6388f4b2efb7639755a"
+    ".metadata/metadata.json": "ef7b729e4fd0ad9bec4653ba9719a95f4a69bae043b19d4e879c9cbf9cecfb62",
+    "gui/topfrontend.gui": "88fcaf2b575ed52236b5c07ff30ddbe1a81e5c80457d86fa6ba06660fba669a9",
+    "gui/00_com_topfrontend.gui": "1c21c2680ae2c1a54edfece31a7cdbb2309e183cd50e869a28487fcf1b6ef21e",
+    "gui/com_gui_journal_entry.gui": "3baa22fecba974626c069670893e03156637a7b05136c9f27cd88f337314ac9e"
   },
   "load_order": [
     "speculative_markets",
@@ -62,7 +69,7 @@
   ],
   "notes": [
     "The two parents may be swapped; this patch must follow both.",
-    "Built from Speculative Markets 1.1.2; enable either stable or the matching beta, never both.",
+    "Built from Speculative Markets 1.2.0; enable either stable or the matching beta, never both.",
     "Only CMF is a mandatory metadata dependency; the required SM channel choice is documented for players.",
     "Set load order manually: the 1.15.1 game rejects launcher-only load_after metadata.",
     "No parent files are modified. Runtime compatibility is validated separately.",

@@ -18,6 +18,7 @@ interest_list.row() places slot() in its Interest Groups column; levers.loc() pl
 import sys
 from functools import reduce
 import market_news
+import mod_sources
 
 P = "Country.MakeScope"  # as market_tab.P; not imported, market_tab imports levers, which imports this
 DEAL = 0.1              # spec_weight: a share of the market's trade of 0.1 x generate.EXPOSURE_FULL (0.3%) counts as dealing in it
@@ -59,6 +60,38 @@ POOLS = {
     "trade_unions": ("trade_unions", {"groceries": 3, "clothes": 3, "coal": 1, "steel": 1, "furniture": 1, "fabric": 1},
                      {"liquor": 2, "opium": 1}),  # temperance ran deep in the labour movement
 }
+# Better Politics Mod's political groups, only in the BPM patch's build (SPEC_BPM): without BPM their types don't exist
+BPM_POOLS = {
+    "conservatives": ("conservatives", {"grain": 3, "wine": 2, "meat": 1, "wood": 1, "sugar": 1, "tobacco": 1},
+                      {"fabric": 1}),  # the Corn Laws' defenders against the mill towns
+    "liberals": ("liberals", {"fabric": 3, "steel": 2, "tools": 2, "coal": 2, "steamers": 1, "paper": 1,
+                              "merchant_marine": 1, "clippers": 1}, {"grain": 2}),  # Manchester free trade: cheap bread
+    "market_liberals": ("market_liberals", {"engines": 2, "oil": 2, "merchant_marine": 2, "steel": 2, "electricity": 1,
+                                            "telephones": 1, "automobiles": 1}, {"grain": 1}),
+    "national_liberals": ("national_liberals", {"steel": 3, "engines": 2, "coal": 2, "small_arms": 1, "artillery": 1,
+                                                "steamers": 1}, {"opium": 1}),  # industry, unification and a navy
+    "radicals": ("radicals", {"grain": 3, "groceries": 2, "clothes": 2, "paper": 2, "fabric": 1},
+                 {"liquor": 2, "opium": 1}),  # cheap bread, a free press; nonconformist temperance
+    "reactionaries": ("reactionaries", {"grain": 3, "wine": 2, "small_arms": 1, "artillery": 1, "wood": 1, "meat": 1},
+                      {"paper": 2, "engines": 1}),  # the press and the machine
+    "christian_democrats": ("christian_democrats", {"grain": 2, "clothes": 2, "groceries": 2, "furniture": 1,
+                                                    "fine_art": 1, "paper": 1}, {"opium": 3, "liquor": 2}),
+    "fascists": ("fascists", {"steel": 3, "small_arms": 3, "artillery": 3, "ammunition": 2, "tanks": 2, "aeroplanes": 2,
+                              "oil": 2, "automobiles": 1}, {"opium": 2, "luxury_clothes": 1}),
+    "socialists": ("socialists", {"groceries": 3, "clothes": 3, "grain": 2, "coal": 1, "steel": 1, "electricity": 1},
+                   {"luxury_clothes": 2, "luxury_furniture": 1, "opium": 1}),
+    "reformist_socialists": ("reformists", {"groceries": 3, "clothes": 2, "electricity": 2, "furniture": 1, "paper": 1,
+                                            "telephones": 1}, {"liquor": 2, "opium": 1}),
+    "revolutionist_socialists": ("revolutionists", {"steel": 2, "coal": 2, "grain": 2, "tools": 2, "engines": 1,
+                                                    "electricity": 1}, {"luxury_clothes": 2, "fine_art": 1,
+                                                                        "luxury_furniture": 1, "opium": 1}),
+    "anarchists": ("anarchists", {"grain": 3, "tools": 2, "paper": 2, "fabric": 1, "groceries": 1},
+                   {"artillery": 2, "opium": 1}),  # the pamphlet and the workshop, against the standing army
+    "agrarian_populists": ("agrarian_populists", {"grain": 3, "meat": 2, "fertilizer": 2, "fruit": 1, "wood": 1},
+                           {"steel": 1, "oil": 1}),  # the Grangers against the trusts
+}
+if mod_sources.BPM:
+    POOLS.update(BPM_POOLS)
 _POOLS = {}  # POOLS filtered to the tracked goods, by build()
 
 MONTHLY = ("\t\t\t# interest group stances on goods: rolled once, also for old saves (ig_stances.py)\n"

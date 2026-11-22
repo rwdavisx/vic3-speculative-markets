@@ -1,0 +1,6 @@
+﻿types com_topfrontend_overwrites {
+
+	# Only added onlick to alert:
+	# onclick = "[GetVariableSystem.Set('com_alert_action', Alert.GetAction)]"
+# Merged topfrontend is supplied in topfrontend.gui.
+}

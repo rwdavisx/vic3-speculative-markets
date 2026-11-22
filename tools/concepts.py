@@ -99,8 +99,8 @@ def companies_loc():
             "while #N Fragile#!, which a Bear Raid against us causes for a year. A [concept_country] that leaves the market economy keeps none.\\n\\n"
             f"Each one adds #v {companies.BLUE_BONUS:g}#! to our [concept_spec_company_strength], cuts the [concept_spec_market_confidence] lost when booms end and "
             f"in [Concept('concept_spec_foreign_panic','$concept_spec_foreign_panics$')] by #P {bc.SHELTER * 100:.0f}%#!, adds #P {bc.DIVIDEND / 1.2:.1f}%#! [concept_spec_exchange] trust a year, pulls [concept_spec_exchange] "
-            f"contests #P {bc.PULL * 100:.0f}%#! our way, and raises the Capitalists' [concept_investment_pool] contribution by #P {pool:.1f}%#!. The first "
-            f"#v {bc.CAP}#! count in full and the next #v {bc.CAP2 - bc.CAP}#! half as much. Losing one costs #N {bc.FALL_TRUST / 1.2:.1f}%#! "
+            f"contests #P {bc.PULL * 100:.0f}%#! our way, and raises the Capitalists' [concept_investment_pool] contribution by #P {pool:.1f}%#!. Up to "
+            f"#v {bc.CAP}#! count. Losing one costs #N {bc.FALL_TRUST / 1.2:.1f}%#! "
             f"[concept_spec_exchange] trust and #N {bc.FALL_CONF}#! [concept_spec_market_confidence].\\n\\n"
             f"If ours is the world's most prosperous, it is Company of the Year, worth #P {bc.COTY_TRUST / 1.2:.1f}%#! [concept_spec_exchange] trust and "
             f'#P {bc.COTY_PRESTIGE:.0%}#! [concept_prestige] for a year."\n'

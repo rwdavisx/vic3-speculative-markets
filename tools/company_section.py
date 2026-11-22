@@ -18,16 +18,15 @@ ponytail: a company with several grain farms shows grain once for each.
 import companies
 import icons
 import levers
-from market_tab import P, W, fx, gt, sv, v, ind, good_var, block, header, expiry_date, WORDS, WARNING, FIN
+from market_tab import P, W, fx, gt, sv, v, ind, good_var, block, header, heads, expiry_date, WORDS, WARNING, FIN
 
 WORD = good_var("spec_word")  # 0 not traded here, 1 Fleeing to 6 Feverish
 GLUT = good_var("spec_glut")
 ENCOURAGE, RESTRAIN = good_var("spec_encourage"), good_var("spec_restrain")
 LEVER = round(levers.LEVER_THROUGHPUT * 100)
 CHIP_W, CHIP_ICON, GAP = 40, 34, 4
-ROW_H = 72  # the name, the prosperity line and its bar, one under another
+ROW_H = 62  # the name, the prosperity line and its bar (2026-11-22: was 56)
 CO_ICON = 44
-PROSPERITY_W = 220  # the name, prosperity text and bar column, the same width in every row
 
 
 def select(cases, default):
@@ -124,28 +123,8 @@ def chip():
 _CV = lambda n: f"Company.MakeScope.Var('{n}')"
 BC, BC_LOW, BC_CLIMB = (f"{_CV(n)}.IsSet" for n in ("spec_blue_chip", "spec_bc_low", "spec_bc_months"))
 COTY, PROPPED, FRAGILE = (f"{_CV(n)}.IsSet" for n in ("spec_coty", "spec_bc_propped", "spec_bc_fragile"))  # bluechips.py
-
-
-def badge():
-    """The company's icon, with the blue chip badge on its corner: whole for a blue chip, faded while its low months
-    run, faint while it climbs towards the status."""
-    alpha = f"Select_float({BC}, Select_float({BC_LOW}, '(float)0.55', '(float)1.0'), '(float)0.3')"
-    return f"""widget = {{
-	size = {{ {CO_ICON} {CO_ICON} }}
-	icon = {{
-		size = {{ {CO_ICON} {CO_ICON} }}
-		texture = "[Company.GetCompanyType.GetIcon]"
-	}}
-	icon = {{
-		size = {{ 24 24 }}
-		parentanchor = bottom|right
-		position = {{ 6 6 }}
-		visible = "[Or({BC}, {BC_CLIMB})]"
-		alpha = "[{alpha}]"
-		texture = "{icons.path('blue_chip')}"
-	}}
-}}
-"""
+str_row = lambda: (f"Add_CFixedPoint(Divide_CFixedPoint(Company.GetProsperity, {fx(__import__('centres').CO_STRENGTH)}), "
+           f"Select_CFixedPoint({BC}, {fx(companies.BLUE_BONUS)}, {fx(0)}))")  # what it adds to centres' spec_log_kstr
 
 
 def tooltip_lines():
@@ -171,9 +150,10 @@ def tooltip_lines():
 """
 
 
-def prosperity():
+def prosperity(bw):
     """vanilla's prosperity line from the companies panel (companies_panel.gui:1194-1265), at row size: the bar, with
-    the changed value animations while it moves and the target faint behind, then the value and its target."""
+    the changed value animations while it moves and the target faint behind. 2026-11-22: under the name, the width of
+    the name's column (the user: the bar was cramped over the strength)."""
     pmax = "GetDefine('NEconomy','COMPANY_PROSPERITY_MAX')"
     values = f"""blockoverride "values" {{
 	min = 0
@@ -186,25 +166,9 @@ blockoverride "arrow_texture_density" {{
 """
     below_max = f"LessThan_CFixedPoint(Company.GetProsperity, {pmax})"
     return f"""vbox = {{
-	spacing = 3
 	tooltip = "COMPANY_PROSPERITY_TOOLTIP"
-	### the value and its target over the bar, as vanilla lays them out, on a line of their own so they never reach the goods
-	### the value and its target on the left, the blue chip status on the right of the same line
 	widget = {{
-		size = {{ {PROSPERITY_W} 18 }}
-		textbox = {{
-			autoresize = yes
-			align = left|nobaseline
-			using = fontsize_small
-			text = "COMPANY_PROSPERITY_FORMATTED"
-		}}
-		flowcontainer = {{
-			parentanchor = right
-			ignoreinvisible = yes
-{ind(tag(), 3)}		}}
-	}}
-	widget = {{
-		size = {{ {PROSPERITY_W} 10 }}
+		size = {{ {bw} 10 }}
 		changed_value_increased_progressbar_horizontal = {{
 			visible = "[And(GreaterThan_CFixedPoint(Company.GetProsperityChange, '(CFixedPoint)0'), {below_max})]"
 			size = {{ 100% 100% }}
@@ -237,10 +201,116 @@ blockoverride "arrow_texture_density" {{
 """
 
 
-def row():
+# the table's columns (x, width): Company, Prosperity, Status, Goods; heads() draws their heads (2026-11-22: one
+# table, as the Exchange rankings, in place of free-laid rows under rule headings)
+# 2026-11-22: no Status column (the goods were cramped); the status reads under the name, a blue chip's row tinted blue
+# 2026-11-22: Strength, what each company adds to our Company Strength (centres' spec_log_kstr: prosperity /
+# CO_STRENGTH, plus BLUE_BONUS for a blue chip), in its own column; the prosperity bar sits under the name
+COLS = {"name": (0, 270), "strength": (270, 60), "goods": (330, W - 330)}
+HEADS = [(x, w, f"SPEC_CO_COL_{k.upper()}", "left" if k == "name" else "center", f"SPEC_CO_COL_{k.upper()}_TT")
+         for k, (x, w) in COLS.items()]
+
+
+def cell(name, body, tip=""):
+    x, w = COLS[name]
+    return f"""widget = {{
+	position = {{ {x} 0 }}
+	size = {{ {w} 100% }}
+{f'	tooltip = "{tip}"' + chr(10) if tip else ""}{ind(body, 1)}}}
+"""
+
+
+def row(shown="", lit=False):
+    bw = COLS["name"][1] - 58 - 8
+    name = f"""widget = {{
+	position = {{ 8 0 }}
+	size = {{ 42 42 }}
+	parentanchor = vcenter
+	icon = {{
+		size = {{ 100% 100% }}
+		texture = "[Company.GetCompanyType.GetIcon]"
+	}}
+	icon = {{
+		size = {{ 22 22 }}
+		position = {{ 6 6 }}
+		parentanchor = bottom|right
+		visible = "[And(Or({BC}, {BC_CLIMB}), Not(And({BC}, {FRAGILE})))]"
+		alpha = "[Select_float({BC}, Select_float({BC_LOW}, '(float)0.55', '(float)1.0'), '(float)0.3')]"
+		texture = "{icons.path('blue_chip')}"
+	}}
+	### Fragile (a Bear Raid's year): the badge red and pulsing, in place of a word
+	icon = {{
+		size = {{ 22 22 }}
+		position = {{ 6 6 }}
+		parentanchor = bottom|right
+		visible = "[And({BC}, {FRAGILE})]"
+		color = {{ 1 0.3 0.25 1 }}
+		texture = "{icons.path('blue_chip')}"
+		state = {{
+			name = _show
+			next = dim
+			alpha = 1
+		}}
+		state = {{
+			name = dim
+			next = lit
+			duration = 0.7
+			alpha = 0.35
+			using = Animation_Curve_Default
+		}}
+		state = {{
+			name = lit
+			next = dim
+			duration = 0.7
+			alpha = 1
+			using = Animation_Curve_Default
+		}}
+	}}
+}}
+### the name, then vanilla's prosperity (companies_panel.gui:1189): its value and target, the status word on the same
+### line's right, and the bar under them (2026-11-22: the user, the bare bar looked odd and empty)
+flowcontainer = {{
+	position = {{ 58 0 }}
+	parentanchor = vcenter
+	direction = vertical
+	spacing = 3
+	textbox = {{
+		size = {{ {bw} 20 }}
+		align = left|nobaseline
+		using = elide_fontsize_min
+		default_format = "#header"
+		text = "[Company.GetNameNoFormatting]"
+	}}
+	widget = {{
+		size = {{ {bw} 16 }}
+		tooltip = "COMPANY_PROSPERITY_TOOLTIP"
+		textbox = {{
+			parentanchor = vcenter
+			autoresize = yes
+			align = left|nobaseline
+			using = fontsize_small
+			text = "COMPANY_PROSPERITY_FORMATTED"
+		}}
+		flowcontainer = {{
+			parentanchor = right|vcenter
+			ignoreinvisible = yes
+{ind(tag(), 3)}		}}
+	}}
+	widget = {{
+		size = {{ {bw} 10 }}
+{ind(prosperity(bw), 2)}	}}
+}}
+"""
+    goods = f"""widget = {{
+	size = {{ 100% 100% }}
+	flowcontainer = {{
+		parentanchor = center
+{ind(per_good(chip()), 2)}	}}
+}}
+"""
     return f"""button = {{
 	size = {{ {W} {ROW_H} }}
-	using = alternating_dark_bg
+{f'	visible = "[{shown}]"' + chr(10) if shown else ""}	using = default_button
 	onclick = "[GetVariableSystem.Clear('{FIN}')]"
 	onclick = "[InformationPanelBar.OpenCompanyPanel(Company.Self)]"
 	tooltipwidget = {{
@@ -249,53 +319,59 @@ def row():
 {ind(tooltip_lines(), 4)}			}}
 		}}
 	}}
-	### the company type's art, faint and fading to the left, behind the goods; a background, as vanilla draws it
+{f"""	widget = {{
+		size = {{ 100% 100% }}
+		alwaystransparent = yes
+		visible = "[Not({FRAGILE})]"
+		background = {{
+			using = fade_right_colored
+			color = {{ 0.35 0.55 0.9 1 }}
+			alpha = 0.3
+		}}
+	}}
+	widget = {{
+		size = {{ 100% 100% }}
+		alwaystransparent = yes
+		visible = "[{FRAGILE}]"
+		background = {{
+			using = fade_right_colored
+			color = {{ 0.9 0.25 0.2 1 }}
+			alpha = 0.3
+		}}
+	}}
+""" if lit else ""}	### the company type's art, faint and fading to the left, behind the name, as vanilla's companies panel draws it
 	### (companies_panel.gui:754), since only backgrounds take fittype
 	widget = {{
-		size = {{ 300 100% }}
-		parentanchor = right
-		alpha = 0.3
+		size = {{ {COLS['name'][1] + 40} 100% }}
+		alpha = 0.2
 		background = {{
 			texture = "[Company.GetCompanyType.GetBackground]"
 			fittype = centercrop
 			modify_texture = {{
-				texture = "gfx/interface/masks/fade_horizontal_left.dds"
+				texture = "gfx/interface/masks/fade_horizontal_right.dds"
 				spriteType = Corneredstretched
 				spriteborder = {{ 0 0 }}
 				blend_mode = alphamultiply
 			}}
 		}}
 	}}
-	### as vanilla's list rows: the name and prosperity take what the goods leave and elide, never running under them
-	hbox = {{
-		size = {{ 100% 100% }}
-		margin_left = 10
-		margin_right = 10
-		spacing = 10
-{ind(badge(), 2)}		vbox = {{
-			spacing = 4
-			textbox = {{
-				size = {{ {PROSPERITY_W} 24 }}
-				align = left|nobaseline
-				using = elide_fontsize_min
-				default_format = "#header"
-				text = "[Company.GetNameNoFormatting]"
-			}}
-{ind(prosperity(), 3)}		}}
-		expand = {{}}
-{ind(per_good(chip()), 2)}	}}
+{ind(cell("name", name) + cell("strength", f"""textbox = {{
+	size = {{ 100% 100% }}
+	align = center|nobaseline
+	default_format = "#header"
+	text = "[{str_row()}|1]"
 }}
+""", "SPEC_CO_STR_ROW_TT") + cell("goods", goods), 1)}}}
 """
 
 
 def tag():
-    """The row's blue chip status in a word, after its name: one at a time, the most pressing first."""
+    """The row's blue chip status in a word, at the right of its name: one at a time, the most pressing first.
+    2026-11-22: no Blue Chip or Fragile words; the badge says the one, the red pulse and tint the other."""
     urgent = f"Or({COTY}, {BC_LOW})"
     cases = (("SPEC_CO_TAG_COTY", f"And({BC}, {COTY})"),
              ("SPEC_CO_TAG_LOW", f"And(And({BC}, {BC_LOW}), Not({COTY}))"),
              ("SPEC_CO_TAG_PROPPED", f"And(And({BC}, {PROPPED}), Not({urgent}))"),
-             ("SPEC_CO_TAG_FRAGILE", f"And(And({BC}, {FRAGILE}), Not(Or({urgent}, {PROPPED})))"),
-             ("SPEC_CO_TAG_BC", f"And({BC}, Not(Or({urgent}, Or({FRAGILE}, {PROPPED}))))"),
              ("SPEC_CO_TAG_CLIMB", f"And({BC_CLIMB}, Not({BC}))"))
     return "".join(f"""textbox = {{
 	visible = "[{test}]"
@@ -307,83 +383,111 @@ def tag():
 """ for key, test in cases)
 
 
-def strip():
-    """Our blue chips at a glance: the count, a slot for each that counts (up to bluechips.CAP), lit while held, and
-    what they give now. Its tooltip is the header's: every effect and how a company becomes one."""
-    import bluechips
-    lit = lambda i: f"Select_float({gt(v('spec_bc_n'), i - 0.5)}, '(float)1.0', '(float)0.18')"
-    slots = "".join(f"""	icon = {{
-		size = {{ {26 if i <= bluechips.CAP else 18} {26 if i <= bluechips.CAP else 18} }}
-		alpha = "[{lit(i)}]"
-		texture = "{icons.path('blue_chip')}"
-	}}
-""" for i in range(1, bluechips.CAP2 + 1))
-    return f"""widget = {{
-	size = {{ {W} 56 }}
-	parentanchor = hcenter
-	datacontext = "[Country.MakeScope.GetCountry]"  # the tooltip's own context: without it the figures find no Country
+def card():
+    """Company Strength as the Exchange's hero card shows the score (centres.hero), then what our blue chips give now
+    as three stat tiles. 2026-11-22: the strength is the headline; its split and the blue chip count and slots went
+    (the user: the split belongs in the tooltip, the blue chips show in the list)."""
+    import centres
+    tw = (centres.BAR_W - 2 * 8) // 3
+    tile = lambda key, tex: f"""widget = {{
+	size = {{ {tw} 62 }}
 	tooltip = "SPEC_BC_STRIP_TT"
 	background = {{
-		using = fade_right_colored
-		color = {{ 0.35 0.55 0.9 1 }}
-		alpha = 0.22
+		using = entry_bg_simple
 	}}
 	icon = {{
 		position = {{ 10 0 }}
-		size = {{ 40 40 }}
+		size = {{ 34 34 }}
 		parentanchor = vcenter
-		texture = "{icons.path('blue_chip')}"
+		texture = "{tex}"
 	}}
 	textbox = {{
-		position = {{ 58 8 }}
-		size = {{ 90 22 }}
+		position = {{ 52 7 }}
+		size = {{ {tw - 58} 26 }}
 		align = left|nobaseline
-		using = fontsize_large
-		default_format = "#header"
-		text = "SPEC_BC_STRIP"
+		using = fontsize_xl
+		text = "SPEC_BC_FX_{key}"
 	}}
 	textbox = {{
-		position = {{ 58 30 }}
-		size = {{ 90 18 }}
+		position = {{ 52 35 }}
+		size = {{ {tw - 58} 18 }}
 		align = left|nobaseline
 		using = fontsize_small
-		text = "SPEC_BC_STRIP_N"
-	}}
-	hbox = {{
-		position = {{ 150 0 }}
-		size = {{ 230 56 }}
-		spacing = 3
-{ind(slots, 1)}	}}
-	textbox = {{
-		position = {{ -12 0 }}
-		size = {{ 150 54 }}
-		parentanchor = right|vcenter
-		align = right|nobaseline
-		multiline = yes
-		using = fontsize_small
-		text = "SPEC_BC_STRIP_FX"
+		elide = right
+		text = "SPEC_BC_FX_{key}_LBL"
 	}}
 }}
 """
+    tiles = tile("SHIELD", icons.path("crash_risk")) + tile("PULL", icons.path("concept_exchange")) + tile("TRUST", icons.path("concept_trust"))
+    # 2026-11-22: Company Strength is the headline (the user: the blue chips are detail of it), what the blue chips give under it
+    # 2026-11-22: its tooltip a calculator, a line a company (the user), the lines from Country.GetCompanies
+    lines = lambda key, shown: f"""flowcontainer = {{
+	direction = vertical
+	ignoreinvisible = yes
+	datamodel = "[Country.GetCompanies]"
+	item = {{
+		textbox = {{
+{f'			visible = "[{shown}]"' + chr(10) if shown else ""}			autoresize = yes
+			align = left|nobaseline
+			text = "{key}"
+		}}
+	}}
+}}
+"""
+    calc = f"""	tooltipwidget = {{
+		TooltipWidgetType = {{
+			blockoverride "tooltip_content_after" {{
+				flowcontainer = {{
+					direction = vertical
+					ignoreinvisible = yes
+{ind(lines("SPEC_CO_STR_LINE", "") + lines("SPEC_CO_STR_LINE_BC", BC), 5)}					textbox = {{
+						text = "SPEC_CO_STR_NOTE"
+						size = {{ 380 0 }}
+						autoresize = yes
+						multiline = yes
+						align = left|nobaseline
+					}}
+				}}
+			}}
+		}}
+	}}
+"""
+    hero = centres.hero("SPEC_CO_STR_LBL", "SPEC_CO_STR_NUM", "SPEC_CO_STR_TT", icons.path("concept_company_strength"))
+    assert hero.count('\ttooltip = "SPEC_CO_STR_TT"\n') == 1
+    hero = hero.replace('\ttooltip = "SPEC_CO_STR_TT"\n', '\ttooltip = "SPEC_CO_STR_TT"\n' + calc)
+    return (hero
+            + f"""widget = {{
+	size = {{ {W} 8 }}
+}}
+flowcontainer = {{
+	parentanchor = hcenter
+	spacing = 8
+{ind(tiles, 1)}}}
+""")
 
 
 def section():
-    body = f"""{strip()}flowcontainer = {{
+    """Trading Floor, last (2026-11-22, from the Speculation tab: everything a blue chip does is the Exchange's): the
+    blue chip card, then one table of our companies, blue chips first."""
+    rows = lambda shown, lit: f"""flowcontainer = {{
 	direction = vertical
 	parentanchor = hcenter
-	visible = "[Not(IsDataModelEmpty(Country.GetCompanies))]"
+	ignoreinvisible = yes
+	spacing = 2
 	datamodel = "[Country.GetCompanies]"
 	item = {{
-{ind(row(), 2)}	}}
+{ind(row(shown, lit), 2)}	}}
 }}
-textbox = {{
+"""
+    body = (card() + f"widget = {{\n\tsize = {{ {W} 12 }}\n}}\n" + heads(HEADS) + rows(BC, True) + f"widget = {{\n\tsize = {{ {W} 2 }}\n}}\n" + rows(f"Not({BC})", False)
+            + f"""textbox = {{
 	size = {{ {W} 30 }}
 	parentanchor = hcenter
 	visible = "[IsDataModelEmpty(Country.GetCompanies)]"
 	align = center|nobaseline
 	text = "SPEC_CO_NONE"
 }}
-"""
+""")
     return block(header("SPEC_H_COMPANIES", "SPEC_H_COMPANIES_RIGHT", "SPEC_H_COMPANIES_RIGHT_TT"), body)
 
 
@@ -392,22 +496,23 @@ def bc_loc():
     n = sv("spec_bc_counted")
     mul = lambda x: f"Multiply_CFixedPoint({n}, {fx(x)})"
     lo = companies.BLUE_LOSE
-    return (" SPEC_BC_STRIP: \"Blue Chips\"\n"
-            f" SPEC_BC_STRIP_N: \"#v [{v('spec_bc_n')}|0]#! held\"\n"
-            f" SPEC_BC_STRIP_FX: \"Crash shield #P [{mul(b.SHELTER * 100)}|0]%#!\\n"
-            f"Contest pull #P +[{mul(b.PULL * 100)}|0]%#!\\nTrust #P +[{mul(round(b.DIVIDEND / 1.2, 3))}|1]%#! a year\"\n"
-            f" SPEC_BC_STRIP_TT: \"#header $concept_spec_blue_chips$: #v [{v('spec_bc_n')}|0]#!#!\\n$TOOLTIP_DELIMITER$\\n"
+    return (""
+            f" SPEC_BC_FX_SHIELD: \"#P [{mul(b.SHELTER * 100)}|0]%#!\"\n SPEC_BC_FX_SHIELD_LBL: \"Crash Shield\"\n"
+            f" SPEC_BC_FX_PULL: \"#P +[{mul(b.PULL * 100)}|0]%#!\"\n SPEC_BC_FX_PULL_LBL: \"Contest Pull\"\n"
+            f" SPEC_BC_FX_TRUST: \"#P +[{mul(round(b.DIVIDEND * 100 / __import__('centres').CALM, 4))}|1]#!\"\n SPEC_BC_FX_TRUST_LBL: \"Trust a Year\"\n"
+            f" SPEC_CO_COL_NAME: \"Company\"\n SPEC_CO_COL_NAME_TT: \"Our $concept_companies$, our $concept_spec_blue_chips$ first and tinted blue, each with its [concept_prosperity] under its name and the level it is heading for faint behind. A #N Fragile#! one is tinted red and its badge pulses. A company becomes one after #v {companies.BLUE_MONTHS}#! months in a row at #v {companies.BLUE_PROSPER:g}#! or more [concept_prosperity]. Click one to open it.\"\n"
+            " SPEC_CO_COL_STRENGTH: \"Strength\"\n SPEC_CO_COL_STRENGTH_TT: \"What each company adds to our [concept_spec_company_strength].\"\n"
+            " SPEC_CO_COL_GOODS: \"Goods\"\n SPEC_CO_COL_GOODS_TT: \"The goods its buildings make, each with the [concept_throughput] our [concept_spec_investor_interest] gives them.\"\n"
+            f" SPEC_BC_STRIP_TT: \"#header $concept_spec_blue_chips$#!\\n$TOOLTIP_DELIMITER$\\nWe hold #v [{v('spec_bc_n')}|0]#!. "
             f"A company becomes one after #v {companies.BLUE_MONTHS}#! months in a row at "
             f"#v {companies.BLUE_PROSPER:g}#! or more [concept_prosperity].\\n\\n"
-            + b.effect_lines(lambda x, f: f"[{mul(round(x, 4))}|{f}]", each=True)
-            + f"\\n#grey The first {b.CAP} count in full and the next {b.CAP2 - b.CAP} half. Each also adds #v {companies.BLUE_BONUS:g}#! to our "
+            + "Together they give#indent_newline:3 \\n" + b.effect_lines(lambda x, f: f"[{mul(round(x, 4))}|{f}]", each=True) + "#!"
+            + f"\\n#grey Up to {b.CAP} count. Each also adds #v {companies.BLUE_BONUS:g}#! to our "
             "[concept_spec_company_strength].#!"
             + "\\n$TOOLTIP_DELIMITER$\\n" + b.risk_text() + "\"\n"
             " SPEC_CO_TAG_COTY: \"#P Company of the Year#!\"\n"
             f" SPEC_CO_TAG_LOW: \"#N Slipping [{_CV('spec_bc_low')}.GetValue|0]/{lo}#!\"\n"
-            " SPEC_CO_TAG_FRAGILE: \"#N Fragile#!\"\n"
             " SPEC_CO_TAG_PROPPED: \"#P Propped Up#!\"\n"
-            " SPEC_CO_TAG_BC: \"#P Blue Chip#!\"\n"
             ' SPEC_CO_TAG_CLIMB: "#grey [Company.MakeScope.ScriptValue(\'spec_bc_updates_left\')|0] months left#!"\n')
 
 
@@ -423,14 +528,19 @@ def loc():
             "High [concept_spec_investor_interest] in a [concept_good] gives the buildings that make it #P more#! [concept_throughput], "
             "and low interest gives them #N less#!. After its boom ends they get #N less still#! until it recovers.\\n\\n"
             "A [concept_company] making the good gains or loses [concept_prosperity] the same way.\"\n"
-            f" SPEC_H_COMPANIES_RIGHT: \"[GetDataModelSize(Country.GetCompanies)]  @spec_blue_chip! #v [{v('spec_bc_n')}|0]#!\"\n"
-            f" SPEC_H_COMPANIES_RIGHT_TT: \"#header [concept_spec_company_strength]: #v [{kstr}|1]#!#!\\n$TOOLTIP_DELIMITER$\\n"
-            f"#v [Subtract_CFixedPoint({kstr}, {from_bc})|1]#! from the [concept_prosperity] of our $concept_companies$, "
-            f"#v 1#! for every #v {__import__('centres').CO_STRENGTH:g}#!\\n"
-            f"#v [{from_bc}|1]#! from our #v [{kbc}|0]#! @spec_blue_chip! [Concept('concept_spec_blue_chip','$concept_spec_blue_chips$')], "
-            f"#v {companies.BLUE_BONUS:g}#! each\\n$TOOLTIP_DELIMITER$\\n"
-            "The strongest [concept_country] can claim Home of Great Companies as a speciality of its [concept_spec_exchange]. "
-            "More companies help only through their [concept_prosperity].\"\n"
+            " SPEC_H_COMPANIES_RIGHT: \"#v [GetDataModelSize(Country.GetCompanies)]#!/[Country.GetMaxNumCompanies]\"\n"
+            " SPEC_H_COMPANIES_RIGHT_TT: \"[Country.GetMaxNumCompaniesDesc]\"\n"
+            " SPEC_CO_STR_LBL: \"Company Strength\"\n"
+            f" SPEC_CO_STR_NUM: \"#b [{kstr}|1]#!\"\n"
+            f" SPEC_CO_STR_ROW_TT: \"It adds #v [{str_row()}|1]#! to our [concept_spec_company_strength], #v 1#! for every "
+            f"#v {__import__('centres').CO_STRENGTH:g}#! [concept_prosperity][AddLocalizationIf({BC}, 'SPEC_CO_STR_ROW_BC')].\"\n"
+            f" SPEC_CO_STR_ROW_BC: \" and #v {companies.BLUE_BONUS:g}#! more as a [concept_spec_blue_chip]\"\n"
+            f" SPEC_CO_STR_TT: \"#header [concept_spec_company_strength] #v [{kstr}|1]#!#!\\n$TOOLTIP_DELIMITER$\"\n"
+            f" SPEC_CO_STR_NOTE: \"$TOOLTIP_DELIMITER$\\nEach company adds #v 1#! for every #v {__import__('centres').CO_STRENGTH:g}#! "
+            f"[concept_prosperity], and a [concept_spec_blue_chip] #v {companies.BLUE_BONUS:g}#! more. The strongest [concept_country] "
+            "can claim Home of Great Companies as a speciality of its [concept_spec_exchange].\"\n"
+            f" SPEC_CO_STR_LINE: \"#P +[Divide_CFixedPoint(Company.GetProsperity, {fx(__import__('centres').CO_STRENGTH)})|1]#! from [Company.GetNameNoFormatting]\"\n"
+            f" SPEC_CO_STR_LINE_BC: \"#P +{companies.BLUE_BONUS:g}#! from [Company.GetNameNoFormatting] as a @spec_blue_chip! [concept_spec_blue_chip]\"\n"
             f" SPEC_CO_BC: \"#P [concept_spec_blue_chip]#!, adding #v {companies.BLUE_BONUS:g}#! to our [concept_spec_company_strength] "
             "and counting toward our $concept_spec_blue_chips$\"\n"
             f" SPEC_CO_BC_LOW: \"  #N Slipping#! below #v {companies.BLUE_PROSPER:g}#! [concept_prosperity] for #v [{_CV('spec_bc_low')}.GetValue|0]#! "

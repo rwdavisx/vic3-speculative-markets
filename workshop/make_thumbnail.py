@@ -1,6 +1,8 @@
 """Workshop thumbnail (mod/thumbnail.png, 800x800): the market map mode with the mod's rival-brokers event picture faded
 into it, the title and subtitle, and the boom-and-bust cycle drawn
 with the mood icons.
+2026-11-22: the brokers moved 70px right (left 150 -> 220) so both faces clear the title, with a shorter left fade
+(30% -> 14%) so the left broker stays solid. The result is ~999 KB: past 1,000,000 bytes it drops to 256 colours.
 Shots: build_scratch/gallery_src/shots (4K, UI 1.5); art: art/raw.
     py -3 workshop/make_thumbnail.py"""
 import subprocess
@@ -34,9 +36,9 @@ CSS = f"""
 html, body {{ margin: 0; }}
 body {{ position: relative; width: {S}px; height: {S}px; overflow: hidden; background: #0b0d12; }}
 .map {{ position: absolute; inset: 0; width: {S}px; height: {S}px; filter: saturate(1.2) brightness(1); }}
-.event {{ position: absolute; left: 150px; top: 0; width: 800px; height: 360px; object-fit: cover; object-position: 50% 30%;
+.event {{ position: absolute; left: 220px; top: 0; width: 800px; height: 360px; object-fit: cover; object-position: 50% 30%;
   filter: contrast(1.08) brightness(1.05);
-  -webkit-mask-image: linear-gradient(#000 62%, transparent 100%), linear-gradient(90deg, transparent 0%, #000 30%);
+  -webkit-mask-image: linear-gradient(#000 62%, transparent 100%), linear-gradient(90deg, transparent 0%, #000 14%);
   -webkit-mask-composite: source-in; mask-composite: intersect; }}
 .shade {{ position: absolute; inset: 0; -webkit-mask-image: linear-gradient(#000 30%, transparent 45%);
   background: linear-gradient(90deg, rgba(8,9,13,.8) 0%, rgba(8,9,13,.55) 38%, rgba(8,9,13,0) 62%),

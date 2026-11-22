@@ -23,3 +23,227 @@ spec_note_tied = {
 		add_to_temporary_list = spec_note_list
 	}
 }
+
+spec_migrate_market_news = {
+    if = { limit = { has_variable = spec_news_staple_hot }
+        set_variable = { name = spec_news_food_hot value = 0 }
+        set_variable = { name = spec_news_food_correction value = 0 }
+        set_variable = { name = spec_news_food_bust value = 0 }
+        set_variable = { name = spec_news_food_collapse value = 0 }
+        set_variable = { name = spec_news_plantation_hot value = 0 }
+        set_variable = { name = spec_news_plantation_correction value = 0 }
+        set_variable = { name = spec_news_plantation_bust value = 0 }
+        set_variable = { name = spec_news_plantation_collapse value = 0 }
+        set_variable = { name = spec_news_household_hot value = 0 }
+        set_variable = { name = spec_news_household_correction value = 0 }
+        set_variable = { name = spec_news_household_bust value = 0 }
+        set_variable = { name = spec_news_household_collapse value = 0 }
+        set_variable = { name = spec_news_materials_hot value = 0 }
+        set_variable = { name = spec_news_materials_correction value = 0 }
+        set_variable = { name = spec_news_materials_bust value = 0 }
+        set_variable = { name = spec_news_materials_collapse value = 0 }
+        set_variable = { name = spec_news_energy_hot value = 0 }
+        set_variable = { name = spec_news_energy_correction value = 0 }
+        set_variable = { name = spec_news_energy_bust value = 0 }
+        set_variable = { name = spec_news_energy_collapse value = 0 }
+        set_variable = { name = spec_news_industry_hot value = 0 }
+        set_variable = { name = spec_news_industry_correction value = 0 }
+        set_variable = { name = spec_news_industry_bust value = 0 }
+        set_variable = { name = spec_news_industry_collapse value = 0 }
+        set_variable = { name = spec_news_transport_hot value = 0 }
+        set_variable = { name = spec_news_transport_correction value = 0 }
+        set_variable = { name = spec_news_transport_bust value = 0 }
+        set_variable = { name = spec_news_transport_collapse value = 0 }
+        set_variable = { name = spec_news_defence_hot value = 0 }
+        set_variable = { name = spec_news_defence_correction value = 0 }
+        set_variable = { name = spec_news_defence_bust value = 0 }
+        set_variable = { name = spec_news_defence_collapse value = 0 }
+        set_variable = { name = spec_news_communications_hot value = 0 }
+        set_variable = { name = spec_news_communications_correction value = 0 }
+        set_variable = { name = spec_news_communications_bust value = 0 }
+        set_variable = { name = spec_news_communications_collapse value = 0 }
+        set_variable = { name = spec_news_prior_hot value = 0 }
+        set_variable = { name = spec_news_prior_correction value = 0 }
+        set_variable = { name = spec_news_prior_bust value = 0 }
+        set_variable = { name = spec_news_prior_collapse value = 0 }
+        change_variable = { name = spec_news_prior_hot add = var:spec_news_staple_hot }
+        remove_variable = spec_news_staple_hot
+        change_variable = { name = spec_news_prior_correction add = var:spec_news_staple_correction }
+        remove_variable = spec_news_staple_correction
+        change_variable = { name = spec_news_prior_bust add = var:spec_news_staple_bust }
+        remove_variable = spec_news_staple_bust
+        change_variable = { name = spec_news_prior_collapse add = var:spec_news_staple_collapse }
+        remove_variable = spec_news_staple_collapse
+        change_variable = { name = spec_news_prior_hot add = var:spec_news_industrial_hot }
+        remove_variable = spec_news_industrial_hot
+        change_variable = { name = spec_news_prior_correction add = var:spec_news_industrial_correction }
+        remove_variable = spec_news_industrial_correction
+        change_variable = { name = spec_news_prior_bust add = var:spec_news_industrial_bust }
+        remove_variable = spec_news_industrial_bust
+        change_variable = { name = spec_news_prior_collapse add = var:spec_news_industrial_collapse }
+        remove_variable = spec_news_industrial_collapse
+        change_variable = { name = spec_news_prior_hot add = var:spec_news_luxury_hot }
+        remove_variable = spec_news_luxury_hot
+        change_variable = { name = spec_news_prior_correction add = var:spec_news_luxury_correction }
+        remove_variable = spec_news_luxury_correction
+        change_variable = { name = spec_news_prior_bust add = var:spec_news_luxury_bust }
+        remove_variable = spec_news_luxury_bust
+        change_variable = { name = spec_news_prior_collapse add = var:spec_news_luxury_collapse }
+        remove_variable = spec_news_luxury_collapse
+        change_variable = { name = spec_news_prior_hot add = var:spec_news_military_hot }
+        remove_variable = spec_news_military_hot
+        change_variable = { name = spec_news_prior_correction add = var:spec_news_military_correction }
+        remove_variable = spec_news_military_correction
+        change_variable = { name = spec_news_prior_bust add = var:spec_news_military_bust }
+        remove_variable = spec_news_military_bust
+        change_variable = { name = spec_news_prior_collapse add = var:spec_news_military_collapse }
+        remove_variable = spec_news_military_collapse
+    }
+}
+spec_queue_market_news = {
+    spec_migrate_market_news = yes
+    if = {
+        limit = { NOT = { has_variable = spec_news_age } }
+        set_variable = { name = spec_news_age value = 0 }
+        set_variable = { name = spec_news_food_hot value = 0 }
+        set_variable = { name = spec_news_food_correction value = 0 }
+        set_variable = { name = spec_news_food_bust value = 0 }
+        set_variable = { name = spec_news_food_collapse value = 0 }
+        set_variable = { name = spec_news_plantation_hot value = 0 }
+        set_variable = { name = spec_news_plantation_correction value = 0 }
+        set_variable = { name = spec_news_plantation_bust value = 0 }
+        set_variable = { name = spec_news_plantation_collapse value = 0 }
+        set_variable = { name = spec_news_household_hot value = 0 }
+        set_variable = { name = spec_news_household_correction value = 0 }
+        set_variable = { name = spec_news_household_bust value = 0 }
+        set_variable = { name = spec_news_household_collapse value = 0 }
+        set_variable = { name = spec_news_materials_hot value = 0 }
+        set_variable = { name = spec_news_materials_correction value = 0 }
+        set_variable = { name = spec_news_materials_bust value = 0 }
+        set_variable = { name = spec_news_materials_collapse value = 0 }
+        set_variable = { name = spec_news_energy_hot value = 0 }
+        set_variable = { name = spec_news_energy_correction value = 0 }
+        set_variable = { name = spec_news_energy_bust value = 0 }
+        set_variable = { name = spec_news_energy_collapse value = 0 }
+        set_variable = { name = spec_news_industry_hot value = 0 }
+        set_variable = { name = spec_news_industry_correction value = 0 }
+        set_variable = { name = spec_news_industry_bust value = 0 }
+        set_variable = { name = spec_news_industry_collapse value = 0 }
+        set_variable = { name = spec_news_transport_hot value = 0 }
+        set_variable = { name = spec_news_transport_correction value = 0 }
+        set_variable = { name = spec_news_transport_bust value = 0 }
+        set_variable = { name = spec_news_transport_collapse value = 0 }
+        set_variable = { name = spec_news_defence_hot value = 0 }
+        set_variable = { name = spec_news_defence_correction value = 0 }
+        set_variable = { name = spec_news_defence_bust value = 0 }
+        set_variable = { name = spec_news_defence_collapse value = 0 }
+        set_variable = { name = spec_news_communications_hot value = 0 }
+        set_variable = { name = spec_news_communications_correction value = 0 }
+        set_variable = { name = spec_news_communications_bust value = 0 }
+        set_variable = { name = spec_news_communications_collapse value = 0 }
+        set_variable = { name = spec_news_prior_hot value = 0 }
+        set_variable = { name = spec_news_prior_correction value = 0 }
+        set_variable = { name = spec_news_prior_bust value = 0 }
+        set_variable = { name = spec_news_prior_collapse value = 0 }
+        set_variable = { name = spec_news_opinions value = 0 }
+    }
+    change_variable = { name = spec_news_$FIELD$ add = 1 }
+}
+spec_clear_market_news = {
+    remove_variable = spec_news_age
+    remove_variable = spec_news_urgent
+    remove_variable = spec_news_food_hot
+    remove_variable = spec_news_food_correction
+    remove_variable = spec_news_food_bust
+    remove_variable = spec_news_food_collapse
+    remove_variable = spec_news_plantation_hot
+    remove_variable = spec_news_plantation_correction
+    remove_variable = spec_news_plantation_bust
+    remove_variable = spec_news_plantation_collapse
+    remove_variable = spec_news_household_hot
+    remove_variable = spec_news_household_correction
+    remove_variable = spec_news_household_bust
+    remove_variable = spec_news_household_collapse
+    remove_variable = spec_news_materials_hot
+    remove_variable = spec_news_materials_correction
+    remove_variable = spec_news_materials_bust
+    remove_variable = spec_news_materials_collapse
+    remove_variable = spec_news_energy_hot
+    remove_variable = spec_news_energy_correction
+    remove_variable = spec_news_energy_bust
+    remove_variable = spec_news_energy_collapse
+    remove_variable = spec_news_industry_hot
+    remove_variable = spec_news_industry_correction
+    remove_variable = spec_news_industry_bust
+    remove_variable = spec_news_industry_collapse
+    remove_variable = spec_news_transport_hot
+    remove_variable = spec_news_transport_correction
+    remove_variable = spec_news_transport_bust
+    remove_variable = spec_news_transport_collapse
+    remove_variable = spec_news_defence_hot
+    remove_variable = spec_news_defence_correction
+    remove_variable = spec_news_defence_bust
+    remove_variable = spec_news_defence_collapse
+    remove_variable = spec_news_communications_hot
+    remove_variable = spec_news_communications_correction
+    remove_variable = spec_news_communications_bust
+    remove_variable = spec_news_communications_collapse
+    remove_variable = spec_news_prior_hot
+    remove_variable = spec_news_prior_correction
+    remove_variable = spec_news_prior_bust
+    remove_variable = spec_news_prior_collapse
+    remove_variable = spec_news_opinions
+}
+spec_deliver_market_news = {
+    spec_migrate_market_news = yes
+    if = {
+        limit = { has_variable = spec_news_age }
+        change_variable = { name = spec_news_age add = 1 }
+        if = {
+            limit = { OR = { has_variable = spec_news_urgent var:spec_news_age >= 3 } }
+            save_scope_value_as = { name = spec_news_food_hot value = var:spec_news_food_hot }
+            save_scope_value_as = { name = spec_news_food_correction value = var:spec_news_food_correction }
+            save_scope_value_as = { name = spec_news_food_bust value = var:spec_news_food_bust }
+            save_scope_value_as = { name = spec_news_food_collapse value = var:spec_news_food_collapse }
+            save_scope_value_as = { name = spec_news_plantation_hot value = var:spec_news_plantation_hot }
+            save_scope_value_as = { name = spec_news_plantation_correction value = var:spec_news_plantation_correction }
+            save_scope_value_as = { name = spec_news_plantation_bust value = var:spec_news_plantation_bust }
+            save_scope_value_as = { name = spec_news_plantation_collapse value = var:spec_news_plantation_collapse }
+            save_scope_value_as = { name = spec_news_household_hot value = var:spec_news_household_hot }
+            save_scope_value_as = { name = spec_news_household_correction value = var:spec_news_household_correction }
+            save_scope_value_as = { name = spec_news_household_bust value = var:spec_news_household_bust }
+            save_scope_value_as = { name = spec_news_household_collapse value = var:spec_news_household_collapse }
+            save_scope_value_as = { name = spec_news_materials_hot value = var:spec_news_materials_hot }
+            save_scope_value_as = { name = spec_news_materials_correction value = var:spec_news_materials_correction }
+            save_scope_value_as = { name = spec_news_materials_bust value = var:spec_news_materials_bust }
+            save_scope_value_as = { name = spec_news_materials_collapse value = var:spec_news_materials_collapse }
+            save_scope_value_as = { name = spec_news_energy_hot value = var:spec_news_energy_hot }
+            save_scope_value_as = { name = spec_news_energy_correction value = var:spec_news_energy_correction }
+            save_scope_value_as = { name = spec_news_energy_bust value = var:spec_news_energy_bust }
+            save_scope_value_as = { name = spec_news_energy_collapse value = var:spec_news_energy_collapse }
+            save_scope_value_as = { name = spec_news_industry_hot value = var:spec_news_industry_hot }
+            save_scope_value_as = { name = spec_news_industry_correction value = var:spec_news_industry_correction }
+            save_scope_value_as = { name = spec_news_industry_bust value = var:spec_news_industry_bust }
+            save_scope_value_as = { name = spec_news_industry_collapse value = var:spec_news_industry_collapse }
+            save_scope_value_as = { name = spec_news_transport_hot value = var:spec_news_transport_hot }
+            save_scope_value_as = { name = spec_news_transport_correction value = var:spec_news_transport_correction }
+            save_scope_value_as = { name = spec_news_transport_bust value = var:spec_news_transport_bust }
+            save_scope_value_as = { name = spec_news_transport_collapse value = var:spec_news_transport_collapse }
+            save_scope_value_as = { name = spec_news_defence_hot value = var:spec_news_defence_hot }
+            save_scope_value_as = { name = spec_news_defence_correction value = var:spec_news_defence_correction }
+            save_scope_value_as = { name = spec_news_defence_bust value = var:spec_news_defence_bust }
+            save_scope_value_as = { name = spec_news_defence_collapse value = var:spec_news_defence_collapse }
+            save_scope_value_as = { name = spec_news_communications_hot value = var:spec_news_communications_hot }
+            save_scope_value_as = { name = spec_news_communications_correction value = var:spec_news_communications_correction }
+            save_scope_value_as = { name = spec_news_communications_bust value = var:spec_news_communications_bust }
+            save_scope_value_as = { name = spec_news_communications_collapse value = var:spec_news_communications_collapse }
+            save_scope_value_as = { name = spec_news_prior_hot value = var:spec_news_prior_hot }
+            save_scope_value_as = { name = spec_news_prior_correction value = var:spec_news_prior_correction }
+            save_scope_value_as = { name = spec_news_prior_bust value = var:spec_news_prior_bust }
+            save_scope_value_as = { name = spec_news_prior_collapse value = var:spec_news_prior_collapse }
+            save_scope_value_as = { name = spec_news_opinions value = var:spec_news_opinions }
+            post_notification = spec_market_bulletin
+            spec_clear_market_news = yes
+        }
+    }
+}

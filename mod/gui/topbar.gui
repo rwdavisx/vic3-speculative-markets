@@ -1,0 +1,4263 @@
+﻿# the topbar's Market Confidence (market_tab.topbar_item): all of its button but the click
+template spec_topbar_confidence {
+	size = { 52 30 }
+	tooltip = "[SelectLocalization(Not(GreaterThan_CFixedPoint(Country.MakeScope.ScriptValue('spec_law_mult'), '(CFixedPoint)0')), 'SPEC_TOP_OFF_TT', SelectLocalization(LessThan_CFixedPoint(Country.MakeScope.Var('spec_conf').GetValueWithDefault('(CFixedPoint)-1'), '(CFixedPoint)0'), 'SPEC_TOP_FRESH_TT', 'SPEC_TOP_TT'))]"
+	tooltipwidget = {
+		TooltipWidgetType = {
+			blockoverride "tooltip_content_after" {
+				flowcontainer = {
+					direction = vertical
+					visible = "[And(GreaterThan_CFixedPoint(Country.MakeScope.ScriptValue('spec_law_mult'), '(CFixedPoint)0'), Not(LessThan_CFixedPoint(Country.MakeScope.Var('spec_conf').GetValueWithDefault('(CFixedPoint)-1'), '(CFixedPoint)0')))]"
+					spacing = 10
+					margin_top = 10
+					flowcontainer = {
+						direction = vertical
+						margin = { 10 0 }
+						margin_bottom = 8
+						background = {
+							using = paper_bg
+						}
+						textbox = {
+							parentanchor = hcenter
+							autoresize = yes
+							align = hcenter|nobaseline
+							margin_top = 10
+							margin_bottom = 10
+							default_format = "#title"
+							text = "SPEC_TOP_CONF_HIST"
+						}
+						widget = {
+							size = { 441 118 }
+							widget = {
+								position = { 26 0 }
+								size = { 359 100 }
+								widget = {
+									size = { 359 100 }
+									icon = {
+										position = { 0 20 }
+										size = { 100% 1 }
+										texture = "gfx/interface/graph/white.dds"
+										color = { 1 1 1 0.12 }
+									}
+									icon = {
+										position = { 0 50 }
+										size = { 100% 1 }
+										texture = "gfx/interface/graph/white.dds"
+										color = { 1 1 1 0.35 }
+									}
+									icon = {
+										position = { 0 80 }
+										size = { 100% 1 }
+										texture = "gfx/interface/graph/white.dds"
+										color = { 1 1 1 0.12 }
+									}
+									widget = {
+										position = { 0 0 }
+										size = { 9 100 }
+										tooltip = "SPEC_HIST_36_TT"
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 50
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist36').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 80
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist36').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.30 0.52 0.66 0.9 }
+											min = 0
+											max = 50
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist36').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 80 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 0
+											max = 20
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist36').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+									}
+									widget = {
+										position = { 10 0 }
+										size = { 9 100 }
+										tooltip = "SPEC_HIST_35_TT"
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 50
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist35').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 80
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist35').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.30 0.52 0.66 0.9 }
+											min = 0
+											max = 50
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist35').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 80 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 0
+											max = 20
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist35').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+									}
+									widget = {
+										position = { 20 0 }
+										size = { 9 100 }
+										tooltip = "SPEC_HIST_34_TT"
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 50
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist34').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 80
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist34').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.30 0.52 0.66 0.9 }
+											min = 0
+											max = 50
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist34').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 80 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 0
+											max = 20
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist34').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+									}
+									widget = {
+										position = { 30 0 }
+										size = { 9 100 }
+										tooltip = "SPEC_HIST_33_TT"
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 50
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist33').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 80
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist33').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.30 0.52 0.66 0.9 }
+											min = 0
+											max = 50
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist33').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 80 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 0
+											max = 20
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist33').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+									}
+									widget = {
+										position = { 40 0 }
+										size = { 9 100 }
+										tooltip = "SPEC_HIST_32_TT"
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 50
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist32').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 80
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist32').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.30 0.52 0.66 0.9 }
+											min = 0
+											max = 50
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist32').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 80 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 0
+											max = 20
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist32').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+									}
+									widget = {
+										position = { 50 0 }
+										size = { 9 100 }
+										tooltip = "SPEC_HIST_31_TT"
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 50
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist31').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 80
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist31').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.30 0.52 0.66 0.9 }
+											min = 0
+											max = 50
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist31').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 80 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 0
+											max = 20
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist31').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+									}
+									widget = {
+										position = { 60 0 }
+										size = { 9 100 }
+										tooltip = "SPEC_HIST_30_TT"
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 50
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist30').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 80
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist30').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.30 0.52 0.66 0.9 }
+											min = 0
+											max = 50
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist30').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 80 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 0
+											max = 20
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist30').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+									}
+									widget = {
+										position = { 70 0 }
+										size = { 9 100 }
+										tooltip = "SPEC_HIST_29_TT"
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 50
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist29').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 80
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist29').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.30 0.52 0.66 0.9 }
+											min = 0
+											max = 50
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist29').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 80 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 0
+											max = 20
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist29').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+									}
+									widget = {
+										position = { 80 0 }
+										size = { 9 100 }
+										tooltip = "SPEC_HIST_28_TT"
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 50
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist28').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 80
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist28').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.30 0.52 0.66 0.9 }
+											min = 0
+											max = 50
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist28').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 80 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 0
+											max = 20
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist28').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+									}
+									widget = {
+										position = { 90 0 }
+										size = { 9 100 }
+										tooltip = "SPEC_HIST_27_TT"
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 50
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist27').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 80
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist27').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.30 0.52 0.66 0.9 }
+											min = 0
+											max = 50
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist27').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 80 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 0
+											max = 20
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist27').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+									}
+									widget = {
+										position = { 100 0 }
+										size = { 9 100 }
+										tooltip = "SPEC_HIST_26_TT"
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 50
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist26').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 80
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist26').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.30 0.52 0.66 0.9 }
+											min = 0
+											max = 50
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist26').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 80 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 0
+											max = 20
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist26').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+									}
+									widget = {
+										position = { 110 0 }
+										size = { 9 100 }
+										tooltip = "SPEC_HIST_25_TT"
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 50
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist25').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 80
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist25').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.30 0.52 0.66 0.9 }
+											min = 0
+											max = 50
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist25').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 80 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 0
+											max = 20
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist25').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+									}
+									widget = {
+										position = { 120 0 }
+										size = { 9 100 }
+										tooltip = "SPEC_HIST_24_TT"
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 50
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist24').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 80
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist24').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.30 0.52 0.66 0.9 }
+											min = 0
+											max = 50
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist24').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 80 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 0
+											max = 20
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist24').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+									}
+									widget = {
+										position = { 130 0 }
+										size = { 9 100 }
+										tooltip = "SPEC_HIST_23_TT"
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 50
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist23').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 80
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist23').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.30 0.52 0.66 0.9 }
+											min = 0
+											max = 50
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist23').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 80 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 0
+											max = 20
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist23').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+									}
+									widget = {
+										position = { 140 0 }
+										size = { 9 100 }
+										tooltip = "SPEC_HIST_22_TT"
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 50
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist22').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 80
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist22').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.30 0.52 0.66 0.9 }
+											min = 0
+											max = 50
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist22').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 80 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 0
+											max = 20
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist22').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+									}
+									widget = {
+										position = { 150 0 }
+										size = { 9 100 }
+										tooltip = "SPEC_HIST_21_TT"
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 50
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist21').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 80
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist21').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.30 0.52 0.66 0.9 }
+											min = 0
+											max = 50
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist21').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 80 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 0
+											max = 20
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist21').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+									}
+									widget = {
+										position = { 160 0 }
+										size = { 9 100 }
+										tooltip = "SPEC_HIST_20_TT"
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 50
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist20').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 80
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist20').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.30 0.52 0.66 0.9 }
+											min = 0
+											max = 50
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist20').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 80 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 0
+											max = 20
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist20').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+									}
+									widget = {
+										position = { 170 0 }
+										size = { 9 100 }
+										tooltip = "SPEC_HIST_19_TT"
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 50
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist19').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 80
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist19').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.30 0.52 0.66 0.9 }
+											min = 0
+											max = 50
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist19').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 80 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 0
+											max = 20
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist19').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+									}
+									widget = {
+										position = { 180 0 }
+										size = { 9 100 }
+										tooltip = "SPEC_HIST_18_TT"
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 50
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist18').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 80
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist18').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.30 0.52 0.66 0.9 }
+											min = 0
+											max = 50
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist18').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 80 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 0
+											max = 20
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist18').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+									}
+									widget = {
+										position = { 190 0 }
+										size = { 9 100 }
+										tooltip = "SPEC_HIST_17_TT"
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 50
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist17').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 80
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist17').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.30 0.52 0.66 0.9 }
+											min = 0
+											max = 50
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist17').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 80 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 0
+											max = 20
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist17').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+									}
+									widget = {
+										position = { 200 0 }
+										size = { 9 100 }
+										tooltip = "SPEC_HIST_16_TT"
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 50
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist16').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 80
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist16').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.30 0.52 0.66 0.9 }
+											min = 0
+											max = 50
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist16').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 80 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 0
+											max = 20
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist16').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+									}
+									widget = {
+										position = { 210 0 }
+										size = { 9 100 }
+										tooltip = "SPEC_HIST_15_TT"
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 50
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist15').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 80
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist15').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.30 0.52 0.66 0.9 }
+											min = 0
+											max = 50
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist15').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 80 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 0
+											max = 20
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist15').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+									}
+									widget = {
+										position = { 220 0 }
+										size = { 9 100 }
+										tooltip = "SPEC_HIST_14_TT"
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 50
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist14').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 80
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist14').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.30 0.52 0.66 0.9 }
+											min = 0
+											max = 50
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist14').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 80 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 0
+											max = 20
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist14').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+									}
+									widget = {
+										position = { 230 0 }
+										size = { 9 100 }
+										tooltip = "SPEC_HIST_13_TT"
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 50
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist13').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 80
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist13').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.30 0.52 0.66 0.9 }
+											min = 0
+											max = 50
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist13').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 80 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 0
+											max = 20
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist13').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+									}
+									widget = {
+										position = { 240 0 }
+										size = { 9 100 }
+										tooltip = "SPEC_HIST_12_TT"
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 50
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist12').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 80
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist12').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.30 0.52 0.66 0.9 }
+											min = 0
+											max = 50
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist12').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 80 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 0
+											max = 20
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist12').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+									}
+									widget = {
+										position = { 250 0 }
+										size = { 9 100 }
+										tooltip = "SPEC_HIST_11_TT"
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 50
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist11').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 80
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist11').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.30 0.52 0.66 0.9 }
+											min = 0
+											max = 50
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist11').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 80 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 0
+											max = 20
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist11').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+									}
+									widget = {
+										position = { 260 0 }
+										size = { 9 100 }
+										tooltip = "SPEC_HIST_10_TT"
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 50
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist10').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 80
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist10').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.30 0.52 0.66 0.9 }
+											min = 0
+											max = 50
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist10').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 80 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 0
+											max = 20
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist10').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+									}
+									widget = {
+										position = { 270 0 }
+										size = { 9 100 }
+										tooltip = "SPEC_HIST_9_TT"
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 50
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist9').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 80
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist9').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.30 0.52 0.66 0.9 }
+											min = 0
+											max = 50
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist9').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 80 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 0
+											max = 20
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist9').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+									}
+									widget = {
+										position = { 280 0 }
+										size = { 9 100 }
+										tooltip = "SPEC_HIST_8_TT"
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 50
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist8').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 80
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist8').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.30 0.52 0.66 0.9 }
+											min = 0
+											max = 50
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist8').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 80 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 0
+											max = 20
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist8').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+									}
+									widget = {
+										position = { 290 0 }
+										size = { 9 100 }
+										tooltip = "SPEC_HIST_7_TT"
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 50
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist7').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 80
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist7').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.30 0.52 0.66 0.9 }
+											min = 0
+											max = 50
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist7').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 80 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 0
+											max = 20
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist7').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+									}
+									widget = {
+										position = { 300 0 }
+										size = { 9 100 }
+										tooltip = "SPEC_HIST_6_TT"
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 50
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist6').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 80
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist6').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.30 0.52 0.66 0.9 }
+											min = 0
+											max = 50
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist6').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 80 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 0
+											max = 20
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist6').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+									}
+									widget = {
+										position = { 310 0 }
+										size = { 9 100 }
+										tooltip = "SPEC_HIST_5_TT"
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 50
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist5').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 80
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist5').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.30 0.52 0.66 0.9 }
+											min = 0
+											max = 50
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist5').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 80 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 0
+											max = 20
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist5').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+									}
+									widget = {
+										position = { 320 0 }
+										size = { 9 100 }
+										tooltip = "SPEC_HIST_4_TT"
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 50
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist4').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 80
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist4').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.30 0.52 0.66 0.9 }
+											min = 0
+											max = 50
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist4').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 80 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 0
+											max = 20
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist4').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+									}
+									widget = {
+										position = { 330 0 }
+										size = { 9 100 }
+										tooltip = "SPEC_HIST_3_TT"
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 50
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist3').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 80
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist3').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.30 0.52 0.66 0.9 }
+											min = 0
+											max = 50
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist3').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 80 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 0
+											max = 20
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist3').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+									}
+									widget = {
+										position = { 340 0 }
+										size = { 9 100 }
+										tooltip = "SPEC_HIST_2_TT"
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 50
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist2').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 80
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist2').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.30 0.52 0.66 0.9 }
+											min = 0
+											max = 50
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist2').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 80 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 0
+											max = 20
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist2').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+									}
+									widget = {
+										position = { 350 0 }
+										size = { 9 100 }
+										tooltip = "SPEC_HIST_1_TT"
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 50
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist1').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 80
+											max = 100
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist1').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.30 0.52 0.66 0.9 }
+											min = 0
+											max = 50
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist1').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+										progressbar = {
+											position = { 0 80 }
+											size = { 100% 20 }
+											direction = vertical
+											progresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											noprogresstexture = "gfx/interface/graph/white.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 0
+											max = 20
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_hist1').GetValueWithDefault('(CFixedPoint)50'))]"
+										}
+									}
+								}
+							}
+							textbox = {
+								position = { 26 102 }
+								autoresize = yes
+								fontsize = 12
+								text = "SPEC_LHIST_OLDEST"
+							}
+							textbox = {
+								position = { 325 102 }
+								size = { 60 16 }
+								align = right|nobaseline
+								fontsize = 12
+								text = "SPEC_LHIST_NOW"
+							}
+						}
+					}
+					flowcontainer = {
+						direction = vertical
+						margin = { 10 0 }
+						margin_bottom = 8
+						background = {
+							using = paper_bg
+						}
+						textbox = {
+							parentanchor = hcenter
+							autoresize = yes
+							align = hcenter|nobaseline
+							margin_top = 10
+							margin_bottom = 10
+							default_format = "#title"
+							text = "SPEC_TOP_LEV_HIST"
+						}
+						widget = {
+							size = { 441 156 }
+							widget = {
+								size = { 441 138 }
+								textbox = {
+									visible = "[Not(EqualTo_CFixedPoint(Country.MakeScope.ScriptValue('spec_credit_limit'), '(CFixedPoint)0'))]"
+									position = { 0 130 }
+									size = { 20 16 }
+									align = right|nobaseline
+									fontsize = 12
+									raw_text = "#low 0#!"
+								}
+								textbox = {
+									visible = "[Not(EqualTo_CFixedPoint(Country.MakeScope.ScriptValue('spec_credit_limit'), '(CFixedPoint)3'))]"
+									position = { 0 100 }
+									size = { 20 16 }
+									align = right|nobaseline
+									fontsize = 12
+									raw_text = "#low 3#!"
+								}
+								textbox = {
+									visible = "[Not(EqualTo_CFixedPoint(Country.MakeScope.ScriptValue('spec_credit_limit'), '(CFixedPoint)8'))]"
+									position = { 0 50 }
+									size = { 20 16 }
+									align = right|nobaseline
+									fontsize = 12
+									raw_text = "#low 8#!"
+								}
+								textbox = {
+									visible = "[Not(EqualTo_CFixedPoint(Country.MakeScope.ScriptValue('spec_credit_limit'), '(CFixedPoint)12'))]"
+									position = { 0 10 }
+									size = { 20 16 }
+									align = right|nobaseline
+									fontsize = 12
+									raw_text = "#low 12#!"
+								}
+								textbox = {
+									visible = "[EqualTo_CFixedPoint(Country.MakeScope.ScriptValue('spec_credit_limit'), '(CFixedPoint)3')]"
+									position = { 0 100 }
+									size = { 20 16 }
+									align = right|nobaseline
+									fontsize = 12
+									color = { 1 1 1 1 }
+									raw_text = "3"
+									tooltip = "SPEC_LEV_LIMIT"
+								}
+								textbox = {
+									visible = "[EqualTo_CFixedPoint(Country.MakeScope.ScriptValue('spec_credit_limit'), '(CFixedPoint)4')]"
+									position = { 0 90 }
+									size = { 20 16 }
+									align = right|nobaseline
+									fontsize = 12
+									color = { 1 1 1 1 }
+									raw_text = "4"
+									tooltip = "SPEC_LEV_LIMIT"
+								}
+								textbox = {
+									visible = "[EqualTo_CFixedPoint(Country.MakeScope.ScriptValue('spec_credit_limit'), '(CFixedPoint)5')]"
+									position = { 0 80 }
+									size = { 20 16 }
+									align = right|nobaseline
+									fontsize = 12
+									color = { 1 1 1 1 }
+									raw_text = "5"
+									tooltip = "SPEC_LEV_LIMIT"
+								}
+								textbox = {
+									visible = "[EqualTo_CFixedPoint(Country.MakeScope.ScriptValue('spec_credit_limit'), '(CFixedPoint)6')]"
+									position = { 0 70 }
+									size = { 20 16 }
+									align = right|nobaseline
+									fontsize = 12
+									color = { 1 1 1 1 }
+									raw_text = "6"
+									tooltip = "SPEC_LEV_LIMIT"
+								}
+								textbox = {
+									visible = "[EqualTo_CFixedPoint(Country.MakeScope.ScriptValue('spec_credit_limit'), '(CFixedPoint)7')]"
+									position = { 0 60 }
+									size = { 20 16 }
+									align = right|nobaseline
+									fontsize = 12
+									color = { 1 1 1 1 }
+									raw_text = "7"
+									tooltip = "SPEC_LEV_LIMIT"
+								}
+								textbox = {
+									visible = "[EqualTo_CFixedPoint(Country.MakeScope.ScriptValue('spec_credit_limit'), '(CFixedPoint)8')]"
+									position = { 0 50 }
+									size = { 20 16 }
+									align = right|nobaseline
+									fontsize = 12
+									color = { 1 1 1 1 }
+									raw_text = "8"
+									tooltip = "SPEC_LEV_LIMIT"
+								}
+								textbox = {
+									visible = "[EqualTo_CFixedPoint(Country.MakeScope.ScriptValue('spec_credit_limit'), '(CFixedPoint)9')]"
+									position = { 0 40 }
+									size = { 20 16 }
+									align = right|nobaseline
+									fontsize = 12
+									color = { 1 1 1 1 }
+									raw_text = "9"
+									tooltip = "SPEC_LEV_LIMIT"
+								}
+								textbox = {
+									visible = "[EqualTo_CFixedPoint(Country.MakeScope.ScriptValue('spec_credit_limit'), '(CFixedPoint)10')]"
+									position = { 0 30 }
+									size = { 20 16 }
+									align = right|nobaseline
+									fontsize = 12
+									color = { 1 1 1 1 }
+									raw_text = "10"
+									tooltip = "SPEC_LEV_LIMIT"
+								}
+								textbox = {
+									visible = "[EqualTo_CFixedPoint(Country.MakeScope.ScriptValue('spec_credit_limit'), '(CFixedPoint)11')]"
+									position = { 0 20 }
+									size = { 20 16 }
+									align = right|nobaseline
+									fontsize = 12
+									color = { 1 1 1 1 }
+									raw_text = "11"
+									tooltip = "SPEC_LEV_LIMIT"
+								}
+								textbox = {
+									visible = "[EqualTo_CFixedPoint(Country.MakeScope.ScriptValue('spec_credit_limit'), '(CFixedPoint)12')]"
+									position = { 0 10 }
+									size = { 20 16 }
+									align = right|nobaseline
+									fontsize = 12
+									color = { 1 1 1 1 }
+									raw_text = "12"
+									tooltip = "SPEC_LEV_LIMIT"
+								}
+								textbox = {
+									position = { 389 100 }
+									size = { 52 16 }
+									align = left|nobaseline
+									fontsize = 12
+									text = "SPEC_LHIST_PANIC_3"
+									tooltip = "SPEC_LHIST_PANIC_3_TT"
+								}
+								textbox = {
+									position = { 389 50 }
+									size = { 52 16 }
+									align = left|nobaseline
+									fontsize = 12
+									text = "SPEC_LHIST_PANIC_8"
+									tooltip = "SPEC_LHIST_PANIC_8_TT"
+								}
+								textbox = {
+									position = { 389 10 }
+									size = { 52 16 }
+									align = left|nobaseline
+									fontsize = 12
+									text = "SPEC_LHIST_PANIC_12"
+									tooltip = "SPEC_LHIST_PANIC_12_TT"
+								}
+								widget = {
+									position = { 26 8 }
+									size = { 359 130 }
+									icon = {
+										position = { 0 100 }
+										size = { 100% 1 }
+										texture = "gfx/interface/graph/white.dds"
+										color = { 1 1 1 0.15 }
+									}
+									icon = {
+										position = { 0 50 }
+										size = { 100% 1 }
+										texture = "gfx/interface/graph/white.dds"
+										color = { 1 1 1 0.15 }
+									}
+									icon = {
+										position = { 0 10 }
+										size = { 100% 1 }
+										texture = "gfx/interface/graph/white.dds"
+										color = { 1 1 1 0.15 }
+									}
+									icon = {
+										visible = "[EqualTo_CFixedPoint(Country.MakeScope.ScriptValue('spec_credit_limit'), '(CFixedPoint)3')]"
+										position = { 0 100 }
+										size = { 100% 2 }
+										texture = "gfx/interface/graph/white.dds"
+										color = { 1 1 1 0.9 }
+										tooltip = "SPEC_LEV_LIMIT"
+									}
+									icon = {
+										visible = "[EqualTo_CFixedPoint(Country.MakeScope.ScriptValue('spec_credit_limit'), '(CFixedPoint)4')]"
+										position = { 0 90 }
+										size = { 100% 2 }
+										texture = "gfx/interface/graph/white.dds"
+										color = { 1 1 1 0.9 }
+										tooltip = "SPEC_LEV_LIMIT"
+									}
+									icon = {
+										visible = "[EqualTo_CFixedPoint(Country.MakeScope.ScriptValue('spec_credit_limit'), '(CFixedPoint)5')]"
+										position = { 0 80 }
+										size = { 100% 2 }
+										texture = "gfx/interface/graph/white.dds"
+										color = { 1 1 1 0.9 }
+										tooltip = "SPEC_LEV_LIMIT"
+									}
+									icon = {
+										visible = "[EqualTo_CFixedPoint(Country.MakeScope.ScriptValue('spec_credit_limit'), '(CFixedPoint)6')]"
+										position = { 0 70 }
+										size = { 100% 2 }
+										texture = "gfx/interface/graph/white.dds"
+										color = { 1 1 1 0.9 }
+										tooltip = "SPEC_LEV_LIMIT"
+									}
+									icon = {
+										visible = "[EqualTo_CFixedPoint(Country.MakeScope.ScriptValue('spec_credit_limit'), '(CFixedPoint)7')]"
+										position = { 0 60 }
+										size = { 100% 2 }
+										texture = "gfx/interface/graph/white.dds"
+										color = { 1 1 1 0.9 }
+										tooltip = "SPEC_LEV_LIMIT"
+									}
+									icon = {
+										visible = "[EqualTo_CFixedPoint(Country.MakeScope.ScriptValue('spec_credit_limit'), '(CFixedPoint)8')]"
+										position = { 0 50 }
+										size = { 100% 2 }
+										texture = "gfx/interface/graph/white.dds"
+										color = { 1 1 1 0.9 }
+										tooltip = "SPEC_LEV_LIMIT"
+									}
+									icon = {
+										visible = "[EqualTo_CFixedPoint(Country.MakeScope.ScriptValue('spec_credit_limit'), '(CFixedPoint)9')]"
+										position = { 0 40 }
+										size = { 100% 2 }
+										texture = "gfx/interface/graph/white.dds"
+										color = { 1 1 1 0.9 }
+										tooltip = "SPEC_LEV_LIMIT"
+									}
+									icon = {
+										visible = "[EqualTo_CFixedPoint(Country.MakeScope.ScriptValue('spec_credit_limit'), '(CFixedPoint)10')]"
+										position = { 0 30 }
+										size = { 100% 2 }
+										texture = "gfx/interface/graph/white.dds"
+										color = { 1 1 1 0.9 }
+										tooltip = "SPEC_LEV_LIMIT"
+									}
+									icon = {
+										visible = "[EqualTo_CFixedPoint(Country.MakeScope.ScriptValue('spec_credit_limit'), '(CFixedPoint)11')]"
+										position = { 0 20 }
+										size = { 100% 2 }
+										texture = "gfx/interface/graph/white.dds"
+										color = { 1 1 1 0.9 }
+										tooltip = "SPEC_LEV_LIMIT"
+									}
+									icon = {
+										visible = "[EqualTo_CFixedPoint(Country.MakeScope.ScriptValue('spec_credit_limit'), '(CFixedPoint)12')]"
+										position = { 0 10 }
+										size = { 100% 2 }
+										texture = "gfx/interface/graph/white.dds"
+										color = { 1 1 1 0.9 }
+										tooltip = "SPEC_LEV_LIMIT"
+									}
+									widget = {
+										position = { 0 0 }
+										size = { 9 130 }
+										tooltip = "SPEC_LHIST_36_TT"
+										progressbar = {
+											position = { 0 100 }
+											size = { 100% 30 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.24 0.58 0.32 0.9 }
+											min = 0
+											max = 3
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist36').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 3
+											max = 8
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist36').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 8
+											max = 13
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist36').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+									}
+									widget = {
+										position = { 10 0 }
+										size = { 9 130 }
+										tooltip = "SPEC_LHIST_35_TT"
+										progressbar = {
+											position = { 0 100 }
+											size = { 100% 30 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.24 0.58 0.32 0.9 }
+											min = 0
+											max = 3
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist35').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 3
+											max = 8
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist35').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 8
+											max = 13
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist35').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+									}
+									widget = {
+										position = { 20 0 }
+										size = { 9 130 }
+										tooltip = "SPEC_LHIST_34_TT"
+										progressbar = {
+											position = { 0 100 }
+											size = { 100% 30 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.24 0.58 0.32 0.9 }
+											min = 0
+											max = 3
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist34').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 3
+											max = 8
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist34').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 8
+											max = 13
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist34').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+									}
+									widget = {
+										position = { 30 0 }
+										size = { 9 130 }
+										tooltip = "SPEC_LHIST_33_TT"
+										progressbar = {
+											position = { 0 100 }
+											size = { 100% 30 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.24 0.58 0.32 0.9 }
+											min = 0
+											max = 3
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist33').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 3
+											max = 8
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist33').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 8
+											max = 13
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist33').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+									}
+									widget = {
+										position = { 40 0 }
+										size = { 9 130 }
+										tooltip = "SPEC_LHIST_32_TT"
+										progressbar = {
+											position = { 0 100 }
+											size = { 100% 30 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.24 0.58 0.32 0.9 }
+											min = 0
+											max = 3
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist32').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 3
+											max = 8
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist32').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 8
+											max = 13
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist32').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+									}
+									widget = {
+										position = { 50 0 }
+										size = { 9 130 }
+										tooltip = "SPEC_LHIST_31_TT"
+										progressbar = {
+											position = { 0 100 }
+											size = { 100% 30 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.24 0.58 0.32 0.9 }
+											min = 0
+											max = 3
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist31').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 3
+											max = 8
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist31').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 8
+											max = 13
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist31').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+									}
+									widget = {
+										position = { 60 0 }
+										size = { 9 130 }
+										tooltip = "SPEC_LHIST_30_TT"
+										progressbar = {
+											position = { 0 100 }
+											size = { 100% 30 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.24 0.58 0.32 0.9 }
+											min = 0
+											max = 3
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist30').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 3
+											max = 8
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist30').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 8
+											max = 13
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist30').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+									}
+									widget = {
+										position = { 70 0 }
+										size = { 9 130 }
+										tooltip = "SPEC_LHIST_29_TT"
+										progressbar = {
+											position = { 0 100 }
+											size = { 100% 30 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.24 0.58 0.32 0.9 }
+											min = 0
+											max = 3
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist29').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 3
+											max = 8
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist29').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 8
+											max = 13
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist29').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+									}
+									widget = {
+										position = { 80 0 }
+										size = { 9 130 }
+										tooltip = "SPEC_LHIST_28_TT"
+										progressbar = {
+											position = { 0 100 }
+											size = { 100% 30 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.24 0.58 0.32 0.9 }
+											min = 0
+											max = 3
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist28').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 3
+											max = 8
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist28').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 8
+											max = 13
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist28').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+									}
+									widget = {
+										position = { 90 0 }
+										size = { 9 130 }
+										tooltip = "SPEC_LHIST_27_TT"
+										progressbar = {
+											position = { 0 100 }
+											size = { 100% 30 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.24 0.58 0.32 0.9 }
+											min = 0
+											max = 3
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist27').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 3
+											max = 8
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist27').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 8
+											max = 13
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist27').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+									}
+									widget = {
+										position = { 100 0 }
+										size = { 9 130 }
+										tooltip = "SPEC_LHIST_26_TT"
+										progressbar = {
+											position = { 0 100 }
+											size = { 100% 30 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.24 0.58 0.32 0.9 }
+											min = 0
+											max = 3
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist26').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 3
+											max = 8
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist26').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 8
+											max = 13
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist26').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+									}
+									widget = {
+										position = { 110 0 }
+										size = { 9 130 }
+										tooltip = "SPEC_LHIST_25_TT"
+										progressbar = {
+											position = { 0 100 }
+											size = { 100% 30 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.24 0.58 0.32 0.9 }
+											min = 0
+											max = 3
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist25').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 3
+											max = 8
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist25').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 8
+											max = 13
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist25').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+									}
+									widget = {
+										position = { 120 0 }
+										size = { 9 130 }
+										tooltip = "SPEC_LHIST_24_TT"
+										progressbar = {
+											position = { 0 100 }
+											size = { 100% 30 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.24 0.58 0.32 0.9 }
+											min = 0
+											max = 3
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist24').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 3
+											max = 8
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist24').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 8
+											max = 13
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist24').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+									}
+									widget = {
+										position = { 130 0 }
+										size = { 9 130 }
+										tooltip = "SPEC_LHIST_23_TT"
+										progressbar = {
+											position = { 0 100 }
+											size = { 100% 30 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.24 0.58 0.32 0.9 }
+											min = 0
+											max = 3
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist23').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 3
+											max = 8
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist23').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 8
+											max = 13
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist23').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+									}
+									widget = {
+										position = { 140 0 }
+										size = { 9 130 }
+										tooltip = "SPEC_LHIST_22_TT"
+										progressbar = {
+											position = { 0 100 }
+											size = { 100% 30 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.24 0.58 0.32 0.9 }
+											min = 0
+											max = 3
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist22').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 3
+											max = 8
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist22').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 8
+											max = 13
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist22').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+									}
+									widget = {
+										position = { 150 0 }
+										size = { 9 130 }
+										tooltip = "SPEC_LHIST_21_TT"
+										progressbar = {
+											position = { 0 100 }
+											size = { 100% 30 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.24 0.58 0.32 0.9 }
+											min = 0
+											max = 3
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist21').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 3
+											max = 8
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist21').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 8
+											max = 13
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist21').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+									}
+									widget = {
+										position = { 160 0 }
+										size = { 9 130 }
+										tooltip = "SPEC_LHIST_20_TT"
+										progressbar = {
+											position = { 0 100 }
+											size = { 100% 30 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.24 0.58 0.32 0.9 }
+											min = 0
+											max = 3
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist20').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 3
+											max = 8
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist20').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 8
+											max = 13
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist20').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+									}
+									widget = {
+										position = { 170 0 }
+										size = { 9 130 }
+										tooltip = "SPEC_LHIST_19_TT"
+										progressbar = {
+											position = { 0 100 }
+											size = { 100% 30 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.24 0.58 0.32 0.9 }
+											min = 0
+											max = 3
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist19').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 3
+											max = 8
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist19').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 8
+											max = 13
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist19').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+									}
+									widget = {
+										position = { 180 0 }
+										size = { 9 130 }
+										tooltip = "SPEC_LHIST_18_TT"
+										progressbar = {
+											position = { 0 100 }
+											size = { 100% 30 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.24 0.58 0.32 0.9 }
+											min = 0
+											max = 3
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist18').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 3
+											max = 8
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist18').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 8
+											max = 13
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist18').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+									}
+									widget = {
+										position = { 190 0 }
+										size = { 9 130 }
+										tooltip = "SPEC_LHIST_17_TT"
+										progressbar = {
+											position = { 0 100 }
+											size = { 100% 30 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.24 0.58 0.32 0.9 }
+											min = 0
+											max = 3
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist17').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 3
+											max = 8
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist17').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 8
+											max = 13
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist17').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+									}
+									widget = {
+										position = { 200 0 }
+										size = { 9 130 }
+										tooltip = "SPEC_LHIST_16_TT"
+										progressbar = {
+											position = { 0 100 }
+											size = { 100% 30 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.24 0.58 0.32 0.9 }
+											min = 0
+											max = 3
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist16').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 3
+											max = 8
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist16').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 8
+											max = 13
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist16').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+									}
+									widget = {
+										position = { 210 0 }
+										size = { 9 130 }
+										tooltip = "SPEC_LHIST_15_TT"
+										progressbar = {
+											position = { 0 100 }
+											size = { 100% 30 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.24 0.58 0.32 0.9 }
+											min = 0
+											max = 3
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist15').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 3
+											max = 8
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist15').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 8
+											max = 13
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist15').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+									}
+									widget = {
+										position = { 220 0 }
+										size = { 9 130 }
+										tooltip = "SPEC_LHIST_14_TT"
+										progressbar = {
+											position = { 0 100 }
+											size = { 100% 30 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.24 0.58 0.32 0.9 }
+											min = 0
+											max = 3
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist14').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 3
+											max = 8
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist14').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 8
+											max = 13
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist14').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+									}
+									widget = {
+										position = { 230 0 }
+										size = { 9 130 }
+										tooltip = "SPEC_LHIST_13_TT"
+										progressbar = {
+											position = { 0 100 }
+											size = { 100% 30 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.24 0.58 0.32 0.9 }
+											min = 0
+											max = 3
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist13').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 3
+											max = 8
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist13').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 8
+											max = 13
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist13').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+									}
+									widget = {
+										position = { 240 0 }
+										size = { 9 130 }
+										tooltip = "SPEC_LHIST_12_TT"
+										progressbar = {
+											position = { 0 100 }
+											size = { 100% 30 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.24 0.58 0.32 0.9 }
+											min = 0
+											max = 3
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist12').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 3
+											max = 8
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist12').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 8
+											max = 13
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist12').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+									}
+									widget = {
+										position = { 250 0 }
+										size = { 9 130 }
+										tooltip = "SPEC_LHIST_11_TT"
+										progressbar = {
+											position = { 0 100 }
+											size = { 100% 30 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.24 0.58 0.32 0.9 }
+											min = 0
+											max = 3
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist11').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 3
+											max = 8
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist11').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 8
+											max = 13
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist11').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+									}
+									widget = {
+										position = { 260 0 }
+										size = { 9 130 }
+										tooltip = "SPEC_LHIST_10_TT"
+										progressbar = {
+											position = { 0 100 }
+											size = { 100% 30 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.24 0.58 0.32 0.9 }
+											min = 0
+											max = 3
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist10').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 3
+											max = 8
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist10').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 8
+											max = 13
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist10').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+									}
+									widget = {
+										position = { 270 0 }
+										size = { 9 130 }
+										tooltip = "SPEC_LHIST_9_TT"
+										progressbar = {
+											position = { 0 100 }
+											size = { 100% 30 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.24 0.58 0.32 0.9 }
+											min = 0
+											max = 3
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist9').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 3
+											max = 8
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist9').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 8
+											max = 13
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist9').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+									}
+									widget = {
+										position = { 280 0 }
+										size = { 9 130 }
+										tooltip = "SPEC_LHIST_8_TT"
+										progressbar = {
+											position = { 0 100 }
+											size = { 100% 30 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.24 0.58 0.32 0.9 }
+											min = 0
+											max = 3
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist8').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 3
+											max = 8
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist8').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 8
+											max = 13
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist8').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+									}
+									widget = {
+										position = { 290 0 }
+										size = { 9 130 }
+										tooltip = "SPEC_LHIST_7_TT"
+										progressbar = {
+											position = { 0 100 }
+											size = { 100% 30 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.24 0.58 0.32 0.9 }
+											min = 0
+											max = 3
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist7').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 3
+											max = 8
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist7').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 8
+											max = 13
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist7').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+									}
+									widget = {
+										position = { 300 0 }
+										size = { 9 130 }
+										tooltip = "SPEC_LHIST_6_TT"
+										progressbar = {
+											position = { 0 100 }
+											size = { 100% 30 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.24 0.58 0.32 0.9 }
+											min = 0
+											max = 3
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist6').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 3
+											max = 8
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist6').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 8
+											max = 13
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist6').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+									}
+									widget = {
+										position = { 310 0 }
+										size = { 9 130 }
+										tooltip = "SPEC_LHIST_5_TT"
+										progressbar = {
+											position = { 0 100 }
+											size = { 100% 30 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.24 0.58 0.32 0.9 }
+											min = 0
+											max = 3
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist5').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 3
+											max = 8
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist5').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 8
+											max = 13
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist5').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+									}
+									widget = {
+										position = { 320 0 }
+										size = { 9 130 }
+										tooltip = "SPEC_LHIST_4_TT"
+										progressbar = {
+											position = { 0 100 }
+											size = { 100% 30 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.24 0.58 0.32 0.9 }
+											min = 0
+											max = 3
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist4').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 3
+											max = 8
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist4').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 8
+											max = 13
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist4').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+									}
+									widget = {
+										position = { 330 0 }
+										size = { 9 130 }
+										tooltip = "SPEC_LHIST_3_TT"
+										progressbar = {
+											position = { 0 100 }
+											size = { 100% 30 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.24 0.58 0.32 0.9 }
+											min = 0
+											max = 3
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist3').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 3
+											max = 8
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist3').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 8
+											max = 13
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist3').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+									}
+									widget = {
+										position = { 340 0 }
+										size = { 9 130 }
+										tooltip = "SPEC_LHIST_2_TT"
+										progressbar = {
+											position = { 0 100 }
+											size = { 100% 30 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.24 0.58 0.32 0.9 }
+											min = 0
+											max = 3
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist2').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 3
+											max = 8
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist2').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 8
+											max = 13
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist2').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+									}
+									widget = {
+										position = { 350 0 }
+										size = { 9 130 }
+										tooltip = "SPEC_LHIST_1_TT"
+										progressbar = {
+											position = { 0 100 }
+											size = { 100% 30 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.24 0.58 0.32 0.9 }
+											min = 0
+											max = 3
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist1').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 50 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.80 0.62 0.28 0.9 }
+											min = 3
+											max = 8
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist1').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+										progressbar = {
+											position = { 0 0 }
+											size = { 100% 50 }
+											direction = vertical
+											progresstexture = "gfx/interface/graph/white.dds"
+											noprogresstexture = "gfx/interface/icons/generic_icons/transparent.dds"
+											color = { 0.74 0.24 0.20 0.9 }
+											min = 8
+											max = 13
+											value = "[FixedPointToFloat(Country.MakeScope.Var('spec_lhist1').GetValueWithDefault('(CFixedPoint)0'))]"
+										}
+									}
+								}
+							}
+							textbox = {
+								position = { 26 140 }
+								autoresize = yes
+								fontsize = 12
+								text = "SPEC_LHIST_OLDEST"
+							}
+							textbox = {
+								position = { 325 140 }
+								size = { 60 16 }
+								align = right|nobaseline
+								fontsize = 12
+								text = "SPEC_LHIST_NOW"
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	using = tooltip_below
+	enabled = "[GetMetaPlayer.GetPlayedOrObservedCountry.IsValid]"
+
+	flowcontainer = {
+		parentanchor = vcenter
+		spacing = 2
+		widget = {
+			size = { 22 22 }  # not @secondary_icon_size: the template sits above its definition
+			parentanchor = vcenter
+			icon = {
+				size = { 25 25 }
+				parentanchor = center
+				visible = "[Country.MakeScope.Var('spec_panic').IsSet]"
+				texture = "gfx/interface/icons/spec_markets/state_panic.dds"
+			}
+			icon = {
+				size = { 25 25 }
+				parentanchor = center
+				visible = "[And(Not(Country.MakeScope.Var('spec_panic').IsSet), LessThan_CFixedPoint(Country.MakeScope.Var('spec_conf_shown').GetValueWithDefault(Country.MakeScope.Var('spec_conf').GetValueWithDefault('(CFixedPoint)55')), '(CFixedPoint)40'))]"
+				texture = "gfx/interface/icons/spec_markets/state_wary.dds"
+			}
+			icon = {
+				size = { 25 25 }
+				parentanchor = center
+				visible = "[And(Not(Country.MakeScope.Var('spec_panic').IsSet), And(GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var('spec_conf_shown').GetValueWithDefault(Country.MakeScope.Var('spec_conf').GetValueWithDefault('(CFixedPoint)55')), '(CFixedPoint)40'), LessThan_CFixedPoint(Country.MakeScope.Var('spec_conf_shown').GetValueWithDefault(Country.MakeScope.Var('spec_conf').GetValueWithDefault('(CFixedPoint)55')), '(CFixedPoint)60')))]"
+				texture = "gfx/interface/icons/spec_markets/state_steady.dds"
+			}
+			icon = {
+				size = { 25 25 }
+				parentanchor = center
+				visible = "[And(Not(Country.MakeScope.Var('spec_panic').IsSet), And(GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var('spec_conf_shown').GetValueWithDefault(Country.MakeScope.Var('spec_conf').GetValueWithDefault('(CFixedPoint)55')), '(CFixedPoint)60'), LessThan_CFixedPoint(Country.MakeScope.Var('spec_conf_shown').GetValueWithDefault(Country.MakeScope.Var('spec_conf').GetValueWithDefault('(CFixedPoint)55')), '(CFixedPoint)80')))]"
+				texture = "gfx/interface/icons/spec_markets/state_buoyant.dds"
+			}
+			icon = {
+				size = { 25 25 }
+				parentanchor = center
+				visible = "[And(Not(Country.MakeScope.Var('spec_panic').IsSet), GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var('spec_conf_shown').GetValueWithDefault(Country.MakeScope.Var('spec_conf').GetValueWithDefault('(CFixedPoint)55')), '(CFixedPoint)80'))]"
+				texture = "gfx/interface/icons/spec_markets/state_mania.dds"
+			}
+		}
+		textbox = {
+			parentanchor = vcenter
+			visible = "[And(GreaterThan_CFixedPoint(Country.MakeScope.ScriptValue('spec_law_mult'), '(CFixedPoint)0'), Not(LessThan_CFixedPoint(Country.MakeScope.Var('spec_conf').GetValueWithDefault('(CFixedPoint)-1'), '(CFixedPoint)0')))]"
+			raw_text = "#variable [Country.MakeScope.Var('spec_conf_shown').GetValueWithDefault(Country.MakeScope.Var('spec_conf').GetValueWithDefault('(CFixedPoint)55'))|0]#!"
+			autoresize = yes
+			align = left|nobaseline
+			fontsize_min = 12
+		}
+	}
+}
+
+template hud_elements_alpha {
+	alpha = 1
+}
+
+# Note: We are using a slightly modified version of this in outliner_framework:11, update that one as well if this one gets changed
+template hud_visibility {
+	visible = "[And( IsInGame, And( Not( IsPauseMenuShown ), Not( IsGameOverScreenShown )))]"
+}
+
+@secondary_icon_size = 22
+
+types topbar_components
+{
+	### SECONDARY ICONS
+	type topbar_secondary_icons = container {
+		position = { 120 0 }
+
+		flowcontainer = {
+			visible = "[GetMetaPlayer.GetPlayedOrObservedCountry.IsValid]"
+			block "animation" {
+				position = { 0 0 }
+				alpha = 0
+
+				state = {
+					name = show_topbar_secondary_stats
+					alpha = 1
+					position_y = 44
+					duration = 0.15
+					using = Animation_Curve_Default
+				}
+				state = {
+					name = hide_topbar_secondary_stats
+					alpha = 0
+					position_y = 0
+					duration = 0.15
+					using = Animation_Curve_Default
+				}
+			}
+
+			background = {
+				using = dark_area_rounded
+				margin = { 0 -5 }
+				margin_left = 5
+				margin_right = 20
+			}
+
+			flowcontainer = {
+				name = "tutorial_highlight_gdp"
+				minimumsize = { 76 30 }
+				maximumsize = { 76 30 }
+				spacing = 2
+				using = GDP_tooltip_with_graph
+				using = tooltip_below
+
+				onmousehierarchyenter = "[SetTempMapModeByKey('mm_gdp')]"
+				onmousehierarchyleave = "[RemoveTempMapMode]"
+				alwaystransparent = no
+
+				icon = {
+					texture = "gfx/interface/icons/generic_icons/gdp.dds"
+					size = { @secondary_icon_size @secondary_icon_size }
+					parentanchor = vcenter
+				}
+				textbox = {
+					parentanchor = vcenter
+					raw_text = "#variable [Country.GetGDP|1*]#!"
+					autoresize = yes
+					align = left|nobaseline
+					elide = right
+					fontsize_min = 12
+				}
+			}
+			### MARKET CONFIDENCE (Speculative Markets)
+			widget = {
+				size = { 52 30 }
+				button = {
+					using = spec_topbar_confidence
+					visible = "[GetPlayer.MakeScope.Var('spec_je').GetJournalEntry.IsValid]"
+					datacontext = "[GetPlayer.MakeScope.Var('spec_je').GetJournalEntry]"
+					onclick = "[InformationPanelBar.ClosePanel]"
+					onclick = "[GetVariableSystem.Clear('spec_pick_slot')]"
+					onclick = "[GetVariableSystem.Set('spec_finance_tab', 'booms')]"
+					onclick = "[GetVariableSystem.Clear('spec_finance_next')]"
+					onclick = "[GetVariableSystem.Set('spec_finance', 'journal_map')]"
+					onclick = "[InformationPanelBar.OpenJournalEntryPanel(JournalEntry.AccessSelf)]"
+				}
+				button = {
+					using = spec_topbar_confidence
+					visible = "[Not(GetPlayer.MakeScope.Var('spec_je').GetJournalEntry.IsValid)]"
+					onclick = "[InformationPanelBar.ClosePanel]"
+					onclick = "[GetVariableSystem.Clear('spec_pick_slot')]"
+					onclick = "[GetVariableSystem.Set('spec_finance_tab', 'booms')]"
+					onclick = "[GetVariableSystem.Clear('spec_finance_next')]"
+					onclick = "[GetVariableSystem.Set('spec_finance', 'open')]"
+				}
+			}
+
+			flowcontainer = {
+				minimumsize = { 74 30 }
+				maximumsize = { 74 30 }
+				spacing = 2
+				using = literacy_tooltip_with_graph
+				using = tooltip_below
+				onmousehierarchyenter = "[SetTempMapModeByKey('mm_literacy')]"
+				onmousehierarchyleave = "[RemoveTempMapMode]"
+				alwaystransparent = no
+
+				icon = {
+					texture = "gfx/interface/icons/generic_icons/literacy.dds"
+					size = { @secondary_icon_size @secondary_icon_size }
+					parentanchor = vcenter
+				}
+				textbox = {
+					parentanchor = vcenter
+					raw_text = "#variable [Country.GetIncorporatedLiteracyRate|%1]#!"
+					autoresize = yes
+					align = left|nobaseline
+					elide = right
+					fontsize_min = 12
+				}
+			}
+			flowcontainer = {
+				minimumsize = { 58 30 }
+				maximumsize = { 58 30 }
+				spacing = 2
+				using = average_standard_of_living_tooltip_with_graph
+				using = tooltip_below
+				onmousehierarchyenter = "[SetTempMapModeByKey('mm_standard_of_living')]"
+				onmousehierarchyleave = "[RemoveTempMapMode]"
+				alwaystransparent = no
+
+				textbox = {
+					parentanchor = vcenter
+					text = "[LabelingHelper.GetIconForStandardOfLivingCFixedPoint(Country.GetAverageSoLByPopulation)|v]"
+					autoresize = yes
+					align = left|nobaseline
+					fontsize = 18 #hack to get the same size on the text icon as the rest in the top bar
+				}
+
+				textbox = {
+					parentanchor = vcenter
+					text = "[Country.GetFormattedStandardOfLivingAll|v]"
+					autoresize = yes
+					align = left|nobaseline
+					elide = right
+					fontsize_min = 12
+					margin_right = 3
+				}
+			}
+			flowcontainer = {
+				minimumsize = { 74 30 }
+				maximumsize = { 74 30 }
+				spacing = 2
+				using = population_tooltip_with_graph
+				using = tooltip_below
+				onmousehierarchyenter = "[SetTempMapModeByKey('mm_population')]"
+				onmousehierarchyleave = "[RemoveTempMapMode]"
+				alwaystransparent = no
+
+				icon = {
+					texture = "gfx/interface/icons/generic_icons/population.dds"
+					size = { @secondary_icon_size @secondary_icon_size }
+					parentanchor = vcenter
+				}
+				textbox = {
+					parentanchor = vcenter
+					raw_text = "#variable [Country.GetTotalPopulation|D]#!"
+					autoresize = yes
+					align = left|nobaseline
+					elide = right
+					fontsize_min = 12
+					margin_right = 3
+				}
+			}
+			flowcontainer = {
+				minimumsize = { 73 30 }
+				maximumsize = { 73 30 }
+				spacing = 2
+				using = radicals_tooltip_with_graph
+				using = tooltip_below
+				onmousehierarchyenter = "[SetTempMapModeByKey('mm_radicals')]"
+				onmousehierarchyleave = "[RemoveTempMapMode]"
+				alpha = "[TransparentIfZero_int64(Country.GetNumRadicals)]"
+				alwaystransparent = no
+
+				icon = {
+					texture = "gfx/interface/icons/generic_icons/population_radical.dds"
+					size = { @secondary_icon_size @secondary_icon_size }
+					parentanchor = vcenter
+				}
+				textbox = {
+					parentanchor = vcenter
+					raw_text = "#variable [Country.GetNumRadicals|D]#!"
+					autoresize = yes
+					align = left|nobaseline
+					elide = right
+					fontsize_min = 12
+				}
+			}
+			flowcontainer = {
+				minimumsize = { 73 30 }
+				maximumsize = { 73 30 }
+				spacing = 2
+				using = loyalists_tooltip_with_graph
+				using = tooltip_below
+				onmousehierarchyenter = "[SetTempMapModeByKey('mm_loyalists')]"
+				onmousehierarchyleave = "[RemoveTempMapMode]"
+				alpha = "[TransparentIfZero_int64(Country.GetNumLoyalists)]"
+				alwaystransparent = no
+
+				icon = {
+					texture = "gfx/interface/icons/generic_icons/population_loyalist.dds"
+					size = { @secondary_icon_size @secondary_icon_size }
+					parentanchor = vcenter
+				}
+				textbox = {
+					parentanchor = vcenter
+					raw_text = "#variable [Country.GetNumLoyalists|D]#!"
+					autoresize = yes
+					align = left|nobaseline
+					elide = right
+					fontsize_min = 12
+				}
+			}
+			flowcontainer = {
+				minimumsize = { 56 30 }
+				maximumsize = { 56 30 }
+				spacing = 2
+				tooltip = "[Country.GetInfamyDesc]"
+				using = tooltip_below
+				onmousehierarchyenter = "[SetTempMapModeByKey('mm_infamy')]"
+				onmousehierarchyleave = "[RemoveTempMapMode]"
+				alpha = "[TransparentIfZero(Country.GetInfamy)]"
+				alwaystransparent = no
+
+				icon = {
+					size = { @secondary_icon_size @secondary_icon_size }
+					texture = "[Country.GetInfamyIconTexture]"
+					parentanchor = vcenter
+				}
+				textbox = {
+					parentanchor = vcenter
+					raw_text = "#variable [Country.GetInfamy|0]#!"
+					autoresize = yes
+					align = left|nobaseline
+					elide = right
+					fontsize_min = 12
+				}
+			}
+		}
+	}
+
+	type topbar = widget {
+		widget = {
+			name = "topbar"
+			max_update_rate = 8
+			using = hud_visibility
+			datacontext = "[AccessMetaPlayer.AccessPlayedOrObservedCountry]"
+			using = clickthrough_blocker
+			size = { 705 80 }
+			allow_outside = yes
+			resizeparent = yes
+
+			#alpha = 0
+			#position = { 0 -100 }
+
+			#state = {
+			#	name = _show
+			#	using = default_show_properties
+			#	#position_y = 0
+			#
+			#	on_start = "[PdxGuiTriggerAllAnimations('hud_shiny_effect_show')]"
+			#}
+			#state = {
+			#	name = _hide
+			#	using = default_hide_properties
+			#	#position_y = -100
+			#}
+
+			using = default_fade_in_out
+
+			onmousehierarchyenter = "[PdxGuiInterruptThenTriggerAllAnimations('hide_topbar_secondary_stats','show_topbar_secondary_stats')]"
+			onmousehierarchyleave = "[PdxGuiInterruptThenTriggerAllAnimations('show_topbar_secondary_stats','hide_topbar_secondary_stats')]"
+
+			widget = {
+				### background
+				#this is also used to trigger notifications maximize/minimize
+				#when you open/close any fullscreen (did not know where else to put it)
+				widget = {
+					using = fullscreen_hide
+					size = { 100% 100% }
+
+					state = {
+						name = _show
+						alpha = 1
+						duration = 0
+						on_start = "[PdxGuiInterruptThenTriggerAllAnimations('notifications_minimize','notifications_maximize')]"
+					}
+					state = {
+						name = _hide
+						alpha = 0
+						duration = 0.2
+						on_start = "[PdxGuiInterruptThenTriggerAllAnimations('notifications_maximize','notifications_minimize')]"
+					}
+
+					background = {
+						texture = "gfx/interface/main_hud/topbar_bg.dds"
+						shaderfile = "gfx/FX/pdxgui_default.shader"
+						spriteType = Corneredstretched
+						spriteborder = { 0 0 }
+						spriteborder_bottom = 94
+						spriteborder_right = 100
+						texture_density = 2
+						using = hud_elements_alpha
+
+						modify_texture = {
+							texture = "gfx/interface/backgrounds/default_bg_shading.dds"
+							spriteType = Corneredstretched
+							spriteborder = { 0 0 }
+							blend_mode = overlay
+							alpha = 0.5
+						}
+						modify_texture = {
+							using = texture_velvet
+						}
+						modify_texture = {
+							using = fancy_pattern
+						}
+					}
+					icon = {
+						texture = "gfx/interface/main_hud/topbar_side_dec.dds"
+						size = { 100% 100% }
+						spriteType = Corneredstretched
+						spriteborder = { 0 0 }
+						spriteborder_bottom = 94
+						spriteborder_right = 110
+						texture_density = 2
+
+						using = hud_shiny_effect
+					}
+				}
+
+				flowcontainer = {
+					margin_right = 35
+					margin_bottom = 7
+					resizeparent = yes
+
+					container = {
+						### PRIMARY ICONS
+						flowcontainer = {
+							position = { 130 -1 }
+
+							block "spacing" {
+								spacing = 12
+							}
+							margin_bottom = 5
+
+							flowcontainer = {
+								# TODO Mikael / Aron: surely there is a better way to do this
+								name = "tutorial_highlight_all_capacities"
+								block "spacing" {
+									spacing = 12
+								}
+
+								### BUREAUCRACY
+								button = {
+									name = "tutorial_highlight_bureaucracy"
+									using = glow_button
+									size = { 100 40 }
+									tooltip = "BUREAUCRACY_TOOLTIP"
+									using = tooltip_below
+									onclick = "[InformationPanelBar.OpenPanelTab('politics', 'institutions')]"
+									enabled = "[GetMetaPlayer.GetPlayedOrObservedCountry.IsValid]"
+
+									icon = {
+										size = { 32 32 }
+										position = { 0 2 }
+										name = bureaucracy_icon
+										texture = "gfx/interface/icons/topbar/bureaucracy_icon.dds"
+										parentanchor = vcenter
+									}
+
+									textbox = {
+										position = { 35 -3 }
+										name = capital_value
+										raw_text = "#bold [GetPlayer.GetPowerDelta('bureaucracy')|D=+]#!"
+										align = center|nobaseline
+										using = fontsize_large
+										autoresize = yes
+										parentanchor = vcenter
+									}
+
+									double_direction_progressbar = {
+										size = { 60 6 }
+										position = { 40 -3 }
+										parentanchor = bottom
+
+										blockoverride "value_left" {
+											value = "[Negate_float(FixedPointToFloat(GetPlayer.GetDeficitPowerRatioForProgressBar('bureaucracy')))]"
+										}
+										blockoverride "value_right" {
+											value = "[FixedPointToFloat(GetPlayer.GetExcessPowerRatioForProgressBar('bureaucracy'))]"
+										}
+									}
+								}
+
+								### AUTHORITY
+								button = {
+									name = "tutorial_highlight_authority"
+									using = glow_button
+									size = { 100 40 }
+									tooltip = "AUTHORITY_TOOLTIP"
+									using = tooltip_below
+									onclick = "[InformationPanelBar.OpenPanelTab('politics', 'default')]"
+									enabled = "[GetMetaPlayer.GetPlayedOrObservedCountry.IsValid]"
+
+									icon = {
+										size = { 32 32 }
+										position = { 0 2 }
+										name = authority_icon
+										texture = "gfx/interface/icons/topbar/authority_icon.dds"
+										parentanchor = vcenter
+									}
+
+									textbox = {
+										position = { 35 -3 }
+										name = capital_value
+										raw_text = "#bold [GetPlayer.GetPowerDelta('authority')|=+D]#!"
+										align = left|nobaseline
+										using = fontsize_large
+										autoresize = yes
+										parentanchor = vcenter
+									}
+
+									double_direction_progressbar = {
+										size = { 60 6 }
+										position = { 40 -3 }
+										parentanchor = bottom
+
+										blockoverride "value_left" {
+											value = "[Negate_float(FixedPointToFloat(GetPlayer.GetDeficitPowerRatioForProgressBar('authority')))]"
+										}
+										blockoverride "value_right" {
+											value = "[FixedPointToFloat(GetPlayer.GetExcessPowerRatioForProgressBar('authority'))]"
+										}
+									}
+								}
+
+								### INFLUENCE
+								button = {
+									name = "tutorial_highlight_influence"
+									using = glow_button
+									size = { 100 40 }
+									tooltip = "INFLUENCE_TOOLTIP"
+									using = tooltip_below
+									onclick = "[InformationPanelBar.OpenPanelTab('diplomatic_overview', 'default')]"
+									enabled = "[GetMetaPlayer.GetPlayedOrObservedCountry.IsValid]"
+
+									icon = {
+										size = { 32 32 }
+										position = { 0 2 }
+										name = dip_power_icon
+										texture = "gfx/interface/icons/topbar/influence_icon.dds"
+										parentanchor = vcenter
+									}
+
+									textbox = {
+										position = { 35 -3 }
+										name = capital_value
+										raw_text = "#bold [GetPlayer.GetPowerDelta('influence')|=+D]#!"
+										align = left|nobaseline
+										using = fontsize_large
+										autoresize = yes
+										parentanchor = vcenter
+									}
+
+									double_direction_progressbar = {
+										size = { 60 6 }
+										position = { 40 -3 }
+										parentanchor = bottom
+
+										blockoverride "value_left" {
+											value = "[Negate_float(FixedPointToFloat(GetPlayer.GetDeficitPowerRatioForProgressBar('influence')))]"
+										}
+										blockoverride "value_right" {
+											value = "[FixedPointToFloat(GetPlayer.GetExcessPowerRatioForProgressBar('influence'))]"
+										}
+									}
+								}
+							}
+
+							block "supply_ships_info" {
+								button = {
+									name = "tutorial_highlight_supply_ships"
+									using = glow_button
+									size = { 100 40 }
+									tooltip = "SUPPLY_SHIPS_TOPBAR_TOOLTIP"
+									using = tooltip_below
+									onclick = "[InformationPanelBar.OpenMarketPanel(AccessPlayer.AccessFirstMarket.Self)]"
+									enabled = "[GetMetaPlayer.GetPlayedOrObservedCountry.IsValid]"
+
+									widget = {
+										size = { 32 32 }
+										name = merchant_marine_icon
+										parentanchor = vcenter
+										position = { 0 2 }
+
+										icon = {
+											parentanchor = center
+											size = { 28 28 }
+											texture = "gfx/interface/icons/topbar/convoys.dds"
+										}
+									}
+									
+									textbox = {
+										position = { 35 -3 }
+										name = capital_value
+										raw_text = "#bold [GetPlayer.GetNumAvailableSupplyShips|+D]#!"
+										align = left|nobaseline
+										using = fontsize_large
+										autoresize = yes
+										parentanchor = vcenter
+									}
+
+									double_direction_progressbar = {
+										size = { 60 6 }
+										position = { 40 -3 }
+										parentanchor = bottom
+
+										blockoverride "value_left" {
+											value = "[Negate_float(FixedPointToFloat(GetPlayer.GetDeficitSupplyShipRatioForProgressBar))]"
+										}
+										blockoverride "value_right" {
+											value = "[FixedPointToFloat(GetPlayer.GetExcessSupplyShipRatioForProgressBar)]"
+										}
+									}
+								}
+							}
+
+							### MONEY
+							container = {
+								name = "tutorial_highlight_treasury"
+								layoutpolicy_vertical = expanding
+
+								button = {
+									using = glow_button
+									size = { 100 40 }
+									tooltip = "CAPITAL_MONEY"
+									using = tooltip_below
+									using = money_tooltip_with_graph
+									onclick = "[InformationPanelBar.OpenPanelTab('budget', 'default')]"
+									enabled = "[GetMetaPlayer.GetPlayedOrObservedCountry.IsValid]"
+
+									icon = {
+										size = { 32 32 }
+										position = { 0 2 }
+										name = income_power_icon
+										texture = "gfx/interface/icons/topbar/income_power_icon.dds"
+										parentanchor = vcenter
+									}
+
+									textbox = {
+										position = { 35 -3 }
+										name = capital_value
+										text = "[AccessPlayer.PredictWeeklyBalanceWithEconomyHealthHint]"
+										align = left|nobaseline
+										using = fontsize_large
+										autoresize = yes
+										parentanchor = vcenter
+									}
+									widget = {
+										size = { 60 12 }
+										position = { 40 0 }
+										parentanchor = bottom
+										visible = "[GreaterThanOrEqualTo_CFixedPoint( GetPlayer.GetCreditRatio, '(CFixedPoint)0' )]"
+
+										bad_progressbar_horizontal = {
+											parentanchor = vcenter
+											name = "credit_progressbar"
+											size = { 60 6 }
+											blockoverride "values" {
+												value = "[FixedPointToFloat(GetPlayer.GetCreditRatio)]"
+												min = 0
+												max = 1
+											}
+										}
+									}
+
+									widget = {
+										size = { 60 12 }
+										position = { 40 0 }
+										parentanchor = bottom
+										visible = "[GreaterThan_CFixedPoint( GetPlayer.GetGoldReserveRatio, '(CFixedPoint)0' )]"
+
+										gold_progressbar_horizontal = {
+											parentanchor = vcenter
+											name = "gold_progressbar"
+											size = { 60 6 }
+											blockoverride "values" {
+												value = "[FixedPointToFloat(GetPlayer.GetGoldReserveRatio )]"
+												min = 0
+												max = 1
+											}
+										}
+									}
+								}
+							}
+
+						}
+
+						#shows only on hover
+						topbar_secondary_icons = {
+							visible = "[GetVariableSystem.Exists('more_topbar_info')]"
+						}
+
+						#locked
+						topbar_secondary_icons = {
+							visible = "[Not(GetVariableSystem.Exists('more_topbar_info'))]"
+
+							blockoverride "animation" {
+								position = { 0 44 }
+							}
+						}
+					}
+				}
+			}
+
+			### LOCK TOGGLE FOR SECONDARY ROW OF ICONS
+			button_icon_round_toggle = {
+				visible = "[GetMetaPlayer.GetPlayedOrObservedCountry.IsValid]"
+				size = { 24 24 }
+				parentanchor = bottom|right
+				position = { -25 -9 }
+
+				alpha = 0
+
+				state = {
+					name = show_topbar_secondary_stats
+					delay = 0.15
+					alpha = 1
+					duration = 0.15
+					using = Animation_Curve_Default
+				}
+				state = {
+					name = hide_topbar_secondary_stats
+					alpha = 0
+					duration = 0
+					using = Animation_Curve_Default
+				}
+
+				blockoverride "on_click" {
+					onclick = "[GetVariableSystem.Toggle('more_topbar_info')]"
+				}
+				blockoverride "view_1" {
+					visible = "[GetVariableSystem.Exists('more_topbar_info')]"
+				}
+				blockoverride "view_2" {
+					visible = "[Not(GetVariableSystem.Exists('more_topbar_info'))]"
+				}
+				blockoverride "icon_1" {
+					texture = "gfx/interface/buttons/button_icons/unlock.dds"
+				}
+				blockoverride "icon_2" {
+					texture = "gfx/interface/buttons/button_icons/lock.dds"
+				}
+				blockoverride "tooltip_1" {
+					tooltip = "LOCK_TOPBAR"
+				}
+				blockoverride "tooltip_2" {
+					tooltip = "UNLOCK_TOPBAR"
+				}
+			}
+
+			### FLAG
+			fancy_flag = {
+				blockoverride "rank_badge_block" {} # Show rank badge seperately from flag with topbar_rank
+
+				observer_mode_overlay = {
+					blockoverride "observer_properties" {
+						position = { -1 -105 }
+					}
+
+					blockoverride "icon_size" {
+						size = { 25 25 }
+					}
+
+					blockoverride "fontsize" {
+						using = fontsize_medium
+						maximumsize = { 100 -1 }
+					}
+				}
+			}
+		}
+	}
+
+	type topbar_rank = button {
+		name = "topbar_rank"
+		using = hud_visibility
+		datacontext = "[GetPlayer]"
+		using = clickthrough_blocker
+		size = { 57 57 }
+		position = { -4 78 }
+
+		onclick = "[MapListPanelManager.OpenCurrentPanel]"
+		onclick = "[SetTempMapModeByKey('mm_default')]"
+
+		### RANK
+		rank_badge = {
+			size = { 57 57 }
+		}
+	}
+}

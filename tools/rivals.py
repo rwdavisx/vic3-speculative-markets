@@ -88,7 +88,25 @@ def _log(what, t):
             f"{t}debug_log = \"SPECRV {what} by=[THIS.GetCountry.GetTagName] on=[SCOPE.sCountry('target').GetTagName]"
             " date=[TimeKeeper.GetCurrentDate.GetString] vs=[THIS.Var('spec_rv_log_vs').GetValue]"
             " ok=[THIS.Var('spec_rv_log_ok').GetValue] score=[THIS.Var('spec_centre_score').GetValue]"
-            " tscore=[SCOPE.sCountry('target').MakeScope.Var('spec_centre_score').GetValue]\"\n")
+            " tscore=[SCOPE.sCountry('target').MakeScope.Var('spec_centre_score').GetValue]"
+            # last, as an unset Var ends the line: the act's size (spec_rv_did sets both before raid and lure log)
+            " amt=[THIS.Var('spec_rv_did_amt').GetValue] cost=[THIS.Var('spec_rv_did_cost').GetValue]\"\n")
+
+
+# --log only: one SPECRVA line per AI look (spec_rv_ai): contests looked at (n), those that called for a move before one
+# was made (e), the branch each took (shore, wait while decisive, hold, push), pushes where a Lure was allowed (lure_ok)
+_LG = ("n", "e", "shore", "wait", "hold", "push", "lure_ok")
+_lg_add = lambda k, t: f"{t}change_local_variable = {{ name = spec_rv_lg_{k} add = 1 }}\n" if LOG else ""
+LG_INIT = "".join(f"\t\tset_local_variable = {{ name = spec_rv_lg_{k} value = 0 }}\n" for k in _LG) if LOG else ""
+LG_OUT = ("".join(f"\t\tset_variable = {{ name = spec_rv_lg_{k} value = local_var:spec_rv_lg_{k} }}\n" for k in _LG)
+          + "\t\tset_variable = { name = spec_rv_lg_nch value = 0 }\n"
+          "\t\tevery_in_list = { variable = spec_rv_chosen prev = { change_variable = { name = spec_rv_lg_nch add = 1 } } }\n"
+          "\t\tdebug_log = \"SPECRVA tag=[THIS.GetCountry.GetTagName] date=[TimeKeeper.GetCurrentDate.GetString] lev=[THIS.ScriptValue('spec_lev')]"
+          " panic=[THIS.ScriptValue('spec_in_panic')] chosen=[THIS.Var('spec_rv_lg_nch').GetValue]"
+          + "".join(f" {k}=[THIS.Var('spec_rv_lg_{k}').GetValue]" for k in _LG) + "\"\n") if LOG else ""
+LG_N, LG_E = _lg_add("n", "\t"), _lg_add("e", "\t\t")
+LG_SHORE, LG_WAIT, LG_HOLD, LG_PUSH = (_lg_add(k, "\t\t") for k in ("shore", "wait", "hold", "push"))
+LG_LURE = (f"\t\tif = {{\n\t\t\tlimit = {{ spec_can_rv_lure = yes spec_lev < {AI_LEV} }}\n" + _lg_add("lure_ok", "\t\t\t") + "\t\t}\n") if LOG else ""
 
 
 def _ok(t):
@@ -398,7 +416,7 @@ spec_rv_rope = {{
 		min = spec_rv_me_eff
 		min = 1
 	}}
-	# blue chips (bluechips.PULL each as counted: in full up to CAP, half up to CAP2)
+	# blue chips (bluechips.PULL each as counted: each in full, up to CAP)
 	if = {{
 		limit = {{ scope:spec_rival_me = {{ has_variable = spec_bc_n }} }}
 		add = {{
@@ -520,11 +538,19 @@ spec_rv_ai_pick_v = {{
 """
 
 
-def _gain(by, t):
+def _gain(by, t, why="rivals"):
+    return BC.record_trust(_raw_gain(by, t), "rivals", t, why)
+
+
+def _lose(by, t, why="rivals"):
+    return BC.record_trust(_raw_lose(by, t), "rivals", t, why)
+
+
+def _raw_gain(by, t):
     return f"{t}set_variable = {{ name = spec_centre_trust value = {{ value = var:spec_centre_trust add = {by} max = {CALM} }} }}\n"
 
 
-def _lose(by, t):
+def _raw_lose(by, t):
     """As centres._lose: times spec_exch_loss, never below 0."""
     return (f"{t}set_variable = {{ name = spec_centre_trust value = {{ value = var:spec_centre_trust "
             f"subtract = {{ value = {by} multiply = spec_exch_loss }} min = 0 }} }}\n")
@@ -640,12 +666,12 @@ def effects():
     body = f"""scope:spec_rv_w = {{
 	set_local_variable = {{ name = spec_rv_stake value = spec_rv_stake }}
 	change_local_variable = {{ name = spec_rv_stake multiply = {WIN_X} }}
-{big(chr(9)).replace("$DO$", f"change_local_variable = {{ name = spec_rv_stake multiply = {BIG_X / WIN_X:g} }}")}{_gain("local_var:spec_rv_stake", chr(9))}	add_to_variable_list = {{ name = spec_rv_won target = scope:spec_rv_l }}
+{big(chr(9)).replace("$DO$", f"change_local_variable = {{ name = spec_rv_stake multiply = {BIG_X / WIN_X:g} }}")}{_gain("local_var:spec_rv_stake", chr(9), "contest_won")}	add_to_variable_list = {{ name = spec_rv_won target = scope:spec_rv_l }}
 {big(chr(9)).replace("$DO$", "add_to_variable_list = { name = spec_rv_big target = scope:spec_rv_l }")}{note("won", "spec_rv_l")}}}
 scope:spec_rv_l = {{
-{_lose("local_var:spec_rv_stake", chr(9))}	if = {{
+{_lose("local_var:spec_rv_stake", chr(9), "contest_lost")}	if = {{
 		limit = {{ "relations(scope:spec_rv_w)" <= relations_threshold:poor }}
-{_lose(f"{{ value = local_var:spec_rv_stake multiply = {BITTER - 1:g} }}", chr(9) * 2)}	}}
+{_lose(f"{{ value = local_var:spec_rv_stake multiply = {BITTER - 1:g} }}", chr(9) * 2, "contest_bitter")}	}}
 	add_to_variable_list = {{ name = spec_rv_lost target = scope:spec_rv_w }}
 	if = {{
 		limit = {{ local_var:spec_rv_big = 1 }}
@@ -1191,7 +1217,7 @@ spec_rv_press = {{
 		set_local_variable = {{ name = spec_rv_t value = {PRESS_TRUST} }}
 		change_local_variable = {{ name = spec_rv_t multiply = local_var:spec_rv_amp }}
 {_half("spec_rv_t", chr(9) * 2)}		set_local_variable = {{ name = spec_rv_before value = var:spec_centre_trust }}
-{_lose("local_var:spec_rv_t", chr(9) * 2)}		set_local_variable = {{ name = spec_rv_t value = {{ value = local_var:spec_rv_before subtract = var:spec_centre_trust }} }}
+{_lose("local_var:spec_rv_t", chr(9) * 2, "press_hit")}		set_local_variable = {{ name = spec_rv_t value = {{ value = local_var:spec_rv_before subtract = var:spec_centre_trust }} }}
 	}}
 	set_local_variable = {{ name = spec_rv_roll value = {{ fixed_range = {{ min = 0 max = 100 }} }} }}
 	scope:target = {{ set_local_variable = {{ name = spec_rv_x value = spec_rv_press_expose }} }}
@@ -1199,7 +1225,7 @@ spec_rv_press = {{
 		limit = {{ local_var:spec_rv_roll < local_var:spec_rv_x }}
 		set_local_variable = {{ name = spec_rv_ok value = -1 }}
 		change_relations = {{ country = scope:target value = -{PRESS_REL} }}
-{_lose(PRESS_TRUST, chr(9) * 2)}	}}
+{_lose(PRESS_TRUST, chr(9) * 2, "press_exposed")}	}}
 	if = {{
 		limit = {{ local_var:spec_rv_ok = 1 }}
 		spec_rv_push = {{ BY = scope:spec_rv_actor ON = scope:target }}
@@ -1261,7 +1287,7 @@ spec_rv_shore = {{
 # Lure most (it cannot fail), Press next, a Bear Raid mostly when our score is the higher (it fails less)
 spec_rv_ai_act = {{
 	save_scope_as = spec_rival_me
-	scope:target = {{ set_local_variable = {{ name = spec_rv_ai_p value = spec_rv_rope }} }}
+{LG_N}	scope:target = {{ set_local_variable = {{ name = spec_rv_ai_p value = spec_rv_rope }} }}
 	if = {{
 		limit = {{
 			NOT = {{ has_local_variable = spec_rv_ai_moved }}
@@ -1272,7 +1298,7 @@ spec_rv_ai_act = {{
 				AND = {{ spec_rv_age_t >= {ROUND - AI_LATE} local_var:spec_rv_ai_p < {DRAW:g} }}
 {"".join(f"				AND = {{ local_var:spec_rv_ai_p >= {round(e - AI_NEAR, 3):g} local_var:spec_rv_ai_p <= {round(e + AI_NEAR, 3):g} }}{chr(10)}" for e in (-DECISIVE, -DRAW, DRAW, DECISIVE))}			}}
 		}}
-		spec_rv_ai_move = yes
+{LG_E}		spec_rv_ai_move = yes
 	}}
 }}
 
@@ -1288,18 +1314,18 @@ spec_rv_ai_move = {{
 			gold_reserves >= spec_rv_ai_money
 		}}
 		spec_rv_shore = yes
-		set_local_variable = {{ name = spec_rv_ai_moved value = 1 }}
+{LG_SHORE}		set_local_variable = {{ name = spec_rv_ai_moved value = 1 }}
 	}}
 	else_if = {{
 		limit = {{ local_var:spec_rv_ai_p >= {DECISIVE + PUSH:g} }}
-	}}
+{LG_WAIT}	}}
 	else_if = {{
 		limit = {{
 			spec_can_rv_hold = yes
 			gold_reserves >= spec_rv_ai_money
 		}}
 		spec_rv_hold = yes
-		set_local_variable = {{ name = spec_rv_ai_moved value = 1 }}
+{LG_HOLD}		set_local_variable = {{ name = spec_rv_ai_moved value = 1 }}
 	}}
 	else_if = {{
 		limit = {{
@@ -1309,7 +1335,7 @@ spec_rv_ai_move = {{
 				AND = {{ spec_can_rv_raid = yes gold_reserves >= spec_rv_ai_money }}
 			}}
 		}}
-		set_local_variable = {{ name = spec_rv_ai_moved value = 1 }}
+{LG_PUSH}{LG_LURE}		set_local_variable = {{ name = spec_rv_ai_moved value = 1 }}
 		random_list = {{
 			3 = {{
 				trigger = {{ spec_can_rv_lure = yes spec_lev < {AI_LEV} }}
@@ -1381,7 +1407,7 @@ spec_rv_ai = {{
 		set_variable = {{ name = spec_rv_ai_wait days = {AI_EVERY - 5} }}  # 5 short: checked monthly
 		save_scope_as = spec_rv_ai_me
 		remove_local_variable = spec_rv_ai_moved  # one move a look, in whichever contest calls for it first
-		every_in_list = {{
+{LG_INIT}		every_in_list = {{
 			variable = spec_rv_chosen
 			limit = {{ is_country_alive = yes {exch} }}
 			save_scope_as = target
@@ -1396,7 +1422,7 @@ spec_rv_ai = {{
 			save_scope_as = target
 			scope:spec_rv_ai_me = {{ spec_rv_ai_act = yes }}
 		}}
-		spec_rv_ai_pick = yes
+{LG_OUT}		spec_rv_ai_pick = yes
 	}}
 }}
 
@@ -1834,7 +1860,7 @@ spec_rival.1 = {{
 		hidden_effect = {{
 			if = {{
 				limit = {{ has_variable = spec_centre_trust }}
-{_gain(round(PRESS_TRUST * 0.6, 2), chr(9) * 4)}			}}
+{_gain(round(PRESS_TRUST * 0.6, 2), chr(9) * 4, "press_counter")}			}}
 		}}
 		ai_chance = {{
 			base = 1
@@ -1852,7 +1878,7 @@ spec_rival.1 = {{
 					limit = {{ exists = scope:target scope:target = {{ has_variable = spec_exch_stand }} }}
 					set_local_variable = {{ name = spec_rv_calm value = {{ value = scope:target.var:spec_exch_stand multiply = {CALM_STAND:g} add = 1 }} }}
 				}}
-{_gain(f"{{ value = local_var:spec_rv_calm multiply = {CALM_GAIN} }}", chr(9) * 4)}			}}
+{_gain(f"{{ value = local_var:spec_rv_calm multiply = {CALM_GAIN} }}", chr(9) * 4, "press_calm")}			}}
 		}}
 		ai_chance = {{
 			base = 1
@@ -2843,7 +2869,7 @@ def loc():
             f"Each competitor costs #N {UPKEEP[0]}#! to #N {UPKEEP[-1]}#! influence in upkeep, more for a higher Standing, "
             "and cannot be dropped in its first year.\\n$TOOLTIP_DELIMITER$\\n"
             f"Each contest settles #v {ROUND}#! years after it starts and frees its slot for a new competitor. The bar starts from the two Exchanges' scores. "
-            f"Each of a side's first #v {BC.CAP}#! {bcs} pulls it #v {pc(BC.PULL)}#! that way, and each of the next #v {BC.CAP2 - BC.CAP}#! half as much. "
+            f"Each of a side's {bcs}, up to #v {BC.CAP}#!, pulls it #v {pc(BC.PULL)}#! that way. "
             f"Each action that works pushes it #v {pc(PUSH)}#!, up to #v {PUSHES}#! pushes a side. Near the middle it is a draw.\\n"
             f"Every contest past the first spreads us thin, so our score counts {thin(NAMED + 1)} contests and {thin(NAMED_HIGH)}.\\n$TOOLTIP_DELIMITER$\\n"
             f"A #P win#! takes #P {pc(WIN_X * STAKE / CALM)}#! trust from the loser, and a #P decisive win#!, at least #v {pc(DECISIVE)}#! to one side, "
@@ -3006,9 +3032,11 @@ def loc():
         ("SPEC_RV_THIN_US", f"\\n#indent_newline:2 We are #N spread thin#! across #v [{US}.Var('spec_rv_n_all').GetValueWithDefault({fx(0)})|0]#! contests, so our score counts #N [{US}.Var('spec_rv_focus').GetValueWithDefault({fx(1)})|%0]#!#!"),
         ("SPEC_RV_THIN_THEM", f"\\n#indent_newline:2 They are #P spread thin#! across #v [{THEM}.Var('spec_rv_n_all').GetValueWithDefault({fx(0)})|0]#! contests, so their score counts #P [{THEM}.Var('spec_rv_focus').GetValueWithDefault({fx(1)})|%0]#!#!"),
         ("SPEC_RV_ROUND", f"[AddLocalizationIf({var(US, 'spec_rv_next')}.GetCountry.IsValid, 'SPEC_RV_NEXT_SETTLEMENT')]"),
-        ("SPEC_RV_NEXT_SETTLEMENT", f"Next: [{var(US, 'spec_rv_next')}.GetCountry.GetNameNoFormatting] · [SelectLocalization({epoch}.IsSet, 'SPEC_RV_NEXT_DATE', 'SPEC_RV_NEXT_ROUNDS')]"),
-        *short_left("SPEC_RV_NEXT_DATE", num(US, 'spec_rv_next_year')),
-        ("SPEC_RV_NEXT_ROUNDS", f"[{num(US, 'spec_rv_next_year')}|0] yr"),
+        # 2026-11-22: a sentence in place of "Next: X · 11 m" (the user: against our style)
+        ("SPEC_RV_NEXT_SETTLEMENT", f"#v [{var(US, 'spec_rv_next')}.GetCountry.GetNameNoFormatting]#! settles in #v [SelectLocalization({epoch}.IsSet, 'SPEC_RV_NEXT_DATE', 'SPEC_RV_NEXT_ROUNDS')]#!"),
+        *[(k, t.replace("] y", "] years").replace("] m", "] months").replace("] d", "] days"))
+          for k, t in short_left("SPEC_RV_NEXT_DATE", num(US, 'spec_rv_next_year'))],
+        ("SPEC_RV_NEXT_ROUNDS", f"[{num(US, 'spec_rv_next_year')}|0] years"),
         ("SPEC_RV_BAND_BIGWIN", "#P Decisive Win#!"), ("SPEC_RV_BAND_WIN", "#P Win#!"), ("SPEC_RV_BAND_DRAW", "Draw"),
         ("SPEC_RV_BAND_LOSS", "#N Loss#!"), ("SPEC_RV_BAND_BIGLOSS", "#N Decisive Loss#!"),
         ("SPEC_RV_SCORE_OFF", "#weak No Exchange#!"),
@@ -3304,7 +3332,8 @@ if __name__ == "__main__":
     tts = set(re.findall(r"text = (spec_rv_\w+_tt)", script))
     assert tts <= keys, tts - keys
     contest = effects().split("spec_rival_contest = {")[1].split("# end spec_rival_contest")[0]
-    assert contest.count("is_player = yes") == 2 and contest.count("post_notification") == 2  # the notification testbed swaps these
+    # the notification testbed swaps these (not the trust recorder's, BC.record_trust)
+    assert len(re.findall(r"is_player = yes(?! has_variable = spec_trust_review)", contest)) == 2 and contest.count("post_notification") == 2
     assert contest.count("spec_rv_rope") == 1 and "spec_rv_push = { BY = scope:target ON = scope:spec_rv_actor }" in effects()
     assert "spec_rv_reach" not in triggers() and "spec_can_rv_end = yes" in triggers()
     assert "multiplier = spec_rv_upkeep_total" in effects() and "spec_rv_upkeep = {" in MODIFIERS

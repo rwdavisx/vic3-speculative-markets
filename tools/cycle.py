@@ -103,8 +103,7 @@ def level_loc(lax):
     out = " SPEC_LAXL_HERE: \"\\n\\n#P We are here#!\"\n"
     for i, w in enumerate(LAX_WORDS):
         # centres._trust: Sound or stricter gains, Lax nothing, Reckless loses
-        trust = ("$SPEC_LAX_TRUST$" if cuts[i + 1] <= LAX_CUTS[2] + 1e-9 else
-                 "$SPEC_LAX_NO_TRUST$" if cuts[i + 1] <= LAX_CUTS[3] + 1e-9 else "$SPEC_LAX_LOSE_TRUST$")
+        trust = f"$SPEC_LAX_TRUST_{i}$"
         out += (f' SPEC_LAXL_{i}_TT: "#header {w}#!\\n[concept_spec_lending_standards] from #v {cuts[i] * 100:g}#! to #v {cuts[i + 1] * 100:g}#!\\n$TOOLTIP_DELIMITER$\\n'
                 f'{rng(LAX_CREDIT, i, False).replace("#P", "#v").replace("#N", "#v")} credit lent each month, against #v {LAX_WORDS[2]}#!\\n'
                 f'{rng(LAX_PULL, i, True)} share of it lent into booms\\n'
@@ -270,6 +269,34 @@ def shut_down(t="\t"):
                    f"{t}\tremove_modifier = spec_boom_build_{grp}\n{t}}}\n" for grp in _GROUPS) if ON else ""
 
 
+def trust_loc():
+    """Each level's monthly trust (centres.TRUST_BY_LAX) as a sentence, in points of 100 as the trust bar shows."""
+    import centres  # imports this module
+    out = ""
+    for i, d in enumerate(centres.TRUST_BY_LAX):
+        pts = d * centres.TRUST_MONTH * 100 / centres.CALM
+        text = (f"#P Our [concept_spec_exchange] gains +{pts:.1f} trust each calm month.#!" if d > 0 else
+                "#N Our [concept_spec_exchange] stops building trust.#!" if d == 0 else
+                f"#N Our [concept_spec_exchange] loses {-pts:.1f} trust every month, more with a charter or Path to Renown that raises its trust losses.#!")
+        out += f' SPEC_LAX_TRUST_{i}: "{text}"\n'
+    return out
+
+
+def lax_terms():
+    """GUI values of monthly()'s change to spec_lax as things stand, in points of 100: the drift test, Tight Credit's
+    repair, last month's booms (spec_c_crash and spec_c_restrain, negative), and their total (the bar's chevrons)."""
+    from market_tab import IN_PANIC, P, STANCE, fx, v
+    lax = v("spec_lax", LAX_START)
+    crunch = f"{P}.Var('spec_crunch').IsSet"
+    quiet = f"And(Not({IN_PANIC}), And(Not(EqualTo_CFixedPoint({STANCE}, {fx(-1)})), Not({crunch})))"
+    repair = f"And(Not({IN_PANIC}), And(EqualTo_CFixedPoint({STANCE}, {fx(-1)}), And(Not({crunch}), GreaterThan_CFixedPoint({lax}, {fx(SOUND_MID + 0.0005)}))))"  # past 50.05: the last sliver read "-0.0"
+    drift = f"Multiply_CFixedPoint(Subtract_CFixedPoint({fx(1)}, {lax}), {fx(LAX_SCALE * 100 / (12 * LAX_QUIET_YEARS))})"
+    fix = f"Max_CFixedPoint({fx(-100 / (12 * LAX_QUIET_YEARS))}, Multiply_CFixedPoint(Subtract_CFixedPoint({fx(SOUND_MID)}, {lax}), {fx(100)}))"
+    booms = f"Multiply_CFixedPoint(Multiply_CFixedPoint(Add_CFixedPoint({v('spec_c_crash')}, {v('spec_c_restrain')}), {fx(LAX_PER_CONF * LAX_SCALE * 100)}), {lax})"
+    total = f"Add_CFixedPoint(Select_CFixedPoint({repair}, {fix}, Select_CFixedPoint({quiet}, {drift}, {fx(0)})), {booms})"
+    return lax, quiet, repair, drift, fix, booms, total
+
+
 def loc():
     if not ON:
         return ""
@@ -277,13 +304,8 @@ def loc():
     from market_tab import IN_PANIC, P, STANCE, fx, good_var, sv, v
     gt = lambda a, b: f"GreaterThan_CFixedPoint({a}, {fx(b)})"
     pct = lambda name: f"#v [Subtract_CFixedPoint({sv(name)}, {fx(1)})|+%0]#!"
-    lax = v("spec_lax", LAX_START)
+    lax, quiet, repair, drift, fix, booms, total = lax_terms()
     pts = f"Multiply_CFixedPoint({lax}, {fx(100)})"  # shown 0 to 100
-    # monthly()'s drift test as things stand, and this month's change from booms ending (spec_c_crash and spec_c_restrain, negative)
-    quiet = f"And(Not({IN_PANIC}), And(Not(EqualTo_CFixedPoint({STANCE}, {fx(-1)})), Not({P}.Var('spec_crunch').IsSet)))"
-    repair = f"And(Not({IN_PANIC}), And(EqualTo_CFixedPoint({STANCE}, {fx(-1)}), And(Not({P}.Var('spec_crunch').IsSet), GreaterThan_CFixedPoint({lax}, {fx(SOUND_MID)}))))"
-    booms = f"Multiply_CFixedPoint(Multiply_CFixedPoint(Add_CFixedPoint({v('spec_c_crash')}, {v('spec_c_restrain')}), {fx(LAX_PER_CONF * LAX_SCALE * 100)}), {lax})"
-    drift = f"Multiply_CFixedPoint(Subtract_CFixedPoint({fx(1)}, {lax}), {fx(LAX_SCALE * 100 / (12 * LAX_QUIET_YEARS))})"
     picks = "".join(f"SelectLocalization(LessThan_CFixedPoint({lax}, {fx(c)}), 'SPEC_LAXW_{i}', " for i, c in enumerate(LAX_CUTS))
     # Each toast carries its own captured numbers, including when several goods end together.
     over, ppl = "SCOPE.GetValue('spec_note_over')", "SCOPE.GetValue('spec_note_ppl')"
@@ -292,22 +314,23 @@ def loc():
             + level_loc(lax)
             + f' SPEC_EFFECT_LAX: "[concept_spec_lending_standards]"\n'
             f' SPEC_EFFECT_LAX_VALUE: "#v [{picks}\'SPEC_LAXW_{len(LAX_CUTS)}\'{")" * len(LAX_CUTS)}]#!"\n'
-            f' SPEC_EFFECT_LAX_TT: "#header [concept_spec_lending_standards]: $SPEC_EFFECT_LAX_VALUE$ (#v [{pts}|0]#!)#!\\n$TOOLTIP_DELIMITER$\\n'
-            f'[SelectLocalization({repair}, \'SPEC_LAX_REPAIR\', SelectLocalization({quiet}, \'SPEC_LAX_DRIFT\', \'SPEC_LAX_PAUSED\'))][AddLocalizationIf({calc.shows(booms)}, \'SPEC_LAX_BOOMS\')]\\n\\n'
-            f'{pct("spec_lax_credit")} credit lent each month, against #v {LAX_WORDS[2]}#!\\n{pct("spec_lax_pull")} share of it lent into booms\\n'
-            f'{pct("spec_lax_recall")} credit called back in a panic\\n'
-            f'{pct("spec_lax_cost")} cost of a Bank Rescue\\n'
-            f'[SelectLocalization(LessThan_CFixedPoint({lax}, {fx(LAX_CUTS[2])}), \'SPEC_LAX_TRUST\', SelectLocalization(LessThan_CFixedPoint({lax}, {fx(LAX_CUTS[3])}), \'SPEC_LAX_NO_TRUST\', \'SPEC_LAX_LOSE_TRUST\'))]\\n$TOOLTIP_DELIMITER$\\n'
+            # 2026-11-22: sentences, the value out of 100 and the month's change a cause a line, as the trust tooltip
+            f' SPEC_EFFECT_LAX_TT: "#header [concept_spec_lending_standards]#!\\n$TOOLTIP_DELIMITER$\\n'
+            f'Our banks lend to $SPEC_EFFECT_LAX_VALUE$ standards, #v [{pts}|0]#! out of #v 100#!. The higher it is, the laxer they lend.\\n\\n'
+            f'It moves by #v [{total}|-=1]#! a month as things stand.#indent_newline:3 '
+            f'[SelectLocalization({repair}, \'SPEC_LAX_REPAIR\', SelectLocalization({quiet}, \'SPEC_LAX_DRIFT\', \'SPEC_LAX_PAUSED\'))][AddLocalizationIf({calc.shows(booms)}, \'SPEC_LAX_BOOMS\')]#!\\n\\n'
+            f'Against #v {LAX_WORDS[2]}#! standards, this gives#indent_newline:3 \\n{pct("spec_lax_credit")} credit lent each month\\n{pct("spec_lax_pull")} share of it lent into booms\\n'
+            f'{pct("spec_lax_recall")} credit called back in a [concept_spec_financial_panic]\\n{pct("spec_lax_cost")} cost of a Bank Rescue#!\\n\\n'
+            f'[{picks.replace("SPEC_LAXW_", "SPEC_LAX_TRUST_")}\'SPEC_LAX_TRUST_{len(LAX_CUTS)}\'{")" * len(LAX_CUTS)}]\\n$TOOLTIP_DELIMITER$\\n'
             f'Banks get #N {LAX_RESCUE * 100:g}#! laxer each time we rescue them or buy up their bad loans, and lose #P {LAX_PANIC * 100:g}%#! of their laxness '
-            f'when a [concept_spec_financial_panic] ends without a rescue. The laxer they are, the slower they loosen and the harder each loss sobers them. In calm months, [Concept(\'concept_spec_credit_policy\',\'$concept_spec_credit_policy_tight$\')] gradually brings loose standards back to Sound."\n'
-            f' SPEC_LAX_REPAIR: "Up to #P −{100 / (12 * LAX_QUIET_YEARS):.1f}#! a month under Tight Credit until standards reach #v {SOUND_MID * 100:g}#! (Sound)"\n'
-            f' SPEC_LAX_DRIFT: "#N +[{drift}|1]#! this month, a quiet month"\n'
-            f' SPEC_LAX_PAUSED: "#v 0#! this month from lending policy"\n'
-            f' SPEC_LAX_BOOMS: "{calc.line(booms, "-=1", "booms that ended or were restrained this month")}"\n'
-            f' SPEC_LAX_TRUST: "#P Our [concept_spec_exchange] builds trust in quiet months#!"\n'
-            f' SPEC_LAX_NO_TRUST: "#N Our [concept_spec_exchange] stops building trust#!"\n'
-            f' SPEC_LAX_LOSE_TRUST: "#N Our [concept_spec_exchange] loses trust every month#!"\n'
-            f' SPEC_TILE_CYCLE: "[SelectLocalization({gt(good_var("spec_ui_overx"), 1)}, \'SPEC_TILE_OVER_ON\', \'SPEC_GOODS_NONE\')]'
+            f'when a [concept_spec_financial_panic] ends without a rescue. The laxer they are, the slower they loosen and the harder each loss sobers them. In calm months, [Concept(\'concept_spec_credit_policy\',\'$concept_spec_credit_policy_tight$\')] brings them back toward #v {LAX_WORDS[2]}#!.'
+            f'\\n\\n#instruction Hover a level under the bar to see what it does.#!"\n'
+            f' SPEC_LAX_REPAIR: "\\n[{fix}|-=1] from [Concept(\'concept_spec_credit_policy\',\'$concept_spec_credit_policy_tight$\')], until they reach #v {SOUND_MID * 100:g}#!"\n'
+            f' SPEC_LAX_DRIFT: "{calc.line(drift, "-=1", "a quiet month, as banks loosen")}"\n'
+            f' SPEC_LAX_PAUSED: "\\n#v 0#! from lending, which holds still during a [concept_spec_financial_panic], [concept_spec_bad_debts], or $concept_spec_credit_policy_tight$ once they are #v {LAX_WORDS[2]}#!"\n'
+            f' SPEC_LAX_BOOMS: "{calc.line(booms, "-=1", "booms that ended or were restrained last month")}"\n'
+            + trust_loc()
+            + f' SPEC_TILE_CYCLE: "[SelectLocalization({gt(good_var("spec_ui_overx"), 1)}, \'SPEC_TILE_OVER_ON\', \'SPEC_GOODS_NONE\')]'
             f'[SelectLocalization({gt(good_var("spec_ui_bb"), 0)}, \'SPEC_TILE_BB_ON\', \'SPEC_GOODS_NONE\')]"\n'
             f' SPEC_TILE_OVER_ON: "\\n\\nSupply has grown #v [{good_var("spec_ui_over")}|%0]#! since this boom began, so if it ends, '
             f'the hit to [concept_spec_market_confidence] is #N x[{good_var("spec_ui_overx")}|2]#! as big."\n'

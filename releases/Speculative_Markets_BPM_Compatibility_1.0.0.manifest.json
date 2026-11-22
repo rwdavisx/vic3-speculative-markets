@@ -1,0 +1,36 @@
+{
+  "id": "speculative_markets_bpm_compat",
+  "version": "1.0.0",
+  "source": "G:\\GameDev\\speculative-markets\\runs\\bpm\\stable_1.0.0\\mod",
+  "parent": "speculative_markets 1.2.0 (mod/)",
+  "bpm_version": "2.5",
+  "built_against": "1.15.2",
+  "carried_from_generator": [
+    "common/ideologies/zzz_spec_monetary_ideologies.txt"
+  ],
+  "packaged_utc": "2026-11-22T20:16:27.834476+00:00",
+  "archive": "Speculative_Markets_BPM_Compatibility_1.0.0.zip",
+  "archive_sha256": "8429d59888f4ea15c769221f64908fff26df4c70761ab0b97e04a7ebb7c6f448",
+  "file_count": 18,
+  "files_sha256": {
+    ".metadata/metadata.json": "d549b875c1137a1582e539139b49ed5f215bf525704a64d3fc7a08f0299c970b",
+    "common/ideologies/zzz_spec_monetary_ideologies.txt": "db72d5f7c6de2ae3d88ab723c8de002d0e230f4c85cd8274b63fea4cdd123169",
+    "common/on_actions/spec_igs_on_actions.txt": "2f07d98808bac6b9ddfb8377acf25de72d5eccf9f4c65864010f76ee9ec583f2",
+    "common/script_values/spec_igs_values.txt": "029467650b1f622f8e2be7b7abf9ea917070f9fb7a97cfd42ac7b8412069f2b5",
+    "common/scripted_effects/spec_igs_effects.txt": "9b3d1f7bdf2b448a49440fe94f2c229c96722c5b244fe88fe4e54969ae9b44b1",
+    "gui/BPM_interest_group_panel.gui": "e2073531d9085a1835987d2cd14984c03bbbffd8fcc51ca9b5ac8e2d0272c49a",
+    "gui/spec_market_tab.gui": "e442e3f8b9e3a9aab4818378b07c10707c41e599d53d856722e4cb695200a960",
+    "localization/braz_por/spec_markets_l_braz_por.yml": "4acbfa4ecdb67ae15a9336c81915e0bf0dd9fc910aa1b5a4f922814cfdb1d5e7",
+    "localization/english/spec_markets_l_english.yml": "4aae8fc3533a4fa41c4504ec2bea3a9b3cc92978c234caa4c5f2ed2b1325c5c1",
+    "localization/french/spec_markets_l_french.yml": "30d9c612f3c006f63de75f0943b66aaa5161eaa0aa74fdcffe92427cc782add2",
+    "localization/german/spec_markets_l_german.yml": "9fdd6d6eb647998b7088f8bf038ffb79f4c91b1430052a0a3949237251f6c46c",
+    "localization/japanese/spec_markets_l_japanese.yml": "00416c1dcba30833c6f706dc37b843eb4d7a2faa6c023e752a8e053f1d5f06fe",
+    "localization/korean/spec_markets_l_korean.yml": "213b097dd9106d2a49e1d79e91bd7e7c3d328e6511509c5a8fcaf36b50d41145",
+    "localization/polish/spec_markets_l_polish.yml": "1295bfb0cb78aa42ed1b583d257758e4fd3a5a21eb2c0cd9e3f8999e46d0b486",
+    "localization/russian/spec_markets_l_russian.yml": "e6c4960294242e7f2717b59aecf1cdd43d0a5d5eb81dfd972b016de197b54300",
+    "localization/simp_chinese/spec_markets_l_simp_chinese.yml": "8fda80a98ea89571ca50987823cc9d0d9fc0a302d68f8013a97ffaad7872cbf4",
+    "localization/spanish/spec_markets_l_spanish.yml": "81f7e1d55f15d45b245000223fab1d5a1f238bf103525aaa62bb1946b0fbb3d3",
+    "localization/turkish/spec_markets_l_turkish.yml": "561f6abfa13e0170584c230569197b30a772c2276561b2d3e578b7e79fb425f7"
+  },
+  "validation": "Same files as runs/bpm/dev_live/mod plus the dev build's monetary ideology file. The user played that set in the dev game (BPM 2.5, dev build, patch) on 2026-11-22 and reported it working; error.log had no Speculative Markets errors. Not run against stable 1.2.0 itself."
+}

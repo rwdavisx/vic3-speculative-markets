@@ -11,7 +11,7 @@ spec_rival_contest = {
 			variable = spec_rv_chosen
 			limit = {
 				has_variable = spec_exch_stand has_variable = spec_centre_score has_variable = spec_centre_trust
-				scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_4 target = prev } }
+				scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_59 target = prev } }
 				NOT = { is_target_in_variable_list = { name = spec_rv_settled target = scope:spec_rival_me } }
 			}
 			# Snapshot the final bar while both competitors still have their pushes.
@@ -71,7 +71,9 @@ spec_rival_contest = {
 						limit = { local_var:spec_rv_big = 1 }
 						change_local_variable = { name = spec_rv_stake multiply = 2 }
 					}
+					if = { limit = { is_player = yes has_variable = spec_trust_review } set_local_variable = { name = spec_before_trust value = var:spec_centre_trust } }
 					set_variable = { name = spec_centre_trust value = { value = var:spec_centre_trust add = local_var:spec_rv_stake max = 120 } }
+					if = { limit = { is_player = yes has_variable = spec_trust_review } change_variable = { name = spec_trust_rivals_pending add = { value = var:spec_centre_trust subtract = local_var:spec_before_trust } } }
 					add_to_variable_list = { name = spec_rv_won target = scope:spec_rv_l }
 					if = {
 						limit = { local_var:spec_rv_big = 1 }
@@ -79,14 +81,18 @@ spec_rival_contest = {
 					}
 					if = {
 						limit = { is_player = yes }
-						set_variable = spec_rival_note_won
+						add_to_variable_list = { name = spec_rival_vs_won target = scope:spec_rv_l }
 					}
 				}
 				scope:spec_rv_l = {
+					if = { limit = { is_player = yes has_variable = spec_trust_review } set_local_variable = { name = spec_before_trust value = var:spec_centre_trust } }
 					set_variable = { name = spec_centre_trust value = { value = var:spec_centre_trust subtract = { value = local_var:spec_rv_stake multiply = spec_exch_loss } min = 0 } }
+					if = { limit = { is_player = yes has_variable = spec_trust_review } change_variable = { name = spec_trust_rivals_pending add = { value = var:spec_centre_trust subtract = local_var:spec_before_trust } } }
 					if = {
 						limit = { "relations(scope:spec_rv_w)" <= relations_threshold:poor }
+						if = { limit = { is_player = yes has_variable = spec_trust_review } set_local_variable = { name = spec_before_trust value = var:spec_centre_trust } }
 						set_variable = { name = spec_centre_trust value = { value = var:spec_centre_trust subtract = { value = { value = local_var:spec_rv_stake multiply = 0.5 } multiply = spec_exch_loss } min = 0 } }
+						if = { limit = { is_player = yes has_variable = spec_trust_review } change_variable = { name = spec_trust_rivals_pending add = { value = var:spec_centre_trust subtract = local_var:spec_before_trust } } }
 					}
 					add_to_variable_list = { name = spec_rv_lost target = scope:spec_rv_w }
 					if = {
@@ -101,19 +107,349 @@ spec_rival_contest = {
 					}
 					if = {
 						limit = { is_player = yes }
-						set_variable = spec_rival_note_lost
+						add_to_variable_list = { name = spec_rival_vs_lost target = scope:spec_rv_w }
 					}
 				}
 			}
 		}
 	}
-	# a year on every clock; a settled contest starts again
+	# a year on every clock; a settled contest is over and frees its slot (2026-11-19: it used to start again)
 	every_country = {
 		limit = { has_variable_list = spec_rv_chosen }
 		every_in_list = {
+			variable = spec_rv_age_59
+			save_temporary_scope_as = spec_rv_x
+			prev = { remove_list_variable = { name = spec_rv_chosen target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_59
+		every_in_list = {
+			variable = spec_rv_age_58
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_59 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_58
+		every_in_list = {
+			variable = spec_rv_age_57
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_58 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_57
+		every_in_list = {
+			variable = spec_rv_age_56
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_57 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_56
+		every_in_list = {
+			variable = spec_rv_age_55
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_56 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_55
+		every_in_list = {
+			variable = spec_rv_age_54
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_55 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_54
+		every_in_list = {
+			variable = spec_rv_age_53
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_54 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_53
+		every_in_list = {
+			variable = spec_rv_age_52
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_53 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_52
+		every_in_list = {
+			variable = spec_rv_age_51
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_52 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_51
+		every_in_list = {
+			variable = spec_rv_age_50
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_51 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_50
+		every_in_list = {
+			variable = spec_rv_age_49
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_50 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_49
+		every_in_list = {
+			variable = spec_rv_age_48
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_49 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_48
+		every_in_list = {
+			variable = spec_rv_age_47
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_48 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_47
+		every_in_list = {
+			variable = spec_rv_age_46
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_47 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_46
+		every_in_list = {
+			variable = spec_rv_age_45
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_46 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_45
+		every_in_list = {
+			variable = spec_rv_age_44
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_45 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_44
+		every_in_list = {
+			variable = spec_rv_age_43
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_44 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_43
+		every_in_list = {
+			variable = spec_rv_age_42
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_43 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_42
+		every_in_list = {
+			variable = spec_rv_age_41
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_42 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_41
+		every_in_list = {
+			variable = spec_rv_age_40
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_41 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_40
+		every_in_list = {
+			variable = spec_rv_age_39
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_40 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_39
+		every_in_list = {
+			variable = spec_rv_age_38
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_39 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_38
+		every_in_list = {
+			variable = spec_rv_age_37
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_38 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_37
+		every_in_list = {
+			variable = spec_rv_age_36
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_37 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_36
+		every_in_list = {
+			variable = spec_rv_age_35
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_36 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_35
+		every_in_list = {
+			variable = spec_rv_age_34
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_35 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_34
+		every_in_list = {
+			variable = spec_rv_age_33
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_34 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_33
+		every_in_list = {
+			variable = spec_rv_age_32
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_33 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_32
+		every_in_list = {
+			variable = spec_rv_age_31
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_32 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_31
+		every_in_list = {
+			variable = spec_rv_age_30
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_31 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_30
+		every_in_list = {
+			variable = spec_rv_age_29
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_30 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_29
+		every_in_list = {
+			variable = spec_rv_age_28
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_29 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_28
+		every_in_list = {
+			variable = spec_rv_age_27
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_28 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_27
+		every_in_list = {
+			variable = spec_rv_age_26
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_27 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_26
+		every_in_list = {
+			variable = spec_rv_age_25
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_26 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_25
+		every_in_list = {
+			variable = spec_rv_age_24
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_25 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_24
+		every_in_list = {
+			variable = spec_rv_age_23
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_24 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_23
+		every_in_list = {
+			variable = spec_rv_age_22
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_23 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_22
+		every_in_list = {
+			variable = spec_rv_age_21
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_22 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_21
+		every_in_list = {
+			variable = spec_rv_age_20
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_21 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_20
+		every_in_list = {
+			variable = spec_rv_age_19
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_20 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_19
+		every_in_list = {
+			variable = spec_rv_age_18
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_19 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_18
+		every_in_list = {
+			variable = spec_rv_age_17
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_18 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_17
+		every_in_list = {
+			variable = spec_rv_age_16
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_17 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_16
+		every_in_list = {
+			variable = spec_rv_age_15
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_16 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_15
+		every_in_list = {
+			variable = spec_rv_age_14
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_15 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_14
+		every_in_list = {
+			variable = spec_rv_age_13
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_14 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_13
+		every_in_list = {
+			variable = spec_rv_age_12
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_13 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_12
+		every_in_list = {
+			variable = spec_rv_age_11
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_12 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_11
+		every_in_list = {
+			variable = spec_rv_age_10
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_11 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_10
+		every_in_list = {
+			variable = spec_rv_age_9
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_10 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_9
+		every_in_list = {
+			variable = spec_rv_age_8
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_9 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_8
+		every_in_list = {
+			variable = spec_rv_age_7
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_8 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_7
+		every_in_list = {
+			variable = spec_rv_age_6
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_7 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_6
+		every_in_list = {
+			variable = spec_rv_age_5
+			save_temporary_scope_as = spec_rv_x
+			prev = { add_to_variable_list = { name = spec_rv_age_6 target = scope:spec_rv_x } }
+		}
+		clear_variable_list = spec_rv_age_5
+		every_in_list = {
 			variable = spec_rv_age_4
 			save_temporary_scope_as = spec_rv_x
-			prev = { add_to_variable_list = { name = spec_rv_age_new target = scope:spec_rv_x } }
+			prev = { add_to_variable_list = { name = spec_rv_age_5 target = scope:spec_rv_x } }
 		}
 		clear_variable_list = spec_rv_age_4
 		every_in_list = {
@@ -140,25 +476,36 @@ spec_rival_contest = {
 			prev = { add_to_variable_list = { name = spec_rv_age_1 target = scope:spec_rv_x } }
 		}
 		clear_variable_list = spec_rv_age_0
-		every_in_list = {
-			variable = spec_rv_age_new
-			save_temporary_scope_as = spec_rv_x
-			prev = { add_to_variable_list = { name = spec_rv_age_0 target = scope:spec_rv_x } }
-		}
-		clear_variable_list = spec_rv_age_new
+		spec_rv_count = yes
 	}
 	every_country = {
-		limit = { OR = { has_variable = spec_rival_note_won has_variable = spec_rival_note_lost } }
-		if = {
-			limit = { has_variable = spec_rival_note_won }
-			post_notification = spec_rival_won
-			remove_variable = spec_rival_note_won
+		limit = { OR = { has_variable_list = spec_rival_vs_won has_variable_list = spec_rival_vs_lost } }
+		every_in_list = {
+			variable = spec_rival_vs_won
+			save_scope_as = spec_note_src
+			if = {
+				limit = { has_variable = spec_exch_seat exists = var:spec_exch_seat }
+				var:spec_exch_seat = { save_scope_as = spec_note_state }
+			}
+			else = {
+				capital = { save_scope_as = spec_note_state }
+			}
+			prev = { post_notification = spec_rival_won }
 		}
-		if = {
-			limit = { has_variable = spec_rival_note_lost }
-			post_notification = spec_rival_lost
-			remove_variable = spec_rival_note_lost
+		clear_variable_list = spec_rival_vs_won
+		every_in_list = {
+			variable = spec_rival_vs_lost
+			save_scope_as = spec_note_src
+			if = {
+				limit = { has_variable = spec_exch_seat exists = var:spec_exch_seat }
+				var:spec_exch_seat = { save_scope_as = spec_note_state }
+			}
+			else = {
+				capital = { save_scope_as = spec_note_state }
+			}
+			prev = { post_notification = spec_rival_lost }
 		}
+		clear_variable_list = spec_rival_vs_lost
 	}
 }
 # end spec_rival_contest
@@ -215,6 +562,12 @@ spec_rv_ui_row = {
 			scope:spec_rival_me = { has_variable = spec_exch_stand has_variable = spec_centre_score has_variable = spec_centre_trust }
 		}
 		set_variable = { name = spec_rv_ui_p value = spec_rv_rope }
+		# the bar shows spec_rv_ui_shown, which spec_rv_glide steps to the new figure over GLIDE weeks
+		if = {
+			limit = { NOT = { has_variable = spec_rv_ui_shown } }
+			set_variable = { name = spec_rv_ui_shown value = var:spec_rv_ui_p }
+		}
+		set_variable = { name = spec_rv_ui_step value = { value = var:spec_rv_ui_p subtract = var:spec_rv_ui_shown divide = 4 } }
 		set_variable = { name = spec_rv_ui_left value = { value = 5 subtract = spec_rv_age_m } }
 		save_temporary_scope_as = spec_rv_row
 		scope:spec_rival_me = {
@@ -249,6 +602,37 @@ spec_rv_ui_row = {
 	else_if = {
 		limit = { has_variable = spec_rv_ui_p }
 		remove_variable = spec_rv_ui_p
+		remove_variable = spec_rv_ui_shown
+		remove_variable = spec_rv_ui_step
+	}
+}
+
+# weekly for a player (journal's on_weekly_pulse): each contest bar a step to its month's figure
+spec_rv_glide = {
+	every_in_list = {
+		variable = spec_rv_outs
+		spec_rv_glide_row = yes
+	}
+	every_in_list = {
+		variable = spec_rv_ins
+		spec_rv_glide_row = yes
+	}
+}
+
+spec_rv_glide_row = {
+	if = {
+		limit = { has_variable = spec_rv_ui_step NOT = { var:spec_rv_ui_step = 0 } }
+		change_variable = { name = spec_rv_ui_shown add = var:spec_rv_ui_step }
+		if = {
+			limit = {
+				OR = {
+					AND = { var:spec_rv_ui_step > 0 var:spec_rv_ui_shown > var:spec_rv_ui_p }
+					AND = { var:spec_rv_ui_step < 0 var:spec_rv_ui_shown < var:spec_rv_ui_p }
+				}
+			}
+			set_variable = { name = spec_rv_ui_shown value = var:spec_rv_ui_p }
+			set_variable = { name = spec_rv_ui_step value = 0 }
+		}
 	}
 }
 
@@ -289,7 +673,7 @@ spec_rv_count = {
 # a named rival's contest clock, if it has none: theirs if they named us too, else a new one (scope:target)
 spec_rv_clock = {
 	if = {
-		limit = { NOT = { OR = { is_target_in_variable_list = { name = spec_rv_age_0 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_1 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_2 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_3 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_4 target = scope:target } } } }
+		limit = { NOT = { OR = { is_target_in_variable_list = { name = spec_rv_age_0 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_1 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_2 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_3 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_4 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_5 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_6 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_7 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_8 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_9 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_10 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_11 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_12 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_13 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_14 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_15 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_16 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_17 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_18 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_19 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_20 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_21 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_22 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_23 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_24 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_25 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_26 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_27 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_28 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_29 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_30 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_31 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_32 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_33 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_34 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_35 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_36 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_37 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_38 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_39 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_40 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_41 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_42 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_43 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_44 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_45 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_46 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_47 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_48 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_49 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_50 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_51 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_52 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_53 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_54 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_55 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_56 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_57 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_58 target = scope:target } is_target_in_variable_list = { name = spec_rv_age_59 target = scope:target } } } }
 		if = {
 			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_0 target = prev } } }
 			add_to_variable_list = { name = spec_rv_age_0 target = scope:target }
@@ -309,6 +693,226 @@ spec_rv_clock = {
 		else_if = {
 			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_4 target = prev } } }
 			add_to_variable_list = { name = spec_rv_age_4 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_5 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_5 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_6 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_6 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_7 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_7 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_8 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_8 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_9 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_9 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_10 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_10 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_11 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_11 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_12 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_12 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_13 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_13 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_14 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_14 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_15 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_15 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_16 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_16 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_17 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_17 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_18 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_18 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_19 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_19 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_20 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_20 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_21 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_21 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_22 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_22 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_23 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_23 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_24 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_24 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_25 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_25 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_26 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_26 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_27 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_27 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_28 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_28 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_29 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_29 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_30 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_30 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_31 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_31 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_32 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_32 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_33 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_33 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_34 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_34 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_35 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_35 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_36 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_36 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_37 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_37 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_38 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_38 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_39 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_39 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_40 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_40 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_41 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_41 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_42 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_42 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_43 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_43 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_44 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_44 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_45 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_45 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_46 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_46 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_47 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_47 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_48 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_48 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_49 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_49 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_50 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_50 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_51 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_51 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_52 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_52 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_53 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_53 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_54 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_54 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_55 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_55 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_56 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_56 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_57 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_57 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_58 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_58 target = scope:target }
+		}
+		else_if = {
+			limit = { scope:target = { is_target_in_variable_list = { name = spec_rv_age_59 target = prev } } }
+			add_to_variable_list = { name = spec_rv_age_59 target = scope:target }
 		}
 		else = {
 			add_to_variable_list = { name = spec_rv_age_0 target = scope:target }
@@ -390,7 +994,9 @@ spec_rv_forfeit = {
 					limit = { local_var:spec_rv_big = 1 }
 					change_local_variable = { name = spec_rv_stake multiply = 2 }
 				}
+				if = { limit = { is_player = yes has_variable = spec_trust_review } set_local_variable = { name = spec_before_trust value = var:spec_centre_trust } }
 				set_variable = { name = spec_centre_trust value = { value = var:spec_centre_trust add = local_var:spec_rv_stake max = 120 } }
+				if = { limit = { is_player = yes has_variable = spec_trust_review } change_variable = { name = spec_trust_rivals_pending add = { value = var:spec_centre_trust subtract = local_var:spec_before_trust } } }
 				add_to_variable_list = { name = spec_rv_won target = scope:spec_rv_l }
 				if = {
 					limit = { local_var:spec_rv_big = 1 }
@@ -398,10 +1004,14 @@ spec_rv_forfeit = {
 				}
 			}
 			scope:spec_rv_l = {
+				if = { limit = { is_player = yes has_variable = spec_trust_review } set_local_variable = { name = spec_before_trust value = var:spec_centre_trust } }
 				set_variable = { name = spec_centre_trust value = { value = var:spec_centre_trust subtract = { value = local_var:spec_rv_stake multiply = spec_exch_loss } min = 0 } }
+				if = { limit = { is_player = yes has_variable = spec_trust_review } change_variable = { name = spec_trust_rivals_pending add = { value = var:spec_centre_trust subtract = local_var:spec_before_trust } } }
 				if = {
 					limit = { "relations(scope:spec_rv_w)" <= relations_threshold:poor }
+					if = { limit = { is_player = yes has_variable = spec_trust_review } set_local_variable = { name = spec_before_trust value = var:spec_centre_trust } }
 					set_variable = { name = spec_centre_trust value = { value = var:spec_centre_trust subtract = { value = { value = local_var:spec_rv_stake multiply = 0.5 } multiply = spec_exch_loss } min = 0 } }
+					if = { limit = { is_player = yes has_variable = spec_trust_review } change_variable = { name = spec_trust_rivals_pending add = { value = var:spec_centre_trust subtract = local_var:spec_before_trust } } }
 				}
 				add_to_variable_list = { name = spec_rv_lost target = scope:spec_rv_w }
 				if = {
@@ -419,9 +1029,98 @@ spec_rv_forfeit = {
 	}
 }
 
+# Clear the departing nomination immediately. A reciprocal nomination keeps its own clock and moves.
+spec_rv_drop_pair = {
+    save_temporary_scope_as = spec_rv_departing
+    remove_list_variable = { name = spec_rv_chosen target = scope:target }
+    remove_list_variable = { name = spec_rv_keep target = scope:target }
+    remove_list_variable = { name = spec_rv_age_0 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_1 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_2 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_3 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_4 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_5 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_6 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_7 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_8 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_9 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_10 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_11 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_12 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_13 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_14 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_15 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_16 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_17 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_18 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_19 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_20 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_21 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_22 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_23 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_24 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_25 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_26 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_27 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_28 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_29 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_30 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_31 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_32 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_33 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_34 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_35 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_36 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_37 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_38 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_39 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_40 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_41 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_42 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_43 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_44 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_45 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_46 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_47 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_48 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_49 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_50 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_51 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_52 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_53 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_54 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_55 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_56 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_57 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_58 target = scope:target }
+    remove_list_variable = { name = spec_rv_age_59 target = scope:target }
+
+    if = {
+        limit = { NOT = { scope:target = { is_target_in_variable_list = { name = spec_rv_chosen target = scope:spec_rv_departing } } } }
+        remove_list_variable = { name = spec_rv_push_1 target = scope:target }
+        scope:target = { remove_list_variable = { name = spec_rv_push_1 target = scope:spec_rv_departing } }
+        remove_list_variable = { name = spec_rv_push_2 target = scope:target }
+        scope:target = { remove_list_variable = { name = spec_rv_push_2 target = scope:spec_rv_departing } }
+        remove_list_variable = { name = spec_rv_push_3 target = scope:target }
+        scope:target = { remove_list_variable = { name = spec_rv_push_3 target = scope:spec_rv_departing } }
+        remove_list_variable = { name = spec_rv_push_4 target = scope:target }
+        scope:target = { remove_list_variable = { name = spec_rv_push_4 target = scope:spec_rv_departing } }
+        remove_list_variable = { name = spec_rv_push_5 target = scope:target }
+        scope:target = { remove_list_variable = { name = spec_rv_push_5 target = scope:spec_rv_departing } }
+        remove_list_variable = { name = spec_rv_won target = scope:target }
+        scope:target = { remove_list_variable = { name = spec_rv_won target = scope:spec_rv_departing } }
+        remove_list_variable = { name = spec_rv_lost target = scope:target }
+        scope:target = { remove_list_variable = { name = spec_rv_lost target = scope:spec_rv_departing } }
+        remove_list_variable = { name = spec_rv_big target = scope:target }
+        scope:target = { remove_list_variable = { name = spec_rv_big target = scope:spec_rv_departing } }
+        remove_list_variable = { name = spec_rv_tied target = scope:target }
+        scope:target = { remove_list_variable = { name = spec_rv_tied target = scope:spec_rv_departing } }
+    }
+}
+
 spec_rv_end = {
 	spec_rv_forfeit = yes
-	remove_list_variable = { name = spec_rv_chosen target = scope:target }
+	spec_rv_drop_pair = yes
 	spec_rv_count = yes
 	if = {
 		limit = { is_player = yes }
@@ -508,7 +1207,10 @@ spec_rv_unpush = {
 # the last action against scope:target, for both rows and the targeted player's event (spec_rv_ok: 1 worked, 0 failed, -1 exposed)
 spec_rv_log = {
 	spec_rv_did = { CODE = $CODE$ }
-	save_scope_value_as = { name = spec_rv_event_amount value = var:spec_rv_did_amt }
+	if = {  # unset while a tooltip runs this without setting anything (2026-11-19: "value of type none" every frame)
+		limit = { has_variable = spec_rv_did_amt }
+		save_scope_value_as = { name = spec_rv_event_amount value = var:spec_rv_did_amt }
+	}
 	scope:target = {
 		set_variable = { name = spec_rv_hit value = $CODE$ }
 		set_variable = { name = spec_rv_hit_by value = scope:spec_rv_actor }
@@ -839,7 +1541,9 @@ spec_rv_press = {
 			change_local_variable = { name = spec_rv_t multiply = 0.5 }
 		}
 		set_local_variable = { name = spec_rv_before value = var:spec_centre_trust }
+		if = { limit = { is_player = yes has_variable = spec_trust_review } set_local_variable = { name = spec_before_trust value = var:spec_centre_trust } }
 		set_variable = { name = spec_centre_trust value = { value = var:spec_centre_trust subtract = { value = local_var:spec_rv_t multiply = spec_exch_loss } min = 0 } }
+		if = { limit = { is_player = yes has_variable = spec_trust_review } change_variable = { name = spec_trust_rivals_pending add = { value = var:spec_centre_trust subtract = local_var:spec_before_trust } } }
 		set_local_variable = { name = spec_rv_t value = { value = local_var:spec_rv_before subtract = var:spec_centre_trust } }
 	}
 	set_local_variable = { name = spec_rv_roll value = { fixed_range = { min = 0 max = 100 } } }
@@ -848,7 +1552,9 @@ spec_rv_press = {
 		limit = { local_var:spec_rv_roll < local_var:spec_rv_x }
 		set_local_variable = { name = spec_rv_ok value = -1 }
 		change_relations = { country = scope:target value = -20 }
+		if = { limit = { is_player = yes has_variable = spec_trust_review } set_local_variable = { name = spec_before_trust value = var:spec_centre_trust } }
 		set_variable = { name = spec_centre_trust value = { value = var:spec_centre_trust subtract = { value = 2 multiply = spec_exch_loss } min = 0 } }
+		if = { limit = { is_player = yes has_variable = spec_trust_review } change_variable = { name = spec_trust_rivals_pending add = { value = var:spec_centre_trust subtract = local_var:spec_before_trust } } }
 	}
 	if = {
 		limit = { local_var:spec_rv_ok = 1 }
@@ -1052,14 +1758,17 @@ spec_rv_ai = {
 			save_scope_as = target
 			scope:spec_rv_ai_me = { spec_rv_ai_act = yes }
 		}
+		spec_rv_ai_pick = yes
 	}
 }
 
-# once a year, before the contest: an AI drops rivals out of reach, without an Exchange, rivalled by more than AI_CAP,
-# or, early in a round, too far ahead to catch; then fills its free slots among Exchanges fewer than AI_CAP rival (else
-# everyone tied below one Exchange piles onto it) that it starts no further behind than AI_REACH, the best prize first
+# an AI's look (spec_rv_ai, every AI_EVERY days on its own clock; 2026-11-19: once a year, all on one day): it drops
+# rivals out of reach, without an Exchange, rivalled by more than AI_CAP, or, early in a round, too far ahead to catch;
+# then may fill one free slot among Exchanges fewer than AI_CAP rival (else everyone tied below one Exchange piles onto
+# it) that it starts no further behind than AI_REACH, the best prize first: at once if one would start in its favour,
+# else on AI_PICK_CHANCE
 spec_rv_ai_pick = {
-	every_country = {
+	if = {
 		limit = {
 			is_player = no
 			has_variable = spec_exch_stand has_variable = spec_centre_score has_variable = spec_centre_trust
@@ -1099,12 +1808,21 @@ spec_rv_ai_pick = {
 					limit = { scope:spec_rv_x = { exists = capital } has_strategic_region_interest_tier = { strategic_region = scope:spec_rv_x.capital.region value >= 2 } }
 					spec_rv_forfeit = yes
 				}
-				remove_list_variable = { name = spec_rv_chosen target = scope:spec_rv_x }
+				spec_rv_drop_pair = yes
 			}
 		}
 		spec_rv_count = yes
-		while = {
-			count = 4
+		set_local_variable = { name = spec_rv_go value = 0 }
+		random = {  # at most one new competitor a look, so the AIs fill their slots over years (2026-11-19: filled all at once)
+			chance = 16
+			set_local_variable = { name = spec_rv_go value = 1 }
+		}
+		if = {  # an opening: an Exchange it may name that it would beat as things stand
+			limit = { any_country = { is_country_alive = yes has_variable = spec_exch_stand has_variable = spec_centre_score has_variable = spec_centre_trust NOT = { this = scope:spec_rv_ai_me } NOT = { scope:spec_rv_ai_me = { is_target_in_variable_list = { name = spec_rv_chosen target = prev } } } var:spec_exch_stand >= local_var:spec_rv_lo var:spec_exch_stand <= local_var:spec_rv_hi spec_rv_rope >= 0.2 NOT = { is_target_in_variable_list = { name = spec_rv_chosen target = scope:spec_rv_ai_me } } exists = capital scope:spec_rv_ai_me = { has_strategic_region_interest_tier = { strategic_region = prev.capital.region value >= 2 } } NOT = { any_country = { count = 3 is_target_in_variable_list = { name = spec_rv_chosen target = prev } } } } }
+			set_local_variable = { name = spec_rv_go value = 1 }
+		}
+		if = {
+			limit = { local_var:spec_rv_go = 1 }
 			if = {
 				limit = {
 					var:spec_rv_n_chosen < spec_rv_slots

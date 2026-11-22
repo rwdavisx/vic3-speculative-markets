@@ -68,7 +68,7 @@ spec_lever_cost_clippers = {
 	multiply = 10
 }
 
-spec_lever_base_clothes = 150
+spec_lever_base_clothes = 50
 spec_lever_cost_clothes = {
 	value = 0
 	if = {
@@ -77,12 +77,12 @@ spec_lever_cost_clothes = {
 	}
 	multiply = 0.5
 	add = 0.5
-	multiply = 15
+	multiply = 5
 	round = yes
 	multiply = 10
 }
 
-spec_lever_base_coal = 75
+spec_lever_base_coal = 50
 spec_lever_cost_coal = {
 	value = 0
 	if = {
@@ -91,7 +91,7 @@ spec_lever_cost_coal = {
 	}
 	multiply = 0.5
 	add = 0.5
-	multiply = 7.5
+	multiply = 5
 	round = yes
 	multiply = 10
 }
@@ -138,7 +138,7 @@ spec_lever_cost_dye = {
 	multiply = 10
 }
 
-spec_lever_base_electricity = 100
+spec_lever_base_electricity = 50
 spec_lever_cost_electricity = {
 	value = 0
 	if = {
@@ -147,7 +147,7 @@ spec_lever_cost_electricity = {
 	}
 	multiply = 0.5
 	add = 0.5
-	multiply = 10
+	multiply = 5
 	round = yes
 	multiply = 10
 }
@@ -180,7 +180,7 @@ spec_lever_cost_explosives = {
 	multiply = 10
 }
 
-spec_lever_base_fabric = 150
+spec_lever_base_fabric = 50
 spec_lever_cost_fabric = {
 	value = 0
 	if = {
@@ -189,7 +189,7 @@ spec_lever_cost_fabric = {
 	}
 	multiply = 0.5
 	add = 0.5
-	multiply = 15
+	multiply = 5
 	round = yes
 	multiply = 10
 }
@@ -222,7 +222,7 @@ spec_lever_cost_fine_art = {
 	multiply = 10
 }
 
-spec_lever_base_fish = 150
+spec_lever_base_fish = 50
 spec_lever_cost_fish = {
 	value = 0
 	if = {
@@ -231,12 +231,12 @@ spec_lever_cost_fish = {
 	}
 	multiply = 0.5
 	add = 0.5
-	multiply = 15
+	multiply = 5
 	round = yes
 	multiply = 10
 }
 
-spec_lever_base_fruit = 100
+spec_lever_base_fruit = 50
 spec_lever_cost_fruit = {
 	value = 0
 	if = {
@@ -245,12 +245,12 @@ spec_lever_cost_fruit = {
 	}
 	multiply = 0.5
 	add = 0.5
-	multiply = 10
+	multiply = 5
 	round = yes
 	multiply = 10
 }
 
-spec_lever_base_furniture = 150
+spec_lever_base_furniture = 50
 spec_lever_cost_furniture = {
 	value = 0
 	if = {
@@ -259,7 +259,7 @@ spec_lever_cost_furniture = {
 	}
 	multiply = 0.5
 	add = 0.5
-	multiply = 15
+	multiply = 5
 	round = yes
 	multiply = 10
 }
@@ -278,7 +278,7 @@ spec_lever_cost_glass = {
 	multiply = 10
 }
 
-spec_lever_base_grain = 250
+spec_lever_base_grain = 50
 spec_lever_cost_grain = {
 	value = 0
 	if = {
@@ -287,12 +287,12 @@ spec_lever_cost_grain = {
 	}
 	multiply = 0.5
 	add = 0.5
-	multiply = 25
+	multiply = 5
 	round = yes
 	multiply = 10
 }
 
-spec_lever_base_groceries = 150
+spec_lever_base_groceries = 50
 spec_lever_cost_groceries = {
 	value = 0
 	if = {
@@ -301,7 +301,7 @@ spec_lever_cost_groceries = {
 	}
 	multiply = 0.5
 	add = 0.5
-	multiply = 15
+	multiply = 5
 	round = yes
 	multiply = 10
 }
@@ -390,7 +390,7 @@ spec_lever_cost_luxury_furniture = {
 	multiply = 10
 }
 
-spec_lever_base_meat = 100
+spec_lever_base_meat = 50
 spec_lever_cost_meat = {
 	value = 0
 	if = {
@@ -399,7 +399,7 @@ spec_lever_cost_meat = {
 	}
 	multiply = 0.5
 	add = 0.5
-	multiply = 10
+	multiply = 5
 	round = yes
 	multiply = 10
 }
@@ -418,7 +418,7 @@ spec_lever_cost_merchant_marine = {
 	multiply = 10
 }
 
-spec_lever_base_oil = 100
+spec_lever_base_oil = 50
 spec_lever_cost_oil = {
 	value = 0
 	if = {
@@ -427,7 +427,7 @@ spec_lever_cost_oil = {
 	}
 	multiply = 0.5
 	add = 0.5
-	multiply = 10
+	multiply = 5
 	round = yes
 	multiply = 10
 }
@@ -446,7 +446,7 @@ spec_lever_cost_opium = {
 	multiply = 10
 }
 
-spec_lever_base_paper = 100
+spec_lever_base_paper = 50
 spec_lever_cost_paper = {
 	value = 0
 	if = {
@@ -455,7 +455,7 @@ spec_lever_cost_paper = {
 	}
 	multiply = 0.5
 	add = 0.5
-	multiply = 10
+	multiply = 5
 	round = yes
 	multiply = 10
 }
@@ -670,7 +670,7 @@ spec_lever_cost_wine = {
 	multiply = 10
 }
 
-spec_lever_base_wood = 150
+spec_lever_base_wood = 50
 spec_lever_cost_wood = {
 	value = 0
 	if = {
@@ -679,7 +679,7 @@ spec_lever_cost_wood = {
 	}
 	multiply = 0.5
 	add = 0.5
-	multiply = 15
+	multiply = 5
 	round = yes
 	multiply = 10
 }

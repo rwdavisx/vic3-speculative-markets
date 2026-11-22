@@ -1860,6 +1860,110 @@ types interest_group_panel_types
 										text = "[Goods.GetNameNoFormatting]"
 									}
 								}
+								widget = {
+									datacontext = "[GetGoods('steamers')]"
+									visible = "[GreaterThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_industrialists_steamers').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+									size = { 260 40 }
+									tooltipwidget = {
+										FancyTooltip_Goods = {
+											blockoverride "goods_trend" {  # the type itself fills tooltip_content_before, so ours went unseen
+												custom_tooltip_textbox_with_empty_line = {
+													visible = "[GreaterThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_industrialists_steamers').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+													text = "SPEC_IGS_FAV_TT"
+												}
+												custom_tooltip_textbox_with_empty_line = {
+													visible = "[LessThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_industrialists_steamers').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+													text = "SPEC_IGS_DIS_TT"
+												}
+											}
+										}
+									}
+									using = tooltip_above
+									icon = {
+										size = { 40 40 }
+										texture = "gfx/interface/market_view/trade_good_icon_bg.dds"
+										color = "[Goods.GetCategoryColor]"
+										icon = {
+											size = { 30 30 }
+											parentanchor = center
+											texture = "[Goods.GetTexture]"
+										}
+										icon = {
+											visible = "[GreaterThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_industrialists_steamers').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+											size = { 20 20 }
+											parentanchor = bottom|right
+											texture = "gfx/interface/icons/generic_icons/approval_icon.dds"
+											alwaystransparent = yes
+										}
+										icon = {
+											visible = "[LessThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_industrialists_steamers').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+											size = { 20 20 }
+											parentanchor = bottom|right
+											texture = "gfx/interface/icons/generic_icons/disapproval_icon.dds"
+											alwaystransparent = yes
+										}
+									}
+									textbox = {
+										position = { 45 0 }
+										size = { 215 40 }
+										align = nobaseline
+										elide = right
+										fontsize_min = 14
+										text = "[Goods.GetNameNoFormatting]"
+									}
+								}
+								widget = {
+									datacontext = "[GetGoods('copper')]"
+									visible = "[GreaterThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_industrialists_copper').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+									size = { 260 40 }
+									tooltipwidget = {
+										FancyTooltip_Goods = {
+											blockoverride "goods_trend" {  # the type itself fills tooltip_content_before, so ours went unseen
+												custom_tooltip_textbox_with_empty_line = {
+													visible = "[GreaterThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_industrialists_copper').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+													text = "SPEC_IGS_FAV_TT"
+												}
+												custom_tooltip_textbox_with_empty_line = {
+													visible = "[LessThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_industrialists_copper').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+													text = "SPEC_IGS_DIS_TT"
+												}
+											}
+										}
+									}
+									using = tooltip_above
+									icon = {
+										size = { 40 40 }
+										texture = "gfx/interface/market_view/trade_good_icon_bg.dds"
+										color = "[Goods.GetCategoryColor]"
+										icon = {
+											size = { 30 30 }
+											parentanchor = center
+											texture = "[Goods.GetTexture]"
+										}
+										icon = {
+											visible = "[GreaterThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_industrialists_copper').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+											size = { 20 20 }
+											parentanchor = bottom|right
+											texture = "gfx/interface/icons/generic_icons/approval_icon.dds"
+											alwaystransparent = yes
+										}
+										icon = {
+											visible = "[LessThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_industrialists_copper').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+											size = { 20 20 }
+											parentanchor = bottom|right
+											texture = "gfx/interface/icons/generic_icons/disapproval_icon.dds"
+											alwaystransparent = yes
+										}
+									}
+									textbox = {
+										position = { 45 0 }
+										size = { 215 40 }
+										align = nobaseline
+										elide = right
+										fontsize_min = 14
+										text = "[Goods.GetNameNoFormatting]"
+									}
+								}
 							}
 							flowcontainer = {
 								direction = vertical
@@ -1920,7 +2024,7 @@ types interest_group_panel_types
 								}
 							}
 							textbox = {
-								visible = "[Not(Or(Or(Or(Or(Or(Or(Or(Or(Or(Or(Or(Or(NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_industrialists_steel').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0'), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_industrialists_tools').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_industrialists_engines').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_industrialists_coal').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_industrialists_iron').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_industrialists_fabric').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_industrialists_explosives').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_industrialists_glass').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_industrialists_oil').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_industrialists_rubber').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_industrialists_electricity').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_industrialists_automobiles').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_industrialists_grain').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')))]"
+								visible = "[Not(Or(Or(Or(Or(Or(Or(Or(Or(Or(Or(Or(Or(Or(Or(NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_industrialists_steel').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0'), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_industrialists_tools').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_industrialists_engines').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_industrialists_coal').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_industrialists_iron').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_industrialists_fabric').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_industrialists_explosives').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_industrialists_glass').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_industrialists_oil').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_industrialists_rubber').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_industrialists_electricity').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_industrialists_automobiles').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_industrialists_steamers').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_industrialists_copper').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_industrialists_grain').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')))]"
 								size = { 520 40 }
 								align = nobaseline
 								using = empty_state_text_properties
@@ -2248,9 +2352,223 @@ types interest_group_panel_types
 										text = "[Goods.GetNameNoFormatting]"
 									}
 								}
+								widget = {
+									datacontext = "[GetGoods('lead')]"
+									visible = "[GreaterThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_armed_forces_lead').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+									size = { 260 40 }
+									tooltipwidget = {
+										FancyTooltip_Goods = {
+											blockoverride "goods_trend" {  # the type itself fills tooltip_content_before, so ours went unseen
+												custom_tooltip_textbox_with_empty_line = {
+													visible = "[GreaterThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_armed_forces_lead').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+													text = "SPEC_IGS_FAV_TT"
+												}
+												custom_tooltip_textbox_with_empty_line = {
+													visible = "[LessThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_armed_forces_lead').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+													text = "SPEC_IGS_DIS_TT"
+												}
+											}
+										}
+									}
+									using = tooltip_above
+									icon = {
+										size = { 40 40 }
+										texture = "gfx/interface/market_view/trade_good_icon_bg.dds"
+										color = "[Goods.GetCategoryColor]"
+										icon = {
+											size = { 30 30 }
+											parentanchor = center
+											texture = "[Goods.GetTexture]"
+										}
+										icon = {
+											visible = "[GreaterThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_armed_forces_lead').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+											size = { 20 20 }
+											parentanchor = bottom|right
+											texture = "gfx/interface/icons/generic_icons/approval_icon.dds"
+											alwaystransparent = yes
+										}
+										icon = {
+											visible = "[LessThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_armed_forces_lead').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+											size = { 20 20 }
+											parentanchor = bottom|right
+											texture = "gfx/interface/icons/generic_icons/disapproval_icon.dds"
+											alwaystransparent = yes
+										}
+									}
+									textbox = {
+										position = { 45 0 }
+										size = { 215 40 }
+										align = nobaseline
+										elide = right
+										fontsize_min = 14
+										text = "[Goods.GetNameNoFormatting]"
+									}
+								}
+								widget = {
+									datacontext = "[GetGoods('sulfur')]"
+									visible = "[GreaterThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_armed_forces_sulfur').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+									size = { 260 40 }
+									tooltipwidget = {
+										FancyTooltip_Goods = {
+											blockoverride "goods_trend" {  # the type itself fills tooltip_content_before, so ours went unseen
+												custom_tooltip_textbox_with_empty_line = {
+													visible = "[GreaterThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_armed_forces_sulfur').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+													text = "SPEC_IGS_FAV_TT"
+												}
+												custom_tooltip_textbox_with_empty_line = {
+													visible = "[LessThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_armed_forces_sulfur').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+													text = "SPEC_IGS_DIS_TT"
+												}
+											}
+										}
+									}
+									using = tooltip_above
+									icon = {
+										size = { 40 40 }
+										texture = "gfx/interface/market_view/trade_good_icon_bg.dds"
+										color = "[Goods.GetCategoryColor]"
+										icon = {
+											size = { 30 30 }
+											parentanchor = center
+											texture = "[Goods.GetTexture]"
+										}
+										icon = {
+											visible = "[GreaterThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_armed_forces_sulfur').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+											size = { 20 20 }
+											parentanchor = bottom|right
+											texture = "gfx/interface/icons/generic_icons/approval_icon.dds"
+											alwaystransparent = yes
+										}
+										icon = {
+											visible = "[LessThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_armed_forces_sulfur').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+											size = { 20 20 }
+											parentanchor = bottom|right
+											texture = "gfx/interface/icons/generic_icons/disapproval_icon.dds"
+											alwaystransparent = yes
+										}
+									}
+									textbox = {
+										position = { 45 0 }
+										size = { 215 40 }
+										align = nobaseline
+										elide = right
+										fontsize_min = 14
+										text = "[Goods.GetNameNoFormatting]"
+									}
+								}
+							}
+							flowcontainer = {
+								direction = vertical
+								min_width = 250
+								spacing = 5
+								ignoreinvisible = yes
+								widget = {
+									datacontext = "[GetGoods('opium')]"
+									visible = "[LessThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_armed_forces_opium').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+									size = { 250 40 }
+									tooltipwidget = {
+										FancyTooltip_Goods = {
+											blockoverride "goods_trend" {  # the type itself fills tooltip_content_before, so ours went unseen
+												custom_tooltip_textbox_with_empty_line = {
+													visible = "[GreaterThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_armed_forces_opium').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+													text = "SPEC_IGS_FAV_TT"
+												}
+												custom_tooltip_textbox_with_empty_line = {
+													visible = "[LessThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_armed_forces_opium').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+													text = "SPEC_IGS_DIS_TT"
+												}
+											}
+										}
+									}
+									using = tooltip_above
+									icon = {
+										size = { 40 40 }
+										texture = "gfx/interface/market_view/trade_good_icon_bg.dds"
+										color = "[Goods.GetCategoryColor]"
+										icon = {
+											size = { 30 30 }
+											parentanchor = center
+											texture = "[Goods.GetTexture]"
+										}
+										icon = {
+											visible = "[GreaterThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_armed_forces_opium').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+											size = { 20 20 }
+											parentanchor = bottom|right
+											texture = "gfx/interface/icons/generic_icons/approval_icon.dds"
+											alwaystransparent = yes
+										}
+										icon = {
+											visible = "[LessThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_armed_forces_opium').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+											size = { 20 20 }
+											parentanchor = bottom|right
+											texture = "gfx/interface/icons/generic_icons/disapproval_icon.dds"
+											alwaystransparent = yes
+										}
+									}
+									textbox = {
+										position = { 45 0 }
+										size = { 205 40 }
+										align = nobaseline
+										elide = right
+										fontsize_min = 14
+										text = "[Goods.GetNameNoFormatting]"
+									}
+								}
+								widget = {
+									datacontext = "[GetGoods('liquor')]"
+									visible = "[LessThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_armed_forces_liquor').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+									size = { 250 40 }
+									tooltipwidget = {
+										FancyTooltip_Goods = {
+											blockoverride "goods_trend" {  # the type itself fills tooltip_content_before, so ours went unseen
+												custom_tooltip_textbox_with_empty_line = {
+													visible = "[GreaterThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_armed_forces_liquor').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+													text = "SPEC_IGS_FAV_TT"
+												}
+												custom_tooltip_textbox_with_empty_line = {
+													visible = "[LessThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_armed_forces_liquor').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+													text = "SPEC_IGS_DIS_TT"
+												}
+											}
+										}
+									}
+									using = tooltip_above
+									icon = {
+										size = { 40 40 }
+										texture = "gfx/interface/market_view/trade_good_icon_bg.dds"
+										color = "[Goods.GetCategoryColor]"
+										icon = {
+											size = { 30 30 }
+											parentanchor = center
+											texture = "[Goods.GetTexture]"
+										}
+										icon = {
+											visible = "[GreaterThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_armed_forces_liquor').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+											size = { 20 20 }
+											parentanchor = bottom|right
+											texture = "gfx/interface/icons/generic_icons/approval_icon.dds"
+											alwaystransparent = yes
+										}
+										icon = {
+											visible = "[LessThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_armed_forces_liquor').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+											size = { 20 20 }
+											parentanchor = bottom|right
+											texture = "gfx/interface/icons/generic_icons/disapproval_icon.dds"
+											alwaystransparent = yes
+										}
+									}
+									textbox = {
+										position = { 45 0 }
+										size = { 205 40 }
+										align = nobaseline
+										elide = right
+										fontsize_min = 14
+										text = "[Goods.GetNameNoFormatting]"
+									}
+								}
 							}
 							textbox = {
-								visible = "[Not(Or(Or(Or(Or(Or(NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_armed_forces_small_arms').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0'), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_armed_forces_artillery').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_armed_forces_ammunition').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_armed_forces_explosives').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_armed_forces_tanks').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_armed_forces_aeroplanes').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')))]"
+								visible = "[Not(Or(Or(Or(Or(Or(Or(Or(Or(Or(NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_armed_forces_small_arms').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0'), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_armed_forces_artillery').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_armed_forces_ammunition').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_armed_forces_explosives').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_armed_forces_tanks').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_armed_forces_aeroplanes').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_armed_forces_lead').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_armed_forces_sulfur').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_armed_forces_opium').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_armed_forces_liquor').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')))]"
 								size = { 520 40 }
 								align = nobaseline
 								using = empty_state_text_properties
@@ -3071,8 +3389,118 @@ types interest_group_panel_types
 									}
 								}
 							}
+							flowcontainer = {
+								direction = vertical
+								min_width = 250
+								spacing = 5
+								ignoreinvisible = yes
+								widget = {
+									datacontext = "[GetGoods('engines')]"
+									visible = "[LessThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_rural_folk_engines').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+									size = { 250 40 }
+									tooltipwidget = {
+										FancyTooltip_Goods = {
+											blockoverride "goods_trend" {  # the type itself fills tooltip_content_before, so ours went unseen
+												custom_tooltip_textbox_with_empty_line = {
+													visible = "[GreaterThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_rural_folk_engines').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+													text = "SPEC_IGS_FAV_TT"
+												}
+												custom_tooltip_textbox_with_empty_line = {
+													visible = "[LessThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_rural_folk_engines').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+													text = "SPEC_IGS_DIS_TT"
+												}
+											}
+										}
+									}
+									using = tooltip_above
+									icon = {
+										size = { 40 40 }
+										texture = "gfx/interface/market_view/trade_good_icon_bg.dds"
+										color = "[Goods.GetCategoryColor]"
+										icon = {
+											size = { 30 30 }
+											parentanchor = center
+											texture = "[Goods.GetTexture]"
+										}
+										icon = {
+											visible = "[GreaterThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_rural_folk_engines').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+											size = { 20 20 }
+											parentanchor = bottom|right
+											texture = "gfx/interface/icons/generic_icons/approval_icon.dds"
+											alwaystransparent = yes
+										}
+										icon = {
+											visible = "[LessThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_rural_folk_engines').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+											size = { 20 20 }
+											parentanchor = bottom|right
+											texture = "gfx/interface/icons/generic_icons/disapproval_icon.dds"
+											alwaystransparent = yes
+										}
+									}
+									textbox = {
+										position = { 45 0 }
+										size = { 205 40 }
+										align = nobaseline
+										elide = right
+										fontsize_min = 14
+										text = "[Goods.GetNameNoFormatting]"
+									}
+								}
+								widget = {
+									datacontext = "[GetGoods('tools')]"
+									visible = "[LessThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_rural_folk_tools').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+									size = { 250 40 }
+									tooltipwidget = {
+										FancyTooltip_Goods = {
+											blockoverride "goods_trend" {  # the type itself fills tooltip_content_before, so ours went unseen
+												custom_tooltip_textbox_with_empty_line = {
+													visible = "[GreaterThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_rural_folk_tools').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+													text = "SPEC_IGS_FAV_TT"
+												}
+												custom_tooltip_textbox_with_empty_line = {
+													visible = "[LessThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_rural_folk_tools').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+													text = "SPEC_IGS_DIS_TT"
+												}
+											}
+										}
+									}
+									using = tooltip_above
+									icon = {
+										size = { 40 40 }
+										texture = "gfx/interface/market_view/trade_good_icon_bg.dds"
+										color = "[Goods.GetCategoryColor]"
+										icon = {
+											size = { 30 30 }
+											parentanchor = center
+											texture = "[Goods.GetTexture]"
+										}
+										icon = {
+											visible = "[GreaterThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_rural_folk_tools').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+											size = { 20 20 }
+											parentanchor = bottom|right
+											texture = "gfx/interface/icons/generic_icons/approval_icon.dds"
+											alwaystransparent = yes
+										}
+										icon = {
+											visible = "[LessThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_rural_folk_tools').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+											size = { 20 20 }
+											parentanchor = bottom|right
+											texture = "gfx/interface/icons/generic_icons/disapproval_icon.dds"
+											alwaystransparent = yes
+										}
+									}
+									textbox = {
+										position = { 45 0 }
+										size = { 205 40 }
+										align = nobaseline
+										elide = right
+										fontsize_min = 14
+										text = "[Goods.GetNameNoFormatting]"
+									}
+								}
+							}
 							textbox = {
-								visible = "[Not(Or(Or(Or(Or(Or(Or(NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_rural_folk_grain').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0'), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_rural_folk_meat').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_rural_folk_fabric').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_rural_folk_fish').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_rural_folk_fruit').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_rural_folk_wood').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_rural_folk_fertilizer').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')))]"
+								visible = "[Not(Or(Or(Or(Or(Or(Or(Or(Or(NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_rural_folk_grain').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0'), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_rural_folk_meat').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_rural_folk_fabric').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_rural_folk_fish').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_rural_folk_fruit').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_rural_folk_wood').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_rural_folk_fertilizer').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_rural_folk_engines').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_rural_folk_tools').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')))]"
 								size = { 520 40 }
 								align = nobaseline
 								using = empty_state_text_properties
@@ -3504,9 +3932,275 @@ types interest_group_panel_types
 										text = "[Goods.GetNameNoFormatting]"
 									}
 								}
+								widget = {
+									datacontext = "[GetGoods('hardwood')]"
+									visible = "[GreaterThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_hardwood').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+									size = { 260 40 }
+									tooltipwidget = {
+										FancyTooltip_Goods = {
+											blockoverride "goods_trend" {  # the type itself fills tooltip_content_before, so ours went unseen
+												custom_tooltip_textbox_with_empty_line = {
+													visible = "[GreaterThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_hardwood').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+													text = "SPEC_IGS_FAV_TT"
+												}
+												custom_tooltip_textbox_with_empty_line = {
+													visible = "[LessThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_hardwood').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+													text = "SPEC_IGS_DIS_TT"
+												}
+											}
+										}
+									}
+									using = tooltip_above
+									icon = {
+										size = { 40 40 }
+										texture = "gfx/interface/market_view/trade_good_icon_bg.dds"
+										color = "[Goods.GetCategoryColor]"
+										icon = {
+											size = { 30 30 }
+											parentanchor = center
+											texture = "[Goods.GetTexture]"
+										}
+										icon = {
+											visible = "[GreaterThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_hardwood').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+											size = { 20 20 }
+											parentanchor = bottom|right
+											texture = "gfx/interface/icons/generic_icons/approval_icon.dds"
+											alwaystransparent = yes
+										}
+										icon = {
+											visible = "[LessThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_hardwood').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+											size = { 20 20 }
+											parentanchor = bottom|right
+											texture = "gfx/interface/icons/generic_icons/disapproval_icon.dds"
+											alwaystransparent = yes
+										}
+									}
+									textbox = {
+										position = { 45 0 }
+										size = { 215 40 }
+										align = nobaseline
+										elide = right
+										fontsize_min = 14
+										text = "[Goods.GetNameNoFormatting]"
+									}
+								}
+								widget = {
+									datacontext = "[GetGoods('clippers')]"
+									visible = "[GreaterThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_clippers').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+									size = { 260 40 }
+									tooltipwidget = {
+										FancyTooltip_Goods = {
+											blockoverride "goods_trend" {  # the type itself fills tooltip_content_before, so ours went unseen
+												custom_tooltip_textbox_with_empty_line = {
+													visible = "[GreaterThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_clippers').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+													text = "SPEC_IGS_FAV_TT"
+												}
+												custom_tooltip_textbox_with_empty_line = {
+													visible = "[LessThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_clippers').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+													text = "SPEC_IGS_DIS_TT"
+												}
+											}
+										}
+									}
+									using = tooltip_above
+									icon = {
+										size = { 40 40 }
+										texture = "gfx/interface/market_view/trade_good_icon_bg.dds"
+										color = "[Goods.GetCategoryColor]"
+										icon = {
+											size = { 30 30 }
+											parentanchor = center
+											texture = "[Goods.GetTexture]"
+										}
+										icon = {
+											visible = "[GreaterThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_clippers').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+											size = { 20 20 }
+											parentanchor = bottom|right
+											texture = "gfx/interface/icons/generic_icons/approval_icon.dds"
+											alwaystransparent = yes
+										}
+										icon = {
+											visible = "[LessThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_clippers').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+											size = { 20 20 }
+											parentanchor = bottom|right
+											texture = "gfx/interface/icons/generic_icons/disapproval_icon.dds"
+											alwaystransparent = yes
+										}
+									}
+									textbox = {
+										position = { 45 0 }
+										size = { 215 40 }
+										align = nobaseline
+										elide = right
+										fontsize_min = 14
+										text = "[Goods.GetNameNoFormatting]"
+									}
+								}
+								widget = {
+									datacontext = "[GetGoods('merchant_marine')]"
+									visible = "[GreaterThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_merchant_marine').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+									size = { 260 40 }
+									tooltipwidget = {
+										FancyTooltip_Goods = {
+											blockoverride "goods_trend" {  # the type itself fills tooltip_content_before, so ours went unseen
+												custom_tooltip_textbox_with_empty_line = {
+													visible = "[GreaterThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_merchant_marine').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+													text = "SPEC_IGS_FAV_TT"
+												}
+												custom_tooltip_textbox_with_empty_line = {
+													visible = "[LessThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_merchant_marine').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+													text = "SPEC_IGS_DIS_TT"
+												}
+											}
+										}
+									}
+									using = tooltip_above
+									icon = {
+										size = { 40 40 }
+										texture = "gfx/interface/market_view/trade_good_icon_bg.dds"
+										color = "[Goods.GetCategoryColor]"
+										icon = {
+											size = { 30 30 }
+											parentanchor = center
+											texture = "[Goods.GetTexture]"
+										}
+										icon = {
+											visible = "[GreaterThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_merchant_marine').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+											size = { 20 20 }
+											parentanchor = bottom|right
+											texture = "gfx/interface/icons/generic_icons/approval_icon.dds"
+											alwaystransparent = yes
+										}
+										icon = {
+											visible = "[LessThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_merchant_marine').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+											size = { 20 20 }
+											parentanchor = bottom|right
+											texture = "gfx/interface/icons/generic_icons/disapproval_icon.dds"
+											alwaystransparent = yes
+										}
+									}
+									textbox = {
+										position = { 45 0 }
+										size = { 215 40 }
+										align = nobaseline
+										elide = right
+										fontsize_min = 14
+										text = "[Goods.GetNameNoFormatting]"
+									}
+								}
+							}
+							flowcontainer = {
+								direction = vertical
+								min_width = 250
+								spacing = 5
+								ignoreinvisible = yes
+								widget = {
+									datacontext = "[GetGoods('fabric')]"
+									visible = "[LessThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_fabric').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+									size = { 250 40 }
+									tooltipwidget = {
+										FancyTooltip_Goods = {
+											blockoverride "goods_trend" {  # the type itself fills tooltip_content_before, so ours went unseen
+												custom_tooltip_textbox_with_empty_line = {
+													visible = "[GreaterThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_fabric').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+													text = "SPEC_IGS_FAV_TT"
+												}
+												custom_tooltip_textbox_with_empty_line = {
+													visible = "[LessThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_fabric').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+													text = "SPEC_IGS_DIS_TT"
+												}
+											}
+										}
+									}
+									using = tooltip_above
+									icon = {
+										size = { 40 40 }
+										texture = "gfx/interface/market_view/trade_good_icon_bg.dds"
+										color = "[Goods.GetCategoryColor]"
+										icon = {
+											size = { 30 30 }
+											parentanchor = center
+											texture = "[Goods.GetTexture]"
+										}
+										icon = {
+											visible = "[GreaterThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_fabric').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+											size = { 20 20 }
+											parentanchor = bottom|right
+											texture = "gfx/interface/icons/generic_icons/approval_icon.dds"
+											alwaystransparent = yes
+										}
+										icon = {
+											visible = "[LessThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_fabric').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+											size = { 20 20 }
+											parentanchor = bottom|right
+											texture = "gfx/interface/icons/generic_icons/disapproval_icon.dds"
+											alwaystransparent = yes
+										}
+									}
+									textbox = {
+										position = { 45 0 }
+										size = { 205 40 }
+										align = nobaseline
+										elide = right
+										fontsize_min = 14
+										text = "[Goods.GetNameNoFormatting]"
+									}
+								}
+								widget = {
+									datacontext = "[GetGoods('opium')]"
+									visible = "[LessThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_opium').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+									size = { 250 40 }
+									tooltipwidget = {
+										FancyTooltip_Goods = {
+											blockoverride "goods_trend" {  # the type itself fills tooltip_content_before, so ours went unseen
+												custom_tooltip_textbox_with_empty_line = {
+													visible = "[GreaterThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_opium').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+													text = "SPEC_IGS_FAV_TT"
+												}
+												custom_tooltip_textbox_with_empty_line = {
+													visible = "[LessThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_opium').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+													text = "SPEC_IGS_DIS_TT"
+												}
+											}
+										}
+									}
+									using = tooltip_above
+									icon = {
+										size = { 40 40 }
+										texture = "gfx/interface/market_view/trade_good_icon_bg.dds"
+										color = "[Goods.GetCategoryColor]"
+										icon = {
+											size = { 30 30 }
+											parentanchor = center
+											texture = "[Goods.GetTexture]"
+										}
+										icon = {
+											visible = "[GreaterThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_opium').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+											size = { 20 20 }
+											parentanchor = bottom|right
+											texture = "gfx/interface/icons/generic_icons/approval_icon.dds"
+											alwaystransparent = yes
+										}
+										icon = {
+											visible = "[LessThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_opium').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+											size = { 20 20 }
+											parentanchor = bottom|right
+											texture = "gfx/interface/icons/generic_icons/disapproval_icon.dds"
+											alwaystransparent = yes
+										}
+									}
+									textbox = {
+										position = { 45 0 }
+										size = { 205 40 }
+										align = nobaseline
+										elide = right
+										fontsize_min = 14
+										text = "[Goods.GetNameNoFormatting]"
+									}
+								}
 							}
 							textbox = {
-								visible = "[Not(Or(Or(Or(Or(Or(Or(Or(NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_furniture').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0'), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_luxury_clothes').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_porcelain').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_liquor').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_luxury_furniture').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_clothes').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_groceries').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_glass').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')))]"
+								visible = "[Not(Or(Or(Or(Or(Or(Or(Or(Or(Or(Or(Or(Or(NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_furniture').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0'), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_luxury_clothes').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_porcelain').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_liquor').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_luxury_furniture').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_clothes').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_groceries').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_glass').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_hardwood').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_clippers').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_merchant_marine').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_fabric').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_petty_bourgeoisie_opium').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')))]"
 								size = { 520 40 }
 								align = nobaseline
 								using = empty_state_text_properties
@@ -4275,8 +4969,118 @@ types interest_group_panel_types
 									}
 								}
 							}
+							flowcontainer = {
+								direction = vertical
+								min_width = 250
+								spacing = 5
+								ignoreinvisible = yes
+								widget = {
+									datacontext = "[GetGoods('liquor')]"
+									visible = "[LessThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_trade_unions_liquor').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+									size = { 250 40 }
+									tooltipwidget = {
+										FancyTooltip_Goods = {
+											blockoverride "goods_trend" {  # the type itself fills tooltip_content_before, so ours went unseen
+												custom_tooltip_textbox_with_empty_line = {
+													visible = "[GreaterThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_trade_unions_liquor').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+													text = "SPEC_IGS_FAV_TT"
+												}
+												custom_tooltip_textbox_with_empty_line = {
+													visible = "[LessThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_trade_unions_liquor').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+													text = "SPEC_IGS_DIS_TT"
+												}
+											}
+										}
+									}
+									using = tooltip_above
+									icon = {
+										size = { 40 40 }
+										texture = "gfx/interface/market_view/trade_good_icon_bg.dds"
+										color = "[Goods.GetCategoryColor]"
+										icon = {
+											size = { 30 30 }
+											parentanchor = center
+											texture = "[Goods.GetTexture]"
+										}
+										icon = {
+											visible = "[GreaterThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_trade_unions_liquor').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+											size = { 20 20 }
+											parentanchor = bottom|right
+											texture = "gfx/interface/icons/generic_icons/approval_icon.dds"
+											alwaystransparent = yes
+										}
+										icon = {
+											visible = "[LessThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_trade_unions_liquor').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+											size = { 20 20 }
+											parentanchor = bottom|right
+											texture = "gfx/interface/icons/generic_icons/disapproval_icon.dds"
+											alwaystransparent = yes
+										}
+									}
+									textbox = {
+										position = { 45 0 }
+										size = { 205 40 }
+										align = nobaseline
+										elide = right
+										fontsize_min = 14
+										text = "[Goods.GetNameNoFormatting]"
+									}
+								}
+								widget = {
+									datacontext = "[GetGoods('opium')]"
+									visible = "[LessThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_trade_unions_opium').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+									size = { 250 40 }
+									tooltipwidget = {
+										FancyTooltip_Goods = {
+											blockoverride "goods_trend" {  # the type itself fills tooltip_content_before, so ours went unseen
+												custom_tooltip_textbox_with_empty_line = {
+													visible = "[GreaterThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_trade_unions_opium').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+													text = "SPEC_IGS_FAV_TT"
+												}
+												custom_tooltip_textbox_with_empty_line = {
+													visible = "[LessThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_trade_unions_opium').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+													text = "SPEC_IGS_DIS_TT"
+												}
+											}
+										}
+									}
+									using = tooltip_above
+									icon = {
+										size = { 40 40 }
+										texture = "gfx/interface/market_view/trade_good_icon_bg.dds"
+										color = "[Goods.GetCategoryColor]"
+										icon = {
+											size = { 30 30 }
+											parentanchor = center
+											texture = "[Goods.GetTexture]"
+										}
+										icon = {
+											visible = "[GreaterThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_trade_unions_opium').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+											size = { 20 20 }
+											parentanchor = bottom|right
+											texture = "gfx/interface/icons/generic_icons/approval_icon.dds"
+											alwaystransparent = yes
+										}
+										icon = {
+											visible = "[LessThan_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_trade_unions_opium').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')]"
+											size = { 20 20 }
+											parentanchor = bottom|right
+											texture = "gfx/interface/icons/generic_icons/disapproval_icon.dds"
+											alwaystransparent = yes
+										}
+									}
+									textbox = {
+										position = { 45 0 }
+										size = { 205 40 }
+										align = nobaseline
+										elide = right
+										fontsize_min = 14
+										text = "[Goods.GetNameNoFormatting]"
+									}
+								}
+							}
 							textbox = {
-								visible = "[Not(Or(Or(Or(Or(Or(NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_trade_unions_groceries').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0'), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_trade_unions_clothes').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_trade_unions_coal').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_trade_unions_steel').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_trade_unions_furniture').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_trade_unions_fabric').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')))]"
+								visible = "[Not(Or(Or(Or(Or(Or(Or(Or(NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_trade_unions_groceries').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0'), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_trade_unions_clothes').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_trade_unions_coal').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_trade_unions_steel').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_trade_unions_furniture').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_trade_unions_fabric').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_trade_unions_liquor').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), NotEqualTo_CFixedPoint(InterestGroup.GetCountry.MakeScope.Var('spec_igs_trade_unions_opium').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')))]"
 								size = { 520 40 }
 								align = nobaseline
 								using = empty_state_text_properties

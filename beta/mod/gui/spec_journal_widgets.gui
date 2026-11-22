@@ -25,13 +25,13 @@
 					size = { 96 96 }
 					parentanchor = center
 					visible = "[Not(Or(Country.MakeScope.Var('spec_panic').IsSet, Or(LessThan_CFixedPoint(Country.MakeScope.Var('spec_conf').GetValueWithDefault('(CFixedPoint)55'), '(CFixedPoint)20'), GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var('spec_conf').GetValueWithDefault('(CFixedPoint)55'), '(CFixedPoint)80'))))]"
-					value = "[FixedPointToFloat(Max_CFixedPoint(Min_CFixedPoint(Divide_CFixedPoint(Country.MakeScope.Var('spec_conf').GetValueWithDefault('(CFixedPoint)55'), '(CFixedPoint)100'), '(CFixedPoint)1'), '(CFixedPoint)0'))]"
+					value = "[FixedPointToFloat(Max_CFixedPoint(Min_CFixedPoint(Divide_CFixedPoint(Country.MakeScope.Var('spec_conf_shown').GetValueWithDefault(Country.MakeScope.Var('spec_conf').GetValueWithDefault('(CFixedPoint)55')), '(CFixedPoint)100'), '(CFixedPoint)1'), '(CFixedPoint)0'))]"
 				}
 				round_progress_bad = {
 					size = { 96 96 }
 					parentanchor = center
 					visible = "[Or(Country.MakeScope.Var('spec_panic').IsSet, Or(LessThan_CFixedPoint(Country.MakeScope.Var('spec_conf').GetValueWithDefault('(CFixedPoint)55'), '(CFixedPoint)20'), GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var('spec_conf').GetValueWithDefault('(CFixedPoint)55'), '(CFixedPoint)80')))]"
-					value = "[FixedPointToFloat(Max_CFixedPoint(Min_CFixedPoint(Divide_CFixedPoint(Country.MakeScope.Var('spec_conf').GetValueWithDefault('(CFixedPoint)55'), '(CFixedPoint)100'), '(CFixedPoint)1'), '(CFixedPoint)0'))]"
+					value = "[FixedPointToFloat(Max_CFixedPoint(Min_CFixedPoint(Divide_CFixedPoint(Country.MakeScope.Var('spec_conf_shown').GetValueWithDefault(Country.MakeScope.Var('spec_conf').GetValueWithDefault('(CFixedPoint)55')), '(CFixedPoint)100'), '(CFixedPoint)1'), '(CFixedPoint)0'))]"
 				}
 				icon = {
 					size = { 74 74 }
@@ -42,25 +42,25 @@
 				icon = {
 					size = { 74 74 }
 					parentanchor = center
-					visible = "[And(Not(Or(Country.MakeScope.Var('spec_panic').IsSet, And(Country.MakeScope.Var('spec_ld').IsSet, LessThan_CFixedPoint(Country.MakeScope.Var('spec_ld').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')))), Or(Country.MakeScope.Var('spec_panic_cooldown').IsSet, LessThan_CFixedPoint(Country.MakeScope.Var('spec_conf').GetValueWithDefault('(CFixedPoint)55'), '(CFixedPoint)40')))]"
+					visible = "[And(Not(Or(Country.MakeScope.Var('spec_panic').IsSet, And(Country.MakeScope.Var('spec_ld').IsSet, LessThan_CFixedPoint(Country.MakeScope.Var('spec_ld').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')))), Or(Country.MakeScope.Var('spec_panic_cooldown').IsSet, LessThan_CFixedPoint(Country.MakeScope.Var('spec_conf_shown').GetValueWithDefault(Country.MakeScope.Var('spec_conf').GetValueWithDefault('(CFixedPoint)55')), '(CFixedPoint)40')))]"
 					texture = "gfx/interface/icons/spec_markets/state_wary.dds"
 				}
 				icon = {
 					size = { 74 74 }
 					parentanchor = center
-					visible = "[And(Not(Or(Or(Country.MakeScope.Var('spec_panic').IsSet, And(Country.MakeScope.Var('spec_ld').IsSet, LessThan_CFixedPoint(Country.MakeScope.Var('spec_ld').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3'))), Country.MakeScope.Var('spec_panic_cooldown').IsSet)), And(GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var('spec_conf').GetValueWithDefault('(CFixedPoint)55'), '(CFixedPoint)40'), LessThan_CFixedPoint(Country.MakeScope.Var('spec_conf').GetValueWithDefault('(CFixedPoint)55'), '(CFixedPoint)60')))]"
+					visible = "[And(Not(Or(Or(Country.MakeScope.Var('spec_panic').IsSet, And(Country.MakeScope.Var('spec_ld').IsSet, LessThan_CFixedPoint(Country.MakeScope.Var('spec_ld').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3'))), Country.MakeScope.Var('spec_panic_cooldown').IsSet)), And(GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var('spec_conf_shown').GetValueWithDefault(Country.MakeScope.Var('spec_conf').GetValueWithDefault('(CFixedPoint)55')), '(CFixedPoint)40'), LessThan_CFixedPoint(Country.MakeScope.Var('spec_conf_shown').GetValueWithDefault(Country.MakeScope.Var('spec_conf').GetValueWithDefault('(CFixedPoint)55')), '(CFixedPoint)60')))]"
 					texture = "gfx/interface/icons/spec_markets/state_steady.dds"
 				}
 				icon = {
 					size = { 74 74 }
 					parentanchor = center
-					visible = "[And(Not(Or(Or(Country.MakeScope.Var('spec_panic').IsSet, And(Country.MakeScope.Var('spec_ld').IsSet, LessThan_CFixedPoint(Country.MakeScope.Var('spec_ld').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3'))), Country.MakeScope.Var('spec_panic_cooldown').IsSet)), And(GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var('spec_conf').GetValueWithDefault('(CFixedPoint)55'), '(CFixedPoint)60'), LessThan_CFixedPoint(Country.MakeScope.Var('spec_conf').GetValueWithDefault('(CFixedPoint)55'), '(CFixedPoint)80')))]"
+					visible = "[And(Not(Or(Or(Country.MakeScope.Var('spec_panic').IsSet, And(Country.MakeScope.Var('spec_ld').IsSet, LessThan_CFixedPoint(Country.MakeScope.Var('spec_ld').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3'))), Country.MakeScope.Var('spec_panic_cooldown').IsSet)), And(GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var('spec_conf_shown').GetValueWithDefault(Country.MakeScope.Var('spec_conf').GetValueWithDefault('(CFixedPoint)55')), '(CFixedPoint)60'), LessThan_CFixedPoint(Country.MakeScope.Var('spec_conf_shown').GetValueWithDefault(Country.MakeScope.Var('spec_conf').GetValueWithDefault('(CFixedPoint)55')), '(CFixedPoint)80')))]"
 					texture = "gfx/interface/icons/spec_markets/state_buoyant.dds"
 				}
 				icon = {
 					size = { 74 74 }
 					parentanchor = center
-					visible = "[And(Not(Or(Or(Country.MakeScope.Var('spec_panic').IsSet, And(Country.MakeScope.Var('spec_ld').IsSet, LessThan_CFixedPoint(Country.MakeScope.Var('spec_ld').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3'))), Country.MakeScope.Var('spec_panic_cooldown').IsSet)), GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var('spec_conf').GetValueWithDefault('(CFixedPoint)55'), '(CFixedPoint)80'))]"
+					visible = "[And(Not(Or(Or(Country.MakeScope.Var('spec_panic').IsSet, And(Country.MakeScope.Var('spec_ld').IsSet, LessThan_CFixedPoint(Country.MakeScope.Var('spec_ld').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3'))), Country.MakeScope.Var('spec_panic_cooldown').IsSet)), GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.Var('spec_conf_shown').GetValueWithDefault(Country.MakeScope.Var('spec_conf').GetValueWithDefault('(CFixedPoint)55')), '(CFixedPoint)80'))]"
 					texture = "gfx/interface/icons/spec_markets/state_mania.dds"
 				}
 		}
@@ -84,7 +84,7 @@
 		tooltip = "SPEC_OPEN_TAB_TT"
 		onclick = "[GetVariableSystem.Clear('spec_pick_slot')]"
 		onclick = "[GetVariableSystem.Set('spec_finance_tab', 'booms')]"
-		onclick = "[GetVariableSystem.Set('spec_finance', 'open')]"
+		onclick = "[GetVariableSystem.Set('spec_finance', 'journal_map')]"
 		onclick = "[GetVariableSystem.Clear('spec_finance_next')]"
 	}
 }
@@ -348,28 +348,23 @@ widget = {
 				position = { 110 0 }
 				parentanchor = vcenter
 				spacing = 6
-				icon = {
-					visible = "[Country.MakeScope.Var('spec_top1').IsSet]"
-					datacontext = "[Country.MakeScope.Var('spec_top1').GetGoods]"
-					size = { 30 30 }
-					texture = "[Goods.GetTexture]"
-					tooltip = "[Goods.GetName]"
-				}
-				icon = {
-					visible = "[Country.MakeScope.Var('spec_top2').IsSet]"
-					datacontext = "[Country.MakeScope.Var('spec_top2').GetGoods]"
-					size = { 30 30 }
-					texture = "[Goods.GetTexture]"
-					tooltip = "[Goods.GetName]"
-				}
-				icon = {
-					visible = "[Country.MakeScope.Var('spec_top3').IsSet]"
-					datacontext = "[Country.MakeScope.Var('spec_top3').GetGoods]"
-					size = { 30 30 }
-					texture = "[Goods.GetTexture]"
-					tooltip = "[Goods.GetName]"
-				}
-			}
+			textbox = {
+			                visible = "[Not(GreaterThan_CFixedPoint(Country.MakeScope.Var('spec_fav_n').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0'))]"
+			                text = "NONE"
+			                align = left|vcenter
+			            }
+			flowcontainer = {
+			                spacing = 6
+			                datamodel = "[Country.MakeScope.GetList('spec_fav_goods')]"
+			                item = {
+			                    icon = {
+			                        datacontext = "[Scope.GetGoods]"
+			                        size = { 30 30 }
+			                        texture = "[Goods.GetTexture]"
+			                        tooltip = "SPEC_JE_FAVOURED_GOOD_TT"
+			                    }
+			                }
+			            }	}
 		}
 		widget = {
 			size = { 500 36 }
@@ -387,21 +382,23 @@ widget = {
 				position = { 110 0 }
 				parentanchor = vcenter
 				spacing = 6
-				icon = {
-					visible = "[Country.MakeScope.Var('spec_low1').IsSet]"
-					datacontext = "[Country.MakeScope.Var('spec_low1').GetGoods]"
-					size = { 30 30 }
-					texture = "[Goods.GetTexture]"
-					tooltip = "[Goods.GetName]"
-				}
-				icon = {
-					visible = "[Country.MakeScope.Var('spec_low2').IsSet]"
-					datacontext = "[Country.MakeScope.Var('spec_low2').GetGoods]"
-					size = { 30 30 }
-					texture = "[Goods.GetTexture]"
-					tooltip = "[Goods.GetName]"
-				}
-			}
+			textbox = {
+			                visible = "[Not(GreaterThan_CFixedPoint(Country.MakeScope.Var('spec_shun_n').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0'))]"
+			                text = "NONE"
+			                align = left|vcenter
+			            }
+			flowcontainer = {
+			                spacing = 6
+			                datamodel = "[Country.MakeScope.GetList('spec_shun_goods')]"
+			                item = {
+			                    icon = {
+			                        datacontext = "[Scope.GetGoods]"
+			                        size = { 30 30 }
+			                        texture = "[Goods.GetTexture]"
+			                        tooltip = "SPEC_JE_SHUNNED_GOOD_TT"
+			                    }
+			                }
+			            }	}
 		}
 		widget = {
 			size = { 500 112 }

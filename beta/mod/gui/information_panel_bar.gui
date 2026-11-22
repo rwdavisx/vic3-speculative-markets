@@ -290,7 +290,7 @@ types information_panel_bar_types {
 						onclick = "[GetVariableSystem.SetIf('spec_finance_tab', 'banking', GetVariableSystem.HasValue('spec_finance_next', 'banking'))]"
 						onclick = "[GetVariableSystem.SetIf('spec_finance_tab', 'world', GetVariableSystem.HasValue('spec_finance_next', 'world'))]"
 						onclick = "[GetVariableSystem.Clear('spec_finance_next')]"
-						onclick = "[GetVariableSystem.Set('spec_finance', 'open')]"
+						onclick = "[GetVariableSystem.Set('spec_finance', 'journal_map')]"
 						onclick = "[InformationPanelBar.OpenJournalEntryPanel(JournalEntry.AccessSelf)]"
 						onclick = "[GetVariableSystem.Clear('spec_pick_slot')]"
 					}
@@ -346,7 +346,7 @@ types information_panel_bar_types {
 						onclick = "[GetVariableSystem.SetIf('spec_finance_tab', 'banking', GetVariableSystem.HasValue('spec_finance_next', 'banking'))]"
 						onclick = "[GetVariableSystem.SetIf('spec_finance_tab', 'world', GetVariableSystem.HasValue('spec_finance_next', 'world'))]"
 						onclick = "[GetVariableSystem.Clear('spec_finance_next')]"
-						onclick = "[GetVariableSystem.Set('spec_finance', 'open')]"
+						onclick = "[GetVariableSystem.Set('spec_finance', 'journal_map')]"
 						onclick = "[InformationPanelBar.OpenJournalEntryPanel(JournalEntry.AccessSelf)]"
 						onclick = "[GetVariableSystem.Clear('spec_pick_slot')]"
 					}

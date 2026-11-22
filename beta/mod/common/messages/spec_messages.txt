@@ -148,6 +148,16 @@ spec_igs_dis_lost = {
 	color = neutral
 }
 
+spec_market_bulletin = {
+	type = country
+	group = "spec_boom_end_notification_group"
+
+	texture = "gfx/interface/icons/notification_icons/goods.dds"
+
+	notification_type = toast
+	color = neutral
+}
+
 spec_exch_up = {
 	type = country
 	group = "spec_exchange_notification_group"

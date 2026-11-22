@@ -5,6 +5,5 @@
 
 spec_bc_index = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	state_capitalists_investment_pool_contribution_add = 0.006
-	country_loan_interest_rate_mult = -0.01
+	state_capitalists_investment_pool_contribution_add = 0.004
 }

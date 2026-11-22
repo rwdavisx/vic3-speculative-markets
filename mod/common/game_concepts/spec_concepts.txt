@@ -1,4 +1,8 @@
-﻿concept_spec_market_confidence = {
+﻿concept_spec_market_sector = {
+	texture = "gfx/interface/icons/spec_markets/je_markets.dds"
+}
+
+concept_spec_market_confidence = {
 	texture = "gfx/interface/icons/spec_markets/je_markets.dds"
 }
 
@@ -34,6 +38,10 @@ concept_spec_investor_interest = {
 	texture = "gfx/interface/icons/spec_markets/driver_boom.dds"
 }
 
+concept_spec_investor_sentiment = {
+	texture = "gfx/interface/icons/spec_markets/so_invest.dds"
+}
+
 concept_spec_credit_policy = {
 	texture = "gfx/interface/icons/spec_markets/concept_credit_policy.dds"
 }
@@ -47,7 +55,7 @@ concept_spec_long_depression = {
 }
 
 concept_spec_speculative_excess = {
-	texture = "gfx/interface/icons/spec_markets/crash_risk.dds"
+	texture = "gfx/interface/icons/spec_markets/excess_alert.dds"
 }
 
 concept_spec_sound_finance = {

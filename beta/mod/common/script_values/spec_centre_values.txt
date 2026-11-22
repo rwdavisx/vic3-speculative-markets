@@ -665,11 +665,39 @@ spec_name_price = {
 	if = {
 		limit = { has_variable = spec_mv_total }
 		value = var:spec_mv_total
+		multiply = {
+			value = gdp
+			divide = {
+				value = 0
+				market ?= {
+					every_scope_country = {
+						add = gdp
+					}
+				}
+				min = 1
+			}
+			max = 1
+		}
 	}
 	if = {
 		limit = { has_variable = spec_pw_sum }
-		multiply = { value = var:spec_pw_price multiply = 0.25 add = 1 }
-		multiply = { value = var:spec_pw_sum subtract = var:spec_pw_price multiply = -0.1 add = 1 }
+		multiply = {
+			value = var:spec_pw_sum
+			if = { limit = { has_variable = spec_pw_price } subtract = var:spec_pw_price }
+			multiply = -0.1
+			add = 1
+		}
+	}
+}
+spec_rank_price = {
+	value = spec_name_price
+	if = {
+		limit = { has_variable = spec_ldw_price }
+		add = { value = 4 subtract = var:spec_ldw_price multiply = 0.001 }
+	}
+	else_if = {
+		limit = { has_variable = spec_lead_price }
+		add = { value = 4 subtract = var:spec_lead_price multiply = 0.001 }
 	}
 }
 spec_name_harbour = {
@@ -684,16 +712,46 @@ spec_name_harbour = {
 	}
 	if = {
 		limit = { has_variable = spec_pw_sum }
-		multiply = { value = var:spec_pw_harbour multiply = 0.25 add = 1 }
-		multiply = { value = var:spec_pw_sum subtract = var:spec_pw_harbour multiply = -0.1 add = 1 }
+		multiply = {
+			value = var:spec_pw_sum
+			if = { limit = { has_variable = spec_pw_harbour } subtract = var:spec_pw_harbour }
+			multiply = -0.1
+			add = 1
+		}
+	}
+}
+spec_rank_harbour = {
+	value = spec_name_harbour
+	if = {
+		limit = { has_variable = spec_ldw_harbour }
+		add = { value = 4 subtract = var:spec_ldw_harbour multiply = 0.001 }
+	}
+	else_if = {
+		limit = { has_variable = spec_lead_harbour }
+		add = { value = 4 subtract = var:spec_lead_harbour multiply = 0.001 }
 	}
 }
 spec_name_companies = {
 	value = spec_log_kstr
 	if = {
 		limit = { has_variable = spec_pw_sum }
-		multiply = { value = var:spec_pw_companies multiply = 0.25 add = 1 }
-		multiply = { value = var:spec_pw_sum subtract = var:spec_pw_companies multiply = -0.1 add = 1 }
+		multiply = {
+			value = var:spec_pw_sum
+			if = { limit = { has_variable = spec_pw_companies } subtract = var:spec_pw_companies }
+			multiply = -0.1
+			add = 1
+		}
+	}
+}
+spec_rank_companies = {
+	value = spec_name_companies
+	if = {
+		limit = { has_variable = spec_ldw_companies }
+		add = { value = 4 subtract = var:spec_ldw_companies multiply = 0.001 }
+	}
+	else_if = {
+		limit = { has_variable = spec_lead_companies }
+		add = { value = 4 subtract = var:spec_lead_companies multiply = 0.001 }
 	}
 }
 spec_name_futures = {
@@ -703,8 +761,23 @@ spec_name_futures = {
 	}
 	if = {
 		limit = { has_variable = spec_pw_sum }
-		multiply = { value = var:spec_pw_futures multiply = 0.25 add = 1 }
-		multiply = { value = var:spec_pw_sum subtract = var:spec_pw_futures multiply = -0.1 add = 1 }
+		multiply = {
+			value = var:spec_pw_sum
+			if = { limit = { has_variable = spec_pw_futures } subtract = var:spec_pw_futures }
+			multiply = -0.1
+			add = 1
+		}
+	}
+}
+spec_rank_futures = {
+	value = spec_name_futures
+	if = {
+		limit = { has_variable = spec_ldw_futures }
+		add = { value = 4 subtract = var:spec_ldw_futures multiply = 0.001 }
+	}
+	else_if = {
+		limit = { has_variable = spec_lead_futures }
+		add = { value = 4 subtract = var:spec_lead_futures multiply = 0.001 }
 	}
 }
 spec_name_lender = {
@@ -730,8 +803,23 @@ spec_name_lender = {
 	}
 	if = {
 		limit = { has_variable = spec_pw_sum }
-		multiply = { value = var:spec_pw_lender multiply = 0.25 add = 1 }
-		multiply = { value = var:spec_pw_sum subtract = var:spec_pw_lender multiply = -0.1 add = 1 }
+		multiply = {
+			value = var:spec_pw_sum
+			if = { limit = { has_variable = spec_pw_lender } subtract = var:spec_pw_lender }
+			multiply = -0.1
+			add = 1
+		}
+	}
+}
+spec_rank_lender = {
+	value = spec_name_lender
+	if = {
+		limit = { has_variable = spec_ldw_lender }
+		add = { value = 4 subtract = var:spec_ldw_lender multiply = 0.001 }
+	}
+	else_if = {
+		limit = { has_variable = spec_lead_lender }
+		add = { value = 4 subtract = var:spec_lead_lender multiply = 0.001 }
 	}
 }
 spec_name_railway = {
@@ -749,32 +837,92 @@ spec_name_railway = {
 	}
 	if = {
 		limit = { has_variable = spec_pw_sum }
-		multiply = { value = var:spec_pw_railway multiply = 0.25 add = 1 }
-		multiply = { value = var:spec_pw_sum subtract = var:spec_pw_railway multiply = -0.1 add = 1 }
+		multiply = {
+			value = var:spec_pw_sum
+			if = { limit = { has_variable = spec_pw_railway } subtract = var:spec_pw_railway }
+			multiply = -0.1
+			add = 1
+		}
+	}
+}
+spec_rank_railway = {
+	value = spec_name_railway
+	if = {
+		limit = { has_variable = spec_ldw_railway }
+		add = { value = 4 subtract = var:spec_ldw_railway multiply = 0.001 }
+	}
+	else_if = {
+		limit = { has_variable = spec_lead_railway }
+		add = { value = 4 subtract = var:spec_lead_railway multiply = 0.001 }
 	}
 }
 spec_name_floor = {
 	value = spec_log_ktc
 	if = {
 		limit = { has_variable = spec_pw_sum }
-		multiply = { value = var:spec_pw_floor multiply = 0.25 add = 1 }
-		multiply = { value = var:spec_pw_sum subtract = var:spec_pw_floor multiply = -0.1 add = 1 }
+		multiply = {
+			value = var:spec_pw_sum
+			if = { limit = { has_variable = spec_pw_floor } subtract = var:spec_pw_floor }
+			multiply = -0.1
+			add = 1
+		}
+	}
+}
+spec_rank_floor = {
+	value = spec_name_floor
+	if = {
+		limit = { has_variable = spec_ldw_floor }
+		add = { value = 4 subtract = var:spec_ldw_floor multiply = 0.001 }
+	}
+	else_if = {
+		limit = { has_variable = spec_lead_floor }
+		add = { value = 4 subtract = var:spec_lead_floor multiply = 0.001 }
 	}
 }
 spec_name_sound = {
 	value = spec_log_ksnd
 	if = {
 		limit = { has_variable = spec_pw_sum }
-		multiply = { value = var:spec_pw_sound multiply = 0.25 add = 1 }
-		multiply = { value = var:spec_pw_sum subtract = var:spec_pw_sound multiply = -0.1 add = 1 }
+		multiply = {
+			value = var:spec_pw_sum
+			if = { limit = { has_variable = spec_pw_sound } subtract = var:spec_pw_sound }
+			multiply = -0.1
+			add = 1
+		}
+	}
+}
+spec_rank_sound = {
+	value = spec_name_sound
+	if = {
+		limit = { has_variable = spec_ldw_sound }
+		add = { value = 4 subtract = var:spec_ldw_sound multiply = 0.001 }
+	}
+	else_if = {
+		limit = { has_variable = spec_lead_sound }
+		add = { value = 4 subtract = var:spec_lead_sound multiply = 0.001 }
 	}
 }
 spec_name_pockets = {
 	value = spec_pool_month
 	if = {
 		limit = { has_variable = spec_pw_sum }
-		multiply = { value = var:spec_pw_pockets multiply = 0.25 add = 1 }
-		multiply = { value = var:spec_pw_sum subtract = var:spec_pw_pockets multiply = -0.1 add = 1 }
+		multiply = {
+			value = var:spec_pw_sum
+			if = { limit = { has_variable = spec_pw_pockets } subtract = var:spec_pw_pockets }
+			multiply = -0.1
+			add = 1
+		}
+	}
+}
+spec_rank_pockets = {
+	value = spec_name_pockets
+	if = {
+		limit = { has_variable = spec_ldw_pockets }
+		add = { value = 4 subtract = var:spec_ldw_pockets multiply = 0.001 }
+	}
+	else_if = {
+		limit = { has_variable = spec_lead_pockets }
+		add = { value = 4 subtract = var:spec_lead_pockets multiply = 0.001 }
 	}
 }
 spec_name_door = {
@@ -784,8 +932,23 @@ spec_name_door = {
 	}
 	if = {
 		limit = { has_variable = spec_pw_sum }
-		multiply = { value = var:spec_pw_door multiply = 0.25 add = 1 }
-		multiply = { value = var:spec_pw_sum subtract = var:spec_pw_door multiply = -0.1 add = 1 }
+		multiply = {
+			value = var:spec_pw_sum
+			if = { limit = { has_variable = spec_pw_door } subtract = var:spec_pw_door }
+			multiply = -0.1
+			add = 1
+		}
+	}
+}
+spec_rank_door = {
+	value = spec_name_door
+	if = {
+		limit = { has_variable = spec_ldw_door }
+		add = { value = 4 subtract = var:spec_ldw_door multiply = 0.001 }
+	}
+	else_if = {
+		limit = { has_variable = spec_lead_door }
+		add = { value = 4 subtract = var:spec_lead_door multiply = 0.001 }
 	}
 }
 spec_pursue_slots = {

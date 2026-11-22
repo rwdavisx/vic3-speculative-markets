@@ -3,6 +3,7 @@
 <title>Speculative Markets Tuner</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&family=IM+Fell+English+SC&display=swap">
 <link rel="stylesheet" href="/works.css">
+<link rel="stylesheet" href="/panels.css">
 <style>
 /* the tuner's own panels, in the Waterworks' look (works.css) */
 .status { display: grid; gap: 8px; }
@@ -126,6 +127,7 @@ table.t select { background: #1a1f29; border: 1px solid #3a4152; border-radius: 
       <span class="ptext" id="progt"></span>
     </div>
     <div class="note" id="note"></div>
+    <div class="hint" id="rungline" hidden></div>
     <div class="row">
       <label>Showing <select id="cand"></select></label>
       <label>Charts for <select id="player"></select></label>
@@ -166,6 +168,16 @@ table.t select { background: #1a1f29; border: 1px solid #3a4152; border-radius: 
     <div class="cards" id="fitcards"></div>
   </section>
 
+  </details>
+
+  <details class="panel" id="vssec">
+    <summary>Tuner vs Game <span class="hint">the tuner's readings beside the game's, era by era</span></summary>
+    <div class="sub" id="vsbox"><p class="empty">Loading…</p></div>
+  </details>
+
+  <details class="panel" id="kmsec">
+    <summary>Key Map <span class="hint">which key moves which target</span></summary>
+    <div class="sub" id="kmbox"><p class="empty">Loading…</p></div>
   </details>
 
   <div class="panel bar" role="group" aria-label="Watch one run">
@@ -272,6 +284,7 @@ table.t select { background: #1a1f29; border: 1px solid #3a4152; border-radius: 
   </footer>
 </div>
 
+<script src="/panels.js"></script>
 <script>
 const $ = id => document.getElementById(id);
 const clamp = (v, a, b) => Math.min(Math.max(v, a), b);
@@ -378,6 +391,7 @@ function board() {
   $("creditTierNote").textContent = S.credit_tier_note || "";
   $("creditTierNote").hidden = !S.credit_tier_note;
   $("note").textContent = R.note || "";
+  $("rungline").textContent = rungLine(R); $("rungline").hidden = !$("rungline").textContent;
   cards(); series(); players(); apPanel(); plain();
 }
 // each target: the shown candidate, the ticked kept runs' best (a row each), and every live run's tries (a lane of dots)
@@ -467,6 +481,19 @@ function fitBoard() {
       dotChart([row("Game logs", a, cssv("--gold")), row("Engine", b, cssv("--in"))], { labelW: 82 }) + "</div>";
   }).join("");
 }
+// a halving sweep: how many candidates each rung cut
+function rungLine(r) {
+  if (!r?.dropped) return "";
+  const g = r.rungs;
+  if (!g?.length) return `${r.dropped.length} candidates were cut early.`;
+  const cut = g.slice(0, -1).map((x, i) => (i ? `${x.candidates - g[i + 1].candidates} after ${x.economies}` : `${x.candidates - g[1].candidates} cut after a small run of ${x.economies} economies`));
+  return [`${g[0].candidates} candidates`, cut.join(", "), `${g[g.length - 1].candidates} ran in full`].filter(Boolean).join("; ") + ".";
+}
+
+// ---------- Tuner vs Game and the Key Map (panels.js), read each time they open ----------
+$("vssec").addEventListener("toggle", e => { if (e.target.open) SpecPanels.vs($("vsbox")); });
+$("kmsec").addEventListener("toggle", e => { if (e.target.open) SpecPanels.km($("kmbox")); });
+
 $("cand").addEventListener("change", e => { S = R.cands.find(c => c.id === +e.target.value); board(); });
 $("player").addEventListener("change", () => series());
 

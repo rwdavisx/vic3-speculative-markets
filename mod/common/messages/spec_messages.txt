@@ -108,6 +108,56 @@ spec_boom_end_3 = {
 	color = bad
 }
 
+spec_igs_fav_new = {
+	type = country
+	group = "spec_igs_notification_group"
+
+	texture = "gfx/interface/icons/notification_icons/goods.dds"
+
+	notification_type = toast
+	color = neutral
+}
+
+spec_igs_fav_lost = {
+	type = country
+	group = "spec_igs_notification_group"
+
+	texture = "gfx/interface/icons/notification_icons/goods.dds"
+
+	notification_type = toast
+	color = neutral
+}
+
+spec_igs_dis_new = {
+	type = country
+	group = "spec_igs_notification_group"
+
+	texture = "gfx/interface/icons/notification_icons/goods.dds"
+
+	notification_type = toast
+	color = neutral
+}
+
+spec_igs_dis_lost = {
+	type = country
+	group = "spec_igs_notification_group"
+
+	texture = "gfx/interface/icons/notification_icons/goods.dds"
+
+	notification_type = toast
+	color = neutral
+}
+
+spec_market_bulletin = {
+	type = country
+	group = "spec_boom_end_notification_group"
+
+	texture = "gfx/interface/icons/notification_icons/goods.dds"
+
+	notification_type = toast
+	color = neutral
+}
+
 spec_exch_up = {
 	type = country
 	group = "spec_exchange_notification_group"

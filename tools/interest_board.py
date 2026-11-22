@@ -174,7 +174,7 @@ def loc(k):
             f'[concept_spec_investor_interest] by {effect} and its producers\' [concept_throughput] by {tp}."\n'
             ' SPEC_TERM_MONTH: "month"\n SPEC_TERM_MONTHS: "months"\n'
             ' SPEC_TERM_GLUT: "\\nThe glut overrides this for now."\n'
-            " SPEC_TERM_NONE: \"\\nInvestors neither [Concept('concept_spec_investor_sentiment','favor nor shun')] it.\"\n")
+            " SPEC_TERM_NONE: \"\\n[concept_spec_investor_sentiment] neither favors nor shuns it.\"\n")
     # the calculator: the base effect, then each factor that scales it (investor_sentiment.values)
     gap_pct = f"[Multiply_CFixedPoint({tv('gap')}, {fx(sent.GAP_FULL)})|%0]"
     out += (f' SPEC_TERM_BREAKDOWN: "\\n\\n[SelectLocalization({gt(tv("side"))}, \'SPEC_TERM_BASE_FAV\', \'SPEC_TERM_BASE_SHUN\')]'

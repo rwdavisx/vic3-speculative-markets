@@ -3,34 +3,71 @@
 	desc = "spec_excess_bar_desc"
 	start_value = 0
 	min_value = 0
-	max_value = 200
+	max_value = 300
 	default_bad = yes
-	# what the month added, for the tooltip; the journal entry's pulse sets the bar to var:spec_heat
+	# next month's change a cause a line, for the tooltip (excess); the journal entry's pulse sets the bar to var:spec_heat
 	monthly_progress = {
 		if = {
-			limit = {
-				has_variable = spec_conf
-				var:spec_conf >= spec_heat_from
-				has_technology_researched = stock_exchange
-			}
+			limit = { OR = { spec_xs_boom >= 0.05 spec_xs_boom <= -0.05 } }
 			add = {
-				desc = "spec_excess_from_conf"
-				value = var:spec_conf
-				subtract = 70
-				multiply = spec_reform_heat
+				desc = "SPEC_XS_P0"
+				value = spec_xs_boom
 			}
 		}
-		# generate.py's soft landing: the bubble cools while confidence sits below spec_heat_from but not below BURST_BELOW
-		else_if = {
-			limit = {
-				has_variable = spec_conf
-				has_variable = spec_heat
-				var:spec_conf >= 60
-			}
+		if = {
+			limit = { OR = { spec_xs_mania >= 0.05 spec_xs_mania <= -0.05 } }
 			add = {
-				desc = "spec_excess_cooling"
-				value = var:spec_heat
-				multiply = -0.02
+				desc = "SPEC_XS_PMANIA"
+				value = spec_xs_mania
+			}
+		}
+		if = {
+			limit = { OR = { spec_xs_grow_1 >= 0.05 spec_xs_grow_1 <= -0.05 } }
+			add = {
+				desc = "SPEC_XS_P1"
+				value = spec_xs_grow_1
+			}
+		}
+		if = {
+			limit = { OR = { spec_xs_grow_2 >= 0.05 spec_xs_grow_2 <= -0.05 } }
+			add = {
+				desc = "SPEC_XS_P2"
+				value = spec_xs_grow_2
+			}
+		}
+		if = {
+			limit = { OR = { spec_xs_grow_3 >= 0.05 spec_xs_grow_3 <= -0.05 } }
+			add = {
+				desc = "SPEC_XS_P3"
+				value = spec_xs_grow_3
+			}
+		}
+		if = {
+			limit = { OR = { spec_xs_grow_4 >= 0.05 spec_xs_grow_4 <= -0.05 } }
+			add = {
+				desc = "SPEC_XS_P4"
+				value = spec_xs_grow_4
+			}
+		}
+		if = {
+			limit = { OR = { spec_xs_cool_0 >= 0.05 spec_xs_cool_0 <= -0.05 } }
+			add = {
+				desc = "SPEC_XS_PCOOL"
+				value = spec_xs_cool_0
+			}
+		}
+		if = {
+			limit = { OR = { spec_xs_cool_1 >= 0.05 spec_xs_cool_1 <= -0.05 } }
+			add = {
+				desc = "SPEC_XS_PTIGHT"
+				value = spec_xs_cool_1
+			}
+		}
+		if = {
+			limit = { OR = { spec_xs_pop >= 0.05 spec_xs_pop <= -0.05 } }
+			add = {
+				desc = "SPEC_XS_PPOP"
+				value = spec_xs_pop
 			}
 		}
 	}

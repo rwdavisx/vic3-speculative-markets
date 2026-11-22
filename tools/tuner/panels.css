@@ -1,0 +1,47 @@
+/* Tuner vs Game and the Key Map (panels.js), for the dashboard and the room. Each page names its colours differently,
+   so these take the dashboard's name first and the room's (works.css) second. */
+.spx { --spx-ink: var(--ink, var(--cream)); --spx-ink2: var(--ink2, var(--dim)); --spx-mute: var(--muted, var(--mute)); --spx-good: var(--good, var(--out));
+  --spx-bad: var(--crit, var(--red)); --spx-in: var(--alt, var(--in)); --spx-bg: var(--surface, var(--panel)); --spx-card: var(--card, var(--panel-2));
+  --spx-line: var(--axis, #2c3140); }
+.spx-cap { color: var(--spx-ink2); font-size: 15px; margin: 0 0 8px; max-width: 120ch; }
+.spx-key { color: var(--spx-ink2); font-size: 14px; margin: 0 0 4px; }
+.spx-key svg { display: inline-block; vertical-align: -1px; }
+.spx-empty { color: var(--spx-mute); font-style: italic; padding: 24px 0; text-align: center; margin: 0; }
+.spx-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(400px, 100%), 1fr)); gap: 12px; margin-top: 10px; }
+.spx-card { background: var(--spx-card); border: 1px solid var(--spx-line); border-left: 4px solid var(--edge); padding: 10px 14px; min-width: 0; }
+.spx-card header { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin: 0; padding: 0; border: 0; }
+.spx-card header b { font: 400 19px/1.2 var(--display); color: var(--gold); }
+.spx-card header span { color: var(--spx-mute); font-size: 14px; text-align: right; }
+svg.spx-dots { display: block; width: 100%; height: auto; }
+svg.spx-dots text { font: 500 12px var(--body); fill: var(--spx-mute); font-variant-numeric: tabular-nums; }
+svg.spx-dots text.spx-rl { font-size: 14px; fill: var(--spx-ink2); }
+svg.spx-dots text.spx-rl.spx-tot { fill: var(--spx-ink); font-weight: 700; }
+svg.spx-dots text.spx-vl { font-weight: 700; font-size: 13px; fill: #fff; }
+.spx-grid-l { stroke: #20252f; stroke-width: 1; }
+.spx-wash { fill: rgba(246, 239, 220, .06); }
+.spx-rule { stroke: var(--edge); stroke-width: 1; }
+.spx-se { stroke: var(--gold); stroke-width: 2; opacity: .7; }
+.spx-g { fill: var(--gold); stroke: #000; stroke-width: 1; }
+.spx-t { fill: var(--spx-in); stroke: #000; stroke-width: 1; }
+.spx-gap { color: var(--spx-ink2); font-size: 14px; margin: 2px 0 0; line-height: 1.3; }
+.spx-gap.tot { color: var(--spx-ink); font-weight: 600; font-size: 15px; margin-bottom: 4px; }
+.spx-gap.far { color: var(--spx-bad); }
+.spx-notes { margin: 10px 0 0; padding-left: 1.2em; color: var(--spx-ink2); font-size: 15px; }
+.spx-kmscroll { overflow: auto; max-height: 82vh; border: 1px solid var(--spx-line); }
+table.spx-km { border-collapse: separate; border-spacing: 0; font-size: 13px; font-variant-numeric: tabular-nums; }
+table.spx-km th, table.spx-km td { padding: 0; border-bottom: 1px solid #1f2430; border-right: 1px solid #1f2430; }
+table.spx-km thead th { position: sticky; top: 0; z-index: 2; background: var(--spx-card); color: var(--spx-ink2); font-weight: 500; vertical-align: bottom;
+  width: 5.6em; min-width: 5.6em; padding: 6px 4px; line-height: 1.15; text-align: left; border-bottom: 1px solid var(--edge); }
+table.spx-km thead th.out { color: var(--spx-bad); }
+table.spx-km th.kn { position: sticky; left: 0; z-index: 1; background: var(--spx-bg); text-align: left; padding: 2px 8px; white-space: nowrap; color: var(--spx-ink); font-weight: 600; }
+table.spx-km thead th.kn { z-index: 3; background: var(--spx-card); color: var(--spx-mute); }
+table.spx-km th.kn small { display: block; color: var(--spx-mute); font-weight: 400; font-size: 12px; }
+table.spx-km th.kn small b { color: var(--spx-good); }
+table.spx-km th.kn.conflict { box-shadow: inset 3px 0 0 var(--wary); }
+.spx-km .kc { display: grid; grid-template-columns: 1fr 1fr; min-height: 30px; }
+.spx-km .kc i { font-style: normal; display: flex; align-items: center; justify-content: center; color: var(--spx-ink); font-size: 12px; cursor: default; }
+.spx-km .kc i:first-child { border-right: 1px dashed var(--spx-line); }
+.spx-none { color: var(--spx-mute); font-size: 15px; margin: 10px 0 0; }
+.spx-none b { color: var(--spx-ink2); font-weight: 600; }
+#spx-tip { position: fixed; z-index: 60; pointer-events: none; max-width: 380px; background: #0b0e13; border: 1px solid var(--edge); outline: 1px solid #000;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .55); padding: 8px 10px; font-size: 15px; line-height: 1.35; color: var(--ink, var(--cream)); }

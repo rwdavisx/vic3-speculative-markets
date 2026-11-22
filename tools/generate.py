@@ -475,7 +475,21 @@ def log_values():
           "spec_log_wsum = {\n\tvalue = 0\n" + "".join(f"\tadd = spec_weight_{g}\n" for g in GOODS) + "}"]
     sv += [f"spec_log_{k} = {{\n\tvalue = 0\n\tif = {{\n\t\tlimit = {{ has_variable = {v} }}\n\t\tvalue = var:{v}\n\t}}\n}}"
            for k, v in (("heat", "spec_heat"), ("burst", "spec_c_burst"))]
+    sv.append("spec_log_braw = {\n\tvalue = 0\n\tif = {\n\t\tlimit = { has_variable = spec_boom_raw }\n\t\tvalue = var:spec_boom_raw\n\t}\n}")
+    # windows.py campaign: the law codes are list positions + 1 (0 = none of them), techs a bitmask in LOG_TECHS order
+    pick = lambda name, laws, pre: f"{name} = {{\n\tvalue = 0\n" + "".join(
+        f"\tif = {{\n\t\tlimit = {{ has_law_or_variant = law_type:law_{pre}{law} }}\n\t\tvalue = {i + 1}\n\t}}\n" for i, law in enumerate(laws)) + "}"
+    sv += [pick("spec_log_econ", LOG_ECON, ""), pick("spec_log_money", __import__("monetary").LAWS, "spec_"),
+           "spec_log_techs = {\n\tvalue = 0\n" + "".join(f"\tif = {{\n\t\tlimit = {{ has_technology_researched = {t} }}\n\t\tadd = {2 ** i}\n\t}}\n"
+                                                         for i, t in enumerate(LOG_TECHS)) + "}"]
+    # windows.py: the Industrialists in government (economy.BUSINESS reads their approval, which the stance moves)
+    sv.append(flag("spec_log_igov", "ig:ig_industrialists ?= { is_in_government = yes }"))
     return sv + cycle.log_values(GOODS) + leverage.LOG_VALUES + centres.LOG_GIVEN
+
+
+LOG_ECON = ["traditionalism", "agrarianism", "interventionism", "laissez_faire", "cooperative_ownership", "command_economy", "extraction_economy", "industry_banned"]
+LOG_TECHS = ["banking", "currency_standards", "international_trade", "stock_exchange", "joint_stock_companies", "central_banking",
+             "investment_banks", "international_exchange_standards", "mutual_funds", "modern_financial_instruments", "macroeconomics"]  # = tuner engine.TECH_YEARS
 
 
 def flag(name, trigger):
@@ -947,6 +961,7 @@ def monthly(log):
                     " risktop=[THIS.Var('spec_risk_top').GetValue] wsum=[THIS.ScriptValue('spec_log_wsum')]"
                     " heat=[THIS.ScriptValue('spec_log_heat')] burst=[THIS.ScriptValue('spec_log_burst')]"
                     " bankbooms=[THIS.ScriptValue('spec_exp_booms')] restrain=[THIS.Var('spec_c_restrain').GetValue]" + leverage.LOG + cycle.LOG + centres.LOG +
+                    " braw=[THIS.ScriptValue('spec_log_braw')] econ=[THIS.ScriptValue('spec_log_econ')] money=[THIS.ScriptValue('spec_log_money')] techs=[THIS.ScriptValue('spec_log_techs')] iapp=[THIS.ScriptValue('spec_ind_approval')] igov=[THIS.ScriptValue('spec_log_igov')]"
                     " end1=[THIS.Var('spec_n_end_1').GetValue] end2=[THIS.Var('spec_n_end_2').GetValue] end3=[THIS.Var('spec_n_end_3').GetValue]"
                     # every pressure on confidence this month (the tab's own list), 0 when unset, for the Stats tab
                     + "".join(f" d_{n}=[THIS.ScriptValue('spec_log_d_{n}')]" for n, _ in market_tab.DRIVERS) +
@@ -2491,6 +2506,8 @@ def main(log=False):
     write("gui/goods_panel.gui", goods_panel.patch((GAME / "gui/goods_panel.gui").read_text(encoding="utf-8-sig")))
     write("gui/spec_goods_panel.gui", goods_panel.block_type())
     write("gui/interest_group_panel.gui", ig_stances.panel_patch((GAME / "gui/interest_group_panel.gui").read_text(encoding="utf-8-sig")))
+    if mod_sources.BPM:  # BPM's panel type loads first and wins over ours: the BPM patch ships it with the Goods section
+        write("gui/BPM_interest_group_panel.gui", ig_stances.panel_patch((mod_sources.BPM / "gui/BPM_interest_group_panel.gui").read_text(encoding="utf-8-sig")))
     (MOD / tech_ties.VANILLA_FILE).unlink(missing_ok=True)  # was a copy of the vanilla file
     for rel, text in tech_ties.files(GAME, tech_table(), law_table()).items():
         write(rel, text)

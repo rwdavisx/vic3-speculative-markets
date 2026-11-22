@@ -1,7 +1,6 @@
 ﻿spec_financial_centre = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
 	country_prestige_mult = 0.02
-	country_loan_interest_rate_mult = -0.02
 }
 
 spec_exch_national = {
@@ -10,7 +9,6 @@ spec_exch_national = {
 }
 spec_exch_world = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	country_loan_interest_rate_mult = -0.1
 	country_influence_mult = 0.1
 }
 
@@ -47,7 +45,7 @@ spec_pursue_harbour_0 = {
 spec_pursue_harbour_1 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
 	country_gold_reserve_limit_mult = 0.1
-	country_private_construction_allocation_mult = -0.05
+	country_private_construction_allocation_mult = -0.04
 }
 spec_pursue_harbour_2 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
@@ -110,7 +108,7 @@ spec_pursue_lender_0 = {
 spec_pursue_lender_1 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
 	country_leverage_generation_mult = 0.1
-	state_capitalists_investment_pool_efficiency_mult = -0.03
+	state_capitalists_investment_pool_efficiency_mult = -0.02
 }
 spec_pursue_lender_2 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
@@ -121,7 +119,7 @@ spec_pursue_lender_3 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
 	country_leverage_generation_mult = 0.2
 	state_capitalists_investment_pool_efficiency_mult = -0.04
-	country_loan_interest_rate_mult = -0.05
+	country_leverage_resistance_mult = 0.1
 }
 spec_pursue_railway_0 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
@@ -131,7 +129,7 @@ spec_pursue_railway_0 = {
 spec_pursue_railway_1 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
 	building_railway_throughput_add = 0.06
-	building_group_bg_construction_laborers_mortality_mult = 0.05
+	building_group_bg_construction_laborers_mortality_mult = 0.04
 }
 spec_pursue_railway_2 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
@@ -167,22 +165,22 @@ spec_pursue_floor_3 = {
 }
 spec_pursue_sound_0 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	country_loan_interest_rate_mult = -0.015
+	state_shopkeepers_investment_pool_efficiency_mult = 0.02
 	interest_group_ig_industrialists_approval_add = -1
 }
 spec_pursue_sound_1 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	country_loan_interest_rate_mult = -0.03
+	state_shopkeepers_investment_pool_efficiency_mult = 0.04
 	interest_group_ig_industrialists_approval_add = -1
 }
 spec_pursue_sound_2 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	country_loan_interest_rate_mult = -0.045
+	state_shopkeepers_investment_pool_efficiency_mult = 0.06
 	interest_group_ig_industrialists_approval_add = -1
 }
 spec_pursue_sound_3 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	country_loan_interest_rate_mult = -0.06
+	state_shopkeepers_investment_pool_efficiency_mult = 0.08
 	interest_group_ig_industrialists_approval_add = -2
 	interest_group_ig_petty_bourgeoisie_approval_add = 2
 }
@@ -194,7 +192,7 @@ spec_pursue_pockets_0 = {
 spec_pursue_pockets_1 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
 	state_capitalists_investment_pool_contribution_add = 0.03
-	state_tax_collection_mult = -0.03
+	state_tax_collection_mult = -0.02
 }
 spec_pursue_pockets_2 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
@@ -215,7 +213,7 @@ spec_pursue_door_0 = {
 spec_pursue_door_1 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
 	country_influence_mult = 0.04
-	country_leverage_resistance_mult = -0.05
+	country_leverage_resistance_mult = -0.04
 }
 spec_pursue_door_2 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
@@ -231,7 +229,6 @@ spec_pursue_door_3 = {
 spec_trust_0 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
 	country_loan_interest_rate_mult = 0.1
-	interest_group_ig_industrialists_approval_add = -2
 }
 spec_trust_1 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
@@ -239,6 +236,5 @@ spec_trust_1 = {
 }
 spec_trust_3 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	country_loan_interest_rate_mult = -0.05
 	interest_group_ig_industrialists_approval_add = 2
 }

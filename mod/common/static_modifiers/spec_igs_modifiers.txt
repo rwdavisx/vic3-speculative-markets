@@ -1,0 +1,30 @@
+﻿spec_igs_boom = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
+	interest_group_approval_add = 1
+}
+
+spec_igs_bust = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
+	interest_group_approval_add = -1
+}
+
+spec_igs_backed = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
+	interest_group_approval_add = 1
+}
+
+spec_igs_crossed = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_negative.dds
+	interest_group_approval_add = -1
+}
+
+spec_igs_issue = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_positive.dds
+	interest_group_approval_add = 1
+}
+
+spec_igs_issue_against = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	interest_group_approval_add = -1
+}
+

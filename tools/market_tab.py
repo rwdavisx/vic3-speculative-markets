@@ -1106,9 +1106,41 @@ textbox = {{
 	texture_density = 2
 }}
 """ for i in range(len(cycle.LAX_WORDS)))
-    hover = "".join(f"""widget = {{
+    # 2026-11-22: the bar moves as confidence's does, vanilla's end glow and, while standards move, the changed value
+    # chevrons through the lit part of the level it sits in (cycle.lax_terms' total, a month's change as things stand)
+    import interest_list as il  # imports this module
+    total = cycle.lax_terms()[-1]
+    up, down = f"GreaterThanOrEqualTo_CFixedPoint({total}, {fx(0.05)})", f"LessThanOrEqualTo_CFixedPoint({total}, {fx(-0.05)})"
+    moving = "".join(f"""widget = {{
 	position = {{ {seg * i} 0 }}
-	size = {{ {seg} 46 }}
+	size = {{ {seg} 100% }}
+	visible = "[{inside(i)}]"
+	scissor = yes
+	progressbar = {{
+		size = {{ 100% 100% }}
+		progresstexture = "{CLEAR}"
+		noprogresstexture = "{CLEAR}"
+{ind(SLIDE, 2)}		min = {cuts[i]:g}
+		max = {cuts[i + 1]:g}
+		value = "[FixedPointToFloat({lax})]"
+		marker = {{
+			widget = {{
+				size = {{ 100% 100% }}
+				icon = {{
+					size = {{ 30 100% }}
+					widgetanchor = right
+					alpha = 0.5
+					texture = "{BARS}/progressbar_white_glow.dds"
+				}}
+{ind(il.chevrons(up, down, 0.25, "right"), 4)}			}}
+		}}
+	}}
+}}
+""" for i in range(len(cycle.LAX_WORDS)))
+    # each level's tooltip on its name; the bar keeps its own (the value and its month's change)
+    hover = "".join(f"""widget = {{
+	position = {{ {seg * i} 24 }}
+	size = {{ {seg} 22 }}
 	tooltip = "SPEC_LAXL_{i}_TT"
 }}
 """ for i in range(len(cycle.LAX_WORDS)))
@@ -1116,7 +1148,7 @@ textbox = {{
 	size = {{ {BAR_W} 46 }}
 	parentanchor = hcenter
 	tooltip = "SPEC_EFFECT_LAX_TT"
-{ind(framed_bar(BAR_W, 22, fills + dividers + active), 1)}{ind(names + hover, 1)}}}
+{ind(framed_bar(BAR_W, 22, fills + dividers + active + moving), 1)}{ind(names + hover, 1)}}}
 """
 
 
@@ -1891,10 +1923,10 @@ def tabs(k):
                         + block(header("SPEC_H_KNOWN", "SPEC_H_NAMES_RIGHT"), exch.names_block())
                         + block(header("SPEC_H_CONTEST"), exch.contest_block())
                         ) if exch.NAMES_ON else
-                       block(header("SPEC_H_KNOWN", "SPEC_H_KNOWN_RIGHT"), exch.known_block()) if exch.EARN else "")))
+                       block(header("SPEC_H_KNOWN", "SPEC_H_KNOWN_RIGHT"), exch.known_block()) if exch.EARN else "")
+                       + __import__("company_section").section()))
     return out + [
-        ("booms", block(header("SPEC_H_MOOD"), card) + __import__("hero").section() + block(header("SPEC_H_GOODS", "SPEC_LEVERS_RIGHT", "SPEC_LEVERS_TT"), goods_board(k))
-         + __import__("company_section").section()),
+        ("booms", block(header("SPEC_H_MOOD"), card) + __import__("hero").section() + block(header("SPEC_H_GOODS", "SPEC_LEVERS_RIGHT", "SPEC_LEVERS_TT"), goods_board(k))),
         # every tab the same way: large headers for its sections, folding ones only inside a section
         ("banking", section("CHARTS", "spec_hide_charts_bank", charts.lent() + charts.credit_history())
          + block(header("SPEC_H_POLICY", "SPEC_H_POLICY_RIGHT", "SPEC_EFFECT_GIVEN_TT", gt(v("spec_credit_given"))), policy())
@@ -2497,7 +2529,7 @@ def loc(k):
  SPEC_TILE_TREND: "\\nRecent prices are #v [{TREND}|=+%1]#! from their long-run average."
  SPEC_TILE_BODY: "Investors are #v $SPEC_INTEREST$#! about [Goods.GetName], $SPEC_TILE_MOVE$.$SPEC_TILE_TREND$$SPEC_TILE_NEXT$\\n$TOOLTIP_DELIMITER$\\nIts producers' [concept_throughput] changes by $SPEC_PULL$.$SPEC_TILE_LIFT$\\n$TOOLTIP_DELIMITER$\\n$SPEC_TILE_BOOM$$SPEC_TILE_BANKS$"
  SPEC_IL_TREND_TT: "#header Price Trend of [Goods.GetName]#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_II_TREND$\\n\\n$SPEC_SECTOR_LINE$\\n\\n$SPEC_TILE_REACT$"
- SPEC_TILE_BOOM:"[SelectLocalization(GreaterThanOrEqualTo_CFixedPoint({good_var('spec_sev')}, {fx(1)}), 'SPEC_TILE_BOOM_ON', SelectLocalization(GreaterThan_CFixedPoint({good_var('spec_glut')}, {fx(0)}), 'SPEC_TILE_BOOM_PAST', 'SPEC_TILE_BOOM_NONE'))]"
+ SPEC_TILE_BOOM: "[SelectLocalization(GreaterThanOrEqualTo_CFixedPoint({good_var('spec_sev')}, {fx(1)}), 'SPEC_TILE_BOOM_ON', SelectLocalization(GreaterThan_CFixedPoint({good_var('spec_glut')}, {fx(0)}), 'SPEC_TILE_BOOM_PAST', 'SPEC_TILE_BOOM_NONE'))]"
  SPEC_TILE_BOOM_ON: "If the boom ended now, it would be a $SPEC_UNWIND_LINK$[SelectLocalization(GreaterThanOrEqualTo_CFixedPoint({RISK}, {fx(0.05)}), 'SPEC_TILE_BOOM_COST', 'SPEC_TILE_BOOM_SLIGHT')]."
  SPEC_TILE_BOOM_COST: " costing #N [{RISK}|1]#! [concept_spec_market_confidence]"
  SPEC_TILE_BOOM_SLIGHT: " costing a little [concept_spec_market_confidence]"

@@ -36,10 +36,13 @@ import market_tab  # noqa: E402
 import sectors  # noqa: E402
 import investor_sentiment as sentiment  # noqa: E402
 import monetary  # noqa: E402
+import rivals  # noqa: E402
 import vanilla_ties as vt  # noqa: E402
 
 # ---------- the constants: (tuning.json key or None, module, attribute, group, label) ----------
 # A key means generate.py and friends read it through tuning.get(key, default), so the tuner can write it back.
+TRUST_KEYS = ("TRUST_STRICT", "TRUST_CAUTIOUS", "TRUST_SOUND", "TRUST_LAX", "TRUST_RECKLESS")
+_TRUST = SimpleNamespace(**dict(zip(TRUST_KEYS, centres.TRUST_BY_LAX)))  # centres keeps them as one tuple
 SPEC = [
     ("CONF_START", g, "CONF_START", "Confidence", "Resting confidence"),
     ("CONF_RECOVER", g, "CONF_RECOVER", "Confidence", "Drift back a month"),
@@ -119,6 +122,8 @@ SPEC = [
     (None, g, "STANCE_COOLDOWN", "Credit", "Months between stances"), (None, g, "MANIA_CAUTION", "Confidence", "Mania warning"),
     (None, g, "MANIA_TAX_CONF", "Confidence", "Mania levy"), (None, g, "MANIA_TAX", "Confidence", "Mania levy, share of GDP"),
     ("PANIC_THROUGHPUT", g, "PANIC_THROUGHPUT", "Panic", "Panic throughput"), ("PANIC_INVEST", g, "PANIC_INVEST", "Panic", "Panic investment"),
+    *((k, _TRUST, k, "Exchange", f"Trust a calm month, {w}") for k, w in
+      (("TRUST_STRICT", "Strict"), ("TRUST_CAUTIOUS", "Cautious"), ("TRUST_SOUND", "Sound"), ("TRUST_LAX", "Lax"), ("TRUST_RECKLESS", "Reckless (x loss)"))),
     ("BAND_INVEST_STEP", g, "BAND_INVEST_STEP", "Confidence", "Investment per tier (Wary -1, Mania +2)"),
     (None, g, "PANIC_APPROVAL", "Panic", "Panic approval"), (None, g, "HOT_HYPE", "Booms", "Booming at"),
     (None, g, "GLUT_HYPE", "Booms", "Glut interest"), (None, g, "EXPOSURE_FULL", "Booms", "Share of trade at full weight"),
@@ -166,7 +171,7 @@ WORDS = cycle.LAX_WORDS
 GOODS_MAX = 24  # goods an economy can have
 INPUTS = {
     "years": (100, 10, 150, "Years run"),
-    "pool_share": ((0.012, 0.035), 0.005, 0.06, "Pool income a month, share of GDP"),
+    "pool_share": ((0.012, 0.035), 0.001, 0.06, "Pool income a month, share of GDP"),  # the logs' 10% is 0.25%: 0.005 clipped the fit
     "pool_noise": ((0.02, 0.08), 0, 0.3, "Pool income noise a month"),
     "pool_spend": ((0.35, 0.7), 0.05, 1, "Share of the pool spent a month"),
     "growth": ((0.005, 0.035), -0.02, 0.06, "GDP growth a year"),
@@ -175,6 +180,9 @@ INPUTS = {
     "recession_depth": ((0.03, 0.10), 0, 0.4, "Recession depth"),
     "goods": ((6, 20), 1, GOODS_MAX, "Goods that can boom"),  # a market can have 10 to 20 goods past EXPOSURE_FULL
     "good_share": ((0.005, 0.08), 0.0001, 0.2, "Each good's share of trade"),
+    # the clean 1.2.0 campaign's booms keep their number but push and end half as hard by 1900 (fit.py --boom): its markets
+    # trade more goods, each a smaller share. A log change a century, applied each January
+    "share_trend": ((0.0, 0.0), -5, 2, "Each good's share of trade, log change a century"),
     "boom_rate": ((0.02, 0.5), 0, 8, "Booms a year, each good"),  # per country, even on a log scale: some economies boom far more
     "boom_months": ((8, 40), 3, 120, "Months a boom runs"),
     "boom_peak": ((0.5, 14), 0, 60, "Interest above 1 at the peak, x1 multiplier"),  # HYPE_MAX clips the result, not the draw
@@ -198,6 +206,12 @@ INPUTS = {
     "after_panic": ((0.6, 0.6), 0, 5, "Confidence lost a month in the year after a panic: the unrest, falling GDP and approval that follow one"),
     "rough_sd": ((1.0, 1.0), 0, 10, "The world's roughness: a slow swing of confidence the model lacks, its size a month"),
     "rough_months": ((6, 6), 0.5, 60, "How long a swing of the world's roughness lasts, months"),
+    # rivals.spec_rv_ai_move: an AI in a contest Lures its rival's capital only below rivals.AI_LEV leverage; how often it
+    # gets the chance (contests, cooldowns, its looks) is read off runs/windows_120's debt jumps (fit.py's lure block)
+    "lure_rate": ((0.04, 0.04), 0, 1, "Rival Lures a month, an AI below the lure's leverage line"),
+    # rivals.spec_rv_vs: their Exchange's score over ours, held to VS_LO..VS_HI. Drawn even in this range and then held, so
+    # its ends carry the logged Lures' shares at each limit (fit.py --windows: most Lures fall on weaker rivals)
+    "lure_vs": ((1, rivals.VS_HI), -10, 10, "A Lure's rival score over ours, before rivals.VS_LO..VS_HI holds it"),
     "flight_share": (0.3, 0, 1, "Countries capital flight reaches"),
     "flight_rate": ((15, 240), 0, 300, "Capital flights a century, where it reaches"),  # one for most panics anywhere
     "flight_size": ((0.2, 2), 0, 10, "A capital flight's gain"),
@@ -215,7 +229,7 @@ INPUTS = {
     # draw (even on a log scale) that lasts AUTH_YEARS on average, fitted to the logs' levers= (how many it holds at once)
     "ai_authority": ((0.1, 10), 0, 50, "The AI's spare Authority, in levers"),
     "fiscal_profiles": (1, 0, 1, "Use observed GDP, budgets, reserves, debt, Authority and governing interest groups (overrides their independent ranges)"),
-    "observed_research": (1, 0, 1, "Bound research dates by the sampled country's recorded technologies when using fiscal profiles"),
+    "observed_research": (1, 0, 1, "Follow the sampled country's recorded technologies and laws when using fiscal profiles"),
     "heightened": (0, 0, 1, "Heightened volatility rule"),
 }
 # the laws in 1836 among the largest economies (vanilla common/history/countries: interventionism 16, traditionalism 7,
@@ -235,6 +249,8 @@ LAW_DRIFT = [("econ", "traditionalism", {"laissez_faire": 0.55, "interventionism
 # research year after 1836, low to high: the start's techs at 0. The logs' 40 largest (fastsim's fin= readings, 146 games
 # since 2026-11-07): the Stock Exchange 52% by 1840 and 98% by 1860; Investment Banks 3% by 1870, 24% by 1890, 61% by
 # 1910, 79% by 1920. The rest are not logged: later in the tree, so after Investment Banks (estimates)
+TECH_BIT = {t: i for i, t in enumerate(g.LOG_TECHS)}  # the log's techs= bitmask, and fit.py --history's
+REPLAY_LOOP = 360  # months of the campaign's world replayed again after its end (inputs())
 TECH_YEARS = {"banking": (0, 0), "currency_standards": (0, 0), "international_trade": (0, 0), "stock_exchange": (0, 15),
               "joint_stock_companies": (0, 15), "central_banking": (5, 50), "investment_banks": (32, 90),
               "international_exchange_standards": (40, 100), "mutual_funds": (50, 110), "modern_financial_instruments": (65, 130),
@@ -318,8 +334,17 @@ def world():
     key = WORLD.stat().st_mtime_ns
     if _world.get("key") != key:
         with np.load(WORLD) as z:
+            _world.clear()
             _world.update(key=key, t=z["t"], f=z["f"], w=z["w"], contagion=float(z["contagion"]))
+            if "h_tags" in z.files:  # fit.py --history: the campaign's laws and techs by tag
+                _world["history"] = {k[2:]: z[k] for k in z.files if k.startswith("h_")}
     return _world
+
+
+def history():
+    """{tags, econ, money, techs, last}: each fiscal tag's month-by-month laws and techs in the clean 1.2.0 campaign, or None."""
+    W = world()
+    return W.get("history") if W else None
 
 
 def defaults(fitted=True):
@@ -382,22 +407,22 @@ CALC = {
               ("Capped at", "boom_cap", "2"), ("x Manor Houses", "steady", "x2"), ("x finance techs", "fin_boom", "x2"),
               ("= Booms", "c_boom", "=+2"), ("Endings, raw", "crash_raw", "2"), ("x crash scale", "crash_scale", "x2"),
               ("= Booms ending", "c_crash", "=+2"), ("Goods restrained", "restraining", "0"), ("Goods encouraged", "encouraging", "0")],
-    "banks": [("Confidence above the line", "credit_base", "%1"), ("x a month's pool income", "pool_month", "£"),
+    "banks": [("Confidence above the line", "credit_base", "%1"), ("x a month's pool income", "pool_month", "Â£"),
               ("x law", "law_mult", "x2"), ("x techs", "tech_credit", "x2"), ("x credit policy", "stance_credit", "x2"),
-              ("x Lending Standards", "lax_credit", "x2"), ("x Bad Debts", "crunch_lend", "x2"), ("Ceiling", "ceiling", "£"),
-              ("Room under the Lending Limit", "room", "£"), ("= Lent this month", "lent", "=£")],
+              ("x Lending Standards", "lax_credit", "x2"), ("x Bad Debts", "crunch_lend", "x2"), ("Ceiling", "ceiling", "Â£"),
+              ("Room under the Lending Limit", "room", "Â£"), ("= Lent this month", "lent", "=Â£")],
     "lax": [("Last month", "lax_was", "%0"), ("Quiet month", "lax_drift", "+%1"), ("Booms ending", "lax_booms", "+%1"),
             ("Rescues and panics", "lax_jump", "+%1"), ("= Lending Standards", "lax", "=%0"),
             ("Exchange Trust", "exchange_trust", "%1")],
     "excess": [("Confidence over the line", "xs_over", "+1"), ("x Monetary Standard", "reform_heat", "x2"),
                ("Grows", "xs_grow", "+1"), ("Cools", "xs_cool", "+1"), ("A burst takes from confidence", "c_burst", "+1"),
                ("Burst leaves Bad Debts", "xs_bad", "1"), ("= Speculative Excess", "heat", "=1")],
-    "credit": [("Last month", "debt_was", "£"), ("Runoff", "runoff_neg", "£"), ("Lent", "lent", "£"),
-               ("Recalled, paid from the pool", "recall_neg", "£"), ("Recalled, written off", "writeoff_neg", "£"), ("= Outstanding Credit", "debt", "=£"),
+    "credit": [("Last month", "debt_was", "Â£"), ("Runoff", "runoff_neg", "Â£"), ("Lent", "lent", "Â£"),
+               ("Recalled, paid from the pool", "recall_neg", "Â£"), ("Recalled, written off", "writeoff_neg", "Â£"), ("A rival Lured", "lured", "Â£"), ("= Outstanding Credit", "debt", "=Â£"),
                ("Lending Limit (months)", "credit_limit", "1")],
-    "pool": [("Last month", "pool_last", "£"), ("A month's income", "pool_month", "£"), ("Spent on construction", "spend_neg", "£"), ("Repaid to banks", "repaid_neg", "£"),
-             ("Lent in", "lent", "£"), ("Recalled", "clawed_neg", "£"), ("= Investment Pool", "pool", "=£")],
-    "lev": [("Outstanding Credit", "debt", "£"), ("/ income it is measured on", "lev_income", "£"), ("= Leverage (months)", "lev", "=2"),
+    "pool": [("Last month", "pool_last", "Â£"), ("A month's income", "pool_month", "Â£"), ("Spent on construction", "spend_neg", "Â£"), ("Repaid to banks", "repaid_neg", "Â£"),
+             ("Lent in", "lent", "Â£"), ("Recalled", "clawed_neg", "Â£"), ("= Investment Pool", "pool", "=Â£")],
+    "lev": [("Outstanding Credit", "debt", "Â£"), ("/ income it is measured on", "lev_income", "Â£"), ("= Leverage (months)", "lev", "=2"),
             ("Stress past the safe line", "stress", "%0"), ("Panic Threshold", "panic_at", "1")],
     "panic": [("Panic Threshold", "panic_at", "1"), ("Months left", "panic", "0"), ("Months run", "elapsed", "0"),
               ("Length set at the start", "panic_len", "0"), ("Construction cut", "cut_shown", "%0"), ("Calm months left", "panic_cd", "0")],
@@ -546,7 +571,9 @@ class Economies:
         self.sentiment_term = np.zeros_like(self.share, dtype=np.int16)
         self.sentiment_case = np.zeros_like(self.sentiment_term)
         self.term_effect = np.zeros_like(self.share)
-        self.lever_cost = np.floor(base_cost * (levers.LEVER_FLOOR + (1 - levers.LEVER_FLOOR) * self.w) / levers.COST_STEP + 0.5) * levers.COST_STEP
+        self.share0, self.base_cost = self.share, base_cost
+        self.set_shares(1.0)
+        self.share_trend = _draw(tile(np.random.default_rng([seed, 29])), I["share_trend"], n)  # its own draw, so the others stay
         self.boom_p = _draw(rng, I["boom_rate"], n, log=True)[:, None] / 12 * (self.share > 0)
         # a few countries see most of the wars and foreign panics: their rates even on a log scale
         self.f_p, self.war_p = _draw(rng, I["foreign_rate"], n, log=True) / 1200, _draw(rng, I["war_rate"], n, log=True) / 1200
@@ -571,20 +598,11 @@ class Economies:
         self.enacted = {r: np.zeros(n, bool) for r in journal.REFORMS}
         self.set_laws(range(n))
         # the AI's temperament (credit_ai.TEMPERS, without the ruler traits) and the interest groups in government
-        w = np.stack([np.full(n, float(b)) for _, (b, adds) in sorted(credit_ai.TEMPERS.items())], 1)
-        for i, (_, (b, adds)) in enumerate(sorted(credit_ai.TEMPERS.items())):
-            for trig, a in adds:
-                m = re.search(r"law_type:law_(\w+)", trig)
-                if m:
-                    w[:, i] += a * (self.econ == m.group(1))
-        cum = np.cumsum(w / w.sum(1, keepdims=True), 1)
-        self.temper = (rng.random(n)[:, None] > cum).sum(1) - 1
-        government = {ig: rng.random(n) < 0.5 for ig in credit_ai.PREFS}
-        self.industrialists = government["industrialists"]
-        self.lean = self.temper * K["TEMPER_SHIFT"] + sum(
-            pref * K["IG_SHIFT"] * government[ig] for ig, pref in credit_ai.PREFS.items())
+        self.temper_u = rng.random(n)
+        self.government = {ig: rng.random(n) < 0.5 for ig in credit_ai.PREFS}
+        self.industrialists = self.government["industrialists"]
         self.bot_name = bot
-        self.pol = ai_policy(K, self.temper, self.lean) if BOTS[bot] == "ai" else BOTS[bot]
+        self.set_temper()
         # state
         z, f = np.zeros(n), np.zeros(n, bool)
         self.m = 0
@@ -596,6 +614,8 @@ class Economies:
         self.after_p, self.rough_sd = _draw(r5, I["after_panic"], n), _draw(r5, I["rough_sd"], n)
         self.rough_keep = 0.5 ** (1 / np.maximum(_draw(r5, I["rough_months"], n), 0.1))
         self.rough, self.since_end = np.zeros(n), np.full(n, 10 ** 6)
+        self.rng_lure = tile(np.random.default_rng([seed, 11]))  # rival Lures, on their own draws so the others stay
+        self.lure_p = _draw(self.rng_lure, I.get("lure_rate", INPUTS["lure_rate"][0]), n)
         self.gdp_base = np.full(n, 1e7)
         self.base_cash, self.base_debt = self.reserves.copy(), self.sdebt.copy()
         self.cash_draw = np.zeros(n)  # unreplenished intervention spending in pounds
@@ -603,6 +623,7 @@ class Economies:
         self.observed_default, self.observed_near = f.copy(), f.copy()
         self.in_default, self.nearly_broke = f.copy(), f.copy()
         self.credit_capacity = np.ones(n)  # native borrowing limit as a share of GDP
+        self.tech_line = self.hist_rows = None
         if I["fiscal_profiles"]:
             years, profiles = fiscal.profiles()
             percentile = rf.random(n)
@@ -625,12 +646,15 @@ class Economies:
             self.gdp_base = profiles["gdp"][0, self.fiscal_ranks[0]].copy()
             if I["observed_research"]:
                 tags = np.tile(fiscal.power_tags(), n // slots) if peer else profiles["tag"][0, ranks]
-                self.bound_research(tags, cfg["tech_years"], tile(np.random.default_rng([seed, 73])))
+                if history() is not None:
+                    self.follow_history(ranks, tags if peer else None, cfg["tech_years"], tile(np.random.default_rng([seed, 73])))
+                else:
+                    self.bound_research(tags, cfg["tech_years"], tile(np.random.default_rng([seed, 73])), fiscal.research_bounds())
         for tech, parents in research_order():
             if tech in self.tech_at:
                 for parent in parents:
                     self.tech_at[tech] = np.maximum(self.tech_at[tech], self.tech_at.get(parent, self.months + 1))
-        self.drift = self.plan_drift(tile(np.random.default_rng([seed, 1836])), cfg.get("law_drift", LAW_DRIFT))
+        self.drift = self.law_moves if hasattr(self, "law_moves") else self.plan_drift(tile(np.random.default_rng([seed, 1836])), cfg.get("law_drift", LAW_DRIFT))
         self.pool_base_x = np.ones(n)
         self.gdp = self.gdp_base.copy()
         self.gdp_avg = self.gdp.copy()
@@ -684,8 +708,76 @@ class Economies:
         stakes = np.where(s < at_min, diplomacy.WAR_STAKES_MIN, np.where(s >= 1 - at_full, 1, between))
         return np.where(ended, jump * stakes, 0)
 
-    def bound_research(self, tags, windows, rng):
-        bounds = fiscal.research_bounds()
+    def set_shares(self, f):
+        """Each good's share of trade (its start times f, as share_trend moves it), its weight (generate's spec_weight_<g>),
+        its sector's weight and its lever's Authority cost."""
+        self.share = self.share0 * f
+        self.share /= np.maximum(1, self.share.sum(1, keepdims=True))
+        self.w = np.minimum(self.share / self.kg("EXPOSURE_FULL"), 1)
+        self.category_weight = np.bincount(self.category_index.ravel(), self.share.ravel(), minlength=self.category_weight.size)
+        self.lever_cost = np.floor(self.base_cost * (levers.LEVER_FLOOR + (1 - levers.LEVER_FLOOR) * self.w) / levers.COST_STEP + 0.5) * levers.COST_STEP
+
+    def set_temper(self):
+        """credit_ai.TEMPERS weighted by the economic law, the lean and the AI's policy (finances() renews the lean)."""
+        K, n = self.K, self.n
+        w = np.stack([np.full(n, float(b)) for _, (b, adds) in sorted(credit_ai.TEMPERS.items())], 1)
+        for i, (_, (b, adds)) in enumerate(sorted(credit_ai.TEMPERS.items())):
+            for trig, a in adds:
+                m = re.search(r"law_type:law_(\w+)", trig)
+                if m:
+                    w[:, i] += a * (self.econ == m.group(1))
+        cum = np.cumsum(w / w.sum(1, keepdims=True), 1)
+        self.temper = (self.temper_u[:, None] > cum).sum(1) - 1
+        self.lean = self.temper * K["TEMPER_SHIFT"] + sum(
+            pref * K["IG_SHIFT"] * self.government[ig] for ig, pref in credit_ai.PREFS.items())
+        self.pol = ai_policy(K, self.temper, self.lean) if BOTS[self.bot_name] == "ai" else BOTS[self.bot_name]
+
+    def follow_history(self, ranks, tags, windows, rng):
+        """observed_research with fit.py --history: each economy follows the clean 1.2.0 campaign's country of its GDP rank
+        at each fiscal snapshot's year (a Great Power world's economy its own tag throughout): its Economic System and
+        Monetary Standard month by month, and each technology from the first month it or an earlier country of its rank
+        had it. After the last country's last logged month the laws stay; a technology not seen by then draws inside its
+        TECH_YEARS window, no earlier than that month (bound_research)."""
+        H = history()
+        M = H["econ"].shape[1]
+        if tags is not None:  # Great Power worlds: one tag throughout
+            row = {t: i for i, t in enumerate(H["tags"])}
+            who = np.tile(np.array([row[t] for t in tags]), (len(H["start"]), 1))
+        else:
+            who = H["rank"][:, np.minimum(ranks, H["rank"].shape[1] - 1)]  # (snapshots, n): the row followed from each
+        era = np.searchsorted(H["start"], np.arange(M), "right") - 1
+        rows = who[era].T  # (n, M)
+        cols = np.arange(M)
+        econ_names = np.array(["none"] + g.LOG_ECON, dtype=object)
+        money_names = np.array(["none"] + monetary.LAWS, dtype=object)
+        moves = []
+        for kind, names, attr in (("econ", econ_names, "econ"), ("money", money_names, "money_base")):
+            codes = H[kind][rows, cols]
+            start = codes[:, 0] > 0
+            getattr(self, attr)[start] = names[codes[start, 0]]
+            # each later change of its law: the j-th change's month and law, -1 where it has no j-th
+            change = (codes[:, 1:] != codes[:, :-1]) & (codes[:, 1:] > 0)
+            for j in range(int(change.sum(1).max(initial=0))):
+                nth = change & (np.cumsum(change, 1) == j + 1)
+                at = np.where(nth.any(1), nth.argmax(1) + 1, -1)
+                moves.append((kind, at, names[codes[np.arange(self.n), np.maximum(at, 0)]]))
+        self.law_moves = moves
+        self.set_laws(range(self.n))
+        self.set_temper()
+        # the techs a month are its country's: one country of a rank may lack what the last had (has() reads them)
+        bits = H["techs"][rows, cols]
+        self.tech_line = np.ascontiguousarray(bits.T)
+        self.hist_rows = np.ascontiguousarray(rows.T)  # inputs(): their world, when world_replay is on; step(): depth, steadiness
+        self.depth, self.steady = H["depth"][rows[:, 0], 0].astype(float), H["steady"][rows[:, 0], 0].astype(float)
+        last = H["last"][rows[:, -1]]
+        key = np.array([f"{a}:{b}" for a, b in zip(who.T.tolist(), last)])  # economies with the same rows share their bounds
+        bounds = {}
+        for k in np.unique(key):
+            i = np.flatnonzero(key == k)[0]
+            bounds[k] = {t: (0, 0) if (bits[i, -1] >> b) & 1 else (last[i] + 1, np.inf) for b, t in enumerate(g.LOG_TECHS)}
+        self.bound_research(key, windows, rng, bounds)  # tech_at: after the log
+
+    def bound_research(self, tags, windows, rng, bounds):
         distinct, inverse = np.unique(tags, return_inverse=True)
         for tech, (lo, hi) in windows.items():
             if tech not in fiscal.FINANCE_TECHS:
@@ -725,6 +817,8 @@ class Economies:
         return out
 
     def has(self, tech):
+        if self.tech_line is not None and self.m < len(self.tech_line) and tech in TECH_BIT:  # follow_history's months
+            return (self.tech_line[self.m] >> TECH_BIT[tech]) & 1 > 0
         return self.m >= self.tech_at[tech] if tech in self.tech_at else np.zeros(self.n, bool)
 
     # ---- spec_values: script values read in the pulse ----
@@ -864,7 +958,16 @@ class Economies:
         self.war_end = self.war_ending(r2, war_was == 1)
         self.ai_u2 = r2.random((n, 3))  # the AI's journal rolls
         W = self.replay
-        if W:  # the drawn wars above still run, for the draws' sake, but the replayed ones count
+        if W and self.hist_rows is not None:  # follow_history's countries: their own wars, crises and foreign panics
+            H, M = history(), len(self.hist_rows)
+            # ponytail: past the campaign's end its last REPLAY_LOOP months repeat; a longer clean campaign would replace it
+            k = self.m if self.m < M else M - REPLAY_LOOP + (self.m - M) % REPLAY_LOOP
+            who = self.hist_rows[min(self.m, M - 1)]
+            f = H["foreign"][who, k]
+            self.rp_turmoil = H["turmoil"][who, k]
+            self.rp_foreign = np.where(f < 0, f * self.K["CONTAGION"] / H["contagion"], f)
+            self.war_end = H["warend"][who, k]
+        elif W:  # the drawn wars above still run, for the draws' sake, but the replayed ones count
             k = self.m % W["t"].shape[1]
             f = W["f"][self.pick, k]
             self.rp_turmoil = W["t"][self.pick, k]
@@ -932,6 +1035,11 @@ class Economies:
         phase, began = global_crisis
         tied = self.rng2.random(n) < self.ld_join_chance
         self.ld_member = np.where(began, self.in_panic | (self.ld_recent > 0) | tied, self.ld_member & (phase > 0))
+        if self.hist_rows is not None and self.m < len(self.hist_rows):  # follow_history: its country's depth and steadiness
+            H, who = history(), self.hist_rows[self.m]
+            self.depth, self.steady = H["depth"][who, self.m].astype(float), H["steady"][who, self.m].astype(float)
+        if self.share_trend.any() and self.m % 12 == 0:  # a new year: the goods' shares of trade move on
+            self.set_shares(np.exp(self.share_trend[:, None] * self.m / 1200))
         for kind, at, dest in self.drift:  # a law changed this month
             due = at == self.m
             if due.any():
@@ -1230,8 +1338,10 @@ class Economies:
 
         # the Exchange's trust (centres._trust, _crunch, boom_end, spec_exch_panic_cut, PANIC_OVER), for next month's links
         loss = self.reform["loss"] * np.where(self.charter == 2, centres.KNOWN_LOSS, 1)
-        month = np.where(self.lax >= cycle.LAX_CUTS[3], -centres.TRUST_MONTH * loss,
-                         np.where((self.crunch <= 0) & (self.lax < cycle.LAX_CUTS[2]), centres.TRUST_MONTH, 0))
+        by = [K[k] for k in TRUST_KEYS]  # centres.TRUST_BY_LAX, graded by level (centres._trust), from K so a sweep reaches it
+        gain = np.where(self.lax < cycle.LAX_CUTS[0], by[0], np.where(self.lax < cycle.LAX_CUTS[1], by[1], by[2])) * centres.TRUST_MONTH
+        month = np.where(self.lax >= cycle.LAX_CUTS[3], by[4] * centres.TRUST_MONTH * loss,
+                         np.where((self.crunch <= 0) & (self.lax < cycle.LAX_CUTS[2]), gain, 0))
         tr = self.trust + np.where(self.in_panic, 0, month) - (self.crunch > 0) * centres.LINK_CRUNCH * centres.CRUNCH * loss
         te = {int(k): d for k, d in centres.TRUST_END.items()}
         move = _first([sev == s for s in te], list(te.values()), 0)
@@ -1284,7 +1394,11 @@ class Economies:
             self.kept.append(dict(conf=self.conf[:k].copy(), gdp=self.gdp[:k].copy(), pool=pm[:k].copy(), boom=c_boom[:k].copy(), crash=(c_crash * K["CONF_START"] / np.maximum(conf_was, 1))[:k],
                                   foreign=c_foreign[:k].copy(), turmoil=c_turmoil[:k].copy(), business=c_business[:k].copy(), debt=c_debt[:k].copy(),
                                   panic=self.in_panic[:k].copy(), levers=(self.lever[:k] != 0).sum(1) * 1.0, restrain=c_restrain[:k].copy(),
-                                  convert=self.did_convert[:k] * 1.0))
+                                  convert=self.did_convert[:k] * 1.0, braw=boom_raw[:k].copy(),  # the log's braw (fit.py --boom)
+                                  # the rest of the month's confidence, as the log's d_<name> (windows.py's breakdown)
+                                  **{f"d_{x}": v[:k].copy() for x, v in dict(drift=c_recover, mood=self.c_mood, growth=c_growth, world=c_world, rough=c_rough,
+                                                                             tight=c_tight, limit=c_limit, burst=c_burst, drop=c_drop, rescue=c_rescue,
+                                                                             caution=c_caution, warend=self.war_end).items()}))
         if self.m % SNAP == 0:
             self.snap.append((self.conf.copy(), self.in_panic.copy(), lev4.copy(), self.crunch.copy(), self.lax.copy(),
                               self.trust / centres.CALM, (self.ep_t >= 0).sum(1), (self.sentiment_term != 0).sum(1), self.lent_yr.copy()))
@@ -1302,7 +1416,7 @@ class Economies:
                       lax_booms=lax_booms[i], lax_jump=lax_jump[i], lax=self.lax[i], lax_word=WORDS[int(np.searchsorted(cycle.LAX_CUTS, self.lax[i], "right"))],
                       lax_recall=self.lax_k("LAX_RECALL")[i], xs_over=xs_over[i], reform_heat=self.reform["heat"][i], xs_grow=xs_grow[i],
                       xs_cool=xs_cool[i], xs_bad=self.xs_bad[i], heat=self.heat[i], burst=bool(burst[i]), debt_was=debt_was[i],
-                      runoff_neg=-runoff[i], recall_neg=-clawed[i], writeoff_neg=-(recall[i] - clawed[i]), debt=self.debt[i],
+                      runoff_neg=-runoff[i], recall_neg=-clawed[i], writeoff_neg=-(recall[i] - clawed[i]), lured=self.lured[i], debt=self.debt[i],
                       pool_last=pool_was[i] - pm[i] + spend[i],
                       credit_limit=climit[i], spend_neg=-spend[i], repaid_neg=-repaid[i], clawed_neg=-clawed[i], pool=self.pool[i],
                       pool_was=pool_was[i], repaid=repaid[i], recall=recall[i], clawed=clawed[i], lev_income=li[i], lev=lev4[i],
@@ -1349,7 +1463,7 @@ class Economies:
         is_ai = BOTS[self.bot_name] == "ai"
         lev = self.lev(self.pool_month())
         c_rescue, c_caution, lax_jump = np.zeros(n), np.zeros(n), np.zeros(n)
-        self.did_rescue, self.did_bailout, self.did_stance = np.zeros(n, bool), np.zeros(n, bool), np.zeros(n)
+        self.did_rescue, self.did_bailout, self.did_stance, self.lured = np.zeros(n, bool), np.zeros(n, bool), np.zeros(n), np.zeros(n)
         if is_ai:
             self.fever &= ~(~self.mania | self.in_panic)  # leverage.FEVER_END
         can = self.has("central_banking") & (self.stance_cd <= 0)  # generate.triggers: spec_can_stance_*
@@ -1403,6 +1517,14 @@ class Economies:
             self.stats["bailouts"] += bail
             self.stats["bailout_cost"] += np.where(bail, bcost, 0)
             self.did_bailout = bail
+        if is_ai:  # rivals.spec_rv_lure: the AI's Lure Their Capital, its own debt of LURE_DEBT months of pool income x spec_rv_vs
+            # ponytail: contests, cooldowns and the AI's looks are one fitted chance (lure_rate) and vs a fitted draw (lure_vs);
+            # the target's lost pool income and Bear Raids (fit.py: about 0.1 confidence a country-year) are left out
+            r = self.rng_lure
+            lure = ~self.in_panic & (lev < rivals.AI_LEV) & (r.random(n) < self.lure_p)
+            vs = np.clip(_draw(r, self.I["lure_vs"], n), rivals.VS_LO, rivals.VS_HI)
+            self.lured = np.where(lure, rivals.LURE_DEBT * vs * self.pool_month(), 0)
+            self.debt += self.lured
         if is_ai:  # journal.MONTHLY_AI, then levers.ai_block
             j_rescue, j_caution, j_lax = self.ai_journal(self.ai_u2)
             c_rescue, c_caution, lax_jump = c_rescue + j_rescue, c_caution + j_caution, lax_jump + j_lax
@@ -1788,6 +1910,11 @@ if __name__ == "__main__":
               f"lev {sm['lev_mean']['mean']:.2f}  bad max {sm['crunch_max']['mean']:.1f}  GDP {sm['output_pct']['mean']:+.2f}%")
     # 4b. laws move over the century: a century on, laissez-faire is common, fiat comes late, and each multiplier is its law's
     lf = np.mean(r.econ == "laissez_faire")
+    if r.hist_rows is not None:  # follow_history: past the campaign each keeps its last country's last laws
+        H = history()
+        last = H["econ"][r.hist_rows[-1], -1]
+        assert all(c == 0 or r.econ[i] == g.LOG_ECON[c - 1] for i, c in enumerate(last)), "laws left the campaign's"
+        lf = 0.3
     assert 0.2 < lf < 0.6 and all(at[at >= 0].min(initial=10 ** 6) >= 75 * 12 for k, at, d in r.drift if k == "money" and (d == "fiat_money").all()), lf
     note = lambda i: journal.REFORMS["currency"]["panic_len"] if r.enacted["currency"][i] else 1  # the Currency School, the AI's Commissions
     assert all(r.law_mult[i] == LAWS[r.econ[i]][0] and abs(r.reform["panic_len"][i] - MONEY.get(r.money[i], {}).get("panic_len", 1) * note(i)) < 1e-9 for i in range(r.n))
@@ -1799,7 +1926,7 @@ if __name__ == "__main__":
     # 5. the Inspector's rows add up to the figure they explain, every month of a traced run
     for bot in ("passive", "reckless", "ai"):
         for f in run({}, defaults(), bot, 1, 3, trace=True).hist:
-            for total, rows in (("conf", [r[1] for r in CALC["conf"][:-1]]), ("debt", ["debt_was", "runoff_neg", "lent", "recall_neg", "writeoff_neg"]),
+            for total, rows in (("conf", [r[1] for r in CALC["conf"][:-1]]), ("debt", ["debt_was", "runoff_neg", "lent", "recall_neg", "writeoff_neg", "lured"]),
                                 ("pool", ["pool_last", "pool_month", "spend_neg", "repaid_neg", "lent", "clawed_neg"])):
                 got = sum(f[r] for r in rows)
                 assert abs(got - f[total]) <= 1e-3 * (1 + abs(f[total])) + 0.01, (bot, f["m"], total, got, f[total])

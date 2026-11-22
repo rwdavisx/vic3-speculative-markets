@@ -105,3 +105,14 @@ Each run used 500 economies per strategy over 100 simulated years. Seeds 61, 179
 The one held-out miss was the +0.5-point minimum for careful over passive. On the three fresh seeds, careful beat reckless by 1.33–1.51 points on average. In the same 1,500 paired economies, skilled beat passive 1,274 times, reckless 1,372 times and both together 1,233 times. Careful beat passive 1,003 times. The comparison uses each economy’s average modeled GDP effect after bank-rescue and buy-up costs. The six strategies are presets. Country inputs and Great Power worlds are sampled. The lending limit omits the focal Exchange and power bloc bonuses.
 
 To repeat the comparison with the frozen beta values as the control, run `py -3 -B tools/tuner/lab.py check LEV_PANIC_SPAN=50 LEV_REWARD=0.018 LEV_CRUNCH_RAMP=2 LEV_CRUNCH_FADE=0.43 LEV_BAD_STOP=12 --n 500 --seed 61`. Change only the seed to reproduce the other runs. The five overrides have not been promoted into the beta or stable tuning file.
+
+## Matching the clean 1.2.0 game, November 22, 2026
+
+The reference is `runs/windows_120/campaign`, one AI game from 1836 to 1905. The hold-out sample is `runs/windows_120/parallel`. `py -3 -B tools/tuner/windows.py compare` checks the campaign and `compare parallel` checks the hold-out. Each window is the 40 largest economies.
+
+- The comparison now ranks countries by real GDP from `probe.log`. The `gdp=` field in SPEC lines is the bank-rescue cost. Ranking by it picked reckless lenders, so earlier game-side figures for 1866 and 1896 were biased.
+- With `observed_research` on, `fit.py --history` stores the campaign's history in `world.npz`. This covers laws, technologies, exchange depth and steadiness, and world turmoil, foreign and war-end shocks. Each tuner country follows the campaign country of the same GDP rank. After 1906 the last 30 years repeat. Extraction economy comes from this history. The depth and steadiness input ranges are not used while history is on.
+- `share_trend` (-1.4 a century) shrinks each good's share of trade over time. In the game, booms end about as often late as early, but each ending costs less.
+- `lure_vs` follows the logged rival scores. Most Lures sit at `VS_LO`, so a typical Lure is 4.5 pool months, not 7. `fit.py --windows` refits `lure_rate` per eligible month.
+- Bear Raids are not modeled. They cost the top 40 about 0.1 confidence a country-year. Press campaigns are also not modeled. They cost about 2 trust a year.
+- The core monthly math is unchanged.

@@ -198,3 +198,23 @@ country_spec_off_bool = {
 		ai_value = 0
 	}
 }
+
+country_spec_trust_loss_mult = {
+	script_only = yes
+	decimals = 0
+	percent = yes
+	color = bad
+	game_data = {
+		ai_value = 0
+	}
+}
+
+country_spec_excess_growth_mult = {
+	script_only = yes
+	decimals = 0
+	percent = yes
+	color = bad
+	game_data = {
+		ai_value = 0
+	}
+}

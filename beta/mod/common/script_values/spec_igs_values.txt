@@ -110,6 +110,14 @@ spec_igs_nf_industrialists = {
 		limit = { var:spec_igs_industrialists_automobiles ?= 1 }
 		add = 1
 	}
+	if = {
+		limit = { var:spec_igs_industrialists_steamers ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_industrialists_copper ?= 1 }
+		add = 1
+	}
 }
 
 spec_igs_nf_armed_forces = {
@@ -136,6 +144,14 @@ spec_igs_nf_armed_forces = {
 	}
 	if = {
 		limit = { var:spec_igs_armed_forces_aeroplanes ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_armed_forces_lead ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_armed_forces_sulfur ?= 1 }
 		add = 1
 	}
 }
@@ -228,6 +244,18 @@ spec_igs_nf_petty_bourgeoisie = {
 	}
 	if = {
 		limit = { var:spec_igs_petty_bourgeoisie_glass ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_petty_bourgeoisie_hardwood ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_petty_bourgeoisie_clippers ?= 1 }
+		add = 1
+	}
+	if = {
+		limit = { var:spec_igs_petty_bourgeoisie_merchant_marine ?= 1 }
 		add = 1
 	}
 }

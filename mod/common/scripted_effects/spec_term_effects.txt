@@ -1,0 +1,242 @@
+﻿spec_term_throughput = {
+	if = { limit = { has_modifier = spec_term_up_aeroplanes } remove_modifier = spec_term_up_aeroplanes }
+	if = { limit = { has_modifier = spec_term_down_aeroplanes } remove_modifier = spec_term_down_aeroplanes }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_aeroplanes multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_aeroplanes multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_aeroplanes multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_ammunition } remove_modifier = spec_term_up_ammunition }
+	if = { limit = { has_modifier = spec_term_down_ammunition } remove_modifier = spec_term_down_ammunition }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_ammunition multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_ammunition multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_ammunition multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_artillery } remove_modifier = spec_term_up_artillery }
+	if = { limit = { has_modifier = spec_term_down_artillery } remove_modifier = spec_term_down_artillery }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_artillery multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_artillery multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_artillery multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_automobiles } remove_modifier = spec_term_up_automobiles }
+	if = { limit = { has_modifier = spec_term_down_automobiles } remove_modifier = spec_term_down_automobiles }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_automobiles multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_automobiles multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_automobiles multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_clippers } remove_modifier = spec_term_up_clippers }
+	if = { limit = { has_modifier = spec_term_down_clippers } remove_modifier = spec_term_down_clippers }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_clippers multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_clippers multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_clippers multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_clothes } remove_modifier = spec_term_up_clothes }
+	if = { limit = { has_modifier = spec_term_down_clothes } remove_modifier = spec_term_down_clothes }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_clothes multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_clothes multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_clothes multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_coal } remove_modifier = spec_term_up_coal }
+	if = { limit = { has_modifier = spec_term_down_coal } remove_modifier = spec_term_down_coal }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_coal multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_coal multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_coal multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_coffee } remove_modifier = spec_term_up_coffee }
+	if = { limit = { has_modifier = spec_term_down_coffee } remove_modifier = spec_term_down_coffee }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_coffee multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_coffee multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_coffee multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_copper } remove_modifier = spec_term_up_copper }
+	if = { limit = { has_modifier = spec_term_down_copper } remove_modifier = spec_term_down_copper }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_copper multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_copper multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_copper multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_dye } remove_modifier = spec_term_up_dye }
+	if = { limit = { has_modifier = spec_term_down_dye } remove_modifier = spec_term_down_dye }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_dye multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_dye multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_dye multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_electricity } remove_modifier = spec_term_up_electricity }
+	if = { limit = { has_modifier = spec_term_down_electricity } remove_modifier = spec_term_down_electricity }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_electricity multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_electricity multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_electricity multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_engines } remove_modifier = spec_term_up_engines }
+	if = { limit = { has_modifier = spec_term_down_engines } remove_modifier = spec_term_down_engines }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_engines multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_engines multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_engines multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_explosives } remove_modifier = spec_term_up_explosives }
+	if = { limit = { has_modifier = spec_term_down_explosives } remove_modifier = spec_term_down_explosives }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_explosives multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_explosives multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_explosives multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_fabric } remove_modifier = spec_term_up_fabric }
+	if = { limit = { has_modifier = spec_term_down_fabric } remove_modifier = spec_term_down_fabric }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_fabric multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_fabric multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_fabric multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_fertilizer } remove_modifier = spec_term_up_fertilizer }
+	if = { limit = { has_modifier = spec_term_down_fertilizer } remove_modifier = spec_term_down_fertilizer }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_fertilizer multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_fertilizer multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_fertilizer multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_fine_art } remove_modifier = spec_term_up_fine_art }
+	if = { limit = { has_modifier = spec_term_down_fine_art } remove_modifier = spec_term_down_fine_art }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_fine_art multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_fine_art multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_fine_art multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_fish } remove_modifier = spec_term_up_fish }
+	if = { limit = { has_modifier = spec_term_down_fish } remove_modifier = spec_term_down_fish }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_fish multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_fish multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_fish multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_furniture } remove_modifier = spec_term_up_furniture }
+	if = { limit = { has_modifier = spec_term_down_furniture } remove_modifier = spec_term_down_furniture }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_furniture multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_furniture multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_furniture multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_glass } remove_modifier = spec_term_up_glass }
+	if = { limit = { has_modifier = spec_term_down_glass } remove_modifier = spec_term_down_glass }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_glass multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_glass multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_glass multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_grain } remove_modifier = spec_term_up_grain }
+	if = { limit = { has_modifier = spec_term_down_grain } remove_modifier = spec_term_down_grain }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_grain multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_grain multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_grain multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_groceries } remove_modifier = spec_term_up_groceries }
+	if = { limit = { has_modifier = spec_term_down_groceries } remove_modifier = spec_term_down_groceries }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_groceries multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_groceries multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_groceries multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_hardwood } remove_modifier = spec_term_up_hardwood }
+	if = { limit = { has_modifier = spec_term_down_hardwood } remove_modifier = spec_term_down_hardwood }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_hardwood multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_hardwood multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_hardwood multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_iron } remove_modifier = spec_term_up_iron }
+	if = { limit = { has_modifier = spec_term_down_iron } remove_modifier = spec_term_down_iron }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_iron multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_iron multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_iron multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_lead } remove_modifier = spec_term_up_lead }
+	if = { limit = { has_modifier = spec_term_down_lead } remove_modifier = spec_term_down_lead }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_lead multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_lead multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_lead multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_liquor } remove_modifier = spec_term_up_liquor }
+	if = { limit = { has_modifier = spec_term_down_liquor } remove_modifier = spec_term_down_liquor }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_liquor multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_liquor multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_liquor multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_luxury_clothes } remove_modifier = spec_term_up_luxury_clothes }
+	if = { limit = { has_modifier = spec_term_down_luxury_clothes } remove_modifier = spec_term_down_luxury_clothes }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_luxury_clothes multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_luxury_clothes multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_luxury_clothes multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_luxury_furniture } remove_modifier = spec_term_up_luxury_furniture }
+	if = { limit = { has_modifier = spec_term_down_luxury_furniture } remove_modifier = spec_term_down_luxury_furniture }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_luxury_furniture multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_luxury_furniture multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_luxury_furniture multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_meat } remove_modifier = spec_term_up_meat }
+	if = { limit = { has_modifier = spec_term_down_meat } remove_modifier = spec_term_down_meat }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_meat multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_meat multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_meat multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_merchant_marine } remove_modifier = spec_term_up_merchant_marine }
+	if = { limit = { has_modifier = spec_term_down_merchant_marine } remove_modifier = spec_term_down_merchant_marine }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_merchant_marine multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_merchant_marine multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_merchant_marine multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_oil } remove_modifier = spec_term_up_oil }
+	if = { limit = { has_modifier = spec_term_down_oil } remove_modifier = spec_term_down_oil }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_oil multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_oil multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_oil multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_opium } remove_modifier = spec_term_up_opium }
+	if = { limit = { has_modifier = spec_term_down_opium } remove_modifier = spec_term_down_opium }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_opium multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_opium multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_opium multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_paper } remove_modifier = spec_term_up_paper }
+	if = { limit = { has_modifier = spec_term_down_paper } remove_modifier = spec_term_down_paper }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_paper multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_paper multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_paper multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_porcelain } remove_modifier = spec_term_up_porcelain }
+	if = { limit = { has_modifier = spec_term_down_porcelain } remove_modifier = spec_term_down_porcelain }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_porcelain multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_porcelain multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_porcelain multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_radios } remove_modifier = spec_term_up_radios }
+	if = { limit = { has_modifier = spec_term_down_radios } remove_modifier = spec_term_down_radios }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_radios multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_radios multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_radios multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_rubber } remove_modifier = spec_term_up_rubber }
+	if = { limit = { has_modifier = spec_term_down_rubber } remove_modifier = spec_term_down_rubber }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_rubber multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_rubber multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_rubber multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_silk } remove_modifier = spec_term_up_silk }
+	if = { limit = { has_modifier = spec_term_down_silk } remove_modifier = spec_term_down_silk }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_silk multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_silk multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_silk multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_small_arms } remove_modifier = spec_term_up_small_arms }
+	if = { limit = { has_modifier = spec_term_down_small_arms } remove_modifier = spec_term_down_small_arms }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_small_arms multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_small_arms multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_small_arms multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_steamers } remove_modifier = spec_term_up_steamers }
+	if = { limit = { has_modifier = spec_term_down_steamers } remove_modifier = spec_term_down_steamers }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_steamers multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_steamers multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_steamers multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_steel } remove_modifier = spec_term_up_steel }
+	if = { limit = { has_modifier = spec_term_down_steel } remove_modifier = spec_term_down_steel }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_steel multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_steel multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_steel multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_sugar } remove_modifier = spec_term_up_sugar }
+	if = { limit = { has_modifier = spec_term_down_sugar } remove_modifier = spec_term_down_sugar }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_sugar multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_sugar multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_sugar multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_sulfur } remove_modifier = spec_term_up_sulfur }
+	if = { limit = { has_modifier = spec_term_down_sulfur } remove_modifier = spec_term_down_sulfur }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_sulfur multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_sulfur multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_sulfur multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_tanks } remove_modifier = spec_term_up_tanks }
+	if = { limit = { has_modifier = spec_term_down_tanks } remove_modifier = spec_term_down_tanks }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_tanks multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_tanks multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_tanks multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_tea } remove_modifier = spec_term_up_tea }
+	if = { limit = { has_modifier = spec_term_down_tea } remove_modifier = spec_term_down_tea }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_tea multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_tea multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_tea multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_telephones } remove_modifier = spec_term_up_telephones }
+	if = { limit = { has_modifier = spec_term_down_telephones } remove_modifier = spec_term_down_telephones }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_telephones multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_telephones multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_telephones multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_tobacco } remove_modifier = spec_term_up_tobacco }
+	if = { limit = { has_modifier = spec_term_down_tobacco } remove_modifier = spec_term_down_tobacco }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_tobacco multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_tobacco multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_tobacco multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_tools } remove_modifier = spec_term_up_tools }
+	if = { limit = { has_modifier = spec_term_down_tools } remove_modifier = spec_term_down_tools }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_tools multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_tools multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_tools multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_wine } remove_modifier = spec_term_up_wine }
+	if = { limit = { has_modifier = spec_term_down_wine } remove_modifier = spec_term_down_wine }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_wine multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_wine multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_wine multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+	if = { limit = { has_modifier = spec_term_up_wood } remove_modifier = spec_term_up_wood }
+	if = { limit = { has_modifier = spec_term_down_wood } remove_modifier = spec_term_down_wood }
+	set_local_variable = { name = spec_term_pts value = { value = spec_term_tp_wood multiply = 100 } }
+	if = { limit = { local_var:spec_term_pts >= 0.5 } add_modifier = { name = spec_term_up_wood multiplier = local_var:spec_term_pts } }
+	else_if = { limit = { local_var:spec_term_pts <= -0.5 } add_modifier = { name = spec_term_down_wood multiplier = { value = local_var:spec_term_pts multiply = -1 } } }
+}

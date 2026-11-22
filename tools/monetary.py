@@ -57,6 +57,17 @@ VIEWS = {
     "ideology_agrarian": ("approve", "disapprove", "neutral"),              # Rural Folk: indebted farmers, free silver
     "ideology_populist": ("neutral", "disapprove", "approve"),              # Trade Unions: the greenbackers
 }
+# Better Politics Mod strips law stances from the vanilla ideologies and gives them to its economy ideologies
+# (ideology_eco_*), so they take the views of the vanilla ideology they are closest to. TRY_INJECT: skipped without BPM
+BPM_VIEWS = {f"ideology_eco_{eco}": VIEWS[like] for like, ecos in {
+    "ideology_laissez_faire": ("laissez_faire", "artisan", "modernizer"),  # creditors and gold-standard modernizers
+    "ideology_paternalistic": ("traditional_agrarian", "conservative_agrarian", "serf_economy", "debt_serf_economy",
+                               "trad_isolationist", "slave_economy", "antebellum_economy", "colonialist",
+                               "slave_colonialist", "colonial_slavery_supporter"),  # the landed estates
+    "ideology_agrarian": ("modern_agrarian", "agrarian_socialist", "agrarian_autarky", "distributist_economy"),  # indebted farmers
+    "ideology_populist": ("interventionist", "modern_interventionist", "american_system", "socialist_mixed_economy",
+                          "proletarian_economy", "socialist_autarky", "autarky", "centralized_economy"),  # money the state issues
+}.items() for eco in ecos}
 
 
 def has(law):
@@ -152,8 +163,9 @@ def build(write):
         _law(law) for p in LAWS for law in [p] + [v for v, (vp, *_) in VARIANTS.items() if vp == p]))
     # INJECT adds the views beside vanilla's and other mods'; zzz_ loads after files that REPLACE these ideologies
     write("common/ideologies/zzz_spec_monetary_ideologies.txt", "".join(
-        f"INJECT:{ideology} = {{\n\t{GROUP} = {{\n" + "".join(f"\t\tlaw_spec_{law} = {v}\n" for law, v in zip(LAWS, views))
-        + "\t}\n}\n\n" for ideology, views in VIEWS.items()))
+        f"{mode}:{ideology} = {{\n\t{GROUP} = {{\n" + "".join(f"\t\tlaw_spec_{law} = {v}\n" for law, v in zip(LAWS, views))
+        + "\t}\n}\n\n" for mode, views_of in (("INJECT", VIEWS), ("TRY_INJECT", BPM_VIEWS))
+        for ideology, views in views_of.items()))
     # a new campaign: the historical standards, then everyone else on Bimetallism; a running campaign: monthly
     starts = "".join(f"\t\tc:{tag} ?= {{\n\t\t\tactivate_law = law_type:law_spec_gold_standard\n\t\t}}\n" for tag in GOLD_AT_START)
     every = "\t\tevery_country = {\n" + textwrap.indent(FILL, "\t") + "\t\t}\n"
@@ -196,6 +208,8 @@ if __name__ == "__main__":
     assert "parent = law_spec_gold_standard" in laws and "country_spec_trust_loss_mult = -0.3" in laws
     assert "NOT = { has_law_or_variant = law_type:law_laissez_faire }" in laws
     assert laws.index("law_spec_gold_standard =") < laws.index("law_spec_classical_gold =") < laws.index("law_spec_fiat_money =")
+    ideo = out["common/ideologies/zzz_spec_monetary_ideologies.txt"]
+    assert len(BPM_VIEWS) == 25 and ideo.count("TRY_INJECT:ideology_eco_") == 25 and "TRY_INJECT:ideology_liberal" not in ideo
     on = out["common/on_actions/spec_monetary_on_actions.txt"]
     assert "activate_law = law_type:law_spec_elastic_currency" in on and "law_command_economy" in SWAP
     assert "law_spec_classical_gold" in FILL and "common/laws/zzz_spec_monetary_inject.txt" not in out

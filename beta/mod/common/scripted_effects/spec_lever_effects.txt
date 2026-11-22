@@ -1516,14 +1516,16 @@ spec_lever_flip = {
 	if = {
 		limit = { has_variable = spec_$KIND$_$G$ }
 		remove_variable = spec_$KIND$_$G$
+		remove_variable = spec_lever_pending_$G$
+		remove_variable = spec_lever_grace_$G$
 	}
 	else = {
 		set_variable = { name = spec_$KIND$_$G$ value = 1 }
-		spec_igs_lever_$KIND$ = { G = $G$ }  # interest groups' approval (ig_stances.py)
+		set_variable = spec_lever_pending_$G$
+		set_variable = { name = spec_lever_grace_$G$ days = 7 }
 	}
 	# either way the good's levers wait (WAIT_MONTHS), after a few days to change our mind
 	set_variable = { name = spec_lever_wait_$G$ value = 3 }
-	set_variable = { name = spec_lever_grace_$G$ days = 7 }
 }
 
 # from the scripted GUIs: switch lever KIND on or off for scope:spec_good
@@ -1733,6 +1735,12 @@ spec_lever_clock = {
 		limit = { is_player = yes }
 		if = {
 			limit = { has_variable = spec_lever_wait_aeroplanes }
+            if = {
+                limit = { has_variable = spec_lever_pending_aeroplanes NOT = { has_variable = spec_lever_grace_aeroplanes } }
+                remove_variable = spec_lever_pending_aeroplanes
+                if = { limit = { has_variable = spec_encourage_aeroplanes } spec_igs_lever_encourage = { G = aeroplanes } }
+                else_if = { limit = { has_variable = spec_restrain_aeroplanes } spec_igs_lever_restrain = { G = aeroplanes } }
+            }
 			change_variable = { name = spec_lever_wait_aeroplanes add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_aeroplanes <= 0 }
@@ -1742,6 +1750,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_ammunition }
+            if = {
+                limit = { has_variable = spec_lever_pending_ammunition NOT = { has_variable = spec_lever_grace_ammunition } }
+                remove_variable = spec_lever_pending_ammunition
+                if = { limit = { has_variable = spec_encourage_ammunition } spec_igs_lever_encourage = { G = ammunition } }
+                else_if = { limit = { has_variable = spec_restrain_ammunition } spec_igs_lever_restrain = { G = ammunition } }
+            }
 			change_variable = { name = spec_lever_wait_ammunition add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_ammunition <= 0 }
@@ -1751,6 +1765,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_artillery }
+            if = {
+                limit = { has_variable = spec_lever_pending_artillery NOT = { has_variable = spec_lever_grace_artillery } }
+                remove_variable = spec_lever_pending_artillery
+                if = { limit = { has_variable = spec_encourage_artillery } spec_igs_lever_encourage = { G = artillery } }
+                else_if = { limit = { has_variable = spec_restrain_artillery } spec_igs_lever_restrain = { G = artillery } }
+            }
 			change_variable = { name = spec_lever_wait_artillery add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_artillery <= 0 }
@@ -1760,6 +1780,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_automobiles }
+            if = {
+                limit = { has_variable = spec_lever_pending_automobiles NOT = { has_variable = spec_lever_grace_automobiles } }
+                remove_variable = spec_lever_pending_automobiles
+                if = { limit = { has_variable = spec_encourage_automobiles } spec_igs_lever_encourage = { G = automobiles } }
+                else_if = { limit = { has_variable = spec_restrain_automobiles } spec_igs_lever_restrain = { G = automobiles } }
+            }
 			change_variable = { name = spec_lever_wait_automobiles add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_automobiles <= 0 }
@@ -1769,6 +1795,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_clippers }
+            if = {
+                limit = { has_variable = spec_lever_pending_clippers NOT = { has_variable = spec_lever_grace_clippers } }
+                remove_variable = spec_lever_pending_clippers
+                if = { limit = { has_variable = spec_encourage_clippers } spec_igs_lever_encourage = { G = clippers } }
+                else_if = { limit = { has_variable = spec_restrain_clippers } spec_igs_lever_restrain = { G = clippers } }
+            }
 			change_variable = { name = spec_lever_wait_clippers add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_clippers <= 0 }
@@ -1778,6 +1810,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_clothes }
+            if = {
+                limit = { has_variable = spec_lever_pending_clothes NOT = { has_variable = spec_lever_grace_clothes } }
+                remove_variable = spec_lever_pending_clothes
+                if = { limit = { has_variable = spec_encourage_clothes } spec_igs_lever_encourage = { G = clothes } }
+                else_if = { limit = { has_variable = spec_restrain_clothes } spec_igs_lever_restrain = { G = clothes } }
+            }
 			change_variable = { name = spec_lever_wait_clothes add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_clothes <= 0 }
@@ -1787,6 +1825,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_coal }
+            if = {
+                limit = { has_variable = spec_lever_pending_coal NOT = { has_variable = spec_lever_grace_coal } }
+                remove_variable = spec_lever_pending_coal
+                if = { limit = { has_variable = spec_encourage_coal } spec_igs_lever_encourage = { G = coal } }
+                else_if = { limit = { has_variable = spec_restrain_coal } spec_igs_lever_restrain = { G = coal } }
+            }
 			change_variable = { name = spec_lever_wait_coal add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_coal <= 0 }
@@ -1796,6 +1840,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_coffee }
+            if = {
+                limit = { has_variable = spec_lever_pending_coffee NOT = { has_variable = spec_lever_grace_coffee } }
+                remove_variable = spec_lever_pending_coffee
+                if = { limit = { has_variable = spec_encourage_coffee } spec_igs_lever_encourage = { G = coffee } }
+                else_if = { limit = { has_variable = spec_restrain_coffee } spec_igs_lever_restrain = { G = coffee } }
+            }
 			change_variable = { name = spec_lever_wait_coffee add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_coffee <= 0 }
@@ -1805,6 +1855,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_copper }
+            if = {
+                limit = { has_variable = spec_lever_pending_copper NOT = { has_variable = spec_lever_grace_copper } }
+                remove_variable = spec_lever_pending_copper
+                if = { limit = { has_variable = spec_encourage_copper } spec_igs_lever_encourage = { G = copper } }
+                else_if = { limit = { has_variable = spec_restrain_copper } spec_igs_lever_restrain = { G = copper } }
+            }
 			change_variable = { name = spec_lever_wait_copper add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_copper <= 0 }
@@ -1814,6 +1870,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_dye }
+            if = {
+                limit = { has_variable = spec_lever_pending_dye NOT = { has_variable = spec_lever_grace_dye } }
+                remove_variable = spec_lever_pending_dye
+                if = { limit = { has_variable = spec_encourage_dye } spec_igs_lever_encourage = { G = dye } }
+                else_if = { limit = { has_variable = spec_restrain_dye } spec_igs_lever_restrain = { G = dye } }
+            }
 			change_variable = { name = spec_lever_wait_dye add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_dye <= 0 }
@@ -1823,6 +1885,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_electricity }
+            if = {
+                limit = { has_variable = spec_lever_pending_electricity NOT = { has_variable = spec_lever_grace_electricity } }
+                remove_variable = spec_lever_pending_electricity
+                if = { limit = { has_variable = spec_encourage_electricity } spec_igs_lever_encourage = { G = electricity } }
+                else_if = { limit = { has_variable = spec_restrain_electricity } spec_igs_lever_restrain = { G = electricity } }
+            }
 			change_variable = { name = spec_lever_wait_electricity add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_electricity <= 0 }
@@ -1832,6 +1900,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_engines }
+            if = {
+                limit = { has_variable = spec_lever_pending_engines NOT = { has_variable = spec_lever_grace_engines } }
+                remove_variable = spec_lever_pending_engines
+                if = { limit = { has_variable = spec_encourage_engines } spec_igs_lever_encourage = { G = engines } }
+                else_if = { limit = { has_variable = spec_restrain_engines } spec_igs_lever_restrain = { G = engines } }
+            }
 			change_variable = { name = spec_lever_wait_engines add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_engines <= 0 }
@@ -1841,6 +1915,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_explosives }
+            if = {
+                limit = { has_variable = spec_lever_pending_explosives NOT = { has_variable = spec_lever_grace_explosives } }
+                remove_variable = spec_lever_pending_explosives
+                if = { limit = { has_variable = spec_encourage_explosives } spec_igs_lever_encourage = { G = explosives } }
+                else_if = { limit = { has_variable = spec_restrain_explosives } spec_igs_lever_restrain = { G = explosives } }
+            }
 			change_variable = { name = spec_lever_wait_explosives add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_explosives <= 0 }
@@ -1850,6 +1930,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_fabric }
+            if = {
+                limit = { has_variable = spec_lever_pending_fabric NOT = { has_variable = spec_lever_grace_fabric } }
+                remove_variable = spec_lever_pending_fabric
+                if = { limit = { has_variable = spec_encourage_fabric } spec_igs_lever_encourage = { G = fabric } }
+                else_if = { limit = { has_variable = spec_restrain_fabric } spec_igs_lever_restrain = { G = fabric } }
+            }
 			change_variable = { name = spec_lever_wait_fabric add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_fabric <= 0 }
@@ -1859,6 +1945,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_fertilizer }
+            if = {
+                limit = { has_variable = spec_lever_pending_fertilizer NOT = { has_variable = spec_lever_grace_fertilizer } }
+                remove_variable = spec_lever_pending_fertilizer
+                if = { limit = { has_variable = spec_encourage_fertilizer } spec_igs_lever_encourage = { G = fertilizer } }
+                else_if = { limit = { has_variable = spec_restrain_fertilizer } spec_igs_lever_restrain = { G = fertilizer } }
+            }
 			change_variable = { name = spec_lever_wait_fertilizer add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_fertilizer <= 0 }
@@ -1868,6 +1960,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_fine_art }
+            if = {
+                limit = { has_variable = spec_lever_pending_fine_art NOT = { has_variable = spec_lever_grace_fine_art } }
+                remove_variable = spec_lever_pending_fine_art
+                if = { limit = { has_variable = spec_encourage_fine_art } spec_igs_lever_encourage = { G = fine_art } }
+                else_if = { limit = { has_variable = spec_restrain_fine_art } spec_igs_lever_restrain = { G = fine_art } }
+            }
 			change_variable = { name = spec_lever_wait_fine_art add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_fine_art <= 0 }
@@ -1877,6 +1975,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_fish }
+            if = {
+                limit = { has_variable = spec_lever_pending_fish NOT = { has_variable = spec_lever_grace_fish } }
+                remove_variable = spec_lever_pending_fish
+                if = { limit = { has_variable = spec_encourage_fish } spec_igs_lever_encourage = { G = fish } }
+                else_if = { limit = { has_variable = spec_restrain_fish } spec_igs_lever_restrain = { G = fish } }
+            }
 			change_variable = { name = spec_lever_wait_fish add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_fish <= 0 }
@@ -1886,6 +1990,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_fruit }
+            if = {
+                limit = { has_variable = spec_lever_pending_fruit NOT = { has_variable = spec_lever_grace_fruit } }
+                remove_variable = spec_lever_pending_fruit
+                if = { limit = { has_variable = spec_encourage_fruit } spec_igs_lever_encourage = { G = fruit } }
+                else_if = { limit = { has_variable = spec_restrain_fruit } spec_igs_lever_restrain = { G = fruit } }
+            }
 			change_variable = { name = spec_lever_wait_fruit add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_fruit <= 0 }
@@ -1895,6 +2005,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_furniture }
+            if = {
+                limit = { has_variable = spec_lever_pending_furniture NOT = { has_variable = spec_lever_grace_furniture } }
+                remove_variable = spec_lever_pending_furniture
+                if = { limit = { has_variable = spec_encourage_furniture } spec_igs_lever_encourage = { G = furniture } }
+                else_if = { limit = { has_variable = spec_restrain_furniture } spec_igs_lever_restrain = { G = furniture } }
+            }
 			change_variable = { name = spec_lever_wait_furniture add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_furniture <= 0 }
@@ -1904,6 +2020,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_glass }
+            if = {
+                limit = { has_variable = spec_lever_pending_glass NOT = { has_variable = spec_lever_grace_glass } }
+                remove_variable = spec_lever_pending_glass
+                if = { limit = { has_variable = spec_encourage_glass } spec_igs_lever_encourage = { G = glass } }
+                else_if = { limit = { has_variable = spec_restrain_glass } spec_igs_lever_restrain = { G = glass } }
+            }
 			change_variable = { name = spec_lever_wait_glass add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_glass <= 0 }
@@ -1913,6 +2035,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_grain }
+            if = {
+                limit = { has_variable = spec_lever_pending_grain NOT = { has_variable = spec_lever_grace_grain } }
+                remove_variable = spec_lever_pending_grain
+                if = { limit = { has_variable = spec_encourage_grain } spec_igs_lever_encourage = { G = grain } }
+                else_if = { limit = { has_variable = spec_restrain_grain } spec_igs_lever_restrain = { G = grain } }
+            }
 			change_variable = { name = spec_lever_wait_grain add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_grain <= 0 }
@@ -1922,6 +2050,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_groceries }
+            if = {
+                limit = { has_variable = spec_lever_pending_groceries NOT = { has_variable = spec_lever_grace_groceries } }
+                remove_variable = spec_lever_pending_groceries
+                if = { limit = { has_variable = spec_encourage_groceries } spec_igs_lever_encourage = { G = groceries } }
+                else_if = { limit = { has_variable = spec_restrain_groceries } spec_igs_lever_restrain = { G = groceries } }
+            }
 			change_variable = { name = spec_lever_wait_groceries add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_groceries <= 0 }
@@ -1931,6 +2065,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_hardwood }
+            if = {
+                limit = { has_variable = spec_lever_pending_hardwood NOT = { has_variable = spec_lever_grace_hardwood } }
+                remove_variable = spec_lever_pending_hardwood
+                if = { limit = { has_variable = spec_encourage_hardwood } spec_igs_lever_encourage = { G = hardwood } }
+                else_if = { limit = { has_variable = spec_restrain_hardwood } spec_igs_lever_restrain = { G = hardwood } }
+            }
 			change_variable = { name = spec_lever_wait_hardwood add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_hardwood <= 0 }
@@ -1940,6 +2080,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_iron }
+            if = {
+                limit = { has_variable = spec_lever_pending_iron NOT = { has_variable = spec_lever_grace_iron } }
+                remove_variable = spec_lever_pending_iron
+                if = { limit = { has_variable = spec_encourage_iron } spec_igs_lever_encourage = { G = iron } }
+                else_if = { limit = { has_variable = spec_restrain_iron } spec_igs_lever_restrain = { G = iron } }
+            }
 			change_variable = { name = spec_lever_wait_iron add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_iron <= 0 }
@@ -1949,6 +2095,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_lead }
+            if = {
+                limit = { has_variable = spec_lever_pending_lead NOT = { has_variable = spec_lever_grace_lead } }
+                remove_variable = spec_lever_pending_lead
+                if = { limit = { has_variable = spec_encourage_lead } spec_igs_lever_encourage = { G = lead } }
+                else_if = { limit = { has_variable = spec_restrain_lead } spec_igs_lever_restrain = { G = lead } }
+            }
 			change_variable = { name = spec_lever_wait_lead add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_lead <= 0 }
@@ -1958,6 +2110,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_liquor }
+            if = {
+                limit = { has_variable = spec_lever_pending_liquor NOT = { has_variable = spec_lever_grace_liquor } }
+                remove_variable = spec_lever_pending_liquor
+                if = { limit = { has_variable = spec_encourage_liquor } spec_igs_lever_encourage = { G = liquor } }
+                else_if = { limit = { has_variable = spec_restrain_liquor } spec_igs_lever_restrain = { G = liquor } }
+            }
 			change_variable = { name = spec_lever_wait_liquor add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_liquor <= 0 }
@@ -1967,6 +2125,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_luxury_clothes }
+            if = {
+                limit = { has_variable = spec_lever_pending_luxury_clothes NOT = { has_variable = spec_lever_grace_luxury_clothes } }
+                remove_variable = spec_lever_pending_luxury_clothes
+                if = { limit = { has_variable = spec_encourage_luxury_clothes } spec_igs_lever_encourage = { G = luxury_clothes } }
+                else_if = { limit = { has_variable = spec_restrain_luxury_clothes } spec_igs_lever_restrain = { G = luxury_clothes } }
+            }
 			change_variable = { name = spec_lever_wait_luxury_clothes add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_luxury_clothes <= 0 }
@@ -1976,6 +2140,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_luxury_furniture }
+            if = {
+                limit = { has_variable = spec_lever_pending_luxury_furniture NOT = { has_variable = spec_lever_grace_luxury_furniture } }
+                remove_variable = spec_lever_pending_luxury_furniture
+                if = { limit = { has_variable = spec_encourage_luxury_furniture } spec_igs_lever_encourage = { G = luxury_furniture } }
+                else_if = { limit = { has_variable = spec_restrain_luxury_furniture } spec_igs_lever_restrain = { G = luxury_furniture } }
+            }
 			change_variable = { name = spec_lever_wait_luxury_furniture add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_luxury_furniture <= 0 }
@@ -1985,6 +2155,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_meat }
+            if = {
+                limit = { has_variable = spec_lever_pending_meat NOT = { has_variable = spec_lever_grace_meat } }
+                remove_variable = spec_lever_pending_meat
+                if = { limit = { has_variable = spec_encourage_meat } spec_igs_lever_encourage = { G = meat } }
+                else_if = { limit = { has_variable = spec_restrain_meat } spec_igs_lever_restrain = { G = meat } }
+            }
 			change_variable = { name = spec_lever_wait_meat add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_meat <= 0 }
@@ -1994,6 +2170,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_merchant_marine }
+            if = {
+                limit = { has_variable = spec_lever_pending_merchant_marine NOT = { has_variable = spec_lever_grace_merchant_marine } }
+                remove_variable = spec_lever_pending_merchant_marine
+                if = { limit = { has_variable = spec_encourage_merchant_marine } spec_igs_lever_encourage = { G = merchant_marine } }
+                else_if = { limit = { has_variable = spec_restrain_merchant_marine } spec_igs_lever_restrain = { G = merchant_marine } }
+            }
 			change_variable = { name = spec_lever_wait_merchant_marine add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_merchant_marine <= 0 }
@@ -2003,6 +2185,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_oil }
+            if = {
+                limit = { has_variable = spec_lever_pending_oil NOT = { has_variable = spec_lever_grace_oil } }
+                remove_variable = spec_lever_pending_oil
+                if = { limit = { has_variable = spec_encourage_oil } spec_igs_lever_encourage = { G = oil } }
+                else_if = { limit = { has_variable = spec_restrain_oil } spec_igs_lever_restrain = { G = oil } }
+            }
 			change_variable = { name = spec_lever_wait_oil add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_oil <= 0 }
@@ -2012,6 +2200,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_opium }
+            if = {
+                limit = { has_variable = spec_lever_pending_opium NOT = { has_variable = spec_lever_grace_opium } }
+                remove_variable = spec_lever_pending_opium
+                if = { limit = { has_variable = spec_encourage_opium } spec_igs_lever_encourage = { G = opium } }
+                else_if = { limit = { has_variable = spec_restrain_opium } spec_igs_lever_restrain = { G = opium } }
+            }
 			change_variable = { name = spec_lever_wait_opium add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_opium <= 0 }
@@ -2021,6 +2215,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_paper }
+            if = {
+                limit = { has_variable = spec_lever_pending_paper NOT = { has_variable = spec_lever_grace_paper } }
+                remove_variable = spec_lever_pending_paper
+                if = { limit = { has_variable = spec_encourage_paper } spec_igs_lever_encourage = { G = paper } }
+                else_if = { limit = { has_variable = spec_restrain_paper } spec_igs_lever_restrain = { G = paper } }
+            }
 			change_variable = { name = spec_lever_wait_paper add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_paper <= 0 }
@@ -2030,6 +2230,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_porcelain }
+            if = {
+                limit = { has_variable = spec_lever_pending_porcelain NOT = { has_variable = spec_lever_grace_porcelain } }
+                remove_variable = spec_lever_pending_porcelain
+                if = { limit = { has_variable = spec_encourage_porcelain } spec_igs_lever_encourage = { G = porcelain } }
+                else_if = { limit = { has_variable = spec_restrain_porcelain } spec_igs_lever_restrain = { G = porcelain } }
+            }
 			change_variable = { name = spec_lever_wait_porcelain add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_porcelain <= 0 }
@@ -2039,6 +2245,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_radios }
+            if = {
+                limit = { has_variable = spec_lever_pending_radios NOT = { has_variable = spec_lever_grace_radios } }
+                remove_variable = spec_lever_pending_radios
+                if = { limit = { has_variable = spec_encourage_radios } spec_igs_lever_encourage = { G = radios } }
+                else_if = { limit = { has_variable = spec_restrain_radios } spec_igs_lever_restrain = { G = radios } }
+            }
 			change_variable = { name = spec_lever_wait_radios add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_radios <= 0 }
@@ -2048,6 +2260,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_rubber }
+            if = {
+                limit = { has_variable = spec_lever_pending_rubber NOT = { has_variable = spec_lever_grace_rubber } }
+                remove_variable = spec_lever_pending_rubber
+                if = { limit = { has_variable = spec_encourage_rubber } spec_igs_lever_encourage = { G = rubber } }
+                else_if = { limit = { has_variable = spec_restrain_rubber } spec_igs_lever_restrain = { G = rubber } }
+            }
 			change_variable = { name = spec_lever_wait_rubber add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_rubber <= 0 }
@@ -2057,6 +2275,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_silk }
+            if = {
+                limit = { has_variable = spec_lever_pending_silk NOT = { has_variable = spec_lever_grace_silk } }
+                remove_variable = spec_lever_pending_silk
+                if = { limit = { has_variable = spec_encourage_silk } spec_igs_lever_encourage = { G = silk } }
+                else_if = { limit = { has_variable = spec_restrain_silk } spec_igs_lever_restrain = { G = silk } }
+            }
 			change_variable = { name = spec_lever_wait_silk add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_silk <= 0 }
@@ -2066,6 +2290,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_small_arms }
+            if = {
+                limit = { has_variable = spec_lever_pending_small_arms NOT = { has_variable = spec_lever_grace_small_arms } }
+                remove_variable = spec_lever_pending_small_arms
+                if = { limit = { has_variable = spec_encourage_small_arms } spec_igs_lever_encourage = { G = small_arms } }
+                else_if = { limit = { has_variable = spec_restrain_small_arms } spec_igs_lever_restrain = { G = small_arms } }
+            }
 			change_variable = { name = spec_lever_wait_small_arms add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_small_arms <= 0 }
@@ -2075,6 +2305,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_steamers }
+            if = {
+                limit = { has_variable = spec_lever_pending_steamers NOT = { has_variable = spec_lever_grace_steamers } }
+                remove_variable = spec_lever_pending_steamers
+                if = { limit = { has_variable = spec_encourage_steamers } spec_igs_lever_encourage = { G = steamers } }
+                else_if = { limit = { has_variable = spec_restrain_steamers } spec_igs_lever_restrain = { G = steamers } }
+            }
 			change_variable = { name = spec_lever_wait_steamers add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_steamers <= 0 }
@@ -2084,6 +2320,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_steel }
+            if = {
+                limit = { has_variable = spec_lever_pending_steel NOT = { has_variable = spec_lever_grace_steel } }
+                remove_variable = spec_lever_pending_steel
+                if = { limit = { has_variable = spec_encourage_steel } spec_igs_lever_encourage = { G = steel } }
+                else_if = { limit = { has_variable = spec_restrain_steel } spec_igs_lever_restrain = { G = steel } }
+            }
 			change_variable = { name = spec_lever_wait_steel add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_steel <= 0 }
@@ -2093,6 +2335,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_sugar }
+            if = {
+                limit = { has_variable = spec_lever_pending_sugar NOT = { has_variable = spec_lever_grace_sugar } }
+                remove_variable = spec_lever_pending_sugar
+                if = { limit = { has_variable = spec_encourage_sugar } spec_igs_lever_encourage = { G = sugar } }
+                else_if = { limit = { has_variable = spec_restrain_sugar } spec_igs_lever_restrain = { G = sugar } }
+            }
 			change_variable = { name = spec_lever_wait_sugar add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_sugar <= 0 }
@@ -2102,6 +2350,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_sulfur }
+            if = {
+                limit = { has_variable = spec_lever_pending_sulfur NOT = { has_variable = spec_lever_grace_sulfur } }
+                remove_variable = spec_lever_pending_sulfur
+                if = { limit = { has_variable = spec_encourage_sulfur } spec_igs_lever_encourage = { G = sulfur } }
+                else_if = { limit = { has_variable = spec_restrain_sulfur } spec_igs_lever_restrain = { G = sulfur } }
+            }
 			change_variable = { name = spec_lever_wait_sulfur add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_sulfur <= 0 }
@@ -2111,6 +2365,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_tanks }
+            if = {
+                limit = { has_variable = spec_lever_pending_tanks NOT = { has_variable = spec_lever_grace_tanks } }
+                remove_variable = spec_lever_pending_tanks
+                if = { limit = { has_variable = spec_encourage_tanks } spec_igs_lever_encourage = { G = tanks } }
+                else_if = { limit = { has_variable = spec_restrain_tanks } spec_igs_lever_restrain = { G = tanks } }
+            }
 			change_variable = { name = spec_lever_wait_tanks add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_tanks <= 0 }
@@ -2120,6 +2380,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_tea }
+            if = {
+                limit = { has_variable = spec_lever_pending_tea NOT = { has_variable = spec_lever_grace_tea } }
+                remove_variable = spec_lever_pending_tea
+                if = { limit = { has_variable = spec_encourage_tea } spec_igs_lever_encourage = { G = tea } }
+                else_if = { limit = { has_variable = spec_restrain_tea } spec_igs_lever_restrain = { G = tea } }
+            }
 			change_variable = { name = spec_lever_wait_tea add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_tea <= 0 }
@@ -2129,6 +2395,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_telephones }
+            if = {
+                limit = { has_variable = spec_lever_pending_telephones NOT = { has_variable = spec_lever_grace_telephones } }
+                remove_variable = spec_lever_pending_telephones
+                if = { limit = { has_variable = spec_encourage_telephones } spec_igs_lever_encourage = { G = telephones } }
+                else_if = { limit = { has_variable = spec_restrain_telephones } spec_igs_lever_restrain = { G = telephones } }
+            }
 			change_variable = { name = spec_lever_wait_telephones add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_telephones <= 0 }
@@ -2138,6 +2410,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_tobacco }
+            if = {
+                limit = { has_variable = spec_lever_pending_tobacco NOT = { has_variable = spec_lever_grace_tobacco } }
+                remove_variable = spec_lever_pending_tobacco
+                if = { limit = { has_variable = spec_encourage_tobacco } spec_igs_lever_encourage = { G = tobacco } }
+                else_if = { limit = { has_variable = spec_restrain_tobacco } spec_igs_lever_restrain = { G = tobacco } }
+            }
 			change_variable = { name = spec_lever_wait_tobacco add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_tobacco <= 0 }
@@ -2147,6 +2425,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_tools }
+            if = {
+                limit = { has_variable = spec_lever_pending_tools NOT = { has_variable = spec_lever_grace_tools } }
+                remove_variable = spec_lever_pending_tools
+                if = { limit = { has_variable = spec_encourage_tools } spec_igs_lever_encourage = { G = tools } }
+                else_if = { limit = { has_variable = spec_restrain_tools } spec_igs_lever_restrain = { G = tools } }
+            }
 			change_variable = { name = spec_lever_wait_tools add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_tools <= 0 }
@@ -2156,6 +2440,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_wine }
+            if = {
+                limit = { has_variable = spec_lever_pending_wine NOT = { has_variable = spec_lever_grace_wine } }
+                remove_variable = spec_lever_pending_wine
+                if = { limit = { has_variable = spec_encourage_wine } spec_igs_lever_encourage = { G = wine } }
+                else_if = { limit = { has_variable = spec_restrain_wine } spec_igs_lever_restrain = { G = wine } }
+            }
 			change_variable = { name = spec_lever_wait_wine add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_wine <= 0 }
@@ -2165,6 +2455,12 @@ spec_lever_clock = {
 		}
 		if = {
 			limit = { has_variable = spec_lever_wait_wood }
+            if = {
+                limit = { has_variable = spec_lever_pending_wood NOT = { has_variable = spec_lever_grace_wood } }
+                remove_variable = spec_lever_pending_wood
+                if = { limit = { has_variable = spec_encourage_wood } spec_igs_lever_encourage = { G = wood } }
+                else_if = { limit = { has_variable = spec_restrain_wood } spec_igs_lever_restrain = { G = wood } }
+            }
 			change_variable = { name = spec_lever_wait_wood add = -1 }
 			if = {
 				limit = { var:spec_lever_wait_wood <= 0 }

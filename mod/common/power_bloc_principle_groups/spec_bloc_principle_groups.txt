@@ -1,0 +1,8 @@
+﻿# open to every identity, primary for none (power_bloc.py)
+principle_group_spec_financial_integration = {
+	levels = {
+		principle_spec_financial_integration_1
+		principle_spec_financial_integration_2
+		principle_spec_financial_integration_3
+	}
+}

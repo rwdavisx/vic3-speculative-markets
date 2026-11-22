@@ -6,3 +6,8 @@
 	spec_volatility_heightened = {
 	}
 }
+spec_goods_news = {
+    default = spec_goods_news_bulletin
+    spec_goods_news_bulletin = {}
+    spec_goods_news_detailed = {}
+}

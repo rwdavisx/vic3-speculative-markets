@@ -229,7 +229,9 @@ spec_rival.1 = {
 		hidden_effect = {
 			if = {
 				limit = { has_variable = spec_centre_trust }
+				if = { limit = { is_player = yes has_variable = spec_trust_review } set_local_variable = { name = spec_before_trust value = var:spec_centre_trust } }
 				set_variable = { name = spec_centre_trust value = { value = var:spec_centre_trust add = 1.2 max = 120 } }
+				if = { limit = { is_player = yes has_variable = spec_trust_review } change_variable = { name = spec_trust_rivals_pending add = { value = var:spec_centre_trust subtract = local_var:spec_before_trust } } }
 			}
 		}
 		ai_chance = {
@@ -248,7 +250,9 @@ spec_rival.1 = {
 					limit = { exists = scope:target scope:target = { has_variable = spec_exch_stand } }
 					set_local_variable = { name = spec_rv_calm value = { value = scope:target.var:spec_exch_stand multiply = 1 add = 1 } }
 				}
+				if = { limit = { is_player = yes has_variable = spec_trust_review } set_local_variable = { name = spec_before_trust value = var:spec_centre_trust } }
 				set_variable = { name = spec_centre_trust value = { value = var:spec_centre_trust add = { value = local_var:spec_rv_calm multiply = 1.2 } max = 120 } }
+				if = { limit = { is_player = yes has_variable = spec_trust_review } change_variable = { name = spec_trust_rivals_pending add = { value = var:spec_centre_trust subtract = local_var:spec_before_trust } } }
 			}
 		}
 		ai_chance = {

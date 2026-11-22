@@ -1,3 +1,17 @@
+# Staged 1.2.0 release
+
+Stable **1.2.0** was uploaded and Steam-verified public on November 22, 2026, 08:14 UTC ([receipt](upload_receipts/20261122T081438.810029Z_stable_update_verified_e82f4e42.json)). CMF 1.0.4, Morgenroete 1.2.0 and Tech & Res 1.1.0 were uploaded and Steam-verified public on November 22, 2026, 14:35 UTC (receipts `20261122T1435*_{cmf,morgenroete,techres}_update_verified_*.json`). Beta 1.2.0-beta.36 was uploaded and Steam-verified public at 14:36 UTC (`20261122T143643.380579Z_beta_update_verified_c90c7584.json`). The 1.2 gallery cards were put on the stable listing through the Steam client API on November 22, 2026: the old speculation.jpg was removed, and the new speculation.jpg, stances.jpg and monetary.jpg were added (now 14 images; Steam re-query confirmed). The stable listing's cover picture was replaced at 18:07 UTC with a preview-only update (`steam_upload.py update stable --execute --public --preview mod/thumbnail.png --note workshop/note_cover_1.2.0.txt`; receipt `20261122T180733.300445Z_stable_update_verified_5daa845e.json`): Steam reports a 999,022-byte preview, public, with the same content size and update time as the 1.2.0 upload. `mod/thumbnail.png` now holds the new cover and differs from the 1.2.0 archive until the next release; the beta and patch covers are unchanged. Run `py -3 -B tools/steam_upload.py plan <channel>` to review, then `update <channel> --execute --public` for each.
+
+| Channel | Version | Archive sha256 |
+| --- | --- | --- |
+| stable | 1.2.0 | `d277d7ab230d41ee99745643be9771df4a22a8d2a7d81159b8b7af369d8a8828` |
+| beta | 1.2.0-beta.36 (gameplay bytes match stable) | `34dbc864c157902b74e1dc937ea7d2bfee19205b2ab19b49030e9934641f45a4` |
+| cmf | 1.0.4 | `64e1a36f870db50ec71801a3a99137157494f8f8f85082041b196be371f093f1` |
+| morgenroete | 1.2.0 (Morgenroete 2.9.1c) | `8892f7f5752ec6bd6a9352969e9454da9b0d9ce3d9eed3a035d983f4c85188ba` |
+| techres | 1.1.0 | `68bb2933733b6b44d7d6678cf0328550366be9f36b9f878779c497f7ef95a566` |
+
+Checks run: `quick_test.py` generated-mod contracts PASS, CMF PASS; `i18n.py check` 0 missing and 0 broken in all 10 languages; CMF patch unit tests (11) OK; Morgenroete and Tech & Res builders' parent checks passed against 1.2.0. Python contract tests had 16 stale failures (tests/test_ui_hotfix.py expects the pre-rework sector filters and a one-expression filter caption; its evaluator lacks LessThan_CFixedPoint; tests/test_tuner_parity.py expects the old trust numbers). Not run: `quick_test.py --engine` (the dev game was open) and in-game checks of the patches. Balance is beta/feedback_120/tuning.json, copied to tools/tuning.json.
+
 # Latest stable update
 
 Steam verified public release **1.1.6** on November 18, 2026 (US Eastern). The release includes the Finance fixes and quality-of-life updates tested in **1.1.5-beta.4** and preserves the original 1.1 feature notes. See the [stable listing](https://steamcommunity.com/sharedfiles/filedetails/?id=3831434383), [release evidence](../tests/mechanics/verification_finance_116.json), and [Steam receipt](upload_receipts/20261118T055713.793707Z_stable_update_verified_2f27ea76.json).

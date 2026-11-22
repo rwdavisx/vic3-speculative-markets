@@ -1,19 +1,19 @@
 ﻿spec_rv_press_1 = {
-	icon = gfx/interface/icons/timed_modifier_icons/modifier_newspaper_negative.dds
+	icon = gfx/interface/icons/spec_markets/rival_press.dds
 	country_influence_add = -75
 }
 
 spec_rv_press_2 = {
-	icon = gfx/interface/icons/timed_modifier_icons/modifier_newspaper_negative.dds
+	icon = gfx/interface/icons/spec_markets/rival_press.dds
 	country_influence_add = -75
 }
 
 spec_rv_press_3 = {
-	icon = gfx/interface/icons/timed_modifier_icons/modifier_newspaper_negative.dds
+	icon = gfx/interface/icons/spec_markets/rival_press.dds
 	country_influence_add = -75
 }
 
 spec_rv_upkeep = {
-	icon = gfx/interface/icons/timed_modifier_icons/modifier_newspaper_negative.dds
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
 	country_influence_add = -1
 }
