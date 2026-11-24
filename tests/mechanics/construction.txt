@@ -11,11 +11,12 @@ if = { limit = { var:spec_bbv_heavy_industry = 0 NOT = { has_modifier = spec_boo
 else = { debug_log = "HOTFIX FAIL construction_word_4" }
 set_variable = { name = spec_word_steel value = 5 }
 spec_mechanics_standards = yes
-if = { limit = { var:spec_bbv_heavy_industry = 1 has_modifier = spec_boom_build_heavy_industry } debug_log = "HOTFIX PASS construction_word_5" }
+if = { limit = { var:spec_bbv_heavy_industry > 0 var:spec_bbv_heavy_industry <= 1 has_modifier = spec_boom_build_heavy_industry } debug_log = "HOTFIX PASS construction_word_5" }
 else = { debug_log = "HOTFIX FAIL construction_word_5" }
+set_variable = { name = spec_test_bb value = var:spec_bbv_heavy_industry }
 set_variable = { name = spec_word_steel value = 6 }
 spec_mechanics_standards = yes
-if = { limit = { var:spec_bbv_heavy_industry = 2 has_modifier = spec_boom_build_heavy_industry } debug_log = "HOTFIX PASS construction_word_6" }
+if = { limit = { var:spec_bbv_heavy_industry > var:spec_test_bb var:spec_bbv_heavy_industry <= 2 has_modifier = spec_boom_build_heavy_industry } debug_log = "HOTFIX PASS construction_word_6" }
 else = { debug_log = "HOTFIX FAIL construction_word_6" }
 set_variable = { name = spec_word_steel value = 3 }
 spec_mechanics_standards = yes
@@ -24,7 +25,7 @@ else = { debug_log = "HOTFIX FAIL construction_word_3" }
 set_variable = { name = spec_word_steel value = 6 }
 set_variable = { name = spec_mv_total value = { value = spec_mv_steel multiply = 1000 } }
 spec_mechanics_standards = yes
-if = { limit = { var:spec_bbv_heavy_industry = 0 NOT = { has_modifier = spec_boom_build_heavy_industry } } debug_log = "HOTFIX PASS tiny_boom_cannot_accelerate_whole_construction_group" }
+if = { limit = { var:spec_bbv_heavy_industry > 0 var:spec_bbv_heavy_industry < 0.1 has_modifier = spec_boom_build_heavy_industry } debug_log = "HOTFIX PASS tiny_boom_cannot_accelerate_whole_construction_group" }
 else = { debug_log = "HOTFIX FAIL tiny_boom_cannot_accelerate_whole_construction_group" }
 
 debug_log = "HOTFIX SUITE COMPLETE"

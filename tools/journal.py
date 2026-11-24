@@ -1086,12 +1086,13 @@ def loc(k):
            f"[SelectLocalization({on('spec_reform_open_v')}, 'SPEC_JE_INQUIRY_HINT', 'SPEC_JE_NONE')]",
         3: f"The exchange in {cap} has gone mad. Clerks and widows buy shares in {top} with borrowed money, and every "
            f"month that {mc} stands at #v [{sv('spec_heat_from')}|0]#! or more adds to the {excess}. When $concept_spec_market_confidence$ falls below #v {k['BURST_BELOW']}#! the "
-           "bubble bursts, and the greater the excess, the harder the fall.\\n\\nRestraining speculation in the hottest "
-           "goods, or tightening credit, would let the air out slowly.",
+           "bubble bursts, and the greater the excess, the harder the fall.\\n\\nTightening credit, once we have Central "
+           "Banking, or restraining the hottest goods would let the air out slowly.",
         2: f"Money is easy and investors are buoyant. New companies in {top} are oversubscribed within the hour, and the "
            f"banks lend freely against their shares. With {mc} at #v [{sv('spec_heat_from')}|0]#! or more, the {excess} starts to build."
            "\\n\\nGood times are also the moment to convert our national debt to a lower rate.",
-        1: f"Trade on the exchange in {cap} is orderly. Investors favor {top} and shun {low}.",
+        1: f"Trade on the exchange in {cap} is orderly. Investors favor {top} and shun {low}. "
+           "The market needs nothing from us in ordinary times.",
         0: f"Investors in {cap} are wary. Burned by recent losses, they keep their money close and shun {low}. Loose "
            "credit, or encouragement to invest in a good, may coax them back.",
     }
@@ -1169,12 +1170,12 @@ def loc(k):
         "alert_spec_panic_risk_alert_name": "Panic Risk",
         "spec_panic_risk_alert_setting_name": "Panic Risk",
         "alert_spec_panic_risk_alert_desc": f"If our current risks all strike, {mc} drops to #N [{G}('spec_after_risks')|0]#!.\\nA {fp} starts below #v {f"[{G}('spec_panic_at')|0]" if leverage.ON else k['PANIC']}#!.",
-        "alert_spec_panic_risk_alert_hint": "To lower the risk, Restrain Speculation in the riskiest goods on the #bold $SPEC_FIN_TAB_BOOMS$#! tab, or tighten [concept_spec_credit_policy] on the #bold $SPEC_FIN_TAB_BANKING$#! tab.",
+        "alert_spec_panic_risk_alert_hint": "To lower the risk, tighten [concept_spec_credit_policy] on the #bold $SPEC_FIN_TAB_BANKING$#! tab. Restraining the riskiest goods on the #bold $SPEC_FIN_TAB_BOOMS$#! tab helps too.",
         "alert_spec_panic_risk_alert_action": "$SPEC_FINANCE$",
         "alert_spec_bubble_alert_name": "Speculative Excess",
         "spec_bubble_alert_setting_name": "Speculative Excess",
         "alert_spec_bubble_alert_desc": f"Our {excess} is #v [GetPlayer.MakeScope.Var('spec_heat').GetValue|0]#!. It bursts if {mc} drops below #v {k['BURST_BELOW']}#!. If it burst now, $concept_spec_market_confidence$ would fall by #N [{G}('spec_burst_now')|0]#! at once.",
-        "alert_spec_bubble_alert_hint": f"To let it down gently, restrain the booming goods or tighten [concept_spec_credit_policy].\\n#P Grows#! while {mc} is #v [{G}('spec_heat_from')|0]#! or more\\n#v Shrinks#! slowly while it is between #v {k['BURST_BELOW']}#! and #v [{G}('spec_heat_from')|0]#!, faster with a [Concept('concept_spec_credit_policy','$concept_spec_credit_policy_tight$')] credit policy",
+        "alert_spec_bubble_alert_hint": f"To let it down gently, tighten [concept_spec_credit_policy] or restrain the booming goods.\\n#P Grows#! while {mc} is #v [{G}('spec_heat_from')|0]#! or more\\n#v Shrinks#! slowly while it is between #v {k['BURST_BELOW']}#! and #v [{G}('spec_heat_from')|0]#!, faster with a [Concept('concept_spec_credit_policy','$concept_spec_credit_policy_tight$')] credit policy",
         "alert_spec_bubble_alert_action": "$SPEC_FINANCE$",
         "alert_spec_rescue_alert_name": "Bank Rescue Available",
         "spec_rescue_alert_setting_name": "Bank Rescue Available",

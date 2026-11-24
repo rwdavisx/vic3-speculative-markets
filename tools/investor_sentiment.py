@@ -92,7 +92,7 @@ def effects(goods):
     spec_list_{kind} = {{ G = $G$ }}
 }}
 """)
-    return "\n".join(side_blocks) + clock + "\n".join(pulse + ["    spec_term_throughput = yes", "}", ""])
+    return "\n".join(side_blocks) + clock + "\n".join(pulse + ["}", ""])
 
 
 FACTORS = ("gap", "fade", "conf", "share")
@@ -131,18 +131,7 @@ def effect_np(np, side, months, dev, conf, share):
 
 
 def modifiers(made, icon_up, icon_down):
-    """Static modifiers on the producers' buildings, one point of throughput each; applied with the size as multiplier."""
-    return "".join(f"spec_term_{k}_{g} = {{\n\ticon = {icon}\n" + "".join(f"\t{t} = {sign * 0.01:g}\n" for t in made[g]) + "}\n\n"
-                   for g in sorted(made) for k, sign, icon in (("up", 1, icon_up), ("down", -1, icon_down)))
-
-
-def apply_throughput(made):
-    """Monthly, after the terms move: each good's producers get its term's throughput, in whole-point steps."""
-    lines = []
-    for g in sorted(made):
-        for k, op in (("up", ">"), ("down", "<")):
-            lines.append(f"\tif = {{ limit = {{ has_modifier = spec_term_{k}_{g} }} remove_modifier = spec_term_{k}_{g} }}")
-        lines.append(f"\tset_local_variable = {{ name = spec_term_pts value = {{ value = spec_term_tp_{g} multiply = 100 }} }}")
-        lines.append(f"\tif = {{ limit = {{ local_var:spec_term_pts >= 0.5 }} add_modifier = {{ name = spec_term_up_{g} multiplier = local_var:spec_term_pts }} }}")
-        lines.append(f"\telse_if = {{ limit = {{ local_var:spec_term_pts <= -0.5 }} add_modifier = {{ name = spec_term_down_{g} multiplier = {{ value = local_var:spec_term_pts multiply = -1 }} }} }}")
-    return "spec_term_throughput = {\n" + "\n".join(lines) + "\n}\n"
+    """Older saves' country modifiers, now empty: the term's throughput (spec_term_tp_<g>) is in the good's building
+    modifier (companies.bp_script, 2026-11-24)."""
+    return "".join(f"spec_term_{k}_{g} = {{\n\ticon = {icon}\n}}\n\n"
+                   for g in sorted(made) for k, icon in (("up", icon_up), ("down", icon_down)))

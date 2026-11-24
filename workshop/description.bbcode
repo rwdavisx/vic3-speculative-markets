@@ -3,7 +3,7 @@ Victoria 3's economy gets a financial system. Investors chase rising prices, ban
 
 You steer the cycle through credit policy, interventions in hot or cold goods, bank rescues and your laws.
 
-Version [b]__VERSION__[/b], built for [b]Victoria 3 1.15.2[/b]. Supports running campaigns and saves from earlier versions.
+Version [b]__VERSION__[/b], built for [b]Victoria 3 1.15.2[/b]. Works with saves from earlier versions.
 
 [h1]Features[/h1]
 [list]
@@ -21,6 +21,8 @@ Version [b]__VERSION__[/b], built for [b]Victoria 3 1.15.2[/b]. Supports running
 
 Open [b]Finance[/b] on the left sidebar. Hover over almost any figure to see how it is calculated. The [url=https://claude.ai/artifact/RK4Lrf6U1rU7HC8Vx5pDvy][b]interactive tutorial[/b][/url] lets you try the levers before you play.
 
+[b]First game?[/b] You can leave the goods and Specialities alone. Watch your leverage and the alerts, and step in when they warn you. Corrections and the odd panic are part of the cycle, so the market looks after itself between them.
+
 [h1]The cycle[/h1]
 [img]https://i.imgur.com/AQJqgii.png[/img]
 Rising prices make investors keen, and a keen market lifts confidence. Banks lend more freely, and the credit speeds up construction. Above 80 confidence the market is in a Mania, and [b]Speculative Excess[/b] builds up.
@@ -37,7 +39,7 @@ A company that stays prosperous for a year becomes a [b]blue chip[/b]. Blue chip
 
 [h1]Speculation[/h1]
 [img]https://i.imgur.com/4XY1pZN.png[/img]
-[b]Market Confidence[/b] runs from 0 to 100. See what moved it, what a sharp fall would cost, and what the market is doing to investment, GDP, construction and trade.
+[b]Market Confidence[/b] runs from 0 to 100. See what moved it and what the market is doing to your economy.
 
 Each good has its own [b]Investor Interest[/b], from Fleeing to Feverish. Hot goods earn their makers more, then end harder. After a long run of high or low prices, investors may [b]favor[/b] or [b]shun[/b] a good for a year.
 
@@ -45,7 +47,7 @@ Each good has its own [b]Investor Interest[/b], from Fleeing to Feverish. Hot go
 
 [h1]Banking[/h1]
 [img]https://i.imgur.com/1FU4JRZ.png[/img]
-Each month of [b]Credit Leverage[/b] adds 3.5% throughput, up to 14%. Past three months, panics come sooner, last longer and cut deeper.
+Each month of [b]Credit Leverage[/b] adds 2% throughput and 0.5% investment, up to 12 months. Years of well-run borrowing also earn [b]Sound Credit[/b], which speeds up construction. Past three months, panics come sooner, last longer and cut deeper.
 
 Set [b]Credit Policy[/b] to Tight, Normal or Loose. [b]Lending Standards[/b] drift from Strict toward Reckless in good times. Looser banks lend more, but a panic calls in more of the debt.
 
@@ -55,7 +57,11 @@ In a panic, [b]Lend to the Banks[/b] to shorten it. Pledge a cheaper rescue in a
 [img]https://i.imgur.com/2WhEHpI.png[/img]
 Every Exchange at National Standing or above is ranked. The top five gain prestige and a higher Lending Limit.
 
-Name a competitor from the rankings or the map. A contest settles after five years, and a decisive win draws capital from the loser for a year. Push with a [b]Bear Raid[/b], [b]Lure Their Capital[/b] or a [b]Press Campaign[/b]. Defend with [b]Hold the Line[/b] or [b]Shore Up[/b].
+Name a competitor from the rankings or the map. A contest runs from 0 to 100, like Liberty Desire, and settles after five years. A decisive win draws capital from the loser for a year. Push with a [b]Bear Raid[/b], [b]Lure Capital[/b] or a [b]Press Campaign[/b]. Defend with [b]Hold the Line[/b] or [b]Shore Up[/b].
+
+[h1]How the AI plays[/h1]
+[img]https://i.imgur.com/Ii0kLiX.png[/img]
+AI countries use the same tools you do: Credit Policy, Levies, bank rescues and buying up bad loans. In 1.3 simulations the average AI country has five panics a century, and 4 in 5 end ahead of a game without the mod. The chart is from 1.2.1.
 
 [h1]Panics abroad[/h1]
 [img]https://i.imgur.com/hvBjAnr.jpeg[/img]
@@ -65,14 +71,14 @@ A Great Power's panic spreads through trade and foreign ownership. From around 1
 [img]https://i.imgur.com/3hceafU.jpeg[/img]
 Each [b]interest group[/b] supports about two goods and may oppose one. Booms, busts and your interventions in them move its approval.
 
-The [b]Monetary Standard[/b] law group adds Bimetallism, the Gold Standard and Fiat Money. Each changes how booms, panics and rescues play out.
+The [b]Monetary Standard[/b] law group adds Bimetallism, the Gold Standard and Fiat Money.
 
 Power blocs can adopt [b]Financial Integration[/b] to shelter members from each other's panics and share the leader's credit.
 
-Economic system and trade laws and the finance technologies also shape the markets. Speculation stops under Command Economy or Cooperative Ownership.
+Economic system, trade laws and finance technologies also shape the markets. Speculation stops under Command Economy or Cooperative Ownership.
 
 [h1]Alerts, news and rules[/h1]
-Alerts warn of an approaching panic or a growing bubble. A monthly bulletin groups market news by sector. Events for manias, panics and depressions let you choose a response. The [b]Market Volatility[/b] game rule has a High setting.
+Alerts warn of an approaching panic or a growing bubble. A monthly bulletin groups market news by sector. The [b]Market Volatility[/b] game rule has a High setting. [b]Market Impact[/b] scales how much the mod affects your economy, with a gentle Flavor setting.
 
 [h1]Compatibility[/h1]
 This mod changes the top bar, alert row, sidebar, goods panel, interest group panel and building definitions. Mods that replace those, including The Great Rework, may need a patch.
@@ -89,7 +95,7 @@ For multiplayer, everyone needs the mod. Available in 11 languages, machine assi
 
 Try updates early on the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3839275304]Beta[/url]. [b]Enable only one of the two.[/b]
 
-For bug reports, include versions, other mods and what happened.
+Found a bug or have thoughts? The [url=https://claude.ai/artifact/MQuSbFaTvLmXxU5RRwQhkJ][b]feedback form[/b][/url] writes your report for you. Paste it in the Feedback discussion.
 
 [h1]My other mods[/h1]
 [list]

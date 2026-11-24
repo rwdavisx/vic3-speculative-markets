@@ -491,6 +491,249 @@ spec_update_companies = {
 			set_variable = spec_legacy_done
 		}
 		if = {
+			limit = { NOT = { has_variable = spec_bp_moved } }
+			if = { limit = { has_modifier = spec_term_up_aeroplanes } remove_modifier = spec_term_up_aeroplanes }
+			if = { limit = { has_modifier = spec_term_down_aeroplanes } remove_modifier = spec_term_down_aeroplanes }
+			if = { limit = { has_modifier = spec_term_up_ammunition } remove_modifier = spec_term_up_ammunition }
+			if = { limit = { has_modifier = spec_term_down_ammunition } remove_modifier = spec_term_down_ammunition }
+			if = { limit = { has_modifier = spec_term_up_artillery } remove_modifier = spec_term_up_artillery }
+			if = { limit = { has_modifier = spec_term_down_artillery } remove_modifier = spec_term_down_artillery }
+			if = { limit = { has_modifier = spec_term_up_automobiles } remove_modifier = spec_term_up_automobiles }
+			if = { limit = { has_modifier = spec_term_down_automobiles } remove_modifier = spec_term_down_automobiles }
+			if = { limit = { has_modifier = spec_term_up_clippers } remove_modifier = spec_term_up_clippers }
+			if = { limit = { has_modifier = spec_term_down_clippers } remove_modifier = spec_term_down_clippers }
+			if = { limit = { has_modifier = spec_term_up_clothes } remove_modifier = spec_term_up_clothes }
+			if = { limit = { has_modifier = spec_term_down_clothes } remove_modifier = spec_term_down_clothes }
+			if = { limit = { has_modifier = spec_term_up_coal } remove_modifier = spec_term_up_coal }
+			if = { limit = { has_modifier = spec_term_down_coal } remove_modifier = spec_term_down_coal }
+			if = { limit = { has_modifier = spec_term_up_coffee } remove_modifier = spec_term_up_coffee }
+			if = { limit = { has_modifier = spec_term_down_coffee } remove_modifier = spec_term_down_coffee }
+			if = { limit = { has_modifier = spec_term_up_copper } remove_modifier = spec_term_up_copper }
+			if = { limit = { has_modifier = spec_term_down_copper } remove_modifier = spec_term_down_copper }
+			if = { limit = { has_modifier = spec_term_up_dye } remove_modifier = spec_term_up_dye }
+			if = { limit = { has_modifier = spec_term_down_dye } remove_modifier = spec_term_down_dye }
+			if = { limit = { has_modifier = spec_term_up_electricity } remove_modifier = spec_term_up_electricity }
+			if = { limit = { has_modifier = spec_term_down_electricity } remove_modifier = spec_term_down_electricity }
+			if = { limit = { has_modifier = spec_term_up_engines } remove_modifier = spec_term_up_engines }
+			if = { limit = { has_modifier = spec_term_down_engines } remove_modifier = spec_term_down_engines }
+			if = { limit = { has_modifier = spec_term_up_explosives } remove_modifier = spec_term_up_explosives }
+			if = { limit = { has_modifier = spec_term_down_explosives } remove_modifier = spec_term_down_explosives }
+			if = { limit = { has_modifier = spec_term_up_fabric } remove_modifier = spec_term_up_fabric }
+			if = { limit = { has_modifier = spec_term_down_fabric } remove_modifier = spec_term_down_fabric }
+			if = { limit = { has_modifier = spec_term_up_fertilizer } remove_modifier = spec_term_up_fertilizer }
+			if = { limit = { has_modifier = spec_term_down_fertilizer } remove_modifier = spec_term_down_fertilizer }
+			if = { limit = { has_modifier = spec_term_up_fine_art } remove_modifier = spec_term_up_fine_art }
+			if = { limit = { has_modifier = spec_term_down_fine_art } remove_modifier = spec_term_down_fine_art }
+			if = { limit = { has_modifier = spec_term_up_fish } remove_modifier = spec_term_up_fish }
+			if = { limit = { has_modifier = spec_term_down_fish } remove_modifier = spec_term_down_fish }
+			if = { limit = { has_modifier = spec_term_up_furniture } remove_modifier = spec_term_up_furniture }
+			if = { limit = { has_modifier = spec_term_down_furniture } remove_modifier = spec_term_down_furniture }
+			if = { limit = { has_modifier = spec_term_up_glass } remove_modifier = spec_term_up_glass }
+			if = { limit = { has_modifier = spec_term_down_glass } remove_modifier = spec_term_down_glass }
+			if = { limit = { has_modifier = spec_term_up_grain } remove_modifier = spec_term_up_grain }
+			if = { limit = { has_modifier = spec_term_down_grain } remove_modifier = spec_term_down_grain }
+			if = { limit = { has_modifier = spec_term_up_groceries } remove_modifier = spec_term_up_groceries }
+			if = { limit = { has_modifier = spec_term_down_groceries } remove_modifier = spec_term_down_groceries }
+			if = { limit = { has_modifier = spec_term_up_hardwood } remove_modifier = spec_term_up_hardwood }
+			if = { limit = { has_modifier = spec_term_down_hardwood } remove_modifier = spec_term_down_hardwood }
+			if = { limit = { has_modifier = spec_term_up_iron } remove_modifier = spec_term_up_iron }
+			if = { limit = { has_modifier = spec_term_down_iron } remove_modifier = spec_term_down_iron }
+			if = { limit = { has_modifier = spec_term_up_lead } remove_modifier = spec_term_up_lead }
+			if = { limit = { has_modifier = spec_term_down_lead } remove_modifier = spec_term_down_lead }
+			if = { limit = { has_modifier = spec_term_up_liquor } remove_modifier = spec_term_up_liquor }
+			if = { limit = { has_modifier = spec_term_down_liquor } remove_modifier = spec_term_down_liquor }
+			if = { limit = { has_modifier = spec_term_up_luxury_clothes } remove_modifier = spec_term_up_luxury_clothes }
+			if = { limit = { has_modifier = spec_term_down_luxury_clothes } remove_modifier = spec_term_down_luxury_clothes }
+			if = { limit = { has_modifier = spec_term_up_luxury_furniture } remove_modifier = spec_term_up_luxury_furniture }
+			if = { limit = { has_modifier = spec_term_down_luxury_furniture } remove_modifier = spec_term_down_luxury_furniture }
+			if = { limit = { has_modifier = spec_term_up_meat } remove_modifier = spec_term_up_meat }
+			if = { limit = { has_modifier = spec_term_down_meat } remove_modifier = spec_term_down_meat }
+			if = { limit = { has_modifier = spec_term_up_merchant_marine } remove_modifier = spec_term_up_merchant_marine }
+			if = { limit = { has_modifier = spec_term_down_merchant_marine } remove_modifier = spec_term_down_merchant_marine }
+			if = { limit = { has_modifier = spec_term_up_oil } remove_modifier = spec_term_up_oil }
+			if = { limit = { has_modifier = spec_term_down_oil } remove_modifier = spec_term_down_oil }
+			if = { limit = { has_modifier = spec_term_up_opium } remove_modifier = spec_term_up_opium }
+			if = { limit = { has_modifier = spec_term_down_opium } remove_modifier = spec_term_down_opium }
+			if = { limit = { has_modifier = spec_term_up_paper } remove_modifier = spec_term_up_paper }
+			if = { limit = { has_modifier = spec_term_down_paper } remove_modifier = spec_term_down_paper }
+			if = { limit = { has_modifier = spec_term_up_porcelain } remove_modifier = spec_term_up_porcelain }
+			if = { limit = { has_modifier = spec_term_down_porcelain } remove_modifier = spec_term_down_porcelain }
+			if = { limit = { has_modifier = spec_term_up_radios } remove_modifier = spec_term_up_radios }
+			if = { limit = { has_modifier = spec_term_down_radios } remove_modifier = spec_term_down_radios }
+			if = { limit = { has_modifier = spec_term_up_rubber } remove_modifier = spec_term_up_rubber }
+			if = { limit = { has_modifier = spec_term_down_rubber } remove_modifier = spec_term_down_rubber }
+			if = { limit = { has_modifier = spec_term_up_silk } remove_modifier = spec_term_up_silk }
+			if = { limit = { has_modifier = spec_term_down_silk } remove_modifier = spec_term_down_silk }
+			if = { limit = { has_modifier = spec_term_up_small_arms } remove_modifier = spec_term_up_small_arms }
+			if = { limit = { has_modifier = spec_term_down_small_arms } remove_modifier = spec_term_down_small_arms }
+			if = { limit = { has_modifier = spec_term_up_steamers } remove_modifier = spec_term_up_steamers }
+			if = { limit = { has_modifier = spec_term_down_steamers } remove_modifier = spec_term_down_steamers }
+			if = { limit = { has_modifier = spec_term_up_steel } remove_modifier = spec_term_up_steel }
+			if = { limit = { has_modifier = spec_term_down_steel } remove_modifier = spec_term_down_steel }
+			if = { limit = { has_modifier = spec_term_up_sugar } remove_modifier = spec_term_up_sugar }
+			if = { limit = { has_modifier = spec_term_down_sugar } remove_modifier = spec_term_down_sugar }
+			if = { limit = { has_modifier = spec_term_up_sulfur } remove_modifier = spec_term_up_sulfur }
+			if = { limit = { has_modifier = spec_term_down_sulfur } remove_modifier = spec_term_down_sulfur }
+			if = { limit = { has_modifier = spec_term_up_tanks } remove_modifier = spec_term_up_tanks }
+			if = { limit = { has_modifier = spec_term_down_tanks } remove_modifier = spec_term_down_tanks }
+			if = { limit = { has_modifier = spec_term_up_tea } remove_modifier = spec_term_up_tea }
+			if = { limit = { has_modifier = spec_term_down_tea } remove_modifier = spec_term_down_tea }
+			if = { limit = { has_modifier = spec_term_up_telephones } remove_modifier = spec_term_up_telephones }
+			if = { limit = { has_modifier = spec_term_down_telephones } remove_modifier = spec_term_down_telephones }
+			if = { limit = { has_modifier = spec_term_up_tobacco } remove_modifier = spec_term_up_tobacco }
+			if = { limit = { has_modifier = spec_term_down_tobacco } remove_modifier = spec_term_down_tobacco }
+			if = { limit = { has_modifier = spec_term_up_tools } remove_modifier = spec_term_up_tools }
+			if = { limit = { has_modifier = spec_term_down_tools } remove_modifier = spec_term_down_tools }
+			if = { limit = { has_modifier = spec_term_up_wine } remove_modifier = spec_term_up_wine }
+			if = { limit = { has_modifier = spec_term_down_wine } remove_modifier = spec_term_down_wine }
+			if = { limit = { has_modifier = spec_term_up_wood } remove_modifier = spec_term_up_wood }
+			if = { limit = { has_modifier = spec_term_down_wood } remove_modifier = spec_term_down_wood }
+			if = { limit = { has_modifier = spec_lever_restrain_aeroplanes } remove_modifier = spec_lever_restrain_aeroplanes }
+			if = { limit = { has_modifier = spec_lever_encourage_aeroplanes } remove_modifier = spec_lever_encourage_aeroplanes }
+			if = { limit = { has_modifier = spec_lever_restrain_ammunition } remove_modifier = spec_lever_restrain_ammunition }
+			if = { limit = { has_modifier = spec_lever_encourage_ammunition } remove_modifier = spec_lever_encourage_ammunition }
+			if = { limit = { has_modifier = spec_lever_restrain_artillery } remove_modifier = spec_lever_restrain_artillery }
+			if = { limit = { has_modifier = spec_lever_encourage_artillery } remove_modifier = spec_lever_encourage_artillery }
+			if = { limit = { has_modifier = spec_lever_restrain_automobiles } remove_modifier = spec_lever_restrain_automobiles }
+			if = { limit = { has_modifier = spec_lever_encourage_automobiles } remove_modifier = spec_lever_encourage_automobiles }
+			if = { limit = { has_modifier = spec_lever_restrain_clippers } remove_modifier = spec_lever_restrain_clippers }
+			if = { limit = { has_modifier = spec_lever_encourage_clippers } remove_modifier = spec_lever_encourage_clippers }
+			if = { limit = { has_modifier = spec_lever_restrain_clothes } remove_modifier = spec_lever_restrain_clothes }
+			if = { limit = { has_modifier = spec_lever_encourage_clothes } remove_modifier = spec_lever_encourage_clothes }
+			if = { limit = { has_modifier = spec_lever_restrain_coal } remove_modifier = spec_lever_restrain_coal }
+			if = { limit = { has_modifier = spec_lever_encourage_coal } remove_modifier = spec_lever_encourage_coal }
+			if = { limit = { has_modifier = spec_lever_restrain_coffee } remove_modifier = spec_lever_restrain_coffee }
+			if = { limit = { has_modifier = spec_lever_encourage_coffee } remove_modifier = spec_lever_encourage_coffee }
+			if = { limit = { has_modifier = spec_lever_restrain_copper } remove_modifier = spec_lever_restrain_copper }
+			if = { limit = { has_modifier = spec_lever_encourage_copper } remove_modifier = spec_lever_encourage_copper }
+			if = { limit = { has_modifier = spec_lever_restrain_dye } remove_modifier = spec_lever_restrain_dye }
+			if = { limit = { has_modifier = spec_lever_encourage_dye } remove_modifier = spec_lever_encourage_dye }
+			if = { limit = { has_modifier = spec_lever_restrain_electricity } remove_modifier = spec_lever_restrain_electricity }
+			if = { limit = { has_modifier = spec_lever_encourage_electricity } remove_modifier = spec_lever_encourage_electricity }
+			if = { limit = { has_modifier = spec_lever_restrain_engines } remove_modifier = spec_lever_restrain_engines }
+			if = { limit = { has_modifier = spec_lever_encourage_engines } remove_modifier = spec_lever_encourage_engines }
+			if = { limit = { has_modifier = spec_lever_restrain_explosives } remove_modifier = spec_lever_restrain_explosives }
+			if = { limit = { has_modifier = spec_lever_encourage_explosives } remove_modifier = spec_lever_encourage_explosives }
+			if = { limit = { has_modifier = spec_lever_restrain_fabric } remove_modifier = spec_lever_restrain_fabric }
+			if = { limit = { has_modifier = spec_lever_encourage_fabric } remove_modifier = spec_lever_encourage_fabric }
+			if = { limit = { has_modifier = spec_lever_restrain_fertilizer } remove_modifier = spec_lever_restrain_fertilizer }
+			if = { limit = { has_modifier = spec_lever_encourage_fertilizer } remove_modifier = spec_lever_encourage_fertilizer }
+			if = { limit = { has_modifier = spec_lever_restrain_fine_art } remove_modifier = spec_lever_restrain_fine_art }
+			if = { limit = { has_modifier = spec_lever_encourage_fine_art } remove_modifier = spec_lever_encourage_fine_art }
+			if = { limit = { has_modifier = spec_lever_restrain_fish } remove_modifier = spec_lever_restrain_fish }
+			if = { limit = { has_modifier = spec_lever_encourage_fish } remove_modifier = spec_lever_encourage_fish }
+			if = { limit = { has_modifier = spec_lever_restrain_furniture } remove_modifier = spec_lever_restrain_furniture }
+			if = { limit = { has_modifier = spec_lever_encourage_furniture } remove_modifier = spec_lever_encourage_furniture }
+			if = { limit = { has_modifier = spec_lever_restrain_glass } remove_modifier = spec_lever_restrain_glass }
+			if = { limit = { has_modifier = spec_lever_encourage_glass } remove_modifier = spec_lever_encourage_glass }
+			if = { limit = { has_modifier = spec_lever_restrain_grain } remove_modifier = spec_lever_restrain_grain }
+			if = { limit = { has_modifier = spec_lever_encourage_grain } remove_modifier = spec_lever_encourage_grain }
+			if = { limit = { has_modifier = spec_lever_restrain_groceries } remove_modifier = spec_lever_restrain_groceries }
+			if = { limit = { has_modifier = spec_lever_encourage_groceries } remove_modifier = spec_lever_encourage_groceries }
+			if = { limit = { has_modifier = spec_lever_restrain_hardwood } remove_modifier = spec_lever_restrain_hardwood }
+			if = { limit = { has_modifier = spec_lever_encourage_hardwood } remove_modifier = spec_lever_encourage_hardwood }
+			if = { limit = { has_modifier = spec_lever_restrain_iron } remove_modifier = spec_lever_restrain_iron }
+			if = { limit = { has_modifier = spec_lever_encourage_iron } remove_modifier = spec_lever_encourage_iron }
+			if = { limit = { has_modifier = spec_lever_restrain_lead } remove_modifier = spec_lever_restrain_lead }
+			if = { limit = { has_modifier = spec_lever_encourage_lead } remove_modifier = spec_lever_encourage_lead }
+			if = { limit = { has_modifier = spec_lever_restrain_liquor } remove_modifier = spec_lever_restrain_liquor }
+			if = { limit = { has_modifier = spec_lever_encourage_liquor } remove_modifier = spec_lever_encourage_liquor }
+			if = { limit = { has_modifier = spec_lever_restrain_luxury_clothes } remove_modifier = spec_lever_restrain_luxury_clothes }
+			if = { limit = { has_modifier = spec_lever_encourage_luxury_clothes } remove_modifier = spec_lever_encourage_luxury_clothes }
+			if = { limit = { has_modifier = spec_lever_restrain_luxury_furniture } remove_modifier = spec_lever_restrain_luxury_furniture }
+			if = { limit = { has_modifier = spec_lever_encourage_luxury_furniture } remove_modifier = spec_lever_encourage_luxury_furniture }
+			if = { limit = { has_modifier = spec_lever_restrain_meat } remove_modifier = spec_lever_restrain_meat }
+			if = { limit = { has_modifier = spec_lever_encourage_meat } remove_modifier = spec_lever_encourage_meat }
+			if = { limit = { has_modifier = spec_lever_restrain_merchant_marine } remove_modifier = spec_lever_restrain_merchant_marine }
+			if = { limit = { has_modifier = spec_lever_encourage_merchant_marine } remove_modifier = spec_lever_encourage_merchant_marine }
+			if = { limit = { has_modifier = spec_lever_restrain_oil } remove_modifier = spec_lever_restrain_oil }
+			if = { limit = { has_modifier = spec_lever_encourage_oil } remove_modifier = spec_lever_encourage_oil }
+			if = { limit = { has_modifier = spec_lever_restrain_opium } remove_modifier = spec_lever_restrain_opium }
+			if = { limit = { has_modifier = spec_lever_encourage_opium } remove_modifier = spec_lever_encourage_opium }
+			if = { limit = { has_modifier = spec_lever_restrain_paper } remove_modifier = spec_lever_restrain_paper }
+			if = { limit = { has_modifier = spec_lever_encourage_paper } remove_modifier = spec_lever_encourage_paper }
+			if = { limit = { has_modifier = spec_lever_restrain_porcelain } remove_modifier = spec_lever_restrain_porcelain }
+			if = { limit = { has_modifier = spec_lever_encourage_porcelain } remove_modifier = spec_lever_encourage_porcelain }
+			if = { limit = { has_modifier = spec_lever_restrain_radios } remove_modifier = spec_lever_restrain_radios }
+			if = { limit = { has_modifier = spec_lever_encourage_radios } remove_modifier = spec_lever_encourage_radios }
+			if = { limit = { has_modifier = spec_lever_restrain_rubber } remove_modifier = spec_lever_restrain_rubber }
+			if = { limit = { has_modifier = spec_lever_encourage_rubber } remove_modifier = spec_lever_encourage_rubber }
+			if = { limit = { has_modifier = spec_lever_restrain_silk } remove_modifier = spec_lever_restrain_silk }
+			if = { limit = { has_modifier = spec_lever_encourage_silk } remove_modifier = spec_lever_encourage_silk }
+			if = { limit = { has_modifier = spec_lever_restrain_small_arms } remove_modifier = spec_lever_restrain_small_arms }
+			if = { limit = { has_modifier = spec_lever_encourage_small_arms } remove_modifier = spec_lever_encourage_small_arms }
+			if = { limit = { has_modifier = spec_lever_restrain_steamers } remove_modifier = spec_lever_restrain_steamers }
+			if = { limit = { has_modifier = spec_lever_encourage_steamers } remove_modifier = spec_lever_encourage_steamers }
+			if = { limit = { has_modifier = spec_lever_restrain_steel } remove_modifier = spec_lever_restrain_steel }
+			if = { limit = { has_modifier = spec_lever_encourage_steel } remove_modifier = spec_lever_encourage_steel }
+			if = { limit = { has_modifier = spec_lever_restrain_sugar } remove_modifier = spec_lever_restrain_sugar }
+			if = { limit = { has_modifier = spec_lever_encourage_sugar } remove_modifier = spec_lever_encourage_sugar }
+			if = { limit = { has_modifier = spec_lever_restrain_sulfur } remove_modifier = spec_lever_restrain_sulfur }
+			if = { limit = { has_modifier = spec_lever_encourage_sulfur } remove_modifier = spec_lever_encourage_sulfur }
+			if = { limit = { has_modifier = spec_lever_restrain_tanks } remove_modifier = spec_lever_restrain_tanks }
+			if = { limit = { has_modifier = spec_lever_encourage_tanks } remove_modifier = spec_lever_encourage_tanks }
+			if = { limit = { has_modifier = spec_lever_restrain_tea } remove_modifier = spec_lever_restrain_tea }
+			if = { limit = { has_modifier = spec_lever_encourage_tea } remove_modifier = spec_lever_encourage_tea }
+			if = { limit = { has_modifier = spec_lever_restrain_telephones } remove_modifier = spec_lever_restrain_telephones }
+			if = { limit = { has_modifier = spec_lever_encourage_telephones } remove_modifier = spec_lever_encourage_telephones }
+			if = { limit = { has_modifier = spec_lever_restrain_tobacco } remove_modifier = spec_lever_restrain_tobacco }
+			if = { limit = { has_modifier = spec_lever_encourage_tobacco } remove_modifier = spec_lever_encourage_tobacco }
+			if = { limit = { has_modifier = spec_lever_restrain_tools } remove_modifier = spec_lever_restrain_tools }
+			if = { limit = { has_modifier = spec_lever_encourage_tools } remove_modifier = spec_lever_encourage_tools }
+			if = { limit = { has_modifier = spec_lever_restrain_wine } remove_modifier = spec_lever_restrain_wine }
+			if = { limit = { has_modifier = spec_lever_encourage_wine } remove_modifier = spec_lever_encourage_wine }
+			if = { limit = { has_modifier = spec_lever_restrain_wood } remove_modifier = spec_lever_restrain_wood }
+			if = { limit = { has_modifier = spec_lever_encourage_wood } remove_modifier = spec_lever_encourage_wood }
+			if = { limit = { has_modifier = spec_company_bust_aeroplanes } remove_modifier = spec_company_bust_aeroplanes }
+			if = { limit = { has_modifier = spec_company_bust_ammunition } remove_modifier = spec_company_bust_ammunition }
+			if = { limit = { has_modifier = spec_company_bust_artillery } remove_modifier = spec_company_bust_artillery }
+			if = { limit = { has_modifier = spec_company_bust_automobiles } remove_modifier = spec_company_bust_automobiles }
+			if = { limit = { has_modifier = spec_company_bust_clippers } remove_modifier = spec_company_bust_clippers }
+			if = { limit = { has_modifier = spec_company_bust_clothes } remove_modifier = spec_company_bust_clothes }
+			if = { limit = { has_modifier = spec_company_bust_coal } remove_modifier = spec_company_bust_coal }
+			if = { limit = { has_modifier = spec_company_bust_coffee } remove_modifier = spec_company_bust_coffee }
+			if = { limit = { has_modifier = spec_company_bust_copper } remove_modifier = spec_company_bust_copper }
+			if = { limit = { has_modifier = spec_company_bust_dye } remove_modifier = spec_company_bust_dye }
+			if = { limit = { has_modifier = spec_company_bust_electricity } remove_modifier = spec_company_bust_electricity }
+			if = { limit = { has_modifier = spec_company_bust_engines } remove_modifier = spec_company_bust_engines }
+			if = { limit = { has_modifier = spec_company_bust_explosives } remove_modifier = spec_company_bust_explosives }
+			if = { limit = { has_modifier = spec_company_bust_fabric } remove_modifier = spec_company_bust_fabric }
+			if = { limit = { has_modifier = spec_company_bust_fertilizer } remove_modifier = spec_company_bust_fertilizer }
+			if = { limit = { has_modifier = spec_company_bust_fine_art } remove_modifier = spec_company_bust_fine_art }
+			if = { limit = { has_modifier = spec_company_bust_fish } remove_modifier = spec_company_bust_fish }
+			if = { limit = { has_modifier = spec_company_bust_furniture } remove_modifier = spec_company_bust_furniture }
+			if = { limit = { has_modifier = spec_company_bust_glass } remove_modifier = spec_company_bust_glass }
+			if = { limit = { has_modifier = spec_company_bust_grain } remove_modifier = spec_company_bust_grain }
+			if = { limit = { has_modifier = spec_company_bust_groceries } remove_modifier = spec_company_bust_groceries }
+			if = { limit = { has_modifier = spec_company_bust_iron } remove_modifier = spec_company_bust_iron }
+			if = { limit = { has_modifier = spec_company_bust_lead } remove_modifier = spec_company_bust_lead }
+			if = { limit = { has_modifier = spec_company_bust_liquor } remove_modifier = spec_company_bust_liquor }
+			if = { limit = { has_modifier = spec_company_bust_luxury_clothes } remove_modifier = spec_company_bust_luxury_clothes }
+			if = { limit = { has_modifier = spec_company_bust_luxury_furniture } remove_modifier = spec_company_bust_luxury_furniture }
+			if = { limit = { has_modifier = spec_company_bust_meat } remove_modifier = spec_company_bust_meat }
+			if = { limit = { has_modifier = spec_company_bust_merchant_marine } remove_modifier = spec_company_bust_merchant_marine }
+			if = { limit = { has_modifier = spec_company_bust_oil } remove_modifier = spec_company_bust_oil }
+			if = { limit = { has_modifier = spec_company_bust_opium } remove_modifier = spec_company_bust_opium }
+			if = { limit = { has_modifier = spec_company_bust_paper } remove_modifier = spec_company_bust_paper }
+			if = { limit = { has_modifier = spec_company_bust_porcelain } remove_modifier = spec_company_bust_porcelain }
+			if = { limit = { has_modifier = spec_company_bust_radios } remove_modifier = spec_company_bust_radios }
+			if = { limit = { has_modifier = spec_company_bust_rubber } remove_modifier = spec_company_bust_rubber }
+			if = { limit = { has_modifier = spec_company_bust_silk } remove_modifier = spec_company_bust_silk }
+			if = { limit = { has_modifier = spec_company_bust_small_arms } remove_modifier = spec_company_bust_small_arms }
+			if = { limit = { has_modifier = spec_company_bust_steamers } remove_modifier = spec_company_bust_steamers }
+			if = { limit = { has_modifier = spec_company_bust_steel } remove_modifier = spec_company_bust_steel }
+			if = { limit = { has_modifier = spec_company_bust_sugar } remove_modifier = spec_company_bust_sugar }
+			if = { limit = { has_modifier = spec_company_bust_sulfur } remove_modifier = spec_company_bust_sulfur }
+			if = { limit = { has_modifier = spec_company_bust_tanks } remove_modifier = spec_company_bust_tanks }
+			if = { limit = { has_modifier = spec_company_bust_tea } remove_modifier = spec_company_bust_tea }
+			if = { limit = { has_modifier = spec_company_bust_telephones } remove_modifier = spec_company_bust_telephones }
+			if = { limit = { has_modifier = spec_company_bust_tobacco } remove_modifier = spec_company_bust_tobacco }
+			if = { limit = { has_modifier = spec_company_bust_tools } remove_modifier = spec_company_bust_tools }
+			if = { limit = { has_modifier = spec_company_bust_wine } remove_modifier = spec_company_bust_wine }
+			set_variable = spec_bp_moved
+		}
+		spec_bp_values = yes
+		if = {
 			limit = { NOT = { has_variable = spec_ia_n } }
 			set_variable = { name = spec_ia_n value = 0 }
 		}
@@ -1216,6 +1459,23 @@ spec_update_companies = {
 							}
 						}
 					}
+					if = {
+						limit = { local_var:spec_bpt_small_arms = 1 }
+						if = { limit = { has_modifier = spec_bp_up_small_arms } remove_modifier = spec_bp_up_small_arms }
+						if = { limit = { has_modifier = spec_bp_down_small_arms } remove_modifier = spec_bp_down_small_arms }
+						if = { limit = { local_var:spec_bpv_small_arms > 0 } add_modifier = { name = spec_bp_up_small_arms multiplier = local_var:spec_bpv_small_arms } }
+						else_if = { limit = { local_var:spec_bpv_small_arms < 0 } add_modifier = { name = spec_bp_down_small_arms multiplier = { value = local_var:spec_bpv_small_arms multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_small_arms = 0 }
+							NOR = { has_modifier = spec_bp_up_small_arms has_modifier = spec_bp_down_small_arms }
+						}
+						if = { limit = { has_modifier = spec_bp_up_small_arms } remove_modifier = spec_bp_up_small_arms }
+						if = { limit = { has_modifier = spec_bp_down_small_arms } remove_modifier = spec_bp_down_small_arms }
+						if = { limit = { local_var:spec_bpv_small_arms > 0 } add_modifier = { name = spec_bp_up_small_arms multiplier = local_var:spec_bpv_small_arms } }
+						else_if = { limit = { local_var:spec_bpv_small_arms < 0 } add_modifier = { name = spec_bp_down_small_arms multiplier = { value = local_var:spec_bpv_small_arms multiply = -1 } } }
+					}
 				}
 				else_if = {
 					limit = { is_building_type = building_art_academy }
@@ -1360,6 +1620,23 @@ spec_update_companies = {
 							}
 						}
 					}
+					if = {
+						limit = { local_var:spec_bpt_fine_art = 1 }
+						if = { limit = { has_modifier = spec_bp_up_fine_art } remove_modifier = spec_bp_up_fine_art }
+						if = { limit = { has_modifier = spec_bp_down_fine_art } remove_modifier = spec_bp_down_fine_art }
+						if = { limit = { local_var:spec_bpv_fine_art > 0 } add_modifier = { name = spec_bp_up_fine_art multiplier = local_var:spec_bpv_fine_art } }
+						else_if = { limit = { local_var:spec_bpv_fine_art < 0 } add_modifier = { name = spec_bp_down_fine_art multiplier = { value = local_var:spec_bpv_fine_art multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_fine_art = 0 }
+							NOR = { has_modifier = spec_bp_up_fine_art has_modifier = spec_bp_down_fine_art }
+						}
+						if = { limit = { has_modifier = spec_bp_up_fine_art } remove_modifier = spec_bp_up_fine_art }
+						if = { limit = { has_modifier = spec_bp_down_fine_art } remove_modifier = spec_bp_down_fine_art }
+						if = { limit = { local_var:spec_bpv_fine_art > 0 } add_modifier = { name = spec_bp_up_fine_art multiplier = local_var:spec_bpv_fine_art } }
+						else_if = { limit = { local_var:spec_bpv_fine_art < 0 } add_modifier = { name = spec_bp_down_fine_art multiplier = { value = local_var:spec_bpv_fine_art multiply = -1 } } }
+					}
 				}
 				else_if = {
 					limit = { is_building_type = building_artillery_foundry }
@@ -1503,6 +1780,23 @@ spec_update_companies = {
 								remove_modifier = spec_investor_artillery_6
 							}
 						}
+					}
+					if = {
+						limit = { local_var:spec_bpt_artillery = 1 }
+						if = { limit = { has_modifier = spec_bp_up_artillery } remove_modifier = spec_bp_up_artillery }
+						if = { limit = { has_modifier = spec_bp_down_artillery } remove_modifier = spec_bp_down_artillery }
+						if = { limit = { local_var:spec_bpv_artillery > 0 } add_modifier = { name = spec_bp_up_artillery multiplier = local_var:spec_bpv_artillery } }
+						else_if = { limit = { local_var:spec_bpv_artillery < 0 } add_modifier = { name = spec_bp_down_artillery multiplier = { value = local_var:spec_bpv_artillery multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_artillery = 0 }
+							NOR = { has_modifier = spec_bp_up_artillery has_modifier = spec_bp_down_artillery }
+						}
+						if = { limit = { has_modifier = spec_bp_up_artillery } remove_modifier = spec_bp_up_artillery }
+						if = { limit = { has_modifier = spec_bp_down_artillery } remove_modifier = spec_bp_down_artillery }
+						if = { limit = { local_var:spec_bpv_artillery > 0 } add_modifier = { name = spec_bp_up_artillery multiplier = local_var:spec_bpv_artillery } }
+						else_if = { limit = { local_var:spec_bpv_artillery < 0 } add_modifier = { name = spec_bp_down_artillery multiplier = { value = local_var:spec_bpv_artillery multiply = -1 } } }
 					}
 				}
 				else_if = {
@@ -1930,6 +2224,57 @@ spec_update_companies = {
 							}
 						}
 					}
+					if = {
+						limit = { local_var:spec_bpt_automobiles = 1 }
+						if = { limit = { has_modifier = spec_bp_up_automobiles } remove_modifier = spec_bp_up_automobiles }
+						if = { limit = { has_modifier = spec_bp_down_automobiles } remove_modifier = spec_bp_down_automobiles }
+						if = { limit = { local_var:spec_bpv_automobiles > 0 } add_modifier = { name = spec_bp_up_automobiles multiplier = local_var:spec_bpv_automobiles } }
+						else_if = { limit = { local_var:spec_bpv_automobiles < 0 } add_modifier = { name = spec_bp_down_automobiles multiplier = { value = local_var:spec_bpv_automobiles multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_automobiles = 0 }
+							NOR = { has_modifier = spec_bp_up_automobiles has_modifier = spec_bp_down_automobiles }
+						}
+						if = { limit = { has_modifier = spec_bp_up_automobiles } remove_modifier = spec_bp_up_automobiles }
+						if = { limit = { has_modifier = spec_bp_down_automobiles } remove_modifier = spec_bp_down_automobiles }
+						if = { limit = { local_var:spec_bpv_automobiles > 0 } add_modifier = { name = spec_bp_up_automobiles multiplier = local_var:spec_bpv_automobiles } }
+						else_if = { limit = { local_var:spec_bpv_automobiles < 0 } add_modifier = { name = spec_bp_down_automobiles multiplier = { value = local_var:spec_bpv_automobiles multiply = -1 } } }
+					}
+					if = {
+						limit = { local_var:spec_bpt_aeroplanes = 1 }
+						if = { limit = { has_modifier = spec_bp_up_aeroplanes } remove_modifier = spec_bp_up_aeroplanes }
+						if = { limit = { has_modifier = spec_bp_down_aeroplanes } remove_modifier = spec_bp_down_aeroplanes }
+						if = { limit = { local_var:spec_bpv_aeroplanes > 0 } add_modifier = { name = spec_bp_up_aeroplanes multiplier = local_var:spec_bpv_aeroplanes } }
+						else_if = { limit = { local_var:spec_bpv_aeroplanes < 0 } add_modifier = { name = spec_bp_down_aeroplanes multiplier = { value = local_var:spec_bpv_aeroplanes multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_aeroplanes = 0 }
+							NOR = { has_modifier = spec_bp_up_aeroplanes has_modifier = spec_bp_down_aeroplanes }
+						}
+						if = { limit = { has_modifier = spec_bp_up_aeroplanes } remove_modifier = spec_bp_up_aeroplanes }
+						if = { limit = { has_modifier = spec_bp_down_aeroplanes } remove_modifier = spec_bp_down_aeroplanes }
+						if = { limit = { local_var:spec_bpv_aeroplanes > 0 } add_modifier = { name = spec_bp_up_aeroplanes multiplier = local_var:spec_bpv_aeroplanes } }
+						else_if = { limit = { local_var:spec_bpv_aeroplanes < 0 } add_modifier = { name = spec_bp_down_aeroplanes multiplier = { value = local_var:spec_bpv_aeroplanes multiply = -1 } } }
+					}
+					if = {
+						limit = { local_var:spec_bpt_tanks = 1 }
+						if = { limit = { has_modifier = spec_bp_up_tanks } remove_modifier = spec_bp_up_tanks }
+						if = { limit = { has_modifier = spec_bp_down_tanks } remove_modifier = spec_bp_down_tanks }
+						if = { limit = { local_var:spec_bpv_tanks > 0 } add_modifier = { name = spec_bp_up_tanks multiplier = local_var:spec_bpv_tanks } }
+						else_if = { limit = { local_var:spec_bpv_tanks < 0 } add_modifier = { name = spec_bp_down_tanks multiplier = { value = local_var:spec_bpv_tanks multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_tanks = 0 }
+							NOR = { has_modifier = spec_bp_up_tanks has_modifier = spec_bp_down_tanks }
+						}
+						if = { limit = { has_modifier = spec_bp_up_tanks } remove_modifier = spec_bp_up_tanks }
+						if = { limit = { has_modifier = spec_bp_down_tanks } remove_modifier = spec_bp_down_tanks }
+						if = { limit = { local_var:spec_bpv_tanks > 0 } add_modifier = { name = spec_bp_up_tanks multiplier = local_var:spec_bpv_tanks } }
+						else_if = { limit = { local_var:spec_bpv_tanks < 0 } add_modifier = { name = spec_bp_down_tanks multiplier = { value = local_var:spec_bpv_tanks multiply = -1 } } }
+					}
 				}
 				else_if = {
 					limit = { is_building_type = building_chemical_plant }
@@ -2073,6 +2418,23 @@ spec_update_companies = {
 								remove_modifier = spec_investor_fertilizer_6
 							}
 						}
+					}
+					if = {
+						limit = { local_var:spec_bpt_fertilizer = 1 }
+						if = { limit = { has_modifier = spec_bp_up_fertilizer } remove_modifier = spec_bp_up_fertilizer }
+						if = { limit = { has_modifier = spec_bp_down_fertilizer } remove_modifier = spec_bp_down_fertilizer }
+						if = { limit = { local_var:spec_bpv_fertilizer > 0 } add_modifier = { name = spec_bp_up_fertilizer multiplier = local_var:spec_bpv_fertilizer } }
+						else_if = { limit = { local_var:spec_bpv_fertilizer < 0 } add_modifier = { name = spec_bp_down_fertilizer multiplier = { value = local_var:spec_bpv_fertilizer multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_fertilizer = 0 }
+							NOR = { has_modifier = spec_bp_up_fertilizer has_modifier = spec_bp_down_fertilizer }
+						}
+						if = { limit = { has_modifier = spec_bp_up_fertilizer } remove_modifier = spec_bp_up_fertilizer }
+						if = { limit = { has_modifier = spec_bp_down_fertilizer } remove_modifier = spec_bp_down_fertilizer }
+						if = { limit = { local_var:spec_bpv_fertilizer > 0 } add_modifier = { name = spec_bp_up_fertilizer multiplier = local_var:spec_bpv_fertilizer } }
+						else_if = { limit = { local_var:spec_bpv_fertilizer < 0 } add_modifier = { name = spec_bp_down_fertilizer multiplier = { value = local_var:spec_bpv_fertilizer multiply = -1 } } }
 					}
 				}
 				else_if = {
@@ -2218,6 +2580,23 @@ spec_update_companies = {
 							}
 						}
 					}
+					if = {
+						limit = { local_var:spec_bpt_coal = 1 }
+						if = { limit = { has_modifier = spec_bp_up_coal } remove_modifier = spec_bp_up_coal }
+						if = { limit = { has_modifier = spec_bp_down_coal } remove_modifier = spec_bp_down_coal }
+						if = { limit = { local_var:spec_bpv_coal > 0 } add_modifier = { name = spec_bp_up_coal multiplier = local_var:spec_bpv_coal } }
+						else_if = { limit = { local_var:spec_bpv_coal < 0 } add_modifier = { name = spec_bp_down_coal multiplier = { value = local_var:spec_bpv_coal multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_coal = 0 }
+							NOR = { has_modifier = spec_bp_up_coal has_modifier = spec_bp_down_coal }
+						}
+						if = { limit = { has_modifier = spec_bp_up_coal } remove_modifier = spec_bp_up_coal }
+						if = { limit = { has_modifier = spec_bp_down_coal } remove_modifier = spec_bp_down_coal }
+						if = { limit = { local_var:spec_bpv_coal > 0 } add_modifier = { name = spec_bp_up_coal multiplier = local_var:spec_bpv_coal } }
+						else_if = { limit = { local_var:spec_bpv_coal < 0 } add_modifier = { name = spec_bp_down_coal multiplier = { value = local_var:spec_bpv_coal multiply = -1 } } }
+					}
 				}
 				else_if = {
 					limit = { is_building_type = building_coffee_plantation }
@@ -2361,6 +2740,23 @@ spec_update_companies = {
 								remove_modifier = spec_investor_coffee_6
 							}
 						}
+					}
+					if = {
+						limit = { local_var:spec_bpt_coffee = 1 }
+						if = { limit = { has_modifier = spec_bp_up_coffee } remove_modifier = spec_bp_up_coffee }
+						if = { limit = { has_modifier = spec_bp_down_coffee } remove_modifier = spec_bp_down_coffee }
+						if = { limit = { local_var:spec_bpv_coffee > 0 } add_modifier = { name = spec_bp_up_coffee multiplier = local_var:spec_bpv_coffee } }
+						else_if = { limit = { local_var:spec_bpv_coffee < 0 } add_modifier = { name = spec_bp_down_coffee multiplier = { value = local_var:spec_bpv_coffee multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_coffee = 0 }
+							NOR = { has_modifier = spec_bp_up_coffee has_modifier = spec_bp_down_coffee }
+						}
+						if = { limit = { has_modifier = spec_bp_up_coffee } remove_modifier = spec_bp_up_coffee }
+						if = { limit = { has_modifier = spec_bp_down_coffee } remove_modifier = spec_bp_down_coffee }
+						if = { limit = { local_var:spec_bpv_coffee > 0 } add_modifier = { name = spec_bp_up_coffee multiplier = local_var:spec_bpv_coffee } }
+						else_if = { limit = { local_var:spec_bpv_coffee < 0 } add_modifier = { name = spec_bp_down_coffee multiplier = { value = local_var:spec_bpv_coffee multiply = -1 } } }
 					}
 				}
 				else_if = {
@@ -2506,6 +2902,23 @@ spec_update_companies = {
 							}
 						}
 					}
+					if = {
+						limit = { local_var:spec_bpt_copper = 1 }
+						if = { limit = { has_modifier = spec_bp_up_copper } remove_modifier = spec_bp_up_copper }
+						if = { limit = { has_modifier = spec_bp_down_copper } remove_modifier = spec_bp_down_copper }
+						if = { limit = { local_var:spec_bpv_copper > 0 } add_modifier = { name = spec_bp_up_copper multiplier = local_var:spec_bpv_copper } }
+						else_if = { limit = { local_var:spec_bpv_copper < 0 } add_modifier = { name = spec_bp_down_copper multiplier = { value = local_var:spec_bpv_copper multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_copper = 0 }
+							NOR = { has_modifier = spec_bp_up_copper has_modifier = spec_bp_down_copper }
+						}
+						if = { limit = { has_modifier = spec_bp_up_copper } remove_modifier = spec_bp_up_copper }
+						if = { limit = { has_modifier = spec_bp_down_copper } remove_modifier = spec_bp_down_copper }
+						if = { limit = { local_var:spec_bpv_copper > 0 } add_modifier = { name = spec_bp_up_copper multiplier = local_var:spec_bpv_copper } }
+						else_if = { limit = { local_var:spec_bpv_copper < 0 } add_modifier = { name = spec_bp_down_copper multiplier = { value = local_var:spec_bpv_copper multiply = -1 } } }
+					}
 				}
 				else_if = {
 					limit = { is_building_type = building_cotton_plantation }
@@ -2650,6 +3063,23 @@ spec_update_companies = {
 							}
 						}
 					}
+					if = {
+						limit = { local_var:spec_bpt_fabric = 1 }
+						if = { limit = { has_modifier = spec_bp_up_fabric } remove_modifier = spec_bp_up_fabric }
+						if = { limit = { has_modifier = spec_bp_down_fabric } remove_modifier = spec_bp_down_fabric }
+						if = { limit = { local_var:spec_bpv_fabric > 0 } add_modifier = { name = spec_bp_up_fabric multiplier = local_var:spec_bpv_fabric } }
+						else_if = { limit = { local_var:spec_bpv_fabric < 0 } add_modifier = { name = spec_bp_down_fabric multiplier = { value = local_var:spec_bpv_fabric multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_fabric = 0 }
+							NOR = { has_modifier = spec_bp_up_fabric has_modifier = spec_bp_down_fabric }
+						}
+						if = { limit = { has_modifier = spec_bp_up_fabric } remove_modifier = spec_bp_up_fabric }
+						if = { limit = { has_modifier = spec_bp_down_fabric } remove_modifier = spec_bp_down_fabric }
+						if = { limit = { local_var:spec_bpv_fabric > 0 } add_modifier = { name = spec_bp_up_fabric multiplier = local_var:spec_bpv_fabric } }
+						else_if = { limit = { local_var:spec_bpv_fabric < 0 } add_modifier = { name = spec_bp_down_fabric multiplier = { value = local_var:spec_bpv_fabric multiply = -1 } } }
+					}
 				}
 				else_if = {
 					limit = { is_building_type = building_dye_plantation }
@@ -2793,6 +3223,23 @@ spec_update_companies = {
 								remove_modifier = spec_investor_dye_6
 							}
 						}
+					}
+					if = {
+						limit = { local_var:spec_bpt_dye = 1 }
+						if = { limit = { has_modifier = spec_bp_up_dye } remove_modifier = spec_bp_up_dye }
+						if = { limit = { has_modifier = spec_bp_down_dye } remove_modifier = spec_bp_down_dye }
+						if = { limit = { local_var:spec_bpv_dye > 0 } add_modifier = { name = spec_bp_up_dye multiplier = local_var:spec_bpv_dye } }
+						else_if = { limit = { local_var:spec_bpv_dye < 0 } add_modifier = { name = spec_bp_down_dye multiplier = { value = local_var:spec_bpv_dye multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_dye = 0 }
+							NOR = { has_modifier = spec_bp_up_dye has_modifier = spec_bp_down_dye }
+						}
+						if = { limit = { has_modifier = spec_bp_up_dye } remove_modifier = spec_bp_up_dye }
+						if = { limit = { has_modifier = spec_bp_down_dye } remove_modifier = spec_bp_down_dye }
+						if = { limit = { local_var:spec_bpv_dye > 0 } add_modifier = { name = spec_bp_up_dye multiplier = local_var:spec_bpv_dye } }
+						else_if = { limit = { local_var:spec_bpv_dye < 0 } add_modifier = { name = spec_bp_down_dye multiplier = { value = local_var:spec_bpv_dye multiply = -1 } } }
 					}
 				}
 				else_if = {
@@ -3079,6 +3526,40 @@ spec_update_companies = {
 							}
 						}
 					}
+					if = {
+						limit = { local_var:spec_bpt_telephones = 1 }
+						if = { limit = { has_modifier = spec_bp_up_telephones } remove_modifier = spec_bp_up_telephones }
+						if = { limit = { has_modifier = spec_bp_down_telephones } remove_modifier = spec_bp_down_telephones }
+						if = { limit = { local_var:spec_bpv_telephones > 0 } add_modifier = { name = spec_bp_up_telephones multiplier = local_var:spec_bpv_telephones } }
+						else_if = { limit = { local_var:spec_bpv_telephones < 0 } add_modifier = { name = spec_bp_down_telephones multiplier = { value = local_var:spec_bpv_telephones multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_telephones = 0 }
+							NOR = { has_modifier = spec_bp_up_telephones has_modifier = spec_bp_down_telephones }
+						}
+						if = { limit = { has_modifier = spec_bp_up_telephones } remove_modifier = spec_bp_up_telephones }
+						if = { limit = { has_modifier = spec_bp_down_telephones } remove_modifier = spec_bp_down_telephones }
+						if = { limit = { local_var:spec_bpv_telephones > 0 } add_modifier = { name = spec_bp_up_telephones multiplier = local_var:spec_bpv_telephones } }
+						else_if = { limit = { local_var:spec_bpv_telephones < 0 } add_modifier = { name = spec_bp_down_telephones multiplier = { value = local_var:spec_bpv_telephones multiply = -1 } } }
+					}
+					if = {
+						limit = { local_var:spec_bpt_radios = 1 }
+						if = { limit = { has_modifier = spec_bp_up_radios } remove_modifier = spec_bp_up_radios }
+						if = { limit = { has_modifier = spec_bp_down_radios } remove_modifier = spec_bp_down_radios }
+						if = { limit = { local_var:spec_bpv_radios > 0 } add_modifier = { name = spec_bp_up_radios multiplier = local_var:spec_bpv_radios } }
+						else_if = { limit = { local_var:spec_bpv_radios < 0 } add_modifier = { name = spec_bp_down_radios multiplier = { value = local_var:spec_bpv_radios multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_radios = 0 }
+							NOR = { has_modifier = spec_bp_up_radios has_modifier = spec_bp_down_radios }
+						}
+						if = { limit = { has_modifier = spec_bp_up_radios } remove_modifier = spec_bp_up_radios }
+						if = { limit = { has_modifier = spec_bp_down_radios } remove_modifier = spec_bp_down_radios }
+						if = { limit = { local_var:spec_bpv_radios > 0 } add_modifier = { name = spec_bp_up_radios multiplier = local_var:spec_bpv_radios } }
+						else_if = { limit = { local_var:spec_bpv_radios < 0 } add_modifier = { name = spec_bp_down_radios multiplier = { value = local_var:spec_bpv_radios multiply = -1 } } }
+					}
 				}
 				else_if = {
 					limit = { is_building_type = building_explosives_factory }
@@ -3223,6 +3704,23 @@ spec_update_companies = {
 							}
 						}
 					}
+					if = {
+						limit = { local_var:spec_bpt_explosives = 1 }
+						if = { limit = { has_modifier = spec_bp_up_explosives } remove_modifier = spec_bp_up_explosives }
+						if = { limit = { has_modifier = spec_bp_down_explosives } remove_modifier = spec_bp_down_explosives }
+						if = { limit = { local_var:spec_bpv_explosives > 0 } add_modifier = { name = spec_bp_up_explosives multiplier = local_var:spec_bpv_explosives } }
+						else_if = { limit = { local_var:spec_bpv_explosives < 0 } add_modifier = { name = spec_bp_down_explosives multiplier = { value = local_var:spec_bpv_explosives multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_explosives = 0 }
+							NOR = { has_modifier = spec_bp_up_explosives has_modifier = spec_bp_down_explosives }
+						}
+						if = { limit = { has_modifier = spec_bp_up_explosives } remove_modifier = spec_bp_up_explosives }
+						if = { limit = { has_modifier = spec_bp_down_explosives } remove_modifier = spec_bp_down_explosives }
+						if = { limit = { local_var:spec_bpv_explosives > 0 } add_modifier = { name = spec_bp_up_explosives multiplier = local_var:spec_bpv_explosives } }
+						else_if = { limit = { local_var:spec_bpv_explosives < 0 } add_modifier = { name = spec_bp_down_explosives multiplier = { value = local_var:spec_bpv_explosives multiply = -1 } } }
+					}
 				}
 				else_if = {
 					limit = { is_building_type = building_fishing_wharf }
@@ -3366,6 +3864,23 @@ spec_update_companies = {
 								remove_modifier = spec_investor_fish_6
 							}
 						}
+					}
+					if = {
+						limit = { local_var:spec_bpt_fish = 1 }
+						if = { limit = { has_modifier = spec_bp_up_fish } remove_modifier = spec_bp_up_fish }
+						if = { limit = { has_modifier = spec_bp_down_fish } remove_modifier = spec_bp_down_fish }
+						if = { limit = { local_var:spec_bpv_fish > 0 } add_modifier = { name = spec_bp_up_fish multiplier = local_var:spec_bpv_fish } }
+						else_if = { limit = { local_var:spec_bpv_fish < 0 } add_modifier = { name = spec_bp_down_fish multiplier = { value = local_var:spec_bpv_fish multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_fish = 0 }
+							NOR = { has_modifier = spec_bp_up_fish has_modifier = spec_bp_down_fish }
+						}
+						if = { limit = { has_modifier = spec_bp_up_fish } remove_modifier = spec_bp_up_fish }
+						if = { limit = { has_modifier = spec_bp_down_fish } remove_modifier = spec_bp_down_fish }
+						if = { limit = { local_var:spec_bpv_fish > 0 } add_modifier = { name = spec_bp_up_fish multiplier = local_var:spec_bpv_fish } }
+						else_if = { limit = { local_var:spec_bpv_fish < 0 } add_modifier = { name = spec_bp_down_fish multiplier = { value = local_var:spec_bpv_fish multiply = -1 } } }
 					}
 				}
 				else_if = {
@@ -3652,6 +4167,40 @@ spec_update_companies = {
 							}
 						}
 					}
+					if = {
+						limit = { local_var:spec_bpt_groceries = 1 }
+						if = { limit = { has_modifier = spec_bp_up_groceries } remove_modifier = spec_bp_up_groceries }
+						if = { limit = { has_modifier = spec_bp_down_groceries } remove_modifier = spec_bp_down_groceries }
+						if = { limit = { local_var:spec_bpv_groceries > 0 } add_modifier = { name = spec_bp_up_groceries multiplier = local_var:spec_bpv_groceries } }
+						else_if = { limit = { local_var:spec_bpv_groceries < 0 } add_modifier = { name = spec_bp_down_groceries multiplier = { value = local_var:spec_bpv_groceries multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_groceries = 0 }
+							NOR = { has_modifier = spec_bp_up_groceries has_modifier = spec_bp_down_groceries }
+						}
+						if = { limit = { has_modifier = spec_bp_up_groceries } remove_modifier = spec_bp_up_groceries }
+						if = { limit = { has_modifier = spec_bp_down_groceries } remove_modifier = spec_bp_down_groceries }
+						if = { limit = { local_var:spec_bpv_groceries > 0 } add_modifier = { name = spec_bp_up_groceries multiplier = local_var:spec_bpv_groceries } }
+						else_if = { limit = { local_var:spec_bpv_groceries < 0 } add_modifier = { name = spec_bp_down_groceries multiplier = { value = local_var:spec_bpv_groceries multiply = -1 } } }
+					}
+					if = {
+						limit = { local_var:spec_bpt_liquor = 1 }
+						if = { limit = { has_modifier = spec_bp_up_liquor } remove_modifier = spec_bp_up_liquor }
+						if = { limit = { has_modifier = spec_bp_down_liquor } remove_modifier = spec_bp_down_liquor }
+						if = { limit = { local_var:spec_bpv_liquor > 0 } add_modifier = { name = spec_bp_up_liquor multiplier = local_var:spec_bpv_liquor } }
+						else_if = { limit = { local_var:spec_bpv_liquor < 0 } add_modifier = { name = spec_bp_down_liquor multiplier = { value = local_var:spec_bpv_liquor multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_liquor = 0 }
+							NOR = { has_modifier = spec_bp_up_liquor has_modifier = spec_bp_down_liquor }
+						}
+						if = { limit = { has_modifier = spec_bp_up_liquor } remove_modifier = spec_bp_up_liquor }
+						if = { limit = { has_modifier = spec_bp_down_liquor } remove_modifier = spec_bp_down_liquor }
+						if = { limit = { local_var:spec_bpv_liquor > 0 } add_modifier = { name = spec_bp_up_liquor multiplier = local_var:spec_bpv_liquor } }
+						else_if = { limit = { local_var:spec_bpv_liquor < 0 } add_modifier = { name = spec_bp_down_liquor multiplier = { value = local_var:spec_bpv_liquor multiply = -1 } } }
+					}
 				}
 				else_if = {
 					limit = { is_building_type = building_furniture_manufactory }
@@ -3936,6 +4485,40 @@ spec_update_companies = {
 								remove_modifier = spec_investor_luxury_furniture_6
 							}
 						}
+					}
+					if = {
+						limit = { local_var:spec_bpt_furniture = 1 }
+						if = { limit = { has_modifier = spec_bp_up_furniture } remove_modifier = spec_bp_up_furniture }
+						if = { limit = { has_modifier = spec_bp_down_furniture } remove_modifier = spec_bp_down_furniture }
+						if = { limit = { local_var:spec_bpv_furniture > 0 } add_modifier = { name = spec_bp_up_furniture multiplier = local_var:spec_bpv_furniture } }
+						else_if = { limit = { local_var:spec_bpv_furniture < 0 } add_modifier = { name = spec_bp_down_furniture multiplier = { value = local_var:spec_bpv_furniture multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_furniture = 0 }
+							NOR = { has_modifier = spec_bp_up_furniture has_modifier = spec_bp_down_furniture }
+						}
+						if = { limit = { has_modifier = spec_bp_up_furniture } remove_modifier = spec_bp_up_furniture }
+						if = { limit = { has_modifier = spec_bp_down_furniture } remove_modifier = spec_bp_down_furniture }
+						if = { limit = { local_var:spec_bpv_furniture > 0 } add_modifier = { name = spec_bp_up_furniture multiplier = local_var:spec_bpv_furniture } }
+						else_if = { limit = { local_var:spec_bpv_furniture < 0 } add_modifier = { name = spec_bp_down_furniture multiplier = { value = local_var:spec_bpv_furniture multiply = -1 } } }
+					}
+					if = {
+						limit = { local_var:spec_bpt_luxury_furniture = 1 }
+						if = { limit = { has_modifier = spec_bp_up_luxury_furniture } remove_modifier = spec_bp_up_luxury_furniture }
+						if = { limit = { has_modifier = spec_bp_down_luxury_furniture } remove_modifier = spec_bp_down_luxury_furniture }
+						if = { limit = { local_var:spec_bpv_luxury_furniture > 0 } add_modifier = { name = spec_bp_up_luxury_furniture multiplier = local_var:spec_bpv_luxury_furniture } }
+						else_if = { limit = { local_var:spec_bpv_luxury_furniture < 0 } add_modifier = { name = spec_bp_down_luxury_furniture multiplier = { value = local_var:spec_bpv_luxury_furniture multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_luxury_furniture = 0 }
+							NOR = { has_modifier = spec_bp_up_luxury_furniture has_modifier = spec_bp_down_luxury_furniture }
+						}
+						if = { limit = { has_modifier = spec_bp_up_luxury_furniture } remove_modifier = spec_bp_up_luxury_furniture }
+						if = { limit = { has_modifier = spec_bp_down_luxury_furniture } remove_modifier = spec_bp_down_luxury_furniture }
+						if = { limit = { local_var:spec_bpv_luxury_furniture > 0 } add_modifier = { name = spec_bp_up_luxury_furniture multiplier = local_var:spec_bpv_luxury_furniture } }
+						else_if = { limit = { local_var:spec_bpv_luxury_furniture < 0 } add_modifier = { name = spec_bp_down_luxury_furniture multiplier = { value = local_var:spec_bpv_luxury_furniture multiply = -1 } } }
 					}
 				}
 				else_if = {
@@ -4222,6 +4805,40 @@ spec_update_companies = {
 							}
 						}
 					}
+					if = {
+						limit = { local_var:spec_bpt_glass = 1 }
+						if = { limit = { has_modifier = spec_bp_up_glass } remove_modifier = spec_bp_up_glass }
+						if = { limit = { has_modifier = spec_bp_down_glass } remove_modifier = spec_bp_down_glass }
+						if = { limit = { local_var:spec_bpv_glass > 0 } add_modifier = { name = spec_bp_up_glass multiplier = local_var:spec_bpv_glass } }
+						else_if = { limit = { local_var:spec_bpv_glass < 0 } add_modifier = { name = spec_bp_down_glass multiplier = { value = local_var:spec_bpv_glass multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_glass = 0 }
+							NOR = { has_modifier = spec_bp_up_glass has_modifier = spec_bp_down_glass }
+						}
+						if = { limit = { has_modifier = spec_bp_up_glass } remove_modifier = spec_bp_up_glass }
+						if = { limit = { has_modifier = spec_bp_down_glass } remove_modifier = spec_bp_down_glass }
+						if = { limit = { local_var:spec_bpv_glass > 0 } add_modifier = { name = spec_bp_up_glass multiplier = local_var:spec_bpv_glass } }
+						else_if = { limit = { local_var:spec_bpv_glass < 0 } add_modifier = { name = spec_bp_down_glass multiplier = { value = local_var:spec_bpv_glass multiply = -1 } } }
+					}
+					if = {
+						limit = { local_var:spec_bpt_porcelain = 1 }
+						if = { limit = { has_modifier = spec_bp_up_porcelain } remove_modifier = spec_bp_up_porcelain }
+						if = { limit = { has_modifier = spec_bp_down_porcelain } remove_modifier = spec_bp_down_porcelain }
+						if = { limit = { local_var:spec_bpv_porcelain > 0 } add_modifier = { name = spec_bp_up_porcelain multiplier = local_var:spec_bpv_porcelain } }
+						else_if = { limit = { local_var:spec_bpv_porcelain < 0 } add_modifier = { name = spec_bp_down_porcelain multiplier = { value = local_var:spec_bpv_porcelain multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_porcelain = 0 }
+							NOR = { has_modifier = spec_bp_up_porcelain has_modifier = spec_bp_down_porcelain }
+						}
+						if = { limit = { has_modifier = spec_bp_up_porcelain } remove_modifier = spec_bp_up_porcelain }
+						if = { limit = { has_modifier = spec_bp_down_porcelain } remove_modifier = spec_bp_down_porcelain }
+						if = { limit = { local_var:spec_bpv_porcelain > 0 } add_modifier = { name = spec_bp_up_porcelain multiplier = local_var:spec_bpv_porcelain } }
+						else_if = { limit = { local_var:spec_bpv_porcelain < 0 } add_modifier = { name = spec_bp_down_porcelain multiplier = { value = local_var:spec_bpv_porcelain multiply = -1 } } }
+					}
 				}
 				else_if = {
 					limit = { is_building_type = building_iron_mine }
@@ -4365,6 +4982,23 @@ spec_update_companies = {
 								remove_modifier = spec_investor_iron_6
 							}
 						}
+					}
+					if = {
+						limit = { local_var:spec_bpt_iron = 1 }
+						if = { limit = { has_modifier = spec_bp_up_iron } remove_modifier = spec_bp_up_iron }
+						if = { limit = { has_modifier = spec_bp_down_iron } remove_modifier = spec_bp_down_iron }
+						if = { limit = { local_var:spec_bpv_iron > 0 } add_modifier = { name = spec_bp_up_iron multiplier = local_var:spec_bpv_iron } }
+						else_if = { limit = { local_var:spec_bpv_iron < 0 } add_modifier = { name = spec_bp_down_iron multiplier = { value = local_var:spec_bpv_iron multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_iron = 0 }
+							NOR = { has_modifier = spec_bp_up_iron has_modifier = spec_bp_down_iron }
+						}
+						if = { limit = { has_modifier = spec_bp_up_iron } remove_modifier = spec_bp_up_iron }
+						if = { limit = { has_modifier = spec_bp_down_iron } remove_modifier = spec_bp_down_iron }
+						if = { limit = { local_var:spec_bpv_iron > 0 } add_modifier = { name = spec_bp_up_iron multiplier = local_var:spec_bpv_iron } }
+						else_if = { limit = { local_var:spec_bpv_iron < 0 } add_modifier = { name = spec_bp_down_iron multiplier = { value = local_var:spec_bpv_iron multiply = -1 } } }
 					}
 				}
 				else_if = {
@@ -4510,6 +5144,23 @@ spec_update_companies = {
 							}
 						}
 					}
+					if = {
+						limit = { local_var:spec_bpt_lead = 1 }
+						if = { limit = { has_modifier = spec_bp_up_lead } remove_modifier = spec_bp_up_lead }
+						if = { limit = { has_modifier = spec_bp_down_lead } remove_modifier = spec_bp_down_lead }
+						if = { limit = { local_var:spec_bpv_lead > 0 } add_modifier = { name = spec_bp_up_lead multiplier = local_var:spec_bpv_lead } }
+						else_if = { limit = { local_var:spec_bpv_lead < 0 } add_modifier = { name = spec_bp_down_lead multiplier = { value = local_var:spec_bpv_lead multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_lead = 0 }
+							NOR = { has_modifier = spec_bp_up_lead has_modifier = spec_bp_down_lead }
+						}
+						if = { limit = { has_modifier = spec_bp_up_lead } remove_modifier = spec_bp_up_lead }
+						if = { limit = { has_modifier = spec_bp_down_lead } remove_modifier = spec_bp_down_lead }
+						if = { limit = { local_var:spec_bpv_lead > 0 } add_modifier = { name = spec_bp_up_lead multiplier = local_var:spec_bpv_lead } }
+						else_if = { limit = { local_var:spec_bpv_lead < 0 } add_modifier = { name = spec_bp_down_lead multiplier = { value = local_var:spec_bpv_lead multiply = -1 } } }
+					}
 				}
 				else_if = {
 					limit = { is_building_type = building_livestock_ranch }
@@ -4653,6 +5304,60 @@ spec_update_companies = {
 								remove_modifier = spec_investor_meat_6
 							}
 						}
+					}
+					if = {
+						limit = { local_var:spec_bpt_meat = 1 }
+						if = { limit = { has_modifier = spec_bp_up_meat } remove_modifier = spec_bp_up_meat }
+						if = { limit = { has_modifier = spec_bp_down_meat } remove_modifier = spec_bp_down_meat }
+						if = { limit = { local_var:spec_bpv_meat > 0 } add_modifier = { name = spec_bp_up_meat multiplier = local_var:spec_bpv_meat } }
+						else_if = { limit = { local_var:spec_bpv_meat < 0 } add_modifier = { name = spec_bp_down_meat multiplier = { value = local_var:spec_bpv_meat multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_meat = 0 }
+							NOR = { has_modifier = spec_bp_up_meat has_modifier = spec_bp_down_meat }
+						}
+						if = { limit = { has_modifier = spec_bp_up_meat } remove_modifier = spec_bp_up_meat }
+						if = { limit = { has_modifier = spec_bp_down_meat } remove_modifier = spec_bp_down_meat }
+						if = { limit = { local_var:spec_bpv_meat > 0 } add_modifier = { name = spec_bp_up_meat multiplier = local_var:spec_bpv_meat } }
+						else_if = { limit = { local_var:spec_bpv_meat < 0 } add_modifier = { name = spec_bp_down_meat multiplier = { value = local_var:spec_bpv_meat multiply = -1 } } }
+					}
+				}
+				else_if = {
+					limit = { is_building_type = building_logging_camp }
+					if = {
+						limit = { local_var:spec_bpt_wood = 1 }
+						if = { limit = { has_modifier = spec_bp_up_wood } remove_modifier = spec_bp_up_wood }
+						if = { limit = { has_modifier = spec_bp_down_wood } remove_modifier = spec_bp_down_wood }
+						if = { limit = { local_var:spec_bpw_wood > 0 } add_modifier = { name = spec_bp_up_wood multiplier = local_var:spec_bpw_wood } }
+						else_if = { limit = { local_var:spec_bpw_wood < 0 } add_modifier = { name = spec_bp_down_wood multiplier = { value = local_var:spec_bpw_wood multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpw_wood = 0 }
+							NOR = { has_modifier = spec_bp_up_wood has_modifier = spec_bp_down_wood }
+						}
+						if = { limit = { has_modifier = spec_bp_up_wood } remove_modifier = spec_bp_up_wood }
+						if = { limit = { has_modifier = spec_bp_down_wood } remove_modifier = spec_bp_down_wood }
+						if = { limit = { local_var:spec_bpw_wood > 0 } add_modifier = { name = spec_bp_up_wood multiplier = local_var:spec_bpw_wood } }
+						else_if = { limit = { local_var:spec_bpw_wood < 0 } add_modifier = { name = spec_bp_down_wood multiplier = { value = local_var:spec_bpw_wood multiply = -1 } } }
+					}
+					if = {
+						limit = { local_var:spec_bpt_hardwood = 1 }
+						if = { limit = { has_modifier = spec_bp_up_hardwood } remove_modifier = spec_bp_up_hardwood }
+						if = { limit = { has_modifier = spec_bp_down_hardwood } remove_modifier = spec_bp_down_hardwood }
+						if = { limit = { local_var:spec_bpw_hardwood > 0 } add_modifier = { name = spec_bp_up_hardwood multiplier = local_var:spec_bpw_hardwood } }
+						else_if = { limit = { local_var:spec_bpw_hardwood < 0 } add_modifier = { name = spec_bp_down_hardwood multiplier = { value = local_var:spec_bpw_hardwood multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpw_hardwood = 0 }
+							NOR = { has_modifier = spec_bp_up_hardwood has_modifier = spec_bp_down_hardwood }
+						}
+						if = { limit = { has_modifier = spec_bp_up_hardwood } remove_modifier = spec_bp_up_hardwood }
+						if = { limit = { has_modifier = spec_bp_down_hardwood } remove_modifier = spec_bp_down_hardwood }
+						if = { limit = { local_var:spec_bpw_hardwood > 0 } add_modifier = { name = spec_bp_up_hardwood multiplier = local_var:spec_bpw_hardwood } }
+						else_if = { limit = { local_var:spec_bpw_hardwood < 0 } add_modifier = { name = spec_bp_down_hardwood multiplier = { value = local_var:spec_bpw_hardwood multiply = -1 } } }
 					}
 				}
 				else_if = {
@@ -4798,6 +5503,23 @@ spec_update_companies = {
 							}
 						}
 					}
+					if = {
+						limit = { local_var:spec_bpt_grain = 1 }
+						if = { limit = { has_modifier = spec_bp_up_grain } remove_modifier = spec_bp_up_grain }
+						if = { limit = { has_modifier = spec_bp_down_grain } remove_modifier = spec_bp_down_grain }
+						if = { limit = { local_var:spec_bpv_grain > 0 } add_modifier = { name = spec_bp_up_grain multiplier = local_var:spec_bpv_grain } }
+						else_if = { limit = { local_var:spec_bpv_grain < 0 } add_modifier = { name = spec_bp_down_grain multiplier = { value = local_var:spec_bpv_grain multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_grain = 0 }
+							NOR = { has_modifier = spec_bp_up_grain has_modifier = spec_bp_down_grain }
+						}
+						if = { limit = { has_modifier = spec_bp_up_grain } remove_modifier = spec_bp_up_grain }
+						if = { limit = { has_modifier = spec_bp_down_grain } remove_modifier = spec_bp_down_grain }
+						if = { limit = { local_var:spec_bpv_grain > 0 } add_modifier = { name = spec_bp_up_grain multiplier = local_var:spec_bpv_grain } }
+						else_if = { limit = { local_var:spec_bpv_grain < 0 } add_modifier = { name = spec_bp_down_grain multiplier = { value = local_var:spec_bpv_grain multiply = -1 } } }
+					}
 				}
 				else_if = {
 					limit = { is_building_type = building_millet_farm }
@@ -4941,6 +5663,23 @@ spec_update_companies = {
 								remove_modifier = spec_investor_grain_6
 							}
 						}
+					}
+					if = {
+						limit = { local_var:spec_bpt_grain = 1 }
+						if = { limit = { has_modifier = spec_bp_up_grain } remove_modifier = spec_bp_up_grain }
+						if = { limit = { has_modifier = spec_bp_down_grain } remove_modifier = spec_bp_down_grain }
+						if = { limit = { local_var:spec_bpv_grain > 0 } add_modifier = { name = spec_bp_up_grain multiplier = local_var:spec_bpv_grain } }
+						else_if = { limit = { local_var:spec_bpv_grain < 0 } add_modifier = { name = spec_bp_down_grain multiplier = { value = local_var:spec_bpv_grain multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_grain = 0 }
+							NOR = { has_modifier = spec_bp_up_grain has_modifier = spec_bp_down_grain }
+						}
+						if = { limit = { has_modifier = spec_bp_up_grain } remove_modifier = spec_bp_up_grain }
+						if = { limit = { has_modifier = spec_bp_down_grain } remove_modifier = spec_bp_down_grain }
+						if = { limit = { local_var:spec_bpv_grain > 0 } add_modifier = { name = spec_bp_up_grain multiplier = local_var:spec_bpv_grain } }
+						else_if = { limit = { local_var:spec_bpv_grain < 0 } add_modifier = { name = spec_bp_down_grain multiplier = { value = local_var:spec_bpv_grain multiply = -1 } } }
 					}
 				}
 				else_if = {
@@ -5086,6 +5825,23 @@ spec_update_companies = {
 							}
 						}
 					}
+					if = {
+						limit = { local_var:spec_bpt_engines = 1 }
+						if = { limit = { has_modifier = spec_bp_up_engines } remove_modifier = spec_bp_up_engines }
+						if = { limit = { has_modifier = spec_bp_down_engines } remove_modifier = spec_bp_down_engines }
+						if = { limit = { local_var:spec_bpv_engines > 0 } add_modifier = { name = spec_bp_up_engines multiplier = local_var:spec_bpv_engines } }
+						else_if = { limit = { local_var:spec_bpv_engines < 0 } add_modifier = { name = spec_bp_down_engines multiplier = { value = local_var:spec_bpv_engines multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_engines = 0 }
+							NOR = { has_modifier = spec_bp_up_engines has_modifier = spec_bp_down_engines }
+						}
+						if = { limit = { has_modifier = spec_bp_up_engines } remove_modifier = spec_bp_up_engines }
+						if = { limit = { has_modifier = spec_bp_down_engines } remove_modifier = spec_bp_down_engines }
+						if = { limit = { local_var:spec_bpv_engines > 0 } add_modifier = { name = spec_bp_up_engines multiplier = local_var:spec_bpv_engines } }
+						else_if = { limit = { local_var:spec_bpv_engines < 0 } add_modifier = { name = spec_bp_down_engines multiplier = { value = local_var:spec_bpv_engines multiply = -1 } } }
+					}
 				}
 				else_if = {
 					limit = { is_building_type = building_munition_plant }
@@ -5229,6 +5985,43 @@ spec_update_companies = {
 								remove_modifier = spec_investor_ammunition_6
 							}
 						}
+					}
+					if = {
+						limit = { local_var:spec_bpt_ammunition = 1 }
+						if = { limit = { has_modifier = spec_bp_up_ammunition } remove_modifier = spec_bp_up_ammunition }
+						if = { limit = { has_modifier = spec_bp_down_ammunition } remove_modifier = spec_bp_down_ammunition }
+						if = { limit = { local_var:spec_bpv_ammunition > 0 } add_modifier = { name = spec_bp_up_ammunition multiplier = local_var:spec_bpv_ammunition } }
+						else_if = { limit = { local_var:spec_bpv_ammunition < 0 } add_modifier = { name = spec_bp_down_ammunition multiplier = { value = local_var:spec_bpv_ammunition multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_ammunition = 0 }
+							NOR = { has_modifier = spec_bp_up_ammunition has_modifier = spec_bp_down_ammunition }
+						}
+						if = { limit = { has_modifier = spec_bp_up_ammunition } remove_modifier = spec_bp_up_ammunition }
+						if = { limit = { has_modifier = spec_bp_down_ammunition } remove_modifier = spec_bp_down_ammunition }
+						if = { limit = { local_var:spec_bpv_ammunition > 0 } add_modifier = { name = spec_bp_up_ammunition multiplier = local_var:spec_bpv_ammunition } }
+						else_if = { limit = { local_var:spec_bpv_ammunition < 0 } add_modifier = { name = spec_bp_down_ammunition multiplier = { value = local_var:spec_bpv_ammunition multiply = -1 } } }
+					}
+				}
+				else_if = {
+					limit = { is_building_type = building_oil_rig }
+					if = {
+						limit = { local_var:spec_bpt_oil = 1 }
+						if = { limit = { has_modifier = spec_bp_up_oil } remove_modifier = spec_bp_up_oil }
+						if = { limit = { has_modifier = spec_bp_down_oil } remove_modifier = spec_bp_down_oil }
+						if = { limit = { local_var:spec_bpw_oil > 0 } add_modifier = { name = spec_bp_up_oil multiplier = local_var:spec_bpw_oil } }
+						else_if = { limit = { local_var:spec_bpw_oil < 0 } add_modifier = { name = spec_bp_down_oil multiplier = { value = local_var:spec_bpw_oil multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpw_oil = 0 }
+							NOR = { has_modifier = spec_bp_up_oil has_modifier = spec_bp_down_oil }
+						}
+						if = { limit = { has_modifier = spec_bp_up_oil } remove_modifier = spec_bp_up_oil }
+						if = { limit = { has_modifier = spec_bp_down_oil } remove_modifier = spec_bp_down_oil }
+						if = { limit = { local_var:spec_bpw_oil > 0 } add_modifier = { name = spec_bp_up_oil multiplier = local_var:spec_bpw_oil } }
+						else_if = { limit = { local_var:spec_bpw_oil < 0 } add_modifier = { name = spec_bp_down_oil multiplier = { value = local_var:spec_bpw_oil multiply = -1 } } }
 					}
 				}
 				else_if = {
@@ -5374,6 +6167,23 @@ spec_update_companies = {
 							}
 						}
 					}
+					if = {
+						limit = { local_var:spec_bpt_opium = 1 }
+						if = { limit = { has_modifier = spec_bp_up_opium } remove_modifier = spec_bp_up_opium }
+						if = { limit = { has_modifier = spec_bp_down_opium } remove_modifier = spec_bp_down_opium }
+						if = { limit = { local_var:spec_bpv_opium > 0 } add_modifier = { name = spec_bp_up_opium multiplier = local_var:spec_bpv_opium } }
+						else_if = { limit = { local_var:spec_bpv_opium < 0 } add_modifier = { name = spec_bp_down_opium multiplier = { value = local_var:spec_bpv_opium multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_opium = 0 }
+							NOR = { has_modifier = spec_bp_up_opium has_modifier = spec_bp_down_opium }
+						}
+						if = { limit = { has_modifier = spec_bp_up_opium } remove_modifier = spec_bp_up_opium }
+						if = { limit = { has_modifier = spec_bp_down_opium } remove_modifier = spec_bp_down_opium }
+						if = { limit = { local_var:spec_bpv_opium > 0 } add_modifier = { name = spec_bp_up_opium multiplier = local_var:spec_bpv_opium } }
+						else_if = { limit = { local_var:spec_bpv_opium < 0 } add_modifier = { name = spec_bp_down_opium multiplier = { value = local_var:spec_bpv_opium multiply = -1 } } }
+					}
 				}
 				else_if = {
 					limit = { is_building_type = building_paper_mill }
@@ -5517,6 +6327,23 @@ spec_update_companies = {
 								remove_modifier = spec_investor_paper_6
 							}
 						}
+					}
+					if = {
+						limit = { local_var:spec_bpt_paper = 1 }
+						if = { limit = { has_modifier = spec_bp_up_paper } remove_modifier = spec_bp_up_paper }
+						if = { limit = { has_modifier = spec_bp_down_paper } remove_modifier = spec_bp_down_paper }
+						if = { limit = { local_var:spec_bpv_paper > 0 } add_modifier = { name = spec_bp_up_paper multiplier = local_var:spec_bpv_paper } }
+						else_if = { limit = { local_var:spec_bpv_paper < 0 } add_modifier = { name = spec_bp_down_paper multiplier = { value = local_var:spec_bpv_paper multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_paper = 0 }
+							NOR = { has_modifier = spec_bp_up_paper has_modifier = spec_bp_down_paper }
+						}
+						if = { limit = { has_modifier = spec_bp_up_paper } remove_modifier = spec_bp_up_paper }
+						if = { limit = { has_modifier = spec_bp_down_paper } remove_modifier = spec_bp_down_paper }
+						if = { limit = { local_var:spec_bpv_paper > 0 } add_modifier = { name = spec_bp_up_paper multiplier = local_var:spec_bpv_paper } }
+						else_if = { limit = { local_var:spec_bpv_paper < 0 } add_modifier = { name = spec_bp_down_paper multiplier = { value = local_var:spec_bpv_paper multiply = -1 } } }
 					}
 				}
 				else_if = {
@@ -5662,6 +6489,23 @@ spec_update_companies = {
 							}
 						}
 					}
+					if = {
+						limit = { local_var:spec_bpt_merchant_marine = 1 }
+						if = { limit = { has_modifier = spec_bp_up_merchant_marine } remove_modifier = spec_bp_up_merchant_marine }
+						if = { limit = { has_modifier = spec_bp_down_merchant_marine } remove_modifier = spec_bp_down_merchant_marine }
+						if = { limit = { local_var:spec_bpv_merchant_marine > 0 } add_modifier = { name = spec_bp_up_merchant_marine multiplier = local_var:spec_bpv_merchant_marine } }
+						else_if = { limit = { local_var:spec_bpv_merchant_marine < 0 } add_modifier = { name = spec_bp_down_merchant_marine multiplier = { value = local_var:spec_bpv_merchant_marine multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_merchant_marine = 0 }
+							NOR = { has_modifier = spec_bp_up_merchant_marine has_modifier = spec_bp_down_merchant_marine }
+						}
+						if = { limit = { has_modifier = spec_bp_up_merchant_marine } remove_modifier = spec_bp_up_merchant_marine }
+						if = { limit = { has_modifier = spec_bp_down_merchant_marine } remove_modifier = spec_bp_down_merchant_marine }
+						if = { limit = { local_var:spec_bpv_merchant_marine > 0 } add_modifier = { name = spec_bp_up_merchant_marine multiplier = local_var:spec_bpv_merchant_marine } }
+						else_if = { limit = { local_var:spec_bpv_merchant_marine < 0 } add_modifier = { name = spec_bp_down_merchant_marine multiplier = { value = local_var:spec_bpv_merchant_marine multiply = -1 } } }
+					}
 				}
 				else_if = {
 					limit = { is_building_type = building_power_plant }
@@ -5805,6 +6649,23 @@ spec_update_companies = {
 								remove_modifier = spec_investor_electricity_6
 							}
 						}
+					}
+					if = {
+						limit = { local_var:spec_bpt_electricity = 1 }
+						if = { limit = { has_modifier = spec_bp_up_electricity } remove_modifier = spec_bp_up_electricity }
+						if = { limit = { has_modifier = spec_bp_down_electricity } remove_modifier = spec_bp_down_electricity }
+						if = { limit = { local_var:spec_bpv_electricity > 0 } add_modifier = { name = spec_bp_up_electricity multiplier = local_var:spec_bpv_electricity } }
+						else_if = { limit = { local_var:spec_bpv_electricity < 0 } add_modifier = { name = spec_bp_down_electricity multiplier = { value = local_var:spec_bpv_electricity multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_electricity = 0 }
+							NOR = { has_modifier = spec_bp_up_electricity has_modifier = spec_bp_down_electricity }
+						}
+						if = { limit = { has_modifier = spec_bp_up_electricity } remove_modifier = spec_bp_up_electricity }
+						if = { limit = { has_modifier = spec_bp_down_electricity } remove_modifier = spec_bp_down_electricity }
+						if = { limit = { local_var:spec_bpv_electricity > 0 } add_modifier = { name = spec_bp_up_electricity multiplier = local_var:spec_bpv_electricity } }
+						else_if = { limit = { local_var:spec_bpv_electricity < 0 } add_modifier = { name = spec_bp_down_electricity multiplier = { value = local_var:spec_bpv_electricity multiply = -1 } } }
 					}
 				}
 				else_if = {
@@ -5950,6 +6811,23 @@ spec_update_companies = {
 							}
 						}
 					}
+					if = {
+						limit = { local_var:spec_bpt_grain = 1 }
+						if = { limit = { has_modifier = spec_bp_up_grain } remove_modifier = spec_bp_up_grain }
+						if = { limit = { has_modifier = spec_bp_down_grain } remove_modifier = spec_bp_down_grain }
+						if = { limit = { local_var:spec_bpv_grain > 0 } add_modifier = { name = spec_bp_up_grain multiplier = local_var:spec_bpv_grain } }
+						else_if = { limit = { local_var:spec_bpv_grain < 0 } add_modifier = { name = spec_bp_down_grain multiplier = { value = local_var:spec_bpv_grain multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_grain = 0 }
+							NOR = { has_modifier = spec_bp_up_grain has_modifier = spec_bp_down_grain }
+						}
+						if = { limit = { has_modifier = spec_bp_up_grain } remove_modifier = spec_bp_up_grain }
+						if = { limit = { has_modifier = spec_bp_down_grain } remove_modifier = spec_bp_down_grain }
+						if = { limit = { local_var:spec_bpv_grain > 0 } add_modifier = { name = spec_bp_up_grain multiplier = local_var:spec_bpv_grain } }
+						else_if = { limit = { local_var:spec_bpv_grain < 0 } add_modifier = { name = spec_bp_down_grain multiplier = { value = local_var:spec_bpv_grain multiply = -1 } } }
+					}
 				}
 				else_if = {
 					limit = { is_building_type = building_rubber_plantation }
@@ -6094,6 +6972,23 @@ spec_update_companies = {
 							}
 						}
 					}
+					if = {
+						limit = { local_var:spec_bpt_rubber = 1 }
+						if = { limit = { has_modifier = spec_bp_up_rubber } remove_modifier = spec_bp_up_rubber }
+						if = { limit = { has_modifier = spec_bp_down_rubber } remove_modifier = spec_bp_down_rubber }
+						if = { limit = { local_var:spec_bpv_rubber > 0 } add_modifier = { name = spec_bp_up_rubber multiplier = local_var:spec_bpv_rubber } }
+						else_if = { limit = { local_var:spec_bpv_rubber < 0 } add_modifier = { name = spec_bp_down_rubber multiplier = { value = local_var:spec_bpv_rubber multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_rubber = 0 }
+							NOR = { has_modifier = spec_bp_up_rubber has_modifier = spec_bp_down_rubber }
+						}
+						if = { limit = { has_modifier = spec_bp_up_rubber } remove_modifier = spec_bp_up_rubber }
+						if = { limit = { has_modifier = spec_bp_down_rubber } remove_modifier = spec_bp_down_rubber }
+						if = { limit = { local_var:spec_bpv_rubber > 0 } add_modifier = { name = spec_bp_up_rubber multiplier = local_var:spec_bpv_rubber } }
+						else_if = { limit = { local_var:spec_bpv_rubber < 0 } add_modifier = { name = spec_bp_down_rubber multiplier = { value = local_var:spec_bpv_rubber multiply = -1 } } }
+					}
 				}
 				else_if = {
 					limit = { is_building_type = building_rye_farm }
@@ -6237,6 +7132,23 @@ spec_update_companies = {
 								remove_modifier = spec_investor_grain_6
 							}
 						}
+					}
+					if = {
+						limit = { local_var:spec_bpt_grain = 1 }
+						if = { limit = { has_modifier = spec_bp_up_grain } remove_modifier = spec_bp_up_grain }
+						if = { limit = { has_modifier = spec_bp_down_grain } remove_modifier = spec_bp_down_grain }
+						if = { limit = { local_var:spec_bpv_grain > 0 } add_modifier = { name = spec_bp_up_grain multiplier = local_var:spec_bpv_grain } }
+						else_if = { limit = { local_var:spec_bpv_grain < 0 } add_modifier = { name = spec_bp_down_grain multiplier = { value = local_var:spec_bpv_grain multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_grain = 0 }
+							NOR = { has_modifier = spec_bp_up_grain has_modifier = spec_bp_down_grain }
+						}
+						if = { limit = { has_modifier = spec_bp_up_grain } remove_modifier = spec_bp_up_grain }
+						if = { limit = { has_modifier = spec_bp_down_grain } remove_modifier = spec_bp_down_grain }
+						if = { limit = { local_var:spec_bpv_grain > 0 } add_modifier = { name = spec_bp_up_grain multiplier = local_var:spec_bpv_grain } }
+						else_if = { limit = { local_var:spec_bpv_grain < 0 } add_modifier = { name = spec_bp_down_grain multiplier = { value = local_var:spec_bpv_grain multiply = -1 } } }
 					}
 				}
 				else_if = {
@@ -6523,6 +7435,40 @@ spec_update_companies = {
 							}
 						}
 					}
+					if = {
+						limit = { local_var:spec_bpt_clippers = 1 }
+						if = { limit = { has_modifier = spec_bp_up_clippers } remove_modifier = spec_bp_up_clippers }
+						if = { limit = { has_modifier = spec_bp_down_clippers } remove_modifier = spec_bp_down_clippers }
+						if = { limit = { local_var:spec_bpv_clippers > 0 } add_modifier = { name = spec_bp_up_clippers multiplier = local_var:spec_bpv_clippers } }
+						else_if = { limit = { local_var:spec_bpv_clippers < 0 } add_modifier = { name = spec_bp_down_clippers multiplier = { value = local_var:spec_bpv_clippers multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_clippers = 0 }
+							NOR = { has_modifier = spec_bp_up_clippers has_modifier = spec_bp_down_clippers }
+						}
+						if = { limit = { has_modifier = spec_bp_up_clippers } remove_modifier = spec_bp_up_clippers }
+						if = { limit = { has_modifier = spec_bp_down_clippers } remove_modifier = spec_bp_down_clippers }
+						if = { limit = { local_var:spec_bpv_clippers > 0 } add_modifier = { name = spec_bp_up_clippers multiplier = local_var:spec_bpv_clippers } }
+						else_if = { limit = { local_var:spec_bpv_clippers < 0 } add_modifier = { name = spec_bp_down_clippers multiplier = { value = local_var:spec_bpv_clippers multiply = -1 } } }
+					}
+					if = {
+						limit = { local_var:spec_bpt_steamers = 1 }
+						if = { limit = { has_modifier = spec_bp_up_steamers } remove_modifier = spec_bp_up_steamers }
+						if = { limit = { has_modifier = spec_bp_down_steamers } remove_modifier = spec_bp_down_steamers }
+						if = { limit = { local_var:spec_bpv_steamers > 0 } add_modifier = { name = spec_bp_up_steamers multiplier = local_var:spec_bpv_steamers } }
+						else_if = { limit = { local_var:spec_bpv_steamers < 0 } add_modifier = { name = spec_bp_down_steamers multiplier = { value = local_var:spec_bpv_steamers multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_steamers = 0 }
+							NOR = { has_modifier = spec_bp_up_steamers has_modifier = spec_bp_down_steamers }
+						}
+						if = { limit = { has_modifier = spec_bp_up_steamers } remove_modifier = spec_bp_up_steamers }
+						if = { limit = { has_modifier = spec_bp_down_steamers } remove_modifier = spec_bp_down_steamers }
+						if = { limit = { local_var:spec_bpv_steamers > 0 } add_modifier = { name = spec_bp_up_steamers multiplier = local_var:spec_bpv_steamers } }
+						else_if = { limit = { local_var:spec_bpv_steamers < 0 } add_modifier = { name = spec_bp_down_steamers multiplier = { value = local_var:spec_bpv_steamers multiply = -1 } } }
+					}
 				}
 				else_if = {
 					limit = { is_building_type = building_silk_plantation }
@@ -6666,6 +7612,23 @@ spec_update_companies = {
 								remove_modifier = spec_investor_silk_6
 							}
 						}
+					}
+					if = {
+						limit = { local_var:spec_bpt_silk = 1 }
+						if = { limit = { has_modifier = spec_bp_up_silk } remove_modifier = spec_bp_up_silk }
+						if = { limit = { has_modifier = spec_bp_down_silk } remove_modifier = spec_bp_down_silk }
+						if = { limit = { local_var:spec_bpv_silk > 0 } add_modifier = { name = spec_bp_up_silk multiplier = local_var:spec_bpv_silk } }
+						else_if = { limit = { local_var:spec_bpv_silk < 0 } add_modifier = { name = spec_bp_down_silk multiplier = { value = local_var:spec_bpv_silk multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_silk = 0 }
+							NOR = { has_modifier = spec_bp_up_silk has_modifier = spec_bp_down_silk }
+						}
+						if = { limit = { has_modifier = spec_bp_up_silk } remove_modifier = spec_bp_up_silk }
+						if = { limit = { has_modifier = spec_bp_down_silk } remove_modifier = spec_bp_down_silk }
+						if = { limit = { local_var:spec_bpv_silk > 0 } add_modifier = { name = spec_bp_up_silk multiplier = local_var:spec_bpv_silk } }
+						else_if = { limit = { local_var:spec_bpv_silk < 0 } add_modifier = { name = spec_bp_down_silk multiplier = { value = local_var:spec_bpv_silk multiply = -1 } } }
 					}
 				}
 				else_if = {
@@ -6811,6 +7774,23 @@ spec_update_companies = {
 							}
 						}
 					}
+					if = {
+						limit = { local_var:spec_bpt_steel = 1 }
+						if = { limit = { has_modifier = spec_bp_up_steel } remove_modifier = spec_bp_up_steel }
+						if = { limit = { has_modifier = spec_bp_down_steel } remove_modifier = spec_bp_down_steel }
+						if = { limit = { local_var:spec_bpv_steel > 0 } add_modifier = { name = spec_bp_up_steel multiplier = local_var:spec_bpv_steel } }
+						else_if = { limit = { local_var:spec_bpv_steel < 0 } add_modifier = { name = spec_bp_down_steel multiplier = { value = local_var:spec_bpv_steel multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_steel = 0 }
+							NOR = { has_modifier = spec_bp_up_steel has_modifier = spec_bp_down_steel }
+						}
+						if = { limit = { has_modifier = spec_bp_up_steel } remove_modifier = spec_bp_up_steel }
+						if = { limit = { has_modifier = spec_bp_down_steel } remove_modifier = spec_bp_down_steel }
+						if = { limit = { local_var:spec_bpv_steel > 0 } add_modifier = { name = spec_bp_up_steel multiplier = local_var:spec_bpv_steel } }
+						else_if = { limit = { local_var:spec_bpv_steel < 0 } add_modifier = { name = spec_bp_down_steel multiplier = { value = local_var:spec_bpv_steel multiply = -1 } } }
+					}
 				}
 				else_if = {
 					limit = { is_building_type = building_sugar_plantation }
@@ -6955,6 +7935,23 @@ spec_update_companies = {
 							}
 						}
 					}
+					if = {
+						limit = { local_var:spec_bpt_sugar = 1 }
+						if = { limit = { has_modifier = spec_bp_up_sugar } remove_modifier = spec_bp_up_sugar }
+						if = { limit = { has_modifier = spec_bp_down_sugar } remove_modifier = spec_bp_down_sugar }
+						if = { limit = { local_var:spec_bpv_sugar > 0 } add_modifier = { name = spec_bp_up_sugar multiplier = local_var:spec_bpv_sugar } }
+						else_if = { limit = { local_var:spec_bpv_sugar < 0 } add_modifier = { name = spec_bp_down_sugar multiplier = { value = local_var:spec_bpv_sugar multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_sugar = 0 }
+							NOR = { has_modifier = spec_bp_up_sugar has_modifier = spec_bp_down_sugar }
+						}
+						if = { limit = { has_modifier = spec_bp_up_sugar } remove_modifier = spec_bp_up_sugar }
+						if = { limit = { has_modifier = spec_bp_down_sugar } remove_modifier = spec_bp_down_sugar }
+						if = { limit = { local_var:spec_bpv_sugar > 0 } add_modifier = { name = spec_bp_up_sugar multiplier = local_var:spec_bpv_sugar } }
+						else_if = { limit = { local_var:spec_bpv_sugar < 0 } add_modifier = { name = spec_bp_down_sugar multiplier = { value = local_var:spec_bpv_sugar multiply = -1 } } }
+					}
 				}
 				else_if = {
 					limit = { is_building_type = building_sulfur_mine }
@@ -7098,6 +8095,23 @@ spec_update_companies = {
 								remove_modifier = spec_investor_sulfur_6
 							}
 						}
+					}
+					if = {
+						limit = { local_var:spec_bpt_sulfur = 1 }
+						if = { limit = { has_modifier = spec_bp_up_sulfur } remove_modifier = spec_bp_up_sulfur }
+						if = { limit = { has_modifier = spec_bp_down_sulfur } remove_modifier = spec_bp_down_sulfur }
+						if = { limit = { local_var:spec_bpv_sulfur > 0 } add_modifier = { name = spec_bp_up_sulfur multiplier = local_var:spec_bpv_sulfur } }
+						else_if = { limit = { local_var:spec_bpv_sulfur < 0 } add_modifier = { name = spec_bp_down_sulfur multiplier = { value = local_var:spec_bpv_sulfur multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_sulfur = 0 }
+							NOR = { has_modifier = spec_bp_up_sulfur has_modifier = spec_bp_down_sulfur }
+						}
+						if = { limit = { has_modifier = spec_bp_up_sulfur } remove_modifier = spec_bp_up_sulfur }
+						if = { limit = { has_modifier = spec_bp_down_sulfur } remove_modifier = spec_bp_down_sulfur }
+						if = { limit = { local_var:spec_bpv_sulfur > 0 } add_modifier = { name = spec_bp_up_sulfur multiplier = local_var:spec_bpv_sulfur } }
+						else_if = { limit = { local_var:spec_bpv_sulfur < 0 } add_modifier = { name = spec_bp_down_sulfur multiplier = { value = local_var:spec_bpv_sulfur multiply = -1 } } }
 					}
 				}
 				else_if = {
@@ -7384,6 +8398,40 @@ spec_update_companies = {
 							}
 						}
 					}
+					if = {
+						limit = { local_var:spec_bpt_dye = 1 }
+						if = { limit = { has_modifier = spec_bp_up_dye } remove_modifier = spec_bp_up_dye }
+						if = { limit = { has_modifier = spec_bp_down_dye } remove_modifier = spec_bp_down_dye }
+						if = { limit = { local_var:spec_bpv_dye > 0 } add_modifier = { name = spec_bp_up_dye multiplier = local_var:spec_bpv_dye } }
+						else_if = { limit = { local_var:spec_bpv_dye < 0 } add_modifier = { name = spec_bp_down_dye multiplier = { value = local_var:spec_bpv_dye multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_dye = 0 }
+							NOR = { has_modifier = spec_bp_up_dye has_modifier = spec_bp_down_dye }
+						}
+						if = { limit = { has_modifier = spec_bp_up_dye } remove_modifier = spec_bp_up_dye }
+						if = { limit = { has_modifier = spec_bp_down_dye } remove_modifier = spec_bp_down_dye }
+						if = { limit = { local_var:spec_bpv_dye > 0 } add_modifier = { name = spec_bp_up_dye multiplier = local_var:spec_bpv_dye } }
+						else_if = { limit = { local_var:spec_bpv_dye < 0 } add_modifier = { name = spec_bp_down_dye multiplier = { value = local_var:spec_bpv_dye multiply = -1 } } }
+					}
+					if = {
+						limit = { local_var:spec_bpt_silk = 1 }
+						if = { limit = { has_modifier = spec_bp_up_silk } remove_modifier = spec_bp_up_silk }
+						if = { limit = { has_modifier = spec_bp_down_silk } remove_modifier = spec_bp_down_silk }
+						if = { limit = { local_var:spec_bpv_silk > 0 } add_modifier = { name = spec_bp_up_silk multiplier = local_var:spec_bpv_silk } }
+						else_if = { limit = { local_var:spec_bpv_silk < 0 } add_modifier = { name = spec_bp_down_silk multiplier = { value = local_var:spec_bpv_silk multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_silk = 0 }
+							NOR = { has_modifier = spec_bp_up_silk has_modifier = spec_bp_down_silk }
+						}
+						if = { limit = { has_modifier = spec_bp_up_silk } remove_modifier = spec_bp_up_silk }
+						if = { limit = { has_modifier = spec_bp_down_silk } remove_modifier = spec_bp_down_silk }
+						if = { limit = { local_var:spec_bpv_silk > 0 } add_modifier = { name = spec_bp_up_silk multiplier = local_var:spec_bpv_silk } }
+						else_if = { limit = { local_var:spec_bpv_silk < 0 } add_modifier = { name = spec_bp_down_silk multiplier = { value = local_var:spec_bpv_silk multiply = -1 } } }
+					}
 				}
 				else_if = {
 					limit = { is_building_type = building_tea_plantation }
@@ -7527,6 +8575,23 @@ spec_update_companies = {
 								remove_modifier = spec_investor_tea_6
 							}
 						}
+					}
+					if = {
+						limit = { local_var:spec_bpt_tea = 1 }
+						if = { limit = { has_modifier = spec_bp_up_tea } remove_modifier = spec_bp_up_tea }
+						if = { limit = { has_modifier = spec_bp_down_tea } remove_modifier = spec_bp_down_tea }
+						if = { limit = { local_var:spec_bpv_tea > 0 } add_modifier = { name = spec_bp_up_tea multiplier = local_var:spec_bpv_tea } }
+						else_if = { limit = { local_var:spec_bpv_tea < 0 } add_modifier = { name = spec_bp_down_tea multiplier = { value = local_var:spec_bpv_tea multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_tea = 0 }
+							NOR = { has_modifier = spec_bp_up_tea has_modifier = spec_bp_down_tea }
+						}
+						if = { limit = { has_modifier = spec_bp_up_tea } remove_modifier = spec_bp_up_tea }
+						if = { limit = { has_modifier = spec_bp_down_tea } remove_modifier = spec_bp_down_tea }
+						if = { limit = { local_var:spec_bpv_tea > 0 } add_modifier = { name = spec_bp_up_tea multiplier = local_var:spec_bpv_tea } }
+						else_if = { limit = { local_var:spec_bpv_tea < 0 } add_modifier = { name = spec_bp_down_tea multiplier = { value = local_var:spec_bpv_tea multiply = -1 } } }
 					}
 				}
 				else_if = {
@@ -7813,6 +8878,40 @@ spec_update_companies = {
 							}
 						}
 					}
+					if = {
+						limit = { local_var:spec_bpt_clothes = 1 }
+						if = { limit = { has_modifier = spec_bp_up_clothes } remove_modifier = spec_bp_up_clothes }
+						if = { limit = { has_modifier = spec_bp_down_clothes } remove_modifier = spec_bp_down_clothes }
+						if = { limit = { local_var:spec_bpv_clothes > 0 } add_modifier = { name = spec_bp_up_clothes multiplier = local_var:spec_bpv_clothes } }
+						else_if = { limit = { local_var:spec_bpv_clothes < 0 } add_modifier = { name = spec_bp_down_clothes multiplier = { value = local_var:spec_bpv_clothes multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_clothes = 0 }
+							NOR = { has_modifier = spec_bp_up_clothes has_modifier = spec_bp_down_clothes }
+						}
+						if = { limit = { has_modifier = spec_bp_up_clothes } remove_modifier = spec_bp_up_clothes }
+						if = { limit = { has_modifier = spec_bp_down_clothes } remove_modifier = spec_bp_down_clothes }
+						if = { limit = { local_var:spec_bpv_clothes > 0 } add_modifier = { name = spec_bp_up_clothes multiplier = local_var:spec_bpv_clothes } }
+						else_if = { limit = { local_var:spec_bpv_clothes < 0 } add_modifier = { name = spec_bp_down_clothes multiplier = { value = local_var:spec_bpv_clothes multiply = -1 } } }
+					}
+					if = {
+						limit = { local_var:spec_bpt_luxury_clothes = 1 }
+						if = { limit = { has_modifier = spec_bp_up_luxury_clothes } remove_modifier = spec_bp_up_luxury_clothes }
+						if = { limit = { has_modifier = spec_bp_down_luxury_clothes } remove_modifier = spec_bp_down_luxury_clothes }
+						if = { limit = { local_var:spec_bpv_luxury_clothes > 0 } add_modifier = { name = spec_bp_up_luxury_clothes multiplier = local_var:spec_bpv_luxury_clothes } }
+						else_if = { limit = { local_var:spec_bpv_luxury_clothes < 0 } add_modifier = { name = spec_bp_down_luxury_clothes multiplier = { value = local_var:spec_bpv_luxury_clothes multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_luxury_clothes = 0 }
+							NOR = { has_modifier = spec_bp_up_luxury_clothes has_modifier = spec_bp_down_luxury_clothes }
+						}
+						if = { limit = { has_modifier = spec_bp_up_luxury_clothes } remove_modifier = spec_bp_up_luxury_clothes }
+						if = { limit = { has_modifier = spec_bp_down_luxury_clothes } remove_modifier = spec_bp_down_luxury_clothes }
+						if = { limit = { local_var:spec_bpv_luxury_clothes > 0 } add_modifier = { name = spec_bp_up_luxury_clothes multiplier = local_var:spec_bpv_luxury_clothes } }
+						else_if = { limit = { local_var:spec_bpv_luxury_clothes < 0 } add_modifier = { name = spec_bp_down_luxury_clothes multiplier = { value = local_var:spec_bpv_luxury_clothes multiply = -1 } } }
+					}
 				}
 				else_if = {
 					limit = { is_building_type = building_tobacco_plantation }
@@ -7956,6 +9055,23 @@ spec_update_companies = {
 								remove_modifier = spec_investor_tobacco_6
 							}
 						}
+					}
+					if = {
+						limit = { local_var:spec_bpt_tobacco = 1 }
+						if = { limit = { has_modifier = spec_bp_up_tobacco } remove_modifier = spec_bp_up_tobacco }
+						if = { limit = { has_modifier = spec_bp_down_tobacco } remove_modifier = spec_bp_down_tobacco }
+						if = { limit = { local_var:spec_bpv_tobacco > 0 } add_modifier = { name = spec_bp_up_tobacco multiplier = local_var:spec_bpv_tobacco } }
+						else_if = { limit = { local_var:spec_bpv_tobacco < 0 } add_modifier = { name = spec_bp_down_tobacco multiplier = { value = local_var:spec_bpv_tobacco multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_tobacco = 0 }
+							NOR = { has_modifier = spec_bp_up_tobacco has_modifier = spec_bp_down_tobacco }
+						}
+						if = { limit = { has_modifier = spec_bp_up_tobacco } remove_modifier = spec_bp_up_tobacco }
+						if = { limit = { has_modifier = spec_bp_down_tobacco } remove_modifier = spec_bp_down_tobacco }
+						if = { limit = { local_var:spec_bpv_tobacco > 0 } add_modifier = { name = spec_bp_up_tobacco multiplier = local_var:spec_bpv_tobacco } }
+						else_if = { limit = { local_var:spec_bpv_tobacco < 0 } add_modifier = { name = spec_bp_down_tobacco multiplier = { value = local_var:spec_bpv_tobacco multiply = -1 } } }
 					}
 				}
 				else_if = {
@@ -8101,6 +9217,23 @@ spec_update_companies = {
 							}
 						}
 					}
+					if = {
+						limit = { local_var:spec_bpt_tools = 1 }
+						if = { limit = { has_modifier = spec_bp_up_tools } remove_modifier = spec_bp_up_tools }
+						if = { limit = { has_modifier = spec_bp_down_tools } remove_modifier = spec_bp_down_tools }
+						if = { limit = { local_var:spec_bpv_tools > 0 } add_modifier = { name = spec_bp_up_tools multiplier = local_var:spec_bpv_tools } }
+						else_if = { limit = { local_var:spec_bpv_tools < 0 } add_modifier = { name = spec_bp_down_tools multiplier = { value = local_var:spec_bpv_tools multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_tools = 0 }
+							NOR = { has_modifier = spec_bp_up_tools has_modifier = spec_bp_down_tools }
+						}
+						if = { limit = { has_modifier = spec_bp_up_tools } remove_modifier = spec_bp_up_tools }
+						if = { limit = { has_modifier = spec_bp_down_tools } remove_modifier = spec_bp_down_tools }
+						if = { limit = { local_var:spec_bpv_tools > 0 } add_modifier = { name = spec_bp_up_tools multiplier = local_var:spec_bpv_tools } }
+						else_if = { limit = { local_var:spec_bpv_tools < 0 } add_modifier = { name = spec_bp_down_tools multiplier = { value = local_var:spec_bpv_tools multiply = -1 } } }
+					}
 				}
 				else_if = {
 					limit = { is_building_type = building_vineyard }
@@ -8244,6 +9377,23 @@ spec_update_companies = {
 								remove_modifier = spec_investor_wine_6
 							}
 						}
+					}
+					if = {
+						limit = { local_var:spec_bpt_wine = 1 }
+						if = { limit = { has_modifier = spec_bp_up_wine } remove_modifier = spec_bp_up_wine }
+						if = { limit = { has_modifier = spec_bp_down_wine } remove_modifier = spec_bp_down_wine }
+						if = { limit = { local_var:spec_bpv_wine > 0 } add_modifier = { name = spec_bp_up_wine multiplier = local_var:spec_bpv_wine } }
+						else_if = { limit = { local_var:spec_bpv_wine < 0 } add_modifier = { name = spec_bp_down_wine multiplier = { value = local_var:spec_bpv_wine multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_wine = 0 }
+							NOR = { has_modifier = spec_bp_up_wine has_modifier = spec_bp_down_wine }
+						}
+						if = { limit = { has_modifier = spec_bp_up_wine } remove_modifier = spec_bp_up_wine }
+						if = { limit = { has_modifier = spec_bp_down_wine } remove_modifier = spec_bp_down_wine }
+						if = { limit = { local_var:spec_bpv_wine > 0 } add_modifier = { name = spec_bp_up_wine multiplier = local_var:spec_bpv_wine } }
+						else_if = { limit = { local_var:spec_bpv_wine < 0 } add_modifier = { name = spec_bp_down_wine multiplier = { value = local_var:spec_bpv_wine multiply = -1 } } }
 					}
 				}
 				else_if = {
@@ -8530,6 +9680,40 @@ spec_update_companies = {
 							}
 						}
 					}
+					if = {
+						limit = { local_var:spec_bpt_oil = 1 }
+						if = { limit = { has_modifier = spec_bp_up_oil } remove_modifier = spec_bp_up_oil }
+						if = { limit = { has_modifier = spec_bp_down_oil } remove_modifier = spec_bp_down_oil }
+						if = { limit = { local_var:spec_bpv_oil > 0 } add_modifier = { name = spec_bp_up_oil multiplier = local_var:spec_bpv_oil } }
+						else_if = { limit = { local_var:spec_bpv_oil < 0 } add_modifier = { name = spec_bp_down_oil multiplier = { value = local_var:spec_bpv_oil multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_oil = 0 }
+							NOR = { has_modifier = spec_bp_up_oil has_modifier = spec_bp_down_oil }
+						}
+						if = { limit = { has_modifier = spec_bp_up_oil } remove_modifier = spec_bp_up_oil }
+						if = { limit = { has_modifier = spec_bp_down_oil } remove_modifier = spec_bp_down_oil }
+						if = { limit = { local_var:spec_bpv_oil > 0 } add_modifier = { name = spec_bp_up_oil multiplier = local_var:spec_bpv_oil } }
+						else_if = { limit = { local_var:spec_bpv_oil < 0 } add_modifier = { name = spec_bp_down_oil multiplier = { value = local_var:spec_bpv_oil multiply = -1 } } }
+					}
+					if = {
+						limit = { local_var:spec_bpt_meat = 1 }
+						if = { limit = { has_modifier = spec_bp_up_meat } remove_modifier = spec_bp_up_meat }
+						if = { limit = { has_modifier = spec_bp_down_meat } remove_modifier = spec_bp_down_meat }
+						if = { limit = { local_var:spec_bpv_meat > 0 } add_modifier = { name = spec_bp_up_meat multiplier = local_var:spec_bpv_meat } }
+						else_if = { limit = { local_var:spec_bpv_meat < 0 } add_modifier = { name = spec_bp_down_meat multiplier = { value = local_var:spec_bpv_meat multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_meat = 0 }
+							NOR = { has_modifier = spec_bp_up_meat has_modifier = spec_bp_down_meat }
+						}
+						if = { limit = { has_modifier = spec_bp_up_meat } remove_modifier = spec_bp_up_meat }
+						if = { limit = { has_modifier = spec_bp_down_meat } remove_modifier = spec_bp_down_meat }
+						if = { limit = { local_var:spec_bpv_meat > 0 } add_modifier = { name = spec_bp_up_meat multiplier = local_var:spec_bpv_meat } }
+						else_if = { limit = { local_var:spec_bpv_meat < 0 } add_modifier = { name = spec_bp_down_meat multiplier = { value = local_var:spec_bpv_meat multiply = -1 } } }
+					}
 				}
 				else_if = {
 					limit = { is_building_type = building_wheat_farm }
@@ -8673,6 +9857,23 @@ spec_update_companies = {
 								remove_modifier = spec_investor_grain_6
 							}
 						}
+					}
+					if = {
+						limit = { local_var:spec_bpt_grain = 1 }
+						if = { limit = { has_modifier = spec_bp_up_grain } remove_modifier = spec_bp_up_grain }
+						if = { limit = { has_modifier = spec_bp_down_grain } remove_modifier = spec_bp_down_grain }
+						if = { limit = { local_var:spec_bpv_grain > 0 } add_modifier = { name = spec_bp_up_grain multiplier = local_var:spec_bpv_grain } }
+						else_if = { limit = { local_var:spec_bpv_grain < 0 } add_modifier = { name = spec_bp_down_grain multiplier = { value = local_var:spec_bpv_grain multiply = -1 } } }
+					}
+					else_if = {
+						limit = {
+							NOT = { local_var:spec_bpv_grain = 0 }
+							NOR = { has_modifier = spec_bp_up_grain has_modifier = spec_bp_down_grain }
+						}
+						if = { limit = { has_modifier = spec_bp_up_grain } remove_modifier = spec_bp_up_grain }
+						if = { limit = { has_modifier = spec_bp_down_grain } remove_modifier = spec_bp_down_grain }
+						if = { limit = { local_var:spec_bpv_grain > 0 } add_modifier = { name = spec_bp_up_grain multiplier = local_var:spec_bpv_grain } }
+						else_if = { limit = { local_var:spec_bpv_grain < 0 } add_modifier = { name = spec_bp_down_grain multiplier = { value = local_var:spec_bpv_grain multiply = -1 } } }
 					}
 				}
 				}
@@ -16454,6 +17655,11 @@ spec_update_companies = {
 				}
 			}
 		}
+		if = {
+			limit = { local_var:spec_ia_all = 0 }
+			spec_bp_direct = yes
+		}
+		spec_bp_record = yes
 		set_local_variable = { name = spec_nx_bc value = spec_nx_blue }
 		set_local_variable = { name = spec_bc_cnt value = 0 }
 		every_company = {
@@ -16559,7 +17765,7 @@ spec_update_companies = {
 					limit = { has_variable = spec_bc_wobble }
 					owner = { trigger_event = { id = spec_bluechip.2 popup = yes } }
 				}
-				else = { owner = { trigger_event = { id = spec_bluechip.1 popup = yes } } }
+				else = { owner = { trigger_event = { id = spec_bluechip.1 } } }
 			}
 		}
 	}
@@ -17167,7 +18373,7 @@ spec_update_companies = {
 			remove_variable = spec_ia_tools
 			remove_variable = spec_ia_wine
 			every_scope_building = {
-				limit = { OR = { is_building_type = building_arms_industry is_building_type = building_art_academy is_building_type = building_artillery_foundry is_building_type = building_automotive_industry is_building_type = building_chemical_plant is_building_type = building_coal_mine is_building_type = building_coffee_plantation is_building_type = building_copper_mine is_building_type = building_cotton_plantation is_building_type = building_dye_plantation is_building_type = building_electrics_industry is_building_type = building_explosives_factory is_building_type = building_fishing_wharf is_building_type = building_food_industry is_building_type = building_furniture_manufactory is_building_type = building_glassworks is_building_type = building_iron_mine is_building_type = building_lead_mine is_building_type = building_livestock_ranch is_building_type = building_maize_farm is_building_type = building_millet_farm is_building_type = building_motor_industry is_building_type = building_munition_plant is_building_type = building_opium_plantation is_building_type = building_paper_mill is_building_type = building_port is_building_type = building_power_plant is_building_type = building_rice_farm is_building_type = building_rubber_plantation is_building_type = building_rye_farm is_building_type = building_shipyard is_building_type = building_silk_plantation is_building_type = building_steel_mill is_building_type = building_sugar_plantation is_building_type = building_sulfur_mine is_building_type = building_synthetics_plant is_building_type = building_tea_plantation is_building_type = building_textile_mill is_building_type = building_tobacco_plantation is_building_type = building_tooling_workshop is_building_type = building_vineyard is_building_type = building_whaling_station is_building_type = building_wheat_farm } }
+				limit = { OR = { is_building_type = building_arms_industry is_building_type = building_art_academy is_building_type = building_artillery_foundry is_building_type = building_automotive_industry is_building_type = building_chemical_plant is_building_type = building_coal_mine is_building_type = building_coffee_plantation is_building_type = building_copper_mine is_building_type = building_cotton_plantation is_building_type = building_dye_plantation is_building_type = building_electrics_industry is_building_type = building_explosives_factory is_building_type = building_fishing_wharf is_building_type = building_food_industry is_building_type = building_furniture_manufactory is_building_type = building_glassworks is_building_type = building_iron_mine is_building_type = building_lead_mine is_building_type = building_livestock_ranch is_building_type = building_logging_camp is_building_type = building_maize_farm is_building_type = building_millet_farm is_building_type = building_motor_industry is_building_type = building_munition_plant is_building_type = building_oil_rig is_building_type = building_opium_plantation is_building_type = building_paper_mill is_building_type = building_port is_building_type = building_power_plant is_building_type = building_rice_farm is_building_type = building_rubber_plantation is_building_type = building_rye_farm is_building_type = building_shipyard is_building_type = building_silk_plantation is_building_type = building_steel_mill is_building_type = building_sugar_plantation is_building_type = building_sulfur_mine is_building_type = building_synthetics_plant is_building_type = building_tea_plantation is_building_type = building_textile_mill is_building_type = building_tobacco_plantation is_building_type = building_tooling_workshop is_building_type = building_vineyard is_building_type = building_whaling_station is_building_type = building_wheat_farm } }
 				if = {
 					limit = { has_modifier = spec_investor_aeroplanes_1 }
 					remove_modifier = spec_investor_aeroplanes_1
@@ -18088,8 +19294,201 @@ spec_update_companies = {
 					limit = { has_modifier = spec_investor_wine_6 }
 					remove_modifier = spec_investor_wine_6
 				}
+				if = { limit = { has_modifier = spec_bp_up_aeroplanes } remove_modifier = spec_bp_up_aeroplanes }
+				if = { limit = { has_modifier = spec_bp_down_aeroplanes } remove_modifier = spec_bp_down_aeroplanes }
+				if = { limit = { has_modifier = spec_bp_up_ammunition } remove_modifier = spec_bp_up_ammunition }
+				if = { limit = { has_modifier = spec_bp_down_ammunition } remove_modifier = spec_bp_down_ammunition }
+				if = { limit = { has_modifier = spec_bp_up_artillery } remove_modifier = spec_bp_up_artillery }
+				if = { limit = { has_modifier = spec_bp_down_artillery } remove_modifier = spec_bp_down_artillery }
+				if = { limit = { has_modifier = spec_bp_up_automobiles } remove_modifier = spec_bp_up_automobiles }
+				if = { limit = { has_modifier = spec_bp_down_automobiles } remove_modifier = spec_bp_down_automobiles }
+				if = { limit = { has_modifier = spec_bp_up_clippers } remove_modifier = spec_bp_up_clippers }
+				if = { limit = { has_modifier = spec_bp_down_clippers } remove_modifier = spec_bp_down_clippers }
+				if = { limit = { has_modifier = spec_bp_up_clothes } remove_modifier = spec_bp_up_clothes }
+				if = { limit = { has_modifier = spec_bp_down_clothes } remove_modifier = spec_bp_down_clothes }
+				if = { limit = { has_modifier = spec_bp_up_coal } remove_modifier = spec_bp_up_coal }
+				if = { limit = { has_modifier = spec_bp_down_coal } remove_modifier = spec_bp_down_coal }
+				if = { limit = { has_modifier = spec_bp_up_coffee } remove_modifier = spec_bp_up_coffee }
+				if = { limit = { has_modifier = spec_bp_down_coffee } remove_modifier = spec_bp_down_coffee }
+				if = { limit = { has_modifier = spec_bp_up_copper } remove_modifier = spec_bp_up_copper }
+				if = { limit = { has_modifier = spec_bp_down_copper } remove_modifier = spec_bp_down_copper }
+				if = { limit = { has_modifier = spec_bp_up_dye } remove_modifier = spec_bp_up_dye }
+				if = { limit = { has_modifier = spec_bp_down_dye } remove_modifier = spec_bp_down_dye }
+				if = { limit = { has_modifier = spec_bp_up_electricity } remove_modifier = spec_bp_up_electricity }
+				if = { limit = { has_modifier = spec_bp_down_electricity } remove_modifier = spec_bp_down_electricity }
+				if = { limit = { has_modifier = spec_bp_up_engines } remove_modifier = spec_bp_up_engines }
+				if = { limit = { has_modifier = spec_bp_down_engines } remove_modifier = spec_bp_down_engines }
+				if = { limit = { has_modifier = spec_bp_up_explosives } remove_modifier = spec_bp_up_explosives }
+				if = { limit = { has_modifier = spec_bp_down_explosives } remove_modifier = spec_bp_down_explosives }
+				if = { limit = { has_modifier = spec_bp_up_fabric } remove_modifier = spec_bp_up_fabric }
+				if = { limit = { has_modifier = spec_bp_down_fabric } remove_modifier = spec_bp_down_fabric }
+				if = { limit = { has_modifier = spec_bp_up_fertilizer } remove_modifier = spec_bp_up_fertilizer }
+				if = { limit = { has_modifier = spec_bp_down_fertilizer } remove_modifier = spec_bp_down_fertilizer }
+				if = { limit = { has_modifier = spec_bp_up_fine_art } remove_modifier = spec_bp_up_fine_art }
+				if = { limit = { has_modifier = spec_bp_down_fine_art } remove_modifier = spec_bp_down_fine_art }
+				if = { limit = { has_modifier = spec_bp_up_fish } remove_modifier = spec_bp_up_fish }
+				if = { limit = { has_modifier = spec_bp_down_fish } remove_modifier = spec_bp_down_fish }
+				if = { limit = { has_modifier = spec_bp_up_furniture } remove_modifier = spec_bp_up_furniture }
+				if = { limit = { has_modifier = spec_bp_down_furniture } remove_modifier = spec_bp_down_furniture }
+				if = { limit = { has_modifier = spec_bp_up_glass } remove_modifier = spec_bp_up_glass }
+				if = { limit = { has_modifier = spec_bp_down_glass } remove_modifier = spec_bp_down_glass }
+				if = { limit = { has_modifier = spec_bp_up_grain } remove_modifier = spec_bp_up_grain }
+				if = { limit = { has_modifier = spec_bp_down_grain } remove_modifier = spec_bp_down_grain }
+				if = { limit = { has_modifier = spec_bp_up_groceries } remove_modifier = spec_bp_up_groceries }
+				if = { limit = { has_modifier = spec_bp_down_groceries } remove_modifier = spec_bp_down_groceries }
+				if = { limit = { has_modifier = spec_bp_up_hardwood } remove_modifier = spec_bp_up_hardwood }
+				if = { limit = { has_modifier = spec_bp_down_hardwood } remove_modifier = spec_bp_down_hardwood }
+				if = { limit = { has_modifier = spec_bp_up_iron } remove_modifier = spec_bp_up_iron }
+				if = { limit = { has_modifier = spec_bp_down_iron } remove_modifier = spec_bp_down_iron }
+				if = { limit = { has_modifier = spec_bp_up_lead } remove_modifier = spec_bp_up_lead }
+				if = { limit = { has_modifier = spec_bp_down_lead } remove_modifier = spec_bp_down_lead }
+				if = { limit = { has_modifier = spec_bp_up_liquor } remove_modifier = spec_bp_up_liquor }
+				if = { limit = { has_modifier = spec_bp_down_liquor } remove_modifier = spec_bp_down_liquor }
+				if = { limit = { has_modifier = spec_bp_up_luxury_clothes } remove_modifier = spec_bp_up_luxury_clothes }
+				if = { limit = { has_modifier = spec_bp_down_luxury_clothes } remove_modifier = spec_bp_down_luxury_clothes }
+				if = { limit = { has_modifier = spec_bp_up_luxury_furniture } remove_modifier = spec_bp_up_luxury_furniture }
+				if = { limit = { has_modifier = spec_bp_down_luxury_furniture } remove_modifier = spec_bp_down_luxury_furniture }
+				if = { limit = { has_modifier = spec_bp_up_meat } remove_modifier = spec_bp_up_meat }
+				if = { limit = { has_modifier = spec_bp_down_meat } remove_modifier = spec_bp_down_meat }
+				if = { limit = { has_modifier = spec_bp_up_merchant_marine } remove_modifier = spec_bp_up_merchant_marine }
+				if = { limit = { has_modifier = spec_bp_down_merchant_marine } remove_modifier = spec_bp_down_merchant_marine }
+				if = { limit = { has_modifier = spec_bp_up_oil } remove_modifier = spec_bp_up_oil }
+				if = { limit = { has_modifier = spec_bp_down_oil } remove_modifier = spec_bp_down_oil }
+				if = { limit = { has_modifier = spec_bp_up_opium } remove_modifier = spec_bp_up_opium }
+				if = { limit = { has_modifier = spec_bp_down_opium } remove_modifier = spec_bp_down_opium }
+				if = { limit = { has_modifier = spec_bp_up_paper } remove_modifier = spec_bp_up_paper }
+				if = { limit = { has_modifier = spec_bp_down_paper } remove_modifier = spec_bp_down_paper }
+				if = { limit = { has_modifier = spec_bp_up_porcelain } remove_modifier = spec_bp_up_porcelain }
+				if = { limit = { has_modifier = spec_bp_down_porcelain } remove_modifier = spec_bp_down_porcelain }
+				if = { limit = { has_modifier = spec_bp_up_radios } remove_modifier = spec_bp_up_radios }
+				if = { limit = { has_modifier = spec_bp_down_radios } remove_modifier = spec_bp_down_radios }
+				if = { limit = { has_modifier = spec_bp_up_rubber } remove_modifier = spec_bp_up_rubber }
+				if = { limit = { has_modifier = spec_bp_down_rubber } remove_modifier = spec_bp_down_rubber }
+				if = { limit = { has_modifier = spec_bp_up_silk } remove_modifier = spec_bp_up_silk }
+				if = { limit = { has_modifier = spec_bp_down_silk } remove_modifier = spec_bp_down_silk }
+				if = { limit = { has_modifier = spec_bp_up_small_arms } remove_modifier = spec_bp_up_small_arms }
+				if = { limit = { has_modifier = spec_bp_down_small_arms } remove_modifier = spec_bp_down_small_arms }
+				if = { limit = { has_modifier = spec_bp_up_steamers } remove_modifier = spec_bp_up_steamers }
+				if = { limit = { has_modifier = spec_bp_down_steamers } remove_modifier = spec_bp_down_steamers }
+				if = { limit = { has_modifier = spec_bp_up_steel } remove_modifier = spec_bp_up_steel }
+				if = { limit = { has_modifier = spec_bp_down_steel } remove_modifier = spec_bp_down_steel }
+				if = { limit = { has_modifier = spec_bp_up_sugar } remove_modifier = spec_bp_up_sugar }
+				if = { limit = { has_modifier = spec_bp_down_sugar } remove_modifier = spec_bp_down_sugar }
+				if = { limit = { has_modifier = spec_bp_up_sulfur } remove_modifier = spec_bp_up_sulfur }
+				if = { limit = { has_modifier = spec_bp_down_sulfur } remove_modifier = spec_bp_down_sulfur }
+				if = { limit = { has_modifier = spec_bp_up_tanks } remove_modifier = spec_bp_up_tanks }
+				if = { limit = { has_modifier = spec_bp_down_tanks } remove_modifier = spec_bp_down_tanks }
+				if = { limit = { has_modifier = spec_bp_up_tea } remove_modifier = spec_bp_up_tea }
+				if = { limit = { has_modifier = spec_bp_down_tea } remove_modifier = spec_bp_down_tea }
+				if = { limit = { has_modifier = spec_bp_up_telephones } remove_modifier = spec_bp_up_telephones }
+				if = { limit = { has_modifier = spec_bp_down_telephones } remove_modifier = spec_bp_down_telephones }
+				if = { limit = { has_modifier = spec_bp_up_tobacco } remove_modifier = spec_bp_up_tobacco }
+				if = { limit = { has_modifier = spec_bp_down_tobacco } remove_modifier = spec_bp_down_tobacco }
+				if = { limit = { has_modifier = spec_bp_up_tools } remove_modifier = spec_bp_up_tools }
+				if = { limit = { has_modifier = spec_bp_down_tools } remove_modifier = spec_bp_down_tools }
+				if = { limit = { has_modifier = spec_bp_up_wine } remove_modifier = spec_bp_up_wine }
+				if = { limit = { has_modifier = spec_bp_down_wine } remove_modifier = spec_bp_down_wine }
+				if = { limit = { has_modifier = spec_bp_up_wood } remove_modifier = spec_bp_up_wood }
+				if = { limit = { has_modifier = spec_bp_down_wood } remove_modifier = spec_bp_down_wood }
 			}
 		}
+		remove_variable = spec_bpa_aeroplanes
+		remove_variable = spec_bpna_aeroplanes
+		remove_variable = spec_bpa_ammunition
+		remove_variable = spec_bpna_ammunition
+		remove_variable = spec_bpa_artillery
+		remove_variable = spec_bpna_artillery
+		remove_variable = spec_bpa_automobiles
+		remove_variable = spec_bpna_automobiles
+		remove_variable = spec_bpa_clippers
+		remove_variable = spec_bpna_clippers
+		remove_variable = spec_bpa_clothes
+		remove_variable = spec_bpna_clothes
+		remove_variable = spec_bpa_coal
+		remove_variable = spec_bpna_coal
+		remove_variable = spec_bpa_coffee
+		remove_variable = spec_bpna_coffee
+		remove_variable = spec_bpa_copper
+		remove_variable = spec_bpna_copper
+		remove_variable = spec_bpa_dye
+		remove_variable = spec_bpna_dye
+		remove_variable = spec_bpa_electricity
+		remove_variable = spec_bpna_electricity
+		remove_variable = spec_bpa_engines
+		remove_variable = spec_bpna_engines
+		remove_variable = spec_bpa_explosives
+		remove_variable = spec_bpna_explosives
+		remove_variable = spec_bpa_fabric
+		remove_variable = spec_bpna_fabric
+		remove_variable = spec_bpa_fertilizer
+		remove_variable = spec_bpna_fertilizer
+		remove_variable = spec_bpa_fine_art
+		remove_variable = spec_bpna_fine_art
+		remove_variable = spec_bpa_fish
+		remove_variable = spec_bpna_fish
+		remove_variable = spec_bpa_furniture
+		remove_variable = spec_bpna_furniture
+		remove_variable = spec_bpa_glass
+		remove_variable = spec_bpna_glass
+		remove_variable = spec_bpa_grain
+		remove_variable = spec_bpna_grain
+		remove_variable = spec_bpa_groceries
+		remove_variable = spec_bpna_groceries
+		remove_variable = spec_bpa_hardwood
+		remove_variable = spec_bpna_hardwood
+		remove_variable = spec_bpa_iron
+		remove_variable = spec_bpna_iron
+		remove_variable = spec_bpa_lead
+		remove_variable = spec_bpna_lead
+		remove_variable = spec_bpa_liquor
+		remove_variable = spec_bpna_liquor
+		remove_variable = spec_bpa_luxury_clothes
+		remove_variable = spec_bpna_luxury_clothes
+		remove_variable = spec_bpa_luxury_furniture
+		remove_variable = spec_bpna_luxury_furniture
+		remove_variable = spec_bpa_meat
+		remove_variable = spec_bpna_meat
+		remove_variable = spec_bpa_merchant_marine
+		remove_variable = spec_bpna_merchant_marine
+		remove_variable = spec_bpa_oil
+		remove_variable = spec_bpna_oil
+		remove_variable = spec_bpa_opium
+		remove_variable = spec_bpna_opium
+		remove_variable = spec_bpa_paper
+		remove_variable = spec_bpna_paper
+		remove_variable = spec_bpa_porcelain
+		remove_variable = spec_bpna_porcelain
+		remove_variable = spec_bpa_radios
+		remove_variable = spec_bpna_radios
+		remove_variable = spec_bpa_rubber
+		remove_variable = spec_bpna_rubber
+		remove_variable = spec_bpa_silk
+		remove_variable = spec_bpna_silk
+		remove_variable = spec_bpa_small_arms
+		remove_variable = spec_bpna_small_arms
+		remove_variable = spec_bpa_steamers
+		remove_variable = spec_bpna_steamers
+		remove_variable = spec_bpa_steel
+		remove_variable = spec_bpna_steel
+		remove_variable = spec_bpa_sugar
+		remove_variable = spec_bpna_sugar
+		remove_variable = spec_bpa_sulfur
+		remove_variable = spec_bpna_sulfur
+		remove_variable = spec_bpa_tanks
+		remove_variable = spec_bpna_tanks
+		remove_variable = spec_bpa_tea
+		remove_variable = spec_bpna_tea
+		remove_variable = spec_bpa_telephones
+		remove_variable = spec_bpna_telephones
+		remove_variable = spec_bpa_tobacco
+		remove_variable = spec_bpna_tobacco
+		remove_variable = spec_bpa_tools
+		remove_variable = spec_bpna_tools
+		remove_variable = spec_bpa_wine
+		remove_variable = spec_bpna_wine
+		remove_variable = spec_bpa_wood
+		remove_variable = spec_bpna_wood
+		remove_variable = spec_bp_moved
 		every_company = {
 			remove_variable = spec_blue_chip
 			remove_variable = spec_bc_months
@@ -18103,4 +19502,1450 @@ spec_update_companies = {
 			remove_modifier = spec_bc_index
 		}
 	}
+}
+
+# country scope: each good's total, and whether it differs from the one last applied
+spec_bp_values = {
+	set_local_variable = { name = spec_bpv_aeroplanes value = spec_bp_aeroplanes }
+	set_local_variable = { name = spec_bpw_aeroplanes value = spec_bpn_aeroplanes }
+	set_local_variable = { name = spec_bpt_aeroplanes value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_aeroplanes }
+				NOT = { var:spec_bpa_aeroplanes = local_var:spec_bpv_aeroplanes }
+				NOT = { var:spec_bpna_aeroplanes = local_var:spec_bpw_aeroplanes }
+			}
+		}
+		set_local_variable = { name = spec_bpt_aeroplanes value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_ammunition value = spec_bp_ammunition }
+	set_local_variable = { name = spec_bpw_ammunition value = spec_bpn_ammunition }
+	set_local_variable = { name = spec_bpt_ammunition value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_ammunition }
+				NOT = { var:spec_bpa_ammunition = local_var:spec_bpv_ammunition }
+				NOT = { var:spec_bpna_ammunition = local_var:spec_bpw_ammunition }
+			}
+		}
+		set_local_variable = { name = spec_bpt_ammunition value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_artillery value = spec_bp_artillery }
+	set_local_variable = { name = spec_bpw_artillery value = spec_bpn_artillery }
+	set_local_variable = { name = spec_bpt_artillery value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_artillery }
+				NOT = { var:spec_bpa_artillery = local_var:spec_bpv_artillery }
+				NOT = { var:spec_bpna_artillery = local_var:spec_bpw_artillery }
+			}
+		}
+		set_local_variable = { name = spec_bpt_artillery value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_automobiles value = spec_bp_automobiles }
+	set_local_variable = { name = spec_bpw_automobiles value = spec_bpn_automobiles }
+	set_local_variable = { name = spec_bpt_automobiles value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_automobiles }
+				NOT = { var:spec_bpa_automobiles = local_var:spec_bpv_automobiles }
+				NOT = { var:spec_bpna_automobiles = local_var:spec_bpw_automobiles }
+			}
+		}
+		set_local_variable = { name = spec_bpt_automobiles value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_clippers value = spec_bp_clippers }
+	set_local_variable = { name = spec_bpw_clippers value = spec_bpn_clippers }
+	set_local_variable = { name = spec_bpt_clippers value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_clippers }
+				NOT = { var:spec_bpa_clippers = local_var:spec_bpv_clippers }
+				NOT = { var:spec_bpna_clippers = local_var:spec_bpw_clippers }
+			}
+		}
+		set_local_variable = { name = spec_bpt_clippers value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_clothes value = spec_bp_clothes }
+	set_local_variable = { name = spec_bpw_clothes value = spec_bpn_clothes }
+	set_local_variable = { name = spec_bpt_clothes value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_clothes }
+				NOT = { var:spec_bpa_clothes = local_var:spec_bpv_clothes }
+				NOT = { var:spec_bpna_clothes = local_var:spec_bpw_clothes }
+			}
+		}
+		set_local_variable = { name = spec_bpt_clothes value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_coal value = spec_bp_coal }
+	set_local_variable = { name = spec_bpw_coal value = spec_bpn_coal }
+	set_local_variable = { name = spec_bpt_coal value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_coal }
+				NOT = { var:spec_bpa_coal = local_var:spec_bpv_coal }
+				NOT = { var:spec_bpna_coal = local_var:spec_bpw_coal }
+			}
+		}
+		set_local_variable = { name = spec_bpt_coal value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_coffee value = spec_bp_coffee }
+	set_local_variable = { name = spec_bpw_coffee value = spec_bpn_coffee }
+	set_local_variable = { name = spec_bpt_coffee value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_coffee }
+				NOT = { var:spec_bpa_coffee = local_var:spec_bpv_coffee }
+				NOT = { var:spec_bpna_coffee = local_var:spec_bpw_coffee }
+			}
+		}
+		set_local_variable = { name = spec_bpt_coffee value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_copper value = spec_bp_copper }
+	set_local_variable = { name = spec_bpw_copper value = spec_bpn_copper }
+	set_local_variable = { name = spec_bpt_copper value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_copper }
+				NOT = { var:spec_bpa_copper = local_var:spec_bpv_copper }
+				NOT = { var:spec_bpna_copper = local_var:spec_bpw_copper }
+			}
+		}
+		set_local_variable = { name = spec_bpt_copper value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_dye value = spec_bp_dye }
+	set_local_variable = { name = spec_bpw_dye value = spec_bpn_dye }
+	set_local_variable = { name = spec_bpt_dye value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_dye }
+				NOT = { var:spec_bpa_dye = local_var:spec_bpv_dye }
+				NOT = { var:spec_bpna_dye = local_var:spec_bpw_dye }
+			}
+		}
+		set_local_variable = { name = spec_bpt_dye value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_electricity value = spec_bp_electricity }
+	set_local_variable = { name = spec_bpw_electricity value = spec_bpn_electricity }
+	set_local_variable = { name = spec_bpt_electricity value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_electricity }
+				NOT = { var:spec_bpa_electricity = local_var:spec_bpv_electricity }
+				NOT = { var:spec_bpna_electricity = local_var:spec_bpw_electricity }
+			}
+		}
+		set_local_variable = { name = spec_bpt_electricity value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_engines value = spec_bp_engines }
+	set_local_variable = { name = spec_bpw_engines value = spec_bpn_engines }
+	set_local_variable = { name = spec_bpt_engines value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_engines }
+				NOT = { var:spec_bpa_engines = local_var:spec_bpv_engines }
+				NOT = { var:spec_bpna_engines = local_var:spec_bpw_engines }
+			}
+		}
+		set_local_variable = { name = spec_bpt_engines value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_explosives value = spec_bp_explosives }
+	set_local_variable = { name = spec_bpw_explosives value = spec_bpn_explosives }
+	set_local_variable = { name = spec_bpt_explosives value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_explosives }
+				NOT = { var:spec_bpa_explosives = local_var:spec_bpv_explosives }
+				NOT = { var:spec_bpna_explosives = local_var:spec_bpw_explosives }
+			}
+		}
+		set_local_variable = { name = spec_bpt_explosives value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_fabric value = spec_bp_fabric }
+	set_local_variable = { name = spec_bpw_fabric value = spec_bpn_fabric }
+	set_local_variable = { name = spec_bpt_fabric value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_fabric }
+				NOT = { var:spec_bpa_fabric = local_var:spec_bpv_fabric }
+				NOT = { var:spec_bpna_fabric = local_var:spec_bpw_fabric }
+			}
+		}
+		set_local_variable = { name = spec_bpt_fabric value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_fertilizer value = spec_bp_fertilizer }
+	set_local_variable = { name = spec_bpw_fertilizer value = spec_bpn_fertilizer }
+	set_local_variable = { name = spec_bpt_fertilizer value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_fertilizer }
+				NOT = { var:spec_bpa_fertilizer = local_var:spec_bpv_fertilizer }
+				NOT = { var:spec_bpna_fertilizer = local_var:spec_bpw_fertilizer }
+			}
+		}
+		set_local_variable = { name = spec_bpt_fertilizer value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_fine_art value = spec_bp_fine_art }
+	set_local_variable = { name = spec_bpw_fine_art value = spec_bpn_fine_art }
+	set_local_variable = { name = spec_bpt_fine_art value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_fine_art }
+				NOT = { var:spec_bpa_fine_art = local_var:spec_bpv_fine_art }
+				NOT = { var:spec_bpna_fine_art = local_var:spec_bpw_fine_art }
+			}
+		}
+		set_local_variable = { name = spec_bpt_fine_art value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_fish value = spec_bp_fish }
+	set_local_variable = { name = spec_bpw_fish value = spec_bpn_fish }
+	set_local_variable = { name = spec_bpt_fish value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_fish }
+				NOT = { var:spec_bpa_fish = local_var:spec_bpv_fish }
+				NOT = { var:spec_bpna_fish = local_var:spec_bpw_fish }
+			}
+		}
+		set_local_variable = { name = spec_bpt_fish value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_furniture value = spec_bp_furniture }
+	set_local_variable = { name = spec_bpw_furniture value = spec_bpn_furniture }
+	set_local_variable = { name = spec_bpt_furniture value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_furniture }
+				NOT = { var:spec_bpa_furniture = local_var:spec_bpv_furniture }
+				NOT = { var:spec_bpna_furniture = local_var:spec_bpw_furniture }
+			}
+		}
+		set_local_variable = { name = spec_bpt_furniture value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_glass value = spec_bp_glass }
+	set_local_variable = { name = spec_bpw_glass value = spec_bpn_glass }
+	set_local_variable = { name = spec_bpt_glass value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_glass }
+				NOT = { var:spec_bpa_glass = local_var:spec_bpv_glass }
+				NOT = { var:spec_bpna_glass = local_var:spec_bpw_glass }
+			}
+		}
+		set_local_variable = { name = spec_bpt_glass value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_grain value = spec_bp_grain }
+	set_local_variable = { name = spec_bpw_grain value = spec_bpn_grain }
+	set_local_variable = { name = spec_bpt_grain value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_grain }
+				NOT = { var:spec_bpa_grain = local_var:spec_bpv_grain }
+				NOT = { var:spec_bpna_grain = local_var:spec_bpw_grain }
+			}
+		}
+		set_local_variable = { name = spec_bpt_grain value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_groceries value = spec_bp_groceries }
+	set_local_variable = { name = spec_bpw_groceries value = spec_bpn_groceries }
+	set_local_variable = { name = spec_bpt_groceries value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_groceries }
+				NOT = { var:spec_bpa_groceries = local_var:spec_bpv_groceries }
+				NOT = { var:spec_bpna_groceries = local_var:spec_bpw_groceries }
+			}
+		}
+		set_local_variable = { name = spec_bpt_groceries value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_hardwood value = spec_bp_hardwood }
+	set_local_variable = { name = spec_bpw_hardwood value = spec_bpn_hardwood }
+	set_local_variable = { name = spec_bpt_hardwood value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_hardwood }
+				NOT = { var:spec_bpa_hardwood = local_var:spec_bpv_hardwood }
+				NOT = { var:spec_bpna_hardwood = local_var:spec_bpw_hardwood }
+			}
+		}
+		set_local_variable = { name = spec_bpt_hardwood value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_iron value = spec_bp_iron }
+	set_local_variable = { name = spec_bpw_iron value = spec_bpn_iron }
+	set_local_variable = { name = spec_bpt_iron value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_iron }
+				NOT = { var:spec_bpa_iron = local_var:spec_bpv_iron }
+				NOT = { var:spec_bpna_iron = local_var:spec_bpw_iron }
+			}
+		}
+		set_local_variable = { name = spec_bpt_iron value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_lead value = spec_bp_lead }
+	set_local_variable = { name = spec_bpw_lead value = spec_bpn_lead }
+	set_local_variable = { name = spec_bpt_lead value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_lead }
+				NOT = { var:spec_bpa_lead = local_var:spec_bpv_lead }
+				NOT = { var:spec_bpna_lead = local_var:spec_bpw_lead }
+			}
+		}
+		set_local_variable = { name = spec_bpt_lead value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_liquor value = spec_bp_liquor }
+	set_local_variable = { name = spec_bpw_liquor value = spec_bpn_liquor }
+	set_local_variable = { name = spec_bpt_liquor value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_liquor }
+				NOT = { var:spec_bpa_liquor = local_var:spec_bpv_liquor }
+				NOT = { var:spec_bpna_liquor = local_var:spec_bpw_liquor }
+			}
+		}
+		set_local_variable = { name = spec_bpt_liquor value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_luxury_clothes value = spec_bp_luxury_clothes }
+	set_local_variable = { name = spec_bpw_luxury_clothes value = spec_bpn_luxury_clothes }
+	set_local_variable = { name = spec_bpt_luxury_clothes value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_luxury_clothes }
+				NOT = { var:spec_bpa_luxury_clothes = local_var:spec_bpv_luxury_clothes }
+				NOT = { var:spec_bpna_luxury_clothes = local_var:spec_bpw_luxury_clothes }
+			}
+		}
+		set_local_variable = { name = spec_bpt_luxury_clothes value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_luxury_furniture value = spec_bp_luxury_furniture }
+	set_local_variable = { name = spec_bpw_luxury_furniture value = spec_bpn_luxury_furniture }
+	set_local_variable = { name = spec_bpt_luxury_furniture value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_luxury_furniture }
+				NOT = { var:spec_bpa_luxury_furniture = local_var:spec_bpv_luxury_furniture }
+				NOT = { var:spec_bpna_luxury_furniture = local_var:spec_bpw_luxury_furniture }
+			}
+		}
+		set_local_variable = { name = spec_bpt_luxury_furniture value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_meat value = spec_bp_meat }
+	set_local_variable = { name = spec_bpw_meat value = spec_bpn_meat }
+	set_local_variable = { name = spec_bpt_meat value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_meat }
+				NOT = { var:spec_bpa_meat = local_var:spec_bpv_meat }
+				NOT = { var:spec_bpna_meat = local_var:spec_bpw_meat }
+			}
+		}
+		set_local_variable = { name = spec_bpt_meat value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_merchant_marine value = spec_bp_merchant_marine }
+	set_local_variable = { name = spec_bpw_merchant_marine value = spec_bpn_merchant_marine }
+	set_local_variable = { name = spec_bpt_merchant_marine value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_merchant_marine }
+				NOT = { var:spec_bpa_merchant_marine = local_var:spec_bpv_merchant_marine }
+				NOT = { var:spec_bpna_merchant_marine = local_var:spec_bpw_merchant_marine }
+			}
+		}
+		set_local_variable = { name = spec_bpt_merchant_marine value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_oil value = spec_bp_oil }
+	set_local_variable = { name = spec_bpw_oil value = spec_bpn_oil }
+	set_local_variable = { name = spec_bpt_oil value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_oil }
+				NOT = { var:spec_bpa_oil = local_var:spec_bpv_oil }
+				NOT = { var:spec_bpna_oil = local_var:spec_bpw_oil }
+			}
+		}
+		set_local_variable = { name = spec_bpt_oil value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_opium value = spec_bp_opium }
+	set_local_variable = { name = spec_bpw_opium value = spec_bpn_opium }
+	set_local_variable = { name = spec_bpt_opium value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_opium }
+				NOT = { var:spec_bpa_opium = local_var:spec_bpv_opium }
+				NOT = { var:spec_bpna_opium = local_var:spec_bpw_opium }
+			}
+		}
+		set_local_variable = { name = spec_bpt_opium value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_paper value = spec_bp_paper }
+	set_local_variable = { name = spec_bpw_paper value = spec_bpn_paper }
+	set_local_variable = { name = spec_bpt_paper value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_paper }
+				NOT = { var:spec_bpa_paper = local_var:spec_bpv_paper }
+				NOT = { var:spec_bpna_paper = local_var:spec_bpw_paper }
+			}
+		}
+		set_local_variable = { name = spec_bpt_paper value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_porcelain value = spec_bp_porcelain }
+	set_local_variable = { name = spec_bpw_porcelain value = spec_bpn_porcelain }
+	set_local_variable = { name = spec_bpt_porcelain value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_porcelain }
+				NOT = { var:spec_bpa_porcelain = local_var:spec_bpv_porcelain }
+				NOT = { var:spec_bpna_porcelain = local_var:spec_bpw_porcelain }
+			}
+		}
+		set_local_variable = { name = spec_bpt_porcelain value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_radios value = spec_bp_radios }
+	set_local_variable = { name = spec_bpw_radios value = spec_bpn_radios }
+	set_local_variable = { name = spec_bpt_radios value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_radios }
+				NOT = { var:spec_bpa_radios = local_var:spec_bpv_radios }
+				NOT = { var:spec_bpna_radios = local_var:spec_bpw_radios }
+			}
+		}
+		set_local_variable = { name = spec_bpt_radios value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_rubber value = spec_bp_rubber }
+	set_local_variable = { name = spec_bpw_rubber value = spec_bpn_rubber }
+	set_local_variable = { name = spec_bpt_rubber value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_rubber }
+				NOT = { var:spec_bpa_rubber = local_var:spec_bpv_rubber }
+				NOT = { var:spec_bpna_rubber = local_var:spec_bpw_rubber }
+			}
+		}
+		set_local_variable = { name = spec_bpt_rubber value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_silk value = spec_bp_silk }
+	set_local_variable = { name = spec_bpw_silk value = spec_bpn_silk }
+	set_local_variable = { name = spec_bpt_silk value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_silk }
+				NOT = { var:spec_bpa_silk = local_var:spec_bpv_silk }
+				NOT = { var:spec_bpna_silk = local_var:spec_bpw_silk }
+			}
+		}
+		set_local_variable = { name = spec_bpt_silk value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_small_arms value = spec_bp_small_arms }
+	set_local_variable = { name = spec_bpw_small_arms value = spec_bpn_small_arms }
+	set_local_variable = { name = spec_bpt_small_arms value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_small_arms }
+				NOT = { var:spec_bpa_small_arms = local_var:spec_bpv_small_arms }
+				NOT = { var:spec_bpna_small_arms = local_var:spec_bpw_small_arms }
+			}
+		}
+		set_local_variable = { name = spec_bpt_small_arms value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_steamers value = spec_bp_steamers }
+	set_local_variable = { name = spec_bpw_steamers value = spec_bpn_steamers }
+	set_local_variable = { name = spec_bpt_steamers value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_steamers }
+				NOT = { var:spec_bpa_steamers = local_var:spec_bpv_steamers }
+				NOT = { var:spec_bpna_steamers = local_var:spec_bpw_steamers }
+			}
+		}
+		set_local_variable = { name = spec_bpt_steamers value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_steel value = spec_bp_steel }
+	set_local_variable = { name = spec_bpw_steel value = spec_bpn_steel }
+	set_local_variable = { name = spec_bpt_steel value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_steel }
+				NOT = { var:spec_bpa_steel = local_var:spec_bpv_steel }
+				NOT = { var:spec_bpna_steel = local_var:spec_bpw_steel }
+			}
+		}
+		set_local_variable = { name = spec_bpt_steel value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_sugar value = spec_bp_sugar }
+	set_local_variable = { name = spec_bpw_sugar value = spec_bpn_sugar }
+	set_local_variable = { name = spec_bpt_sugar value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_sugar }
+				NOT = { var:spec_bpa_sugar = local_var:spec_bpv_sugar }
+				NOT = { var:spec_bpna_sugar = local_var:spec_bpw_sugar }
+			}
+		}
+		set_local_variable = { name = spec_bpt_sugar value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_sulfur value = spec_bp_sulfur }
+	set_local_variable = { name = spec_bpw_sulfur value = spec_bpn_sulfur }
+	set_local_variable = { name = spec_bpt_sulfur value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_sulfur }
+				NOT = { var:spec_bpa_sulfur = local_var:spec_bpv_sulfur }
+				NOT = { var:spec_bpna_sulfur = local_var:spec_bpw_sulfur }
+			}
+		}
+		set_local_variable = { name = spec_bpt_sulfur value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_tanks value = spec_bp_tanks }
+	set_local_variable = { name = spec_bpw_tanks value = spec_bpn_tanks }
+	set_local_variable = { name = spec_bpt_tanks value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_tanks }
+				NOT = { var:spec_bpa_tanks = local_var:spec_bpv_tanks }
+				NOT = { var:spec_bpna_tanks = local_var:spec_bpw_tanks }
+			}
+		}
+		set_local_variable = { name = spec_bpt_tanks value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_tea value = spec_bp_tea }
+	set_local_variable = { name = spec_bpw_tea value = spec_bpn_tea }
+	set_local_variable = { name = spec_bpt_tea value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_tea }
+				NOT = { var:spec_bpa_tea = local_var:spec_bpv_tea }
+				NOT = { var:spec_bpna_tea = local_var:spec_bpw_tea }
+			}
+		}
+		set_local_variable = { name = spec_bpt_tea value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_telephones value = spec_bp_telephones }
+	set_local_variable = { name = spec_bpw_telephones value = spec_bpn_telephones }
+	set_local_variable = { name = spec_bpt_telephones value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_telephones }
+				NOT = { var:spec_bpa_telephones = local_var:spec_bpv_telephones }
+				NOT = { var:spec_bpna_telephones = local_var:spec_bpw_telephones }
+			}
+		}
+		set_local_variable = { name = spec_bpt_telephones value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_tobacco value = spec_bp_tobacco }
+	set_local_variable = { name = spec_bpw_tobacco value = spec_bpn_tobacco }
+	set_local_variable = { name = spec_bpt_tobacco value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_tobacco }
+				NOT = { var:spec_bpa_tobacco = local_var:spec_bpv_tobacco }
+				NOT = { var:spec_bpna_tobacco = local_var:spec_bpw_tobacco }
+			}
+		}
+		set_local_variable = { name = spec_bpt_tobacco value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_tools value = spec_bp_tools }
+	set_local_variable = { name = spec_bpw_tools value = spec_bpn_tools }
+	set_local_variable = { name = spec_bpt_tools value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_tools }
+				NOT = { var:spec_bpa_tools = local_var:spec_bpv_tools }
+				NOT = { var:spec_bpna_tools = local_var:spec_bpw_tools }
+			}
+		}
+		set_local_variable = { name = spec_bpt_tools value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_wine value = spec_bp_wine }
+	set_local_variable = { name = spec_bpw_wine value = spec_bpn_wine }
+	set_local_variable = { name = spec_bpt_wine value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_wine }
+				NOT = { var:spec_bpa_wine = local_var:spec_bpv_wine }
+				NOT = { var:spec_bpna_wine = local_var:spec_bpw_wine }
+			}
+		}
+		set_local_variable = { name = spec_bpt_wine value = 1 }
+	}
+	set_local_variable = { name = spec_bpv_wood value = spec_bp_wood }
+	set_local_variable = { name = spec_bpw_wood value = spec_bpn_wood }
+	set_local_variable = { name = spec_bpt_wood value = 0 }
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = spec_bpa_wood }
+				NOT = { var:spec_bpa_wood = local_var:spec_bpv_wood }
+				NOT = { var:spec_bpna_wood = local_var:spec_bpw_wood }
+			}
+		}
+		set_local_variable = { name = spec_bpt_wood value = 1 }
+	}
+}
+
+# the totals as applied
+spec_bp_record = {
+	set_variable = { name = spec_bpa_aeroplanes value = local_var:spec_bpv_aeroplanes }
+	set_variable = { name = spec_bpna_aeroplanes value = local_var:spec_bpw_aeroplanes }
+	set_variable = { name = spec_bpa_ammunition value = local_var:spec_bpv_ammunition }
+	set_variable = { name = spec_bpna_ammunition value = local_var:spec_bpw_ammunition }
+	set_variable = { name = spec_bpa_artillery value = local_var:spec_bpv_artillery }
+	set_variable = { name = spec_bpna_artillery value = local_var:spec_bpw_artillery }
+	set_variable = { name = spec_bpa_automobiles value = local_var:spec_bpv_automobiles }
+	set_variable = { name = spec_bpna_automobiles value = local_var:spec_bpw_automobiles }
+	set_variable = { name = spec_bpa_clippers value = local_var:spec_bpv_clippers }
+	set_variable = { name = spec_bpna_clippers value = local_var:spec_bpw_clippers }
+	set_variable = { name = spec_bpa_clothes value = local_var:spec_bpv_clothes }
+	set_variable = { name = spec_bpna_clothes value = local_var:spec_bpw_clothes }
+	set_variable = { name = spec_bpa_coal value = local_var:spec_bpv_coal }
+	set_variable = { name = spec_bpna_coal value = local_var:spec_bpw_coal }
+	set_variable = { name = spec_bpa_coffee value = local_var:spec_bpv_coffee }
+	set_variable = { name = spec_bpna_coffee value = local_var:spec_bpw_coffee }
+	set_variable = { name = spec_bpa_copper value = local_var:spec_bpv_copper }
+	set_variable = { name = spec_bpna_copper value = local_var:spec_bpw_copper }
+	set_variable = { name = spec_bpa_dye value = local_var:spec_bpv_dye }
+	set_variable = { name = spec_bpna_dye value = local_var:spec_bpw_dye }
+	set_variable = { name = spec_bpa_electricity value = local_var:spec_bpv_electricity }
+	set_variable = { name = spec_bpna_electricity value = local_var:spec_bpw_electricity }
+	set_variable = { name = spec_bpa_engines value = local_var:spec_bpv_engines }
+	set_variable = { name = spec_bpna_engines value = local_var:spec_bpw_engines }
+	set_variable = { name = spec_bpa_explosives value = local_var:spec_bpv_explosives }
+	set_variable = { name = spec_bpna_explosives value = local_var:spec_bpw_explosives }
+	set_variable = { name = spec_bpa_fabric value = local_var:spec_bpv_fabric }
+	set_variable = { name = spec_bpna_fabric value = local_var:spec_bpw_fabric }
+	set_variable = { name = spec_bpa_fertilizer value = local_var:spec_bpv_fertilizer }
+	set_variable = { name = spec_bpna_fertilizer value = local_var:spec_bpw_fertilizer }
+	set_variable = { name = spec_bpa_fine_art value = local_var:spec_bpv_fine_art }
+	set_variable = { name = spec_bpna_fine_art value = local_var:spec_bpw_fine_art }
+	set_variable = { name = spec_bpa_fish value = local_var:spec_bpv_fish }
+	set_variable = { name = spec_bpna_fish value = local_var:spec_bpw_fish }
+	set_variable = { name = spec_bpa_furniture value = local_var:spec_bpv_furniture }
+	set_variable = { name = spec_bpna_furniture value = local_var:spec_bpw_furniture }
+	set_variable = { name = spec_bpa_glass value = local_var:spec_bpv_glass }
+	set_variable = { name = spec_bpna_glass value = local_var:spec_bpw_glass }
+	set_variable = { name = spec_bpa_grain value = local_var:spec_bpv_grain }
+	set_variable = { name = spec_bpna_grain value = local_var:spec_bpw_grain }
+	set_variable = { name = spec_bpa_groceries value = local_var:spec_bpv_groceries }
+	set_variable = { name = spec_bpna_groceries value = local_var:spec_bpw_groceries }
+	set_variable = { name = spec_bpa_hardwood value = local_var:spec_bpv_hardwood }
+	set_variable = { name = spec_bpna_hardwood value = local_var:spec_bpw_hardwood }
+	set_variable = { name = spec_bpa_iron value = local_var:spec_bpv_iron }
+	set_variable = { name = spec_bpna_iron value = local_var:spec_bpw_iron }
+	set_variable = { name = spec_bpa_lead value = local_var:spec_bpv_lead }
+	set_variable = { name = spec_bpna_lead value = local_var:spec_bpw_lead }
+	set_variable = { name = spec_bpa_liquor value = local_var:spec_bpv_liquor }
+	set_variable = { name = spec_bpna_liquor value = local_var:spec_bpw_liquor }
+	set_variable = { name = spec_bpa_luxury_clothes value = local_var:spec_bpv_luxury_clothes }
+	set_variable = { name = spec_bpna_luxury_clothes value = local_var:spec_bpw_luxury_clothes }
+	set_variable = { name = spec_bpa_luxury_furniture value = local_var:spec_bpv_luxury_furniture }
+	set_variable = { name = spec_bpna_luxury_furniture value = local_var:spec_bpw_luxury_furniture }
+	set_variable = { name = spec_bpa_meat value = local_var:spec_bpv_meat }
+	set_variable = { name = spec_bpna_meat value = local_var:spec_bpw_meat }
+	set_variable = { name = spec_bpa_merchant_marine value = local_var:spec_bpv_merchant_marine }
+	set_variable = { name = spec_bpna_merchant_marine value = local_var:spec_bpw_merchant_marine }
+	set_variable = { name = spec_bpa_oil value = local_var:spec_bpv_oil }
+	set_variable = { name = spec_bpna_oil value = local_var:spec_bpw_oil }
+	set_variable = { name = spec_bpa_opium value = local_var:spec_bpv_opium }
+	set_variable = { name = spec_bpna_opium value = local_var:spec_bpw_opium }
+	set_variable = { name = spec_bpa_paper value = local_var:spec_bpv_paper }
+	set_variable = { name = spec_bpna_paper value = local_var:spec_bpw_paper }
+	set_variable = { name = spec_bpa_porcelain value = local_var:spec_bpv_porcelain }
+	set_variable = { name = spec_bpna_porcelain value = local_var:spec_bpw_porcelain }
+	set_variable = { name = spec_bpa_radios value = local_var:spec_bpv_radios }
+	set_variable = { name = spec_bpna_radios value = local_var:spec_bpw_radios }
+	set_variable = { name = spec_bpa_rubber value = local_var:spec_bpv_rubber }
+	set_variable = { name = spec_bpna_rubber value = local_var:spec_bpw_rubber }
+	set_variable = { name = spec_bpa_silk value = local_var:spec_bpv_silk }
+	set_variable = { name = spec_bpna_silk value = local_var:spec_bpw_silk }
+	set_variable = { name = spec_bpa_small_arms value = local_var:spec_bpv_small_arms }
+	set_variable = { name = spec_bpna_small_arms value = local_var:spec_bpw_small_arms }
+	set_variable = { name = spec_bpa_steamers value = local_var:spec_bpv_steamers }
+	set_variable = { name = spec_bpna_steamers value = local_var:spec_bpw_steamers }
+	set_variable = { name = spec_bpa_steel value = local_var:spec_bpv_steel }
+	set_variable = { name = spec_bpna_steel value = local_var:spec_bpw_steel }
+	set_variable = { name = spec_bpa_sugar value = local_var:spec_bpv_sugar }
+	set_variable = { name = spec_bpna_sugar value = local_var:spec_bpw_sugar }
+	set_variable = { name = spec_bpa_sulfur value = local_var:spec_bpv_sulfur }
+	set_variable = { name = spec_bpna_sulfur value = local_var:spec_bpw_sulfur }
+	set_variable = { name = spec_bpa_tanks value = local_var:spec_bpv_tanks }
+	set_variable = { name = spec_bpna_tanks value = local_var:spec_bpw_tanks }
+	set_variable = { name = spec_bpa_tea value = local_var:spec_bpv_tea }
+	set_variable = { name = spec_bpna_tea value = local_var:spec_bpw_tea }
+	set_variable = { name = spec_bpa_telephones value = local_var:spec_bpv_telephones }
+	set_variable = { name = spec_bpna_telephones value = local_var:spec_bpw_telephones }
+	set_variable = { name = spec_bpa_tobacco value = local_var:spec_bpv_tobacco }
+	set_variable = { name = spec_bpna_tobacco value = local_var:spec_bpw_tobacco }
+	set_variable = { name = spec_bpa_tools value = local_var:spec_bpv_tools }
+	set_variable = { name = spec_bpna_tools value = local_var:spec_bpw_tools }
+	set_variable = { name = spec_bpa_wine value = local_var:spec_bpv_wine }
+	set_variable = { name = spec_bpna_wine value = local_var:spec_bpw_wine }
+	set_variable = { name = spec_bpa_wood value = local_var:spec_bpv_wood }
+	set_variable = { name = spec_bpna_wood value = local_var:spec_bpw_wood }
+}
+
+# the goods whose total changed: their building types in each state (one building per type and state)
+spec_bp_direct = {
+	if = {
+		limit = { OR = { local_var:spec_bpt_small_arms = 1 } }
+		every_scope_state = {
+			b:building_arms_industry ?= {
+				if = {
+					limit = { local_var:spec_bpt_small_arms = 1 }
+					if = { limit = { has_modifier = spec_bp_up_small_arms } remove_modifier = spec_bp_up_small_arms }
+					if = { limit = { has_modifier = spec_bp_down_small_arms } remove_modifier = spec_bp_down_small_arms }
+					if = { limit = { local_var:spec_bpv_small_arms > 0 } add_modifier = { name = spec_bp_up_small_arms multiplier = local_var:spec_bpv_small_arms } }
+					else_if = { limit = { local_var:spec_bpv_small_arms < 0 } add_modifier = { name = spec_bp_down_small_arms multiplier = { value = local_var:spec_bpv_small_arms multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_fine_art = 1 } }
+		every_scope_state = {
+			b:building_art_academy ?= {
+				if = {
+					limit = { local_var:spec_bpt_fine_art = 1 }
+					if = { limit = { has_modifier = spec_bp_up_fine_art } remove_modifier = spec_bp_up_fine_art }
+					if = { limit = { has_modifier = spec_bp_down_fine_art } remove_modifier = spec_bp_down_fine_art }
+					if = { limit = { local_var:spec_bpv_fine_art > 0 } add_modifier = { name = spec_bp_up_fine_art multiplier = local_var:spec_bpv_fine_art } }
+					else_if = { limit = { local_var:spec_bpv_fine_art < 0 } add_modifier = { name = spec_bp_down_fine_art multiplier = { value = local_var:spec_bpv_fine_art multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_artillery = 1 } }
+		every_scope_state = {
+			b:building_artillery_foundry ?= {
+				if = {
+					limit = { local_var:spec_bpt_artillery = 1 }
+					if = { limit = { has_modifier = spec_bp_up_artillery } remove_modifier = spec_bp_up_artillery }
+					if = { limit = { has_modifier = spec_bp_down_artillery } remove_modifier = spec_bp_down_artillery }
+					if = { limit = { local_var:spec_bpv_artillery > 0 } add_modifier = { name = spec_bp_up_artillery multiplier = local_var:spec_bpv_artillery } }
+					else_if = { limit = { local_var:spec_bpv_artillery < 0 } add_modifier = { name = spec_bp_down_artillery multiplier = { value = local_var:spec_bpv_artillery multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_automobiles = 1 local_var:spec_bpt_aeroplanes = 1 local_var:spec_bpt_tanks = 1 } }
+		every_scope_state = {
+			b:building_automotive_industry ?= {
+				if = {
+					limit = { local_var:spec_bpt_automobiles = 1 }
+					if = { limit = { has_modifier = spec_bp_up_automobiles } remove_modifier = spec_bp_up_automobiles }
+					if = { limit = { has_modifier = spec_bp_down_automobiles } remove_modifier = spec_bp_down_automobiles }
+					if = { limit = { local_var:spec_bpv_automobiles > 0 } add_modifier = { name = spec_bp_up_automobiles multiplier = local_var:spec_bpv_automobiles } }
+					else_if = { limit = { local_var:spec_bpv_automobiles < 0 } add_modifier = { name = spec_bp_down_automobiles multiplier = { value = local_var:spec_bpv_automobiles multiply = -1 } } }
+				}
+				if = {
+					limit = { local_var:spec_bpt_aeroplanes = 1 }
+					if = { limit = { has_modifier = spec_bp_up_aeroplanes } remove_modifier = spec_bp_up_aeroplanes }
+					if = { limit = { has_modifier = spec_bp_down_aeroplanes } remove_modifier = spec_bp_down_aeroplanes }
+					if = { limit = { local_var:spec_bpv_aeroplanes > 0 } add_modifier = { name = spec_bp_up_aeroplanes multiplier = local_var:spec_bpv_aeroplanes } }
+					else_if = { limit = { local_var:spec_bpv_aeroplanes < 0 } add_modifier = { name = spec_bp_down_aeroplanes multiplier = { value = local_var:spec_bpv_aeroplanes multiply = -1 } } }
+				}
+				if = {
+					limit = { local_var:spec_bpt_tanks = 1 }
+					if = { limit = { has_modifier = spec_bp_up_tanks } remove_modifier = spec_bp_up_tanks }
+					if = { limit = { has_modifier = spec_bp_down_tanks } remove_modifier = spec_bp_down_tanks }
+					if = { limit = { local_var:spec_bpv_tanks > 0 } add_modifier = { name = spec_bp_up_tanks multiplier = local_var:spec_bpv_tanks } }
+					else_if = { limit = { local_var:spec_bpv_tanks < 0 } add_modifier = { name = spec_bp_down_tanks multiplier = { value = local_var:spec_bpv_tanks multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_fertilizer = 1 } }
+		every_scope_state = {
+			b:building_chemical_plant ?= {
+				if = {
+					limit = { local_var:spec_bpt_fertilizer = 1 }
+					if = { limit = { has_modifier = spec_bp_up_fertilizer } remove_modifier = spec_bp_up_fertilizer }
+					if = { limit = { has_modifier = spec_bp_down_fertilizer } remove_modifier = spec_bp_down_fertilizer }
+					if = { limit = { local_var:spec_bpv_fertilizer > 0 } add_modifier = { name = spec_bp_up_fertilizer multiplier = local_var:spec_bpv_fertilizer } }
+					else_if = { limit = { local_var:spec_bpv_fertilizer < 0 } add_modifier = { name = spec_bp_down_fertilizer multiplier = { value = local_var:spec_bpv_fertilizer multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_coal = 1 } }
+		every_scope_state = {
+			b:building_coal_mine ?= {
+				if = {
+					limit = { local_var:spec_bpt_coal = 1 }
+					if = { limit = { has_modifier = spec_bp_up_coal } remove_modifier = spec_bp_up_coal }
+					if = { limit = { has_modifier = spec_bp_down_coal } remove_modifier = spec_bp_down_coal }
+					if = { limit = { local_var:spec_bpv_coal > 0 } add_modifier = { name = spec_bp_up_coal multiplier = local_var:spec_bpv_coal } }
+					else_if = { limit = { local_var:spec_bpv_coal < 0 } add_modifier = { name = spec_bp_down_coal multiplier = { value = local_var:spec_bpv_coal multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_coffee = 1 } }
+		every_scope_state = {
+			b:building_coffee_plantation ?= {
+				if = {
+					limit = { local_var:spec_bpt_coffee = 1 }
+					if = { limit = { has_modifier = spec_bp_up_coffee } remove_modifier = spec_bp_up_coffee }
+					if = { limit = { has_modifier = spec_bp_down_coffee } remove_modifier = spec_bp_down_coffee }
+					if = { limit = { local_var:spec_bpv_coffee > 0 } add_modifier = { name = spec_bp_up_coffee multiplier = local_var:spec_bpv_coffee } }
+					else_if = { limit = { local_var:spec_bpv_coffee < 0 } add_modifier = { name = spec_bp_down_coffee multiplier = { value = local_var:spec_bpv_coffee multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_copper = 1 } }
+		every_scope_state = {
+			b:building_copper_mine ?= {
+				if = {
+					limit = { local_var:spec_bpt_copper = 1 }
+					if = { limit = { has_modifier = spec_bp_up_copper } remove_modifier = spec_bp_up_copper }
+					if = { limit = { has_modifier = spec_bp_down_copper } remove_modifier = spec_bp_down_copper }
+					if = { limit = { local_var:spec_bpv_copper > 0 } add_modifier = { name = spec_bp_up_copper multiplier = local_var:spec_bpv_copper } }
+					else_if = { limit = { local_var:spec_bpv_copper < 0 } add_modifier = { name = spec_bp_down_copper multiplier = { value = local_var:spec_bpv_copper multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_fabric = 1 } }
+		every_scope_state = {
+			b:building_cotton_plantation ?= {
+				if = {
+					limit = { local_var:spec_bpt_fabric = 1 }
+					if = { limit = { has_modifier = spec_bp_up_fabric } remove_modifier = spec_bp_up_fabric }
+					if = { limit = { has_modifier = spec_bp_down_fabric } remove_modifier = spec_bp_down_fabric }
+					if = { limit = { local_var:spec_bpv_fabric > 0 } add_modifier = { name = spec_bp_up_fabric multiplier = local_var:spec_bpv_fabric } }
+					else_if = { limit = { local_var:spec_bpv_fabric < 0 } add_modifier = { name = spec_bp_down_fabric multiplier = { value = local_var:spec_bpv_fabric multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_dye = 1 } }
+		every_scope_state = {
+			b:building_dye_plantation ?= {
+				if = {
+					limit = { local_var:spec_bpt_dye = 1 }
+					if = { limit = { has_modifier = spec_bp_up_dye } remove_modifier = spec_bp_up_dye }
+					if = { limit = { has_modifier = spec_bp_down_dye } remove_modifier = spec_bp_down_dye }
+					if = { limit = { local_var:spec_bpv_dye > 0 } add_modifier = { name = spec_bp_up_dye multiplier = local_var:spec_bpv_dye } }
+					else_if = { limit = { local_var:spec_bpv_dye < 0 } add_modifier = { name = spec_bp_down_dye multiplier = { value = local_var:spec_bpv_dye multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_telephones = 1 local_var:spec_bpt_radios = 1 } }
+		every_scope_state = {
+			b:building_electrics_industry ?= {
+				if = {
+					limit = { local_var:spec_bpt_telephones = 1 }
+					if = { limit = { has_modifier = spec_bp_up_telephones } remove_modifier = spec_bp_up_telephones }
+					if = { limit = { has_modifier = spec_bp_down_telephones } remove_modifier = spec_bp_down_telephones }
+					if = { limit = { local_var:spec_bpv_telephones > 0 } add_modifier = { name = spec_bp_up_telephones multiplier = local_var:spec_bpv_telephones } }
+					else_if = { limit = { local_var:spec_bpv_telephones < 0 } add_modifier = { name = spec_bp_down_telephones multiplier = { value = local_var:spec_bpv_telephones multiply = -1 } } }
+				}
+				if = {
+					limit = { local_var:spec_bpt_radios = 1 }
+					if = { limit = { has_modifier = spec_bp_up_radios } remove_modifier = spec_bp_up_radios }
+					if = { limit = { has_modifier = spec_bp_down_radios } remove_modifier = spec_bp_down_radios }
+					if = { limit = { local_var:spec_bpv_radios > 0 } add_modifier = { name = spec_bp_up_radios multiplier = local_var:spec_bpv_radios } }
+					else_if = { limit = { local_var:spec_bpv_radios < 0 } add_modifier = { name = spec_bp_down_radios multiplier = { value = local_var:spec_bpv_radios multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_explosives = 1 } }
+		every_scope_state = {
+			b:building_explosives_factory ?= {
+				if = {
+					limit = { local_var:spec_bpt_explosives = 1 }
+					if = { limit = { has_modifier = spec_bp_up_explosives } remove_modifier = spec_bp_up_explosives }
+					if = { limit = { has_modifier = spec_bp_down_explosives } remove_modifier = spec_bp_down_explosives }
+					if = { limit = { local_var:spec_bpv_explosives > 0 } add_modifier = { name = spec_bp_up_explosives multiplier = local_var:spec_bpv_explosives } }
+					else_if = { limit = { local_var:spec_bpv_explosives < 0 } add_modifier = { name = spec_bp_down_explosives multiplier = { value = local_var:spec_bpv_explosives multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_fish = 1 } }
+		every_scope_state = {
+			b:building_fishing_wharf ?= {
+				if = {
+					limit = { local_var:spec_bpt_fish = 1 }
+					if = { limit = { has_modifier = spec_bp_up_fish } remove_modifier = spec_bp_up_fish }
+					if = { limit = { has_modifier = spec_bp_down_fish } remove_modifier = spec_bp_down_fish }
+					if = { limit = { local_var:spec_bpv_fish > 0 } add_modifier = { name = spec_bp_up_fish multiplier = local_var:spec_bpv_fish } }
+					else_if = { limit = { local_var:spec_bpv_fish < 0 } add_modifier = { name = spec_bp_down_fish multiplier = { value = local_var:spec_bpv_fish multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_groceries = 1 local_var:spec_bpt_liquor = 1 } }
+		every_scope_state = {
+			b:building_food_industry ?= {
+				if = {
+					limit = { local_var:spec_bpt_groceries = 1 }
+					if = { limit = { has_modifier = spec_bp_up_groceries } remove_modifier = spec_bp_up_groceries }
+					if = { limit = { has_modifier = spec_bp_down_groceries } remove_modifier = spec_bp_down_groceries }
+					if = { limit = { local_var:spec_bpv_groceries > 0 } add_modifier = { name = spec_bp_up_groceries multiplier = local_var:spec_bpv_groceries } }
+					else_if = { limit = { local_var:spec_bpv_groceries < 0 } add_modifier = { name = spec_bp_down_groceries multiplier = { value = local_var:spec_bpv_groceries multiply = -1 } } }
+				}
+				if = {
+					limit = { local_var:spec_bpt_liquor = 1 }
+					if = { limit = { has_modifier = spec_bp_up_liquor } remove_modifier = spec_bp_up_liquor }
+					if = { limit = { has_modifier = spec_bp_down_liquor } remove_modifier = spec_bp_down_liquor }
+					if = { limit = { local_var:spec_bpv_liquor > 0 } add_modifier = { name = spec_bp_up_liquor multiplier = local_var:spec_bpv_liquor } }
+					else_if = { limit = { local_var:spec_bpv_liquor < 0 } add_modifier = { name = spec_bp_down_liquor multiplier = { value = local_var:spec_bpv_liquor multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_furniture = 1 local_var:spec_bpt_luxury_furniture = 1 } }
+		every_scope_state = {
+			b:building_furniture_manufactory ?= {
+				if = {
+					limit = { local_var:spec_bpt_furniture = 1 }
+					if = { limit = { has_modifier = spec_bp_up_furniture } remove_modifier = spec_bp_up_furniture }
+					if = { limit = { has_modifier = spec_bp_down_furniture } remove_modifier = spec_bp_down_furniture }
+					if = { limit = { local_var:spec_bpv_furniture > 0 } add_modifier = { name = spec_bp_up_furniture multiplier = local_var:spec_bpv_furniture } }
+					else_if = { limit = { local_var:spec_bpv_furniture < 0 } add_modifier = { name = spec_bp_down_furniture multiplier = { value = local_var:spec_bpv_furniture multiply = -1 } } }
+				}
+				if = {
+					limit = { local_var:spec_bpt_luxury_furniture = 1 }
+					if = { limit = { has_modifier = spec_bp_up_luxury_furniture } remove_modifier = spec_bp_up_luxury_furniture }
+					if = { limit = { has_modifier = spec_bp_down_luxury_furniture } remove_modifier = spec_bp_down_luxury_furniture }
+					if = { limit = { local_var:spec_bpv_luxury_furniture > 0 } add_modifier = { name = spec_bp_up_luxury_furniture multiplier = local_var:spec_bpv_luxury_furniture } }
+					else_if = { limit = { local_var:spec_bpv_luxury_furniture < 0 } add_modifier = { name = spec_bp_down_luxury_furniture multiplier = { value = local_var:spec_bpv_luxury_furniture multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_glass = 1 local_var:spec_bpt_porcelain = 1 } }
+		every_scope_state = {
+			b:building_glassworks ?= {
+				if = {
+					limit = { local_var:spec_bpt_glass = 1 }
+					if = { limit = { has_modifier = spec_bp_up_glass } remove_modifier = spec_bp_up_glass }
+					if = { limit = { has_modifier = spec_bp_down_glass } remove_modifier = spec_bp_down_glass }
+					if = { limit = { local_var:spec_bpv_glass > 0 } add_modifier = { name = spec_bp_up_glass multiplier = local_var:spec_bpv_glass } }
+					else_if = { limit = { local_var:spec_bpv_glass < 0 } add_modifier = { name = spec_bp_down_glass multiplier = { value = local_var:spec_bpv_glass multiply = -1 } } }
+				}
+				if = {
+					limit = { local_var:spec_bpt_porcelain = 1 }
+					if = { limit = { has_modifier = spec_bp_up_porcelain } remove_modifier = spec_bp_up_porcelain }
+					if = { limit = { has_modifier = spec_bp_down_porcelain } remove_modifier = spec_bp_down_porcelain }
+					if = { limit = { local_var:spec_bpv_porcelain > 0 } add_modifier = { name = spec_bp_up_porcelain multiplier = local_var:spec_bpv_porcelain } }
+					else_if = { limit = { local_var:spec_bpv_porcelain < 0 } add_modifier = { name = spec_bp_down_porcelain multiplier = { value = local_var:spec_bpv_porcelain multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_iron = 1 } }
+		every_scope_state = {
+			b:building_iron_mine ?= {
+				if = {
+					limit = { local_var:spec_bpt_iron = 1 }
+					if = { limit = { has_modifier = spec_bp_up_iron } remove_modifier = spec_bp_up_iron }
+					if = { limit = { has_modifier = spec_bp_down_iron } remove_modifier = spec_bp_down_iron }
+					if = { limit = { local_var:spec_bpv_iron > 0 } add_modifier = { name = spec_bp_up_iron multiplier = local_var:spec_bpv_iron } }
+					else_if = { limit = { local_var:spec_bpv_iron < 0 } add_modifier = { name = spec_bp_down_iron multiplier = { value = local_var:spec_bpv_iron multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_lead = 1 } }
+		every_scope_state = {
+			b:building_lead_mine ?= {
+				if = {
+					limit = { local_var:spec_bpt_lead = 1 }
+					if = { limit = { has_modifier = spec_bp_up_lead } remove_modifier = spec_bp_up_lead }
+					if = { limit = { has_modifier = spec_bp_down_lead } remove_modifier = spec_bp_down_lead }
+					if = { limit = { local_var:spec_bpv_lead > 0 } add_modifier = { name = spec_bp_up_lead multiplier = local_var:spec_bpv_lead } }
+					else_if = { limit = { local_var:spec_bpv_lead < 0 } add_modifier = { name = spec_bp_down_lead multiplier = { value = local_var:spec_bpv_lead multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_meat = 1 } }
+		every_scope_state = {
+			b:building_livestock_ranch ?= {
+				if = {
+					limit = { local_var:spec_bpt_meat = 1 }
+					if = { limit = { has_modifier = spec_bp_up_meat } remove_modifier = spec_bp_up_meat }
+					if = { limit = { has_modifier = spec_bp_down_meat } remove_modifier = spec_bp_down_meat }
+					if = { limit = { local_var:spec_bpv_meat > 0 } add_modifier = { name = spec_bp_up_meat multiplier = local_var:spec_bpv_meat } }
+					else_if = { limit = { local_var:spec_bpv_meat < 0 } add_modifier = { name = spec_bp_down_meat multiplier = { value = local_var:spec_bpv_meat multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_wood = 1 local_var:spec_bpt_hardwood = 1 } }
+		every_scope_state = {
+			b:building_logging_camp ?= {
+				if = {
+					limit = { local_var:spec_bpt_wood = 1 }
+					if = { limit = { has_modifier = spec_bp_up_wood } remove_modifier = spec_bp_up_wood }
+					if = { limit = { has_modifier = spec_bp_down_wood } remove_modifier = spec_bp_down_wood }
+					if = { limit = { local_var:spec_bpw_wood > 0 } add_modifier = { name = spec_bp_up_wood multiplier = local_var:spec_bpw_wood } }
+					else_if = { limit = { local_var:spec_bpw_wood < 0 } add_modifier = { name = spec_bp_down_wood multiplier = { value = local_var:spec_bpw_wood multiply = -1 } } }
+				}
+				if = {
+					limit = { local_var:spec_bpt_hardwood = 1 }
+					if = { limit = { has_modifier = spec_bp_up_hardwood } remove_modifier = spec_bp_up_hardwood }
+					if = { limit = { has_modifier = spec_bp_down_hardwood } remove_modifier = spec_bp_down_hardwood }
+					if = { limit = { local_var:spec_bpw_hardwood > 0 } add_modifier = { name = spec_bp_up_hardwood multiplier = local_var:spec_bpw_hardwood } }
+					else_if = { limit = { local_var:spec_bpw_hardwood < 0 } add_modifier = { name = spec_bp_down_hardwood multiplier = { value = local_var:spec_bpw_hardwood multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_grain = 1 } }
+		every_scope_state = {
+			b:building_maize_farm ?= {
+				if = {
+					limit = { local_var:spec_bpt_grain = 1 }
+					if = { limit = { has_modifier = spec_bp_up_grain } remove_modifier = spec_bp_up_grain }
+					if = { limit = { has_modifier = spec_bp_down_grain } remove_modifier = spec_bp_down_grain }
+					if = { limit = { local_var:spec_bpv_grain > 0 } add_modifier = { name = spec_bp_up_grain multiplier = local_var:spec_bpv_grain } }
+					else_if = { limit = { local_var:spec_bpv_grain < 0 } add_modifier = { name = spec_bp_down_grain multiplier = { value = local_var:spec_bpv_grain multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_grain = 1 } }
+		every_scope_state = {
+			b:building_millet_farm ?= {
+				if = {
+					limit = { local_var:spec_bpt_grain = 1 }
+					if = { limit = { has_modifier = spec_bp_up_grain } remove_modifier = spec_bp_up_grain }
+					if = { limit = { has_modifier = spec_bp_down_grain } remove_modifier = spec_bp_down_grain }
+					if = { limit = { local_var:spec_bpv_grain > 0 } add_modifier = { name = spec_bp_up_grain multiplier = local_var:spec_bpv_grain } }
+					else_if = { limit = { local_var:spec_bpv_grain < 0 } add_modifier = { name = spec_bp_down_grain multiplier = { value = local_var:spec_bpv_grain multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_engines = 1 } }
+		every_scope_state = {
+			b:building_motor_industry ?= {
+				if = {
+					limit = { local_var:spec_bpt_engines = 1 }
+					if = { limit = { has_modifier = spec_bp_up_engines } remove_modifier = spec_bp_up_engines }
+					if = { limit = { has_modifier = spec_bp_down_engines } remove_modifier = spec_bp_down_engines }
+					if = { limit = { local_var:spec_bpv_engines > 0 } add_modifier = { name = spec_bp_up_engines multiplier = local_var:spec_bpv_engines } }
+					else_if = { limit = { local_var:spec_bpv_engines < 0 } add_modifier = { name = spec_bp_down_engines multiplier = { value = local_var:spec_bpv_engines multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_ammunition = 1 } }
+		every_scope_state = {
+			b:building_munition_plant ?= {
+				if = {
+					limit = { local_var:spec_bpt_ammunition = 1 }
+					if = { limit = { has_modifier = spec_bp_up_ammunition } remove_modifier = spec_bp_up_ammunition }
+					if = { limit = { has_modifier = spec_bp_down_ammunition } remove_modifier = spec_bp_down_ammunition }
+					if = { limit = { local_var:spec_bpv_ammunition > 0 } add_modifier = { name = spec_bp_up_ammunition multiplier = local_var:spec_bpv_ammunition } }
+					else_if = { limit = { local_var:spec_bpv_ammunition < 0 } add_modifier = { name = spec_bp_down_ammunition multiplier = { value = local_var:spec_bpv_ammunition multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_oil = 1 } }
+		every_scope_state = {
+			b:building_oil_rig ?= {
+				if = {
+					limit = { local_var:spec_bpt_oil = 1 }
+					if = { limit = { has_modifier = spec_bp_up_oil } remove_modifier = spec_bp_up_oil }
+					if = { limit = { has_modifier = spec_bp_down_oil } remove_modifier = spec_bp_down_oil }
+					if = { limit = { local_var:spec_bpw_oil > 0 } add_modifier = { name = spec_bp_up_oil multiplier = local_var:spec_bpw_oil } }
+					else_if = { limit = { local_var:spec_bpw_oil < 0 } add_modifier = { name = spec_bp_down_oil multiplier = { value = local_var:spec_bpw_oil multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_opium = 1 } }
+		every_scope_state = {
+			b:building_opium_plantation ?= {
+				if = {
+					limit = { local_var:spec_bpt_opium = 1 }
+					if = { limit = { has_modifier = spec_bp_up_opium } remove_modifier = spec_bp_up_opium }
+					if = { limit = { has_modifier = spec_bp_down_opium } remove_modifier = spec_bp_down_opium }
+					if = { limit = { local_var:spec_bpv_opium > 0 } add_modifier = { name = spec_bp_up_opium multiplier = local_var:spec_bpv_opium } }
+					else_if = { limit = { local_var:spec_bpv_opium < 0 } add_modifier = { name = spec_bp_down_opium multiplier = { value = local_var:spec_bpv_opium multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_paper = 1 } }
+		every_scope_state = {
+			b:building_paper_mill ?= {
+				if = {
+					limit = { local_var:spec_bpt_paper = 1 }
+					if = { limit = { has_modifier = spec_bp_up_paper } remove_modifier = spec_bp_up_paper }
+					if = { limit = { has_modifier = spec_bp_down_paper } remove_modifier = spec_bp_down_paper }
+					if = { limit = { local_var:spec_bpv_paper > 0 } add_modifier = { name = spec_bp_up_paper multiplier = local_var:spec_bpv_paper } }
+					else_if = { limit = { local_var:spec_bpv_paper < 0 } add_modifier = { name = spec_bp_down_paper multiplier = { value = local_var:spec_bpv_paper multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_merchant_marine = 1 } }
+		every_scope_state = {
+			b:building_port ?= {
+				if = {
+					limit = { local_var:spec_bpt_merchant_marine = 1 }
+					if = { limit = { has_modifier = spec_bp_up_merchant_marine } remove_modifier = spec_bp_up_merchant_marine }
+					if = { limit = { has_modifier = spec_bp_down_merchant_marine } remove_modifier = spec_bp_down_merchant_marine }
+					if = { limit = { local_var:spec_bpv_merchant_marine > 0 } add_modifier = { name = spec_bp_up_merchant_marine multiplier = local_var:spec_bpv_merchant_marine } }
+					else_if = { limit = { local_var:spec_bpv_merchant_marine < 0 } add_modifier = { name = spec_bp_down_merchant_marine multiplier = { value = local_var:spec_bpv_merchant_marine multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_electricity = 1 } }
+		every_scope_state = {
+			b:building_power_plant ?= {
+				if = {
+					limit = { local_var:spec_bpt_electricity = 1 }
+					if = { limit = { has_modifier = spec_bp_up_electricity } remove_modifier = spec_bp_up_electricity }
+					if = { limit = { has_modifier = spec_bp_down_electricity } remove_modifier = spec_bp_down_electricity }
+					if = { limit = { local_var:spec_bpv_electricity > 0 } add_modifier = { name = spec_bp_up_electricity multiplier = local_var:spec_bpv_electricity } }
+					else_if = { limit = { local_var:spec_bpv_electricity < 0 } add_modifier = { name = spec_bp_down_electricity multiplier = { value = local_var:spec_bpv_electricity multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_grain = 1 } }
+		every_scope_state = {
+			b:building_rice_farm ?= {
+				if = {
+					limit = { local_var:spec_bpt_grain = 1 }
+					if = { limit = { has_modifier = spec_bp_up_grain } remove_modifier = spec_bp_up_grain }
+					if = { limit = { has_modifier = spec_bp_down_grain } remove_modifier = spec_bp_down_grain }
+					if = { limit = { local_var:spec_bpv_grain > 0 } add_modifier = { name = spec_bp_up_grain multiplier = local_var:spec_bpv_grain } }
+					else_if = { limit = { local_var:spec_bpv_grain < 0 } add_modifier = { name = spec_bp_down_grain multiplier = { value = local_var:spec_bpv_grain multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_rubber = 1 } }
+		every_scope_state = {
+			b:building_rubber_plantation ?= {
+				if = {
+					limit = { local_var:spec_bpt_rubber = 1 }
+					if = { limit = { has_modifier = spec_bp_up_rubber } remove_modifier = spec_bp_up_rubber }
+					if = { limit = { has_modifier = spec_bp_down_rubber } remove_modifier = spec_bp_down_rubber }
+					if = { limit = { local_var:spec_bpv_rubber > 0 } add_modifier = { name = spec_bp_up_rubber multiplier = local_var:spec_bpv_rubber } }
+					else_if = { limit = { local_var:spec_bpv_rubber < 0 } add_modifier = { name = spec_bp_down_rubber multiplier = { value = local_var:spec_bpv_rubber multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_grain = 1 } }
+		every_scope_state = {
+			b:building_rye_farm ?= {
+				if = {
+					limit = { local_var:spec_bpt_grain = 1 }
+					if = { limit = { has_modifier = spec_bp_up_grain } remove_modifier = spec_bp_up_grain }
+					if = { limit = { has_modifier = spec_bp_down_grain } remove_modifier = spec_bp_down_grain }
+					if = { limit = { local_var:spec_bpv_grain > 0 } add_modifier = { name = spec_bp_up_grain multiplier = local_var:spec_bpv_grain } }
+					else_if = { limit = { local_var:spec_bpv_grain < 0 } add_modifier = { name = spec_bp_down_grain multiplier = { value = local_var:spec_bpv_grain multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_clippers = 1 local_var:spec_bpt_steamers = 1 } }
+		every_scope_state = {
+			b:building_shipyard ?= {
+				if = {
+					limit = { local_var:spec_bpt_clippers = 1 }
+					if = { limit = { has_modifier = spec_bp_up_clippers } remove_modifier = spec_bp_up_clippers }
+					if = { limit = { has_modifier = spec_bp_down_clippers } remove_modifier = spec_bp_down_clippers }
+					if = { limit = { local_var:spec_bpv_clippers > 0 } add_modifier = { name = spec_bp_up_clippers multiplier = local_var:spec_bpv_clippers } }
+					else_if = { limit = { local_var:spec_bpv_clippers < 0 } add_modifier = { name = spec_bp_down_clippers multiplier = { value = local_var:spec_bpv_clippers multiply = -1 } } }
+				}
+				if = {
+					limit = { local_var:spec_bpt_steamers = 1 }
+					if = { limit = { has_modifier = spec_bp_up_steamers } remove_modifier = spec_bp_up_steamers }
+					if = { limit = { has_modifier = spec_bp_down_steamers } remove_modifier = spec_bp_down_steamers }
+					if = { limit = { local_var:spec_bpv_steamers > 0 } add_modifier = { name = spec_bp_up_steamers multiplier = local_var:spec_bpv_steamers } }
+					else_if = { limit = { local_var:spec_bpv_steamers < 0 } add_modifier = { name = spec_bp_down_steamers multiplier = { value = local_var:spec_bpv_steamers multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_silk = 1 } }
+		every_scope_state = {
+			b:building_silk_plantation ?= {
+				if = {
+					limit = { local_var:spec_bpt_silk = 1 }
+					if = { limit = { has_modifier = spec_bp_up_silk } remove_modifier = spec_bp_up_silk }
+					if = { limit = { has_modifier = spec_bp_down_silk } remove_modifier = spec_bp_down_silk }
+					if = { limit = { local_var:spec_bpv_silk > 0 } add_modifier = { name = spec_bp_up_silk multiplier = local_var:spec_bpv_silk } }
+					else_if = { limit = { local_var:spec_bpv_silk < 0 } add_modifier = { name = spec_bp_down_silk multiplier = { value = local_var:spec_bpv_silk multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_steel = 1 } }
+		every_scope_state = {
+			b:building_steel_mill ?= {
+				if = {
+					limit = { local_var:spec_bpt_steel = 1 }
+					if = { limit = { has_modifier = spec_bp_up_steel } remove_modifier = spec_bp_up_steel }
+					if = { limit = { has_modifier = spec_bp_down_steel } remove_modifier = spec_bp_down_steel }
+					if = { limit = { local_var:spec_bpv_steel > 0 } add_modifier = { name = spec_bp_up_steel multiplier = local_var:spec_bpv_steel } }
+					else_if = { limit = { local_var:spec_bpv_steel < 0 } add_modifier = { name = spec_bp_down_steel multiplier = { value = local_var:spec_bpv_steel multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_sugar = 1 } }
+		every_scope_state = {
+			b:building_sugar_plantation ?= {
+				if = {
+					limit = { local_var:spec_bpt_sugar = 1 }
+					if = { limit = { has_modifier = spec_bp_up_sugar } remove_modifier = spec_bp_up_sugar }
+					if = { limit = { has_modifier = spec_bp_down_sugar } remove_modifier = spec_bp_down_sugar }
+					if = { limit = { local_var:spec_bpv_sugar > 0 } add_modifier = { name = spec_bp_up_sugar multiplier = local_var:spec_bpv_sugar } }
+					else_if = { limit = { local_var:spec_bpv_sugar < 0 } add_modifier = { name = spec_bp_down_sugar multiplier = { value = local_var:spec_bpv_sugar multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_sulfur = 1 } }
+		every_scope_state = {
+			b:building_sulfur_mine ?= {
+				if = {
+					limit = { local_var:spec_bpt_sulfur = 1 }
+					if = { limit = { has_modifier = spec_bp_up_sulfur } remove_modifier = spec_bp_up_sulfur }
+					if = { limit = { has_modifier = spec_bp_down_sulfur } remove_modifier = spec_bp_down_sulfur }
+					if = { limit = { local_var:spec_bpv_sulfur > 0 } add_modifier = { name = spec_bp_up_sulfur multiplier = local_var:spec_bpv_sulfur } }
+					else_if = { limit = { local_var:spec_bpv_sulfur < 0 } add_modifier = { name = spec_bp_down_sulfur multiplier = { value = local_var:spec_bpv_sulfur multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_dye = 1 local_var:spec_bpt_silk = 1 } }
+		every_scope_state = {
+			b:building_synthetics_plant ?= {
+				if = {
+					limit = { local_var:spec_bpt_dye = 1 }
+					if = { limit = { has_modifier = spec_bp_up_dye } remove_modifier = spec_bp_up_dye }
+					if = { limit = { has_modifier = spec_bp_down_dye } remove_modifier = spec_bp_down_dye }
+					if = { limit = { local_var:spec_bpv_dye > 0 } add_modifier = { name = spec_bp_up_dye multiplier = local_var:spec_bpv_dye } }
+					else_if = { limit = { local_var:spec_bpv_dye < 0 } add_modifier = { name = spec_bp_down_dye multiplier = { value = local_var:spec_bpv_dye multiply = -1 } } }
+				}
+				if = {
+					limit = { local_var:spec_bpt_silk = 1 }
+					if = { limit = { has_modifier = spec_bp_up_silk } remove_modifier = spec_bp_up_silk }
+					if = { limit = { has_modifier = spec_bp_down_silk } remove_modifier = spec_bp_down_silk }
+					if = { limit = { local_var:spec_bpv_silk > 0 } add_modifier = { name = spec_bp_up_silk multiplier = local_var:spec_bpv_silk } }
+					else_if = { limit = { local_var:spec_bpv_silk < 0 } add_modifier = { name = spec_bp_down_silk multiplier = { value = local_var:spec_bpv_silk multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_tea = 1 } }
+		every_scope_state = {
+			b:building_tea_plantation ?= {
+				if = {
+					limit = { local_var:spec_bpt_tea = 1 }
+					if = { limit = { has_modifier = spec_bp_up_tea } remove_modifier = spec_bp_up_tea }
+					if = { limit = { has_modifier = spec_bp_down_tea } remove_modifier = spec_bp_down_tea }
+					if = { limit = { local_var:spec_bpv_tea > 0 } add_modifier = { name = spec_bp_up_tea multiplier = local_var:spec_bpv_tea } }
+					else_if = { limit = { local_var:spec_bpv_tea < 0 } add_modifier = { name = spec_bp_down_tea multiplier = { value = local_var:spec_bpv_tea multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_clothes = 1 local_var:spec_bpt_luxury_clothes = 1 } }
+		every_scope_state = {
+			b:building_textile_mill ?= {
+				if = {
+					limit = { local_var:spec_bpt_clothes = 1 }
+					if = { limit = { has_modifier = spec_bp_up_clothes } remove_modifier = spec_bp_up_clothes }
+					if = { limit = { has_modifier = spec_bp_down_clothes } remove_modifier = spec_bp_down_clothes }
+					if = { limit = { local_var:spec_bpv_clothes > 0 } add_modifier = { name = spec_bp_up_clothes multiplier = local_var:spec_bpv_clothes } }
+					else_if = { limit = { local_var:spec_bpv_clothes < 0 } add_modifier = { name = spec_bp_down_clothes multiplier = { value = local_var:spec_bpv_clothes multiply = -1 } } }
+				}
+				if = {
+					limit = { local_var:spec_bpt_luxury_clothes = 1 }
+					if = { limit = { has_modifier = spec_bp_up_luxury_clothes } remove_modifier = spec_bp_up_luxury_clothes }
+					if = { limit = { has_modifier = spec_bp_down_luxury_clothes } remove_modifier = spec_bp_down_luxury_clothes }
+					if = { limit = { local_var:spec_bpv_luxury_clothes > 0 } add_modifier = { name = spec_bp_up_luxury_clothes multiplier = local_var:spec_bpv_luxury_clothes } }
+					else_if = { limit = { local_var:spec_bpv_luxury_clothes < 0 } add_modifier = { name = spec_bp_down_luxury_clothes multiplier = { value = local_var:spec_bpv_luxury_clothes multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_tobacco = 1 } }
+		every_scope_state = {
+			b:building_tobacco_plantation ?= {
+				if = {
+					limit = { local_var:spec_bpt_tobacco = 1 }
+					if = { limit = { has_modifier = spec_bp_up_tobacco } remove_modifier = spec_bp_up_tobacco }
+					if = { limit = { has_modifier = spec_bp_down_tobacco } remove_modifier = spec_bp_down_tobacco }
+					if = { limit = { local_var:spec_bpv_tobacco > 0 } add_modifier = { name = spec_bp_up_tobacco multiplier = local_var:spec_bpv_tobacco } }
+					else_if = { limit = { local_var:spec_bpv_tobacco < 0 } add_modifier = { name = spec_bp_down_tobacco multiplier = { value = local_var:spec_bpv_tobacco multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_tools = 1 } }
+		every_scope_state = {
+			b:building_tooling_workshop ?= {
+				if = {
+					limit = { local_var:spec_bpt_tools = 1 }
+					if = { limit = { has_modifier = spec_bp_up_tools } remove_modifier = spec_bp_up_tools }
+					if = { limit = { has_modifier = spec_bp_down_tools } remove_modifier = spec_bp_down_tools }
+					if = { limit = { local_var:spec_bpv_tools > 0 } add_modifier = { name = spec_bp_up_tools multiplier = local_var:spec_bpv_tools } }
+					else_if = { limit = { local_var:spec_bpv_tools < 0 } add_modifier = { name = spec_bp_down_tools multiplier = { value = local_var:spec_bpv_tools multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_wine = 1 } }
+		every_scope_state = {
+			b:building_vineyard ?= {
+				if = {
+					limit = { local_var:spec_bpt_wine = 1 }
+					if = { limit = { has_modifier = spec_bp_up_wine } remove_modifier = spec_bp_up_wine }
+					if = { limit = { has_modifier = spec_bp_down_wine } remove_modifier = spec_bp_down_wine }
+					if = { limit = { local_var:spec_bpv_wine > 0 } add_modifier = { name = spec_bp_up_wine multiplier = local_var:spec_bpv_wine } }
+					else_if = { limit = { local_var:spec_bpv_wine < 0 } add_modifier = { name = spec_bp_down_wine multiplier = { value = local_var:spec_bpv_wine multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_oil = 1 local_var:spec_bpt_meat = 1 } }
+		every_scope_state = {
+			b:building_whaling_station ?= {
+				if = {
+					limit = { local_var:spec_bpt_oil = 1 }
+					if = { limit = { has_modifier = spec_bp_up_oil } remove_modifier = spec_bp_up_oil }
+					if = { limit = { has_modifier = spec_bp_down_oil } remove_modifier = spec_bp_down_oil }
+					if = { limit = { local_var:spec_bpv_oil > 0 } add_modifier = { name = spec_bp_up_oil multiplier = local_var:spec_bpv_oil } }
+					else_if = { limit = { local_var:spec_bpv_oil < 0 } add_modifier = { name = spec_bp_down_oil multiplier = { value = local_var:spec_bpv_oil multiply = -1 } } }
+				}
+				if = {
+					limit = { local_var:spec_bpt_meat = 1 }
+					if = { limit = { has_modifier = spec_bp_up_meat } remove_modifier = spec_bp_up_meat }
+					if = { limit = { has_modifier = spec_bp_down_meat } remove_modifier = spec_bp_down_meat }
+					if = { limit = { local_var:spec_bpv_meat > 0 } add_modifier = { name = spec_bp_up_meat multiplier = local_var:spec_bpv_meat } }
+					else_if = { limit = { local_var:spec_bpv_meat < 0 } add_modifier = { name = spec_bp_down_meat multiplier = { value = local_var:spec_bpv_meat multiply = -1 } } }
+				}
+			}
+		}
+	}
+	if = {
+		limit = { OR = { local_var:spec_bpt_grain = 1 } }
+		every_scope_state = {
+			b:building_wheat_farm ?= {
+				if = {
+					limit = { local_var:spec_bpt_grain = 1 }
+					if = { limit = { has_modifier = spec_bp_up_grain } remove_modifier = spec_bp_up_grain }
+					if = { limit = { has_modifier = spec_bp_down_grain } remove_modifier = spec_bp_down_grain }
+					if = { limit = { local_var:spec_bpv_grain > 0 } add_modifier = { name = spec_bp_up_grain multiplier = local_var:spec_bpv_grain } }
+					else_if = { limit = { local_var:spec_bpv_grain < 0 } add_modifier = { name = spec_bp_down_grain multiplier = { value = local_var:spec_bpv_grain multiply = -1 } } }
+				}
+			}
+		}
+	}
+}
+
+# from a lever's flip: the totals now
+spec_bp_refresh = {
+	spec_bp_values = yes
+	spec_bp_direct = yes
+	spec_bp_record = yes
 }

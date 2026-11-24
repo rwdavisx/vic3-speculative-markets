@@ -6,6 +6,16 @@
 	spec_volatility_heightened = {
 	}
 }
+spec_market_impact = {
+	default = spec_impact_standard
+
+	spec_impact_flavor = {
+	}
+	spec_impact_standard = {
+	}
+	spec_impact_strong = {
+	}
+}
 spec_goods_news = {
     default = spec_goods_news_bulletin
     spec_goods_news_bulletin = {}

@@ -190,6 +190,45 @@ def patch(gui):
     return gui.replace(anchor, blocks + anchor)
 
 
+OUTLINER_SHORTAGE = """\t\t\t\ticon = {
+\t\t\t\t\tsize = { 25 25 }
+\t\t\t\t\tvisible = "[Goods.HasGoodsShortage]"
+\t\t\t\t\ttexture = "gfx/interface/icons/generic_icons/goods_shortage.dds"
+\t\t\t\t\ttooltip = "GOODS_SHORTAGE_TOOLTIP"
+\t\t\t\t}
+"""
+
+
+def outliner(gui):
+    """A pinned good in the outliner (outliner_pinnable_types.gui goods_item): after vanilla's shortage icon, the good's
+    Investor Interest tier and the ending its boom would reach, in the player's own market only. Plain-key tooltips: the
+    outliner is always drawn (interest_list.row's note on SelectLocalization tooltips)."""
+    if gui.count(OUTLINER_SHORTAGE) != 1:
+        sys.exit("outliner_pinnable_types.gui changed, can't find goods_item's shortage icon")
+    tier = "".join(f"""\t\t\t\t\ticon = {{
+\t\t\t\t\t\tsize = {{ 25 25 }}
+\t\t\t\t\t\tvisible = "[{is_word(w)}]"
+\t\t\t\t\t\ttexture = "{icons.path('interest_' + interest_list.WORDS[w])}"
+\t\t\t\t\t\ttooltip = "SPEC_IL_LEVEL_{w}_TT"
+\t\t\t\t\t}}
+""" for w in range(1, 7))
+    risk = "".join(f"""\t\t\t\t\ticon = {{
+\t\t\t\t\t\tsize = {{ 25 25 }}
+\t\t\t\t\t\tvisible = "[{vis}]"
+\t\t\t\t\t\ttexture = "{icons.path(f'ending_{s}')}"
+\t\t\t\t\t\ttooltip = "{'SPEC_RISK_NONE_TT' if s == 0 else 'SPEC_IL_RISK_DETAILS'}"
+\t\t\t\t\t}}
+""" for s, vis in [(0, f"Not({ENDING})")] + [(s, f"And({ENDING}, EqualTo_CFixedPoint({SHOWN_SEV}, {fx(s)}))") for s in (1, 2, 3)])
+    ours = f"""\t\t\t\t# Speculative Markets: Investor Interest and the boom's ending (goods_panel.outliner)
+\t\t\t\thbox = {{
+\t\t\t\t\tdatacontext = "[GetPlayer]"
+\t\t\t\t\tvisible = "[And({OWN}, {HAS_DATA})]"
+\t\t\t\t\tspacing = 2
+{tier}{risk}\t\t\t\t}}
+"""
+    return gui.replace(OUTLINER_SHORTAGE, OUTLINER_SHORTAGE + ours)
+
+
 def loc():
     at = lambda n: ge(SEV, n)
     return f""" SPEC_OPEN_TAB: "Open $SPEC_FINANCE$"

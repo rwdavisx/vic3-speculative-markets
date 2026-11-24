@@ -184,6 +184,7 @@
 		remove_modifier = spec_pursue_door_3
 	}
 	remove_variable = spec_centre_score
+	remove_variable = spec_centre_score_was
 	remove_variable = spec_centre_rank
 	remove_variable = spec_centre_new
 	remove_variable = spec_centre_also
@@ -4439,6 +4440,11 @@ spec_rank_centres = {
 				change_variable = { name = spec_centre_calm add = 1 }
 			}
 			set_variable = { name = spec_centre_yrs value = { value = var:spec_centre_calm divide = 12 floor = yes } }
+			# a player's last score, for the month's change beside it (SPEC_EXCH_SCORE_DELTA)
+			if = {
+				limit = { is_player = yes has_variable = spec_centre_score }
+				set_variable = { name = spec_centre_score_was value = var:spec_centre_score }
+			}
 			save_temporary_scope_as = spec_xs_me
 			set_global_variable = { name = spec_xs_me_inc value = var:spec_xs_inc }
 			set_variable = { name = spec_xs_own_v value = spec_xs_own }
@@ -4587,6 +4593,7 @@ spec_rank_centres = {
 				}
 			}
 			remove_variable = spec_centre_score
+			remove_variable = spec_centre_score_was
 			spec_exch_clear = yes
 		}
 	}
@@ -9308,6 +9315,34 @@ spec_rank_centres = {
 	every_country = {
 		limit = { has_variable = spec_centre_pos }
 		remove_variable = spec_centre_pos
+	}
+	if = {
+		limit = { has_global_variable_list = spec_exch_prov }
+		clear_global_variable_list = spec_exch_prov
+	}
+	ordered_country = {
+		limit = {
+			has_variable = spec_exch_stand
+			var:spec_exch_stand = 0
+		}
+		order_by = spec_centre_order
+		max = 300
+		check_range_bounds = no
+		add_to_global_variable_list = { name = spec_exch_prov target = this }
+	}
+	every_country = {
+		limit = { is_player = yes }
+		if = {
+			limit = { has_variable_list = spec_exch_prov }
+			clear_variable_list = spec_exch_prov
+		}
+		save_scope_as = spec_prov_player
+		every_in_global_list = {
+			variable = spec_exch_prov
+			scope:spec_prov_player = {
+				add_to_variable_list = { name = spec_exch_prov target = prev }
+			}
+		}
 	}
 	# ponytail: a market hovering between the last place and the next gets a toast each time it crosses; hold a place
 	# for a few months if that proves noisy

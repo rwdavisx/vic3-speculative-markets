@@ -5,7 +5,7 @@ every_country = { limit = { OR = { this = c:GBR this = c:FRA this = c:PRU } }
 save_scope_as = spec_t
 every_rival_country = { save_temporary_scope_as = spec_tx scope:spec_t = { remove_diplomatic_pact = { country = scope:spec_tx type = rivalry } } }
 every_rivaling_country = { remove_diplomatic_pact = { country = scope:spec_t type = rivalry } }
-clear_variable_list = spec_rv_chosen clear_variable_list = spec_rv_keep remove_variable = spec_rv_n_chosen
+clear_variable_list = spec_rv_chosen clear_variable_map = spec_rv_pts clear_variable_list = spec_rv_keep remove_variable = spec_rv_n_chosen
 remove_variable = spec_exch_known remove_variable = spec_pw_floor remove_variable = spec_pw_pockets remove_variable = spec_pw_price remove_variable = spec_pw_sound
 set_variable = { name = spec_exch_stand value = 1 } set_variable = { name = spec_centre_trust value = 60 }
 every_country = { limit = { NOT = { this = prev } OR = { this = c:GBR this = c:FRA this = c:PRU } } set_relations = { country = prev value = 0 } }
@@ -19,7 +19,7 @@ c:PRU = { set_variable = { name = spec_centre_score value = 100 } }
 c:GBR = { set_variable = { name = spec_centre_trust value = 0 } }
 c:FRA = { set_variable = { name = spec_centre_trust value = 0 } }
 c:PRU = { set_variable = { name = spec_centre_trust value = 0 } }
-while = { count = 5 spec_rival_contest = yes }
+while = { count = 60 spec_rival_contest = yes }
 if = { limit = { c:GBR = { var:spec_centre_trust = 12 } } debug_log = "HOTFIX PASS floor_winner" }
 else = { debug_log = "HOTFIX FAIL floor_winner" }
 if = { limit = { c:PRU = { var:spec_centre_trust = 0 } } debug_log = "HOTFIX PASS floor_loser" }
@@ -30,7 +30,7 @@ c:FRA = { debug_log = "HOTFIX INFO floor_mixed_trust=[THIS.Var('spec_centre_trus
 c:GBR = { set_variable = { name = spec_centre_trust value = 120 } }
 c:FRA = { set_variable = { name = spec_centre_trust value = 120 } }
 c:PRU = { set_variable = { name = spec_centre_trust value = 120 } }
-while = { count = 5 spec_rival_contest = yes }
+while = { count = 60 spec_rival_contest = yes }
 if = { limit = { c:GBR = { var:spec_centre_trust = 120 } } debug_log = "HOTFIX PASS ceiling_winner" }
 else = { debug_log = "HOTFIX FAIL ceiling_winner" }
 if = { limit = { c:PRU = { var:spec_centre_trust = 108 } } debug_log = "HOTFIX PASS ceiling_loser" }
@@ -44,7 +44,7 @@ c:PRU = { set_variable = { name = spec_centre_trust value = 0 } }
 set_relations = { country = c:FRA value = -100 }
 set_relations = { country = c:PRU value = -100 }
 c:FRA = { set_relations = { country = c:PRU value = -100 } }
-while = { count = 5 spec_rival_contest = yes }
+while = { count = 60 spec_rival_contest = yes }
 if = { limit = { c:GBR = { var:spec_centre_trust = 12 } } debug_log = "HOTFIX PASS hostile_floor_winner" }
 else = { debug_log = "HOTFIX FAIL hostile_floor_winner" }
 if = { limit = { c:PRU = { var:spec_centre_trust = 0 } } debug_log = "HOTFIX PASS hostile_floor_loser" }
@@ -58,7 +58,7 @@ c:PRU = { set_variable = { name = spec_centre_trust value = 120 } }
 set_relations = { country = c:FRA value = -100 }
 set_relations = { country = c:PRU value = -100 }
 c:FRA = { set_relations = { country = c:PRU value = -100 } }
-while = { count = 5 spec_rival_contest = yes }
+while = { count = 60 spec_rival_contest = yes }
 if = { limit = { c:GBR = { var:spec_centre_trust = 120 } } debug_log = "HOTFIX PASS hostile_ceiling_winner" }
 else = { debug_log = "HOTFIX FAIL hostile_ceiling_winner" }
 if = { limit = { c:PRU = { var:spec_centre_trust = 102 } } debug_log = "HOTFIX PASS hostile_ceiling_loser" }

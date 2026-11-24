@@ -474,7 +474,7 @@ spec_level_from_6 = {
 
 spec_lev_floor = {
 	value = gdp
-	multiply = 0.01
+	multiply = 0.009
 }
 
 spec_lev_income = {
@@ -571,7 +571,7 @@ spec_lev_stress = {
 
 spec_pl_lev = {
 	value = spec_lev_stress
-	multiply = 50
+	multiply = 55
 }
 
 spec_pl_shallow = {
@@ -587,28 +587,28 @@ spec_panic_at = {
 
 spec_panic_at_3 = {
 	value = { value = 3 subtract = 3 divide = 9 min = 0 max = 1 }
-	multiply = 50
+	multiply = 55
 	add = 25
 	subtract = spec_shallow_panic
 }
 
 spec_panic_at_8 = {
 	value = { value = 8 subtract = 3 divide = 9 min = 0 max = 1 }
-	multiply = 50
+	multiply = 55
 	add = 25
 	subtract = spec_shallow_panic
 }
 
 spec_panic_at_10 = {
 	value = { value = 10 subtract = 3 divide = 9 min = 0 max = 1 }
-	multiply = 50
+	multiply = 55
 	add = 25
 	subtract = spec_shallow_panic
 }
 
 spec_panic_at_12 = {
 	value = { value = 12 subtract = 3 divide = 9 min = 0 max = 1 }
-	multiply = 50
+	multiply = 55
 	add = 25
 	subtract = spec_shallow_panic
 }
@@ -649,7 +649,7 @@ spec_crunch_bite_sv = {
 	if = {
 		limit = { has_variable = spec_crunch_bite }
 		value = var:spec_crunch_bite
-		if = { limit = { NOT = { has_variable = spec_debt_units_v2 } } multiply = 0.133333 }
+		if = { limit = { NOT = { has_variable = spec_debt_units_v2 } } multiply = 0.13333 }
 		max = 20
 	}
 }
@@ -740,16 +740,25 @@ spec_lev_boom_mult = {
 spec_lev_boom_pct = {
 	value = spec_lev_boom_mult
 	multiply = 24
+	multiply = spec_impact
 }
 
 spec_lev_boom_inv_pct = {
 	value = spec_lev_boom_mult
 	multiply = 6
+	multiply = spec_impact
 }
 
 spec_crunch_invest_pct = {
 	value = spec_crunch_bite_sv
 	multiply = 3.5
+	multiply = spec_impact
+}
+
+spec_crunch_build_pct = {
+	value = spec_crunch_bite_sv
+	multiply = 5
+	multiply = spec_impact
 }
 
 spec_crunch_left = {
@@ -762,7 +771,7 @@ spec_crunch_sv = {
 	if = {
 		limit = { has_variable = spec_crunch }
 		value = var:spec_crunch
-		if = { limit = { NOT = { has_variable = spec_debt_units_v2 } } multiply = 0.133333 }
+		if = { limit = { NOT = { has_variable = spec_debt_units_v2 } } multiply = 0.13333 }
 		max = 20
 	}
 }
@@ -820,7 +829,7 @@ spec_crunch_if = {
 }
 
 spec_crunch_fade = {
-	value = 0.3
+	value = 0.35
 	if = {
 		limit = { spec_stance_value = -1 }
 		value = 1.5
@@ -863,16 +872,50 @@ spec_lim_international_exchange_standards = {
 spec_crunch_tp_pct = {
 	value = spec_crunch_bite_sv
 	multiply = 3
+	multiply = spec_impact
 }
 
 spec_crunch_tp_full_pct = {
 	value = spec_crunch_sv
 	multiply = 3
+	multiply = spec_impact
 }
 
 spec_crunch_tp_if_pct = {
 	value = spec_crunch_if
 	multiply = 3
+	multiply = spec_impact
+}
+
+spec_lev_record_keep = {
+	value = spec_lev_stress
+	add = 1
+	multiply = -0.3
+	add = 1
+	min = 0
+}
+
+spec_lev_record_to = {
+	value = spec_lev_adj
+	multiply = 16.7
+	subtract = var:spec_lev_record
+	multiply = 0.01
+}
+
+spec_lev_record_now = {
+	value = var:spec_lev_record
+	floor = yes
+	min = 0
+}
+
+spec_lev_record_pct = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_lev_record_held }
+		value = var:spec_lev_record_held
+		multiply = 0.1
+		multiply = spec_impact
+	}
 }
 
 spec_bailout_share = {
@@ -893,11 +936,11 @@ spec_bailout_cost = {
 
 spec_bailout_months = {
 	value = spec_crunch_sv
-	multiply = 0.7 subtract = spec_crunch_bite_sv
+	multiply = 0.75 subtract = spec_crunch_bite_sv
 	min = 0
 	divide = 2
 	ceiling = yes
-	add = { value = spec_crunch_sv multiply = 0.7 divide = spec_crunch_fade ceiling = yes }
+	add = { value = spec_crunch_sv multiply = 0.75 divide = spec_crunch_fade ceiling = yes }
 }
 
 spec_clawback = {
@@ -986,6 +1029,18 @@ spec_fin_risk = {
 		multiply = 1.1
 	}
 	multiply = spec_reform_risk
+}
+
+spec_impact = {
+	value = 1
+	if = {
+		limit = { has_game_rule = spec_impact_flavor }
+		value = 0.4
+	}
+	if = {
+		limit = { has_game_rule = spec_impact_strong }
+		value = 1.6
+	}
 }
 
 spec_heat_from = {
@@ -3773,99 +3828,755 @@ spec_lax_badstop = {
 	add = 1
 }
 
+spec_bb_mv_light_industry = {
+	value = 0
+	add = spec_mv_groceries
+	add = spec_mv_clothes
+	add = spec_mv_furniture
+	add = spec_mv_glass
+	add = spec_mv_tools
+	add = spec_mv_paper
+	add = spec_mv_clippers
+	add = spec_mv_steamers
+	add = spec_mv_liquor
+	add = spec_mv_luxury_clothes
+	add = spec_mv_luxury_furniture
+	add = spec_mv_porcelain
+	min = {
+		value = var:spec_mv_total
+		multiply = 0.03
+	}
+	min = 1
+}
+
 spec_bb_light_industry = {
 	value = 0
-	if = {
-		limit = { OR = { AND = { has_variable = spec_word_groceries var:spec_word_groceries >= 5 spec_weight_groceries >= 0.333 } AND = { has_variable = spec_word_clothes var:spec_word_clothes >= 5 spec_weight_clothes >= 0.333 } AND = { has_variable = spec_word_furniture var:spec_word_furniture >= 5 spec_weight_furniture >= 0.333 } AND = { has_variable = spec_word_glass var:spec_word_glass >= 5 spec_weight_glass >= 0.333 } AND = { has_variable = spec_word_tools var:spec_word_tools >= 5 spec_weight_tools >= 0.333 } AND = { has_variable = spec_word_paper var:spec_word_paper >= 5 spec_weight_paper >= 0.333 } AND = { has_variable = spec_word_clippers var:spec_word_clippers >= 5 spec_weight_clippers >= 0.333 } } }
-		value = 1
+	add = spec_bbg_groceries
+	add = spec_bbg_clothes
+	add = spec_bbg_furniture
+	add = spec_bbg_glass
+	add = spec_bbg_tools
+	add = spec_bbg_paper
+	add = spec_bbg_clippers
+	add = spec_bbg_steamers
+	add = spec_bbg_liquor
+	add = spec_bbg_luxury_clothes
+	add = spec_bbg_luxury_furniture
+	add = spec_bbg_porcelain
+	multiply = 200
+	round = yes
+	divide = 200
+}
+
+spec_bb_mv_heavy_industry = {
+	value = 0
+	add = spec_mv_fertilizer
+	add = spec_mv_explosives
+	add = spec_mv_steel
+	add = spec_mv_engines
+	add = spec_mv_automobiles
+	add = spec_mv_telephones
+	add = spec_mv_dye
+	add = spec_mv_radios
+	add = spec_mv_aeroplanes
+	add = spec_mv_tanks
+	min = {
+		value = var:spec_mv_total
+		multiply = 0.03
 	}
-	if = {
-		limit = { OR = { AND = { has_variable = spec_word_groceries var:spec_word_groceries >= 6 spec_weight_groceries >= 0.333 } AND = { has_variable = spec_word_clothes var:spec_word_clothes >= 6 spec_weight_clothes >= 0.333 } AND = { has_variable = spec_word_furniture var:spec_word_furniture >= 6 spec_weight_furniture >= 0.333 } AND = { has_variable = spec_word_glass var:spec_word_glass >= 6 spec_weight_glass >= 0.333 } AND = { has_variable = spec_word_tools var:spec_word_tools >= 6 spec_weight_tools >= 0.333 } AND = { has_variable = spec_word_paper var:spec_word_paper >= 6 spec_weight_paper >= 0.333 } AND = { has_variable = spec_word_clippers var:spec_word_clippers >= 6 spec_weight_clippers >= 0.333 } } }
-		value = 2
-	}
+	min = 1
 }
 
 spec_bb_heavy_industry = {
 	value = 0
-	if = {
-		limit = { OR = { AND = { has_variable = spec_word_fertilizer var:spec_word_fertilizer >= 5 spec_weight_fertilizer >= 0.333 } AND = { has_variable = spec_word_explosives var:spec_word_explosives >= 5 spec_weight_explosives >= 0.333 } AND = { has_variable = spec_word_steel var:spec_word_steel >= 5 spec_weight_steel >= 0.333 } AND = { has_variable = spec_word_engines var:spec_word_engines >= 5 spec_weight_engines >= 0.333 } AND = { has_variable = spec_word_automobiles var:spec_word_automobiles >= 5 spec_weight_automobiles >= 0.333 } AND = { has_variable = spec_word_telephones var:spec_word_telephones >= 5 spec_weight_telephones >= 0.333 } AND = { has_variable = spec_word_dye var:spec_word_dye >= 5 spec_weight_dye >= 0.333 } } }
-		value = 1
+	add = spec_bbg_fertilizer
+	add = spec_bbg_explosives
+	add = spec_bbg_steel
+	add = spec_bbg_engines
+	add = spec_bbg_automobiles
+	add = spec_bbg_telephones
+	add = spec_bbg_dye
+	add = spec_bbg_radios
+	add = spec_bbg_aeroplanes
+	add = spec_bbg_tanks
+	multiply = 200
+	round = yes
+	divide = 200
+}
+
+spec_bb_mv_military_industry = {
+	value = 0
+	add = spec_mv_small_arms
+	add = spec_mv_artillery
+	add = spec_mv_ammunition
+	min = {
+		value = var:spec_mv_total
+		multiply = 0.03
 	}
-	if = {
-		limit = { OR = { AND = { has_variable = spec_word_fertilizer var:spec_word_fertilizer >= 6 spec_weight_fertilizer >= 0.333 } AND = { has_variable = spec_word_explosives var:spec_word_explosives >= 6 spec_weight_explosives >= 0.333 } AND = { has_variable = spec_word_steel var:spec_word_steel >= 6 spec_weight_steel >= 0.333 } AND = { has_variable = spec_word_engines var:spec_word_engines >= 6 spec_weight_engines >= 0.333 } AND = { has_variable = spec_word_automobiles var:spec_word_automobiles >= 6 spec_weight_automobiles >= 0.333 } AND = { has_variable = spec_word_telephones var:spec_word_telephones >= 6 spec_weight_telephones >= 0.333 } AND = { has_variable = spec_word_dye var:spec_word_dye >= 6 spec_weight_dye >= 0.333 } } }
-		value = 2
-	}
+	min = 1
 }
 
 spec_bb_military_industry = {
 	value = 0
-	if = {
-		limit = { OR = { AND = { has_variable = spec_word_small_arms var:spec_word_small_arms >= 5 spec_weight_small_arms >= 0.333 } AND = { has_variable = spec_word_artillery var:spec_word_artillery >= 5 spec_weight_artillery >= 0.333 } AND = { has_variable = spec_word_ammunition var:spec_word_ammunition >= 5 spec_weight_ammunition >= 0.333 } } }
-		value = 1
+	add = spec_bbg_small_arms
+	add = spec_bbg_artillery
+	add = spec_bbg_ammunition
+	multiply = 200
+	round = yes
+	divide = 200
+}
+
+spec_bb_mv_agriculture = {
+	value = 0
+	add = spec_mv_grain
+	add = spec_mv_wine
+	min = {
+		value = var:spec_mv_total
+		multiply = 0.03
 	}
-	if = {
-		limit = { OR = { AND = { has_variable = spec_word_small_arms var:spec_word_small_arms >= 6 spec_weight_small_arms >= 0.333 } AND = { has_variable = spec_word_artillery var:spec_word_artillery >= 6 spec_weight_artillery >= 0.333 } AND = { has_variable = spec_word_ammunition var:spec_word_ammunition >= 6 spec_weight_ammunition >= 0.333 } } }
-		value = 2
-	}
+	min = 1
 }
 
 spec_bb_agriculture = {
 	value = 0
-	if = {
-		limit = { OR = { AND = { has_variable = spec_word_grain var:spec_word_grain >= 5 spec_weight_grain >= 0.333 } AND = { has_variable = spec_word_wine var:spec_word_wine >= 5 spec_weight_wine >= 0.333 } } }
-		value = 1
+	add = spec_bbg_grain
+	add = spec_bbg_wine
+	multiply = 200
+	round = yes
+	divide = 200
+}
+
+spec_bb_mv_ranching = {
+	value = 0
+	add = spec_mv_meat
+	min = {
+		value = var:spec_mv_total
+		multiply = 0.03
 	}
-	if = {
-		limit = { OR = { AND = { has_variable = spec_word_grain var:spec_word_grain >= 6 spec_weight_grain >= 0.333 } AND = { has_variable = spec_word_wine var:spec_word_wine >= 6 spec_weight_wine >= 0.333 } } }
-		value = 2
-	}
+	min = 1
 }
 
 spec_bb_ranching = {
 	value = 0
-	if = {
-		limit = { OR = { AND = { has_variable = spec_word_meat var:spec_word_meat >= 5 spec_weight_meat >= 0.333 } } }
-		value = 1
+	add = spec_bbg_meat
+	multiply = 200
+	round = yes
+	divide = 200
+}
+
+spec_bb_mv_extraction = {
+	value = 0
+	add = spec_mv_coal
+	add = spec_mv_copper
+	add = spec_mv_iron
+	add = spec_mv_lead
+	add = spec_mv_sulfur
+	add = spec_mv_wood
+	add = spec_mv_rubber
+	add = spec_mv_fish
+	add = spec_mv_oil
+	add = spec_mv_hardwood
+	min = {
+		value = var:spec_mv_total
+		multiply = 0.03
 	}
-	if = {
-		limit = { OR = { AND = { has_variable = spec_word_meat var:spec_word_meat >= 6 spec_weight_meat >= 0.333 } } }
-		value = 2
-	}
+	min = 1
 }
 
 spec_bb_extraction = {
 	value = 0
-	if = {
-		limit = { OR = { AND = { has_variable = spec_word_coal var:spec_word_coal >= 5 spec_weight_coal >= 0.333 } AND = { has_variable = spec_word_copper var:spec_word_copper >= 5 spec_weight_copper >= 0.333 } AND = { has_variable = spec_word_iron var:spec_word_iron >= 5 spec_weight_iron >= 0.333 } AND = { has_variable = spec_word_lead var:spec_word_lead >= 5 spec_weight_lead >= 0.333 } AND = { has_variable = spec_word_sulfur var:spec_word_sulfur >= 5 spec_weight_sulfur >= 0.333 } AND = { has_variable = spec_word_wood var:spec_word_wood >= 5 spec_weight_wood >= 0.333 } AND = { has_variable = spec_word_rubber var:spec_word_rubber >= 5 spec_weight_rubber >= 0.333 } AND = { has_variable = spec_word_fish var:spec_word_fish >= 5 spec_weight_fish >= 0.333 } AND = { has_variable = spec_word_oil var:spec_word_oil >= 5 spec_weight_oil >= 0.333 } } }
-		value = 1
+	add = spec_bbg_coal
+	add = spec_bbg_copper
+	add = spec_bbg_iron
+	add = spec_bbg_lead
+	add = spec_bbg_sulfur
+	add = spec_bbg_wood
+	add = spec_bbg_rubber
+	add = spec_bbg_fish
+	add = spec_bbg_oil
+	add = spec_bbg_hardwood
+	multiply = 200
+	round = yes
+	divide = 200
+}
+
+spec_bb_mv_plantations = {
+	value = 0
+	add = spec_mv_coffee
+	add = spec_mv_fabric
+	add = spec_mv_dye
+	add = spec_mv_opium
+	add = spec_mv_tea
+	add = spec_mv_tobacco
+	add = spec_mv_sugar
+	add = spec_mv_fruit
+	add = spec_mv_silk
+	min = {
+		value = var:spec_mv_total
+		multiply = 0.03
 	}
-	if = {
-		limit = { OR = { AND = { has_variable = spec_word_coal var:spec_word_coal >= 6 spec_weight_coal >= 0.333 } AND = { has_variable = spec_word_copper var:spec_word_copper >= 6 spec_weight_copper >= 0.333 } AND = { has_variable = spec_word_iron var:spec_word_iron >= 6 spec_weight_iron >= 0.333 } AND = { has_variable = spec_word_lead var:spec_word_lead >= 6 spec_weight_lead >= 0.333 } AND = { has_variable = spec_word_sulfur var:spec_word_sulfur >= 6 spec_weight_sulfur >= 0.333 } AND = { has_variable = spec_word_wood var:spec_word_wood >= 6 spec_weight_wood >= 0.333 } AND = { has_variable = spec_word_rubber var:spec_word_rubber >= 6 spec_weight_rubber >= 0.333 } AND = { has_variable = spec_word_fish var:spec_word_fish >= 6 spec_weight_fish >= 0.333 } AND = { has_variable = spec_word_oil var:spec_word_oil >= 6 spec_weight_oil >= 0.333 } } }
-		value = 2
-	}
+	min = 1
 }
 
 spec_bb_plantations = {
 	value = 0
-	if = {
-		limit = { OR = { AND = { has_variable = spec_word_coffee var:spec_word_coffee >= 5 spec_weight_coffee >= 0.333 } AND = { has_variable = spec_word_fabric var:spec_word_fabric >= 5 spec_weight_fabric >= 0.333 } AND = { has_variable = spec_word_dye var:spec_word_dye >= 5 spec_weight_dye >= 0.333 } AND = { has_variable = spec_word_opium var:spec_word_opium >= 5 spec_weight_opium >= 0.333 } AND = { has_variable = spec_word_tea var:spec_word_tea >= 5 spec_weight_tea >= 0.333 } AND = { has_variable = spec_word_tobacco var:spec_word_tobacco >= 5 spec_weight_tobacco >= 0.333 } AND = { has_variable = spec_word_sugar var:spec_word_sugar >= 5 spec_weight_sugar >= 0.333 } AND = { has_variable = spec_word_fruit var:spec_word_fruit >= 5 spec_weight_fruit >= 0.333 } AND = { has_variable = spec_word_silk var:spec_word_silk >= 5 spec_weight_silk >= 0.333 } } }
-		value = 1
+	add = spec_bbg_coffee
+	add = spec_bbg_fabric
+	add = spec_bbg_dye_plantations
+	add = spec_bbg_opium
+	add = spec_bbg_tea
+	add = spec_bbg_tobacco
+	add = spec_bbg_sugar
+	add = spec_bbg_fruit
+	add = spec_bbg_silk
+	multiply = 200
+	round = yes
+	divide = 200
+}
+
+spec_bb_mv_infrastructure = {
+	value = 0
+	add = spec_mv_merchant_marine
+	min = {
+		value = var:spec_mv_total
+		multiply = 0.03
 	}
-	if = {
-		limit = { OR = { AND = { has_variable = spec_word_coffee var:spec_word_coffee >= 6 spec_weight_coffee >= 0.333 } AND = { has_variable = spec_word_fabric var:spec_word_fabric >= 6 spec_weight_fabric >= 0.333 } AND = { has_variable = spec_word_dye var:spec_word_dye >= 6 spec_weight_dye >= 0.333 } AND = { has_variable = spec_word_opium var:spec_word_opium >= 6 spec_weight_opium >= 0.333 } AND = { has_variable = spec_word_tea var:spec_word_tea >= 6 spec_weight_tea >= 0.333 } AND = { has_variable = spec_word_tobacco var:spec_word_tobacco >= 6 spec_weight_tobacco >= 0.333 } AND = { has_variable = spec_word_sugar var:spec_word_sugar >= 6 spec_weight_sugar >= 0.333 } AND = { has_variable = spec_word_fruit var:spec_word_fruit >= 6 spec_weight_fruit >= 0.333 } AND = { has_variable = spec_word_silk var:spec_word_silk >= 6 spec_weight_silk >= 0.333 } } }
-		value = 2
-	}
+	min = 1
 }
 
 spec_bb_infrastructure = {
 	value = 0
+	add = spec_bbg_merchant_marine
+	multiply = 200
+	round = yes
+	divide = 200
+}
+
+spec_bbg_groceries = {
+	value = 0
 	if = {
-		limit = { OR = { AND = { has_variable = spec_word_merchant_marine var:spec_word_merchant_marine >= 5 spec_weight_merchant_marine >= 0.333 } } }
-		value = 1
+		limit = { has_variable = spec_word_groceries var:spec_word_groceries >= 5 }
+		value = var:spec_word_groceries
+		subtract = 4
+		multiply = spec_mv_groceries
+		divide = spec_bb_mv_light_industry
 	}
+}
+
+spec_bbg_clothes = {
+	value = 0
 	if = {
-		limit = { OR = { AND = { has_variable = spec_word_merchant_marine var:spec_word_merchant_marine >= 6 spec_weight_merchant_marine >= 0.333 } } }
-		value = 2
+		limit = { has_variable = spec_word_clothes var:spec_word_clothes >= 5 }
+		value = var:spec_word_clothes
+		subtract = 4
+		multiply = spec_mv_clothes
+		divide = spec_bb_mv_light_industry
+	}
+}
+
+spec_bbg_furniture = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_furniture var:spec_word_furniture >= 5 }
+		value = var:spec_word_furniture
+		subtract = 4
+		multiply = spec_mv_furniture
+		divide = spec_bb_mv_light_industry
+	}
+}
+
+spec_bbg_glass = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_glass var:spec_word_glass >= 5 }
+		value = var:spec_word_glass
+		subtract = 4
+		multiply = spec_mv_glass
+		divide = spec_bb_mv_light_industry
+	}
+}
+
+spec_bbg_tools = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_tools var:spec_word_tools >= 5 }
+		value = var:spec_word_tools
+		subtract = 4
+		multiply = spec_mv_tools
+		divide = spec_bb_mv_light_industry
+	}
+}
+
+spec_bbg_paper = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_paper var:spec_word_paper >= 5 }
+		value = var:spec_word_paper
+		subtract = 4
+		multiply = spec_mv_paper
+		divide = spec_bb_mv_light_industry
+	}
+}
+
+spec_bbg_clippers = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_clippers var:spec_word_clippers >= 5 }
+		value = var:spec_word_clippers
+		subtract = 4
+		multiply = spec_mv_clippers
+		divide = spec_bb_mv_light_industry
+	}
+}
+
+spec_bbg_steamers = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_steamers var:spec_word_steamers >= 5 }
+		value = var:spec_word_steamers
+		subtract = 4
+		multiply = spec_mv_steamers
+		divide = spec_bb_mv_light_industry
+	}
+}
+
+spec_bbg_liquor = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_liquor var:spec_word_liquor >= 5 }
+		value = var:spec_word_liquor
+		subtract = 4
+		multiply = spec_mv_liquor
+		divide = spec_bb_mv_light_industry
+	}
+}
+
+spec_bbg_luxury_clothes = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_luxury_clothes var:spec_word_luxury_clothes >= 5 }
+		value = var:spec_word_luxury_clothes
+		subtract = 4
+		multiply = spec_mv_luxury_clothes
+		divide = spec_bb_mv_light_industry
+	}
+}
+
+spec_bbg_luxury_furniture = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_luxury_furniture var:spec_word_luxury_furniture >= 5 }
+		value = var:spec_word_luxury_furniture
+		subtract = 4
+		multiply = spec_mv_luxury_furniture
+		divide = spec_bb_mv_light_industry
+	}
+}
+
+spec_bbg_porcelain = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_porcelain var:spec_word_porcelain >= 5 }
+		value = var:spec_word_porcelain
+		subtract = 4
+		multiply = spec_mv_porcelain
+		divide = spec_bb_mv_light_industry
+	}
+}
+
+spec_bbg_fertilizer = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_fertilizer var:spec_word_fertilizer >= 5 }
+		value = var:spec_word_fertilizer
+		subtract = 4
+		multiply = spec_mv_fertilizer
+		divide = spec_bb_mv_heavy_industry
+	}
+}
+
+spec_bbg_explosives = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_explosives var:spec_word_explosives >= 5 }
+		value = var:spec_word_explosives
+		subtract = 4
+		multiply = spec_mv_explosives
+		divide = spec_bb_mv_heavy_industry
+	}
+}
+
+spec_bbg_steel = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_steel var:spec_word_steel >= 5 }
+		value = var:spec_word_steel
+		subtract = 4
+		multiply = spec_mv_steel
+		divide = spec_bb_mv_heavy_industry
+	}
+}
+
+spec_bbg_engines = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_engines var:spec_word_engines >= 5 }
+		value = var:spec_word_engines
+		subtract = 4
+		multiply = spec_mv_engines
+		divide = spec_bb_mv_heavy_industry
+	}
+}
+
+spec_bbg_automobiles = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_automobiles var:spec_word_automobiles >= 5 }
+		value = var:spec_word_automobiles
+		subtract = 4
+		multiply = spec_mv_automobiles
+		divide = spec_bb_mv_heavy_industry
+	}
+}
+
+spec_bbg_telephones = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_telephones var:spec_word_telephones >= 5 }
+		value = var:spec_word_telephones
+		subtract = 4
+		multiply = spec_mv_telephones
+		divide = spec_bb_mv_heavy_industry
+	}
+}
+
+spec_bbg_dye = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_dye var:spec_word_dye >= 5 }
+		value = var:spec_word_dye
+		subtract = 4
+		multiply = spec_mv_dye
+		divide = spec_bb_mv_heavy_industry
+	}
+}
+
+spec_bbg_radios = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_radios var:spec_word_radios >= 5 }
+		value = var:spec_word_radios
+		subtract = 4
+		multiply = spec_mv_radios
+		divide = spec_bb_mv_heavy_industry
+	}
+}
+
+spec_bbg_aeroplanes = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_aeroplanes var:spec_word_aeroplanes >= 5 }
+		value = var:spec_word_aeroplanes
+		subtract = 4
+		multiply = spec_mv_aeroplanes
+		divide = spec_bb_mv_heavy_industry
+	}
+}
+
+spec_bbg_tanks = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_tanks var:spec_word_tanks >= 5 }
+		value = var:spec_word_tanks
+		subtract = 4
+		multiply = spec_mv_tanks
+		divide = spec_bb_mv_heavy_industry
+	}
+}
+
+spec_bbg_small_arms = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_small_arms var:spec_word_small_arms >= 5 }
+		value = var:spec_word_small_arms
+		subtract = 4
+		multiply = spec_mv_small_arms
+		divide = spec_bb_mv_military_industry
+	}
+}
+
+spec_bbg_artillery = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_artillery var:spec_word_artillery >= 5 }
+		value = var:spec_word_artillery
+		subtract = 4
+		multiply = spec_mv_artillery
+		divide = spec_bb_mv_military_industry
+	}
+}
+
+spec_bbg_ammunition = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_ammunition var:spec_word_ammunition >= 5 }
+		value = var:spec_word_ammunition
+		subtract = 4
+		multiply = spec_mv_ammunition
+		divide = spec_bb_mv_military_industry
+	}
+}
+
+spec_bbg_grain = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_grain var:spec_word_grain >= 5 }
+		value = var:spec_word_grain
+		subtract = 4
+		multiply = spec_mv_grain
+		divide = spec_bb_mv_agriculture
+	}
+}
+
+spec_bbg_wine = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_wine var:spec_word_wine >= 5 }
+		value = var:spec_word_wine
+		subtract = 4
+		multiply = spec_mv_wine
+		divide = spec_bb_mv_agriculture
+	}
+}
+
+spec_bbg_meat = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_meat var:spec_word_meat >= 5 }
+		value = var:spec_word_meat
+		subtract = 4
+		multiply = spec_mv_meat
+		divide = spec_bb_mv_ranching
+	}
+}
+
+spec_bbg_coal = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_coal var:spec_word_coal >= 5 }
+		value = var:spec_word_coal
+		subtract = 4
+		multiply = spec_mv_coal
+		divide = spec_bb_mv_extraction
+	}
+}
+
+spec_bbg_copper = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_copper var:spec_word_copper >= 5 }
+		value = var:spec_word_copper
+		subtract = 4
+		multiply = spec_mv_copper
+		divide = spec_bb_mv_extraction
+	}
+}
+
+spec_bbg_iron = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_iron var:spec_word_iron >= 5 }
+		value = var:spec_word_iron
+		subtract = 4
+		multiply = spec_mv_iron
+		divide = spec_bb_mv_extraction
+	}
+}
+
+spec_bbg_lead = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_lead var:spec_word_lead >= 5 }
+		value = var:spec_word_lead
+		subtract = 4
+		multiply = spec_mv_lead
+		divide = spec_bb_mv_extraction
+	}
+}
+
+spec_bbg_sulfur = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_sulfur var:spec_word_sulfur >= 5 }
+		value = var:spec_word_sulfur
+		subtract = 4
+		multiply = spec_mv_sulfur
+		divide = spec_bb_mv_extraction
+	}
+}
+
+spec_bbg_wood = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_wood var:spec_word_wood >= 5 }
+		value = var:spec_word_wood
+		subtract = 4
+		multiply = spec_mv_wood
+		divide = spec_bb_mv_extraction
+	}
+}
+
+spec_bbg_rubber = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_rubber var:spec_word_rubber >= 5 }
+		value = var:spec_word_rubber
+		subtract = 4
+		multiply = spec_mv_rubber
+		divide = spec_bb_mv_extraction
+	}
+}
+
+spec_bbg_fish = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_fish var:spec_word_fish >= 5 }
+		value = var:spec_word_fish
+		subtract = 4
+		multiply = spec_mv_fish
+		divide = spec_bb_mv_extraction
+	}
+}
+
+spec_bbg_oil = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_oil var:spec_word_oil >= 5 }
+		value = var:spec_word_oil
+		subtract = 4
+		multiply = spec_mv_oil
+		divide = spec_bb_mv_extraction
+	}
+}
+
+spec_bbg_hardwood = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_hardwood var:spec_word_hardwood >= 5 }
+		value = var:spec_word_hardwood
+		subtract = 4
+		multiply = spec_mv_hardwood
+		divide = spec_bb_mv_extraction
+	}
+}
+
+spec_bbg_coffee = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_coffee var:spec_word_coffee >= 5 }
+		value = var:spec_word_coffee
+		subtract = 4
+		multiply = spec_mv_coffee
+		divide = spec_bb_mv_plantations
+	}
+}
+
+spec_bbg_fabric = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_fabric var:spec_word_fabric >= 5 }
+		value = var:spec_word_fabric
+		subtract = 4
+		multiply = spec_mv_fabric
+		divide = spec_bb_mv_plantations
+	}
+}
+
+spec_bbg_dye_plantations = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_dye var:spec_word_dye >= 5 }
+		value = var:spec_word_dye
+		subtract = 4
+		multiply = spec_mv_dye
+		divide = spec_bb_mv_plantations
+	}
+}
+
+spec_bbg_opium = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_opium var:spec_word_opium >= 5 }
+		value = var:spec_word_opium
+		subtract = 4
+		multiply = spec_mv_opium
+		divide = spec_bb_mv_plantations
+	}
+}
+
+spec_bbg_tea = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_tea var:spec_word_tea >= 5 }
+		value = var:spec_word_tea
+		subtract = 4
+		multiply = spec_mv_tea
+		divide = spec_bb_mv_plantations
+	}
+}
+
+spec_bbg_tobacco = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_tobacco var:spec_word_tobacco >= 5 }
+		value = var:spec_word_tobacco
+		subtract = 4
+		multiply = spec_mv_tobacco
+		divide = spec_bb_mv_plantations
+	}
+}
+
+spec_bbg_sugar = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_sugar var:spec_word_sugar >= 5 }
+		value = var:spec_word_sugar
+		subtract = 4
+		multiply = spec_mv_sugar
+		divide = spec_bb_mv_plantations
+	}
+}
+
+spec_bbg_fruit = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_fruit var:spec_word_fruit >= 5 }
+		value = var:spec_word_fruit
+		subtract = 4
+		multiply = spec_mv_fruit
+		divide = spec_bb_mv_plantations
+	}
+}
+
+spec_bbg_silk = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_silk var:spec_word_silk >= 5 }
+		value = var:spec_word_silk
+		subtract = 4
+		multiply = spec_mv_silk
+		divide = spec_bb_mv_plantations
+	}
+}
+
+spec_bbg_merchant_marine = {
+	value = 0
+	if = {
+		limit = { has_variable = spec_word_merchant_marine var:spec_word_merchant_marine >= 5 }
+		value = var:spec_word_merchant_marine
+		subtract = 4
+		multiply = spec_mv_merchant_marine
+		divide = spec_bb_mv_infrastructure
 	}
 }
 
@@ -4781,6 +5492,7 @@ spec_so_invest_panic = {
 		limit = { has_variable = spec_rescued }
 		multiply = 0.5
 	}
+	multiply = spec_impact
 }
 
 spec_so_invest_ld = {
@@ -4805,6 +5517,7 @@ spec_so_tp_panic = {
 		limit = { has_variable = spec_rescued }
 		multiply = 0.5
 	}
+	multiply = spec_impact
 }
 
 spec_so_trade_mood = {
@@ -4887,6 +5600,19 @@ spec_so_private = {
 	}
 }
 
+spec_so_build_panic = {
+	value = 0
+	if = {
+		limit = { has_modifier = spec_panic }
+		value = -0.3
+	}
+	if = {
+		limit = { has_variable = spec_rescued }
+		multiply = 0.5
+	}
+	multiply = spec_impact
+}
+
 spec_so_tp_lev = {
 	value = spec_lev_boom_pct
 	divide = 100
@@ -4908,6 +5634,19 @@ spec_so_invest_debts = {
 	}
 }
 
+spec_so_build_debts = {
+	value = 0
+	if = {
+		limit = { has_modifier = spec_credit_crunch_v2 }
+		value = { value = spec_crunch_build_pct divide = -100 }
+	}
+}
+
+spec_so_build_record = {
+	value = spec_lev_record_pct
+	divide = 100
+}
+
 spec_so_invest_lev = {
 	value = spec_lev_boom_inv_pct
 	divide = 100
@@ -4916,35 +5655,35 @@ spec_so_invest_lev = {
 spec_so_build_n = {
 	value = 0
 	if = {
-		limit = { spec_bb_agriculture > 0 }
+		limit = { has_variable = spec_bbv_agriculture var:spec_bbv_agriculture > 0 }
 		add = 1
 	}
 	if = {
-		limit = { spec_bb_extraction > 0 }
+		limit = { has_variable = spec_bbv_extraction var:spec_bbv_extraction > 0 }
 		add = 1
 	}
 	if = {
-		limit = { spec_bb_heavy_industry > 0 }
+		limit = { has_variable = spec_bbv_heavy_industry var:spec_bbv_heavy_industry > 0 }
 		add = 1
 	}
 	if = {
-		limit = { spec_bb_infrastructure > 0 }
+		limit = { has_variable = spec_bbv_infrastructure var:spec_bbv_infrastructure > 0 }
 		add = 1
 	}
 	if = {
-		limit = { spec_bb_light_industry > 0 }
+		limit = { has_variable = spec_bbv_light_industry var:spec_bbv_light_industry > 0 }
 		add = 1
 	}
 	if = {
-		limit = { spec_bb_military_industry > 0 }
+		limit = { has_variable = spec_bbv_military_industry var:spec_bbv_military_industry > 0 }
 		add = 1
 	}
 	if = {
-		limit = { spec_bb_plantations > 0 }
+		limit = { has_variable = spec_bbv_plantations var:spec_bbv_plantations > 0 }
 		add = 1
 	}
 	if = {
-		limit = { spec_bb_ranching > 0 }
+		limit = { has_variable = spec_bbv_ranching var:spec_bbv_ranching > 0 }
 		add = 1
 	}
 }
@@ -4952,21 +5691,46 @@ spec_so_build_n = {
 spec_so_build_top = {
 	value = 0
 	if = {
-		limit = { OR = { spec_bb_agriculture >= 1 spec_bb_extraction >= 1 spec_bb_heavy_industry >= 1 spec_bb_infrastructure >= 1 spec_bb_light_industry >= 1 spec_bb_military_industry >= 1 spec_bb_plantations >= 1 spec_bb_ranching >= 1 } }
-		value = 0.1
+		limit = { has_variable = spec_bbv_agriculture }
+		min = var:spec_bbv_agriculture
 	}
 	if = {
-		limit = { OR = { spec_bb_agriculture >= 2 spec_bb_extraction >= 2 spec_bb_heavy_industry >= 2 spec_bb_infrastructure >= 2 spec_bb_light_industry >= 2 spec_bb_military_industry >= 2 spec_bb_plantations >= 2 spec_bb_ranching >= 2 } }
-		value = 0.2
+		limit = { has_variable = spec_bbv_extraction }
+		min = var:spec_bbv_extraction
 	}
+	if = {
+		limit = { has_variable = spec_bbv_heavy_industry }
+		min = var:spec_bbv_heavy_industry
+	}
+	if = {
+		limit = { has_variable = spec_bbv_infrastructure }
+		min = var:spec_bbv_infrastructure
+	}
+	if = {
+		limit = { has_variable = spec_bbv_light_industry }
+		min = var:spec_bbv_light_industry
+	}
+	if = {
+		limit = { has_variable = spec_bbv_military_industry }
+		min = var:spec_bbv_military_industry
+	}
+	if = {
+		limit = { has_variable = spec_bbv_plantations }
+		min = var:spec_bbv_plantations
+	}
+	if = {
+		limit = { has_variable = spec_bbv_ranching }
+		min = var:spec_bbv_ranching
+	}
+	multiply = 0.15
 }
 
 spec_so_build = {
-	value = spec_so_build_top
-	if = {
-		limit = { has_modifier = spec_panic_crunch }
-		value = spec_so_private
-	}
+	value = 0
+	add = spec_so_build_record
+	add = spec_so_build_panic
+	add = spec_so_build_ld
+	add = spec_so_build_debts
 }
 
 spec_so_invest = {
@@ -4976,6 +5740,7 @@ spec_so_invest = {
 	add = spec_so_invest_panic
 	add = spec_so_invest_ld
 	add = spec_so_invest_debts
+	min = -1
 }
 
 spec_so_tp = {
@@ -5230,6 +5995,11 @@ spec_restrain_cost_aeroplanes = {
 	multiply = spec_exp_mult_aeroplanes
 }
 
+spec_land_aeroplanes = {
+	value = var:spec_start_aeroplanes
+	subtract = 0.1
+}
+
 spec_sev_next_aeroplanes = {
 	value = 0
 	if = {
@@ -5244,12 +6014,20 @@ spec_sev_next_aeroplanes = {
 		limit = { var:spec_peak_aeroplanes >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_aeroplanes spec_dev_aeroplanes >= var:spec_start_aeroplanes }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_aeroplanes spec_dev_aeroplanes > spec_land_aeroplanes }
+		max = 2
+	}
 }
 
 spec_risk_raw_aeroplanes = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_aeroplanes >= 6 }
+		limit = { spec_sev_next_aeroplanes = 3 }
 		value = var:spec_peak_aeroplanes
 		subtract = 1
 		multiply = 7
@@ -5258,7 +6036,7 @@ spec_risk_raw_aeroplanes = {
 		multiply = spec_over_mult_aeroplanes
 	}
 	else_if = {
-		limit = { var:spec_peak_aeroplanes >= 3 }
+		limit = { spec_sev_next_aeroplanes = 2 }
 		value = var:spec_peak_aeroplanes
 		subtract = 1
 		multiply = 2.5
@@ -5267,7 +6045,7 @@ spec_risk_raw_aeroplanes = {
 		multiply = spec_over_mult_aeroplanes
 	}
 	else_if = {
-		limit = { var:spec_peak_aeroplanes >= 2 }
+		limit = { spec_sev_next_aeroplanes = 1 }
 		value = var:spec_peak_aeroplanes
 		subtract = 1
 		multiply = 1.25
@@ -5485,6 +6263,11 @@ spec_restrain_cost_ammunition = {
 	multiply = spec_exp_mult_ammunition
 }
 
+spec_land_ammunition = {
+	value = var:spec_start_ammunition
+	subtract = 0.1
+}
+
 spec_sev_next_ammunition = {
 	value = 0
 	if = {
@@ -5499,12 +6282,20 @@ spec_sev_next_ammunition = {
 		limit = { var:spec_peak_ammunition >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_ammunition spec_dev_ammunition >= var:spec_start_ammunition }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_ammunition spec_dev_ammunition > spec_land_ammunition }
+		max = 2
+	}
 }
 
 spec_risk_raw_ammunition = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_ammunition >= 6 }
+		limit = { spec_sev_next_ammunition = 3 }
 		value = var:spec_peak_ammunition
 		subtract = 1
 		multiply = 7
@@ -5513,7 +6304,7 @@ spec_risk_raw_ammunition = {
 		multiply = spec_over_mult_ammunition
 	}
 	else_if = {
-		limit = { var:spec_peak_ammunition >= 3 }
+		limit = { spec_sev_next_ammunition = 2 }
 		value = var:spec_peak_ammunition
 		subtract = 1
 		multiply = 2.5
@@ -5522,7 +6313,7 @@ spec_risk_raw_ammunition = {
 		multiply = spec_over_mult_ammunition
 	}
 	else_if = {
-		limit = { var:spec_peak_ammunition >= 2 }
+		limit = { spec_sev_next_ammunition = 1 }
 		value = var:spec_peak_ammunition
 		subtract = 1
 		multiply = 1.25
@@ -5740,6 +6531,11 @@ spec_restrain_cost_artillery = {
 	multiply = spec_exp_mult_artillery
 }
 
+spec_land_artillery = {
+	value = var:spec_start_artillery
+	subtract = 0.1
+}
+
 spec_sev_next_artillery = {
 	value = 0
 	if = {
@@ -5754,12 +6550,20 @@ spec_sev_next_artillery = {
 		limit = { var:spec_peak_artillery >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_artillery spec_dev_artillery >= var:spec_start_artillery }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_artillery spec_dev_artillery > spec_land_artillery }
+		max = 2
+	}
 }
 
 spec_risk_raw_artillery = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_artillery >= 6 }
+		limit = { spec_sev_next_artillery = 3 }
 		value = var:spec_peak_artillery
 		subtract = 1
 		multiply = 7
@@ -5768,7 +6572,7 @@ spec_risk_raw_artillery = {
 		multiply = spec_over_mult_artillery
 	}
 	else_if = {
-		limit = { var:spec_peak_artillery >= 3 }
+		limit = { spec_sev_next_artillery = 2 }
 		value = var:spec_peak_artillery
 		subtract = 1
 		multiply = 2.5
@@ -5777,7 +6581,7 @@ spec_risk_raw_artillery = {
 		multiply = spec_over_mult_artillery
 	}
 	else_if = {
-		limit = { var:spec_peak_artillery >= 2 }
+		limit = { spec_sev_next_artillery = 1 }
 		value = var:spec_peak_artillery
 		subtract = 1
 		multiply = 1.25
@@ -5995,6 +6799,11 @@ spec_restrain_cost_automobiles = {
 	multiply = spec_exp_mult_automobiles
 }
 
+spec_land_automobiles = {
+	value = var:spec_start_automobiles
+	subtract = 0.1
+}
+
 spec_sev_next_automobiles = {
 	value = 0
 	if = {
@@ -6009,12 +6818,20 @@ spec_sev_next_automobiles = {
 		limit = { var:spec_peak_automobiles >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_automobiles spec_dev_automobiles >= var:spec_start_automobiles }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_automobiles spec_dev_automobiles > spec_land_automobiles }
+		max = 2
+	}
 }
 
 spec_risk_raw_automobiles = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_automobiles >= 6 }
+		limit = { spec_sev_next_automobiles = 3 }
 		value = var:spec_peak_automobiles
 		subtract = 1
 		multiply = 7
@@ -6023,7 +6840,7 @@ spec_risk_raw_automobiles = {
 		multiply = spec_over_mult_automobiles
 	}
 	else_if = {
-		limit = { var:spec_peak_automobiles >= 3 }
+		limit = { spec_sev_next_automobiles = 2 }
 		value = var:spec_peak_automobiles
 		subtract = 1
 		multiply = 2.5
@@ -6032,7 +6849,7 @@ spec_risk_raw_automobiles = {
 		multiply = spec_over_mult_automobiles
 	}
 	else_if = {
-		limit = { var:spec_peak_automobiles >= 2 }
+		limit = { spec_sev_next_automobiles = 1 }
 		value = var:spec_peak_automobiles
 		subtract = 1
 		multiply = 1.25
@@ -6250,6 +7067,11 @@ spec_restrain_cost_clippers = {
 	multiply = spec_exp_mult_clippers
 }
 
+spec_land_clippers = {
+	value = var:spec_start_clippers
+	subtract = 0.1
+}
+
 spec_sev_next_clippers = {
 	value = 0
 	if = {
@@ -6264,12 +7086,20 @@ spec_sev_next_clippers = {
 		limit = { var:spec_peak_clippers >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_clippers spec_dev_clippers >= var:spec_start_clippers }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_clippers spec_dev_clippers > spec_land_clippers }
+		max = 2
+	}
 }
 
 spec_risk_raw_clippers = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_clippers >= 6 }
+		limit = { spec_sev_next_clippers = 3 }
 		value = var:spec_peak_clippers
 		subtract = 1
 		multiply = 7
@@ -6278,7 +7108,7 @@ spec_risk_raw_clippers = {
 		multiply = spec_over_mult_clippers
 	}
 	else_if = {
-		limit = { var:spec_peak_clippers >= 3 }
+		limit = { spec_sev_next_clippers = 2 }
 		value = var:spec_peak_clippers
 		subtract = 1
 		multiply = 2.5
@@ -6287,7 +7117,7 @@ spec_risk_raw_clippers = {
 		multiply = spec_over_mult_clippers
 	}
 	else_if = {
-		limit = { var:spec_peak_clippers >= 2 }
+		limit = { spec_sev_next_clippers = 1 }
 		value = var:spec_peak_clippers
 		subtract = 1
 		multiply = 1.25
@@ -6505,6 +7335,11 @@ spec_restrain_cost_clothes = {
 	multiply = spec_exp_mult_clothes
 }
 
+spec_land_clothes = {
+	value = var:spec_start_clothes
+	subtract = 0.1
+}
+
 spec_sev_next_clothes = {
 	value = 0
 	if = {
@@ -6519,12 +7354,20 @@ spec_sev_next_clothes = {
 		limit = { var:spec_peak_clothes >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_clothes spec_dev_clothes >= var:spec_start_clothes }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_clothes spec_dev_clothes > spec_land_clothes }
+		max = 2
+	}
 }
 
 spec_risk_raw_clothes = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_clothes >= 6 }
+		limit = { spec_sev_next_clothes = 3 }
 		value = var:spec_peak_clothes
 		subtract = 1
 		multiply = 7
@@ -6533,7 +7376,7 @@ spec_risk_raw_clothes = {
 		multiply = spec_over_mult_clothes
 	}
 	else_if = {
-		limit = { var:spec_peak_clothes >= 3 }
+		limit = { spec_sev_next_clothes = 2 }
 		value = var:spec_peak_clothes
 		subtract = 1
 		multiply = 2.5
@@ -6542,7 +7385,7 @@ spec_risk_raw_clothes = {
 		multiply = spec_over_mult_clothes
 	}
 	else_if = {
-		limit = { var:spec_peak_clothes >= 2 }
+		limit = { spec_sev_next_clothes = 1 }
 		value = var:spec_peak_clothes
 		subtract = 1
 		multiply = 1.25
@@ -6760,6 +7603,11 @@ spec_restrain_cost_coal = {
 	multiply = spec_exp_mult_coal
 }
 
+spec_land_coal = {
+	value = var:spec_start_coal
+	subtract = 0.1
+}
+
 spec_sev_next_coal = {
 	value = 0
 	if = {
@@ -6774,12 +7622,20 @@ spec_sev_next_coal = {
 		limit = { var:spec_peak_coal >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_coal spec_dev_coal >= var:spec_start_coal }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_coal spec_dev_coal > spec_land_coal }
+		max = 2
+	}
 }
 
 spec_risk_raw_coal = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_coal >= 6 }
+		limit = { spec_sev_next_coal = 3 }
 		value = var:spec_peak_coal
 		subtract = 1
 		multiply = 7
@@ -6788,7 +7644,7 @@ spec_risk_raw_coal = {
 		multiply = spec_over_mult_coal
 	}
 	else_if = {
-		limit = { var:spec_peak_coal >= 3 }
+		limit = { spec_sev_next_coal = 2 }
 		value = var:spec_peak_coal
 		subtract = 1
 		multiply = 2.5
@@ -6797,7 +7653,7 @@ spec_risk_raw_coal = {
 		multiply = spec_over_mult_coal
 	}
 	else_if = {
-		limit = { var:spec_peak_coal >= 2 }
+		limit = { spec_sev_next_coal = 1 }
 		value = var:spec_peak_coal
 		subtract = 1
 		multiply = 1.25
@@ -7015,6 +7871,11 @@ spec_restrain_cost_coffee = {
 	multiply = spec_exp_mult_coffee
 }
 
+spec_land_coffee = {
+	value = var:spec_start_coffee
+	subtract = 0.1
+}
+
 spec_sev_next_coffee = {
 	value = 0
 	if = {
@@ -7029,12 +7890,20 @@ spec_sev_next_coffee = {
 		limit = { var:spec_peak_coffee >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_coffee spec_dev_coffee >= var:spec_start_coffee }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_coffee spec_dev_coffee > spec_land_coffee }
+		max = 2
+	}
 }
 
 spec_risk_raw_coffee = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_coffee >= 6 }
+		limit = { spec_sev_next_coffee = 3 }
 		value = var:spec_peak_coffee
 		subtract = 1
 		multiply = 7
@@ -7043,7 +7912,7 @@ spec_risk_raw_coffee = {
 		multiply = spec_over_mult_coffee
 	}
 	else_if = {
-		limit = { var:spec_peak_coffee >= 3 }
+		limit = { spec_sev_next_coffee = 2 }
 		value = var:spec_peak_coffee
 		subtract = 1
 		multiply = 2.5
@@ -7052,7 +7921,7 @@ spec_risk_raw_coffee = {
 		multiply = spec_over_mult_coffee
 	}
 	else_if = {
-		limit = { var:spec_peak_coffee >= 2 }
+		limit = { spec_sev_next_coffee = 1 }
 		value = var:spec_peak_coffee
 		subtract = 1
 		multiply = 1.25
@@ -7270,6 +8139,11 @@ spec_restrain_cost_copper = {
 	multiply = spec_exp_mult_copper
 }
 
+spec_land_copper = {
+	value = var:spec_start_copper
+	subtract = 0.1
+}
+
 spec_sev_next_copper = {
 	value = 0
 	if = {
@@ -7284,12 +8158,20 @@ spec_sev_next_copper = {
 		limit = { var:spec_peak_copper >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_copper spec_dev_copper >= var:spec_start_copper }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_copper spec_dev_copper > spec_land_copper }
+		max = 2
+	}
 }
 
 spec_risk_raw_copper = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_copper >= 6 }
+		limit = { spec_sev_next_copper = 3 }
 		value = var:spec_peak_copper
 		subtract = 1
 		multiply = 7
@@ -7298,7 +8180,7 @@ spec_risk_raw_copper = {
 		multiply = spec_over_mult_copper
 	}
 	else_if = {
-		limit = { var:spec_peak_copper >= 3 }
+		limit = { spec_sev_next_copper = 2 }
 		value = var:spec_peak_copper
 		subtract = 1
 		multiply = 2.5
@@ -7307,7 +8189,7 @@ spec_risk_raw_copper = {
 		multiply = spec_over_mult_copper
 	}
 	else_if = {
-		limit = { var:spec_peak_copper >= 2 }
+		limit = { spec_sev_next_copper = 1 }
 		value = var:spec_peak_copper
 		subtract = 1
 		multiply = 1.25
@@ -7525,6 +8407,11 @@ spec_restrain_cost_dye = {
 	multiply = spec_exp_mult_dye
 }
 
+spec_land_dye = {
+	value = var:spec_start_dye
+	subtract = 0.1
+}
+
 spec_sev_next_dye = {
 	value = 0
 	if = {
@@ -7539,12 +8426,20 @@ spec_sev_next_dye = {
 		limit = { var:spec_peak_dye >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_dye spec_dev_dye >= var:spec_start_dye }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_dye spec_dev_dye > spec_land_dye }
+		max = 2
+	}
 }
 
 spec_risk_raw_dye = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_dye >= 6 }
+		limit = { spec_sev_next_dye = 3 }
 		value = var:spec_peak_dye
 		subtract = 1
 		multiply = 7
@@ -7553,7 +8448,7 @@ spec_risk_raw_dye = {
 		multiply = spec_over_mult_dye
 	}
 	else_if = {
-		limit = { var:spec_peak_dye >= 3 }
+		limit = { spec_sev_next_dye = 2 }
 		value = var:spec_peak_dye
 		subtract = 1
 		multiply = 2.5
@@ -7562,7 +8457,7 @@ spec_risk_raw_dye = {
 		multiply = spec_over_mult_dye
 	}
 	else_if = {
-		limit = { var:spec_peak_dye >= 2 }
+		limit = { spec_sev_next_dye = 1 }
 		value = var:spec_peak_dye
 		subtract = 1
 		multiply = 1.25
@@ -7780,6 +8675,11 @@ spec_restrain_cost_electricity = {
 	multiply = spec_exp_mult_electricity
 }
 
+spec_land_electricity = {
+	value = var:spec_start_electricity
+	subtract = 0.1
+}
+
 spec_sev_next_electricity = {
 	value = 0
 	if = {
@@ -7794,12 +8694,20 @@ spec_sev_next_electricity = {
 		limit = { var:spec_peak_electricity >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_electricity spec_dev_electricity >= var:spec_start_electricity }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_electricity spec_dev_electricity > spec_land_electricity }
+		max = 2
+	}
 }
 
 spec_risk_raw_electricity = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_electricity >= 6 }
+		limit = { spec_sev_next_electricity = 3 }
 		value = var:spec_peak_electricity
 		subtract = 1
 		multiply = 7
@@ -7808,7 +8716,7 @@ spec_risk_raw_electricity = {
 		multiply = spec_over_mult_electricity
 	}
 	else_if = {
-		limit = { var:spec_peak_electricity >= 3 }
+		limit = { spec_sev_next_electricity = 2 }
 		value = var:spec_peak_electricity
 		subtract = 1
 		multiply = 2.5
@@ -7817,7 +8725,7 @@ spec_risk_raw_electricity = {
 		multiply = spec_over_mult_electricity
 	}
 	else_if = {
-		limit = { var:spec_peak_electricity >= 2 }
+		limit = { spec_sev_next_electricity = 1 }
 		value = var:spec_peak_electricity
 		subtract = 1
 		multiply = 1.25
@@ -8035,6 +8943,11 @@ spec_restrain_cost_engines = {
 	multiply = spec_exp_mult_engines
 }
 
+spec_land_engines = {
+	value = var:spec_start_engines
+	subtract = 0.1
+}
+
 spec_sev_next_engines = {
 	value = 0
 	if = {
@@ -8049,12 +8962,20 @@ spec_sev_next_engines = {
 		limit = { var:spec_peak_engines >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_engines spec_dev_engines >= var:spec_start_engines }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_engines spec_dev_engines > spec_land_engines }
+		max = 2
+	}
 }
 
 spec_risk_raw_engines = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_engines >= 6 }
+		limit = { spec_sev_next_engines = 3 }
 		value = var:spec_peak_engines
 		subtract = 1
 		multiply = 7
@@ -8063,7 +8984,7 @@ spec_risk_raw_engines = {
 		multiply = spec_over_mult_engines
 	}
 	else_if = {
-		limit = { var:spec_peak_engines >= 3 }
+		limit = { spec_sev_next_engines = 2 }
 		value = var:spec_peak_engines
 		subtract = 1
 		multiply = 2.5
@@ -8072,7 +8993,7 @@ spec_risk_raw_engines = {
 		multiply = spec_over_mult_engines
 	}
 	else_if = {
-		limit = { var:spec_peak_engines >= 2 }
+		limit = { spec_sev_next_engines = 1 }
 		value = var:spec_peak_engines
 		subtract = 1
 		multiply = 1.25
@@ -8290,6 +9211,11 @@ spec_restrain_cost_explosives = {
 	multiply = spec_exp_mult_explosives
 }
 
+spec_land_explosives = {
+	value = var:spec_start_explosives
+	subtract = 0.1
+}
+
 spec_sev_next_explosives = {
 	value = 0
 	if = {
@@ -8304,12 +9230,20 @@ spec_sev_next_explosives = {
 		limit = { var:spec_peak_explosives >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_explosives spec_dev_explosives >= var:spec_start_explosives }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_explosives spec_dev_explosives > spec_land_explosives }
+		max = 2
+	}
 }
 
 spec_risk_raw_explosives = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_explosives >= 6 }
+		limit = { spec_sev_next_explosives = 3 }
 		value = var:spec_peak_explosives
 		subtract = 1
 		multiply = 7
@@ -8318,7 +9252,7 @@ spec_risk_raw_explosives = {
 		multiply = spec_over_mult_explosives
 	}
 	else_if = {
-		limit = { var:spec_peak_explosives >= 3 }
+		limit = { spec_sev_next_explosives = 2 }
 		value = var:spec_peak_explosives
 		subtract = 1
 		multiply = 2.5
@@ -8327,7 +9261,7 @@ spec_risk_raw_explosives = {
 		multiply = spec_over_mult_explosives
 	}
 	else_if = {
-		limit = { var:spec_peak_explosives >= 2 }
+		limit = { spec_sev_next_explosives = 1 }
 		value = var:spec_peak_explosives
 		subtract = 1
 		multiply = 1.25
@@ -8545,6 +9479,11 @@ spec_restrain_cost_fabric = {
 	multiply = spec_exp_mult_fabric
 }
 
+spec_land_fabric = {
+	value = var:spec_start_fabric
+	subtract = 0.1
+}
+
 spec_sev_next_fabric = {
 	value = 0
 	if = {
@@ -8559,12 +9498,20 @@ spec_sev_next_fabric = {
 		limit = { var:spec_peak_fabric >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_fabric spec_dev_fabric >= var:spec_start_fabric }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_fabric spec_dev_fabric > spec_land_fabric }
+		max = 2
+	}
 }
 
 spec_risk_raw_fabric = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_fabric >= 6 }
+		limit = { spec_sev_next_fabric = 3 }
 		value = var:spec_peak_fabric
 		subtract = 1
 		multiply = 7
@@ -8573,7 +9520,7 @@ spec_risk_raw_fabric = {
 		multiply = spec_over_mult_fabric
 	}
 	else_if = {
-		limit = { var:spec_peak_fabric >= 3 }
+		limit = { spec_sev_next_fabric = 2 }
 		value = var:spec_peak_fabric
 		subtract = 1
 		multiply = 2.5
@@ -8582,7 +9529,7 @@ spec_risk_raw_fabric = {
 		multiply = spec_over_mult_fabric
 	}
 	else_if = {
-		limit = { var:spec_peak_fabric >= 2 }
+		limit = { spec_sev_next_fabric = 1 }
 		value = var:spec_peak_fabric
 		subtract = 1
 		multiply = 1.25
@@ -8800,6 +9747,11 @@ spec_restrain_cost_fertilizer = {
 	multiply = spec_exp_mult_fertilizer
 }
 
+spec_land_fertilizer = {
+	value = var:spec_start_fertilizer
+	subtract = 0.1
+}
+
 spec_sev_next_fertilizer = {
 	value = 0
 	if = {
@@ -8814,12 +9766,20 @@ spec_sev_next_fertilizer = {
 		limit = { var:spec_peak_fertilizer >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_fertilizer spec_dev_fertilizer >= var:spec_start_fertilizer }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_fertilizer spec_dev_fertilizer > spec_land_fertilizer }
+		max = 2
+	}
 }
 
 spec_risk_raw_fertilizer = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_fertilizer >= 6 }
+		limit = { spec_sev_next_fertilizer = 3 }
 		value = var:spec_peak_fertilizer
 		subtract = 1
 		multiply = 7
@@ -8828,7 +9788,7 @@ spec_risk_raw_fertilizer = {
 		multiply = spec_over_mult_fertilizer
 	}
 	else_if = {
-		limit = { var:spec_peak_fertilizer >= 3 }
+		limit = { spec_sev_next_fertilizer = 2 }
 		value = var:spec_peak_fertilizer
 		subtract = 1
 		multiply = 2.5
@@ -8837,7 +9797,7 @@ spec_risk_raw_fertilizer = {
 		multiply = spec_over_mult_fertilizer
 	}
 	else_if = {
-		limit = { var:spec_peak_fertilizer >= 2 }
+		limit = { spec_sev_next_fertilizer = 1 }
 		value = var:spec_peak_fertilizer
 		subtract = 1
 		multiply = 1.25
@@ -9055,6 +10015,11 @@ spec_restrain_cost_fine_art = {
 	multiply = spec_exp_mult_fine_art
 }
 
+spec_land_fine_art = {
+	value = var:spec_start_fine_art
+	subtract = 0.1
+}
+
 spec_sev_next_fine_art = {
 	value = 0
 	if = {
@@ -9069,12 +10034,20 @@ spec_sev_next_fine_art = {
 		limit = { var:spec_peak_fine_art >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_fine_art spec_dev_fine_art >= var:spec_start_fine_art }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_fine_art spec_dev_fine_art > spec_land_fine_art }
+		max = 2
+	}
 }
 
 spec_risk_raw_fine_art = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_fine_art >= 6 }
+		limit = { spec_sev_next_fine_art = 3 }
 		value = var:spec_peak_fine_art
 		subtract = 1
 		multiply = 7
@@ -9083,7 +10056,7 @@ spec_risk_raw_fine_art = {
 		multiply = spec_over_mult_fine_art
 	}
 	else_if = {
-		limit = { var:spec_peak_fine_art >= 3 }
+		limit = { spec_sev_next_fine_art = 2 }
 		value = var:spec_peak_fine_art
 		subtract = 1
 		multiply = 2.5
@@ -9092,7 +10065,7 @@ spec_risk_raw_fine_art = {
 		multiply = spec_over_mult_fine_art
 	}
 	else_if = {
-		limit = { var:spec_peak_fine_art >= 2 }
+		limit = { spec_sev_next_fine_art = 1 }
 		value = var:spec_peak_fine_art
 		subtract = 1
 		multiply = 1.25
@@ -9310,6 +10283,11 @@ spec_restrain_cost_fish = {
 	multiply = spec_exp_mult_fish
 }
 
+spec_land_fish = {
+	value = var:spec_start_fish
+	subtract = 0.1
+}
+
 spec_sev_next_fish = {
 	value = 0
 	if = {
@@ -9324,12 +10302,20 @@ spec_sev_next_fish = {
 		limit = { var:spec_peak_fish >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_fish spec_dev_fish >= var:spec_start_fish }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_fish spec_dev_fish > spec_land_fish }
+		max = 2
+	}
 }
 
 spec_risk_raw_fish = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_fish >= 6 }
+		limit = { spec_sev_next_fish = 3 }
 		value = var:spec_peak_fish
 		subtract = 1
 		multiply = 7
@@ -9338,7 +10324,7 @@ spec_risk_raw_fish = {
 		multiply = spec_over_mult_fish
 	}
 	else_if = {
-		limit = { var:spec_peak_fish >= 3 }
+		limit = { spec_sev_next_fish = 2 }
 		value = var:spec_peak_fish
 		subtract = 1
 		multiply = 2.5
@@ -9347,7 +10333,7 @@ spec_risk_raw_fish = {
 		multiply = spec_over_mult_fish
 	}
 	else_if = {
-		limit = { var:spec_peak_fish >= 2 }
+		limit = { spec_sev_next_fish = 1 }
 		value = var:spec_peak_fish
 		subtract = 1
 		multiply = 1.25
@@ -9565,6 +10551,11 @@ spec_restrain_cost_fruit = {
 	multiply = spec_exp_mult_fruit
 }
 
+spec_land_fruit = {
+	value = var:spec_start_fruit
+	subtract = 0.1
+}
+
 spec_sev_next_fruit = {
 	value = 0
 	if = {
@@ -9579,12 +10570,20 @@ spec_sev_next_fruit = {
 		limit = { var:spec_peak_fruit >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_fruit spec_dev_fruit >= var:spec_start_fruit }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_fruit spec_dev_fruit > spec_land_fruit }
+		max = 2
+	}
 }
 
 spec_risk_raw_fruit = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_fruit >= 6 }
+		limit = { spec_sev_next_fruit = 3 }
 		value = var:spec_peak_fruit
 		subtract = 1
 		multiply = 7
@@ -9593,7 +10592,7 @@ spec_risk_raw_fruit = {
 		multiply = spec_over_mult_fruit
 	}
 	else_if = {
-		limit = { var:spec_peak_fruit >= 3 }
+		limit = { spec_sev_next_fruit = 2 }
 		value = var:spec_peak_fruit
 		subtract = 1
 		multiply = 2.5
@@ -9602,7 +10601,7 @@ spec_risk_raw_fruit = {
 		multiply = spec_over_mult_fruit
 	}
 	else_if = {
-		limit = { var:spec_peak_fruit >= 2 }
+		limit = { spec_sev_next_fruit = 1 }
 		value = var:spec_peak_fruit
 		subtract = 1
 		multiply = 1.25
@@ -9820,6 +10819,11 @@ spec_restrain_cost_furniture = {
 	multiply = spec_exp_mult_furniture
 }
 
+spec_land_furniture = {
+	value = var:spec_start_furniture
+	subtract = 0.1
+}
+
 spec_sev_next_furniture = {
 	value = 0
 	if = {
@@ -9834,12 +10838,20 @@ spec_sev_next_furniture = {
 		limit = { var:spec_peak_furniture >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_furniture spec_dev_furniture >= var:spec_start_furniture }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_furniture spec_dev_furniture > spec_land_furniture }
+		max = 2
+	}
 }
 
 spec_risk_raw_furniture = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_furniture >= 6 }
+		limit = { spec_sev_next_furniture = 3 }
 		value = var:spec_peak_furniture
 		subtract = 1
 		multiply = 7
@@ -9848,7 +10860,7 @@ spec_risk_raw_furniture = {
 		multiply = spec_over_mult_furniture
 	}
 	else_if = {
-		limit = { var:spec_peak_furniture >= 3 }
+		limit = { spec_sev_next_furniture = 2 }
 		value = var:spec_peak_furniture
 		subtract = 1
 		multiply = 2.5
@@ -9857,7 +10869,7 @@ spec_risk_raw_furniture = {
 		multiply = spec_over_mult_furniture
 	}
 	else_if = {
-		limit = { var:spec_peak_furniture >= 2 }
+		limit = { spec_sev_next_furniture = 1 }
 		value = var:spec_peak_furniture
 		subtract = 1
 		multiply = 1.25
@@ -10075,6 +11087,11 @@ spec_restrain_cost_glass = {
 	multiply = spec_exp_mult_glass
 }
 
+spec_land_glass = {
+	value = var:spec_start_glass
+	subtract = 0.1
+}
+
 spec_sev_next_glass = {
 	value = 0
 	if = {
@@ -10089,12 +11106,20 @@ spec_sev_next_glass = {
 		limit = { var:spec_peak_glass >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_glass spec_dev_glass >= var:spec_start_glass }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_glass spec_dev_glass > spec_land_glass }
+		max = 2
+	}
 }
 
 spec_risk_raw_glass = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_glass >= 6 }
+		limit = { spec_sev_next_glass = 3 }
 		value = var:spec_peak_glass
 		subtract = 1
 		multiply = 7
@@ -10103,7 +11128,7 @@ spec_risk_raw_glass = {
 		multiply = spec_over_mult_glass
 	}
 	else_if = {
-		limit = { var:spec_peak_glass >= 3 }
+		limit = { spec_sev_next_glass = 2 }
 		value = var:spec_peak_glass
 		subtract = 1
 		multiply = 2.5
@@ -10112,7 +11137,7 @@ spec_risk_raw_glass = {
 		multiply = spec_over_mult_glass
 	}
 	else_if = {
-		limit = { var:spec_peak_glass >= 2 }
+		limit = { spec_sev_next_glass = 1 }
 		value = var:spec_peak_glass
 		subtract = 1
 		multiply = 1.25
@@ -10330,6 +11355,11 @@ spec_restrain_cost_grain = {
 	multiply = spec_exp_mult_grain
 }
 
+spec_land_grain = {
+	value = var:spec_start_grain
+	subtract = 0.1
+}
+
 spec_sev_next_grain = {
 	value = 0
 	if = {
@@ -10344,12 +11374,20 @@ spec_sev_next_grain = {
 		limit = { var:spec_peak_grain >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_grain spec_dev_grain >= var:spec_start_grain }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_grain spec_dev_grain > spec_land_grain }
+		max = 2
+	}
 }
 
 spec_risk_raw_grain = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_grain >= 6 }
+		limit = { spec_sev_next_grain = 3 }
 		value = var:spec_peak_grain
 		subtract = 1
 		multiply = 7
@@ -10358,7 +11396,7 @@ spec_risk_raw_grain = {
 		multiply = spec_over_mult_grain
 	}
 	else_if = {
-		limit = { var:spec_peak_grain >= 3 }
+		limit = { spec_sev_next_grain = 2 }
 		value = var:spec_peak_grain
 		subtract = 1
 		multiply = 2.5
@@ -10367,7 +11405,7 @@ spec_risk_raw_grain = {
 		multiply = spec_over_mult_grain
 	}
 	else_if = {
-		limit = { var:spec_peak_grain >= 2 }
+		limit = { spec_sev_next_grain = 1 }
 		value = var:spec_peak_grain
 		subtract = 1
 		multiply = 1.25
@@ -10585,6 +11623,11 @@ spec_restrain_cost_groceries = {
 	multiply = spec_exp_mult_groceries
 }
 
+spec_land_groceries = {
+	value = var:spec_start_groceries
+	subtract = 0.1
+}
+
 spec_sev_next_groceries = {
 	value = 0
 	if = {
@@ -10599,12 +11642,20 @@ spec_sev_next_groceries = {
 		limit = { var:spec_peak_groceries >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_groceries spec_dev_groceries >= var:spec_start_groceries }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_groceries spec_dev_groceries > spec_land_groceries }
+		max = 2
+	}
 }
 
 spec_risk_raw_groceries = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_groceries >= 6 }
+		limit = { spec_sev_next_groceries = 3 }
 		value = var:spec_peak_groceries
 		subtract = 1
 		multiply = 7
@@ -10613,7 +11664,7 @@ spec_risk_raw_groceries = {
 		multiply = spec_over_mult_groceries
 	}
 	else_if = {
-		limit = { var:spec_peak_groceries >= 3 }
+		limit = { spec_sev_next_groceries = 2 }
 		value = var:spec_peak_groceries
 		subtract = 1
 		multiply = 2.5
@@ -10622,7 +11673,7 @@ spec_risk_raw_groceries = {
 		multiply = spec_over_mult_groceries
 	}
 	else_if = {
-		limit = { var:spec_peak_groceries >= 2 }
+		limit = { spec_sev_next_groceries = 1 }
 		value = var:spec_peak_groceries
 		subtract = 1
 		multiply = 1.25
@@ -10840,6 +11891,11 @@ spec_restrain_cost_hardwood = {
 	multiply = spec_exp_mult_hardwood
 }
 
+spec_land_hardwood = {
+	value = var:spec_start_hardwood
+	subtract = 0.1
+}
+
 spec_sev_next_hardwood = {
 	value = 0
 	if = {
@@ -10854,12 +11910,20 @@ spec_sev_next_hardwood = {
 		limit = { var:spec_peak_hardwood >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_hardwood spec_dev_hardwood >= var:spec_start_hardwood }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_hardwood spec_dev_hardwood > spec_land_hardwood }
+		max = 2
+	}
 }
 
 spec_risk_raw_hardwood = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_hardwood >= 6 }
+		limit = { spec_sev_next_hardwood = 3 }
 		value = var:spec_peak_hardwood
 		subtract = 1
 		multiply = 7
@@ -10868,7 +11932,7 @@ spec_risk_raw_hardwood = {
 		multiply = spec_over_mult_hardwood
 	}
 	else_if = {
-		limit = { var:spec_peak_hardwood >= 3 }
+		limit = { spec_sev_next_hardwood = 2 }
 		value = var:spec_peak_hardwood
 		subtract = 1
 		multiply = 2.5
@@ -10877,7 +11941,7 @@ spec_risk_raw_hardwood = {
 		multiply = spec_over_mult_hardwood
 	}
 	else_if = {
-		limit = { var:spec_peak_hardwood >= 2 }
+		limit = { spec_sev_next_hardwood = 1 }
 		value = var:spec_peak_hardwood
 		subtract = 1
 		multiply = 1.25
@@ -11095,6 +12159,11 @@ spec_restrain_cost_iron = {
 	multiply = spec_exp_mult_iron
 }
 
+spec_land_iron = {
+	value = var:spec_start_iron
+	subtract = 0.1
+}
+
 spec_sev_next_iron = {
 	value = 0
 	if = {
@@ -11109,12 +12178,20 @@ spec_sev_next_iron = {
 		limit = { var:spec_peak_iron >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_iron spec_dev_iron >= var:spec_start_iron }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_iron spec_dev_iron > spec_land_iron }
+		max = 2
+	}
 }
 
 spec_risk_raw_iron = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_iron >= 6 }
+		limit = { spec_sev_next_iron = 3 }
 		value = var:spec_peak_iron
 		subtract = 1
 		multiply = 7
@@ -11123,7 +12200,7 @@ spec_risk_raw_iron = {
 		multiply = spec_over_mult_iron
 	}
 	else_if = {
-		limit = { var:spec_peak_iron >= 3 }
+		limit = { spec_sev_next_iron = 2 }
 		value = var:spec_peak_iron
 		subtract = 1
 		multiply = 2.5
@@ -11132,7 +12209,7 @@ spec_risk_raw_iron = {
 		multiply = spec_over_mult_iron
 	}
 	else_if = {
-		limit = { var:spec_peak_iron >= 2 }
+		limit = { spec_sev_next_iron = 1 }
 		value = var:spec_peak_iron
 		subtract = 1
 		multiply = 1.25
@@ -11350,6 +12427,11 @@ spec_restrain_cost_lead = {
 	multiply = spec_exp_mult_lead
 }
 
+spec_land_lead = {
+	value = var:spec_start_lead
+	subtract = 0.1
+}
+
 spec_sev_next_lead = {
 	value = 0
 	if = {
@@ -11364,12 +12446,20 @@ spec_sev_next_lead = {
 		limit = { var:spec_peak_lead >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_lead spec_dev_lead >= var:spec_start_lead }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_lead spec_dev_lead > spec_land_lead }
+		max = 2
+	}
 }
 
 spec_risk_raw_lead = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_lead >= 6 }
+		limit = { spec_sev_next_lead = 3 }
 		value = var:spec_peak_lead
 		subtract = 1
 		multiply = 7
@@ -11378,7 +12468,7 @@ spec_risk_raw_lead = {
 		multiply = spec_over_mult_lead
 	}
 	else_if = {
-		limit = { var:spec_peak_lead >= 3 }
+		limit = { spec_sev_next_lead = 2 }
 		value = var:spec_peak_lead
 		subtract = 1
 		multiply = 2.5
@@ -11387,7 +12477,7 @@ spec_risk_raw_lead = {
 		multiply = spec_over_mult_lead
 	}
 	else_if = {
-		limit = { var:spec_peak_lead >= 2 }
+		limit = { spec_sev_next_lead = 1 }
 		value = var:spec_peak_lead
 		subtract = 1
 		multiply = 1.25
@@ -11605,6 +12695,11 @@ spec_restrain_cost_liquor = {
 	multiply = spec_exp_mult_liquor
 }
 
+spec_land_liquor = {
+	value = var:spec_start_liquor
+	subtract = 0.1
+}
+
 spec_sev_next_liquor = {
 	value = 0
 	if = {
@@ -11619,12 +12714,20 @@ spec_sev_next_liquor = {
 		limit = { var:spec_peak_liquor >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_liquor spec_dev_liquor >= var:spec_start_liquor }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_liquor spec_dev_liquor > spec_land_liquor }
+		max = 2
+	}
 }
 
 spec_risk_raw_liquor = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_liquor >= 6 }
+		limit = { spec_sev_next_liquor = 3 }
 		value = var:spec_peak_liquor
 		subtract = 1
 		multiply = 7
@@ -11633,7 +12736,7 @@ spec_risk_raw_liquor = {
 		multiply = spec_over_mult_liquor
 	}
 	else_if = {
-		limit = { var:spec_peak_liquor >= 3 }
+		limit = { spec_sev_next_liquor = 2 }
 		value = var:spec_peak_liquor
 		subtract = 1
 		multiply = 2.5
@@ -11642,7 +12745,7 @@ spec_risk_raw_liquor = {
 		multiply = spec_over_mult_liquor
 	}
 	else_if = {
-		limit = { var:spec_peak_liquor >= 2 }
+		limit = { spec_sev_next_liquor = 1 }
 		value = var:spec_peak_liquor
 		subtract = 1
 		multiply = 1.25
@@ -11860,6 +12963,11 @@ spec_restrain_cost_luxury_clothes = {
 	multiply = spec_exp_mult_luxury_clothes
 }
 
+spec_land_luxury_clothes = {
+	value = var:spec_start_luxury_clothes
+	subtract = 0.1
+}
+
 spec_sev_next_luxury_clothes = {
 	value = 0
 	if = {
@@ -11874,12 +12982,20 @@ spec_sev_next_luxury_clothes = {
 		limit = { var:spec_peak_luxury_clothes >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_luxury_clothes spec_dev_luxury_clothes >= var:spec_start_luxury_clothes }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_luxury_clothes spec_dev_luxury_clothes > spec_land_luxury_clothes }
+		max = 2
+	}
 }
 
 spec_risk_raw_luxury_clothes = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_luxury_clothes >= 6 }
+		limit = { spec_sev_next_luxury_clothes = 3 }
 		value = var:spec_peak_luxury_clothes
 		subtract = 1
 		multiply = 7
@@ -11888,7 +13004,7 @@ spec_risk_raw_luxury_clothes = {
 		multiply = spec_over_mult_luxury_clothes
 	}
 	else_if = {
-		limit = { var:spec_peak_luxury_clothes >= 3 }
+		limit = { spec_sev_next_luxury_clothes = 2 }
 		value = var:spec_peak_luxury_clothes
 		subtract = 1
 		multiply = 2.5
@@ -11897,7 +13013,7 @@ spec_risk_raw_luxury_clothes = {
 		multiply = spec_over_mult_luxury_clothes
 	}
 	else_if = {
-		limit = { var:spec_peak_luxury_clothes >= 2 }
+		limit = { spec_sev_next_luxury_clothes = 1 }
 		value = var:spec_peak_luxury_clothes
 		subtract = 1
 		multiply = 1.25
@@ -12115,6 +13231,11 @@ spec_restrain_cost_luxury_furniture = {
 	multiply = spec_exp_mult_luxury_furniture
 }
 
+spec_land_luxury_furniture = {
+	value = var:spec_start_luxury_furniture
+	subtract = 0.1
+}
+
 spec_sev_next_luxury_furniture = {
 	value = 0
 	if = {
@@ -12129,12 +13250,20 @@ spec_sev_next_luxury_furniture = {
 		limit = { var:spec_peak_luxury_furniture >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_luxury_furniture spec_dev_luxury_furniture >= var:spec_start_luxury_furniture }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_luxury_furniture spec_dev_luxury_furniture > spec_land_luxury_furniture }
+		max = 2
+	}
 }
 
 spec_risk_raw_luxury_furniture = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_luxury_furniture >= 6 }
+		limit = { spec_sev_next_luxury_furniture = 3 }
 		value = var:spec_peak_luxury_furniture
 		subtract = 1
 		multiply = 7
@@ -12143,7 +13272,7 @@ spec_risk_raw_luxury_furniture = {
 		multiply = spec_over_mult_luxury_furniture
 	}
 	else_if = {
-		limit = { var:spec_peak_luxury_furniture >= 3 }
+		limit = { spec_sev_next_luxury_furniture = 2 }
 		value = var:spec_peak_luxury_furniture
 		subtract = 1
 		multiply = 2.5
@@ -12152,7 +13281,7 @@ spec_risk_raw_luxury_furniture = {
 		multiply = spec_over_mult_luxury_furniture
 	}
 	else_if = {
-		limit = { var:spec_peak_luxury_furniture >= 2 }
+		limit = { spec_sev_next_luxury_furniture = 1 }
 		value = var:spec_peak_luxury_furniture
 		subtract = 1
 		multiply = 1.25
@@ -12370,6 +13499,11 @@ spec_restrain_cost_meat = {
 	multiply = spec_exp_mult_meat
 }
 
+spec_land_meat = {
+	value = var:spec_start_meat
+	subtract = 0.1
+}
+
 spec_sev_next_meat = {
 	value = 0
 	if = {
@@ -12384,12 +13518,20 @@ spec_sev_next_meat = {
 		limit = { var:spec_peak_meat >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_meat spec_dev_meat >= var:spec_start_meat }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_meat spec_dev_meat > spec_land_meat }
+		max = 2
+	}
 }
 
 spec_risk_raw_meat = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_meat >= 6 }
+		limit = { spec_sev_next_meat = 3 }
 		value = var:spec_peak_meat
 		subtract = 1
 		multiply = 7
@@ -12398,7 +13540,7 @@ spec_risk_raw_meat = {
 		multiply = spec_over_mult_meat
 	}
 	else_if = {
-		limit = { var:spec_peak_meat >= 3 }
+		limit = { spec_sev_next_meat = 2 }
 		value = var:spec_peak_meat
 		subtract = 1
 		multiply = 2.5
@@ -12407,7 +13549,7 @@ spec_risk_raw_meat = {
 		multiply = spec_over_mult_meat
 	}
 	else_if = {
-		limit = { var:spec_peak_meat >= 2 }
+		limit = { spec_sev_next_meat = 1 }
 		value = var:spec_peak_meat
 		subtract = 1
 		multiply = 1.25
@@ -12625,6 +13767,11 @@ spec_restrain_cost_merchant_marine = {
 	multiply = spec_exp_mult_merchant_marine
 }
 
+spec_land_merchant_marine = {
+	value = var:spec_start_merchant_marine
+	subtract = 0.1
+}
+
 spec_sev_next_merchant_marine = {
 	value = 0
 	if = {
@@ -12639,12 +13786,20 @@ spec_sev_next_merchant_marine = {
 		limit = { var:spec_peak_merchant_marine >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_merchant_marine spec_dev_merchant_marine >= var:spec_start_merchant_marine }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_merchant_marine spec_dev_merchant_marine > spec_land_merchant_marine }
+		max = 2
+	}
 }
 
 spec_risk_raw_merchant_marine = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_merchant_marine >= 6 }
+		limit = { spec_sev_next_merchant_marine = 3 }
 		value = var:spec_peak_merchant_marine
 		subtract = 1
 		multiply = 7
@@ -12653,7 +13808,7 @@ spec_risk_raw_merchant_marine = {
 		multiply = spec_over_mult_merchant_marine
 	}
 	else_if = {
-		limit = { var:spec_peak_merchant_marine >= 3 }
+		limit = { spec_sev_next_merchant_marine = 2 }
 		value = var:spec_peak_merchant_marine
 		subtract = 1
 		multiply = 2.5
@@ -12662,7 +13817,7 @@ spec_risk_raw_merchant_marine = {
 		multiply = spec_over_mult_merchant_marine
 	}
 	else_if = {
-		limit = { var:spec_peak_merchant_marine >= 2 }
+		limit = { spec_sev_next_merchant_marine = 1 }
 		value = var:spec_peak_merchant_marine
 		subtract = 1
 		multiply = 1.25
@@ -12880,6 +14035,11 @@ spec_restrain_cost_oil = {
 	multiply = spec_exp_mult_oil
 }
 
+spec_land_oil = {
+	value = var:spec_start_oil
+	subtract = 0.1
+}
+
 spec_sev_next_oil = {
 	value = 0
 	if = {
@@ -12894,12 +14054,20 @@ spec_sev_next_oil = {
 		limit = { var:spec_peak_oil >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_oil spec_dev_oil >= var:spec_start_oil }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_oil spec_dev_oil > spec_land_oil }
+		max = 2
+	}
 }
 
 spec_risk_raw_oil = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_oil >= 6 }
+		limit = { spec_sev_next_oil = 3 }
 		value = var:spec_peak_oil
 		subtract = 1
 		multiply = 7
@@ -12908,7 +14076,7 @@ spec_risk_raw_oil = {
 		multiply = spec_over_mult_oil
 	}
 	else_if = {
-		limit = { var:spec_peak_oil >= 3 }
+		limit = { spec_sev_next_oil = 2 }
 		value = var:spec_peak_oil
 		subtract = 1
 		multiply = 2.5
@@ -12917,7 +14085,7 @@ spec_risk_raw_oil = {
 		multiply = spec_over_mult_oil
 	}
 	else_if = {
-		limit = { var:spec_peak_oil >= 2 }
+		limit = { spec_sev_next_oil = 1 }
 		value = var:spec_peak_oil
 		subtract = 1
 		multiply = 1.25
@@ -13135,6 +14303,11 @@ spec_restrain_cost_opium = {
 	multiply = spec_exp_mult_opium
 }
 
+spec_land_opium = {
+	value = var:spec_start_opium
+	subtract = 0.1
+}
+
 spec_sev_next_opium = {
 	value = 0
 	if = {
@@ -13149,12 +14322,20 @@ spec_sev_next_opium = {
 		limit = { var:spec_peak_opium >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_opium spec_dev_opium >= var:spec_start_opium }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_opium spec_dev_opium > spec_land_opium }
+		max = 2
+	}
 }
 
 spec_risk_raw_opium = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_opium >= 6 }
+		limit = { spec_sev_next_opium = 3 }
 		value = var:spec_peak_opium
 		subtract = 1
 		multiply = 7
@@ -13163,7 +14344,7 @@ spec_risk_raw_opium = {
 		multiply = spec_over_mult_opium
 	}
 	else_if = {
-		limit = { var:spec_peak_opium >= 3 }
+		limit = { spec_sev_next_opium = 2 }
 		value = var:spec_peak_opium
 		subtract = 1
 		multiply = 2.5
@@ -13172,7 +14353,7 @@ spec_risk_raw_opium = {
 		multiply = spec_over_mult_opium
 	}
 	else_if = {
-		limit = { var:spec_peak_opium >= 2 }
+		limit = { spec_sev_next_opium = 1 }
 		value = var:spec_peak_opium
 		subtract = 1
 		multiply = 1.25
@@ -13390,6 +14571,11 @@ spec_restrain_cost_paper = {
 	multiply = spec_exp_mult_paper
 }
 
+spec_land_paper = {
+	value = var:spec_start_paper
+	subtract = 0.1
+}
+
 spec_sev_next_paper = {
 	value = 0
 	if = {
@@ -13404,12 +14590,20 @@ spec_sev_next_paper = {
 		limit = { var:spec_peak_paper >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_paper spec_dev_paper >= var:spec_start_paper }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_paper spec_dev_paper > spec_land_paper }
+		max = 2
+	}
 }
 
 spec_risk_raw_paper = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_paper >= 6 }
+		limit = { spec_sev_next_paper = 3 }
 		value = var:spec_peak_paper
 		subtract = 1
 		multiply = 7
@@ -13418,7 +14612,7 @@ spec_risk_raw_paper = {
 		multiply = spec_over_mult_paper
 	}
 	else_if = {
-		limit = { var:spec_peak_paper >= 3 }
+		limit = { spec_sev_next_paper = 2 }
 		value = var:spec_peak_paper
 		subtract = 1
 		multiply = 2.5
@@ -13427,7 +14621,7 @@ spec_risk_raw_paper = {
 		multiply = spec_over_mult_paper
 	}
 	else_if = {
-		limit = { var:spec_peak_paper >= 2 }
+		limit = { spec_sev_next_paper = 1 }
 		value = var:spec_peak_paper
 		subtract = 1
 		multiply = 1.25
@@ -13645,6 +14839,11 @@ spec_restrain_cost_porcelain = {
 	multiply = spec_exp_mult_porcelain
 }
 
+spec_land_porcelain = {
+	value = var:spec_start_porcelain
+	subtract = 0.1
+}
+
 spec_sev_next_porcelain = {
 	value = 0
 	if = {
@@ -13659,12 +14858,20 @@ spec_sev_next_porcelain = {
 		limit = { var:spec_peak_porcelain >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_porcelain spec_dev_porcelain >= var:spec_start_porcelain }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_porcelain spec_dev_porcelain > spec_land_porcelain }
+		max = 2
+	}
 }
 
 spec_risk_raw_porcelain = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_porcelain >= 6 }
+		limit = { spec_sev_next_porcelain = 3 }
 		value = var:spec_peak_porcelain
 		subtract = 1
 		multiply = 7
@@ -13673,7 +14880,7 @@ spec_risk_raw_porcelain = {
 		multiply = spec_over_mult_porcelain
 	}
 	else_if = {
-		limit = { var:spec_peak_porcelain >= 3 }
+		limit = { spec_sev_next_porcelain = 2 }
 		value = var:spec_peak_porcelain
 		subtract = 1
 		multiply = 2.5
@@ -13682,7 +14889,7 @@ spec_risk_raw_porcelain = {
 		multiply = spec_over_mult_porcelain
 	}
 	else_if = {
-		limit = { var:spec_peak_porcelain >= 2 }
+		limit = { spec_sev_next_porcelain = 1 }
 		value = var:spec_peak_porcelain
 		subtract = 1
 		multiply = 1.25
@@ -13900,6 +15107,11 @@ spec_restrain_cost_radios = {
 	multiply = spec_exp_mult_radios
 }
 
+spec_land_radios = {
+	value = var:spec_start_radios
+	subtract = 0.1
+}
+
 spec_sev_next_radios = {
 	value = 0
 	if = {
@@ -13914,12 +15126,20 @@ spec_sev_next_radios = {
 		limit = { var:spec_peak_radios >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_radios spec_dev_radios >= var:spec_start_radios }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_radios spec_dev_radios > spec_land_radios }
+		max = 2
+	}
 }
 
 spec_risk_raw_radios = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_radios >= 6 }
+		limit = { spec_sev_next_radios = 3 }
 		value = var:spec_peak_radios
 		subtract = 1
 		multiply = 7
@@ -13928,7 +15148,7 @@ spec_risk_raw_radios = {
 		multiply = spec_over_mult_radios
 	}
 	else_if = {
-		limit = { var:spec_peak_radios >= 3 }
+		limit = { spec_sev_next_radios = 2 }
 		value = var:spec_peak_radios
 		subtract = 1
 		multiply = 2.5
@@ -13937,7 +15157,7 @@ spec_risk_raw_radios = {
 		multiply = spec_over_mult_radios
 	}
 	else_if = {
-		limit = { var:spec_peak_radios >= 2 }
+		limit = { spec_sev_next_radios = 1 }
 		value = var:spec_peak_radios
 		subtract = 1
 		multiply = 1.25
@@ -14155,6 +15375,11 @@ spec_restrain_cost_rubber = {
 	multiply = spec_exp_mult_rubber
 }
 
+spec_land_rubber = {
+	value = var:spec_start_rubber
+	subtract = 0.1
+}
+
 spec_sev_next_rubber = {
 	value = 0
 	if = {
@@ -14169,12 +15394,20 @@ spec_sev_next_rubber = {
 		limit = { var:spec_peak_rubber >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_rubber spec_dev_rubber >= var:spec_start_rubber }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_rubber spec_dev_rubber > spec_land_rubber }
+		max = 2
+	}
 }
 
 spec_risk_raw_rubber = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_rubber >= 6 }
+		limit = { spec_sev_next_rubber = 3 }
 		value = var:spec_peak_rubber
 		subtract = 1
 		multiply = 7
@@ -14183,7 +15416,7 @@ spec_risk_raw_rubber = {
 		multiply = spec_over_mult_rubber
 	}
 	else_if = {
-		limit = { var:spec_peak_rubber >= 3 }
+		limit = { spec_sev_next_rubber = 2 }
 		value = var:spec_peak_rubber
 		subtract = 1
 		multiply = 2.5
@@ -14192,7 +15425,7 @@ spec_risk_raw_rubber = {
 		multiply = spec_over_mult_rubber
 	}
 	else_if = {
-		limit = { var:spec_peak_rubber >= 2 }
+		limit = { spec_sev_next_rubber = 1 }
 		value = var:spec_peak_rubber
 		subtract = 1
 		multiply = 1.25
@@ -14410,6 +15643,11 @@ spec_restrain_cost_silk = {
 	multiply = spec_exp_mult_silk
 }
 
+spec_land_silk = {
+	value = var:spec_start_silk
+	subtract = 0.1
+}
+
 spec_sev_next_silk = {
 	value = 0
 	if = {
@@ -14424,12 +15662,20 @@ spec_sev_next_silk = {
 		limit = { var:spec_peak_silk >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_silk spec_dev_silk >= var:spec_start_silk }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_silk spec_dev_silk > spec_land_silk }
+		max = 2
+	}
 }
 
 spec_risk_raw_silk = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_silk >= 6 }
+		limit = { spec_sev_next_silk = 3 }
 		value = var:spec_peak_silk
 		subtract = 1
 		multiply = 7
@@ -14438,7 +15684,7 @@ spec_risk_raw_silk = {
 		multiply = spec_over_mult_silk
 	}
 	else_if = {
-		limit = { var:spec_peak_silk >= 3 }
+		limit = { spec_sev_next_silk = 2 }
 		value = var:spec_peak_silk
 		subtract = 1
 		multiply = 2.5
@@ -14447,7 +15693,7 @@ spec_risk_raw_silk = {
 		multiply = spec_over_mult_silk
 	}
 	else_if = {
-		limit = { var:spec_peak_silk >= 2 }
+		limit = { spec_sev_next_silk = 1 }
 		value = var:spec_peak_silk
 		subtract = 1
 		multiply = 1.25
@@ -14665,6 +15911,11 @@ spec_restrain_cost_small_arms = {
 	multiply = spec_exp_mult_small_arms
 }
 
+spec_land_small_arms = {
+	value = var:spec_start_small_arms
+	subtract = 0.1
+}
+
 spec_sev_next_small_arms = {
 	value = 0
 	if = {
@@ -14679,12 +15930,20 @@ spec_sev_next_small_arms = {
 		limit = { var:spec_peak_small_arms >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_small_arms spec_dev_small_arms >= var:spec_start_small_arms }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_small_arms spec_dev_small_arms > spec_land_small_arms }
+		max = 2
+	}
 }
 
 spec_risk_raw_small_arms = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_small_arms >= 6 }
+		limit = { spec_sev_next_small_arms = 3 }
 		value = var:spec_peak_small_arms
 		subtract = 1
 		multiply = 7
@@ -14693,7 +15952,7 @@ spec_risk_raw_small_arms = {
 		multiply = spec_over_mult_small_arms
 	}
 	else_if = {
-		limit = { var:spec_peak_small_arms >= 3 }
+		limit = { spec_sev_next_small_arms = 2 }
 		value = var:spec_peak_small_arms
 		subtract = 1
 		multiply = 2.5
@@ -14702,7 +15961,7 @@ spec_risk_raw_small_arms = {
 		multiply = spec_over_mult_small_arms
 	}
 	else_if = {
-		limit = { var:spec_peak_small_arms >= 2 }
+		limit = { spec_sev_next_small_arms = 1 }
 		value = var:spec_peak_small_arms
 		subtract = 1
 		multiply = 1.25
@@ -14920,6 +16179,11 @@ spec_restrain_cost_steamers = {
 	multiply = spec_exp_mult_steamers
 }
 
+spec_land_steamers = {
+	value = var:spec_start_steamers
+	subtract = 0.1
+}
+
 spec_sev_next_steamers = {
 	value = 0
 	if = {
@@ -14934,12 +16198,20 @@ spec_sev_next_steamers = {
 		limit = { var:spec_peak_steamers >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_steamers spec_dev_steamers >= var:spec_start_steamers }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_steamers spec_dev_steamers > spec_land_steamers }
+		max = 2
+	}
 }
 
 spec_risk_raw_steamers = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_steamers >= 6 }
+		limit = { spec_sev_next_steamers = 3 }
 		value = var:spec_peak_steamers
 		subtract = 1
 		multiply = 7
@@ -14948,7 +16220,7 @@ spec_risk_raw_steamers = {
 		multiply = spec_over_mult_steamers
 	}
 	else_if = {
-		limit = { var:spec_peak_steamers >= 3 }
+		limit = { spec_sev_next_steamers = 2 }
 		value = var:spec_peak_steamers
 		subtract = 1
 		multiply = 2.5
@@ -14957,7 +16229,7 @@ spec_risk_raw_steamers = {
 		multiply = spec_over_mult_steamers
 	}
 	else_if = {
-		limit = { var:spec_peak_steamers >= 2 }
+		limit = { spec_sev_next_steamers = 1 }
 		value = var:spec_peak_steamers
 		subtract = 1
 		multiply = 1.25
@@ -15175,6 +16447,11 @@ spec_restrain_cost_steel = {
 	multiply = spec_exp_mult_steel
 }
 
+spec_land_steel = {
+	value = var:spec_start_steel
+	subtract = 0.1
+}
+
 spec_sev_next_steel = {
 	value = 0
 	if = {
@@ -15189,12 +16466,20 @@ spec_sev_next_steel = {
 		limit = { var:spec_peak_steel >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_steel spec_dev_steel >= var:spec_start_steel }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_steel spec_dev_steel > spec_land_steel }
+		max = 2
+	}
 }
 
 spec_risk_raw_steel = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_steel >= 6 }
+		limit = { spec_sev_next_steel = 3 }
 		value = var:spec_peak_steel
 		subtract = 1
 		multiply = 7
@@ -15203,7 +16488,7 @@ spec_risk_raw_steel = {
 		multiply = spec_over_mult_steel
 	}
 	else_if = {
-		limit = { var:spec_peak_steel >= 3 }
+		limit = { spec_sev_next_steel = 2 }
 		value = var:spec_peak_steel
 		subtract = 1
 		multiply = 2.5
@@ -15212,7 +16497,7 @@ spec_risk_raw_steel = {
 		multiply = spec_over_mult_steel
 	}
 	else_if = {
-		limit = { var:spec_peak_steel >= 2 }
+		limit = { spec_sev_next_steel = 1 }
 		value = var:spec_peak_steel
 		subtract = 1
 		multiply = 1.25
@@ -15430,6 +16715,11 @@ spec_restrain_cost_sugar = {
 	multiply = spec_exp_mult_sugar
 }
 
+spec_land_sugar = {
+	value = var:spec_start_sugar
+	subtract = 0.1
+}
+
 spec_sev_next_sugar = {
 	value = 0
 	if = {
@@ -15444,12 +16734,20 @@ spec_sev_next_sugar = {
 		limit = { var:spec_peak_sugar >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_sugar spec_dev_sugar >= var:spec_start_sugar }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_sugar spec_dev_sugar > spec_land_sugar }
+		max = 2
+	}
 }
 
 spec_risk_raw_sugar = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_sugar >= 6 }
+		limit = { spec_sev_next_sugar = 3 }
 		value = var:spec_peak_sugar
 		subtract = 1
 		multiply = 7
@@ -15458,7 +16756,7 @@ spec_risk_raw_sugar = {
 		multiply = spec_over_mult_sugar
 	}
 	else_if = {
-		limit = { var:spec_peak_sugar >= 3 }
+		limit = { spec_sev_next_sugar = 2 }
 		value = var:spec_peak_sugar
 		subtract = 1
 		multiply = 2.5
@@ -15467,7 +16765,7 @@ spec_risk_raw_sugar = {
 		multiply = spec_over_mult_sugar
 	}
 	else_if = {
-		limit = { var:spec_peak_sugar >= 2 }
+		limit = { spec_sev_next_sugar = 1 }
 		value = var:spec_peak_sugar
 		subtract = 1
 		multiply = 1.25
@@ -15685,6 +16983,11 @@ spec_restrain_cost_sulfur = {
 	multiply = spec_exp_mult_sulfur
 }
 
+spec_land_sulfur = {
+	value = var:spec_start_sulfur
+	subtract = 0.1
+}
+
 spec_sev_next_sulfur = {
 	value = 0
 	if = {
@@ -15699,12 +17002,20 @@ spec_sev_next_sulfur = {
 		limit = { var:spec_peak_sulfur >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_sulfur spec_dev_sulfur >= var:spec_start_sulfur }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_sulfur spec_dev_sulfur > spec_land_sulfur }
+		max = 2
+	}
 }
 
 spec_risk_raw_sulfur = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_sulfur >= 6 }
+		limit = { spec_sev_next_sulfur = 3 }
 		value = var:spec_peak_sulfur
 		subtract = 1
 		multiply = 7
@@ -15713,7 +17024,7 @@ spec_risk_raw_sulfur = {
 		multiply = spec_over_mult_sulfur
 	}
 	else_if = {
-		limit = { var:spec_peak_sulfur >= 3 }
+		limit = { spec_sev_next_sulfur = 2 }
 		value = var:spec_peak_sulfur
 		subtract = 1
 		multiply = 2.5
@@ -15722,7 +17033,7 @@ spec_risk_raw_sulfur = {
 		multiply = spec_over_mult_sulfur
 	}
 	else_if = {
-		limit = { var:spec_peak_sulfur >= 2 }
+		limit = { spec_sev_next_sulfur = 1 }
 		value = var:spec_peak_sulfur
 		subtract = 1
 		multiply = 1.25
@@ -15940,6 +17251,11 @@ spec_restrain_cost_tanks = {
 	multiply = spec_exp_mult_tanks
 }
 
+spec_land_tanks = {
+	value = var:spec_start_tanks
+	subtract = 0.1
+}
+
 spec_sev_next_tanks = {
 	value = 0
 	if = {
@@ -15954,12 +17270,20 @@ spec_sev_next_tanks = {
 		limit = { var:spec_peak_tanks >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_tanks spec_dev_tanks >= var:spec_start_tanks }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_tanks spec_dev_tanks > spec_land_tanks }
+		max = 2
+	}
 }
 
 spec_risk_raw_tanks = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_tanks >= 6 }
+		limit = { spec_sev_next_tanks = 3 }
 		value = var:spec_peak_tanks
 		subtract = 1
 		multiply = 7
@@ -15968,7 +17292,7 @@ spec_risk_raw_tanks = {
 		multiply = spec_over_mult_tanks
 	}
 	else_if = {
-		limit = { var:spec_peak_tanks >= 3 }
+		limit = { spec_sev_next_tanks = 2 }
 		value = var:spec_peak_tanks
 		subtract = 1
 		multiply = 2.5
@@ -15977,7 +17301,7 @@ spec_risk_raw_tanks = {
 		multiply = spec_over_mult_tanks
 	}
 	else_if = {
-		limit = { var:spec_peak_tanks >= 2 }
+		limit = { spec_sev_next_tanks = 1 }
 		value = var:spec_peak_tanks
 		subtract = 1
 		multiply = 1.25
@@ -16195,6 +17519,11 @@ spec_restrain_cost_tea = {
 	multiply = spec_exp_mult_tea
 }
 
+spec_land_tea = {
+	value = var:spec_start_tea
+	subtract = 0.1
+}
+
 spec_sev_next_tea = {
 	value = 0
 	if = {
@@ -16209,12 +17538,20 @@ spec_sev_next_tea = {
 		limit = { var:spec_peak_tea >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_tea spec_dev_tea >= var:spec_start_tea }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_tea spec_dev_tea > spec_land_tea }
+		max = 2
+	}
 }
 
 spec_risk_raw_tea = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_tea >= 6 }
+		limit = { spec_sev_next_tea = 3 }
 		value = var:spec_peak_tea
 		subtract = 1
 		multiply = 7
@@ -16223,7 +17560,7 @@ spec_risk_raw_tea = {
 		multiply = spec_over_mult_tea
 	}
 	else_if = {
-		limit = { var:spec_peak_tea >= 3 }
+		limit = { spec_sev_next_tea = 2 }
 		value = var:spec_peak_tea
 		subtract = 1
 		multiply = 2.5
@@ -16232,7 +17569,7 @@ spec_risk_raw_tea = {
 		multiply = spec_over_mult_tea
 	}
 	else_if = {
-		limit = { var:spec_peak_tea >= 2 }
+		limit = { spec_sev_next_tea = 1 }
 		value = var:spec_peak_tea
 		subtract = 1
 		multiply = 1.25
@@ -16450,6 +17787,11 @@ spec_restrain_cost_telephones = {
 	multiply = spec_exp_mult_telephones
 }
 
+spec_land_telephones = {
+	value = var:spec_start_telephones
+	subtract = 0.1
+}
+
 spec_sev_next_telephones = {
 	value = 0
 	if = {
@@ -16464,12 +17806,20 @@ spec_sev_next_telephones = {
 		limit = { var:spec_peak_telephones >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_telephones spec_dev_telephones >= var:spec_start_telephones }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_telephones spec_dev_telephones > spec_land_telephones }
+		max = 2
+	}
 }
 
 spec_risk_raw_telephones = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_telephones >= 6 }
+		limit = { spec_sev_next_telephones = 3 }
 		value = var:spec_peak_telephones
 		subtract = 1
 		multiply = 7
@@ -16478,7 +17828,7 @@ spec_risk_raw_telephones = {
 		multiply = spec_over_mult_telephones
 	}
 	else_if = {
-		limit = { var:spec_peak_telephones >= 3 }
+		limit = { spec_sev_next_telephones = 2 }
 		value = var:spec_peak_telephones
 		subtract = 1
 		multiply = 2.5
@@ -16487,7 +17837,7 @@ spec_risk_raw_telephones = {
 		multiply = spec_over_mult_telephones
 	}
 	else_if = {
-		limit = { var:spec_peak_telephones >= 2 }
+		limit = { spec_sev_next_telephones = 1 }
 		value = var:spec_peak_telephones
 		subtract = 1
 		multiply = 1.25
@@ -16705,6 +18055,11 @@ spec_restrain_cost_tobacco = {
 	multiply = spec_exp_mult_tobacco
 }
 
+spec_land_tobacco = {
+	value = var:spec_start_tobacco
+	subtract = 0.1
+}
+
 spec_sev_next_tobacco = {
 	value = 0
 	if = {
@@ -16719,12 +18074,20 @@ spec_sev_next_tobacco = {
 		limit = { var:spec_peak_tobacco >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_tobacco spec_dev_tobacco >= var:spec_start_tobacco }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_tobacco spec_dev_tobacco > spec_land_tobacco }
+		max = 2
+	}
 }
 
 spec_risk_raw_tobacco = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_tobacco >= 6 }
+		limit = { spec_sev_next_tobacco = 3 }
 		value = var:spec_peak_tobacco
 		subtract = 1
 		multiply = 7
@@ -16733,7 +18096,7 @@ spec_risk_raw_tobacco = {
 		multiply = spec_over_mult_tobacco
 	}
 	else_if = {
-		limit = { var:spec_peak_tobacco >= 3 }
+		limit = { spec_sev_next_tobacco = 2 }
 		value = var:spec_peak_tobacco
 		subtract = 1
 		multiply = 2.5
@@ -16742,7 +18105,7 @@ spec_risk_raw_tobacco = {
 		multiply = spec_over_mult_tobacco
 	}
 	else_if = {
-		limit = { var:spec_peak_tobacco >= 2 }
+		limit = { spec_sev_next_tobacco = 1 }
 		value = var:spec_peak_tobacco
 		subtract = 1
 		multiply = 1.25
@@ -16960,6 +18323,11 @@ spec_restrain_cost_tools = {
 	multiply = spec_exp_mult_tools
 }
 
+spec_land_tools = {
+	value = var:spec_start_tools
+	subtract = 0.1
+}
+
 spec_sev_next_tools = {
 	value = 0
 	if = {
@@ -16974,12 +18342,20 @@ spec_sev_next_tools = {
 		limit = { var:spec_peak_tools >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_tools spec_dev_tools >= var:spec_start_tools }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_tools spec_dev_tools > spec_land_tools }
+		max = 2
+	}
 }
 
 spec_risk_raw_tools = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_tools >= 6 }
+		limit = { spec_sev_next_tools = 3 }
 		value = var:spec_peak_tools
 		subtract = 1
 		multiply = 7
@@ -16988,7 +18364,7 @@ spec_risk_raw_tools = {
 		multiply = spec_over_mult_tools
 	}
 	else_if = {
-		limit = { var:spec_peak_tools >= 3 }
+		limit = { spec_sev_next_tools = 2 }
 		value = var:spec_peak_tools
 		subtract = 1
 		multiply = 2.5
@@ -16997,7 +18373,7 @@ spec_risk_raw_tools = {
 		multiply = spec_over_mult_tools
 	}
 	else_if = {
-		limit = { var:spec_peak_tools >= 2 }
+		limit = { spec_sev_next_tools = 1 }
 		value = var:spec_peak_tools
 		subtract = 1
 		multiply = 1.25
@@ -17215,6 +18591,11 @@ spec_restrain_cost_wine = {
 	multiply = spec_exp_mult_wine
 }
 
+spec_land_wine = {
+	value = var:spec_start_wine
+	subtract = 0.1
+}
+
 spec_sev_next_wine = {
 	value = 0
 	if = {
@@ -17229,12 +18610,20 @@ spec_sev_next_wine = {
 		limit = { var:spec_peak_wine >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_wine spec_dev_wine >= var:spec_start_wine }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_wine spec_dev_wine > spec_land_wine }
+		max = 2
+	}
 }
 
 spec_risk_raw_wine = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_wine >= 6 }
+		limit = { spec_sev_next_wine = 3 }
 		value = var:spec_peak_wine
 		subtract = 1
 		multiply = 7
@@ -17243,7 +18632,7 @@ spec_risk_raw_wine = {
 		multiply = spec_over_mult_wine
 	}
 	else_if = {
-		limit = { var:spec_peak_wine >= 3 }
+		limit = { spec_sev_next_wine = 2 }
 		value = var:spec_peak_wine
 		subtract = 1
 		multiply = 2.5
@@ -17252,7 +18641,7 @@ spec_risk_raw_wine = {
 		multiply = spec_over_mult_wine
 	}
 	else_if = {
-		limit = { var:spec_peak_wine >= 2 }
+		limit = { spec_sev_next_wine = 1 }
 		value = var:spec_peak_wine
 		subtract = 1
 		multiply = 1.25
@@ -17470,6 +18859,11 @@ spec_restrain_cost_wood = {
 	multiply = spec_exp_mult_wood
 }
 
+spec_land_wood = {
+	value = var:spec_start_wood
+	subtract = 0.1
+}
+
 spec_sev_next_wood = {
 	value = 0
 	if = {
@@ -17484,12 +18878,20 @@ spec_sev_next_wood = {
 		limit = { var:spec_peak_wood >= 2 }
 		value = 1
 	}
+	if = {
+		limit = { has_variable = spec_start_wood spec_dev_wood >= var:spec_start_wood }
+		max = 1
+	}
+	else_if = {
+		limit = { has_variable = spec_start_wood spec_dev_wood > spec_land_wood }
+		max = 2
+	}
 }
 
 spec_risk_raw_wood = {
 	value = 0
 	if = {
-		limit = { var:spec_peak_wood >= 6 }
+		limit = { spec_sev_next_wood = 3 }
 		value = var:spec_peak_wood
 		subtract = 1
 		multiply = 7
@@ -17498,7 +18900,7 @@ spec_risk_raw_wood = {
 		multiply = spec_over_mult_wood
 	}
 	else_if = {
-		limit = { var:spec_peak_wood >= 3 }
+		limit = { spec_sev_next_wood = 2 }
 		value = var:spec_peak_wood
 		subtract = 1
 		multiply = 2.5
@@ -17507,7 +18909,7 @@ spec_risk_raw_wood = {
 		multiply = spec_over_mult_wood
 	}
 	else_if = {
-		limit = { var:spec_peak_wood >= 2 }
+		limit = { spec_sev_next_wood = 1 }
 		value = var:spec_peak_wood
 		subtract = 1
 		multiply = 1.25

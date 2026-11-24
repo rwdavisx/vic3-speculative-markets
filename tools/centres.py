@@ -2296,7 +2296,7 @@ def _exch_clear():
     mods = ([f"spec_trust_{i}" for i, f in enumerate(TRUST_FX) if f] + ["spec_exch_national", "spec_exch_world", "spec_financial_centre"]
             + (["spec_exch_industry"] if LINKS and LINK_IND else [])
             + ([f"spec_pursue_{k}_{lv}" for k, *_ in NAMES for lv in range(4)] if NAMES_ON else []))
-    keep = (["spec_centre_score", "spec_centre_rank", "spec_centre_new", "spec_centre_also", "spec_centre_pos", "spec_exch_stand",
+    keep = (["spec_centre_score", "spec_centre_score_was", "spec_centre_rank", "spec_centre_new", "spec_centre_also", "spec_centre_pos", "spec_exch_stand",
              "spec_centre_trust", "spec_centre_calm", "spec_centre_yrs", "spec_exch_known", "spec_exch_tally",
              "spec_exch_sound", "spec_exch_hold", "spec_charter_lock", "spec_exch_seat", "spec_exch_seat_t", "spec_pledge",
              "spec_pledge_leave", "spec_xs_inc", "spec_xs_raw", "spec_xs_reg", "spec_xs_regtop", "spec_xs_regshare", "spec_xs_trust_v"]
@@ -2349,6 +2349,36 @@ def effects():
 		remove_variable = spec_centre_pos
 	}
 """ if ON else ""
+    # the Provincial markets, best first, copied onto each player's list for the World tab's Provincial tier (tier)
+    shown += f"""	if = {{
+		limit = {{ has_global_variable_list = {PROV_LIST} }}
+		clear_global_variable_list = {PROV_LIST}
+	}}
+	ordered_country = {{
+		limit = {{
+			has_variable = spec_exch_stand
+			var:spec_exch_stand = 0
+		}}
+		order_by = spec_centre_order
+		max = 300
+		check_range_bounds = no
+		add_to_global_variable_list = {{ name = {PROV_LIST} target = this }}
+	}}
+	every_country = {{
+		limit = {{ is_player = yes }}
+		if = {{
+			limit = {{ has_variable_list = {PROV_LIST} }}
+			clear_variable_list = {PROV_LIST}
+		}}
+		save_scope_as = spec_prov_player
+		every_in_global_list = {{
+			variable = {PROV_LIST}
+			scope:spec_prov_player = {{
+				add_to_variable_list = {{ name = {PROV_LIST} target = prev }}
+			}}
+		}}
+	}}
+""" if ON else ""
     unlist = "".join(f"\tif = {{\n\t\tlimit = {{ has_global_variable = spec_centre_{n} }}\n"
                      f"\t\tremove_global_variable = spec_centre_{n}\n\t}}\n" for n in range(1, SHOWN + 1))
     off = "if = {\n\tlimit = { has_modifier = spec_financial_centre }\n\tremove_modifier = spec_financial_centre\n}\n"
@@ -2379,6 +2409,11 @@ spec_rank_centres = {{
 				change_variable = {{ name = spec_centre_calm add = 1 }}
 			}}
 			set_variable = {{ name = spec_centre_yrs value = {{ value = var:spec_centre_calm divide = 12 floor = yes }} }}
+			# a player's last score, for the month's change beside it (SPEC_EXCH_SCORE_DELTA)
+			if = {{
+				limit = {{ is_player = yes has_variable = spec_centre_score }}
+				set_variable = {{ name = spec_centre_score_was value = var:spec_centre_score }}
+			}}
 {_xs_prep(chr(9) * 3) if ON else ''}			set_variable = {{ name = spec_centre_score value = spec_centre_size }}
 {_parts_keep(chr(9) * 3) if ON else ''}		}}
 		else_if = {{
@@ -2390,6 +2425,7 @@ spec_rank_centres = {{
 				}}
 			}}
 			remove_variable = spec_centre_score
+			remove_variable = spec_centre_score_was
 {"			spec_exch_clear = yes" + chr(10) if ON else ""}		}}
 	}}
 {TOP}{unlist}{ALSO_CLEAR}	if = {{
@@ -2669,18 +2705,20 @@ def tint(t):
 """
 
 
-def row(n=None, t=None):
+def row(n=None, t=None, item=False):
     """Listed market n, laid out as vanilla's ranked country rows are (the diplomatic overview); without n, our own
-    market when it is not listed. With t, shown only while the market's Standing is t (the tier it sits in).
-    Inside the inner widget the Country is the listed one, so P reads its variables."""
+    market when it is not listed; with item, a datamodel item (the Provincial list, PROV_LIST). With t, shown only
+    while the market's Standing is t (the tier it sits in). Inside the inner widget the Country is the listed one, so P
+    reads its variables."""
     placed = n and n <= PLACES
+    ctx = f'datacontext = "[{SLOT(n)}.GetCountry]"' if n else 'datacontext = "[Scope.GetCountry]"' if item else ""
     return f"""flowcontainer = {{
 	ignoreinvisible = yes
-	visible = "[{f'{SLOT(n)}.IsSet' if n else UNPLACED}]"
+	{'' if item else f'visible = "[{f"{SLOT(n)}.IsSet" if n else UNPLACED}]"'}
 	button = {{  # the whole row one button: hover, click, right click, map highlight. default_button as the rival picker's rows
 		size = {{ {W} {ROW_H} }}  # (2026-11-19: clean_button, transparent, showed the tint muddy over the panel)
 		using = default_button
-		{f'datacontext = "[{SLOT(n)}.GetCountry]"' if n else ""}
+		{ctx}
 		{f'visible = "[{STAND_IS(t)}]"' if t is not None else ""}
 		tooltip = "SPEC_CENTRE_TT_{n if placed else 'OWN'}"
 		onclick = "[InformationPanelBar.OpenCountryPanel(Country.Self)]"
@@ -2716,8 +2754,21 @@ TIER_COL = {3: "0.86 0.69 0.32", 2: "0.72 0.77 0.84", 1: "0.76 0.47 0.26", 0: "0
 ROW_TINT = 0.3
 
 
+FOLD = lambda t: f"spec_exch_fold_{t}"  # GetVariableSystem flag: the tier's rows folded away
+OPEN = lambda t: f"Not(GetVariableSystem.Exists('{FOLD(t)}'))"
+TIER_GAP = 10
+# the Provincial markets, best first, on each player's list (effects: PROV_PASS): more than slots could hold
+PROV_LIST = "spec_exch_prov"
+
+
 def tier(t):
-    """A Standing's band in the World tab: its badge, its name and how many markets hold it, then those listed."""
+    """A Standing's band in the World tab: a fold button, its badge, its name and how many markets hold it, then those
+    listed. The Provincials from the player's PROV_LIST (2026-11-24; they had no rows, only our own market)."""
+    if t == 0:
+        rows = (f'flowcontainer = {{\n\tdirection = vertical\n\tdatamodel = "[GetPlayer.MakeScope.GetList(\'{PROV_LIST}\')]"\n'
+                f"\titem = {{\n{ind(row(None, 0, item=True), 2)}\t}}\n}}\n")
+    else:
+        rows = "".join(row(n, t) for n in range(1, {3: WORLD_PLACES + 1}.get(t, SHOWN + 1))) + row(None, t)
     # a plain band in the expand button's look: it opens nothing, so it is not a button. Its textures without the
     # template's button effects (gfxtype, effectname), which a plain widget cannot create
     return f"""widget = {{
@@ -2753,14 +2804,30 @@ def tier(t):
 		color = {{ {TIER_COL[t]} 1 }}
 		alpha = 0.45
 	}}
+	button = {{  # fold the tier's rows away, as vanilla's expand buttons
+		using = expand_arrow_expanded
+		position = {{ 8 0 }}
+		parentanchor = vcenter
+		visible = "[{OPEN(t)}]"
+		tooltip = "SHOW_LESS"
+		onclick = "[GetVariableSystem.Toggle('{FOLD(t)}')]"
+	}}
+	button = {{
+		using = expand_arrow
+		position = {{ 8 0 }}
+		parentanchor = vcenter
+		visible = "[Not({OPEN(t)})]"
+		tooltip = "SHOW_MORE"
+		onclick = "[GetVariableSystem.Toggle('{FOLD(t)}')]"
+	}}
 	icon = {{
 		size = {{ 40 40 }}
-		position = {{ 6 0 }}
+		position = {{ 36 0 }}
 		parentanchor = vcenter
 		texture = "{icons.path(f'exch_tier_{t}')}"
 	}}
 	textbox = {{
-		position = {{ 56 0 }}
+		position = {{ 86 0 }}
 		size = {{ 300 30 }}
 		parentanchor = vcenter
 		align = left|nobaseline
@@ -2777,12 +2844,20 @@ def tier(t):
 		text = "SPEC_EXCH_TIER_N_{t}"
 	}}
 }}
-{"".join(row(n, t) for n in range(1, {3: WORLD_PLACES + 1, 0: 1}.get(t, SHOWN + 1))) + row(None, t)}textbox = {{
-	size = {{ {W} 30 }}
-	visible = "[EqualTo_CFixedPoint({TIER_N(t)}, {fx(0)})]"
-	align = center|nobaseline
-	alpha = 0.5
-	text = "SPEC_EXCH_TIER_EMPTY"
+flowcontainer = {{
+	direction = vertical
+	ignoreinvisible = yes
+	visible = "[{OPEN(t)}]"
+{ind(rows, 1)}	textbox = {{
+		size = {{ {W} 30 }}
+		visible = "[EqualTo_CFixedPoint({TIER_N(t)}, {fx(0)})]"
+		align = center|nobaseline
+		alpha = 0.5
+		text = "SPEC_EXCH_TIER_EMPTY"
+	}}
+}}
+widget = {{  # a gap before the next tier
+	size = {{ {W} {TIER_GAP} }}
 }}
 """
 
@@ -2966,9 +3041,18 @@ def score_segs():
     return segs
 
 
-def hero(label, num, tt, tex):
+def hero(label, num, tt, tex, delta=None):
     """A headline value, as vanilla's big numbers (fontsize_xxl): icon, name, the value large. The score's
-    and trust's headings were small and timid (2026-11-16)."""
+    and trust's headings were small and timid (2026-11-16). delta: the month's change after it, at the label's size,
+    as Market Confidence shows its own (2026-11-24)."""
+    change = f"""		textbox = {{
+			autoresize = yes
+			parentanchor = vcenter
+			align = left|nobaseline
+			using = fontsize_xl
+			text = "{delta}"
+		}}
+""" if delta else ""
     rule = lambda mirror: f"""	icon = {{
 		size = {{ 70 3 }}
 		parentanchor = vcenter
@@ -3002,7 +3086,7 @@ def hero(label, num, tt, tex):
 			using = fontsize_xxl
 			text = "{num}"
 		}}
-	}}
+{change}	}}
 }}
 """
 
@@ -3028,7 +3112,7 @@ def trust_levels():
 		text = "[SelectLocalization({held(i)}, 'SPEC_EXCH_TRUST_LV_{i}', 'SPEC_EXCH_TRUST_LV_DIM_{i}')]"
 	}}
 """ for i in range(4))
-    return f"""{hero("SPEC_EXCH_TRUST_LBL", "SPEC_EXCH_TRUST_NUM", "SPEC_EXCH_G_TRUST_TT", icons.path("concept_trust"))}widget = {{
+    return f"""{hero("SPEC_EXCH_TRUST_LBL", "SPEC_EXCH_TRUST_NUM", "SPEC_EXCH_G_TRUST_TT", icons.path("concept_trust"), "SPEC_EXCH_TRUST_MOVE")}widget = {{
 	size = {{ {W} 20 }}
 	parentanchor = hcenter
 {names}}}
@@ -3157,7 +3241,7 @@ def standing_block():
 	}}
 }}
 """
-    return f"""{hero("SPEC_EXCH_SCORE_LBL", "SPEC_EXCH_SCORE_NUM", "SPEC_EXCH_CALC_TT", icons.path("concept_exchange"))}flowcontainer = {{
+    return f"""{hero("SPEC_EXCH_SCORE_LBL", "SPEC_EXCH_SCORE_NUM", "SPEC_EXCH_CALC_TT", icons.path("concept_exchange"), "SPEC_EXCH_SCORE_MOVE")}flowcontainer = {{
 	parentanchor = hcenter
 	spacing = 10
 {ind("".join(rung(t) for t in range(4)), 1)}}}
@@ -3421,6 +3505,10 @@ def _pick(expr, prefix, n):
 def _exch_loc(score, rank, centres):
     """The Exchange: its row under Lending Standards in Budget > Banking, the Standing in the Financial Centres rows,
     its concept, the choice event and the toasts (notify.py)."""
+    # the headline figures' monthly change: the score against last month's, trust's last review (as SPEC_EXCH_TRUST shows it)
+    score_d = f"Subtract_CFixedPoint({v('spec_centre_score')}, {v('spec_centre_score_was')})"
+    trust_d = f"Multiply_CFixedPoint(Divide_CFixedPoint({v('spec_trust_change')}, {fx(CALM)}), {fx(100)})"
+    shifts = lambda x: f"GreaterThanOrEqualTo_CFixedPoint(Max_CFixedPoint({x}, Multiply_CFixedPoint({x}, {fx(-1)})), {fx(0.05)})"
     city = "[ROOT.GetCountry.GetCapital.GetCityHubName]"
     up = lambda x: f"{x - 1:+.0%}"
     stand = lambda scope: f"{scope}.Var('spec_exch_stand').GetValueWithDefault({fx(0)})"
@@ -3588,14 +3676,20 @@ def _exch_loc(score, rank, centres):
           ' SPEC_CENTRE_COL_TRUST_TT: "How much investors trust the [concept_country]\'s [concept_spec_exchange], from #v 0#! to #v 100#!. '
           'Trust multiplies its score, and low trust raises what the [concept_country] pays to borrow."\n'
           ' SPEC_CENTRE_TRUST: "#v $SPEC_EXCH_TRUST$#!"\n'
-          + ' SPEC_EXCH_SCORE_LBL: "[Concept(\'concept_spec_financial_centre\',\'$concept_spec_exchange$\')] Score"\n'
+          # 2026-11-24 the user: "Exchange Score:" all in the concept's colour, and each headline's monthly change in
+          # brackets, green or red, as Market Confidence shows it (SPEC_CONF_LINE)
+          + ' SPEC_EXCH_SCORE_LBL: "[Concept(\'concept_spec_financial_centre\',\'$concept_spec_exchange|q$ Score\')]:"\n'
           + f' SPEC_EXCH_SCORE_NUM: "#b [{v("spec_centre_score")}|0]#!"\n'
+          + f' SPEC_EXCH_SCORE_MOVE: "[AddLocalizationIf(And({P}.Var(\'spec_centre_score_was\').IsSet, {shifts(score_d)}), \'SPEC_EXCH_SCORE_DELTA\')]"\n'
+          + f' SPEC_EXCH_SCORE_DELTA: "([{score_d}|+=1])"\n'
+          + f' SPEC_EXCH_TRUST_MOVE: "[AddLocalizationIf(And({P}.Var(\'spec_trust_change\').IsSet, {shifts(trust_d)}), \'SPEC_EXCH_TRUST_DELTA\')]"\n'
+          + f' SPEC_EXCH_TRUST_DELTA: "([{trust_d}|+=1])"\n'
           + _parts_loc()
           + "".join(f' SPEC_EXCH_TRUST_LV_{i}: "#{TRUST_COL[i]} {w}#!"\n' for i, w in enumerate(TRUST_LV))
           + "".join(f' SPEC_EXCH_TRUST_LV_DIM_{i}: "#weak {w}#!"\n' for i, w in enumerate(TRUST_LV))
           + "".join(f' SPEC_EXCH_TRUST_LV_TT_{i}: "#header {w}#!\\nTrust #v {i * band:g}#! to #v {(i + 1) * band:g}#!{_trust_words(i)}"\n'
                     for band in (100 / len(TRUST_LV),) for i, w in enumerate(TRUST_LV))
-          + ' SPEC_EXCH_TRUST_LBL: "[concept_spec_trust]"\n'
+          + ' SPEC_EXCH_TRUST_LBL: "[concept_spec_trust]:"\n'
           + f''' SPEC_EXCH_TRUST_NUM: "#b $SPEC_EXCH_TRUST$#!"\n'''
           + f''' SPEC_TRUST_REVIEW_DELTA: " ([Multiply_CFixedPoint(Divide_CFixedPoint({v("spec_trust_change")}, {fx(CALM)}), {fx(100)})|+=1])"\n'''
           + trust_loc
@@ -3884,7 +3978,7 @@ if __name__ == "__main__":
         assert all(f"\n{k} = {{" in values() for k in ("spec_exch_mood", "spec_exch_recover")) and bool(LEAN) == ("SPEC_EXCH_FX_LEAN" in words) == ("spec_exch_lean" in values())
         assert not CRUNCH or ("value = local_var:spec_exch_was" in script and "SPEC_EXCH_FX_CRUNCH" in words)
         assert ("spec_exch_industry" in MODIFIER + script + words) == bool(LINK_IND)
-    assert script.count("ordered_country") == 1 + SHOWN * ON + (1 + len(REGIONS) if ON else 1) + 2 * len(NAMES) * bool(NAMES_ON)
+    assert script.count("ordered_country") == 1 + (SHOWN + 1) * ON +(1 + len(REGIONS) if ON else 1) + 2 * len(NAMES) * bool(NAMES_ON)
     assert f"max = {PLACES}\n\t\t\tcheck_range_bounds = no" in script and "name = spec_centre_new value = global_var:spec_centre_next" in script
     if ON:
         assert TOP.count("ordered_country") == 1 and "max = 3" in TOP and "position =" not in TOP

@@ -198,6 +198,36 @@ spec_rival_lost = {
 	color = bad
 }
 
+spec_rv_end_raid = {
+	type = country
+	group = "spec_warning_notification_group"
+
+	texture = "gfx/interface/icons/notification_icons/rank_down.dds"
+
+	notification_type = toast
+	color = bad
+}
+
+spec_rv_end_lure = {
+	type = country
+	group = "spec_warning_notification_group"
+
+	texture = "gfx/interface/icons/notification_icons/rank_down.dds"
+
+	notification_type = toast
+	color = bad
+}
+
+spec_rv_end_shore = {
+	type = country
+	group = "spec_warning_notification_group"
+
+	texture = "gfx/interface/icons/notification_icons/rank_down.dds"
+
+	notification_type = toast
+	color = bad
+}
+
 spec_boom_end_1_plain = {
 	type = country
 	group = "spec_boom_end_notification_group"

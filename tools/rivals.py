@@ -12,6 +12,7 @@ from pathlib import Path
 import re
 import tuning
 import bluechips as BC
+import leverage as LEV
 from market_tab import W, fx, ind, heads, section, SLIDE, GLIDE, CLEAR, long_date, rounded
 
 STAKE = tuning.get("RIVAL_STAKE", 3)          # contest trust at an equal standing (out of CALM)
@@ -61,10 +62,14 @@ INVOLVE_START, INVOLVE_MONTH = 1000, 90       # involvement in a contested capit
 WIN_X, BIG_X = 2, 4                           # trust at stake: STAKE times these for a win and a decisive win
 UPKEEP = (25, 50, 100, 150)                   # influence maintenance of a rival, by its Standing (vanilla pacts: 25 to 150)
 OLD_VARS = ["spec_rival", "spec_rival_lock", "spec_rival_last", "spec_rv_shored", "spec_rv_shore_cd"]  # the last two: Shore Up before it was per rival
+EVEN = 50                                     # a contest is a number from 0 (theirs) to 100 (ours), like a subject's Liberty Desire
 STATE_VARS = OLD_VARS + ["spec_c_rival", "spec_rv_ai_wait", "spec_rv_ai_seen", "spec_rv_raid_year", "spec_rv_raid", "spec_rv_raid_pm", "spec_rv_raider", "spec_rv_lure", "spec_rv_lurer", "spec_rv_lure_share",
                          "spec_rv_hit", "spec_rv_hit_by", "spec_rv_hit_ok", "spec_rv_hit_recent",
                          "spec_rv_did", "spec_rv_did_on", "spec_rv_did_ok", "spec_rv_did_recent", "spec_rv_did_amt", "spec_rv_did_cost",
                          "spec_rv_n_out", "spec_rv_n_in", "spec_rv_n_chosen", "spec_rv_ui_left", "spec_rv_n_all", "spec_rv_focus", "spec_rv_ui_p", "spec_rv_ui_shown", "spec_rv_ui_step", "spec_rv_ui_us", "spec_rv_ui_them", "spec_rv_ui_forfeit"]
+# a player's row keeps what moves the contest each month (spec_rv_ui_row), for its tooltip
+UI_EXTRA = ("lead", "bcu", "bct", *(f"{w}_{a}" for a in ("raid", "lure", "press") for w in ("iu", "it")), "rate", "proj")
+STATE_VARS += [f"spec_rv_ui_{v}" for v in UI_EXTRA]
 # scripted GUIs with root = the player and scope:target = the row's country
 CALL = "GetScriptedGui('spec_sgui_{}').{}(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Country.MakeScope).End)"
 US, THEM = "GetMetaPlayer.GetPlayedOrObservedCountry.MakeScope", "Country.MakeScope"
@@ -73,8 +78,19 @@ OUTGOING = f"{US}.GetList(Select_CString(GetMetaPlayer.IsObserver, 'spec_rv_obse
 INCOMING = f"{US}.GetList(Select_CString(GetMetaPlayer.IsObserver, 'spec_rv_observed_in', 'spec_rv_ins'))"
 PICK = "spec_rv_pick"  # GetVariableSystem flag: set, the contest picker under the slots is open (_picker)
 pc = lambda x: f"{round(x * 100, 1):g}%"
+pts = lambda x: f"{round(x * EVEN, 2):g}"     # a part of the bar (-1 to 1) in the contest's points
+at_pts = lambda x: pts(1 + x)                 # a place on the bar, as the contest's number
+num1 = lambda x: f"{round(x * 100, 1):g}"     # trust in points of 100, as its bar shows it
+STEP = EVEN / MONTHS                          # points a month from the whole bar: a steady lead ends where the old instant bar stood
 RAID_TERMS = range(1, RAID_MONTHS + 1)
 STATE_VARS += [f"spec_rv_due_{n}" for n in RAID_TERMS] + ["spec_rv_next", "spec_rv_next_year"]
+# 1.2.2 (the user: levers over time, not mana): a move is a campaign over its months. Its cost is paid monthly
+# (spec_rv_camp_<a>_<n> on the payer, n months left; Press pays by its influence modifier), and a push that works
+# arrives in equal monthly parts (spec_rv_ramp_<a>_<n> on the pusher: PUSH x n / months still to come)
+CAMPS = {"raid": RAID_MONTHS, "lure": LURE_MONTHS, "shore": SHORE_MONTHS}
+RAMPS = {"raid": RAID_MONTHS, "lure": LURE_MONTHS, "press": PRESS_MONTHS}
+RAMP_LISTS = tuple(f"spec_rv_ramp_{a}_{n}" for a, m in RAMPS.items() for n in range(1, m + 1))
+pending = lambda a, n: round(PUSH * n / RAMPS[a], 3)  # the part of a push still to arrive, n months left
 
 
 LOG = "--log" in __import__("sys").argv  # generate.py --log: SPECRV debug lines for tools/observe.py runs
@@ -159,12 +175,13 @@ def shown(key):
 
 def triggers():
     gold = "\tcustom_tooltip = {\n\t\ttext = spec_rv_gold_tt\n\t\tgold_reserves >= spec_rv_cost\n\t}\n"
+    month = lambda a: f"\tcustom_tooltip = {{\n\t\ttext = spec_rv_gold_month_tt\n\t\tgold_reserves >= spec_rv_month_{a}\n\t}}\n"
     cd = lambda a: (f"\tcustom_tooltip = {{\n\t\ttext = spec_rv_cd_tt\n"
                     f"\t\tNOT = {{ is_target_in_variable_list = {{ name = spec_rv_cd_{a} target = scope:target }} }}\n\t}}\n")
     pair = "\tcustom_tooltip = {\n\t\ttext = spec_rv_pair_tt\n\t\tspec_rv_pair = yes\n\t}\n"
     free = " ".join(f"has_modifier = spec_rv_press_{n}" for n in range(1, SLOTS + 1))
     pay = {
-        "raid": gold,
+        "raid": month("raid"),
         "lure": ("\tcustom_tooltip = {\n\t\ttext = spec_rv_panic_tt\n\t\tNOT = { has_variable = spec_panic }\n\t}\n"
                  "\tcustom_tooltip = {\n\t\ttext = spec_rv_lured_tt\n\t\tscope:target = { spec_rv_active_lure = no }\n\t}\n"),
         "press": (f"\tcustom_tooltip = {{\n\t\ttext = spec_rv_infl_tt\n\t\tinfluence >= {PRESS_INFL}\n\t}}\n"
@@ -251,7 +268,7 @@ spec_can_rv_shore = {{
 		text = spec_rv_shield_tt
 		NOT = {{ is_target_in_variable_list = {{ name = spec_rv_shield target = scope:target }} }}
 	}}
-{gold}}}
+{month("shore")}}}
 """
     for a in ACTIONS:
         out += f"\nspec_rv_pay_{a} = {{\n{pay[a]}}}\n\nspec_can_rv_{a} = {{\n{pair}{cd(a)}\tspec_rv_pay_{a} = yes\n}}\n"
@@ -338,12 +355,28 @@ spec_rv_cost_neg = {{
 	multiply = -1
 }}
 
-# the AI pays for a money action only with this much gold in reserve
+# the AI pays for a money action only with this much gold in reserve (Hold the Line pays at once; a campaign by the month)
 spec_rv_ai_money = {{
 	value = spec_rv_cost
 	multiply = {AI_RESERVE:g}
 }}
+{"".join(f'''
+# {a.title()}: its cost a month over its {m} months (a campaign, spec_rv_campaigns)
+spec_rv_month_{a} = {{
+	value = spec_rv_cost
+	divide = {m}
+}}
 
+spec_rv_month_{a}_neg = {{
+	value = spec_rv_month_{a}
+	multiply = -1
+}}
+
+spec_rv_ai_money_{a} = {{
+	value = spec_rv_month_{a}
+	multiply = {AI_RESERVE:g}
+}}
+''' for a, m in CAMPS.items() if a != "lure")}
 # the competitor event's fitted counter (rivals.COUNTER_GDP)
 spec_rv_counter_cost = {{
 	value = gdp
@@ -385,6 +418,21 @@ spec_rv_lure_debt = {{
 	multiply = spec_rv_vs
 }}
 
+# Lure Capital's debt a month over its {LURE_MONTHS} months (spec_rv_campaigns)
+spec_rv_month_lure = {{
+	value = spec_rv_lure_debt
+	divide = {LURE_MONTHS}
+}}
+
+# our Bear Raid's monthly hit on scope:target, if it worked (spec_rv_raid; 0 once taken back)
+spec_rv_raid_rate_now = {{
+	value = 0
+	if = {{
+		limit = {{ is_key_in_variable_map = {{ name = spec_rv_raid_rate target = scope:target }} }}
+		value = "variable_map(spec_rv_raid_rate|scope:target)"
+	}}
+}}
+
 # the yearly contest's stake, in the winner's scope against scope:spec_rv_l: an upset pays more, the expected less
 spec_rv_stake = {{
 	value = {STAKE}
@@ -406,9 +454,9 @@ spec_rv_stake = {{
 	}}
 }}
 
-# the contest's bar from scope:spec_rival_me's side against this: the score lead as a share of the higher score, then
-# the pushes each way, from -1 (theirs) to 1 (ours)
-spec_rv_rope = {{
+# the contest from scope:spec_rival_me's side against this, in parts a player's rows keep monthly (spec_rv_ui_row) so
+# its tooltip can say what moves it: the score lead as a share of the higher score
+spec_rv_lead = {{
 	value = spec_rv_me_eff
 	subtract = spec_rv_it_eff
 	divide = {{
@@ -416,7 +464,10 @@ spec_rv_rope = {{
 		min = spec_rv_me_eff
 		min = 1
 	}}
-	# blue chips (bluechips.PULL each as counted: each in full, up to CAP)
+}}
+# blue chips (bluechips.PULL each as counted: each in full, up to CAP), scope:spec_rival_me's and this country's
+spec_rv_bc_me = {{
+	value = 0
 	if = {{
 		limit = {{ scope:spec_rival_me = {{ has_variable = spec_bc_n }} }}
 		add = {{
@@ -424,20 +475,106 @@ spec_rv_rope = {{
 {BC.counted('scope:spec_rival_me.var:spec_bc_n', chr(9) * 3)}			multiply = {BC.PULL:g}
 		}}
 	}}
+}}
+spec_rv_bc_it = {{
+	value = 0
 	if = {{
 		limit = {{ has_variable = spec_bc_n }}
-		subtract = {{ value = spec_bc_counted multiply = {BC.PULL:g} }}
+		add = {{ value = spec_bc_counted multiply = {BC.PULL:g} }}
 	}}
-{"".join(f'''	if = {{
-		limit = {{ scope:spec_rival_me = {{ is_target_in_variable_list = {{ name = spec_rv_push_{k} target = prev }} }} }}
-		add = {PUSH:g}
-	}}
+}}
+# what the two Exchanges bring to a whole contest, and a month of it in points (like Liberty Desire's weekly change)
+spec_rv_edge = {{
+	value = spec_rv_lead
+	add = spec_rv_bc_me
+	subtract = spec_rv_bc_it
+}}
+spec_rv_drift = {{
+	value = spec_rv_edge
+	multiply = {EVEN}
+	divide = {MONTHS}
+}}
+# the points the months have brought so far, above or below even (map spec_rv_pts on each side, against the other, kept by
+# spec_rv_accrue; the map holds them times {MONTHS}, so an exact lead ends on its exact band). A contest from before 1.3
+# counts its months so far at today's pace
+spec_rv_sum = {{
+	value = 0
 	if = {{
-		limit = {{ is_target_in_variable_list = {{ name = spec_rv_push_{k} target = scope:spec_rival_me }} }}
-		subtract = {PUSH:g}
+		limit = {{ is_key_in_variable_map = {{ name = spec_rv_pts target = scope:spec_rival_me }} }}
+		value = "variable_map(spec_rv_pts|scope:spec_rival_me)"
+		multiply = -1
 	}}
-''' for k in range(1, PUSHES + 1))}	min = -1
+	else = {{
+		value = spec_rv_edge
+		multiply = {EVEN}
+		multiply = {{ value = spec_rv_age_m multiply = 12 round = yes }}
+	}}
+}}
+spec_rv_acc = {{
+	value = spec_rv_sum
+	divide = {MONTHS}
+}}
+# a month of the pushes still arriving, in points
+{"".join(f"""spec_rv_in_{w}_{a} = {{
+	value = 0
+{"".join(f"""	if = {{
+		limit = {{ {own(a, n)} }}
+		add = {PUSH * EVEN / m:.3f}
+	}}
+""" for n in range(1, m + 1))}}}
+""" for w, own in (("me", lambda a, n: f"scope:spec_rival_me = {{ is_target_in_variable_list = {{ name = spec_rv_ramp_{a}_{n} target = prev }} }}"),
+                   ("it", lambda a, n: f"is_target_in_variable_list = {{ name = spec_rv_ramp_{a}_{n} target = scope:spec_rival_me }}"))
+                  for a, m in RAMPS.items())}{"".join(f"""spec_rv_in_{w} = {{
+	value = 0
+{"".join(f"	add = spec_rv_in_{w}_{a}" + chr(10) for a in RAMPS)}}}
+""" for w in ("me", "it"))}# the contest's change this month, in points
+spec_rv_rate = {{
+	value = spec_rv_drift
+	add = spec_rv_in_me
+	subtract = spec_rv_in_it
+}}
+# where it settles at this pace, the pushes under way all arrived
+spec_rv_proj = {{
+	value = spec_rv_acc
+	divide = {EVEN}
+	add = {{
+		value = spec_rv_edge
+		multiply = {{ value = {ROUND} subtract = spec_rv_age_m divide = {ROUND} min = 0 }}
+	}}
+	add = {{ value = spec_rv_n_push_me multiply = {PUSH:g} }}
+	subtract = {{ value = spec_rv_n_push_it multiply = {PUSH:g} }}
+	min = -1
 	max = 1
+}}
+# where it stands: the months so far, then the pushes each way, from -1 (theirs) to 1 (ours)
+spec_rv_rope = {{
+	value = spec_rv_acc
+	divide = {EVEN}
+	add = spec_rv_push_me
+	subtract = spec_rv_push_it
+	min = -1
+	max = 1
+}}
+
+# the pushes' parts arrived so far: PUSH each, less what a campaign still has to bring (spec_rv_ramp_*)
+spec_rv_push_me = {{
+	value = spec_rv_n_push_me
+	multiply = {PUSH:g}
+{"".join(f'''	if = {{
+		limit = {{ scope:spec_rival_me = {{ is_target_in_variable_list = {{ name = spec_rv_ramp_{a}_{n} target = prev }} }} }}
+		subtract = {pending(a, n):g}
+	}}
+''' for a, m in RAMPS.items() for n in range(1, m + 1))}	min = 0
+}}
+
+spec_rv_push_it = {{
+	value = spec_rv_n_push_it
+	multiply = {PUSH:g}
+{"".join(f'''	if = {{
+		limit = {{ is_target_in_variable_list = {{ name = spec_rv_ramp_{a}_{n} target = scope:spec_rival_me }} }}
+		subtract = {pending(a, n):g}
+	}}
+''' for a, m in RAMPS.items() for n in range(1, m + 1))}	min = 0
 }}
 
 # pushes on the contest between this and scope:spec_rival_me, by each side
@@ -528,7 +665,7 @@ spec_rv_upkeep_total = {{
 # the AI's pick, in a candidate against scope:spec_rival_me (the AI): its side of the bar, plus the bigger prize of
 # beating a higher Standing (rivals' spec_rv_stake)
 spec_rv_ai_pick_v = {{
-	value = spec_rv_rope
+	value = spec_rv_edge
 	add = {{
 		value = var:spec_exch_stand
 		subtract = scope:spec_rival_me.var:spec_exch_stand
@@ -632,8 +769,113 @@ spec_rv_expire_raids = {{
 """
 
 
+def campaign_effects():
+    """A move's months (CAMPS, RAMPS): monthly, in generate's spec_monthly, the payer pays a month of each campaign
+    (spec_rv_campaigns) and every push still arriving comes a month nearer (spec_rv_ramp_tick). A campaign that cannot
+    pay its month ends: a raid's or a lure's push still arriving is lost, a raid's hit stops, a lure stops drawing,
+    Shore Up's protection ends, and a player gets a toast. A Lure cannot borrow in a panic. Campaigns from before 1.2.2 paid in full and keep running as they were."""
+    def withdraw(a):  # the payer's push of this kind on scope:target, if still arriving, goes with its step
+        m = RAMPS[a]
+        has = " ".join(f"is_target_in_variable_list = {{ name = spec_rv_ramp_{a}_{n} target = scope:target }}" for n in range(1, m + 1))
+        return (f"spec_rv_withdraw_{a} = {{\n\tif = {{\n\t\tlimit = {{ OR = {{ {has} }} }}\n"
+                + "".join(f"\t\tremove_list_variable = {{ name = spec_rv_ramp_{a}_{n} target = scope:target }}\n" for n in range(1, m + 1))
+                + "".join(f"\t\t{'if' if k == PUSHES else 'else_if'} = {{\n\t\t\tlimit = {{ is_target_in_variable_list = {{ name = spec_rv_push_{k} target = scope:target }} }}\n"
+                          f"\t\t\tremove_list_variable = {{ name = spec_rv_push_{k} target = scope:target }}\n\t\t}}\n" for k in range(PUSHES, 0, -1))
+                + "\t\tif = { limit = { is_player = yes } spec_rv_ui = yes }\n"
+                "\t\tscope:target = { if = { limit = { is_player = yes } spec_rv_ui = yes } }\n\t}\n}\n")
+    # a player hears when one of its campaigns ends early (notify.py's spec_rv_end_<action>)
+    note = lambda a: ("\nif = {\n\tlimit = { is_player = yes }\n\tscope:target = { save_scope_as = spec_note_src }\n"
+                      f"\tpost_notification = spec_rv_end_{a}\n}}")
+    # an unpaid raid's hit on them stops with it: they lose only the months already paid for (spec_rv_unraid)
+    unraid = ("\nif = {\n\tlimit = { spec_rv_raid_rate_now > 0 }\n\tset_local_variable = { name = spec_rv_back value = spec_rv_raid_rate_now }\n"
+              "\tspec_rv_put = { MAP = spec_rv_raid_rate VALUE = 0 }\n\tscope:target = { spec_rv_unraid = yes }\n}")
+    pay = {
+        "raid": ("gold_reserves >= spec_rv_month_raid", "add_treasury = spec_rv_month_raid_neg",
+                 ind("spec_rv_withdraw_raid = yes" + unraid + note("raid"), 5).lstrip("\t")),
+        "shore": ("gold_reserves >= spec_rv_month_shore", "add_treasury = spec_rv_month_shore_neg",
+                  ind("remove_list_variable = { name = spec_rv_shield target = scope:target }" + note("shore"), 5).lstrip("\t")),
+        "lure": ("NOT = { has_variable = spec_panic }", "change_variable = { name = spec_debt add = spec_rv_month_lure }",
+                 ind("spec_rv_withdraw_lure = yes\nscope:target = {\n\tif = {\n"
+                     "\t\tlimit = { has_variable = spec_rv_lure exists = var:spec_rv_lurer var:spec_rv_lurer = scope:spec_rv_payer }\n"
+                     "\t\tremove_variable = spec_rv_lure\n\t\tremove_variable = spec_rv_lurer\n\t\tremove_variable = spec_rv_lure_share\n"
+                     "\t}\n}" + note("lure"), 5).lstrip("\t")),
+    }
+    froms = lambda: " ".join(f"is_target_in_variable_list = {{ name = spec_rv_from_{k} target = scope:spec_rv_payer }}" for k in RAID_TERMS)
+    unraid_fx = (f"""# in the raided country, scope:spec_rv_payer the raider and local spec_rv_back its monthly hit: the months still to
+# come are taken off (raid_expiry_effects' terms), and the raid card goes once nothing is left
+spec_rv_unraid = {{
+	spec_rv_migrate_raid = yes
+	if = {{
+		limit = {{ has_variable = spec_rv_raid_pm }}
+"""
+                 + "".join(f"""		{'if' if k == 1 else 'else_if'} = {{
+			limit = {{ has_variable = spec_rv_due_{k} is_target_in_variable_list = {{ name = spec_rv_from_{k} target = scope:spec_rv_payer }} }}
+			set_local_variable = {{ name = spec_rv_back value = {{ value = local_var:spec_rv_back max = var:spec_rv_due_{k} }} }}
+			change_variable = {{ name = spec_rv_due_{k} subtract = local_var:spec_rv_back }}
+			change_variable = {{ name = spec_rv_raid_pm subtract = local_var:spec_rv_back }}
+			remove_list_variable = {{ name = spec_rv_from_{k} target = scope:spec_rv_payer }}
+		}}
+""" for k in RAID_TERMS)
+                 + f"""		if = {{
+			limit = {{ NOR = {{ {froms()} }} }}
+			remove_list_variable = {{ name = spec_rv_attackers target = scope:spec_rv_payer }}
+		}}
+		if = {{
+			limit = {{ var:spec_rv_raid_pm < 0.001 }}
+			remove_variable = spec_rv_raid
+			remove_variable = spec_rv_raid_pm
+			remove_variable = spec_rv_raider
+"""
+                 + "".join(f"\t\t\tremove_variable = spec_rv_due_{k}\n\t\t\tclear_variable_list = spec_rv_from_{k}\n" for k in RAID_TERMS)
+                 + "\t\t\tclear_variable_list = spec_rv_attackers\n\t\t}\n\t}\n}\n")
+    camps = ""
+    for a, m in CAMPS.items():
+        ok, do, end = pay[a]
+        for n in range(1, m + 1):
+            on = f"\n\t\t\t\t\tadd_to_variable_list = {{ name = spec_rv_camp_{a}_{n - 1} target = scope:target }}" if n > 1 else ""
+            camps += f"""	if = {{
+		limit = {{ has_variable_list = spec_rv_camp_{a}_{n} }}
+		every_in_list = {{
+			variable = spec_rv_camp_{a}_{n}
+			save_temporary_scope_as = target
+			scope:spec_rv_payer = {{
+				if = {{
+					limit = {{ scope:target = {{ is_country_alive = yes }} {ok} }}
+					{do}{on}
+				}}
+				else_if = {{
+					limit = {{ scope:target = {{ is_country_alive = yes }} }}
+					{end}
+				}}
+			}}
+		}}
+		clear_variable_list = spec_rv_camp_{a}_{n}
+	}}
+"""
+    ramps = ""
+    for a, m in RAMPS.items():
+        for n in range(1, m + 1):
+            down = (f"\t\tevery_in_list = {{\n\t\t\tvariable = spec_rv_ramp_{a}_{n}\n\t\t\tsave_temporary_scope_as = spec_rv_rt\n"
+                    f"\t\t\tprev = {{ add_to_variable_list = {{ name = spec_rv_ramp_{a}_{n - 1} target = scope:spec_rv_rt }} }}\n\t\t}}\n") if n > 1 else ""
+            ramps += f"\tif = {{\n\t\tlimit = {{ has_variable_list = spec_rv_ramp_{a}_{n} }}\n{down}\t\tclear_variable_list = spec_rv_ramp_{a}_{n}\n\t}}\n"
+    return f"""
+{withdraw("raid")}
+{withdraw("lure")}
+{unraid_fx}
+# a month of each campaign we pay for, by months left (spec_rv_camp_<action>_<n>): the soonest done first, so one moved
+# down a list is not paid twice
+spec_rv_campaigns = {{
+	save_temporary_scope_as = spec_rv_payer
+{camps}}}
+
+# a month of each push still arriving (spec_rv_ramp_<action>_<n>, n months to come) arrives
+spec_rv_ramp_tick = {{
+{ramps}}}
+"""
+
+
 def effects():
-    slots = "".join(f"\t{'if' if n == 1 else 'else_if'} = {{\n\t\tlimit = {{ NOT = {{ has_modifier = spec_rv_press_{n} }} }}\n"
+    slots ="".join(f"\t{'if' if n == 1 else 'else_if'} = {{\n\t\tlimit = {{ NOT = {{ has_modifier = spec_rv_press_{n} }} }}\n"
                     f"\t\tadd_modifier = {{ name = spec_rv_press_{n} months = {PRESS_MONTHS} }}\n\t}}\n" for n in range(1, SLOTS + 1))
     # the yearly contest: once per pair, whichever named the other. Results are lists on both sides, emptied first
     lists = ("spec_rv_won", "spec_rv_lost", "spec_rv_tied")
@@ -685,8 +927,51 @@ scope:spec_rv_l = {{
 	}}
 {note("lost", "spec_rv_w")}}}
 """
-    return f"""# rival Exchanges (rivals.py): every {ROUND} years each pair's bar (spec_rv_rope) settles, in five bands
+    return f"""# each contest gains its month (spec_rv_acc, spec_rv_drift), once a pair even where each named the other
+spec_rv_accrue = {{
+	every_country = {{
+		limit = {{ has_variable_list = spec_rv_ticked }}
+		clear_variable_list = spec_rv_ticked
+	}}
+	every_country = {{
+		limit = {{ has_variable_list = spec_rv_chosen {exch} }}
+		save_scope_as = spec_rival_me
+		every_in_list = {{
+			variable = spec_rv_chosen
+			limit = {{
+				{exch}
+				NOT = {{ scope:spec_rival_me = {{ is_target_in_variable_list = {{ name = spec_rv_ticked target = prev }} }} }}
+			}}
+			set_local_variable = {{ name = spec_rv_a value = {{ value = spec_rv_sum add = {{ value = spec_rv_edge multiply = {EVEN} }} min = -{EVEN * MONTHS} max = {EVEN * MONTHS} }} }}
+			# adding to a key that is already there leaves its old value
+			spec_rv_forget = {{ WITH = scope:spec_rival_me }}
+			save_temporary_scope_as = spec_rv_x
+			scope:spec_rival_me = {{ add_to_variable_map = {{ name = spec_rv_pts key = scope:spec_rv_x value = local_var:spec_rv_a }} }}
+			change_local_variable = {{ name = spec_rv_a multiply = -1 }}
+			add_to_variable_map = {{ name = spec_rv_pts key = scope:spec_rival_me value = local_var:spec_rv_a }}
+			add_to_variable_list = {{ name = spec_rv_ticked target = scope:spec_rival_me }}
+		}}
+	}}
+}}
+
+# a contest between this and $WITH$ is over, or a new one begins: its number goes, on both sides
+spec_rv_forget = {{
+	save_temporary_scope_as = spec_rv_fg
+	if = {{
+		limit = {{ is_key_in_variable_map = {{ name = spec_rv_pts target = $WITH$ }} }}
+		remove_from_variable_map = {{ name = spec_rv_pts key = $WITH$ }}
+	}}
+	$WITH$ = {{
+		if = {{
+			limit = {{ is_key_in_variable_map = {{ name = spec_rv_pts target = scope:spec_rv_fg }} }}
+			remove_from_variable_map = {{ name = spec_rv_pts key = scope:spec_rv_fg }}
+		}}
+	}}
+}}
+
+# rival Exchanges (rivals.py): every {ROUND} years each pair's number (spec_rv_rope) settles, in five bands
 spec_rival_contest = {{
+	spec_rv_accrue = yes
 	every_country = {{
 		limit = {{ has_variable_list = spec_rv_settled }}
 		clear_variable_list = spec_rv_settled
@@ -703,11 +988,12 @@ spec_rival_contest = {{
 			}}
 			# Snapshot the final bar while both competitors still have their pushes.
 			set_local_variable = {{ name = spec_rv_p value = spec_rv_rope }}
+			spec_rv_forget = {{ WITH = scope:spec_rival_me }}
 			# this pair's last result and pushes go; it settles once this year
 			save_temporary_scope_as = spec_rv_x
 			add_to_variable_list = {{ name = spec_rv_settled target = scope:spec_rival_me }}
 			scope:spec_rival_me = {{ add_to_variable_list = {{ name = spec_rv_settled target = scope:spec_rv_x }} }}
-{"".join(f"			remove_list_variable = {{ name = {l} target = scope:spec_rival_me }}{chr(10)}			scope:spec_rival_me = {{ remove_list_variable = {{ name = {l} target = scope:spec_rv_x }} }}{chr(10)}" for l in ("spec_rv_won", "spec_rv_lost", "spec_rv_tied", "spec_rv_big") + tuple(f"spec_rv_push_{k}" for k in range(1, PUSHES + 1)))}			set_local_variable = {{ name = spec_rv_big value = 0 }}
+{"".join(f"			remove_list_variable = {{ name = {l} target = scope:spec_rival_me }}{chr(10)}			scope:spec_rival_me = {{ remove_list_variable = {{ name = {l} target = scope:spec_rv_x }} }}{chr(10)}" for l in ("spec_rv_won", "spec_rv_lost", "spec_rv_tied", "spec_rv_big") + tuple(f"spec_rv_push_{k}" for k in range(1, PUSHES + 1)) + RAMP_LISTS)}			set_local_variable = {{ name = spec_rv_big value = 0 }}
 {_settle_log('settle', 'spec_rival_me', 'local_var:spec_rv_p', chr(9) * 3)}			if = {{
 				limit = {{ local_var:spec_rv_p >= {DECISIVE} }}
 				set_local_variable = {{ name = spec_rv_big value = 1 }}
@@ -811,6 +1097,9 @@ spec_rv_ui_row = {{
 			scope:spec_rival_me = {{ {exch} }}
 		}}
 		set_variable = {{ name = spec_rv_ui_p value = spec_rv_rope }}
+		set_variable = {{ name = spec_rv_ui_lead value = spec_rv_lead }}
+		set_variable = {{ name = spec_rv_ui_bcu value = spec_rv_bc_me }}
+		set_variable = {{ name = spec_rv_ui_bct value = spec_rv_bc_it }}
 		# the bar shows spec_rv_ui_shown, which spec_rv_glide steps to the new figure over GLIDE weeks
 		if = {{
 			limit = {{ NOT = {{ has_variable = spec_rv_ui_shown }} }}
@@ -828,6 +1117,8 @@ spec_rv_ui_row = {{
 		}}
 		set_variable = {{ name = spec_rv_ui_us value = spec_rv_n_push_me }}
 		set_variable = {{ name = spec_rv_ui_them value = spec_rv_n_push_it }}
+{"".join(f"		set_variable = {{ name = spec_rv_ui_{u}_{a} value = spec_rv_in_{w}_{a} }}" + chr(10) for a in RAMPS for u, w in (("iu", "me"), ("it", "it")))}		set_variable = {{ name = spec_rv_ui_rate value = spec_rv_rate }}
+		set_variable = {{ name = spec_rv_ui_proj value = spec_rv_proj }}
 		set_variable = {{
 			name = spec_rv_ui_forfeit
 			value = {{
@@ -842,7 +1133,7 @@ spec_rv_ui_row = {{
 				}}
 				multiply = {WIN_X}
 				if = {{
-					limit = {{ spec_rv_rope <= -{DECISIVE} }}
+					limit = {{ spec_rv_proj <= -{DECISIVE} }}
 					multiply = {BIG_X / WIN_X:g}
 				}}
 			}}
@@ -853,7 +1144,7 @@ spec_rv_ui_row = {{
 		remove_variable = spec_rv_ui_p
 		remove_variable = spec_rv_ui_shown
 		remove_variable = spec_rv_ui_step
-	}}
+{"".join(f"		remove_variable = spec_rv_ui_{v}{chr(10)}" for v in UI_EXTRA)}	}}
 }}
 
 # weekly for a player (journal's on_weekly_pulse): each contest bar a step to its month's figure
@@ -925,6 +1216,7 @@ spec_rv_clock = {{
 		limit = {{ NOT = {{ OR = {{ {" ".join(f"is_target_in_variable_list = {{ name = spec_rv_age_{k} target = scope:target }}" for k in range(MONTHS))} }} }} }}
 {"".join(f"		{'if' if k == 0 else 'else_if'} = {{{chr(10)}			limit = {{ scope:target = {{ is_target_in_variable_list = {{ name = spec_rv_age_{k} target = prev }} }} }}{chr(10)}			add_to_variable_list = {{ name = spec_rv_age_{k} target = scope:target }}{chr(10)}		}}{chr(10)}" for k in range(MONTHS))}		else = {{
 			add_to_variable_list = {{ name = spec_rv_age_0 target = scope:target }}
+			spec_rv_forget = {{ WITH = scope:target }}
 		}}
 	}}
 }}
@@ -975,7 +1267,7 @@ spec_rv_sour = {{
 }}
 
 # ending a contest before it settles forfeits it: it settles at once as a loss for this, a Decisive Loss (lure and
-# all) if the bar already shows one, else a plain Loss, even from a draw or a lead. So quitting never beats waiting;
+# all) if it is heading for one (spec_rv_proj), else a plain Loss, even from a draw or a lead. So quitting never beats waiting;
 # what it buys is the slot, the upkeep and the relations (2026-11-16: a cheaper forfeit let a lost contest dodge its bill)
 spec_rv_forfeit = {{
 	if = {{
@@ -989,7 +1281,7 @@ spec_rv_forfeit = {{
 			save_scope_as = spec_rv_l
 			scope:target = {{
 				save_scope_as = spec_rv_w
-				set_local_variable = {{ name = spec_rv_p value = spec_rv_rope }}
+				set_local_variable = {{ name = spec_rv_p value = spec_rv_proj }}
 			}}
 			set_local_variable = {{ name = spec_rv_big value = 0 }}
 			if = {{
@@ -1008,7 +1300,8 @@ spec_rv_drop_pair = {{
 {"".join(f"    remove_list_variable = {{ name = spec_rv_age_{k} target = scope:target }}{chr(10)}" for k in range(MONTHS))}
     if = {{
         limit = {{ NOT = {{ scope:target = {{ is_target_in_variable_list = {{ name = spec_rv_chosen target = scope:spec_rv_departing }} }} }} }}
-{"".join(f"        remove_list_variable = {{ name = {key} target = scope:target }}{chr(10)}        scope:target = {{ remove_list_variable = {{ name = {key} target = scope:spec_rv_departing }} }}{chr(10)}" for key in tuple(f"spec_rv_push_{k}" for k in range(1, PUSHES + 1)) + ("spec_rv_won", "spec_rv_lost", "spec_rv_big", "spec_rv_tied"))}    }}
+        spec_rv_forget = {{ WITH = scope:target }}
+{"".join(f"        remove_list_variable = {{ name = {key} target = scope:target }}{chr(10)}        scope:target = {{ remove_list_variable = {{ name = {key} target = scope:spec_rv_departing }} }}{chr(10)}" for key in tuple(f"spec_rv_push_{k}" for k in range(1, PUSHES + 1)) + RAMP_LISTS + ("spec_rv_won", "spec_rv_lost", "spec_rv_big", "spec_rv_tied"))}    }}
 }}
 
 spec_rv_end = {{
@@ -1021,12 +1314,14 @@ spec_rv_end = {{
 	}}
 }}
 
-# $BY$ pushes its contest bar against $ON$ one step, up to PUSHES (one list per step, so the count is the step reached)
+# $BY$ pushes its contest bar against $ON$ one step, up to PUSHES (one list per step, so the count is the step reached).
+# The step arrives over the campaign's months: $RAMP$ (spec_rv_ramp_<action>_<months>) holds what is still to come
 spec_rv_push = {{
 	$BY$ = {{
 {"".join(f'''		{"if" if k == 1 else "else_if"} = {{
 			limit = {{ NOT = {{ is_target_in_variable_list = {{ name = spec_rv_push_{k} target = $ON$ }} }} }}
 			add_to_variable_list = {{ name = spec_rv_push_{k} target = $ON$ }}
+			add_to_variable_list = {{ name = $RAMP$ target = $ON$ }}
 		}}
 ''' for k in range(1, PUSHES + 1))}	}}
 	$BY$ = {{
@@ -1043,14 +1338,24 @@ spec_rv_push = {{
 	}}
 }}
 
-# $BY$'s last push against $ON$ is undone
+# $BY$'s last push against $ON$ is undone: an arrived one if there is one, else the one nearest arriving
 spec_rv_unpush = {{
 	$BY$ = {{
 {"".join(f'''		{"if" if k == PUSHES else "else_if"} = {{
 			limit = {{ is_target_in_variable_list = {{ name = spec_rv_push_{k} target = $ON$ }} }}
 			remove_list_variable = {{ name = spec_rv_push_{k} target = $ON$ }}
 		}}
-''' for k in range(PUSHES, 0, -1))}	}}
+''' for k in range(PUSHES, 0, -1))}		set_local_variable = {{ name = spec_rv_nr value = 0 }}
+{"".join(f'''		if = {{ limit = {{ is_target_in_variable_list = {{ name = {l} target = $ON$ }} }} change_local_variable = {{ name = spec_rv_nr add = 1 }} }}
+''' for l in RAMP_LISTS)}{"".join(f'''		if = {{ limit = {{ is_target_in_variable_list = {{ name = spec_rv_push_{k} target = $ON$ }} }} change_local_variable = {{ name = spec_rv_nr add = -1 }} }}
+''' for k in range(1, PUSHES + 1))}		if = {{
+			limit = {{ local_var:spec_rv_nr > 0 }}
+{"".join(f'''			{"if" if i == 0 else "else_if"} = {{
+				limit = {{ is_target_in_variable_list = {{ name = spec_rv_ramp_{a}_{n} target = $ON$ }} }}
+				remove_list_variable = {{ name = spec_rv_ramp_{a}_{n} target = $ON$ }}
+			}}
+''' for i, (a, n) in enumerate(sorted(((a, n) for a, m in RAMPS.items() for n in range(1, m + 1)), key=lambda p: pending(*p))))}		}}
+	}}
 	$BY$ = {{
 		if = {{
 			limit = {{ is_player = yes }}
@@ -1065,6 +1370,7 @@ spec_rv_unpush = {{
 	}}
 }}
 
+{campaign_effects()}
 # the last action against scope:target, for both rows and the targeted player's event (spec_rv_ok: 1 worked, 0 failed, -1 exposed)
 spec_rv_log = {{
 	spec_rv_did = {{ CODE = $CODE$ }}
@@ -1117,6 +1423,15 @@ spec_rv_did = {{
 
 # Bear Raid's confidence hit, in the scope that takes it
 {raid_expiry_effects()}
+# our map $MAP$ against scope:target takes $VALUE$: adding to a key that is already there would keep its old value
+spec_rv_put = {{
+	if = {{
+		limit = {{ is_key_in_variable_map = {{ name = $MAP$ target = scope:target }} }}
+		remove_from_variable_map = {{ name = $MAP$ key = scope:target }}
+	}}
+	add_to_variable_map = {{ name = $MAP$ key = scope:target value = $VALUE$ }}
+}}
+
 spec_rv_raided = {{
 	spec_rv_migrate_raid = yes
 	set_local_variable = {{ name = spec_rv_pm value = {round(RAID_HIT / RAID_MONTHS, 3):g} }}
@@ -1155,7 +1470,7 @@ spec_rv_raid = {{
 	custom_tooltip = spec_rv_raid_fx
 	hidden_effect = {{
 	save_scope_as = spec_rv_actor
-	add_treasury = spec_rv_cost_neg
+	add_to_variable_list = {{ name = spec_rv_camp_raid_{RAID_MONTHS} target = scope:target }}
 	add_to_variable_list = {{ name = spec_rv_cd_raid target = scope:target days = {CD_DAYS} }}
 	set_local_variable = {{ name = spec_rv_roll value = {{ fixed_range = {{ min = 0 max = 100 }} }} }}
 	if = {{
@@ -1164,13 +1479,16 @@ spec_rv_raid = {{
 		set_local_variable = {{ name = spec_rv_amp value = spec_nx_raid }}
 		change_local_variable = {{ name = spec_rv_amp multiply = spec_rv_heft }}
 		scope:target = {{ spec_rv_raided = yes }}
-		spec_rv_push = {{ BY = scope:spec_rv_actor ON = scope:target }}
+		# its monthly hit on them, taken back if the campaign goes unpaid (spec_rv_campaigns)
+		spec_rv_put = {{ MAP = spec_rv_raid_rate VALUE = local_var:spec_rv_pm }}
+		spec_rv_push = {{ BY = scope:spec_rv_actor ON = scope:target RAMP = spec_rv_ramp_raid_{RAID_MONTHS} }}
 	}}
 	else = {{
 		set_local_variable = {{ name = spec_rv_ok value = 0 }}
 		set_local_variable = {{ name = spec_rv_amp value = 1 }}
+		spec_rv_put = {{ MAP = spec_rv_raid_rate VALUE = 0 }}
 		spec_rv_raided = yes
-		spec_rv_push = {{ BY = scope:target ON = scope:spec_rv_actor }}
+		spec_rv_push = {{ BY = scope:target ON = scope:spec_rv_actor RAMP = spec_rv_ramp_raid_{RAID_MONTHS} }}
 	}}
 	set_local_variable = {{ name = spec_rv_did_amt value = {{ value = local_var:spec_rv_pm multiply = {RAID_MONTHS} }} }}
 	set_local_variable = {{ name = spec_rv_did_cost value = spec_rv_cost }}
@@ -1182,11 +1500,7 @@ spec_rv_lure = {{
 	custom_tooltip = spec_rv_lure_fx
 	hidden_effect = {{
 	save_scope_as = spec_rv_actor
-	if = {{
-		limit = {{ NOT = {{ has_variable = spec_debt }} }}
-		set_variable = {{ name = spec_debt value = 0 }}
-	}}
-	change_variable = {{ name = spec_debt add = spec_rv_lure_debt }}
+	add_to_variable_list = {{ name = spec_rv_camp_lure_{LURE_MONTHS} target = scope:target }}
 	add_to_variable_list = {{ name = spec_rv_cd_lure target = scope:target days = {CD_DAYS} }}
 	set_local_variable = {{ name = spec_rv_ok value = 1 }}
 	set_local_variable = {{ name = spec_rv_amp value = spec_nx_lure }}
@@ -1198,7 +1512,7 @@ spec_rv_lure = {{
 		set_variable = {{ name = spec_rv_lurer value = scope:spec_rv_actor }}
 		set_variable = {{ name = spec_rv_lure_share value = local_var:spec_rv_share }}
 	}}
-	spec_rv_push = {{ BY = scope:spec_rv_actor ON = scope:target }}
+	spec_rv_push = {{ BY = scope:spec_rv_actor ON = scope:target RAMP = spec_rv_ramp_lure_{LURE_MONTHS} }}
 	set_local_variable = {{ name = spec_rv_did_amt value = local_var:spec_rv_share }}
 	set_local_variable = {{ name = spec_rv_did_cost value = spec_rv_lure_debt }}
 	spec_rv_log = {{ CODE = 2 }}
@@ -1228,10 +1542,10 @@ spec_rv_press = {{
 {_lose(PRESS_TRUST, chr(9) * 2, "press_exposed")}	}}
 	if = {{
 		limit = {{ local_var:spec_rv_ok = 1 }}
-		spec_rv_push = {{ BY = scope:spec_rv_actor ON = scope:target }}
+		spec_rv_push = {{ BY = scope:spec_rv_actor ON = scope:target RAMP = spec_rv_ramp_press_{PRESS_MONTHS} }}
 	}}
 	else = {{
-		spec_rv_push = {{ BY = scope:target ON = scope:spec_rv_actor }}
+		spec_rv_push = {{ BY = scope:target ON = scope:spec_rv_actor RAMP = spec_rv_ramp_press_{PRESS_MONTHS} }}
 	}}
 	set_local_variable = {{ name = spec_rv_did_amt value = local_var:spec_rv_t }}
 	if = {{
@@ -1258,7 +1572,7 @@ spec_rv_shore = {{
 	custom_tooltip = spec_rv_shore_fx
 	hidden_effect = {{
 	set_local_variable = {{ name = spec_rv_did_cost value = spec_rv_cost }}
-	add_treasury = spec_rv_cost_neg
+	add_to_variable_list = {{ name = spec_rv_camp_shore_{SHORE_MONTHS} target = scope:target }}
 	# ponytail: a list's days take no script value, so two lengths: the Safe Harbour's (centres.NX, shore 1.4) or the
 	# plain one; more steps here if more specialities lengthen it
 	if = {{
@@ -1271,12 +1585,12 @@ spec_rv_shore = {{
 		set_local_variable = {{ name = spec_rv_until value = {{ value = game_date add = {SHORE_MONTHS * 30} }} }}
 	}}
 	add_to_variable_list = {{ name = spec_rv_cd_shore target = scope:target days = {SHORE_CD * 365} }}
-	add_to_variable_map = {{ name = spec_rv_protected_until key = scope:target value = local_var:spec_rv_until }}
+	spec_rv_put = {{ MAP = spec_rv_protected_until VALUE = local_var:spec_rv_until }}
 	set_local_variable = {{ name = spec_rv_did_amt value = {{ value = local_var:spec_rv_until subtract = game_date }} }}
 	set_local_variable = {{ name = spec_rv_ok value = 1 }}
 	spec_rv_did = {{ CODE = 5 }}
 	set_local_variable = {{ name = spec_rv_until value = {{ value = game_date add = {SHORE_CD * 365} }} }}
-	add_to_variable_map = {{ name = spec_rv_shore_until key = scope:target value = local_var:spec_rv_until }}
+	spec_rv_put = {{ MAP = spec_rv_shore_until VALUE = local_var:spec_rv_until }}
 {_log('act=shore', chr(9))}	}}
 }}
 
@@ -1287,7 +1601,7 @@ spec_rv_shore = {{
 # Lure most (it cannot fail), Press next, a Bear Raid mostly when our score is the higher (it fails less)
 spec_rv_ai_act = {{
 	save_scope_as = spec_rival_me
-{LG_N}	scope:target = {{ set_local_variable = {{ name = spec_rv_ai_p value = spec_rv_rope }} }}
+{LG_N}	scope:target = {{ set_local_variable = {{ name = spec_rv_ai_p value = spec_rv_proj }} }}
 	if = {{
 		limit = {{
 			NOT = {{ has_local_variable = spec_rv_ai_moved }}
@@ -1311,7 +1625,7 @@ spec_rv_ai_move = {{
 			exists = var:spec_rv_hit_by
 			var:spec_rv_hit_by = scope:target
 			spec_can_rv_shore = yes
-			gold_reserves >= spec_rv_ai_money
+			gold_reserves >= spec_rv_ai_money_shore
 		}}
 		spec_rv_shore = yes
 {LG_SHORE}		set_local_variable = {{ name = spec_rv_ai_moved value = 1 }}
@@ -1332,7 +1646,7 @@ spec_rv_ai_move = {{
 			OR = {{
 				AND = {{ spec_can_rv_lure = yes spec_lev < {AI_LEV} }}
 				AND = {{ spec_can_rv_press = yes influence > {PRESS_INFL} }}
-				AND = {{ spec_can_rv_raid = yes gold_reserves >= spec_rv_ai_money }}
+				AND = {{ spec_can_rv_raid = yes gold_reserves >= spec_rv_ai_money_raid }}
 			}}
 		}}
 {LG_PUSH}{LG_LURE}		set_local_variable = {{ name = spec_rv_ai_moved value = 1 }}
@@ -1366,7 +1680,7 @@ spec_rv_ai_move = {{
 				spec_rv_press = yes
 			}}
 			1 = {{
-				trigger = {{ spec_can_rv_raid = yes gold_reserves >= spec_rv_ai_money }}
+				trigger = {{ spec_can_rv_raid = yes gold_reserves >= spec_rv_ai_money_raid }}
 				modifier = {{
 					if = {{
 						limit = {{ var:spec_centre_score >= scope:target.var:spec_centre_score }}
@@ -1458,15 +1772,15 @@ spec_rv_ai_pick = {{
 					# Decisive Loss quitting costs the same as staying, so it stays and hopes to recover
 					AND = {{
 						{exch}
-						spec_rv_rope <= {AI_CUT}
-						spec_rv_rope > -{DECISIVE}
+						spec_rv_proj <= {AI_CUT}
+						spec_rv_proj > -{DECISIVE}
 						scope:spec_rv_ai_me = {{ NOT = {{ is_target_in_variable_list = {{ name = spec_rv_keep target = prev }} }} }}
 					}}
 				}}
 			}}
 			save_temporary_scope_as = spec_rv_x
 			save_scope_as = target
-{_settle_log('drop', 'spec_rv_ai_me', 'spec_rv_rope', chr(9) * 3)}			scope:spec_rv_ai_me = {{
+{_settle_log('drop', 'spec_rv_ai_me', 'spec_rv_proj', chr(9) * 3)}			scope:spec_rv_ai_me = {{
 				# a contest the Interest rule ends is dropped without a forfeit
 				if = {{
 					limit = {{ scope:spec_rv_x = {{ exists = capital }} has_strategic_region_interest_tier = {{ strategic_region = scope:spec_rv_x.capital.region value >= {INTEREST_TIER} }} }}
@@ -1482,7 +1796,7 @@ spec_rv_ai_pick = {{
 			set_local_variable = {{ name = spec_rv_go value = 1 }}
 		}}
 		if = {{  # an opening: an Exchange it may name that it would beat as things stand
-			limit = {{ any_country = {{ is_country_alive = yes {exch} NOT = {{ this = scope:spec_rv_ai_me }} NOT = {{ scope:spec_rv_ai_me = {{ is_target_in_variable_list = {{ name = spec_rv_chosen target = prev }} }} }} var:spec_exch_stand >= local_var:spec_rv_lo var:spec_exch_stand <= local_var:spec_rv_hi spec_rv_rope >= {DRAW} NOT = {{ is_target_in_variable_list = {{ name = spec_rv_chosen target = scope:spec_rv_ai_me }} }} exists = capital scope:spec_rv_ai_me = {{ has_strategic_region_interest_tier = {{ strategic_region = prev.capital.region value >= {INTEREST_TIER} }} }} NOT = {{ any_country = {{ count = {AI_CAP} is_target_in_variable_list = {{ name = spec_rv_chosen target = prev }} }} }} }} }}
+			limit = {{ any_country = {{ is_country_alive = yes {exch} NOT = {{ this = scope:spec_rv_ai_me }} NOT = {{ scope:spec_rv_ai_me = {{ is_target_in_variable_list = {{ name = spec_rv_chosen target = prev }} }} }} var:spec_exch_stand >= local_var:spec_rv_lo var:spec_exch_stand <= local_var:spec_rv_hi spec_rv_edge >= {DRAW} NOT = {{ is_target_in_variable_list = {{ name = spec_rv_chosen target = scope:spec_rv_ai_me }} }} exists = capital scope:spec_rv_ai_me = {{ has_strategic_region_interest_tier = {{ strategic_region = prev.capital.region value >= {INTEREST_TIER} }} }} NOT = {{ any_country = {{ count = {AI_CAP} is_target_in_variable_list = {{ name = spec_rv_chosen target = prev }} }} }} }} }}
 			set_local_variable = {{ name = spec_rv_go value = 1 }}
 		}}
 		if = {{
@@ -1490,10 +1804,10 @@ spec_rv_ai_pick = {{
 			if = {{
 				limit = {{
 					var:spec_rv_n_chosen < spec_rv_slots
-					any_country = {{ is_country_alive = yes {exch} NOT = {{ this = scope:spec_rv_ai_me }} NOT = {{ scope:spec_rv_ai_me = {{ is_target_in_variable_list = {{ name = spec_rv_chosen target = prev }} }} }} var:spec_exch_stand >= local_var:spec_rv_lo var:spec_exch_stand <= local_var:spec_rv_hi spec_rv_rope >= {AI_REACH} NOT = {{ is_target_in_variable_list = {{ name = spec_rv_chosen target = scope:spec_rv_ai_me }} }} exists = capital scope:spec_rv_ai_me = {{ has_strategic_region_interest_tier = {{ strategic_region = prev.capital.region value >= {INTEREST_TIER} }} }} NOT = {{ any_country = {{ count = {AI_CAP} is_target_in_variable_list = {{ name = spec_rv_chosen target = prev }} }} }} }}
+					any_country = {{ is_country_alive = yes {exch} NOT = {{ this = scope:spec_rv_ai_me }} NOT = {{ scope:spec_rv_ai_me = {{ is_target_in_variable_list = {{ name = spec_rv_chosen target = prev }} }} }} var:spec_exch_stand >= local_var:spec_rv_lo var:spec_exch_stand <= local_var:spec_rv_hi spec_rv_edge >= {AI_REACH} NOT = {{ is_target_in_variable_list = {{ name = spec_rv_chosen target = scope:spec_rv_ai_me }} }} exists = capital scope:spec_rv_ai_me = {{ has_strategic_region_interest_tier = {{ strategic_region = prev.capital.region value >= {INTEREST_TIER} }} }} NOT = {{ any_country = {{ count = {AI_CAP} is_target_in_variable_list = {{ name = spec_rv_chosen target = prev }} }} }} }}
 				}}
 				ordered_country = {{
-					limit = {{ is_country_alive = yes {exch} NOT = {{ this = scope:spec_rv_ai_me }} NOT = {{ scope:spec_rv_ai_me = {{ is_target_in_variable_list = {{ name = spec_rv_chosen target = prev }} }} }} var:spec_exch_stand >= local_var:spec_rv_lo var:spec_exch_stand <= local_var:spec_rv_hi spec_rv_rope >= {AI_REACH} NOT = {{ is_target_in_variable_list = {{ name = spec_rv_chosen target = scope:spec_rv_ai_me }} }} exists = capital scope:spec_rv_ai_me = {{ has_strategic_region_interest_tier = {{ strategic_region = prev.capital.region value >= {INTEREST_TIER} }} }} NOT = {{ any_country = {{ count = {AI_CAP} is_target_in_variable_list = {{ name = spec_rv_chosen target = prev }} }} }} }}
+					limit = {{ is_country_alive = yes {exch} NOT = {{ this = scope:spec_rv_ai_me }} NOT = {{ scope:spec_rv_ai_me = {{ is_target_in_variable_list = {{ name = spec_rv_chosen target = prev }} }} }} var:spec_exch_stand >= local_var:spec_rv_lo var:spec_exch_stand <= local_var:spec_rv_hi spec_rv_edge >= {AI_REACH} NOT = {{ is_target_in_variable_list = {{ name = spec_rv_chosen target = scope:spec_rv_ai_me }} }} exists = capital scope:spec_rv_ai_me = {{ has_strategic_region_interest_tier = {{ strategic_region = prev.capital.region value >= {INTEREST_TIER} }} }} NOT = {{ any_country = {{ count = {AI_CAP} is_target_in_variable_list = {{ name = spec_rv_chosen target = prev }} }} }} }}
 					order_by = spec_rv_ai_pick_v
 					position = 0
 					save_scope_as = target
@@ -1645,8 +1959,10 @@ def pass_(t="\t"):
 
 
 # in generate's spec_monthly, country scope, before the month's confidence is summed
-MONTHLY = f"""			# rival actions running (rivals.py): a Bear Raid's monthly hit, a lure's pool money, Shore Up's months
+MONTHLY = f"""			# rival actions running (rivals.py): campaigns' monthly costs and pushes, a Bear Raid's monthly hit, a lure's pool money
 			set_variable = {{ name = spec_c_rival value = 0 }}
+			spec_rv_campaigns = yes
+			spec_rv_ramp_tick = yes
 			if = {{
 				limit = {{ has_variable = spec_rv_raid }}
 				spec_rv_migrate_raid = yes
@@ -1973,7 +2289,7 @@ def build(write):
 ROW_H = 44  # a row: the contest's result over its bar
 # columns, (x, width): flag and name | the contest | actions (4 tariff items, then the toggle on our rivals' rows)
 C_NAME, C_SCORE, C_LEFT, C_ACT = (0, 70), (72, 214), (288, 52), (342, W - 342)  # the flag alone names the country
-BANDS = ("BIGWIN", "WIN", "DRAW", "LOSS", "BIGLOSS")  # the five results, left (ours) to right
+BANDS = ("BIGLOSS", "LOSS", "DRAW", "WIN", "BIGWIN")  # the five results, 0 to 100
 BAR = "gfx/interface/progressbar"
 SCORE = lambda who: f"{who}.Var('spec_centre_score').GetValue"
 
@@ -2124,25 +2440,35 @@ def pushes(key):
     return contest_value("spec_rv_ui_them", "spec_rv_n_push_it")
 
 
+def monthly(key):  # a part of the contest's change this month, in points
+    return {"lead": f"Multiply_CFixedPoint({contest_value('spec_rv_ui_lead', 'spec_rv_lead')}, {fx(round(STEP, 4))})",
+            **{f"{w}_{a}": contest_value(f"spec_rv_ui_{u}_{a}", f"spec_rv_in_{w}_{a}") for a in RAMPS for u, w in (("iu", "me"), ("it", "it"))},
+            "rate": contest_value("spec_rv_ui_rate", "spec_rv_rate")}[key]
+
+
+def points(bar):  # a place on the bar (-1 to 1) as the contest's number
+    return f"Add_CFixedPoint({fx(EVEN)}, Multiply_CFixedPoint({bar}, {fx(EVEN)}))"
+
+
 PAIR = f"And(Country.IsValid, {shown('rv_is_pair')})"
 
 
 def _score():
     """The contest as a tug of war, drawn as the mod's Market Confidence bar (market_tab.tier_scale) on vanilla's
-    double direction bar: the result it would settle at now above it, then from the centre line the fill slides
-    green toward us (left) or red toward them, with vanilla's glow and, while one side has pushed more, the changed
-    value chevrons running its way. Dividers part the five results, the decisive ends are tinted, and vanilla's
+    double direction bar: the result it would settle at now, its number and its monthly change above it, then from the
+    centre line the fill slides green toward us (right, 100) or red toward them (left, 0), with vanilla's glow and, while
+    it is moving, the changed value chevrons running its way. Dividers part the five results, the decisive ends are tinted, and vanilla's
     active level frame rings the one it sits in. Without their Exchange there is no contest."""
     import interest_list as il
     x, w = C_SCORE
     bw = w - 6
-    # 0 all ours, 50 even, 100 theirs; a player's bar glides weekly to the month's figure (spec_rv_ui_shown)
+    # 0 theirs, 50 even, 100 ours; a player's bar glides weekly to the month's figure (spec_rv_ui_shown)
     glided = rope().replace(f"{THEM}.Var('spec_rv_ui_p').GetValueWithDefault({fx(0)})",
                             f"{THEM}.Var('spec_rv_ui_shown').GetValueWithDefault({THEM}.Var('spec_rv_ui_p').GetValueWithDefault({fx(0)}))")
     assert glided != rope()
-    at = f"Subtract_CFixedPoint({fx(50)}, Multiply_CFixedPoint({fx(50)}, {glided}))"
-    ours_more = f"GreaterThan_CFixedPoint({pushes('push')}, {pushes('pushed')})"
-    theirs_more = f"GreaterThan_CFixedPoint({pushes('pushed')}, {pushes('push')})"
+    at = points(glided)
+    ours_more = f"GreaterThan_CFixedPoint({monthly('rate')}, {fx(0.005)})"
+    theirs_more = f"LessThan_CFixedPoint({monthly('rate')}, {fx(-0.005)})"
     edges = [0, 50 - 50 * DECISIVE, 50 - 50 * DRAW, 50 + 50 * DRAW, 50 + 50 * DECISIVE, 100]
     px = lambda e: round(bw * e / 100)
 
@@ -2178,7 +2504,7 @@ def _score():
 						texture = "{BAR}/{texture}_glow_line.dds"
 					}}
 				}}
-{ind(il.chevrons(theirs_more, ours_more, 0.25, side, duration=3), 4)}			}}
+{ind(il.chevrons(ours_more, theirs_more, 0.25, side, duration=3), 4)}			}}
 		}}
 	}}
 }}
@@ -2251,7 +2577,7 @@ def _score():
 			texture_density = 2
 			margin = {{ 3 3 }}
 		}}
-{ind(tint(0, edges[1], "progressbar_green") + tint(edges[4], 100, "progressbar_bad"), 2)}{ind(half(True, "progressbar_green", f"LessThan_CFixedPoint({at}, {fx(50)})"), 2)}{ind(half(False, "progressbar_bad", f"GreaterThan_CFixedPoint({at}, {fx(50)})"), 2)}{ind(dividers + active, 2)}		widget = {{
+{ind(tint(0, edges[1], "progressbar_bad") + tint(edges[4], 100, "progressbar_green"), 2)}{ind(half(True, "progressbar_bad", f"LessThan_CFixedPoint({at}, {fx(50)})"), 2)}{ind(half(False, "progressbar_green", f"GreaterThan_CFixedPoint({at}, {fx(50)})"), 2)}{ind(dividers + active, 2)}		widget = {{
 			size = {{ 3 100% }}
 			parentanchor = center
 			background = {{
@@ -2857,28 +3183,26 @@ def loc():
     fail = (f"Min_CFixedPoint({fx(RAID_FAIL + RAID_FAIL_MORE)}, Add_CFixedPoint({fx(RAID_FAIL)}, Multiply_CFixedPoint({fx(RAID_FAIL_MORE)}, "
             f"Max_CFixedPoint({fx(0)}, Divide_CFixedPoint(Subtract_CFixedPoint({num(their, 'spec_centre_score')}, {num(ours, 'spec_centre_score')}), "
             f"Max_CFixedPoint({num(their, 'spec_centre_score')}, {fx(1)}))))))")
-    stake = pc(STAKE / CALM)
     bcs = "[Concept('concept_spec_blue_chip','$concept_spec_blue_chips$')]"
-    thin = lambda n: f"#N {pc(1 / (1 + (n - 1) * THIN))}#! in #v {n}#!"
+    thin = lambda n: f"#N x{round(1 / (1 + (n - 1) * THIN), 2):g}#! in #v {n}#!"
     every = lambda n: "once a year" if n == 1 else f"once every #v {n}#! years"
     # the Standing each slot past the first opens at (spec_rv_slots): "a 2nd contest slot at National, a 3rd at ..."
     stand_w = ("Provincial", "National", "International", "World Centre")
     opens = [f"#v {CONTESTS[t]}#! at {stand_w[t]}" for t in range(1, 4)]  # "2 at National, 4 at International and 6 at World Centre"
     opens = ", ".join(opens[:-1]) + " and " + opens[-1]
-    rule = ("Our [concept_spec_exchange] can compete with other Exchanges for trust. This is separate from diplomatic rivalries.\\n"
-            f"Each competitor costs #N {UPKEEP[0]}#! to #N {UPKEEP[-1]}#! influence in upkeep, more for a higher Standing, "
-            "and cannot be dropped in its first year.\\n$TOOLTIP_DELIMITER$\\n"
-            f"Each contest settles #v {ROUND}#! years after it starts and frees its slot for a new competitor. The bar starts from the two Exchanges' scores. "
-            f"Each of a side's {bcs}, up to #v {BC.CAP}#!, pulls it #v {pc(BC.PULL)}#! that way. "
-            f"Each action that works pushes it #v {pc(PUSH)}#!, up to #v {PUSHES}#! pushes a side. Near the middle it is a draw.\\n"
+    rule = ("Our [concept_spec_exchange] can contest others for trust. This is separate from diplomatic rivalries.\\n"
+            f"Each contest costs #N {UPKEEP[0]}#! to #N {UPKEEP[-1]}#! influence in upkeep, more against a higher Standing, and cannot be ended in its first year.\\n$TOOLTIP_DELIMITER$\\n"
+            f"A contest starts at #v {EVEN}#! and settles after #v {ROUND}#! years, at #v 100#! if all ours and #v 0#! if all theirs. "
+            f"Each month the gap between the two scores moves it up to #v {STEP:.2f}#!, and each {bcs}, up to #v {BC.CAP}#! a side, by #v {BC.PULL_MONTH:.2f}#!. "
+            f"Each action that works moves it #v {pts(PUSH)}#!, up to #v {PUSHES}#! times a side.\\n"
             f"Every contest past the first spreads us thin, so our score counts {thin(NAMED + 1)} contests and {thin(NAMED_HIGH)}.\\n$TOOLTIP_DELIMITER$\\n"
-            f"A #P win#! takes #P {pc(WIN_X * STAKE / CALM)}#! trust from the loser, and a #P decisive win#!, at least #v {pc(DECISIVE)}#! to one side, "
-            f"takes #P {pc(BIG_X * STAKE / CALM)}#! and lures #P {pc(LURE_SHARE)}#! of the loser's [concept_investment_pool] income for "
-            f"#v {LURE_MONTHS}#! months, unless it is lured already. Beating a higher Standing pays more, and a lower one less. "
-            f"With [concept_relations] Poor or worse, the loser loses #N x{BITTER:g}#! as much.\\n$TOOLTIP_DELIMITER$\\n"
-            "Actions work on the Exchanges we compete with and on those competing with us. "
-            f"Against a bigger Exchange they cost more and do less, from #v x{VS_LO:g}#! to #v x{VS_HI:g}#!. "
-            "In a [concept_spec_financial_panic], fleeing money goes to a competitor first.")
+            f"A #P win#!, at #v {at_pts(DRAW)}#! or more, takes #P {num1(WIN_X * STAKE / CALM)}#! trust from the loser. A #P decisive win#!, at #v {at_pts(DECISIVE)}#! or more, "
+            f"takes #P {num1(BIG_X * STAKE / CALM)}#! and lures #P {pc(LURE_SHARE)}#! of their [concept_investment_pool] income for #v {LURE_MONTHS}#! months. "
+            f"Beating a higher Standing pays more, and a lower one less. With [concept_relations] Poor or worse, the loser loses #N x{BITTER:g}#! as much.\\n$TOOLTIP_DELIMITER$\\n"
+            f"Against a bigger Exchange, actions cost more and do less, from #v x{VS_LO:g}#! to #v x{VS_HI:g}#!.")
+    focus = lambda who: f"{who}.Var('spec_rv_focus').GetValueWithDefault({fx(1)})"
+    counted = lambda who: f"[Multiply_CFixedPoint({num(who, 'spec_centre_score')}, {focus(who)})|0]"  # the score as spread thin counts it
+    thin_now = lambda who: f"LessThan_CFixedPoint({focus(who)}, {fx(0.99)})"
     why = lambda sg: f"[AddLocalizationIf(Not({CALL.format(sg, 'IsValid')}), '{'SPEC_RV_WHY_' + sg.upper()}')]"
     head = lambda title: f"#header {title}#!\\n$TOOLTIP_DELIMITER$\\n"
     vs = lambda them: (f"Min_CFixedPoint({fx(VS_HI)}, Max_CFixedPoint({fx(VS_LO)}, Divide_CFixedPoint({num(them, 'spec_centre_score')}, "
@@ -2888,6 +3212,23 @@ def loc():
     cost_of = lambda them: f"@money![Multiply_CFixedPoint({US}.ScriptValue('spec_rv_cost_base'), {vs(them)})|D]"
     debt_of = lambda them: f"#N @money![Multiply_CFixedPoint({US}.ScriptValue('spec_rv_lure_debt_base'), {vs(them)})|D]#!"
     cost, debt, cost_ev, debt_ev = cost_of(THEM), debt_of(THEM), cost_of(EV), debt_of(EV)
+    # a campaign's month (spec_rv_month_<action>): the cost or debt over its months
+    month_of = lambda them, base, m: f"@money![Divide_CFixedPoint(Multiply_CFixedPoint({US}.ScriptValue('{base}'), {vs(them)}), {fx(m)})|D]"
+    raid_m, shore_m = (lambda them, m=m: f"#N {month_of(them, 'spec_rv_cost_base', m)}#!" for m in (RAID_MONTHS, SHORE_MONTHS))
+    lure_m = lambda them: f"#N {month_of(them, 'spec_rv_lure_debt_base', LURE_MONTHS)}#!"
+    # Lure Capital's whole debt against our leverage, and whether it would lift the Panic Threshold over our confidence
+    # (leverage.values: spec_panic_at moves PANIC_SPAN over spec_lev_stress, SAFE to RUIN)
+    lev_now = f"{US}.ScriptValue('spec_lev')"
+    lev_after = lambda them: (f"Add_CFixedPoint({lev_now}, Divide_CFixedPoint(Multiply_CFixedPoint({US}.ScriptValue('spec_rv_lure_debt_base'), {vs(them)}), "
+                              f"Max_CFixedPoint({US}.ScriptValue('spec_lev_income'), {fx(1)})))")
+    stress_after = lambda them: (f"Min_CFixedPoint({fx(1)}, Max_CFixedPoint({fx(0)}, Divide_CFixedPoint(Subtract_CFixedPoint({lev_after(them)}, {fx(LEV.SAFE)}), "
+                                 f"{fx(LEV.RUIN - LEV.SAFE)})))")
+    line_after = lambda them: (f"Add_CFixedPoint({US}.ScriptValue('spec_panic_at'), Multiply_CFixedPoint({fx(LEV.PANIC_SPAN)}, "
+                               f"Subtract_CFixedPoint({stress_after(them)}, {US}.ScriptValue('spec_lev_stress'))))")
+    lure_warn = lambda them: f"GreaterThan_CFixedPoint({line_after(them)}, {var(US, 'spec_conf')}.GetValueWithDefault({fx(100)}))"
+    lure_lev = lambda them, key: ("" if not LEV.ON else
+                                  f" It takes our [concept_spec_leverage] from #v [{lev_now}|1]#! to #N [{lev_after(them)}|1]#!."
+                                  f"[AddLocalizationIf({lure_warn(them)}, '{key}')]")
     def product(*factors):
         result = factors[0]
         for factor in factors[1:]:
@@ -2912,7 +3253,7 @@ def loc():
 
     def trust_hit(victim, base):
         paid = product(base, f"{victim}.ScriptValue('spec_exch_loss')")
-        return f"[Divide_CFixedPoint(Min_CFixedPoint({num(victim, 'spec_centre_trust')}, {paid}), {fx(CALM)})|%2]"
+        return f"[Divide_CFixedPoint(Min_CFixedPoint({num(victim, 'spec_centre_trust')}, {paid}), {fx(CALM / 100)})|1]"
 
     def dent(them):
         return trust_hit(them, product(fx(PRESS_TRUST), product(f"{US}.ScriptValue('spec_nx_press')", heft(them)), shield(them)))
@@ -2922,10 +3263,14 @@ def loc():
                  f"SelectLocalization({stand_is(1)}, 'SPEC_RV_COST_1', 'SPEC_RV_COST_0')))]")
     world_free = f"[AddLocalizationIf(EqualTo_CFixedPoint({num(US, 'spec_exch_stand')}, {fx(3)}), 'SPEC_RV_COST_WORLD')]"  # centres.WORLD_FX: the dearest is free
     r = rope()
-    past = lambda f: f"GreaterThanOrEqualTo_CFixedPoint({r}, {fx(f)})"
-    bands = (f"SelectLocalization({past(DECISIVE)}, 'SPEC_RV_BAND_BIGWIN', SelectLocalization({past(DRAW)}, 'SPEC_RV_BAND_WIN', "
-             f"SelectLocalization(GreaterThan_CFixedPoint({r}, {fx(-DRAW)}), 'SPEC_RV_BAND_DRAW', "
-             f"SelectLocalization(GreaterThan_CFixedPoint({r}, {fx(-DECISIVE)}), 'SPEC_RV_BAND_LOSS', 'SPEC_RV_BAND_BIGLOSS'))))")
+    def band_of(x):
+        past = lambda f: f"GreaterThanOrEqualTo_CFixedPoint({x}, {fx(f)})"
+        return (f"SelectLocalization({past(DECISIVE)}, 'SPEC_RV_BAND_BIGWIN', SelectLocalization({past(DRAW)}, 'SPEC_RV_BAND_WIN', "
+                f"SelectLocalization(GreaterThan_CFixedPoint({x}, {fx(-DRAW)}), 'SPEC_RV_BAND_DRAW', "
+                f"SelectLocalization(GreaterThan_CFixedPoint({x}, {fx(-DECISIVE)}), 'SPEC_RV_BAND_LOSS', 'SPEC_RV_BAND_BIGLOSS'))))")
+    proj = contest_value("spec_rv_ui_proj", "spec_rv_proj")
+    bands, heading = band_of(r), band_of(proj)
+    trust = lambda x: f"[Multiply_CFixedPoint({x}, {fx(100)})|1]"  # trust in points of 100, as its bar shows it
     pair_scope = f"GuiScope.SetRoot({US}).AddScope('target', {THEM})"
     left = f"Subtract_CFixedPoint({fx(ROUND)}, {pair_scope}.ScriptValue('spec_rv_age_t'))"
     epoch = "GetGlobalVariable('spec_rv_epoch_year')"
@@ -2962,8 +3307,8 @@ def loc():
     gain = lambda w, l, k: f"Divide_CFixedPoint(Multiply_CFixedPoint({stake(w, l)}, {fx(k)}), {fx(CALM)})"
     loss = lambda w, l, k: (f"Multiply_CFixedPoint(Multiply_CFixedPoint({gain(w, l, k)}, {l}.ScriptValue('spec_exch_loss')), "
                             f"Select_CFixedPoint({shown('rv_is_bitter')}, {fx(BITTER)}, {fx(1)}))")
-    swing = lambda k, we_win: (f"Our [concept_spec_exchange] gains #P [{gain(US, THEM, k)}|%0]#! trust, and [Country.GetNameNoFormatting]'s loses #N [{loss(US, THEM, k)}|%0]#!." if we_win else
-                               f"Our [concept_spec_exchange] loses #N [{loss(THEM, US, k)}|%0]#! trust, and [Country.GetNameNoFormatting]'s gains #P [{gain(THEM, US, k)}|%0]#!.")
+    swing = lambda k, we_win: (f"Our [concept_spec_exchange] gains #P {trust(gain(US, THEM, k))}#! trust, and [Country.GetNameNoFormatting]'s loses #N {trust(loss(US, THEM, k))}#!." if we_win else
+                               f"Our [concept_spec_exchange] loses #N {trust(loss(THEM, US, k))}#! trust, and [Country.GetNameNoFormatting]'s gains #P {trust(gain(THEM, US, k))}#!.")
     def lure_outcome(loser, free, held):
         active = f"GetScriptedGui('spec_sgui_rv_is_active_lure').IsShown(GuiScope.SetRoot({loser}).End)"
         return f"[SelectLocalization({active}, '{held}', '{free}')]"
@@ -2973,11 +3318,16 @@ def loc():
     effect = {"BIGWIN": swing(BIG_X, True) + "\\n" + win_income,
               "WIN": swing(WIN_X, True), "DRAW": "Neither side gains or loses trust.",
               "LOSS": swing(WIN_X, False), "BIGLOSS": swing(BIG_X, False) + "\\n" + loss_income}
-    where = {"BIGWIN": f"The bar ends at least #v {pc(DECISIVE)}#! our way", "WIN": f"The bar ends #v {pc(DRAW)}#! to under #v {pc(DECISIVE)}#! our way",
-             "DRAW": f"The bar ends less than #v {pc(DRAW)}#! from the middle", "LOSS": f"The bar ends #v {pc(DRAW)}#! to under #v {pc(DECISIVE)}#! their way",
-             "BIGLOSS": f"The bar ends at least #v {pc(DECISIVE)}#! their way"}
-    tiers = [(f"SPEC_RV_TIER_{k}_TT", f"#header $SPEC_RV_BAND_{k}$#!\\n{where[k]} when the contest settles.\\n$TOOLTIP_DELIMITER$\\n"
-              f"{effect[k]}\\n$TOOLTIP_DELIMITER$\\nThe bar stands $SPEC_RV_BAR_AT$. $SPEC_RV_NOW_LINE$") for k in BANDS]
+    marks = dict(zip(BANDS, zip((0, at_pts(-DECISIVE), at_pts(-DRAW), at_pts(DRAW), at_pts(DECISIVE)),
+                                (at_pts(-DECISIVE), at_pts(-DRAW), at_pts(DRAW), at_pts(DECISIVE), 100))))
+    over, under = (lambda f: f"GreaterThanOrEqualTo_CFixedPoint({r}, {fx(f)})"), (lambda f: f"LessThanOrEqualTo_CFixedPoint({r}, {fx(f)})")
+    active = {"BIGWIN": over(DECISIVE), "WIN": f"And({over(DRAW)}, Not({over(DECISIVE)}))", "DRAW": f"Not(Or({over(DRAW)}, {under(-DRAW)}))",
+              "LOSS": f"And({under(-DRAW)}, Not({under(-DECISIVE)}))", "BIGLOSS": under(-DECISIVE)}
+    # 2026-11-24 the user: like a subject's Liberty Desire, its level tooltip's layout. These sections cover the whole
+    # bar, so each carries what moves it
+    tiers = [(f"SPEC_RV_TIER_{k}_TT", f"#header $SPEC_RV_BAND_{k}$#![AddLocalizationIf({active[k]}, 'SPEC_RV_ACTIVE')]\\n"
+              f"Applies between #v {marks[k][0]}#! and #v {marks[k][1]}#!\\n$SPEC_RV_AT$\\n$TOOLTIP_DELIMITER$\\n$SPEC_RV_WHY$\\n\\n$SPEC_RV_PACE$\\n"
+              f"$TOOLTIP_DELIMITER$\\n#title Effects When It Settles#!#indent_newline:2 \\n{effect[k]}#!") for k in BANDS]
     # spec_rival.1's scene: the attacker and us, by name, city and Standing
     T, R = "SCOPE.sCountry('target')", "ROOT.GetCountry"
     them, them_city, us_city = f"#v [{T}.GetName]#!", f"#v [{T}.GetCapital.GetCityHubName]#!", f"#v [{R}.GetCapital.GetCityHubName]#!"
@@ -2995,42 +3345,46 @@ def loc():
         ("SPEC_RV_SUB_OUT", "Our Competitors"), ("SPEC_RV_SUB_OUT_RIGHT", f"#v [GetDataModelSize({OUTGOING})]#!"),
         ("SPEC_RV_SUB_IN", "Competing With Us"), ("SPEC_RV_SUB_IN_RIGHT", f"#v [GetDataModelSize({INCOMING})]#!"),
         ("SPEC_RV_COL_EXCH", "$concept_country$"),
-        ("SPEC_RV_COL_SCORE", "Contest"), ("SPEC_RV_COL_SCORE_TT", f"Who is ahead, with our score next to theirs and how many times each side has pushed. Each contest settles #v {ROUND}#! years after it starts, and the side the bar ends on takes trust from the other."),
-        ("SPEC_RV_COL_LEFT", "Ends"), ("SPEC_RV_COL_LEFT_TT", f"When this contest settles. Each one runs #v {ROUND}#! years, then it ends and frees its slot."),
+        ("SPEC_RV_COL_SCORE", "Contest"), ("SPEC_RV_COL_SCORE_TT", "Where each contest stands, from #v 0#!, theirs, to #v 100#!, ours, and how much it moves each month."),
+        ("SPEC_RV_COL_LEFT", "Ends"), ("SPEC_RV_COL_LEFT_TT", "When each contest settles."),
         ("SPEC_RV_LEFT", f"[SelectLocalization({epoch}.IsSet, 'SPEC_RV_TERM_DATE', 'SPEC_RV_TERM_ROUNDS')]"),
         ("SPEC_RV_LEFT_SHORT", f"[SelectLocalization({epoch}.IsSet, 'SPEC_RV_TERM_SHORT', 'SPEC_RV_TERM_ROUNDS')]"),
         ("SPEC_RV_TERM_DATE", f"{time_left(left, '')} ($SPEC_DATE_TERM$)"), ("SPEC_DATE_TERM", settlement_date(left)),  # vanilla's "in 12 days (date)"
         *short_left("SPEC_RV_TERM_SHORT", left),
         ("SPEC_RV_TERM_ROUNDS", f"[{left}|0] yr"),
         ("SPEC_RV_LEFT_TT", f"#header Contest With [Country.GetNameNoFormatting]#!\\n$TOOLTIP_DELIMITER$\\n"
-                            f"The bar stands $SPEC_RV_BAR_AT$. $SPEC_RV_NOW_LINE$\\n[{bands.replace('SPEC_RV_BAND_', 'SPEC_RV_SWING_')}]\\n"
-                            f"$TOOLTIP_DELIMITER$\\nEach contest runs #v {ROUND}#! years, then it ends and frees its slot."),
+                            f"$SPEC_RV_STANDS$\\n$SPEC_RV_PACE$\\n[{heading.replace('SPEC_RV_BAND_', 'SPEC_RV_SWING_')}]"),
         *((f"SPEC_RV_SWING_{k}", swing(BIG_X if k.startswith("BIG") else WIN_X, "WIN" in k) if k != "DRAW" else effect["DRAW"])
           for k in BANDS),
-        ("SPEC_RV_COL_ACT", "Actions"), ("SPEC_RV_COL_ACT_TT", f"Our actions against them. A Bear Raid, Lure Capital or Press Campaign that works pushes the contest "
-                                                              f"#P {pc(PUSH)}#! our way, up to #v {PUSHES}#! times. Hold the Line undoes one of their pushes, "
-                                                              "and Shore Up halves what their actions do for a time."),
+        ("SPEC_RV_COL_ACT", "Actions"), ("SPEC_RV_COL_ACT_TT", f"What we can do to them. Each action that works moves the contest #P {pts(PUSH)}#! over its months, up to #v {PUSHES}#! times. "
+                                                              "One we can no longer pay for stops, and its push is lost."),
         ("SPEC_RV_COL_LAST", "Their Last Action"), ("SPEC_RV_COL_LAST_TT", "Their last action against us."),
-        ("SPEC_RV_SCORE_TT", "#header Contest With [Country.GetNameNoFormatting]: $SPEC_RV_BAR_AT$#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_RV_SCORE_BODY$"
-                             "\\n$TOOLTIP_DELIMITER$\\n$SPEC_RV_NOW_LINE$ Whichever side the bar ends on gains trust from the other."),
-        ("SPEC_RV_BAR_AT", f"#v [Select_CFixedPoint(GreaterThanOrEqualTo_CFixedPoint({r}, {fx(0)}), {r}, Multiply_CFixedPoint({r}, {fx(-1)}))|%0]#! "
-                           f"[SelectLocalization(GreaterThanOrEqualTo_CFixedPoint({r}, {fx(0)}), 'SPEC_RV_OUR_WAY', 'SPEC_RV_THEIR_WAY')]"),
-        ("SPEC_RV_NOW_LINE", f"If it settled now, it would be a [{bands}]. It settles in $SPEC_RV_LEFT$."),
-        ("SPEC_RV_OUR_WAY", "our way"), ("SPEC_RV_THEIR_WAY", "their way"),
-        ("SPEC_RV_SCORE_BODY", f"[Divide_CFixedPoint(Subtract_CFixedPoint(Multiply_CFixedPoint({num(US, 'spec_centre_score')}, {US}.Var('spec_rv_focus').GetValueWithDefault({fx(1)})), Multiply_CFixedPoint({num(THEM, 'spec_centre_score')}, {THEM}.Var('spec_rv_focus').GetValueWithDefault({fx(1)}))), "
-                               f"Max_CFixedPoint(Max_CFixedPoint(Multiply_CFixedPoint({num(US, 'spec_centre_score')}, {US}.Var('spec_rv_focus').GetValueWithDefault({fx(1)})), Multiply_CFixedPoint({num(THEM, 'spec_centre_score')}, {THEM}.Var('spec_rv_focus').GetValueWithDefault({fx(1)}))), {fx(1)}))|+=%0] "
-                               f"from [concept_spec_exchange] scores, ours #v {score(US)}#! to their #v {score(THEM)}#!"
-                               f"[AddLocalizationIf(LessThan_CFixedPoint({US}.Var('spec_rv_focus').GetValueWithDefault({fx(1)}), {fx(0.99)}), 'SPEC_RV_THIN_US')]"
-                               f"[AddLocalizationIf(LessThan_CFixedPoint({THEM}.Var('spec_rv_focus').GetValueWithDefault({fx(1)}), {fx(0.99)}), 'SPEC_RV_THIN_THEM')]\\n"
-                               f"[Multiply_CFixedPoint({pushes('push')}, {fx(PUSH)})|+=%0] from our #v [{pushes('push')}|0]#! pushes\\n"
-                               f"[Multiply_CFixedPoint({pushes('pushed')}, {fx(-PUSH)})|+=%0] from their #v [{pushes('pushed')}|0]#! pushes\\n"
-                               f"[Multiply_CFixedPoint({US}.ScriptValue('spec_bc_counted'), {fx(BC.PULL)})|+=%0] from our "
-                               f"#v [{US}.Var('spec_bc_n').GetValueWithDefault({fx(0)})|0]#! {bcs}\\n"
-                               f"[Multiply_CFixedPoint({THEM}.ScriptValue('spec_bc_counted'), {fx(-BC.PULL)})|+=%0] from their "
-                               f"#v [{THEM}.Var('spec_bc_n').GetValueWithDefault({fx(0)})|0]#! {bcs}\\n\\n"
-                               f"Each action that works pushes the bar #v {pc(PUSH)}#!, up to #v {PUSHES}#! times a side."),
-        ("SPEC_RV_THIN_US", f"\\n#indent_newline:2 We are #N spread thin#! across #v [{US}.Var('spec_rv_n_all').GetValueWithDefault({fx(0)})|0]#! contests, so our score counts #N [{US}.Var('spec_rv_focus').GetValueWithDefault({fx(1)})|%0]#!#!"),
-        ("SPEC_RV_THIN_THEM", f"\\n#indent_newline:2 They are #P spread thin#! across #v [{THEM}.Var('spec_rv_n_all').GetValueWithDefault({fx(0)})|0]#! contests, so their score counts #P [{THEM}.Var('spec_rv_focus').GetValueWithDefault({fx(1)})|%0]#!#!"),
+        # 2026-11-24 the user: work and read like Liberty Desire, a number from 0 to 100 and what moves it each month
+        ("SPEC_RV_SCORE_TT", "#header Contest With [Country.GetNameNoFormatting]#!\\n$SPEC_RV_AT$\\n$TOOLTIP_DELIMITER$\\n$SPEC_RV_WHY$\\n\\n$SPEC_RV_PACE$"),
+        ("SPEC_RV_ACTIVE", " #i #b (Currently Active)#!#!"),
+        ("SPEC_RV_AT", "The contest stands at $SPEC_RV_BAR_AT$"),
+        ("SPEC_RV_BAR_AT", f"#v [{points(r)}|1]#!"),
+        ("SPEC_RV_RATE", f"[{monthly('rate')}|+=2]"),
+        ("SPEC_RV_STANDS", f"The contest stands at $SPEC_RV_BAR_AT$, a [{bands}], and moves $SPEC_RV_RATE$ each month."),
+        ("SPEC_RV_PACE", f"At this rate it settles at #v [{points(proj)}|1]#!, a [{heading}], in $SPEC_RV_LEFT$."),
+        ("SPEC_RV_WHY", "It is predicted to change by $SPEC_RV_RATE$ on a monthly basis due to:\\n"
+                        f"[{monthly('lead')}|+=2] from #tooltippable #tooltip:[Country.GetTooltipTag],SPEC_RV_SCORES_TT Exchange Scores#!#! (#v {counted(US)}#! to #v {counted(THEM)}#!)"
+                        + "".join(f"[AddLocalizationIf(GreaterThan_CFixedPoint({x}, {fx(0)}), 'SPEC_RV_M_{k}')]" for k, x in (
+                            ("BCU", f"{US}.ScriptValue('spec_bc_counted')"), ("BCT", f"{THEM}.ScriptValue('spec_bc_counted')"),
+                            *((f"{w}_{a}".upper(), monthly(f"{w}_{a}")) for w in ("me", "it") for a in RAMPS)))),
+        ("SPEC_RV_M_BCU", f"\\n[Multiply_CFixedPoint({US}.ScriptValue('spec_bc_counted'), {fx(round(BC.PULL_MONTH, 4))})|+=2] from our {bcs} "
+                          f"(#v [{US}.Var('spec_bc_n').GetValueWithDefault({fx(0)})|0]#!)"),
+        ("SPEC_RV_M_BCT", f"\\n[Multiply_CFixedPoint({THEM}.ScriptValue('spec_bc_counted'), {fx(-round(BC.PULL_MONTH, 4))})|+=2] from their {bcs} "
+                          f"(#v [{THEM}.Var('spec_bc_n').GetValueWithDefault({fx(0)})|0]#!)"),
+        # a failed move pushes the other way, so a line names the move and its sign says whose way it went
+        *((f"SPEC_RV_M_{w}_{a}".upper(), f"\\n[{monthly(f'me_{a}') if w == 'me' else f'Multiply_CFixedPoint({monthly(f'it_{a}')}, {fx(-1)})'}|+=2] from a $SPEC_RV_{a.upper()}$".replace("a $SPEC_RV_LURE$", "$SPEC_RV_LURE$"))
+          for w in ("me", "it") for a in RAMPS),
+        ("SPEC_RV_SCORES_TT", f"#header Exchange Scores#!\\n$TOOLTIP_DELIMITER$\\nOurs counts as #v {counted(US)}#!#indent_newline:2 \\n#v {score(US)}#! from our [concept_spec_exchange] Score"
+                              f"[AddLocalizationIf({thin_now(US)}, 'SPEC_RV_THIN_US')]#!\\n\\nTheirs counts as #v {counted(THEM)}#!#indent_newline:2 \\n#v {score(THEM)}#! from their "
+                              f"[concept_spec_exchange] Score[AddLocalizationIf({thin_now(THEM)}, 'SPEC_RV_THIN_THEM')]#!\\n$TOOLTIP_DELIMITER$\\n"
+                              f"The wider the gap, the faster the contest moves, up to #v {STEP:.2f}#! a month."),
+        *((f"SPEC_RV_THIN_{k}", f"\\n#{c} x[{who}.Var('spec_rv_focus').GetValueWithDefault({fx(1)})|2]#! from running #v [{who}.Var('spec_rv_n_all').GetValueWithDefault({fx(0)})|0]#! contests at once")
+          for k, who, c in (("US", US, "N"), ("THEM", THEM, "P"))),
         ("SPEC_RV_ROUND", f"[AddLocalizationIf({var(US, 'spec_rv_next')}.GetCountry.IsValid, 'SPEC_RV_NEXT_SETTLEMENT')]"),
         # 2026-11-22: a sentence in place of "Next: X · 11 m" (the user: against our style)
         ("SPEC_RV_NEXT_SETTLEMENT", f"#v [{var(US, 'spec_rv_next')}.GetCountry.GetNameNoFormatting]#! settles in #v [SelectLocalization({epoch}.IsSet, 'SPEC_RV_NEXT_DATE', 'SPEC_RV_NEXT_ROUNDS')]#!"),
@@ -3040,7 +3394,7 @@ def loc():
         ("SPEC_RV_BAND_BIGWIN", "#P Decisive Win#!"), ("SPEC_RV_BAND_WIN", "#P Win#!"), ("SPEC_RV_BAND_DRAW", "Draw"),
         ("SPEC_RV_BAND_LOSS", "#N Loss#!"), ("SPEC_RV_BAND_BIGLOSS", "#N Decisive Loss#!"),
         ("SPEC_RV_SCORE_OFF", "#weak No Exchange#!"),
-        ("SPEC_RV_NOW", f"[{bands}]"),
+        ("SPEC_RV_NOW", f"[{bands}] $SPEC_RV_BAR_AT$ ($SPEC_RV_RATE$)"),
         *tiers,
         ("SPEC_RV_CARD_TITLE", "Competitor Actions on Us"),
         ("SPEC_RV_US_RAID", "#b Bear Raid#!"),
@@ -3070,20 +3424,22 @@ def loc():
                 f"SelectLocalization({did_ok(1)}, '{pre}31', '{pre}3N'), SelectLocalization({_did(5)}, 'SPEC_RV_DID_SHORE', 'SPEC_RV_DID_FX4'))))]")
           for key, pre in (("SPEC_RV_DID_FX", "SPEC_RV_DID_FX"), ("SPEC_RV_DID_ROW", "SPEC_RV_DID_S"))),
         ("SPEC_RV_DID_S11", f"Their [concept_spec_market_confidence] up to #P -[{num(US, 'spec_rv_did_amt')}|2]#! over {RAID_MONTHS} months"),
-        ("SPEC_RV_DID_FX11", f"$SPEC_RV_DID_S11$, contest #P {pc(PUSH)}#! our way"),
+        ("SPEC_RV_DID_FX11", f"$SPEC_RV_DID_S11$, contest #P +{pts(PUSH)}#!"),
         ("SPEC_RV_DID_S10", f"It turned on us. Our [concept_spec_market_confidence] up to #N -[{num(US, 'spec_rv_did_amt')}|2]#! over {RAID_MONTHS} months"),
-        ("SPEC_RV_DID_FX10", f"$SPEC_RV_DID_S10$, contest #N {pc(PUSH)}#! their way"),
+        ("SPEC_RV_DID_FX10", f"$SPEC_RV_DID_S10$, contest #N -{pts(PUSH)}#!"),
         ("SPEC_RV_DID_S2", f"We take #P [{num(US, 'spec_rv_did_amt')}|%0]#! of their [concept_investment_pool] income for {LURE_MONTHS} months"),
-        ("SPEC_RV_DID_FX2", f"$SPEC_RV_DID_S2$, contest #P {pc(PUSH)}#! our way"),
-        ("SPEC_RV_DID_S31", f"Their trust #P -[Multiply_CFixedPoint({num(US, 'spec_rv_did_amt')}, {fx(round(1 / CALM, 6))})|%0]#!"),
-        ("SPEC_RV_DID_FX31", f"$SPEC_RV_DID_S31$, contest #P {pc(PUSH)}#! our way"),
-        ("SPEC_RV_DID_S3N", f"Relations #N -{PRESS_REL}#!, our trust #N -[Multiply_CFixedPoint({num(US, 'spec_rv_did_amt')}, {fx(round(1 / CALM, 6))})|%0]#!"),
-        ("SPEC_RV_DID_FX3N", f"$SPEC_RV_DID_S3N$, contest #N {pc(PUSH)}#! their way"),
+        ("SPEC_RV_DID_FX2", f"$SPEC_RV_DID_S2$, contest #P +{pts(PUSH)}#!"),
+        ("SPEC_RV_DID_S31", f"Their trust #P -[Divide_CFixedPoint({num(US, 'spec_rv_did_amt')}, {fx(CALM / 100)})|1]#!"),
+        ("SPEC_RV_DID_FX31", f"$SPEC_RV_DID_S31$, contest #P +{pts(PUSH)}#!"),
+        ("SPEC_RV_DID_S3N", f"Relations #N -{PRESS_REL}#!, our trust #N -[Divide_CFixedPoint({num(US, 'spec_rv_did_amt')}, {fx(CALM / 100)})|1]#!"),
+        ("SPEC_RV_DID_FX3N", f"$SPEC_RV_DID_S3N$, contest #N -{pts(PUSH)}#!"),
         ("SPEC_RV_DID_FX4", "One of their pushes on the contest undone"),
         ("SPEC_RV_DID_SHORE", f"Protected against [{US}.Var('spec_rv_did_on').GetCountry.GetName] for #v [{num(US, 'spec_rv_did_amt')}|0]#! days"),
-        ("SPEC_RV_DID_COST", f"[SelectLocalization({_did(2)}, 'SPEC_RV_DID_COST2', SelectLocalization({_did(3)}, 'SPEC_RV_DID_COST3', 'SPEC_RV_DID_COST1'))]"),
+        ("SPEC_RV_DID_COST", f"[SelectLocalization({_did(2)}, 'SPEC_RV_DID_COST2', SelectLocalization({_did(3)}, 'SPEC_RV_DID_COST3', "
+                             f"SelectLocalization({_did(1)}, 'SPEC_RV_DID_COST1R', SelectLocalization({_did(5)}, 'SPEC_RV_DID_COST1S', 'SPEC_RV_DID_COST1'))))]"),
         ("SPEC_RV_DID_COST1", f"Cost #N @money![{num(US, 'spec_rv_did_cost')}|D]#!"),
-        ("SPEC_RV_DID_COST2", f"Debt #N +@money![{num(US, 'spec_rv_did_cost')}|D]#!"),
+        *((f"SPEC_RV_DID_COST1{k}", f"Cost #N @money![{num(US, 'spec_rv_did_cost')}|D]#! over {m} months") for k, m in (("R", RAID_MONTHS), ("S", SHORE_MONTHS))),
+        ("SPEC_RV_DID_COST2", f"Debt #N +@money![{num(US, 'spec_rv_did_cost')}|D]#! over {LURE_MONTHS} months"),
         ("SPEC_RV_DID_COST3", f"#N -{PRESS_INFL}#! @inf! for {PRESS_MONTHS} months"),
         ("SPEC_RV_DID_TT", "#header Our Last Move: $SPEC_RV_DID_WHAT$#!\\n$TOOLTIP_DELIMITER$\\n$SPEC_RV_DID_FX$\\n$SPEC_RV_DID_COST$\\n$TOOLTIP_DELIMITER$\\n"
                            "#weak Shown for a year, or until our next move#!"),
@@ -3116,7 +3472,7 @@ def loc():
         ("SPEC_RV_TOGGLE_TT_ON", head("Competing With [Country.GetNameNoFormatting]") + "We are contesting their [concept_spec_exchange] for trust.\\n\\n"
                                  f"Costs {tier_cost} @inf! influence in upkeep.{world_free}\\n"
                                  f"[concept_relations] fall by #N {REL_DRIFT}#! a month until they reach Poor.\\n\\n"
-                                 "Ending it before it settles counts as losing it, a $SPEC_RV_BAND_BIGLOSS$ if the contest already shows one."),
+                                 "Ending it before it settles counts as losing it, a $SPEC_RV_BAND_BIGLOSS$ if it is heading for one."),
         ("SPEC_RV_WHY_RV_TOGGLE", f"\\n\\n[{CALL.format('rv_toggle', 'BuildTooltip')}]"),
         *((f"SPEC_RV_COST_{t}", f"#N {c}#!") for t, c in enumerate(UPKEEP)),
         ("SPEC_RV_COST_WORLD", " As a World Centre, we pay nothing for our most expensive competitor."),
@@ -3127,7 +3483,7 @@ def loc():
         ("spec_rv_interest_tier_effect", "@checkmark! Allows contesting the [concept_spec_exchange] of a [concept_country] whose capital is in this "
                                          "[concept_strategic_region]"),
         ("spec_rv_forfeit_tt", "We #N forfeit#! the contest. Ending it before it settles counts as a $SPEC_RV_BAND_LOSS$, or a $SPEC_RV_BAND_BIGLOSS$ "
-                               "if the contest already shows one."),
+                               "if it is heading for one."),
         ("SPEC_RV_EMPTY_OUT", f"[SelectLocalization(GetMetaPlayer.IsObserver, 'SPEC_RV_EMPTY_IN', 'SPEC_RV_EMPTY_OUT_PLAYER')]"),
         ("SPEC_RV_EMPTY_OUT_PLAYER", "#weak None yet. Fill a free contest slot above.#!"),
         # the contest slots strip (_slots) and the map's diplomatic actions (diplo)
@@ -3144,12 +3500,12 @@ def loc():
         ("SPEC_RV_SLOT_SETTLES", "It settles in $SPEC_RV_LEFT$.\\n\\n"),
         ("SPEC_RV_SLOT_CANCEL_TT", "#header End Contest With [Country.GetNameNoFormatting]#!\\n$TOOLTIP_DELIMITER$\\n"
                                    "It settles in $SPEC_RV_LEFT$. Ending it now counts as losing it, a $SPEC_RV_BAND_BIGLOSS$ "
-                                   "if the contest already shows one.\\n\\n"
+                                   "if it is heading for one.\\n\\n"
                                    # trust as a share of CALM, as the result tooltips show it (spec_rv_ui_forfeit is in points)
                                    f"Our [concept_spec_exchange] loses #N [Divide_CFixedPoint(Multiply_CFixedPoint({THEM}.Var('spec_rv_ui_forfeit').GetValueWithDefault({fx(0)}), "
-                                   f"Multiply_CFixedPoint({US}.ScriptValue('spec_exch_loss'), Select_CFixedPoint({shown('rv_is_bitter')}, {fx(BITTER)}, {fx(1)}))), {fx(CALM)})|%0]#! trust, "
-                                   f"and theirs gains #N [Divide_CFixedPoint({THEM}.Var('spec_rv_ui_forfeit').GetValueWithDefault({fx(0)}), {fx(CALM)})|%0]#!.\\n"
-                                   f"[SelectLocalization(LessThan_CFixedPoint({rope()}, {fx(-DECISIVE + 0.0001)}), 'SPEC_RV_SLOT_CANCEL_LURE', 'SPEC_RV_EV_NONE')]"
+                                   f"Multiply_CFixedPoint({US}.ScriptValue('spec_exch_loss'), Select_CFixedPoint({shown('rv_is_bitter')}, {fx(BITTER)}, {fx(1)}))), {fx(CALM / 100)})|1]#! trust, "
+                                   f"and theirs gains #N [Divide_CFixedPoint({THEM}.Var('spec_rv_ui_forfeit').GetValueWithDefault({fx(0)}), {fx(CALM / 100)})|1]#!.\\n"
+                                   f"[SelectLocalization(LessThan_CFixedPoint({proj}, {fx(-DECISIVE + 0.0001)}), 'SPEC_RV_SLOT_CANCEL_LURE', 'SPEC_RV_EV_NONE')]"
                                    "The contest slot is freed."
                                    f"[SelectLocalization({shown('rv_is_locked')}, 'SPEC_RV_SLOT_CANCEL_LOCKED', 'SPEC_RV_SLOT_CANCEL_CLICK')]"),
         ("SPEC_RV_SLOT_CANCEL_LURE", loss_income + "\\n"),
@@ -3184,20 +3540,22 @@ def loc():
         ("spec_rv_upkeep", "Competing Exchanges"),
         ("spec_rv_upkeep_desc", "Our [concept_spec_exchange] spends influence keeping up with its competitors."),
         
-        ("spec_rv_raid_fx", f"Over #v {RAID_MONTHS}#! months, their [concept_spec_market_confidence] falls by up to #P {hit(EV)}#! if it works, or ours by up to #N {hit(EV, True)}#! if it fails. The yearly raid cap applies. Costs #N {cost_ev}#! from our [concept_treasury]."),
-        ("spec_rv_lure_fx", f"For #v {LURE_MONTHS}#! months, #P {share(EV)}#! of their [concept_investment_pool] income comes to ours. Our [concept_spec_outstanding_credit] grows by {debt_ev}."),
+        ("spec_rv_raid_fx", f"Over #v {RAID_MONTHS}#! months, their [concept_spec_market_confidence] falls by up to #P {hit(EV)}#! if it works, or ours by up to #N {hit(EV, True)}#! if it fails. Costs {raid_m(EV)} a month."),
+        ("spec_rv_lure_fx", f"For #v {LURE_MONTHS}#! months, #P {share(EV)}#! of their [concept_investment_pool] income comes to ours, "
+                            f"and our [concept_spec_outstanding_credit] grows by {lure_m(EV)} a month.{lure_lev(EV, 'SPEC_RV_LURE_WARN')}"),
+        ("SPEC_RV_LURE_WARN", " #N Its debt would lift our Panic Threshold above our [concept_spec_market_confidence], and a [concept_spec_financial_panic] would follow.#!"),
         ("spec_rv_press_fx", f"Their [concept_spec_exchange] loses #P {dent(EV)}#! trust. "
                              f"If exposed, relations fall by #N {PRESS_REL}#! and our trust by #N {trust_hit(US, fx(PRESS_TRUST))}#!. Costs #N {PRESS_INFL}#! influence for #v {PRESS_MONTHS}#! months."),
         ("spec_rv_hold_fx", f"One of their pushes in our contest is undone. Costs #N {cost_ev}#! from our [concept_treasury]."),
         ("spec_rv_pushed_tt", "They have pushed our contest their way"),
         ("SPEC_RV_HOLD", "Hold the Line"),
-        ("spec_rv_shore_fx", f"Their actions do #P half#! as much until {shore_protection}. It can be used again on {shore_renewal}. Costs #N {cost_ev}#! from our [concept_treasury]."),
+        ("spec_rv_shore_fx", f"Their actions do #P half#! as much until {shore_protection}. It can be used again on {shore_renewal}. Costs {shore_m(EV)} a month for #v {SHORE_MONTHS}#! months."),
         ("SPEC_RV_SHORE_RENEWAL", "\\nIt can be used again on $SPEC_DATE_SHORE_UNTIL$."),
         ("SPEC_RV_SHORE_PROTECTED", "\\nTheir protection ends on $SPEC_DATE_PROTECTED_UNTIL$."),
         ("SPEC_DATE_SHORE_END", date_at(f"{US}.ScriptValue('spec_rv_shore_end_day')")),
         ("SPEC_DATE_SHORE_AGAIN", date_at(f"{US}.ScriptValue('spec_rv_shore_again_day')")),
         ("SPEC_DATE_SHORE_UNTIL", date_at(shore_until)), ("SPEC_DATE_PROTECTED_UNTIL", date_at(protected_until)),
-        ("SPEC_RV_SHORE_OFFER", f"If used now, their actions do #P half#! as much until {shore_protection}. It can be used again on {shore_renewal}."),
+        ("SPEC_RV_SHORE_OFFER", f"Their actions do #P half#! as much until {shore_protection}."),
         ("SPEC_RV_SHORE_WAIT", "Shore Up is on cooldown against this competitor."),
         ("SPEC_RV_LAST", f"[SelectLocalization({by(THEM, 'GetMetaPlayer.GetPlayedOrObservedCountry.Self')}, 'SPEC_RV_LAST_OURS', "
                          f"{sel(by(US, 'Country.Self'), 'SPEC_RV_LAST_THEIRS', 'SPEC_RV_LAST_NONE')})]"),
@@ -3207,7 +3565,7 @@ def loc():
         ("SPEC_RV_OK", "#P it worked#!"), ("SPEC_RV_FAILED", "#N it failed#!"), ("SPEC_RV_EXPOSED", "#N it was exposed#!"),
         ("SPEC_RV_RAID", "Bear Raid"), ("SPEC_RV_LURE", "Lure Capital"), ("SPEC_RV_PRESS", "Press Campaign"), ("SPEC_RV_SHORE", "Shore Up"),
         ("SPEC_RV_ROW_TT", f"#header [Country.GetNameNoFormatting]#!\\n$TOOLTIP_DELIMITER$\\n[AddLocalizationIf({PAIR}, 'SPEC_RV_ROW_NOW')]$SPEC_RV_LAST$"),
-        ("SPEC_RV_ROW_NOW", "The contest stands $SPEC_RV_BAR_AT$. $SPEC_RV_NOW_LINE$\\n\\n"),  # the row said only the last action
+        ("SPEC_RV_ROW_NOW", "$SPEC_RV_STANDS$\\n$SPEC_RV_PACE$\\n\\n"),  # the row said only the last action
         ("SPEC_RV_MARK_TT", "#header They Compete With Us#!\\n$TOOLTIP_DELIMITER$\\nTheir [concept_spec_exchange] has made ours its competitor."),
         ("spec_rv_pair_tt", "Both countries have an [concept_spec_exchange]"),
         ("spec_rv_exch_tt", "Our country has an [concept_spec_exchange]"),
@@ -3215,6 +3573,7 @@ def loc():
         ("spec_rv_cd_tt", "We have not used this against them in the last year"),
         ("spec_rv_shore_cd_tt", f"We have not shored up against them in the last #v {SHORE_CD}#! years"),
         ("spec_rv_gold_tt", "Our treasury can pay the cost"),
+        ("spec_rv_gold_month_tt", "Our treasury can pay the first month"),
         ("spec_rv_panic_tt", "Our market is not in a [concept_spec_financial_panic]"),
         ("spec_rv_lured_tt", "No one is luring their capital already"),
         ("spec_rv_infl_tt", f"We have #v {PRESS_INFL}#! influence to spare"),
@@ -3243,7 +3602,7 @@ def loc():
         ("spec_rival.1.t31", "A Campaign of Whispers"),
         ("spec_rival.1.d31", f"The morning papers of {them} carry long columns on forged balance sheets and tottering banks in {us_city}. "
                              "None are signed and few are true, but they are read in every counting house on the continent.\\n\\n"
-                             f"Our [concept_spec_exchange] lost #N [Divide_CFixedPoint(SCOPE.GetValue('spec_rv_event_amount'), {fx(CALM)})|%2]#! trust."),
+                             f"Our [concept_spec_exchange] lost #N [Divide_CFixedPoint(SCOPE.GetValue('spec_rv_event_amount'), {fx(CALM / 100)})|1]#! trust."),
         ("spec_rival.1.f31", '\\"A lie travels halfway around the world while the truth is still putting on its boots.\\"'),
         ("spec_rival.1.t3n", "A Paid Campaign Exposed"),
         ("spec_rival.1.d3n", f"The papers of {them} have been full of doubts about our [concept_spec_exchange]. But a clerk talked, and now "
@@ -3257,8 +3616,8 @@ def loc():
         ("spec_rival.1.b", "Close ranks against them."), ("spec_rival.1.b_tt", f"We #v Shore Up#! against them. Their actions do #P half#! as much until {shore_protection}, "
                                                                                f"and we can do it again on {shore_renewal}. Costs #N {cost_ev}#! from our [concept_treasury]."),
         ("spec_rival.1.c", "Carry on as if nothing happened."),
-        ("spec_rival.1.c_tt", f"Our [concept_spec_exchange] gains #P [Multiply_CFixedPoint({fx(round(CALM_GAIN / CALM, 4))}, "
-                              f"Add_CFixedPoint({fx(1)}, Multiply_CFixedPoint({fx(CALM_STAND)}, SCOPE.sCountry('target').MakeScope.Var('spec_exch_stand').GetValueWithDefault({fx(0)}))))|%0]#! "
+        ("spec_rival.1.c_tt", f"Our [concept_spec_exchange] gains #P [Multiply_CFixedPoint({fx(round(CALM_GAIN / CALM * 100, 4))}, "
+                              f"Add_CFixedPoint({fx(1)}, Multiply_CFixedPoint({fx(CALM_STAND)}, SCOPE.sCountry('target').MakeScope.Var('spec_exch_stand').GetValueWithDefault({fx(0)}))))|1]#! "
                               f"trust for keeping its head. The bigger the Exchange we shrug off, the more it counts."),
         ("spec_rival.1.d", "Buy into the panic."),
         ("spec_rival.1.d_tt", f"Our banks buy what the raiders sell. The raid takes #P half#! as much [concept_spec_market_confidence]. "
@@ -3267,7 +3626,7 @@ def loc():
         ("spec_rival.1.e_tt", f"We pay our investors to stay. They take #P half#! as much of our [concept_investment_pool]. "
                               f"Costs #N @money![ROOT.GetCountry.MakeScope.ScriptValue('spec_rv_counter_cost')|D]#! (#v {COUNTER_GDP:.0%}#! of our GDP)."),
         ("spec_rival.1.g", "Answer in our own papers."),
-        ("spec_rival.1.g_tt", f"Our papers print the figures. Our [concept_spec_exchange] wins back #P {pc(round(PRESS_TRUST * 0.6, 2) / CALM)}#! trust. "
+        ("spec_rival.1.g_tt", f"Our papers print the figures. Our [concept_spec_exchange] wins back #P {num1(round(PRESS_TRUST * 0.6, 2) / CALM)}#! trust. "
                               f"Costs #N @money![ROOT.GetCountry.MakeScope.ScriptValue('spec_rv_counter_cost')|D]#! (#v {COUNTER_GDP:.0%}#! of our GDP)."),
     ]
     lines += [
@@ -3289,31 +3648,32 @@ def loc():
     N = "\\n"
     D = N + "$TOOLTIP_DELIMITER$" + N
     them = "[Country.GetNameNoFormatting]"
-    ours_way = f"the contest moves #P {pc(PUSH)}#! our way"
-    theirs_way = f"the contest moves #N {pc(PUSH)}#! their way"
-    cd = f" It can be used against {them} {every(CD_DAYS // 365)}."
+    ours_way, theirs_way = f"#P +{pts(PUSH)}#! to the contest", f"#N -{pts(PUSH)}#! to the contest"
+    ind = lambda *rows: "#indent_newline:2 " + "".join(N + x for x in rows) + "#!"
+    used = f"{N}#weak [{pushes('push')}|0] of {PUSHES} pushes used. "
+    once = lambda n: f"Can be used {every(n)}.#!".replace("#v ", "").replace("#! years", " years")
+    fails = f"[{fail}|0]%"
     out += tip("raid", "Bear Raid",
-               f"If it works, {them}'s [concept_spec_market_confidence] falls by up to #P {hit(THEM)}#! over #v {RAID_MONTHS}#! months, and {ours_way}.{N}"
-               f"There is a #N [{fail}|0]%#! chance it fails. Then our own [concept_spec_market_confidence] falls by up to #N {hit(THEM, True)}#! "
-               f"over #v {RAID_MONTHS}#! months, and {theirs_way}.{N}"
-               f"Raids take at most #N {RAID_CAP:g}#! confidence a year from any country.{D}Costs #N {cost}#! from our [concept_treasury].{cd}")
+               f"#P [Subtract_CFixedPoint({fx(100)}, {fail})|0]%#! chance it works"
+               + ind(f"Up to #P -{hit(THEM)}#! of their [concept_spec_market_confidence] over {RAID_MONTHS} months", ours_way) + N +
+               f"#N {fails}#! chance it fails" + ind(f"Up to #N -{hit(THEM, True)}#! of our [concept_spec_market_confidence] over {RAID_MONTHS} months", theirs_way) +
+               f"{D}Costs {raid_m(THEM)} a month for #v {RAID_MONTHS}#! months.{used}{once(CD_DAYS // 365)}")
     out += tip("lure", "Lure Capital",
-               f"#P {share(THEM)}#! of {them}'s [concept_investment_pool] income comes to us for #v {LURE_MONTHS}#! months, and {ours_way}.{D}"
-               f"Adds {debt} to our [concept_spec_outstanding_credit].{cd}")
+               f"#P +{share(THEM)}#! of their [concept_investment_pool] income for #v {LURE_MONTHS}#! months{N}{ours_way}{D}"
+               f"Adds {lure_m(THEM)} a month to our [concept_spec_outstanding_credit].{lure_lev(THEM, 'SPEC_RV_LURE_WARN')}{used}{once(CD_DAYS // 365)}")
     out += tip("press", "Press Campaign",
-               f"If it works, {them}'s [concept_spec_exchange] loses #P {dent(THEM)}#! trust, and {ours_way}.{N}"
-               f"There is a #N [{THEM}.ScriptValue('spec_rv_press_expose')|0]%#! chance it is exposed, higher where {them}'s press is free. "
-               f"Then they still lose {dent(THEM)} trust, but our [concept_spec_exchange] loses #N {trust_hit(US, fx(PRESS_TRUST))}#!, "
-               f"[concept_relations] with {them} fall by #N {PRESS_REL}#!, and {theirs_way}.{D}"
-               f"Costs #N {PRESS_INFL}#! @inf! [concept_influence] for #v {PRESS_MONTHS}#! months.{cd}")
+               f"#P -{dent(THEM)}#! of their [concept_spec_exchange] trust{N}"
+               f"#P [Subtract_CFixedPoint({fx(100)}, {THEM}.ScriptValue('spec_rv_press_expose'))|0]%#! chance it works" + ind(ours_way) + N +
+               f"#N [{THEM}.ScriptValue('spec_rv_press_expose')|0]%#! chance it is exposed"
+               + ind(f"#N -{trust_hit(US, fx(PRESS_TRUST))}#! of our [concept_spec_exchange] trust", f"#N -{PRESS_REL}#! [concept_relations]", theirs_way) +
+               f"{D}Costs #N {PRESS_INFL}#! @inf! [concept_influence] for #v {PRESS_MONTHS}#! months.{used}{once(CD_DAYS // 365)}")
     out += tip("hold", "Hold the Line",
-               f"Undoes one of {them}'s pushes, moving the contest #P {pc(PUSH)}#! back our way. "
-               f"They have pushed it #v [{pushes('pushed')}|0]#! times.{D}"
-               f"Costs #N {cost}#! from our [concept_treasury].{cd}")
+               f"Up to #P +{pts(PUSH)}#! to the contest, undoing one of their #v [{pushes('pushed')}|0]#! pushes{D}"
+               f"Costs #N {cost}#!.{N}#weak {once(CD_DAYS // 365)}")
     out += tip("shore", "Shore Up",
                f"[SelectLocalization({shown('rv_is_cd_shore')}, 'SPEC_RV_SHORE_WAIT', 'SPEC_RV_SHORE_OFFER')]"
                f"[AddLocalizationIf(And({shown('rv_is_shield')}, GreaterThan_CFixedPoint({protected_until}, {fx(0)})), 'SPEC_RV_SHORE_PROTECTED')]{D}"
-               f"Costs #N {cost}#! from our [concept_treasury]. It can be used against {them} {every(SHORE_CD)}."
+               f"Costs {shore_m(THEM)} a month for #v {SHORE_MONTHS}#! months.{N}#weak {once(SHORE_CD)}"
                f"[AddLocalizationIf(And({shown('rv_is_cd_shore')}, GreaterThan_CFixedPoint({shore_until}, {fx(0)})), 'SPEC_RV_SHORE_RENEWAL')]")
     return out
 
@@ -3334,7 +3694,25 @@ if __name__ == "__main__":
     contest = effects().split("spec_rival_contest = {")[1].split("# end spec_rival_contest")[0]
     # the notification testbed swaps these (not the trust recorder's, BC.record_trust)
     assert len(re.findall(r"is_player = yes(?! has_variable = spec_trust_review)", contest)) == 2 and contest.count("post_notification") == 2
-    assert contest.count("spec_rv_rope") == 1 and "spec_rv_push = { BY = scope:target ON = scope:spec_rv_actor }" in effects()
+    assert contest.count("value = spec_rv_rope") == 1 and f"spec_rv_push = {{ BY = scope:target ON = scope:spec_rv_actor RAMP = spec_rv_ramp_raid_{RAID_MONTHS} }}" in effects()
+    # 1.2.2 campaigns: no move pays or borrows up front (Hold the Line still does); each list it fills is ticked monthly
+    fx_ = effects()
+    for a in ("raid", "lure", "shore"):
+        body = fx_.split(f"\nspec_rv_{a} = {{")[1].split("\n}\n")[0]
+        assert "add_treasury" not in body and "spec_debt" not in body and f"spec_rv_camp_{a}_{CAMPS[a]} target" in body, a
+        assert f"clear_variable_list = spec_rv_camp_{a}_1\n" in fx_ and f"name = spec_rv_camp_{a}_{CAMPS[a] + 1}" not in fx_
+    assert "add_treasury = spec_rv_cost_neg" in fx_.split("\nspec_rv_hold = {")[1].split("\n}\n")[0]
+    assert all(f"clear_variable_list = {l}\n" in fx_ for l in RAMP_LISTS) and "spec_rv_ramp_raid_0" not in fx_ and "spec_rv_camp_raid_0" not in fx_
+    # an unpaid raid takes back its hit; each early end tells a player (notify.py's toasts)
+    assert fx_.count("add_to_variable_map") == 3  # others go through spec_rv_put
+    assert "scope:target = { spec_rv_unraid = yes }" in fx_ and "\nspec_rv_unraid = {" in fx_
+    assert all(f"post_notification = spec_rv_end_{a}\n" in fx_ for a in CAMPS)
+    import notify
+    assert not (notify.centres.ON and notify.centres.RIVAL_ON) or all(f"spec_rv_end_{a}" in notify.NOTES for a in CAMPS)
+    assert "spec_rv_campaigns = yes" in MONTHLY and MONTHLY.index("spec_rv_campaigns") < MONTHLY.index("spec_rv_ramp_tick")
+    assert abs(STEP * MONTHS - EVEN) < 1e-9 and abs(BC.PULL_MONTH - BC.PULL * STEP) < 1e-9 and effects().count("spec_rv_forget = {") == 5
+    assert at_pts(-DRAW) == "40" and pts(PUSH) == "5" and "%" not in "".join(t for k, t in re.findall(r" (SPEC_RV_(?:STANDS|PACE|WHY|M_\w+)): (.*)", words))
+    assert values().count("name = spec_rv_ramp_") == 4 * len(RAMP_LISTS) and pending("raid", RAID_MONTHS) == PUSH == pending("lure", LURE_MONTHS)
     assert "spec_rv_reach" not in triggers() and "spec_can_rv_end = yes" in triggers()
     assert "multiplier = spec_rv_upkeep_total" in effects() and "spec_rv_upkeep = {" in MODIFIERS
     assert "rv_toggle" in marker() and "set_level_bar_item" in gui and "spec_rv_pairs" not in gui

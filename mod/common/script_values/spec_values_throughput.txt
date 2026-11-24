@@ -1,0 +1,1329 @@
+﻿spec_bpr_aeroplanes = {
+	value = spec_term_tp_aeroplanes
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_aeroplanes }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_aeroplanes }
+		subtract = 10
+	}
+}
+spec_bpn_aeroplanes = {
+	value = spec_bpr_aeroplanes
+	round = yes
+}
+spec_bp_aeroplanes = {
+	value = spec_bpr_aeroplanes
+	if = {
+		limit = { has_variable = spec_bust_aeroplanes }
+		add = {
+			value = var:spec_bust_aeroplanes
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_ammunition = {
+	value = spec_term_tp_ammunition
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_ammunition }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_ammunition }
+		subtract = 10
+	}
+}
+spec_bpn_ammunition = {
+	value = spec_bpr_ammunition
+	round = yes
+}
+spec_bp_ammunition = {
+	value = spec_bpr_ammunition
+	if = {
+		limit = { has_variable = spec_bust_ammunition }
+		add = {
+			value = var:spec_bust_ammunition
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_artillery = {
+	value = spec_term_tp_artillery
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_artillery }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_artillery }
+		subtract = 10
+	}
+}
+spec_bpn_artillery = {
+	value = spec_bpr_artillery
+	round = yes
+}
+spec_bp_artillery = {
+	value = spec_bpr_artillery
+	if = {
+		limit = { has_variable = spec_bust_artillery }
+		add = {
+			value = var:spec_bust_artillery
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_automobiles = {
+	value = spec_term_tp_automobiles
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_automobiles }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_automobiles }
+		subtract = 10
+	}
+}
+spec_bpn_automobiles = {
+	value = spec_bpr_automobiles
+	round = yes
+}
+spec_bp_automobiles = {
+	value = spec_bpr_automobiles
+	if = {
+		limit = { has_variable = spec_bust_automobiles }
+		add = {
+			value = var:spec_bust_automobiles
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_clippers = {
+	value = spec_term_tp_clippers
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_clippers }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_clippers }
+		subtract = 10
+	}
+}
+spec_bpn_clippers = {
+	value = spec_bpr_clippers
+	round = yes
+}
+spec_bp_clippers = {
+	value = spec_bpr_clippers
+	if = {
+		limit = { has_variable = spec_bust_clippers }
+		add = {
+			value = var:spec_bust_clippers
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_clothes = {
+	value = spec_term_tp_clothes
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_clothes }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_clothes }
+		subtract = 10
+	}
+}
+spec_bpn_clothes = {
+	value = spec_bpr_clothes
+	round = yes
+}
+spec_bp_clothes = {
+	value = spec_bpr_clothes
+	if = {
+		limit = { has_variable = spec_bust_clothes }
+		add = {
+			value = var:spec_bust_clothes
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_coal = {
+	value = spec_term_tp_coal
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_coal }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_coal }
+		subtract = 10
+	}
+}
+spec_bpn_coal = {
+	value = spec_bpr_coal
+	round = yes
+}
+spec_bp_coal = {
+	value = spec_bpr_coal
+	if = {
+		limit = { has_variable = spec_bust_coal }
+		add = {
+			value = var:spec_bust_coal
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_coffee = {
+	value = spec_term_tp_coffee
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_coffee }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_coffee }
+		subtract = 10
+	}
+}
+spec_bpn_coffee = {
+	value = spec_bpr_coffee
+	round = yes
+}
+spec_bp_coffee = {
+	value = spec_bpr_coffee
+	if = {
+		limit = { has_variable = spec_bust_coffee }
+		add = {
+			value = var:spec_bust_coffee
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_copper = {
+	value = spec_term_tp_copper
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_copper }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_copper }
+		subtract = 10
+	}
+}
+spec_bpn_copper = {
+	value = spec_bpr_copper
+	round = yes
+}
+spec_bp_copper = {
+	value = spec_bpr_copper
+	if = {
+		limit = { has_variable = spec_bust_copper }
+		add = {
+			value = var:spec_bust_copper
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_dye = {
+	value = spec_term_tp_dye
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_dye }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_dye }
+		subtract = 10
+	}
+}
+spec_bpn_dye = {
+	value = spec_bpr_dye
+	round = yes
+}
+spec_bp_dye = {
+	value = spec_bpr_dye
+	if = {
+		limit = { has_variable = spec_bust_dye }
+		add = {
+			value = var:spec_bust_dye
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_electricity = {
+	value = spec_term_tp_electricity
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_electricity }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_electricity }
+		subtract = 10
+	}
+}
+spec_bpn_electricity = {
+	value = spec_bpr_electricity
+	round = yes
+}
+spec_bp_electricity = {
+	value = spec_bpr_electricity
+	if = {
+		limit = { has_variable = spec_bust_electricity }
+		add = {
+			value = var:spec_bust_electricity
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_engines = {
+	value = spec_term_tp_engines
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_engines }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_engines }
+		subtract = 10
+	}
+}
+spec_bpn_engines = {
+	value = spec_bpr_engines
+	round = yes
+}
+spec_bp_engines = {
+	value = spec_bpr_engines
+	if = {
+		limit = { has_variable = spec_bust_engines }
+		add = {
+			value = var:spec_bust_engines
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_explosives = {
+	value = spec_term_tp_explosives
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_explosives }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_explosives }
+		subtract = 10
+	}
+}
+spec_bpn_explosives = {
+	value = spec_bpr_explosives
+	round = yes
+}
+spec_bp_explosives = {
+	value = spec_bpr_explosives
+	if = {
+		limit = { has_variable = spec_bust_explosives }
+		add = {
+			value = var:spec_bust_explosives
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_fabric = {
+	value = spec_term_tp_fabric
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_fabric }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_fabric }
+		subtract = 10
+	}
+}
+spec_bpn_fabric = {
+	value = spec_bpr_fabric
+	round = yes
+}
+spec_bp_fabric = {
+	value = spec_bpr_fabric
+	if = {
+		limit = { has_variable = spec_bust_fabric }
+		add = {
+			value = var:spec_bust_fabric
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_fertilizer = {
+	value = spec_term_tp_fertilizer
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_fertilizer }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_fertilizer }
+		subtract = 10
+	}
+}
+spec_bpn_fertilizer = {
+	value = spec_bpr_fertilizer
+	round = yes
+}
+spec_bp_fertilizer = {
+	value = spec_bpr_fertilizer
+	if = {
+		limit = { has_variable = spec_bust_fertilizer }
+		add = {
+			value = var:spec_bust_fertilizer
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_fine_art = {
+	value = spec_term_tp_fine_art
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_fine_art }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_fine_art }
+		subtract = 10
+	}
+}
+spec_bpn_fine_art = {
+	value = spec_bpr_fine_art
+	round = yes
+}
+spec_bp_fine_art = {
+	value = spec_bpr_fine_art
+	if = {
+		limit = { has_variable = spec_bust_fine_art }
+		add = {
+			value = var:spec_bust_fine_art
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_fish = {
+	value = spec_term_tp_fish
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_fish }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_fish }
+		subtract = 10
+	}
+}
+spec_bpn_fish = {
+	value = spec_bpr_fish
+	round = yes
+}
+spec_bp_fish = {
+	value = spec_bpr_fish
+	if = {
+		limit = { has_variable = spec_bust_fish }
+		add = {
+			value = var:spec_bust_fish
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_furniture = {
+	value = spec_term_tp_furniture
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_furniture }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_furniture }
+		subtract = 10
+	}
+}
+spec_bpn_furniture = {
+	value = spec_bpr_furniture
+	round = yes
+}
+spec_bp_furniture = {
+	value = spec_bpr_furniture
+	if = {
+		limit = { has_variable = spec_bust_furniture }
+		add = {
+			value = var:spec_bust_furniture
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_glass = {
+	value = spec_term_tp_glass
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_glass }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_glass }
+		subtract = 10
+	}
+}
+spec_bpn_glass = {
+	value = spec_bpr_glass
+	round = yes
+}
+spec_bp_glass = {
+	value = spec_bpr_glass
+	if = {
+		limit = { has_variable = spec_bust_glass }
+		add = {
+			value = var:spec_bust_glass
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_grain = {
+	value = spec_term_tp_grain
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_grain }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_grain }
+		subtract = 10
+	}
+}
+spec_bpn_grain = {
+	value = spec_bpr_grain
+	round = yes
+}
+spec_bp_grain = {
+	value = spec_bpr_grain
+	if = {
+		limit = { has_variable = spec_bust_grain }
+		add = {
+			value = var:spec_bust_grain
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_groceries = {
+	value = spec_term_tp_groceries
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_groceries }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_groceries }
+		subtract = 10
+	}
+}
+spec_bpn_groceries = {
+	value = spec_bpr_groceries
+	round = yes
+}
+spec_bp_groceries = {
+	value = spec_bpr_groceries
+	if = {
+		limit = { has_variable = spec_bust_groceries }
+		add = {
+			value = var:spec_bust_groceries
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_hardwood = {
+	value = spec_term_tp_hardwood
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_hardwood }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_hardwood }
+		subtract = 10
+	}
+}
+spec_bpn_hardwood = {
+	value = spec_bpr_hardwood
+	round = yes
+}
+spec_bp_hardwood = {
+	value = spec_bpr_hardwood
+	round = yes
+}
+
+spec_bpr_iron = {
+	value = spec_term_tp_iron
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_iron }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_iron }
+		subtract = 10
+	}
+}
+spec_bpn_iron = {
+	value = spec_bpr_iron
+	round = yes
+}
+spec_bp_iron = {
+	value = spec_bpr_iron
+	if = {
+		limit = { has_variable = spec_bust_iron }
+		add = {
+			value = var:spec_bust_iron
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_lead = {
+	value = spec_term_tp_lead
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_lead }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_lead }
+		subtract = 10
+	}
+}
+spec_bpn_lead = {
+	value = spec_bpr_lead
+	round = yes
+}
+spec_bp_lead = {
+	value = spec_bpr_lead
+	if = {
+		limit = { has_variable = spec_bust_lead }
+		add = {
+			value = var:spec_bust_lead
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_liquor = {
+	value = spec_term_tp_liquor
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_liquor }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_liquor }
+		subtract = 10
+	}
+}
+spec_bpn_liquor = {
+	value = spec_bpr_liquor
+	round = yes
+}
+spec_bp_liquor = {
+	value = spec_bpr_liquor
+	if = {
+		limit = { has_variable = spec_bust_liquor }
+		add = {
+			value = var:spec_bust_liquor
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_luxury_clothes = {
+	value = spec_term_tp_luxury_clothes
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_luxury_clothes }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_luxury_clothes }
+		subtract = 10
+	}
+}
+spec_bpn_luxury_clothes = {
+	value = spec_bpr_luxury_clothes
+	round = yes
+}
+spec_bp_luxury_clothes = {
+	value = spec_bpr_luxury_clothes
+	if = {
+		limit = { has_variable = spec_bust_luxury_clothes }
+		add = {
+			value = var:spec_bust_luxury_clothes
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_luxury_furniture = {
+	value = spec_term_tp_luxury_furniture
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_luxury_furniture }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_luxury_furniture }
+		subtract = 10
+	}
+}
+spec_bpn_luxury_furniture = {
+	value = spec_bpr_luxury_furniture
+	round = yes
+}
+spec_bp_luxury_furniture = {
+	value = spec_bpr_luxury_furniture
+	if = {
+		limit = { has_variable = spec_bust_luxury_furniture }
+		add = {
+			value = var:spec_bust_luxury_furniture
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_meat = {
+	value = spec_term_tp_meat
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_meat }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_meat }
+		subtract = 10
+	}
+}
+spec_bpn_meat = {
+	value = spec_bpr_meat
+	round = yes
+}
+spec_bp_meat = {
+	value = spec_bpr_meat
+	if = {
+		limit = { has_variable = spec_bust_meat }
+		add = {
+			value = var:spec_bust_meat
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_merchant_marine = {
+	value = spec_term_tp_merchant_marine
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_merchant_marine }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_merchant_marine }
+		subtract = 10
+	}
+}
+spec_bpn_merchant_marine = {
+	value = spec_bpr_merchant_marine
+	round = yes
+}
+spec_bp_merchant_marine = {
+	value = spec_bpr_merchant_marine
+	if = {
+		limit = { has_variable = spec_bust_merchant_marine }
+		add = {
+			value = var:spec_bust_merchant_marine
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_oil = {
+	value = spec_term_tp_oil
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_oil }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_oil }
+		subtract = 10
+	}
+}
+spec_bpn_oil = {
+	value = spec_bpr_oil
+	round = yes
+}
+spec_bp_oil = {
+	value = spec_bpr_oil
+	if = {
+		limit = { has_variable = spec_bust_oil }
+		add = {
+			value = var:spec_bust_oil
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_opium = {
+	value = spec_term_tp_opium
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_opium }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_opium }
+		subtract = 10
+	}
+}
+spec_bpn_opium = {
+	value = spec_bpr_opium
+	round = yes
+}
+spec_bp_opium = {
+	value = spec_bpr_opium
+	if = {
+		limit = { has_variable = spec_bust_opium }
+		add = {
+			value = var:spec_bust_opium
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_paper = {
+	value = spec_term_tp_paper
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_paper }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_paper }
+		subtract = 10
+	}
+}
+spec_bpn_paper = {
+	value = spec_bpr_paper
+	round = yes
+}
+spec_bp_paper = {
+	value = spec_bpr_paper
+	if = {
+		limit = { has_variable = spec_bust_paper }
+		add = {
+			value = var:spec_bust_paper
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_porcelain = {
+	value = spec_term_tp_porcelain
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_porcelain }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_porcelain }
+		subtract = 10
+	}
+}
+spec_bpn_porcelain = {
+	value = spec_bpr_porcelain
+	round = yes
+}
+spec_bp_porcelain = {
+	value = spec_bpr_porcelain
+	if = {
+		limit = { has_variable = spec_bust_porcelain }
+		add = {
+			value = var:spec_bust_porcelain
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_radios = {
+	value = spec_term_tp_radios
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_radios }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_radios }
+		subtract = 10
+	}
+}
+spec_bpn_radios = {
+	value = spec_bpr_radios
+	round = yes
+}
+spec_bp_radios = {
+	value = spec_bpr_radios
+	if = {
+		limit = { has_variable = spec_bust_radios }
+		add = {
+			value = var:spec_bust_radios
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_rubber = {
+	value = spec_term_tp_rubber
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_rubber }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_rubber }
+		subtract = 10
+	}
+}
+spec_bpn_rubber = {
+	value = spec_bpr_rubber
+	round = yes
+}
+spec_bp_rubber = {
+	value = spec_bpr_rubber
+	if = {
+		limit = { has_variable = spec_bust_rubber }
+		add = {
+			value = var:spec_bust_rubber
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_silk = {
+	value = spec_term_tp_silk
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_silk }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_silk }
+		subtract = 10
+	}
+}
+spec_bpn_silk = {
+	value = spec_bpr_silk
+	round = yes
+}
+spec_bp_silk = {
+	value = spec_bpr_silk
+	if = {
+		limit = { has_variable = spec_bust_silk }
+		add = {
+			value = var:spec_bust_silk
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_small_arms = {
+	value = spec_term_tp_small_arms
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_small_arms }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_small_arms }
+		subtract = 10
+	}
+}
+spec_bpn_small_arms = {
+	value = spec_bpr_small_arms
+	round = yes
+}
+spec_bp_small_arms = {
+	value = spec_bpr_small_arms
+	if = {
+		limit = { has_variable = spec_bust_small_arms }
+		add = {
+			value = var:spec_bust_small_arms
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_steamers = {
+	value = spec_term_tp_steamers
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_steamers }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_steamers }
+		subtract = 10
+	}
+}
+spec_bpn_steamers = {
+	value = spec_bpr_steamers
+	round = yes
+}
+spec_bp_steamers = {
+	value = spec_bpr_steamers
+	if = {
+		limit = { has_variable = spec_bust_steamers }
+		add = {
+			value = var:spec_bust_steamers
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_steel = {
+	value = spec_term_tp_steel
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_steel }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_steel }
+		subtract = 10
+	}
+}
+spec_bpn_steel = {
+	value = spec_bpr_steel
+	round = yes
+}
+spec_bp_steel = {
+	value = spec_bpr_steel
+	if = {
+		limit = { has_variable = spec_bust_steel }
+		add = {
+			value = var:spec_bust_steel
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_sugar = {
+	value = spec_term_tp_sugar
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_sugar }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_sugar }
+		subtract = 10
+	}
+}
+spec_bpn_sugar = {
+	value = spec_bpr_sugar
+	round = yes
+}
+spec_bp_sugar = {
+	value = spec_bpr_sugar
+	if = {
+		limit = { has_variable = spec_bust_sugar }
+		add = {
+			value = var:spec_bust_sugar
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_sulfur = {
+	value = spec_term_tp_sulfur
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_sulfur }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_sulfur }
+		subtract = 10
+	}
+}
+spec_bpn_sulfur = {
+	value = spec_bpr_sulfur
+	round = yes
+}
+spec_bp_sulfur = {
+	value = spec_bpr_sulfur
+	if = {
+		limit = { has_variable = spec_bust_sulfur }
+		add = {
+			value = var:spec_bust_sulfur
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_tanks = {
+	value = spec_term_tp_tanks
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_tanks }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_tanks }
+		subtract = 10
+	}
+}
+spec_bpn_tanks = {
+	value = spec_bpr_tanks
+	round = yes
+}
+spec_bp_tanks = {
+	value = spec_bpr_tanks
+	if = {
+		limit = { has_variable = spec_bust_tanks }
+		add = {
+			value = var:spec_bust_tanks
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_tea = {
+	value = spec_term_tp_tea
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_tea }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_tea }
+		subtract = 10
+	}
+}
+spec_bpn_tea = {
+	value = spec_bpr_tea
+	round = yes
+}
+spec_bp_tea = {
+	value = spec_bpr_tea
+	if = {
+		limit = { has_variable = spec_bust_tea }
+		add = {
+			value = var:spec_bust_tea
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_telephones = {
+	value = spec_term_tp_telephones
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_telephones }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_telephones }
+		subtract = 10
+	}
+}
+spec_bpn_telephones = {
+	value = spec_bpr_telephones
+	round = yes
+}
+spec_bp_telephones = {
+	value = spec_bpr_telephones
+	if = {
+		limit = { has_variable = spec_bust_telephones }
+		add = {
+			value = var:spec_bust_telephones
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_tobacco = {
+	value = spec_term_tp_tobacco
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_tobacco }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_tobacco }
+		subtract = 10
+	}
+}
+spec_bpn_tobacco = {
+	value = spec_bpr_tobacco
+	round = yes
+}
+spec_bp_tobacco = {
+	value = spec_bpr_tobacco
+	if = {
+		limit = { has_variable = spec_bust_tobacco }
+		add = {
+			value = var:spec_bust_tobacco
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_tools = {
+	value = spec_term_tp_tools
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_tools }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_tools }
+		subtract = 10
+	}
+}
+spec_bpn_tools = {
+	value = spec_bpr_tools
+	round = yes
+}
+spec_bp_tools = {
+	value = spec_bpr_tools
+	if = {
+		limit = { has_variable = spec_bust_tools }
+		add = {
+			value = var:spec_bust_tools
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_wine = {
+	value = spec_term_tp_wine
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_wine }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_wine }
+		subtract = 10
+	}
+}
+spec_bpn_wine = {
+	value = spec_bpr_wine
+	round = yes
+}
+spec_bp_wine = {
+	value = spec_bpr_wine
+	if = {
+		limit = { has_variable = spec_bust_wine }
+		add = {
+			value = var:spec_bust_wine
+			multiply = -10
+		}
+	}
+	round = yes
+}
+
+spec_bpr_wood = {
+	value = spec_term_tp_wood
+	multiply = 100
+	if = {
+		limit = { has_variable = spec_encourage_wood }
+		add = 10
+	}
+	if = {
+		limit = { has_variable = spec_restrain_wood }
+		subtract = 10
+	}
+}
+spec_bpn_wood = {
+	value = spec_bpr_wood
+	round = yes
+}
+spec_bp_wood = {
+	value = spec_bpr_wood
+	round = yes
+}

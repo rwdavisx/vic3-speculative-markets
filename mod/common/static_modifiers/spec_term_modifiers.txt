@@ -1,496 +1,384 @@
 ﻿spec_term_up_aeroplanes = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_automotive_industry_throughput_add = 0.01
 }
 
 spec_term_down_aeroplanes = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_automotive_industry_throughput_add = -0.01
 }
 
 spec_term_up_ammunition = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_munition_plant_throughput_add = 0.01
 }
 
 spec_term_down_ammunition = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_munition_plant_throughput_add = -0.01
 }
 
 spec_term_up_artillery = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_artillery_foundry_throughput_add = 0.01
 }
 
 spec_term_down_artillery = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_artillery_foundry_throughput_add = -0.01
 }
 
 spec_term_up_automobiles = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_automotive_industry_throughput_add = 0.01
 }
 
 spec_term_down_automobiles = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_automotive_industry_throughput_add = -0.01
 }
 
 spec_term_up_clippers = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_shipyard_throughput_add = 0.01
 }
 
 spec_term_down_clippers = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_shipyard_throughput_add = -0.01
 }
 
 spec_term_up_clothes = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_textile_mill_throughput_add = 0.01
 }
 
 spec_term_down_clothes = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_textile_mill_throughput_add = -0.01
 }
 
 spec_term_up_coal = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_coal_mine_throughput_add = 0.01
 }
 
 spec_term_down_coal = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_coal_mine_throughput_add = -0.01
 }
 
 spec_term_up_coffee = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_coffee_plantation_throughput_add = 0.01
 }
 
 spec_term_down_coffee = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_coffee_plantation_throughput_add = -0.01
 }
 
 spec_term_up_copper = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_copper_mine_throughput_add = 0.01
 }
 
 spec_term_down_copper = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_copper_mine_throughput_add = -0.01
 }
 
 spec_term_up_dye = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_synthetics_plant_throughput_add = 0.01
-	building_dye_plantation_throughput_add = 0.01
 }
 
 spec_term_down_dye = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_synthetics_plant_throughput_add = -0.01
-	building_dye_plantation_throughput_add = -0.01
 }
 
 spec_term_up_electricity = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_power_plant_throughput_add = 0.01
 }
 
 spec_term_down_electricity = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_power_plant_throughput_add = -0.01
 }
 
 spec_term_up_engines = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_motor_industry_throughput_add = 0.01
 }
 
 spec_term_down_engines = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_motor_industry_throughput_add = -0.01
 }
 
 spec_term_up_explosives = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_explosives_factory_throughput_add = 0.01
 }
 
 spec_term_down_explosives = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_explosives_factory_throughput_add = -0.01
 }
 
 spec_term_up_fabric = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_cotton_plantation_throughput_add = 0.01
 }
 
 spec_term_down_fabric = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_cotton_plantation_throughput_add = -0.01
 }
 
 spec_term_up_fertilizer = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_chemical_plant_throughput_add = 0.01
 }
 
 spec_term_down_fertilizer = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_chemical_plant_throughput_add = -0.01
 }
 
 spec_term_up_fine_art = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_art_academy_throughput_add = 0.01
 }
 
 spec_term_down_fine_art = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_art_academy_throughput_add = -0.01
 }
 
 spec_term_up_fish = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_fishing_wharf_throughput_add = 0.01
 }
 
 spec_term_down_fish = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_fishing_wharf_throughput_add = -0.01
 }
 
 spec_term_up_furniture = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_furniture_manufactory_throughput_add = 0.01
 }
 
 spec_term_down_furniture = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_furniture_manufactory_throughput_add = -0.01
 }
 
 spec_term_up_glass = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_glassworks_throughput_add = 0.01
 }
 
 spec_term_down_glass = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_glassworks_throughput_add = -0.01
 }
 
 spec_term_up_grain = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_rye_farm_throughput_add = 0.01
-	building_wheat_farm_throughput_add = 0.01
-	building_rice_farm_throughput_add = 0.01
-	building_maize_farm_throughput_add = 0.01
-	building_millet_farm_throughput_add = 0.01
 }
 
 spec_term_down_grain = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_rye_farm_throughput_add = -0.01
-	building_wheat_farm_throughput_add = -0.01
-	building_rice_farm_throughput_add = -0.01
-	building_maize_farm_throughput_add = -0.01
-	building_millet_farm_throughput_add = -0.01
 }
 
 spec_term_up_groceries = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_food_industry_throughput_add = 0.01
 }
 
 spec_term_down_groceries = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_food_industry_throughput_add = -0.01
 }
 
 spec_term_up_hardwood = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_group_bg_logging_throughput_add = 0.01
 }
 
 spec_term_down_hardwood = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_group_bg_logging_throughput_add = -0.01
 }
 
 spec_term_up_iron = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_iron_mine_throughput_add = 0.01
 }
 
 spec_term_down_iron = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_iron_mine_throughput_add = -0.01
 }
 
 spec_term_up_lead = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_lead_mine_throughput_add = 0.01
 }
 
 spec_term_down_lead = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_lead_mine_throughput_add = -0.01
 }
 
 spec_term_up_liquor = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_food_industry_throughput_add = 0.01
 }
 
 spec_term_down_liquor = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_food_industry_throughput_add = -0.01
 }
 
 spec_term_up_luxury_clothes = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_textile_mill_throughput_add = 0.01
 }
 
 spec_term_down_luxury_clothes = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_textile_mill_throughput_add = -0.01
 }
 
 spec_term_up_luxury_furniture = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_furniture_manufactory_throughput_add = 0.01
 }
 
 spec_term_down_luxury_furniture = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_furniture_manufactory_throughput_add = -0.01
 }
 
 spec_term_up_meat = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_livestock_ranch_throughput_add = 0.01
-	building_whaling_station_throughput_add = 0.01
 }
 
 spec_term_down_meat = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_livestock_ranch_throughput_add = -0.01
-	building_whaling_station_throughput_add = -0.01
 }
 
 spec_term_up_merchant_marine = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_port_throughput_add = 0.01
 }
 
 spec_term_down_merchant_marine = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_port_throughput_add = -0.01
 }
 
 spec_term_up_oil = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_group_bg_oil_extraction_throughput_add = 0.01
-	building_whaling_station_throughput_add = 0.01
 }
 
 spec_term_down_oil = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_group_bg_oil_extraction_throughput_add = -0.01
-	building_whaling_station_throughput_add = -0.01
 }
 
 spec_term_up_opium = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_opium_plantation_throughput_add = 0.01
 }
 
 spec_term_down_opium = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_opium_plantation_throughput_add = -0.01
 }
 
 spec_term_up_paper = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_paper_mill_throughput_add = 0.01
 }
 
 spec_term_down_paper = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_paper_mill_throughput_add = -0.01
 }
 
 spec_term_up_porcelain = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_glassworks_throughput_add = 0.01
 }
 
 spec_term_down_porcelain = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_glassworks_throughput_add = -0.01
 }
 
 spec_term_up_radios = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_electrics_industry_throughput_add = 0.01
 }
 
 spec_term_down_radios = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_electrics_industry_throughput_add = -0.01
 }
 
 spec_term_up_rubber = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_rubber_plantation_throughput_add = 0.01
 }
 
 spec_term_down_rubber = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_rubber_plantation_throughput_add = -0.01
 }
 
 spec_term_up_silk = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_silk_plantation_throughput_add = 0.01
-	building_synthetics_plant_throughput_add = 0.01
 }
 
 spec_term_down_silk = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_silk_plantation_throughput_add = -0.01
-	building_synthetics_plant_throughput_add = -0.01
 }
 
 spec_term_up_small_arms = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_arms_industry_throughput_add = 0.01
 }
 
 spec_term_down_small_arms = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_arms_industry_throughput_add = -0.01
 }
 
 spec_term_up_steamers = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_shipyard_throughput_add = 0.01
 }
 
 spec_term_down_steamers = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_shipyard_throughput_add = -0.01
 }
 
 spec_term_up_steel = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_steel_mill_throughput_add = 0.01
 }
 
 spec_term_down_steel = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_steel_mill_throughput_add = -0.01
 }
 
 spec_term_up_sugar = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_sugar_plantation_throughput_add = 0.01
 }
 
 spec_term_down_sugar = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_sugar_plantation_throughput_add = -0.01
 }
 
 spec_term_up_sulfur = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_sulfur_mine_throughput_add = 0.01
 }
 
 spec_term_down_sulfur = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_sulfur_mine_throughput_add = -0.01
 }
 
 spec_term_up_tanks = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_automotive_industry_throughput_add = 0.01
 }
 
 spec_term_down_tanks = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_automotive_industry_throughput_add = -0.01
 }
 
 spec_term_up_tea = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_tea_plantation_throughput_add = 0.01
 }
 
 spec_term_down_tea = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_tea_plantation_throughput_add = -0.01
 }
 
 spec_term_up_telephones = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_electrics_industry_throughput_add = 0.01
 }
 
 spec_term_down_telephones = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_electrics_industry_throughput_add = -0.01
 }
 
 spec_term_up_tobacco = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_tobacco_plantation_throughput_add = 0.01
 }
 
 spec_term_down_tobacco = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_tobacco_plantation_throughput_add = -0.01
 }
 
 spec_term_up_tools = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_tooling_workshop_throughput_add = 0.01
 }
 
 spec_term_down_tools = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_tooling_workshop_throughput_add = -0.01
 }
 
 spec_term_up_wine = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_vineyard_throughput_add = 0.01
 }
 
 spec_term_down_wine = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_vineyard_throughput_add = -0.01
 }
 
 spec_term_up_wood = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	building_group_bg_logging_throughput_add = 0.01
 }
 
 spec_term_down_wood = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
-	building_group_bg_logging_throughput_add = -0.01
 }
 

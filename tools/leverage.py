@@ -78,14 +78,15 @@ def boom_pct(m, full=None):
 # how fast a crash lands: Bad Debts points that bite each month, and months of bonus lost each month. All at once, the USA lost a quarter
 # of its GDP within two months in the full test game, which read as a bug. 40 and 12 bring that back
 CRUNCH_RAMP, BONUS_FADE = tuning.get("LEV_CRUNCH_RAMP", 3), tuning.get("LEV_BONUS_FADE", 1)
-# the lasting reward (spec_lev_record): each calm month it closes RECORD_GAIN of the way to RECORD_TP of throughput per month
+# the lasting reward (spec_lev_record): each calm month it closes RECORD_GAIN of the way to RECORD_BUILD of construction efficiency per month
 # of leverage, so it follows the leverage carried over years, not this month's; a month in a panic or with Bad Debts keeps
-# only 1 - RECORD_LOSS x (1 + stress) of it, so the deeper the leverage the faster it goes. RECORD_TP 0 builds none of it.
+# only 1 - RECORD_LOSS x (1 + stress) of it, so the deeper the leverage the faster it goes. RECORD_BUILD 0 builds none of it.
 # (A first try added a fixed step per bonus month up to a cap: careful play reached the cap as fast as skilled play.)
-RECORD_TP, RECORD_GAIN, RECORD_LOSS = (tuning.get("LEV_RECORD_TP", 0), tuning.get("LEV_RECORD_GAIN", 0.02),
+RECORD_BUILD, RECORD_GAIN, RECORD_LOSS = (tuning.get("LEV_RECORD_BUILD", 0), tuning.get("LEV_RECORD_GAIN", 0.02),
                                        tuning.get("LEV_RECORD_LOSS", 0.1))
-RECORD = bool(ON and RECORD_TP > 0)
-RECORD_STEP = 0.001  # the modifier moves in tenths of a percent, so it changes a few times a year, not every month
+RECORD = bool(ON and RECORD_BUILD > 0)
+RECORD_STEP = 0.001  # the modifier moves in tenths of a percent, so it changes a few times a year, not every month. Construction,
+# not throughput: faster building stays built and compounds, so years of sound credit pay and a crash costs (November 24 games)
 BITE = f"""change_variable = {{ name = spec_crunch_bite add = {CRUNCH_RAMP} }}
 if = {{
 	limit = {{ var:spec_crunch_bite > var:spec_crunch }}
@@ -93,7 +94,7 @@ if = {{
 }}
 add_modifier = {{
 	name = spec_credit_crunch_v2
-	multiplier = var:spec_crunch_bite
+	multiplier = {{ value = var:spec_crunch_bite multiply = spec_impact }}
 }}
 """
 BONUS_END = "" if BONUS_FADE < HELD_MAX else ("\t# the boom's bonus ends with the boom, not at the next month's update\n\tif = {\n\t\tlimit = { has_variable = spec_lev_held }\n"
@@ -115,10 +116,11 @@ def months(name, share=1):
     return (f"{name} = {{\n\tvalue = spec_crunch_sv\n\t{cut}subtract = spec_crunch_bite_sv\n\tmin = 0\n\tdivide = {CRUNCH_RAMP}\n\tceiling = yes\n"
             f"\tadd = {{ value = spec_crunch_sv {cut}divide = spec_crunch_fade ceiling = yes }}\n}}")
 CRUNCH_THROUGHPUT = tuning.get("LEV_CRUNCH_THROUGHPUT", 0.004)  # throughput lost per point of Bad Debts
+CRUNCH_BUILD = tuning.get("LEV_CRUNCH_BUILD", 0)  # construction efficiency lost per point
 CRUNCH_INVEST = tuning.get("LEV_CRUNCH_INVEST", 0.0075)  # investment lost per point; tuning.json sets 0.035 (worst Bad Debts, 20, costs 70%)
 LEGACY_THROUGHPUT = 0.004
 # One point of uncovered confidence originally cost 0.4% throughput.
-POINT_SCALE = LEGACY_THROUGHPUT / CRUNCH_THROUGHPUT if CRUNCH_THROUGHPUT > 0 else 1
+POINT_SCALE = round(LEGACY_THROUGHPUT / CRUNCH_THROUGHPUT, 5) if CRUNCH_THROUGHPUT > 0 else 1  # the script keeps 5 decimals
 
 
 def debt_value(name):
@@ -144,7 +146,7 @@ MIGRATE = "" if not ON else """spec_migrate_debt_units = {
             if = {
                 limit = { has_modifier = spec_credit_crunch }
                 remove_modifier = spec_credit_crunch
-                add_modifier = { name = spec_credit_crunch_v2 multiplier = var:spec_crunch_bite }
+                add_modifier = { name = spec_credit_crunch_v2 multiplier = { value = var:spec_crunch_bite multiply = spec_impact } }
             }
         }
         set_variable = spec_debt_units_v2
@@ -221,12 +223,13 @@ def values(panic, near):
         debt_value("spec_crunch_bite"),
         f"spec_ai_lev_limit = {{\n\tvalue = {AI_LIMIT['0']}\n{limit}}}",
         f"spec_ai_lev_back = {{\n\tvalue = spec_ai_lev_limit\n\tmultiply = {AI_LEV_BACK}\n}}",
-        *([shape_value()] + [f"spec_lev_boom_{n} = {{\n\tvalue = spec_lev_boom_mult\n\tmultiply = {full * 100:g}\n}}" for n, full in (("pct", TP_FULL), ("inv_pct", INV_FULL)) if full or n == "pct"]
+        *([shape_value()] + [f"spec_lev_boom_{n} = {{\n\tvalue = spec_lev_boom_mult\n\tmultiply = {full * 100:g}\n\tmultiply = spec_impact\n}}" for n, full in (("pct", TP_FULL), ("inv_pct", INV_FULL)) if full or n == "pct"]
           if SMOOTH else
           [taper_value(), f"spec_lev_boom_pct = {{\n\tvalue = spec_lev_boom_mult\n\tmultiply = {REWARD * 100:g}\n}}"]
           if TAPERED else
           [f"spec_lev_boom_pct = {{\n\tvalue = 0\n\tif = {{\n\t\tlimit = {{ has_variable = spec_lev_held }}\n\t\tvalue = var:spec_lev_held\n\t\tmultiply = {REWARD * 100:g}\n\t}}\n}}"]),
-        f"spec_crunch_invest_pct = {{\n\tvalue = spec_crunch_bite_sv\n\tmultiply = {CRUNCH_INVEST * 100:g}\n}}",
+        f"spec_crunch_invest_pct = {{\n\tvalue = spec_crunch_bite_sv\n\tmultiply = {CRUNCH_INVEST * 100:g}\n\tmultiply = spec_impact\n}}",
+        f"spec_crunch_build_pct = {{\n\tvalue = spec_crunch_bite_sv\n\tmultiply = {CRUNCH_BUILD * 100:g}\n\tmultiply = spec_impact\n}}",
         "spec_crunch_left = {\n\tvalue = spec_crunch_sv\n\tsubtract = spec_crunch_bite_sv\n}",
         debt_value("spec_crunch"),
         f"spec_crunch_stop = {{\n\tvalue = {BAD_STOP}\n{chr(9) + 'multiply = spec_lax_badstop' + chr(10) if cycle.ON else ''}}}",
@@ -245,14 +248,14 @@ def values(panic, near):
         *(f"spec_lim_{t} = {{\n\tvalue = 0\n\tif = {{\n\t\tlimit = {{ has_technology_researched = {t} }}\n\t\tvalue = {n}\n\t}}\n}}"
           for t, n in zip(LADDER_TECHS, LADDER_STEPS)),
         # throughput lost in percent, for the texts: now, once fully bitten in, and if a panic began now
-        *(f"{name} = {{\n\tvalue = {src}\n\tmultiply = {CRUNCH_THROUGHPUT * 100:g}\n}}" for name, src in
+        *(f"{name} = {{\n\tvalue = {src}\n\tmultiply = {CRUNCH_THROUGHPUT * 100:g}\n\tmultiply = spec_impact\n}}" for name, src in
           (("spec_crunch_tp_pct", "spec_crunch_bite_sv"), ("spec_crunch_tp_full_pct", "spec_crunch_sv"), ("spec_crunch_tp_if_pct", "spec_crunch_if"))),
     ] + ([f"spec_lev_record_keep = {{\n\tvalue = spec_lev_stress\n\tadd = 1\n\tmultiply = {-RECORD_LOSS:g}\n\tadd = 1\n\tmin = 0\n}}",
           # kept in RECORD_STEPs (tenths of a percent), so a month's small gain is not lost to the engine's rounding
-          f"spec_lev_record_to = {{\n\tvalue = spec_lev_adj\n\tmultiply = {round(RECORD_TP / RECORD_STEP, 4):g}\n\tsubtract = var:spec_lev_record\n\tmultiply = {RECORD_GAIN:g}\n}}",
+          f"spec_lev_record_to = {{\n\tvalue = spec_lev_adj\n\tmultiply = {round(RECORD_BUILD / RECORD_STEP, 4):g}\n\tsubtract = var:spec_lev_record\n\tmultiply = {RECORD_GAIN:g}\n}}",
           "spec_lev_record_now = {\n\tvalue = var:spec_lev_record\n\tfloor = yes\n\tmin = 0\n}",
           f"spec_lev_record_pct = {{\n\tvalue = 0\n\tif = {{\n\t\tlimit = {{ has_variable = spec_lev_record_held }}\n"
-          f"\t\tvalue = var:spec_lev_record_held\n\t\tmultiply = {RECORD_STEP * 100:g}\n\t}}\n}}"] if RECORD else [])
+          f"\t\tvalue = var:spec_lev_record_held\n\t\tmultiply = {RECORD_STEP * 100:g}\n\t\tmultiply = spec_impact\n\t}}\n}}"] if RECORD else [])
 
 
 def limit(extra=""):
@@ -269,18 +272,19 @@ def cap(months):
 def modifiers(icon_good, icon_bad):
     if not ON:
         return ""
-    def crunch(name, throughput, investment):
+    def crunch(name, throughput, investment, build=0):
+        cut = f"\tstate_construction_mult = {-build:g}\n" if build else ""
         invest = "".join(f"\tstate_{c}_investment_pool_efficiency_mult = {-investment:g}\n"
                          for c in ("capitalists", "aristocrats", "shopkeepers"))
-        return f"{name} = {{\n\ticon = {icon_bad}\n\tbuilding_throughput_add = {-throughput:g}\n{invest}}}\n\n"
+        return f"{name} = {{\n\ticon = {icon_bad}\n\tbuilding_throughput_add = {-throughput:g}\n{cut}{invest}}}\n\n"
 
     # smooth: the full bonus, scaled by spec_lev_boom_mult as it is added; the investment as Bad Debts cut it
     boom = (f"\tbuilding_throughput_add = {TP_FULL:g}\n" + "".join(f"\tstate_{c}_investment_pool_efficiency_mult = {INV_FULL:g}\n"
             for c in ("capitalists", "aristocrats", "shopkeepers") if INV_FULL)) if SMOOTH else f"\tbuilding_throughput_add = {REWARD:g}\n"
     return (f"spec_lev_boom = {{\n\ticon = {icon_good}\n{boom}}}\n\n"
-            + (f"spec_lev_record = {{\n\ticon = {icon_good}\n\tbuilding_throughput_add = {RECORD_STEP:g}\n}}\n\n" if RECORD else "")
+            + (f"spec_lev_record = {{\n\ticon = {icon_good}\n\tstate_construction_mult = {RECORD_STEP:g}\n}}\n\n" if RECORD else "")
             + crunch("spec_credit_crunch", LEGACY_THROUGHPUT, 0.0075)
-            + crunch("spec_credit_crunch_v2", CRUNCH_THROUGHPUT, CRUNCH_INVEST))
+            + crunch("spec_credit_crunch_v2", CRUNCH_THROUGHPUT, CRUNCH_INVEST, CRUNCH_BUILD))
 
 
 # after the month's credit, in the country's monthly pulse
@@ -424,7 +428,7 @@ MONTHLY = "" if not ON else f"""			# land lost: the average income is the income
 					set_variable = {{ name = spec_lev_held value = local_var:spec_lev_now }}
 					add_modifier = {{
 						name = spec_lev_boom
-						multiplier = {"spec_lev_boom_mult" if SMOOTH or TAPERED else "var:spec_lev_held"}
+						multiplier = {{ value = {"spec_lev_boom_mult" if SMOOTH or TAPERED else "var:spec_lev_held"} multiply = spec_impact }}
 					}}
 				}}
 			}}
@@ -470,7 +474,7 @@ MONTHLY += "" if not RECORD else f"""			if = {{
 					set_variable = {{ name = spec_lev_record_held value = local_var:spec_lev_record_now }}
 					add_modifier = {{
 						name = spec_lev_record
-						multiplier = var:spec_lev_record_held
+						multiplier = {{ value = var:spec_lev_record_held multiply = spec_impact }}
 					}}
 				}}
 			}}
@@ -623,7 +627,7 @@ spec_bailout = {{
 			}}
 			add_modifier = {{
 				name = spec_credit_crunch_v2
-				multiplier = var:spec_crunch_bite
+				multiplier = {{ value = var:spec_crunch_bite multiply = spec_impact }}
 			}}
 		}}
 		set_variable = spec_bailed
@@ -655,8 +659,8 @@ BAILOUT_TRIGGER = "" if not ON else """spec_can_bailout = {
 ROOT = "ROOT.GetCountry.MakeScope"
 RECORD_LOC = "" if not RECORD else (
     ' spec_lev_record: "Sound Credit"\n'
-    f' spec_lev_record_desc: "Years of well-run borrowing have built lasting faith in the country\'s credit. In calm years it grows'
-    f' slowly toward #P {RECORD_TP * 100:+g}%#! [concept_throughput] for each month of [concept_spec_leverage].'
+    f' spec_lev_record_desc: "Years of well-run borrowing have built lasting faith in the country\'s credit, so builders finish sooner. In calm years it grows'
+    f' slowly toward #P {RECORD_BUILD * 100:+g}%#! construction efficiency for each month of [concept_spec_leverage].'
     ' Panics and [concept_spec_bad_debts] wear it away, and the deeper the [concept_spec_leverage], the faster it goes."\n')
 FULL_TEXT = " and ".join(t for t in ((f"#P {TP_FULL * 100:+g}%#! [concept_throughput]" if TP_FULL else ""),
                                       (f"#P {INV_FULL * 100:+g}%#! investment" if INV_FULL else "")) if t)

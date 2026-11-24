@@ -57,6 +57,7 @@ spec_panic = {
 	interest_group_ig_industrialists_approval_add = -2
 	interest_group_ig_petty_bourgeoisie_approval_add = -2
 	building_throughput_add = -0.1
+	state_construction_mult = -0.3
 	state_tax_collection_mult = -0.15
 	country_company_throughput_bonus_add = -0.05
 	building_group_bg_financial_districts_standard_of_living_add = -2
@@ -70,42 +71,42 @@ spec_panic_relief = {
 
 spec_boom_build_light_industry = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
-	building_group_bg_light_industry_construction_efficiency_add = 0.1
+	building_group_bg_light_industry_construction_efficiency_add = 0.15
 }
 
 spec_boom_build_heavy_industry = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
-	building_group_bg_heavy_industry_construction_efficiency_add = 0.1
+	building_group_bg_heavy_industry_construction_efficiency_add = 0.15
 }
 
 spec_boom_build_military_industry = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
-	building_group_bg_military_industry_construction_efficiency_add = 0.1
+	building_group_bg_military_industry_construction_efficiency_add = 0.15
 }
 
 spec_boom_build_agriculture = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
-	building_group_bg_agriculture_construction_efficiency_add = 0.1
+	building_group_bg_agriculture_construction_efficiency_add = 0.15
 }
 
 spec_boom_build_ranching = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
-	building_group_bg_ranching_construction_efficiency_add = 0.1
+	building_group_bg_ranching_construction_efficiency_add = 0.15
 }
 
 spec_boom_build_extraction = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
-	building_group_bg_extraction_construction_efficiency_add = 0.1
+	building_group_bg_extraction_construction_efficiency_add = 0.15
 }
 
 spec_boom_build_plantations = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
-	building_group_bg_plantations_construction_efficiency_add = 0.1
+	building_group_bg_plantations_construction_efficiency_add = 0.15
 }
 
 spec_boom_build_infrastructure = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_gear_positive.dds
-	building_group_bg_infrastructure_construction_efficiency_add = 0.1
+	building_group_bg_infrastructure_construction_efficiency_add = 0.15
 }
 
 spec_lev_boom = {
@@ -114,6 +115,11 @@ spec_lev_boom = {
 	state_capitalists_investment_pool_efficiency_mult = 0.06
 	state_aristocrats_investment_pool_efficiency_mult = 0.06
 	state_shopkeepers_investment_pool_efficiency_mult = 0.06
+}
+
+spec_lev_record = {
+	icon = gfx/interface/icons/spec_markets/mod_loose.dds
+	state_construction_mult = 0.001
 }
 
 spec_credit_crunch = {
@@ -127,6 +133,7 @@ spec_credit_crunch = {
 spec_credit_crunch_v2 = {
 	icon = gfx/interface/icons/spec_markets/mod_crunch.dds
 	building_throughput_add = -0.03
+	state_construction_mult = -0.05
 	state_capitalists_investment_pool_efficiency_mult = -0.035
 	state_aristocrats_investment_pool_efficiency_mult = -0.035
 	state_shopkeepers_investment_pool_efficiency_mult = -0.035

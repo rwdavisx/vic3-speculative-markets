@@ -26,7 +26,7 @@ LEVERAGE_LOC = "" if not leverage.ON else (
     ' concept_spec_bad_debts: "Bad Debts"\n concept_spec_bad_debts_desc: "The losses left on the books of a [concept_country]\'s banks. A [concept_spec_financial_panic] leaves more of them '
     f"the further [concept_spec_leverage] is past #v {leverage.SAFE}#! months, and a burst of [concept_spec_speculative_excess] leaves whatever "
     "[concept_spec_market_confidence] cannot cover.\\n\\n"
-    f"Each point costs #N {leverage.CRUNCH_THROUGHPUT:.1%}#! [concept_throughput] and #N {leverage.CRUNCH_INVEST * 100:g}%#! investment. They build up for some months, "
+    f"Each point costs #N {leverage.CRUNCH_THROUGHPUT:.1%}#! [concept_throughput], #N {leverage.CRUNCH_INVEST * 100:g}%#! investment and #N {leverage.CRUNCH_BUILD * 100:g}%#! construction efficiency. They build up for some months, "
     f"then slowly shrink, and at their worst take about #v {round((leverage.CRUNCH_MAX / leverage.CRUNCH_RAMP + leverage.CRUNCH_MAX / leverage.CRUNCH_FADE) / 12)}#! years to clear, "
     f"or #v {round((leverage.CRUNCH_MAX / leverage.CRUNCH_RAMP + leverage.CRUNCH_MAX / leverage.CRUNCH_FADE_TIGHT) / 12)}#! under "
     "[Concept('concept_spec_credit_policy','$concept_spec_credit_policy_tight$')]. Banks lend less the more of them there are, "
@@ -40,8 +40,9 @@ LENDING_LOC = "" if not cycle.ON else (
     f'and #v {cycle.LAX_WORDS[-2]}#! to #v {cycle.LAX_WORDS[-1]}#!. '
     "Laxer banks lend more into the [concept_investment_pool] and put more of it into booms, so booms end harder, a [concept_spec_financial_panic] calls back more of their loans and a Bank Rescue costs more."
     f"\\n\\nUnder Normal or Loose Credit, banks get a little laxer each month without a [concept_spec_financial_panic] or [concept_spec_bad_debts], going from #v {cycle.LAX_WORDS[0]}#! to #v {cycle.LAX_WORDS[-1]}#! "
-    f"in about #v {cycle.LAX_QUIET_YEARS}#! quiet years. Under Tight Credit, quiet months bring lax banks back toward #v Sound#!. A Bank Rescue or #v Buy Up Bad Loans#! makes them laxer. They get stricter when a boom ends, "
-    'most of all when a $concept_spec_financial_panic$ runs its course without a Bank Rescue."\n')
+    f"in about #v {cycle.LAX_QUIET_YEARS}#! quiet years. Under Tight Credit, quiet months bring lax banks back toward #v Sound#!. While [concept_spec_bad_debts] sit on their books they grow stricter, "
+    "faster under Tight Credit. They also get stricter when a boom ends and when a $concept_spec_financial_panic$ ends, "
+    'though only half as much if the government rescued them."\n')
 
 
 def definitions():
@@ -65,6 +66,7 @@ def boom_end_loc(k, mc):
     rank = {1: "The mildest [concept_spec_boom_end]", 2: "A harsher [concept_spec_boom_end] than a [concept_spec_correction]",
             3: "The worst [concept_spec_boom_end]"}
     fall = {1: "falls back to", 2: "falls back to", 3: "falls all the way to"}
+    cond = {1: "", 2: " and its price has fallen below where the boom began", 3: " and its price has fallen well below where the boom began"}
     techs = " and ".join(f"[GetTechnology('{t}').GetName]" for t in companies.TIE_TECHS)
     after = {3: " If the $concept_good$ is a big part of the [concept_market]'s trade, it can also set off a [concept_spec_financial_panic]."}
     out = (f' concept_spec_boom_end: "Boom Ending"\n concept_spec_boom_ends: "Boom Endings"\n'
@@ -74,13 +76,15 @@ def boom_end_loc(k, mc):
            f'\\n\\nIt lowers [{mc}], more for bigger booms and for $concept_goods$ that are a bigger part of the [concept_market]\'s trade. '
            f'Investors then stay away while the $concept_good$ recovers, and if a [concept_company] makes it, that industry loses '
            f'[concept_throughput].\\n\\nThe peak fades a little each month, so a boom that cools slowly ends more gently, '
-           f'or with no $concept_spec_boom_end$ at all."\n')
+           f'or with no $concept_spec_boom_end$ at all.\\n\\nA boom whose price only falls back to where it began, as new '
+           f'supply meets the demand, ends in a [concept_spec_correction] at most. Only a price that falls well below that '
+           f'can end in a [concept_spec_collapse]."\n')
     for sev, (key, name, peak, low) in ENDINGS.items():
         days = companies.UNWIND[sev][1]
         span = "a year" if days == 365 else f"#v {days}#! days"
         out += (f' concept_spec_{key}: "{name}"\n'
                 f' concept_spec_{key}_desc: "{rank[sev]}. It happens when '
-                f'[concept_spec_investor_interest] in a [concept_good] that peaked at #v {peak}#! {fall[sev]} #v {low}#!.'
+                f'[concept_spec_investor_interest] in a [concept_good] that peaked at #v {peak}#! {fall[sev]} #v {low}#!{cond[sev]}.'
                 f'\\n\\nIt lowers [{mc}] {how[sev]}, and investors stay away from the $concept_good$ for '
                 f'#v {k["GLUT_MONTHS"][sev]}#! months. If a [concept_company] makes it, that industry loses '
                 f'#N {-companies.COMPANY_BUST * companies.UNWIND[sev][0] * 100:g}%#! [concept_throughput] for {span}, '
@@ -100,11 +104,11 @@ def companies_loc():
             f"One month below resets the climb. It loses the status after #v {companies.BLUE_LOSE:g}#! months in a row below, or after one "
             "while #N Fragile#!, which a Bear Raid against us causes for a year. A [concept_country] that leaves the market economy keeps none.\\n\\n"
             f"Each one adds #v {companies.BLUE_BONUS:g}#! to our [concept_spec_company_strength], cuts the [concept_spec_market_confidence] lost when booms end and "
-            f"in [Concept('concept_spec_foreign_panic','$concept_spec_foreign_panics$')] by #P {bc.SHELTER * 100:.0f}%#!, adds #P {bc.DIVIDEND / 1.2:.1f}%#! [concept_spec_exchange] trust a year, pulls [concept_spec_exchange] "
-            f"contests #P {bc.PULL * 100:.0f}%#! our way, and raises the Capitalists' [concept_investment_pool] contribution by #P {pool:.1f}%#!. Up to "
-            f"#v {bc.CAP}#! count. Losing one costs #N {bc.FALL_TRUST / 1.2:.1f}%#! "
+            f"in [Concept('concept_spec_foreign_panic','$concept_spec_foreign_panics$')] by #P {bc.SHELTER * 100:.0f}%#!, adds #P {bc.DIVIDEND / 1.2:.1f}#! [concept_spec_exchange] trust a year, moves our [concept_spec_exchange] "
+            f"contests #P +{bc.PULL_MONTH:.2f}#! a month, and raises the Capitalists' [concept_investment_pool] contribution by #P {pool:.1f}%#!. Up to "
+            f"#v {bc.CAP}#! count. Losing one costs #N {bc.FALL_TRUST / 1.2:.1f}#! "
             f"[concept_spec_exchange] trust and #N {bc.FALL_CONF}#! [concept_spec_market_confidence].\\n\\n"
-            f"If ours is the world's most prosperous, it is Company of the Year, worth #P {bc.COTY_TRUST / 1.2:.1f}%#! [concept_spec_exchange] trust and "
+            f"If ours is the world's most prosperous, it is Company of the Year, worth #P {bc.COTY_TRUST / 1.2:.1f}#! [concept_spec_exchange] trust and "
             f'#P {bc.COTY_PRESTIGE:.0%}#! [concept_prestige] for a year."\n'
             ' concept_spec_company_strength: "Company Strength"\n'
             f" concept_spec_company_strength_desc: \"How strong a [concept_country]'s {cos} are, all together. Each company adds its [concept_prosperity] "

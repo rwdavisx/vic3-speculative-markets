@@ -102,6 +102,14 @@ if centres.ON:  # its Standing toasts replace the Financial Centre ones
                                    f"The {EXCH} has come out ahead in its contest with the {rival}, and its trust has grown.")
         NOTES["spec_rival_lost"] = (NEWS, "rank_down", "bad", "Our Exchange loses a contest",
                                     f"The {EXCH} has come out behind in its contest with the {rival}, and its trust has fallen.")
+        # one of our contest campaigns ended early (rivals.spec_rv_campaigns): unpaid, or a Lure caught by a panic
+        WARN = "spec_warning_notification_group"
+        NOTES["spec_rv_end_raid"] = (WARN, "rank_down", "bad", f"Our Bear Raid on {SRC} ends",
+                                     "Our treasury could not pay for it. What it had yet to do is lost.")
+        NOTES["spec_rv_end_lure"] = (WARN, "rank_down", "bad", f"Our Lure of {SRC}'s capital ends",
+                                     "The [concept_spec_financial_panic] cut off its credit. Its push on the contest is lost.")
+        NOTES["spec_rv_end_shore"] = (WARN, "rank_down", "bad", f"Our Shore Up against {SRC} ends",
+                                      "Our treasury could not pay for it. Their actions hit us in full again.")
 
 
 # SelectLocalization evaluates selected strings without the notification SCOPE.

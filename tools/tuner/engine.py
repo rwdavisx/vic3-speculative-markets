@@ -56,6 +56,7 @@ SPEC = [
     ("CORRECTION_PER_HYPE", g, None, "Booms", "Correction cost"),
     ("BUST_PER_HYPE", g, None, "Booms", "Bust cost"),
     ("CONF_PER_CRASH_HYPE", g, "CONF_PER_CRASH_HYPE", "Booms", "Collapse cost"),
+    ("LAND_DEEP", g, "LAND_DEEP", "Booms", "Fall below a boom's start before it can Collapse"),
     ("CREDIT_FROM", g, "CREDIT_FROM", "Credit", "Banks lend above"),
     ("CREDIT_SHARE", g, "CREDIT_SHARE", "Credit", "Credit share at full confidence"),
     ("CREDIT_FLOW_MAX", g, "CREDIT_FLOW_MAX", "Credit", "Confidence's part at most"),
@@ -85,7 +86,7 @@ SPEC = [
     ("LEV_REWARD_CURVE", lv, "CURVE", "Leverage", "Smooth bonus shape, 1 straight, 0.5 front-loaded"),
     ("LEV_REWARD_TAPER", lv, "TAPER_KEY", "Leverage", "Tapered bonus, throughput a month past the bonus months (-1 off)"),
     ("LEV_BONUS_FADE", lv, "BONUS_FADE", "Leverage", "Bonus months lost a month"),
-    ("LEV_RECORD_TP", lv, "RECORD_TP", "Leverage", "Sound Credit: throughput per month of leverage it grows toward (0 off)"),
+    ("LEV_RECORD_BUILD", lv, "RECORD_BUILD", "Leverage", "Sound Credit: construction per month of leverage it grows toward (0 off)"),
     ("LEV_RECORD_GAIN", lv, "RECORD_GAIN", "Leverage", "Sound Credit: share of the way closed a calm month"),
     ("LEV_RECORD_LOSS", lv, "RECORD_LOSS", "Leverage", "Sound Credit: share lost a panic or Bad Debts month, x (1 + stress)"),
     ("LEV_CRUNCH_RAMP", lv, "CRUNCH_RAMP", "Bad Debts", "Felt a month"),
@@ -94,11 +95,12 @@ SPEC = [
     ("LEV_CRUNCH_FADE_TIGHT", lv, "CRUNCH_FADE_TIGHT", "Bad Debts", "Fade a month under Tight"),
     ("LEV_BAD_STOP", lv, "BAD_STOP", "Bad Debts", "Bad Debts that stop lending"),
     ("LEV_CRUNCH_THROUGHPUT", lv, "CRUNCH_THROUGHPUT", "Bad Debts", "Throughput lost a point"),
-    ("LEV_CRUNCH_INVEST", lv, "CRUNCH_INVEST", "Bad Debts", "Investment lost a point"),
+    ("LEV_CRUNCH_INVEST", lv, "CRUNCH_INVEST", "Bad Debts", "Investment lost a point"), ("LEV_CRUNCH_BUILD", lv, "CRUNCH_BUILD", "Bad Debts", "Construction lost a point"),
     ("LEV_BAILOUT_CUT", lv, "BAILOUT_CUT", "Bad Debts", "Buy Up Bad Loans cut"),
     ("LEV_BAILOUT_COST", lv, "BAILOUT_COST", "Bad Debts", "Buy Up cost per point squared"),
     ("LEV_INCOME_SMOOTH", lv, "INCOME_SMOOTH", "Leverage", "Income average weight"),
     ("LEV_INCOME_FLOOR", lv, "INCOME_FLOOR", "Leverage", "Income floor, share of GDP"),
+    ("BB_STEP", cycle, "BB_STEP", "Booms", "Construction of an all-Eager industry, twice it all-Feverish"),
     ("LAX_START", cycle, "LAX_START", "Lending Standards", "Start"),
     ("LAX_QUIET_YEARS", cycle, "LAX_QUIET_YEARS", "Lending Standards", "Quiet years, strict to reckless"),
     ("LAX_PER_CONF", cycle, "LAX_PER_CONF", "Lending Standards", "Stricter per point of boom loss"),
@@ -156,7 +158,7 @@ SPEC = [
     (None, g, "RESCUE_REF_MONTHS", "Rescue", "Rescue reference months"), (None, g, "RESCUE_CUT", "Rescue", "Rescued penalties"),
     (None, g, "STANCE_COOLDOWN", "Credit", "Months between stances"), (None, g, "MANIA_CAUTION", "Confidence", "Mania warning"),
     (None, g, "MANIA_TAX_CONF", "Confidence", "Mania levy"), (None, g, "MANIA_TAX", "Confidence", "Mania levy, share of GDP"),
-    ("PANIC_THROUGHPUT", g, "PANIC_THROUGHPUT", "Panic", "Panic throughput"), ("PANIC_INVEST", g, "PANIC_INVEST", "Panic", "Panic investment"),
+    ("PANIC_THROUGHPUT", g, "PANIC_THROUGHPUT", "Panic", "Panic throughput"), ("PANIC_INVEST", g, "PANIC_INVEST", "Panic", "Panic investment"), ("PANIC_BUILD", g, "PANIC_BUILD", "Panic", "Panic construction"),
     *((k, _TRUST, k, "Exchange", f"Trust a calm month, {w}") for k, w in
       (("TRUST_STRICT", "Strict"), ("TRUST_CAUTIOUS", "Cautious"), ("TRUST_SOUND", "Sound"), ("TRUST_LAX", "Lax"), ("TRUST_RECKLESS", "Reckless (x loss)"))),
     # trust's level effects (centres.TRUST_FX) added on top of the released ones; minting and prestige are not modeled
@@ -273,6 +275,8 @@ INPUTS = {
     "after_panic": ((0.6, 0.6), 0, 5, "Confidence lost a month in the year after a panic: the unrest, falling GDP and approval that follow one"),
     "rough_sd": ((1.0, 1.0), 0, 10, "The world's roughness: a slow swing of confidence the model lacks, its size a month"),
     "rough_months": ((6, 6), 0.5, 60, "How long a swing of the world's roughness lasts, months"),
+    # 0 symmetric (until 2026-11-24); 1 falls only, recentred: the 1.2.0 games had more Wary months than the engine and no more Mania
+    "rough_skew": (0, 0, 1, "Share of the roughness that only falls (its rises dropped, its mean kept at 0)"),
     # rivals.spec_rv_ai_move: an AI in a contest Lures its rival's capital only below rivals.AI_LEV leverage; how often it
     # gets the chance (contests, cooldowns, its looks) is read off runs/windows_120's debt jumps (fit.py's lure block)
     "lure_rate": ((0.04, 0.04), 0, 1, "Rival Lures a month, an AI below the lure's leverage line"),
@@ -289,9 +293,12 @@ INPUTS = {
     "ld_months": ((17, 45), 4, 60, "Months the Depression phase lasts"),
     "e_gdp": (0.6, 0, 2, "GDP felt per unit of throughput"),
     "e_pool": (1.0, 0, 2, "Pool income felt per unit of investment"),
-    # calib_growth.py on runs/windows_120/campaign (PARITY.md, November 23): yearly GDP growth per unit of monthly pool income
-    # over GDP that the mod adds or takes; 0 is the old level-only model
-    "inv_growth": (3.5, 0, 20, "GDP growth a year per unit of pool income share added"),
+    # yearly GDP growth per unit of monthly pool income over GDP that the mod adds or takes. Was 3.5 (calib_growth.py); the
+    # November 24 paired games put it at 0.03 (pool x2) to 0.5 (pool -50% for nine years), so the pool is close to inert
+    "inv_growth": (0.25, 0, 20, "GDP growth a year per unit of pool income share added"),
+    # November 24 paired games: construction -20% cost about 1.66 points of growth a year through 1845 (0.083 a unit); +20%
+    # gave about 1.4 (0.07), through 1839 only. ponytail: nine years of data, held flat for the century
+    "con_growth": (0.07, 0, 0.3, "GDP growth a year per unit of construction added"),
     # the banks' lending against the base at confidence 57 to 65 (Normal, 1850 on): 0.56 in the pre-1.2 logs, 0.75 in three
     # current-build games (runs/sweep_calib12), where the engine gave 0.43 at 0.55, so the current build needs about 1
     "e_credit": (1.0, 0, 2, "Credit felt per unit of the mod's lending"),
@@ -695,9 +702,11 @@ class Economies:
         r5 = self.rng5 = tile(np.random.default_rng([seed, 5]))  # the stand-ins, on their own draws so the others stay
         self.after_p, self.rough_sd = _draw(r5, I["after_panic"], n), _draw(r5, I["rough_sd"], n)
         self.rough_keep = 0.5 ** (1 / np.maximum(_draw(r5, I["rough_months"], n), 0.1))
+        self.rough_skew = _draw(r5, I["rough_skew"], n)
         self.rough, self.since_end = np.zeros(n), np.full(n, 10 ** 6)
         self.rng_lure = tile(np.random.default_rng([seed, 11]))  # rival Lures, on their own draws so the others stay
         self.lure_p = _draw(self.rng_lure, I.get("lure_rate", INPUTS["lure_rate"][0]), n)
+        self.lure_ring = np.zeros((n, rivals.LURE_MONTHS))  # running Lures' vs by the month each began (rivals.CAMPS)
         self.gdp_base = np.full(n, 1e7)
         self.base_cash, self.base_debt = self.reserves.copy(), self.sdebt.copy()
         self.cash_draw = np.zeros(n)  # unreplenished intervention spending in pounds
@@ -767,6 +776,7 @@ class Economies:
         self.price_premium = np.clip(self.price_level, -0.75, 0.75)
         self.fast, self.slow = self.price_premium.copy(), self.price_premium.copy()
         self.glut = np.zeros((n, G))
+        self.start = np.full((n, G), np.nan)  # generate: spec_start_<g>, the slow average as a boom began
         self.word = np.zeros((n, G), int)
         self.lever, self.push, self.risk, self.h_raw = np.zeros((n, G), int), np.ones((n, G)), np.zeros((n, G)), np.ones((n, G))  # levers.py: -1 Restrain, 1 Encourage
         self.player_orders = player_lever_orders(cfg.get("player_lever_orders", ())) if bot != "ai" else {}
@@ -779,12 +789,12 @@ class Economies:
                                            "bailout_cost", "restrains", "restrain_months", "reforms", "tight_months", "loose_months", "lev_sum", "lev_max", "gdp_gap_sum",
                                            "pool_gap_sum", "conf_sum", "lent_sum", "debt_sum", "panic_loss_sum", "inv_panic_sum", "inv_calm_sum",
                                            "boom_gap_sum", "boom_months", "steady_gap_sum", "steady_months", "low_months", "up_months", "reckless_months",
-                                           "late_panic_months", "pledge_months", "pledge_rescues", "distrust_late_months")}
+                                           "late_panic_months", "pledge_months", "pledge_rescues", "distrust_late_months", "gap_end")}
         self.was_bad = f.copy()
         # lending frozen (spec_crunch_lend 0): each finished spell's length, as frozen_spells.py reads the game's logs
         self.stats["frz_hist"] = np.zeros((n, FRZ_BINS), int)
         self.frz_run = np.zeros(n, int)
-        self.loss_left = z.copy()
+        self.loss_left, self.gap_was, self.gap_pre = z.copy(), z.copy(), z.copy()
         self.hist = [] if trace else None
         self.snap = []
 
@@ -1103,8 +1113,9 @@ class Economies:
         K = self.K
         pm = np.where(self.funded_rescue, K["RESCUE_CUT"], 1.0) * self.in_panic
         step = K["BAND_INVEST_STEP"]  # generate.BAND_INVEST: the tier's place times the step, read from K so a sweep reaches it
-        band = _first([self.conf < b[2] for b in BANDS], [g.TIER_STEPS[b[0]] * step for b in BANDS], g.TIER_STEPS["mania"] * step)
-        band = np.where(self.in_panic & (self.conf < BANDS[0][2]), 0, band)  # spec_conf_panic_held carries no investment
+        band_tier = _first([self.conf < b[2] for b in BANDS], [g.TIER_STEPS[b[0]] for b in BANDS], g.TIER_STEPS["mania"])
+        band_tier = np.where(self.in_panic & (self.conf < BANDS[0][2]), 0, band_tier)  # spec_conf_panic_held carries no investment
+        band = band_tier * step
         smooth = (K["LEV_REWARD_TP_FULL"] > 0) | (K["LEV_REWARD_INV_FULL"] > 0)  # leverage.SMOOTH
         sh = lev_shape(self.held, K["LEV_RUIN"], K["LEV_REWARD_CURVE"])
         taper = np.where(K["LEV_REWARD_TAPER"] >= 0, np.clip(self.held - K["LEV_REWARD_MAX"], 0, K["LEV_RUIN"] - K["LEV_REWARD_MAX"]) * K["LEV_REWARD_TAPER"], 0)
@@ -1115,12 +1126,19 @@ class Economies:
         self.bad_inv = -self.bite * K["LEV_CRUNCH_INVEST"]
         self.lever_tp = (self.lever * self.share).sum(1) * levers.LEVER_THROUGHPUT  # the levered goods' producers
         self.lever_tp = self.lever_tp + (self.term_effect * sentiment.TP_SHARE * self.share).sum(1)  # Favored/Shunned producers
-        self.bonus_tp = self.bonus_tp + self.record_held * lv.RECORD_STEP  # spec_lev_record, the lasting part
         self.tp = self.bonus_tp + self.panic_tp + self.bad_tp + self.lever_tp
         self.inv = band + pm * K["PANIC_INVEST"] + self.bad_inv + self.bonus_inv
+        # construction: spec_panic, Bad Debts and Sound Credit (spec_lev_record)
+        self.build = pm * K["PANIC_BUILD"] - self.bite * K["LEV_CRUNCH_BUILD"] + self.record_held * lv.RECORD_STEP
+        # each industry by its goods' trade (cycle.values' spec_bb_<grp>): taken over the economy, the goods' average by trade
+        self.boom_build = np.clip(self.word - 4, 0, 2) * self.share
+        self.boom_build = self.boom_build.sum(1) * K["BB_STEP"]
+        self.build = self.build + self.boom_build
         self.pool_inv = np.maximum(1 + self.I["e_pool"] * self.inv, 0.02)
         # the pool income the market adds (or takes) builds (or forgoes) GDP that stays: inv_growth a year per unit of it over GDP
-        self.cap *= np.exp(self.I["inv_growth"] / 12 * self.pool_share * self.pool_base_x * (self.pool_inv - 1))
+        # and what the market builds faster or slower stays too: con_growth a year per unit of construction
+        self.cap *= np.exp(self.I["inv_growth"] / 12 * self.pool_share * self.pool_base_x * (self.pool_inv - 1)
+                           + self.I["con_growth"] / 12 * self.build)
         self.gdp = self.gdp_base * self.cap * np.maximum(1 + self.I["e_gdp"] * self.tp, 0.05)
 
     def advance_sentiment(self, premium, rolls):
@@ -1230,7 +1248,13 @@ class Economies:
         nxt = np.where(h > self.peak, h, self.peak * keep + (1 - keep))  # spec_peak_next
         wind = np.where(self.lever < 0, np.maximum(self.peak - nxt, 0), 0)  # spec_restrain_cost, before its rate
         self.peak = nxt
+        # soft landing (generate.LAND_DEEP): where the price stood (slow average) as the boom began caps the ending
+        rising = self.peak >= g.RISING_HYPE
+        self.start = np.where(rising & np.isnan(self.start), self.slow, np.where(rising, self.start, np.nan))
         sev = _first([self.peak >= p for _, p, *_ in g.UNWINDS], [s for s, *_ in g.UNWINDS], 0)  # spec_sev_next
+        has = ~np.isnan(self.start)
+        sev = np.where(has & (self.price_premium >= self.start), np.minimum(sev, 1),
+                       np.where(has & (self.price_premium > self.start - self.kg("LAND_DEEP")), np.minimum(sev, 2), sev))
         self.lever = np.where((self.lever > 0) & (sev >= 2), 0, self.lever)
         booming = h >= self.kg("HOT_HYPE")
         self.n_boom = booming.sum(1)
@@ -1294,7 +1318,9 @@ class Economies:
         c_recover = (K["CONF_START"] - self.conf) * K["CONF_RECOVER"] * macro * self.exch_recover  # spec_conf_recover
         # the stand-ins (fit.py's roughness block): a slow swing (AR(1), rough_sd its spread), and the year after a panic
         self.rough = self.rough * self.rough_keep + self.rng5.normal(0, 1, n) * self.rough_sd * np.sqrt(1 - self.rough_keep ** 2)
-        c_rough = self.rough - np.where(self.since_end < 12, self.after_p, 0)
+        # rough_skew 1: the swing's falls doubled and its rises dropped, recentred to a mean of 0 (2 min(x, 0) + sd sqrt(2 / pi))
+        down = 2 * np.minimum(self.rough, 0) + self.rough_sd * np.sqrt(2 / np.pi)
+        c_rough = self.rough + self.rough_skew * (down - self.rough) - np.where(self.since_end < 12, self.after_p, 0)
         pre = (self.conf + c_recover + c_boom + c_crash + c_turmoil + c_debt + c_foreign + self.c_mood + c_growth + c_business + c_world
                + self.war_end + c_restrain + c_rough)
         c_tight = np.where(self.stance == -1, np.minimum((K["TIGHT_FROM"] - pre) * K["TIGHT_PULL"], 0), 0)  # spec_tight_pull
@@ -1342,6 +1368,8 @@ class Economies:
         drift_step = np.round(1 / (12 * K["LAX_QUIET_YEARS"]), 5)
         repairing = ~self.in_panic & (self.stance == -1) & (self.crunch <= 0)
         lax_drift = quiet * drift_step * cycle.LAX_SCALE * (1 - self.lax) - repairing * np.clip(self.lax - cycle.SOUND_MID, 0, drift_step)
+        sober = ~self.in_panic & (self.crunch > 0)  # Bad Debts on the books: banks grow careful, twice as fast under Tight
+        lax_drift = lax_drift - sober * np.round(cycle.SOBER_STEP, 5) * np.where(self.stance == -1, 2, 1)
         lax_booms = (c_crash + c_restrain) * K["LAX_PER_CONF"] * cycle.LAX_SCALE * self.lax
         self.lax = np.clip(self.lax + lax_drift + lax_booms, 0, 1)
 
@@ -1367,11 +1395,11 @@ class Economies:
         lev_now = np.where(lent <= 0, np.where(self.held > 0, np.minimum(lev_now, self.held), 0), lev_now)
         self.held = np.maximum(lev_now, 0)
         # leverage.MONTHLY's lasting reward (spec_lev_record): in calm months it closes LEV_RECORD_GAIN of the way to
-        # LEV_RECORD_TP per month of leverage (spec_lev_record_to), in a panic or Bad Debts it keeps spec_lev_record_keep;
+        # LEV_RECORD_BUILD per month of leverage (spec_lev_record_to), in a panic or Bad Debts it keeps spec_lev_record_keep;
         # its modifier in whole RECORD_STEPs (spec_lev_record_now)
         bad = self.in_panic | (self.crunch > 0)
         keep = np.maximum(1 - K["LEV_RECORD_LOSS"] * (1 + self.stress(lev2)), 0)
-        built = self.record + (lev2 * (K["LEV_RECORD_TP"] / lv.RECORD_STEP) - self.record) * K["LEV_RECORD_GAIN"]  # in RECORD_STEPs
+        built = self.record + (lev2 * (K["LEV_RECORD_BUILD"] / lv.RECORD_STEP) - self.record) * K["LEV_RECORD_GAIN"]  # in RECORD_STEPs
         self.record = np.where(bad, self.record * keep, built)
         self.record_held = np.maximum(np.floor(self.record + 1e-9), 0)
 
@@ -1419,7 +1447,7 @@ class Economies:
         lev3 = self.lev(pm)
         p_at = self.panic_at(lev3)
         start = ~was & (self.conf < p_at) & (self.panic_cd <= 0)
-        lax_jump = np.where(end & ~self.rescued, -K["LAX_PANIC"] * self.lax, 0)  # cycle.panic_over
+        lax_jump = np.where(end, -K["LAX_PANIC"] * self.lax * np.where(self.rescued, cycle.LAX_PANIC_RESCUED, 1), 0)  # cycle.panic_over
         over = end & ~self.rescued & (self.panic <= 0)  # centres.PANIC_OVER: it ran its full course unrescued
         self.ld_recent = np.where(start, depression.WINDOW_DAYS // 30, np.maximum(self.ld_recent - 1, 0))
         self.lax += lax_jump
@@ -1518,17 +1546,22 @@ class Economies:
         s["lev_max"] = np.maximum(s["lev_max"], lev4)
         gap = self.gdp / self.gdp_base - 1
         s["gdp_gap_sum"] += gap
+        s["gap_end"] += np.where(self.m >= self.months - 60, gap / 60, 0)  # the last five years' average: how far ahead or behind the run ends (growth_edge)
         # output lost over a panic, against no market: from its start to a year after its end (a panic inside the last
         # one's year extends the window, so the pair counts as two panics sharing it)
+        # against the gap the panic began from: the century's built-up growth must not hide the loss
+        self.gap_pre = np.where(self.in_panic & (self.loss_left <= 0), self.gap_was, self.gap_pre)
         self.loss_left = np.where(self.in_panic, 13, np.maximum(self.loss_left - 1, 0))
-        s["panic_loss_sum"] += np.where(self.loss_left > 0, -gap, 0)
+        s["panic_loss_sum"] += np.where(self.loss_left > 0, (1 + self.gap_pre) - (1 + gap), 0) / (1 + self.gap_pre)
+        self.gap_was = gap
+        now_gap = self.gdp / (self.gdp_base * self.cap) - 1  # the month's own effects, without what the century built
         s["inv_panic_sum"] += np.where(self.in_panic, self.pool_inv, 0)
         s["inv_calm_sum"] += np.where(self.in_panic, 0, self.pool_inv)
         up = ~self.in_panic & (self.conf >= TIER["buoyant"][0])
         steady = ~self.in_panic & (self.conf >= TIER["steady"][0]) & (self.conf < TIER["steady"][1])
-        s["boom_gap_sum"] += up * gap
+        s["boom_gap_sum"] += up * now_gap
         s["boom_months"] += up
-        s["steady_gap_sum"] += steady * gap
+        s["steady_gap_sum"] += steady * now_gap
         s["steady_months"] += steady
         s["low_months"] += self.conf < TIER["steady"][0]  # Wary or Panic, as the gauge shows it
         s["up_months"] += self.conf >= TIER["buoyant"][0]  # Buoyant or Mania
@@ -1720,11 +1753,15 @@ class Economies:
         if is_ai:  # rivals.spec_rv_lure: the AI's Lure Their Capital, its own debt of LURE_DEBT months of pool income x spec_rv_vs
             # ponytail: contests, cooldowns and the AI's looks are one fitted chance (lure_rate) and vs a fitted draw (lure_vs);
             # the target's lost pool income and Bear Raids (fit.py: about 0.1 confidence a country-year) are left out
+            # 1.2.2 (rivals.spec_rv_campaigns): the debt comes LURE_DEBT / LURE_MONTHS a month over LURE_MONTHS months from
+            # the next month on, and a panic ends every running Lure
             r = self.rng_lure
             lure = ~self.in_panic & (lev < rivals.AI_LEV) & (r.random(n) < self.lure_p)
             vs = np.clip(_draw(r, self.I["lure_vs"], n), rivals.VS_LO, rivals.VS_HI)
-            self.lured = np.where(lure, rivals.LURE_DEBT * vs * self.pool_month(), 0)
+            self.lure_ring[self.in_panic] = 0
+            self.lured = self.lure_ring.sum(1) * (rivals.LURE_DEBT / rivals.LURE_MONTHS) * self.pool_month()
             self.debt += self.lured
+            self.lure_ring[:, self.m % rivals.LURE_MONTHS] = np.where(lure, vs, 0)
         if is_ai:  # journal.MONTHLY_AI, then levers.ai_block
             j_rescue, j_caution, j_lax = self.ai_journal(self.ai_u2)
             c_rescue, c_caution, lax_jump = c_rescue + j_rescue, c_caution + j_caution, lax_jump + j_lax
@@ -1857,7 +1894,8 @@ METRICS = {  # name: (label, unit)
     "crunch_max": ("Worst Bad Debts", ""), "crunch_months_pct": ("Months with Bad Debts", "%"),
     "frozen_pct": ("Panics that stop bank lending", "%"), "bad_spell": ("Bad Debts last", "months"),
     "lev_mean": ("Leverage, mean", "months"), "lev_max": ("Leverage, worst", "months"),
-    "output_pct": ("GDP against no market, after rescue and buy-up costs", "%"), "pool_pct": ("Pool income against no market", "%"),
+    "output_pct": ("GDP against no market, after rescue and buy-up costs", "%"),
+    "growth_edge": ("GDP growth a year against no market, from where the century ends", "points"), "pool_pct": ("Pool income against no market", "%"),
     "conf_mean": ("Confidence, mean", ""), "tight_pct": ("Months Tight", "%"), "loose_pct": ("Months Loose", "%"),
     "rescues_per_century": ("Rescues a century", ""), "spend_pct_gdp": ("Rescues and buy-ups, % of a year's GDP", "%"),
     "trust_top_pct": ("Months with the Exchange Respected or Trusted", "%"),
@@ -1883,7 +1921,9 @@ def summarize(e):
         "mania_pct": s["mania_months"] / T * 100, "bursts_per_century": s["bursts"] * cent, "crunch_max": s["crunch_max"],
         "crunch_months_pct": s["crunch_months"] / T * 100, "lev_mean": s["lev_sum"] / T, "lev_max": s["lev_max"],
         # the GDP gap, less rescue and buy-up spending spread over the run (both % of GDP a year)
-        "output_pct": s["gdp_gap_sum"] / T * 100 - spend / (T / 12), "pool_pct": s["pool_gap_sum"] / T * 100, "conf_mean": s["conf_sum"] / T,
+        "output_pct": s["gdp_gap_sum"] / T * 100 - spend / (T / 12),
+        # the last five years' gap less the run's rescue and buy-up spending, as growth a year against no market, in points
+        "growth_edge": (np.maximum(1 + s["gap_end"] - spend / (T / 12) / 100, 1e-6) ** (12 / T) - 1) * 100, "pool_pct": s["pool_gap_sum"] / T * 100, "conf_mean": s["conf_sum"] / T,
         "tight_pct": s["tight_months"] / T * 100, "loose_pct": s["loose_months"] / T * 100,
         "rescues_per_century": s["rescues"] * cent, "spend_pct_gdp": spend,
         "trust_top_pct": s["trust_top_months"] / T * 100,

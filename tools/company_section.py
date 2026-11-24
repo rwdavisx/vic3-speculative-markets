@@ -498,7 +498,7 @@ def bc_loc():
     lo = companies.BLUE_LOSE
     return (""
             f" SPEC_BC_FX_SHIELD: \"#P [{mul(b.SHELTER * 100)}|0]%#!\"\n SPEC_BC_FX_SHIELD_LBL: \"Crash Shield\"\n"
-            f" SPEC_BC_FX_PULL: \"#P +[{mul(b.PULL * 100)}|0]%#!\"\n SPEC_BC_FX_PULL_LBL: \"Contest Pull\"\n"
+            f" SPEC_BC_FX_PULL: \"#P +[{mul(round(b.PULL_MONTH, 4))}|2]#!\"\n SPEC_BC_FX_PULL_LBL: \"Contest Pull\"\n"
             f" SPEC_BC_FX_TRUST: \"#P +[{mul(round(b.DIVIDEND * 100 / __import__('centres').CALM, 4))}|1]#!\"\n SPEC_BC_FX_TRUST_LBL: \"Trust a Year\"\n"
             f" SPEC_CO_COL_NAME: \"Company\"\n SPEC_CO_COL_NAME_TT: \"Our $concept_companies$, our $concept_spec_blue_chips$ first and tinted blue, each with its [concept_prosperity] under its name and the level it is heading for faint behind. A #N Fragile#! one is tinted red and its badge pulses. A company becomes one after #v {companies.BLUE_MONTHS}#! months in a row at #v {companies.BLUE_PROSPER:g}#! or more [concept_prosperity]. Click one to open it.\"\n"
             " SPEC_CO_COL_STRENGTH: \"Strength\"\n SPEC_CO_COL_STRENGTH_TT: \"What each company adds to our [concept_spec_company_strength].\"\n"

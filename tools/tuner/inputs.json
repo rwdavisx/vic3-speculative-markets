@@ -182,6 +182,23 @@
      0.0349
     ]
    }
+  },
+  "roughness_20261124": {
+   "log": "runs/windows_120 (campaign, parallel, parallel2, parallel3)",
+   "aim": "AI panics a country-decade 1866-76 0.62-0.77, 1896-1906 0.77-0.96 at 1.2.0 values",
+   "made": "2026-11-24",
+   "see": "PARITY.md, November 24",
+   "was": {
+    "rough_sd": [
+     1.07334,
+     1.07334
+    ],
+    "rough_months": [
+     7.66453,
+     7.66453
+    ],
+    "rough_skew": 0
+   }
   }
  },
  "inputs": {
@@ -246,12 +263,12 @@
    0.06002
   ],
   "rough_sd": [
-   1.07334,
-   1.07334
+   2.5,
+   2.5
   ],
   "rough_months": [
-   7.66453,
-   7.66453
+   1,
+   1
   ],
   "flight_share": [
    0.95098,
@@ -288,7 +305,8 @@
   "goods_growth": [
    17,
    17
-  ]
+  ],
+  "rough_skew": 1
  },
  "was": {
   "pool_share": [
@@ -411,7 +429,8 @@
   "goods_growth": [
    17,
    17
-  ]
+  ],
+  "rough_skew": 0
  },
  "log": {
   "growth": {

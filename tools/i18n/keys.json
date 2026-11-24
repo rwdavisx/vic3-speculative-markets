@@ -107,7 +107,8 @@
 "SPEC_BC_STRIP_TT": [
 "315d1aadd9",
 "939b610c8e",
-"36a7aaceae"
+"36a7aaceae",
+"df2c314edd"
 ],
 "SPEC_BOOM_CAP": [
 "feb9189471",
@@ -1345,7 +1346,8 @@
 "f584597e57",
 "53afaa739e",
 "8b5d76bbc7",
-"e3b008ad2d"
+"e3b008ad2d",
+"50668f4a34"
 ],
 "SPEC_EFFECT_DEBT": [
 "106526c8ae"
@@ -1378,13 +1380,15 @@
 "de5070519b"
 ],
 "SPEC_EFFECT_LAX_TT": [
+"7ab75db983",
 "9507e89dd9",
 "3ed6408b36",
 "bfea33a4d9",
 "8740520517",
 "8faa60fcbe",
 "0f33b6c0fd",
-"ff28210b84"
+"ff28210b84",
+"da3d6633bd"
 ],
 "SPEC_EFFECT_LEV": [
 "f6d322d1c8",
@@ -2680,7 +2684,8 @@
 "05e5d1a6a5"
 ],
 "SPEC_JE_STAGE_1": [
-"487321358c"
+"487321358c",
+"ba5e88c7fc"
 ],
 "SPEC_JE_STAGE_2": [
 "4b54e2b2ab",
@@ -2690,7 +2695,8 @@
 "SPEC_JE_STAGE_3": [
 "3aa3a00e01",
 "01eee5533d",
-"7cf6ac2262"
+"7cf6ac2262",
+"15527d9627"
 ],
 "SPEC_JE_STAGE_4": [
 "0b76e6e932",
@@ -2769,12 +2775,16 @@
 "6955413760"
 ],
 "SPEC_LAX_PAUSED": [
+"62d4014786",
 "f2d9112c74",
 "c40fadfddf"
 ],
 "SPEC_LAX_REPAIR": [
 "d3f1e3e78d",
 "3bb3194ccd"
+],
+"SPEC_LAX_SOBER": [
+"921126faca"
 ],
 "SPEC_LAX_TRUST": [
 "0f3c394a21"
@@ -2985,6 +2995,7 @@
 "ef394c8f53"
 ],
 "SPEC_LEV_MAIN_TT": [
+"f21c4dec03",
 "7f59c5228f",
 "83f0c488c8",
 "cbc58a6b68",
@@ -3023,17 +3034,20 @@
 "SPEC_LEV_TIER_1_TT": [
 "7d38f1cbbd",
 "170ba5bda8",
-"8ec30ca8dd"
+"8ec30ca8dd",
+"7f5db70d70"
 ],
 "SPEC_LEV_TIER_2_TT": [
 "6369122539",
 "6a0f5e6aea",
-"75cb8b25af"
+"75cb8b25af",
+"5c2641963c"
 ],
 "SPEC_LEV_TIER_3_TT": [
 "9d6486553e",
 "9a96a45bbd",
-"68aa6a896d"
+"68aa6a896d",
+"9babe54f86"
 ],
 "SPEC_LEV_UNLOCK_0": [
 "c6321b0bf4"
@@ -4197,6 +4211,102 @@
 ],
 "SPEC_NAME_VAL_TT_sound": [
 "8544f25226"
+],
+"SPEC_NEEDS_BAILOUT": [
+"01fabd6057"
+],
+"SPEC_NEEDS_BAILOUT_TT": [
+"1855d1e2ff"
+],
+"SPEC_NEEDS_BUBBLE": [
+"5ddb272a36"
+],
+"SPEC_NEEDS_BUBBLE_TT": [
+"845d306526"
+],
+"SPEC_NEEDS_CLOSE": [
+"688961b3dd"
+],
+"SPEC_NEEDS_CLOSE_EARLY": [
+"1644674ac1"
+],
+"SPEC_NEEDS_CLOSE_EARLY_TT": [
+"2e10990afb"
+],
+"SPEC_NEEDS_CLOSE_TT": [
+"2e10990afb"
+],
+"SPEC_NEEDS_DO_BAD_TIGHT": [
+"71e0f50de1"
+],
+"SPEC_NEEDS_DO_BAILOUT": [
+"7e1bf4e9ce"
+],
+"SPEC_NEEDS_DO_BUBBLE": [
+"552feab207"
+],
+"SPEC_NEEDS_DO_DEFAULT": [
+"5273062a65"
+],
+"SPEC_NEEDS_DO_HOLD": [
+"68b37ee94a"
+],
+"SPEC_NEEDS_DO_KEEP": [
+"6eee468bfc"
+],
+"SPEC_NEEDS_DO_POOL": [
+"71205ac3e1"
+],
+"SPEC_NEEDS_DO_RESCUE": [
+"dcdfeee37f"
+],
+"SPEC_NEEDS_DO_RESTRAIN": [
+"ab5f30361f"
+],
+"SPEC_NEEDS_DO_TIGHT": [
+"7f963c7e4e"
+],
+"SPEC_NEEDS_DO_WAR": [
+"e1450581d2"
+],
+"SPEC_NEEDS_HURTS": [
+"160356534e"
+],
+"SPEC_NEEDS_LEVERAGE": [
+"cba8b8ae8d"
+],
+"SPEC_NEEDS_LEVERAGE_TT": [
+"f8c4162d9e"
+],
+"SPEC_NEEDS_NOTHING": [
+"c19236fb5a"
+],
+"SPEC_NEEDS_NOTHING_TT": [
+"597ba12632"
+],
+"SPEC_NEEDS_NO_BANKS": [
+"6826f72c29"
+],
+"SPEC_NEEDS_PANIC": [
+"1e2120f8bb"
+],
+"SPEC_NEEDS_PANIC_DO": [
+"6736eeea7f"
+],
+"SPEC_NEEDS_PANIC_TT": [
+"dfb176d710"
+],
+"SPEC_NEEDS_PL": [
+"4785861043"
+],
+"SPEC_NEEDS_RESCUE": [
+"bfb0a8bb5d"
+],
+"SPEC_NEEDS_RESCUED": [
+"1ea1050f09"
+],
+"SPEC_NEEDS_RESCUE_TT": [
+"faf57d46f7"
 ],
 "SPEC_NEWS_AND": [
 "0060636b44"
@@ -6055,7 +6165,8 @@
 "fa232a7539",
 "66ec0c2928",
 "cba0ae24b5",
-"aef0e240a0"
+"aef0e240a0",
+"a8858027a6"
 ],
 "SPEC_RIVAL_TT": [
 "e9c2f60f22",
@@ -6068,6 +6179,9 @@
 "9e94e69e57",
 "2de7b347d6"
 ],
+"SPEC_RV_ACTIVE": [
+"08ad0c46a9"
+],
 "SPEC_RV_AGAINST": [
 "54b5dc96ba"
 ],
@@ -6076,6 +6190,9 @@
 ],
 "SPEC_RV_AGAINST_TT": [
 "abb7d2aa4c"
+],
+"SPEC_RV_AT": [
+"f4ba6ecd0d"
 ],
 "SPEC_RV_BAND_BIGLOSS": [
 "e3aa755244"
@@ -6102,8 +6219,10 @@
 "06df33001c"
 ],
 "SPEC_RV_COL_ACT_TT": [
+"34aa50da4a",
 "c729377467",
-"d4ffb14ca1"
+"d4ffb14ca1",
+"61a9b8ea88"
 ],
 "SPEC_RV_COL_LAST": [
 "8093904453"
@@ -6117,14 +6236,16 @@
 ],
 "SPEC_RV_COL_LEFT_TT": [
 "a6f4a08489",
-"9331300149"
+"9331300149",
+"076a5b1164"
 ],
 "SPEC_RV_COL_SCORE": [
 "57fb27deb6"
 ],
 "SPEC_RV_COL_SCORE_TT": [
 "e64a4e819e",
-"e603f6e7bb"
+"e603f6e7bb",
+"ab76311807"
 ],
 "SPEC_RV_COST_WORLD": [
 "993b1338a8"
@@ -6136,7 +6257,14 @@
 "SPEC_RV_DID_COST1": [
 "0aeb2ce962"
 ],
+"SPEC_RV_DID_COST1R": [
+"10a0a104ec"
+],
+"SPEC_RV_DID_COST1S": [
+"10a0a104ec"
+],
 "SPEC_RV_DID_COST2": [
+"c2dc8bb089",
 "4f5f85687a"
 ],
 "SPEC_RV_DID_COST3": [
@@ -6149,19 +6277,24 @@
 "589f3f1e68"
 ],
 "SPEC_RV_DID_FX10": [
-"ac2c48b367"
+"ac2c48b367",
+"96af129552"
 ],
 "SPEC_RV_DID_FX11": [
-"ac5d89056b"
+"ac5d89056b",
+"493d8623f0"
 ],
 "SPEC_RV_DID_FX2": [
-"87a8e71d67"
+"87a8e71d67",
+"81aad96994"
 ],
 "SPEC_RV_DID_FX31": [
-"0b2a442494"
+"0b2a442494",
+"1dd8798261"
 ],
 "SPEC_RV_DID_FX3N": [
-"b4a560a3f8"
+"b4a560a3f8",
+"d564e5c73f"
 ],
 "SPEC_RV_DID_FX4": [
 "beb2f8bfe0"
@@ -6193,6 +6326,9 @@
 "c4c96b01fe",
 "7b6320b8fe"
 ],
+"SPEC_RV_D_LEAD": [
+"b21194662c"
+],
 "SPEC_RV_EMPTY_IN": [
 "6b4a70918d"
 ],
@@ -6218,8 +6354,10 @@
 "a6a9d45734"
 ],
 "SPEC_RV_HOLD_TT": [
+"59bb531a98",
 "5e72939794",
-"d41ac948f0"
+"d41ac948f0",
+"d3e4250786"
 ],
 "SPEC_RV_HOW": [
 "80db4fba72",
@@ -6251,7 +6389,8 @@
 "SPEC_RV_LEFT_TT": [
 "d9418b68a7",
 "74699900f9",
-"f820a4e04c"
+"f820a4e04c",
+"a96a0b1934"
 ],
 "SPEC_RV_LURE": [
 "62cdbda5c2"
@@ -6266,8 +6405,13 @@
 "a2f48db727"
 ],
 "SPEC_RV_LURE_TT": [
+"f4ccbfc869",
 "e7deb8171e",
-"14b5c1233b"
+"14b5c1233b",
+"e9c75bf212"
+],
+"SPEC_RV_LURE_WARN": [
+"ec30dd0ce4"
 ],
 "SPEC_RV_LURE_WIN": [
 "72ccb51fcc"
@@ -6280,6 +6424,36 @@
 ],
 "SPEC_RV_MONTH_LEFT": [
 "b2931d12c1"
+],
+"SPEC_RV_MOVED_OURS": [
+"2a7236e5f4"
+],
+"SPEC_RV_MOVED_THEIRS": [
+"aaf309f535"
+],
+"SPEC_RV_M_BCT": [
+"4c8ccab2b0"
+],
+"SPEC_RV_M_BCU": [
+"5796cab5ae"
+],
+"SPEC_RV_M_IT_LURE": [
+"da5393a73b"
+],
+"SPEC_RV_M_IT_PRESS": [
+"81f133d2cb"
+],
+"SPEC_RV_M_IT_RAID": [
+"bd3afd0c97"
+],
+"SPEC_RV_M_ME_LURE": [
+"da5393a73b"
+],
+"SPEC_RV_M_ME_PRESS": [
+"81f133d2cb"
+],
+"SPEC_RV_M_ME_RAID": [
+"bd3afd0c97"
 ],
 "SPEC_RV_NEED": [
 "a7bf4a7112"
@@ -6311,6 +6485,9 @@
 "SPEC_RV_OUR_WAY": [
 "2ac4a8cb89"
 ],
+"SPEC_RV_PACE": [
+"8f9a60e0d0"
+],
 "SPEC_RV_PICK": [
 "4c5ba789f6"
 ],
@@ -6330,9 +6507,11 @@
 "7d5f7bccf0"
 ],
 "SPEC_RV_PRESS_TT": [
+"abea211568",
 "f379b59946",
 "fe9809ff9a",
-"6f2f28a831"
+"6f2f28a831",
+"4ead460079"
 ],
 "SPEC_RV_RAID": [
 "2ca45fb01a"
@@ -6344,9 +6523,11 @@
 "e7275992e8"
 ],
 "SPEC_RV_RAID_TT": [
+"7196d66f9e",
 "9e54fc209b",
 "a41ba198fe",
-"c86c4bb85a"
+"c86c4bb85a",
+"397ea0c390"
 ],
 "SPEC_RV_ROUND": [
 "1e96191142"
@@ -6354,7 +6535,11 @@
 "SPEC_RV_ROW_NOW": [
 "c5b1f09ff5"
 ],
+"SPEC_RV_SCORES_TT": [
+"4c4c434f9d"
+],
 "SPEC_RV_SCORE_BODY": [
+"7a6e666aca",
 "1784486175",
 "8eb4141117"
 ],
@@ -6362,8 +6547,10 @@
 "68f7ede1c7"
 ],
 "SPEC_RV_SCORE_TT": [
+"134d2fab46",
 "895cae6c2b",
-"ab568d7536"
+"ab568d7536",
+"f2c5a5be3f"
 ],
 "SPEC_RV_SHIELDED_TT": [
 "62b2fe4105",
@@ -6374,7 +6561,8 @@
 ],
 "SPEC_RV_SHORE_OFFER": [
 "eaa61a04ff",
-"eb6e29b5d4"
+"eb6e29b5d4",
+"e4e23187d4"
 ],
 "SPEC_RV_SHORE_PROTECTED": [
 "1202350fc2",
@@ -6385,9 +6573,11 @@
 "d161de960a"
 ],
 "SPEC_RV_SHORE_TT": [
+"90fc3843ec",
 "847091d3bc",
 "2358eade4a",
-"8ac1b4195a"
+"8ac1b4195a",
+"18c013d301"
 ],
 "SPEC_RV_SHORE_WAIT": [
 "63685366d8"
@@ -6410,7 +6600,8 @@
 ],
 "SPEC_RV_SLOT_CANCEL_TT": [
 "5ddddb5986",
-"915a4fc358"
+"915a4fc358",
+"79513b6bd1"
 ],
 "SPEC_RV_SLOT_END": [
 "d2f133f7e4"
@@ -6432,6 +6623,12 @@
 "SPEC_RV_SLOT_USED_TT": [
 "a3515d1df7",
 "7e24b1ec46"
+],
+"SPEC_RV_STANDS": [
+"f7568c062f"
+],
+"SPEC_RV_STILL": [
+"42e8aa2dd6"
 ],
 "SPEC_RV_SUB_IN": [
 "a01604a8e2"
@@ -6461,38 +6658,50 @@
 "609c38943d"
 ],
 "SPEC_RV_THIN_THEM": [
-"cf17a46abb"
+"cf17a46abb",
+"5dfd787ac5"
 ],
 "SPEC_RV_THIN_US": [
-"1b93be969b"
+"1b93be969b",
+"ffddaf175f"
 ],
 "SPEC_RV_TIED": [
 "2d03c2d5a7"
 ],
 "SPEC_RV_TIER_BIGLOSS_TT": [
+"8249441ebc",
 "21ae0bdb6c",
 "0c63310f4f",
-"7095a7accf"
+"7095a7accf",
+"8aa53807a4"
 ],
 "SPEC_RV_TIER_BIGWIN_TT": [
+"3e8591f8b2",
 "28b77d1546",
 "3275d57326",
-"9b4b6c1e26"
+"9b4b6c1e26",
+"6fb3bcc6bc"
 ],
 "SPEC_RV_TIER_DRAW_TT": [
+"45bc51b486",
 "db330d87c5",
 "6ef6e5365f",
-"8e1fbfa4b1"
+"8e1fbfa4b1",
+"c46a27fd0a"
 ],
 "SPEC_RV_TIER_LOSS_TT": [
+"a733a9c706",
 "184070226f",
 "e79abf2193",
-"eb2133728c"
+"eb2133728c",
+"7d647960e9"
 ],
 "SPEC_RV_TIER_WIN_TT": [
+"88dee0b1fb",
 "84a8d5b8c4",
 "f17907fb39",
-"2d4b128a6d"
+"2d4b128a6d",
+"47e049924f"
 ],
 "SPEC_RV_TOGGLE_TT_OFF": [
 "8911fb12c9",
@@ -6500,7 +6709,8 @@
 ],
 "SPEC_RV_TOGGLE_TT_ON": [
 "ffa492a22c",
-"dbfc6b774a"
+"dbfc6b774a",
+"2a6754787a"
 ],
 "SPEC_RV_US_LAST": [
 "c841e3e928"
@@ -6535,6 +6745,9 @@
 "SPEC_RV_US_TT": [
 "19bd50dd71",
 "3d0fa15845"
+],
+"SPEC_RV_WHY": [
+"02e9be3f19"
 ],
 "SPEC_SECTOR_COMMUNICATIONS": [
 "d7b4be2838"
@@ -6752,11 +6965,204 @@
 "cf3476d61b",
 "1839a4b93e"
 ],
+"SPEC_SO_BBG_AEROPLANES": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_AMMUNITION": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_ARTILLERY": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_AUTOMOBILES": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_CLIPPERS": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_CLOTHES": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_COAL": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_COFFEE": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_COPPER": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_DYE": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_DYE_PLANTATIONS": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_ENGINES": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_EXPLOSIVES": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_FABRIC": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_FERTILIZER": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_FISH": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_FRUIT": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_FURNITURE": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_GLASS": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_GRAIN": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_GROCERIES": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_HARDWOOD": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_IRON": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_LEAD": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_LIQUOR": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_LUXURY_CLOTHES": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_LUXURY_FURNITURE": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_MEAT": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_MERCHANT_MARINE": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_OIL": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_OPIUM": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_PAPER": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_PORCELAIN": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_RADIOS": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_RUBBER": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_SILK": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_SMALL_ARMS": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_STEAMERS": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_STEEL": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_SUGAR": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_SULFUR": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_TANKS": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_TEA": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_TELEPHONES": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_TOBACCO": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_TOOLS": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_WINE": [
+"c7d86626f2"
+],
+"SPEC_SO_BBG_WOOD": [
+"c7d86626f2"
+],
+"SPEC_SO_BBT_AGRICULTURE": [
+"324063f859"
+],
+"SPEC_SO_BBT_EXTRACTION": [
+"8462de8b93"
+],
+"SPEC_SO_BBT_HEAVY_INDUSTRY": [
+"8462de8b93"
+],
+"SPEC_SO_BBT_INFRASTRUCTURE": [
+"3513c7ada6"
+],
+"SPEC_SO_BBT_LIGHT_INDUSTRY": [
+"187f72f6ec"
+],
+"SPEC_SO_BBT_MILITARY_INDUSTRY": [
+"d86cbc0794"
+],
+"SPEC_SO_BBT_PLANTATIONS": [
+"9611fe907f"
+],
+"SPEC_SO_BBT_RANCHING": [
+"3513c7ada6"
+],
+"SPEC_SO_BB_AGRICULTURE": [
+"1b1f683a25"
+],
+"SPEC_SO_BB_EXTRACTION": [
+"1b1f683a25"
+],
+"SPEC_SO_BB_HEAVY_INDUSTRY": [
+"1b1f683a25"
+],
+"SPEC_SO_BB_INFRASTRUCTURE": [
+"1b1f683a25"
+],
+"SPEC_SO_BB_LIGHT_INDUSTRY": [
+"1b1f683a25"
+],
+"SPEC_SO_BB_MILITARY_INDUSTRY": [
+"1b1f683a25"
+],
+"SPEC_SO_BB_PLANTATIONS": [
+"1b1f683a25"
+],
+"SPEC_SO_BB_RANCHING": [
+"1b1f683a25"
+],
 "SPEC_SO_BOOM_LABEL": [
 "a677dc8632"
 ],
 "SPEC_SO_BUILD_BOOM": [
-"9fd3e43e08"
+"9fd3e43e08",
+"47899fadf4"
 ],
 "SPEC_SO_BUILD_BOOMS": [
 "1b10e8408b"
@@ -6764,20 +7170,33 @@
 "SPEC_SO_BUILD_CUT": [
 "2298808cfe"
 ],
+"SPEC_SO_BUILD_DOWN": [
+"7d62af7e0c"
+],
 "SPEC_SO_BUILD_FLAT": [
-"abdfb20bf7"
+"abdfb20bf7",
+"6dbe7d9963"
+],
+"SPEC_SO_BUILD_FLOOR": [
+"9965dd812f"
 ],
 "SPEC_SO_BUILD_LD": [
 "424f1823ee"
 ],
 "SPEC_SO_BUILD_NONE": [
-"38f9b52093"
+"38f9b52093",
+"d2e46d7121"
 ],
 "SPEC_SO_BUILD_PANIC": [
-"f5cb2d199d"
+"f5cb2d199d",
+"e50632b43a"
 ],
 "SPEC_SO_BUILD_TT": [
-"fa59957a37"
+"fa59957a37",
+"946c6b7dba"
+],
+"SPEC_SO_BUILD_UP": [
+"f63ecb8d3b"
 ],
 "SPEC_SO_INDUSTRIES": [
 "b14d1b9936"
@@ -6791,15 +7210,40 @@
 "SPEC_SO_INVEST_FLAT": [
 "6a3285cffd"
 ],
+"SPEC_SO_INVEST_FLOOR": [
+"6588fdffb1"
+],
 "SPEC_SO_INVEST_LABEL": [
 "877aabbf3b"
 ],
+"SPEC_SO_INVEST_LESS": [
+"9927af01ad"
+],
+"SPEC_SO_INVEST_SHARE": [
+"1cf022b100"
+],
+"SPEC_SO_INVEST_STOP": [
+"e37723b811"
+],
 "SPEC_SO_INVEST_TT": [
 "a176fd6913",
-"4f52f7cfce"
+"4f52f7cfce",
+"6c0cb3e841"
 ],
 "SPEC_SO_INVEST_UP": [
 "34f3c5785a"
+],
+"SPEC_SO_L_SPEC_SO_BUILD_DEBTS": [
+"8140fbe356"
+],
+"SPEC_SO_L_SPEC_SO_BUILD_LD": [
+"9a66a82d66"
+],
+"SPEC_SO_L_SPEC_SO_BUILD_PANIC": [
+"992b5985ed"
+],
+"SPEC_SO_L_SPEC_SO_BUILD_RECORD": [
+"f410a9bdfd"
 ],
 "SPEC_SO_L_SPEC_SO_INVEST_DEBTS": [
 "8140fbe356"
@@ -7229,16 +7673,19 @@
 "2b31634e3c"
 ],
 "SPEC_UNWIND_DESC_1": [
+"84d9eb2021",
 "073dbf5045",
 "882f1542a4",
 "6442d23522"
 ],
 "SPEC_UNWIND_DESC_2": [
+"faaaf5ee28",
 "90bb483a78",
 "4ce8231da8",
 "23b66864ad"
 ],
 "SPEC_UNWIND_DESC_3": [
+"2e0766357f",
 "771cbf2023",
 "665d38bf9a",
 "6b11b9b9c1"
@@ -7639,7 +8086,8 @@
 "alert_spec_bubble_alert_hint": [
 "6e55854975",
 "04478f6699",
-"cbc89b27f0"
+"cbc89b27f0",
+"fa2149b2af"
 ],
 "alert_spec_bubble_alert_name": [
 "be1f54cb71",
@@ -7659,7 +8107,8 @@
 "f17c6ac198",
 "9a8c6242a4",
 "20e85034da",
-"b09b8e115d"
+"b09b8e115d",
+"9374a824d1"
 ],
 "alert_spec_panic_risk_alert_name": [
 "c72cc3603c"
@@ -7697,7 +8146,8 @@
 "7c2355b716",
 "885586ff6c",
 "fb0328375d",
-"568efb8336"
+"568efb8336",
+"2f3d8def20"
 ],
 "concept_spec_banking_reform": [
 "b8c53d159f"
@@ -7728,7 +8178,8 @@
 "d0bed451a6",
 "aad16e364c",
 "472d3e6229",
-"c914da02f8"
+"c914da02f8",
+"2606b164be"
 ],
 "concept_spec_blue_chips": [
 "f72e0eeaa5"
@@ -7737,11 +8188,13 @@
 "dfe57e3d5c"
 ],
 "concept_spec_boom_end_desc": [
+"92bc24d07b",
 "0261c13e02",
 "cc8c369f7a",
 "1c0892a166",
 "912ff23001",
-"1c8fe0e885"
+"1c8fe0e885",
+"d5da662518"
 ],
 "concept_spec_boom_ends": [
 "b32a90db1d"
@@ -7750,11 +8203,13 @@
 "8e374c79f7"
 ],
 "concept_spec_bust_desc": [
+"d20c9e848b",
 "3fafa3a594",
 "4fc42ef515",
 "462c29e768",
 "ab0c8c32c3",
-"93135d3bb4"
+"93135d3bb4",
+"900715d77b"
 ],
 "concept_spec_capital_flight": [
 "d31b0cd54b"
@@ -7768,11 +8223,13 @@
 "2b31634e3c"
 ],
 "concept_spec_collapse_desc": [
+"414b563410",
 "7ac0afe6c3",
 "41cf7e989f",
 "4f1ba3d388",
 "6ea6b43669",
-"3334d2361b"
+"3334d2361b",
+"b0a5a6e913"
 ],
 "concept_spec_company_strength": [
 "f9cd1cc404"
@@ -7898,15 +8355,18 @@
 "de5070519b"
 ],
 "concept_spec_lending_standards_desc": [
+"12efc9c599",
 "8e7a466d7c",
 "2cf23bb2d9",
 "942784b6ca",
-"677f254c25"
+"677f254c25",
+"1903a44f6d"
 ],
 "concept_spec_leverage": [
 "fd347bb5e7"
 ],
 "concept_spec_leverage_desc": [
+"eba5adc58e",
 "943bdba548",
 "1b071487bb",
 "d8ecd7846b",
@@ -8469,6 +8929,24 @@
 "1696d01ed5",
 "911308955e"
 ],
+"notification_spec_rv_end_lure_desc": [
+"223482b0a5"
+],
+"notification_spec_rv_end_lure_name": [
+"2ffeba1389"
+],
+"notification_spec_rv_end_raid_desc": [
+"b19ed887d6"
+],
+"notification_spec_rv_end_raid_name": [
+"d1d3b9e9cd"
+],
+"notification_spec_rv_end_shore_desc": [
+"135aedf09a"
+],
+"notification_spec_rv_end_shore_name": [
+"42fe17af14"
+],
 "notification_spec_tied_mania_desc": [
 "d92a1889ba",
 "87e73038ec",
@@ -8496,6 +8974,9 @@
 "rule_spec_goods_news": [
 "f313c3c774"
 ],
+"rule_spec_market_impact": [
+"46e51c49dd"
+],
 "rule_spec_market_volatility": [
 "3bc020ef1c"
 ],
@@ -8510,6 +8991,24 @@
 ],
 "setting_spec_goods_news_detailed_desc": [
 "b9d7b1de33"
+],
+"setting_spec_impact_flavor": [
+"4ba183d0b1"
+],
+"setting_spec_impact_flavor_desc": [
+"991459da23"
+],
+"setting_spec_impact_standard": [
+"127e61e05e"
+],
+"setting_spec_impact_standard_desc": [
+"386a1ee221"
+],
+"setting_spec_impact_strong": [
+"72dda29af6"
+],
+"setting_spec_impact_strong_desc": [
+"62514661f9"
 ],
 "setting_spec_volatility_heightened": [
 "84e374eadf"
@@ -8573,7 +9072,8 @@
 ],
 "spec_bluechip.1.a.tt": [
 "033f976bbd",
-"37d1357ae8"
+"37d1357ae8",
+"092d6d810a"
 ],
 "spec_bluechip.1.b": [
 "12cec40765"
@@ -8602,7 +9102,8 @@
 ],
 "spec_bluechip.2.b.tt": [
 "b6aac62821",
-"68ea7ba571"
+"68ea7ba571",
+"cfcf189b65"
 ],
 "spec_bluechip.2.d": [
 "661cc8bbd5"
@@ -8618,7 +9119,8 @@
 ],
 "spec_bluechip.3.a.tt": [
 "7e389989e4",
-"01a451480b"
+"01a451480b",
+"16b8c5bf3e"
 ],
 "spec_bluechip.3.d": [
 "d92a15645e"
@@ -8661,6 +9163,582 @@
 ],
 "spec_boom_warning": [
 "162ec5db68"
+],
+"spec_bp_down_aeroplanes": [
+"d6cbfad9d8"
+],
+"spec_bp_down_aeroplanes_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_ammunition": [
+"d6cbfad9d8"
+],
+"spec_bp_down_ammunition_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_artillery": [
+"d6cbfad9d8"
+],
+"spec_bp_down_artillery_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_automobiles": [
+"d6cbfad9d8"
+],
+"spec_bp_down_automobiles_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_clippers": [
+"d6cbfad9d8"
+],
+"spec_bp_down_clippers_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_clothes": [
+"d6cbfad9d8"
+],
+"spec_bp_down_clothes_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_coal": [
+"d6cbfad9d8"
+],
+"spec_bp_down_coal_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_coffee": [
+"d6cbfad9d8"
+],
+"spec_bp_down_coffee_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_copper": [
+"d6cbfad9d8"
+],
+"spec_bp_down_copper_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_dye": [
+"d6cbfad9d8"
+],
+"spec_bp_down_dye_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_electricity": [
+"d6cbfad9d8"
+],
+"spec_bp_down_electricity_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_engines": [
+"d6cbfad9d8"
+],
+"spec_bp_down_engines_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_explosives": [
+"d6cbfad9d8"
+],
+"spec_bp_down_explosives_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_fabric": [
+"d6cbfad9d8"
+],
+"spec_bp_down_fabric_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_fertilizer": [
+"d6cbfad9d8"
+],
+"spec_bp_down_fertilizer_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_fine_art": [
+"d6cbfad9d8"
+],
+"spec_bp_down_fine_art_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_fish": [
+"d6cbfad9d8"
+],
+"spec_bp_down_fish_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_furniture": [
+"d6cbfad9d8"
+],
+"spec_bp_down_furniture_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_glass": [
+"d6cbfad9d8"
+],
+"spec_bp_down_glass_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_grain": [
+"d6cbfad9d8"
+],
+"spec_bp_down_grain_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_groceries": [
+"d6cbfad9d8"
+],
+"spec_bp_down_groceries_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_hardwood": [
+"d6cbfad9d8"
+],
+"spec_bp_down_hardwood_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_iron": [
+"d6cbfad9d8"
+],
+"spec_bp_down_iron_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_lead": [
+"d6cbfad9d8"
+],
+"spec_bp_down_lead_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_liquor": [
+"d6cbfad9d8"
+],
+"spec_bp_down_liquor_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_luxury_clothes": [
+"d6cbfad9d8"
+],
+"spec_bp_down_luxury_clothes_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_luxury_furniture": [
+"d6cbfad9d8"
+],
+"spec_bp_down_luxury_furniture_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_meat": [
+"d6cbfad9d8"
+],
+"spec_bp_down_meat_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_merchant_marine": [
+"d6cbfad9d8"
+],
+"spec_bp_down_merchant_marine_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_oil": [
+"d6cbfad9d8"
+],
+"spec_bp_down_oil_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_opium": [
+"d6cbfad9d8"
+],
+"spec_bp_down_opium_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_paper": [
+"d6cbfad9d8"
+],
+"spec_bp_down_paper_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_porcelain": [
+"d6cbfad9d8"
+],
+"spec_bp_down_porcelain_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_radios": [
+"d6cbfad9d8"
+],
+"spec_bp_down_radios_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_rubber": [
+"d6cbfad9d8"
+],
+"spec_bp_down_rubber_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_silk": [
+"d6cbfad9d8"
+],
+"spec_bp_down_silk_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_small_arms": [
+"d6cbfad9d8"
+],
+"spec_bp_down_small_arms_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_steamers": [
+"d6cbfad9d8"
+],
+"spec_bp_down_steamers_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_steel": [
+"d6cbfad9d8"
+],
+"spec_bp_down_steel_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_sugar": [
+"d6cbfad9d8"
+],
+"spec_bp_down_sugar_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_sulfur": [
+"d6cbfad9d8"
+],
+"spec_bp_down_sulfur_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_tanks": [
+"d6cbfad9d8"
+],
+"spec_bp_down_tanks_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_tea": [
+"d6cbfad9d8"
+],
+"spec_bp_down_tea_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_telephones": [
+"d6cbfad9d8"
+],
+"spec_bp_down_telephones_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_tobacco": [
+"d6cbfad9d8"
+],
+"spec_bp_down_tobacco_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_tools": [
+"d6cbfad9d8"
+],
+"spec_bp_down_tools_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_wine": [
+"d6cbfad9d8"
+],
+"spec_bp_down_wine_desc": [
+"78c3bce24f"
+],
+"spec_bp_down_wood": [
+"d6cbfad9d8"
+],
+"spec_bp_down_wood_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_aeroplanes": [
+"d6cbfad9d8"
+],
+"spec_bp_up_aeroplanes_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_ammunition": [
+"d6cbfad9d8"
+],
+"spec_bp_up_ammunition_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_artillery": [
+"d6cbfad9d8"
+],
+"spec_bp_up_artillery_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_automobiles": [
+"d6cbfad9d8"
+],
+"spec_bp_up_automobiles_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_clippers": [
+"d6cbfad9d8"
+],
+"spec_bp_up_clippers_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_clothes": [
+"d6cbfad9d8"
+],
+"spec_bp_up_clothes_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_coal": [
+"d6cbfad9d8"
+],
+"spec_bp_up_coal_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_coffee": [
+"d6cbfad9d8"
+],
+"spec_bp_up_coffee_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_copper": [
+"d6cbfad9d8"
+],
+"spec_bp_up_copper_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_dye": [
+"d6cbfad9d8"
+],
+"spec_bp_up_dye_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_electricity": [
+"d6cbfad9d8"
+],
+"spec_bp_up_electricity_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_engines": [
+"d6cbfad9d8"
+],
+"spec_bp_up_engines_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_explosives": [
+"d6cbfad9d8"
+],
+"spec_bp_up_explosives_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_fabric": [
+"d6cbfad9d8"
+],
+"spec_bp_up_fabric_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_fertilizer": [
+"d6cbfad9d8"
+],
+"spec_bp_up_fertilizer_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_fine_art": [
+"d6cbfad9d8"
+],
+"spec_bp_up_fine_art_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_fish": [
+"d6cbfad9d8"
+],
+"spec_bp_up_fish_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_furniture": [
+"d6cbfad9d8"
+],
+"spec_bp_up_furniture_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_glass": [
+"d6cbfad9d8"
+],
+"spec_bp_up_glass_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_grain": [
+"d6cbfad9d8"
+],
+"spec_bp_up_grain_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_groceries": [
+"d6cbfad9d8"
+],
+"spec_bp_up_groceries_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_hardwood": [
+"d6cbfad9d8"
+],
+"spec_bp_up_hardwood_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_iron": [
+"d6cbfad9d8"
+],
+"spec_bp_up_iron_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_lead": [
+"d6cbfad9d8"
+],
+"spec_bp_up_lead_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_liquor": [
+"d6cbfad9d8"
+],
+"spec_bp_up_liquor_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_luxury_clothes": [
+"d6cbfad9d8"
+],
+"spec_bp_up_luxury_clothes_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_luxury_furniture": [
+"d6cbfad9d8"
+],
+"spec_bp_up_luxury_furniture_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_meat": [
+"d6cbfad9d8"
+],
+"spec_bp_up_meat_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_merchant_marine": [
+"d6cbfad9d8"
+],
+"spec_bp_up_merchant_marine_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_oil": [
+"d6cbfad9d8"
+],
+"spec_bp_up_oil_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_opium": [
+"d6cbfad9d8"
+],
+"spec_bp_up_opium_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_paper": [
+"d6cbfad9d8"
+],
+"spec_bp_up_paper_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_porcelain": [
+"d6cbfad9d8"
+],
+"spec_bp_up_porcelain_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_radios": [
+"d6cbfad9d8"
+],
+"spec_bp_up_radios_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_rubber": [
+"d6cbfad9d8"
+],
+"spec_bp_up_rubber_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_silk": [
+"d6cbfad9d8"
+],
+"spec_bp_up_silk_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_small_arms": [
+"d6cbfad9d8"
+],
+"spec_bp_up_small_arms_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_steamers": [
+"d6cbfad9d8"
+],
+"spec_bp_up_steamers_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_steel": [
+"d6cbfad9d8"
+],
+"spec_bp_up_steel_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_sugar": [
+"d6cbfad9d8"
+],
+"spec_bp_up_sugar_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_sulfur": [
+"d6cbfad9d8"
+],
+"spec_bp_up_sulfur_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_tanks": [
+"d6cbfad9d8"
+],
+"spec_bp_up_tanks_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_tea": [
+"d6cbfad9d8"
+],
+"spec_bp_up_tea_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_telephones": [
+"d6cbfad9d8"
+],
+"spec_bp_up_telephones_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_tobacco": [
+"d6cbfad9d8"
+],
+"spec_bp_up_tobacco_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_tools": [
+"d6cbfad9d8"
+],
+"spec_bp_up_tools_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_wine": [
+"d6cbfad9d8"
+],
+"spec_bp_up_wine_desc": [
+"78c3bce24f"
+],
+"spec_bp_up_wood": [
+"d6cbfad9d8"
+],
+"spec_bp_up_wood_desc": [
+"78c3bce24f"
 ],
 "spec_bubble_alert_setting_name": [
 "be1f54cb71",
@@ -11654,6 +12732,12 @@
 "21e467562d",
 "5423b16332"
 ],
+"spec_lev_record": [
+"d16925b905"
+],
+"spec_lev_record_desc": [
+"b4a4003bd1"
+],
 "spec_lever_authority_tt": [
 "0da57c0924"
 ],
@@ -12751,7 +13835,8 @@
 "5ad1255688"
 ],
 "spec_rival.1.g_tt": [
-"7682f8795d"
+"7682f8795d",
+"627ab1abe5"
 ],
 "spec_rival.1.t": [
 "3eef20bf3e"
@@ -12816,7 +13901,11 @@
 ],
 "spec_rv_forfeit_tt": [
 "3230783fbf",
-"e48c3c90a2"
+"e48c3c90a2",
+"526da880a1"
+],
+"spec_rv_gold_month_tt": [
+"7617eabbd0"
 ],
 "spec_rv_gold_tt": [
 "8f6043d989"
@@ -12838,6 +13927,7 @@
 "2be95d5f48"
 ],
 "spec_rv_lure_fx": [
+"915c054e33",
 "9b5327c6f9",
 "c3574e36ad"
 ],
@@ -12881,9 +13971,11 @@
 "74a6d1b3f3"
 ],
 "spec_rv_raid_fx": [
+"6399613b8c",
 "16b2ac326e",
 "ccb8988b99",
-"fce075fbfe"
+"fce075fbfe",
+"35227f6693"
 ],
 "spec_rv_room_tt": [
 "afdb7e0a8d",
@@ -12896,9 +13988,11 @@
 "b2d450b6a4"
 ],
 "spec_rv_shore_fx": [
+"b51812e7d5",
 "4d481ba3ea",
 "2cd468c5f5",
-"3044367da1"
+"3044367da1",
+"4b5cae5bc9"
 ],
 "spec_rv_slots_tt": [
 "e951797d67"

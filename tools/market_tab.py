@@ -53,6 +53,8 @@ ICONS = "gfx/interface/icons/generic_icons"
 
 
 def fx(n):
+    if isinstance(n, float):  # the game reads a literal with more than five decimals as 0
+        n = f"{n:.5f}".rstrip("0").rstrip(".")
     return f"'(CFixedPoint){n}'"
 
 
@@ -715,6 +717,96 @@ def chip_rows():
                        + card_chip("SPEC_RISK_5", XS_RISK, "bubble_risk")))
 
 
+def needs_row():
+    """The card's one sentence on whether anything needs the player, the most pressing first (needs_loc)."""
+    # the tooltip is on the widget, as card_row's: on the textbox itself it got no Country
+    return f"""widget = {{
+	size = {{ {W - 2 * CARD_X} 30 }}
+	parentanchor = hcenter
+	tooltip = "SPEC_NEEDS_TT"
+	textbox = {{
+		size = {{ 100% 100% }}
+		align = left|nobaseline
+		elide = right
+		text = "SPEC_NEEDS"
+	}}
+}}
+"""
+
+
+def needs_loc(k):
+    can = lambda key: f"GetScriptedGui('spec_sgui_{key}').IsValid(GuiScope.SetRoot({P}).End)"
+    tight = f"EqualTo_CFixedPoint({STANCE}, {fx(-1)})"
+    can_tighten = f"And({gt(sv('spec_has_central_banking'))}, Not({tight}))"
+    close = f"And(Not({P}.Var('spec_panic_cooldown').IsSet), LessThan_CFixedPoint({sv('spec_after_risks')}, {sv('spec_panic_at')}))"
+    import journal  # imports this module
+    chain = [(can("rescue"), "RESCUE"), (IN_PANIC, "PANIC"), (can("bailout"), "BAILOUT"), (f"And({close}, {can_tighten})", "CLOSE"), (close, "CLOSE_EARLY"),
+             (f"GreaterThanOrEqualTo_CFixedPoint({sv('spec_burst_now')}, {fx(journal.BUBBLE_ALERT)})", "BUBBLE"),
+             (f"And({gt(sv('spec_lev'), leverage.SAFE)}, {can_tighten})", "LEVERAGE")]
+    def choose(end):
+        out = f"'SPEC_NEEDS_NOTHING{end}'"
+        for cond, key in reversed(chain):
+            out = f"SelectLocalization({cond}, 'SPEC_NEEDS_{key}{end}', {out})"
+        return out
+    texts = {"RESCUE": "#N A panic is on.#! Lend to the banks to end it sooner.",
+             "PANIC": "#N A panic is on.#! $SPEC_PANIC_LEFT$.",
+             "BAILOUT": "#N Bad debts slow our economy.#! Buy up the bad loans.",
+             "CLOSE": "#N A panic could start.#! Tighten credit to lower the risk.",
+             "CLOSE_EARLY": "#N A panic could start.#! Restrain our riskiest boom.",
+             "BUBBLE": "#N A bubble is growing.#! Let the air out before it bursts.",
+             "LEVERAGE": f"#N Leverage is [{sv('spec_lev')}|1] months, past the safe {leverage.SAFE}.#! Tighten credit to lower it.",
+             "NOTHING": "#P Nothing needs us right now.#!"}
+    # the tooltip: what is wrong in figures, then what we can do about it, each line only while it applies
+    mc, fp, tight_c = "[concept_spec_market_confidence]", "[concept_spec_financial_panic]", "[Concept('concept_spec_credit_policy','$concept_spec_credit_policy_tight$')]"
+    top = f"{P}.Var('spec_risk_top_good').GetGoods.GetName"
+    when = lambda cond, key: f"[AddLocalizationIf({cond}, 'SPEC_NEEDS_{key}')]"
+    money = lambda n: f"#v @money![{sv(n)}|D]#!"
+    bad = gt(sv("spec_crunch_tp_pct"), 0.05)
+    do = {"DO_RESCUE": f"#v Lend to the Banks#! for {money('spec_rescue_cost')}. The panic then ends within #v [{sv('spec_rescue_months')}|0]#! months, "
+                       f"its penalties are cut by #P {1 - k['RESCUE_CUT']:.0%}#! and {mc} rises by #P {k['RESCUE_CONF']}#!.",
+          "DO_BAILOUT": f"#v Buy Up Bad Loans#! for {money('spec_bailout_cost')}. [concept_spec_bad_debts] then clear in #v [{sv('spec_bailout_months')}|0]#! months instead of #v [{sv('spec_crunch_months')}|0]#!.",
+          "DO_TIGHT": f"Switch to {tight_c}. Banks stop lending, so our loans are paid off and booms grow smaller.",
+          "DO_KEEP": f"Keep {tight_c}. Our loans are being paid off and booms grow smaller.",
+          "DO_RESTRAIN": f"Restrain Speculation in #v [{top}]#!, our riskiest boom. Its end would cost #N [{BAR_GAP}|1]#! {mc}.",
+          "DO_WAR": f"Settle our [concept_diplomatic_play] before it becomes a war, which could cost #N [{v('spec_war_risk')}|1]#! {mc} a month.",
+          "DO_DEFAULT": f"Pay down our debt. [concept_default] would cost #N {k['DEFAULT_COST']:g}#! {mc} a month.",
+          "DO_BUBBLE": f"Switch to {tight_c}. Below #v [{sv('spec_heat_from')}|0]#! {mc}, the bubble then shrinks by #P {1 - k['HEAT_COOL_TIGHT']:.0%}#! a month instead of #v {1 - k['HEAT_COOL']:.0%}#!.",
+          "DO_HOLD": f"Keep {mc} above #v {k['BURST_BELOW']}#! while it shrinks.",
+          "DO_POOL": "Grow our [concept_investment_pool]. The same loans are then fewer months of its income."}
+    steps = {"DO_RESCUE": can("rescue"), "DO_BAILOUT": can("bailout"), "DO_TIGHT": can_tighten, "DO_KEEP": tight, "DO_RESTRAIN": BAR_RISK,
+             "DO_WAR": WAR_RISK, "DO_DEFAULT": DEFAULT_RISK, "DO_BUBBLE": can_tighten, "DO_BAD_TIGHT": can_tighten}
+    todo = lambda *keys: "\\n\\n#v What We Can Do#!" + "".join(when(steps[x], x) if x in steps else f"$SPEC_NEEDS_{x}$" for x in keys)
+    tip = lambda head, why, *keys, after="": f"#header {head}#!\\n$TOOLTIP_DELIMITER$\\n{why}" + (todo(*keys) if keys else "") + after
+    banking = "\\n$TOOLTIP_DELIMITER$\\n#weak Found on the Banking tab#!"
+    bad_line = when(bad, "BAD")
+    close_why = (f"If every risk struck at once, {mc} would fall to #N [{sv('spec_after_risks')}|1]#!. A {fp} starts below #v [{sv('spec_panic_at')}|1]#!.\\n"
+                 + "".join(f"[AddLocalizationIf({shows}, 'SPEC_RISKS_{name}')]" for name, shows, _ in RISK_PARTS) + f"[AddLocalizationIf({gt(sv('spec_pl_lev'), 0.05)}, 'SPEC_NEEDS_PL')]")
+    tips = {"RESCUE": tip("Financial Panic", f"$SPEC_PANIC_LEFT$. $SPEC_NEEDS_HURTS${bad_line}", "DO_RESCUE", "DO_BAILOUT", after=banking),
+            "PANIC": tip("Financial Panic", f"$SPEC_PANIC_LEFT$. $SPEC_NEEDS_HURTS${bad_line}\\n\\n"
+                         f"[SelectLocalization({P}.Var('spec_rescued').IsSet, 'SPEC_NEEDS_RESCUED', 'SPEC_NEEDS_NO_BANKS')]", after=when(can("bailout"), "PANIC_DO")),
+            "BAILOUT": tip("Bad Debts", f"They cost us #N -[{sv('spec_crunch_tp_pct')}|1]%#! [concept_throughput] and clear in #v [{sv('spec_crunch_months')}|0]#! months.",
+                           "DO_BAILOUT", "DO_BAD_TIGHT", after=banking),
+            "CLOSE": tip("Panic Could Start", close_why, "DO_TIGHT", "DO_RESTRAIN", "DO_WAR", "DO_DEFAULT"),
+            "CLOSE_EARLY": tip("Panic Could Start", close_why, "DO_KEEP", "DO_RESTRAIN", "DO_WAR", "DO_DEFAULT"),
+            "BUBBLE": tip("Bubble Growing", f"Our [concept_spec_speculative_excess] is #v [{XS}|0]#!. If {mc} falls below #v {k['BURST_BELOW']}#!, the bubble bursts and costs #N [{sv('spec_burst_now')}|1]#! more.",
+                          "DO_BUBBLE", "DO_HOLD", "DO_RESTRAIN"),
+            "LEVERAGE": tip("Leverage Past the Safe Line", f"Our banks have lent us #v [{sv('spec_lev')}|1]#! months of [concept_investment_pool] income.\\n"
+                            f"[SelectLocalization({gt(sv('spec_lev'), leverage.DANGER)}, 'SPEC_LEV_ADVICE_DANGER', 'SPEC_LEV_ADVICE_RISKY')]\\n"
+                            f"[AddLocalizationIf({calc.shows(sv('spec_pl_lev'))}, 'SPEC_LEV_PL')][AddLocalizationIf({calc.shows(sv('spec_crunch_tp_if_pct'))}, 'SPEC_LEV_IF_PANIC_LINE')]",
+                            "DO_TIGHT", "DO_POOL", after=f"\\n$TOOLTIP_DELIMITER$\\nWe may also choose to carry it. It adds #P +[{sv('spec_lev_boom_pct')}|1]%#! [concept_throughput] now."),
+            "NOTHING": tip("Nothing Needs Us", f"If every risk struck at once, {mc} would fall to #v [{sv('spec_after_risks')}|1]#!. A {fp} starts below #v [{sv('spec_panic_at')}|1]#!.\\n"
+                           f"Our [concept_spec_leverage] is #v [{sv('spec_lev')}|1]#! months, and past #v {leverage.SAFE}#! is #N Risky#!.{bad_line}")}
+    extra = {"PL": f"\\n\\nOur [concept_spec_leverage] of #v [{sv('spec_lev')}|1]#! months raised the Panic Threshold by #N [{sv('spec_pl_lev')}|1]#!.", "HURTS": f"Until then, [concept_private_construction] is #N [{sv('spec_panic_cut_shown')}|%0]#! lower.",
+             "BAD": "$SPEC_LEV_BAD_NOW$", "RESCUED": "We have already lent to the banks, so it has to run its course.",
+             "NO_BANKS": "Once we have [GetTechnology('banking').GetName], we can lend to the banks to end a panic sooner.",
+             "PANIC_DO": "\\n\\n#v What We Can Do#!$SPEC_NEEDS_DO_BAILOUT$",
+             "DO_BAD_TIGHT": f"\\n$EFFECT_LIST_BULLET$Under {tight_c}, banks clear them by themselves faster."}
+    line = lambda key, text: f' SPEC_NEEDS_{key}: "{text}"\n'
+    return (line("TT", f"[{choose('_TT')}]") + f' SPEC_NEEDS: "[{choose("")}]"\n'
+            + "".join(line(n, x) for n, x in texts.items()) + "".join(line(f"{n}_TT", x) for n, x in tips.items())
+            + "".join(line(n, f"\\n$EFFECT_LIST_BULLET${x}") for n, x in do.items()) + "".join(line(n, x) for n, x in extra.items()))
+
+
 def stage_icons(size):
     """The state's icon, centred: below the wary line without a panic it stays wary."""
     return "".join(f"""icon = {{
@@ -873,7 +965,7 @@ def mood_card():
 	}}
 }}
 """
-    risk_rows = (chip_rows()
+    risk_rows = (needs_row() + chip_rows()
                  + excess_row()
                  + f"""tax_exp_frame = {{
 	size = {{ {W - 2 * CARD_X} {CHART_H + 16} }}
@@ -1109,7 +1201,7 @@ textbox = {{
     # 2026-11-22: the bar moves as confidence's does, vanilla's end glow and, while standards move, the changed value
     # chevrons through the lit part of the level it sits in (cycle.lax_terms' total, a month's change as things stand)
     import interest_list as il  # imports this module
-    total = cycle.lax_terms()[-1]
+    total = cycle.lax_terms()[6]
     up, down = f"GreaterThanOrEqualTo_CFixedPoint({total}, {fx(0.05)})", f"LessThanOrEqualTo_CFixedPoint({total}, {fx(-0.05)})"
     moving = "".join(f"""widget = {{
 	position = {{ {seg * i} 0 }}
@@ -1509,12 +1601,12 @@ def goods_filters(label, row, more=()):
 }}
 """
     # Finance has no MarketPanel context; its filters use our own selection.
-    return section("FILTERS", "spec_hide_filters", body, right="SPEC_CURRENT_GOODS_FILTERS")
+    return section("FILTERS", "spec_show_filters", body, open_by_default=False, right="SPEC_CURRENT_GOODS_FILTERS")
 
 
 def goods_board(k):
     import interest_list  # imports this module
-    return section("CHARTS", "spec_hide_charts_interest", __import__("charts").interest_chart() + 'widget = { size = { 1 10 } }\n' + __import__("charts").sector_chart()) + interest_list.board(k)
+    return section("CHARTS", "spec_show_charts_interest", open_by_default=False, body=__import__("charts").interest_chart() + 'widget = { size = { 1 10 } }\n' + __import__("charts").sector_chart()) + interest_list.board(k)
 
 
 def level_effects():
@@ -1928,7 +2020,7 @@ def tabs(k):
     return out + [
         ("booms", block(header("SPEC_H_MOOD"), card) + __import__("hero").section() + block(header("SPEC_H_GOODS", "SPEC_LEVERS_RIGHT", "SPEC_LEVERS_TT"), goods_board(k))),
         # every tab the same way: large headers for its sections, folding ones only inside a section
-        ("banking", section("CHARTS", "spec_hide_charts_bank", charts.lent() + charts.credit_history())
+        ("banking", section("CHARTS", "spec_show_charts_bank", charts.lent() + charts.credit_history(), open_by_default=False)
          + block(header("SPEC_H_POLICY", "SPEC_H_POLICY_RIGHT", "SPEC_EFFECT_GIVEN_TT", gt(v("spec_credit_given"))), policy())
          + block(header("SPEC_H_RESCUE"), panic_block() + (exch.pledge_row() if exch.ON else ""), gap=GAP)),
         ("world", exch.section() + (block(header("SPEC_H_RIVAL", "SPEC_H_RIVAL_RIGHT"), exch.rival_block())
@@ -2148,14 +2240,14 @@ def loc(k):
             boom = " and ".join(f"{rng(full)} {w}" for full, w in ((None, "[concept_throughput]"), (leverage.INV_FULL if leverage.SMOOTH else 0, "investment")) if full is None or full)
             risk = (" A [concept_spec_financial_panic] leaves no [concept_spec_bad_debts]." if hi <= leverage.SAFE else
                     f" By #v {hi}#! months, a [concept_spec_financial_panic] starts below #N [{sv(f'spec_panic_at_{hi}')}|0]#! [concept_spec_market_confidence] instead of #v {safe_at}#!, "
-                    f"and leaves [concept_spec_bad_debts] costing up to #N -{bad_at(hi)}%#! [concept_throughput] and #N -{bad_at(hi, leverage.CRUNCH_INVEST)}%#! investment.")
+                    f"and leaves [concept_spec_bad_debts] costing up to #N -{bad_at(hi)}%#! [concept_throughput], #N -{bad_at(hi, leverage.CRUNCH_INVEST)}%#! investment and #N -{bad_at(hi, leverage.CRUNCH_BUILD)}%#! construction efficiency.")
             lev_loc += f""" SPEC_LEV_TIER_{i}_TT: "#header {lo} to {hi} Months, {zone(hi)}#!\\n$TOOLTIP_DELIMITER$\\n{unlock[i]}\\n\\nAcross these months, borrowed money adds {boom}.{risk}"
 """
         lev_loc += f""" SPEC_BAILOUT: "Buy Up Bad Loans"
  SPEC_BAILOUT_TT: "#header Buy Up Bad Loans#!\\n$TOOLTIP_DELIMITER$\\nThe state buys up the banks' bad loans and takes the loss itself.\\n\\n[GetScriptedGui('spec_sgui_bailout').BuildTooltip(GuiScope.SetRoot({P}).End)]"
  SPEC_BAD_SCALE: "[concept_spec_bad_debts] come from a [concept_spec_financial_panic] that starts with more than #v {leverage.SAFE}#! months of [concept_spec_leverage], worse the more months, or from a bubble of [concept_spec_speculative_excess] that bursts for more than our [concept_spec_market_confidence]. Banks lend less the more there are, and nothing past #v [{sv('spec_crunch_stop')}|0]#! at our [concept_spec_lending_standards]."
  SPEC_BAD_BUILDING: "\\nStill growing by #N {leverage.CRUNCH_RAMP * leverage.CRUNCH_THROUGHPUT * 100:g}%#! a month, to #N -[{sv('spec_crunch_tp_full_pct')}|1]%#!"
- SPEC_EFFECT_BAD_TT: "#header [concept_spec_bad_debts]: #N -[{sv('spec_crunch_tp_pct')}|1]%#!#!\\n$TOOLTIP_DELIMITER$\\nOur banks' bad loans clear in #v [{sv('spec_crunch_months')}|0]#! months. Until then, banks lend #N [{sv('spec_crunch_lend_cut')}|0]%#! less, and nothing past #v [{sv('spec_crunch_stop')}|0]#!.\\n\\n#N -[{sv('spec_crunch_tp_pct')}|1]%#! [concept_throughput]\\n#N -[{sv('spec_crunch_invest_pct')}|0]%#! investment[AddLocalizationIf({gt(sv('spec_crunch_left'))}, 'SPEC_BAD_BUILDING')]\\n$TOOLTIP_DELIMITER$\\nOnce felt in full, they shrink by #v {leverage.CRUNCH_FADE * leverage.CRUNCH_THROUGHPUT * 100:g}%#! [concept_throughput] a month, or #v {leverage.CRUNCH_FADE_TIGHT * leverage.CRUNCH_THROUGHPUT * 100:g}%#! under [Concept('concept_spec_credit_policy','$concept_spec_credit_policy_tight$')]. The [concept_throughput] borrowed money added fades while they last. #v Buy Up Bad Loans#! clears {leverage.BAILOUT_CUT:.0%} of them, once."
+ SPEC_EFFECT_BAD_TT: "#header [concept_spec_bad_debts]: #N -[{sv('spec_crunch_tp_pct')}|1]%#!#!\\n$TOOLTIP_DELIMITER$\\nOur banks' bad loans clear in #v [{sv('spec_crunch_months')}|0]#! months. Until then, banks lend #N [{sv('spec_crunch_lend_cut')}|0]%#! less, and nothing past #v [{sv('spec_crunch_stop')}|0]#!.\\n\\n#N -[{sv('spec_crunch_tp_pct')}|1]%#! [concept_throughput]\\n#N -[{sv('spec_crunch_invest_pct')}|0]%#! investment\\n#N -[{sv('spec_crunch_build_pct')}|0]%#! construction efficiency[AddLocalizationIf({gt(sv('spec_crunch_left'))}, 'SPEC_BAD_BUILDING')]\\n$TOOLTIP_DELIMITER$\\nOnce felt in full, they shrink by #v {leverage.CRUNCH_FADE * leverage.CRUNCH_THROUGHPUT * 100:g}%#! [concept_throughput] a month, or #v {leverage.CRUNCH_FADE_TIGHT * leverage.CRUNCH_THROUGHPUT * 100:g}%#! under [Concept('concept_spec_credit_policy','$concept_spec_credit_policy_tight$')]. The [concept_throughput] borrowed money added fades while they last. #v Buy Up Bad Loans#! clears {leverage.BAILOUT_CUT:.0%} of them, once."
  SPEC_EFFECT_BAD_NONE_TT: "#header [concept_spec_bad_debts]: #P None#!#!\\n$TOOLTIP_DELIMITER$\\n[SelectLocalization({calc.shows(sv('spec_crunch_tp_if_pct'))}, 'SPEC_BAD_IF', 'SPEC_BAD_IF_NONE')]\\n$TOOLTIP_DELIMITER$\\n$SPEC_BAD_SCALE$"
  SPEC_BAD_IF: "$SPEC_LEV_IF_PANIC$\\n\\n#N -[{bad_lev}|1]%#! from [concept_spec_leverage] (#v [{sv('spec_lev_bad')}|1]#! months)#indent_newline:3 [AddLocalizationIf({not1('spec_nx_bad')}, 'SPEC_BAD_IF_NX')]#!"
  SPEC_BAD_IF_NX: "\\n#v x[{sv('spec_nx_bad')}|2]#! from our [concept_spec_exchange]'s specialities"
@@ -2346,7 +2438,7 @@ def loc(k):
  SPEC_PRESSURE_CREDIT: "Credit"
 {chips} SPEC_DOWNSIDE_TT: "#header Booms at Risk: #N -[{BAR_GAP}|1]#!#!\\n$TOOLTIP_DELIMITER$\\nIf our boom in #v [{P}.Var('spec_risk_top_good').GetGoods.GetName]#! ended now, [concept_spec_market_confidence] would fall by #N [{BAR_GAP}|1]#!.\\n\\n#v [{v('spec_n_risk')}|0]#! of our booms could end. If all of them ended at once, [concept_spec_market_confidence] would fall to #v [{BAR_FLOOR}|1]#! (#v [{by_tier('SPEC_TIER', value=BAR_FLOOR)}]#!).[AddLocalizationIf({gt(v('spec_n_held'))}, 'SPEC_RISK_HELD_LINE')]\\n$TOOLTIP_DELIMITER$\\n#title By Good:#!#indent_newline:3 $SPEC_ITEMS_RISK$#![AddLocalizationIf({market_visual.mt.gt(v('spec_heat_collapse'), market_visual.SHOWN)}, 'SPEC_RISK_SHARE')]"
  SPEC_RISKS: "Risks"
- SPEC_XS: "Excess"
+{needs_loc(k)} SPEC_XS: "Excess"
  SPEC_XS_BAR_OFF: "Needs [GetTechnology('stock_exchange').GetName]"
 {xs} SPEC_HISTORY: "History"
  SPEC_HISTORY_TT: "#header Market Confidence History#!\\n$TOOLTIP_DELIMITER$\\nOur [concept_spec_market_confidence] over the last #v {HISTORY}#! months, with the newest on the right.\\n\\nBars are #v gold#! above #v {HIST_MID}#! and #v blue#! below it. They turn #N red#! when the market is #v {BAND_NAMES[0]}#!, below #v {TIERS[0][2]}#!, or in #v {BAND_NAMES[-1]}#!, above #v {TIERS[-1][1]}#!."
@@ -2441,8 +2533,8 @@ def loc(k):
  SPEC_PANIC_TT_END: "$SPEC_PANIC_RELIEF_NOTE$\\n\\n$SPEC_PANIC_RECOVERY$"
  SPEC_PANIC_ALL_EFFECTS: "$SPEC_PANIC_ECONOMY$\\n$SPEC_PANIC_EFFECTS$"
  SPEC_PANIC_ALL_EFFECTS_RESCUED: "$SPEC_PANIC_ECONOMY_RESCUED$\\n$SPEC_PANIC_EFFECTS_RESCUED$"
- SPEC_PANIC_ECONOMY: "$ALL_BUILDINGS$: [concept_throughput] #N {k['PANIC_THROUGHPUT']:+.0%}#!\\n$state_tax_collection_mult$: #N {k['PANIC_TAX']:+.0%}#!"
- SPEC_PANIC_ECONOMY_RESCUED: "$ALL_BUILDINGS$: [concept_throughput] #N {k['PANIC_THROUGHPUT'] * k['RESCUE_CUT']:+.0%}#!\\n$state_tax_collection_mult$: #N {k['PANIC_TAX'] * k['RESCUE_CUT']:+.1%}#!"
+ SPEC_PANIC_ECONOMY: "$ALL_BUILDINGS$: [concept_throughput] #N {k['PANIC_THROUGHPUT']:+.0%}#!\\n$state_construction_mult$: #N {k['PANIC_BUILD']:+.0%}#!\\n$state_tax_collection_mult$: #N {k['PANIC_TAX']:+.0%}#!"
+ SPEC_PANIC_ECONOMY_RESCUED: "$ALL_BUILDINGS$: [concept_throughput] #N {k['PANIC_THROUGHPUT'] * k['RESCUE_CUT']:+.0%}#!\\n$state_construction_mult$: #N {k['PANIC_BUILD'] * k['RESCUE_CUT']:+.0%}#!\\n$state_tax_collection_mult$: #N {k['PANIC_TAX'] * k['RESCUE_CUT']:+.1%}#!"
  spec_panic_relief: "Panic Relief"
  spec_panic_relief_desc: "The Treasury makes weekly payments to the unemployed until the [concept_spec_financial_panic] ends."
  SPEC_RESCUE_EXCEPTIONS: "#weak Does not cut $spec_panic_relief$ or win back the people radicalized when the panic began#!"

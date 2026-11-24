@@ -54,7 +54,7 @@ spec_mechanics_banking.1 = {
         if = { limit = { spec_lax_credit = 1.35 spec_lax_pull = 1.5 spec_lax_cost = 1.5 } debug_log = "HOTFIX PASS reckless_standards_multipliers" }
         else = { debug_log = "HOTFIX FAIL reckless_standards_multipliers" }
 
-        # A bailout clears 30% of remaining bad debt, cannot increase its current bite,
+        # A bailout clears 25% of remaining bad debt (LEV_BAILOUT_CUT), cannot increase its current bite, leaves standards as they were (LAX_RESCUE 0),
         # and is unavailable a second time during the same spell.
         if = { limit = { NOT = { has_technology_researched = banking } } add_technology_researched = banking }
         remove_variable = spec_bailed
@@ -62,7 +62,7 @@ spec_mechanics_banking.1 = {
         set_variable = { name = spec_crunch_bite value = 15 }
         set_variable = { name = spec_lax value = 0.9 }
         spec_bailout = yes
-        if = { limit = { var:spec_crunch = 14 var:spec_crunch_bite = 14 var:spec_lax = 1 has_variable = spec_bailed has_modifier = spec_credit_crunch_v2 NOT = { spec_can_bailout = yes } } debug_log = "HOTFIX PASS bailout_cuts_debt_caps_bite_and_repeats" }
+        if = { limit = { var:spec_crunch = 15 var:spec_crunch_bite = 15 var:spec_lax = 0.9 has_variable = spec_bailed has_modifier = spec_credit_crunch_v2 NOT = { spec_can_bailout = yes } } debug_log = "HOTFIX PASS bailout_cuts_debt_caps_bite_and_repeats" }
         else = { debug_log = "HOTFIX FAIL bailout_cuts_debt_caps_bite_and_repeats" }
         debug_log = "HOTFIX SUITE COMPLETE"
     }

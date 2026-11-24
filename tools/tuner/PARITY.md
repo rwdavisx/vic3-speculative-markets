@@ -215,3 +215,47 @@ Pool efficiency was chosen over `country_private_construction_allocation_mult`. 
 **Sweep.** Halving ran at 56 and 168 economies on seed 19. The first pass used the full grid of TP_FULL and INV_FULL from 0.15 to 0.45 and CURVE 1, 0.75 and 0.5 (147 candidates). At every grid point reckless beat careful, so the second pass added `LEV_CRUNCH_INVEST`, `LEV_PANIC_SPAN` and `AI_LEV_SCALE` (240 random draws). The finalists were then checked at 500 economies on seeds 19 and 7. No separate one-step key map was run, because the new keys start from off. Over the finalists, front-loaded shapes keep reckless below careful most often (CURVE 0.5: 55% of finalists, against 6-8% for 0.75 and 1), but moderate leads careful by less. The tuner's reckless bot carries only about 3.1 months of leverage, and its outcomes spread less than skilled's, so the model cannot show heavy leverage as a gamble.
 
 Winner (`build_scratch/candidates/smooth_20261123.json`): LEV_REWARD_TP_FULL unset -> 0.15, LEV_REWARD_INV_FULL unset -> 0.25, LEV_REWARD_CURVE unset -> 0.75, LEV_CRUNCH_INVEST 0.0075 -> 0.03, LEV_PANIC_SPAN 50 -> 70. At 500 economies on seeds 19 / 7: skilled-careful +0.62 / +0.56, skilled-ai +0.27 / +0.42, skilled_timing-ai -0.13 / +0.06, reckless-careful -0.66 / -0.88. It meets 23 and 21 of 33 targets, against 25 and 24 for the baseline with growth on. AI panics rise from 3.4 to 4.8 a century, and AI distrust from 9.6 to 14.4%. Mean confidence moves by +0.06 and Buoyant-or-Mania months by +0.9 points. "Output lost over one panic" reads -7 and leaves its band, because the compounding level makes it negative. No game has run with these values.
+
+## Roughness refit to the 1.2.0 games' panic rates, November 24, 2026
+
+**What was off.** At 1.2.0 values (released `tuning.json` from 7be4bdc, `LAX_RESCUE` 0.25, no sober drift or rescued-panic lesson) the engine gave 0.36 / 0.68 AI panics a country-decade (1866-76 / 1896-1906, 1000 economies, seed 1) against 0.62-0.77 / 0.77-0.96 for the top 40 in `runs/windows_120` (campaign, parallel, parallel2, parallel3). The logged `d_<name>` breakdown was compared driver by driver with the engine's (the comparison scripts were scratch files, not kept; their numbers are below).
+
+- Confidence's level and spread already match: mean 55.2 / 56.2 (game 52.1-55.4 / 55.0-57.2), month-to-month sd 2.74 / 2.92 (2.69-2.99 / 2.78-3.20), 5th percentile 38.0 / 36.2 (32-38 / 34-37). The engine already has more Mania than the AI games in 1866 (1.27% against 0.27-1.18%).
+- The game has more months near or below the panic line (1866: margin under 5 points 1.8-3.2% of months against 1.2%), more re-panics in 1866 (12-24% of panics within 13 months of the last, against 5.5%), and two to four times the engine's panics from 30 or more points above the line. Its Wary-or-Panic share is higher (8.3-13.0 / 11.7% against 7.5 / 9.7%) with no more Mania: the left tail is fatter, the right tail is not.
+- Smaller real gaps, each tested alone and worth 0.00-0.04 panics a decade: Market Mood swings 14% / 8% small and recovery 15% / 6% fast because modeled Exchange trust is too high (0.60 / 0.47 against 0.44-0.47 / 0.34-0.39 of `CALM`); GDP's growth push spreads 20% less (GDP noise about half the game's); Rival Lures half the game's (0.57 / 0.61 against 1.1-1.4 / 0.9-1.2 a country-decade, because lev below `rivals.AI_LEV` is 8% of months against 10-16%; doubling `lure_rate` adds only 0.1 Lures); the leverage distribution is narrower at both ends; pool income's slow swings are half the game's (12-month log change sd 0.15 / 0.19 against 0.26-0.37, which moves leverage not at all because lending follows pool income); government debt drag is absent (game -0.01 to -0.03 a month).
+- The roughness stand-in (`after_panic`, `rough_sd`, `rough_months`) was last fitted to `sweep_calib12`, before 1.2.0. Raising the symmetric `rough_sd` reaches the panic rates only with too much Mania (2.5 / 4.4% at 0.57 / 0.90 panics). `after_panic` moves nothing, since it ends with the 12-month cooldown.
+
+**Change (engine inputs only).** `engine.INPUTS` gains `rough_skew` (default 0: the old symmetric swing, byte-for-byte). At 1 the swing's falls are doubled and its rises dropped, recentred to mean 0 (`2 min(x, 0) + rough_sd sqrt(2 / pi)`). `inputs.json`: `rough_sd` 1.07 -> 2.5, `rough_months` 7.66 -> 1 (half-life), `rough_skew` 0 -> 1, recorded under `source.roughness_20261124`. No tuning value, generator, target or mod file changed.
+
+**Parity at 1.2.0 values** (1000 economies, before -> after; seed 7 in brackets):
+
+| 1866-76 / 1896-1906 | game | before | after |
+| --- | --- | --- | --- |
+| Panics a decade | 0.62-0.77 / 0.77-0.96 | 0.36 / 0.68 | 0.61 / 0.97 (0.60 / 0.96) |
+| Months in panic % | 1.0-1.7 / 1.5-2.0 | 0.78 / 1.70 | 1.14 / 2.20 |
+| Months in Mania % | 0.27-1.18 / 1.9-3.25 | 1.27 / 2.75 | 1.39 / 3.05 |
+| Buoyant or Mania % | 23.4-35.9 / 35.4-41.9 | 31.7 / 38.8 | 34.8 / 40.9 |
+| Confidence, mean | 52.1-55.4 / 55.0-57.2 | 55.2 / 56.2 | 55.3 / 56.4 |
+| Reckless months % | 28.4-31.9 / 31.5-38.9 | 25.4 / 28.6 | 26.2 / 30.7 |
+| Trust below 30 % | 42.9-45.4 / 49.9-56.5 | 33.0 / 43.2 | 34.3 / 45.0 |
+| Panics rescued % | 31-68 / 41-53 | 62 / 53 | 70 / 58 |
+| Freeze spell p90 | 2-19.6 / 16.9-26.4 | 13.8 / 20.6 | 13.4 / 20.0 |
+
+1836-46 panics 0.06 -> 0.11 (game 0.08-0.23). Engine self-check passes (113 constants).
+
+**Design targets, 1.2.1 values plus the banking fix** (500 economies, 100 years): seed 19 21 -> 22 of 31 (score 28.31 -> 25.39), seed 7 21 -> 24 (29.81 -> 24.48). Passive panics 3.50 / 3.39 -> 4.70 / 4.68 and AI panics 2.97 / 2.64 -> 4.50 / 4.64 enter their bands; careful panics 1.94 / 1.79 and passive Bad Debts length 26.0 / 26.5 stay in. Wary or Panic (passive) 4.6 -> 7.9 (band 8-25) just misses. New misses on seed 19: skilled-careful 0.22 (0.65 before), skilled-ai 0.49, reckless panics stopping lending 34.4; on seed 7 skilled-careful 0.19.
+
+**Caveats.** The skewed swing is a stand-in, not a mechanism: what it replaces is spread over the trust, Lure, leverage-tail and re-panic gaps above. Its two panic rates sit at the range edges, because every shape tried keeps the engine's 1866 / 1896 ratio near 0.63 against the games' 0.65-0.8. Panics rescued rise past the games' range. Passive Mania months stay about 1% (band 2-8): the AI games themselves have 0.3-3.3%, so that miss is a design question, not engine heat. More panics cost skilled play against careful, so the skill gap targets now miss. No game has run with this calibration.
+
+## Construction growth, November 24, 2026
+
+Paired games to 1845 (random half of countries boosted): construction -20% cut growth about 1.66 points a year (90% range
+excludes zero), +20% added about 1.4 (through 1839 only), investment pool -50% about -0.1 to -0.5 and x2 about +0.05.
+So `con_growth` is new at 0.07 a unit of construction and `inv_growth` goes from 3.5 to 0.25. Nine years of data, held flat
+for the century. `growth_edge` now averages the last five years and subtracts rescue and buy-up spending; a panic's output
+loss is measured from the gap it began from; the boom comparison leaves out what the century built.
+`output_pct` targets predate compounding growth and need rebasing: growth_edge is the measure for 1.3.
+
+Boom building (an industry's construction bonus, its goods' moods averaged by market value, `BB_STEP` 0.15 at all Eager): one AI game 1836-59 with
+Sound Credit 0.015 and Bad Debts 0.04 logged +0.86% construction over all countries and +0.85% over the top 15 (highest
+France 16.6%, world 30%); the tuner gives +0.75%, so it is not refit. One game, AI only: a player's share is untested.

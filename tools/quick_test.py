@@ -65,7 +65,7 @@ def immediate_cases():
         "ai_frequency", "capitulation", "cashflow", "contagion", "crisis_overlap",
         "depression", "depression_options", "depression_pops", "depression_social",
         "panic", "pledge_cash", "renown_score", "rival_ai", "rival_bounds", "rival_choose",
-        "review_120", "investor_sentiment", "rival_large_network", "rival_network", "rival_press", "rival_year", "standing",
+        "review_120", "investor_sentiment", "rival_large_network", "rival_network", "rival_points", "rival_press", "rival_put", "rival_year", "standing",
     )
     available = []
     for case in sorted((*IMMEDIATE, *individual)):

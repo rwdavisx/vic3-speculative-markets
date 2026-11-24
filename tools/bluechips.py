@@ -36,6 +36,7 @@ COTY_PRESTIGE = tuning.get("BC_COTY_PRESTIGE", 0.05)
 # until 1.2 also -1% loan interest each, and 0.006: with the Pockets pursuit about 35% more capital than vanilla's 0.30
 INDEX = tuning.get("BC_INDEX", [["state_capitalists_investment_pool_contribution_add", 0.004]])
 PULL = tuning.get("BC_PULL", 0.03)
+PULL_MONTH = PULL * 50 / 60  # in a contest's points (0 to 100) a month, over its 60 (rivals.STEP)
 RATTLE_DAYS = tuning.get("BC_RATTLE_DAYS", 365)
 
 CO = "[SCOPE.sCompany('spec_bc_co').GetName]"
@@ -129,7 +130,7 @@ def after_update(t="\t\t"):
 {t}			limit = {{ has_variable = spec_bc_wobble }}
 {t}			owner = {{ trigger_event = {{ id = spec_bluechip.2 popup = yes }} }}
 {t}		}}
-{t}		else = {{ owner = {{ trigger_event = {{ id = spec_bluechip.1 popup = yes }} }} }}
+{t}		else = {{ owner = {{ trigger_event = {{ id = spec_bluechip.1 }} }} }}
 {t}	}}
 {t}}}
 """
@@ -319,7 +320,7 @@ def loc():
         'ask the market for more."\n'
         ' spec_bluechip.1.f: "Safe as the Bank, they say."\n'
         ' spec_bluechip.1.a: "Ring the bell for them"\n'
-        f' spec_bluechip.1.a.tt: "Our {trust}: #P +{BELL_TRUST / 1.2:.1f}%#! of the full bar"\n'
+        f' spec_bluechip.1.a.tt: "We gain #P +{BELL_TRUST / 1.2:.1f}#! {trust}"\n'
         ' spec_bluechip.1.b: "Let them issue new shares"\n'
         f' spec_bluechip.1.b.tt: "Our [concept_investment_pool]: #P +[ROOT.GetCountry.MakeScope.ScriptValue(\'spec_bc_shares\')|D]#! @money!\\n'
         f'{CO} turns fragile for #v {FRAGILE_YEARS}#! years, so one month below #v {__import__("companies").BLUE_PROSPER:g}#! '
@@ -333,13 +334,13 @@ def loc():
         f'{CO} keeps its status for #v {PROP_MONTHS}#! months, whatever its profits"\n'
         ' spec_bluechip.2.b: "Let the market decide"\n'
         f' spec_bluechip.2.b.tt: "If it stays below the mark for #v {__import__("companies").BLUE_LOSE}#! months:\\n'
-        f'Our {trust}: #N -{FALL_TRUST / 1.2:.1f}%#! of the full bar\\n[concept_spec_market_confidence]: #N -{FALL_CONF}#!"\n'
+        f'We lose #N {FALL_TRUST / 1.2:.1f}#! {trust} and #N {FALL_CONF}#! [concept_spec_market_confidence]"\n'
         ' spec_bluechip.3.t: "Company of the Year"\n'
         f' spec_bluechip.3.d: "The financial press of every capital agrees that {CO} is the most prosperous company in the '
         'world this year. Our Exchange basks in its glory."\n'
         ' spec_bluechip.3.f: "Every clerk in the City wants a share of it."\n'
         ' spec_bluechip.3.a: "A proud day"\n'
-        f' spec_bluechip.3.a.tt: "Our {trust}: #P +{COTY_TRUST / 1.2:.1f}%#! of the full bar\\n$spec_coty$ for a year: [concept_prestige] #P +{pc(COTY_PRESTIGE)}#!"\n'
+        f' spec_bluechip.3.a.tt: "We gain #P +{COTY_TRUST / 1.2:.1f}#! {trust}, and $spec_coty$ gives #P +{pc(COTY_PRESTIGE)}#! [concept_prestige] for a year"\n'
     )
 
 
@@ -351,7 +352,7 @@ def effect_lines(val, each=False):
     # 2026-11-22: modifier lines, the figure first (no "Label: value"); trust in points of 100, as its bar shows
     rows = [("less [concept_spec_market_confidence] lost when booms end and in [Concept('concept_spec_foreign_panic','$concept_spec_foreign_panics$')]", "", SHELTER * 100, "0", "%"),
             ("[concept_spec_exchange] trust a year", "+", DIVIDEND * 100 / 120, "1", ""),
-            ("of [concept_spec_exchange] contests our way", "+", PULL * 100, "0", "%"),
+            ("a month in our [concept_spec_exchange] contests", "+", PULL_MONTH, "2", ""),
             ("Capitalists' [concept_investment_pool] contribution", "+", idx["state_capitalists_investment_pool_contribution_add"] * 100, "1", "%")]
     return "\\n".join(f"#P {sign}{val(x, f)}{unit}#! {name}" + (f" #grey ({sign}{x:.{f}f}{unit} each)#!" if each else "")
                       for name, sign, x, f, unit in rows)

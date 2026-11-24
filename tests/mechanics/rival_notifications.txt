@@ -1,7 +1,7 @@
 namespace = spec_mechanics_rival_notifications
 spec_mechanics_rival_notifications.1 = { type = country_event hidden = yes immediate = {
     # Only these pairs participate in the synthetic monthly settlements.
-    every_country = { clear_variable_list = spec_rv_chosen clear_variable_list = spec_rv_age_59 }
+    every_country = { clear_variable_list = spec_rv_chosen clear_variable_map = spec_rv_pts clear_variable_list = spec_rv_age_59 }
     every_country = {
         limit = { OR = { this = c:GBR this = c:FRA this = c:PRU this = c:AUS } }
         save_scope_as = spec_t
