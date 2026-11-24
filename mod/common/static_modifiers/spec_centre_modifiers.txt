@@ -237,4 +237,5 @@ spec_trust_1 = {
 spec_trust_3 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
 	interest_group_ig_industrialists_approval_add = 2
+	country_prestige_mult = 0.05
 }

@@ -231,12 +231,15 @@ def era_stats(series):
                 if "braw" in s:  # the push's shape: months at the cap (CONF_BOOM_MAX) and months with nothing hot
                     per[f"cap_e{j}"].append(float((s["braw"][sel] >= engine.g.CONF_BOOM_MAX).mean()))
                     per[f"zero_e{j}"].append(float((s["braw"][sel] < 0.01).mean()))
+                    per[f"wsum_e{j}"].append(float(s["wsum"][sel].mean()))  # the goods' summed weights, generate's spec_weight_<g>
+                    for v in (1, 2, 3) if "end1" in s else ():  # endings a year by severity (generate.UNWINDS: Correction, Bust, Collapse)
+                        per[f"end{v}_e{j}"].append(float(s[f"end{v}"][sel].mean() * 12))
     return {k: q(v) for k, v in per.items()}
 
 
 def kept_series(e):
     """The engine's kept months, one series per economy, as the logs give them."""
-    keys = KEYS + ("braw",) * ("braw" in e.kept[0])
+    keys = KEYS + tuple(k for k in ("braw", "wsum", "end1", "end2", "end3") if k in e.kept[0])
     arr = {k: np.stack([m[k] for m in e.kept]) for k in keys}
     year = 1836 + np.arange(len(e.kept)) / 12
     return [{**{k: arr[k][:, i] for k in keys}, "year": year} for i in range(e.keep)]
@@ -288,7 +291,7 @@ BLOCKS = (  # what the direct reading can't set: (name, the inputs scaled togeth
     ("turmoil", ("war_rate", "war_months", "war_cost"), (("war_rate", "p50"), ("war_months", "p50"), ("war_cost", "p50"), ("war_total", "p50"), ("war_total", "p90"))),
     ("foreign panics", ("foreign_rate", "foreign_size"), (("foreign_rate", "p50"), ("foreign_size", "p50"), ("foreign_total", "p50"), ("foreign_total", "p90"))),
     AUTHORITY,
-    ("boom model", ("boom_rate", "boom_peak", "boom_months", "good_share", "goods"),
+    ("boom model", ("price_sd", "price_months"),
      (("boom_share", "mean"), ("boom_size", "p50"), ("boom_size", "p90"), ("crash_share", "mean"), ("crash_size", "p50"), ("crash_size", "p90"),
       ("boom_mean", "p10"), ("boom_mean", "p90"), ("crash_mean", "p10"), ("crash_mean", "p90"),
       ("boom_year", "p50"), ("boom_year", "p90"), ("crash_year", "p50"), ("crash_year", "p90"))),
@@ -393,14 +396,18 @@ def campaign_history():
     import fiscal
     import windows
     M = windows.CAMPAIGN_YEARS * 12
-    shocks = {"turmoil": "d_turmoil", "foreign": "d_foreign", "warend": "d_warend"}  # engine.world's t, f and w, as read() takes them
-    seen = windows.parse(windows.CAMPAIGN / "telemetry.log", 1836, M, ("gdp", "econ", "money", "techs", "depth", "steady", *shocks.values()))
+    # engine.world's t, f and w, as read() takes them; and Business Mood (economy.BUSINESS: the Industrialists' approval,
+    # which follows laws and politics the engine does not model)
+    shocks = {"turmoil": "d_turmoil", "foreign": "d_foreign", "warend": "d_warend", "business": "d_business"}
+    seen = windows.parse(windows.CAMPAIGN / "telemetry.log", 1836, M, ("gdp", "econ", "money", "techs", "depth", "steady", "stand", *shocks.values()))
     starts = [(int(y) - 1836) * 12 for y in fiscal.profiles()[0]]
     ranked = [list(windows.top(seen, a, 1)) for a in starts]  # top(): the largest in their first month there
     tags = sorted(set(sum(ranked, [])) | set(fiscal.power_tags()))
     ranks = np.array([[tags.index(t) for t in r] for r in ranked])
-    # laws and techs as codes; Financial District depth and Manor House steadiness (generate.values: spec_depth, spec_steady) as they are
-    h = {k: np.zeros((len(tags), M), np.int16 if k in ("econ", "money", "techs") else np.float32) for k in ("econ", "money", "techs", "depth", "steady")}
+    # laws and techs as codes; Financial District depth and Manor House steadiness (generate.values: spec_depth, spec_steady) as they are;
+    # the Exchange's Standing (spec_exch_stand, 0 Local to 3 World Centre), which the AI's rescue pledge needs at National (1)
+    h = {k: np.zeros((len(tags), M), np.int16 if k in ("econ", "money", "techs", "stand") else np.float32)
+         for k in ("econ", "money", "techs", "depth", "steady", "stand")}
     last = np.full(len(tags), -1)
     for i, t in enumerate(tags):
         rows = seen.get(t, {})
@@ -424,25 +431,27 @@ def campaign_history():
     print(f"  {len(tags)} tags, ranks {ranks.shape} at months {starts}; saved {engine.WORLD}")
 
 
-BOOM_KEYS = ("boom_rate", "boom_peak", "boom_months", "good_share", "goods", "share_trend")
+BOOM_KEYS = ("price_sd", "price_months")  # fitted, from the logs' 14 months; the basket and engine.SHARE_SD's constants are measured
+BASKET_KEYS = ("goods", "goods_growth")
+RETIRED = ("good_share", "share_trend", "boom_rate", "boom_months", "boom_peak", "boom_fall")  # the old boom episodes' inputs
 ERA_AIMS = tuple((f"{k}_e{j}", "mean") for j in range(len(ERAS)) for k in ("boom", "crash"))
 # the push's shape each decade: the logged push is nearly all or nothing (months at the cap, months with nothing hot)
 SHAPE_AIMS = tuple((f"{k}_e{j}", "mean") for j in range(len(ERAS)) for k in ("cap", "zero"))
+END_AIMS = tuple((f"end{v}_e{j}", "mean") for j in range(len(ERAS)) for v in (1, 2))  # Collapses are too rare to aim at
 
 
-def campaign_boom():
-    """fit.py --boom: the boom model (BLOCKS' boom block, with share_trend) refit to the clean 1.2.0 campaign alone, its
-    pooled figures and each decade's mean push and endings (ERAS), on the engine as it now stands (history, world)."""
+def campaign_aims():
+    """The clean 1.2.0 campaign's figures for fit.py --boom: stats() pooled, and each decade (ERAS) as windows.py cuts it
+    (its own 40 largest, as the engine's economies follow by rank). -> (figures, the campaign's series)"""
     import windows
-    sys.stdout.reconfigure(errors="replace")
     series = read(str(windows.CAMPAIGN / "telemetry.log"))
     L = stats(series)
     # each decade as windows.py cuts it (its own 40 largest, as the engine's economies follow by rank): the logged push,
     # and the endings at resting confidence as kept_series has them (crash x CONF_START over last month's confidence)
-    seen = windows.parse(windows.CAMPAIGN / "telemetry.log", 1836, windows.CAMPAIGN_YEARS * 12, ("gdp", "conf", "boom", "crash", "braw"))
+    seen = windows.parse(windows.CAMPAIGN / "telemetry.log", 1836, windows.CAMPAIGN_YEARS * 12, ("gdp", "conf", "boom", "crash", "braw", "wsum", "end1", "end2", "end3"))
     for j, (a, b) in enumerate(ERAS):
         rows = windows.top(seen, (a - 1836) * 12, (b - a) * 12)
-        boom, crash, cap, zero = [], [], [], []
+        boom, crash, cap, zero, wsum, ends = [], [], [], [], [], {v: [] for v in (1, 2, 3)}
         for t, r in rows.items():
             if len(r) < (b - a) * 12 * 0.8:
                 continue
@@ -451,26 +460,49 @@ def campaign_boom():
             crash.append(-np.mean([r[k]["crash"] * engine.current()["CONF_START"] / max(r.get(k - 1, r[k])["conf"], 1) for k in ks]))
             cap.append(np.mean([r[k]["braw"] >= engine.g.CONF_BOOM_MAX for k in ks]))
             zero.append(np.mean([r[k]["braw"] < 0.01 for k in ks]))
-        L[f"boom_e{j}"], L[f"crash_e{j}"], L[f"cap_e{j}"], L[f"zero_e{j}"] = q(boom), q(crash), q(cap), q(zero)
+            wsum.append(np.mean([r[k]["wsum"] for k in ks]))
+            for v in ends:
+                ends[v].append(np.mean([r[k][f"end{v}"] for k in ks]) * 12)
+        L[f"boom_e{j}"], L[f"crash_e{j}"], L[f"cap_e{j}"], L[f"zero_e{j}"], L[f"wsum_e{j}"] = q(boom), q(crash), q(cap), q(zero), q(wsum)
+        for v in ends:
+            L[f"end{v}_e{j}"] = q(ends[v])
+    return L, series
+
+
+def boom_aims():
+    """The figures fit.py --boom aims at (BLOCKS' boom block, each decade's push, its shape and endings by severity)."""
+    return next(b for b in BLOCKS if b[0] == "boom model")[2] + ERA_AIMS + SHAPE_AIMS + END_AIMS
+
+
+def campaign_boom():
+    """fit.py --boom: the boom model's two free inputs (each good's price swing a month and how long a deviation lasts,
+    BLOCKS' boom block) refit to the clean 1.2.0 campaign alone: its pooled figures, each decade's mean push and endings
+    (ERAS), the push's shape and the endings a year by severity, on the engine as it now stands (history, world). The
+    search starts from engine.INPUTS (price_months from the logs' autocorrelation). The goods' basket is measured
+    (engine.INPUTS goods and goods_growth, written as they are); the retired episode inputs go."""
+    sys.stdout.reconfigure(errors="replace")
+    import windows
+    L, series = campaign_aims()
     cfg = engine.defaults()
     cfg["inputs"]["years"] = windows.CAMPAIGN_YEARS
-    if not any(np.atleast_1d(cfg["inputs"]["share_trend"])):
-        cfg["inputs"]["share_trend"] = [-1.0, -1.0]  # search() scales a range: start it off zero
-    name, keys, aims = next(b for b in BLOCKS if b[0] == "boom model")
+    cfg["inputs"] |= {k: list(engine.INPUTS[k][0]) for k in BASKET_KEYS + BOOM_KEYS}
+    name, keys, _ = next(b for b in BLOCKS if b[0] == "boom model")
+    aims = boom_aims()
+    checks = tuple((f"{k}_e{j}", "mean") for j in range(len(ERAS)) for k in ("wsum", "end3"))
     with mp.get_context("spawn").Pool(os.cpu_count()) as pool:
-        # the block against the pooled figures, each decade's level and the push's shape; then the trend for the decades
-        cfg = search(pool, cfg, L, name, keys, aims + ERA_AIMS + SHAPE_AIMS)
-        cfg = search(pool, cfg, L, "share trend", ("share_trend",), ERA_AIMS + SHAPE_AIMS)
+        cfg = search(pool, cfg, L, name, keys, aims)
     E = engine_stats((cfg, 1000, 3))
     saved = json.loads(OUT.read_text(encoding="utf-8"))
-    for k in BOOM_KEYS:
+    for k in RETIRED:
+        saved["inputs"].pop(k, None)
+    for k in BOOM_KEYS + BASKET_KEYS:
         print(f"  {engine.INPUTS[k][3]}: {saved['inputs'].get(k, engine.INPUTS[k][0])} -> {cfg['inputs'][k]}")
         saved["was"].setdefault(k, saved["inputs"].get(k, engine.INPUTS[k][0]))
         saved["inputs"][k] = cfg["inputs"][k]
     saved["source"]["campaign_boom"] = {"countries": len(series), "made": time.strftime("%Y-%m-%d %H:%M"),
-                                        "aims": {f"{s} {p}": [L[s][p], E[s][p]] for s, p in aims + ERA_AIMS + SHAPE_AIMS}}
+                                        "aims": {f"{s} {p}": [L[s][p], E[s][p]] for s, p in aims + checks}}
     OUT.write_text(json.dumps(saved, indent=1) + "\n", encoding="utf-8", newline="\n")
-    for s, p in aims + ERA_AIMS + SHAPE_AIMS:
+    for s, p in aims + checks:
         print(f"  {s:12s} {p}: campaign {L[s][p]:8.3f}  engine {E[s][p]:8.3f}")
     print(f"Saved {OUT}")
 

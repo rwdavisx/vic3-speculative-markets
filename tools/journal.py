@@ -15,12 +15,14 @@ everyone and MONTHLY_AI in its AI block, and BARS in its bar update.
 import investor_sentiment as sent
 import calc
 import cycle
+import economy
 import goods_panel
 import icons
 import leverage
 import market_tab as mt
 import monetary
 import stories
+import tuning
 
 # the map mode's colours, by stage (spec_stage); stripes mark a country a foreign panic has just reached
 MAP_COLORS = {"ld": "rgb{ 70 45 95 }", "panic": "rgb{ 170 30 35 }", "aftermath": "rgb{ 150 95 85 }", "mania": "rgb{ 235 185 40 }",
@@ -48,6 +50,27 @@ REFORMS = {
 }
 SOUND_PRESTIGE = 10  # Sound Finance was also -5% loan interest until 1.2 (centres.WORLD_FX)
 SHELVE_CONF = 3  # Market Confidence when the inquiry is shelved
+# the AI's journal rules (MONTHLY_AI), percent a month once it can, and its weights in the inquiry's report (spec_reform.1's
+# ai_chance): Currency School and Free Banking each get REFORM_AI_TEMPER more from a Cautious or a Bold temperament
+AI_INQUIRY_CHANCE = tuning.get("AI_INQUIRY_CHANCE", 10)
+AI_CONVERT_CHANCE = tuning.get("AI_CONVERT_CHANCE", 10)
+AI_RELIEF_CHANCE = tuning.get("AI_RELIEF_CHANCE", 20)
+REFORM_AI_CURRENCY = tuning.get("REFORM_AI_CURRENCY", 10)
+REFORM_AI_FREE = tuning.get("REFORM_AI_FREE", 10)
+REFORM_AI_LLR = tuning.get("REFORM_AI_LLR", 25)
+REFORM_AI_COMPANY = tuning.get("REFORM_AI_COMPANY", 15)
+REFORM_AI_SHELVE = tuning.get("REFORM_AI_SHELVE", 5)
+REFORM_AI_TEMPER = tuning.get("REFORM_AI_TEMPER", 30)
+REFORM_AI = {"currency": REFORM_AI_CURRENCY, "free": REFORM_AI_FREE, "llr": REFORM_AI_LLR, "company": REFORM_AI_COMPANY, "shelve": REFORM_AI_SHELVE}
+LOG = "--log" in __import__("sys").argv  # generate.py --log: a SPECJ line for each of the AI's journal actions
+
+
+def _log(act, t, extra=""):
+    """--log: SPECJ tag= date= act= [opt=] temper= for an AI's journal action (tools/tuner)."""
+    if not LOG:
+        return ""
+    return (f"{t}if = {{ limit = {{ is_ai = yes }} debug_log = \"SPECJ tag=[THIS.GetCountry.GetTagName] date=[TimeKeeper.GetCurrentDate.GetString] "
+            f"act={act}{extra} temper=[THIS.Var('spec_temper').GetValue]\" }}\n")
 # timed interest group modifiers: key, icon, approval, name
 IG_MODIFIERS = [
     ("spec_rentiers_cut", "modifier_coins_negative", -2, "Rentier Income Cut"),  # no apostrophe: vanilla quotes modifier names in ADD_MODIFIER tooltips
@@ -169,9 +192,16 @@ def values(k):
             + flag("spec_currency_v", HAS["currency"]) + flag("spec_free_v", HAS["free"])
             + flag("spec_llr_v", HAS["llr"]) + flag("spec_company_v", HAS["company"])
             + flag("spec_has_stock_exchange", "has_technology_researched = stock_exchange")
-            # where confidence would land if every boom at risk collapsed now, for the Panic Risk alert
-            + "spec_after_collapse = {\n\tvalue = 100\n\tif = {\n\t\tlimit = { has_variable = spec_conf has_variable = spec_exposure }\n"
-              "\t\tvalue = var:spec_conf\n\t\tsubtract = var:spec_exposure\n\t\tmin = 0\n\t}\n}\n")
+            # where confidence would land if the Risks row's risks struck now, for the Panic Risk alert:
+            # market_tab.RISK_FLOOR in script, each risk counted only while its chip shows (market_tab.RISK_PARTS)
+            + "spec_after_risks = {\n\tvalue = 100\n\tif = {\n\t\tlimit = { has_variable = spec_conf }\n\t\tvalue = var:spec_conf\n"
+              "\t\tif = {\n\t\t\tlimit = { has_variable = spec_risk_top var:spec_risk_top >= 1 }\n"
+              "\t\t\tsubtract = { value = var:spec_risk_top max = var:spec_conf }\n\t\t}\n"
+              "\t\tif = {\n\t\t\tlimit = { has_variable = spec_risk_src_hit var:spec_risk_src_hit >= 2 }\n\t\t\tsubtract = var:spec_risk_src_hit\n\t\t}\n"
+              "\t\tif = {\n\t\t\tlimit = { has_variable = spec_war_risk var:spec_war_risk > 0 }\n\t\t\tsubtract = var:spec_war_risk\n\t\t}\n"
+              f"\t\tif = {{\n\t\t\tlimit = {{ has_variable = spec_default_risk }}\n\t\t\tsubtract = {economy.DEFAULT_COST}\n\t\t}}\n"
+              "\t\tif = {\n\t\t\tlimit = { spec_burst_now > 0.05 }\n\t\t\tsubtract = spec_burst_now\n\t\t}\n"
+              "\t\tmin = 0\n\t}\n}\n")
 
 
 TRIGGERS = f"""# a Sound Finance institution its technology allows and the country has not yet made
@@ -803,16 +833,16 @@ MONTHLY_AI = f"""				# the journal entry's choices by rule (journal.py): an inqu
 						spec_can_inquire = yes
 					}}
 					random = {{
-						chance = 10
+						chance = {AI_INQUIRY_CHANCE:g}
 						spec_do_inquiry = yes
-					}}
+{_log("inquiry", chr(9) * 6)}					}}
 				}}
 				if = {{
 					limit = {{ spec_can_convert = yes }}
 					random = {{
-						chance = 10
+						chance = {AI_CONVERT_CHANCE:g}
 						spec_do_convert = yes
-					}}
+{_log("convert", chr(9) * 6)}					}}
 				}}
 				if = {{
 					limit = {{
@@ -821,9 +851,9 @@ MONTHLY_AI = f"""				# the journal entry's choices by rule (journal.py): an inqu
 						NOT = {{ spec_nearly_broke = yes }}
 					}}
 					random = {{
-						chance = 20
+						chance = {AI_RELIEF_CHANCE:g}
 						spec_do_relief = yes
-					}}
+{_log("relief", chr(9) * 6)}					}}
 				}}
 				if = {{
 					limit = {{
@@ -836,7 +866,7 @@ MONTHLY_AI = f"""				# the journal entry's choices by rule (journal.py): an inqu
 						}}
 					}}
 					spec_do_suspend = yes
-				}}
+{_log("suspend", chr(9) * 5)}				}}
 """
 
 # the bar updates, inside generate.py's je:je_spec_markets ?= block
@@ -855,12 +885,14 @@ BARS = """				if = {
 
 
 def events():
+    R = REFORM_AI
+
     def temper(t, n):
         return f"\t\t\tmodifier = {{\n\t\t\t\ttrigger = {{ var:spec_temper ?= {t} }}\n\t\t\t\tadd = {n}\n\t\t\t}}\n"
 
     def option(letter, need, body, base, temper_line=""):
         return (f"\toption = {{\n\t\tname = spec_reform.1.{letter}\n\t\ttrigger = {{ {need} }}\n{body}"
-                f"\t\tspec_reform_done = yes\n\t\tai_chance = {{\n\t\t\tbase = {base}\n{temper_line}\t\t}}\n\t}}\n")
+                f"\t\tspec_reform_done = yes\n{_log('reform', chr(9) * 2, f' opt={letter}')}\t\tai_chance = {{\n\t\t\tbase = {base}\n{temper_line}\t\t}}\n\t}}\n")
 
     def tt(key, *lines):
         inner = "".join(f"\t\t\t{x}\n" for x in lines)
@@ -892,15 +924,15 @@ spec_reform.1 = {{
 {stories.pictures(INQUIRY_PICS)}	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	icon = "gfx/interface/icons/event_icons/event_scales.dds"
 
-{option('a', note, tt('spec_reform_currency_tt', 'set_variable = { name = spec_note value = 1 }') + ig2('industrialists', 'spec_dear_money'), 10, temper(-1, 30))}
-{option('b', note, tt('spec_reform_free_tt', 'set_variable = { name = spec_note value = 2 }') + ig2('industrialists', 'spec_free_issue'), 10, temper(1, 30))}
-{option('c', 'has_technology_researched = central_banking NOT = { has_variable = spec_llr }', tt('spec_reform_llr_tt', 'set_variable = spec_llr'), 25)}
-{option('d', 'has_technology_researched = joint_stock_companies NOT = { has_variable = spec_company_law }', tt('spec_reform_company_tt', 'set_variable = spec_company_law') + ig2('industrialists', 'spec_disclosure_burden') + ig2('intelligentsia', 'spec_disclosure_welcomed'), 15)}
+{option('a', note, tt('spec_reform_currency_tt', 'set_variable = { name = spec_note value = 1 }') + ig2('industrialists', 'spec_dear_money'), R['currency'], temper(-1, REFORM_AI_TEMPER))}
+{option('b', note, tt('spec_reform_free_tt', 'set_variable = { name = spec_note value = 2 }') + ig2('industrialists', 'spec_free_issue'), R['free'], temper(1, REFORM_AI_TEMPER))}
+{option('c', 'has_technology_researched = central_banking NOT = { has_variable = spec_llr }', tt('spec_reform_llr_tt', 'set_variable = spec_llr'), R['llr'])}
+{option('d', 'has_technology_researched = joint_stock_companies NOT = { has_variable = spec_company_law }', tt('spec_reform_company_tt', 'set_variable = spec_company_law') + ig2('industrialists', 'spec_disclosure_burden') + ig2('intelligentsia', 'spec_disclosure_welcomed'), R['company'])}
 	option = {{  # shelve it: the money men are relieved and the market with them, the reformers are not
 		name = spec_reform.1.e
 		default_option = yes
-{ig2('industrialists', 'spec_report_shelved')}{ig2('intelligentsia', 'spec_report_buried')}{stories.conf(SHELVE_CONF)}		ai_chance = {{
-			base = 5
+{ig2('industrialists', 'spec_report_shelved')}{ig2('intelligentsia', 'spec_report_buried')}{stories.conf(SHELVE_CONF)}{_log('reform', chr(9) * 2, ' opt=e')}		ai_chance = {{
+			base = {R['shelve']:g}
 		}}
 	}}
 }}
@@ -935,18 +967,17 @@ ALERT_TABS = {"spec_panic_risk_alert": "booms", "spec_bubble_alert": "banking"}
 
 
 def alerts(k):
-    """Two alerts in vanilla's row under the top bar: booms whose end would set off a panic, and a bubble worth
+    """Two alerts in vanilla's row under the top bar: the Risks bar's risks striking would set off a panic, and a bubble worth
     bursting. Players can hide either in the alert settings, as any vanilla alert."""
     return f"""spec_panic_risk_alert = {{
 	script_context = player_country
 	texture = "gfx/interface/icons/alert_icons/company_losing_prosperity.dds"
 
 	valid = {{
-		has_variable = spec_exposure
-		var:spec_exposure > 0
+		has_variable = spec_conf
 		NOT = {{ has_variable = spec_panic }}
 		NOT = {{ has_variable = spec_panic_cooldown }}
-		spec_after_collapse < {leverage.panic_limit(k['PANIC'])}
+		spec_after_risks < {leverage.panic_limit(k['PANIC'])}
 	}}
 
 	# the alert row opens Finance for it (ALERT_TABS); this is the popup's fallback
@@ -1137,7 +1168,7 @@ def loc(k):
         "concept_spec_banking_reforms_desc": f"The rules a [concept_country]'s banks and companies play by, each changing how booms and panics go. There are three, each unlocked by a technology. #b Banknote Rules#! ({tech('banking')}) are either the #b Currency School#! or #b Free Banking#!. Then come a #b Lender of Last Resort#! ({tech('central_banking')}) and #b Company Law#! ({tech('joint_stock_companies')}).\\n\\nA Commission of Inquiry passes one reform at a time. It can sit after a [concept_spec_financial_panic], or after #v {INQUIRY_CALM // 12}#! calm years with no panic. Passing all three earns [concept_spec_sound_finance].",
         "alert_spec_panic_risk_alert_name": "Panic Risk",
         "spec_panic_risk_alert_setting_name": "Panic Risk",
-        "alert_spec_panic_risk_alert_desc": f"If all our booms end at once, {mc} drops to #N [{G}('spec_after_collapse')|0]#!.\\nA {fp} starts below #v {f"[{G}('spec_panic_at')|0]" if leverage.ON else k['PANIC']}#!.",
+        "alert_spec_panic_risk_alert_desc": f"If our current risks all strike, {mc} drops to #N [{G}('spec_after_risks')|0]#!.\\nA {fp} starts below #v {f"[{G}('spec_panic_at')|0]" if leverage.ON else k['PANIC']}#!.",
         "alert_spec_panic_risk_alert_hint": "To lower the risk, Restrain Speculation in the riskiest goods on the #bold $SPEC_FIN_TAB_BOOMS$#! tab, or tighten [concept_spec_credit_policy] on the #bold $SPEC_FIN_TAB_BANKING$#! tab.",
         "alert_spec_panic_risk_alert_action": "$SPEC_FINANCE$",
         "alert_spec_bubble_alert_name": "Speculative Excess",

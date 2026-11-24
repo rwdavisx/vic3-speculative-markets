@@ -1648,6 +1648,7 @@
 "1c40ca7822"
 ],
 "SPEC_EXCH_TRUST_LV_TT_3": [
+"e3c11c1000",
 "c86b27426b",
 "9829808f00",
 "79e7061001",
@@ -2791,7 +2792,8 @@
 "7b172642cc"
 ],
 "SPEC_LAX_TRUST_4": [
-"9a991e1156"
+"9a991e1156",
+"7b172642cc"
 ],
 "SPEC_LD_GREAT": [
 "7ffbce7d50"
@@ -2983,11 +2985,13 @@
 "ef394c8f53"
 ],
 "SPEC_LEV_MAIN_TT": [
+"7f59c5228f",
 "83f0c488c8",
 "cbc58a6b68",
 "1ccd507438",
 "50a6f2cdb1",
-"7fd21549e2"
+"7fd21549e2",
+"e44d90209f"
 ],
 "SPEC_LEV_MONTHS_TT": [
 "e4e369e95e",
@@ -3007,17 +3011,29 @@
 "SPEC_LEV_SAFE": [
 "d8c3fa7152"
 ],
+"SPEC_LEV_STEP": [
+"04a2f765a5",
+"e81e4ea61d"
+],
 "SPEC_LEV_TIER_0_TT": [
-"4829f99fac"
+"973a17df97",
+"4829f99fac",
+"be7c6499de"
 ],
 "SPEC_LEV_TIER_1_TT": [
-"170ba5bda8"
+"7d38f1cbbd",
+"170ba5bda8",
+"8ec30ca8dd"
 ],
 "SPEC_LEV_TIER_2_TT": [
-"6a0f5e6aea"
+"6369122539",
+"6a0f5e6aea",
+"75cb8b25af"
 ],
 "SPEC_LEV_TIER_3_TT": [
-"9a96a45bbd"
+"9d6486553e",
+"9a96a45bbd",
+"68aa6a896d"
 ],
 "SPEC_LEV_UNLOCK_0": [
 "c6321b0bf4"
@@ -4181,6 +4197,201 @@
 ],
 "SPEC_NAME_VAL_TT_sound": [
 "8544f25226"
+],
+"SPEC_NEWS_AND": [
+"0060636b44"
+],
+"SPEC_NEWS_HEAD_IG": [
+"98ec9563f1"
+],
+"SPEC_NEWS_HEAD_PRIOR": [
+"c0acbe2476"
+],
+"SPEC_NEWS_IG_1_1": [
+"2430711075"
+],
+"SPEC_NEWS_IG_1_2": [
+"70eafc2cd4"
+],
+"SPEC_NEWS_IG_1_3": [
+"9441a10049"
+],
+"SPEC_NEWS_IG_1_4": [
+"399307a521"
+],
+"SPEC_NEWS_IG_2_1": [
+"2430711075"
+],
+"SPEC_NEWS_IG_2_2": [
+"70eafc2cd4"
+],
+"SPEC_NEWS_IG_2_3": [
+"9441a10049"
+],
+"SPEC_NEWS_IG_2_4": [
+"399307a521"
+],
+"SPEC_NEWS_IG_3_1": [
+"2430711075"
+],
+"SPEC_NEWS_IG_3_2": [
+"70eafc2cd4"
+],
+"SPEC_NEWS_IG_3_3": [
+"9441a10049"
+],
+"SPEC_NEWS_IG_3_4": [
+"399307a521"
+],
+"SPEC_NEWS_IG_4_1": [
+"2430711075"
+],
+"SPEC_NEWS_IG_4_2": [
+"70eafc2cd4"
+],
+"SPEC_NEWS_IG_4_3": [
+"9441a10049"
+],
+"SPEC_NEWS_IG_4_4": [
+"399307a521"
+],
+"SPEC_NEWS_IG_5_1": [
+"2430711075"
+],
+"SPEC_NEWS_IG_5_2": [
+"70eafc2cd4"
+],
+"SPEC_NEWS_IG_5_3": [
+"9441a10049"
+],
+"SPEC_NEWS_IG_5_4": [
+"399307a521"
+],
+"SPEC_NEWS_IG_6_1": [
+"2430711075"
+],
+"SPEC_NEWS_IG_6_2": [
+"70eafc2cd4"
+],
+"SPEC_NEWS_IG_6_3": [
+"9441a10049"
+],
+"SPEC_NEWS_IG_6_4": [
+"399307a521"
+],
+"SPEC_NEWS_L_1_MANY": [
+"0db5ab3066"
+],
+"SPEC_NEWS_L_1_ONE": [
+"239faecdd4"
+],
+"SPEC_NEWS_L_2_MANY": [
+"238a3ac78d"
+],
+"SPEC_NEWS_L_2_ONE": [
+"db9a543022"
+],
+"SPEC_NEWS_L_3_MANY": [
+"1a69256df8"
+],
+"SPEC_NEWS_L_3_ONE": [
+"558c8cae76"
+],
+"SPEC_NEWS_L_HOT": [
+"567bf6ee5d"
+],
+"SPEC_NEWS_L_THE": [
+"ab8a13bf3d"
+],
+"SPEC_NEWS_N1": [
+"f97c5d2994"
+],
+"SPEC_NEWS_N2": [
+"b8a9f715db"
+],
+"SPEC_NEWS_N3": [
+"35d6d33467"
+],
+"SPEC_NEWS_N4": [
+"8cbad96ace"
+],
+"SPEC_NEWS_N5": [
+"30056e1cab"
+],
+"SPEC_NEWS_N6": [
+"f52b5e449a"
+],
+"SPEC_NEWS_N7": [
+"bb3aec0fdc"
+],
+"SPEC_NEWS_N8": [
+"24d27c169c"
+],
+"SPEC_NEWS_N9": [
+"c785e1ed29"
+],
+"SPEC_NEWS_NC1": [
+"06c2cea186"
+],
+"SPEC_NEWS_NC2": [
+"aada29daee"
+],
+"SPEC_NEWS_NC3": [
+"ca8a2087e5"
+],
+"SPEC_NEWS_NC4": [
+"981b8fcee4"
+],
+"SPEC_NEWS_NC5": [
+"e5d9de39f7"
+],
+"SPEC_NEWS_NC6": [
+"e6fbc0b967"
+],
+"SPEC_NEWS_NC7": [
+"12e67aac3e"
+],
+"SPEC_NEWS_NC8": [
+"baca0ca672"
+],
+"SPEC_NEWS_NC9": [
+"24db112165"
+],
+"SPEC_NEWS_SUM_BUST_MANY": [
+"2a8ce19560"
+],
+"SPEC_NEWS_SUM_BUST_ONE": [
+"a8ab4029b2"
+],
+"SPEC_NEWS_SUM_COLLAPSE_MANY": [
+"b861f37eae"
+],
+"SPEC_NEWS_SUM_COLLAPSE_ONE": [
+"6978aa6fed"
+],
+"SPEC_NEWS_SUM_CORRECTION_MANY": [
+"a478409779"
+],
+"SPEC_NEWS_SUM_CORRECTION_ONE": [
+"4e59d61e25"
+],
+"SPEC_NEWS_SUM_HOT_MANY": [
+"10594fefc8"
+],
+"SPEC_NEWS_SUM_HOT_ONE": [
+"e405e90f7e"
+],
+"SPEC_NEWS_SUM_IG_MANY": [
+"376d162278"
+],
+"SPEC_NEWS_SUM_IG_ONE": [
+"9f7ef7393f"
+],
+"SPEC_NEWS_SUM_MORE_MANY": [
+"7ead084494"
+],
+"SPEC_NEWS_SUM_MORE_ONE": [
+"46e0c9dc66"
 ],
 "SPEC_NOTE_BANKS_ON": [
 "d71f086574",
@@ -6584,7 +6795,8 @@
 "877aabbf3b"
 ],
 "SPEC_SO_INVEST_TT": [
-"a176fd6913"
+"a176fd6913",
+"4f52f7cfce"
 ],
 "SPEC_SO_INVEST_UP": [
 "34f3c5785a"
@@ -6594,6 +6806,9 @@
 ],
 "SPEC_SO_L_SPEC_SO_INVEST_LD": [
 "9a66a82d66"
+],
+"SPEC_SO_L_SPEC_SO_INVEST_LEV": [
+"1b47b38147"
 ],
 "SPEC_SO_L_SPEC_SO_INVEST_MOOD": [
 "b5a20bb6ce"
@@ -7435,6 +7650,7 @@
 "6b2b5614a2"
 ],
 "alert_spec_panic_risk_alert_desc": [
+"b8d57fa6f4",
 "7ccc24c95b",
 "881252aa4e"
 ],
@@ -7691,12 +7907,14 @@
 "fd347bb5e7"
 ],
 "concept_spec_leverage_desc": [
+"943bdba548",
 "1b071487bb",
 "d8ecd7846b",
 "8af61519d6",
 "adce6d9708",
 "d025aaea32",
-"1bff994045"
+"1bff994045",
+"1c87b181bd"
 ],
 "concept_spec_long_depression": [
 "684f0a3ab2"
@@ -11430,9 +11648,11 @@
 "5f11625796"
 ],
 "spec_lev_boom_desc": [
+"205166d94c",
 "de9b342187",
 "d08fdcff7d",
-"21e467562d"
+"21e467562d",
+"5423b16332"
 ],
 "spec_lever_authority_tt": [
 "0da57c0924"

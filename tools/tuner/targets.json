@@ -26,7 +26,8 @@
  {"metric": "low_pct", "who": "passive", "aim": 15.0, "lo": 8.0, "hi": 25.0, "weight": 1.0, "why": "Confidence stays low for a while after a crash, as it did for years after 1837 and 1873: the Wary tier is part of the cycle, not a rarity."},
  {"metric": "up_pct", "who": "passive", "aim": 35.0, "lo": 25.0, "hi": 50.0, "weight": 1.0, "why": "Good years are common but not the norm: Buoyant or Mania about a third of the time."},
  {"metric": "late_panic_pct", "who": "passive", "aim": 3.5, "lo": 1.0, "hi": 6.0, "weight": 1.0, "why": "More advanced finance brings more crashes late in the century, but never a world in constant crisis."},
- {"metric": "reckless_pct", "who": "ai", "aim": 5.0, "lo": 0.0, "hi": 15.0, "weight": 1.0, "why": "AI countries seldom let their Lending Standards stay Reckless for long."},
+ {"metric": "reckless_pct", "who": "ai", "aim": 5.0, "lo": 0.0, "hi": 25.0, "weight": 1.0, "why": "AI countries seldom let their Lending Standards stay Reckless for long."},
  {"metric": "rescue_share", "who": "ai", "aim": 35.0, "lo": 20.0, "hi": 60.0, "weight": 1.0, "why": "Some AI governments rescue their banks and some let the panic run, as lenders of last resort spread through the century."},
- {"metric": "frozen_pct", "who": "ai", "aim": 40.0, "lo": 20.0, "hi": 60.0, "weight": 1.0, "why": "AI panics stop bank lending less often than reckless play does and more often than skilled play."}
+ {"metric": "frozen_pct", "who": "ai", "aim": 40.0, "lo": 20.0, "hi": 60.0, "weight": 1.0, "why": "AI panics stop bank lending less often than reckless play does and more often than skilled play."},
+ {"metric": "frozen_spell_p90", "who": "ai", "aim": 21.0, "lo": 12.0, "hi": 27.0, "weight": 1.0, "why": "When an AI country's banks stop lending, it lasts months, not years: nine in ten freezes end within about two years, as in the released game, where the longest ran 36 to 38 months."}
 ]

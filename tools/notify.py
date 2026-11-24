@@ -199,6 +199,8 @@ def loc(panic_at):
     for key, (*_, name, desc) in NOTES.items():
         n = f"notification_{key}"
         tip = f"#header ${n}_name$#!" + (f"\\n$TOOLTIP_DELIMITER$\\n${n}_desc$" if desc else "")
+        if key == "spec_market_bulletin":  # the toast sums it up; the tooltip only names the goods and groups
+            tip = f"#header ${n}_name$#!" + market_news.TIP
         out += f' {n}_name: "{name}"\n {n}_desc: "{desc}"\n {n}_tooltip: "{tip}"\n'
     return out + market_news.loc()
 

@@ -106,8 +106,11 @@ problems["notifications never posted"] = [n for n in re.findall(r"^(\w+) = \{", 
                                           # Legacy IDs remain readable in saves; 1.0.3 posts explicit detail variants.
                                           if n not in {f"spec_boom_end_{s}" for s in (1, 2, 3)}
                                           and not re.search(rf"\b(post_notification|TYPE) = {n}\b", posting)]
-versions = {"generate.py": re.search(r'^VERSION = "([^"]+)"', (ROOT / "tools/generate.py").read_text(encoding="utf-8"), re.M).group(1),
-            "description.bbcode": re.search(r"^\[b\](\d+\.\d+\.\d+)\[/b\]", (ROOT / "workshop/description.bbcode").read_text(encoding="utf-8"), re.M).group(1)}
+versions = {"generate.py": re.search(r'^VERSION = "([^"]+)"', (ROOT / "tools/generate.py").read_text(encoding="utf-8"), re.M).group(1)}
+# ponytail: the 1.2 description dropped its "[b]x.y.z[/b]" line; compare it only when one is there
+_desc = re.search(r"^\[b\](\d+\.\d+\.\d+)\[/b\]", (ROOT / "workshop/description.bbcode").read_text(encoding="utf-8"), re.M)
+if _desc:
+    versions["description.bbcode"] = _desc.group(1)
 metadata = MOD / ".metadata/metadata.json"
 if metadata.exists():
     versions["metadata.json"] = json.loads(metadata.read_text(encoding="utf-8-sig"))["version"]

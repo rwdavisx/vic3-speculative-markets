@@ -73,7 +73,9 @@ def keep_rivals(sweep):
         game = finish(job, status, folder)
         (folder / "rivals.log").write_text("\n".join(l for l in job["seen"] if "SPECRV act=" in l), encoding="utf-8")
         # newer --log builds: every trust change with its cause (SPECTR) and each AI rival look (SPECRVA)
-        for name, mark in (("trust.log", "SPECTR tag="), ("rvai.log", "SPECRVA tag=")):
+        for name, mark in (("trust.log", "SPECTR tag="), ("rvai.log", "SPECRVA tag="), ("prices.log", "SPECPX tag="), ("booms.log", "SPECB"),
+                           ("events.log", "SPECEV tag="),  # the AI's event choices
+                           ("pledges.log", "SPECPL tag="), ("journal.log", "SPECJ tag=")):  # its rescue pledge and journal actions
             (folder / name).write_text("\n".join(l for l in job["seen"] if mark in l), encoding="utf-8")
         return game
     sweep.finish = wrapped

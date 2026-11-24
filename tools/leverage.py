@@ -27,9 +27,65 @@ SAFE, RUIN = tuning.get("LEV_SAFE", 3), tuning.get("LEV_RUIN", 12)
 DANGER = 8  # the Leverage row turns Dangerous here: a crash from about 6.4 months is Severe, 15 points or more (22 at 8)
 PANIC_SPAN = tuning.get("LEV_PANIC_SPAN", 40)
 REWARD, REWARD_MAX = tuning.get("LEV_REWARD", 0.02), tuning.get("LEV_REWARD_MAX", 12)
+# the smooth reward: set either full value and the bonus follows leverage in tenths of a month up to LEV_RUIN, where it gives
+# TP_FULL of throughput and INV_FULL of the investing classes' pool efficiency (the same modifier Bad Debts cut), shaped by
+# CURVE: (months / RUIN) ** CURVE, 1 straight, 0.5 front-loaded. Script has no power, so the curve is straight between
+# REWARD_NODES (twelfths of RUIN), and the tuner reads the same nodes. Both unset: the whole-month bonus above, unchanged
+TP_FULL, INV_FULL = tuning.get("LEV_REWARD_TP_FULL", 0), tuning.get("LEV_REWARD_INV_FULL", 0)
+CURVE = tuning.get("LEV_REWARD_CURVE", 1)
+SMOOTH = bool(ON and (TP_FULL or INV_FULL))
+# the tapered reward: set LEV_REWARD_TAPER and the released bonus runs in tenths of a month, REWARD a month up to REWARD_MAX,
+# then TAPER a month more up to RUIN (0: the released bonus, smooth). Unset (TAPER_KEY -1 for the tuner): whole months
+TAPER = tuning.get("LEV_REWARD_TAPER", None)
+TAPERED = bool(ON and TAPER is not None and not SMOOTH)
+TAPER_KEY = TAPER if TAPERED else -1
+HELD_MAX = RUIN if SMOOTH or (TAPERED and TAPER) else REWARD_MAX  # the most the bonus held can be, in months
+REWARD_NODES = (0, 1, 2, 3, 4, 6, 8, 10, 12)
+
+
+def shape(m):
+    """The smooth bonus's share of its full value at m months of leverage, straight between the nodes as in script."""
+    xs = [RUIN * k / 12 for k in REWARD_NODES]
+    m = min(max(m, 0), RUIN)
+    i = next(i for i in range(1, len(xs)) if m <= xs[i])
+    a, b = (xs[i - 1] / RUIN) ** CURVE, (xs[i] / RUIN) ** CURVE
+    return a + (m - xs[i - 1]) * (b - a) / (xs[i] - xs[i - 1])
+
+
+def shape_value():
+    """spec_lev_boom_mult: shape() of the bonus held, the smooth modifier's multiplier."""
+    xs = [RUIN * k / 12 for k in REWARD_NODES]
+    ss = [(x / RUIN) ** CURVE for x in xs]
+    segs = "".join(f"\t\tif = {{\n\t\t\tlimit = {{ var:spec_lev_held >= {a:g} var:spec_lev_held < {b:g} }}\n"
+                   f"\t\t\tsubtract = {a:g}\n\t\t\tmultiply = {round((sb - sa) / (b - a), 5):g}\n\t\t\tadd = {round(sa, 5):g}\n\t\t}}\n"
+                   for a, b, sa, sb in zip(xs, xs[1:], ss, ss[1:]))
+    return (f"spec_lev_boom_mult = {{\n\tvalue = 0\n\tif = {{\n\t\tlimit = {{ has_variable = spec_lev_held }}\n\t\tvalue = var:spec_lev_held\n"
+            f"{segs}\t\tif = {{\n\t\t\tlimit = {{ var:spec_lev_held >= {RUIN:g} }}\n\t\t\tvalue = 1\n\t\t}}\n\t}}\n}}")
+
+
+def taper_value():
+    """spec_lev_boom_mult, tapered: months of REWARD the bonus held is worth, its months past REWARD_MAX at TAPER / REWARD."""
+    return (f"spec_lev_boom_mult = {{\n\tvalue = 0\n\tif = {{\n\t\tlimit = {{ has_variable = spec_lev_held }}\n\t\tvalue = var:spec_lev_held\n"
+            f"\t\tif = {{\n\t\t\tlimit = {{ var:spec_lev_held > {REWARD_MAX:g} }}\n\t\t\tsubtract = {REWARD_MAX:g}\n"
+            f"\t\t\tmultiply = {round(TAPER / REWARD, 5):g}\n\t\t\tadd = {REWARD_MAX:g}\n\t\t}}\n\t}}\n}}")
+
+
+def boom_pct(m, full=None):
+    """The bonus in percent at m months: the smooth one's share of full (TP_FULL unless given), the tapered one, or the whole-month one."""
+    if SMOOTH:
+        return (TP_FULL if full is None else full) * shape(m) * 100
+    return REWARD * 100 * min(m, REWARD_MAX) + (TAPER * 100 * min(max(m - REWARD_MAX, 0), RUIN - REWARD_MAX) if TAPERED else 0)
 # how fast a crash lands: Bad Debts points that bite each month, and months of bonus lost each month. All at once, the USA lost a quarter
 # of its GDP within two months in the full test game, which read as a bug. 40 and 12 bring that back
 CRUNCH_RAMP, BONUS_FADE = tuning.get("LEV_CRUNCH_RAMP", 3), tuning.get("LEV_BONUS_FADE", 1)
+# the lasting reward (spec_lev_record): each calm month it closes RECORD_GAIN of the way to RECORD_TP of throughput per month
+# of leverage, so it follows the leverage carried over years, not this month's; a month in a panic or with Bad Debts keeps
+# only 1 - RECORD_LOSS x (1 + stress) of it, so the deeper the leverage the faster it goes. RECORD_TP 0 builds none of it.
+# (A first try added a fixed step per bonus month up to a cap: careful play reached the cap as fast as skilled play.)
+RECORD_TP, RECORD_GAIN, RECORD_LOSS = (tuning.get("LEV_RECORD_TP", 0), tuning.get("LEV_RECORD_GAIN", 0.02),
+                                       tuning.get("LEV_RECORD_LOSS", 0.1))
+RECORD = bool(ON and RECORD_TP > 0)
+RECORD_STEP = 0.001  # the modifier moves in tenths of a percent, so it changes a few times a year, not every month
 BITE = f"""change_variable = {{ name = spec_crunch_bite add = {CRUNCH_RAMP} }}
 if = {{
 	limit = {{ var:spec_crunch_bite > var:spec_crunch }}
@@ -40,7 +96,7 @@ add_modifier = {{
 	multiplier = var:spec_crunch_bite
 }}
 """
-BONUS_END = "" if BONUS_FADE < REWARD_MAX else ("\t# the boom's bonus ends with the boom, not at the next month's update\n\tif = {\n\t\tlimit = { has_variable = spec_lev_held }\n"
+BONUS_END = "" if BONUS_FADE < HELD_MAX else ("\t# the boom's bonus ends with the boom, not at the next month's update\n\tif = {\n\t\tlimit = { has_variable = spec_lev_held }\n"
                                                 "\t\tremove_modifier = spec_lev_boom\n\t\tremove_variable = spec_lev_held\n\t}\n")
 # at 1% a point and 0.25 a month the worst Bad Debts cut a country's output by about 37% for about 13 years, deeper and longer
 # than the Great Depression; 0.4% and 0.6 leave the worst at -16% clearing in about five years once felt in full, a mild one within two
@@ -59,7 +115,7 @@ def months(name, share=1):
     return (f"{name} = {{\n\tvalue = spec_crunch_sv\n\t{cut}subtract = spec_crunch_bite_sv\n\tmin = 0\n\tdivide = {CRUNCH_RAMP}\n\tceiling = yes\n"
             f"\tadd = {{ value = spec_crunch_sv {cut}divide = spec_crunch_fade ceiling = yes }}\n}}")
 CRUNCH_THROUGHPUT = tuning.get("LEV_CRUNCH_THROUGHPUT", 0.004)  # throughput lost per point of Bad Debts
-CRUNCH_INVEST = tuning.get("LEV_CRUNCH_INVEST", 0.0075)  # investment lost per point: the worst Bad Debts (40) -30%, was 0.02 (-80%)
+CRUNCH_INVEST = tuning.get("LEV_CRUNCH_INVEST", 0.0075)  # investment lost per point; tuning.json sets 0.035 (worst Bad Debts, 20, costs 70%)
 LEGACY_THROUGHPUT = 0.004
 # One point of uncovered confidence originally cost 0.4% throughput.
 POINT_SCALE = LEGACY_THROUGHPUT / CRUNCH_THROUGHPUT if CRUNCH_THROUGHPUT > 0 else 1
@@ -105,16 +161,21 @@ INCOME_SMOOTH = tuning.get("LEV_INCOME_SMOOTH", 0.15)
 INCOME_FLOOR = tuning.get("LEV_INCOME_FLOOR", 0.01)
 # months of leverage at which the AI turns Tight, by temperament; it stays Tight until half that. A limit below this means only
 # falling income can set it off
-AI_LIMIT = tuning.get("AI_LEV_LIMIT", {"-1": 5, "0": 8, "1": 9.5})  # Cautious was 3: a third of the AI never passed the safe line (tune12); Bold was 12, the ruin line
+AI_LIMIT_BASE = tuning.get("AI_LEV_LIMIT", {"-1": 5, "0": 8, "1": 9.5})  # Cautious was 3: a third of the AI never passed the safe line (tune12); Bold was 12, the ruin line
 # percent chance, by temperament, that a Mania carries an AI away: it won't tighten for debt or confidence until the Mania passes or a
 # panic comes. Rolled once per Mania. Bold's confidence rule alone would otherwise stop it long before the top of the credit limit
-FEVER = {int(k): v for k, v in tuning.get("AI_FEVER", {"0": 10, "1": 50}).items()}
+FEVER_BASE = tuning.get("AI_FEVER", {"0": 10, "1": 50})
+# the AI's tables, each moved as one by its scale (tuning.scaled), and the share of its limit it loosens back below
+AI_LEV_SCALE, FEVER_SCALE = tuning.get("AI_LEV_SCALE", 1.0), tuning.get("AI_FEVER_SCALE", 1.0)
+AI_LIMIT = tuning.scaled(AI_LIMIT_BASE, AI_LEV_SCALE)
+FEVER = {int(k): v for k, v in tuning.scaled(FEVER_BASE, FEVER_SCALE, whole=True).items()}
+AI_LEV_BACK = tuning.get("AI_LEV_BACK", 0.5)
 # the credit limit at each tech, never past LEV_RUIN. Central Banking comes first, then the others in either order, so their steps match. A crash
 # needs about 6.4 months to be Severe (8.5 when Bad Debts grew with stress squared), and at the old 6 it left under 5 Bad Debts: one Severe crash in 56 years of the early game, against history's 1837, 1857 and 1873
 LADDER = tuple(tuning.get("LEV_LADDER", (SAFE, 8, 10, 12)))
 LADDER_STEPS = tuple(b - a for a, b in zip(LADDER, LADDER[1:]))
 LADDER_TECHS = ("central_banking", "investment_banks", "international_exchange_standards")
-STATE_VARS = ["spec_bailed", "spec_ai_fever", "spec_crunch", "spec_crunch_bite", "spec_xs_bad", "spec_lev_held", "spec_lev_last", "spec_lev_ready", "spec_c_drop", "spec_lev_pop", "spec_lev_avg", "spec_lev_old", "spec_lev_ref", "spec_lev_fade"]
+STATE_VARS = ["spec_bailed", "spec_ai_fever", "spec_crunch", "spec_crunch_bite", "spec_xs_bad", "spec_lev_held", "spec_lev_last", "spec_lev_ready", "spec_c_drop", "spec_lev_pop", "spec_lev_avg", "spec_lev_old", "spec_lev_ref", "spec_lev_fade"] + (["spec_lev_record", "spec_lev_record_held"] if RECORD else [])
 
 
 def values(panic, near):
@@ -152,13 +213,19 @@ def values(panic, near):
           for m in sorted(set((*LADDER, SAFE, DANGER, RUIN)))),
         f"spec_near_at = {{\n\tvalue = spec_panic_at\n\tadd = {near - panic}\n}}",
         # whole months, so the modifier changes rarely; nothing during a panic or a crunch
-        f"spec_lev_reward = {{\n\tvalue = spec_lev_adj\n\tmax = {REWARD_MAX}\n\tfloor = yes\n\tif = {{\n\t\tlimit = {{\n\t\t\tOR = {{\n"
+        # (smooth: tenths of a month up to RUIN, so it changes about monthly while leverage moves)
+        f"spec_lev_reward = {{\n\tvalue = spec_lev_adj\n\tmax = {HELD_MAX}\n"
+        + ("\tmultiply = 10\n\tfloor = yes\n\tdivide = 10\n" if SMOOTH or TAPERED else "\tfloor = yes\n") + "\tif = {\n\t\tlimit = {\n\t\t\tOR = {\n"
         "\t\t\t\thas_variable = spec_panic\n\t\t\t\thas_variable = spec_crunch\n\t\t\t}\n\t\t}\n\t\tvalue = 0\n\t}\n}",
         f"spec_lev_bonus_min = {{\n\tvalue = 0\n\tif = {{\n\t\tlimit = {{ has_variable = spec_lev_held }}\n\t\tvalue = var:spec_lev_held\n\t\tsubtract = {BONUS_FADE}\n\t}}\n}}",
         debt_value("spec_crunch_bite"),
         f"spec_ai_lev_limit = {{\n\tvalue = {AI_LIMIT['0']}\n{limit}}}",
-        "spec_ai_lev_back = {\n\tvalue = spec_ai_lev_limit\n\tmultiply = 0.5\n}",
-        f"spec_lev_boom_pct = {{\n\tvalue = 0\n\tif = {{\n\t\tlimit = {{ has_variable = spec_lev_held }}\n\t\tvalue = var:spec_lev_held\n\t\tmultiply = {REWARD * 100:g}\n\t}}\n}}",
+        f"spec_ai_lev_back = {{\n\tvalue = spec_ai_lev_limit\n\tmultiply = {AI_LEV_BACK}\n}}",
+        *([shape_value()] + [f"spec_lev_boom_{n} = {{\n\tvalue = spec_lev_boom_mult\n\tmultiply = {full * 100:g}\n}}" for n, full in (("pct", TP_FULL), ("inv_pct", INV_FULL)) if full or n == "pct"]
+          if SMOOTH else
+          [taper_value(), f"spec_lev_boom_pct = {{\n\tvalue = spec_lev_boom_mult\n\tmultiply = {REWARD * 100:g}\n}}"]
+          if TAPERED else
+          [f"spec_lev_boom_pct = {{\n\tvalue = 0\n\tif = {{\n\t\tlimit = {{ has_variable = spec_lev_held }}\n\t\tvalue = var:spec_lev_held\n\t\tmultiply = {REWARD * 100:g}\n\t}}\n}}"]),
         f"spec_crunch_invest_pct = {{\n\tvalue = spec_crunch_bite_sv\n\tmultiply = {CRUNCH_INVEST * 100:g}\n}}",
         "spec_crunch_left = {\n\tvalue = spec_crunch_sv\n\tsubtract = spec_crunch_bite_sv\n}",
         debt_value("spec_crunch"),
@@ -180,7 +247,12 @@ def values(panic, near):
         # throughput lost in percent, for the texts: now, once fully bitten in, and if a panic began now
         *(f"{name} = {{\n\tvalue = {src}\n\tmultiply = {CRUNCH_THROUGHPUT * 100:g}\n}}" for name, src in
           (("spec_crunch_tp_pct", "spec_crunch_bite_sv"), ("spec_crunch_tp_full_pct", "spec_crunch_sv"), ("spec_crunch_tp_if_pct", "spec_crunch_if"))),
-    ]
+    ] + ([f"spec_lev_record_keep = {{\n\tvalue = spec_lev_stress\n\tadd = 1\n\tmultiply = {-RECORD_LOSS:g}\n\tadd = 1\n\tmin = 0\n}}",
+          # kept in RECORD_STEPs (tenths of a percent), so a month's small gain is not lost to the engine's rounding
+          f"spec_lev_record_to = {{\n\tvalue = spec_lev_adj\n\tmultiply = {round(RECORD_TP / RECORD_STEP, 4):g}\n\tsubtract = var:spec_lev_record\n\tmultiply = {RECORD_GAIN:g}\n}}",
+          "spec_lev_record_now = {\n\tvalue = var:spec_lev_record\n\tfloor = yes\n\tmin = 0\n}",
+          f"spec_lev_record_pct = {{\n\tvalue = 0\n\tif = {{\n\t\tlimit = {{ has_variable = spec_lev_record_held }}\n"
+          f"\t\tvalue = var:spec_lev_record_held\n\t\tmultiply = {RECORD_STEP * 100:g}\n\t}}\n}}"] if RECORD else [])
 
 
 def limit(extra=""):
@@ -202,7 +274,11 @@ def modifiers(icon_good, icon_bad):
                          for c in ("capitalists", "aristocrats", "shopkeepers"))
         return f"{name} = {{\n\ticon = {icon_bad}\n\tbuilding_throughput_add = {-throughput:g}\n{invest}}}\n\n"
 
-    return (f"spec_lev_boom = {{\n\ticon = {icon_good}\n\tbuilding_throughput_add = {REWARD:g}\n}}\n\n"
+    # smooth: the full bonus, scaled by spec_lev_boom_mult as it is added; the investment as Bad Debts cut it
+    boom = (f"\tbuilding_throughput_add = {TP_FULL:g}\n" + "".join(f"\tstate_{c}_investment_pool_efficiency_mult = {INV_FULL:g}\n"
+            for c in ("capitalists", "aristocrats", "shopkeepers") if INV_FULL)) if SMOOTH else f"\tbuilding_throughput_add = {REWARD:g}\n"
+    return (f"spec_lev_boom = {{\n\ticon = {icon_good}\n{boom}}}\n\n"
+            + (f"spec_lev_record = {{\n\ticon = {icon_good}\n\tbuilding_throughput_add = {RECORD_STEP:g}\n}}\n\n" if RECORD else "")
             + crunch("spec_credit_crunch", LEGACY_THROUGHPUT, 0.0075)
             + crunch("spec_credit_crunch_v2", CRUNCH_THROUGHPUT, CRUNCH_INVEST))
 
@@ -348,7 +424,53 @@ MONTHLY = "" if not ON else f"""			# land lost: the average income is the income
 					set_variable = {{ name = spec_lev_held value = local_var:spec_lev_now }}
 					add_modifier = {{
 						name = spec_lev_boom
-						multiplier = var:spec_lev_held
+						multiplier = {"spec_lev_boom_mult" if SMOOTH or TAPERED else "var:spec_lev_held"}
+					}}
+				}}
+			}}
+"""
+# the lasting reward, after the month's bonus: follows the leverage carried in calm months, worn away in a panic or Bad Debts
+MONTHLY += "" if not RECORD else f"""			if = {{
+				limit = {{
+					OR = {{
+						has_variable = spec_panic
+						has_variable = spec_crunch
+					}}
+					has_variable = spec_lev_record
+				}}
+				set_variable = {{ name = spec_lev_record value = {{ value = var:spec_lev_record multiply = spec_lev_record_keep }} }}
+			}}
+			else_if = {{
+				limit = {{
+					NOT = {{ has_variable = spec_panic }}
+					NOT = {{ has_variable = spec_crunch }}
+				}}
+				if = {{
+					limit = {{ NOT = {{ has_variable = spec_lev_record }} }}
+					set_variable = {{ name = spec_lev_record value = 0 }}
+				}}
+				change_variable = {{ name = spec_lev_record add = spec_lev_record_to }}
+			}}
+			if = {{
+				limit = {{ has_variable = spec_lev_record }}
+				set_local_variable = {{ name = spec_lev_record_now value = spec_lev_record_now }}
+				if = {{
+					limit = {{
+						has_variable = spec_lev_record_held
+						NOT = {{ var:spec_lev_record_held = local_var:spec_lev_record_now }}
+					}}
+					remove_modifier = spec_lev_record
+					remove_variable = spec_lev_record_held
+				}}
+				if = {{
+					limit = {{
+						NOT = {{ has_variable = spec_lev_record_held }}
+						local_var:spec_lev_record_now > 0
+					}}
+					set_variable = {{ name = spec_lev_record_held value = local_var:spec_lev_record_now }}
+					add_modifier = {{
+						name = spec_lev_record
+						multiplier = var:spec_lev_record_held
 					}}
 				}}
 			}}
@@ -466,7 +588,7 @@ BLOCKED = ("OR = { has_variable = spec_panic spec_crunch_lend <= 0 has_modifier 
 # the panic event's texts: (key suffix, extra trigger), the first that fits wins
 PANIC_DESCS = [("_bad", "has_variable = spec_crunch"), ("", "")] if ON else [("", "")]
 # in spec_shut_down
-SHUT_DOWN = "" if not ON else "".join(f"\tif = {{\n\t\tlimit = {{ has_modifier = {m} }}\n\t\tremove_modifier = {m}\n\t}}\n" for m in ("spec_lev_boom", "spec_credit_crunch", "spec_credit_crunch_v2"))
+SHUT_DOWN = "" if not ON else "".join(f"\tif = {{\n\t\tlimit = {{ has_modifier = {m} }}\n\t\tremove_modifier = {m}\n\t}}\n" for m in ("spec_lev_boom", "spec_credit_crunch", "spec_credit_crunch_v2", *(("spec_lev_record",) if RECORD else ())))
 # the bank bailout: Bad Debts cut by BAILOUT_CUT at a treasury cost of BAILOUT_COST x points squared of GDP. Worst case, 40 points
 # halved, about 5% of GDP: more than a rescue (2%), as the state takes over losses rather than lending through a panic. Squared, as
 # small Bad Debts were dear for what they cut (10 points cost 1.25%, now 0.3%)
@@ -531,18 +653,34 @@ BAILOUT_TRIGGER = "" if not ON else """spec_can_bailout = {
 }
 """
 ROOT = "ROOT.GetCountry.MakeScope"
+RECORD_LOC = "" if not RECORD else (
+    ' spec_lev_record: "Sound Credit"\n'
+    f' spec_lev_record_desc: "Years of well-run borrowing have built lasting faith in the country\'s credit. In calm years it grows'
+    f' slowly toward #P {RECORD_TP * 100:+g}%#! [concept_throughput] for each month of [concept_spec_leverage].'
+    ' Panics and [concept_spec_bad_debts] wear it away, and the deeper the [concept_spec_leverage], the faster it goes."\n')
+FULL_TEXT = " and ".join(t for t in ((f"#P {TP_FULL * 100:+g}%#! [concept_throughput]" if TP_FULL else ""),
+                                      (f"#P {INV_FULL * 100:+g}%#! investment" if INV_FULL else "")) if t)
+TAPER_TEXT = "" if not TAPERED else (
+    f"Each month of [concept_spec_leverage] adds #P {REWARD * 100:+g}%#! [concept_throughput], up to #P {boom_pct(REWARD_MAX):+g}%#! at #v {REWARD_MAX:g}#! months"
+    + (f", then #P {TAPER * 100:+g}%#! more each month up to #P {boom_pct(RUIN):+g}%#! at #v {RUIN:g}#!." if TAPER else "."))
+BOOM_DESC = f"Borrowed money keeps the works busy. {TAPER_TEXT}" if TAPERED else (
+            f"Borrowed money keeps the works busy{' and the investors building' if INV_FULL else ''}. The more [concept_spec_leverage],"
+             f" the bigger the bonus, up to {FULL_TEXT} at #v {RUIN:g}#! months.{' The first months add the most.' if CURVE < 1 else ''}"
+             if SMOOTH else f"Borrowed money keeps the works busy, adding #P {REWARD * 100:+g}%#! [concept_throughput] for each whole month"
+             f" of [concept_spec_leverage], up to #P {REWARD * REWARD_MAX * 100:+g}%#!")
 LOC = "" if not ON else f""" spec_lev_boom: "Credit Boom"
  spec_bailout_fx_tt: "[concept_spec_bad_debts] fall by #P {BAILOUT_CUT:.0%}#!, clearing in #v [{ROOT}.ScriptValue('spec_bailout_months')|0]#! months instead of #v [{ROOT}.ScriptValue('spec_crunch_months')|0]#!"
  spec_bailout_cost_tt: "[concept_treasury]: #N -@money![{ROOT}.ScriptValue('spec_bailout_cost')|D]#!, about #v [{ROOT}.ScriptValue('spec_bailout_share')|%0]#! of [concept_gdp]"
  spec_bailout_debts_tt: "There are [concept_spec_bad_debts] to clear"
  spec_bailed_tt: "The state has not bought up bad loans since these [concept_spec_bad_debts] began"
- spec_lev_boom_desc: "Borrowed money keeps the works busy, adding #P {REWARD * 100:+g}%#! [concept_throughput] for each whole month of [concept_spec_leverage], up to #P {REWARD * REWARD_MAX * 100:+g}%#!"
- spec_credit_crunch_v2: "$spec_credit_crunch$"
+ spec_lev_boom_desc: "{BOOM_DESC}"
+{RECORD_LOC} spec_credit_crunch_v2: "$spec_credit_crunch$"
  spec_credit_crunch_v2_desc: "$spec_credit_crunch_desc$"
  spec_credit_crunch: "Bad Debts"
  spec_credit_crunch_desc: "The banks are still counting their losses from the last boom. They lend #N less#! the more there is, and nothing while it is past what [concept_spec_lending_standards] allow.\\n#v Lend to the Banks#! does not clear it\\n#v Buy Up Bad Loans#! clears {BAILOUT_CUT:.0%} of it, once while it lasts"
 """
 # the AI buys up bad loans too, from money it has; about one month in seven while it can
+AI_BAILOUT_CHANCE = tuning.get("AI_BAILOUT_CHANCE", 15)
 AI_BAILOUT = "" if not ON else """				if = {
 					limit = {
 						spec_can_bailout = yes
@@ -551,7 +689,7 @@ AI_BAILOUT = "" if not ON else """				if = {
 						NOT = { spec_nearly_broke = yes }
 						}
 					random = {
-						chance = 15
+						chance = """ + str(AI_BAILOUT_CHANCE) + """
 						spec_bailout = yes
 					}
 				}
@@ -598,6 +736,10 @@ if __name__ == "__main__":
                 b, n = min(b + CRUNCH_RAMP, left), n + 1
                 peak = max(peak, b)
             assert peak == c and n == math.ceil(max(c - b0, 0) / CRUNCH_RAMP) + math.ceil(c / f), (c, b0, n)
+        # the lasting reward: built only in calm months with the bonus held, worn away in a panic or Bad Debts, never below 0
+        assert not RECORD or (MONTHLY.index("multiply = spec_lev_record_keep") < MONTHLY.index("add = spec_lev_record_to")
+                              and "min = 0\n}" in next(v for v in values(30, 40) if v.startswith("spec_lev_record_keep")))
+        assert RECORD or "spec_lev_record" not in MONTHLY + modifiers("a", "b") + LOC
         assert all(s in "\n".join(values(30, 40)) for s in ("spec_crunch_months = {\n\tvalue = spec_crunch_sv\n\tsubtract = spec_crunch_bite_sv", "divide = spec_crunch_fade"))
     # credit: confidence's share capped at CREDIT_FLOW_MAX, then the rate, then the ceiling and the room against leverage's income
     credit = sv[sv.index("spec_credit = {"):]

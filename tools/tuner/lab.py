@@ -83,7 +83,9 @@ BATCH_ECON = 500  # economies a worker steps at once: a job batches candidates u
 ON_TIERS = {"MANIA", "PANIC_ENDS_AT"}
 # moved together, follower: leader. Confidence rests where the banks start lending (generate.CREDIT_FROM's note)
 LINKED = {"CREDIT_FROM": "CONF_START"}
-STEP = {"PANIC_DAYS": 15}  # half months
+STEP = {"PANIC_DAYS": 15,  # half months
+        # the AI's table scales: the tables' own values snap to the grid (tuning.scaled); a temperament tilt in fives
+        "AI_LEV_SCALE": 0.1, "AI_FEVER_SCALE": 0.1, "RESCUE_SCALE": 0.1, "TEMPER_TILT": 5}
 
 
 def snap(k, x, whole):
@@ -241,7 +243,7 @@ def keymap(spec, pool, cur=None):
                for k in keys if k in ON_TIERS or k in LINKED]
     for k in (k for k in keys if k not in ON_TIERS and k not in LINKED):
         x, whole = base[k], isinstance(base[k], int)
-        s = (1 if whole else 0.5) if x == 0 else STEP.get(k) or 5 * 10 ** (math.floor(math.log10(abs(x))) - 1)
+        s = STEP.get(k) or ((1 if whole else 0.5) if x == 0 else 5 * 10 ** (math.floor(math.log10(abs(x))) - 1))
         s = max(round(s), 1) if whole else s
         pair = [snap(k, x - s, whole), snap(k, x + s, whole)]
         if x in pair:

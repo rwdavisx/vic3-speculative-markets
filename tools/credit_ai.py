@@ -12,16 +12,20 @@ TEMPER_SHIFT = tuning.get("TEMPER_SHIFT", 8)       # confidence points a Bold (+
 # century's banks did. 76 (before the line) had the AI Tight 11 to 12% of months by the 1890s and Mania under 2%
 AI_TIGHT = tuning.get("AI_TIGHT", 80)
 IG_SHIFT = tuning.get("IG_SHIFT", 4)           # and each preferring interest group in government
-RESCUE_CHANCE = tuning.get("RESCUE_CHANCE", {-1: 15, 0: 30, 1: 50})   # percent a month, once the panic has more than the rescue's months left
+RESCUE_BASE = tuning.get("RESCUE_CHANCE", {-1: 15, 0: 30, 1: 50})   # percent a month, once the panic has more than the rescue's months left
+RESCUE_SCALE = tuning.get("RESCUE_SCALE", 1.0)  # the three chances moved as one (tuning.scaled)
+RESCUE_CHANCE = tuning.scaled(RESCUE_BASE, RESCUE_SCALE, whole=True)
 NAMES = {"industrialists": "Industrialists", "intelligentsia": "Intelligentsia"}
 
-# temperament weights: base, then additions by ruler trait, heir trait and economic system law
+# temperament weights: base, then additions by ruler trait, heir trait and economic system law. TEMPER_TILT moves base
+# weight from Cautious to Bold (negative: the other way)
+TEMPER_TILT = tuning.get("TEMPER_TILT", 0)
 TEMPERS = {
-    -1: (30, [("ruler ?= { has_trait = cautious }", 30), ("heir ?= { has_trait = cautious }", 10),
+    -1: (30 - TEMPER_TILT, [("ruler ?= { has_trait = cautious }", 30), ("heir ?= { has_trait = cautious }", 10),
               ("has_law_or_variant = law_type:law_traditionalism", 20),
               ("has_law_or_variant = law_type:law_agrarianism", 20)]),
     0: (40, [("has_law_or_variant = law_type:law_interventionism", 20)]),
-    1: (30, [("ruler ?= { has_trait = reckless }", 30), ("ruler ?= { has_trait = ambitious }", 15),
+    1: (30 + TEMPER_TILT, [("ruler ?= { has_trait = reckless }", 30), ("ruler ?= { has_trait = ambitious }", 15),
              ("heir ?= { has_trait = reckless }", 10), ("has_law_or_variant = law_type:law_laissez_faire", 20)]),
 }
 

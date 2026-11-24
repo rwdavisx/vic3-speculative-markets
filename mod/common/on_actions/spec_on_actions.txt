@@ -246,7 +246,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = defence_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_aeroplanes } var:spec_news_end_aeroplanes < 3 } }
+								set_variable = { name = spec_news_end_aeroplanes value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -384,7 +388,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = defence_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_aeroplanes } var:spec_news_end_aeroplanes < 2 } }
+								set_variable = { name = spec_news_end_aeroplanes value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -480,7 +488,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = defence_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_aeroplanes } var:spec_news_end_aeroplanes < 1 } }
+								set_variable = { name = spec_news_end_aeroplanes value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_aeroplanes value = 1 }
@@ -598,7 +610,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = defence_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_aeroplanes value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_aeroplanes value = spec_risk_next_aeroplanes }
@@ -789,7 +802,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = defence_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_ammunition } var:spec_news_end_ammunition < 3 } }
+								set_variable = { name = spec_news_end_ammunition value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -927,7 +944,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = defence_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_ammunition } var:spec_news_end_ammunition < 2 } }
+								set_variable = { name = spec_news_end_ammunition value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -1023,7 +1044,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = defence_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_ammunition } var:spec_news_end_ammunition < 1 } }
+								set_variable = { name = spec_news_end_ammunition value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_ammunition value = 1 }
@@ -1141,7 +1166,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = defence_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_ammunition value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_ammunition value = spec_risk_next_ammunition }
@@ -1332,7 +1358,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = defence_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_artillery } var:spec_news_end_artillery < 3 } }
+								set_variable = { name = spec_news_end_artillery value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -1470,7 +1500,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = defence_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_artillery } var:spec_news_end_artillery < 2 } }
+								set_variable = { name = spec_news_end_artillery value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -1566,7 +1600,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = defence_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_artillery } var:spec_news_end_artillery < 1 } }
+								set_variable = { name = spec_news_end_artillery value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_artillery value = 1 }
@@ -1684,7 +1722,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = defence_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_artillery value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_artillery value = spec_risk_next_artillery }
@@ -1875,7 +1914,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = transport_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_automobiles } var:spec_news_end_automobiles < 3 } }
+								set_variable = { name = spec_news_end_automobiles value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -2013,7 +2056,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = transport_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_automobiles } var:spec_news_end_automobiles < 2 } }
+								set_variable = { name = spec_news_end_automobiles value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -2109,7 +2156,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = transport_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_automobiles } var:spec_news_end_automobiles < 1 } }
+								set_variable = { name = spec_news_end_automobiles value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_automobiles value = 1 }
@@ -2227,7 +2278,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = transport_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_automobiles value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_automobiles value = spec_risk_next_automobiles }
@@ -2418,7 +2470,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = transport_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_clippers } var:spec_news_end_clippers < 3 } }
+								set_variable = { name = spec_news_end_clippers value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -2556,7 +2612,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = transport_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_clippers } var:spec_news_end_clippers < 2 } }
+								set_variable = { name = spec_news_end_clippers value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -2652,7 +2712,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = transport_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_clippers } var:spec_news_end_clippers < 1 } }
+								set_variable = { name = spec_news_end_clippers value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_clippers value = 1 }
@@ -2770,7 +2834,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = transport_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_clippers value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_clippers value = spec_risk_next_clippers }
@@ -2961,7 +3026,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = household_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_clothes } var:spec_news_end_clothes < 3 } }
+								set_variable = { name = spec_news_end_clothes value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -3099,7 +3168,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = household_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_clothes } var:spec_news_end_clothes < 2 } }
+								set_variable = { name = spec_news_end_clothes value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -3195,7 +3268,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = household_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_clothes } var:spec_news_end_clothes < 1 } }
+								set_variable = { name = spec_news_end_clothes value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_clothes value = 1 }
@@ -3313,7 +3390,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = household_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_clothes value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_clothes value = spec_risk_next_clothes }
@@ -3504,7 +3582,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = energy_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_coal } var:spec_news_end_coal < 3 } }
+								set_variable = { name = spec_news_end_coal value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -3642,7 +3724,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = energy_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_coal } var:spec_news_end_coal < 2 } }
+								set_variable = { name = spec_news_end_coal value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -3738,7 +3824,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = energy_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_coal } var:spec_news_end_coal < 1 } }
+								set_variable = { name = spec_news_end_coal value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_coal value = 1 }
@@ -3856,7 +3946,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = energy_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_coal value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_coal value = spec_risk_next_coal }
@@ -4047,7 +4138,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = plantation_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_coffee } var:spec_news_end_coffee < 3 } }
+								set_variable = { name = spec_news_end_coffee value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -4185,7 +4280,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = plantation_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_coffee } var:spec_news_end_coffee < 2 } }
+								set_variable = { name = spec_news_end_coffee value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -4281,7 +4380,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = plantation_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_coffee } var:spec_news_end_coffee < 1 } }
+								set_variable = { name = spec_news_end_coffee value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_coffee value = 1 }
@@ -4399,7 +4502,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = plantation_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_coffee value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_coffee value = spec_risk_next_coffee }
@@ -4590,7 +4694,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = materials_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_copper } var:spec_news_end_copper < 3 } }
+								set_variable = { name = spec_news_end_copper value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -4728,7 +4836,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = materials_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_copper } var:spec_news_end_copper < 2 } }
+								set_variable = { name = spec_news_end_copper value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -4824,7 +4936,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = materials_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_copper } var:spec_news_end_copper < 1 } }
+								set_variable = { name = spec_news_end_copper value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_copper value = 1 }
@@ -4942,7 +5058,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = materials_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_copper value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_copper value = spec_risk_next_copper }
@@ -5133,7 +5250,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = household_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_dye } var:spec_news_end_dye < 3 } }
+								set_variable = { name = spec_news_end_dye value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -5271,7 +5392,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = household_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_dye } var:spec_news_end_dye < 2 } }
+								set_variable = { name = spec_news_end_dye value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -5367,7 +5492,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = household_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_dye } var:spec_news_end_dye < 1 } }
+								set_variable = { name = spec_news_end_dye value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_dye value = 1 }
@@ -5485,7 +5614,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = household_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_dye value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_dye value = spec_risk_next_dye }
@@ -5676,7 +5806,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = energy_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_electricity } var:spec_news_end_electricity < 3 } }
+								set_variable = { name = spec_news_end_electricity value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -5814,7 +5948,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = energy_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_electricity } var:spec_news_end_electricity < 2 } }
+								set_variable = { name = spec_news_end_electricity value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -5910,7 +6048,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = energy_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_electricity } var:spec_news_end_electricity < 1 } }
+								set_variable = { name = spec_news_end_electricity value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_electricity value = 1 }
@@ -6028,7 +6170,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = energy_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_electricity value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_electricity value = spec_risk_next_electricity }
@@ -6219,7 +6362,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = industry_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_engines } var:spec_news_end_engines < 3 } }
+								set_variable = { name = spec_news_end_engines value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -6357,7 +6504,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = industry_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_engines } var:spec_news_end_engines < 2 } }
+								set_variable = { name = spec_news_end_engines value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -6453,7 +6604,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = industry_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_engines } var:spec_news_end_engines < 1 } }
+								set_variable = { name = spec_news_end_engines value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_engines value = 1 }
@@ -6571,7 +6726,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = industry_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_engines value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_engines value = spec_risk_next_engines }
@@ -6762,7 +6918,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = industry_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_explosives } var:spec_news_end_explosives < 3 } }
+								set_variable = { name = spec_news_end_explosives value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -6900,7 +7060,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = industry_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_explosives } var:spec_news_end_explosives < 2 } }
+								set_variable = { name = spec_news_end_explosives value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -6996,7 +7160,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = industry_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_explosives } var:spec_news_end_explosives < 1 } }
+								set_variable = { name = spec_news_end_explosives value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_explosives value = 1 }
@@ -7114,7 +7282,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = industry_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_explosives value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_explosives value = spec_risk_next_explosives }
@@ -7305,7 +7474,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = household_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_fabric } var:spec_news_end_fabric < 3 } }
+								set_variable = { name = spec_news_end_fabric value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -7443,7 +7616,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = household_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_fabric } var:spec_news_end_fabric < 2 } }
+								set_variable = { name = spec_news_end_fabric value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -7539,7 +7716,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = household_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_fabric } var:spec_news_end_fabric < 1 } }
+								set_variable = { name = spec_news_end_fabric value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_fabric value = 1 }
@@ -7657,7 +7838,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = household_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_fabric value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_fabric value = spec_risk_next_fabric }
@@ -7848,7 +8030,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = industry_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_fertilizer } var:spec_news_end_fertilizer < 3 } }
+								set_variable = { name = spec_news_end_fertilizer value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -7986,7 +8172,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = industry_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_fertilizer } var:spec_news_end_fertilizer < 2 } }
+								set_variable = { name = spec_news_end_fertilizer value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -8082,7 +8272,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = industry_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_fertilizer } var:spec_news_end_fertilizer < 1 } }
+								set_variable = { name = spec_news_end_fertilizer value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_fertilizer value = 1 }
@@ -8200,7 +8394,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = industry_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_fertilizer value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_fertilizer value = spec_risk_next_fertilizer }
@@ -8391,7 +8586,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = household_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_fine_art } var:spec_news_end_fine_art < 3 } }
+								set_variable = { name = spec_news_end_fine_art value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -8529,7 +8728,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = household_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_fine_art } var:spec_news_end_fine_art < 2 } }
+								set_variable = { name = spec_news_end_fine_art value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -8625,7 +8828,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = household_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_fine_art } var:spec_news_end_fine_art < 1 } }
+								set_variable = { name = spec_news_end_fine_art value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_fine_art value = 1 }
@@ -8743,7 +8950,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = household_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_fine_art value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_fine_art value = spec_risk_next_fine_art }
@@ -8934,7 +9142,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = food_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_fish } var:spec_news_end_fish < 3 } }
+								set_variable = { name = spec_news_end_fish value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -9072,7 +9284,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = food_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_fish } var:spec_news_end_fish < 2 } }
+								set_variable = { name = spec_news_end_fish value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -9168,7 +9384,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = food_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_fish } var:spec_news_end_fish < 1 } }
+								set_variable = { name = spec_news_end_fish value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_fish value = 1 }
@@ -9286,7 +9506,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = food_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_fish value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_fish value = spec_risk_next_fish }
@@ -9465,7 +9686,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = food_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_fruit } var:spec_news_end_fruit < 3 } }
+								set_variable = { name = spec_news_end_fruit value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -9592,7 +9817,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = food_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_fruit } var:spec_news_end_fruit < 2 } }
+								set_variable = { name = spec_news_end_fruit value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -9677,7 +9906,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = food_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_fruit } var:spec_news_end_fruit < 1 } }
+								set_variable = { name = spec_news_end_fruit value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_fruit value = 1 }
@@ -9795,7 +10028,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = food_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_fruit value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_fruit value = spec_risk_next_fruit }
@@ -9986,7 +10220,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = household_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_furniture } var:spec_news_end_furniture < 3 } }
+								set_variable = { name = spec_news_end_furniture value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -10124,7 +10362,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = household_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_furniture } var:spec_news_end_furniture < 2 } }
+								set_variable = { name = spec_news_end_furniture value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -10220,7 +10462,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = household_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_furniture } var:spec_news_end_furniture < 1 } }
+								set_variable = { name = spec_news_end_furniture value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_furniture value = 1 }
@@ -10338,7 +10584,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = household_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_furniture value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_furniture value = spec_risk_next_furniture }
@@ -10529,7 +10776,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = materials_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_glass } var:spec_news_end_glass < 3 } }
+								set_variable = { name = spec_news_end_glass value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -10667,7 +10918,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = materials_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_glass } var:spec_news_end_glass < 2 } }
+								set_variable = { name = spec_news_end_glass value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -10763,7 +11018,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = materials_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_glass } var:spec_news_end_glass < 1 } }
+								set_variable = { name = spec_news_end_glass value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_glass value = 1 }
@@ -10881,7 +11140,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = materials_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_glass value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_glass value = spec_risk_next_glass }
@@ -11072,7 +11332,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = food_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_grain } var:spec_news_end_grain < 3 } }
+								set_variable = { name = spec_news_end_grain value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -11210,7 +11474,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = food_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_grain } var:spec_news_end_grain < 2 } }
+								set_variable = { name = spec_news_end_grain value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -11306,7 +11574,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = food_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_grain } var:spec_news_end_grain < 1 } }
+								set_variable = { name = spec_news_end_grain value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_grain value = 1 }
@@ -11424,7 +11696,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = food_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_grain value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_grain value = spec_risk_next_grain }
@@ -11615,7 +11888,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = food_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_groceries } var:spec_news_end_groceries < 3 } }
+								set_variable = { name = spec_news_end_groceries value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -11753,7 +12030,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = food_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_groceries } var:spec_news_end_groceries < 2 } }
+								set_variable = { name = spec_news_end_groceries value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -11849,7 +12130,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = food_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_groceries } var:spec_news_end_groceries < 1 } }
+								set_variable = { name = spec_news_end_groceries value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_groceries value = 1 }
@@ -11967,7 +12252,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = food_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_groceries value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_groceries value = spec_risk_next_groceries }
@@ -12146,7 +12432,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = materials_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_hardwood } var:spec_news_end_hardwood < 3 } }
+								set_variable = { name = spec_news_end_hardwood value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -12273,7 +12563,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = materials_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_hardwood } var:spec_news_end_hardwood < 2 } }
+								set_variable = { name = spec_news_end_hardwood value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -12358,7 +12652,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = materials_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_hardwood } var:spec_news_end_hardwood < 1 } }
+								set_variable = { name = spec_news_end_hardwood value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_hardwood value = 1 }
@@ -12476,7 +12774,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = materials_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_hardwood value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_hardwood value = spec_risk_next_hardwood }
@@ -12667,7 +12966,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = materials_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_iron } var:spec_news_end_iron < 3 } }
+								set_variable = { name = spec_news_end_iron value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -12805,7 +13108,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = materials_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_iron } var:spec_news_end_iron < 2 } }
+								set_variable = { name = spec_news_end_iron value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -12901,7 +13208,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = materials_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_iron } var:spec_news_end_iron < 1 } }
+								set_variable = { name = spec_news_end_iron value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_iron value = 1 }
@@ -13019,7 +13330,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = materials_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_iron value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_iron value = spec_risk_next_iron }
@@ -13210,7 +13522,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = materials_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_lead } var:spec_news_end_lead < 3 } }
+								set_variable = { name = spec_news_end_lead value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -13348,7 +13664,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = materials_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_lead } var:spec_news_end_lead < 2 } }
+								set_variable = { name = spec_news_end_lead value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -13444,7 +13764,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = materials_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_lead } var:spec_news_end_lead < 1 } }
+								set_variable = { name = spec_news_end_lead value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_lead value = 1 }
@@ -13562,7 +13886,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = materials_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_lead value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_lead value = spec_risk_next_lead }
@@ -13753,7 +14078,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = plantation_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_liquor } var:spec_news_end_liquor < 3 } }
+								set_variable = { name = spec_news_end_liquor value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -13891,7 +14220,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = plantation_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_liquor } var:spec_news_end_liquor < 2 } }
+								set_variable = { name = spec_news_end_liquor value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -13987,7 +14320,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = plantation_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_liquor } var:spec_news_end_liquor < 1 } }
+								set_variable = { name = spec_news_end_liquor value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_liquor value = 1 }
@@ -14105,7 +14442,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = plantation_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_liquor value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_liquor value = spec_risk_next_liquor }
@@ -14296,7 +14634,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = household_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_luxury_clothes } var:spec_news_end_luxury_clothes < 3 } }
+								set_variable = { name = spec_news_end_luxury_clothes value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -14434,7 +14776,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = household_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_luxury_clothes } var:spec_news_end_luxury_clothes < 2 } }
+								set_variable = { name = spec_news_end_luxury_clothes value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -14530,7 +14876,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = household_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_luxury_clothes } var:spec_news_end_luxury_clothes < 1 } }
+								set_variable = { name = spec_news_end_luxury_clothes value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_luxury_clothes value = 1 }
@@ -14648,7 +14998,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = household_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_luxury_clothes value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_luxury_clothes value = spec_risk_next_luxury_clothes }
@@ -14839,7 +15190,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = household_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_luxury_furniture } var:spec_news_end_luxury_furniture < 3 } }
+								set_variable = { name = spec_news_end_luxury_furniture value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -14977,7 +15332,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = household_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_luxury_furniture } var:spec_news_end_luxury_furniture < 2 } }
+								set_variable = { name = spec_news_end_luxury_furniture value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -15073,7 +15432,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = household_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_luxury_furniture } var:spec_news_end_luxury_furniture < 1 } }
+								set_variable = { name = spec_news_end_luxury_furniture value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_luxury_furniture value = 1 }
@@ -15191,7 +15554,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = household_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_luxury_furniture value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_luxury_furniture value = spec_risk_next_luxury_furniture }
@@ -15382,7 +15746,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = food_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_meat } var:spec_news_end_meat < 3 } }
+								set_variable = { name = spec_news_end_meat value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -15520,7 +15888,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = food_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_meat } var:spec_news_end_meat < 2 } }
+								set_variable = { name = spec_news_end_meat value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -15616,7 +15988,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = food_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_meat } var:spec_news_end_meat < 1 } }
+								set_variable = { name = spec_news_end_meat value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_meat value = 1 }
@@ -15734,7 +16110,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = food_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_meat value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_meat value = spec_risk_next_meat }
@@ -15925,7 +16302,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = transport_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_merchant_marine } var:spec_news_end_merchant_marine < 3 } }
+								set_variable = { name = spec_news_end_merchant_marine value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -16063,7 +16444,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = transport_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_merchant_marine } var:spec_news_end_merchant_marine < 2 } }
+								set_variable = { name = spec_news_end_merchant_marine value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -16159,7 +16544,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = transport_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_merchant_marine } var:spec_news_end_merchant_marine < 1 } }
+								set_variable = { name = spec_news_end_merchant_marine value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_merchant_marine value = 1 }
@@ -16277,7 +16666,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = transport_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_merchant_marine value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_merchant_marine value = spec_risk_next_merchant_marine }
@@ -16468,7 +16858,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = energy_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_oil } var:spec_news_end_oil < 3 } }
+								set_variable = { name = spec_news_end_oil value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -16606,7 +17000,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = energy_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_oil } var:spec_news_end_oil < 2 } }
+								set_variable = { name = spec_news_end_oil value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -16702,7 +17100,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = energy_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_oil } var:spec_news_end_oil < 1 } }
+								set_variable = { name = spec_news_end_oil value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_oil value = 1 }
@@ -16820,7 +17222,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = energy_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_oil value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_oil value = spec_risk_next_oil }
@@ -17011,7 +17414,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = plantation_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_opium } var:spec_news_end_opium < 3 } }
+								set_variable = { name = spec_news_end_opium value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -17149,7 +17556,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = plantation_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_opium } var:spec_news_end_opium < 2 } }
+								set_variable = { name = spec_news_end_opium value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -17245,7 +17656,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = plantation_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_opium } var:spec_news_end_opium < 1 } }
+								set_variable = { name = spec_news_end_opium value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_opium value = 1 }
@@ -17363,7 +17778,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = plantation_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_opium value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_opium value = spec_risk_next_opium }
@@ -17554,7 +17970,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = materials_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_paper } var:spec_news_end_paper < 3 } }
+								set_variable = { name = spec_news_end_paper value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -17692,7 +18112,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = materials_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_paper } var:spec_news_end_paper < 2 } }
+								set_variable = { name = spec_news_end_paper value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -17788,7 +18212,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = materials_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_paper } var:spec_news_end_paper < 1 } }
+								set_variable = { name = spec_news_end_paper value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_paper value = 1 }
@@ -17906,7 +18334,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = materials_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_paper value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_paper value = spec_risk_next_paper }
@@ -18097,7 +18526,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = household_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_porcelain } var:spec_news_end_porcelain < 3 } }
+								set_variable = { name = spec_news_end_porcelain value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -18235,7 +18668,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = household_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_porcelain } var:spec_news_end_porcelain < 2 } }
+								set_variable = { name = spec_news_end_porcelain value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -18331,7 +18768,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = household_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_porcelain } var:spec_news_end_porcelain < 1 } }
+								set_variable = { name = spec_news_end_porcelain value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_porcelain value = 1 }
@@ -18449,7 +18890,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = household_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_porcelain value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_porcelain value = spec_risk_next_porcelain }
@@ -18640,7 +19082,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = communications_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_radios } var:spec_news_end_radios < 3 } }
+								set_variable = { name = spec_news_end_radios value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -18778,7 +19224,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = communications_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_radios } var:spec_news_end_radios < 2 } }
+								set_variable = { name = spec_news_end_radios value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -18874,7 +19324,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = communications_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_radios } var:spec_news_end_radios < 1 } }
+								set_variable = { name = spec_news_end_radios value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_radios value = 1 }
@@ -18992,7 +19446,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = communications_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_radios value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_radios value = spec_risk_next_radios }
@@ -19183,7 +19638,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = industry_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_rubber } var:spec_news_end_rubber < 3 } }
+								set_variable = { name = spec_news_end_rubber value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -19321,7 +19780,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = industry_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_rubber } var:spec_news_end_rubber < 2 } }
+								set_variable = { name = spec_news_end_rubber value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -19417,7 +19880,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = industry_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_rubber } var:spec_news_end_rubber < 1 } }
+								set_variable = { name = spec_news_end_rubber value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_rubber value = 1 }
@@ -19535,7 +20002,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = industry_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_rubber value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_rubber value = spec_risk_next_rubber }
@@ -19726,7 +20194,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = household_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_silk } var:spec_news_end_silk < 3 } }
+								set_variable = { name = spec_news_end_silk value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -19864,7 +20336,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = household_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_silk } var:spec_news_end_silk < 2 } }
+								set_variable = { name = spec_news_end_silk value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -19960,7 +20436,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = household_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_silk } var:spec_news_end_silk < 1 } }
+								set_variable = { name = spec_news_end_silk value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_silk value = 1 }
@@ -20078,7 +20558,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = household_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_silk value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_silk value = spec_risk_next_silk }
@@ -20269,7 +20750,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = defence_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_small_arms } var:spec_news_end_small_arms < 3 } }
+								set_variable = { name = spec_news_end_small_arms value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -20407,7 +20892,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = defence_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_small_arms } var:spec_news_end_small_arms < 2 } }
+								set_variable = { name = spec_news_end_small_arms value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -20503,7 +20992,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = defence_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_small_arms } var:spec_news_end_small_arms < 1 } }
+								set_variable = { name = spec_news_end_small_arms value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_small_arms value = 1 }
@@ -20621,7 +21114,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = defence_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_small_arms value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_small_arms value = spec_risk_next_small_arms }
@@ -20812,7 +21306,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = transport_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_steamers } var:spec_news_end_steamers < 3 } }
+								set_variable = { name = spec_news_end_steamers value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -20950,7 +21448,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = transport_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_steamers } var:spec_news_end_steamers < 2 } }
+								set_variable = { name = spec_news_end_steamers value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -21046,7 +21548,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = transport_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_steamers } var:spec_news_end_steamers < 1 } }
+								set_variable = { name = spec_news_end_steamers value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_steamers value = 1 }
@@ -21164,7 +21670,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = transport_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_steamers value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_steamers value = spec_risk_next_steamers }
@@ -21355,7 +21862,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = materials_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_steel } var:spec_news_end_steel < 3 } }
+								set_variable = { name = spec_news_end_steel value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -21493,7 +22004,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = materials_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_steel } var:spec_news_end_steel < 2 } }
+								set_variable = { name = spec_news_end_steel value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -21589,7 +22104,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = materials_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_steel } var:spec_news_end_steel < 1 } }
+								set_variable = { name = spec_news_end_steel value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_steel value = 1 }
@@ -21707,7 +22226,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = materials_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_steel value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_steel value = spec_risk_next_steel }
@@ -21898,7 +22418,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = food_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_sugar } var:spec_news_end_sugar < 3 } }
+								set_variable = { name = spec_news_end_sugar value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -22036,7 +22560,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = food_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_sugar } var:spec_news_end_sugar < 2 } }
+								set_variable = { name = spec_news_end_sugar value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -22132,7 +22660,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = food_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_sugar } var:spec_news_end_sugar < 1 } }
+								set_variable = { name = spec_news_end_sugar value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_sugar value = 1 }
@@ -22250,7 +22782,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = food_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_sugar value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_sugar value = spec_risk_next_sugar }
@@ -22441,7 +22974,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = industry_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_sulfur } var:spec_news_end_sulfur < 3 } }
+								set_variable = { name = spec_news_end_sulfur value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -22579,7 +23116,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = industry_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_sulfur } var:spec_news_end_sulfur < 2 } }
+								set_variable = { name = spec_news_end_sulfur value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -22675,7 +23216,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = industry_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_sulfur } var:spec_news_end_sulfur < 1 } }
+								set_variable = { name = spec_news_end_sulfur value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_sulfur value = 1 }
@@ -22793,7 +23338,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = industry_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_sulfur value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_sulfur value = spec_risk_next_sulfur }
@@ -22984,7 +23530,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = defence_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_tanks } var:spec_news_end_tanks < 3 } }
+								set_variable = { name = spec_news_end_tanks value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -23122,7 +23672,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = defence_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_tanks } var:spec_news_end_tanks < 2 } }
+								set_variable = { name = spec_news_end_tanks value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -23218,7 +23772,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = defence_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_tanks } var:spec_news_end_tanks < 1 } }
+								set_variable = { name = spec_news_end_tanks value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_tanks value = 1 }
@@ -23336,7 +23894,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = defence_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_tanks value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_tanks value = spec_risk_next_tanks }
@@ -23527,7 +24086,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = plantation_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_tea } var:spec_news_end_tea < 3 } }
+								set_variable = { name = spec_news_end_tea value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -23665,7 +24228,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = plantation_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_tea } var:spec_news_end_tea < 2 } }
+								set_variable = { name = spec_news_end_tea value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -23761,7 +24328,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = plantation_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_tea } var:spec_news_end_tea < 1 } }
+								set_variable = { name = spec_news_end_tea value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_tea value = 1 }
@@ -23879,7 +24450,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = plantation_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_tea value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_tea value = spec_risk_next_tea }
@@ -24070,7 +24642,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = communications_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_telephones } var:spec_news_end_telephones < 3 } }
+								set_variable = { name = spec_news_end_telephones value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -24208,7 +24784,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = communications_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_telephones } var:spec_news_end_telephones < 2 } }
+								set_variable = { name = spec_news_end_telephones value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -24304,7 +24884,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = communications_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_telephones } var:spec_news_end_telephones < 1 } }
+								set_variable = { name = spec_news_end_telephones value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_telephones value = 1 }
@@ -24422,7 +25006,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = communications_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_telephones value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_telephones value = spec_risk_next_telephones }
@@ -24613,7 +25198,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = plantation_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_tobacco } var:spec_news_end_tobacco < 3 } }
+								set_variable = { name = spec_news_end_tobacco value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -24751,7 +25340,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = plantation_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_tobacco } var:spec_news_end_tobacco < 2 } }
+								set_variable = { name = spec_news_end_tobacco value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -24847,7 +25440,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = plantation_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_tobacco } var:spec_news_end_tobacco < 1 } }
+								set_variable = { name = spec_news_end_tobacco value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_tobacco value = 1 }
@@ -24965,7 +25562,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = plantation_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_tobacco value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_tobacco value = spec_risk_next_tobacco }
@@ -25156,7 +25754,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = industry_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_tools } var:spec_news_end_tools < 3 } }
+								set_variable = { name = spec_news_end_tools value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -25294,7 +25896,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = industry_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_tools } var:spec_news_end_tools < 2 } }
+								set_variable = { name = spec_news_end_tools value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -25390,7 +25996,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = industry_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_tools } var:spec_news_end_tools < 1 } }
+								set_variable = { name = spec_news_end_tools value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_tools value = 1 }
@@ -25508,7 +26118,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = industry_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_tools value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_tools value = spec_risk_next_tools }
@@ -25699,7 +26310,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = plantation_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_wine } var:spec_news_end_wine < 3 } }
+								set_variable = { name = spec_news_end_wine value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -25837,7 +26452,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = plantation_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_wine } var:spec_news_end_wine < 2 } }
+								set_variable = { name = spec_news_end_wine value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -25933,7 +26552,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = plantation_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_wine } var:spec_news_end_wine < 1 } }
+								set_variable = { name = spec_news_end_wine value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_wine value = 1 }
@@ -26051,7 +26674,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = plantation_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_wine value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_wine value = spec_risk_next_wine }
@@ -26230,7 +26854,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = materials_collapse }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_wood } var:spec_news_end_wood < 3 } }
+								set_variable = { name = spec_news_end_wood value = 3 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -26357,7 +26985,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = materials_bust }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_wood } var:spec_news_end_wood < 2 } }
+								set_variable = { name = spec_news_end_wood value = 2 }
+							}
 							set_variable = spec_news_urgent
 						}
 					}
@@ -26442,7 +27074,11 @@ spec_monthly = {
 							}
 						}
 						else = {
-							spec_queue_market_news = { FIELD = materials_correction }
+							spec_queue_market_news = yes
+							if = {
+								limit = { OR = { NOT = { has_variable = spec_news_end_wood } var:spec_news_end_wood < 1 } }
+								set_variable = { name = spec_news_end_wood value = 1 }
+							}
 						}
 					}
 					set_variable = { name = spec_peak_wood value = 1 }
@@ -26560,7 +27196,8 @@ spec_monthly = {
 						post_notification = spec_feverish
 					}
 					else = {
-						spec_queue_market_news = { FIELD = materials_hot }
+						spec_queue_market_news = yes
+						set_variable = { name = spec_news_hot_wood value = 1 }
 					}
 				}
 				set_variable = { name = spec_risk_wood value = spec_risk_next_wood }
@@ -37297,7 +37934,7 @@ add_modifier = {
 					set_variable = { name = spec_lev_held value = local_var:spec_lev_now }
 					add_modifier = {
 						name = spec_lev_boom
-						multiplier = var:spec_lev_held
+						multiplier = spec_lev_boom_mult
 					}
 				}
 			}
@@ -40659,7 +41296,7 @@ add_modifier = {
 					has_variable = spec_heat
 					var:spec_conf < 60
 				}
-                set_variable = { name = spec_xs_bad value = { value = var:spec_heat multiply = spec_burst_per_heat multiply = spec_nx_burst subtract = var:spec_conf multiply = spec_nx_bad multiply = 0.114286 max = 20 } }
+                set_variable = { name = spec_xs_bad value = { value = var:spec_heat multiply = spec_burst_per_heat multiply = spec_nx_burst subtract = var:spec_conf multiply = spec_nx_bad multiply = 0.133333 max = 20 } }
                 if = {
                     limit = { var:spec_xs_bad > 0 }
                     set_local_variable = { name = burst_debts value = { value = spec_crunch_sv add = var:spec_xs_bad max = 20 } }

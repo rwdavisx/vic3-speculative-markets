@@ -122,6 +122,20 @@ PLEDGE_NOTICE = tuning.get("EXCH_PLEDGE_NOTICE", 24)    # months of notice to wi
 PLEDGE_DEBT = tuning.get("EXCH_PLEDGE_DEBT", 0.5)       # most scaled_debt to make the pledge
 PLEDGE_BREAK = tuning.get("EXCH_PLEDGE_BREAK", {"conf": 15, "legit": 10})  # a default breaks it: confidence, legitimacy (5 years)
 PLEDGE_BROKEN_MONTHS = 60  # the Broken Pledge modifier's months
+# the AI's pledge (_pledge_month): it makes it below AI_PLEDGE_DEBT scaled_debt with a rescue's cost in reserves, AI_PLEDGE_CHANCE
+# percent a month once it can (100: whenever it can), and gives notice above AI_PLEDGE_LEAVE or once reserves fall short
+AI_PLEDGE_DEBT = tuning.get("AI_PLEDGE_DEBT", 0.3)
+AI_PLEDGE_LEAVE = tuning.get("AI_PLEDGE_LEAVE", 0.4)
+AI_PLEDGE_CHANCE = tuning.get("AI_PLEDGE_CHANCE", 100)
+PLEDGE_LOG = "--log" in __import__("sys").argv  # generate.py --log: a SPECPL line when the AI makes or leaves it, and at a pledged panic's start
+
+
+def _pledge_log(act, t, extra=""):
+    """--log: SPECPL tag= date= act= sdebt= cost= (tools/tuner: the pledge model's parity)."""
+    if not PLEDGE_LOG:
+        return ""
+    return (f"{t}debug_log = \"SPECPL tag=[THIS.GetCountry.GetTagName] date=[TimeKeeper.GetCurrentDate.GetString] act={act}{extra} "
+            f"sdebt=[THIS.ScriptValue('spec_debt_share')] cost=[THIS.ScriptValue('spec_rescue_cost')]\"\n")
 # Phase 4: what the Exchange is known for is earned once a year by building, not chosen in spec_exchange.1
 EARN = ON and tuning.get("EXCH_EARN_ON", 1)
 EARN_TC = tuning.get("EXCH_EARN_TC", 20)            # 1 Commodity Exchange: Trade Center levels
@@ -153,7 +167,7 @@ PLEDGE_COST = "\tmultiply = spec_pledge_cost\n" if PLEDGE_ON else ""  # spec_res
 # panic event says so (spec_pledge_unmet)
 PLEDGE_RESCUE = ("\tif = {\n\t\tlimit = { has_variable = spec_pledge }\n"
                  "\t\tif = {\n\t\t\tlimit = {\n\t\t\t\tspec_can_rescue = yes\n\t\t\t\tin_default = no\n\t\t\t\tgold_reserves >= spec_rescue_cost\n\t\t\t}\n"
-                 "\t\t\tspec_rescue = yes\n\t\t}\n"
+                 "\t\t\tspec_rescue = yes\n" + _pledge_log("kept", "\t\t\t") + "\t\t}\n"
                  "\t\telse = {\n\t\t\tset_variable = { name = spec_pledge_unmet days = 30 }\n"
                  "\t\t\tif = { limit = { in_default = yes } set_variable = { name = spec_pledge_reason value = 2 days = 30 } }\n"
                  "\t\t\telse_if = { limit = { NOT = { has_technology_researched = banking } } set_variable = { name = spec_pledge_reason value = 3 days = 30 } }\n"
@@ -161,7 +175,7 @@ PLEDGE_RESCUE = ("\tif = {\n\t\tlimit = { has_variable = spec_pledge }\n"
                  "\t\t\t\tset_variable = { name = spec_pledge_reason value = 1 days = 30 }\n"
                  "\t\t\t\tset_variable = { name = spec_pledge_required value = spec_rescue_cost days = 30 }\n"
                  "\t\t\t\tset_variable = { name = spec_pledge_shortfall value = { value = spec_rescue_cost subtract = gold_reserves } days = 30 }\n"
-                 "\t\t\t}\n\t\t}\n\t}\n") if PLEDGE_ON else ""
+                 "\t\t\t}\n" + _pledge_log("unmet", "\t\t\t", " reason=[THIS.Var('spec_pledge_reason').GetValue]") + "\t\t}\n\t}\n") if PLEDGE_ON else ""
 # the panic event's last line, for generate.panic_loc
 PLEDGE_UNMET = "[AddLocalizationIf(ROOT.GetCountry.MakeScope.Var('spec_pledge_unmet').IsSet, 'SPEC_PLEDGE_UNMET')]" if PLEDGE_ON else ""
 LIMIT_LINE ="[AddLocalizationIf(Country.MakeScope.Var('spec_centre_rank').IsSet, 'SPEC_EXCH_LIMIT')]" if BRAKE else ""  # market_tab's credit limit
@@ -639,6 +653,15 @@ TRUST_FX = tuning.get("CENTRE_TRUST_FX", [
     [["country_loan_interest_rate_mult", 0.1]],
     [["country_loan_interest_rate_mult", 0.05]], [],
     [["interest_group_ig_industrialists_approval_add", 2]]])  # Trusted was also -5% loan interest until 1.2
+# added on top, each 0 by default so the released effects stand: private construction allocation by level (-2, -1, +1, +2
+# steps), the Industrialists' approval when Distrusted, prestige at Trusted. Trust never touches minting (the user, 2026-11-22)
+TRUST_ALLOC_STEP, TRUST_IND_DISTRUST = tuning.get("TRUST_ALLOC_STEP", 0), tuning.get("TRUST_IND_DISTRUST", 0)
+TRUST_PRESTIGE = tuning.get("TRUST_PRESTIGE", 0)
+TRUST_FX = [list(f) for f in TRUST_FX]
+for _i, _step in enumerate((-2, -1, 1, 2)):
+    TRUST_FX[_i] += [["country_private_construction_allocation_mult", round(_step * TRUST_ALLOC_STEP, 4)]] if TRUST_ALLOC_STEP else []
+TRUST_FX[0] += [["interest_group_ig_industrialists_approval_add", -TRUST_IND_DISTRUST]] if TRUST_IND_DISTRUST else []
+TRUST_FX[3] += [["country_prestige_mult", TRUST_PRESTIGE]] if TRUST_PRESTIGE else []
 ICON = lambda k: icons.path(f"name_{k}")  # icons.py: our painting, else its vanilla stand-in
 ROUND = "gfx/interface/backgrounds/round_button_bg.dds"  # vanilla's gold-rimmed disc (company_panel's charter badges): order numbers
 
@@ -1969,6 +1992,9 @@ def _pledge_month(t):
     """The pledge each month: a default breaks it; notice runs out; the AI makes it or gives notice."""
     if not PLEDGE_ON:
         return ""
+    make = f"{t}\t\tspec_pledge_make = yes\n" + _pledge_log("make", t + "\t\t")
+    if AI_PLEDGE_CHANCE < 100:
+        make = f"{t}\t\trandom = {{\n{t}\t\t\tchance = {AI_PLEDGE_CHANCE:g}\n" + make.replace(f"{t}\t\t", f"{t}\t\t\t") + f"{t}\t\t}}\n"
     return f"""{t}if = {{
 {t}	limit = {{
 {t}		has_variable = spec_pledge
@@ -2002,21 +2028,20 @@ def _pledge_month(t):
 {t}		limit = {{
 {t}			spec_can_pledge = yes
 {t}			in_default = no
-{t}			scaled_debt < 0.3
+{t}			scaled_debt < {AI_PLEDGE_DEBT:g}
 {t}			gold_reserves >= spec_rescue_cost
 {t}		}}
-{t}		spec_pledge_make = yes
-{t}	}}
+{make}{t}	}}
 {t}	else_if = {{
 {t}		limit = {{
 {t}			spec_can_pledge_leave = yes
 {t}			OR = {{
-{t}				scaled_debt > 0.4
+{t}				scaled_debt > {AI_PLEDGE_LEAVE:g}
 {t}				gold_reserves < spec_rescue_cost
 {t}			}}
 {t}		}}
 {t}		spec_pledge_withdraw = yes
-{t}	}}
+{_pledge_log("notice", t + chr(9) * 2)}{t}	}}
 {t}}}
 """
 
@@ -3786,7 +3811,8 @@ if __name__ == "__main__":
         assert script.count("remove_global_variable = spec_ldv_") == len(NAMES) and "SPEC_NAME_NOLEAD" in words
         # a speciality's hooks follow its strength, the drawback as much as the benefit
         hook_count = sum(len(NAME_FX[k]) for k, *_ in NAMES)
-        assert "has_variable = spec_has_" not in values() and values().count("multiply = { value = var:spec_pw_") == hook_count + len(NAMES)  # the hooks, and the cost of other pursuits
+        assert "has_variable = spec_has_" not in values() and values().count("multiply = { value = var:spec_pw_") == hook_count  # the hooks
+        assert values().count("subtract = var:spec_pw_") == len(NAMES)  # the cost of other pursuits, from spec_pw_sum
         assert words.count(f"[concept_spec_capital_flight] received {FLIGHT_IF}") == sum("flight" in NAME_FX[k] for k, *_ in NAMES)
     if NAMES_ON:
         # the hand-out: first places before seconds before thirds, no more than the Standing allows; every name
@@ -3839,7 +3865,7 @@ if __name__ == "__main__":
         assert _pursue_fx("floor", 0) == [("state_trade_capacity_mult", 0.03), ("interest_group_ig_landowners_approval_add", -1)]
         assert "spec_pursue_harbour_3 = {" in MODIFIER
         assert _mod_words(TRUST_FX[0]).startswith("#N +10%#! $country_loan_interest_rate_mult$")
-        assert _mod_words(TRUST_FX[3]) == "#P +2#! $interest_group_ig_industrialists_approval_add$"
+        assert _mod_words(TRUST_FX[3]).startswith("#P +2#! $interest_group_ig_industrialists_approval_add$")
         assert script.count("add_modifier = { name = spec_trust_") == sum(1 for f in TRUST_FX if f)
         assert "clamp_variable = { name = spec_pw_door min = 0 max = 1 }" in script
         assert "spec_now_" not in script and "set_global_variable = { name = spec_ld_door value = global_var:spec_w_door1 }" in script

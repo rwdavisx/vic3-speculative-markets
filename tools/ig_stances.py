@@ -144,9 +144,9 @@ def _ind(text, n):
 NOTE_GROUP = "spec_igs_notification_group"
 _IG, _GOOD = "[SCOPE.gsInterestGroup('spec_note_ig').GetName]", "[SCOPE.sGoods('spec_note_good').GetName]"
 # the good first, so a group's name reads as singular or plural alike ("Catholic Church", "Landowners"); no body
-NOTES = {f"spec_igs_{k}": (NOTE_GROUP, "goods", "neutral", f"{_GOOD} {what} by {_IG}", "") for k, what in (
-    ("fav_new", "now supported"), ("fav_lost", "no longer supported"),
-    ("dis_new", "now opposed"), ("dis_lost", "no longer opposed"))}
+STANCES = (("fav_new", "now supported"), ("fav_lost", "no longer supported"),
+           ("dis_new", "now opposed"), ("dis_lost", "no longer opposed"))  # market_news names them in this order
+NOTES = {f"spec_igs_{k}": (NOTE_GROUP, "goods", "neutral", f"{_GOOD} {what} by {_IG}", "") for k, what in STANCES}
 NOTE_GROUPS = {NOTE_GROUP: "Interest Group Stances"}
 
 
@@ -156,7 +156,7 @@ def _note(ig, g, kind, t):
     detailed = (f"{t}\tig:ig_{ig} = {{ save_scope_as = spec_note_ig }}\n{t}\tg:{g} = {{ save_scope_as = spec_note_good }}\n"
                 f"{t}\tpost_notification = spec_igs_{kind}\n")
     return (f"{t}if = {{\n{t}\tlimit = {{ is_player = yes has_variable = spec_igs_rolled }}\n"
-            + market_news.alternate(detailed, 'opinions', t + "\t") + f"{t}}}\n")
+            + market_news.alternate(detailed, t + "\t", g, [k for k, _ in STANCES].index(kind) + 1, ig=ig) + f"{t}}}\n")
 
 
 def _pick(ig, pool, value):

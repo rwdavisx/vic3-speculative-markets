@@ -18,9 +18,9 @@
     0.779
    ],
    "tuner": [
-    0.214,
-    0.397,
-    0.66
+    0.059,
+    0.373,
+    0.683
    ],
    "game_n": [
     39,
@@ -43,9 +43,9 @@
     1.931
    ],
    "tuner": [
-    0.044,
-    0.335,
-    0.618
+    0.012,
+    1.27,
+    2.793
    ],
    "game_n": [
     39,
@@ -68,9 +68,9 @@
     11.69
    ],
    "tuner": [
-    2.21,
-    6.273,
-    8.857
+    0.761,
+    7.495,
+    9.539
    ],
    "game_n": [
     39,
@@ -93,9 +93,9 @@
     3.703
    ],
    "tuner": [
-    2.658,
-    3.185,
-    3.708
+    2.787,
+    3.298,
+    3.844
    ],
    "game_n": [
     39,
@@ -118,9 +118,9 @@
     2.891
    ],
    "tuner": [
-    0.105,
-    0.121,
-    0.962
+    0.068,
+    0.268,
+    1.578
    ],
    "game_n": [
     39,
@@ -143,9 +143,9 @@
     1.528
    ],
    "tuner": [
-    0.565,
-    0.985,
-    1.753
+    0.147,
+    0.789,
+    1.708
    ],
    "game_n": [
     39,
@@ -168,9 +168,9 @@
     10.788
    ],
    "tuner": [
-    1.166,
-    2.432,
-    8.083
+    0.658,
+    3.328,
+    8.899
    ],
    "game_n": [
     39,
@@ -193,9 +193,9 @@
     55.926
    ],
    "tuner": [
-    54.56,
-    54.35,
-    54.383
+    55.55,
+    55.177,
+    56.323
    ],
    "game_n": [
     39,
@@ -255,12 +255,12 @@
     "raid_ok_pct": 76.19
    },
    "tuner": {
-    "trust_low_pct": 1.7,
-    "lax_mean": 0.522,
-    "boom_mean": 1.95,
-    "lend_per_pool_month": 0.093,
-    "lend_months": 8402,
-    "lures_per_country_decade": 1.604,
+    "trust_low_pct": 0.547,
+    "lax_mean": 0.573,
+    "boom_mean": 1.828,
+    "lend_per_pool_month": 0.101,
+    "lend_months": 11444,
+    "lures_per_country_decade": 1.487,
     "lure_size_pool_months": 4.5,
     "econ_pct": {
      "traditionalism": 37.723,
@@ -327,12 +327,12 @@
     "raid_ok_pct": 83.333
    },
    "tuner": {
-    "trust_low_pct": 17.703,
-    "lax_mean": 0.562,
-    "boom_mean": 2.022,
-    "lend_per_pool_month": 0.108,
-    "lend_months": 19335,
-    "lures_per_country_decade": 0.639,
+    "trust_low_pct": 32.893,
+    "lax_mean": 0.641,
+    "boom_mean": 2.009,
+    "lend_per_pool_month": 0.116,
+    "lend_months": 21252,
+    "lures_per_country_decade": 0.575,
     "lure_size_pool_months": 4.5,
     "econ_pct": {
      "traditionalism": 24.923,
@@ -399,12 +399,12 @@
     "raid_ok_pct": 75.0
    },
    "tuner": {
-    "trust_low_pct": 29.733,
-    "lax_mean": 0.614,
-    "boom_mean": 1.831,
-    "lend_per_pool_month": 0.17,
-    "lend_months": 23816,
-    "lures_per_country_decade": 0.64,
+    "trust_low_pct": 42.912,
+    "lax_mean": 0.634,
+    "boom_mean": 2.26,
+    "lend_per_pool_month": 0.181,
+    "lend_months": 25977,
+    "lures_per_country_decade": 0.603,
     "lure_size_pool_months": 4.5,
     "econ_pct": {
      "traditionalism": 20.7,

@@ -2088,7 +2088,15 @@ def loc(k):
         lim_cap = f"Subtract_CFixedPoint({limit}, {parts})"
         lim_loc = "".join(f' {key}: "' + calc.line(sv(n), "+=0", f"[GetTechnology('{t}').GetName]") + '"\n'
                           for t, (n, key) in zip(leverage.LADDER_TECHS, tech_rows))
-        reward_decimals = len(f"{leverage.REWARD * 100:g}".partition(".")[2])
+        reward_decimals = 1 if leverage.SMOOTH else len(f"{leverage.REWARD * 100:g}".partition(".")[2])
+        boom_now = f"#P +[{sv('spec_lev_boom_pct')}|{reward_decimals}]%#! [concept_throughput]" + (
+            f" and #P +[{sv('spec_lev_boom_inv_pct')}|1]%#! investment" if leverage.SMOOTH and leverage.INV_FULL else "")
+        # one month's bonus; ponytail: assumes CURVE 1 (straight), a front-loaded curve would need the text per section
+        step_bonus = (f"#P +{round(leverage.boom_pct(1), 2):g}%#! [concept_throughput]" + (f" and #P +{round(leverage.boom_pct(1, leverage.INV_FULL), 2):g}%#! investment" if leverage.INV_FULL else "")
+                      + f" up to #v {leverage.RUIN:g}#! months") if leverage.SMOOTH else f"#P +{leverage.REWARD * 100:g}%#! [concept_throughput] up to #v {leverage.REWARD_MAX:g}#! months"
+        # with an investment bonus, each month's added risk names the investment Bad Debts take too
+        step_bad_inv = (f" and #N -[Multiply_CFixedPoint({fx(round(leverage.CRUNCH_MAX / (leverage.RUIN - leverage.SAFE) * leverage.CRUNCH_INVEST * 100, 3))}, {sv('spec_nx_bad')})|1]%#! investment"
+                        if leverage.SMOOTH and leverage.INV_FULL else "")
         lev_loc = f""" SPEC_CREDIT_NO_CRUNCH: "Not lending while [concept_spec_bad_debts] are past what our [concept_spec_lending_standards] allow"
  SPEC_LEV_BAD_NOW: "\\n[concept_spec_bad_debts] cost #N -[{sv('spec_crunch_tp_pct')}|1]%#! [concept_throughput] now and clear in #v [{sv('spec_crunch_months')}|0]#! months."
  SPEC_LEV_RELIEF: "\\nWe lost land, so [concept_spec_bad_debts] count only #v [{sv('spec_lev_bad')}|1]#! months of [concept_spec_leverage]. They go back to full over #v [{sv('spec_lev_fade_sv')}|0]#! more months."
@@ -2112,7 +2120,8 @@ def loc(k):
 {lim_loc} SPEC_LEV_LIM_BLOC: "{calc.line(sv('spec_pb_limit'), '+=0', 'our [concept_power_bloc]')}"
  SPEC_LEV_LIM_CAP: "{calc.line(lim_cap, '+=0', f'the ceiling of #v {leverage.RUIN}#! months')}"
  SPEC_LEV_LIMIT_KEY: "Lending Limit: #v [{limit}|0] months#!"
- SPEC_LEV_MAIN_TT: "#header [concept_spec_leverage]: $SPEC_EFFECT_LEV_VALUE$#!\\n$TOOLTIP_DELIMITER$\\nOur banks have lent us {months_tt} of [concept_investment_pool] income. [SelectLocalization({gt(lev, leverage.DANGER)}, 'SPEC_LEV_ADVICE_DANGER', SelectLocalization({gt(lev, leverage.SAFE)}, 'SPEC_LEV_ADVICE_RISKY', 'SPEC_LEV_ADVICE_SAFE'))]\\n\\n#P +[{sv('spec_lev_boom_pct')}|{reward_decimals}]%#! [concept_throughput] from borrowed money[AddLocalizationIf({calc.shows(sv('spec_pl_lev'))}, 'SPEC_LEV_PL')][AddLocalizationIf({calc.shows(sv('spec_crunch_tp_if_pct'))}, 'SPEC_LEV_IF_PANIC_LINE')][AddLocalizationIf(Or({crunch}, {relief}), 'SPEC_LEV_NOTES')]\\n$TOOLTIP_DELIMITER$\\nBanks lend up to our Lending Limit of #v #tooltippable #tooltip:[Country.GetTooltipTag],SPEC_LEV_LIMIT [{limit}|0] months#!#!#!."
+ SPEC_LEV_MAIN_TT: "#header [concept_spec_leverage]: $SPEC_EFFECT_LEV_VALUE$#!\\n$TOOLTIP_DELIMITER$\\nOur banks have lent us {months_tt} of [concept_investment_pool] income. [SelectLocalization({gt(lev, leverage.DANGER)}, 'SPEC_LEV_ADVICE_DANGER', SelectLocalization({gt(lev, leverage.SAFE)}, 'SPEC_LEV_ADVICE_RISKY', 'SPEC_LEV_ADVICE_SAFE'))]\\n\\n{boom_now} from borrowed money[AddLocalizationIf({calc.shows(sv('spec_pl_lev'))}, 'SPEC_LEV_PL')][AddLocalizationIf({calc.shows(sv('spec_crunch_tp_if_pct'))}, 'SPEC_LEV_IF_PANIC_LINE')][AddLocalizationIf(Or({crunch}, {relief}), 'SPEC_LEV_NOTES')]\\n\\n$SPEC_LEV_STEP$\\n$TOOLTIP_DELIMITER$\\nBanks lend up to our Lending Limit of #v #tooltippable #tooltip:[Country.GetTooltipTag],SPEC_LEV_LIMIT [{limit}|0] months#!#!#!."
+ SPEC_LEV_STEP: "Each month of [concept_spec_leverage], part months included, adds {step_bonus}. Past #v {leverage.SAFE}#! months, each also brings a [concept_spec_financial_panic] #N [Divide_CFixedPoint(Subtract_CFixedPoint({sv(f'spec_panic_at_{leverage.RUIN}')}, {sv(f'spec_panic_at_{leverage.SAFE}')}), {fx(leverage.RUIN - leverage.SAFE)})|1]#! [concept_spec_market_confidence] sooner and adds #N -[Multiply_CFixedPoint({fx(round(leverage.CRUNCH_MAX / (leverage.RUIN - leverage.SAFE) * leverage.CRUNCH_THROUGHPUT * 100, 3))}, {sv('spec_nx_bad')})|1]%#! [concept_throughput]{step_bad_inv} to its [concept_spec_bad_debts]."
  SPEC_LEV_PL: "\\n#N +[{sv('spec_pl_lev')}|1]#! Panic Threshold, so a panic starts sooner"
  SPEC_LEV_IF_PANIC_LINE: "\\n#N -[{sv('spec_crunch_tp_if_pct')}|1]%#! [concept_throughput] and #N -[{inv_if}|1]%#! investment from [concept_spec_bad_debts], if a panic began now"
  SPEC_LEV_IF_PANIC: "A [concept_spec_financial_panic] now would leave [concept_spec_bad_debts] of #N -[{sv('spec_crunch_tp_if_pct')}|1]%#! [concept_throughput] and #N -[{inv_if}|1]%#! investment."
@@ -2133,11 +2142,14 @@ def loc(k):
         zone = lambda hi: ("#P Safe#!" if hi <= leverage.SAFE else "#N Risky#!" if hi <= leverage.DANGER else "#N Dangerous#!")
         safe_at = f"[{sv(f'spec_panic_at_{leverage.SAFE}')}|0]"
         for i, (lo, hi) in enumerate(rungs):
-            boom = leverage.REWARD * 100 * min(hi, leverage.REWARD_MAX)
+            # a range, not a step: the bonus and the risk both grow with every month inside the section
+            # (tenths of a percent, and under SMOOTH the investment beside the throughput)
+            rng = lambda full: (f"#P +{round(leverage.boom_pct(lo, full), 1):g}%#! to " if lo else "up to ") + f"#P +{round(leverage.boom_pct(hi, full), 1):g}%#!"
+            boom = " and ".join(f"{rng(full)} {w}" for full, w in ((None, "[concept_throughput]"), (leverage.INV_FULL if leverage.SMOOTH else 0, "investment")) if full is None or full)
             risk = (" A [concept_spec_financial_panic] leaves no [concept_spec_bad_debts]." if hi <= leverage.SAFE else
-                    f" A [concept_spec_financial_panic] starts below #N [{sv(f'spec_panic_at_{hi}')}|0]#! [concept_spec_market_confidence] instead of #v {safe_at}#!, "
+                    f" By #v {hi}#! months, a [concept_spec_financial_panic] starts below #N [{sv(f'spec_panic_at_{hi}')}|0]#! [concept_spec_market_confidence] instead of #v {safe_at}#!, "
                     f"and leaves [concept_spec_bad_debts] costing up to #N -{bad_at(hi)}%#! [concept_throughput] and #N -{bad_at(hi, leverage.CRUNCH_INVEST)}%#! investment.")
-            lev_loc += f""" SPEC_LEV_TIER_{i}_TT: "#header {lo} to {hi} Months, {zone(hi)}#!\\n$TOOLTIP_DELIMITER$\\n{unlock[i]}\\n\\nAt #v {hi}#! months, borrowed money adds #P +{boom:g}%#! [concept_throughput].{risk}"
+            lev_loc += f""" SPEC_LEV_TIER_{i}_TT: "#header {lo} to {hi} Months, {zone(hi)}#!\\n$TOOLTIP_DELIMITER$\\n{unlock[i]}\\n\\nAcross these months, borrowed money adds {boom}.{risk}"
 """
         lev_loc += f""" SPEC_BAILOUT: "Buy Up Bad Loans"
  SPEC_BAILOUT_TT: "#header Buy Up Bad Loans#!\\n$TOOLTIP_DELIMITER$\\nThe state buys up the banks' bad loans and takes the loss itself.\\n\\n[GetScriptedGui('spec_sgui_bailout').BuildTooltip(GuiScope.SetRoot({P}).End)]"

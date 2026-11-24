@@ -18,8 +18,10 @@ CONCEPTS = {"market_sector": "je_markets", "market_confidence": "je_markets", "s
 LEVERAGE_LOC = "" if not leverage.ON else (
     ' concept_spec_leverage: "Credit Leverage"\n concept_spec_leverage_desc: "How much a [concept_country]\'s banks have lent, its [concept_spec_outstanding_credit] '
     "counted in months of [concept_investment_pool] income. "
-    f"Each whole month of it gives #P {leverage.REWARD * 100:+g}%#! [concept_throughput], up to #P {leverage.REWARD * leverage.REWARD_MAX * 100:+g}%#!. The bonus fades during a "
-    f"[concept_spec_financial_panic] and while [concept_spec_bad_debts] remain.\\n\\nPast #v {leverage.SAFE}#! months it gets risky. "
+    + (f"The more of it, the bigger the bonus, up to {leverage.FULL_TEXT} at #v {leverage.RUIN:g}#! months. The bonus fades during a " if leverage.SMOOTH else
+       f"{leverage.TAPER_TEXT.replace('[concept_spec_leverage]', 'it')} The bonus fades during a " if leverage.TAPERED else
+       f"Each whole month of it gives #P {leverage.REWARD * 100:+g}%#! [concept_throughput], up to #P {leverage.REWARD * leverage.REWARD_MAX * 100:+g}%#!. The bonus fades during a ")
+    + f"[concept_spec_financial_panic] and while [concept_spec_bad_debts] remain.\\n\\nPast #v {leverage.SAFE}#! months it gets risky. "
     f'A $concept_spec_financial_panic$ then starts sooner, at a higher [concept_spec_market_confidence], and leaves $concept_spec_bad_debts$ behind."\n'
     ' concept_spec_bad_debts: "Bad Debts"\n concept_spec_bad_debts_desc: "The losses left on the books of a [concept_country]\'s banks. A [concept_spec_financial_panic] leaves more of them '
     f"the further [concept_spec_leverage] is past #v {leverage.SAFE}#! months, and a burst of [concept_spec_speculative_excess] leaves whatever "

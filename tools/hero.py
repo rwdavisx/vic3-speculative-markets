@@ -53,6 +53,9 @@ def values(band_invest, band_rate, band_trade, panic_invest, panic_tp, rescue_cu
                 f"spec_so_invest_debts = {{\n\tvalue = 0\n{_if('has_modifier = spec_credit_crunch_v2', 'value = { value = spec_crunch_invest_pct divide = -100 }')}}}"]
         invest.append("spec_so_invest_debts")
         tp = ["spec_so_tp_lev", "spec_so_tp_debts"] + tp
+        if leverage.SMOOTH and leverage.INV_FULL:  # the smooth bonus's investment, beside what Bad Debts take
+            out.append("spec_so_invest_lev = {\n\tvalue = spec_lev_boom_inv_pct\n\tdivide = 100\n}")
+            invest.insert(0, "spec_so_invest_lev")
     groups = sorted(cycle._GROUPS) if cycle.ON else []
     assert groups or not cycle.ON
     out += [f"spec_so_build_n = {{\n\tvalue = 0\n" + "".join(_if(f"spec_bb_{g} > 0", "add = 1") for g in groups) + "}",
@@ -166,6 +169,8 @@ def loc():
         "trade": [("spec_so_trade_mood", "+=%0", "the market's mood"), ("spec_so_trade_ld", "+=%0", "the [concept_spec_long_depression]")],
         "rate": [("spec_so_rate_mood", "-=%0", "the market's mood"), ("spec_so_rate_ld", "-=%0", "the [concept_spec_long_depression]")],
     }
+    if leverage.SMOOTH and leverage.INV_FULL:
+        rows["invest"].insert(0, ("spec_so_invest_lev", "+=%0", "borrowed money, our [concept_spec_leverage]"))
     if not leverage.ON:
         rows["invest"] = [r for r in rows["invest"] if "debts" not in r[0]]
         rows["tp"] = [r for r in rows["tp"] if r[0] == "spec_so_tp_panic"]

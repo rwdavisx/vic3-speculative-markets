@@ -129,9 +129,10 @@ def inspect_stage(channel):
             "files_sha256": hashes, "source_archive_sha256": item["source_archive_sha256"]}
 
 
-def description(channel):
+def description(channel, version):
     path = ROOT / CHANNELS[channel][2]
-    text = path.read_text(encoding="utf-8").strip()
+    # __VERSION__ becomes the staged version, so the listing always names what it ships
+    text = path.read_text(encoding="utf-8").strip().replace("__VERSION__", version)
     if re.search(r"__[A-Z][A-Z0-9_]*__", text):
         raise ValueError(f"Unresolved publication placeholder in {path}")
     raw = text.encode("utf-8")
@@ -340,7 +341,7 @@ def main(argv=None):
         if args.preview:
             summary.update(preview_only=str(args.preview), preview_sha256=sha(args.preview.read_bytes()), preview_size=args.preview.stat().st_size)
         if args.command in ("plan", "update"):
-            body, body_hash = description(args.channel)
+            body, body_hash = description(args.channel, plan["version"])
             summary["description_sha256"] = body_hash
         emit(summary)
         if args.command == "plan" or args.command in ("create", "update") and not args.execute:

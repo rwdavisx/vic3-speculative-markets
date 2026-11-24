@@ -620,8 +620,10 @@ spec_near_at = {
 
 spec_lev_reward = {
 	value = spec_lev_adj
-	max = 4
+	max = 12
+	multiply = 10
 	floor = yes
+	divide = 10
 	if = {
 		limit = {
 			OR = {
@@ -647,7 +649,7 @@ spec_crunch_bite_sv = {
 	if = {
 		limit = { has_variable = spec_crunch_bite }
 		value = var:spec_crunch_bite
-		if = { limit = { NOT = { has_variable = spec_debt_units_v2 } } multiply = 0.114286 }
+		if = { limit = { NOT = { has_variable = spec_debt_units_v2 } } multiply = 0.133333 }
 		max = 20
 	}
 }
@@ -675,18 +677,79 @@ spec_ai_lev_back = {
 	multiply = 0.5
 }
 
-spec_lev_boom_pct = {
+spec_lev_boom_mult = {
 	value = 0
 	if = {
 		limit = { has_variable = spec_lev_held }
 		value = var:spec_lev_held
-		multiply = 3.5
+		if = {
+			limit = { var:spec_lev_held >= 0 var:spec_lev_held < 1 }
+			subtract = 0
+			multiply = 0.08333
+			add = 0
+		}
+		if = {
+			limit = { var:spec_lev_held >= 1 var:spec_lev_held < 2 }
+			subtract = 1
+			multiply = 0.08333
+			add = 0.08333
+		}
+		if = {
+			limit = { var:spec_lev_held >= 2 var:spec_lev_held < 3 }
+			subtract = 2
+			multiply = 0.08333
+			add = 0.16667
+		}
+		if = {
+			limit = { var:spec_lev_held >= 3 var:spec_lev_held < 4 }
+			subtract = 3
+			multiply = 0.08333
+			add = 0.25
+		}
+		if = {
+			limit = { var:spec_lev_held >= 4 var:spec_lev_held < 6 }
+			subtract = 4
+			multiply = 0.08333
+			add = 0.33333
+		}
+		if = {
+			limit = { var:spec_lev_held >= 6 var:spec_lev_held < 8 }
+			subtract = 6
+			multiply = 0.08333
+			add = 0.5
+		}
+		if = {
+			limit = { var:spec_lev_held >= 8 var:spec_lev_held < 10 }
+			subtract = 8
+			multiply = 0.08333
+			add = 0.66667
+		}
+		if = {
+			limit = { var:spec_lev_held >= 10 var:spec_lev_held < 12 }
+			subtract = 10
+			multiply = 0.08333
+			add = 0.83333
+		}
+		if = {
+			limit = { var:spec_lev_held >= 12 }
+			value = 1
+		}
 	}
+}
+
+spec_lev_boom_pct = {
+	value = spec_lev_boom_mult
+	multiply = 24
+}
+
+spec_lev_boom_inv_pct = {
+	value = spec_lev_boom_mult
+	multiply = 6
 }
 
 spec_crunch_invest_pct = {
 	value = spec_crunch_bite_sv
-	multiply = 0.75
+	multiply = 3.5
 }
 
 spec_crunch_left = {
@@ -699,7 +762,7 @@ spec_crunch_sv = {
 	if = {
 		limit = { has_variable = spec_crunch }
 		value = var:spec_crunch
-		if = { limit = { NOT = { has_variable = spec_debt_units_v2 } } multiply = 0.114286 }
+		if = { limit = { NOT = { has_variable = spec_debt_units_v2 } } multiply = 0.133333 }
 		max = 20
 	}
 }
@@ -757,7 +820,7 @@ spec_crunch_if = {
 }
 
 spec_crunch_fade = {
-	value = 0.47
+	value = 0.3
 	if = {
 		limit = { spec_stance_value = -1 }
 		value = 1.5
@@ -799,17 +862,17 @@ spec_lim_international_exchange_standards = {
 
 spec_crunch_tp_pct = {
 	value = spec_crunch_bite_sv
-	multiply = 3.5
+	multiply = 3
 }
 
 spec_crunch_tp_full_pct = {
 	value = spec_crunch_sv
-	multiply = 3.5
+	multiply = 3
 }
 
 spec_crunch_tp_if_pct = {
 	value = spec_crunch_if
-	multiply = 3.5
+	multiply = 3
 }
 
 spec_bailout_share = {
@@ -4845,6 +4908,11 @@ spec_so_invest_debts = {
 	}
 }
 
+spec_so_invest_lev = {
+	value = spec_lev_boom_inv_pct
+	divide = 100
+}
+
 spec_so_build_n = {
 	value = 0
 	if = {
@@ -4903,6 +4971,7 @@ spec_so_build = {
 
 spec_so_invest = {
 	value = 0
+	add = spec_so_invest_lev
 	add = spec_so_invest_mood
 	add = spec_so_invest_panic
 	add = spec_so_invest_ld
