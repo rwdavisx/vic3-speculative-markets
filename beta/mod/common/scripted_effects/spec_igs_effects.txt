@@ -742,7 +742,7 @@ spec_igs_fav_landowners = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = landowners G = grain K = 1 }
 					}
 				}
 			}
@@ -758,7 +758,7 @@ spec_igs_fav_landowners = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = landowners G = sugar K = 1 }
 					}
 				}
 			}
@@ -774,7 +774,7 @@ spec_igs_fav_landowners = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = landowners G = tobacco K = 1 }
 					}
 				}
 			}
@@ -790,7 +790,7 @@ spec_igs_fav_landowners = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = landowners G = wine K = 1 }
 					}
 				}
 			}
@@ -806,7 +806,7 @@ spec_igs_fav_landowners = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = landowners G = tea K = 1 }
 					}
 				}
 			}
@@ -822,7 +822,7 @@ spec_igs_fav_landowners = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = landowners G = coffee K = 1 }
 					}
 				}
 			}
@@ -838,7 +838,7 @@ spec_igs_fav_landowners = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = landowners G = silk K = 1 }
 					}
 				}
 			}
@@ -854,7 +854,7 @@ spec_igs_fav_landowners = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = landowners G = dye K = 1 }
 					}
 				}
 			}
@@ -870,7 +870,7 @@ spec_igs_fav_landowners = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = landowners G = meat K = 1 }
 					}
 				}
 			}
@@ -899,7 +899,7 @@ spec_igs_dis_landowners = {
 						post_notification = spec_igs_dis_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = landowners G = steel K = 3 }
 					}
 				}
 			}
@@ -915,7 +915,7 @@ spec_igs_dis_landowners = {
 						post_notification = spec_igs_dis_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = landowners G = engines K = 3 }
 					}
 				}
 			}
@@ -953,7 +953,7 @@ spec_igs_reroll_landowners = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = landowners G = grain K = 2 }
 							}
 						}
 					}
@@ -969,7 +969,7 @@ spec_igs_reroll_landowners = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = landowners G = sugar K = 2 }
 							}
 						}
 					}
@@ -985,7 +985,7 @@ spec_igs_reroll_landowners = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = landowners G = tobacco K = 2 }
 							}
 						}
 					}
@@ -1001,7 +1001,7 @@ spec_igs_reroll_landowners = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = landowners G = wine K = 2 }
 							}
 						}
 					}
@@ -1017,7 +1017,7 @@ spec_igs_reroll_landowners = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = landowners G = tea K = 2 }
 							}
 						}
 					}
@@ -1033,7 +1033,7 @@ spec_igs_reroll_landowners = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = landowners G = coffee K = 2 }
 							}
 						}
 					}
@@ -1049,7 +1049,7 @@ spec_igs_reroll_landowners = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = landowners G = silk K = 2 }
 							}
 						}
 					}
@@ -1065,7 +1065,7 @@ spec_igs_reroll_landowners = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = landowners G = dye K = 2 }
 							}
 						}
 					}
@@ -1081,7 +1081,7 @@ spec_igs_reroll_landowners = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = landowners G = meat K = 2 }
 							}
 						}
 					}
@@ -1109,7 +1109,7 @@ spec_igs_reroll_landowners = {
 								post_notification = spec_igs_dis_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = landowners G = steel K = 4 }
 							}
 						}
 					}
@@ -1125,7 +1125,7 @@ spec_igs_reroll_landowners = {
 								post_notification = spec_igs_dis_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = landowners G = engines K = 4 }
 							}
 						}
 					}
@@ -1181,7 +1181,7 @@ spec_igs_fav_industrialists = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = industrialists G = steel K = 1 }
 					}
 				}
 			}
@@ -1197,7 +1197,7 @@ spec_igs_fav_industrialists = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = industrialists G = tools K = 1 }
 					}
 				}
 			}
@@ -1213,7 +1213,7 @@ spec_igs_fav_industrialists = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = industrialists G = engines K = 1 }
 					}
 				}
 			}
@@ -1229,7 +1229,7 @@ spec_igs_fav_industrialists = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = industrialists G = coal K = 1 }
 					}
 				}
 			}
@@ -1245,7 +1245,7 @@ spec_igs_fav_industrialists = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = industrialists G = iron K = 1 }
 					}
 				}
 			}
@@ -1261,7 +1261,7 @@ spec_igs_fav_industrialists = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = industrialists G = fabric K = 1 }
 					}
 				}
 			}
@@ -1277,7 +1277,7 @@ spec_igs_fav_industrialists = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = industrialists G = explosives K = 1 }
 					}
 				}
 			}
@@ -1293,7 +1293,7 @@ spec_igs_fav_industrialists = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = industrialists G = glass K = 1 }
 					}
 				}
 			}
@@ -1309,7 +1309,7 @@ spec_igs_fav_industrialists = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = industrialists G = oil K = 1 }
 					}
 				}
 			}
@@ -1325,7 +1325,7 @@ spec_igs_fav_industrialists = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = industrialists G = rubber K = 1 }
 					}
 				}
 			}
@@ -1341,7 +1341,7 @@ spec_igs_fav_industrialists = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = industrialists G = electricity K = 1 }
 					}
 				}
 			}
@@ -1357,7 +1357,7 @@ spec_igs_fav_industrialists = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = industrialists G = automobiles K = 1 }
 					}
 				}
 			}
@@ -1373,7 +1373,7 @@ spec_igs_fav_industrialists = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = industrialists G = steamers K = 1 }
 					}
 				}
 			}
@@ -1389,7 +1389,7 @@ spec_igs_fav_industrialists = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = industrialists G = copper K = 1 }
 					}
 				}
 			}
@@ -1417,7 +1417,7 @@ spec_igs_dis_industrialists = {
 						post_notification = spec_igs_dis_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = industrialists G = grain K = 3 }
 					}
 				}
 			}
@@ -1460,7 +1460,7 @@ spec_igs_reroll_industrialists = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = industrialists G = steel K = 2 }
 							}
 						}
 					}
@@ -1476,7 +1476,7 @@ spec_igs_reroll_industrialists = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = industrialists G = tools K = 2 }
 							}
 						}
 					}
@@ -1492,7 +1492,7 @@ spec_igs_reroll_industrialists = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = industrialists G = engines K = 2 }
 							}
 						}
 					}
@@ -1508,7 +1508,7 @@ spec_igs_reroll_industrialists = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = industrialists G = coal K = 2 }
 							}
 						}
 					}
@@ -1524,7 +1524,7 @@ spec_igs_reroll_industrialists = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = industrialists G = iron K = 2 }
 							}
 						}
 					}
@@ -1540,7 +1540,7 @@ spec_igs_reroll_industrialists = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = industrialists G = fabric K = 2 }
 							}
 						}
 					}
@@ -1556,7 +1556,7 @@ spec_igs_reroll_industrialists = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = industrialists G = explosives K = 2 }
 							}
 						}
 					}
@@ -1572,7 +1572,7 @@ spec_igs_reroll_industrialists = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = industrialists G = glass K = 2 }
 							}
 						}
 					}
@@ -1588,7 +1588,7 @@ spec_igs_reroll_industrialists = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = industrialists G = oil K = 2 }
 							}
 						}
 					}
@@ -1604,7 +1604,7 @@ spec_igs_reroll_industrialists = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = industrialists G = rubber K = 2 }
 							}
 						}
 					}
@@ -1620,7 +1620,7 @@ spec_igs_reroll_industrialists = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = industrialists G = electricity K = 2 }
 							}
 						}
 					}
@@ -1636,7 +1636,7 @@ spec_igs_reroll_industrialists = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = industrialists G = automobiles K = 2 }
 							}
 						}
 					}
@@ -1652,7 +1652,7 @@ spec_igs_reroll_industrialists = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = industrialists G = steamers K = 2 }
 							}
 						}
 					}
@@ -1668,7 +1668,7 @@ spec_igs_reroll_industrialists = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = industrialists G = copper K = 2 }
 							}
 						}
 					}
@@ -1695,7 +1695,7 @@ spec_igs_reroll_industrialists = {
 								post_notification = spec_igs_dis_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = industrialists G = grain K = 4 }
 							}
 						}
 					}
@@ -1745,7 +1745,7 @@ spec_igs_fav_armed_forces = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = armed_forces G = small_arms K = 1 }
 					}
 				}
 			}
@@ -1761,7 +1761,7 @@ spec_igs_fav_armed_forces = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = armed_forces G = artillery K = 1 }
 					}
 				}
 			}
@@ -1777,7 +1777,7 @@ spec_igs_fav_armed_forces = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = armed_forces G = ammunition K = 1 }
 					}
 				}
 			}
@@ -1793,7 +1793,7 @@ spec_igs_fav_armed_forces = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = armed_forces G = explosives K = 1 }
 					}
 				}
 			}
@@ -1809,7 +1809,7 @@ spec_igs_fav_armed_forces = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = armed_forces G = tanks K = 1 }
 					}
 				}
 			}
@@ -1825,7 +1825,7 @@ spec_igs_fav_armed_forces = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = armed_forces G = aeroplanes K = 1 }
 					}
 				}
 			}
@@ -1841,7 +1841,7 @@ spec_igs_fav_armed_forces = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = armed_forces G = lead K = 1 }
 					}
 				}
 			}
@@ -1857,7 +1857,7 @@ spec_igs_fav_armed_forces = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = armed_forces G = sulfur K = 1 }
 					}
 				}
 			}
@@ -1886,7 +1886,7 @@ spec_igs_dis_armed_forces = {
 						post_notification = spec_igs_dis_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = armed_forces G = opium K = 3 }
 					}
 				}
 			}
@@ -1902,7 +1902,7 @@ spec_igs_dis_armed_forces = {
 						post_notification = spec_igs_dis_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = armed_forces G = liquor K = 3 }
 					}
 				}
 			}
@@ -1939,7 +1939,7 @@ spec_igs_reroll_armed_forces = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = armed_forces G = small_arms K = 2 }
 							}
 						}
 					}
@@ -1955,7 +1955,7 @@ spec_igs_reroll_armed_forces = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = armed_forces G = artillery K = 2 }
 							}
 						}
 					}
@@ -1971,7 +1971,7 @@ spec_igs_reroll_armed_forces = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = armed_forces G = ammunition K = 2 }
 							}
 						}
 					}
@@ -1987,7 +1987,7 @@ spec_igs_reroll_armed_forces = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = armed_forces G = explosives K = 2 }
 							}
 						}
 					}
@@ -2003,7 +2003,7 @@ spec_igs_reroll_armed_forces = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = armed_forces G = tanks K = 2 }
 							}
 						}
 					}
@@ -2019,7 +2019,7 @@ spec_igs_reroll_armed_forces = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = armed_forces G = aeroplanes K = 2 }
 							}
 						}
 					}
@@ -2035,7 +2035,7 @@ spec_igs_reroll_armed_forces = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = armed_forces G = lead K = 2 }
 							}
 						}
 					}
@@ -2051,7 +2051,7 @@ spec_igs_reroll_armed_forces = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = armed_forces G = sulfur K = 2 }
 							}
 						}
 					}
@@ -2079,7 +2079,7 @@ spec_igs_reroll_armed_forces = {
 								post_notification = spec_igs_dis_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = armed_forces G = opium K = 4 }
 							}
 						}
 					}
@@ -2095,7 +2095,7 @@ spec_igs_reroll_armed_forces = {
 								post_notification = spec_igs_dis_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = armed_forces G = liquor K = 4 }
 							}
 						}
 					}
@@ -2142,7 +2142,7 @@ spec_igs_fav_devout = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = devout G = grain K = 1 }
 					}
 				}
 			}
@@ -2158,7 +2158,7 @@ spec_igs_fav_devout = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = devout G = paper K = 1 }
 					}
 				}
 			}
@@ -2174,7 +2174,7 @@ spec_igs_fav_devout = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = devout G = clothes K = 1 }
 					}
 				}
 			}
@@ -2190,7 +2190,7 @@ spec_igs_fav_devout = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = devout G = groceries K = 1 }
 					}
 				}
 			}
@@ -2206,7 +2206,7 @@ spec_igs_fav_devout = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = devout G = fine_art K = 1 }
 					}
 				}
 			}
@@ -2236,7 +2236,7 @@ spec_igs_dis_devout = {
 						post_notification = spec_igs_dis_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = devout G = liquor K = 3 }
 					}
 				}
 			}
@@ -2252,7 +2252,7 @@ spec_igs_dis_devout = {
 						post_notification = spec_igs_dis_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = devout G = opium K = 3 }
 					}
 				}
 			}
@@ -2268,7 +2268,7 @@ spec_igs_dis_devout = {
 						post_notification = spec_igs_dis_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = devout G = wine K = 3 }
 					}
 				}
 			}
@@ -2302,7 +2302,7 @@ spec_igs_reroll_devout = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = devout G = grain K = 2 }
 							}
 						}
 					}
@@ -2318,7 +2318,7 @@ spec_igs_reroll_devout = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = devout G = paper K = 2 }
 							}
 						}
 					}
@@ -2334,7 +2334,7 @@ spec_igs_reroll_devout = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = devout G = clothes K = 2 }
 							}
 						}
 					}
@@ -2350,7 +2350,7 @@ spec_igs_reroll_devout = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = devout G = groceries K = 2 }
 							}
 						}
 					}
@@ -2366,7 +2366,7 @@ spec_igs_reroll_devout = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = devout G = fine_art K = 2 }
 							}
 						}
 					}
@@ -2395,7 +2395,7 @@ spec_igs_reroll_devout = {
 								post_notification = spec_igs_dis_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = devout G = liquor K = 4 }
 							}
 						}
 					}
@@ -2411,7 +2411,7 @@ spec_igs_reroll_devout = {
 								post_notification = spec_igs_dis_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = devout G = opium K = 4 }
 							}
 						}
 					}
@@ -2427,7 +2427,7 @@ spec_igs_reroll_devout = {
 								post_notification = spec_igs_dis_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = devout G = wine K = 4 }
 							}
 						}
 					}
@@ -2476,7 +2476,7 @@ spec_igs_fav_rural_folk = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = rural_folk G = grain K = 1 }
 					}
 				}
 			}
@@ -2492,7 +2492,7 @@ spec_igs_fav_rural_folk = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = rural_folk G = meat K = 1 }
 					}
 				}
 			}
@@ -2508,7 +2508,7 @@ spec_igs_fav_rural_folk = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = rural_folk G = fabric K = 1 }
 					}
 				}
 			}
@@ -2524,7 +2524,7 @@ spec_igs_fav_rural_folk = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = rural_folk G = fish K = 1 }
 					}
 				}
 			}
@@ -2540,7 +2540,7 @@ spec_igs_fav_rural_folk = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = rural_folk G = fruit K = 1 }
 					}
 				}
 			}
@@ -2556,7 +2556,7 @@ spec_igs_fav_rural_folk = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = rural_folk G = wood K = 1 }
 					}
 				}
 			}
@@ -2572,7 +2572,7 @@ spec_igs_fav_rural_folk = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = rural_folk G = fertilizer K = 1 }
 					}
 				}
 			}
@@ -2601,7 +2601,7 @@ spec_igs_dis_rural_folk = {
 						post_notification = spec_igs_dis_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = rural_folk G = engines K = 3 }
 					}
 				}
 			}
@@ -2617,7 +2617,7 @@ spec_igs_dis_rural_folk = {
 						post_notification = spec_igs_dis_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = rural_folk G = tools K = 3 }
 					}
 				}
 			}
@@ -2653,7 +2653,7 @@ spec_igs_reroll_rural_folk = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = rural_folk G = grain K = 2 }
 							}
 						}
 					}
@@ -2669,7 +2669,7 @@ spec_igs_reroll_rural_folk = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = rural_folk G = meat K = 2 }
 							}
 						}
 					}
@@ -2685,7 +2685,7 @@ spec_igs_reroll_rural_folk = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = rural_folk G = fabric K = 2 }
 							}
 						}
 					}
@@ -2701,7 +2701,7 @@ spec_igs_reroll_rural_folk = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = rural_folk G = fish K = 2 }
 							}
 						}
 					}
@@ -2717,7 +2717,7 @@ spec_igs_reroll_rural_folk = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = rural_folk G = fruit K = 2 }
 							}
 						}
 					}
@@ -2733,7 +2733,7 @@ spec_igs_reroll_rural_folk = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = rural_folk G = wood K = 2 }
 							}
 						}
 					}
@@ -2749,7 +2749,7 @@ spec_igs_reroll_rural_folk = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = rural_folk G = fertilizer K = 2 }
 							}
 						}
 					}
@@ -2777,7 +2777,7 @@ spec_igs_reroll_rural_folk = {
 								post_notification = spec_igs_dis_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = rural_folk G = engines K = 4 }
 							}
 						}
 					}
@@ -2793,7 +2793,7 @@ spec_igs_reroll_rural_folk = {
 								post_notification = spec_igs_dis_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = rural_folk G = tools K = 4 }
 							}
 						}
 					}
@@ -2846,7 +2846,7 @@ spec_igs_fav_petty_bourgeoisie = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = petty_bourgeoisie G = furniture K = 1 }
 					}
 				}
 			}
@@ -2862,7 +2862,7 @@ spec_igs_fav_petty_bourgeoisie = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = petty_bourgeoisie G = luxury_clothes K = 1 }
 					}
 				}
 			}
@@ -2878,7 +2878,7 @@ spec_igs_fav_petty_bourgeoisie = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = petty_bourgeoisie G = porcelain K = 1 }
 					}
 				}
 			}
@@ -2894,7 +2894,7 @@ spec_igs_fav_petty_bourgeoisie = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = petty_bourgeoisie G = liquor K = 1 }
 					}
 				}
 			}
@@ -2910,7 +2910,7 @@ spec_igs_fav_petty_bourgeoisie = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = petty_bourgeoisie G = luxury_furniture K = 1 }
 					}
 				}
 			}
@@ -2926,7 +2926,7 @@ spec_igs_fav_petty_bourgeoisie = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = petty_bourgeoisie G = clothes K = 1 }
 					}
 				}
 			}
@@ -2942,7 +2942,7 @@ spec_igs_fav_petty_bourgeoisie = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = petty_bourgeoisie G = groceries K = 1 }
 					}
 				}
 			}
@@ -2958,7 +2958,7 @@ spec_igs_fav_petty_bourgeoisie = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = petty_bourgeoisie G = glass K = 1 }
 					}
 				}
 			}
@@ -2974,7 +2974,7 @@ spec_igs_fav_petty_bourgeoisie = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = petty_bourgeoisie G = hardwood K = 1 }
 					}
 				}
 			}
@@ -2990,7 +2990,7 @@ spec_igs_fav_petty_bourgeoisie = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = petty_bourgeoisie G = clippers K = 1 }
 					}
 				}
 			}
@@ -3006,7 +3006,7 @@ spec_igs_fav_petty_bourgeoisie = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = petty_bourgeoisie G = merchant_marine K = 1 }
 					}
 				}
 			}
@@ -3035,7 +3035,7 @@ spec_igs_dis_petty_bourgeoisie = {
 						post_notification = spec_igs_dis_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = petty_bourgeoisie G = fabric K = 3 }
 					}
 				}
 			}
@@ -3051,7 +3051,7 @@ spec_igs_dis_petty_bourgeoisie = {
 						post_notification = spec_igs_dis_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = petty_bourgeoisie G = opium K = 3 }
 					}
 				}
 			}
@@ -3091,7 +3091,7 @@ spec_igs_reroll_petty_bourgeoisie = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = petty_bourgeoisie G = furniture K = 2 }
 							}
 						}
 					}
@@ -3107,7 +3107,7 @@ spec_igs_reroll_petty_bourgeoisie = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = petty_bourgeoisie G = luxury_clothes K = 2 }
 							}
 						}
 					}
@@ -3123,7 +3123,7 @@ spec_igs_reroll_petty_bourgeoisie = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = petty_bourgeoisie G = porcelain K = 2 }
 							}
 						}
 					}
@@ -3139,7 +3139,7 @@ spec_igs_reroll_petty_bourgeoisie = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = petty_bourgeoisie G = liquor K = 2 }
 							}
 						}
 					}
@@ -3155,7 +3155,7 @@ spec_igs_reroll_petty_bourgeoisie = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = petty_bourgeoisie G = luxury_furniture K = 2 }
 							}
 						}
 					}
@@ -3171,7 +3171,7 @@ spec_igs_reroll_petty_bourgeoisie = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = petty_bourgeoisie G = clothes K = 2 }
 							}
 						}
 					}
@@ -3187,7 +3187,7 @@ spec_igs_reroll_petty_bourgeoisie = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = petty_bourgeoisie G = groceries K = 2 }
 							}
 						}
 					}
@@ -3203,7 +3203,7 @@ spec_igs_reroll_petty_bourgeoisie = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = petty_bourgeoisie G = glass K = 2 }
 							}
 						}
 					}
@@ -3219,7 +3219,7 @@ spec_igs_reroll_petty_bourgeoisie = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = petty_bourgeoisie G = hardwood K = 2 }
 							}
 						}
 					}
@@ -3235,7 +3235,7 @@ spec_igs_reroll_petty_bourgeoisie = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = petty_bourgeoisie G = clippers K = 2 }
 							}
 						}
 					}
@@ -3251,7 +3251,7 @@ spec_igs_reroll_petty_bourgeoisie = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = petty_bourgeoisie G = merchant_marine K = 2 }
 							}
 						}
 					}
@@ -3279,7 +3279,7 @@ spec_igs_reroll_petty_bourgeoisie = {
 								post_notification = spec_igs_dis_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = petty_bourgeoisie G = fabric K = 4 }
 							}
 						}
 					}
@@ -3295,7 +3295,7 @@ spec_igs_reroll_petty_bourgeoisie = {
 								post_notification = spec_igs_dis_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = petty_bourgeoisie G = opium K = 4 }
 							}
 						}
 					}
@@ -3343,7 +3343,7 @@ spec_igs_fav_intelligentsia = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = intelligentsia G = paper K = 1 }
 					}
 				}
 			}
@@ -3359,7 +3359,7 @@ spec_igs_fav_intelligentsia = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = intelligentsia G = telephones K = 1 }
 					}
 				}
 			}
@@ -3375,7 +3375,7 @@ spec_igs_fav_intelligentsia = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = intelligentsia G = radios K = 1 }
 					}
 				}
 			}
@@ -3391,7 +3391,7 @@ spec_igs_fav_intelligentsia = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = intelligentsia G = glass K = 1 }
 					}
 				}
 			}
@@ -3407,7 +3407,7 @@ spec_igs_fav_intelligentsia = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = intelligentsia G = fine_art K = 1 }
 					}
 				}
 			}
@@ -3423,7 +3423,7 @@ spec_igs_fav_intelligentsia = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = intelligentsia G = electricity K = 1 }
 					}
 				}
 			}
@@ -3452,7 +3452,7 @@ spec_igs_dis_intelligentsia = {
 						post_notification = spec_igs_dis_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = intelligentsia G = opium K = 3 }
 					}
 				}
 			}
@@ -3468,7 +3468,7 @@ spec_igs_dis_intelligentsia = {
 						post_notification = spec_igs_dis_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = intelligentsia G = liquor K = 3 }
 					}
 				}
 			}
@@ -3503,7 +3503,7 @@ spec_igs_reroll_intelligentsia = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = intelligentsia G = paper K = 2 }
 							}
 						}
 					}
@@ -3519,7 +3519,7 @@ spec_igs_reroll_intelligentsia = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = intelligentsia G = telephones K = 2 }
 							}
 						}
 					}
@@ -3535,7 +3535,7 @@ spec_igs_reroll_intelligentsia = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = intelligentsia G = radios K = 2 }
 							}
 						}
 					}
@@ -3551,7 +3551,7 @@ spec_igs_reroll_intelligentsia = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = intelligentsia G = glass K = 2 }
 							}
 						}
 					}
@@ -3567,7 +3567,7 @@ spec_igs_reroll_intelligentsia = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = intelligentsia G = fine_art K = 2 }
 							}
 						}
 					}
@@ -3583,7 +3583,7 @@ spec_igs_reroll_intelligentsia = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = intelligentsia G = electricity K = 2 }
 							}
 						}
 					}
@@ -3611,7 +3611,7 @@ spec_igs_reroll_intelligentsia = {
 								post_notification = spec_igs_dis_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = intelligentsia G = opium K = 4 }
 							}
 						}
 					}
@@ -3627,7 +3627,7 @@ spec_igs_reroll_intelligentsia = {
 								post_notification = spec_igs_dis_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = intelligentsia G = liquor K = 4 }
 							}
 						}
 					}
@@ -3675,7 +3675,7 @@ spec_igs_fav_trade_unions = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = trade_unions G = groceries K = 1 }
 					}
 				}
 			}
@@ -3691,7 +3691,7 @@ spec_igs_fav_trade_unions = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = trade_unions G = clothes K = 1 }
 					}
 				}
 			}
@@ -3707,7 +3707,7 @@ spec_igs_fav_trade_unions = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = trade_unions G = coal K = 1 }
 					}
 				}
 			}
@@ -3723,7 +3723,7 @@ spec_igs_fav_trade_unions = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = trade_unions G = steel K = 1 }
 					}
 				}
 			}
@@ -3739,7 +3739,7 @@ spec_igs_fav_trade_unions = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = trade_unions G = furniture K = 1 }
 					}
 				}
 			}
@@ -3755,7 +3755,7 @@ spec_igs_fav_trade_unions = {
 						post_notification = spec_igs_fav_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = trade_unions G = fabric K = 1 }
 					}
 				}
 			}
@@ -3784,7 +3784,7 @@ spec_igs_dis_trade_unions = {
 						post_notification = spec_igs_dis_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = trade_unions G = liquor K = 3 }
 					}
 				}
 			}
@@ -3800,7 +3800,7 @@ spec_igs_dis_trade_unions = {
 						post_notification = spec_igs_dis_new
 					}
 					else = {
-						spec_queue_market_news = { FIELD = opinions }
+						spec_queue_ig_news = { IG = trade_unions G = opium K = 3 }
 					}
 				}
 			}
@@ -3835,7 +3835,7 @@ spec_igs_reroll_trade_unions = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = trade_unions G = groceries K = 2 }
 							}
 						}
 					}
@@ -3851,7 +3851,7 @@ spec_igs_reroll_trade_unions = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = trade_unions G = clothes K = 2 }
 							}
 						}
 					}
@@ -3867,7 +3867,7 @@ spec_igs_reroll_trade_unions = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = trade_unions G = coal K = 2 }
 							}
 						}
 					}
@@ -3883,7 +3883,7 @@ spec_igs_reroll_trade_unions = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = trade_unions G = steel K = 2 }
 							}
 						}
 					}
@@ -3899,7 +3899,7 @@ spec_igs_reroll_trade_unions = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = trade_unions G = furniture K = 2 }
 							}
 						}
 					}
@@ -3915,7 +3915,7 @@ spec_igs_reroll_trade_unions = {
 								post_notification = spec_igs_fav_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = trade_unions G = fabric K = 2 }
 							}
 						}
 					}
@@ -3943,7 +3943,7 @@ spec_igs_reroll_trade_unions = {
 								post_notification = spec_igs_dis_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = trade_unions G = liquor K = 4 }
 							}
 						}
 					}
@@ -3959,7 +3959,7 @@ spec_igs_reroll_trade_unions = {
 								post_notification = spec_igs_dis_lost
 							}
 							else = {
-								spec_queue_market_news = { FIELD = opinions }
+								spec_queue_ig_news = { IG = trade_unions G = opium K = 4 }
 							}
 						}
 					}
@@ -4066,7 +4066,7 @@ spec_igs_on_bust_aeroplanes = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = armed_forces G = aeroplanes K = 2 }
 				}
 			}
 		}
@@ -4104,7 +4104,7 @@ spec_igs_on_bust_ammunition = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = armed_forces G = ammunition K = 2 }
 				}
 			}
 		}
@@ -4142,7 +4142,7 @@ spec_igs_on_bust_artillery = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = armed_forces G = artillery K = 2 }
 				}
 			}
 		}
@@ -4180,7 +4180,7 @@ spec_igs_on_bust_automobiles = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = industrialists G = automobiles K = 2 }
 				}
 			}
 		}
@@ -4218,7 +4218,7 @@ spec_igs_on_bust_clippers = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = petty_bourgeoisie G = clippers K = 2 }
 				}
 			}
 		}
@@ -4264,7 +4264,7 @@ spec_igs_on_bust_clothes = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = devout G = clothes K = 2 }
 				}
 			}
 		}
@@ -4291,7 +4291,7 @@ spec_igs_on_bust_clothes = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = petty_bourgeoisie G = clothes K = 2 }
 				}
 			}
 		}
@@ -4318,7 +4318,7 @@ spec_igs_on_bust_clothes = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = trade_unions G = clothes K = 2 }
 				}
 			}
 		}
@@ -4360,7 +4360,7 @@ spec_igs_on_bust_coal = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = industrialists G = coal K = 2 }
 				}
 			}
 		}
@@ -4387,7 +4387,7 @@ spec_igs_on_bust_coal = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = trade_unions G = coal K = 2 }
 				}
 			}
 		}
@@ -4425,7 +4425,7 @@ spec_igs_on_bust_coffee = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = landowners G = coffee K = 2 }
 				}
 			}
 		}
@@ -4463,7 +4463,7 @@ spec_igs_on_bust_copper = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = industrialists G = copper K = 2 }
 				}
 			}
 		}
@@ -4501,7 +4501,7 @@ spec_igs_on_bust_dye = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = landowners G = dye K = 2 }
 				}
 			}
 		}
@@ -4543,7 +4543,7 @@ spec_igs_on_bust_electricity = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = industrialists G = electricity K = 2 }
 				}
 			}
 		}
@@ -4570,7 +4570,7 @@ spec_igs_on_bust_electricity = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = intelligentsia G = electricity K = 2 }
 				}
 			}
 		}
@@ -4616,7 +4616,7 @@ spec_igs_on_bust_engines = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = landowners G = engines K = 2 }
 				}
 			}
 		}
@@ -4643,7 +4643,7 @@ spec_igs_on_bust_engines = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = industrialists G = engines K = 2 }
 				}
 			}
 		}
@@ -4670,7 +4670,7 @@ spec_igs_on_bust_engines = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = rural_folk G = engines K = 2 }
 				}
 			}
 		}
@@ -4712,7 +4712,7 @@ spec_igs_on_bust_explosives = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = industrialists G = explosives K = 2 }
 				}
 			}
 		}
@@ -4739,7 +4739,7 @@ spec_igs_on_bust_explosives = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = armed_forces G = explosives K = 2 }
 				}
 			}
 		}
@@ -4789,7 +4789,7 @@ spec_igs_on_bust_fabric = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = industrialists G = fabric K = 2 }
 				}
 			}
 		}
@@ -4816,7 +4816,7 @@ spec_igs_on_bust_fabric = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = rural_folk G = fabric K = 2 }
 				}
 			}
 		}
@@ -4843,7 +4843,7 @@ spec_igs_on_bust_fabric = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = petty_bourgeoisie G = fabric K = 2 }
 				}
 			}
 		}
@@ -4870,7 +4870,7 @@ spec_igs_on_bust_fabric = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = trade_unions G = fabric K = 2 }
 				}
 			}
 		}
@@ -4908,7 +4908,7 @@ spec_igs_on_bust_fertilizer = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = rural_folk G = fertilizer K = 2 }
 				}
 			}
 		}
@@ -4950,7 +4950,7 @@ spec_igs_on_bust_fine_art = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = devout G = fine_art K = 2 }
 				}
 			}
 		}
@@ -4977,7 +4977,7 @@ spec_igs_on_bust_fine_art = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = intelligentsia G = fine_art K = 2 }
 				}
 			}
 		}
@@ -5015,7 +5015,7 @@ spec_igs_on_bust_fish = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = rural_folk G = fish K = 2 }
 				}
 			}
 		}
@@ -5053,7 +5053,7 @@ spec_igs_on_bust_fruit = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = rural_folk G = fruit K = 2 }
 				}
 			}
 		}
@@ -5095,7 +5095,7 @@ spec_igs_on_bust_furniture = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = petty_bourgeoisie G = furniture K = 2 }
 				}
 			}
 		}
@@ -5122,7 +5122,7 @@ spec_igs_on_bust_furniture = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = trade_unions G = furniture K = 2 }
 				}
 			}
 		}
@@ -5168,7 +5168,7 @@ spec_igs_on_bust_glass = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = industrialists G = glass K = 2 }
 				}
 			}
 		}
@@ -5195,7 +5195,7 @@ spec_igs_on_bust_glass = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = petty_bourgeoisie G = glass K = 2 }
 				}
 			}
 		}
@@ -5222,7 +5222,7 @@ spec_igs_on_bust_glass = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = intelligentsia G = glass K = 2 }
 				}
 			}
 		}
@@ -5272,7 +5272,7 @@ spec_igs_on_bust_grain = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = landowners G = grain K = 2 }
 				}
 			}
 		}
@@ -5299,7 +5299,7 @@ spec_igs_on_bust_grain = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = industrialists G = grain K = 2 }
 				}
 			}
 		}
@@ -5326,7 +5326,7 @@ spec_igs_on_bust_grain = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = devout G = grain K = 2 }
 				}
 			}
 		}
@@ -5353,7 +5353,7 @@ spec_igs_on_bust_grain = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = rural_folk G = grain K = 2 }
 				}
 			}
 		}
@@ -5399,7 +5399,7 @@ spec_igs_on_bust_groceries = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = devout G = groceries K = 2 }
 				}
 			}
 		}
@@ -5426,7 +5426,7 @@ spec_igs_on_bust_groceries = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = petty_bourgeoisie G = groceries K = 2 }
 				}
 			}
 		}
@@ -5453,7 +5453,7 @@ spec_igs_on_bust_groceries = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = trade_unions G = groceries K = 2 }
 				}
 			}
 		}
@@ -5491,7 +5491,7 @@ spec_igs_on_bust_hardwood = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = petty_bourgeoisie G = hardwood K = 2 }
 				}
 			}
 		}
@@ -5529,7 +5529,7 @@ spec_igs_on_bust_iron = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = industrialists G = iron K = 2 }
 				}
 			}
 		}
@@ -5567,7 +5567,7 @@ spec_igs_on_bust_lead = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = armed_forces G = lead K = 2 }
 				}
 			}
 		}
@@ -5621,7 +5621,7 @@ spec_igs_on_bust_liquor = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = armed_forces G = liquor K = 2 }
 				}
 			}
 		}
@@ -5648,7 +5648,7 @@ spec_igs_on_bust_liquor = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = devout G = liquor K = 2 }
 				}
 			}
 		}
@@ -5675,7 +5675,7 @@ spec_igs_on_bust_liquor = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = petty_bourgeoisie G = liquor K = 2 }
 				}
 			}
 		}
@@ -5702,7 +5702,7 @@ spec_igs_on_bust_liquor = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = intelligentsia G = liquor K = 2 }
 				}
 			}
 		}
@@ -5729,7 +5729,7 @@ spec_igs_on_bust_liquor = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = trade_unions G = liquor K = 2 }
 				}
 			}
 		}
@@ -5767,7 +5767,7 @@ spec_igs_on_bust_luxury_clothes = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = petty_bourgeoisie G = luxury_clothes K = 2 }
 				}
 			}
 		}
@@ -5805,7 +5805,7 @@ spec_igs_on_bust_luxury_furniture = {  # param CHANCE: the group may drop the go
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = petty_bourgeoisie G = luxury_furniture K = 2 }
 				}
 			}
 		}
@@ -5847,7 +5847,7 @@ spec_igs_on_bust_meat = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = landowners G = meat K = 2 }
 				}
 			}
 		}
@@ -5874,7 +5874,7 @@ spec_igs_on_bust_meat = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = rural_folk G = meat K = 2 }
 				}
 			}
 		}
@@ -5912,7 +5912,7 @@ spec_igs_on_bust_merchant_marine = {  # param CHANCE: the group may drop the goo
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = petty_bourgeoisie G = merchant_marine K = 2 }
 				}
 			}
 		}
@@ -5950,7 +5950,7 @@ spec_igs_on_bust_oil = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = industrialists G = oil K = 2 }
 				}
 			}
 		}
@@ -6004,7 +6004,7 @@ spec_igs_on_bust_opium = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = armed_forces G = opium K = 2 }
 				}
 			}
 		}
@@ -6031,7 +6031,7 @@ spec_igs_on_bust_opium = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = devout G = opium K = 2 }
 				}
 			}
 		}
@@ -6058,7 +6058,7 @@ spec_igs_on_bust_opium = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = petty_bourgeoisie G = opium K = 2 }
 				}
 			}
 		}
@@ -6085,7 +6085,7 @@ spec_igs_on_bust_opium = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = intelligentsia G = opium K = 2 }
 				}
 			}
 		}
@@ -6112,7 +6112,7 @@ spec_igs_on_bust_opium = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = trade_unions G = opium K = 2 }
 				}
 			}
 		}
@@ -6154,7 +6154,7 @@ spec_igs_on_bust_paper = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = devout G = paper K = 2 }
 				}
 			}
 		}
@@ -6181,7 +6181,7 @@ spec_igs_on_bust_paper = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = intelligentsia G = paper K = 2 }
 				}
 			}
 		}
@@ -6219,7 +6219,7 @@ spec_igs_on_bust_porcelain = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = petty_bourgeoisie G = porcelain K = 2 }
 				}
 			}
 		}
@@ -6257,7 +6257,7 @@ spec_igs_on_bust_radios = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = intelligentsia G = radios K = 2 }
 				}
 			}
 		}
@@ -6295,7 +6295,7 @@ spec_igs_on_bust_rubber = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = industrialists G = rubber K = 2 }
 				}
 			}
 		}
@@ -6333,7 +6333,7 @@ spec_igs_on_bust_silk = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = landowners G = silk K = 2 }
 				}
 			}
 		}
@@ -6371,7 +6371,7 @@ spec_igs_on_bust_small_arms = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = armed_forces G = small_arms K = 2 }
 				}
 			}
 		}
@@ -6409,7 +6409,7 @@ spec_igs_on_bust_steamers = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = industrialists G = steamers K = 2 }
 				}
 			}
 		}
@@ -6455,7 +6455,7 @@ spec_igs_on_bust_steel = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = landowners G = steel K = 2 }
 				}
 			}
 		}
@@ -6482,7 +6482,7 @@ spec_igs_on_bust_steel = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = industrialists G = steel K = 2 }
 				}
 			}
 		}
@@ -6509,7 +6509,7 @@ spec_igs_on_bust_steel = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = trade_unions G = steel K = 2 }
 				}
 			}
 		}
@@ -6547,7 +6547,7 @@ spec_igs_on_bust_sugar = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = landowners G = sugar K = 2 }
 				}
 			}
 		}
@@ -6585,7 +6585,7 @@ spec_igs_on_bust_sulfur = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = armed_forces G = sulfur K = 2 }
 				}
 			}
 		}
@@ -6623,7 +6623,7 @@ spec_igs_on_bust_tanks = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = armed_forces G = tanks K = 2 }
 				}
 			}
 		}
@@ -6661,7 +6661,7 @@ spec_igs_on_bust_tea = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = landowners G = tea K = 2 }
 				}
 			}
 		}
@@ -6699,7 +6699,7 @@ spec_igs_on_bust_telephones = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = intelligentsia G = telephones K = 2 }
 				}
 			}
 		}
@@ -6737,7 +6737,7 @@ spec_igs_on_bust_tobacco = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = landowners G = tobacco K = 2 }
 				}
 			}
 		}
@@ -6779,7 +6779,7 @@ spec_igs_on_bust_tools = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = industrialists G = tools K = 2 }
 				}
 			}
 		}
@@ -6806,7 +6806,7 @@ spec_igs_on_bust_tools = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = rural_folk G = tools K = 2 }
 				}
 			}
 		}
@@ -6848,7 +6848,7 @@ spec_igs_on_bust_wine = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = landowners G = wine K = 2 }
 				}
 			}
 		}
@@ -6875,7 +6875,7 @@ spec_igs_on_bust_wine = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = devout G = wine K = 2 }
 				}
 			}
 		}
@@ -6913,7 +6913,7 @@ spec_igs_on_bust_wood = {  # param CHANCE: the group may drop the good
 					post_notification = spec_igs_fav_lost
 				}
 				else = {
-					spec_queue_market_news = { FIELD = opinions }
+					spec_queue_ig_news = { IG = rural_folk G = wood K = 2 }
 				}
 			}
 		}

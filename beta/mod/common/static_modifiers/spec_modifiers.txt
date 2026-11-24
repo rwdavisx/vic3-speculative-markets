@@ -110,7 +110,10 @@ spec_boom_build_infrastructure = {
 
 spec_lev_boom = {
 	icon = gfx/interface/icons/spec_markets/mod_loose.dds
-	building_throughput_add = 0.035
+	building_throughput_add = 0.24
+	state_capitalists_investment_pool_efficiency_mult = 0.06
+	state_aristocrats_investment_pool_efficiency_mult = 0.06
+	state_shopkeepers_investment_pool_efficiency_mult = 0.06
 }
 
 spec_credit_crunch = {
@@ -123,10 +126,10 @@ spec_credit_crunch = {
 
 spec_credit_crunch_v2 = {
 	icon = gfx/interface/icons/spec_markets/mod_crunch.dds
-	building_throughput_add = -0.035
-	state_capitalists_investment_pool_efficiency_mult = -0.0075
-	state_aristocrats_investment_pool_efficiency_mult = -0.0075
-	state_shopkeepers_investment_pool_efficiency_mult = -0.0075
+	building_throughput_add = -0.03
+	state_capitalists_investment_pool_efficiency_mult = -0.035
+	state_aristocrats_investment_pool_efficiency_mult = -0.035
+	state_shopkeepers_investment_pool_efficiency_mult = -0.035
 }
 
 # applied with spec_panic_cut of the law's allocation as its multiplier: a panic takes half of private construction, all of it at leverage.DANGER

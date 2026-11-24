@@ -2487,7 +2487,7 @@ spec_rank_centres = {
 				if = {
 					limit = { has_variable = spec_lax var:spec_lax >= 0.8 }
 					if = { limit = { is_player = yes has_variable = spec_trust_review } set_local_variable = { name = spec_before_trust value = var:spec_centre_trust } }
-					set_variable = { name = spec_centre_trust value = { value = var:spec_centre_trust subtract = { value = 1.2 multiply = spec_exch_loss } min = 0 } }
+					set_variable = { name = spec_centre_trust value = { value = var:spec_centre_trust subtract = { value = 0.0 multiply = spec_exch_loss } min = 0 } }
 					if = { limit = { is_player = yes has_variable = spec_trust_review } change_variable = { name = spec_trust_lending_pending add = { value = var:spec_centre_trust subtract = local_var:spec_before_trust } } }
 				}
 				else_if = {

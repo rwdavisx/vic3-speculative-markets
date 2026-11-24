@@ -66973,28 +66973,28 @@
 											size = { 40 16 }
 											align = center|nobaseline
 											using = fontsize_small
-											raw_text = "-17.5%"
+											raw_text = "-15%"
 										}
 										textbox = {
 											position = { 135 28 }
 											size = { 40 16 }
 											align = center|nobaseline
 											using = fontsize_small
-											raw_text = "-35%"
+											raw_text = "-30%"
 										}
 										textbox = {
 											position = { 212 28 }
 											size = { 40 16 }
 											align = center|nobaseline
 											using = fontsize_small
-											raw_text = "-52.5%"
+											raw_text = "-45%"
 										}
 										textbox = {
 											position = { 270 28 }
 											size = { 40 16 }
 											align = right|nobaseline
 											using = fontsize_small
-											raw_text = "-70%"
+											raw_text = "-60%"
 										}
 									}
 									button = {

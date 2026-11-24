@@ -6,7 +6,19 @@ Published 2026-11-23 23:50 UTC, public, both verified:
 - BPM patch 1.0.1, item 3844392018, built against `mod/` 1.2.1 (`runs/bpm/v121_release`). Archive
   `releases/Speculative_Markets_BPM_Compatibility_1.0.1.zip`, SHA256 b37bc7f4792501fd83335da68d269dc26757b5ec2ed0f661c60c6758d21287bc.
   Receipt `workshop/upload_receipts/20261123T235041.966458Z_bpm_update_verified_276af695.json`.
-- CMF, Morgenroete and TechRes patches not re-uploaded (no GUI change).
+- Correction, 2026-11-24 01:20 UTC: the Morgenroete and TechRes patches ship generated copies of the parent's script values,
+  English text and the market tab GUI (TechRes also spec_modifiers.txt), so from 23:50 their users ran 1.2.0 values and text
+  over 1.2.1. Rebuilt against `mod/` 1.2.1 and published, verified, not run in game:
+  - Morgenroete 1.2.1, item 3839705018, `runs/morgenroete/v121`, SHA256 f899a656daaba2b9eca0a839c7e15f498757bc4b0414241f3a5edb2c5ca5641f,
+    receipt `20261124T011957.883114Z_morgenroete_update_verified_df819d22.json`.
+  - TechRes 1.1.1, item 3841713072, `runs/techres/v121`, SHA256 5c9f555b988692975f9019ad8a0871272a3fb1aeddf40ab7ca33c063df94a407,
+    receipt `20261124T012003.382837Z_techres_update_verified_3c5e3966.json`.
+  - CMF needs no rebuild: its patch holds only CMF and vanilla GUI files.
+  Any parent change to a generator that these builders rerun needs both patches rebuilt, not only GUI changes.
+- Beta 1.2.1-beta.1, item 3839275304, gameplay bytes equal to `mod/`. Archive SHA256
+  42924a4360f2f9f93f913b427d37190276e5cfc0007da7dd7ba5481116740ad7, receipt `20261124T012050.070880Z_beta_update_verified_7c37ad19.json`.
+- The stable description now carries the version (`__VERSION__`, filled by `tools/steam_upload.py`); description-only update
+  verified, receipt `20261124T002858.265020Z_stable_update_verified_50080e6d.json`.
 
 ## In 1.2.1
 - Domestic Market News redesign (names goods and interest groups by sector; no English literals left, all 10 languages).
