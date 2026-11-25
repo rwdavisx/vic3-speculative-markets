@@ -1,0 +1,65 @@
+# tool_result for 013_scratch_ridesim_grid2.ps1 (is_error=False)
+(0.15, 40, 3, 0.06) | careful: +0.28 p1.1 m0.0 passive: +0.13 p4.2 m2.7 ai: +0.31 p2.8 m0.8 reckless: +0.11 p7.1 m3.6
+     ride8c3 edge 0.31 panics 4.5 bad% 6.2 mania 0.7 | tops>=9: 0.05 burned 26% peak 7.6
+     ride8c10 edge 0.37 panics 3.5 bad% 3.6 mania 0.5 | tops>=9: 0.04 burned 29% peak 7.5
+     ride8c18 edge 0.40 panics 2.8 bad% 2.1 mania 0.4 | tops>=9: 0.02 burned 25% peak 7.1
+     ride11c3 edge 0.19 panics 5.9 bad% 10.2 mania 1.6 | tops>=9: 1.74 burned 71% peak 8.8
+     ride11c10 edge 0.33 panics 4.1 bad% 5.2 mania 0.9 | tops>=9: 1.22 burned 42% peak 8.2
+     ride11c18 edge 0.39 panics 2.9 bad% 2.5 mania 0.5 | tops>=9: 0.48 burned 24% peak 7.5
+(0.15, 40, 3, 0.1) | careful: +0.25 p1.1 m0.0 passive: +0.13 p4.1 m2.8 ai: +0.32 p2.6 m0.7 reckless: +0.11 p7.1 m3.6
+     ride8c3 edge 0.33 panics 4.2 bad% 5.5 mania 0.7 | tops>=9: 0.05 burned 10% peak 7.6
+     ride8c10 edge 0.39 panics 3.0 bad% 2.8 mania 0.4 | tops>=9: 0.05 burned 11% peak 7.5
+     ride8c18 edge 0.41 panics 2.2 bad% 1.3 mania 0.3 | tops>=9: 0.01 burned 0% peak 7.1
+     ride11c3 edge 0.23 panics 5.4 bad% 9.1 mania 1.5 | tops>=9: 1.80 burned 57% peak 8.8
+     ride11c10 edge 0.36 panics 3.5 bad% 4.0 mania 0.8 | tops>=9: 1.23 burned 29% peak 8.2
+     ride11c18 edge 0.40 panics 2.3 bad% 1.5 mania 0.4 | tops>=9: 0.45 burned 10% peak 7.5
+(0.15, 55, 3, 0.06) | careful: +0.28 p1.2 m0.0 passive: +0.10 p5.1 m3.1 ai: +0.22 p4.3 m1.1 reckless: +0.06 p8.9 m3.8
+     ride8c3 edge 0.21 panics 6.4 bad% 9.3 mania 1.0 | tops>=9: 0.04 burned 44% peak 7.5
+     ride8c10 edge 0.32 panics 4.5 bad% 4.9 mania 0.6 | tops>=9: 0.02 burned 33% peak 7.3
+     ride8c18 edge 0.37 panics 3.2 bad% 2.3 mania 0.4 | tops>=9: 0.01 burned 50% peak 6.8
+     ride11c3 edge 0.12 panics 7.5 bad% 12.4 mania 1.9 | tops>=9: 1.16 burned 82% peak 8.3
+     ride11c10 edge 0.29 panics 5.0 bad% 6.1 mania 0.9 | tops>=9: 0.52 burned 55% peak 7.7
+     ride11c18 edge 0.37 panics 3.3 bad% 2.5 mania 0.4 | tops>=9: 0.10 burned 34% peak 7.0
+(0.15, 55, 3, 0.1) | careful: +0.25 p1.1 m0.0 passive: +0.10 p5.1 m3.1 ai: +0.23 p4.0 m1.1 reckless: +0.06 p8.9 m3.8
+     ride8c3 edge 0.23 panics 5.9 bad% 8.4 mania 1.0 | tops>=9: 0.03 burned 8% peak 7.5
+     ride8c10 edge 0.35 panics 3.7 bad% 3.6 mania 0.5 | tops>=9: 0.01 burned 33% peak 7.2
+     ride8c18 edge 0.39 panics 2.4 bad% 1.3 mania 0.3 | tops>=9: 0.00 burned 0% peak 6.8
+     ride11c3 edge 0.15 panics 6.9 bad% 11.1 mania 1.7 | tops>=9: 1.18 burned 68% peak 8.3
+     ride11c10 edge 0.33 panics 4.0 bad% 4.3 mania 0.7 | tops>=9: 0.51 burned 29% peak 7.7
+     ride11c18 edge 0.39 panics 2.4 bad% 1.4 mania 0.3 | tops>=9: 0.07 burned 12% peak 6.9
+(0.25, 40, 3, 0.06) | careful: +0.31 p1.1 m0.0 passive: -0.09 p6.6 m4.9 ai: +0.26 p3.9 m1.1 reckless: -0.09 p10.0 m5.7
+     ride8c3 edge 0.27 panics 5.6 bad% 8.8 mania 0.9 | tops>=9: 0.12 burned 34% peak 8.2
+     ride8c10 edge 0.35 panics 4.5 bad% 5.8 mania 0.6 | tops>=9: 0.09 burned 15% peak 8.1
+     ride8c18 edge 0.40 panics 3.5 bad% 3.3 mania 0.4 | tops>=9: 0.06 burned 17% peak 7.8
+     ride11c3 edge 0.07 panics 8.2 bad% 16.0 mania 2.6 | tops>=9: 3.23 burned 69% peak 9.8
+     ride11c10 edge 0.25 panics 5.8 bad% 9.2 mania 1.5 | tops>=9: 2.53 burned 48% peak 9.4
+     ride11c18 edge 0.37 panics 3.9 bad% 4.4 mania 0.7 | tops>=9: 1.28 burned 32% peak 8.6
+(0.25, 40, 3, 0.1) | careful: +0.28 p1.1 m0.0 passive: -0.09 p6.6 m4.9 ai: +0.28 p3.4 m1.0 reckless: -0.08 p10.0 m5.7
+     ride8c3 edge 0.30 panics 5.2 bad% 7.7 mania 0.8 | tops>=9: 0.11 burned 5% peak 8.2
+     ride8c10 edge 0.39 panics 3.7 bad% 4.1 mania 0.5 | tops>=9: 0.09 burned 5% peak 8.1
+     ride8c18 edge 0.42 panics 2.7 bad% 1.9 mania 0.3 | tops>=9: 0.05 burned 0% peak 7.8
+     ride11c3 edge 0.11 panics 7.7 bad% 14.6 mania 2.3 | tops>=9: 3.45 burned 55% peak 9.8
+     ride11c10 edge 0.32 panics 4.7 bad% 6.8 mania 1.1 | tops>=9: 2.71 burned 30% peak 9.4
+     ride11c18 edge 0.41 panics 3.0 bad% 2.6 mania 0.5 | tops>=9: 1.34 burned 15% peak 8.6
+(0.25, 55, 3, 0.06) | careful: +0.31 p1.2 m0.0 passive: -0.16 p8.0 m5.5 ai: +0.13 p5.9 m1.7 reckless: -0.17 p12.4 m6.4
+     ride8c3 edge 0.13 panics 8.4 bad% 13.6 mania 1.4 | tops>=9: 0.07 burned 36% peak 8.1
+     ride8c10 edge 0.26 panics 6.2 bad% 8.2 mania 0.8 | tops>=9: 0.06 burned 48% peak 7.9
+     ride8c18 edge 0.35 panics 4.3 bad% 4.1 mania 0.5 | tops>=9: 0.01 burned 33% peak 7.6
+     ride11c3 edge -0.05 panics 10.6 bad% 20.0 mania 3.2 | tops>=9: 2.49 burned 83% peak 9.4
+     ride11c10 edge 0.20 panics 7.1 bad% 10.6 mania 1.5 | tops>=9: 1.46 burned 61% peak 8.8
+     ride11c18 edge 0.34 panics 4.5 bad% 4.5 mania 0.6 | tops>=9: 0.31 burned 47% peak 7.9
+(0.25, 55, 3, 0.1) | careful: +0.28 p1.2 m0.0 passive: -0.16 p8.0 m5.6 ai: +0.15 p5.4 m1.6 reckless: -0.17 p12.5 m6.4
+     ride8c3 edge 0.18 panics 7.5 bad% 11.7 mania 1.3 | tops>=9: 0.08 burned 9% peak 8.1
+     ride8c10 edge 0.33 panics 4.7 bad% 5.5 mania 0.7 | tops>=9: 0.05 burned 26% peak 7.9
+     ride8c18 edge 0.40 panics 3.0 bad% 2.1 mania 0.3 | tops>=9: 0.02 burned 22% peak 7.5
+     ride11c3 edge -0.00 panics 9.8 bad% 18.2 mania 2.9 | tops>=9: 2.63 burned 69% peak 9.4
+     ride11c10 edge 0.28 panics 5.5 bad% 7.3 mania 1.1 | tops>=9: 1.45 burned 36% peak 8.7
+     ride11c18 edge 0.39 panics 3.1 bad% 2.4 mania 0.4 | tops>=9: 0.27 burned 15% peak 7.8
+(0.4, 40, 3, 0.06) | careful: +0.33 p1.1 m0.0 passive: -0.32 p8.7 m7.0 ai: +0.21 p4.7 m1.4 reckless: -0.21 p11.8 m7.2
+     ride8c3 edge 0.25 panics 6.4 bad% 10.3 mania 0.9 | tops>=9: 0.16 burned 30% peak 8.4
+     ride8c10 edge 0.32 panics 5.1 bad% 7.2 mania 0.7 | tops>=9: 0.12 burned 29% peak 8.3
+     ride8c18 edge 0.38 panics 4.0 bad% 4.4 mania 0.5 | tops>=9: 0.07 burned 18% peak 8.1
+     ride11c3 edge -0.02 panics 9.7 bad% 19.9 mania 3.2 | tops>=9: 4.10 burned 69% peak 10.3
+     ride11c10 edge 0.20 panics 6.9 bad% 11.9 mania 1.8 | tops>=9: 3.40 burned 50% peak 9.8
+     ride11c18 edge 0.34 panics 4.5 bad% 5.9 mania 0.9 | tops>=9: 1.83 burned 34% peak 
+...[truncated]

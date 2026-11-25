@@ -1,0 +1,3 @@
+# tool_result for 009_scratch_infographic_labels2.ps1 (is_error=False)
+reckless {'edge': 0.072, 'gdp': 7.462, 'panics': 8.722, 'trouble': 13.32, 'trusted': 67.179, 'behind': 33.14}
+Shell cwd was reset to G:\GameDev\speculative-markets

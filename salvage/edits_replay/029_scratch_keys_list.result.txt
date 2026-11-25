@@ -1,0 +1,80 @@
+# tool_result for 029_scratch_keys_list.ps1 (is_error=False)
+{
+  "CLAWBACK": 0.75,
+  "CONF_CRASH_MAX": 35,
+  "CONF_PER_CRASH_HYPE": 7,
+  "CONF_PER_HOT": 6.0,
+  "CONF_RECOVER": 0.2,
+  "CONF_START": 50,
+  "CREDIT_FLOW_MAX": 0.15,
+  "CREDIT_FROM": 50,
+  "CREDIT_RUNOFF": 0.0095,
+  "CREDIT_RUNOFF_TIGHT": 0.1,
+  "FIN_BOOM_BASE": 1.75,
+  "HEAT_FROM": 80,
+  "LAX_CREDIT": 0.35,
+  "LAX_PER_CONF": 0.0065,
+  "LAX_START": 0.5,
+  "LEV_BAD_STOP": 11,
+  "LEV_BAILOUT_CUT": 0.25,
+  "LEV_CRUNCH_BUILD": 0.06,
+  "LEV_CRUNCH_FADE": 0.35,
+  "LEV_CRUNCH_FADE_TIGHT": 1.5,
+  "LEV_CRUNCH_INVEST": 0.035,
+  "LEV_CRUNCH_MAX": 20,
+  "LEV_CRUNCH_RAMP": 2,
+  "LEV_CRUNCH_THROUGHPUT": 0.03,
+  "LEV_INCOME_FLOOR": 0.007,
+  "LEV_PANIC_SPAN": 35,
+  "LEV_RECORD_BUILD": 0.0167,
+  "BB_STEP": 0.15,
+  "LEV_RECORD_GAIN": 0.02,
+  "LEV_RECORD_LOSS": 0.3,
+  "LEV_REWARD": 0.02,
+  "LEV_REWARD_INV_FULL": 0.06,
+  "LEV_REWARD_MAX": 12,
+  "LEV_REWARD_TAPER": 0,
+  "LEV_REWARD_TP_FULL": 0.24,
+  "MOOD_KEEP": 0.95,
+  "PANIC_BUILD": -0.3,
+  "PANIC_DAYS": 90,
+  "PANIC_SHALLOW": 14,
+  "TRUST_PRESTIGE": 0.05,
+  "TRUST_RECKLESS": 0
+}
+---
+CONF_START 50 (<module 'generate' from 'G:\\GameDev\\speculative-markets\\tools\\generate.py'>, 'CONF_START', 'Confidence', 'Resting confidence')
+CONF_RECOVER 0.2 (<module 'generate' from 'G:\\GameDev\\speculative-markets\\tools\\generate.py'>, 'CONF_RECOVER', 'Confidence', 'Drift back a month')
+MOOD_SHOCK 0.75 (<module 'generate' from 'G:\\GameDev\\speculative-markets\\tools\\generate.py'>, 'MOOD_SHOCK', 'Confidence', 'Mood shock')
+MOOD_KEEP 0.95 (<module 'generate' from 'G:\\GameDev\\speculative-markets\\tools\\generate.py'>, 'MOOD_KEEP', 'Confidence', 'Mood memory')
+MOOD_SHALLOW 0.5 (<module 'generate' from 'G:\\GameDev\\speculative-markets\\tools\\generate.py'>, 'MOOD_SHALLOW', 'Confidence', 'Mood felt with no districts')
+PANIC_SHALLOW 14 (<module 'generate' from 'G:\\GameDev\\speculative-markets\\tools\\generate.py'>, 'PANIC_SHALLOW', 'Confidence', 'Panic line drop with no districts')
+CONF_PER_HOT 6.0 (<module 'generate' from 'G:\\GameDev\\speculative-markets\\tools\\generate.py'>, 'CONF_PER_HOT', 'Booms', 'Confidence per boom')
+FIN_BOOM_BASE 1.75 (<module 'generate' from 'G:\\GameDev\\speculative-markets\\tools\\generate.py'>, 'FIN_BOOM_BASE', 'Booms', 'Boom size before finance techs')
+CONF_CRASH_MAX 35 (<module 'generate' from 'G:\\GameDev\\speculative-markets\\tools\\generate.py'>, 'CONF_CRASH_MAX', 'Booms', 'Most a month of endings takes')
+CORRECTION_PER_HYPE 1.25 (<module 'generate' from 'G:\\GameDev\\speculative-markets\\tools\\generate.py'>, None, 'Booms', 'Correction cost')
+BUST_PER_HYPE 2.5 (<module 'generate' from 'G:\\GameDev\\speculative-markets\\tools\\generate.py'>, None, 'Booms', 'Bust cost')
+CONF_PER_CRASH_HYPE 7 (<module 'generate' from 'G:\\GameDev\\speculative-markets\\tools\\generate.py'>, 'CONF_PER_CRASH_HYPE', 'Booms', 'Collapse cost')
+LAND_DEEP 0.1 (<module 'generate' from 'G:\\GameDev\\speculative-markets\\tools\\generate.py'>, 'LAND_DEEP', 'Booms', "Fall below a boom's start before it can Collapse")
+CREDIT_FROM 50 (<module 'generate' from 'G:\\GameDev\\speculative-markets\\tools\\generate.py'>, 'CREDIT_FROM', 'Credit', 'Banks lend above')
+CREDIT_SHARE 1.5 (<module 'generate' from 'G:\\GameDev\\speculative-markets\\tools\\generate.py'>, 'CREDIT_SHARE', 'Credit', 'Credit share at full confidence')
+CREDIT_FLOW_MAX 0.15 (<module 'generate' from 'G:\\GameDev\\speculative-markets\\tools\\generate.py'>, 'CREDIT_FLOW_MAX', 'Credit', "Confidence's part at most")
+CREDIT_CEILING 0.6 (<module 'generate' from 'G:\\GameDev\\speculative-markets\\tools\\generate.py'>, 'CREDIT_CEILING', 'Credit', "Ceiling, share of a month's income")
+CREDIT_RUNOFF 0.0095 (<module 'generate' from 'G:\\GameDev\\speculative-markets\\tools\\generate.py'>, 'CREDIT_RUNOFF', 'Credit', 'Runoff a month')
+CREDIT_RUNOFF_TIGHT 0.1 (<module 'generate' from 'G:\\GameDev\\speculative-markets\\tools\\generate.py'>, 'CREDIT_RUNOFF_TIGHT', 'Credit', 'Runoff a month, Tight')
+CLAWBACK 0.75 (<module 'generate' from 'G:\\GameDev\\speculative-markets\\tools\\generate.py'>, 'CLAWBACK', 'Panic', 'Share of credit recalled')
+CLAW_FLOOR 0.25 (<module 'generate' from 'G:\\GameDev\\speculative-markets\\tools\\generate.py'>, 'CLAW_FLOOR', 'Panic', 'Pool share taken at low leverage')
+PANIC 25 (<module 'generate' from 'G:\\GameDev\\speculative-markets\\tools\\generate.py'>, 'PANIC', 'Panic', 'Panic line')
+PANIC_DAYS 90 (<module 'generate' from 'G:\\GameDev\\speculative-markets\\tools\\generate.py'>, 'PANIC_DAYS', 'Panic', 'Panic length (days)')
+PANIC_ENDS_AT 40 (<module 'generate' from 'G:\\GameDev\\speculative-markets\\tools\\generate.py'>, 'PANIC_ENDS_AT', 'Panic', 'Panic ends at')
+MANIA 80 (<module 'generate' from 'G:\\GameDev\\speculative-markets\\tools\\generate.py'>, 'MANIA', 'Confidence', 'Mania line')
+TIGHT_PULL 0.1 (<module 'generate' from 'G:\\GameDev\\speculative-markets\\tools\\generate.py'>, 'TIGHT_PULL', 'Credit', 'Tight pull a month')
+HEAT_FROM 80 (<module 'generate' from 'G:\\GameDev\\speculative-markets\\tools\\generate.py'>, 'HEAT_FROM', 'Excess', 'Excess builds from')
+BURST_BELOW 60 (<module 'generate' from 'G:\\GameDev\\speculative-markets\\tools\\generate.py'>, 'BURST_BELOW', 'Excess', 'Bursts below')
+HEAT_COOL 0.98 (<module 'generate' from 'G:\\GameDev\\speculative-markets\\tools\\generate.py'>, 'HEAT_COOL', 'Excess', 'Kept a month while cooling')
+HEAT_COOL_TIGHT 0.95 (<module 'generate' from 'G:\\GameDev\\speculative-markets\\tools\\generate.py'>, 'HEAT_COOL_TIGHT', 'Excess', 'Kept a month under Tight')
+BURST_PER_HEAT 0.2 (<module 'generate' from 'G:\\GameDev\\speculative-markets\\tools\\generate.py'>, 'BURST_PER_HEAT', 'Excess', 'Confidence per point of Excess')
+WARY 35 (<module 'generate' from 'G:\\GameDev\\speculative-markets\\tools\\generate.py'>, 'WARY', 'AI', 'AI loosens below')
+CONTAGION 20 (<module 'generate' from 'G:\\GameDev\\speculative-markets\\tools\\generate.py'>, 'CONTAGION', 'Inputs', 'Contagion')
+
+...[truncated]

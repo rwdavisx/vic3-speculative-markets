@@ -1,0 +1,2 @@
+# tool_result for 011_scratch_ridesim_cushion_grid.ps1 (is_error=False)
+ok

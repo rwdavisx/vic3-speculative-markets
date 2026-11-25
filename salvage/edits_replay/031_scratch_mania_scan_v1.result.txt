@@ -1,0 +1,11 @@
+# tool_result for 031_scratch_mania_scan_v1.ps1 (is_error=True)
+Exit code 1
+mania P/C/6/10/AI | m2p | panics P C 10 AI | growth P C 6 10 bl rk AI | 10-C 10-6 ups out beat | losses | in/30
+Traceback (most recent call last):
+  File "C:\Users\rwdav\AppData\Local\Temp\claude\9dc80ff708ec737b\9c1684c5-3088-47d7-b848-def38336bbe9\scratchpad\mania.py", line 28, in <module>
+    main(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]), json.loads(open(sys.argv[4]).read()) if len(sys.argv) > 4 else None)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rwdav\AppData\Local\Temp\claude\9dc80ff708ec737b\9c1684c5-3088-47d7-b848-def38336bbe9\scratchpad\mania.py", line 22, in main
+    print(f"{json.dumps(moves[c['id']]):42s} {g('passive','mania_pct'):.1f} {g('careful','mania_pct'):.1f} {g('hold6','mania_pct'):.1f} {g('run10','mania_pct'):.1f} {g('ai','mania_pct'):.1f} | {g('passive','mania_to_panic_pct'):.0f} | "
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: unsupported format string passed to dict.__format__

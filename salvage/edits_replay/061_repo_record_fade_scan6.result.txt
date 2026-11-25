@@ -1,0 +1,66 @@
+# tool_result for 061_repo_record_fade_scan6.ps1 (is_error=False)
+STANCE_CREDIT = {"tight": 0, "loose": tuning.get("LOOSE_CREDIT", 1.6)}  # credit stance's multiplier on new lending (spec_stance_credit)
+leverage ok
+81: # the lasting reward (spec_lev_record): each calm month it closes RECORD_GAIN of the way to RECORD_BUILD of construction
+85: RECORD_BUILD, RECORD_GAIN, RECORD_LOSS = (tuning.get("LEV_RECORD_BUILD", 0), tuning.get("LEV_RECORD_GAIN", 0.02),
+86: tuning.get("LEV_RECORD_LOSS", 0.1))
+87: RECORD_FADE = tuning.get("LEV_RECORD_FADE", RECORD_GAIN)  # the same share when leverage is below it: a clean way down k
+179: STATE_VARS = ["spec_bailed", "spec_ai_fever", "spec_crunch", "spec_crunch_bite", "spec_xs_bad", "spec_lev_held", "spec_l
+251: ] + ([f"spec_lev_record_gap = {{\n\tvalue = spec_lev_adj\n\tmultiply = {round(RECORD_BUILD / RECORD_STEP, 4):g}\n\tsubtr
+#### ladder [3, 8, 10, 12] loose 1.6 
+{"PANIC_SPAN": 25, "RECORD_FADE": 0.02, "RECORD_GAIN": 0.02}
+    hold6     g 0.41 (vs careful +0.21, vs 6 +0.00) panics 4.1 lev8% 0.0 run-ups 0.00 out 0% beaten 1%
+    run12     g 0.36 (vs careful +0.16, vs 6 -0.05) panics 5.5 lev8% 4.8 run-ups 0.38 out 52% beaten 12%
+    reckless  g 0.13 (vs careful -0.07, vs 6 -0.28) panics 7.5 lev8% 6.6 run-ups 1.36 out 1% beaten 44%
+    ai        g 0.51 (vs careful +0.31, vs 6 +0.10) panics 3.2 lev8% 3.2 run-ups 0.62 out 51% beaten 4%
+{"PANIC_SPAN": 25, "RECORD_FADE": 0.005, "RECORD_GAIN": 0.02}
+    hold6     g 0.43 (vs careful +0.21, vs 6 +0.00) panics 4.1 lev8% 0.0 run-ups 0.00 out 0% beaten 1%
+    run12     g 0.38 (vs careful +0.16, vs 6 -0.05) panics 5.5 lev8% 4.8 run-ups 0.38 out 54% beaten 13%
+    reckless  g 0.14 (vs careful -0.09, vs 6 -0.29) panics 7.5 lev8% 6.6 run-ups 1.36 out 1% beaten 49%
+    ai        g 0.54 (vs careful +0.31, vs 6 +0.11) panics 3.1 lev8% 3.1 run-ups 0.59 out 50% beaten 4%
+{"PANIC_SPAN": 25, "RECORD_FADE": 0.005, "RECORD_GAIN": 0.04}
+    hold6     g 0.47 (vs careful +0.23, vs 6 +0.00) panics 4.1 lev8% 0.0 run-ups 0.00 out 0% beaten 1%
+    run12     g 0.44 (vs careful +0.19, vs 6 -0.04) panics 5.5 lev8% 4.5 run-ups 0.32 out 53% beaten 10%
+    reckless  g 0.20 (vs careful -0.04, vs 6 -0.27) panics 7.3 lev8% 6.5 run-ups 1.30 out 1% beaten 40%
+    ai        g 0.60 (vs careful +0.35, vs 6 +0.13) panics 3.0 lev8% 3.0 run-ups 0.51 out 53% beaten 2%
+{"PANIC_SPAN": 25, "RECORD_FADE": 0.0025, "RECORD_GAIN": 0.04}
+    hold6     g 0.48 (vs careful +0.22, vs 6 +0.00) panics 4.1 lev8% 0.0 run-ups 0.00 out 0% beaten 1%
+    run12     g 0.45 (vs careful +0.18, vs 6 -0.03) panics 5.4 lev8% 4.5 run-ups 0.32 out 55% beaten 10%
+    reckless  g 0.21 (vs careful -0.06, vs 6 -0.27) panics 7.3 lev8% 6.5 run-ups 1.30 out 1% beaten 41%
+    ai        g 0.62 (vs careful +0.36, vs 6 +0.14) panics 3.0 lev8% 3.0 run-ups 0.52 out 52% beaten 2%
+{"PANIC_SPAN": 30, "RECORD_FADE": 0.02, "RECORD_GAIN": 0.02}
+    hold6     g 0.40 (vs careful +0.20, vs 6 +0.00) panics 4.4 lev8% 0.0 run-ups 0.00 out 0% beaten 1%
+    run12     g 0.33 (vs careful +0.13, vs 6 -0.07) panics 6.0 lev8% 4.1 run-ups 0.33 out 44% beaten 15%
+    reckless  g 0.09 (vs careful -0.11, vs 6 -0.32) panics 8.1 lev8% 5.4 run-ups 1.37 out 0% beaten 54%
+    ai        g 0.48 (vs careful +0.28, vs 6 +0.08) panics 3.6 lev8% 3.0 run-ups 0.67 out 45% beaten 5%
+{"PANIC_SPAN": 30, "RECORD_FADE": 0.005, "RECORD_GAIN": 0.02}
+    hold6     g 0.42 (vs careful +0.19, vs 6 +0.00) panics 4.4 lev8% 0.0 run-ups 0.00 out 0% beaten 2%
+    run12     g 0.35 (vs careful +0.12, vs 6 -0.07) panics 5.9 lev8% 4.0 run-ups 0.32 out 45% beaten 17%
+    reckless  g 0.09 (vs careful -0.13, vs 6 -0.33) panics 8.1 lev8% 5.5 run-ups 1.37 out 0% beaten 57%
+    ai        g 0.51 (vs careful +0.28, vs 6 +0.09) panics 3.6 lev8% 3.0 run-ups 0.65 out 46% beaten 5%
+{"PANIC_SPAN": 30, "RECORD_FADE": 0.005, "RECORD_GAIN": 0.04}
+    hold6     g 0.47 (vs careful +0.22, vs 6 +0.00) panics 4.3 lev8% 0.0 run-ups 0.00 out 0% beaten 0%
+    run12     g 0.40 (vs careful +0.16, vs 6 -0.06) panics 5.9 lev8% 3.7 run-ups 0.28 out 49% beaten 12%
+    reckless  g 0.16 (vs careful -0.09, vs 6 -0.30) panics 7.9 lev8% 5.3 run-ups 1.29 out 0% beaten 49%
+    ai        g 0.57 (vs careful +0.32, vs 6 +0.10) panics 3.5 lev8% 2.8 run-ups 0.60 out 45% beaten 4%
+{"PANIC_SPAN": 30, "RECORD_FADE": 0.0025, "RECORD_GAIN": 0.04}
+    hold6     g 0.47 (vs careful +0.21, vs 6 +0.00) panics 4.3 lev8% 0.0 run-ups 0.00 out 0% beaten 1%
+    run12     g 0.41 (vs careful +0.15, vs 6 -0.06) panics 5.8 lev8% 3.7 run-ups 0.28 out 49% beaten 12%
+    reckless  g 0.16 (vs careful -0.10, vs 6 -0.31) panics 7.9 lev8% 5.3 run-ups 1.29 out 0% beaten 51%
+    ai        g 0.58 (vs careful +0.32, vs 6 +0.11) panics 3.5 lev8% 2.8 run-ups 0.58 out 46% beaten 4%
+#### ladder [3, 8, 10, 12] loose 2.0 
+{"PANIC_SPAN": 25, "RECORD_FADE": 0.02, "RECORD_GAIN": 0.02}
+    hold6     g 0.42 (vs careful +0.22, vs 6 +0.00) panics 4.2 lev8% 0.0 run-ups 0.00 out 0% beaten 1%
+    run12     g 0.36 (vs careful +0.16, vs 6 -0.06) panics 6.0 lev8% 7.4 run-ups 0.64 out 58% beaten 14%
+    reckless  g 0.04 (vs careful -0.16, vs 6 -0.38) panics 8.6 lev8% 9.5 run-ups 1.79 out 0% beaten 60%
+    ai        g 0.53 (vs careful +0.33, vs 6 +0.10) panics 3.4 lev8% 4.3 run-ups 0.68 out 57% beaten 2%
+{"PANIC_SPAN": 25, "RECORD_FADE": 0.005, "RECORD_GAIN": 0.02}
+    hold6     g 0.44 (vs careful +0.22, vs 6 +0.00) panics 4.3 lev8% 0.0 run-ups 0.00 out 0% beaten 1%
+    run12     g 0.38 (vs careful +0.15, vs 6 -0.07) panics 6.1 lev8% 7.3 run-ups 0.61 out 57% beaten 17%
+    reckless  g 0.05 (vs careful -0.18, vs 6 -0.39) panics 8.6 lev8% 9.5 run-ups 1.78 out 0% beaten 62%
+    ai        g 0.55 (vs careful +0.33, vs 6 +0.11) panics 3.4 lev8% 4.2 run-ups 0.64 out 55% beaten 2%
+{"PANIC_SPAN": 25, "RECORD_FADE": 0.005, "RECORD_GAIN": 0.04}
+    hold6     g 0.49 (vs careful +0.24, vs 6 +0.00) panics 4.2 lev8% 0.0 run-ups 0.00 out 0% beaten 0%
+    run12     g 0.44 (vs careful +0.19, vs 6 -0.05) panics 6.0 lev8% 6.8 run-ups 0.55 out 56% beaten 12%
+   
+...[truncated]

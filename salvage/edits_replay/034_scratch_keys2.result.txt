@@ -1,0 +1,81 @@
+# tool_result for 034_scratch_keys2.ps1 (is_error=False)
+{"econ_mix": {"laissez_faire": 0.02, "interventionism": 0.62, "agrarianism": 0.08, "traditionalism": 0.28}, "money_mix": {"bimetallism": 0.96, "gold_standard": 0.04}, "law_drift": [["econ", "traditionalism", {"laissez_faire": 0.55, "interventionism": 0.3, "agrarianism": 0.15}, 0.7, 10, 70], ["econ", "agrarianism", {"laissez_faire": 0.6, "interventionism": 0.4}, 0.5, 15, 80], ["econ", "interventionism", {"laissez_faire": 1}, 0.45, 20, 90], ["econ", "laissez_faire", {"interventionism": 1}, 0.2, 60, 100], ["money", "bimetallism", {"gold_standard": 1}, 0.75, 30, 70], ["money", "gold_standard", {"fiat_money": 1}, 0.3, 75, 100], ["money", "bimetallism", {"fiat_money": 1}, 0.3, 75, 100]], "tech_years": {"banking": [0, 0], "currency_standards": [0, 0], "international_trade": [0, 0], "stock_exchang
+[('years', 100), ('pool_share', [0.00191, 0.01035]), ('pool_noise', [0.01967, 0.06125]), ('pool_spend', (0.35, 0.7)), ('growth', [0.00252, 0.06]), ('gdp_noise', [0.00372, 0.0103]), ('recessions', [1.27594, 5.16251]), ('recession_depth', [0.03557, 0.27917]), ('goods', [29, 29]), ('goods_growth', [17, 17]), ('price_sd', [0.0316, 0.0316]), ('price_months', [7.55606, 7.55606]), ('foreign_rate', [0.18633, 3.33989]), ('foreign_size', [0.0001, 0.09591]), ('war_rate', [0.14193, 0.89315]), ('war_months', [1.0, 6.77027]), ('war_cost', [0.07105, 0.23217]), ('approval_sd', [1.16862, 5.0]), ('legitimacy', (20, 90)), ('scaled_debt', [0.0, 0.21862]), ('reserves', (0.01, 0.08)), ('weekly_balance', (-0.001, 0.001)), ('depth', (0.8, 1.2)), ('steady', (0.85, 1.1)), ('world_replay', 1), ('after_panic', [0.06002, 0.06002]), ('rough_sd', [2.5, 2.5]), ('rough_months', [1, 1]), ('rough_skew', 1), ('lure_rate', [0.0609, 0.0609]), ('lure_vs', [-3.2375, 2.45375]), ('flight_share', [0.95098, 0.95098]), ('flight_rate', [6.1697, 148.3805]), ('flight_size', [0.0178, 5.2868]), ('ld_join', 0.6), ('great_powers', 8), ('ld_months', (17, 45)), ('e_gdp', 0.6), ('e_pool', 1.0), ('inv_growth', 0.25)]
+['_hist', 'bad_spell', 'beaten_pct', 'boom_output_pct', 'bursts_per_century', 'conf_mean', 'crunch_max', 'crunch_months_pct', 'distrust_late_pct', 'frozen_pct', 'frozen_spell_p90', 'growth_core', 'growth_edge', 'late_panic_pct', 'lev8_pct', 'lev_max', 'lev_mean', 'loose_pct', 'low_pct', 'mania_pct', 'mania_to_panic_pct', 'output_pct', 'panic_invest_pct', 'panic_length', 'panic_months_pct', 'panic_output_loss', 'panics_per_century', 'pool_pct', 'reckless_pct', 'rescue_share', 'rescues_per_century', 'runs10_out_pct', 'runs10_per_century', 'spend_pct_gdp', 'tight_pct', 'trust_top_pct', 'up_pct']
+['bad', 'bad80', 'booms', 'conf', 'every', 'lax', 'lax80', 'lent', 'lev', 'panic', 'terms', 'trust']
+315: "heightened": (0, 0, 1, "Heightened volatility rule"),
+694: self.rule = "heightened" if I["heightened"] else "historical"
+980: per = self.K["BURST_PER_HEAT"] if self.rule == "historical" else g.VOLATILITY[self.rule]["per"]
+1303: c_boom = boom_cap * self.steady * fb * g.VOLATILITY[self.rule]["boom"]
+1430: heat_from = K["HEAT_FROM"] if self.rule == "historical" else g.VOLATILITY[self.rule]["heat"]  # the swept value, not the import-time table
+1442: per = K["BURST_PER_HEAT"] if self.rule == "historical" else g.VOLATILITY[self.rule]["per"]
+
+Name               
+----               
+build_scratch      
+tools              
+ai.py              
+ai1.txt            
+ai2.py             
+ai2.txt            
+best.py            
+best_131_credit.pkl
+best_131_credit.txt
+best_K.pkl         
+best_K.txt         
+best_X.pkl         
+best_X.txt         
+confirm.py         
+confirm_k5.pkl     
+confirm_k5.txt     
+confirm_main.pkl   
+confirm_main.txt   
+confirm_robust.pkl 
+confirm_robust.txt 
+fam.py             
+fam1.txt           
+h1.pkl             
+h1.txt             
+heigh.py           
+heigh2.py          
+hunt.py            
+l1.json            
+l1.pkl             
+l1.txt             
+l2.json            
+l2.pkl             
+l2.txt             
+l3.json            
+l3.pkl             
+l3.txt             
+l4.json            
+l4.pkl             
+l4.txt             
+lab_K.txt          
+lab_K5.txt         
+lists.py           
+mk1.py             
+play.py            
+screen.py          
+t_growth.py        
+t_time.py          
+t_traj.py          
+t_trajK.py         
+v1.json            
+v1.txt             
+v2.json            
+v2.txt             
+vK.json            
+vX.json            
+confirm.py:17: "rougher world": {"rough_sd": 3.5}, "rough both ways": {"rough_skew": 0}, "Heightened": {"heightened": 1}, "drawn laws+tech": {"observed_research": 0}, "price x1.5": {"price_sd": 0.047}}
+confirm.py:58: out = go(pool, {"K5": (CFG["K5"], None), "K5 Heightened": (CFG["K5"], {"heightened": 1}), "K5 rich pools": (CFG["K5"], CASES["rich pools"]), "K5 rougher": (CFG["K5"], CASES["rougher world"]), "K5 Stro
+heigh.py:7: for nm, v in (("1.3.1 now", {}), ("K5 now", K), ("K5 boom1", K | {"G_VOLATILITY": {"historical": H, "heightened": {"heat": 70, "per": .25, "boom": 1.0}}}), ("K5 boom1 per.2", K | {"G_VOLATILITY": {"hi
+heigh.py:8: ("K5 boom1 heat73", K | {"G_VOLATILITY": {"historical": H, "heightened": {"heat": 73, "per": .25, "boom": 1.0}}})):
+heigh.py:9: res = many(pool, v, list(pl.values()), n=120, seeds=(71, 72, 73, 74), inputs={"heightened": 1}, per=2)
+heigh2.py:7: for nm, v in (("K5 boom1 heat75", K | {"G_VOLATILITY": {"historical": H, "heightened": {"heat": 75, "per": .25, "boom": 1.0}}}),):
+heigh2.py:8: res = many(pool, v, list(pl.values()), n=120, seeds=(71, 72, 73, 74), inputs={"heightened": 1}, per=2)
+fastsim.py:44: burst_per=g.BURST_PER_HEAT, burst_max=g.BURST_BELOW,  # ponytail: no cap since 1.2; Tight cooling (HEAT_COOL_TIGHT) not modelled
+fastsim.py:119: burst = -min(a["heat"] * g.BURST_PER_HEAT, g.BURST_BELOW) if a["heat"] > 0 and r["heat"] <= 0 and r["burst"] >= 0 and n == steps - 1 else 0
+fastsim.py:509: burst.append(abs(max(-a["heat"] * g.BURST_PER_HEAT, -g.BURST_BELOW) - r["burst"]))
+generate.py:119: #
+...[truncated]

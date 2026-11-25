@@ -1,0 +1,46 @@
+# tool_result for 065_repo_final_values_v1.ps1 (is_error=False)
+leverage ok
+ {"metric": "growth_core", "who": "run12-careful", "aim": 0.2, "lo": 0.1, "hi": 0.3, "weight": 1.0, "why": "Running leverage up to 12 months and getting out pays better than careful play."},
+ {"metric": "growth_core", "who": "run12-hold6", "aim": 0.05, "lo": -0.1, "hi": 0.2, "weight": 1.0, "why": "And no safe middle style makes the run-up pointless."},
+ {"metric": "runs10_per_century", "who": "run12", "aim": 3.0, "lo": 1.5, "hi": 5.0, "weight": 1.0, "why": "A player who goes for it reaches 12 months from time to time."},
+ {"metric": "runs10_out_pct", "who": "run12", "aim": 65.0, "lo": 50.0, "hi": 80.0, "weight": 1.0, "why": "Most run-ups get out unscathed, and a good share do not."},
+ {"metric": "panics_per_century", "who": "run12", "aim": 4.0, "lo": 3.0, "hi": 5.5, "weight": 1.0, "why": "The run-up is the riskier way to play."},
+ {"metric": "lev8_pct", "who": "run12", "aim": 8.0, "lo": 4.0, "hi": 20.0, "weight": 1.0, "why": "High leverage is somewhere a player spends time."},
+ {"metric": "beaten_pct", "who": "run12", "aim": 22.0, "lo": 10.0, "hi": 35.0, "weight": 1.0, "why": "The risk is real: in some worlds careful play does better."},
+ {"metric": "mania_pct", "who": "run12", "aim": 4.0, "lo": 2.0, "hi": 8.0, "weight": 1.0, "why": "A player riding leverage meets Manias."},
+		NOT = { has_variable = spec_bailed }
+	}
+}
+"""
+ROOT = "ROOT.GetCountry.MakeScope"
+RECORD_LOC = "" if not RECORD else (
+    ' spec_lev_record: "Sound Credit"\n'
+    f' spec_lev_record_desc: "Years of well-run borrowing have built lasting faith in the country\'s credit, so builders finish sooner. In calm years it grows'
+    f' slowly toward #P {RECORD_BUILD * 100:+g}%#! construction efficiency for each month of [concept_spec_leverage].'
+    ' Panics and [concept_spec_bad_debts] wear it away, and the deeper the [concept_spec_leverage], the faster it goes."\n')
+FULL_TEXT = " and ".join(t for t in ((f"#P {TP_FULL * 100:+g}%#! [concept_throughput]" if TP_FULL else ""),
+                                      (f"#P {INV_FULL * 100:+g}%#! investment" if INV_FULL else "")) if t)
+TAPER_TEXT = "" if not TAPERED else (
+    f"Each month of [concept_spec_leverage] adds #P {REWARD * 100:+g}%#! [concept_throughput], up to #P {boom_pct(REWARD_MAX):+g}%#! at #v {REWARD_MAX:g}#! months"
+    + (f", then #P {TAPER * 100:+g}%#! more each month up to #P {boom_pct(RUIN):+g}%#! at #v {RUIN:g}#!." if TAPER else "."))
+BOOM_DESC = f"Borrowed money keeps the works busy. {TAPER_TEXT}" if TAPERED else (
+fastsim.py:39 STANCE_CREDIT = {-1: 0, 0: 1, 1: 1.6}
+fastsim.py:156 base = (r["conf"] - g.CREDIT_FROM) / (100 - g.CREDIT_FROM) * r["pool"] * STANCE_CREDIT[r["stance"]]
+fastsim.py:251 debt += max(min((conf - p["credit_from"]) / (100 - p["credit_from"]) * r["pool"] * p["share"] * rate * STANCE_CREDIT[stance], r["pool"] * flow, room), 0)
+fastsim.py:505 d += max(min((conf - g.CREDIT_FROM) / (100 - g.CREDIT_FROM) * r["pool"] * g.CREDIT_SHARE * rate * STANCE_CREDIT[a["stance"]], r["pool"] * PLAYED["flow"], room), 0)
+generate.py:188 PANIC_DAYS = tuning.get("PANIC_DAYS", 195)  # 6.5 months, rounded up by law: 4 to 8 months, 7 at x1; no cap, so a reckless stack (Laissez-Faire, Classical Gold, Currency 
+generate.py:235 STANCE_CREDIT = {"tight": 0, "loose": tuning.get("LOOSE_CREDIT", 1.6)}  # credit stance's multiplier on new lending (spec_stance_credit)
+generate.py:588 sv.append("spec_stance_credit = {\n\tvalue = 1\n"
+generate.py:589 f"\tif = {{\n\t\tlimit = {{ spec_stance_value = -1 }}\n\t\tvalue = {STANCE_CREDIT['tight']:g}\n\t}}\n"
+generate.py:590 f"\telse_if = {{\n\t\tlimit = {{ spec_stance_value = 1 }}\n\t\tvalue = {STANCE_CREDIT['loose']:g}\n\t}}\n}}")
+generate.py:591 sv.append("spec_credit_mult = {\n\tvalue = spec_law_mult\n\tmultiply = spec_tech_credit\n\tmultiply = spec_stance_credit\n\tmultiply = spec_reform_credit\n}")
+generate.py:2092 spec_credit_loose_desc: "Banks lend #P {STANCE_CREDIT['loose'] - 1:.0%}#! more into the [concept_investment_pool]\\nInvestors react #P {STANCE_HYPE['loose'] - 1:.0%}#! mo
+leverage.py:11 x LEV_CRUNCH_MAX points (8 months: about 22): each is LEV_CRUNCH_THROUGHPUT of throughput and LEV_CRUNCH_INVEST of investment. They
+leverage.py:164 # pool income their leverage froze at 18 months or more while the debt ran off, and every panic took the worst Bad Debts
+market_tab.py:2271 ("[concept_spec_credit_policy]", sv("spec_stance_credit")), ("[concept_spec_banking_reforms]", sv("spec_reform_credit"))] + extra
+market_tab.py:2583 SPEC_STANCE_LOOSE_TT: "#header Loose Credit#!\\n$TOOLTIP_DELIMITER$\\nBanks lend freely into the [concept_investment_pool]. This month they would lend #v @money![{sv('spe
+values_table.py:28 WAS = {"g.CREDIT_SHARE": "0.3x", "g.CREDIT_FLOW_MAX": "60%", "g.CREDIT_CAP_MONTHS": "12 months for everyone", "dp.EARLIEST_YEAR": "always 1870"}
+values_table.py:64 ("Monthly lending cap", pct(g.CREDIT_FLOW_MAX), "Most of a month's credit that comes from confidence, as a share of pool income, before the lending rate (ceiling 60%).", 
+AI_LEV_SCALE, FEVER_SCALE = tuning.get("AI_LEV_SCALE", 1.0), tuning.get("AI_FEVER_SCALE", 1.0)
+AI_LIMIT = tuning.scaled(AI_LIMIT_BASE, AI_LEV_SCALE)
+{'-1': 8.0, '0': 9.5, '1': 10} (3, 9, 11, 12) (6, 2, 1)

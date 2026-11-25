@@ -1,0 +1,5 @@
+# tool_result for 018_scratch_zip_compare.ps1 (is_error=False)
+241 241
+.metadata/built_against.txt None 6
+thumbnail.png 999022 None
+2

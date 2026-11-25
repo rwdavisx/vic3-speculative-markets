@@ -1,0 +1,12 @@
+# tool_result for 073_scratch_loc_diff.ps1 (is_error=False)
+<persisted-output>
+Output too large (40.6KB). Full output saved to: C:\Users\rwdav\.claude\projects\G--GameDev-speculative-markets\9c1684c5-3088-47d7-b848-def38336bbe9\tool-results\bt437xrve.txt
+
+Preview (first 2KB):
+SPEC_WHY_END_3: "#v x7#! from ending in a [concept_spec_collapse]"
+SPEC_WHY_END_2: "#v x1.5#! from ending in a [concept_spec_bust]"
+SPEC_WHY_END_1: "#v x1.25#! from ending in a [concept_spec_correction]"
+SPEC_RISK_TT: "#header Risk of a $SPEC_UNWIND$: #N -[Divide_CFixedPoint(IntToFixedPoint(FixedPointToInt(Add_CFixedPoint(Multiply_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_risk_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)10'), Select_CFixedPoint(LessThan_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_risk_', Goods.GetKey)).GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0'), '(CFixedPoint)-0.5', '(CFixedPoint)0.5')))), '(CFixedPoint)10')|1]#!#!\n$TOOLTIP_DELIMITER$\n$SPEC_RISK_LEAD$\n\n#v [Divide_CFixedPoint(IntToFixedPoint(FixedPointToInt(Add_CFixedPoint(Multiply_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var(Concatenate('spec_peak_', Go
+SPEC_RISK_WHY_AEROPLANES: "#header [GetGoods('aeroplanes').GetName] Boom at Risk: #N -[Divide_CFixedPoint(IntToFixedPoint(FixedPointToInt(Add_CFixedPoint(Multiply_CFixedPoint(Country.MakeScope.Var('spec_risk_aeroplanes').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)10'), Select_CFixedPoint(LessThan_CFixedPoint(Country.MakeScope.Var('spec_risk_aeroplanes').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0'), '(CFixedPoint)-0.5', '(CFixedPoint)0.5')))), '(CFixedPoint)10')|1]#!#!\n$TOOLTIP_DELIMITER$\n$SPEC_RISK_LEAD$\n\n#v [Divide_CFixedPoint(IntToFixedPoint(FixedPointToInt(Add_CFixedPoint(Multiply_CFixedPoint(Subtract_CFixedPoint(Country.MakeScope.Var('spec_peak_aeroplanes').GetV
+...
+</persisted-output>

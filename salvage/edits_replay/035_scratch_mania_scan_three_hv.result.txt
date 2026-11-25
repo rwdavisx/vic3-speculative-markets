@@ -1,0 +1,24 @@
+# tool_result for 035_scratch_mania_scan_three_hv.ps1 (is_error=False)
+== seed 9002
+{}                                         5.3 0.1 1.9 2.7 2.5 | 27 | 4.7 1.0 4.5 3.5 | 0.07 0.24 0.44 0.36 0.28 0.01 0.45 | +0.12 -0.08 2.0 65 19 | 30/30 
+{"FIN_BOOM_BASE": 2.0}                     8.6 0.4 4.5 5.8 5.4 | 24 | 4.9 0.9 4.6 3.5 | 0.06 0.22 0.45 0.36 0.29 0.01 0.46 | +0.14 -0.09 2.2 63 17 | 28/30 mania_to_panic_pct(passive)=24.15 panics_per_century(careful)=0.92
+{"FIN_BOOM_BASE": 2.0, "BUST_PER_HYPE": 3.0} 8.2 0.3 4.3 5.5 5.2 | 25 | 5.1 1.1 5.0 3.8 | 0.06 0.22 0.43 0.34 0.26 -0.00 0.44 | +0.12 -0.09 2.0 60 19 | 30/30 
+{"FIN_BOOM_BASE": 1.9, "BUST_PER_HYPE": 3.0} 6.7 0.2 3.1 4.1 3.9 | 26 | 5.0 1.1 5.0 3.8 | 0.06 0.23 0.43 0.34 0.26 -0.00 0.44 | +0.11 -0.09 1.9 63 21 | 30/30 
+== seed 9003
+{}                                         5.0 0.1 1.9 2.7 2.6 | 26 | 4.5 1.0 4.4 3.7 | 0.09 0.24 0.44 0.36 0.28 0.01 0.44 | +0.12 -0.08 1.8 66 18 | 30/30 
+{"FIN_BOOM_BASE": 2.0}                     8.2 0.4 4.5 5.8 5.4 | 24 | 4.7 0.9 4.4 3.7 | 0.08 0.22 0.45 0.36 0.28 0.01 0.44 | +0.14 -0.09 2.0 64 16 | 28/30 mania_to_panic_pct(passive)=24.21 panics_per_century(careful)=0.92
+{"FIN_BOOM_BASE": 2.0, "BUST_PER_HYPE": 3.0} 7.9 0.3 4.3 5.5 5.3 | 26 | 5.0 1.1 4.9 4.0 | 0.07 0.22 0.43 0.34 0.26 -0.00 0.42 | +0.12 -0.10 1.8 58 21 | 30/30 
+{"FIN_BOOM_BASE": 1.9, "BUST_PER_HYPE": 3.0} 6.5 0.2 3.1 4.1 4.0 | 26 | 4.9 1.1 4.8 3.9 | 0.07 0.23 0.43 0.34 0.26 -0.00 0.42 | +0.12 -0.09 1.8 62 20 | 30/30 
+== High volatility
+{}                                         5.7 0.1 1.8 2.7 2.7 | 39 | 5.6 1.0 5.4 4.6 | -0.01 0.24 0.42 0.30 0.22 -0.07 0.39 | +0.06 -0.12 1.9 55 32 | 27/30 growth_core(passive)=-0.01 growth_core(run10-careful)=0.06 growth_core(run10-hold6)=-0.12
+{"FIN_BOOM_BASE": 2.0}                     9.5 0.4 4.5 6.0 5.9 | 39 | 6.4 1.0 6.5 5.6 | -0.08 0.22 0.39 0.25 0.18 -0.12 0.34 | +0.03 -0.14 2.0 48 38 | 23/30 growth_core(passive)=-0.08 panics_per_century(careful)=1.00 growth_core(run10-careful)=0.03 growth_core(run10-hold6)=-0.14 runs10_out_pct(run10)=47.75 panics_per_century(run10)=6.48 beaten_pct(run10)=38.10
+{"FIN_BOOM_BASE": 2.0, "BUST_PER_HYPE": 3.0} 9.0 0.3 4.4 5.7 5.6 | 39 | 6.7 1.2 6.9 5.8 | -0.08 0.22 0.38 0.24 0.17 -0.13 0.33 | +0.02 -0.14 1.8 45 41 | 23/30 growth_core(passive)=-0.08 growth_core(run10-careful)=0.02 growth_core(run10-hold6)=-0.14 runs10_out_pct(run10)=44.74 panics_per_century(run10)=6.88 lev8_pct(run10)=3.93 beaten_pct(run10)=41.20
+{"FIN_BOOM_BASE": 1.9, "BUST_PER_HYPE": 3.0} 7.4 0.2 3.1 4.2 4.2 | 40 | 6.3 1.2 6.4 5.3 | -0.04 0.23 0.39 0.26 0.19 -0.10 0.36 | +0.03 -0.13 1.8 48 37 | 23/30 growth_core(passive)=-0.04 growth_core(run10-careful)=0.03 growth_core(run10-hold6)=-0.13 runs10_out_pct(run10)=47.91 panics_per_century(run10)=6.39 lev8_pct(run10)=3.95 beaten_pct(run10)=37.30
+## Matching the clean 1.2.0 game, November 22, 2026
+### Second sample and cause logging, November 22, 2026
+### Third sample and the price-driven boom model, November 22, 2026
+### AI behaviour keys and the AI's event choices, November 22, 2026
+### The AI's rescue pledge, the journal keys and a backtest, November 22, 2026
+## Smooth leverage reward and investment growth, November 23, 2026
+## Roughness refit to the 1.2.0 games' panic rates, November 24, 2026
+## Construction growth, November 24, 2026

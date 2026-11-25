@@ -1,0 +1,56 @@
+# tool_result for 015_repo_beta1_runoff_tight.ps1 (is_error=False)
+2581: SPEC_STANCE_TIGHT_TT: "#header Tight Credit#!\\n$TOOLTIP_DELIMITER$\\nBanks stop lending. Each month, up to #P {k['CREDI
+2598: SPEC_EFFECT_DEBT_TT: "#header Withdrawn in a Panic: #N @money![{sv('spec_clawback')}|D]#!#!\\n$TOOLTIP_DELIMITER$\\nThis
+208: CREDIT_RUNOFF = tuning.get("CREDIT_RUNOFF", 0.02)        # share of outstanding credit repaid each month: loans of about four years (was 0.03, tune12)
+210: CREDIT_RUNOFF_TIGHT = tuning.get("CREDIT_RUNOFF_TIGHT", CREDIT_RUNOFF)  # and under Tight credit, as far as the pool can pay it
+634: sv.append(f"spec_credit_runoff = {{\n\tvalue = 0\n\tif = {{\n\t\tlimit = {{ has_variable = spec_debt }}\n\t\tvalue = var:spec_debt\n\t\tmultiply = {CREDIT_RUNOFF}\n\t\tmi
+636: sv.append(f"spec_credit_payoff = {{\n\tvalue = var:spec_debt\n\tmultiply = {CREDIT_RUNOFF_TIGHT}\n\tmax = investment_pool\n}}")
+638: sv.append("spec_credit_runoff_pct = {\n\tvalue = 0\n\tif = {\n\t\tlimit = { has_variable = spec_debt var:spec_debt > 0 }\n\t\tvalue = spec_credit_runoff\n\t\tdivide = var
+639: sv.append("spec_credit_repay = {\n\tvalue = spec_credit_runoff\n\tmax = investment_pool\n\tmin = 0\n}")
+1206: set_local_variable = {{ name = spec_runoff value = spec_credit_runoff }}
+2123: spec_credit_tight_desc: "#N Banks stop lending#! into the [concept_investment_pool]\\n#P {CREDIT_RUNOFF_TIGHT:.0%}#! of our [concept_spec_outstanding_credit] is paid back
+i18n simp_chinese: 3685 translated, 0 kept from an earlier English, 2 still English
+i18n spanish: 3685 translated, 0 kept from an earlier English, 2 still English
+i18n turkish: 3685 translated, 0 kept from an earlier English, 2 still English
+46 buildings, 49 goods, 100/92 icons painted
+unused mod concepts: []
+feature switches against the build: match
+versions: {'generate.py': '1.3.1', 'metadata.json': '1.3.1'}
+OK
+
+> build_scratch\rc_1.3.1\common\script_values\spec_values.txt:966:spec_credit_runoff = {
+  build_scratch\rc_1.3.1\common\script_values\spec_values.txt:967:	value = 0
+  build_scratch\rc_1.3.1\common\script_values\spec_values.txt:968:	if = {
+  build_scratch\rc_1.3.1\common\script_values\spec_values.txt:969:		limit = { has_variable = spec_debt }
+  build_scratch\rc_1.3.1\common\script_values\spec_values.txt:970:		value = var:spec_debt
+  build_scratch\rc_1.3.1\common\script_values\spec_values.txt:971:		multiply = 0.0095
+  build_scratch\rc_1.3.1\common\script_values\spec_values.txt:972:		min = 0
+  build_scratch\rc_1.3.1\common\script_values\spec_values.txt:973:		if = {
+  build_scratch\rc_1.3.1\common\script_values\spec_values.txt:974:			limit = { spec_stance_value = -1 }
+  build_scratch\rc_1.3.1\common\script_values\spec_values.txt:975:			min = spec_credit_payoff
+  build_scratch\rc_1.3.1\common\script_values\spec_values.txt:976:		}
+  build_scratch\rc_1.3.1\common\script_values\spec_values.txt:977:	}
+  build_scratch\rc_1.3.1\common\script_values\spec_values.txt:978:}
+  build_scratch\rc_1.3.1\common\script_values\spec_values.txt:979:
+> build_scratch\rc_1.3.1\common\script_values\spec_values.txt:980:spec_credit_payoff = {
+  build_scratch\rc_1.3.1\common\script_values\spec_values.txt:981:	value = var:spec_debt
+  build_scratch\rc_1.3.1\common\script_values\spec_values.txt:982:	multiply = 0.1
+  build_scratch\rc_1.3.1\common\script_values\spec_values.txt:983:	max = investment_pool
+  build_scratch\rc_1.3.1\common\script_values\spec_values.txt:984:}
+  build_scratch\rc_1.3.1\common\script_values\spec_values.txt:985:
+> build_scratch\rc_1.3.1\common\script_values\spec_values.txt:986:spec_credit_runoff_pct = {
+  build_scratch\rc_1.3.1\common\script_values\spec_values.txt:987:	value = 0
+  build_scratch\rc_1.3.1\common\script_values\spec_values.txt:988:	if = {
+  build_scratch\rc_1.3.1\common\script_values\spec_values.txt:989:		limit = { has_variable = spec_debt var:spec_debt > 
+0 }
+  build_scratch\rc_1.3.1\common\script_values\spec_values.txt:990:		value = spec_credit_runoff
+  build_scratch\rc_1.3.1\common\script_values\spec_values.txt:991:		divide = var:spec_debt
+  build_scratch\rc_1.3.1\common\script_values\spec_values.txt:992:		multiply = 100
+  build_scratch\rc_1.3.1\common\script_values\spec_values.txt:993:	}
+  build_scratch\rc_1.3.1\common\script_values\spec_values.txt:994:}
+  build_scratch\rc_1.3.1\common\script_values\spec_values.txt:995:
+  build_scratch\rc_1.3.1\common\script_values\spec_values.txt:996:spec_credit_repay = {
+  build_scratch\rc_1.3.1\common\script_values\spec_values.txt:997:	value = spec_credit_runoff
+  build_scratch\rc_1.3.1\common\script_values\spec_values.txt:998:	max = investment_pool
+  build_scratch\rc_1.3.1\common\script_values\spec_values.txt:999:	min = 0
+  build_scratch\rc_1.3.1\common\script_values\spec_values.txt:1000:}

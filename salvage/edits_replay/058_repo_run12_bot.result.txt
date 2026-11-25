@@ -1,0 +1,47 @@
+# tool_result for 058_repo_run12_bot.ps1 (is_error=False)
+{}
+    careful   growth 0.22 (vs careful +0.00, vs 6 -0.17) panics 2.0 mania 0.1 lev8% 0.0 run-ups 0.00 out 0% beaten nan%
+    hold6     growth 0.39 (vs careful +0.17, vs 6 +0.00) panics 5.3 mania 2.1 lev8% 0.0 run-ups 0.00 out 0% beaten 4%
+    run10     growth 0.31 (vs careful +0.09, vs 6 -0.08) panics 7.0 mania 3.0 lev8% 3.5 run-ups 1.66 out 61% beaten 24%
+    run12     growth 0.29 (vs careful +0.07, vs 6 -0.10) panics 7.2 mania 3.2 lev8% 3.9 run-ups 0.42 out 50% beaten 26%
+    blind12   growth 0.20 (vs careful -0.01, vs 6 -0.18) panics 8.8 mania 3.7 lev8% 5.8 run-ups 0.67 out 45% beaten 47%
+    reckless  growth -0.00 (vs careful -0.22, vs 6 -0.39) panics 9.6 mania 7.4 lev8% 5.1 run-ups 1.53 out 0% beaten 64%
+    ai        growth 0.44 (vs careful +0.22, vs 6 +0.05) panics 4.7 mania 3.2 lev8% 3.4 run-ups 0.94 out 43% beaten 10%
+    passive   growth 0.08 (vs careful -0.14, vs 6 -0.31) panics 6.0 mania 6.0 lev8% 2.1 run-ups 0.52 out 0% beaten 51%
+{"FIN_BOOM_BASE": 2.1, "LEV_PANIC_SPAN": 30}
+    careful   growth 0.21 (vs careful +0.00, vs 6 -0.19) panics 1.8 mania 0.2 lev8% 0.0 run-ups 0.00 out 0% beaten nan%
+    hold6     growth 0.40 (vs careful +0.19, vs 6 +0.00) panics 5.0 mania 3.1 lev8% 0.0 run-ups 0.00 out 0% beaten 2%
+    run10     growth 0.34 (vs careful +0.13, vs 6 -0.06) panics 6.6 mania 4.1 lev8% 4.3 run-ups 1.85 out 65% beaten 18%
+    run12     growth 0.32 (vs careful +0.12, vs 6 -0.08) panics 6.8 mania 4.3 lev8% 4.8 run-ups 0.50 out 56% beaten 19%
+    blind12   growth 0.25 (vs careful +0.04, vs 6 -0.15) panics 8.1 mania 4.9 lev8% 7.0 run-ups 0.75 out 50% beaten 37%
+    reckless  growth 0.03 (vs careful -0.17, vs 6 -0.37) panics 9.1 mania 8.7 lev8% 6.0 run-ups 1.53 out 0% beaten 57%
+    ai        growth 0.47 (vs careful +0.27, vs 6 +0.07) panics 4.2 mania 4.1 lev8% 3.8 run-ups 0.89 out 45% beaten 7%
+    passive   growth 0.10 (vs careful -0.11, vs 6 -0.31) panics 5.8 mania 7.1 lev8% 2.6 run-ups 0.58 out 0% beaten 48%
+{"FIN_BOOM_BASE": 2.1, "LEV_PANIC_SPAN": 25}
+    careful   growth 0.21 (vs careful +0.00, vs 6 -0.20) panics 1.8 mania 0.2 lev8% 0.0 run-ups 0.00 out 0% beaten nan%
+    hold6     growth 0.41 (vs careful +0.20, vs 6 +0.00) panics 4.8 mania 3.1 lev8% 0.0 run-ups 0.00 out 0% beaten 0%
+    run10     growth 0.37 (vs careful +0.16, vs 6 -0.04) panics 6.1 mania 4.0 lev8% 5.1 run-ups 2.00 out 72% beaten 12%
+    run12     growth 0.35 (vs careful +0.14, vs 6 -0.06) panics 6.3 mania 4.3 lev8% 5.7 run-ups 0.55 out 64% beaten 16%
+    blind12   growth 0.30 (vs careful +0.09, vs 6 -0.11) panics 7.4 mania 4.7 lev8% 8.2 run-ups 0.80 out 58% beaten 26%
+    reckless  growth 0.08 (vs careful -0.12, vs 6 -0.33) panics 8.4 mania 8.4 lev8% 7.3 run-ups 1.54 out 1% beaten 52%
+    ai        growth 0.51 (vs careful +0.30, vs 6 +0.10) panics 3.6 mania 4.0 lev8% 4.1 run-ups 0.79 out 48% beaten 5%
+    passive   growth 0.13 (vs careful -0.08, vs 6 -0.28) panics 5.5 mania 6.8 lev8% 3.3 run-ups 0.60 out 0% beaten 42%
+{"FIN_BOOM_BASE": 2.1, "LEV_PANIC_SPAN": 20}
+    careful   growth 0.21 (vs careful +0.00, vs 6 -0.21) panics 1.8 mania 0.2 lev8% 0.0 run-ups 0.00 out 0% beaten nan%
+    hold6     growth 0.42 (vs careful +0.21, vs 6 +0.00) panics 4.6 mania 3.0 lev8% 0.0 run-ups 0.00 out 0% beaten 1%
+    run10     growth 0.41 (vs careful +0.20, vs 6 -0.01) panics 5.6 mania 4.0 lev8% 5.9 run-ups 2.10 out 78% beaten 8%
+    run12     growth 0.39 (vs careful +0.18, vs 6 -0.03) panics 5.8 mania 4.2 lev8% 6.9 run-ups 0.65 out 67% beaten 11%
+    blind12   growth 0.36 (vs careful +0.15, vs 6 -0.06) panics 6.6 mania 4.6 lev8% 9.6 run-ups 0.84 out 67% beaten 18%
+    reckless  growth 0.15 (vs careful -0.06, vs 6 -0.27) panics 7.7 mania 8.0 lev8% 8.8 run-ups 1.49 out 1% beaten 46%
+    ai        growth 0.54 (vs careful +0.33, vs 6 +0.12) panics 3.2 mania 3.9 lev8% 4.5 run-ups 0.76 out 56% beaten 3%
+    passive   growth 0.18 (vs careful -0.03, vs 6 -0.24) panics 5.0 mania 6.5 lev8% 4.3 run-ups 0.61 out 4% beaten 36%
+{"FIN_BOOM_BASE": 2.1, "LEV_PANIC_SPAN": 15}
+    careful   growth 0.21 (vs careful +0.00, vs 6 -0.22) panics 1.8 mania 0.2 lev8% 0.0 run-ups 0.00 out 0% beaten nan%
+    hold6     growth 0.43 (vs careful +0.22, vs 6 +0.00) panics 4.4 mania 3.0 lev8% 0.0 run-ups 0.00 out 0% beaten 0%
+    run10     growth 0.44 (vs careful +0.23, vs 6 +0.01) panics 5.1 mania 3.9 lev8% 6.9 run-ups 2.20 out 82% beaten 4%
+    run12     growth 0.43 (vs careful +0.22, vs 6 -0.00) panics 5.4 mania 4.2 lev8% 8.2 run-ups 0.70 out 74% beaten 7%
+    blind12   growth 0.41 (vs careful +0.20, vs 6 -0.02) panics 5.9 mania 4.4 lev8% 11.1 run-ups 0.90 out 71% beaten 12%
+    reckless  growth 0.22 (vs careful +0.01, vs 6 -0.21) panics 6.9 mania 7.5 lev8% 10.5 run-ups 1.42 out 2% beaten 40%
+    ai        growth 0.57 (vs careful +0.36, vs 6 +0.13) panics 2.9 mania 3.8 lev8% 4.8 run-ups 0.71 out 61% beaten 2%
+    passive   growth 0.22 (vs careful +0.02, vs 6 -0.21) panics 4.6 mania 6.2 lev8% 5.2 run-ups 0.63 out 6% beaten 30%
+62.4113576

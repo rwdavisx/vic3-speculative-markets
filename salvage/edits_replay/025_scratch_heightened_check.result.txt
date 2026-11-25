@@ -1,0 +1,30 @@
+# tool_result for 025_scratch_heightened_check.ps1 (is_error=False)
+engine.py:1074: """A setting beside the per-good arrays: in a batch (engine.batch), its per-economy array as a column."""
+engine.py:1966: def summarize(e):
+engine.py:2056: return [(c, bot, summarize(_part(e, i, n)), bands(_part(e, i, n))) for i, c in enumerate(cids)]
+engine.py:2063: return cid, bot, summarize(e), bands(e)
+engine.py:2240: sm = summarize(r)
+lab.py:81: BATCH_ECON = 500  # economies a worker steps at once: a job batches candidates up to this (engine.batch). On every core
+lab.py:158: for cid, bot, summ, bnd in (x for res in pool.imap_unordered(engine.batch, jobs) for x in res):
+server.py:307: return self.send(dumps({"frames": e.hist, "summary": engine.summarize(e), "money": str(e.money[0]), "econ": str(e.econ[0]),
+{'historical': {'heat': 80, 'per': 0.2, 'boom': 1}, 'heightened': {'heat': 75, 'per': 0.25, 'boom': 1}}
+passive 601 [0.01, 5.38, 5.34]
+passive 602 [0.01, 5.47, 5.69]
+careful 601 [0.24, 1.07, 0.1]
+careful 602 [0.24, 0.99, 0.1]
+hold6 601 [0.42, 3.02, 1.9]
+hold6 602 [0.43, 2.9, 1.86]
+run10 601 [0.3, 5.3, 2.63]
+run10 602 [0.31, 5.32, 2.74]
+reckless 601 [-0.05, 8.19, 6.68]
+reckless 602 [-0.05, 8.15, 7.05]
+ai 601 [0.4, 4.43, 2.46]
+ai 602 [0.4, 4.49, 2.72]
+ setting_spec_volatility_heightened: "#tooltippable #tooltip:[GetPlayer.GetTooltipTag],setting_spec_volatility_heightened_desc #high High#!#!#!"
+ setting_spec_volatility_heightened_desc: "Speculative booms will overheat sooner and end more abruptly, and [Concept('concept_spec_financial_panic', '$concept_spec_financial_panics|q$')] will occur more often than they did in the 19th century"
+
+[b]1.3.1-beta.1[/b] tests a way out of high leverage: Tight credit pays loans off about ten times faster, and Mania 
+comes around more often. New text is English only, and the compatibility patches are still built for 1.3. See the 
+change notes.
+[b]The Morgenroete, Tech & Res and Better Politics Mod patches are built for 1.3, so test 1.3.1-beta.1 without them. 
+The CMF patch needs no change.[/b]

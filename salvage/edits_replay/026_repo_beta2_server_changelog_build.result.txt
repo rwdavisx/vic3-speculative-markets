@@ -1,0 +1,55 @@
+# tool_result for 026_repo_beta2_server_changelog_build.ps1 (is_error=False)
+7169
+
+
+    Directory: G:\GameDev\speculative-markets\build_scratch\rc_1.3.1\.metadata
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----        11/24/2026   7:21 PM              6 built_against.txt                                                    
+-a----        11/24/2026   7:21 PM            394 metadata.json                                                        
+True
+Built 1.3.1-beta.2: G:\GameDev\speculative-markets\beta\release_131\releases\Speculative_Markets_Beta_1.3.1-beta.2.zip
+Verified 241 files; gameplay bytes match G:\GameDev\speculative-markets\build_scratch\rc_1.3.1
+Enable either Speculative Markets or Speculative Markets - Beta, never both.
+8440105
+847630FB21E826278D3E7E4D0D3053D8DFAEE3BB0CE579A3BFAF45ABDBC7F124
+  "file_count": 241,
+  "source_archive_sha256": "847630fb21e826278d3e7e4d0d3053d8dfaee3bb0ce579a3bfaf45abdbc7f124"
+}
+17 changed, 0 removed
+  localization/braz_por/spec_markets_l_braz_por.yml
+  localization/english/spec_markets_l_english.yml
+  localization/english/spec_rules_l_english.yml
+  localization/french/spec_markets_l_french.yml
+  localization/german/spec_markets_l_german.yml
+  localization/japanese/spec_markets_l_japanese.yml
+  localization/korean/spec_markets_l_korean.yml
+  localization/polish/spec_markets_l_polish.yml
+  localization/russian/spec_markets_l_russian.yml
+  localization/simp_chinese/spec_markets_l_simp_chinese.yml
+  localization/spanish/spec_markets_l_spanish.yml
+1.3.0
+ M beta/workshop_description.bbcode
+ M tools/concepts.py
+ M tools/credit_ai.py
+ M tools/fastsim.py
+ M tools/generate.py
+ M tools/leverage.py
+ M tools/market_tab.py
+ M tools/tuner.py
+ M tools/tuner/engine.py
+ M tools/tuner/lab.py
+ M tools/tuner/server.py
+ M tools/tuner/targets.json
+ M tools/tuning.json
+ M tools/values_table.py
+?? SPEC_RV_SHORE_FX
+?? beta/candidate_122/
+?? beta/changelog_1.3.1-beta.1.bbcode
+?? beta/changelog_1.3.1-beta.2.bbcode
+?? beta/release_130/
+?? beta/release_131/
+?? tools/tuner/windows_parallel2.json
+?? tools/tuner/windows_parallel3.json

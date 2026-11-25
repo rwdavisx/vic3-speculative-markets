@@ -1,0 +1,31 @@
+# tool_result for 038_repo_beta3_desc_changelog_regen.ps1 (is_error=False)
+i18n simp_chinese: 3683 translated, 1 kept from an earlier English, 3 still English
+i18n spanish: 3683 translated, 1 kept from an earlier English, 3 still English
+i18n turkish: 3683 translated, 1 kept from an earlier English, 3 still English
+46 buildings, 49 goods, 100/92 icons painted
+gen 0
+unused mod concepts: []
+feature switches against the build: match
+versions: {'generate.py': '1.3.1', 'metadata.json': '1.3.1'}
+OK
+check 0
+
+Name             
+----             
+built_against.txt
+metadata.json    
+ai        panics/century 3.71  in panic 0.84%  length 2.7  mania 5.5%  mania->panic 16%  lev 4.44  bad max 8.4  GDP +30.01%
+engine ok: 122 tunable constants match the generators
+usage: build.py [-h] [--source SOURCE] [--out OUT] [--revision REVISION]
+
+Package a separate beta from a generated Speculative Markets build. No
+gameplay source is forked here. Default input is the checked main mod; a
+separately generated non-debug build can be selected with --source. Nothing is
+installed, enabled, uploaded, or written back to the source directory.
+
+options:
+  -h, --help           show this help message and exit
+  --source SOURCE      Generated non-debug source mod
+  --out OUT            Output container inside beta/ (holds mod/ and
+                       releases/)
+  --revision REVISION  Positive beta iteration appended to the source version

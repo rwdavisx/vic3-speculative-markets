@@ -1,0 +1,18 @@
+# tool_result for 056_scratch_era_l3.ps1 (is_error=False)
+seed 2
+{}                                         5.7 0.1 2.2 3.0 3.2 | 42 | 5.8 1.9 6.9 4.6 | 0.08 0.22 0.38 0.30 0.24 -0.01 0.43 | +0.09 -0.08 1.6 60 24 | 27/30 growth_core(run10-careful)=0.09 panics_per_century(run10)=6.94 lev8_pct(run10)=3.41
+{"FIN_BOOM_BASE": 2.1}                     6.9 0.2 3.2 4.3 4.3 | 40 | 5.9 1.7 7.0 4.8 | 0.08 0.20 0.38 0.30 0.24 -0.01 0.42 | +0.09 -0.08 1.6 57 23 | 27/30 growth_core(run10-careful)=0.09 panics_per_century(run10)=6.96 lev8_pct(run10)=3.48
+{"FIN_BOOM_BASE": 2.1, "LEV_PANIC_SPAN": 30} 6.7 0.2 3.2 4.1 4.2 | 39 | 5.6 1.7 6.5 4.2 | 0.10 0.21 0.39 0.33 0.29 0.03 0.47 | +0.13 -0.06 1.8 66 17 | 29/30 panics_per_century(run10)=6.49
+{"FIN_BOOM_BASE": 2.1, "LEV_PANIC_SPAN": 30, "CONF_CRASH_MAX": 25} 6.6 0.2 3.1 4.1 4.1 | 36 | 4.9 1.1 5.4 3.5 | 0.12 0.22 0.43 0.37 0.32 0.05 0.49 | +0.15 -0.06 1.8 67 13 | 29/30 growth_core(reckless)=0.05
+seed 3
+{}                                         5.6 0.1 2.3 3.1 3.2 | 41 | 5.6 1.8 6.6 4.4 | 0.09 0.21 0.38 0.31 0.24 0.00 0.43 | +0.09 -0.07 1.5 59 23 | 26/30 growth_core(run10-careful)=0.09 runs10_per_century(run10)=1.49 panics_per_century(run10)=6.63 lev8_pct(run10)=3.37
+{"FIN_BOOM_BASE": 2.1}                     6.9 0.2 3.3 4.3 4.4 | 40 | 5.7 1.7 6.6 4.6 | 0.09 0.20 0.38 0.31 0.24 -0.00 0.42 | +0.11 -0.07 1.5 59 20 | 27/30 runs10_per_century(run10)=1.50 panics_per_century(run10)=6.62 lev8_pct(run10)=3.39
+{"FIN_BOOM_BASE": 2.1, "LEV_PANIC_SPAN": 30} 6.7 0.2 3.2 4.2 4.2 | 39 | 5.4 1.7 6.2 4.0 | 0.11 0.20 0.39 0.34 0.29 0.04 0.46 | +0.14 -0.05 1.6 67 15 | 29/30 panics_per_century(run10)=6.20
+{"FIN_BOOM_BASE": 2.1, "LEV_PANIC_SPAN": 30, "CONF_CRASH_MAX": 25} 6.6 0.2 3.2 4.1 4.1 | 35 | 4.7 1.0 5.1 3.4 | 0.13 0.21 0.43 0.38 0.32 0.06 0.49 | +0.16 -0.05 1.7 70 10 | 29/30 growth_core(reckless)=0.06
+2.0 {'mania': [0.74, 0.65, 1.07], 'm75': [6.0, 5.28, 7.69], 'pct10/50/90/99': [46.9, 60.3, 73.5, 79.5], 'panics/100y': 2.72, 'lev': 3.56, 'lev8%': 1.79}
+2.1 {'mania': [1.17, 0.95, 1.64], 'm75': [8.34, 7.34, 10.4], 'pct10/50/90/99': [46.9, 61.0, 74.5, 80.5], 'panics/100y': 2.65, 'lev': 3.57, 'lev8%': 1.81}
+2.1 s30 {'mania': [1.09, 0.92, 1.53], 'm75': [8.19, 7.23, 10.25], 'pct10/50/90/99': [47.0, 61.0, 74.5, 80.4], 'panics/100y': 2.4, 'lev': 3.61, 'lev8%': 1.99}
+blind10   panics/century 8.07  in panic 1.33%  length 2.0  mania 3.3%  mania->panic 44%  lev 3.59  bad max 9.0  GDP +22.12%
+skilled_timing panics/century 4.52  in panic 0.74%  length 2.0  mania 1.0%  mania->panic 20%  lev 3.27  bad max 4.6  GDP +26.68%
+ai        panics/century 4.60  in panic 1.11%  length 2.9  mania 3.3%  mania->panic 30%  lev 4.19  bad max 7.7  GDP +29.46%
+engine ok: 122 tunable constants match the generators

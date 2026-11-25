@@ -1,0 +1,41 @@
+# tool_result for 014_scratch_ridesim_grid3.ps1 (is_error=False)
+RIDERS={f'ride{X:g}c{c}':(X,c) for X in (11,) for c in (10,18)}
+    K=dict(engine.current()); K['FIN_BOOM_BASE']=1.5; K['LEV_PANIC_SPAN']=span; engine.g.STANCE_CREDIT['loose']=loose
+    jobs=[(f,sp,s,rt,b) for f in (1.6,2.5) for sp in (55,50,45) for rt in (.05,.1) for s in (7,) for b in bots]
+(1.6, 45, 7, 0.05) | careful: +0.28 p1.2 m0.0 passive: +0.11 p4.5 m3.0 ai: +0.27 p3.5 m1.0 reckless: +0.08 p7.7 m3.9
+     ride11c10 edge 0.29 panics 4.7 bad% 6.4 mania 1.1 | tops>=9: 0.94 burned 62% peak 8.1
+     ride11c18 edge 0.36 panics 3.3 bad% 3.1 mania 0.6 | tops>=9: 0.36 burned 44% peak 7.4
+(1.6, 45, 7, 0.1) | careful: +0.25 p1.2 m0.0 passive: +0.11 p4.5 m2.9 ai: +0.28 p3.2 m1.0 reckless: +0.08 p7.7 m3.9
+     ride11c10 edge 0.34 panics 3.7 bad% 4.4 mania 0.9 | tops>=9: 1.00 burned 33% peak 8.1
+     ride11c18 edge 0.39 panics 2.5 bad% 1.6 mania 0.5 | tops>=9: 0.34 burned 17% peak 7.3
+(1.6, 50, 7, 0.05) | careful: +0.28 p1.2 m0.0 passive: +0.10 p4.8 m3.0 ai: +0.24 p4.0 m1.2 reckless: +0.07 p8.3 m4.0
+     ride11c10 edge 0.27 panics 5.0 bad% 6.7 mania 1.1 | tops>=9: 0.74 burned 65% peak 7.9
+     ride11c18 edge 0.36 panics 3.5 bad% 3.1 mania 0.6 | tops>=9: 0.23 burned 46% peak 7.2
+(1.6, 50, 7, 0.1) | careful: +0.25 p1.2 m0.0 passive: +0.10 p4.8 m3.0 ai: +0.25 p3.7 m1.1 reckless: +0.07 p8.3 m4.0
+     ride11c10 edge 0.33 panics 3.9 bad% 4.5 mania 0.9 | tops>=9: 0.80 burned 34% peak 7.9
+     ride11c18 edge 0.38 panics 2.6 bad% 1.6 mania 0.4 | tops>=9: 0.20 burned 23% peak 7.1
+(1.6, 55, 7, 0.05) | careful: +0.28 p1.2 m0.0 passive: +0.09 p5.0 m3.0 ai: +0.21 p4.4 m1.2 reckless: +0.06 p8.8 m4.1
+     ride11c10 edge 0.26 panics 5.4 bad% 6.9 mania 1.1 | tops>=9: 0.55 burned 66% peak 7.7
+     ride11c18 edge 0.35 panics 3.7 bad% 3.2 mania 0.5 | tops>=9: 0.10 burned 53% peak 7.0
+(1.6, 55, 7, 0.1) | careful: +0.25 p1.2 m0.0 passive: +0.09 p5.0 m3.1 ai: +0.23 p4.2 m1.2 reckless: +0.06 p8.8 m4.1
+     ride11c10 edge 0.32 panics 4.1 bad% 4.6 mania 0.9 | tops>=9: 0.56 burned 34% peak 7.7
+     ride11c18 edge 0.38 panics 2.6 bad% 1.5 mania 0.4 | tops>=9: 0.10 burned 20% peak 6.9
+(2.5, 45, 7, 0.05) | careful: +0.28 p1.2 m0.0 passive: +0.11 p4.5 m3.0 ai: +0.27 p3.5 m1.1 reckless: -0.13 p10.9 m6.2
+     ride11c10 edge 0.18 panics 6.8 bad% 11.1 mania 1.8 | tops>=9: 1.98 burned 65% peak 9.1
+     ride11c18 edge 0.32 panics 4.5 bad% 5.4 mania 0.8 | tops>=9: 0.83 burned 50% peak 8.3
+(2.5, 45, 7, 0.1) | careful: +0.25 p1.2 m0.0 passive: +0.11 p4.5 m2.9 ai: +0.28 p3.2 m1.0 reckless: -0.13 p10.9 m6.2
+     ride11c10 edge 0.29 panics 5.1 bad% 7.2 mania 1.2 | tops>=9: 2.20 burned 34% peak 9.1
+     ride11c18 edge 0.39 panics 3.0 bad% 2.6 mania 0.6 | tops>=9: 0.80 burned 19% peak 8.2
+(2.5, 50, 7, 0.05) | careful: +0.28 p1.2 m0.0 passive: +0.10 p4.8 m3.0 ai: +0.24 p4.0 m1.2 reckless: -0.16 p11.8 m6.4
+     ride11c10 edge 0.17 panics 7.2 bad% 11.5 mania 1.8 | tops>=9: 1.67 burned 70% peak 8.9
+     ride11c18 edge 0.32 panics 4.7 bad% 5.3 mania 0.8 | tops>=9: 0.52 burned 52% peak 8.1
+(2.5, 50, 7, 0.1) | careful: +0.25 p1.2 m0.0 passive: +0.10 p4.8 m3.0 ai: +0.25 p3.7 m1.1 reckless: -0.16 p11.8 m6.4
+     ride11c10 edge 0.28 panics 5.3 bad% 7.3 mania 1.2 | tops>=9: 1.75 burned 34% peak 8.9
+     ride11c18 edge 0.39 panics 3.0 bad% 2.4 mania 0.5 | tops>=9: 0.45 burned 18% peak 8.0
+(2.5, 55, 7, 0.05) | careful: +0.28 p1.2 m0.0 passive: +0.09 p5.0 m3.0 ai: +0.21 p4.5 m1.2 reckless: -0.17 p12.5 m6.5
+     ride11c10 edge 0.16 panics 7.6 bad% 11.6 mania 1.8 | tops>=9: 1.31 burned 71% peak 8.7
+     ride11c18 edge 0.32 panics 4.8 bad% 5.1 mania 0.7 | tops>=9: 0.28 burned 59% peak 7.8
+(2.5, 55, 7, 0.1) | careful: +0.25 p1.2 m0.0 passive: +0.09 p5.0 m3.0 ai: +0.22 p4.2 m1.2 reckless: -0.17 p12.5 m6.5
+     ride11c10 edge 0.27 panics 5.5 bad% 7.3 mania 1.2 | tops>=9: 1.31 burned 39% peak 8.6
+     ride11c18 edge 0.38 panics 3.1 bad% 2.2 mania 0.4 | tops>=9: 0.19 burned 19% peak 7.7
+Shell cwd was reset to G:\GameDev\speculative-markets

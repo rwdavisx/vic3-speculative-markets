@@ -1,0 +1,61 @@
+# tool_result for 071_scratch_scan_l13.ps1 (is_error=False)
+seed 1
+{'mania_pct': {'p10': 1.0, 'p50': 6.0, 'p90': 17.258333333333336, 'mean': 7.609833333333334}, 'growth_core': {'p10': -0.33239107960003844, 'p50': 0.2869077793343333, 'p90': 0.5656134165203586, 'mean': 0.19769830230261845}, 'mania_to_panic_pct': {'mean': 35.720545887066486}}
+{"LEV_CRUNCH_FADE": 0.35}                  7.6 0.2 2.9 5.4 5.1 | 36 | 4.9 1.3 6.4 4.0 | 0.20 0.23 0.48 0.50 0.44 -0.01 0.68 | +0.28 +0.02 1.8 62 12 | 26/30 growth_core(passive)=0.20 panics_per_century(run12)=6.45 growth_core(blind12-careful)=0.22 growth_core(ai)=0.68
+{"LEV_CRUNCH_FADE": 0.35, "LEV_RECORD_PAST": 2} 7.7 0.2 2.9 5.3 5.1 | 36 | 4.9 1.3 6.5 4.1 | 0.18 0.23 0.48 0.48 0.40 -0.04 0.65 | +0.25 -0.00 1.8 64 14 | 26/30 growth_core(passive)=0.18 panics_per_century(run12)=6.45 growth_core(blind12-careful)=0.18 growth_core(ai)=0.65
+{"LEV_CRUNCH_FADE": 0.35, "LEV_RECORD_PAST": 2, "BUST_PER_HYPE": 1.5} 7.9 0.2 3.0 5.5 5.2 | 35 | 4.7 1.2 6.1 3.8 | 0.20 0.23 0.50 0.51 0.45 -0.01 0.67 | +0.28 +0.01 1.8 64 11 | 26/30 growth_core(passive)=0.20 panics_per_century(run12)=6.05 growth_core(blind12-careful)=0.22 growth_core(ai)=0.67
+seed 2
+{'mania_pct': {'p10': 0.9166666666666666, 'p50': 5.958333333333334, 'p90': 16.916666666666664, 'mean': 7.487166666666666}, 'growth_core': {'p10': -0.31494389125907407, 'p50': 0.2863246990927881, 'p90': 0.5430578291853538, 'mean': 0.1993767677660576}, 'mania_to_panic_pct': {'mean': 35.798404457388884}}
+{"LEV_CRUNCH_FADE": 0.35}                  7.5 0.2 2.9 5.4 4.9 | 36 | 4.8 1.2 6.4 4.0 | 0.20 0.23 0.48 0.50 0.44 0.00 0.68 | +0.27 +0.02 1.7 64 12 | 26/30 growth_core(passive)=0.20 panics_per_century(run12)=6.38 growth_core(blind12-careful)=0.22 growth_core(ai)=0.68
+{"LEV_CRUNCH_FADE": 0.35, "LEV_RECORD_PAST": 2} 7.5 0.2 2.9 5.4 4.9 | 36 | 4.8 1.2 6.4 4.1 | 0.19 0.23 0.48 0.47 0.41 -0.03 0.65 | +0.25 -0.01 1.8 64 14 | 26/30 growth_core(passive)=0.19 panics_per_century(run12)=6.42 growth_core(blind12-careful)=0.18 growth_core(ai)=0.65
+{"LEV_CRUNCH_FADE": 0.35, "LEV_RECORD_PAST": 2, "BUST_PER_HYPE": 1.5} 7.8 0.2 3.1 5.6 5.1 | 35 | 4.6 1.1 6.0 3.8 | 0.20 0.23 0.50 0.51 0.45 -0.00 0.67 | +0.28 +0.01 1.8 65 11 | 26/30 growth_core(passive)=0.20 panics_per_century(run12)=5.95 growth_core(blind12-careful)=0.22 growth_core(ai)=0.67
+[{"LEV_CRUNCH_FADE":0.35},{"LEV_CRUNCH_FADE":0.35,"LEV_RECORD_PAST":2},{"LEV_CRUNCH_FADE":0.35,"LEV_RECORD_PAST":2,"BUST_PER_HYPE":1.5}]
+warning: in the working copy of 'tools/credit_ai.py', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'tools/tuner/inputs.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tools/tuner/targets.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tools/tuning.json', LF will be replaced by CRLF the next time Git touches it
+ beta/workshop_description.bbcode |   6 ++-
+ tools/concepts.py                |   2 +-
+ tools/credit_ai.py               |  75 +++++++++++++++++++++-----
+ tools/fastsim.py                 |   2 +-
+ tools/generate.py                |  60 ++++++---------------
+ tools/leverage.py                |  26 ++++-----
+ tools/market_tab.py              |   4 +-
+ tools/tuner.py                   |   3 +-
+ tools/tuner/engine.py            | 112 ++++++++++++++++++++++++++++++++-------
+ tools/tuner/inputs.json          |  38 ++++++++++---
+ tools/tuner/lab.py               |   1 +
+ tools/tuner/server.py            |   2 +-
+ tools/tuner/targets.json         |  53 +++++++++---------
+ tools/tuning.json                |  27 +++++++---
+ tools/values_table.py            |   4 +-
+ 15 files changed, 272 insertions(+), 143 deletions(-)
+G:\GameDev\speculative-markets\beta\release_131\mod
+G:\GameDev\speculative-markets\beta\release_131\releases
+G:\GameDev\speculative-markets\beta\release_131\build_manifest.json
+G:\GameDev\speculative-markets\beta\release_131\mod\.metadata
+G:\GameDev\speculative-markets\beta\release_131\mod\common
+G:\GameDev\speculative-markets\beta\release_131\mod\events
+G:\GameDev\speculative-markets\beta\release_131\mod\gfx
+G:\GameDev\speculative-markets\beta\release_131\mod\gui
+G:\GameDev\speculative-markets\beta\release_131\mod\localization
+G:\GameDev\speculative-markets\beta\release_131\mod\thumbnail.png
+G:\GameDev\speculative-markets\beta\release_131\releases\Speculative_Markets_Beta_1.3.1-beta.1.manifest.json
+G:\GameDev\speculative-markets\beta\release_131\releases\Speculative_Markets_Beta_1.3.1-beta.1.zip
+G:\GameDev\speculative-markets\beta\release_131\releases\Speculative_Markets_Beta_1.3.1-beta.2.manifest.json
+G:\GameDev\speculative-markets\beta\release_131\releases\Speculative_Markets_Beta_1.3.1-beta.2.zip
+G:\GameDev\speculative-markets\beta\release_131\releases\Speculative_Markets_Beta_1.3.1-beta.3.manifest.json
+G:\GameDev\speculative-markets\beta\release_131\releases\Speculative_Markets_Beta_1.3.1-beta.3.zip
+More Mania. Everything else is as in 1.3.1-beta.2, and stable stays on 1.3.
+
+[list]
+[*]Booms lift Market Confidence more: their size before finance technologies is now 2 (was 1.75 in beta.2 and 1 in 1.3).
+[*]The finance technologies add as much to booms as before, so the percentages they show are lower.
+[*]Under High Market Volatility, Speculative Excess builds from 78 confidence (was 75 in beta.2 and 70 in 1.3), so the bigger booms do not make that rule too harsh.
+[/list]
+
+In our simulations, a country left alone now spends about 8% of months in Mania (was 5%), AI countries about 5% (was 2.5%), and a country running leverage up to 10 months about 6% (was under 3%). Panics stay about as common. The real game may come in a little under these numbers.
+
+Saves from 1.3 and beta.2 carry on. New text is English only for now. The Morgenroete, Tech & Res and Better Politics Mod patches are still built for 1.3, so test this beta without them.
+[b]1.3.1-beta.3[/b] tests riding high leverage: Tight credit pays loans off about ten times faster, the Panic Thre
+...[truncated]

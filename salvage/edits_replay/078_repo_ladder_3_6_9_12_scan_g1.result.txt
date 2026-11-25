@@ -1,0 +1,34 @@
+# tool_result for 078_repo_ladder_3_6_9_12_scan_g1.ps1 (is_error=False)
+{} | careful 0.23 hold6 0.50 run10 0.54 run12 0.52 blind12 0.49 reckless 0.22 ai 0.64 passive 0.25 | 12-C +0.29 12-6 +0.02 pan12 5.1 ups 1.42 out 70 beat 6 lev8 8.7 | AI pan 3.2 mania P 7.2 12 5.0 AI 4.7
+{"PANIC_SPAN": 25, "RECORD_PAST": 2, "BUST_PER_HYPE": 2} | careful 0.22 hold6 0.46 run10 0.48 run12 0.46 blind12 0.43 reckless 0.16 ai 0.60 passive 0.21 | 12-C +0.24 12-6 -0.00 pan12 6.1 ups 1.34 out 67 beat 10 lev8 8.0 | AI pan 3.8 mania P 7.0 12 4.8 AI 4.5
+{"PANIC_SPAN": 25, "RECORD_PAST": 3, "BUST_PER_HYPE": 1.5} | careful 0.23 hold6 0.50 run10 0.56 run12 0.54 blind12 0.52 reckless 0.25 ai 0.67 passive 0.26 | 12-C +0.32 12-6 +0.05 pan12 5.1 ups 1.36 out 68 beat 5 lev8 8.7 | AI pan 3.2 mania P 7.2 12 5.0 AI 4.8
+{"PANIC_SPAN": 25, "RECORD_PAST": 3, "BUST_PER_HYPE": 2} | careful 0.22 hold6 0.46 run10 0.50 run12 0.49 blind12 0.46 reckless 0.19 ai 0.63 passive 0.23 | 12-C +0.26 12-6 +0.02 pan12 6.0 ups 1.31 out 65 beat 8 lev8 8.0 | AI pan 3.8 mania P 6.9 12 4.8 AI 4.5
+{"PANIC_SPAN": 30, "RECORD_PAST": 2, "BUST_PER_HYPE": 1.5} | careful 0.23 hold6 0.48 run10 0.47 run12 0.45 blind12 0.39 reckless 0.13 ai 0.58 passive 0.19 | 12-C +0.23 12-6 -0.03 pan12 5.8 ups 1.32 out 61 beat 11 lev8 7.5 | AI pan 3.8 mania P 7.6 12 5.2 AI 5.0
+{"PANIC_SPAN": 30, "RECORD_PAST": 2, "BUST_PER_HYPE": 2} | careful 0.22 hold6 0.45 run10 0.42 run12 0.40 blind12 0.33 reckless 0.08 ai 0.55 passive 0.16 | 12-C +0.18 12-6 -0.05 pan12 6.8 ups 1.24 out 61 beat 14 lev8 6.9 | AI pan 4.4 mania P 7.3 12 4.9 AI 4.7
+{"PANIC_SPAN": 30, "RECORD_PAST": 3, "BUST_PER_HYPE": 1.5} | careful 0.23 hold6 0.48 run10 0.50 run12 0.47 blind12 0.42 reckless 0.15 ai 0.60 passive 0.20 | 12-C +0.25 12-6 -0.01 pan12 5.8 ups 1.27 out 59 beat 9 lev8 7.4 | AI pan 3.8 mania P 7.6 12 5.2 AI 5.0
+{"PANIC_SPAN": 30, "RECORD_PAST": 3, "BUST_PER_HYPE": 2} | careful 0.22 hold6 0.45 run10 0.45 run12 0.42 blind12 0.35 reckless 0.09 ai 0.57 passive 0.17 | 12-C +0.20 12-6 -0.03 pan12 6.8 ups 1.19 out 60 beat 13 lev8 6.8 | AI pan 4.4 mania P 7.3 12 4.9 AI 4.7
+{"PANIC_SPAN": 35, "RECORD_PAST": 2, "BUST_PER_HYPE": 1.5} | careful 0.23 hold6 0.47 run10 0.43 run12 0.40 blind12 0.31 reckless 0.06 ai 0.52 passive 0.15 | 12-C +0.17 12-6 -0.07 pan12 6.5 ups 1.17 out 53 beat 16 lev8 6.4 | AI pan 4.5 mania P 7.9 12 5.3 AI 5.1
+{"PANIC_SPAN": 35, "RECORD_PAST": 2, "BUST_PER_HYPE": 2} | careful 0.22 hold6 0.44 run10 0.37 run12 0.35 blind12 0.26 reckless 0.01 ai 0.48 passive 0.13 | 12-C +0.13 12-6 -0.08 pan12 7.5 ups 1.12 out 51 beat 21 lev8 5.9 | AI pan 5.2 mania P 7.6 12 5.0 AI 4.8
+{"PANIC_SPAN": 35, "RECORD_PAST": 3, "BUST_PER_HYPE": 1.5} | careful 0.23 hold6 0.47 run10 0.45 run12 0.42 blind12 0.33 reckless 0.08 ai 0.54 passive 0.16 | 12-C +0.19 12-6 -0.05 pan12 6.4 ups 1.13 out 52 beat 13 lev8 6.4 | AI pan 4.5 mania P 7.9 12 5.3 AI 5.1
+{"PANIC_SPAN": 35, "RECORD_PAST": 3, "BUST_PER_HYPE": 2} | careful 0.22 hold6 0.44 run10 0.39 run12 0.37 blind12 0.28 reckless 0.03 ai 0.51 passive 0.13 | 12-C +0.15 12-6 -0.06 pan12 7.4 ups 1.08 out 53 beat 18 lev8 5.9 | AI pan 5.1 mania P 7.6 12 5.0 AI 4.8
+{"CRUNCH_BUILD": 0.06} | careful 0.23 hold6 0.49 run10 0.52 run12 0.51 blind12 0.48 reckless 0.16 ai 0.63 passive 0.21 | 12-C +0.28 12-6 +0.01 pan12 5.1 ups 1.46 out 70 beat 8 lev8 8.8 | AI pan 3.2 mania P 7.2 12 5.0 AI 4.7
+{"INCOME_FLOOR": 0.005} | careful 0.24 hold6 0.50 run10 0.54 run12 0.52 blind12 0.49 reckless 0.19 ai 0.64 passive 0.23 | 12-C +0.29 12-6 +0.02 pan12 5.3 ups 1.77 out 74 beat 7 lev8 9.5 | AI pan 3.3 mania P 7.7 12 5.1 AI 4.7
+{"INCOME_FLOOR": 0.007} | careful 0.22 hold6 0.49 run10 0.53 run12 0.51 blind12 0.49 reckless 0.24 ai 0.62 passive 0.26 | 12-C +0.29 12-6 +0.02 pan12 4.9 ups 1.10 out 65 beat 4 lev8 8.0 | AI pan 3.1 mania P 6.8 12 4.9 AI 4.8
+---
+ in/30
+ 24/30 growth_core(passive)=0.25 runs10_per_century(run12)=1.42 beaten_pct(run12)=5.88 growth_core(blind12-careful)=0.26 growth_core(reckless)=0.22 growth_core(ai)=0.64
+ 24/30 growth_core(passive)=0.21 runs10_per_century(run12)=1.34 panics_per_century(run12)=6.08 growth_core(blind12-careful)=0.20 growth_core(reckless)=0.16 growth_core(ai)=0.60
+ 23/30 growth_core(passive)=0.26 growth_core(run12-careful)=0.32 runs10_per_century(run12)=1.36 beaten_pct(run12)=4.75 growth_core(blind12-careful)=0.30 growth_core(reckless)=0.25 growth_core(ai)=0.67
+ 23/30 growth_core(passive)=0.23 runs10_per_century(run12)=1.31 panics_per_century(run12)=6.05 beaten_pct(run12)=8.38 growth_core(blind12-careful)=0.23 growth_core(reckless)=0.19 growth_core(ai)=0.63
+ 24/30 growth_core(passive)=0.19 runs10_per_century(run12)=1.32 panics_per_century(run12)=5.83 growth_core(blind12-careful)=0.16 growth_core(reckless)=0.13 growth_core(ai)=0.58
+ 25/30 growth_core(passive)=0.16 runs10_per_century(run12)=1.24 panics_per_century(run12)=6.83 growth_core(reckless)=0.08 growth_core(ai)=0.55
+ 23/30 growth_core(passive)=0.20 runs10_per_century(run12)=1.27 panics_per_century(run12)=5.82 beaten_pct(run12)=9.00 growth_core(blind12-careful)=0.19 growth_core(reckless)=0.15 growth_core(ai)=0.60
+ 25/30 growth_core(passive)=0.17 runs10_per_century(run12)=1.19 panics_per_century(run12)=6.80 growth_core(reckless)=0.09 growth_core(ai)=0.57
+ 25/30 growth_core(passive)=0.15 runs10_per_century(run12)=1.17 panics_per_century(run12)=6.48 growth_core(reckless)=0.06 growth_core(ai)=0.52
+ 28/30 runs10_per_century(run12)=1.12 panics_per_century(run12)=7.46
+ 25/30 growth_core(passive)=0.16 runs10_per_century(run12)=1.13 panics_per_century(run12)=6.44 growth_core(reckless)=0.08 growth_core(ai)=0.54
+ 27/30 runs10_per_century(run12)=1.08 panics_per_century(run12)=7.43 growth_core(ai)=0.51
+ 24/30 growth_core(passive)=0.21 runs10_per_century(run12)=1.46 beaten_pct(run12)=7.50 growth_core(blind12-careful)=0.25 growth_core(reckless)=0.16 growth_core(ai)=0.63
+ 25/30 growth_core(passive)=0.23 beaten_pct(run12)=6.88 growth_core(blind12-careful)=0.26 growth_core(reckless)=0.19 growth_core(ai)=0.64
+ 23/30 growth_core(passive)=0.26 low_pct(passive)=4.81 runs10_
+...[truncated]

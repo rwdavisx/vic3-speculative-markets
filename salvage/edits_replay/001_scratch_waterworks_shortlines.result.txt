@@ -1,0 +1,11 @@
+# tool_result for 001_scratch_waterworks_shortlines.ps1 (is_error=False)
+1543 lines; long: 11
+146012
+
+Count Name                                                                                    
+----- ----                                                                                    
+    1 https://fonts.googleapis.com                                                            
+    1 https://fonts.gstatic.com                                                               
+    1 https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&family=IM+Fell
+    1 http://www.w3.org/2000/svg                                                              
+   11 data:image/png

@@ -1,0 +1,109 @@
+# tool_result for 053_repo_sim_calibration_apply.ps1 (is_error=False)
+warning: in the working copy of 'tools/tuner/inputs.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tools/tuner/targets.json', LF will be replaced by CRLF the next time Git touches it
+ tools/tuner/engine.py    | 101 +++++++++++++++++++++++++++++++++++++++--------
+ tools/tuner/inputs.json  |  38 ++++++++++++++----
+ tools/tuner/lab.py       |   1 +
+ tools/tuner/server.py    |   2 +-
+ tools/tuner/targets.json |  53 ++++++++++++-------------
+ 5 files changed, 143 insertions(+), 52 deletions(-)
+import sys, json, multiprocessing as mp
+sys.path.insert(0, r"G:\GameDev\speculative-markets\tools\tuner")
+import lab, engine
+lists = {
+ "one": [dict(), dict(FIN_BOOM_BASE=2.0), dict(FIN_BOOM_BASE=2.25), dict(FIN_BOOM_BASE=2.5), dict(CONF_PER_HOT=7.0), dict(CONF_PER_HOT=8.0),
+   dict(CONF_START=55), dict(CONF_RECOVER=0.15), dict(CONF_RECOVER=0.1), dict(MOOD_KEEP=0.96), dict(MOOD_KEEP=0.97), dict(MOOD_SHOCK=1.0),
+   dict(HEAT_FROM=85), dict(BURST_PER_HEAT=0.15), dict(CONF_PER_CRASH_HYPE=6), dict(CONF_PER_CRASH_HYPE=5), dict(CONF_CRASH_MAX=30),
+   dict(BUST_PER_HYPE=2.0), dict(MANIA=75), dict(EXP_PER_MONTH=0.05), dict(LAX_PULL=0.75), dict(HEAT_COOL=0.97)],
+}
+import os
+_h, _p, _b = (float(x) for x in os.environ["HV"].split(","))
+engine.g.VOLATILITY["heightened"].update(heat=_h, per=_p, boom=_b)
+HCFG = engine.defaults(); HCFG["inputs"]["heightened"] = 1
+def num(x):
+    if isinstance(x, dict): x = x.get("mean", x.get("avg", next(iter(x.values()))))
+    return float("nan") if x is None else x
+def main(name, n, seed, extra):
+    cur = lab.current()
+    moves = extra or lists[name]
+    base = lab.candidates(cur, {}, {}, 1, 1)[0]
+    vals = [base | m for m in moves]
+    with mp.get_context("spawn").Pool(lab.CORES) as pool:
+        r = lab.sweep({"list": vals, "economies": n, "seed": seed, "save": False, "cfg": HCFG, "label": "mania scan"}, pool, cur)
+    print("mania P/C/6/10/AI | m2p | panics P C 10 AI | growth P C 6 10 bl rk AI | 10-C 10-6 ups out beat | losses | in/30")
+    for c in sorted(r["cands"], key=lambda c: c["id"]):
+        M = c["metrics"]; g = lambda b, k: num(M[b].get(k))
+        G = {b: g(b, "growth_core") for b in M}
+        if c["id"] == 0: print({k: v for k, v in M["passive"].items() if k in ("mania_pct", "growth_core", "mania_to_panic_pct")})
+        ins = sum(p["in"] for p in c["parts"]); out = [f"{p['metric']}({p['who']})={p['value']:.2f}" for p in c["parts"] if not p["in"]]
+        print(f"{json.dumps(moves[c['id']]):42s} {g('passive','mania_pct'):.1f} {g('careful','mania_pct'):.1f} {g('hold6','mania_pct'):.1f} {g('run10','mania_pct'):.1f} {g('ai','mania_pct'):.1f} | {g('passive','mania_to_panic_pct'):.0f} | "
+              f"{g('passive','panics_per_century'):.1f} {g('careful','panics_per_century'):.1f} {g('run10','panics_per_century'):.1f} {g('ai','panics_per_century'):.1f} | "
+              + " ".join(f"{G[b]:.2f}" for b in ("passive","careful","hold6","run10","blind10","reckless","ai"))
+              + f" | {G['run10']-G['careful']:+.2f} {G['run10']-G['hold6']:+.2f} {g('run10','runs10_per_century'):.1f} {g('run10','runs10_out_pct'):.0f} {g('run10','beaten_pct'):.0f} | {ins}/30 {' '.join(out)}")
+if __name__ == "__main__":
+    mp.freeze_support()
+    main(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]), json.loads(open(sys.argv[4]).read()) if len(sys.argv) > 4 else None)
+"""Checks and sweeps on every core, the targets file, and the latest result the page shows.
+
+py -3 -B tools/tuner/lab.py check [KEY=value ...] [--note text] [--n 1000] [--seed 1]
+py -3 -B tools/tuner/lab.py sweep KEY=lo:hi [KEY=lo:hi ...] [KEY=value ...] [--cands 48] [--n 1000] [--note text] [--halving [--rung 111]]
+py -3 -B tools/tuner/lab.py map [KEY ...] [--n 125] [--seed 1]   each key one grid step down and up -> tools/tuner/keymap.json
+
+Each run is kept in build_scratch/tuner/runs/<id>.json, and latest.json is the newest. While it runs, its events go to
+runs/<id>.live.jsonl, which the server streams to an open page, so a run from here shows live too.
+"""
+import json
+import math
+import multiprocessing as mp
+import os
+import random
+import re
+import secrets
+import statistics
+import sys
+import time
+from pathlib import Path
+
+import engine
+
+HERE = Path(__file__).resolve().parent
+REPO = HERE.parent.parent
+TARGETS = HERE / "targets.json"
+LATEST = REPO / "build_scratch" / "tuner" / "latest.json"
+RUNS = LATEST.parent / "runs"
+RUN_ID = re.compile(r"^[0-9]{8}-[0-9]{6}-[0-9a-f]{4}$")
+KEYS = {s[0]: s for s in engine.TUNABLE}
+CORES = int(os.environ.get("SPEC_TUNER_CORES") or os.cpu_count() or 1)  # set lower to leave the game room
+KEEP_BANDS = 12  # candidates whose charts the saved result keeps, best first
+FIELDS = ("metric", "who", "aim", "lo", "hi", "weight")
+
+
+def targets():
+    if TARGETS.exists():
+        return json.loads(TARGETS.read_text(encoding="utf-8"))
+    return [dict(zip(FIELDS, t)) for t in engine.TARGETS]
+
+
+def save_targets(ts):
+    clean = []
+    for t in ts:
+        assert t["metric"] in engine.METRICS, t["metric"]
+        assert all(b in engine.BOTS for b in t["who"].split("-")), t["who"]
+        clean.append({"metric": t["metric"], "who": t["who"], **{k: float(t[k]) for k in ("aim", "lo", "hi")},
+                      "weight": float(t.get("weight", 1)), "why": str(t.get("why", ""))})
+    TARGETS.write_text("[\n" + ",\n".join(" " + json.dumps(t) for t in clean) + "\n]\n", encoding="utf-8", newline="\n")
+    return clean
+
+
+def rows(ts):
+    return [[t[k] if k != "weight" else t.get("weight", 1) for k in FIELDS] for t in ts]
+
+
+def current():
+    return {k: v for k, v in engine.current().items() if k in KEYS}
+
+
+[
+ {"metric": "panics_per_century", "who": "passive", "aim": 5.5, "lo": 4.0, "hi": 7.0, "weight": 1.0, "why": "A country that never touches the levers panics about as often as the 19th century's large economies did."},
+ {"metric": "panic_months_pct", "who": "pas
+...[truncated]

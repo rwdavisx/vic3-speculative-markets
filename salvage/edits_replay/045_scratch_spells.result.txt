@@ -1,0 +1,32 @@
+# tool_result for 045_scratch_spells.ps1 (is_error=False)
+build ok, starting
+beta3 1: done at December 31, 1865 in 35.01 min, spec-related log lines 190
+
+[exited with code 0]
+
+Name             Length
+----             ------
+booms.log       3954769
+error.log       2725568
+events.log        38109
+journal.log      127753
+meta.json           146
+pledges.log       62145
+prices.log     40625754
+probe.log      19617150
+rivals.log      4038050
+rvai.log        6174466
+telemetry.log 103569179
+trust.log       7662413
+## G:\GameDev\speculative-markets\runs\sweep_beta3\beta3_01\telemetry.log: 305 tags, last month 1865
+36-46 {"panics_per_decade": 0.21, "mania_pct": 0.38, "low_pct": 1.62, "lev_mean": 2.75, "frozen_months_pct": 0.62, "panic_months_pct": 0.62, "crunch_months_pct": 1.49, "conf_mean": 62.74, "lev8%": 0.79, "lev_max": 9.9, "per100y": 2.1, "mania_countries": 5, "n": 38, "stance": {"-1": 2, "0": 82, "1": 15}}
+46-56 {"panics_per_decade": 0.3, "mania_pct": 0.32, "low_pct": 4.18, "lev_mean": 3.47, "frozen_months_pct": 0.29, "panic_months_pct": 0.8, "crunch_months_pct": 1.78, "conf_mean": 56.62, "lev8%": 1.52, "lev_max": 10.1, "per100y": 3.0, "mania_countries": 6, "n": 40, "stance": {"-1": 4, "0": 65, "1": 31}}
+56-66 {"panics_per_decade": 0.41, "mania_pct": 1.76, "low_pct": 3.31, "lev_mean": 4.24, "frozen_months_pct": 1.5, "panic_months_pct": 1.08, "crunch_months_pct": 3.13, "conf_mean": 61.65, "lev8%": 3.46, "lev_max": 9.6, "per100y": 4.1, "mania_countries": 9, "n": 32, "stance": {"-1": 6, "0": 49, "1": 45}}
+36-66 {"panics_per_decade": 0.31, "mania_pct": 0.74, "low_pct": 2.82, "lev_mean": 3.41, "frozen_months_pct": 0.8, "panic_months_pct": 0.84, "crunch_months_pct": 2.12, "conf_mean": 60.44, "lev8%": 1.83, "lev_max": 9.9, "per100y": 3.1, "mania_countries": 13, "n": 35, "stance": {"-1": 4, "0": 67, "1": 29}}
+top8 mania%: {'CHI': 0.0, 'BIC': 0.3, 'GBR': 0.0, 'FRA': 3.9, 'RUS': 0.0, 'USA': 1.1, 'JAP': 0.0, 'TUR': 0.0} lev: {'CHI': 2.3, 'BIC': 3.3, 'GBR': 5.3, 'FRA': 4.6, 'RUS': 2.4, 'USA': 5.7, 'JAP': 2.7, 'TUR': 2.6}
+## simulator AI
+--- runtime errors naming our files
+ve-markets\runs\sweep_beta3\beta3_01\telemetry.log run-ups to 8+: 17, down to 5 without panic 6, panic 7; Manias 31, mean length 3.0 mo, panic within 24 mo 5
+  conf pctiles 5/50/90/95/99: [44.6 60.6 74.1 76.1 79.3] share 70+: 25.7 boom mean: [4.162 2.748 4.319] braw: [9.23  4.121 8.966]
+ve-markets\runs\sweep_rc122\rc122_01\telemetry.log run-ups to 8+: 4, down to 5 without panic 0, panic 3; Manias 8, mean length 3.1 mo, panic within 24 mo 0
+  conf pctiles 5/50/90/95/99: [44.  54.7 64.2 66.5 73.6] share 70+: 1.9 boom mean: [2.021 1.532 1.82 ] braw: [8.179 3.259 5.295]

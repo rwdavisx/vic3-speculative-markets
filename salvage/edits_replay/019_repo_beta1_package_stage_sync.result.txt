@@ -1,0 +1,48 @@
+# tool_result for 019_repo_beta1_package_stage_sync.ps1 (is_error=False)
+True
+False
+check.py:72 built = (ROOT / "built_against.txt").read_text(encoding="utf-8").strip() if (ROOT / "built_against.txt").exists() else "never recorded"
+generate.py:2611 built = MOD.parent / "built_against.txt" if MOD.resolve() == live.resolve() else meta.parent / "built_against.txt"
+package_release.py:91 "built_against": (ROOT / "built_against.txt").read_text(encoding="utf-8").strip(),
+Built 1.3.1-beta.1: G:\GameDev\speculative-markets\beta\release_131\releases\Speculative_Markets_Beta_1.3.1-beta.1.zip
+Verified 241 files; gameplay bytes match G:\GameDev\speculative-markets\build_scratch\rc_1.3.1
+Enable either Speculative Markets or Speculative Markets - Beta, never both.
+8440100
+ECB486F511167A47B5D6D318B169E46AA7A29CC09E76D721E6469B44E342F334
+    "Journal Entries"
+  ],
+  "file_count": 241,
+  "source_archive_sha256": "ecb486f511167a47b5d6d318b169e46aa7a29cc09e76d721e6469b44e342f334"
+}
+versions: {'generate.py': '1.3.1', 'metadata.json': '1.3.0'}
+FAILED: version mismatch: [{'generate.py': '1.3.1', 'metadata.json': '1.3.0'}]
+--- live
+14 changed, 1 removed
+  .metadata/metadata.json
+  localization/braz_por/spec_markets_l_braz_por.yml
+  localization/english/spec_markets_l_english.yml
+  localization/french/spec_markets_l_french.yml
+  localization/german/spec_markets_l_german.yml
+  localization/japanese/spec_markets_l_japanese.yml
+  localization/korean/spec_markets_l_korean.yml
+  localization/polish/spec_markets_l_polish.yml
+  localization/russian/spec_markets_l_russian.yml
+  localization/simp_chinese/spec_markets_l_simp_chinese.yml
+  localization/spanish/spec_markets_l_spanish.yml
+  localization/turkish/spec_markets_l_turkish.yml
+  common/script_values/spec_values.txt
+  common/technology/technologies/zzz_spec_techs.txt
+ M beta/workshop_description.bbcode
+ M tools/concepts.py
+ M tools/generate.py
+ M tools/market_tab.py
+ M tools/tuner.py
+ M tools/tuner/engine.py
+ M tools/tuning.json
+?? SPEC_RV_SHORE_FX
+?? beta/candidate_122/
+?? beta/changelog_1.3.1-beta.1.bbcode
+?? beta/release_130/
+?? beta/release_131/
+?? tools/tuner/windows_parallel2.json
+?? tools/tuner/windows_parallel3.json

@@ -1,0 +1,46 @@
+# tool_result for 030_scratch_keymap_read.ps1 (is_error=False)
+dict_keys(['made', 'n', 'years', 'seed', 'targets', 'keys', 'base_score', 'noise', 'skipped'])
+2026-11-22 125
+{"made": "2026-11-22", "n": 125, "years": 100, "seed": 1, "targets": [{"id": 0, "metric": "panics_per_century", "label": "Panics a century (passive)", "lo": 4.0, "hi": 7.0, "base": 4.472}, {"id": 1, "metric": "panic_months_pct", "label": "Months in panic (passive)", "lo": 0.8, "hi": 3.0, "base": 1.6427}, {"id": 2, "metric": "panic_length", "label": "Panic length (passive)", "lo": 3.0, "hi": 6.0, "base": 4.3989}, {"id": 3, "metric": "mania_pct", "label": "Months in Mania (passive)", "lo": 2.0, "hi": 8.0, "base": 1.918}, {"id": 4, "metric": "mania_to_panic_pct", "label": "Manias ending in a panic (passive)", "lo": 25.0, "hi": 50.0, "base": 36.8421}, {"id": 5, "metric": "output_pct", "label": "GDP against no market, after rescue and buy-up costs (reckless-careful)", "lo": -8.0, "hi": -2.0, "base": -0.9331}, {"id": 6, "metric": "output_pct", "label": "GDP against no market, after rescue and buy-up costs (careful-passive)", "lo": 1.0, "hi": 5.0, "base": 0.6106}, {"id": 7, "metric": "output_pct", "label": "GDP against no market, after rescue and buy-up costs (skilled-careful)", "lo": 0.5, "hi": 3.0, "base": 0.4314}, {"id": 8, "metric": "panics_per_century", "label": "Panics a century (careful)", "lo": 1.0, "hi": 3.5, "base": 1.408}, {"id": 9, "metric": "frozen_pct", "label": "Panics that stop bank lending (reckless)", "lo": 35.0, "hi": 90.0, "base": 43.0486}, {"id": 10, "metric": "frozen_pct", "label": "Panics that stop bank lending (skilled)", "lo": 0.0, "hi": 10.0, "base": 0.5602
+generate.py:89: # 36 to 76, mania 6 to 7% of months, panic 1.5%, one per 33 country years. Calibrate from a fresh --log run.
+generate.py:93: # C2 a mania feeds itself: interest in a rising price, by confidence band (falling prices are untouched)
+generate.py:94: BAND_GAIN = tuning.get("BAND_GAIN", {"wary": 0.8, "buoyant": 1.15, "mania": 1.3})
+generate.py:103: # the century's manias were (railways 1845, 1857, the founders' boom of 1873, Argentina 1890, mining around 1900)
+generate.py:105: FIN_BOOM = {"stock_exchange": 0.245, "investment_banks": 0.28}   # added to it by each: +35% and +40% of the base (0.15 each left Mania at 1.5 to 3.5% of months after 184
+generate.py:120: # from a Mania (80, below 65) left the 40 largest economies, which boom in the 60s and 70s, at 2.2 panics per 100
+generate.py:122: # manias ending in one; replaying it (scaled by its own logged/replayed ratio) 76, 0.15, 40 and booms x0.8 give
+generate.py:124: # Mania 2.4%, 17% of manias ending in a panic. Halfway back towards tune5: 74, 0.2 and booms 0.72, since rounded to 75 and 0.7
+generate.py:127: # the bubble kept each month confidence sits between BURST_BELOW and spec_heat_from. 0.9 played 2.5 panics, 12% of manias ending
+generate.py:128: # in one; tune8 played no cooling at 3.3 to 4.6 and 21 to 31%. See FINDINGS for what fastsim gives at 0.98. Mania and debt don't move
+generate.py:157: # panicked 3 times in two 70 year games and a Mania ended in a panic 1% of the time. Replaying the logged pushes, all
+generate.py:169: # at 75: the AI tightening at the Mania line then ended the largest economies' manias within a month (tune6: median
+generate.py:174: MANIA, MANIA_RESET, PANIC = tuning.get("MANIA", 80), 65, tuning.get("PANIC", 25)
+generate.py:178: # each table is one step times the tier's place, so the ladder stays symmetric: Panic < Wary < Steady 0 < Buoyant < Mania
+generate.py:179: TIER_STEPS = {"panic": -2, "wary": -1, "steady": 0, "buoyant": 1, "mania": 2}
+generate.py:182: # the loan interest rate: dearer in fear, vanilla's otherwise (1.2: the cheaper Steady, Buoyant and Mania rates stacked
+generate.py:187: BAND_TRADE = {t: round(TIER_STEPS[t] * BAND_TRADE_STEP, 4) for t in ("panic", "wary", "buoyant", "mania")}
+generate.py:201: # 20261103_005410_credit_sev): flavour only. Now sized on the pool: at Mania (80) banks add about 15% of a month's
+generate.py:236: MANIA_CAUTION = 10          # confidence the mania event's warning takes off
+generate.py:237: MANIA_TAX, MANIA_TAX_CONF = 0.0025, 5   # the mania event's levy: share of GDP raised, confidence lost
+generate.py:238: # the AI's ai_chance in the mania event (spec_markets.1): ride it, the warning, the levy; each with its temperament's addition
+generate.py:239: MANIA_AI_RIDE, MANIA_AI_RIDE_BOLD = tuning.get("MANIA_AI_RIDE", 50), tuning.get("MANIA_AI_RIDE_BOLD", 30)
+generate.py:240: MANIA_AI_WARN, MANIA_AI_WARN_CAUTIOUS = tuning.get("MANIA_AI_WARN", 30), tuning.get("MANIA_AI_WARN_CAUTIOUS", 30)
+generate.py:241: MANIA_AI_LEVY, MANIA_AI_LEVY_CAUTIOUS = tuning.get("MANIA_AI_LEVY", 20), tuning.get("MANIA_AI_LEVY_CAUTIOUS", 20)
+generate.py:242: MANIA_AI = {"ride": (MANIA_AI_RIDE, 1, MANIA_AI_RIDE_BOLD), "warn": (MANIA_AI_WARN, -1, MANIA_AI_WARN_CAUTIOUS),
+generate.py:243: "levy": (MANIA_AI_LEVY, -1, MANIA_AI_LEVY_CAUTIOUS)}
+generate.py:570: f"\t\telse_if = {{\n\t\t\tlimit = {{ var:spec_conf >= {MANIA} }}\n\t\t\tvalue = {BAND_GAIN['mania']:g}\n\t\t}}\n"
+generate.py:672: # the mania event's levy on speculators, rounded to 1000 like vanilla's event money
+generate.py:673: sv.append(f"spec_speculator_tax = {{\n\tvalue = gdp\n\tdivide = 100000\n\tmultiply = {MANIA_TAX * 100:g}\n"
+generate.py:778: "spec_panic_cooldown", "spec_mania", "spec_debt", "spec_clawed", "spec_crashed", "spec_crash_top",
+generate.py:1233: # mania warning, once per boom
+generate.py:1236: var:spec_conf >= {MANIA}
+generate.py:1237: NOT = {{ has_variable = spec_mania }}
+generate.py:1239: set_variable = spec_mania
+generate.py:1245: spec_notify_tied = {{ TYPE = spec_tied_mania }}
+generate.py:1274: has_variable = spec_mania
+generate.py:1275: var:spec_conf < {MANIA_RESET}
+generate.py:1277: remove_variable = spec_mania
+generate.py:1584: # below) or in a mania. The ties mirror spec_start_panic's, seen from the country that would catch it.
+generate.py:1644: var:spec_conf >= {MANIA}
+generate.py:
+...[truncated]

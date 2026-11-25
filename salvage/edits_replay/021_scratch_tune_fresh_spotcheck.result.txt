@@ -1,0 +1,82 @@
+# tool_result for 021_scratch_tune_fresh_spotcheck.ps1 (is_error=False)
+70: def rescore(result, ts=None):
+71: """Score a saved result against the targets as they are now (the page edits them after a run)."""
+74: c["score"], c["parts"] = engine.score(c["metrics"], tr)
+75: c["score"] = round(c["score"], 4)
+76: result["cands"].sort(key=lambda c: c["score"])
+169: score, parts = engine.score(res, tr)
+170: c = {"id": cid, "score": round(score, 4), "parts": parts, "metrics": res, "bands": {b: bd for b, (_, bd) in got[cid].items()},
+174: tell({"type": "candidate", "run": rid, "id": cid, "score": c["score"], "changed": c["changed"],
+176: out.sort(key=lambda c: c["score"])
+200: is a normal one of the finalists, plus "dropped" (each with the rung it fell at and its score there) and "rungs"."""
+204: vals, ids, dropped, rungs, scores, label = None, None, [], [], {}, None
+216: scores.setdefault(c["id"], []).append(c["score"])
+217: c["rung_scores"] = scores[c["id"]]
+222: dropped += [{k: c[k] for k in ("id", "score", "values", "changed")} | {"rung": r + 1, "economies": size}
+227: assert every == sorted(scores) and len(every) == len(set(every)), "halving lost or doubled a candidate"
+268: "score_down": got[1 + 2 * i]["score"], "score_up": got[2 + 2 * i]["score"]} for i, (k, x, lo, hi) in enumerate(moves)],
+269: "base_score": got[0]["score"], "noise": noise, "skipped": skipped}
+293: lines.append(f"{k['key']:<22} {k['base']:g} -> {k['down']:g}/{k['up']:g}  score {k['score_down']:.2f}/{k['score_up']:.2f}  " +
+296: return f"Baseline score {m['base_score']:.2f}; moves in band widths, beyond the baseline's seed spread\n" + "\n".join(lines)
+318: best = min((engine.score(c["metrics"], ts) for c in r["cands"]), key=lambda s: s[0], default=None)
+320: "candidates": len(r["cands"]), "score": round(best[0], 2) if best else None,
+340: score, parts = engine.score(c["metrics"], ts)
+345: cands.append({"id": c["id"], "score": round(score, 3), "base": c["id"] == 0 and not ch, "changed": ch,
+347: cands.sort(key=lambda c: c["score"])
+364: return rescore(json.loads(p.read_text(encoding="utf-8"))) if p.exists() else None
+leverage.py:163: INCOME_FLOOR = tuning.get("LEV_INCOME_FLOOR", 0.01)
+leverage.py:192: f"spec_lev_floor = {{\n\tvalue = gdp\n\tmultiply = {INCOME_FLOOR:g}\n}}",
+market_tab.py:2210: SPEC_LEV_MONTHS_TT: "#header [concept_spec_leverage]: #v [{lev}|1]#! months#!\\n$TOOLTIP_DELIMITER$\\nOur banks have lent us #v @money![{v('spec_debt')}|D]#!. Our [concept_investment_pool] takes in #v @money![{sv('spec_l
+
+> tools\tuner\engine.py:103:    ("LEV_INCOME_FLOOR", lv, "INCOME_FLOOR", "Leverage", "Income floor, share of GDP"),
+  tools\tuner\engine.py:104:    ("BB_STEP", cycle, "BB_STEP", "Booms", "Construction of an all-Eager industry, twice 
+it all-Feverish"),
+  tools\tuner\engine.py:105:    ("LAX_START", cycle, "LAX_START", "Lending Standards", "Start"),
+  tools\tuner\engine.py:106:    ("LAX_QUIET_YEARS", cycle, "LAX_QUIET_YEARS", "Lending Standards", "Quiet years, 
+strict to reckless"),
+  tools\tuner\engine.py:107:    ("LAX_PER_CONF", cycle, "LAX_PER_CONF", "Lending Standards", "Stricter per point of 
+boom loss"),
+> tools\tuner\engine.py:940:    def pool_month(self):
+  tools\tuner\engine.py:941:        return self.pool_base * self.pool_inv  # spec_pool_month 
+(investment_pool_gross_income x WEEKS_PER_MONTH), felt
+  tools\tuner\engine.py:942:
+  tools\tuner\engine.py:943:    def lev_income(self, pm):  # leverage.values: spec_lev_income
+> tools\tuner\engine.py:944:        li = np.maximum(pm, self.gdp * self.K["LEV_INCOME_FLOOR"])
+  tools\tuner\engine.py:945:        return np.where(np.isnan(self.lev_avg), li, np.maximum(li, self.lev_avg))
+  tools\tuner\engine.py:946:
+> tools\tuner\engine.py:947:    def lev(self, pm):  # leverage.values: spec_lev (no land lost, so spec_lev_adj and 
+spec_lev_bad are spec_lev)
+  tools\tuner\engine.py:948:        li = self.lev_income(pm)
+  tools\tuner\engine.py:949:        return np.where(li > 1, np.maximum(self.debt / np.maximum(li, 1), 0),
+  tools\tuner\engine.py:950:                        np.where((self.debt > 0) & ~np.isnan(self.lev_last), 
+np.nan_to_num(self.lev_last), 0))
+  tools\tuner\engine.py:951:
+> tools\tuner\engine.py:2122:        "spec_lev_floor": [f"multiply = {K['LEV_INCOME_FLOOR']:g}"],
+  tools\tuner\engine.py:2123:        "spec_panic_months": [f"value = {K['PANIC_DAYS'] / 30:g}", "ceiling = yes"],
+  tools\tuner\engine.py:2124:        "spec_panic_lev_len": [f"multiply = {K['PANIC_LEV_LEN']:g}"],
+  tools\tuner\engine.py:2125:        "spec_panic_cut_if": [f"value = {K['CRUNCH_FLOOR']:g}"],
+  tools\tuner\engine.py:2126:        "spec_mood_scale": [f"multiply = {K['MOOD_SHALLOW'] - 1:g}"],
+
+
+
+1.3.0 passive   edge +0.10 panics 4.9 mania 1.0 peak 6.6 mo8+ 0.5%
+1.3.0 careful   edge +0.31 panics 1.6 mania 0.0 peak 4.1 mo8+ 0.0%
+1.3.0 skilled   edge +0.26 panics 3.7 mania 0.0 peak 5.5 mo8+ 0.0%
+1.3.0 ai        edge +0.16 panics 5.4 mania 0.5 peak 7.2 mo8+ 0.6%
+1.3.0 reckless  edge +0.07 panics 8.6 mania 1.2 peak 8.1 mo8+ 1.6%
+1.3.0 run10     edge +0.03 panics 8.5 mania 0.8 peak 8.1 mo8+ 1.6%
+1.3.0 cut4      edge +0.32 panics 1.7 mania 0.0 peak 4.2 mo8+ 0.0%
+1.3.0 six       edge +0.25 panics 3.9 mania 0.1 peak 5.6 mo8+ 0.0%
+beta  passive   edge +0.10 panics 4.6 mania 3.0 peak 7.0 mo8+ 1.1%
+beta  careful   edge +0.25 panics 1.1 mania 0.0 peak 3.8 mo8+ 0.0%
+beta  skilled   edge +0.30 panics 1.8 mania 0.0 peak 5.3 mo8+ 0.0%
+beta  ai        edge +0.25 panics 3.6 mania 1.1 peak 7.2 mo8+ 0.8%
+beta  reckless  edge +0.07 panics 8.0 mania 3.9 peak 8.6 mo8+ 3.1%
+beta  run10     edge +0.03 panics 7.9 mania 2.7 peak 8.6 mo8+ 3.1%
+beta  cut4      edge +0.33 panics 1.2 mania 0.2 peak 4.1 mo8+ 0.0%
+beta  six       edge +0.33 panics 2.4 mania 0.3 peak 5.6 mo8+ 0.0%
+K5    passive   edge +0.10 panics 4.6 mania 5.3 peak 8.2 mo8+ 3.3%
+K5    careful   edge +0.26 panics 1.0 mania 0.1 peak 3.9 mo8+ 0.0%
+K5    skilled   edge +0.33 panics 1.4 mania 0.1 peak 5.5 mo8+ 0.0%
+K5    ai        edge +0.35 panics 2.7 
+...[truncated]

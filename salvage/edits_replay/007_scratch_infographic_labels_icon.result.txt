@@ -1,0 +1,14 @@
+# tool_result for 007_scratch_infographic_labels_icon.ps1 (is_error=False)
+22: for n in ("concept_leverage interest_feverish state_buoyant exch_tier_3 blue_chip event_panic concept_bad_debts "
+23: "concept_sound_finance concept_intervention concept_credit_policy state_steady mod_loose").split():
+39: ("reckless", "Reckless", "always Loose", "mod_loose", "#e07060")]
+109: ("event_panic", "Financial Panic", [("r", f"−{p(g.PANIC_THROUGHPUT)}% throughput"), ("r", f"−{p(g.PANIC_INVEST)}% investment"),
+
+FullName                                                                           
+--------                                                                           
+G:\GameDev\speculative-markets\mod\gfx\interface\icons\spec_markets\event_mania.dds
+skilled {'edge': 0.258, 'gdp': 29.404, 'panics': 3.764, 'trouble': 3.633, 'trusted': 83.904, 'behind': 0.22}
+ai {'edge': 0.167, 'gdp': 18.193, 'panics': 5.362, 'trouble': 8.61, 'trusted': 78.415, 'behind': 21.3}
+passive {'edge': 0.102, 'gdp': 10.682, 'panics': 4.952, 'trouble': 7.84, 'trusted': 73.32, 'behind': 23.62}
+reckless {'edge': 0.072, 'gdp': 7.462, 'panics': 8.722, 'trouble': 13.32, 'trusted': 67.179, 'behind': 33.14}
+Shell cwd was reset to G:\GameDev\speculative-markets

@@ -1,0 +1,45 @@
+# tool_result for 017_repo_beta1_concepts_changelog_build.ps1 (is_error=False)
+A little is paid back from the pool each month. When a [concept_spec_financial_panic] starts, the banks pull p
+A little is paid back from the pool each month.
+
+> tools\generate.py:105:FIN_BOOM = {"stock_exchange": 0.245, "investment_banks": 0.28}   # added to it by each: +35% 
+and +40% of the base (0.15 each left Mania at 1.5 to 3.5% of months after 1846)
+  tools\generate.py:106:FIN_RISK = {"mutual_funds": 0.85}   # boom-ending losses x this: funds spread the risk
+  tools\generate.py:107:FIN_LEVERAGE = ("modern_financial_instruments", 1.1)   # booms and boom-ending losses both x 
+this
+  tools\generate.py:108:MACRO = ("macroeconomics", 1.5)     # the drift back to CONF_START and a country's own Long 
+Depression recovery, x this
+  tools\generate.py:109:# capital flight into a calm Great Power (diplomacy.FLIGHT_GAIN) x this base, plus each tech's 
+share: money moves
+
+
+
+7112
+46 buildings, 49 goods, 100/92 icons painted
+versions: {'generate.py': '1.3.1', 'metadata.json': '1.3.1'}
+OK
+warning: in the working copy of 'tools/tuning.json', LF will be replaced by CRLF the next time Git touches it
+ beta/workshop_description.bbcode |  6 ++++--
+ tools/concepts.py                |  2 +-
+ tools/generate.py                | 11 ++++++++---
+ tools/market_tab.py              |  4 ++--
+ tools/tuner.py                   |  1 +
+ tools/tuner/engine.py            |  5 ++++-
+ tools/tuning.json                |  5 +++--
+ 7 files changed, 23 insertions(+), 11 deletions(-)
+SPEC_ keys referenced: 2109 missing: []
+unused mod concepts: []
+feature switches against the build: match
+versions: {'generate.py': '1.3.1', 'metadata.json': '1.3.1'}
+OK
+Built 1.3.1-beta.1: G:\GameDev\speculative-markets\beta\candidate_131\releases\Speculative_Markets_Beta_1.3.1-beta.1.zip
+Verified 241 files; gameplay bytes match G:\GameDev\speculative-markets\build_scratch\rc_1.3.1
+Enable either Speculative Markets or Speculative Markets - Beta, never both.
+
+Name                                                 Length
+----                                                 ------
+Speculative_Markets_Beta_1.3.1-beta.1.manifest.json   60472
+Speculative_Markets_Beta_1.3.1-beta.1.zip           7440812
+                                                           
+                                                           
+ame] add #v 2#! each.\n\nA little is paid back from the pool each month, and much more under $concept_spec_credit_policy_tight$. When a @spec_financial_panic! [concept_spec_financial_panic] starts, the banks pull part of it back."

@@ -1,0 +1,38 @@
+# tool_result for 076_scratch_ladder_cmp_attempt.ps1 (is_error=True)
+Exit code 1
+seed 1
+Traceback (most recent call last):
+  File "C:\Users\rwdav\AppData\Local\Temp\claude\9dc80ff708ec737b\9c1684c5-3088-47d7-b848-def38336bbe9\scratchpad\mania12.py", line 32, in <module>
+    main(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]), json.loads(open(sys.argv[4]).read()) if len(sys.argv) > 4 else None)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rwdav\AppData\Local\Temp\claude\9dc80ff708ec737b\9c1684c5-3088-47d7-b848-def38336bbe9\scratchpad\mania12.py", line 19, in main
+    r = lab.sweep({"list": vals, "economies": n, "seed": seed, "save": False, "label": "mania scan"}, pool, cur)
+  File "G:\GameDev\speculative-markets\tools\tuner\lab.py", line 173, in sweep
+    "changed": {k: [cur[k], v] for k, v in cands[cid].items() if v != cur[k]}}
+                                                                      ~~~^^^
+KeyError: 'LEV_LADDER'
+seed 2
+Traceback (most recent call last):
+  File "C:\Users\rwdav\AppData\Local\Temp\claude\9dc80ff708ec737b\9c1684c5-3088-47d7-b848-def38336bbe9\scratchpad\mania12.py", line 32, in <module>
+    main(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]), json.loads(open(sys.argv[4]).read()) if len(sys.argv) > 4 else None)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rwdav\AppData\Local\Temp\claude\9dc80ff708ec737b\9c1684c5-3088-47d7-b848-def38336bbe9\scratchpad\mania12.py", line 19, in main
+    r = lab.sweep({"list": vals, "economies": n, "seed": seed, "save": False, "label": "mania scan"}, pool, cur)
+  File "G:\GameDev\speculative-markets\tools\tuner\lab.py", line 173, in sweep
+    "changed": {k: [cur[k], v] for k, v in cands[cid].items() if v != cur[k]}}
+                                                                      ~~~^^^
+KeyError: 'LEV_LADDER'
+198 out["LADDER"] = tuple(lv.LADDER)
+229 LADDER_TECHS = lv.LADDER_TECHS
+232 *CREDIT_TECHS, *LADDER_TECHS, *g.FIN_BOOM, *g.FIN_RISK, g.FIN_LEVERAGE[0]})
+463 # the risk ladder: one technique (Loose while the margin over the Panic Threshold allows, Tight on danger and while Bad Debts
+470 # with the last LADDER_TECHS, so early run-ups stop at 8 or 10
+591 peer_K["LADDER"] = tuple(peers_value(v) for v in K["LADDER"])
+1005 lim = np.full(self.n, self.K["LADDER"][0], float)
+1006 L = self.K["LADDER"]  # its first rung is LEV_SAFE: a batch's per-economy array
+1007 for t, a, b in zip(LADDER_TECHS, L, L[1:]):
+1734 """The risk ladder's players: the stance they want, from what a player sees (confidence, Panic Threshold, leverage, Bad Debts)."""
+2042 if lv.LADDER[0] == lv.SAFE:  # leverage.LADDER starts at the safe line unless LEV_LADDER is tuned on its own
+2043 K["LADDER"] = (K["LEV_SAFE"], *lv.LADDER[1:])
+2062 if lv.LADDER[0] == lv.SAFE:
+2063 K["LADDER"] = (K["LEV_SAFE"], *lv.LADDER[1:])

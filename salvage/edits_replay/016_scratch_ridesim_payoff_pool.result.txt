@@ -1,0 +1,4 @@
+# tool_result for 016_scratch_ridesim_payoff_pool.ps1 (is_error=False)
+(1.6, 50, 7, 0.1) | careful: +0.25 p1.2 m0.0 passive: +0.10 p4.8 m3.0 ai: +0.25 p3.7 m1.1 reckless: +0.07 p8.3 m4.0
+     ride11c10 edge 0.32 panics 4.0 bad% 4.7 mania 0.9 | tops>=9: 0.81 burned 35% peak 7.9
+     ride11c18 edge 0.38 panics 2.6 bad% 1.7 mania 0.5 | tops>=9: 0.20 burned 23% peak 7.1

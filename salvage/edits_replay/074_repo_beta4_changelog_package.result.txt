@@ -1,0 +1,31 @@
+# tool_result for 074_repo_beta4_changelog_package.ps1 (is_error=True)
+Exit code 255
+ beta/workshop_description.bbcode | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+feature switches against the build: match
+versions: {'generate.py': '1.3.1', 'metadata.json': '1.3.1'}
+OK
+Built 1.3.1-beta.4: G:\GameDev\speculative-markets\beta\release_131\releases\Speculative_Markets_Beta_1.3.1-beta.4.zip
+Verified 241 files; gameplay bytes match G:\GameDev\speculative-markets\build_scratch\rc_1.3.1
+Enable either Speculative Markets or Speculative Markets - Beta, never both.
+  ],
+  "file_count": 241,
+  "source_archive_sha256": "0b9701668d4ce009c73b3026cb6cfca4d7872f09dc98159db46f16fa72ea899e"
+}
+0B9701668D4CE009C73B3026CB6CFCA4D7872F09DC98159DB46F16FA72EA899E
+  common/static_modifiers/spec_modifiers.txt
+  common/technology/technologies/zzz_spec_techs.txt
+usage: steam_upload.py [-h] [--execute] [--public] [--description-only]
+                       [--note NOTE] [--preview PREVIEW]
+                       [{plan,query,create,update}]
+                       [{stable,beta,cmf,morgenroete,techres,bpm}]
+
+Scoped Steam Workshop uploader; defaults to a read-only plan. Only the
+registered, fingerprinted workshop/upload_staging/ folders are accepted. Uses
+the installed game's Valve steam_api64.dll and the current Steam session. No
+credentials, launcher DB changes, or legal-agreement acceptance are involved.
+Mutating commands require --execute and a separately reviewed invocation. ABI:
+Windows pack(8), callback base3400, structures and flat signatures verified
+against ValveSoftware/source-sdk-2013/src/public/steam/{isteamugc.h, steamclie
+ntpublic.h,steam_api_internal.h,steam_api_flat.h,isteamremotestorage.h}.
+https://partner.steamgames.com/doc/api/ISteamUGC

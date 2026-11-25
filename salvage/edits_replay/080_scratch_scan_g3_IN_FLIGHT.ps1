@@ -1,0 +1,3 @@
+$s='C:\Users\rwdav\AppData\Local\Temp\claude\9dc80ff708ec737b\9c1684c5-3088-47d7-b848-def38336bbe9\scratchpad'
+'[{"LEV_PANIC_SPAN":30,"LEV_RECORD_PAST":3,"LEV_INCOME_FLOOR":0.005,"LEV_CRUNCH_FADE":0.3},{"LEV_PANIC_SPAN":30,"LEV_RECORD_PAST":3,"LEV_INCOME_FLOOR":0.005,"LEV_CRUNCH_FADE":0.35,"LEV_CRUNCH_BUILD":0.05},{"LEV_PANIC_SPAN":30,"LEV_RECORD_PAST":4,"LEV_INCOME_FLOOR":0.005,"LEV_CRUNCH_FADE":0.3},{"LEV_PANIC_SPAN":30,"LEV_RECORD_PAST":3,"LEV_INCOME_FLOOR":0.004,"LEV_CRUNCH_FADE":0.3}]' | Set-Content -Encoding ascii $s\g3.json
+foreach($k in 1,2,3){ "seed $k"; py -3 -B $s\r12b.py 1000 $k $s\g3.json; py -3 -B $s\mania12.py one 1000 $k $s\g3.json | ? { $_ -match '/30' -and $_ -match '\{' } | % { $_.Substring([Math]::Max(0,$_.IndexOf('/30')-3)) } }

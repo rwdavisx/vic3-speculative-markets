@@ -1,0 +1,13 @@
+# tool_result for 042_upload_upload_beta3.ps1 (is_error=False)
+[01:00:06][pdx_assert.cpp:641]: Assertion failed: NGameState::GameStateAccess._Value == EGameStateAccess::Interface || NGameState::HiddenGameStateAccess._Value == EHiddenGameStateAccess::Allowed
+[01:00:11][pdx_assert.cpp:641]: Assertion failed: Value >= 0_fixed && Value <= NDefines::NDiplomacy::INTEREST_MAX_INVOLVEMENT
+[01:02:15][pdx_assert.cpp:641]: Assertion failed: Attempted to create relations between a country and itself
+Setting breakpad minidump AppID = 529340
+SteamInternal_SetMinidumpSteamID:  Caching Steam ID:  76561197998424125 [API loaded no]
+{"receipt": "G:\\GameDev\\speculative-markets\\workshop\\upload_receipts\\20261125T060232.060234Z_beta_update_intent_e8705b40.json", "action": "update_intent"}
+{"upload_phase": 1, "processed": 0, "total": 0}
+{"receipt": "G:\\GameDev\\speculative-markets\\workshop\\upload_receipts\\20261125T060236.166598Z_beta_update_result_b8605d36.json", "action": "update_result"}
+{"receipt": "G:\\GameDev\\speculative-markets\\workshop\\upload_receipts\\20261125T060236.368725Z_beta_update_verified_c504e9fc.json", "action": "update_verified"}
+{"published": {"item_id": 3839275304, "consumer_app": 529340, "creator_app": 529340, "owned_by_current_user": true, "title": "Speculative Markets - Beta", "visibility": 0, "file_size": 47446395, "preview_size": 272841, "updated": 1795586555, "description_sha256": "f720e103a3cfbcb8281719a8cd5f4e7889a33d6170e06960c57e6ed3a989b6a5", "tags": "Economy and Buildings,Events,Journal Entries", "children": 0, "child_ids": []}, "url": "https://steamcommunity.com/sharedfiles/filedetails/
+EXIT 0
+build ok, starting

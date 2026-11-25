@@ -1,0 +1,6 @@
+$f="G:\GameDev\speculative-markets\tools\generate.py"; $t=[IO.File]::ReadAllText($f); $n=$t.Replace("# 1.3.1: heat 70 -> 75, booms 1.1 -> 1, as the base boom size grew","# 1.3.1: heat 70 -> 78, booms 1.1 -> 1, as the base boom size grew").Replace('"heightened": {"heat": 75, "per": 0.25, "boom": 1}','"heightened": {"heat": 78, "per": 0.25, "boom": 1}'); if($n -eq $t){"NO CHANGE"}; [IO.File]::WriteAllText($f,$n)
+$f="G:\GameDev\speculative-markets\tools\tuning.json"; $t=[IO.File]::ReadAllText($f); [IO.File]::WriteAllText($f,$t.Replace('"FIN_BOOM_BASE": 1.75','"FIN_BOOM_BASE": 2.0'))
+git diff --stat -- tools/generate.py tools/tuning.json; Select-String -Path tools\tuning.json -Pattern FIN_BOOM | ForEach-Object Line
+Select-String -Path tools\*.py,tools\tuner\*.py -Pattern "1\.75" | ForEach-Object { "$($_.Filename):$($_.LineNumber): $($_.Line.Trim().Substring(0,[Math]::Min(150,$_.Line.Trim().Length)))" }
+"--- desc"; Select-String -Path beta\workshop_description.bbcode -Pattern "beta\.2|1\.3\.1|Mania|simulat|volatil" | ForEach-Object { "$($_.LineNumber): $($_.Line)" }
+Get-ChildItem build_scratch\rc_1.3.1 -Force | Select-Object Name; Get-ChildItem build_scratch\rc_1.3.1\.metadata -Force | Select-Object Name; Get-ChildItem build_scratch -Filter "built_against*" | Select-Object Name; Get-Process victoria3 -ErrorAction SilentlyContinue | Select-Object Id

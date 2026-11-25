@@ -1,0 +1,78 @@
+# tool_result for 024_repo_beta2_engine_bots_targets.ps1 (is_error=False)
+		remove_modifier = spec_panic_crunch
+	}}
+{leverage.SHUT_DOWN}{cycle.shut_down()}{unband}	spec_remove_credit_igs = yes
+{clear}}}
+"""
+
+
+def triggers():
+    out = [f"""spec_can_stance_{k} = {{
+	has_technology_researched = central_banking
+	custom_tooltip = {{
+		text = spec_stance_current_tt
+		NOT = {{ spec_stance_value = {n} }}
+	}}
+	custom_tooltip = {{
+		text = spec_stance_cooldown_tt
+		NOT = {{ has_variable = spec_stance_cooldown }}
+	}}
+}}
+""" for k, n in STANCES]
+    out.append("""spec_can_rescue = {
+	custom_tooltip = {
+					limit = {{ NOT = {{ exists = je:je_spec_markets }} }}
+					add_journal_entry = {{ type = je_spec_markets }}
+				}}
+			}}
+{leverage.FEVER_END}			# AI countries use the same tools by rule: borrow while a panic is far off, and pay loans off as it nears
+			if = {{
+				limit = {{ is_player = no }}
+				# thresholds move with temperament and the interest groups in government (credit_ai.py)
+				spec_ai_temper = yes
+{credit_ai.STANCE}				if = {{
+					limit = {{
+						spec_can_rescue = yes
+						# the AI pays only from money it has, never by borrowing
+						in_default = no
+						scaled_debt < 0.6
+						gold_reserves >= spec_rescue_cost
+						NOT = {{ spec_nearly_broke = yes }}
+					}}
+					if = {{
+						limit = {{ var:spec_panic > spec_rescue_months }}
+						spec_ai_rescue_roll = yes
+					}}
+				}}
+{leverage.AI_BAILOUT}{journal.MONTHLY_AI}{levers.ai_block(GOODS, HOT_HYPE, RISING_HYPE, COOLING_HYPE)}			}}
+i18n spanish: 3683 translated, 1 kept from an earlier English, 3 still English
+i18n turkish: 3683 translated, 1 kept from an earlier English, 3 still English
+46 buildings, 49 goods, 100/92 icons painted
+versions: {'generate.py': '1.3.1', 'metadata.json': '1.3.1'}
+OK
+}
+
+py : G:\GameDev\speculative-markets\tools\tuner\engine.py:1404: DeprecationWarning: Bitwise inversion '~' on bool is 
+deprecated and will be removed in Python 3.16. This returns the bitwise inversion of the underlying int object and is 
+usually not what you expect from negating a bool. Use the 'not' operator for boolean negation or ~int(x) if you really 
+want the bitwise inversion of the underlying int.
+At line:165 char:47
++ ... t_ai.py | Select -Last 2; py -3 -B tools/tuner/engine.py 2>&1 | Selec ...
++                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (G:\GameDev\spec...underlying int.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  tapered = ~smooth & (K["LEV_REWARD_TAPER"] >= 0)  # leverage.TAPERED: tenths of a month, up to RUIN once it tapers
+passive   panics/century 4.80  in panic 1.68%  length 4.2  mania 5.5%  mania->panic 28%  lev 3.44  bad max 10.3  GDP +13.90%
+careful   panics/century 0.90  in panic 0.13%  length 1.8  mania 0.1%  mania->panic 2%  lev 1.79  bad max 0.1  GDP +15.03%
+skilled   panics/century 1.39  in panic 0.21%  length 1.9  mania 0.1%  mania->panic 2%  lev 2.50  bad max 1.7  GDP +19.54%
+reckless  panics/century 7.36  in panic 1.21%  length 2.0  mania 7.4%  mania->panic 37%  lev 4.20  bad max 10.8  GDP +14.76%
+nobuy     panics/century 7.24  in panic 1.19%  length 2.0  mania 8.5%  mania->panic 36%  lev 4.03  bad max 14.3  GDP +8.15%
+cut4      panics/century 0.96  in panic 0.14%  length 1.8  mania 0.7%  mania->panic 2%  lev 1.99  bad max 0.1  GDP +16.83%
+hold6     panics/century 2.40  in panic 0.39%  length 1.9  mania 1.9%  mania->panic 7%  lev 3.61  bad max 3.8  GDP +28.60%
+run10     panics/century 4.56  in panic 0.75%  length 2.0  mania 2.8%  mania->panic 21%  lev 3.96  bad max 8.1  GDP +26.67%
+blind10   panics/century 6.16  in panic 1.02%  length 2.0  mania 3.1%  mania->panic 26%  lev 4.11  bad max 9.4  GDP +24.25%
+skilled_timing panics/century 2.90  in panic 0.47%  length 1.9  mania 1.0%  mania->panic 10%  lev 3.82  bad max 5.8  GDP +29.24%
+ai        panics/century 3.67  in panic 0.81%  length 2.7  mania 2.7%  mania->panic 17%  lev 4.43  bad max 8.3  GDP +30.04%
+engine ok: 122 tunable constants match the generators
+leverage ok

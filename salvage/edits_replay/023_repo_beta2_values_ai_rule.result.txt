@@ -1,0 +1,45 @@
+# tool_result for 023_repo_beta2_values_ai_rule.ps1 (is_error=False)
+autotune.py:9: --base tuned.json --knob AI_TIGHT=72,76,84 --knob AI_LOOSE=28,40
+fastsim.py:47: tight_from=g.TIGHT_FROM, easy=0.2, ai_tight=80, ai_loose=g.WARY, temper_shift=credit_ai.TEMPER_SHIFT, boom_scale=g.CONF_PER_HOT / .72, crash_scale=1.0
+fastsim.py:302: if can and stance != -1 and not fever and (conf > p["ai_tight"] + lean or lev > limit):
+fastsim.py:401: OLD = {"tune3": ("20261031_111843_tune3_tech/run01/telemetry.log", dict(heat_from=80, burst_below=65, burst_per=.25, tight_cap=75, ai_tight=80), .8),
+fastsim.py:402: "tune4": ("20261031_125249_tune4_fin/run01/telemetry.log", dict(heat_from=80, burst_below=65, burst_per=.25, tight_cap=75, ai_tight=80), .8),
+fastsim.py:403: "tune5": ("20261031_134338_tune5_bubble/run01/telemetry.log", dict(heat_from=72, burst_per=.25, tight_cap=75, ai_tight=80), .8),
+fastsim.py:404: "tune6": ("20261031_142409_tune6_hist/run01/telemetry.log", dict(heat_from=76, burst_per=.15, tight_cap=75, ai_tight=80), .64),
+fastsim.py:405: "tune7": ("20261031_162416_tune7_tight/run01/telemetry.log", dict(heat_from=76, burst_per=.15, ai_tight=76), .64),
+fastsim.py:406: "tune8": ("20261031_182730_tune8_mid/run01/debug_mirror.log", dict(heat_from=74, burst_per=.2, ai_tight=80), .72)}
+fastsim.py:469: p = dict(BASE, ai_limit={-1: 99, 0: 99, 1: 99}, ai_tight=999, mood=0, span=0, temper_shift=0)
+fastsim.py:518: if i >= c["banking"] and a["stance"] != -1 and r["conf"] > BASE["ai_tight"] + BASE["temper_shift"] + credit_ai.IG_SHIFT:
+fastsim.py:535: "panic_back cooldown rescue_conf rescue_able stance_cooldown tight_pull tight_from easy ai_tight ai_loose temper_shift boom_scale crash_scale").split(
+fastsim.py:564: reckless = dict(old, ai_limit={-1: 99, 0: 99, 1: 99}, ai_tight=999)
+engine.py:120: ("AI_TIGHT", credit_ai, "AI_TIGHT", "AI", "AI tightens above"),
+engine.py:124: ("AI_LEV_BACK", lv, "AI_LEV_BACK", "AI", "AI loosens below this share of its limit"),
+engine.py:470: return dict(tight_conf=K["AI_TIGHT"] + lean, tight_lev=lim,
+engine.py:471: untight_conf=np.maximum(K["AI_TIGHT"] - 1 + lean, K["CONF_START"] + 3), untight_lev=lim,
+engine.py:472: loose_conf=loose + lean, loose_lev=lim * K["AI_LEV_BACK"],
+29: import credit_ai
+1362: # thresholds move with temperament and the interest groups in government (credit_ai.py)
+1364: {credit_ai.STANCE}				if = {{
+1748: # the stance buttons' tooltips give the approval in words (credit_ai.ig_lines); hidden here so it is not listed twice
+1773: out = [f"""spec_can_stance_{k} = {{
+1804: is_valid = {{ spec_can_stance_{k} = yes }}
+1877: interest_group_approval_add = {credit_ai.IG_APPROVAL}
+1883: interest_group_approval_add = {credit_ai.IG_APPROVAL}
+2007: {stories.RESCUE_OPTION}		# the AI rescues later, by its own roll (credit_ai.py)
+2088: spec_credit_tight_desc: "#N Banks stop lending#! into the [concept_investment_pool]\\n#P {CREDIT_RUNOFF_TIGHT:.0%}#! of our [concept_spec_outstanding_credit] is paid back each month, instead of #v {CREDIT_RUNOFF * 100:.2g}%#!\\nInvestors react #N {1 - STANCE_H
+2092: spec_credit_loose_desc: "Banks lend #P {STANCE_CREDIT['loose'] - 1:.0%}#! more into the [concept_investment_pool]\\nInvestors react #P {STANCE_HYPE['loose'] - 1:.0%}#! more to rising prices\\n#P Bigger booms#!, but #N bigger losses#! when they end\\n\\n{requir
+2503: for rel, text in {**credit_ai.script(k), **movements.script(k)}.items():
+warning: in the working copy of 'tools/credit_ai.py', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'tools/tuning.json', LF will be replaced by CRLF the next time Git touches it
+ beta/workshop_description.bbcode |  6 ++--
+ tools/concepts.py                |  2 +-
+ tools/credit_ai.py               | 75 +++++++++++++++++++++++++++++++++-------
+ tools/fastsim.py                 |  2 +-
+ tools/generate.py                | 58 ++++++++-----------------------
+ tools/leverage.py                | 16 ++-------
+ tools/market_tab.py              |  4 +--
+ tools/tuner.py                   |  3 +-
+ tools/tuner/engine.py            |  5 ++-
+ tools/tuning.json                | 11 +++---
+ tools/values_table.py            |  4 +--
+ 11 files changed, 101 insertions(+), 85 deletions(-)

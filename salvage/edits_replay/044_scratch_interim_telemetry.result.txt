@@ -1,0 +1,14 @@
+# tool_result for 044_scratch_interim_telemetry.ps1 (is_error=False)
+## C:\Users\rwdav\AppData\Local\Temp\claude\9dc80ff708ec737b\9c1684c5-3088-47d7-b848-def38336bbe9\scratchpad\interim\telemetry.log: 300 tags, last month 1849
+36-46 {"panics_per_decade": 0.21, "mania_pct": 0.38, "low_pct": 1.62, "lev_mean": 2.75, "frozen_months_pct": 0.62, "panic_months_pct": 0.62, "crunch_months_pct": 1.49, "conf_mean": 62.74, "lev8%": 0.79, "lev_max": 9.9, "per100y": 2.1, "mania_countries": 5, "n": 38, "stance": {"-1": 2, "0": 82, "1": 15}}
+## G:\GameDev\speculative-markets\runs\sweep_rc122\rc122_01\telemetry.log: 313 tags, last month 1865
+36-46 {"panics_per_decade": 0.26, "mania_pct": 0.04, "low_pct": 2.9, "lev_mean": 2.27, "frozen_months_pct": 1.38, "panic_months_pct": 0.74, "crunch_months_pct": 3.91, "conf_mean": 55.48, "lev8%": 0.04, "lev_max": 9.0, "per100y": 2.6, "mania_countries": 1, "n": 39, "stance": {"-1": 1, "0": 99, "1": 1}}
+46-56 {"panics_per_decade": 0.19, "mania_pct": 0.02, "low_pct": 1.88, "lev_mean": 3.14, "frozen_months_pct": 0.04, "panic_months_pct": 0.38, "crunch_months_pct": 2.01, "conf_mean": 54.27, "lev8%": 0.0, "lev_max": 7.9, "per100y": 1.9, "mania_countries": 1, "n": 38, "stance": {"-1": 1, "0": 98, "1": 1}}
+56-66 {"panics_per_decade": 0.24, "mania_pct": 0.49, "low_pct": 2.76, "lev_mean": 3.3, "frozen_months_pct": 0.77, "panic_months_pct": 0.59, "crunch_months_pct": 2.19, "conf_mean": 55.72, "lev8%": 0.22, "lev_max": 9.8, "per100y": 2.4, "mania_countries": 3, "n": 38, "stance": {"-1": 3, "0": 96, "1": 1}}
+36-66 {"panics_per_decade": 0.2, "mania_pct": 0.2, "low_pct": 2.5, "lev_mean": 2.88, "frozen_months_pct": 0.81, "panic_months_pct": 0.5, "crunch_months_pct": 2.8, "conf_mean": 55.2, "lev8%": 0.07, "lev_max": 9.4, "per100y": 2.0, "mania_countries": 4, "n": 35, "stance": {"-1": 2, "0": 98, "1": 1}}
+top8 mania%: {'CHI': 0.0, 'BIC': 0.0, 'GBR': 4.2, 'FRA': 0.0, 'RUS': 0.0, 'USA': 0.0, 'JAP': 0.0, 'TUR': 0.0} lev: {'CHI': 2.7, 'BIC': 2.2, 'GBR': 5.2, 'FRA': 4.0, 'RUS': 2.5, 'USA': 4.0, 'JAP': 2.7, 'TUR': 2.6}
+## simulator AI
+36-46 {"panics_per_decade": 0.13, "mania_pct": 2.73, "low_pct": 2.98, "lev_mean": 3.47, "frozen_months_pct": 0.91, "panic_months_pct": 0.3, "crunch_months_pct": 2.21, "conf_mean": 62.11, "per100y": 1.3}
+46-56 {"panics_per_decade": 0.17, "mania_pct": 1.76, "low_pct": 3.49, "lev_mean": 3.9, "frozen_months_pct": 0.37, "panic_months_pct": 0.33, "crunch_months_pct": 1.27, "conf_mean": 61.1, "per100y": 1.7}
+56-66 {"panics_per_decade": 0.25, "mania_pct": 2.75, "low_pct": 3.89, "lev_mean": 4.11, "frozen_months_pct": 0.53, "panic_months_pct": 0.47, "crunch_months_pct": 1.79, "conf_mean": 61.49, "per100y": 2.5}
+36-66 {"panics_per_decade": 0.19, "mania_pct": 2.41, "low_pct": 3.45, "lev_mean": 3.83, "frozen_months_pct": 0.6, "panic_months_pct": 0.36, "crunch_months_pct": 1.76, "conf_mean": 61.57, "per100y": 1.9}

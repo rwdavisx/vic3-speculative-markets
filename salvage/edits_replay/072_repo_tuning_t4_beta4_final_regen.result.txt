@@ -1,0 +1,37 @@
+# tool_result for 072_repo_tuning_t4_beta4_final_regen.ps1 (is_error=False)
+engine ok: 123 tunable constants match the generators
+{}                                         7.4 0.2 3.0 5.5 4.8 | 33 | 4.3 1.0 5.8 3.4 | 0.23 0.23 0.50 0.51 0.45 0.02 0.68 | +0.28 +0.02 1.7 64 11 | 25/30 growth_core(passive)=0.23 low_pct(passive)=4.90 panics_per_century(run12)=5.80 growth_core(blind12-careful)=0.22 growth_core(ai)=0.68
+HV
+{}                                         8.3 0.2 3.1 5.7 5.3 | 42 | 5.2 1.2 6.6 4.5 | 0.13 0.23 0.48 0.46 0.39 -0.09 0.60 | +0.23 -0.03 1.8 57 16 | 26/30 bad_spell(passive)=30.71 panics_per_century(run12)=6.63 growth_core(blind12-careful)=0.16 growth_core(ai)=0.60
+victoria3: 0
+i18n spanish: 3680 translated, 3 kept from an earlier English, 4 still English
+i18n turkish: 3680 translated, 3 kept from an earlier English, 4 still English
+46 buildings, 49 goods, 100/92 icons painted
+gen 0
+feature switches against the build: match
+versions: {'generate.py': '1.3.1', 'metadata.json': '1.3.1'}
+OK
+check 0
+leverage ok
+spec_credit_normal_desc: "Banks lend into the [concept_investment_pool] while [concept_spec_market_confidence] is above #v 50#!\n\nLocks [concept_spec_credit_policy] for #v 6#! months\nNeeds [GetTechnology('central_banking').GetName]"
+spec_credit_loose_desc: "Banks lend #P 150%#! more into the [concept_investment_pool]\nInvestors react #P 30%#! more to rising prices\n#P Bigger booms#!, but #N bigger losses#! when they end\n\nLocks [concept_spec_credit_policy] for #v 6#! months\nNeeds [GetTechnology('central_banking').GetName]\n\n
+spec_lev_record_desc: "Years of well-run borrowing have built lasting faith in the country's credit, so builders finish sooner. In calm years it grows slowly toward #P +1.7%#! construction efficiency for each month of [concept_spec_leverage], and #P +5%#! for each month past #v 6#!. Panics and [conc
+spec_markets.1.d: "Fortunes are being made in [ROOT.GetCountry.GetCapital.GetCityHubName] faster than they can be counted. The prices of [ROOT.GetCountry.MakeScope.Var('spec_top1').GetGoods.GetName], [ROOT.GetCountry.MakeScope.Var('spec_top2').GetGoods.GetName] and [ROOT.GetCountry.MakeScope.Var('sp
+spec_markets.1.d_generic: "Fortunes are being made in [ROOT.GetCountry.GetCapital.GetCityHubName] faster than they can be counted. Prices climb by the week, new companies are floated almost daily, and the banks lend against their shares without a second look. Few stop to ask what any of it is worth.
+SPEC_JE_NEWS_2: "#italic New [GetPlayer.MakeScope.Var('spec_top1').GetGoods.GetName] Issue Oversubscribed Within the Hour as Banks Lend Freely#!"
+SPEC_JE_STAGE_2: "Money is easy and investors are buoyant. New companies in #v [JournalEntry.GetCountry.MakeScope.Var('spec_top1').GetGoods.GetName]#!, #v [JournalEntry.GetCountry.MakeScope.Var('spec_top2').GetGoods.GetName]#! and #v [JournalEntry.GetCountry.MakeScope.Var('spec_top3').GetGoods.GetNa
+SPEC_JE_INQUIRY_HINT: "\n\nNow is the moment to ask how it happened. A Commission of Inquiry can reform how our banks lend and our companies report."
+spec_reform_currency_tt: "Banks lend #v 25%#! less, the [concept_spec_speculative_excess] grows #v 25%#! slower, and [Concept('concept_spec_financial_panic','$concept_spec_financial_panics|q$')] last #v 25%#! longer\nYou can suspend the Bank Act in a panic"
+spec_reform_free_tt: "Banks lend #v 25%#! more, booms get #v 10%#! bigger, and when they end they cost #v 10%#! more [concept_spec_market_confidence]"
+SPEC_GAUGE_LENDING: "Banks lend into the [concept_investment_pool]."
+SPEC_GAUGE_LEND_ABOVE: "Banks lend only while [concept_spec_market_confidence] is above #v 50#!."
+SPEC_TIER_STEADY_TT: "#header Steady#!\n[concept_spec_market_confidence] from #v 40#! to #v 60#!\n$TOOLTIP_DELIMITER$\n$SPEC_GAUGE_FX_STEADY$\n\nBanks lend only while [concept_spec_market_confidence] is above #v 50#!. It drifts back toward its [concept_spec_baseline] of #v 50#!."
+SPEC_TIER_BUOYANT_TT: "#header Buoyant#!\n[concept_spec_market_confidence] from #v 60#! to #v 80#!\n$TOOLTIP_DELIMITER$\n$SPEC_GAUGE_FX_BUOYANT$\n\nBanks lend into the [concept_investment_pool] while [concept_spec_market_confidence] is above #v 50#!, unless [Concept('concept_spec_credit_policy','$co
+SPEC_TIER_MANIA_TT: "#header Mania#!\n[concept_spec_market_confidence] above #v 80#!\n$TOOLTIP_DELIMITER$\n$SPEC_GAUGE_FX_MANIA$\n\nBanks lend the most here, but a fall in prices also hurts the most."
+SPEC_STANCE_NORMAL_TT: "#header Normal Credit#!\n$TOOLTIP_DELIMITER$\nBanks lend into the [concept_investment_pool] while [concept_spec_market_confidence] is above #v 50#!. This month they would lend #v @money![Country.MakeScope.ScriptValue('spec_credit_preview')|D]#!.[SelectLocalization(EqualTo_CFi
+SPEC_STANCE_LOOSE_TT: "#header Loose Credit#!\n$TOOLTIP_DELIMITER$\nBanks lend freely into the [concept_investment_pool]. This month they would lend #v @money![Country.MakeScope.ScriptValue('spec_credit_preview_loose')|D]#!.\n\nLending Rate: #P +150%#!\nInvestor Reaction to rising prices: #P +30%#!\
+SPEC_EFFECT_GIVEN_TT: "#header Credit Lent This Month: #v @money![Country.MakeScope.Var('spec_credit_given').GetValueWithDefault('(CFixedPoint)0')|D]#!#!\n$TOOLTIP_DELIMITER$\nMoney our banks add to our [concept_investment_pool]. They lend every month while [concept_spec_market_confidence] is above 
+SPEC_EFFECT_OWED_TT: "#header @spec_outstanding_credit! [concept_spec_outstanding_credit]: #v @money![Country.MakeScope.Var('spec_debt').GetValueWithDefault('(CFixedPoint)0')|D]#!#!\n$TOOLTIP_DELIMITER$\nMoney our banks have lent into our [concept_investment_pool]. It comes to #v #tooltippable #tool
+SPEC_LEV_MAIN_TT: "#header @spec_leverage! [concept_spec_leverage]: $SPEC_EFFECT_LEV_VALUE$#!\n$TOOLTIP_DELIMITER$\nOur banks have lent us #v #tooltippable #tooltip:[Country.GetTooltipTag],SPEC_LEV_MONTHS_TT [Divide_CFixedPoint(IntToFixedPoint(FixedPointToInt(Add_CFixedPoint(Multiply_CFixedPoint(Cou
+SPEC_LEV_TIER_0_TT: "#header 0 to 3 Months, #P Safe#!#!\n$TOOLTIP_DELIMITER$\nBanks lend this far from th
+...[truncated]

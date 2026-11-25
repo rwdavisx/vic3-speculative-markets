@@ -1,0 +1,7 @@
+# tool_result for 008_scratch_infographic_icon_list.ps1 (is_error=False)
+reckless {'edge': 0.072, 'gdp': 7.462, 'panics': 8.722, 'trouble': 13.32, 'trusted': 67.179, 'behind': 33.14}
+
+Name            LastWriteTime        
+----            -------------        
+event_mania.png 11/24/2026 3:39:14 PM
+Shell cwd was reset to G:\GameDev\speculative-markets

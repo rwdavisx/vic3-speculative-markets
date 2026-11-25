@@ -1,0 +1,1 @@
+py -3 -B tools/steam_upload.py update beta --execute --public; "EXIT $LASTEXITCODE"; "---"; py -3 -B tools/steam_upload.py query beta; "---"; Get-ChildItem workshop\upload_receipts -Filter "*beta*" | Sort-Object LastWriteTime | Select-Object -Last 3 Name,LastWriteTime

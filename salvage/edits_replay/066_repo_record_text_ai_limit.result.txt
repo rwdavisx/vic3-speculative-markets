@@ -1,0 +1,18 @@
+# tool_result for 066_repo_record_text_ai_limit.ps1 (is_error=False)
+{'-1': 8, '0': 9.5, '1': 11.5} {'-1': 8, '0': 9.5, '1': 11.5}
+[' spec_lev_record_desc: "Years of well-run borrowing have built lasting faith in the country\'s credit, so builders finish sooner. In calm years it grows slowly toward #P +1.7%#! construction efficiency for each month of [concept_spec_leverage], and #P +5%#! for each month past #v 6#!. Panics and [concept_spec_bad_debts] wear it away, and the deeper the [concept_spec_leverage], the faster it goes."']
+seed 1
+{} | careful 0.21 hold6 0.46 run10 0.51 run12 0.47 blind12 0.43 reckless -0.18 ai 0.65 passive 0.13 | 12-C +0.25 12-6 +0.01 pan12 5.8 ups 1.49 out 66 beat 15 lev8 15.7 | AI pan 3.6 mania P 6.6 12 4.9 AI 4.7
+seed 2
+{} | careful 0.21 hold6 0.46 run10 0.51 run12 0.47 blind12 0.42 reckless -0.16 ai 0.66 passive 0.14 | 12-C +0.25 12-6 +0.01 pan12 5.7 ups 1.48 out 69 beat 15 lev8 15.0 | AI pan 3.4 mania P 6.5 12 4.9 AI 4.5
+seed 3
+{} | careful 0.21 hold6 0.46 run10 0.51 run12 0.48 blind12 0.43 reckless -0.14 ai 0.64 passive 0.16 | 12-C +0.27 12-6 +0.02 pan12 5.5 ups 1.34 out 67 beat 14 lev8 15.0 | AI pan 3.4 mania P 6.4 12 4.9 AI 4.7
+targets
+{}                                         6.6 0.2 2.9 4.9 4.7 | 33 | 4.5 1.5 5.8 3.6 | 0.13 0.21 0.46 0.47 0.43 -0.18 0.65 | +0.25 +0.01 1.5 66 15 | 26/30 runs10_per_century(run12)=1.49 panics_per_century(run12)=5.81 growth_core(blind12-careful)=0.21 growth_core(ai)=0.65
+{}                                         6.5 0.2 3.0 4.9 4.5 | 33 | 4.4 1.3 5.7 3.4 | 0.14 0.21 0.46 0.47 0.42 -0.16 0.66 | +0.25 +0.01 1.5 69 15 | 26/30 runs10_per_century(run12)=1.48 panics_per_century(run12)=5.73 growth_core(blind12-careful)=0.21 growth_core(ai)=0.66
+High volatility now (heat 78, per .25, boom 1)
+VOLATILITY = {"historical": {"heat": HEAT_FROM, "per": BURST_PER_HEAT, "boom": 1},
+              "heightened": {"heat": 78, "per": 0.25, "boom": 1}}
+    write("common/game_rules/spec_game_rules.txt", "spec_market_volatility = {\n\tdefault = spec_volatility_historical\n\n"
+{}                                         6.9 0.2 2.9 4.9 4.7 | 42 | 5.0 1.4 6.3 4.1 | 0.05 0.21 0.45 0.42 0.38 -0.26 0.58 | +0.20 -0.03 1.4 64 20 | 26/30 runs10_per_century(run12)=1.45 panics_per_century(run12)=6.30 growth_core(blind12-careful)=0.17 growth_core(ai)=0.58
+{}                                         6.6 0.2 2.9 4.8 4.6 | 36 | 4.6 1.4 5.9 3.7 | 0.11 0.21 0.46 0.46 0.42 -0.16 0.63 | +0.24 -0.00 1.4 67 17 | 26/30 runs10_per_century(run12)=1.42 panics_per_century(run12)=5.92 growth_core(blind12-careful)=0.21 growth_core(ai)=0.63
