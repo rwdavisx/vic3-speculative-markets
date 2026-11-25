@@ -23,9 +23,9 @@ spec_ai_tight_at = {
 }
 
 spec_ai_untight_at = {
-	value = 65
+	value = 79
 	add = spec_ai_lean
-	min = 58
+	min = 53
 }
 
 spec_ai_loose_at = {
@@ -34,7 +34,7 @@ spec_ai_loose_at = {
 }
 
 spec_ai_unloose_at = {
-	value = 55
+	value = 50
 	add = spec_ai_lean
-	max = 54
+	max = 49
 }

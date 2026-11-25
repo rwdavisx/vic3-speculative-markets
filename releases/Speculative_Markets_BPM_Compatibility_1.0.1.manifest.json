@@ -1,0 +1,33 @@
+{
+  "id": "speculative_markets_bpm_compat",
+  "version": "1.0.1",
+  "source": "G:\\GameDev\\speculative-markets\\runs\\bpm\\v121_release\\mod",
+  "parent": "speculative_markets 1.2.1 (mod/)",
+  "bpm_version": "2.5",
+  "built_against": "1.15.2",
+  "carried_from_generator": [],
+  "packaged_utc": "2026-11-23T23:49:30.601220+00:00",
+  "archive": "Speculative_Markets_BPM_Compatibility_1.0.1.zip",
+  "archive_sha256": "b37bc7f4792501fd83335da68d269dc26757b5ec2ed0f661c60c6758d21287bc",
+  "file_count": 17,
+  "files_sha256": {
+    ".metadata/metadata.json": "5a404fdbb4b676f180b3144e018716807f224c206e49e4d2069f0db2a320f22a",
+    "common/on_actions/spec_igs_on_actions.txt": "2f07d98808bac6b9ddfb8377acf25de72d5eccf9f4c65864010f76ee9ec583f2",
+    "common/script_values/spec_igs_values.txt": "029467650b1f622f8e2be7b7abf9ea917070f9fb7a97cfd42ac7b8412069f2b5",
+    "common/scripted_effects/spec_igs_effects.txt": "34af323b98072c9abe6fccea786f2307bb0d13b72c61b7a5d0961c25f1c10205",
+    "gui/BPM_interest_group_panel.gui": "e2073531d9085a1835987d2cd14984c03bbbffd8fcc51ca9b5ac8e2d0272c49a",
+    "gui/spec_market_tab.gui": "345d5cfe8e0a91fd738b60855a2fe7051b8679bab7c0c22f8b2152e3c4b41db9",
+    "localization/braz_por/spec_markets_l_braz_por.yml": "0a9b0f76ed21949a57c2ed96db792aa4ce0460a69398e48c2dcb88c555787beb",
+    "localization/english/spec_markets_l_english.yml": "bc47d7d00f52ee4f04272c488b22fd072439d069f9f8d57e32a4a701a3cbb612",
+    "localization/french/spec_markets_l_french.yml": "1197cde17675b41a658e68a360e3d15a8b05b1f1dde0c0dc283476169fbf6f58",
+    "localization/german/spec_markets_l_german.yml": "f67b5978c4be577d525181e6eedf505daf8d7725546caaff8e85902b3eb77040",
+    "localization/japanese/spec_markets_l_japanese.yml": "185febc21193f2d012284fa72b1c0390aabde4fde3cfcc0e324d828546bb06f5",
+    "localization/korean/spec_markets_l_korean.yml": "a3f2cc3623e747e263cdb35ad8e8f105b490e6f8f782aa314f747b909a2edcce",
+    "localization/polish/spec_markets_l_polish.yml": "5a8e417a96f819a983a509eb7d38c3377dac4efce4018daa4d19812964c20613",
+    "localization/russian/spec_markets_l_russian.yml": "4821c5be7bd0ad49f6727c9bcef9fa1b5f170b171e51f763a4f2168b8dc23c6a",
+    "localization/simp_chinese/spec_markets_l_simp_chinese.yml": "3169d31d13b31eae901b908c958f13f0fc722714472fdfb483dfb4c5ae5f5f51",
+    "localization/spanish/spec_markets_l_spanish.yml": "9c3f6ab7c5ad43f787671ffe1e19ba8a3a4e27e43dd59f16ed293703f2c80ea0",
+    "localization/turkish/spec_markets_l_turkish.yml": "44657acdba7c8f232f5a5d0d99fb9ed6e4e2c68b20af83ce4c5c8d2d37763c04"
+  },
+  "validation": "Built by compatibility/bpm/build.py against mod/ 1.2.1. The monetary ideology file 1.0.0 carried is now in the parent. Same build as runs/bpm/v121_dev4 against the stage build, which was synced into the dev game; not played against mod/ itself."
+}

@@ -23,3 +23,1307 @@ spec_note_tied = {
 		add_to_temporary_list = spec_note_list
 	}
 }
+
+# old saves: counts by category or sector, without names
+spec_migrate_market_news = {
+    if = {
+        limit = { OR = { has_variable = spec_news_staple_hot has_variable = spec_news_food_hot has_variable = spec_news_opinions } }
+        if = { limit = { NOT = { has_variable = spec_news_prior_hot } } set_variable = { name = spec_news_prior_hot value = 0 } }
+        if = { limit = { NOT = { has_variable = spec_news_prior_correction } } set_variable = { name = spec_news_prior_correction value = 0 } }
+        if = { limit = { NOT = { has_variable = spec_news_prior_bust } } set_variable = { name = spec_news_prior_bust value = 0 } }
+        if = { limit = { NOT = { has_variable = spec_news_prior_collapse } } set_variable = { name = spec_news_prior_collapse value = 0 } }
+        if = { limit = { has_variable = spec_news_staple_hot }
+            change_variable = { name = spec_news_prior_hot add = var:spec_news_staple_hot }
+            remove_variable = spec_news_staple_hot
+        }
+        if = { limit = { has_variable = spec_news_staple_correction }
+            change_variable = { name = spec_news_prior_correction add = var:spec_news_staple_correction }
+            remove_variable = spec_news_staple_correction
+        }
+        if = { limit = { has_variable = spec_news_staple_bust }
+            change_variable = { name = spec_news_prior_bust add = var:spec_news_staple_bust }
+            remove_variable = spec_news_staple_bust
+        }
+        if = { limit = { has_variable = spec_news_staple_collapse }
+            change_variable = { name = spec_news_prior_collapse add = var:spec_news_staple_collapse }
+            remove_variable = spec_news_staple_collapse
+        }
+        if = { limit = { has_variable = spec_news_industrial_hot }
+            change_variable = { name = spec_news_prior_hot add = var:spec_news_industrial_hot }
+            remove_variable = spec_news_industrial_hot
+        }
+        if = { limit = { has_variable = spec_news_industrial_correction }
+            change_variable = { name = spec_news_prior_correction add = var:spec_news_industrial_correction }
+            remove_variable = spec_news_industrial_correction
+        }
+        if = { limit = { has_variable = spec_news_industrial_bust }
+            change_variable = { name = spec_news_prior_bust add = var:spec_news_industrial_bust }
+            remove_variable = spec_news_industrial_bust
+        }
+        if = { limit = { has_variable = spec_news_industrial_collapse }
+            change_variable = { name = spec_news_prior_collapse add = var:spec_news_industrial_collapse }
+            remove_variable = spec_news_industrial_collapse
+        }
+        if = { limit = { has_variable = spec_news_luxury_hot }
+            change_variable = { name = spec_news_prior_hot add = var:spec_news_luxury_hot }
+            remove_variable = spec_news_luxury_hot
+        }
+        if = { limit = { has_variable = spec_news_luxury_correction }
+            change_variable = { name = spec_news_prior_correction add = var:spec_news_luxury_correction }
+            remove_variable = spec_news_luxury_correction
+        }
+        if = { limit = { has_variable = spec_news_luxury_bust }
+            change_variable = { name = spec_news_prior_bust add = var:spec_news_luxury_bust }
+            remove_variable = spec_news_luxury_bust
+        }
+        if = { limit = { has_variable = spec_news_luxury_collapse }
+            change_variable = { name = spec_news_prior_collapse add = var:spec_news_luxury_collapse }
+            remove_variable = spec_news_luxury_collapse
+        }
+        if = { limit = { has_variable = spec_news_military_hot }
+            change_variable = { name = spec_news_prior_hot add = var:spec_news_military_hot }
+            remove_variable = spec_news_military_hot
+        }
+        if = { limit = { has_variable = spec_news_military_correction }
+            change_variable = { name = spec_news_prior_correction add = var:spec_news_military_correction }
+            remove_variable = spec_news_military_correction
+        }
+        if = { limit = { has_variable = spec_news_military_bust }
+            change_variable = { name = spec_news_prior_bust add = var:spec_news_military_bust }
+            remove_variable = spec_news_military_bust
+        }
+        if = { limit = { has_variable = spec_news_military_collapse }
+            change_variable = { name = spec_news_prior_collapse add = var:spec_news_military_collapse }
+            remove_variable = spec_news_military_collapse
+        }
+        if = { limit = { has_variable = spec_news_food_hot }
+            change_variable = { name = spec_news_prior_hot add = var:spec_news_food_hot }
+            remove_variable = spec_news_food_hot
+        }
+        if = { limit = { has_variable = spec_news_food_correction }
+            change_variable = { name = spec_news_prior_correction add = var:spec_news_food_correction }
+            remove_variable = spec_news_food_correction
+        }
+        if = { limit = { has_variable = spec_news_food_bust }
+            change_variable = { name = spec_news_prior_bust add = var:spec_news_food_bust }
+            remove_variable = spec_news_food_bust
+        }
+        if = { limit = { has_variable = spec_news_food_collapse }
+            change_variable = { name = spec_news_prior_collapse add = var:spec_news_food_collapse }
+            remove_variable = spec_news_food_collapse
+        }
+        if = { limit = { has_variable = spec_news_plantation_hot }
+            change_variable = { name = spec_news_prior_hot add = var:spec_news_plantation_hot }
+            remove_variable = spec_news_plantation_hot
+        }
+        if = { limit = { has_variable = spec_news_plantation_correction }
+            change_variable = { name = spec_news_prior_correction add = var:spec_news_plantation_correction }
+            remove_variable = spec_news_plantation_correction
+        }
+        if = { limit = { has_variable = spec_news_plantation_bust }
+            change_variable = { name = spec_news_prior_bust add = var:spec_news_plantation_bust }
+            remove_variable = spec_news_plantation_bust
+        }
+        if = { limit = { has_variable = spec_news_plantation_collapse }
+            change_variable = { name = spec_news_prior_collapse add = var:spec_news_plantation_collapse }
+            remove_variable = spec_news_plantation_collapse
+        }
+        if = { limit = { has_variable = spec_news_household_hot }
+            change_variable = { name = spec_news_prior_hot add = var:spec_news_household_hot }
+            remove_variable = spec_news_household_hot
+        }
+        if = { limit = { has_variable = spec_news_household_correction }
+            change_variable = { name = spec_news_prior_correction add = var:spec_news_household_correction }
+            remove_variable = spec_news_household_correction
+        }
+        if = { limit = { has_variable = spec_news_household_bust }
+            change_variable = { name = spec_news_prior_bust add = var:spec_news_household_bust }
+            remove_variable = spec_news_household_bust
+        }
+        if = { limit = { has_variable = spec_news_household_collapse }
+            change_variable = { name = spec_news_prior_collapse add = var:spec_news_household_collapse }
+            remove_variable = spec_news_household_collapse
+        }
+        if = { limit = { has_variable = spec_news_materials_hot }
+            change_variable = { name = spec_news_prior_hot add = var:spec_news_materials_hot }
+            remove_variable = spec_news_materials_hot
+        }
+        if = { limit = { has_variable = spec_news_materials_correction }
+            change_variable = { name = spec_news_prior_correction add = var:spec_news_materials_correction }
+            remove_variable = spec_news_materials_correction
+        }
+        if = { limit = { has_variable = spec_news_materials_bust }
+            change_variable = { name = spec_news_prior_bust add = var:spec_news_materials_bust }
+            remove_variable = spec_news_materials_bust
+        }
+        if = { limit = { has_variable = spec_news_materials_collapse }
+            change_variable = { name = spec_news_prior_collapse add = var:spec_news_materials_collapse }
+            remove_variable = spec_news_materials_collapse
+        }
+        if = { limit = { has_variable = spec_news_energy_hot }
+            change_variable = { name = spec_news_prior_hot add = var:spec_news_energy_hot }
+            remove_variable = spec_news_energy_hot
+        }
+        if = { limit = { has_variable = spec_news_energy_correction }
+            change_variable = { name = spec_news_prior_correction add = var:spec_news_energy_correction }
+            remove_variable = spec_news_energy_correction
+        }
+        if = { limit = { has_variable = spec_news_energy_bust }
+            change_variable = { name = spec_news_prior_bust add = var:spec_news_energy_bust }
+            remove_variable = spec_news_energy_bust
+        }
+        if = { limit = { has_variable = spec_news_energy_collapse }
+            change_variable = { name = spec_news_prior_collapse add = var:spec_news_energy_collapse }
+            remove_variable = spec_news_energy_collapse
+        }
+        if = { limit = { has_variable = spec_news_industry_hot }
+            change_variable = { name = spec_news_prior_hot add = var:spec_news_industry_hot }
+            remove_variable = spec_news_industry_hot
+        }
+        if = { limit = { has_variable = spec_news_industry_correction }
+            change_variable = { name = spec_news_prior_correction add = var:spec_news_industry_correction }
+            remove_variable = spec_news_industry_correction
+        }
+        if = { limit = { has_variable = spec_news_industry_bust }
+            change_variable = { name = spec_news_prior_bust add = var:spec_news_industry_bust }
+            remove_variable = spec_news_industry_bust
+        }
+        if = { limit = { has_variable = spec_news_industry_collapse }
+            change_variable = { name = spec_news_prior_collapse add = var:spec_news_industry_collapse }
+            remove_variable = spec_news_industry_collapse
+        }
+        if = { limit = { has_variable = spec_news_transport_hot }
+            change_variable = { name = spec_news_prior_hot add = var:spec_news_transport_hot }
+            remove_variable = spec_news_transport_hot
+        }
+        if = { limit = { has_variable = spec_news_transport_correction }
+            change_variable = { name = spec_news_prior_correction add = var:spec_news_transport_correction }
+            remove_variable = spec_news_transport_correction
+        }
+        if = { limit = { has_variable = spec_news_transport_bust }
+            change_variable = { name = spec_news_prior_bust add = var:spec_news_transport_bust }
+            remove_variable = spec_news_transport_bust
+        }
+        if = { limit = { has_variable = spec_news_transport_collapse }
+            change_variable = { name = spec_news_prior_collapse add = var:spec_news_transport_collapse }
+            remove_variable = spec_news_transport_collapse
+        }
+        if = { limit = { has_variable = spec_news_defence_hot }
+            change_variable = { name = spec_news_prior_hot add = var:spec_news_defence_hot }
+            remove_variable = spec_news_defence_hot
+        }
+        if = { limit = { has_variable = spec_news_defence_correction }
+            change_variable = { name = spec_news_prior_correction add = var:spec_news_defence_correction }
+            remove_variable = spec_news_defence_correction
+        }
+        if = { limit = { has_variable = spec_news_defence_bust }
+            change_variable = { name = spec_news_prior_bust add = var:spec_news_defence_bust }
+            remove_variable = spec_news_defence_bust
+        }
+        if = { limit = { has_variable = spec_news_defence_collapse }
+            change_variable = { name = spec_news_prior_collapse add = var:spec_news_defence_collapse }
+            remove_variable = spec_news_defence_collapse
+        }
+        if = { limit = { has_variable = spec_news_communications_hot }
+            change_variable = { name = spec_news_prior_hot add = var:spec_news_communications_hot }
+            remove_variable = spec_news_communications_hot
+        }
+        if = { limit = { has_variable = spec_news_communications_correction }
+            change_variable = { name = spec_news_prior_correction add = var:spec_news_communications_correction }
+            remove_variable = spec_news_communications_correction
+        }
+        if = { limit = { has_variable = spec_news_communications_bust }
+            change_variable = { name = spec_news_prior_bust add = var:spec_news_communications_bust }
+            remove_variable = spec_news_communications_bust
+        }
+        if = { limit = { has_variable = spec_news_communications_collapse }
+            change_variable = { name = spec_news_prior_collapse add = var:spec_news_communications_collapse }
+            remove_variable = spec_news_communications_collapse
+        }
+        if = { limit = { NOT = { has_variable = spec_news_ig_more } } set_variable = { name = spec_news_ig_more value = 0 } }
+        if = { limit = { has_variable = spec_news_opinions }
+            change_variable = { name = spec_news_ig_more add = var:spec_news_opinions }
+            remove_variable = spec_news_opinions
+        }
+    }
+}
+spec_queue_market_news = {
+    spec_migrate_market_news = yes
+    if = {
+        limit = { NOT = { has_variable = spec_news_age } }
+        set_variable = { name = spec_news_age value = 0 }
+    }
+}
+spec_queue_ig_news = {
+    spec_queue_market_news = yes
+    if = {
+        limit = { exists = ig:ig_$IG$ }
+        if = {
+            limit = { NOT = { has_variable = spec_news_igk1 } }
+            set_variable = { name = spec_news_igk1 value = $K$ }
+            set_variable = { name = spec_news_ig1 value = ig:ig_$IG$ }
+            set_variable = { name = spec_news_igg1 value = g:$G$ }
+        }
+        else_if = {
+            limit = { NOT = { has_variable = spec_news_igk2 } }
+            set_variable = { name = spec_news_igk2 value = $K$ }
+            set_variable = { name = spec_news_ig2 value = ig:ig_$IG$ }
+            set_variable = { name = spec_news_igg2 value = g:$G$ }
+        }
+        else_if = {
+            limit = { NOT = { has_variable = spec_news_igk3 } }
+            set_variable = { name = spec_news_igk3 value = $K$ }
+            set_variable = { name = spec_news_ig3 value = ig:ig_$IG$ }
+            set_variable = { name = spec_news_igg3 value = g:$G$ }
+        }
+        else_if = {
+            limit = { NOT = { has_variable = spec_news_igk4 } }
+            set_variable = { name = spec_news_igk4 value = $K$ }
+            set_variable = { name = spec_news_ig4 value = ig:ig_$IG$ }
+            set_variable = { name = spec_news_igg4 value = g:$G$ }
+        }
+        else_if = {
+            limit = { NOT = { has_variable = spec_news_igk5 } }
+            set_variable = { name = spec_news_igk5 value = $K$ }
+            set_variable = { name = spec_news_ig5 value = ig:ig_$IG$ }
+            set_variable = { name = spec_news_igg5 value = g:$G$ }
+        }
+        else_if = {
+            limit = { NOT = { has_variable = spec_news_igk6 } }
+            set_variable = { name = spec_news_igk6 value = $K$ }
+            set_variable = { name = spec_news_ig6 value = ig:ig_$IG$ }
+            set_variable = { name = spec_news_igg6 value = g:$G$ }
+        }
+        else = {
+            if = { limit = { NOT = { has_variable = spec_news_ig_more } } set_variable = { name = spec_news_ig_more value = 0 } }
+            change_variable = { name = spec_news_ig_more add = 1 }
+        }
+    }
+}
+# the delivery's sector lines: count VAR = S among a line's goods, then number each (1 first, 2 middle, 3 last) as NAME
+spec_news_count = {
+    if = { limit = { var:$VAR$ ?= $S$ } change_local_variable = { name = spec_news_n add = 1 } }
+}
+spec_news_place = {
+    if = {
+        limit = { var:$VAR$ ?= $S$ }
+        change_local_variable = { name = spec_news_i add = 1 }
+        if = { limit = { local_var:spec_news_i = 1 } save_scope_value_as = { name = $NAME$ value = 1 } }
+        else_if = { limit = { local_var:spec_news_i = local_var:spec_news_n } save_scope_value_as = { name = $NAME$ value = 3 } }
+        else = { save_scope_value_as = { name = $NAME$ value = 2 } }
+    }
+    else = { save_scope_value_as = { name = $NAME$ value = 0 } }
+}
+spec_clear_market_news = {
+    remove_variable = spec_news_age
+    remove_variable = spec_news_urgent
+    remove_variable = spec_news_ig_more
+    remove_variable = spec_news_prior_hot
+    remove_variable = spec_news_prior_correction
+    remove_variable = spec_news_prior_bust
+    remove_variable = spec_news_prior_collapse
+    remove_variable = spec_news_staple_hot
+    remove_variable = spec_news_staple_correction
+    remove_variable = spec_news_staple_bust
+    remove_variable = spec_news_staple_collapse
+    remove_variable = spec_news_industrial_hot
+    remove_variable = spec_news_industrial_correction
+    remove_variable = spec_news_industrial_bust
+    remove_variable = spec_news_industrial_collapse
+    remove_variable = spec_news_luxury_hot
+    remove_variable = spec_news_luxury_correction
+    remove_variable = spec_news_luxury_bust
+    remove_variable = spec_news_luxury_collapse
+    remove_variable = spec_news_military_hot
+    remove_variable = spec_news_military_correction
+    remove_variable = spec_news_military_bust
+    remove_variable = spec_news_military_collapse
+    remove_variable = spec_news_food_hot
+    remove_variable = spec_news_food_correction
+    remove_variable = spec_news_food_bust
+    remove_variable = spec_news_food_collapse
+    remove_variable = spec_news_plantation_hot
+    remove_variable = spec_news_plantation_correction
+    remove_variable = spec_news_plantation_bust
+    remove_variable = spec_news_plantation_collapse
+    remove_variable = spec_news_household_hot
+    remove_variable = spec_news_household_correction
+    remove_variable = spec_news_household_bust
+    remove_variable = spec_news_household_collapse
+    remove_variable = spec_news_materials_hot
+    remove_variable = spec_news_materials_correction
+    remove_variable = spec_news_materials_bust
+    remove_variable = spec_news_materials_collapse
+    remove_variable = spec_news_energy_hot
+    remove_variable = spec_news_energy_correction
+    remove_variable = spec_news_energy_bust
+    remove_variable = spec_news_energy_collapse
+    remove_variable = spec_news_industry_hot
+    remove_variable = spec_news_industry_correction
+    remove_variable = spec_news_industry_bust
+    remove_variable = spec_news_industry_collapse
+    remove_variable = spec_news_transport_hot
+    remove_variable = spec_news_transport_correction
+    remove_variable = spec_news_transport_bust
+    remove_variable = spec_news_transport_collapse
+    remove_variable = spec_news_defence_hot
+    remove_variable = spec_news_defence_correction
+    remove_variable = spec_news_defence_bust
+    remove_variable = spec_news_defence_collapse
+    remove_variable = spec_news_communications_hot
+    remove_variable = spec_news_communications_correction
+    remove_variable = spec_news_communications_bust
+    remove_variable = spec_news_communications_collapse
+    remove_variable = spec_news_opinions
+    remove_variable = spec_news_igk1
+    remove_variable = spec_news_ig1
+    remove_variable = spec_news_igg1
+    remove_variable = spec_news_igk2
+    remove_variable = spec_news_ig2
+    remove_variable = spec_news_igg2
+    remove_variable = spec_news_igk3
+    remove_variable = spec_news_ig3
+    remove_variable = spec_news_igg3
+    remove_variable = spec_news_igk4
+    remove_variable = spec_news_ig4
+    remove_variable = spec_news_igg4
+    remove_variable = spec_news_igk5
+    remove_variable = spec_news_ig5
+    remove_variable = spec_news_igg5
+    remove_variable = spec_news_igk6
+    remove_variable = spec_news_ig6
+    remove_variable = spec_news_igg6
+    remove_variable = spec_news_hot_aeroplanes
+    remove_variable = spec_news_end_aeroplanes
+    remove_variable = spec_news_hot_ammunition
+    remove_variable = spec_news_end_ammunition
+    remove_variable = spec_news_hot_artillery
+    remove_variable = spec_news_end_artillery
+    remove_variable = spec_news_hot_automobiles
+    remove_variable = spec_news_end_automobiles
+    remove_variable = spec_news_hot_clippers
+    remove_variable = spec_news_end_clippers
+    remove_variable = spec_news_hot_clothes
+    remove_variable = spec_news_end_clothes
+    remove_variable = spec_news_hot_coal
+    remove_variable = spec_news_end_coal
+    remove_variable = spec_news_hot_coffee
+    remove_variable = spec_news_end_coffee
+    remove_variable = spec_news_hot_copper
+    remove_variable = spec_news_end_copper
+    remove_variable = spec_news_hot_dye
+    remove_variable = spec_news_end_dye
+    remove_variable = spec_news_hot_electricity
+    remove_variable = spec_news_end_electricity
+    remove_variable = spec_news_hot_engines
+    remove_variable = spec_news_end_engines
+    remove_variable = spec_news_hot_explosives
+    remove_variable = spec_news_end_explosives
+    remove_variable = spec_news_hot_fabric
+    remove_variable = spec_news_end_fabric
+    remove_variable = spec_news_hot_fertilizer
+    remove_variable = spec_news_end_fertilizer
+    remove_variable = spec_news_hot_fine_art
+    remove_variable = spec_news_end_fine_art
+    remove_variable = spec_news_hot_fish
+    remove_variable = spec_news_end_fish
+    remove_variable = spec_news_hot_fruit
+    remove_variable = spec_news_end_fruit
+    remove_variable = spec_news_hot_furniture
+    remove_variable = spec_news_end_furniture
+    remove_variable = spec_news_hot_glass
+    remove_variable = spec_news_end_glass
+    remove_variable = spec_news_hot_grain
+    remove_variable = spec_news_end_grain
+    remove_variable = spec_news_hot_groceries
+    remove_variable = spec_news_end_groceries
+    remove_variable = spec_news_hot_hardwood
+    remove_variable = spec_news_end_hardwood
+    remove_variable = spec_news_hot_iron
+    remove_variable = spec_news_end_iron
+    remove_variable = spec_news_hot_lead
+    remove_variable = spec_news_end_lead
+    remove_variable = spec_news_hot_liquor
+    remove_variable = spec_news_end_liquor
+    remove_variable = spec_news_hot_luxury_clothes
+    remove_variable = spec_news_end_luxury_clothes
+    remove_variable = spec_news_hot_luxury_furniture
+    remove_variable = spec_news_end_luxury_furniture
+    remove_variable = spec_news_hot_meat
+    remove_variable = spec_news_end_meat
+    remove_variable = spec_news_hot_merchant_marine
+    remove_variable = spec_news_end_merchant_marine
+    remove_variable = spec_news_hot_oil
+    remove_variable = spec_news_end_oil
+    remove_variable = spec_news_hot_opium
+    remove_variable = spec_news_end_opium
+    remove_variable = spec_news_hot_paper
+    remove_variable = spec_news_end_paper
+    remove_variable = spec_news_hot_porcelain
+    remove_variable = spec_news_end_porcelain
+    remove_variable = spec_news_hot_radios
+    remove_variable = spec_news_end_radios
+    remove_variable = spec_news_hot_rubber
+    remove_variable = spec_news_end_rubber
+    remove_variable = spec_news_hot_silk
+    remove_variable = spec_news_end_silk
+    remove_variable = spec_news_hot_small_arms
+    remove_variable = spec_news_end_small_arms
+    remove_variable = spec_news_hot_steamers
+    remove_variable = spec_news_end_steamers
+    remove_variable = spec_news_hot_steel
+    remove_variable = spec_news_end_steel
+    remove_variable = spec_news_hot_sugar
+    remove_variable = spec_news_end_sugar
+    remove_variable = spec_news_hot_sulfur
+    remove_variable = spec_news_end_sulfur
+    remove_variable = spec_news_hot_tanks
+    remove_variable = spec_news_end_tanks
+    remove_variable = spec_news_hot_tea
+    remove_variable = spec_news_end_tea
+    remove_variable = spec_news_hot_telephones
+    remove_variable = spec_news_end_telephones
+    remove_variable = spec_news_hot_tobacco
+    remove_variable = spec_news_end_tobacco
+    remove_variable = spec_news_hot_tools
+    remove_variable = spec_news_end_tools
+    remove_variable = spec_news_hot_wine
+    remove_variable = spec_news_end_wine
+    remove_variable = spec_news_hot_wood
+    remove_variable = spec_news_end_wood
+}
+spec_deliver_market_news = {
+    spec_migrate_market_news = yes
+    if = {
+        limit = { has_variable = spec_news_age }
+        change_variable = { name = spec_news_age add = 1 }
+        if = {
+            limit = { OR = { has_variable = spec_news_urgent var:spec_news_age >= 3 } }
+			set_local_variable = { name = spec_news_qh value = 0 }
+			if = { limit = { has_variable = spec_news_prior_hot } set_local_variable = { name = spec_news_qh value = var:spec_news_prior_hot } }
+			set_local_variable = { name = spec_news_th value = local_var:spec_news_qh }
+			set_local_variable = { name = spec_news_q1 value = 0 }
+			if = { limit = { has_variable = spec_news_prior_correction } set_local_variable = { name = spec_news_q1 value = var:spec_news_prior_correction } }
+			set_local_variable = { name = spec_news_t1 value = local_var:spec_news_q1 }
+			set_local_variable = { name = spec_news_q2 value = 0 }
+			if = { limit = { has_variable = spec_news_prior_bust } set_local_variable = { name = spec_news_q2 value = var:spec_news_prior_bust } }
+			set_local_variable = { name = spec_news_t2 value = local_var:spec_news_q2 }
+			set_local_variable = { name = spec_news_q3 value = 0 }
+			if = { limit = { has_variable = spec_news_prior_collapse } set_local_variable = { name = spec_news_q3 value = var:spec_news_prior_collapse } }
+			set_local_variable = { name = spec_news_t3 value = local_var:spec_news_q3 }
+			set_local_variable = { name = spec_news_s value = 0 }
+			set_local_variable = { name = spec_news_n value = 0 }
+			spec_news_count = { VAR = spec_news_hot_grain S = 1 }
+			spec_news_count = { VAR = spec_news_hot_fish S = 1 }
+			spec_news_count = { VAR = spec_news_hot_meat S = 1 }
+			spec_news_count = { VAR = spec_news_hot_fruit S = 1 }
+			spec_news_count = { VAR = spec_news_hot_groceries S = 1 }
+			spec_news_count = { VAR = spec_news_hot_sugar S = 1 }
+			set_local_variable = { name = spec_news_i value = 0 }
+			spec_news_place = { VAR = spec_news_hot_grain S = 1 NAME = snwh_grain }
+			spec_news_place = { VAR = spec_news_hot_fish S = 1 NAME = snwh_fish }
+			spec_news_place = { VAR = spec_news_hot_meat S = 1 NAME = snwh_meat }
+			spec_news_place = { VAR = spec_news_hot_fruit S = 1 NAME = snwh_fruit }
+			spec_news_place = { VAR = spec_news_hot_groceries S = 1 NAME = snwh_groceries }
+			spec_news_place = { VAR = spec_news_hot_sugar S = 1 NAME = snwh_sugar }
+			save_scope_value_as = { name = snwnh_food value = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_s add = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_th add = local_var:spec_news_n }
+			set_local_variable = { name = spec_news_n value = 0 }
+			spec_news_count = { VAR = spec_news_end_grain S = 3 }
+			spec_news_count = { VAR = spec_news_end_fish S = 3 }
+			spec_news_count = { VAR = spec_news_end_meat S = 3 }
+			spec_news_count = { VAR = spec_news_end_fruit S = 3 }
+			spec_news_count = { VAR = spec_news_end_groceries S = 3 }
+			spec_news_count = { VAR = spec_news_end_sugar S = 3 }
+			set_local_variable = { name = spec_news_i value = 0 }
+			spec_news_place = { VAR = spec_news_end_grain S = 3 NAME = snw3_grain }
+			spec_news_place = { VAR = spec_news_end_fish S = 3 NAME = snw3_fish }
+			spec_news_place = { VAR = spec_news_end_meat S = 3 NAME = snw3_meat }
+			spec_news_place = { VAR = spec_news_end_fruit S = 3 NAME = snw3_fruit }
+			spec_news_place = { VAR = spec_news_end_groceries S = 3 NAME = snw3_groceries }
+			spec_news_place = { VAR = spec_news_end_sugar S = 3 NAME = snw3_sugar }
+			save_scope_value_as = { name = snwn3_food value = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_s add = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_t3 add = local_var:spec_news_n }
+			set_local_variable = { name = spec_news_n value = 0 }
+			spec_news_count = { VAR = spec_news_end_grain S = 2 }
+			spec_news_count = { VAR = spec_news_end_fish S = 2 }
+			spec_news_count = { VAR = spec_news_end_meat S = 2 }
+			spec_news_count = { VAR = spec_news_end_fruit S = 2 }
+			spec_news_count = { VAR = spec_news_end_groceries S = 2 }
+			spec_news_count = { VAR = spec_news_end_sugar S = 2 }
+			set_local_variable = { name = spec_news_i value = 0 }
+			spec_news_place = { VAR = spec_news_end_grain S = 2 NAME = snw2_grain }
+			spec_news_place = { VAR = spec_news_end_fish S = 2 NAME = snw2_fish }
+			spec_news_place = { VAR = spec_news_end_meat S = 2 NAME = snw2_meat }
+			spec_news_place = { VAR = spec_news_end_fruit S = 2 NAME = snw2_fruit }
+			spec_news_place = { VAR = spec_news_end_groceries S = 2 NAME = snw2_groceries }
+			spec_news_place = { VAR = spec_news_end_sugar S = 2 NAME = snw2_sugar }
+			save_scope_value_as = { name = snwn2_food value = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_s add = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_t2 add = local_var:spec_news_n }
+			set_local_variable = { name = spec_news_n value = 0 }
+			spec_news_count = { VAR = spec_news_end_grain S = 1 }
+			spec_news_count = { VAR = spec_news_end_fish S = 1 }
+			spec_news_count = { VAR = spec_news_end_meat S = 1 }
+			spec_news_count = { VAR = spec_news_end_fruit S = 1 }
+			spec_news_count = { VAR = spec_news_end_groceries S = 1 }
+			spec_news_count = { VAR = spec_news_end_sugar S = 1 }
+			set_local_variable = { name = spec_news_i value = 0 }
+			spec_news_place = { VAR = spec_news_end_grain S = 1 NAME = snw1_grain }
+			spec_news_place = { VAR = spec_news_end_fish S = 1 NAME = snw1_fish }
+			spec_news_place = { VAR = spec_news_end_meat S = 1 NAME = snw1_meat }
+			spec_news_place = { VAR = spec_news_end_fruit S = 1 NAME = snw1_fruit }
+			spec_news_place = { VAR = spec_news_end_groceries S = 1 NAME = snw1_groceries }
+			spec_news_place = { VAR = spec_news_end_sugar S = 1 NAME = snw1_sugar }
+			save_scope_value_as = { name = snwn1_food value = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_s add = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_t1 add = local_var:spec_news_n }
+			save_scope_value_as = { name = snwa_food value = local_var:spec_news_s }
+			set_local_variable = { name = spec_news_s value = 0 }
+			set_local_variable = { name = spec_news_n value = 0 }
+			spec_news_count = { VAR = spec_news_hot_tea S = 1 }
+			spec_news_count = { VAR = spec_news_hot_coffee S = 1 }
+			spec_news_count = { VAR = spec_news_hot_tobacco S = 1 }
+			spec_news_count = { VAR = spec_news_hot_opium S = 1 }
+			spec_news_count = { VAR = spec_news_hot_wine S = 1 }
+			spec_news_count = { VAR = spec_news_hot_liquor S = 1 }
+			set_local_variable = { name = spec_news_i value = 0 }
+			spec_news_place = { VAR = spec_news_hot_tea S = 1 NAME = snwh_tea }
+			spec_news_place = { VAR = spec_news_hot_coffee S = 1 NAME = snwh_coffee }
+			spec_news_place = { VAR = spec_news_hot_tobacco S = 1 NAME = snwh_tobacco }
+			spec_news_place = { VAR = spec_news_hot_opium S = 1 NAME = snwh_opium }
+			spec_news_place = { VAR = spec_news_hot_wine S = 1 NAME = snwh_wine }
+			spec_news_place = { VAR = spec_news_hot_liquor S = 1 NAME = snwh_liquor }
+			save_scope_value_as = { name = snwnh_plantation value = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_s add = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_th add = local_var:spec_news_n }
+			set_local_variable = { name = spec_news_n value = 0 }
+			spec_news_count = { VAR = spec_news_end_tea S = 3 }
+			spec_news_count = { VAR = spec_news_end_coffee S = 3 }
+			spec_news_count = { VAR = spec_news_end_tobacco S = 3 }
+			spec_news_count = { VAR = spec_news_end_opium S = 3 }
+			spec_news_count = { VAR = spec_news_end_wine S = 3 }
+			spec_news_count = { VAR = spec_news_end_liquor S = 3 }
+			set_local_variable = { name = spec_news_i value = 0 }
+			spec_news_place = { VAR = spec_news_end_tea S = 3 NAME = snw3_tea }
+			spec_news_place = { VAR = spec_news_end_coffee S = 3 NAME = snw3_coffee }
+			spec_news_place = { VAR = spec_news_end_tobacco S = 3 NAME = snw3_tobacco }
+			spec_news_place = { VAR = spec_news_end_opium S = 3 NAME = snw3_opium }
+			spec_news_place = { VAR = spec_news_end_wine S = 3 NAME = snw3_wine }
+			spec_news_place = { VAR = spec_news_end_liquor S = 3 NAME = snw3_liquor }
+			save_scope_value_as = { name = snwn3_plantation value = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_s add = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_t3 add = local_var:spec_news_n }
+			set_local_variable = { name = spec_news_n value = 0 }
+			spec_news_count = { VAR = spec_news_end_tea S = 2 }
+			spec_news_count = { VAR = spec_news_end_coffee S = 2 }
+			spec_news_count = { VAR = spec_news_end_tobacco S = 2 }
+			spec_news_count = { VAR = spec_news_end_opium S = 2 }
+			spec_news_count = { VAR = spec_news_end_wine S = 2 }
+			spec_news_count = { VAR = spec_news_end_liquor S = 2 }
+			set_local_variable = { name = spec_news_i value = 0 }
+			spec_news_place = { VAR = spec_news_end_tea S = 2 NAME = snw2_tea }
+			spec_news_place = { VAR = spec_news_end_coffee S = 2 NAME = snw2_coffee }
+			spec_news_place = { VAR = spec_news_end_tobacco S = 2 NAME = snw2_tobacco }
+			spec_news_place = { VAR = spec_news_end_opium S = 2 NAME = snw2_opium }
+			spec_news_place = { VAR = spec_news_end_wine S = 2 NAME = snw2_wine }
+			spec_news_place = { VAR = spec_news_end_liquor S = 2 NAME = snw2_liquor }
+			save_scope_value_as = { name = snwn2_plantation value = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_s add = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_t2 add = local_var:spec_news_n }
+			set_local_variable = { name = spec_news_n value = 0 }
+			spec_news_count = { VAR = spec_news_end_tea S = 1 }
+			spec_news_count = { VAR = spec_news_end_coffee S = 1 }
+			spec_news_count = { VAR = spec_news_end_tobacco S = 1 }
+			spec_news_count = { VAR = spec_news_end_opium S = 1 }
+			spec_news_count = { VAR = spec_news_end_wine S = 1 }
+			spec_news_count = { VAR = spec_news_end_liquor S = 1 }
+			set_local_variable = { name = spec_news_i value = 0 }
+			spec_news_place = { VAR = spec_news_end_tea S = 1 NAME = snw1_tea }
+			spec_news_place = { VAR = spec_news_end_coffee S = 1 NAME = snw1_coffee }
+			spec_news_place = { VAR = spec_news_end_tobacco S = 1 NAME = snw1_tobacco }
+			spec_news_place = { VAR = spec_news_end_opium S = 1 NAME = snw1_opium }
+			spec_news_place = { VAR = spec_news_end_wine S = 1 NAME = snw1_wine }
+			spec_news_place = { VAR = spec_news_end_liquor S = 1 NAME = snw1_liquor }
+			save_scope_value_as = { name = snwn1_plantation value = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_s add = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_t1 add = local_var:spec_news_n }
+			save_scope_value_as = { name = snwa_plantation value = local_var:spec_news_s }
+			set_local_variable = { name = spec_news_s value = 0 }
+			set_local_variable = { name = spec_news_n value = 0 }
+			spec_news_count = { VAR = spec_news_hot_fabric S = 1 }
+			spec_news_count = { VAR = spec_news_hot_silk S = 1 }
+			spec_news_count = { VAR = spec_news_hot_dye S = 1 }
+			spec_news_count = { VAR = spec_news_hot_clothes S = 1 }
+			spec_news_count = { VAR = spec_news_hot_luxury_clothes S = 1 }
+			spec_news_count = { VAR = spec_news_hot_furniture S = 1 }
+			spec_news_count = { VAR = spec_news_hot_luxury_furniture S = 1 }
+			spec_news_count = { VAR = spec_news_hot_porcelain S = 1 }
+			spec_news_count = { VAR = spec_news_hot_fine_art S = 1 }
+			set_local_variable = { name = spec_news_i value = 0 }
+			spec_news_place = { VAR = spec_news_hot_fabric S = 1 NAME = snwh_fabric }
+			spec_news_place = { VAR = spec_news_hot_silk S = 1 NAME = snwh_silk }
+			spec_news_place = { VAR = spec_news_hot_dye S = 1 NAME = snwh_dye }
+			spec_news_place = { VAR = spec_news_hot_clothes S = 1 NAME = snwh_clothes }
+			spec_news_place = { VAR = spec_news_hot_luxury_clothes S = 1 NAME = snwh_luxury_clothes }
+			spec_news_place = { VAR = spec_news_hot_furniture S = 1 NAME = snwh_furniture }
+			spec_news_place = { VAR = spec_news_hot_luxury_furniture S = 1 NAME = snwh_luxury_furniture }
+			spec_news_place = { VAR = spec_news_hot_porcelain S = 1 NAME = snwh_porcelain }
+			spec_news_place = { VAR = spec_news_hot_fine_art S = 1 NAME = snwh_fine_art }
+			save_scope_value_as = { name = snwnh_household value = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_s add = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_th add = local_var:spec_news_n }
+			set_local_variable = { name = spec_news_n value = 0 }
+			spec_news_count = { VAR = spec_news_end_fabric S = 3 }
+			spec_news_count = { VAR = spec_news_end_silk S = 3 }
+			spec_news_count = { VAR = spec_news_end_dye S = 3 }
+			spec_news_count = { VAR = spec_news_end_clothes S = 3 }
+			spec_news_count = { VAR = spec_news_end_luxury_clothes S = 3 }
+			spec_news_count = { VAR = spec_news_end_furniture S = 3 }
+			spec_news_count = { VAR = spec_news_end_luxury_furniture S = 3 }
+			spec_news_count = { VAR = spec_news_end_porcelain S = 3 }
+			spec_news_count = { VAR = spec_news_end_fine_art S = 3 }
+			set_local_variable = { name = spec_news_i value = 0 }
+			spec_news_place = { VAR = spec_news_end_fabric S = 3 NAME = snw3_fabric }
+			spec_news_place = { VAR = spec_news_end_silk S = 3 NAME = snw3_silk }
+			spec_news_place = { VAR = spec_news_end_dye S = 3 NAME = snw3_dye }
+			spec_news_place = { VAR = spec_news_end_clothes S = 3 NAME = snw3_clothes }
+			spec_news_place = { VAR = spec_news_end_luxury_clothes S = 3 NAME = snw3_luxury_clothes }
+			spec_news_place = { VAR = spec_news_end_furniture S = 3 NAME = snw3_furniture }
+			spec_news_place = { VAR = spec_news_end_luxury_furniture S = 3 NAME = snw3_luxury_furniture }
+			spec_news_place = { VAR = spec_news_end_porcelain S = 3 NAME = snw3_porcelain }
+			spec_news_place = { VAR = spec_news_end_fine_art S = 3 NAME = snw3_fine_art }
+			save_scope_value_as = { name = snwn3_household value = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_s add = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_t3 add = local_var:spec_news_n }
+			set_local_variable = { name = spec_news_n value = 0 }
+			spec_news_count = { VAR = spec_news_end_fabric S = 2 }
+			spec_news_count = { VAR = spec_news_end_silk S = 2 }
+			spec_news_count = { VAR = spec_news_end_dye S = 2 }
+			spec_news_count = { VAR = spec_news_end_clothes S = 2 }
+			spec_news_count = { VAR = spec_news_end_luxury_clothes S = 2 }
+			spec_news_count = { VAR = spec_news_end_furniture S = 2 }
+			spec_news_count = { VAR = spec_news_end_luxury_furniture S = 2 }
+			spec_news_count = { VAR = spec_news_end_porcelain S = 2 }
+			spec_news_count = { VAR = spec_news_end_fine_art S = 2 }
+			set_local_variable = { name = spec_news_i value = 0 }
+			spec_news_place = { VAR = spec_news_end_fabric S = 2 NAME = snw2_fabric }
+			spec_news_place = { VAR = spec_news_end_silk S = 2 NAME = snw2_silk }
+			spec_news_place = { VAR = spec_news_end_dye S = 2 NAME = snw2_dye }
+			spec_news_place = { VAR = spec_news_end_clothes S = 2 NAME = snw2_clothes }
+			spec_news_place = { VAR = spec_news_end_luxury_clothes S = 2 NAME = snw2_luxury_clothes }
+			spec_news_place = { VAR = spec_news_end_furniture S = 2 NAME = snw2_furniture }
+			spec_news_place = { VAR = spec_news_end_luxury_furniture S = 2 NAME = snw2_luxury_furniture }
+			spec_news_place = { VAR = spec_news_end_porcelain S = 2 NAME = snw2_porcelain }
+			spec_news_place = { VAR = spec_news_end_fine_art S = 2 NAME = snw2_fine_art }
+			save_scope_value_as = { name = snwn2_household value = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_s add = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_t2 add = local_var:spec_news_n }
+			set_local_variable = { name = spec_news_n value = 0 }
+			spec_news_count = { VAR = spec_news_end_fabric S = 1 }
+			spec_news_count = { VAR = spec_news_end_silk S = 1 }
+			spec_news_count = { VAR = spec_news_end_dye S = 1 }
+			spec_news_count = { VAR = spec_news_end_clothes S = 1 }
+			spec_news_count = { VAR = spec_news_end_luxury_clothes S = 1 }
+			spec_news_count = { VAR = spec_news_end_furniture S = 1 }
+			spec_news_count = { VAR = spec_news_end_luxury_furniture S = 1 }
+			spec_news_count = { VAR = spec_news_end_porcelain S = 1 }
+			spec_news_count = { VAR = spec_news_end_fine_art S = 1 }
+			set_local_variable = { name = spec_news_i value = 0 }
+			spec_news_place = { VAR = spec_news_end_fabric S = 1 NAME = snw1_fabric }
+			spec_news_place = { VAR = spec_news_end_silk S = 1 NAME = snw1_silk }
+			spec_news_place = { VAR = spec_news_end_dye S = 1 NAME = snw1_dye }
+			spec_news_place = { VAR = spec_news_end_clothes S = 1 NAME = snw1_clothes }
+			spec_news_place = { VAR = spec_news_end_luxury_clothes S = 1 NAME = snw1_luxury_clothes }
+			spec_news_place = { VAR = spec_news_end_furniture S = 1 NAME = snw1_furniture }
+			spec_news_place = { VAR = spec_news_end_luxury_furniture S = 1 NAME = snw1_luxury_furniture }
+			spec_news_place = { VAR = spec_news_end_porcelain S = 1 NAME = snw1_porcelain }
+			spec_news_place = { VAR = spec_news_end_fine_art S = 1 NAME = snw1_fine_art }
+			save_scope_value_as = { name = snwn1_household value = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_s add = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_t1 add = local_var:spec_news_n }
+			save_scope_value_as = { name = snwa_household value = local_var:spec_news_s }
+			set_local_variable = { name = spec_news_s value = 0 }
+			set_local_variable = { name = spec_news_n value = 0 }
+			spec_news_count = { VAR = spec_news_hot_wood S = 1 }
+			spec_news_count = { VAR = spec_news_hot_hardwood S = 1 }
+			spec_news_count = { VAR = spec_news_hot_iron S = 1 }
+			spec_news_count = { VAR = spec_news_hot_copper S = 1 }
+			spec_news_count = { VAR = spec_news_hot_lead S = 1 }
+			spec_news_count = { VAR = spec_news_hot_steel S = 1 }
+			spec_news_count = { VAR = spec_news_hot_glass S = 1 }
+			spec_news_count = { VAR = spec_news_hot_paper S = 1 }
+			set_local_variable = { name = spec_news_i value = 0 }
+			spec_news_place = { VAR = spec_news_hot_wood S = 1 NAME = snwh_wood }
+			spec_news_place = { VAR = spec_news_hot_hardwood S = 1 NAME = snwh_hardwood }
+			spec_news_place = { VAR = spec_news_hot_iron S = 1 NAME = snwh_iron }
+			spec_news_place = { VAR = spec_news_hot_copper S = 1 NAME = snwh_copper }
+			spec_news_place = { VAR = spec_news_hot_lead S = 1 NAME = snwh_lead }
+			spec_news_place = { VAR = spec_news_hot_steel S = 1 NAME = snwh_steel }
+			spec_news_place = { VAR = spec_news_hot_glass S = 1 NAME = snwh_glass }
+			spec_news_place = { VAR = spec_news_hot_paper S = 1 NAME = snwh_paper }
+			save_scope_value_as = { name = snwnh_materials value = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_s add = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_th add = local_var:spec_news_n }
+			set_local_variable = { name = spec_news_n value = 0 }
+			spec_news_count = { VAR = spec_news_end_wood S = 3 }
+			spec_news_count = { VAR = spec_news_end_hardwood S = 3 }
+			spec_news_count = { VAR = spec_news_end_iron S = 3 }
+			spec_news_count = { VAR = spec_news_end_copper S = 3 }
+			spec_news_count = { VAR = spec_news_end_lead S = 3 }
+			spec_news_count = { VAR = spec_news_end_steel S = 3 }
+			spec_news_count = { VAR = spec_news_end_glass S = 3 }
+			spec_news_count = { VAR = spec_news_end_paper S = 3 }
+			set_local_variable = { name = spec_news_i value = 0 }
+			spec_news_place = { VAR = spec_news_end_wood S = 3 NAME = snw3_wood }
+			spec_news_place = { VAR = spec_news_end_hardwood S = 3 NAME = snw3_hardwood }
+			spec_news_place = { VAR = spec_news_end_iron S = 3 NAME = snw3_iron }
+			spec_news_place = { VAR = spec_news_end_copper S = 3 NAME = snw3_copper }
+			spec_news_place = { VAR = spec_news_end_lead S = 3 NAME = snw3_lead }
+			spec_news_place = { VAR = spec_news_end_steel S = 3 NAME = snw3_steel }
+			spec_news_place = { VAR = spec_news_end_glass S = 3 NAME = snw3_glass }
+			spec_news_place = { VAR = spec_news_end_paper S = 3 NAME = snw3_paper }
+			save_scope_value_as = { name = snwn3_materials value = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_s add = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_t3 add = local_var:spec_news_n }
+			set_local_variable = { name = spec_news_n value = 0 }
+			spec_news_count = { VAR = spec_news_end_wood S = 2 }
+			spec_news_count = { VAR = spec_news_end_hardwood S = 2 }
+			spec_news_count = { VAR = spec_news_end_iron S = 2 }
+			spec_news_count = { VAR = spec_news_end_copper S = 2 }
+			spec_news_count = { VAR = spec_news_end_lead S = 2 }
+			spec_news_count = { VAR = spec_news_end_steel S = 2 }
+			spec_news_count = { VAR = spec_news_end_glass S = 2 }
+			spec_news_count = { VAR = spec_news_end_paper S = 2 }
+			set_local_variable = { name = spec_news_i value = 0 }
+			spec_news_place = { VAR = spec_news_end_wood S = 2 NAME = snw2_wood }
+			spec_news_place = { VAR = spec_news_end_hardwood S = 2 NAME = snw2_hardwood }
+			spec_news_place = { VAR = spec_news_end_iron S = 2 NAME = snw2_iron }
+			spec_news_place = { VAR = spec_news_end_copper S = 2 NAME = snw2_copper }
+			spec_news_place = { VAR = spec_news_end_lead S = 2 NAME = snw2_lead }
+			spec_news_place = { VAR = spec_news_end_steel S = 2 NAME = snw2_steel }
+			spec_news_place = { VAR = spec_news_end_glass S = 2 NAME = snw2_glass }
+			spec_news_place = { VAR = spec_news_end_paper S = 2 NAME = snw2_paper }
+			save_scope_value_as = { name = snwn2_materials value = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_s add = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_t2 add = local_var:spec_news_n }
+			set_local_variable = { name = spec_news_n value = 0 }
+			spec_news_count = { VAR = spec_news_end_wood S = 1 }
+			spec_news_count = { VAR = spec_news_end_hardwood S = 1 }
+			spec_news_count = { VAR = spec_news_end_iron S = 1 }
+			spec_news_count = { VAR = spec_news_end_copper S = 1 }
+			spec_news_count = { VAR = spec_news_end_lead S = 1 }
+			spec_news_count = { VAR = spec_news_end_steel S = 1 }
+			spec_news_count = { VAR = spec_news_end_glass S = 1 }
+			spec_news_count = { VAR = spec_news_end_paper S = 1 }
+			set_local_variable = { name = spec_news_i value = 0 }
+			spec_news_place = { VAR = spec_news_end_wood S = 1 NAME = snw1_wood }
+			spec_news_place = { VAR = spec_news_end_hardwood S = 1 NAME = snw1_hardwood }
+			spec_news_place = { VAR = spec_news_end_iron S = 1 NAME = snw1_iron }
+			spec_news_place = { VAR = spec_news_end_copper S = 1 NAME = snw1_copper }
+			spec_news_place = { VAR = spec_news_end_lead S = 1 NAME = snw1_lead }
+			spec_news_place = { VAR = spec_news_end_steel S = 1 NAME = snw1_steel }
+			spec_news_place = { VAR = spec_news_end_glass S = 1 NAME = snw1_glass }
+			spec_news_place = { VAR = spec_news_end_paper S = 1 NAME = snw1_paper }
+			save_scope_value_as = { name = snwn1_materials value = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_s add = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_t1 add = local_var:spec_news_n }
+			save_scope_value_as = { name = snwa_materials value = local_var:spec_news_s }
+			set_local_variable = { name = spec_news_s value = 0 }
+			set_local_variable = { name = spec_news_n value = 0 }
+			spec_news_count = { VAR = spec_news_hot_coal S = 1 }
+			spec_news_count = { VAR = spec_news_hot_oil S = 1 }
+			spec_news_count = { VAR = spec_news_hot_electricity S = 1 }
+			set_local_variable = { name = spec_news_i value = 0 }
+			spec_news_place = { VAR = spec_news_hot_coal S = 1 NAME = snwh_coal }
+			spec_news_place = { VAR = spec_news_hot_oil S = 1 NAME = snwh_oil }
+			spec_news_place = { VAR = spec_news_hot_electricity S = 1 NAME = snwh_electricity }
+			save_scope_value_as = { name = snwnh_energy value = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_s add = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_th add = local_var:spec_news_n }
+			set_local_variable = { name = spec_news_n value = 0 }
+			spec_news_count = { VAR = spec_news_end_coal S = 3 }
+			spec_news_count = { VAR = spec_news_end_oil S = 3 }
+			spec_news_count = { VAR = spec_news_end_electricity S = 3 }
+			set_local_variable = { name = spec_news_i value = 0 }
+			spec_news_place = { VAR = spec_news_end_coal S = 3 NAME = snw3_coal }
+			spec_news_place = { VAR = spec_news_end_oil S = 3 NAME = snw3_oil }
+			spec_news_place = { VAR = spec_news_end_electricity S = 3 NAME = snw3_electricity }
+			save_scope_value_as = { name = snwn3_energy value = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_s add = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_t3 add = local_var:spec_news_n }
+			set_local_variable = { name = spec_news_n value = 0 }
+			spec_news_count = { VAR = spec_news_end_coal S = 2 }
+			spec_news_count = { VAR = spec_news_end_oil S = 2 }
+			spec_news_count = { VAR = spec_news_end_electricity S = 2 }
+			set_local_variable = { name = spec_news_i value = 0 }
+			spec_news_place = { VAR = spec_news_end_coal S = 2 NAME = snw2_coal }
+			spec_news_place = { VAR = spec_news_end_oil S = 2 NAME = snw2_oil }
+			spec_news_place = { VAR = spec_news_end_electricity S = 2 NAME = snw2_electricity }
+			save_scope_value_as = { name = snwn2_energy value = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_s add = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_t2 add = local_var:spec_news_n }
+			set_local_variable = { name = spec_news_n value = 0 }
+			spec_news_count = { VAR = spec_news_end_coal S = 1 }
+			spec_news_count = { VAR = spec_news_end_oil S = 1 }
+			spec_news_count = { VAR = spec_news_end_electricity S = 1 }
+			set_local_variable = { name = spec_news_i value = 0 }
+			spec_news_place = { VAR = spec_news_end_coal S = 1 NAME = snw1_coal }
+			spec_news_place = { VAR = spec_news_end_oil S = 1 NAME = snw1_oil }
+			spec_news_place = { VAR = spec_news_end_electricity S = 1 NAME = snw1_electricity }
+			save_scope_value_as = { name = snwn1_energy value = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_s add = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_t1 add = local_var:spec_news_n }
+			save_scope_value_as = { name = snwa_energy value = local_var:spec_news_s }
+			set_local_variable = { name = spec_news_s value = 0 }
+			set_local_variable = { name = spec_news_n value = 0 }
+			spec_news_count = { VAR = spec_news_hot_tools S = 1 }
+			spec_news_count = { VAR = spec_news_hot_engines S = 1 }
+			spec_news_count = { VAR = spec_news_hot_rubber S = 1 }
+			spec_news_count = { VAR = spec_news_hot_sulfur S = 1 }
+			spec_news_count = { VAR = spec_news_hot_fertilizer S = 1 }
+			spec_news_count = { VAR = spec_news_hot_explosives S = 1 }
+			set_local_variable = { name = spec_news_i value = 0 }
+			spec_news_place = { VAR = spec_news_hot_tools S = 1 NAME = snwh_tools }
+			spec_news_place = { VAR = spec_news_hot_engines S = 1 NAME = snwh_engines }
+			spec_news_place = { VAR = spec_news_hot_rubber S = 1 NAME = snwh_rubber }
+			spec_news_place = { VAR = spec_news_hot_sulfur S = 1 NAME = snwh_sulfur }
+			spec_news_place = { VAR = spec_news_hot_fertilizer S = 1 NAME = snwh_fertilizer }
+			spec_news_place = { VAR = spec_news_hot_explosives S = 1 NAME = snwh_explosives }
+			save_scope_value_as = { name = snwnh_industry value = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_s add = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_th add = local_var:spec_news_n }
+			set_local_variable = { name = spec_news_n value = 0 }
+			spec_news_count = { VAR = spec_news_end_tools S = 3 }
+			spec_news_count = { VAR = spec_news_end_engines S = 3 }
+			spec_news_count = { VAR = spec_news_end_rubber S = 3 }
+			spec_news_count = { VAR = spec_news_end_sulfur S = 3 }
+			spec_news_count = { VAR = spec_news_end_fertilizer S = 3 }
+			spec_news_count = { VAR = spec_news_end_explosives S = 3 }
+			set_local_variable = { name = spec_news_i value = 0 }
+			spec_news_place = { VAR = spec_news_end_tools S = 3 NAME = snw3_tools }
+			spec_news_place = { VAR = spec_news_end_engines S = 3 NAME = snw3_engines }
+			spec_news_place = { VAR = spec_news_end_rubber S = 3 NAME = snw3_rubber }
+			spec_news_place = { VAR = spec_news_end_sulfur S = 3 NAME = snw3_sulfur }
+			spec_news_place = { VAR = spec_news_end_fertilizer S = 3 NAME = snw3_fertilizer }
+			spec_news_place = { VAR = spec_news_end_explosives S = 3 NAME = snw3_explosives }
+			save_scope_value_as = { name = snwn3_industry value = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_s add = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_t3 add = local_var:spec_news_n }
+			set_local_variable = { name = spec_news_n value = 0 }
+			spec_news_count = { VAR = spec_news_end_tools S = 2 }
+			spec_news_count = { VAR = spec_news_end_engines S = 2 }
+			spec_news_count = { VAR = spec_news_end_rubber S = 2 }
+			spec_news_count = { VAR = spec_news_end_sulfur S = 2 }
+			spec_news_count = { VAR = spec_news_end_fertilizer S = 2 }
+			spec_news_count = { VAR = spec_news_end_explosives S = 2 }
+			set_local_variable = { name = spec_news_i value = 0 }
+			spec_news_place = { VAR = spec_news_end_tools S = 2 NAME = snw2_tools }
+			spec_news_place = { VAR = spec_news_end_engines S = 2 NAME = snw2_engines }
+			spec_news_place = { VAR = spec_news_end_rubber S = 2 NAME = snw2_rubber }
+			spec_news_place = { VAR = spec_news_end_sulfur S = 2 NAME = snw2_sulfur }
+			spec_news_place = { VAR = spec_news_end_fertilizer S = 2 NAME = snw2_fertilizer }
+			spec_news_place = { VAR = spec_news_end_explosives S = 2 NAME = snw2_explosives }
+			save_scope_value_as = { name = snwn2_industry value = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_s add = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_t2 add = local_var:spec_news_n }
+			set_local_variable = { name = spec_news_n value = 0 }
+			spec_news_count = { VAR = spec_news_end_tools S = 1 }
+			spec_news_count = { VAR = spec_news_end_engines S = 1 }
+			spec_news_count = { VAR = spec_news_end_rubber S = 1 }
+			spec_news_count = { VAR = spec_news_end_sulfur S = 1 }
+			spec_news_count = { VAR = spec_news_end_fertilizer S = 1 }
+			spec_news_count = { VAR = spec_news_end_explosives S = 1 }
+			set_local_variable = { name = spec_news_i value = 0 }
+			spec_news_place = { VAR = spec_news_end_tools S = 1 NAME = snw1_tools }
+			spec_news_place = { VAR = spec_news_end_engines S = 1 NAME = snw1_engines }
+			spec_news_place = { VAR = spec_news_end_rubber S = 1 NAME = snw1_rubber }
+			spec_news_place = { VAR = spec_news_end_sulfur S = 1 NAME = snw1_sulfur }
+			spec_news_place = { VAR = spec_news_end_fertilizer S = 1 NAME = snw1_fertilizer }
+			spec_news_place = { VAR = spec_news_end_explosives S = 1 NAME = snw1_explosives }
+			save_scope_value_as = { name = snwn1_industry value = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_s add = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_t1 add = local_var:spec_news_n }
+			save_scope_value_as = { name = snwa_industry value = local_var:spec_news_s }
+			set_local_variable = { name = spec_news_s value = 0 }
+			set_local_variable = { name = spec_news_n value = 0 }
+			spec_news_count = { VAR = spec_news_hot_clippers S = 1 }
+			spec_news_count = { VAR = spec_news_hot_steamers S = 1 }
+			spec_news_count = { VAR = spec_news_hot_merchant_marine S = 1 }
+			spec_news_count = { VAR = spec_news_hot_automobiles S = 1 }
+			set_local_variable = { name = spec_news_i value = 0 }
+			spec_news_place = { VAR = spec_news_hot_clippers S = 1 NAME = snwh_clippers }
+			spec_news_place = { VAR = spec_news_hot_steamers S = 1 NAME = snwh_steamers }
+			spec_news_place = { VAR = spec_news_hot_merchant_marine S = 1 NAME = snwh_merchant_marine }
+			spec_news_place = { VAR = spec_news_hot_automobiles S = 1 NAME = snwh_automobiles }
+			save_scope_value_as = { name = snwnh_transport value = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_s add = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_th add = local_var:spec_news_n }
+			set_local_variable = { name = spec_news_n value = 0 }
+			spec_news_count = { VAR = spec_news_end_clippers S = 3 }
+			spec_news_count = { VAR = spec_news_end_steamers S = 3 }
+			spec_news_count = { VAR = spec_news_end_merchant_marine S = 3 }
+			spec_news_count = { VAR = spec_news_end_automobiles S = 3 }
+			set_local_variable = { name = spec_news_i value = 0 }
+			spec_news_place = { VAR = spec_news_end_clippers S = 3 NAME = snw3_clippers }
+			spec_news_place = { VAR = spec_news_end_steamers S = 3 NAME = snw3_steamers }
+			spec_news_place = { VAR = spec_news_end_merchant_marine S = 3 NAME = snw3_merchant_marine }
+			spec_news_place = { VAR = spec_news_end_automobiles S = 3 NAME = snw3_automobiles }
+			save_scope_value_as = { name = snwn3_transport value = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_s add = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_t3 add = local_var:spec_news_n }
+			set_local_variable = { name = spec_news_n value = 0 }
+			spec_news_count = { VAR = spec_news_end_clippers S = 2 }
+			spec_news_count = { VAR = spec_news_end_steamers S = 2 }
+			spec_news_count = { VAR = spec_news_end_merchant_marine S = 2 }
+			spec_news_count = { VAR = spec_news_end_automobiles S = 2 }
+			set_local_variable = { name = spec_news_i value = 0 }
+			spec_news_place = { VAR = spec_news_end_clippers S = 2 NAME = snw2_clippers }
+			spec_news_place = { VAR = spec_news_end_steamers S = 2 NAME = snw2_steamers }
+			spec_news_place = { VAR = spec_news_end_merchant_marine S = 2 NAME = snw2_merchant_marine }
+			spec_news_place = { VAR = spec_news_end_automobiles S = 2 NAME = snw2_automobiles }
+			save_scope_value_as = { name = snwn2_transport value = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_s add = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_t2 add = local_var:spec_news_n }
+			set_local_variable = { name = spec_news_n value = 0 }
+			spec_news_count = { VAR = spec_news_end_clippers S = 1 }
+			spec_news_count = { VAR = spec_news_end_steamers S = 1 }
+			spec_news_count = { VAR = spec_news_end_merchant_marine S = 1 }
+			spec_news_count = { VAR = spec_news_end_automobiles S = 1 }
+			set_local_variable = { name = spec_news_i value = 0 }
+			spec_news_place = { VAR = spec_news_end_clippers S = 1 NAME = snw1_clippers }
+			spec_news_place = { VAR = spec_news_end_steamers S = 1 NAME = snw1_steamers }
+			spec_news_place = { VAR = spec_news_end_merchant_marine S = 1 NAME = snw1_merchant_marine }
+			spec_news_place = { VAR = spec_news_end_automobiles S = 1 NAME = snw1_automobiles }
+			save_scope_value_as = { name = snwn1_transport value = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_s add = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_t1 add = local_var:spec_news_n }
+			save_scope_value_as = { name = snwa_transport value = local_var:spec_news_s }
+			set_local_variable = { name = spec_news_s value = 0 }
+			set_local_variable = { name = spec_news_n value = 0 }
+			spec_news_count = { VAR = spec_news_hot_small_arms S = 1 }
+			spec_news_count = { VAR = spec_news_hot_artillery S = 1 }
+			spec_news_count = { VAR = spec_news_hot_ammunition S = 1 }
+			spec_news_count = { VAR = spec_news_hot_tanks S = 1 }
+			spec_news_count = { VAR = spec_news_hot_aeroplanes S = 1 }
+			set_local_variable = { name = spec_news_i value = 0 }
+			spec_news_place = { VAR = spec_news_hot_small_arms S = 1 NAME = snwh_small_arms }
+			spec_news_place = { VAR = spec_news_hot_artillery S = 1 NAME = snwh_artillery }
+			spec_news_place = { VAR = spec_news_hot_ammunition S = 1 NAME = snwh_ammunition }
+			spec_news_place = { VAR = spec_news_hot_tanks S = 1 NAME = snwh_tanks }
+			spec_news_place = { VAR = spec_news_hot_aeroplanes S = 1 NAME = snwh_aeroplanes }
+			save_scope_value_as = { name = snwnh_defence value = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_s add = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_th add = local_var:spec_news_n }
+			set_local_variable = { name = spec_news_n value = 0 }
+			spec_news_count = { VAR = spec_news_end_small_arms S = 3 }
+			spec_news_count = { VAR = spec_news_end_artillery S = 3 }
+			spec_news_count = { VAR = spec_news_end_ammunition S = 3 }
+			spec_news_count = { VAR = spec_news_end_tanks S = 3 }
+			spec_news_count = { VAR = spec_news_end_aeroplanes S = 3 }
+			set_local_variable = { name = spec_news_i value = 0 }
+			spec_news_place = { VAR = spec_news_end_small_arms S = 3 NAME = snw3_small_arms }
+			spec_news_place = { VAR = spec_news_end_artillery S = 3 NAME = snw3_artillery }
+			spec_news_place = { VAR = spec_news_end_ammunition S = 3 NAME = snw3_ammunition }
+			spec_news_place = { VAR = spec_news_end_tanks S = 3 NAME = snw3_tanks }
+			spec_news_place = { VAR = spec_news_end_aeroplanes S = 3 NAME = snw3_aeroplanes }
+			save_scope_value_as = { name = snwn3_defence value = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_s add = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_t3 add = local_var:spec_news_n }
+			set_local_variable = { name = spec_news_n value = 0 }
+			spec_news_count = { VAR = spec_news_end_small_arms S = 2 }
+			spec_news_count = { VAR = spec_news_end_artillery S = 2 }
+			spec_news_count = { VAR = spec_news_end_ammunition S = 2 }
+			spec_news_count = { VAR = spec_news_end_tanks S = 2 }
+			spec_news_count = { VAR = spec_news_end_aeroplanes S = 2 }
+			set_local_variable = { name = spec_news_i value = 0 }
+			spec_news_place = { VAR = spec_news_end_small_arms S = 2 NAME = snw2_small_arms }
+			spec_news_place = { VAR = spec_news_end_artillery S = 2 NAME = snw2_artillery }
+			spec_news_place = { VAR = spec_news_end_ammunition S = 2 NAME = snw2_ammunition }
+			spec_news_place = { VAR = spec_news_end_tanks S = 2 NAME = snw2_tanks }
+			spec_news_place = { VAR = spec_news_end_aeroplanes S = 2 NAME = snw2_aeroplanes }
+			save_scope_value_as = { name = snwn2_defence value = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_s add = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_t2 add = local_var:spec_news_n }
+			set_local_variable = { name = spec_news_n value = 0 }
+			spec_news_count = { VAR = spec_news_end_small_arms S = 1 }
+			spec_news_count = { VAR = spec_news_end_artillery S = 1 }
+			spec_news_count = { VAR = spec_news_end_ammunition S = 1 }
+			spec_news_count = { VAR = spec_news_end_tanks S = 1 }
+			spec_news_count = { VAR = spec_news_end_aeroplanes S = 1 }
+			set_local_variable = { name = spec_news_i value = 0 }
+			spec_news_place = { VAR = spec_news_end_small_arms S = 1 NAME = snw1_small_arms }
+			spec_news_place = { VAR = spec_news_end_artillery S = 1 NAME = snw1_artillery }
+			spec_news_place = { VAR = spec_news_end_ammunition S = 1 NAME = snw1_ammunition }
+			spec_news_place = { VAR = spec_news_end_tanks S = 1 NAME = snw1_tanks }
+			spec_news_place = { VAR = spec_news_end_aeroplanes S = 1 NAME = snw1_aeroplanes }
+			save_scope_value_as = { name = snwn1_defence value = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_s add = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_t1 add = local_var:spec_news_n }
+			save_scope_value_as = { name = snwa_defence value = local_var:spec_news_s }
+			set_local_variable = { name = spec_news_s value = 0 }
+			set_local_variable = { name = spec_news_n value = 0 }
+			spec_news_count = { VAR = spec_news_hot_telephones S = 1 }
+			spec_news_count = { VAR = spec_news_hot_radios S = 1 }
+			set_local_variable = { name = spec_news_i value = 0 }
+			spec_news_place = { VAR = spec_news_hot_telephones S = 1 NAME = snwh_telephones }
+			spec_news_place = { VAR = spec_news_hot_radios S = 1 NAME = snwh_radios }
+			save_scope_value_as = { name = snwnh_communications value = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_s add = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_th add = local_var:spec_news_n }
+			set_local_variable = { name = spec_news_n value = 0 }
+			spec_news_count = { VAR = spec_news_end_telephones S = 3 }
+			spec_news_count = { VAR = spec_news_end_radios S = 3 }
+			set_local_variable = { name = spec_news_i value = 0 }
+			spec_news_place = { VAR = spec_news_end_telephones S = 3 NAME = snw3_telephones }
+			spec_news_place = { VAR = spec_news_end_radios S = 3 NAME = snw3_radios }
+			save_scope_value_as = { name = snwn3_communications value = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_s add = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_t3 add = local_var:spec_news_n }
+			set_local_variable = { name = spec_news_n value = 0 }
+			spec_news_count = { VAR = spec_news_end_telephones S = 2 }
+			spec_news_count = { VAR = spec_news_end_radios S = 2 }
+			set_local_variable = { name = spec_news_i value = 0 }
+			spec_news_place = { VAR = spec_news_end_telephones S = 2 NAME = snw2_telephones }
+			spec_news_place = { VAR = spec_news_end_radios S = 2 NAME = snw2_radios }
+			save_scope_value_as = { name = snwn2_communications value = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_s add = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_t2 add = local_var:spec_news_n }
+			set_local_variable = { name = spec_news_n value = 0 }
+			spec_news_count = { VAR = spec_news_end_telephones S = 1 }
+			spec_news_count = { VAR = spec_news_end_radios S = 1 }
+			set_local_variable = { name = spec_news_i value = 0 }
+			spec_news_place = { VAR = spec_news_end_telephones S = 1 NAME = snw1_telephones }
+			spec_news_place = { VAR = spec_news_end_radios S = 1 NAME = snw1_radios }
+			save_scope_value_as = { name = snwn1_communications value = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_s add = local_var:spec_news_n }
+			change_local_variable = { name = spec_news_t1 add = local_var:spec_news_n }
+			save_scope_value_as = { name = snwa_communications value = local_var:spec_news_s }
+			set_local_variable = { name = spec_news_tm value = 0 }
+			if = { limit = { has_variable = spec_news_ig_more } set_local_variable = { name = spec_news_tm value = var:spec_news_ig_more } }
+			set_local_variable = { name = spec_news_ti value = local_var:spec_news_tm }
+			if = {
+				limit = { has_variable = spec_news_igk1 exists = var:spec_news_ig1 exists = var:spec_news_igg1 }
+				var:spec_news_ig1 = { save_scope_as = spec_news_ig1 }
+				var:spec_news_igg1 = { save_scope_as = spec_news_igg1 }
+				save_scope_value_as = { name = snwk1 value = var:spec_news_igk1 }
+				change_local_variable = { name = spec_news_ti add = 1 }
+			}
+			else = {
+				random_interest_group = { save_scope_as = spec_news_ig1 }
+				g:aeroplanes = { save_scope_as = spec_news_igg1 }
+				save_scope_value_as = { name = snwk1 value = 0 }
+			}
+			if = {
+				limit = { has_variable = spec_news_igk2 exists = var:spec_news_ig2 exists = var:spec_news_igg2 }
+				var:spec_news_ig2 = { save_scope_as = spec_news_ig2 }
+				var:spec_news_igg2 = { save_scope_as = spec_news_igg2 }
+				save_scope_value_as = { name = snwk2 value = var:spec_news_igk2 }
+				change_local_variable = { name = spec_news_ti add = 1 }
+			}
+			else = {
+				random_interest_group = { save_scope_as = spec_news_ig2 }
+				g:aeroplanes = { save_scope_as = spec_news_igg2 }
+				save_scope_value_as = { name = snwk2 value = 0 }
+			}
+			if = {
+				limit = { has_variable = spec_news_igk3 exists = var:spec_news_ig3 exists = var:spec_news_igg3 }
+				var:spec_news_ig3 = { save_scope_as = spec_news_ig3 }
+				var:spec_news_igg3 = { save_scope_as = spec_news_igg3 }
+				save_scope_value_as = { name = snwk3 value = var:spec_news_igk3 }
+				change_local_variable = { name = spec_news_ti add = 1 }
+			}
+			else = {
+				random_interest_group = { save_scope_as = spec_news_ig3 }
+				g:aeroplanes = { save_scope_as = spec_news_igg3 }
+				save_scope_value_as = { name = snwk3 value = 0 }
+			}
+			if = {
+				limit = { has_variable = spec_news_igk4 exists = var:spec_news_ig4 exists = var:spec_news_igg4 }
+				var:spec_news_ig4 = { save_scope_as = spec_news_ig4 }
+				var:spec_news_igg4 = { save_scope_as = spec_news_igg4 }
+				save_scope_value_as = { name = snwk4 value = var:spec_news_igk4 }
+				change_local_variable = { name = spec_news_ti add = 1 }
+			}
+			else = {
+				random_interest_group = { save_scope_as = spec_news_ig4 }
+				g:aeroplanes = { save_scope_as = spec_news_igg4 }
+				save_scope_value_as = { name = snwk4 value = 0 }
+			}
+			if = {
+				limit = { has_variable = spec_news_igk5 exists = var:spec_news_ig5 exists = var:spec_news_igg5 }
+				var:spec_news_ig5 = { save_scope_as = spec_news_ig5 }
+				var:spec_news_igg5 = { save_scope_as = spec_news_igg5 }
+				save_scope_value_as = { name = snwk5 value = var:spec_news_igk5 }
+				change_local_variable = { name = spec_news_ti add = 1 }
+			}
+			else = {
+				random_interest_group = { save_scope_as = spec_news_ig5 }
+				g:aeroplanes = { save_scope_as = spec_news_igg5 }
+				save_scope_value_as = { name = snwk5 value = 0 }
+			}
+			if = {
+				limit = { has_variable = spec_news_igk6 exists = var:spec_news_ig6 exists = var:spec_news_igg6 }
+				var:spec_news_ig6 = { save_scope_as = spec_news_ig6 }
+				var:spec_news_igg6 = { save_scope_as = spec_news_igg6 }
+				save_scope_value_as = { name = snwk6 value = var:spec_news_igk6 }
+				change_local_variable = { name = spec_news_ti add = 1 }
+			}
+			else = {
+				random_interest_group = { save_scope_as = spec_news_ig6 }
+				g:aeroplanes = { save_scope_as = spec_news_igg6 }
+				save_scope_value_as = { name = snwk6 value = 0 }
+			}
+			set_local_variable = { name = spec_news_qa value = local_var:spec_news_qh }
+			change_local_variable = { name = spec_news_qa add = local_var:spec_news_q1 }
+			change_local_variable = { name = spec_news_qa add = local_var:spec_news_q2 }
+			change_local_variable = { name = spec_news_qa add = local_var:spec_news_q3 }
+			save_scope_value_as = { name = snwq value = local_var:spec_news_qa }
+			set_local_variable = { name = spec_news_n value = 0 }
+			if = { limit = { local_var:spec_news_t3 > 0 } change_local_variable = { name = spec_news_n add = 1 } }
+			if = { limit = { local_var:spec_news_t2 > 0 } change_local_variable = { name = spec_news_n add = 1 } }
+			if = { limit = { local_var:spec_news_th > 0 } change_local_variable = { name = spec_news_n add = 1 } }
+			if = { limit = { local_var:spec_news_t1 > 0 } change_local_variable = { name = spec_news_n add = 1 } }
+			set_local_variable = { name = spec_news_i value = 0 }
+			save_scope_value_as = { name = snws3n value = local_var:spec_news_t3 }
+			if = {
+				limit = { local_var:spec_news_t3 > 0 }
+				change_local_variable = { name = spec_news_i add = 1 }
+				set_local_variable = { name = spec_news_w value = local_var:spec_news_t3 }
+				if = {
+					limit = { local_var:spec_news_i = 1 }
+					save_scope_value_as = { name = snws3p value = 1 }
+					change_local_variable = { name = spec_news_w add = 100 }
+				}
+				else_if = {
+					limit = { local_var:spec_news_i = local_var:spec_news_n }
+					save_scope_value_as = { name = snws3p value = 3 }
+				}
+				else = { save_scope_value_as = { name = snws3p value = 2 } }
+				save_scope_value_as = { name = snws3w value = local_var:spec_news_w }
+			}
+			else = {
+				save_scope_value_as = { name = snws3p value = 0 }
+				save_scope_value_as = { name = snws3w value = 0 }
+			}
+			save_scope_value_as = { name = snws2n value = local_var:spec_news_t2 }
+			if = {
+				limit = { local_var:spec_news_t2 > 0 }
+				change_local_variable = { name = spec_news_i add = 1 }
+				set_local_variable = { name = spec_news_w value = local_var:spec_news_t2 }
+				if = {
+					limit = { local_var:spec_news_i = 1 }
+					save_scope_value_as = { name = snws2p value = 1 }
+					change_local_variable = { name = spec_news_w add = 100 }
+				}
+				else_if = {
+					limit = { local_var:spec_news_i = local_var:spec_news_n }
+					save_scope_value_as = { name = snws2p value = 3 }
+				}
+				else = { save_scope_value_as = { name = snws2p value = 2 } }
+				save_scope_value_as = { name = snws2w value = local_var:spec_news_w }
+			}
+			else = {
+				save_scope_value_as = { name = snws2p value = 0 }
+				save_scope_value_as = { name = snws2w value = 0 }
+			}
+			save_scope_value_as = { name = snwshn value = local_var:spec_news_th }
+			if = {
+				limit = { local_var:spec_news_th > 0 }
+				change_local_variable = { name = spec_news_i add = 1 }
+				set_local_variable = { name = spec_news_w value = local_var:spec_news_th }
+				if = {
+					limit = { local_var:spec_news_i = 1 }
+					save_scope_value_as = { name = snwshp value = 1 }
+					change_local_variable = { name = spec_news_w add = 100 }
+				}
+				else_if = {
+					limit = { local_var:spec_news_i = local_var:spec_news_n }
+					save_scope_value_as = { name = snwshp value = 3 }
+				}
+				else = { save_scope_value_as = { name = snwshp value = 2 } }
+				save_scope_value_as = { name = snwshw value = local_var:spec_news_w }
+			}
+			else = {
+				save_scope_value_as = { name = snwshp value = 0 }
+				save_scope_value_as = { name = snwshw value = 0 }
+			}
+			save_scope_value_as = { name = snws1n value = local_var:spec_news_t1 }
+			if = {
+				limit = { local_var:spec_news_t1 > 0 }
+				change_local_variable = { name = spec_news_i add = 1 }
+				set_local_variable = { name = spec_news_w value = local_var:spec_news_t1 }
+				if = {
+					limit = { local_var:spec_news_i = 1 }
+					save_scope_value_as = { name = snws1p value = 1 }
+					change_local_variable = { name = spec_news_w add = 100 }
+				}
+				else_if = {
+					limit = { local_var:spec_news_i = local_var:spec_news_n }
+					save_scope_value_as = { name = snws1p value = 3 }
+				}
+				else = { save_scope_value_as = { name = snws1p value = 2 } }
+				save_scope_value_as = { name = snws1w value = local_var:spec_news_w }
+			}
+			else = {
+				save_scope_value_as = { name = snws1p value = 0 }
+				save_scope_value_as = { name = snws1w value = 0 }
+			}
+			save_scope_value_as = { name = snws value = local_var:spec_news_n }
+			set_local_variable = { name = spec_news_n value = 0 }
+			if = { limit = { local_var:spec_news_ti > 0 } change_local_variable = { name = spec_news_n add = 1 } }
+			set_local_variable = { name = spec_news_i value = 0 }
+			save_scope_value_as = { name = snwin value = local_var:spec_news_ti }
+			if = {
+				limit = { local_var:spec_news_ti > 0 }
+				change_local_variable = { name = spec_news_i add = 1 }
+				set_local_variable = { name = spec_news_w value = local_var:spec_news_ti }
+				if = {
+					limit = { local_var:spec_news_i = 1 }
+					save_scope_value_as = { name = snwip value = 1 }
+					change_local_variable = { name = spec_news_w add = 100 }
+				}
+				else_if = {
+					limit = { local_var:spec_news_i = local_var:spec_news_n }
+					save_scope_value_as = { name = snwip value = 3 }
+				}
+				else = { save_scope_value_as = { name = snwip value = 2 } }
+				save_scope_value_as = { name = snwiw value = local_var:spec_news_w }
+			}
+			else = {
+				save_scope_value_as = { name = snwip value = 0 }
+				save_scope_value_as = { name = snwiw value = 0 }
+			}
+			save_scope_value_as = { name = snwi value = local_var:spec_news_n }
+			set_local_variable = { name = spec_news_n value = 0 }
+			if = { limit = { local_var:spec_news_tm > 0 } change_local_variable = { name = spec_news_n add = 1 } }
+			set_local_variable = { name = spec_news_i value = 0 }
+			save_scope_value_as = { name = snwmn value = local_var:spec_news_tm }
+			if = {
+				limit = { local_var:spec_news_tm > 0 }
+				change_local_variable = { name = spec_news_i add = 1 }
+				set_local_variable = { name = spec_news_w value = local_var:spec_news_tm }
+				if = {
+					limit = { local_var:spec_news_i = 1 }
+					save_scope_value_as = { name = snwmp value = 1 }
+					change_local_variable = { name = spec_news_w add = 100 }
+				}
+				else_if = {
+					limit = { local_var:spec_news_i = local_var:spec_news_n }
+					save_scope_value_as = { name = snwmp value = 3 }
+				}
+				else = { save_scope_value_as = { name = snwmp value = 2 } }
+				save_scope_value_as = { name = snwmw value = local_var:spec_news_w }
+			}
+			else = {
+				save_scope_value_as = { name = snwmp value = 0 }
+				save_scope_value_as = { name = snwmw value = 0 }
+			}
+			save_scope_value_as = { name = snwm value = local_var:spec_news_n }
+            post_notification = spec_market_bulletin
+            spec_clear_market_news = yes
+        }
+    }
+}

@@ -4,7 +4,7 @@ spec_lever_free = {
 		text = spec_lever_wait_tt
 		OR = {
 			NOT = { has_variable = spec_lever_wait_$G$ }
-			has_variable = spec_lever_grace_$G$
+			AND = { has_variable = spec_lever_grace_$G$ has_variable = spec_$KIND$_$G$ }
 		}
 	}
 	trigger_if = {

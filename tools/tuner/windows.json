@@ -1,0 +1,542 @@
+{
+ "build": "1.2.0",
+ "made": "2026-11-22",
+ "source": "Game values: one headless AI-only 1.2.0 game (DLC on) from the 1836 bookmark, logged to December 1905 (runs/windows_120/campaign), cut into the windows.",
+ "eras": [
+  "1836-1846",
+  "1866-1876",
+  "1896-1906",
+  "1836-1906"
+ ],
+ "metrics": [
+  {
+   "key": "panics_per_decade",
+   "label": "Panics per country per decade",
+   "unit": "",
+   "game": [
+    0.129,
+    0.738,
+    0.932,
+    0.542
+   ],
+   "tuner": [
+    0.059,
+    0.373,
+    0.683,
+    0.35
+   ],
+   "game_n": [
+    39,
+    33,
+    40,
+    22
+   ],
+   "game_se": [
+    0.055,
+    0.154,
+    0.159,
+    0.091
+   ]
+  },
+  {
+   "key": "mania_pct",
+   "label": "Months in Mania",
+   "unit": "%",
+   "game": [
+    0.0,
+    0.841,
+    3.249,
+    0.973
+   ],
+   "tuner": [
+    0.012,
+    1.27,
+    2.793,
+    1.098
+   ],
+   "game_n": [
+    39,
+    33,
+    40,
+    22
+   ],
+   "game_se": [
+    null,
+    0.397,
+    1.336,
+    0.341
+   ]
+  },
+  {
+   "key": "low_pct",
+   "label": "Months Wary or in Panic",
+   "unit": "%",
+   "game": [
+    1.074,
+    8.318,
+    11.651,
+    6.105
+   ],
+   "tuner": [
+    0.761,
+    7.495,
+    9.539,
+    5.745
+   ],
+   "game_n": [
+    39,
+    33,
+    40,
+    22
+   ],
+   "game_se": [
+    0.305,
+    1.592,
+    1.862,
+    0.873
+   ]
+  },
+  {
+   "key": "lev_mean",
+   "label": "Leverage, mean months",
+   "unit": "",
+   "game": [
+    2.543,
+    3.342,
+    3.667,
+    3.481
+   ],
+   "tuner": [
+    2.787,
+    3.298,
+    3.844,
+    3.4
+   ],
+   "game_n": [
+    39,
+    33,
+    40,
+    22
+   ],
+   "game_se": [
+    0.144,
+    0.163,
+    0.23,
+    0.193
+   ]
+  },
+  {
+   "key": "frozen_months_pct",
+   "label": "Months with lending frozen",
+   "unit": "%",
+   "game": [
+    0.0,
+    2.021,
+    2.928,
+    1.061
+   ],
+   "tuner": [
+    0.068,
+    0.268,
+    1.578,
+    0.541
+   ],
+   "game_n": [
+    39,
+    33,
+    40,
+    22
+   ],
+   "game_se": [
+    null,
+    0.936,
+    1.247,
+    0.37
+   ]
+  },
+  {
+   "key": "panic_months_pct",
+   "label": "Months in panic",
+   "unit": "%",
+   "game": [
+    0.279,
+    1.687,
+    2.015,
+    1.224
+   ],
+   "tuner": [
+    0.147,
+    0.789,
+    1.708,
+    0.783
+   ],
+   "game_n": [
+    39,
+    33,
+    40,
+    22
+   ],
+   "game_se": [
+    0.121,
+    0.39,
+    0.466,
+    0.243
+   ]
+  },
+  {
+   "key": "crunch_months_pct",
+   "label": "Months with Bad Debts",
+   "unit": "%",
+   "game": [
+    0.62,
+    8.492,
+    12.759,
+    6.968
+   ],
+   "tuner": [
+    0.658,
+    3.328,
+    8.899,
+    3.841
+   ],
+   "game_n": [
+    39,
+    33,
+    40,
+    22
+   ],
+   "game_se": [
+    0.464,
+    2.206,
+    2.7,
+    1.393
+   ]
+  },
+  {
+   "key": "conf_mean",
+   "label": "Confidence, mean",
+   "unit": "",
+   "game": [
+    56.331,
+    55.397,
+    54.954,
+    55.63
+   ],
+   "tuner": [
+    55.55,
+    55.177,
+    56.323,
+    55.819
+   ],
+   "game_n": [
+    39,
+    33,
+    40,
+    22
+   ],
+   "game_se": [
+    0.44,
+    0.862,
+    1.185,
+    0.729
+   ]
+  }
+ ],
+ "notes": [
+  "Game values: one headless AI-only 1.2.0 game (DLC on) from the 1836 bookmark, logged to December 1905 (runs/windows_120/campaign), cut into the windows.",
+  "The game values cover the 40 largest economies in each window's first month. game_se is the spread across those countries over the square root of their count. Countries in one game share a world, so it understates run-to-run noise.",
+  "The tuner values come from 1000 economies of the AI preset (engine.defaults(), bot ai, seed 1), run from 1836 and cut into the same months.",
+  "A panic already running in a window's first month does not count as one of that window's panics, on both sides.",
+  "Lending counts as frozen in a month when Bad Debts are at or above the stop line (spec_crunch_lend at 0), read from the logged crunch and lax."
+ ],
+ "drivers": {
+  "1836-1846": {
+   "game": {
+    "trust_low_pct": 0.924,
+    "lax_mean": 0.531,
+    "boom_mean": 2.164,
+    "lend_per_pool_month": 0.087,
+    "lend_months": 876,
+    "lures_per_country_decade": 1.909,
+    "lure_size_pool_months": 4.507,
+    "econ_pct": {
+     "traditionalism": 39.789,
+     "agrarianism": 10.576,
+     "interventionism": 43.207,
+     "laissez_faire": 1.268,
+     "extraction_economy": 5.159
+    },
+    "money_pct": {
+     "bimetallism": 95.572,
+     "gold_standard": 4.428
+    },
+    "tech_pct": {
+     "banking": 58.964,
+     "currency_standards": 87.167,
+     "international_trade": 100.0,
+     "stock_exchange": 59.071,
+     "joint_stock_companies": 16.681,
+     "central_banking": 20.744,
+     "investment_banks": 0.0,
+     "international_exchange_standards": 0.0,
+     "mutual_funds": 0.0,
+     "modern_financial_instruments": 0.0,
+     "macroeconomics": 0.0
+    },
+    "boom_raw_mean": 8.445,
+    "raids_per_country_decade": 0.361,
+    "raid_size_conf": 4.0,
+    "raid_ok_pct": 78.571
+   },
+   "tuner": {
+    "trust_low_pct": 0.547,
+    "lax_mean": 0.573,
+    "boom_mean": 1.828,
+    "lend_per_pool_month": 0.101,
+    "lend_months": 11444,
+    "lures_per_country_decade": 1.487,
+    "lure_size_pool_months": 4.5,
+    "econ_pct": {
+     "traditionalism": 37.723,
+     "agrarianism": 10.762,
+     "interventionism": 43.837,
+     "laissez_faire": 1.377,
+     "extraction_economy": 6.3
+    },
+    "money_pct": {
+     "bimetallism": 96.494,
+     "gold_standard": 3.506
+    },
+    "tech_pct": {
+     "banking": 60.332,
+     "currency_standards": 86.751,
+     "international_trade": 100.0,
+     "stock_exchange": 59.755,
+     "joint_stock_companies": 17.035,
+     "central_banking": 20.082,
+     "investment_banks": 0.0,
+     "international_exchange_standards": 0.0,
+     "mutual_funds": 0.0,
+     "modern_financial_instruments": 0.0,
+     "macroeconomics": 0.0
+    }
+   }
+  },
+  "1866-1876": {
+   "game": {
+    "trust_low_pct": 45.356,
+    "lax_mean": 0.62,
+    "boom_mean": 2.265,
+    "lend_per_pool_month": 0.105,
+    "lend_months": 824,
+    "lures_per_country_decade": 1.409,
+    "lure_size_pool_months": 4.514,
+    "econ_pct": {
+     "traditionalism": 26.219,
+     "agrarianism": 25.53,
+     "interventionism": 35.844,
+     "laissez_faire": 9.344,
+     "extraction_economy": 3.064
+    },
+    "money_pct": {
+     "bimetallism": 91.499,
+     "gold_standard": 8.501
+    },
+    "tech_pct": {
+     "banking": 100.0,
+     "currency_standards": 100.0,
+     "international_trade": 100.0,
+     "stock_exchange": 100.0,
+     "joint_stock_companies": 83.712,
+     "central_banking": 72.275,
+     "investment_banks": 0.383,
+     "international_exchange_standards": 0.0,
+     "mutual_funds": 2.834,
+     "modern_financial_instruments": 0.0,
+     "macroeconomics": 0.0
+    },
+    "boom_raw_mean": 9.738,
+    "raids_per_country_decade": 0.153,
+    "raid_size_conf": 4.0,
+    "raid_ok_pct": 80.0
+   },
+   "tuner": {
+    "trust_low_pct": 32.893,
+    "lax_mean": 0.641,
+    "boom_mean": 2.009,
+    "lend_per_pool_month": 0.116,
+    "lend_months": 21252,
+    "lures_per_country_decade": 0.575,
+    "lure_size_pool_months": 4.5,
+    "econ_pct": {
+     "traditionalism": 24.923,
+     "agrarianism": 22.925,
+     "interventionism": 38.752,
+     "laissez_faire": 8.0,
+     "extraction_economy": 5.4
+    },
+    "money_pct": {
+     "bimetallism": 92.86,
+     "gold_standard": 7.14
+    },
+    "tech_pct": {
+     "banking": 100.0,
+     "currency_standards": 100.0,
+     "international_trade": 100.0,
+     "stock_exchange": 100.0,
+     "joint_stock_companies": 84.594,
+     "central_banking": 74.308,
+     "investment_banks": 0.32,
+     "international_exchange_standards": 0.0,
+     "mutual_funds": 2.438,
+     "modern_financial_instruments": 0.0,
+     "macroeconomics": 0.0
+    }
+   }
+  },
+  "1896-1906": {
+   "game": {
+    "trust_low_pct": 56.524,
+    "lax_mean": 0.671,
+    "boom_mean": 1.938,
+    "lend_per_pool_month": 0.176,
+    "lend_months": 915,
+    "lures_per_country_decade": 1.207,
+    "lure_size_pool_months": 4.67,
+    "econ_pct": {
+     "traditionalism": 22.56,
+     "agrarianism": 22.602,
+     "interventionism": 37.432,
+     "laissez_faire": 14.893,
+     "extraction_economy": 2.514
+    },
+    "money_pct": {
+     "bimetallism": 84.918,
+     "gold_standard": 15.082
+    },
+    "tech_pct": {
+     "banking": 100.0,
+     "currency_standards": 100.0,
+     "international_trade": 100.0,
+     "stock_exchange": 100.0,
+     "joint_stock_companies": 100.0,
+     "central_banking": 98.324,
+     "investment_banks": 42.711,
+     "international_exchange_standards": 11.563,
+     "mutual_funds": 52.367,
+     "modern_financial_instruments": 0.0,
+     "macroeconomics": 0.0
+    },
+    "boom_raw_mean": 5.132,
+    "raids_per_country_decade": 0.075,
+    "raid_size_conf": 4.0,
+    "raid_ok_pct": 66.667
+   },
+   "tuner": {
+    "trust_low_pct": 42.912,
+    "lax_mean": 0.634,
+    "boom_mean": 2.26,
+    "lend_per_pool_month": 0.181,
+    "lend_months": 25977,
+    "lures_per_country_decade": 0.603,
+    "lure_size_pool_months": 4.5,
+    "econ_pct": {
+     "traditionalism": 20.7,
+     "agrarianism": 20.087,
+     "interventionism": 41.1,
+     "laissez_faire": 16.113,
+     "extraction_economy": 2.0
+    },
+    "money_pct": {
+     "bimetallism": 82.672,
+     "gold_standard": 17.328
+    },
+    "tech_pct": {
+     "banking": 100.0,
+     "currency_standards": 100.0,
+     "international_trade": 100.0,
+     "stock_exchange": 100.0,
+     "joint_stock_companies": 100.0,
+     "central_banking": 97.693,
+     "investment_banks": 43.738,
+     "international_exchange_standards": 12.668,
+     "mutual_funds": 52.186,
+     "modern_financial_instruments": 0.002,
+     "macroeconomics": 0.0
+    }
+   }
+  },
+  "1836-1906": {
+   "game": {
+    "trust_low_pct": 23.266,
+    "lax_mean": 0.558,
+    "boom_mean": 2.199,
+    "lend_per_pool_month": 0.121,
+    "lend_months": 3599,
+    "lures_per_country_decade": 1.097,
+    "lure_size_pool_months": 4.515,
+    "econ_pct": {
+     "traditionalism": 21.437,
+     "agrarianism": 24.919,
+     "interventionism": 38.323,
+     "laissez_faire": 10.694,
+     "extraction_economy": 4.628
+    },
+    "money_pct": {
+     "bimetallism": 86.458,
+     "gold_standard": 13.542
+    },
+    "tech_pct": {
+     "banking": 92.584,
+     "currency_standards": 98.507,
+     "international_trade": 100.0,
+     "stock_exchange": 93.598,
+     "joint_stock_companies": 76.398,
+     "central_banking": 69.445,
+     "investment_banks": 14.159,
+     "international_exchange_standards": 2.573,
+     "mutual_funds": 18.776,
+     "modern_financial_instruments": 0.0,
+     "macroeconomics": 0.0
+    },
+    "boom_raw_mean": 7.21,
+    "raids_per_country_decade": 0.06,
+    "raid_size_conf": 4.0,
+    "raid_ok_pct": 66.667
+   },
+   "tuner": {
+    "trust_low_pct": 27.121,
+    "lax_mean": 0.631,
+    "boom_mean": 2.017,
+    "lend_per_pool_month": 0.136,
+    "lend_months": 149551,
+    "lures_per_country_decade": 0.674,
+    "lure_size_pool_months": 4.5,
+    "econ_pct": {
+     "traditionalism": 27.536,
+     "agrarianism": 18.599,
+     "interventionism": 40.156,
+     "laissez_faire": 8.41,
+     "extraction_economy": 5.3
+    },
+    "money_pct": {
+     "bimetallism": 91.795,
+     "gold_standard": 8.205
+    },
+    "tech_pct": {
+     "banking": 91.177,
+     "currency_standards": 97.126,
+     "international_trade": 100.0,
+     "stock_exchange": 91.777,
+     "joint_stock_companies": 73.331,
+     "central_banking": 67.897,
+     "investment_banks": 11.366,
+     "international_exchange_standards": 1.917,
+     "mutual_funds": 15.979,
+     "modern_financial_instruments": 0.0,
+     "macroeconomics": 0.0
+    }
+   }
+  }
+ }
+}

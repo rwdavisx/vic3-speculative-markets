@@ -65,5 +65,81 @@ spec_ui_good = {
 			limit = { var:spec_ui_badge_$G$ = 1 }
 			set_variable = { name = spec_ui_state_$G$ value = 1 }
 		}
+		# the bar shows spec_ui_shown, which glide() steps to pos over the month; a collapse shows at once
+		if = {
+			limit = { OR = { NOT = { has_variable = spec_ui_shown_$G$ } var:spec_ui_state_$G$ = 2 } }
+			set_variable = { name = spec_ui_shown_$G$ value = var:spec_ui_pos_$G$ }
+			set_variable = { name = spec_ui_step_$G$ value = 0 }
+		}
+		else = {
+			set_variable = { name = spec_ui_step_$G$ value = { value = var:spec_ui_pos_$G$ subtract = var:spec_ui_shown_$G$ divide = 4 } }
+		}
 	}
+}
+spec_ui_glide = {
+	if = {
+		limit = { has_variable = spec_ui_step_$G$ NOT = { var:spec_ui_step_$G$ = 0 } }
+		change_variable = { name = spec_ui_shown_$G$ add = var:spec_ui_step_$G$ }
+		if = {
+			limit = {
+				OR = {
+					AND = { var:spec_ui_step_$G$ > 0 var:spec_ui_shown_$G$ > var:spec_ui_pos_$G$ }
+					AND = { var:spec_ui_step_$G$ < 0 var:spec_ui_shown_$G$ < var:spec_ui_pos_$G$ }
+				}
+			}
+			set_variable = { name = spec_ui_shown_$G$ value = var:spec_ui_pos_$G$ }
+			set_variable = { name = spec_ui_step_$G$ value = 0 }
+		}
+	}
+}
+spec_ui_glide_all = {
+	spec_ui_glide = { G = aeroplanes }
+	spec_ui_glide = { G = ammunition }
+	spec_ui_glide = { G = artillery }
+	spec_ui_glide = { G = automobiles }
+	spec_ui_glide = { G = clippers }
+	spec_ui_glide = { G = clothes }
+	spec_ui_glide = { G = coal }
+	spec_ui_glide = { G = coffee }
+	spec_ui_glide = { G = copper }
+	spec_ui_glide = { G = dye }
+	spec_ui_glide = { G = electricity }
+	spec_ui_glide = { G = engines }
+	spec_ui_glide = { G = explosives }
+	spec_ui_glide = { G = fabric }
+	spec_ui_glide = { G = fertilizer }
+	spec_ui_glide = { G = fine_art }
+	spec_ui_glide = { G = fish }
+	spec_ui_glide = { G = fruit }
+	spec_ui_glide = { G = furniture }
+	spec_ui_glide = { G = glass }
+	spec_ui_glide = { G = grain }
+	spec_ui_glide = { G = groceries }
+	spec_ui_glide = { G = hardwood }
+	spec_ui_glide = { G = iron }
+	spec_ui_glide = { G = lead }
+	spec_ui_glide = { G = liquor }
+	spec_ui_glide = { G = luxury_clothes }
+	spec_ui_glide = { G = luxury_furniture }
+	spec_ui_glide = { G = meat }
+	spec_ui_glide = { G = merchant_marine }
+	spec_ui_glide = { G = oil }
+	spec_ui_glide = { G = opium }
+	spec_ui_glide = { G = paper }
+	spec_ui_glide = { G = porcelain }
+	spec_ui_glide = { G = radios }
+	spec_ui_glide = { G = rubber }
+	spec_ui_glide = { G = silk }
+	spec_ui_glide = { G = small_arms }
+	spec_ui_glide = { G = steamers }
+	spec_ui_glide = { G = steel }
+	spec_ui_glide = { G = sugar }
+	spec_ui_glide = { G = sulfur }
+	spec_ui_glide = { G = tanks }
+	spec_ui_glide = { G = tea }
+	spec_ui_glide = { G = telephones }
+	spec_ui_glide = { G = tobacco }
+	spec_ui_glide = { G = tools }
+	spec_ui_glide = { G = wine }
+	spec_ui_glide = { G = wood }
 }

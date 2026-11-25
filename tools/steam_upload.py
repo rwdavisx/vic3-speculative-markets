@@ -37,6 +37,7 @@ CHANNELS = {
     "cmf": ("speculative_markets_cmf_compat", "Speculative Markets - CMF Compatibility", "compatibility/cmf/workshop_description.bbcode"),
     "morgenroete": ("speculative_markets_morgenroete", "Speculative Markets - Morgenroete Compatibility", "compatibility/morgenroete/workshop_description.bbcode"),
     "techres": ("speculative_markets_techres", "Speculative Markets - Tech & Res Compatibility", "compatibility/techres/workshop_description.bbcode"),
+    "bpm": ("speculative_markets_bpm_compat", "Speculative Markets - Better Politics Mod Compatibility", "compatibility/bpm/workshop_description.bbcode"),
 }
 U64, U32, I32, PTR = C.c_uint64, C.c_uint32, C.c_int32, C.c_void_p
 
@@ -128,9 +129,10 @@ def inspect_stage(channel):
             "files_sha256": hashes, "source_archive_sha256": item["source_archive_sha256"]}
 
 
-def description(channel):
+def description(channel, version):
     path = ROOT / CHANNELS[channel][2]
-    text = path.read_text(encoding="utf-8").strip()
+    # __VERSION__ becomes the staged version, so the listing always names what it ships
+    text = path.read_text(encoding="utf-8").strip().replace("__VERSION__", version)
     if re.search(r"__[A-Z][A-Z0-9_]*__", text):
         raise ValueError(f"Unresolved publication placeholder in {path}")
     raw = text.encode("utf-8")
@@ -140,7 +142,7 @@ def description(channel):
 
 
 def changelog(plan):
-    folder = {"stable": "workshop", "beta": "beta", "cmf": "compatibility/cmf", "morgenroete": "compatibility/morgenroete", "techres": "compatibility/techres"}[plan['channel']]
+    folder = {"stable": "workshop", "beta": "beta", "cmf": "compatibility/cmf", "morgenroete": "compatibility/morgenroete", "techres": "compatibility/techres", "bpm": "compatibility/bpm"}[plan['channel']]
     path = ROOT / folder / f"changelog_{plan['version']}.bbcode"
     text = path.read_text(encoding="utf-8").strip()
     if not text or "\0" in text or len(text.encode("utf-8")) >= 8000:
@@ -278,7 +280,7 @@ class Steam:
         finally:
             self.ugc_call("ReleaseQueryUGCRequest", handle)
 
-    def submit(self, item, plan, text, visibility, content=True):
+    def submit(self, item, plan, text, visibility, content=True, preview=None):
         handle = self.ugc_call("StartItemUpdate", APP, item)
         if handle in (0, INVALID):
             raise RuntimeError("Invalid UGC update handle")
@@ -287,6 +289,8 @@ class Steam:
         if content:
             values += [("SetItemContent", plan["folder"].encode("utf-8")),
                        ("SetItemPreview", str(Path(plan["folder"]) / "thumbnail.png").encode("utf-8"))]
+        elif preview:  # the listing's picture alone; the published content stays as it is
+            values += [("SetItemPreview", str(preview).encode("utf-8"))]
         for name, value in values:
             if not self.ugc_call(name, handle, value):
                 raise RuntimeError(f"Steam rejected {name}; nothing submitted")
@@ -314,10 +318,17 @@ def main(argv=None):
     parser.add_argument("--execute", action="store_true", help="Explicitly perform a reviewed create/update")
     parser.add_argument("--public", action="store_true", help="Publish update publicly; otherwise keep private")
     parser.add_argument("--description-only", action="store_true", help="Update listing metadata without replacing content or preview")
-    parser.add_argument("--note", type=Path, help="Change note file for a --description-only update")
+    parser.add_argument("--note", type=Path, help="Change note file for a --description-only or --preview update")
+    parser.add_argument("--preview", type=Path, help="Replace only the listing's preview image with this PNG; content is not uploaded")
     args = parser.parse_args(argv)
     if args.description_only and args.command != "update":
         parser.error("--description-only requires update")
+    if args.preview:
+        if args.command != "update" or args.description_only:
+            parser.error("--preview requires update, without --description-only")
+        args.preview = args.preview.resolve()
+        if not (16 <= args.preview.stat().st_size < 1048576):
+            parser.error("Preview must be between 16 bytes and 1 MiB")
     steam = None
     try:
         plan = inspect_stage(args.channel)
@@ -327,8 +338,10 @@ def main(argv=None):
         summary = {k: v for k, v in plan.items() if k != "files_sha256"}
         summary.update(command=args.command, item_id=item, execute=args.execute, visibility=0 if args.public else 2)
         summary["description_only"] = args.description_only
+        if args.preview:
+            summary.update(preview_only=str(args.preview), preview_sha256=sha(args.preview.read_bytes()), preview_size=args.preview.stat().st_size)
         if args.command in ("plan", "update"):
-            body, body_hash = description(args.channel)
+            body, body_hash = description(args.channel, plan["version"])
             summary["description_sha256"] = body_hash
         emit(summary)
         if args.command == "plan" or args.command in ("create", "update") and not args.execute:
@@ -388,10 +401,15 @@ def main(argv=None):
             submit_plan["note"] = args.note.read_text(encoding="utf-8").strip()
         receipt("update_intent", args.channel, {"item_id": item, "before": before, "plan": submit_plan,
                 "description": body, "description_sha256": body_hash, "visibility": 0 if args.public else 2,
-                "description_only": args.description_only})
-        result = steam.submit(item, submit_plan, body, 0 if args.public else 2, content=not args.description_only)
+                "description_only": args.description_only,
+                **({"preview_only": summary["preview_only"], "preview_sha256": summary["preview_sha256"]} if args.preview else {})})
+        result = steam.submit(item, submit_plan, body, 0 if args.public else 2,
+                              content=not (args.description_only or args.preview), preview=args.preview)
         receipt("update_result", args.channel, result)
         after = steam.query(item)
+        if args.preview and after["preview_size"] != summary["preview_size"]:
+            receipt("update_observed_mismatch", args.channel, after)
+            raise RuntimeError("Post-upload preview size does not match the file sent; inspect receipt before retry")
         if after["title"] != plan["title"] or after["description_sha256"] != body_hash or after["visibility"] != (0 if args.public else 2):
             receipt("update_observed_mismatch", args.channel, after)
             raise RuntimeError("Post-upload title/description/visibility do not match; inspect receipt before retry")

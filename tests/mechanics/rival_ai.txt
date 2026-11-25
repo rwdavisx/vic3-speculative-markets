@@ -3,7 +3,7 @@ spec_mechanics_rival_ai.1 = { type = country_event hidden = yes immediate = {
 # The published 1.1 AI reviews contest position and age every quarter.
 # Keep the two competitors equal at first, and make lure the only offensive move available.
 every_country = {
-    clear_variable_list = spec_rv_chosen
+    clear_variable_list = spec_rv_chosen clear_variable_map = spec_rv_pts
     set_variable = { name = spec_rv_ai_wait days = 365 }
 }
 every_country = {

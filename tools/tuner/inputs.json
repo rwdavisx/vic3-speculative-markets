@@ -9,12 +9,202 @@
    1899
   ],
   "made": "2026-11-20 17:15",
-  "player": "ai"
+  "player": "ai",
+  "windows_120": {
+   "countries": 112,
+   "pool_share_p10_p50_pct": [
+    0.275,
+    0.613
+   ],
+   "lures": 157,
+   "eligible_months": 2578,
+   "lure_vs_at_ends_pct": [
+    70.1,
+    19.7
+   ],
+   "log": "runs/windows_120/campaign",
+   "made": "2026-11-22 14:44"
+  },
+  "campaign_boom": {
+   "countries": 40,
+   "made": "2026-11-22 17:09",
+   "aims": {
+    "boom_share mean": [
+     73.4964,
+     56.9667
+    ],
+    "boom_size p50": [
+     3.7094,
+     3.7817
+    ],
+    "boom_size p90": [
+     4.5194,
+     4.5194
+    ],
+    "crash_share mean": [
+     12.6958,
+     13.5773
+    ],
+    "crash_size p50": [
+     1.4474,
+     1.3196
+    ],
+    "crash_size p90": [
+     9.2618,
+     6.04
+    ],
+    "boom_mean p10": [
+     0.7765,
+     0.8876
+    ],
+    "boom_mean p90": [
+     3.4782,
+     2.9947
+    ],
+    "crash_mean p10": [
+     0.0237,
+     0.0693
+    ],
+    "crash_mean p90": [
+     1.2697,
+     0.6838
+    ],
+    "boom_year p50": [
+     26.8056,
+     22.5968
+    ],
+    "boom_year p90": [
+     50.4321,
+     48.8038
+    ],
+    "crash_year p50": [
+     0.8671,
+     1.2665
+    ],
+    "crash_year p90": [
+     17.3443,
+     10.887
+    ],
+    "boom_e0 mean": [
+     2.1644,
+     1.7877
+    ],
+    "crash_e0 mean": [
+     0.3756,
+     0.2077
+    ],
+    "boom_e1 mean": [
+     2.2649,
+     2.0058
+    ],
+    "crash_e1 mean": [
+     0.5286,
+     0.3834
+    ],
+    "boom_e2 mean": [
+     1.9379,
+     2.1937
+    ],
+    "crash_e2 mean": [
+     0.3507,
+     0.3447
+    ],
+    "cap_e0 mean": [
+     0.5492,
+     0.4421
+    ],
+    "zero_e0 mean": [
+     0.2562,
+     0.4121
+    ],
+    "cap_e1 mean": [
+     0.4846,
+     0.4281
+    ],
+    "zero_e1 mean": [
+     0.3174,
+     0.4189
+    ],
+    "cap_e2 mean": [
+     0.299,
+     0.4037
+    ],
+    "zero_e2 mean": [
+     0.2916,
+     0.433
+    ],
+    "end1_e0 mean": [
+     0.7436,
+     0.8803
+    ],
+    "end2_e0 mean": [
+     0.6657,
+     0.3147
+    ],
+    "end1_e1 mean": [
+     1.0265,
+     1.3191
+    ],
+    "end2_e1 mean": [
+     1.0636,
+     0.6867
+    ],
+    "end1_e2 mean": [
+     1.0187,
+     1.4115
+    ],
+    "end2_e2 mean": [
+     0.9143,
+     0.7959
+    ],
+    "wsum_e0 mean": [
+     19.3507,
+     18.3269
+    ],
+    "end3_e0 mean": [
+     0.0154,
+     0.0047
+    ],
+    "wsum_e1 mean": [
+     20.5888,
+     19.9456
+    ],
+    "end3_e1 mean": [
+     0.1021,
+     0.0196
+    ],
+    "wsum_e2 mean": [
+     21.7457,
+     21.3265
+    ],
+    "end3_e2 mean": [
+     0.0801,
+     0.0349
+    ]
+   }
+  },
+  "roughness_20261124": {
+   "log": "runs/windows_120 (campaign, parallel, parallel2, parallel3)",
+   "aim": "AI panics a country-decade 1866-76 0.62-0.77, 1896-1906 0.77-0.96 at 1.2.0 values",
+   "made": "2026-11-24",
+   "see": "PARITY.md, November 24",
+   "was": {
+    "rough_sd": [
+     1.07334,
+     1.07334
+    ],
+    "rough_months": [
+     7.66453,
+     7.66453
+    ],
+    "rough_skew": 0
+   }
+  }
  },
  "inputs": {
   "pool_share": [
-   0.005,
-   0.0105
+   0.00191,
+   0.01035
   ],
   "pool_noise": [
    0.01967,
@@ -37,24 +227,8 @@
    0.27917
   ],
   "goods": [
-   9.67412,
-   24.0
-  ],
-  "good_share": [
-   0.00242,
-   0.03866
-  ],
-  "boom_rate": [
-   0.02186,
-   0.54644
-  ],
-  "boom_months": [
-   10.62169,
-   53.10845
-  ],
-  "boom_peak": [
-   0.50777,
-   14.21762
+   29,
+   29
   ],
   "foreign_rate": [
    0.18633,
@@ -89,12 +263,12 @@
    0.06002
   ],
   "rough_sd": [
-   1.07334,
-   1.07334
+   2.5,
+   2.5
   ],
   "rough_months": [
-   7.66453,
-   7.66453
+   1,
+   1
   ],
   "flight_share": [
    0.95098,
@@ -111,7 +285,28 @@
   "ai_authority": [
    0.30628,
    22.47337
-  ]
+  ],
+  "lure_rate": [
+   0.0609,
+   0.0609
+  ],
+  "lure_vs": [
+   -3.2375,
+   2.45375
+  ],
+  "price_sd": [
+   0.0316,
+   0.0316
+  ],
+  "price_months": [
+   7.55606,
+   7.55606
+  ],
+  "goods_growth": [
+   17,
+   17
+  ],
+  "rough_skew": 1
  },
  "was": {
   "pool_share": [
@@ -210,7 +405,32 @@
   "ai_authority": [
    0.1,
    10
-  ]
+  ],
+  "lure_rate": [
+   0.04,
+   0.04
+  ],
+  "lure_vs": [
+   1,
+   1.33
+  ],
+  "share_trend": [
+   0.0,
+   0.0
+  ],
+  "price_sd": [
+   0.03,
+   0.03
+  ],
+  "price_months": [
+   10,
+   10
+  ],
+  "goods_growth": [
+   17,
+   17
+  ],
+  "rough_skew": 0
  },
  "log": {
   "growth": {

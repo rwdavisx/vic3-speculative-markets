@@ -89,9 +89,99 @@ texticon = {
 	}
 }
 texticon = {
+	icon = spec_sector_food
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/sector_food.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_sector_plantation
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/sector_plantation.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_sector_household
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/sector_household.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_sector_materials
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/sector_materials.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_sector_energy
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/sector_energy.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_sector_industry
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/sector_industry.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_sector_transport
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/sector_transport.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_sector_defence
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/sector_defence.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_sector_communications
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/sector_communications.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
 	icon = spec_blue_chip
 	iconsize = {
 		texture = "gfx/interface/icons/spec_markets/blue_chip.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_market_sector
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/je_markets.dds"
 		size = { 22 22 }
 		offset = { 0 6 }
 		fontsize = 18
@@ -182,6 +272,15 @@ texticon = {
 	icon = spec_speculative_excess
 	iconsize = {
 		texture = "gfx/interface/icons/spec_markets/excess_alert.dds"
+		size = { 22 22 }
+		offset = { 0 6 }
+		fontsize = 18
+	}
+}
+texticon = {
+	icon = spec_investor_sentiment
+	iconsize = {
+		texture = "gfx/interface/icons/spec_markets/so_invest.dds"
 		size = { 22 22 }
 		offset = { 0 6 }
 		fontsize = 18

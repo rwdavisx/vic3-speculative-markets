@@ -1,0 +1,92 @@
+﻿on_game_started = {
+	on_actions = { spec_money_start }
+}
+
+on_monthly_pulse_country = {
+	on_actions = { spec_money_pulse }
+}
+
+on_law_activated = {
+	on_actions = { spec_money_swap }
+}
+
+spec_money_start = {
+	effect = {
+		c:GBR ?= {
+			activate_law = law_type:law_spec_gold_standard
+		}
+		every_country = {
+			if = {
+				limit = {
+					NOR = {
+						has_law = law_type:law_spec_bimetallism
+						has_law = law_type:law_spec_gold_standard
+						has_law = law_type:law_spec_fiat_money
+						has_law = law_type:law_spec_classical_gold
+						has_law = law_type:law_spec_elastic_currency
+					}
+				}
+				if = {
+					limit = { c:GBR ?= this }
+					activate_law = law_type:law_spec_gold_standard
+				}
+				else = {
+					activate_law = law_type:law_spec_bimetallism
+				}
+			}
+		}
+	}
+}
+
+spec_money_pulse = {
+	effect = {
+		if = {
+			limit = {
+				NOR = {
+					has_law = law_type:law_spec_bimetallism
+					has_law = law_type:law_spec_gold_standard
+					has_law = law_type:law_spec_fiat_money
+					has_law = law_type:law_spec_classical_gold
+					has_law = law_type:law_spec_elastic_currency
+				}
+			}
+			if = {
+				limit = { c:GBR ?= this }
+				activate_law = law_type:law_spec_gold_standard
+			}
+			else = {
+				activate_law = law_type:law_spec_bimetallism
+			}
+		}
+	}
+}
+
+spec_money_swap = {
+	effect = {
+		owner = {
+			if = {
+				limit = { has_law = law_type:law_spec_gold_standard has_law_or_variant = law_type:law_laissez_faire }
+				activate_law = law_type:law_spec_classical_gold
+			}
+			else_if = {
+				limit = { has_law = law_type:law_spec_classical_gold NOT = { has_law_or_variant = law_type:law_laissez_faire } }
+				activate_law = law_type:law_spec_gold_standard
+			}
+			if = {
+				limit = { has_law = law_type:law_spec_fiat_money has_law_or_variant = law_type:law_interventionism }
+				activate_law = law_type:law_spec_elastic_currency
+			}
+			else_if = {
+				limit = { has_law = law_type:law_spec_elastic_currency NOT = { has_law_or_variant = law_type:law_interventionism } }
+				activate_law = law_type:law_spec_fiat_money
+			}
+			if = {
+				limit = {
+					OR = { has_law = law_type:law_spec_gold_standard has_law = law_type:law_spec_classical_gold }
+					has_law_or_variant = law_type:law_command_economy
+				}
+				activate_law = law_type:law_spec_fiat_money
+			}
+		}
+	}
+}

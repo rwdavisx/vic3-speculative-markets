@@ -5,7 +5,14 @@ QUALIFY = 6
 MATURE = 9
 PREMIUM = 0.10
 SHARE = 0.01
-BONUS = 0.12
+BONUS = 0.10  # the base Investor Interest effect of a term (was a flat 0.12); the factors below scale it
+# the effect's factors (2026-11-21), each a line in the good's tooltip, none capped:
+GAP_FULL = 0.20      # price this far past base price gives the base effect; 10% half, 40% double
+FADE_FROM = 6        # full strength until this many months are left, then it tapers to the term's end
+EFFECT_TILT = 0.25   # Market Confidence: at 100 a Favored effect is x1.25 and a Shunned one x0.75, at 0 the reverse
+SHARE_REF = 0.02     # a good with this share of market supply by value gets x1; each further 2% adds SHARE_WEIGHT
+SHARE_WEIGHT = 0.25
+TP_SHARE = 0.5       # the good's producers get this share of the effect as throughput
 PASS_WEIGHT = 4
 # ponytail: no cap on terms; each running term, Favored or Shunned, adds this many no-pick tickets to both draws
 PASS_PER_TERM = 4
@@ -88,11 +95,43 @@ def effects(goods):
     return "\n".join(side_blocks) + clock + "\n".join(pulse + ["}", ""])
 
 
-def factor(good):
-    return f"""spec_sentiment_factor_{good} = {{
-    value = 1
-    if = {{ limit = {{ has_variable = spec_term_{good} spec_mv_{good} > 0 }}
-        if = {{ limit = {{ var:spec_term_{good} > 0 }} value = {1 + BONUS:g} }}
-        else = {{ value = {1 - BONUS:g} }}
-    }}
-}}"""
+FACTORS = ("gap", "fade", "conf", "share")
+
+
+def values(good):
+    """The term's effect on a good: side (+1 Favored, -1 Shunned, 0 none) x BONUS x the four factors, and its throughput."""
+    g, term = good, f"var:spec_term_{good}"
+    on = f"has_variable = spec_term_{g} spec_mv_{g} > 0"
+    return [
+        f"spec_term_side_{g} = {{ value = 0 if = {{ limit = {{ {on} {term} > 0 }} value = 1 }} else_if = {{ limit = {{ {on} {term} < 0 }} value = -1 }} }}",
+        # how far the price has run its way, past base price; a price back on the wrong side gives nothing
+        f"spec_term_gap_{g} = {{ value = spec_dev_{g} multiply = spec_term_side_{g} divide = {GAP_FULL} min = 0 }}",
+        f"spec_term_fade_{g} = {{ value = 0 if = {{ limit = {{ has_variable = spec_term_{g} }} value = {term} multiply = spec_term_side_{g} divide = {FADE_FROM} max = 1 }} }}",
+        f"spec_term_conf_{g} = {{ value = 1 if = {{ limit = {{ has_variable = spec_conf }} value = var:spec_conf subtract = 50 divide = 50 "
+        f"multiply = {EFFECT_TILT} multiply = spec_term_side_{g} add = 1 }} }}",
+        f"spec_term_supply_{g} = {{ value = 0 if = {{ limit = {{ var:spec_mv_total > 0 }} value = spec_mv_{g} divide = var:spec_mv_total }} }}",
+        f"spec_term_share_{g} = {{ value = spec_term_supply_{g} "
+        f"divide = {SHARE_REF} subtract = 1 multiply = {SHARE_WEIGHT} add = 1 }}",
+        f"spec_term_effect_{g} = {{ value = spec_term_side_{g} multiply = {BONUS} "
+        + " ".join(f"multiply = spec_term_{f}_{g}" for f in FACTORS) + " }",
+        f"spec_term_tp_{g} = {{ value = spec_term_effect_{g} multiply = {TP_SHARE} }}",
+        # Investor Interest is multiplied by 1 + the effect; a huge Shunned effect empties it, no lower
+        f"spec_sentiment_factor_{g} = {{ value = spec_term_effect_{g} add = 1 min = 0 }}",
+    ]
+
+
+def effect_np(np, side, months, dev, conf, share):
+    """The same effect for the tuner (tools/tuner/engine.py): arrays of side, signed months, price premium,
+    confidence (per country, broadcast) and share of supply."""
+    gap = np.maximum(dev * side / GAP_FULL, 0)
+    fade = np.minimum(np.abs(months) / FADE_FROM, 1)
+    tilt = 1 + (conf - 50) / 50 * EFFECT_TILT * side
+    weight = 1 + (share / SHARE_REF - 1) * SHARE_WEIGHT
+    return side * BONUS * gap * fade * tilt * weight
+
+
+def modifiers(made, icon_up, icon_down):
+    """Older saves' country modifiers, now empty: the term's throughput (spec_term_tp_<g>) is in the good's building
+    modifier (companies.bp_script, 2026-11-24)."""
+    return "".join(f"spec_term_{k}_{g} = {{\n\ticon = {icon}\n}}\n\n"
+                   for g in sorted(made) for k, icon in (("up", icon_up), ("down", icon_down)))

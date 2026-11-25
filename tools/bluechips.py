@@ -16,9 +16,9 @@ and counts the country's blue chips (var:spec_bc_n). This file adds:
 """
 import tuning
 
-CAP = tuning.get("BC_CAP", 5)                  # blue chips that count in full toward their effects
-CAP2 = tuning.get("BC_CAP2", 10)               # beta.12 soft limit: past CAP, each counts HALF, up to CAP2
-HALF = tuning.get("BC_HALF", 0.5)
+# 2026-11-22: every blue chip counts the same, up to CAP (was 5 in full and the next 5, then 3, at half). Vanilla
+# allows 7 companies at most (5 techs, Technocracy, a power bloc principle), 8 with ours
+CAP = tuning.get("BC_CAP", 8)                  # blue chips that count toward their effects
 SHELTER = tuning.get("BC_SHELTER", 0.04)       # each: confidence lost to collapses and foreign panics
 DIVIDEND = tuning.get("BC_DIVIDEND", 0.5)      # each: Exchange trust a year
 FALL_TRUST = tuning.get("BC_FALL_TRUST", 2)    # trust lost when a blue chip loses the status
@@ -36,6 +36,7 @@ COTY_PRESTIGE = tuning.get("BC_COTY_PRESTIGE", 0.05)
 # until 1.2 also -1% loan interest each, and 0.006: with the Pockets pursuit about 35% more capital than vanilla's 0.30
 INDEX = tuning.get("BC_INDEX", [["state_capitalists_investment_pool_contribution_add", 0.004]])
 PULL = tuning.get("BC_PULL", 0.03)
+PULL_MONTH = PULL * 50 / 60  # in a contest's points (0 to 100) a month, over its 60 (rivals.STEP)
 RATTLE_DAYS = tuning.get("BC_RATTLE_DAYS", 365)
 
 CO = "[SCOPE.sCompany('spec_bc_co').GetName]"
@@ -46,13 +47,46 @@ EXCH = "has_variable = spec_centre_trust"
 CALM = 120  # centres.CALM, trust's ceiling; checked in __main__
 
 
-def _gain(by, t):
+LOG = "--log" in __import__("sys").argv  # generate.py --log: a SPECTR line for every trust change, any country
+
+
+def log_trust(effect, why, t):
+    """effect; in a --log build also a SPECTR line with its cause and size when it moved trust (tools/tuner/windows.py)."""
+    if not LOG:
+        return effect
+    return (f"{t}set_local_variable = {{ name = spec_log_tb value = var:spec_centre_trust }}\n" + effect
+            + f"{t}set_variable = {{ name = spec_log_td value = {{ value = var:spec_centre_trust subtract = local_var:spec_log_tb }} }}\n"
+            f"{t}if = {{ limit = {{ NOT = {{ var:spec_log_td = 0 }} }} debug_log = \"SPECTR tag=[THIS.GetCountry.GetTagName] "
+            f"date=[TimeKeeper.GetCurrentDate.GetString] why={why} d=[THIS.Var('spec_log_td').GetValue] "
+            f"trust=[THIS.Var('spec_centre_trust').GetValue]\" }}\n")
+
+
+def record_trust(effect, cause, t, why=None):
+    """effect, then the player's trust change it made added to spec_trust_<cause>_pending (centres._trust_review's
+    monthly breakdown). Here, not in centres, as this file imports nothing centres needs. why: the --log line's cause."""
+    tracking = "is_player = yes has_variable = spec_trust_review"
+    pending = f"spec_trust_{cause}_pending"
+    return (f"{t}if = {{ limit = {{ {tracking} }} set_local_variable = {{ name = spec_before_trust value = var:spec_centre_trust }} }}\n"
+            + log_trust(effect, why or cause, t)
+            + f"{t}if = {{ limit = {{ {tracking} }} change_variable = {{ name = {pending} "
+              f"add = {{ value = var:spec_centre_trust subtract = local_var:spec_before_trust }} }} }}\n")
+
+
+def _raw_gain(by, t):
     return f"{t}set_variable = {{ name = spec_centre_trust value = {{ value = var:spec_centre_trust add = {by} max = {CALM} }} }}\n"
 
 
-def _lose(by, t):
+def _raw_lose(by, t):
     return (f"{t}set_variable = {{ name = spec_centre_trust value = {{ value = var:spec_centre_trust "
             f"subtract = {{ value = {by} multiply = spec_exch_loss }} min = 0 }} }}\n")
+
+
+def _gain(by, t):
+    return record_trust(_raw_gain(by, t), "chips", t)
+
+
+def _lose(by, t):
+    return record_trust(_raw_lose(by, t), "chips", t)
 
 
 def after_update(t="\t\t"):
@@ -96,16 +130,15 @@ def after_update(t="\t\t"):
 {t}			limit = {{ has_variable = spec_bc_wobble }}
 {t}			owner = {{ trigger_event = {{ id = spec_bluechip.2 popup = yes }} }}
 {t}		}}
-{t}		else = {{ owner = {{ trigger_event = {{ id = spec_bluechip.1 popup = yes }} }} }}
+{t}		else = {{ owner = {{ trigger_event = {{ id = spec_bluechip.1 }} }} }}
 {t}	}}
 {t}}}
 """
 
 
 def counted(n, t):
-    """Script math for the blue chips counted, from the held count n: in full up to CAP, then HALF each up to CAP2."""
-    return (f"{t}add = {{ value = {n} max = {CAP} }}\n"
-            f"{t}add = {{ value = {n} subtract = {CAP} min = 0 max = {CAP2 - CAP} multiply = {HALF:g} }}\n")
+    """Script math for the blue chips counted, from the held count n: each in full, up to CAP."""
+    return f"{t}add = {{ value = {n} max = {CAP} }}\n"
 
 
 def values():
@@ -124,7 +157,7 @@ spec_bc_updates_left = {{
 	ceiling = yes
 }}
 
-# the blue chips counted toward their effects: in full up to CAP, then HALF each up to CAP2
+# the blue chips counted toward their effects: each in full, up to CAP
 spec_bc_counted = {{
 	value = 0
 	if = {{
@@ -280,14 +313,14 @@ def loc():
         ' spec_coty: "Company of the Year"\n'
         f' spec_coty_desc: "The world\'s most prosperous {bc} is ours this year"\n'
         ' spec_bc_index: "Blue Chip Index"\n'
-        f' spec_bc_index_desc: "Our {bc}s pull savings into the market. Each one makes it stronger. The first {CAP} count in full, and the rest up to {CAP2} count half."\n'
+        f' spec_bc_index_desc: "Our {bc}s pull savings into the market. Each one makes it stronger, up to {CAP}."\n'
         ' spec_bluechip.1.t: "A New Blue Chip"\n'
         f' spec_bluechip.1.d: "After a year of steady profits, {CO} is now counted among the blue chips. Its shares are '
         'sought by every bank and widow in the land, and the brokers ask whether it will stay content with its standing or '
         'ask the market for more."\n'
         ' spec_bluechip.1.f: "Safe as the Bank, they say."\n'
         ' spec_bluechip.1.a: "Ring the bell for them"\n'
-        f' spec_bluechip.1.a.tt: "Our {trust}: #P +{BELL_TRUST / 1.2:.1f}%#! of the full bar"\n'
+        f' spec_bluechip.1.a.tt: "We gain #P +{BELL_TRUST / 1.2:.1f}#! {trust}"\n'
         ' spec_bluechip.1.b: "Let them issue new shares"\n'
         f' spec_bluechip.1.b.tt: "Our [concept_investment_pool]: #P +[ROOT.GetCountry.MakeScope.ScriptValue(\'spec_bc_shares\')|D]#! @money!\\n'
         f'{CO} turns fragile for #v {FRAGILE_YEARS}#! years, so one month below #v {__import__("companies").BLUE_PROSPER:g}#! '
@@ -301,13 +334,13 @@ def loc():
         f'{CO} keeps its status for #v {PROP_MONTHS}#! months, whatever its profits"\n'
         ' spec_bluechip.2.b: "Let the market decide"\n'
         f' spec_bluechip.2.b.tt: "If it stays below the mark for #v {__import__("companies").BLUE_LOSE}#! months:\\n'
-        f'Our {trust}: #N -{FALL_TRUST / 1.2:.1f}%#! of the full bar\\n[concept_spec_market_confidence]: #N -{FALL_CONF}#!"\n'
+        f'We lose #N {FALL_TRUST / 1.2:.1f}#! {trust} and #N {FALL_CONF}#! [concept_spec_market_confidence]"\n'
         ' spec_bluechip.3.t: "Company of the Year"\n'
         f' spec_bluechip.3.d: "The financial press of every capital agrees that {CO} is the most prosperous company in the '
         'world this year. Our Exchange basks in its glory."\n'
         ' spec_bluechip.3.f: "Every clerk in the City wants a share of it."\n'
         ' spec_bluechip.3.a: "A proud day"\n'
-        f' spec_bluechip.3.a.tt: "Our {trust}: #P +{COTY_TRUST / 1.2:.1f}%#! of the full bar\\n$spec_coty$ for a year: [concept_prestige] #P +{pc(COTY_PRESTIGE)}#!"\n'
+        f' spec_bluechip.3.a.tt: "We gain #P +{COTY_TRUST / 1.2:.1f}#! {trust}, and $spec_coty$ gives #P +{pc(COTY_PRESTIGE)}#! [concept_prestige] for a year"\n'
     )
 
 
@@ -316,23 +349,24 @@ def effect_lines(val, each=False):
     """One line per effect, vanilla style. val(per_one, fmt) gives the figure: one blue chip's, or our total's; each
     adds one blue chip's figure after it, faint."""
     idx = dict(INDEX)
-    rows = [("[concept_spec_market_confidence] lost when booms end and in [Concept('concept_spec_foreign_panic','$concept_spec_foreign_panics$')]", "-", SHELTER * 100, "0", ""),
-            ("[concept_spec_exchange] trust", "+", DIVIDEND / 1.2, "1", " of the full bar a year"),
-            ("[concept_spec_exchange] contests", "+", PULL * 100, "0", " our way"),
-            ("Capitalists' [concept_investment_pool] contribution", "+", idx["state_capitalists_investment_pool_contribution_add"] * 100, "1", "")]
-    return "\\n".join(f"{name}: #P {sign}{val(x, f)}%#!{tail}" + (f" #grey ({sign}{x:.{f}f}% each)#!" if each else "")
-                      for name, sign, x, f, tail in rows)
+    # 2026-11-22: modifier lines, the figure first (no "Label: value"); trust in points of 100, as its bar shows
+    rows = [("less [concept_spec_market_confidence] lost when booms end and in [Concept('concept_spec_foreign_panic','$concept_spec_foreign_panics$')]", "", SHELTER * 100, "0", "%"),
+            ("[concept_spec_exchange] trust a year", "+", DIVIDEND * 100 / 120, "1", ""),
+            ("a month in our [concept_spec_exchange] contests", "+", PULL_MONTH, "2", ""),
+            ("Capitalists' [concept_investment_pool] contribution", "+", idx["state_capitalists_investment_pool_contribution_add"] * 100, "1", "%")]
+    return "\\n".join(f"#P {sign}{val(x, f)}{unit}#! {name}" + (f" #grey ({sign}{x:.{f}f}{unit} each)#!" if each else "")
+                      for name, sign, x, f, unit in rows)
 
 
 def risk_text():
     import companies  # not at the top: companies imports this file
     return (f"We lose one after #v {companies.BLUE_LOSE}#! months in a row below #v {companies.BLUE_PROSPER:g}#! [concept_prosperity]. "
-            f"Losing it costs #N -{FALL_TRUST / 1.2:.1f}%#! of the full [concept_spec_exchange] trust bar and #N -{FALL_CONF}#! "
+            f"Losing it costs #N -{FALL_TRUST * 100 / 120:.1f}#! [concept_spec_exchange] trust and #N -{FALL_CONF}#! "
             f"[concept_spec_market_confidence].\\n"
             f"A Bear Raid that hits us makes one #N Fragile#! for a year, so a single month below "
             f"#v {companies.BLUE_PROSPER:g}#! [concept_prosperity] is enough to lose it.\\n\\n"
-            f"If ours is the world's most prosperous company, it becomes Company of the Year: we gain #P +{COTY_TRUST / 1.2:.1f}%#! "
-            f"of the full [concept_spec_exchange] trust bar, and #P +{COTY_PRESTIGE:.0%}#! [concept_prestige] for a year.")
+            f"If ours is the world's most prosperous company, it becomes Company of the Year: we gain #P +{COTY_TRUST * 100 / 120:.1f}#! "
+            f"[concept_spec_exchange] trust, and #P +{COTY_PRESTIGE:.0%}#! [concept_prestige] for a year.")
 
 
 
@@ -343,5 +377,5 @@ if __name__ == "__main__":
     assert after_update().count("{") == after_update().count("}")
     assert "remove_variable = spec_coty }" not in e  # event 3 leaves the award's mark in place
     import centres
-    assert centres.CALM == CALM and _gain("2", "") == centres._gain("2", "") and _lose("2", "") == centres._lose("2", "")
+    assert centres.CALM == CALM and _raw_gain("2", "") == centres._gain("2", "") and _raw_lose("2", "") == centres._lose("2", "")
     print("ok")

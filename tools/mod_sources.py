@@ -5,6 +5,8 @@ import json
 from pathlib import Path
 
 MR = Path(os.environ['SPEC_MORGENROETE']).resolve() if os.environ.get('SPEC_MORGENROETE') else None
+# Better Politics Mod (Workshop 2932134122): its interest groups' goods stances (ig_stances.BPM_POOLS) and its panel
+BPM = Path(os.environ['SPEC_BPM']).resolve() if os.environ.get('SPEC_BPM') else None
 SELLS = {
     'mr_arts_elgar_buildings': {'instrument_workshops': 'elgar_instruments'},
     'mr_science_curie_buildings': {'uranium_mine': 'good_uranium'},

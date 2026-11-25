@@ -1,0 +1,272 @@
+﻿INJECT:ideology_laissez_faire = {
+	lawgroup_spec_monetary_standard = {
+		law_spec_bimetallism = neutral
+		law_spec_gold_standard = approve
+		law_spec_fiat_money = disapprove
+	}
+}
+
+INJECT:ideology_liberal = {
+	lawgroup_spec_monetary_standard = {
+		law_spec_bimetallism = neutral
+		law_spec_gold_standard = approve
+		law_spec_fiat_money = disapprove
+	}
+}
+
+INJECT:ideology_paternalistic = {
+	lawgroup_spec_monetary_standard = {
+		law_spec_bimetallism = approve
+		law_spec_gold_standard = neutral
+		law_spec_fiat_money = disapprove
+	}
+}
+
+INJECT:ideology_republican_paternalistic = {
+	lawgroup_spec_monetary_standard = {
+		law_spec_bimetallism = approve
+		law_spec_gold_standard = neutral
+		law_spec_fiat_money = disapprove
+	}
+}
+
+INJECT:ideology_junker_paternalistic = {
+	lawgroup_spec_monetary_standard = {
+		law_spec_bimetallism = approve
+		law_spec_gold_standard = neutral
+		law_spec_fiat_money = disapprove
+	}
+}
+
+INJECT:ideology_magnatial = {
+	lawgroup_spec_monetary_standard = {
+		law_spec_bimetallism = approve
+		law_spec_gold_standard = neutral
+		law_spec_fiat_money = disapprove
+	}
+}
+
+INJECT:ideology_agrarian_jeffersonian = {
+	lawgroup_spec_monetary_standard = {
+		law_spec_bimetallism = approve
+		law_spec_gold_standard = disapprove
+		law_spec_fiat_money = neutral
+	}
+}
+
+INJECT:ideology_agrarian = {
+	lawgroup_spec_monetary_standard = {
+		law_spec_bimetallism = approve
+		law_spec_gold_standard = disapprove
+		law_spec_fiat_money = neutral
+	}
+}
+
+INJECT:ideology_populist = {
+	lawgroup_spec_monetary_standard = {
+		law_spec_bimetallism = neutral
+		law_spec_gold_standard = disapprove
+		law_spec_fiat_money = approve
+	}
+}
+
+TRY_INJECT:ideology_eco_laissez_faire = {
+	lawgroup_spec_monetary_standard = {
+		law_spec_bimetallism = neutral
+		law_spec_gold_standard = approve
+		law_spec_fiat_money = disapprove
+	}
+}
+
+TRY_INJECT:ideology_eco_artisan = {
+	lawgroup_spec_monetary_standard = {
+		law_spec_bimetallism = neutral
+		law_spec_gold_standard = approve
+		law_spec_fiat_money = disapprove
+	}
+}
+
+TRY_INJECT:ideology_eco_modernizer = {
+	lawgroup_spec_monetary_standard = {
+		law_spec_bimetallism = neutral
+		law_spec_gold_standard = approve
+		law_spec_fiat_money = disapprove
+	}
+}
+
+TRY_INJECT:ideology_eco_traditional_agrarian = {
+	lawgroup_spec_monetary_standard = {
+		law_spec_bimetallism = approve
+		law_spec_gold_standard = neutral
+		law_spec_fiat_money = disapprove
+	}
+}
+
+TRY_INJECT:ideology_eco_conservative_agrarian = {
+	lawgroup_spec_monetary_standard = {
+		law_spec_bimetallism = approve
+		law_spec_gold_standard = neutral
+		law_spec_fiat_money = disapprove
+	}
+}
+
+TRY_INJECT:ideology_eco_serf_economy = {
+	lawgroup_spec_monetary_standard = {
+		law_spec_bimetallism = approve
+		law_spec_gold_standard = neutral
+		law_spec_fiat_money = disapprove
+	}
+}
+
+TRY_INJECT:ideology_eco_debt_serf_economy = {
+	lawgroup_spec_monetary_standard = {
+		law_spec_bimetallism = approve
+		law_spec_gold_standard = neutral
+		law_spec_fiat_money = disapprove
+	}
+}
+
+TRY_INJECT:ideology_eco_trad_isolationist = {
+	lawgroup_spec_monetary_standard = {
+		law_spec_bimetallism = approve
+		law_spec_gold_standard = neutral
+		law_spec_fiat_money = disapprove
+	}
+}
+
+TRY_INJECT:ideology_eco_slave_economy = {
+	lawgroup_spec_monetary_standard = {
+		law_spec_bimetallism = approve
+		law_spec_gold_standard = neutral
+		law_spec_fiat_money = disapprove
+	}
+}
+
+TRY_INJECT:ideology_eco_antebellum_economy = {
+	lawgroup_spec_monetary_standard = {
+		law_spec_bimetallism = approve
+		law_spec_gold_standard = neutral
+		law_spec_fiat_money = disapprove
+	}
+}
+
+TRY_INJECT:ideology_eco_colonialist = {
+	lawgroup_spec_monetary_standard = {
+		law_spec_bimetallism = approve
+		law_spec_gold_standard = neutral
+		law_spec_fiat_money = disapprove
+	}
+}
+
+TRY_INJECT:ideology_eco_slave_colonialist = {
+	lawgroup_spec_monetary_standard = {
+		law_spec_bimetallism = approve
+		law_spec_gold_standard = neutral
+		law_spec_fiat_money = disapprove
+	}
+}
+
+TRY_INJECT:ideology_eco_colonial_slavery_supporter = {
+	lawgroup_spec_monetary_standard = {
+		law_spec_bimetallism = approve
+		law_spec_gold_standard = neutral
+		law_spec_fiat_money = disapprove
+	}
+}
+
+TRY_INJECT:ideology_eco_modern_agrarian = {
+	lawgroup_spec_monetary_standard = {
+		law_spec_bimetallism = approve
+		law_spec_gold_standard = disapprove
+		law_spec_fiat_money = neutral
+	}
+}
+
+TRY_INJECT:ideology_eco_agrarian_socialist = {
+	lawgroup_spec_monetary_standard = {
+		law_spec_bimetallism = approve
+		law_spec_gold_standard = disapprove
+		law_spec_fiat_money = neutral
+	}
+}
+
+TRY_INJECT:ideology_eco_agrarian_autarky = {
+	lawgroup_spec_monetary_standard = {
+		law_spec_bimetallism = approve
+		law_spec_gold_standard = disapprove
+		law_spec_fiat_money = neutral
+	}
+}
+
+TRY_INJECT:ideology_eco_distributist_economy = {
+	lawgroup_spec_monetary_standard = {
+		law_spec_bimetallism = approve
+		law_spec_gold_standard = disapprove
+		law_spec_fiat_money = neutral
+	}
+}
+
+TRY_INJECT:ideology_eco_interventionist = {
+	lawgroup_spec_monetary_standard = {
+		law_spec_bimetallism = neutral
+		law_spec_gold_standard = disapprove
+		law_spec_fiat_money = approve
+	}
+}
+
+TRY_INJECT:ideology_eco_modern_interventionist = {
+	lawgroup_spec_monetary_standard = {
+		law_spec_bimetallism = neutral
+		law_spec_gold_standard = disapprove
+		law_spec_fiat_money = approve
+	}
+}
+
+TRY_INJECT:ideology_eco_american_system = {
+	lawgroup_spec_monetary_standard = {
+		law_spec_bimetallism = neutral
+		law_spec_gold_standard = disapprove
+		law_spec_fiat_money = approve
+	}
+}
+
+TRY_INJECT:ideology_eco_socialist_mixed_economy = {
+	lawgroup_spec_monetary_standard = {
+		law_spec_bimetallism = neutral
+		law_spec_gold_standard = disapprove
+		law_spec_fiat_money = approve
+	}
+}
+
+TRY_INJECT:ideology_eco_proletarian_economy = {
+	lawgroup_spec_monetary_standard = {
+		law_spec_bimetallism = neutral
+		law_spec_gold_standard = disapprove
+		law_spec_fiat_money = approve
+	}
+}
+
+TRY_INJECT:ideology_eco_socialist_autarky = {
+	lawgroup_spec_monetary_standard = {
+		law_spec_bimetallism = neutral
+		law_spec_gold_standard = disapprove
+		law_spec_fiat_money = approve
+	}
+}
+
+TRY_INJECT:ideology_eco_autarky = {
+	lawgroup_spec_monetary_standard = {
+		law_spec_bimetallism = neutral
+		law_spec_gold_standard = disapprove
+		law_spec_fiat_money = approve
+	}
+}
+
+TRY_INJECT:ideology_eco_centralized_economy = {
+	lawgroup_spec_monetary_standard = {
+		law_spec_bimetallism = neutral
+		law_spec_gold_standard = disapprove
+		law_spec_fiat_money = approve
+	}
+}
+

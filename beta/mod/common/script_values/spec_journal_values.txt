@@ -335,12 +335,31 @@ spec_has_stock_exchange = {
 		value = 1
 	}
 }
-spec_after_collapse = {
+spec_after_risks = {
 	value = 100
 	if = {
-		limit = { has_variable = spec_conf has_variable = spec_exposure }
+		limit = { has_variable = spec_conf }
 		value = var:spec_conf
-		subtract = var:spec_exposure
+		if = {
+			limit = { has_variable = spec_risk_top var:spec_risk_top >= 1 }
+			subtract = { value = var:spec_risk_top max = var:spec_conf }
+		}
+		if = {
+			limit = { has_variable = spec_risk_src_hit var:spec_risk_src_hit >= 2 }
+			subtract = var:spec_risk_src_hit
+		}
+		if = {
+			limit = { has_variable = spec_war_risk var:spec_war_risk > 0 }
+			subtract = var:spec_war_risk
+		}
+		if = {
+			limit = { has_variable = spec_default_risk }
+			subtract = 5
+		}
+		if = {
+			limit = { spec_burst_now > 0.05 }
+			subtract = spec_burst_now
+		}
 		min = 0
 	}
 }

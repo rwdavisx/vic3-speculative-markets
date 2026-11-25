@@ -46,7 +46,9 @@ spec_bluechip.1 = {
 		hidden_effect = {
 			if = {
 				limit = { has_variable = spec_centre_trust }
+				if = { limit = { is_player = yes has_variable = spec_trust_review } set_local_variable = { name = spec_before_trust value = var:spec_centre_trust } }
 				set_variable = { name = spec_centre_trust value = { value = var:spec_centre_trust add = 2 max = 120 } }
+				if = { limit = { is_player = yes has_variable = spec_trust_review } change_variable = { name = spec_trust_chips_pending add = { value = var:spec_centre_trust subtract = local_var:spec_before_trust } } }
 			}
 		}
 		ai_chance = {

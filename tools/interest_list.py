@@ -19,36 +19,47 @@ from sectors import GROUPS, BY_GOOD
 import interest_board
 import levers
 from interest_board import HEAT, eq
-from market_tab import P, W, fx, gt, v, ind, good_var, sv, rounded, rounded_tenth, expiry_date, level_effects, FLAT, BARS, CLEAR, SLIDE, RISK, TREND, WORD, WORDS, LEANING, CATEGORIES, CAT, cat_shown, any_of, goods_filters, FIN
+from market_tab import P, W, fx, gt, v, ind, good_var, sv, rounded, rounded_tenth, expiry_date, level_effects, FLAT, BARS, CLEAR, SLIDE, RISK, TREND, WORD, WORDS, LEANING, CATEGORIES, CAT, cat_shown, any_of, goods_filters, FIN, FILTER_RING, FILTER_BTN, FILTER_ICON, FILTER_ROW
 
 ROW_H = 52
 # the groups favoring and opposing the good (ig_stances.slot) after Risk; the scale gave up the width (segments 32 to 21), the
 # lever column is its strip's width (3 x 32 + set_level_bar_background's 2 x 5)
 # Risk has its own column (it shared the tier name's line, which ran into it); goods (156 to 141) and the tier icon,
 # moved before the name, gave the width
-COLS = [("goods", 141), ("scale", 177), ("risk", 40), ("fav", ig_stances.SLOT_W), ("dis", ig_stances.SLOT_W), ("lever", 106)]
+# 2026-11-21: the goods column is the sector disc alone (no name, 141 to 58); the interest column took the width
+# the columns right of the bar have room round their contents (risk 40 to 52, the groups 38 to 50, the lever 106 to 114)
+PAD = 12
+COLS = [("goods", 58), ("scale", 216), ("risk", 40 + PAD), ("fav", ig_stances.SLOT_W + PAD), ("dis", ig_stances.SLOT_W + PAD), ("lever", 106 + PAD - 4)]
 COL = dict(COLS)
 # the interest column: the tier icon and name over a bar of six tier segments. The icon sits before the name, so the
 # bar has the column's width (it stood left of both, as tall as the two, until 1.2; sized() keeps that for the goods panel)
 NAME_H, BAR_H = 18, 14   # the tier's name over the bar
 NAME_GAP = 6             # between the name and the bar (2 read as cramped)
 TOP = (ROW_H - NAME_H - NAME_GAP - BAR_H) // 2  # the name line's top
-MARK = 22                # the tier icon, a little taller than the name it leads
-ICON_X = 6
-ICON_Y = TOP - (MARK - NAME_H) // 2
-NAME_X, NAME_DY = MARK + 4, (MARK - NAME_H) // 2  # the name line, from the icon's corner
-BAR_X, BAR_Y = ICON_X, TOP + NAME_H + NAME_GAP
+MARK = 36                # the tier icon, left of the name and bar, as big as the goods icon (ICON) (2026-11-21; was 30)
+ICON_X = 4
+ICON_Y = (ROW_H - MARK) // 2
+BAR_X, BAR_Y = ICON_X + MARK + 8, TOP + NAME_H + NAME_GAP
+NAME_X, NAME_DY = BAR_X - ICON_X, TOP - ICON_Y  # the name line, from the icon's corner
 NAME_FONT = ""           # the tier name's font: the default (sized() can set one)
-SEG, GAP = 24, 3         # one tier's segment, and the divider between two
+SEG, GAP = 24, 3         # one tier's segment, and the divider between two (25 to 24 for the 36 icon)
 BAR_W = 6 * SEG + 5 * GAP
 CRASH_ICON = icons.path("crash_risk")
-CRASH_SIZE = 26          # the cracked coin, over the tier icon in the crash month and the glut
+CRASH_SIZE = 34          # the cracked coin, over the tier icon in the crash month and the glut
 SORT = "spec_il_sort"    # GetVariableSystem flag: set, the list is ordered by interest
 SORTED = f"GetVariableSystem.Exists('{SORT}')"
 RISK_SORT = f"GetVariableSystem.HasValue('{SORT}', 'risk')"
+# the Trend sort, over the trend figure: 'trend' rising first, 'trend_up' falling first (trend_list_effect)
+TREND_DOWN, TREND_UP = (f"GetVariableSystem.HasValue('{SORT}', '{v}')" for v in ("trend", "trend_up"))
+TREND_SORT = f"Or({TREND_DOWN}, {TREND_UP})"
+TREND_W = 70  # the Trend header's width, at the right of the Investor Interest header
+INTEREST_SORT = f"And({SORTED}, And(Not({RISK_SORT}), Not({TREND_SORT})))"
 ACTIVE = "spec_il_active"  # GetVariableSystem flag: set, the list shows only goods with an intervention on
 FAV_F, DIS_F = "spec_il_fav", "spec_il_dis"  # flags: set, only goods a group favors / opposes (ig_stances.mark)
-ANY_FILTER = f"Or(GetVariableSystem.Exists('{ACTIVE}'), Or(GetVariableSystem.Exists('{FAV_F}'), GetVariableSystem.Exists('{DIS_F}')))"
+SENT_F = "spec_il_sent"  # GetVariableSystem value: 'fav' only Favored goods, 'shun' only Shunned (investor_sentiment)
+# the Collapse Risk sort filters too: it shows only goods with a loss to show (matches_filters)
+ANY_FILTER = (f"Or(GetVariableSystem.Exists('{ACTIVE}'), Or(GetVariableSystem.Exists('{FAV_F}'), Or(GetVariableSystem.Exists('{DIS_F}'), "
+              f"Or({RISK_SORT}, GetVariableSystem.Exists('{SENT_F}')))))")
 assert sum(COL.values()) == W
 assert BAR_X + BAR_W <= COL["scale"] - 8
 
@@ -71,7 +82,12 @@ def matches_filters(rd):
     active = f"Or(Not(GetVariableSystem.Exists('{ACTIVE}')), {intervention_on(rd)})"
     stances = (f"And(Or(Not(GetVariableSystem.Exists('{FAV_F}')), {gt(rd('spec_igs_fv'))}), "
                f"Or(Not(GetVariableSystem.Exists('{DIS_F}')), {gt(rd('spec_igs_op'))}))")
-    return f"And({gt(rd('spec_word'))}, And({tier_shown(rd)}, And({active}, {stances})))"
+    # sorted by Collapse Risk, only goods with a loss to show (the risk column's own test)
+    risky = f"Or(Not({RISK_SORT}), {gt(rd('spec_risk'), 0.05)})"
+    # the Investor Sentiment filter: only Favored, or only Shunned, goods
+    mood = (f"Or(Not(GetVariableSystem.Exists('{SENT_F}')), Or(And(GetVariableSystem.HasValue('{SENT_F}', 'fav'), {FAVORED(rd)}), "
+            f"And(GetVariableSystem.HasValue('{SENT_F}', 'shun'), {SHUNNED(rd)})))")
+    return f"And({gt(rd('spec_word'))}, And({tier_shown(rd)}, And({active}, And({stances}, And({risky}, {mood})))))"
 
 
 def marker(rd):
@@ -200,19 +216,39 @@ state = {
 			texture = "{CRASH_ICON}"
 			tooltip = "SPEC_IL_GLUT_TT"
 		}}
-		### the name stays put while the crash icon pops and shakes
-		widget = {{
-			size = {{ 100% 100% }}
-			visible = "[{st(2)}]"
-{ind(name('SPEC_IL_WORD_CRASHED'), 3)}		}}
-		widget = {{
-			size = {{ 100% 100% }}
-			visible = "[{st(3)}]"
-			tooltip = "SPEC_IL_GLUT_TT"
-{ind(name('SPEC_IL_WORD_GLUT'), 3)}		}}
 	}}
 }}
+{after_crash(rd, st)}"""
+
+
+def after_crash(rd, st):
+    """Boom Ended and Recovering on the tier name's line, beside the marker rather than in it, so the mouse finds them
+    (a widget outside its parent's box takes no hover) and each word explains itself; Recovering's months left sit
+    at the right, where the price trend sits otherwise."""
+    until = rd("spec_glut_until")
+    line = lambda n, tt, extra="": f"""widget = {{
+	position = {{ {ICON_X + NAME_X} {ICON_Y + NAME_DY} }}
+	size = {{ {BAR_W} {NAME_H} }}
+	visible = "[{st(n)}]"
+	tooltip = "{tt}"
+	textbox = {{
+		size = {{ -1 {NAME_H} }}
+		autoresize = yes
+		align = left|nobaseline
+{NAME_FONT}		text = "SPEC_IL_WORD_{'CRASHED' if n == 2 else 'GLUT'}"
+	}}
+{extra}}}
 """
+    left = f"""	textbox = {{
+		parentanchor = right
+		size = {{ -1 {NAME_H} }}
+		autoresize = yes
+		align = right|nobaseline
+		visible = "[{gt(until)}]"
+		text = "SPEC_IL_GLUT_MONTHS"
+	}}
+"""
+    return line(2, "SPEC_IL_CRASHED_TT") + line(3, "SPEC_IL_GLUT_TT", left)
 
 
 TYPED = True  # the list's overlays come from overlay_types(); sized() draws its own at another size
@@ -227,7 +263,7 @@ def overlay(rd, w):
         return f"spec_il_ov{w} = {{}}\n"
     return f"""spec_il_ov{w} = {{
 	blockoverride "pos" {{
-		value = "[FixedPointToFloat({rd('spec_ui_pos')})]"
+		value = "[FixedPointToFloat({shown(rd)})]"
 	}}
 	blockoverride "up" {{
 		visible = "[{eq(rd('spec_ui_move'), 1)}]"
@@ -245,7 +281,7 @@ def overlay_types():
     out = ""
     for w in range(1, 7):
         body = tier_overlay(good_var, w)
-        pos = f'value = "[FixedPointToFloat({good_var("spec_ui_pos")})]"'
+        pos = f'value = "[FixedPointToFloat({shown(good_var)})]"'
         up = f'visible = "[{eq(good_var("spec_ui_move"), 1)}]"'
         down = f'visible = "[{eq(good_var("spec_ui_move"), -1)}]"'
         for line, name in ((pos, "pos"), (up, "up"), (down, "down")):
@@ -257,6 +293,11 @@ def overlay_types():
     r = row()
     assert r.startswith("button = {")
     return out + "type spec_il_row = button " + r[len("button = "):]
+
+
+def shown(rd):
+    """The bar's position: spec_ui_shown, gliding weekly to spec_ui_pos (interest_board.glide), or pos until it is set."""
+    return rd("spec_ui_shown").replace(f".GetValueWithDefault({fx(0)})", f".GetValueWithDefault({rd('spec_ui_pos')})")
 
 
 def seg_x(w):
@@ -402,7 +443,7 @@ def _tier_overlay(rd, w, danger, colour, below, lit):
 			noprogresstexture = "{CLEAR}"
 {ind(fill(colour) + SLIDE, 3)}			min = {w - 1}
 			max = {w}
-			value = "[FixedPointToFloat({rd('spec_ui_pos')})]"
+			value = "[FixedPointToFloat({shown(rd)})]"
 			marker = {{
 				widget = {{
 					size = {{ 100% 100% }}
@@ -483,7 +524,7 @@ def trend(rd):
 		align = right|nobaseline
 		visible = "[Or(GreaterThanOrEqualTo_CFixedPoint({t}, {fx(0.0005)}), LessThanOrEqualTo_CFixedPoint({t}, {fx(-0.0005)}))]"
 		raw_text = "[{rounded(t, 3)}|=+%1]"
-		tooltip = "SPEC_IB_HEAT_TT"
+		tooltip = "SPEC_IL_TREND_TT"
 	}}
 }}
 """
@@ -540,43 +581,58 @@ def column(name, body):
 """
 
 
+# the sectors' row colours, toned as vanilla's goods categories are (Goods.GetCategoryColor: a muted green, pink,
+# brown and red), each its own hue at about the same strength
+SECTOR_RGB = {
+    "food": (0.42, 0.56, 0.32), "plantation": (0.62, 0.54, 0.30), "household": (0.62, 0.40, 0.50),
+    "materials": (0.55, 0.41, 0.28), "energy": (0.40, 0.40, 0.45), "industry": (0.64, 0.44, 0.26),
+    "transport": (0.30, 0.52, 0.54), "defence": (0.60, 0.28, 0.25), "communications": (0.40, 0.43, 0.62),
+}
+DISC, ICON, BAND = 50, 36, (190, 44)  # vanilla's goods_list_item (market_panel.gui): 55 disc, 40 icon, 190x46 band from x 25
+
+
+TINT_TONE, TINT_GREY, TINT_ALPHA = 0.75, 0.3, 0.8  # 2026-11-21: darker, greyer and a little see-through, to sit back as vanilla's do
+
+
 def sector_colour(sector):
-    """The colour of the sector's representative good, as the sector chart draws it (charts.sector_chart)."""
-    return f"[GetGoods('{GROUPS[sector][1].split()[0]}').GetColor]"
-
-
-def icon_disc(colour, x):
-    """vanilla's coloured disc behind a goods icon (market_panel.gui, trade_good_icon_bg), centred on a 30px icon at x."""
-    return (f'icon = {{ position = {{ {x - 3} 0 }} size = {{ 36 36 }} parentanchor = vcenter color = "{colour}" '
-            f'texture = "gfx/interface/market_view/trade_good_icon_bg.dds" alwaystransparent = yes }}\n')
+    r, g, b = SECTOR_RGB[sector]
+    mid = (r + g + b) / 3
+    r, g, b = (round((c + (mid - c) * TINT_GREY) * TINT_TONE, 3) for c in (r, g, b))
+    return f"{{ {r:g} {g:g} {b:g} {TINT_ALPHA:g} }}"
 
 
 def sector_tint(sector):
-    """A row in its sector's colour, as vanilla's market panel colours a goods row by its category: the leafy band
-    fading out behind the name (trade_good_list_bg) and the disc behind the icon."""
-    colour = sector_colour(sector)
-    return (f'icon = {{ size = {{ 200 100% }} color = "{colour}" texture = "gfx/interface/market_view/trade_good_list_bg.dds" alwaystransparent = yes }}\n'
-            + icon_disc(colour, 7))
+    """A row in its sector's colour, as vanilla's goods row colours a good by its category (market_panel.gui): the band
+    from the disc's centre fading out to the right (trade_good_list_bg), vanilla's dark_area shade over it, then the
+    disc behind the icon (trade_good_icon_bg)."""
+    c = sector_colour(sector)
+    return (f'icon = {{ position = {{ {DISC // 2} 0 }} size = {{ {BAND[0]} {BAND[1]} }} parentanchor = vcenter color = {c} '
+            f'texture = "gfx/interface/market_view/trade_good_list_bg.dds" alwaystransparent = yes }}\n'
+            'widget = { size = { 100% 100% } alwaystransparent = yes background = { using = dark_area } }\n'
+            f'icon = {{ position = {{ 0 0 }} size = {{ {DISC} {DISC} }} parentanchor = vcenter color = {c} '
+            f'texture = "gfx/interface/market_view/trade_good_icon_bg.dds" alwaystransparent = yes }}\n')
 
 
 def row(g=None):
     """One good's row: fixed for good g, else a list row (datacontext Scope.GetGoods, hidden by the filters)."""
     rd = var(g)
-    # Keep the native good icon at its original center on the neutral row.
-    goods = f"""icon = {{
-	position = {{ 7 0 }}
-	size = {{ 30 30 }}
+    # the good's icon centred on its sector's disc (sector_tint), as vanilla's goods_list_item
+    # a Favored or Shunned good (investor_sentiment): its disc gold or red in place of the sector's colour, under the
+    # icon (round_frame_dec covered it, 2026-11-21), its tooltip the term in full
+    # (vanilla's ui_event_glow behind it read as square and too much, 2026-11-21)
+    goods = "".join(f"""icon = {{
+	size = {{ {DISC} {DISC} }}
+	parentanchor = vcenter
+	visible = "[{on(rd)}]"
+	color = {{ {colour} 1 }}
+	texture = "gfx/interface/market_view/trade_good_icon_bg.dds"
+	tooltip = "SPEC_JE_{label}_GOOD_TT"
+}}
+""" for on, colour, label in ((FAVORED, SENT_GOLD, "FAVOURED"), (SHUNNED, SENT_RED, "SHUNNED"))) + f"""icon = {{
+	position = {{ {(DISC - ICON) // 2} 0 }}
+	size = {{ {ICON} {ICON} }}
 	parentanchor = vcenter
 	texture = "[Goods.GetTexture]"
-}}
-textbox = {{
-	position = {{ 48 0 }}
-	size = {{ {COL['goods'] - 54} {ROW_H} }}
-	parentanchor = vcenter
-	align = left|nobaseline
-	fontsize_min = 12
-	elide = right
-	text = "[Goods.GetNameNoFormatting]"
 }}
 """
     # an interest group's button closes Finance before its panel opens, as the row does for the goods panel
@@ -597,8 +653,9 @@ textbox = {{
 	tooltip = "SPEC_IL_RISK_DETAILS"
 }}
 """
+    centred = lambda body: f"widget = {{\n\tsize = {{ {ig_stances.SLOT_W} {ROW_H} }}\n\tparentanchor = center\n{ind(body, 1)}}}\n"
     cols = [column("goods", goods), column("scale", scale(rd) + marker(rd) + crash_flash(rd) + levels()), column("risk", risk_number),
-            column("fav", fav), column("dis", dis), column("lever", lever)]
+            column("fav", centred(fav)), column("dis", centred(dis)), column("lever", lever)]
     context, shown = (f"GetGoods('{g}')" if g else "Scope.GetGoods"), matches_filters(rd)
     tint = sector_tint(BY_GOOD[g]) if g else 'block "sector_tint" {}\n'
     return f"""button = {{
@@ -614,9 +671,15 @@ textbox = {{
 	using = tooltip_se
 	flowcontainer = {{
 		parentanchor = vcenter
-{ind("vertical_divider = {}\n".join(cols), 2)}	}}
+{ind(cols[0] + "vertical_divider = {}\n".join(cols[1:]), 2)}	}}
 }}
 """
+
+
+# a Favored / Shunned good's disc, muted toward the sector discs' depth (2026-11-22: the bright ones were an eyesore)
+SENT_GOLD, SENT_RED = "0.62 0.5 0.26", "0.52 0.2 0.17"
+FAVORED = lambda rd: gt(rd("spec_term"))  # investor_sentiment's term: months left, positive Favored, negative Shunned
+SHUNNED = lambda rd: f"LessThan_CFixedPoint({rd('spec_term')}, {fx(0)})"
 
 
 TIER = "spec_il_tier"  # GetVariableSystem value: the one interest word the list shows, "1" to "6"; unset, all
@@ -633,6 +696,10 @@ def tier_shown(rd):
     return f"Or(Not(GetVariableSystem.Exists('{TIER}')), EqualTo_CFixedPoint({rd('spec_word')}, {picked}))"
 
 
+# the interest icons fill their square edge to edge; the sector icons have ~12% padding, so the same box reads larger
+TIER_ICON = FILTER_ICON - 8
+
+
 def tier_filters():
     """The second filter row, under the goods categories: one round button per interest word, vanilla's goods filter
     button and selection ring (market_panel.gui goods_filters, ~964-1012). One at a time, as the categories are:
@@ -641,15 +708,17 @@ def tier_filters():
     # vanilla dims the unpicked categories by their own darker textures; these icons have none, so the unpicked fade
     FADE = f"\t\talpha = \"[TransparentIfFalse(Not(GetVariableSystem.Exists('{TIER}')))]\"\n"
     buttons = "".join(f"""widget = {{
-	size = {{ 64 64 }}
+	size = {{ {FILTER_RING} {FILTER_RING} }}
 	icon = {{
 		texture = "gfx/interface/backgrounds/round_frame_dec.dds"
-		size = {{ 64 64 }}
+		size = {{ {FILTER_RING} {FILTER_RING} }}
+		parentanchor = center
 		visible = "[Or(Not(GetVariableSystem.Exists('{TIER}')), {HAS(w)})]"
 		using = default_fade_in_out
 	}}
-{"".join(f'''	goods_filter_button = {{
-		size = {{ 52 52 }}
+{"".join(f'''	button_icon_round_big = {{ using = tooltip_above
+		size = {{ {FILTER_BTN} {FILTER_BTN} }}
+		parentanchor = center
 		visible = "[{shown}]"
 {fade}		tooltip = "SPEC_SEP_{WORDS[w].upper()}_TT"
 		onclick = "[{click}]"
@@ -657,7 +726,7 @@ def tier_filters():
 			texture = "{icons.path('interest_' + WORDS[w])}"
 		}}
 		blockoverride "icon_size" {{
-			size = {{ 40 40 }}
+			size = {{ {TIER_ICON} {TIER_ICON} }}
 		}}
 	}}
 ''' for shown, click, fade in ((f"Not({HAS(w)})", f"GetVariableSystem.Set('{TIER}', '{w}')", FADE),
@@ -666,6 +735,29 @@ def tier_filters():
     return f"""flowcontainer = {{
 	parentanchor = center
 	spacing = 3
+{ind(buttons, 1)}}}
+"""
+
+
+def sentiment_filters():
+    """Favored and Shunned as vanilla's rectangle text buttons (the column headers' sort_button), lit while on: one at
+    a time."""
+    has = lambda s: f"GetVariableSystem.HasValue('{SENT_F}', '{s}')"
+    buttons = "".join(f"""sort_button = {{
+	size = {{ {(9 * FILTER_RING + 8 * 3 - 6) // 2} 30 }}
+	visible = "[{shown}]"
+	text = "SPEC_JE_{label}"
+	tooltip = "SPEC_IL_SENT_{s.upper()}_TT"
+	onclick = "[{click}]"
+{lit}}}
+""" for s, label in (("fav", "FAVOURED"), ("shun", "SHUNNED"))
+        for shown, click, lit in ((f"Not({has(s)})", f"GetVariableSystem.Set('{SENT_F}', '{s}')", ""),
+                                  (has(s), f"GetVariableSystem.Clear('{SENT_F}')",
+                                   f'\tblockoverride "selected_visibility" {{\n\t\tvisible = "[{has(s)}]"\n\t}}\n')))
+    return f"""flowcontainer = {{
+	parentanchor = center
+	spacing = 6
+	ignoreinvisible = yes
 {ind(buttons, 1)}}}
 """
 
@@ -705,6 +797,33 @@ def risk_list_effect(category):
     return "\n".join(lines) + "\n\tclear_variable_list = spec_risky_goods\n}\n"
 
 
+def trend_order_value(goods):
+    """The price trend the row shows (trend()), from its country's scope; spec_goods_trend_order_up, falling first."""
+    ranks = "".join(f"\t{'if' if i == 0 else 'else_if'} = {{ limit = {{ this = g:{g} }} value = scope:spec_sort_owner.var:spec_fast_{g} "
+                    f"subtract = scope:spec_sort_owner.var:spec_slow_{g} }}\n" for i, g in enumerate(goods))
+    return ("spec_goods_trend_order = {\n\tvalue = 0\n" + ranks + "}\n"
+            "spec_goods_trend_order_up = {\n\tvalue = spec_goods_trend_order\n\tmultiply = -1\n}\n")
+
+
+def trend_list_effect(category):
+    """spec_goods_by_trend_<sector> (rising first) and _up_<sector> (falling first): each sector's traded goods by
+    their price trend, monthly beside the risk list, for the Trend sort."""
+    goods = order(category)
+    lines = ["spec_refresh_trend_list = {", "\tsave_temporary_scope_as = spec_sort_owner", "\tclear_variable_list = spec_trend_goods"]
+    lines += [f"\tclear_variable_list = spec_goods_by_trend{d}_{c}" for d in ("", "_up") for c in CATEGORIES]
+    lines += [f"\tif = {{ limit = {{ has_variable = spec_word_{g} var:spec_word_{g} > 0 has_variable = spec_fast_{g} has_variable = spec_slow_{g} }} "
+              f"add_to_variable_list = {{ name = spec_trend_goods target = g:{g} }} }}" for g in goods]
+    for d in ("", "_up"):
+        lines += ["\tordered_in_list = {", "\t\tvariable = spec_trend_goods", f"\t\torder_by = spec_goods_trend_order{d}"]
+        for c in CATEGORIES:
+            match = " ".join(f"this = g:{g}" for g in goods if category[g] == c)
+            if match:
+                lines.append(f"\t\tif = {{ limit = {{ OR = {{ {match} }} }} scope:spec_sort_owner = {{ "
+                             f"add_to_variable_list = {{ name = spec_goods_by_trend{d}_{c} target = prev }} }} }}")
+        lines.append("\t}")
+    return "\n".join(lines) + "\n\tclear_variable_list = spec_trend_goods\n}\n"
+
+
 def header():
     """vanilla's sort buttons over the columns: Goods (fixed order) and Investor Interest (by interest) sort, each
     setting its order, as vanilla's do. Each row's tier icon names its tier in its tooltip, so the header needs no
@@ -717,8 +836,8 @@ def header():
     # Investor Interest and Risk switch their order on, and off again (back to the goods order, no header lit): two
     # overlapping buttons each, one shown while off (sets it) and one while on (clears it), as tier_filters' are;
     # vanilla's variable system has no conditional clear
-    toggle = lambda col, face, tooltip, value, on: "".join(f"""	sort_button = {{
-		size = {{ {COL[col]} {HEAD_H} }}
+    toggle = lambda col, face, tooltip, value, on, less=0: "".join(f"""	sort_button = {{
+		size = {{ {COL[col] - less} {HEAD_H} }}
 		visible = "[{shown}]"
 {ind(face, 2)}		tooltip = "{tooltip}"
 		onclick = "[{click}]"
@@ -727,16 +846,32 @@ def header():
                               (on, f"GetVariableSystem.Clear('{SORT}')", picked(on))))
     # the crash month's cracked coin, as the group headers' icons: text elides in so narrow a button
     coin = f'icon = {{\n\tsize = {{ 24 24 }}\n\tparentanchor = center\n\ttexture = "{CRASH_ICON}"\n}}\n'
+    # Trend, over the rows' trend figure: a click cycles rising first, falling first, then the goods order
+    trend_sort = "".join(f"""	sort_button = {{
+		size = {{ {TREND_W} {HEAD_H} }}
+		visible = "[{shown}]"
+		text = "SPEC_IL_COL_TREND"
+		tooltip = "{tt}"
+		onclick = "[{click}]"
+{picked(shown) if shown != f"Not({TREND_SORT})" else ""}	}}
+""" for shown, tt, click in ((f"Not({TREND_SORT})", "SPEC_IL_SORT_TREND_TT", f"GetVariableSystem.Set('{SORT}', 'trend')"),
+                             (TREND_DOWN, "SPEC_IL_SORT_TREND_DOWN_TT", f"GetVariableSystem.Set('{SORT}', 'trend_up')"),
+                             (TREND_UP, "SPEC_IL_SORT_TREND_UP_TT", f"GetVariableSystem.Clear('{SORT}')")))
     return f"""flowcontainer = {{
 	parentanchor = hcenter
 	ignoreinvisible = yes
 	sort_button = {{
 		size = {{ {COL['goods']} {HEAD_H} }}
-		text = "SPEC_IL_COL_GOODS"
 		tooltip = "SPEC_IL_SORT_GOODS_TT"
+		button = {{  # vanilla's goods sort icon (market_panel.gui), as its goods column has
+			texture = "gfx/interface/buttons/sort_button_icons/sort_icon_good.dds"
+			size = {{ 25 25 }}
+			parentanchor = center
+			alwaystransparent = yes
+		}}
 		onclick = "[GetVariableSystem.Clear('{SORT}')]"
 	}}
-{toggle('scale', 'text = "SPEC_IL_COL_INTEREST"' + chr(10), "SPEC_IL_SORT_INTEREST_TT", "yes", f"And({SORTED}, Not({RISK_SORT}))")}{toggle('risk', coin, "SPEC_IL_SORT_RISK_TT", "risk", RISK_SORT)}
+{toggle('scale', 'text = "SPEC_IL_COL_INTEREST"' + chr(10), "SPEC_IL_SORT_INTEREST_TT", "yes", INTEREST_SORT, TREND_W)}{trend_sort}{toggle('risk', coin, "SPEC_IL_SORT_RISK_TT", "risk", RISK_SORT)}
 {"".join(f'''	sort_button = {{
 		size = {{ {COL[c]} {HEAD_H} }}
 		tooltip = "SPEC_IL_COL_{c.upper()}_TT"
@@ -826,6 +961,12 @@ def board(k):
         sorted_rows = lists_of("_" + sector, tinted)
         shut = f"spec_il_shut_{sector}"  # GetVariableSystem flag: this sector's rows folded away under vanilla's section header
         open_ = f"Not(GetVariableSystem.Exists('{shut}'))"
+        flat_tint = sector_tint(sector).replace(chr(10), ' ')
+        trend_views = "".join(f"""            flowcontainer = {{ direction = vertical spacing = 2 ignoreinvisible = yes visible = "[And({open_}, {on})]"
+                datamodel = "[{P}.GetList('spec_goods_by_trend{d}_{sector}')]"
+                item = {{ spec_il_row = {{ blockoverride "sector_tint" {{ {flat_tint}}} }} }}
+            }}
+""" for d, on in (("", TREND_DOWN), ("_up", TREND_UP)))
         sections.append(f"""flowcontainer = {{
             direction = vertical
             ignoreinvisible = yes
@@ -845,9 +986,10 @@ def board(k):
             flowcontainer = {{ direction = vertical spacing = 2 ignoreinvisible = yes visible = "[And({open_}, Not({SORTED}))]"
                 {fixed}
             }}
-            flowcontainer = {{ direction = vertical spacing = 2 ignoreinvisible = yes visible = "[And({open_}, And({SORTED}, Not({RISK_SORT})))]"
+            flowcontainer = {{ direction = vertical spacing = 2 ignoreinvisible = yes visible = "[And({open_}, {INTEREST_SORT})]"
                 {sorted_rows}
             }}
+{trend_views}
             flowcontainer = {{ direction = vertical spacing = 2 ignoreinvisible = yes visible = "[And({open_}, {RISK_SORT})]"
                 datamodel = "[{P}.GetList('spec_goods_by_risk_{sector}')]"
                 item = {{ spec_il_row = {{ blockoverride "sector_tint" {{ {sector_tint(sector).replace(chr(10), ' ')}}} }} }}
@@ -863,16 +1005,8 @@ def board(k):
 {ind(views, 2)}	}}
 }}
 {empty}"""
-    import journal
-    rows = "".join(journal.goods_row(label, keys) for label, keys in journal.RANKED_GOODS)
-    summary = f"""flowcontainer = {{
-        direction = vertical
-        parentanchor = hcenter
-        visible = "[{P}.Var('spec_conf').IsSet]"
-        {rows}
-    }}
-"""
-    return goods_filters("SPEC_IL_FILTER_TIERS", tier_filters()) + summary + f"""flowcontainer = {{
+    # Favored and Shunned show on the rows (highlight, the disc's coin) and filter here; the journal keeps its chip rows
+    return goods_filters("SPEC_IL_FILTER_TIERS", tier_filters(), [("SPEC_IL_FILTER_SENTIMENT", sentiment_filters(), FILTER_ROW)]) + f"""flowcontainer = {{
 	direction = vertical
 	parentanchor = hcenter
 	margin_top = 12
@@ -888,6 +1022,9 @@ def loc(k):
     pick = lambda a, key: f"[SelectLocalization({ge(a, 3)}, '{key}_3', SelectLocalization({ge(a, 2)}, '{key}_2', '{key}_1'))]"
     crash, glut = good_var("spec_ui_crash"), good_var("spec_glut")
     until = good_var("spec_glut_until")
+    # whole months left in the glut, rounded up (Recovering's row)
+    left = (f"IntToFixedPoint(FixedPointToInt(Divide_CFixedPoint(Add_CFixedPoint(Subtract_CFixedPoint({until}, "
+            f"{sv('spec_calendar_day')}), {fx(29)}), {fx(30)})))")
     months = "".join(f' SPEC_IL_MONTHS_{s}: "#v {m}#! months"\n' for s, m in sorted(k["GLUT_MONTHS"].items()))
     loses = "\\n[Concept('concept_company','$concept_companies$')] making it #N lose#! [concept_throughput]"
     # the tier names over the bar, plain: the tier icon is beside them
@@ -912,6 +1049,19 @@ def loc(k):
         ' SPEC_IL_RISK_DETAILS: "#title [Goods.GetName]#!\\n$SPEC_RISK_TT$"\n'
         ' SPEC_IL_SORT_RISK_TT: "#header Sort by Collapse Risk#!\\n$TOOLTIP_DELIMITER$\\nRanks goods by the [concept_spec_market_confidence] their boom would cost if it ended this month.\\n\\n#instruction Hover over a number to see its calculation.#!$SPEC_IL_SORT_OFF$"\n'
         ' SPEC_IL_EMPTY_FILTERS: "No goods match the current filters"\n'
+        ' SPEC_IL_COL_TREND: "Trend"\n'
+        ' SPEC_IL_FILTER_SENTIMENT: "[concept_spec_investor_sentiment]"\n'
+        ' SPEC_IL_SENT_FAV_TT: "#header $SPEC_JE_FAVOURED$ Goods#!\\n$TOOLTIP_DELIMITER$\\nGoods investors favor after a long run of '
+        'high prices, which raises their [concept_spec_investor_interest]\\n\\n#instruction Click to show only these goods, click again to show all#!"\n'
+        ' SPEC_IL_SENT_SHUN_TT: "#header $SPEC_JE_SHUNNED$ Goods#!\\n$TOOLTIP_DELIMITER$\\nGoods investors shun after a long run of '
+        'low prices, which lowers their [concept_spec_investor_interest]\\n\\n#instruction Click to show only these goods, click again to show all#!"\n'
+        ' SPEC_IL_SORT_TREND_TT: "#header Sort by Trend#!\\n$TOOLTIP_DELIMITER$\\nRanks goods by how far their recent prices '
+        'sit above their long-run average, the figure over each bar.\\n\\n#instruction Click to show rising goods first, again '
+        'for falling goods first, and a third time to return to the goods order#!"\n'
+        ' SPEC_IL_SORT_TREND_DOWN_TT: "#header Sorted by Trend, Rising First#!\\n$TOOLTIP_DELIMITER$\\nGoods whose recent prices '
+        'sit furthest above their long-run average come first.\\n\\n#instruction Click to show falling goods first#!"\n'
+        ' SPEC_IL_SORT_TREND_UP_TT: "#header Sorted by Trend, Falling First#!\\n$TOOLTIP_DELIMITER$\\nGoods whose recent prices '
+        'sit furthest below their long-run average come first.\\n\\n#instruction Click to return to the goods order#!"\n'
         ' SPEC_IL_WORD_CRASHED: "#N Boom Ended#!"\n'
         ' SPEC_IL_WORD_GLUT: "#n Recovering#!"\n'
         ' SPEC_IL_COL_INTEREST: "[concept_spec_investor_interest]"\n'
@@ -924,7 +1074,7 @@ def loc(k):
         ' SPEC_IL_SORT_OFF: "\\n\\n#instruction Click again to return to the goods order#!"\n'
         f' SPEC_IL_SORT_LEVER_TT: "$SPEC_IL_SORT_LEVER_BASE_TT${"$SPEC_IL_ISSUE_FILTER$" if levers.ISSUE_ON else ""}"\n'
         ' SPEC_IL_ISSUE_FILTER: "\\n\\nRunning Great Issues are also shown."\n'
-        ' SPEC_IL_COL_FAV_TT: "$SPEC_IL_COL_IGS_TT$\\n\\n#instruction Click to show only goods a group favors, click again to show all#!"\n'
+        ' SPEC_IL_COL_FAV_TT: "$SPEC_IL_COL_IGS_TT$\\n\\n#instruction Click to show only goods a group supports, click again to show all#!"\n'
         ' SPEC_IL_COL_DIS_TT: "$SPEC_IL_COL_IGS_TT$\\n\\n#instruction Click to show only goods a group opposes, click again to show all#!"\n'
         ' SPEC_IL_SORT_LEVER_BASE_TT: "#header Show Interventions#!\\n$TOOLTIP_DELIMITER$\\nShows only goods with an '
         '[concept_spec_intervention]\\n\\n#instruction Click to show only these goods, click again to show all#!"\n'
@@ -932,12 +1082,17 @@ def loc(k):
         'If [concept_spec_investor_interest] falls this far, the boom ends in a [concept_spec_collapse], '
         f'costing about #N [{RISK}|1]#! [concept_spec_market_confidence]"\n'
         f' SPEC_IL_CRASHED_TT: "#header [Goods.GetName]: Boom Ended#!\\n$TOOLTIP_DELIMITER$\\n'
-        f'Its boom ended this month in a {pick(crash, "SPEC_UNWIND_C")}\\n'
-        f'#N Investors stay away#! for {pick(crash, "SPEC_IL_MONTHS")}{loses}"\n'
+        f'Investors pulled out of [Goods.GetName] this month, ending its boom in a {pick(crash, "SPEC_UNWIND_C")}.\\n\\n'
+        f'For the next {pick(crash, "SPEC_IL_MONTHS")} it is #N Recovering#!: [concept_spec_investor_interest] stays at '
+        f'#v Doubtful#! or lower and we cannot Encourage Investment in it.{loses}"\n'
         f' SPEC_IL_GLUT_TT: "#header [Goods.GetName] Recovering#!\\n$TOOLTIP_DELIMITER$\\n'
-        f'Investors are still wary after its boom ended in a {pick(glut, "SPEC_UNWIND_C")}\\n'
-        f'[concept_spec_investor_interest] #N stuck#! at #v Doubtful#! or lower{loses}'
+        f'Its boom ended in a {pick(glut, "SPEC_UNWIND_C")} and investors are still wary of it.\\n\\n'
+        f'Until it recovers, [concept_spec_investor_interest] stays at #v Doubtful#! or lower '
+        f'and we cannot Encourage Investment in it.{loses}'
         f"[AddLocalizationIf({gt(until)}, 'SPEC_IL_RECOVERY_LEFT')]\"\n"
+        f' SPEC_IL_GLUT_MONTHS: "#n [{left}|0] [SelectLocalization(GreaterThan_CFixedPoint({left}, {fx(1)}), \'SPEC_IL_MONTHS_WORD\', \'SPEC_IL_MONTH_WORD\')]#!"\n'
+        ' SPEC_IL_MONTHS_WORD: "months"\n'
+        ' SPEC_IL_MONTH_WORD: "month"\n'
         f' SPEC_IL_RECOVERY_LEFT: "\\nIt recovers on #v {expiry_date(until)}#!, in #v [Subtract_CFixedPoint({until}, {sv("spec_calendar_day")})|0]#! days"\n')
 
 
@@ -979,8 +1134,9 @@ if __name__ == "__main__":
     assert f"GetVariableSystem.Set('{SORT}', 'yes')" in b and f"Toggle('{SORT}')" not in b and f"Clear('{SORT}')" in b
     assert header().count(" 30 }") >= 6 and " 20 }" not in header()  # 30 high headers (sort buttons come in overlapping pairs)
     # the word lists share one row type
-    assert b.count("spec_il_row = {") == 7 * len(set(cat.values()))
-    assert b.count("Scope.GetGoods") == len(journal_lists := __import__("journal").RANKED_GOODS)  # only the Favored and Shunned chips
+    assert b.count("spec_il_row = {") == 9 * len(set(cat.values()))  # six word lists, risk, trend both ways
+    assert b.count("Scope.GetGoods") == 0  # the Favored and Shunned chips moved onto the rows (highlight())
+    assert b.count("SPEC_IL_SENT_FAV_TT") == 2 and "SPEC_JE_SHUNNED_GOOD_TT" in b
     assert "type spec_il_row = button {" in overlay_types() and "datacontext = \"[Scope.GetGoods]\"" in overlay_types()
     # a row opens the goods panel for our own market and closes Finance
     assert f"Clear('{FIN}')" in r and "OpenGoodsPanel(GetPlayer.GetMarket.Self, Goods.Self)" in r and "Market.Self" not in r.replace("GetMarket.Self", "")

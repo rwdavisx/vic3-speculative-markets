@@ -47,15 +47,16 @@ spec_do_suspend = {
 	custom_tooltip = {
 		text = spec_suspend_tt
 		set_variable = { name = spec_panic value = { value = var:spec_panic max = 2 } }
-		set_variable = { name = spec_c_rescue value = { value = var:spec_conf multiply = -1 } }
+		set_local_variable = { name = spec_jump_was value = var:spec_conf }
 		set_variable = { name = spec_conf value = { value = var:spec_conf add = 15 max = 100 } }
-		change_variable = { name = spec_c_rescue add = var:spec_conf }
-		change_variable = { name = spec_c_total add = var:spec_c_rescue }
-		set_variable = spec_rescued
 		if = {
-			limit = { has_variable = spec_lax }
-			set_variable = { name = spec_lax value = { value = var:spec_lax add = 0.25 max = 1 } }
+			limit = { NOT = { has_variable = spec_c_rescue } }
+			set_variable = { name = spec_c_rescue value = 0 }
 		}
+		set_local_variable = { name = spec_jump value = { value = var:spec_conf subtract = local_var:spec_jump_was } }
+		change_variable = { name = spec_c_rescue add = local_var:spec_jump }
+		change_variable = { name = spec_c_total add = local_var:spec_jump }
+		set_variable = spec_rescued
 		set_variable = { name = spec_hazard years = 10 }
 		spec_pick_driver = yes
 		spec_update_band = yes

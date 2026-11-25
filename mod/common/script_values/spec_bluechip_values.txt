@@ -13,13 +13,12 @@ spec_bc_updates_left = {
 	ceiling = yes
 }
 
-# the blue chips counted toward their effects: in full up to CAP, then HALF each up to CAP2
+# the blue chips counted toward their effects: each in full, up to CAP
 spec_bc_counted = {
 	value = 0
 	if = {
 		limit = { has_variable = spec_bc_n }
-		add = { value = var:spec_bc_n max = 5 }
-		add = { value = var:spec_bc_n subtract = 5 min = 0 max = 5 multiply = 0.5 }
+		add = { value = var:spec_bc_n max = 8 }
 	}
 }
 

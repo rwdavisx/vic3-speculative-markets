@@ -32,13 +32,14 @@ spec_sgui_rv_shore = {
 spec_sgui_rv_toggle = {
 	scope = country
 	is_shown = {
+		exists = scope:target
 		NOT = { this = scope:target }
 		OR = {
 			spec_rv_chose = yes
 			scope:target = { has_variable = spec_exch_stand }
 		}
 	}
-	is_valid = { spec_can_rv_toggle = yes }
+	is_valid = { exists = scope:target spec_can_rv_toggle = yes }
 	effect = {
 		if = {
 			limit = { spec_rv_chose = yes spec_can_rv_end = yes }
@@ -58,6 +59,39 @@ spec_sgui_rv_end = {
 	effect = { spec_rv_end = yes }
 }
 
+spec_sgui_rv_pick = {
+	scope = country
+	effect = {
+		clear_variable_list = spec_rv_cands
+		ordered_country = {
+			limit = { is_country_alive = yes has_variable = spec_exch_stand NOT = { this = root } }
+			order_by = spec_centre_order
+			max = 999
+			check_range_bounds = no
+			save_scope_as = target
+			root = {
+				if = {
+					limit = { spec_rv_chose = no spec_can_rv_choose = yes }
+					add_to_variable_list = { name = spec_rv_cands target = scope:target }
+				}
+			}
+		}
+		ordered_country = {
+			limit = { is_country_alive = yes has_variable = spec_exch_stand NOT = { this = root } }
+			order_by = spec_centre_order
+			max = 999
+			check_range_bounds = no
+			save_scope_as = target
+			root = {
+				if = {
+					limit = { spec_rv_chose = no NOT = { spec_can_rv_choose = yes } }
+					add_to_variable_list = { name = spec_rv_cands target = scope:target }
+				}
+			}
+		}
+	}
+}
+
 spec_sgui_rv_is_active_lure = {
 	scope = country
 	is_shown = { spec_rv_active_lure = yes }
@@ -65,130 +99,130 @@ spec_sgui_rv_is_active_lure = {
 
 spec_sgui_rv_is_pair = {
 	scope = country
-	is_shown = { spec_rv_pair = yes }
+	is_shown = { exists = scope:target spec_rv_pair = yes }
 }
 
 spec_sgui_rv_is_out = {
 	scope = country
-	is_shown = { spec_rv_chose = yes }
+	is_shown = { exists = scope:target spec_rv_chose = yes }
 }
 
 spec_sgui_rv_is_in = {
 	scope = country
-	is_shown = { spec_rv_chosen_by = yes }
+	is_shown = { exists = scope:target spec_rv_chosen_by = yes }
 }
 
 spec_sgui_rv_is_won = {
 	scope = country
-	is_shown = { is_target_in_variable_list = { name = spec_rv_won target = scope:target } }
+	is_shown = { exists = scope:target is_target_in_variable_list = { name = spec_rv_won target = scope:target } }
 }
 
 spec_sgui_rv_is_lost = {
 	scope = country
-	is_shown = { is_target_in_variable_list = { name = spec_rv_lost target = scope:target } }
+	is_shown = { exists = scope:target is_target_in_variable_list = { name = spec_rv_lost target = scope:target } }
 }
 
 spec_sgui_rv_is_tied = {
 	scope = country
-	is_shown = { is_target_in_variable_list = { name = spec_rv_tied target = scope:target } }
+	is_shown = { exists = scope:target is_target_in_variable_list = { name = spec_rv_tied target = scope:target } }
 }
 
 spec_sgui_rv_is_locked = {
 	scope = country
-	is_shown = { is_target_in_variable_list = { name = spec_rv_keep target = scope:target } }
+	is_shown = { exists = scope:target is_target_in_variable_list = { name = spec_rv_keep target = scope:target } }
 }
 
 spec_sgui_rv_is_big = {
 	scope = country
-	is_shown = { is_target_in_variable_list = { name = spec_rv_big target = scope:target } }
+	is_shown = { exists = scope:target is_target_in_variable_list = { name = spec_rv_big target = scope:target } }
 }
 
 spec_sgui_rv_is_shield = {
 	scope = country
-	is_shown = { is_target_in_variable_list = { name = spec_rv_shield target = scope:target } }
+	is_shown = { exists = scope:target is_target_in_variable_list = { name = spec_rv_shield target = scope:target } }
 }
 
 spec_sgui_rv_is_shielded = {
 	scope = country
-	is_shown = { scope:target = { is_target_in_variable_list = { name = spec_rv_shield target = root } } }
+	is_shown = { exists = scope:target scope:target = { is_target_in_variable_list = { name = spec_rv_shield target = root } } }
 }
 
 spec_sgui_rv_is_bitter = {
 	scope = country
-	is_shown = { "relations(scope:target)" <= relations_threshold:poor }
+	is_shown = { exists = scope:target "relations(scope:target)" <= relations_threshold:poor }
 }
 
 spec_sgui_rv_is_push_1 = {
 	scope = country
-	is_shown = { is_target_in_variable_list = { name = spec_rv_push_1 target = scope:target } }
+	is_shown = { exists = scope:target is_target_in_variable_list = { name = spec_rv_push_1 target = scope:target } }
 }
 
 spec_sgui_rv_is_push_2 = {
 	scope = country
-	is_shown = { is_target_in_variable_list = { name = spec_rv_push_2 target = scope:target } }
+	is_shown = { exists = scope:target is_target_in_variable_list = { name = spec_rv_push_2 target = scope:target } }
 }
 
 spec_sgui_rv_is_push_3 = {
 	scope = country
-	is_shown = { is_target_in_variable_list = { name = spec_rv_push_3 target = scope:target } }
+	is_shown = { exists = scope:target is_target_in_variable_list = { name = spec_rv_push_3 target = scope:target } }
 }
 
 spec_sgui_rv_is_push_4 = {
 	scope = country
-	is_shown = { is_target_in_variable_list = { name = spec_rv_push_4 target = scope:target } }
+	is_shown = { exists = scope:target is_target_in_variable_list = { name = spec_rv_push_4 target = scope:target } }
 }
 
 spec_sgui_rv_is_push_5 = {
 	scope = country
-	is_shown = { is_target_in_variable_list = { name = spec_rv_push_5 target = scope:target } }
+	is_shown = { exists = scope:target is_target_in_variable_list = { name = spec_rv_push_5 target = scope:target } }
 }
 
 spec_sgui_rv_is_pushed_1 = {
 	scope = country
-	is_shown = { scope:target = { is_target_in_variable_list = { name = spec_rv_push_1 target = root } } }
+	is_shown = { exists = scope:target scope:target = { is_target_in_variable_list = { name = spec_rv_push_1 target = root } } }
 }
 
 spec_sgui_rv_is_pushed_2 = {
 	scope = country
-	is_shown = { scope:target = { is_target_in_variable_list = { name = spec_rv_push_2 target = root } } }
+	is_shown = { exists = scope:target scope:target = { is_target_in_variable_list = { name = spec_rv_push_2 target = root } } }
 }
 
 spec_sgui_rv_is_pushed_3 = {
 	scope = country
-	is_shown = { scope:target = { is_target_in_variable_list = { name = spec_rv_push_3 target = root } } }
+	is_shown = { exists = scope:target scope:target = { is_target_in_variable_list = { name = spec_rv_push_3 target = root } } }
 }
 
 spec_sgui_rv_is_pushed_4 = {
 	scope = country
-	is_shown = { scope:target = { is_target_in_variable_list = { name = spec_rv_push_4 target = root } } }
+	is_shown = { exists = scope:target scope:target = { is_target_in_variable_list = { name = spec_rv_push_4 target = root } } }
 }
 
 spec_sgui_rv_is_pushed_5 = {
 	scope = country
-	is_shown = { scope:target = { is_target_in_variable_list = { name = spec_rv_push_5 target = root } } }
+	is_shown = { exists = scope:target scope:target = { is_target_in_variable_list = { name = spec_rv_push_5 target = root } } }
 }
 
 spec_sgui_rv_is_cd_raid = {
 	scope = country
-	is_shown = { is_target_in_variable_list = { name = spec_rv_cd_raid target = scope:target } }
+	is_shown = { exists = scope:target is_target_in_variable_list = { name = spec_rv_cd_raid target = scope:target } }
 }
 
 spec_sgui_rv_is_cd_lure = {
 	scope = country
-	is_shown = { is_target_in_variable_list = { name = spec_rv_cd_lure target = scope:target } }
+	is_shown = { exists = scope:target is_target_in_variable_list = { name = spec_rv_cd_lure target = scope:target } }
 }
 
 spec_sgui_rv_is_cd_press = {
 	scope = country
-	is_shown = { is_target_in_variable_list = { name = spec_rv_cd_press target = scope:target } }
+	is_shown = { exists = scope:target is_target_in_variable_list = { name = spec_rv_cd_press target = scope:target } }
 }
 
 spec_sgui_rv_is_cd_hold = {
 	scope = country
-	is_shown = { is_target_in_variable_list = { name = spec_rv_cd_hold target = scope:target } }
+	is_shown = { exists = scope:target is_target_in_variable_list = { name = spec_rv_cd_hold target = scope:target } }
 }
 
 spec_sgui_rv_is_cd_shore = {
 	scope = country
-	is_shown = { is_target_in_variable_list = { name = spec_rv_cd_shore target = scope:target } }
+	is_shown = { exists = scope:target is_target_in_variable_list = { name = spec_rv_cd_shore target = scope:target } }
 }

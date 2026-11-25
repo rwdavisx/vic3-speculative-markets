@@ -57,10 +57,6 @@ spec_do_suspend = {
 		change_variable = { name = spec_c_rescue add = local_var:spec_jump }
 		change_variable = { name = spec_c_total add = local_var:spec_jump }
 		set_variable = spec_rescued
-		if = {
-			limit = { has_variable = spec_lax }
-			set_variable = { name = spec_lax value = { value = var:spec_lax add = 0.25 max = 1 } }
-		}
 		set_variable = { name = spec_hazard years = 10 }
 		spec_pick_driver = yes
 		spec_update_band = yes

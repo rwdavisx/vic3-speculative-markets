@@ -6,7 +6,7 @@
   },
   "spec_test_rival_month": {
     "path": "common/on_actions/spec_on_actions.txt",
-    "start": "# rival actions running (rivals.py): a Bear Raid's monthly hit, a lure's pool money, Shore Up's months\n",
+    "start": "# rival actions running (rivals.py): campaigns' monthly costs and pushes, a Bear Raid's monthly hit, a lure's pool money",
     "end": "\n\t\t\tremove_variable = spec_fs1\n\t\t\tif = {"
   },
   "spec_test_dispatch_chips": {

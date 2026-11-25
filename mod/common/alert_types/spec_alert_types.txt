@@ -3,14 +3,13 @@
 	texture = "gfx/interface/icons/alert_icons/company_losing_prosperity.dds"
 
 	valid = {
-		has_variable = spec_exposure
-		var:spec_exposure > 0
+		has_variable = spec_conf
 		NOT = { has_variable = spec_panic }
 		NOT = { has_variable = spec_panic_cooldown }
-		spec_after_collapse < spec_panic_at
+		spec_after_risks < spec_panic_at
 	}
 
-	# an alert can only open a vanilla panel: the journal entry, whose header opens the Finance window
+	# the alert row opens Finance for it (ALERT_TABS); this is the popup's fallback
 	open_panel = journal
 	type = alert
 	color = red

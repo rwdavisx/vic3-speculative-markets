@@ -1,6 +1,6 @@
 ﻿spec_debt_converted = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds
-	country_loan_interest_rate_mult = -0.2
+	country_loan_interest_rate_mult = -0.1
 }
 
 # public works in the slump, as vanilla's work camps; their cost is the expense modifier below
@@ -28,7 +28,6 @@ spec_inquiry_sitting = {
 
 spec_sound_finance = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
-	country_loan_interest_rate_mult = -0.05
 	country_prestige_add = 10
 }
 

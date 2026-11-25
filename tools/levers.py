@@ -235,10 +235,9 @@ def script(goods, made, tax, cost):
                      f"\tif = {{\n\t\tlimit = {{ local_var:spec_lever_n > 0 }}\n\t\tadd_modifier = {{\n\t\t\tname = {m}\n\t\t\tmultiplier = local_var:spec_lever_n\n\t\t}}\n\t}}\n"
                      for m, n, *_ in MODIFIERS)
     update += "".join(f"\tif = {{\n\t\tlimit = {{ has_modifier = {m} }}\n\t\tremove_modifier = {m}\n\t}}\n" for m in LEGACY)
-    update += "".join(f"\tif = {{\n\t\tlimit = {{\n\t\t\thas_variable = spec_{k}_{g}\n\t\t\tNOT = {{ has_modifier = spec_lever_{k}_{g} }}\n\t\t}}\n"
-                      f"\t\tadd_modifier = {{ name = spec_lever_{k}_{g} }}\n\t}}\n"
-                      f"\telse_if = {{\n\t\tlimit = {{\n\t\t\tNOT = {{ has_variable = spec_{k}_{g} }}\n\t\t\thas_modifier = spec_lever_{k}_{g}\n\t\t}}\n"
-                      f"\t\tremove_modifier = spec_lever_{k}_{g}\n\t}}\n" for g in sorted(made) for k, *_ in KINDS)
+    # the lever's throughput, on its good's buildings now (on shut down spec_update_companies takes them off)
+    assert set(GROUPS) == companies.TP_VIA_GROUP
+    update += "\tif = {\n\t\tlimit = { has_variable = spec_conf }\n\t\tspec_bp_refresh = yes\n\t}\n"
     # the tab's lever and company figures, only where the tab can show them (generate.monthly's gate)
     update += ("\tif = {\n\t\tlimit = {\n\t\t\tOR = {\n\t\t\t\tis_player = yes\n\t\t\t\tmarket ?= { owner ?= root }\n\t\t\t}\n\t\t}\n"
                + "".join(f"\t\tspec_lever_ui = {{ G = {g} }}\n" for g in goods)
@@ -445,8 +444,8 @@ spec_sgui_issue = {{
 """
     mods = "".join(f"{m} = {{\n\ticon = {icons.path(icon)}\n" + "".join(f"\t{k} = {v:g}\n" for k, v in fx.items())
                    + "}\n\n" for m, _, icon, fx in MODIFIERS)
-    mods += "".join(f"spec_lever_{k}_{g} = {{\n\ticon = {icons.path(icon)}\n" + "".join(f"\t{t} = {v:g}\n" for t in made[g])
-                    + "}\n\n" for g in sorted(made) for k, v, icon in KINDS)
+    # older saves' country modifiers, now empty: the lever's throughput is in the good's building modifier (companies.bp_script)
+    mods += "".join(f"spec_lever_{k}_{g} = {{\n\ticon = {icons.path(icon)}\n}}\n\n" for g in sorted(made) for k, v, icon in KINDS)
     mods += "".join(f"{m} = {{\n\ticon = {icons.path('lever_encourage')}\n}}\n\n" for m in LEGACY)
     return {"common/script_values/spec_values_levers.txt": "\n\n".join(values) + "\n",
             "common/scripted_effects/spec_lever_effects.txt": effects,
@@ -640,7 +639,8 @@ def loc():
     n = stored("spec_c_lev_n")
     gt_used = f"GreaterThan_CFixedPoint({n}, '(CFixedPoint)0')"
     one_used = f"EqualTo_CFixedPoint({n}, '(CFixedPoint)1')"
-    names = "".join(f' spec_lever_restrain_{g}: "${g}$ Levy"\n spec_lever_encourage_{g}: "${g}$ Subsidy"\n' for g in sorted(_MADE))
+    names = "".join(f' spec_lever_restrain_{g}: "${g}$ Levy"\n spec_lever_encourage_{g}: "${g}$ Subsidy"\n'
+                    f' spec_term_up_{g}: "$SPEC_JE_FAVOURED$ ${g}$"\n spec_term_down_{g}: "$SPEC_JE_SHUNNED$ ${g}$"\n' for g in sorted(_MADE))
     return names + f""" spec_lever_restrain: "Speculation Levies"
  spec_lever_encourage: "Investment Subsidies"
  spec_lever_market_tt: "Our $ECONOMIC_SYSTEM_GC_LINK$ lets investors chase prices"
@@ -705,11 +705,11 @@ if __name__ == "__main__":
     assert f"{LEVY_SHARE:.0%}" in loc() and f"{SUBSIDY_SHARE:.0%}" in loc()
     # approval is the interest groups' (ig_stances.py), not the levers' own modifiers
     assert "approval" not in m and "country_authority_add = -1\n" in m
-    assert "spec_lever_encourage_steel = {" in m and "building_steel_mill_throughput_add = -0.1" in m and "spec_lever_restrain_fruit" not in m
+    assert "spec_lever_encourage_steel = {" in m and "throughput_add" not in m and "spec_lever_restrain_fruit" not in m
     assert "country_expenses_add = 1\n" in m and "country_tax_income_add = 1\n" in m
     assert "interest_rate" not in m and "investment_pool" not in m
     e = out["common/scripted_effects/spec_lever_effects.txt"]
-    assert "value = spec_lever_spend }" in e and "add_modifier = { name = spec_lever_restrain_grain }" in e
+    assert "value = spec_lever_spend }" in e and "spec_bp_refresh = yes" in e and "spec_lever_restrain_grain" not in e
     assert "authority >= spec_lever_cost_$G$" in out["common/scripted_triggers/spec_lever_triggers.txt"]
     ai = ai_block(["grain", "steel"], 3, 2, 0.5)
     assert ai.count("authority >= { value = spec_lever_cost_steel multiply = 2 }") == 4 and "spec_update_levers" not in ai

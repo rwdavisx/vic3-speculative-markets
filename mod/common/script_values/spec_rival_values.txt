@@ -23,6 +23,16 @@ spec_rv_heft = {
 }
 
 spec_rv_today = { value = game_date }
+# the days Shore Up would end and be ready again if used now (spec_rv_shore), for the dates its tooltips show
+spec_rv_shore_end_day = {
+	value = game_date
+	add = 360
+	if = {
+		limit = { spec_nx_shore > 1.05 }
+		add = 144
+	}
+}
+spec_rv_shore_again_day = { value = game_date add = 730 }
 
 spec_rv_shore_until_date = {
 	value = 0
@@ -69,9 +79,41 @@ spec_rv_cost_neg = {
 	multiply = -1
 }
 
-# the AI pays for a money action only with this much gold in reserve
+# the AI pays for a money action only with this much gold in reserve (Hold the Line pays at once; a campaign by the month)
 spec_rv_ai_money = {
 	value = spec_rv_cost
+	multiply = 3
+}
+
+# Raid: its cost a month over its 6 months (a campaign, spec_rv_campaigns)
+spec_rv_month_raid = {
+	value = spec_rv_cost
+	divide = 6
+}
+
+spec_rv_month_raid_neg = {
+	value = spec_rv_month_raid
+	multiply = -1
+}
+
+spec_rv_ai_money_raid = {
+	value = spec_rv_month_raid
+	multiply = 3
+}
+
+# Shore: its cost a month over its 12 months (a campaign, spec_rv_campaigns)
+spec_rv_month_shore = {
+	value = spec_rv_cost
+	divide = 12
+}
+
+spec_rv_month_shore_neg = {
+	value = spec_rv_month_shore
+	multiply = -1
+}
+
+spec_rv_ai_money_shore = {
+	value = spec_rv_month_shore
 	multiply = 3
 }
 
@@ -120,6 +162,21 @@ spec_rv_lure_debt = {
 	multiply = spec_rv_vs
 }
 
+# Lure Capital's debt a month over its 12 months (spec_rv_campaigns)
+spec_rv_month_lure = {
+	value = spec_rv_lure_debt
+	divide = 12
+}
+
+# our Bear Raid's monthly hit on scope:target, if it worked (spec_rv_raid; 0 once taken back)
+spec_rv_raid_rate_now = {
+	value = 0
+	if = {
+		limit = { is_key_in_variable_map = { name = spec_rv_raid_rate target = scope:target } }
+		value = "variable_map(spec_rv_raid_rate|scope:target)"
+	}
+}
+
 # the yearly contest's stake, in the winner's scope against scope:spec_rv_l: an upset pays more, the expected less
 spec_rv_stake = {
 	value = 3
@@ -141,9 +198,9 @@ spec_rv_stake = {
 	}
 }
 
-# the contest's bar from scope:spec_rival_me's side against this: the score lead as a share of the higher score, then
-# the pushes each way, from -1 (theirs) to 1 (ours)
-spec_rv_rope = {
+# the contest from scope:spec_rival_me's side against this, in parts a player's rows keep monthly (spec_rv_ui_row) so
+# its tooltip can say what moves it: the score lead as a share of the higher score
+spec_rv_lead = {
 	value = spec_rv_me_eff
 	subtract = spec_rv_it_eff
 	divide = {
@@ -151,62 +208,608 @@ spec_rv_rope = {
 		min = spec_rv_me_eff
 		min = 1
 	}
-	# blue chips (bluechips.PULL each as counted: in full up to CAP, half up to CAP2)
+}
+# blue chips (bluechips.PULL each as counted: each in full, up to CAP), scope:spec_rival_me's and this country's
+spec_rv_bc_me = {
+	value = 0
 	if = {
 		limit = { scope:spec_rival_me = { has_variable = spec_bc_n } }
 		add = {
 			value = 0
-			add = { value = scope:spec_rival_me.var:spec_bc_n max = 5 }
-			add = { value = scope:spec_rival_me.var:spec_bc_n subtract = 5 min = 0 max = 5 multiply = 0.5 }
+			add = { value = scope:spec_rival_me.var:spec_bc_n max = 8 }
 			multiply = 0.03
 		}
 	}
+}
+spec_rv_bc_it = {
+	value = 0
 	if = {
 		limit = { has_variable = spec_bc_n }
-		subtract = { value = spec_bc_counted multiply = 0.03 }
+		add = { value = spec_bc_counted multiply = 0.03 }
+	}
+}
+# what the two Exchanges bring to a whole contest, and a month of it in points (like Liberty Desire's weekly change)
+spec_rv_edge = {
+	value = spec_rv_lead
+	add = spec_rv_bc_me
+	subtract = spec_rv_bc_it
+}
+spec_rv_drift = {
+	value = spec_rv_edge
+	multiply = 50
+	divide = 60
+}
+# the points the months have brought so far, above or below even (map spec_rv_pts on each side, against the other, kept by
+# spec_rv_accrue; the map holds them times 60, so an exact lead ends on its exact band). A contest from before 1.3
+# counts its months so far at today's pace
+spec_rv_sum = {
+	value = 0
+	if = {
+		limit = { is_key_in_variable_map = { name = spec_rv_pts target = scope:spec_rival_me } }
+		value = "variable_map(spec_rv_pts|scope:spec_rival_me)"
+		multiply = -1
+	}
+	else = {
+		value = spec_rv_edge
+		multiply = 50
+		multiply = { value = spec_rv_age_m multiply = 12 round = yes }
+	}
+}
+spec_rv_acc = {
+	value = spec_rv_sum
+	divide = 60
+}
+# a month of the pushes still arriving, in points
+spec_rv_in_me_raid = {
+	value = 0
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_raid_1 target = prev } } }
+		add = 0.833
 	}
 	if = {
-		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_push_1 target = prev } } }
-		add = 0.1
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_raid_2 target = prev } } }
+		add = 0.833
 	}
 	if = {
-		limit = { is_target_in_variable_list = { name = spec_rv_push_1 target = scope:spec_rival_me } }
-		subtract = 0.1
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_raid_3 target = prev } } }
+		add = 0.833
 	}
 	if = {
-		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_push_2 target = prev } } }
-		add = 0.1
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_raid_4 target = prev } } }
+		add = 0.833
 	}
 	if = {
-		limit = { is_target_in_variable_list = { name = spec_rv_push_2 target = scope:spec_rival_me } }
-		subtract = 0.1
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_raid_5 target = prev } } }
+		add = 0.833
 	}
 	if = {
-		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_push_3 target = prev } } }
-		add = 0.1
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_raid_6 target = prev } } }
+		add = 0.833
+	}
+}
+spec_rv_in_me_lure = {
+	value = 0
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_lure_1 target = prev } } }
+		add = 0.417
 	}
 	if = {
-		limit = { is_target_in_variable_list = { name = spec_rv_push_3 target = scope:spec_rival_me } }
-		subtract = 0.1
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_lure_2 target = prev } } }
+		add = 0.417
 	}
 	if = {
-		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_push_4 target = prev } } }
-		add = 0.1
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_lure_3 target = prev } } }
+		add = 0.417
 	}
 	if = {
-		limit = { is_target_in_variable_list = { name = spec_rv_push_4 target = scope:spec_rival_me } }
-		subtract = 0.1
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_lure_4 target = prev } } }
+		add = 0.417
 	}
 	if = {
-		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_push_5 target = prev } } }
-		add = 0.1
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_lure_5 target = prev } } }
+		add = 0.417
 	}
 	if = {
-		limit = { is_target_in_variable_list = { name = spec_rv_push_5 target = scope:spec_rival_me } }
-		subtract = 0.1
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_lure_6 target = prev } } }
+		add = 0.417
 	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_lure_7 target = prev } } }
+		add = 0.417
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_lure_8 target = prev } } }
+		add = 0.417
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_lure_9 target = prev } } }
+		add = 0.417
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_lure_10 target = prev } } }
+		add = 0.417
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_lure_11 target = prev } } }
+		add = 0.417
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_lure_12 target = prev } } }
+		add = 0.417
+	}
+}
+spec_rv_in_me_press = {
+	value = 0
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_press_1 target = prev } } }
+		add = 0.417
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_press_2 target = prev } } }
+		add = 0.417
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_press_3 target = prev } } }
+		add = 0.417
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_press_4 target = prev } } }
+		add = 0.417
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_press_5 target = prev } } }
+		add = 0.417
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_press_6 target = prev } } }
+		add = 0.417
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_press_7 target = prev } } }
+		add = 0.417
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_press_8 target = prev } } }
+		add = 0.417
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_press_9 target = prev } } }
+		add = 0.417
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_press_10 target = prev } } }
+		add = 0.417
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_press_11 target = prev } } }
+		add = 0.417
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_press_12 target = prev } } }
+		add = 0.417
+	}
+}
+spec_rv_in_it_raid = {
+	value = 0
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_raid_1 target = scope:spec_rival_me } }
+		add = 0.833
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_raid_2 target = scope:spec_rival_me } }
+		add = 0.833
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_raid_3 target = scope:spec_rival_me } }
+		add = 0.833
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_raid_4 target = scope:spec_rival_me } }
+		add = 0.833
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_raid_5 target = scope:spec_rival_me } }
+		add = 0.833
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_raid_6 target = scope:spec_rival_me } }
+		add = 0.833
+	}
+}
+spec_rv_in_it_lure = {
+	value = 0
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_lure_1 target = scope:spec_rival_me } }
+		add = 0.417
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_lure_2 target = scope:spec_rival_me } }
+		add = 0.417
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_lure_3 target = scope:spec_rival_me } }
+		add = 0.417
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_lure_4 target = scope:spec_rival_me } }
+		add = 0.417
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_lure_5 target = scope:spec_rival_me } }
+		add = 0.417
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_lure_6 target = scope:spec_rival_me } }
+		add = 0.417
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_lure_7 target = scope:spec_rival_me } }
+		add = 0.417
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_lure_8 target = scope:spec_rival_me } }
+		add = 0.417
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_lure_9 target = scope:spec_rival_me } }
+		add = 0.417
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_lure_10 target = scope:spec_rival_me } }
+		add = 0.417
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_lure_11 target = scope:spec_rival_me } }
+		add = 0.417
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_lure_12 target = scope:spec_rival_me } }
+		add = 0.417
+	}
+}
+spec_rv_in_it_press = {
+	value = 0
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_press_1 target = scope:spec_rival_me } }
+		add = 0.417
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_press_2 target = scope:spec_rival_me } }
+		add = 0.417
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_press_3 target = scope:spec_rival_me } }
+		add = 0.417
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_press_4 target = scope:spec_rival_me } }
+		add = 0.417
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_press_5 target = scope:spec_rival_me } }
+		add = 0.417
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_press_6 target = scope:spec_rival_me } }
+		add = 0.417
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_press_7 target = scope:spec_rival_me } }
+		add = 0.417
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_press_8 target = scope:spec_rival_me } }
+		add = 0.417
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_press_9 target = scope:spec_rival_me } }
+		add = 0.417
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_press_10 target = scope:spec_rival_me } }
+		add = 0.417
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_press_11 target = scope:spec_rival_me } }
+		add = 0.417
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_press_12 target = scope:spec_rival_me } }
+		add = 0.417
+	}
+}
+spec_rv_in_me = {
+	value = 0
+	add = spec_rv_in_me_raid
+	add = spec_rv_in_me_lure
+	add = spec_rv_in_me_press
+}
+spec_rv_in_it = {
+	value = 0
+	add = spec_rv_in_it_raid
+	add = spec_rv_in_it_lure
+	add = spec_rv_in_it_press
+}
+# the contest's change this month, in points
+spec_rv_rate = {
+	value = spec_rv_drift
+	add = spec_rv_in_me
+	subtract = spec_rv_in_it
+}
+# where it settles at this pace, the pushes under way all arrived
+spec_rv_proj = {
+	value = spec_rv_acc
+	divide = 50
+	add = {
+		value = spec_rv_edge
+		multiply = { value = 5 subtract = spec_rv_age_m divide = 5 min = 0 }
+	}
+	add = { value = spec_rv_n_push_me multiply = 0.1 }
+	subtract = { value = spec_rv_n_push_it multiply = 0.1 }
 	min = -1
 	max = 1
+}
+# where it stands: the months so far, then the pushes each way, from -1 (theirs) to 1 (ours)
+spec_rv_rope = {
+	value = spec_rv_acc
+	divide = 50
+	add = spec_rv_push_me
+	subtract = spec_rv_push_it
+	min = -1
+	max = 1
+}
+
+# the pushes' parts arrived so far: PUSH each, less what a campaign still has to bring (spec_rv_ramp_*)
+spec_rv_push_me = {
+	value = spec_rv_n_push_me
+	multiply = 0.1
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_raid_1 target = prev } } }
+		subtract = 0.017
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_raid_2 target = prev } } }
+		subtract = 0.033
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_raid_3 target = prev } } }
+		subtract = 0.05
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_raid_4 target = prev } } }
+		subtract = 0.067
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_raid_5 target = prev } } }
+		subtract = 0.083
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_raid_6 target = prev } } }
+		subtract = 0.1
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_lure_1 target = prev } } }
+		subtract = 0.008
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_lure_2 target = prev } } }
+		subtract = 0.017
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_lure_3 target = prev } } }
+		subtract = 0.025
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_lure_4 target = prev } } }
+		subtract = 0.033
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_lure_5 target = prev } } }
+		subtract = 0.042
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_lure_6 target = prev } } }
+		subtract = 0.05
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_lure_7 target = prev } } }
+		subtract = 0.058
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_lure_8 target = prev } } }
+		subtract = 0.067
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_lure_9 target = prev } } }
+		subtract = 0.075
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_lure_10 target = prev } } }
+		subtract = 0.083
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_lure_11 target = prev } } }
+		subtract = 0.092
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_lure_12 target = prev } } }
+		subtract = 0.1
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_press_1 target = prev } } }
+		subtract = 0.008
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_press_2 target = prev } } }
+		subtract = 0.017
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_press_3 target = prev } } }
+		subtract = 0.025
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_press_4 target = prev } } }
+		subtract = 0.033
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_press_5 target = prev } } }
+		subtract = 0.042
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_press_6 target = prev } } }
+		subtract = 0.05
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_press_7 target = prev } } }
+		subtract = 0.058
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_press_8 target = prev } } }
+		subtract = 0.067
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_press_9 target = prev } } }
+		subtract = 0.075
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_press_10 target = prev } } }
+		subtract = 0.083
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_press_11 target = prev } } }
+		subtract = 0.092
+	}
+	if = {
+		limit = { scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_ramp_press_12 target = prev } } }
+		subtract = 0.1
+	}
+	min = 0
+}
+
+spec_rv_push_it = {
+	value = spec_rv_n_push_it
+	multiply = 0.1
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_raid_1 target = scope:spec_rival_me } }
+		subtract = 0.017
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_raid_2 target = scope:spec_rival_me } }
+		subtract = 0.033
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_raid_3 target = scope:spec_rival_me } }
+		subtract = 0.05
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_raid_4 target = scope:spec_rival_me } }
+		subtract = 0.067
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_raid_5 target = scope:spec_rival_me } }
+		subtract = 0.083
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_raid_6 target = scope:spec_rival_me } }
+		subtract = 0.1
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_lure_1 target = scope:spec_rival_me } }
+		subtract = 0.008
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_lure_2 target = scope:spec_rival_me } }
+		subtract = 0.017
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_lure_3 target = scope:spec_rival_me } }
+		subtract = 0.025
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_lure_4 target = scope:spec_rival_me } }
+		subtract = 0.033
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_lure_5 target = scope:spec_rival_me } }
+		subtract = 0.042
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_lure_6 target = scope:spec_rival_me } }
+		subtract = 0.05
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_lure_7 target = scope:spec_rival_me } }
+		subtract = 0.058
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_lure_8 target = scope:spec_rival_me } }
+		subtract = 0.067
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_lure_9 target = scope:spec_rival_me } }
+		subtract = 0.075
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_lure_10 target = scope:spec_rival_me } }
+		subtract = 0.083
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_lure_11 target = scope:spec_rival_me } }
+		subtract = 0.092
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_lure_12 target = scope:spec_rival_me } }
+		subtract = 0.1
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_press_1 target = scope:spec_rival_me } }
+		subtract = 0.008
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_press_2 target = scope:spec_rival_me } }
+		subtract = 0.017
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_press_3 target = scope:spec_rival_me } }
+		subtract = 0.025
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_press_4 target = scope:spec_rival_me } }
+		subtract = 0.033
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_press_5 target = scope:spec_rival_me } }
+		subtract = 0.042
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_press_6 target = scope:spec_rival_me } }
+		subtract = 0.05
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_press_7 target = scope:spec_rival_me } }
+		subtract = 0.058
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_press_8 target = scope:spec_rival_me } }
+		subtract = 0.067
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_press_9 target = scope:spec_rival_me } }
+		subtract = 0.075
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_press_10 target = scope:spec_rival_me } }
+		subtract = 0.083
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_press_11 target = scope:spec_rival_me } }
+		subtract = 0.092
+	}
+	if = {
+		limit = { is_target_in_variable_list = { name = spec_rv_ramp_press_12 target = scope:spec_rival_me } }
+		subtract = 0.1
+	}
+	min = 0
 }
 
 # pushes on the contest between this and scope:spec_rival_me, by each side
@@ -262,10 +865,17 @@ spec_rv_n_push_it = {
 spec_rv_slots = {
 	value = 1
 	if = {
-		limit = { has_variable = spec_exch_stand }
-		add = var:spec_exch_stand
+		limit = { var:spec_exch_stand ?= 1 }
+		value = 2
 	}
-	max = 4
+	if = {
+		limit = { var:spec_exch_stand ?= 2 }
+		value = 4
+	}
+	if = {
+		limit = { var:spec_exch_stand ?= 3 }
+		value = 6
+	}
 }
 
 # spread thin: what a side's score counts for, by the contests it is in (spec_rv_n_all, monthly)
@@ -296,13 +906,72 @@ spec_rv_it_eff = {
 	}
 }
 
-# years into a contest (its clock, spec_rv_age_<k> on the side that named the other): from this to scope:target
+# years into a contest (its clock in months, spec_rv_age_<k> on the side that named the other): from this to scope:target
 spec_rv_age_t = {
 	value = 0
-	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_1 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_1 target = prev } } } } value = 1 }
-	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_2 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_2 target = prev } } } } value = 2 }
-	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_3 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_3 target = prev } } } } value = 3 }
-	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_4 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_4 target = prev } } } } value = 4 }
+	if = {
+		limit = { exists = scope:target }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_1 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_1 target = prev } } } } value = 1 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_2 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_2 target = prev } } } } value = 2 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_3 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_3 target = prev } } } } value = 3 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_4 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_4 target = prev } } } } value = 4 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_5 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_5 target = prev } } } } value = 5 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_6 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_6 target = prev } } } } value = 6 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_7 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_7 target = prev } } } } value = 7 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_8 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_8 target = prev } } } } value = 8 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_9 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_9 target = prev } } } } value = 9 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_10 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_10 target = prev } } } } value = 10 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_11 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_11 target = prev } } } } value = 11 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_12 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_12 target = prev } } } } value = 12 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_13 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_13 target = prev } } } } value = 13 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_14 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_14 target = prev } } } } value = 14 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_15 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_15 target = prev } } } } value = 15 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_16 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_16 target = prev } } } } value = 16 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_17 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_17 target = prev } } } } value = 17 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_18 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_18 target = prev } } } } value = 18 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_19 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_19 target = prev } } } } value = 19 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_20 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_20 target = prev } } } } value = 20 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_21 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_21 target = prev } } } } value = 21 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_22 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_22 target = prev } } } } value = 22 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_23 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_23 target = prev } } } } value = 23 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_24 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_24 target = prev } } } } value = 24 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_25 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_25 target = prev } } } } value = 25 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_26 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_26 target = prev } } } } value = 26 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_27 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_27 target = prev } } } } value = 27 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_28 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_28 target = prev } } } } value = 28 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_29 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_29 target = prev } } } } value = 29 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_30 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_30 target = prev } } } } value = 30 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_31 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_31 target = prev } } } } value = 31 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_32 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_32 target = prev } } } } value = 32 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_33 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_33 target = prev } } } } value = 33 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_34 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_34 target = prev } } } } value = 34 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_35 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_35 target = prev } } } } value = 35 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_36 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_36 target = prev } } } } value = 36 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_37 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_37 target = prev } } } } value = 37 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_38 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_38 target = prev } } } } value = 38 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_39 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_39 target = prev } } } } value = 39 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_40 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_40 target = prev } } } } value = 40 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_41 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_41 target = prev } } } } value = 41 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_42 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_42 target = prev } } } } value = 42 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_43 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_43 target = prev } } } } value = 43 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_44 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_44 target = prev } } } } value = 44 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_45 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_45 target = prev } } } } value = 45 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_46 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_46 target = prev } } } } value = 46 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_47 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_47 target = prev } } } } value = 47 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_48 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_48 target = prev } } } } value = 48 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_49 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_49 target = prev } } } } value = 49 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_50 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_50 target = prev } } } } value = 50 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_51 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_51 target = prev } } } } value = 51 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_52 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_52 target = prev } } } } value = 52 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_53 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_53 target = prev } } } } value = 53 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_54 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_54 target = prev } } } } value = 54 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_55 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_55 target = prev } } } } value = 55 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_56 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_56 target = prev } } } } value = 56 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_57 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_57 target = prev } } } } value = 57 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_58 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_58 target = prev } } } } value = 58 }
+		if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_59 target = scope:target } scope:target = { is_target_in_variable_list = { name = spec_rv_age_59 target = prev } } } } value = 59 }
+	}
+	divide = 12
 }
 
 # the same from scope:spec_rival_me to this (a player's rows)
@@ -312,6 +981,62 @@ spec_rv_age_m = {
 	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_2 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_2 target = prev } } } } value = 2 }
 	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_3 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_3 target = prev } } } } value = 3 }
 	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_4 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_4 target = prev } } } } value = 4 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_5 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_5 target = prev } } } } value = 5 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_6 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_6 target = prev } } } } value = 6 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_7 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_7 target = prev } } } } value = 7 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_8 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_8 target = prev } } } } value = 8 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_9 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_9 target = prev } } } } value = 9 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_10 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_10 target = prev } } } } value = 10 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_11 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_11 target = prev } } } } value = 11 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_12 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_12 target = prev } } } } value = 12 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_13 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_13 target = prev } } } } value = 13 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_14 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_14 target = prev } } } } value = 14 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_15 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_15 target = prev } } } } value = 15 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_16 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_16 target = prev } } } } value = 16 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_17 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_17 target = prev } } } } value = 17 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_18 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_18 target = prev } } } } value = 18 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_19 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_19 target = prev } } } } value = 19 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_20 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_20 target = prev } } } } value = 20 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_21 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_21 target = prev } } } } value = 21 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_22 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_22 target = prev } } } } value = 22 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_23 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_23 target = prev } } } } value = 23 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_24 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_24 target = prev } } } } value = 24 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_25 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_25 target = prev } } } } value = 25 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_26 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_26 target = prev } } } } value = 26 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_27 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_27 target = prev } } } } value = 27 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_28 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_28 target = prev } } } } value = 28 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_29 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_29 target = prev } } } } value = 29 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_30 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_30 target = prev } } } } value = 30 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_31 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_31 target = prev } } } } value = 31 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_32 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_32 target = prev } } } } value = 32 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_33 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_33 target = prev } } } } value = 33 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_34 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_34 target = prev } } } } value = 34 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_35 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_35 target = prev } } } } value = 35 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_36 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_36 target = prev } } } } value = 36 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_37 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_37 target = prev } } } } value = 37 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_38 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_38 target = prev } } } } value = 38 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_39 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_39 target = prev } } } } value = 39 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_40 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_40 target = prev } } } } value = 40 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_41 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_41 target = prev } } } } value = 41 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_42 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_42 target = prev } } } } value = 42 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_43 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_43 target = prev } } } } value = 43 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_44 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_44 target = prev } } } } value = 44 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_45 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_45 target = prev } } } } value = 45 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_46 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_46 target = prev } } } } value = 46 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_47 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_47 target = prev } } } } value = 47 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_48 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_48 target = prev } } } } value = 48 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_49 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_49 target = prev } } } } value = 49 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_50 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_50 target = prev } } } } value = 50 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_51 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_51 target = prev } } } } value = 51 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_52 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_52 target = prev } } } } value = 52 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_53 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_53 target = prev } } } } value = 53 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_54 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_54 target = prev } } } } value = 54 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_55 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_55 target = prev } } } } value = 55 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_56 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_56 target = prev } } } } value = 56 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_57 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_57 target = prev } } } } value = 57 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_58 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_58 target = prev } } } } value = 58 }
+	if = { limit = { OR = { is_target_in_variable_list = { name = spec_rv_age_59 target = scope:spec_rival_me } scope:spec_rival_me = { is_target_in_variable_list = { name = spec_rv_age_59 target = prev } } } } value = 59 }
+	divide = 12
 }
 
 spec_rv_reach_lo = {
@@ -357,7 +1082,7 @@ spec_rv_upkeep_total = {
 # the AI's pick, in a candidate against scope:spec_rival_me (the AI): its side of the bar, plus the bigger prize of
 # beating a higher Standing (rivals' spec_rv_stake)
 spec_rv_ai_pick_v = {
-	value = spec_rv_rope
+	value = spec_rv_edge
 	add = {
 		value = var:spec_exch_stand
 		subtract = scope:spec_rival_me.var:spec_exch_stand

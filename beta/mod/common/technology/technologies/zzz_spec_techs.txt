@@ -1,6 +1,6 @@
 ﻿INJECT:stock_exchange = {
 	modifier = {
-		country_spec_boom_size_mult = 0.35
+		country_spec_boom_size_mult = 0.24
 		country_spec_bank_lending_mult = 1
 		country_spec_excess_bool = yes
 	}
@@ -8,7 +8,7 @@
 
 INJECT:investment_banks = {
 	modifier = {
-		country_spec_boom_size_mult = 0.4
+		country_spec_boom_size_mult = 0.28
 		country_spec_bank_lending_mult = 1
 		country_spec_credit_limit_add = 2
 	}

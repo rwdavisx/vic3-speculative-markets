@@ -2,7 +2,9 @@
 
 A  Lending Standards: spec_lax, 0 (strict) to 1 (reckless). It rises a little every month without a panic and by
    LAX_RESCUE each time the government rescues the banks or buys up their bad loans; it falls with every point of
-   Market Confidence a boom's ending costs, and by LAX_PANIC when a panic ends without a rescue. Careless banks lend
+   Market Confidence a boom's ending costs, and by LAX_PANIC of itself when a panic ends without a rescue. LAX_SCALE
+   (2026-11-21): the drift slows as standards loosen and the falls grow with them, at Sound the old flat amounts, so
+   standards swing around Sound instead of piling up at Strict and Reckless. Careless banks lend
    more, lend more of it into booms (so those end harder, exposure.py), and cost more to rescue.
 B  Booms build: while a good's interest is Eager or Feverish, its building group has a construction bonus. The supply
    added since the boom began (spec_sup_<g>, the market's sell orders when it started) makes its ending harder.
@@ -19,8 +21,15 @@ ON = tuning.get("CYCLE_ON", 1)
 LAX_START = tuning.get("LAX_START", 0.4)
 LAX_QUIET_YEARS = tuning.get("LAX_QUIET_YEARS", 20)  # years without a panic or a loss from strict to reckless
 LAX_PER_CONF = tuning.get("LAX_PER_CONF", 0.02)      # lost per point of confidence a boom's ending costs
-LAX_RESCUE = tuning.get("LAX_RESCUE", 0.25)          # gained when the government rescues the banks
-LAX_PANIC = tuning.get("LAX_PANIC", 0.4)             # lost when a panic ends without a rescue
+# gained when the government rescues the banks: 0 since 2026-11-24 (was 0.25). A crisis never leaves banks laxer than it
+# found them: a rescue shrinks the lesson (LAX_PANIC_RESCUED), and Bad Debts sober them (LAX_SOBER_YEARS). The +0.25 put
+# rescued banks at Reckless mid-crash, and the freeze while Bad Debts lasted held them there for years
+LAX_RESCUE = tuning.get("LAX_RESCUE", 0)
+LAX_PANIC = tuning.get("LAX_PANIC", 0.4)             # the share of spec_lax lost when a panic ends without a rescue (was a flat 0.4)
+LAX_PANIC_RESCUED = tuning.get("LAX_PANIC_RESCUED", 0.5)  # the part of that lesson rescued banks still learn (2026-11-24; was none)
+LAX_SOBER_YEARS = tuning.get("LAX_SOBER_YEARS", 20)  # while Bad Debts last, spec_lax falls 1 / this a year; twice that under Tight (2026-11-24; it held still)
+SOBER_STEP = 1 / (12 * LAX_SOBER_YEARS)
+LAX_SCALE = 2  # the drift is x LAX_SCALE x (1 - spec_lax), a boom's ending x LAX_SCALE x spec_lax: x1 at Sound (0.5)
 # what the two ends do, against the middle (Sound): credit lent, the share of it lent into booms, a rescue's cost
 LAX_CREDIT = tuning.get("LAX_CREDIT", 0.25)
 LAX_PULL = tuning.get("LAX_PULL", 0.5)
@@ -31,7 +40,8 @@ LAX_CUTS = [0.2, 0.4, 0.6, 0.8]
 SOUND_MID = (LAX_CUTS[1] + LAX_CUTS[2]) / 2
 LAX_WORDS = ["Strict", "Cautious", "Sound", "Lax", "Reckless"]
 
-BB_STEP = tuning.get("BB_STEP", 0.1)      # construction efficiency at Eager; twice it at Feverish
+BB_STEP = tuning.get("BB_STEP", 0.1)      # construction efficiency an industry gains with every good Eager; twice it, its most, with every good Feverish
+BB_FULL = 0.03                            # an industry smaller than this share of our trade gains less, in proportion
 OVER_PER = tuning.get("OVER_PER", 0.5)    # a boom's ending is this much harder for supply doubled since it began
 OVER_SHOWN = 0.05
 BURN_LEVEL = 3  # a state is hit where one of the good's buildings is at least this big
@@ -39,7 +49,7 @@ BURN_LEVEL = 3  # a state is hit where one of the good's buildings is at least t
 # the building groups vanilla has a construction-efficiency modifier for; services, power and the arts have none
 BUILD_GROUPS = ["agriculture", "extraction", "heavy_industry", "infrastructure", "light_industry", "military_industry",
                 "plantations", "ranching"]
-_GROUPS = {}  # group -> the goods whose boom speeds it (each building's main good)
+_GROUPS = {}  # group -> the goods whose boom speeds it (each building's main good, and goods that are no building's main good)
 _MAKERS = {}  # good -> every building making it
 
 CREDIT = "\tmultiply = spec_lax_credit\n" if ON else ""
@@ -63,26 +73,34 @@ def setup(game, sells, upgrades):
     group = {name: field(body, "building_group") for name, body in blocks("common/buildings")}
     _GROUPS.clear()
     _MAKERS.clear()
+
+    def join(b, g):
+        bg = group[f"building_{b}"]
+        while bg and bg[3:] not in BUILD_GROUPS:
+            bg = parent.get(bg)
+        if bg and g not in _GROUPS.setdefault(bg[3:], []):
+            _GROUPS[bg[3:]].append(g)
+
     for file in sells.values():
         for b, g in file.items():
             _MAKERS.setdefault(g, []).append(b)
-            bg = group[f"building_{b}"]
-            while bg and bg[3:] not in BUILD_GROUPS:
-                bg = parent.get(bg)
-            if bg and g not in _GROUPS.setdefault(bg[3:], []):
-                _GROUPS[bg[3:]].append(g)
+            join(b, g)
+    main = set(_boosted())
     for b, ups in upgrades.items():
         for g, _ in ups:
             _MAKERS.setdefault(g, []).append(b)
-
-
-def _hot(g, word, share):
-    # .3f: the game rejects a comparison whose right side has 6 decimals ("Invalid right side ... 'none'")
-    return f"AND = {{ has_variable = spec_word_{g} var:spec_word_{g} >= {word} spec_weight_{g} >= {share:.3f} }}"
+            if g not in main:  # meat is ranching's, not whaling's
+                join(b, g)
 
 
 def _boosted():
     return sorted({g for gs in _GROUPS.values() for g in gs})
+
+
+def parts():
+    """(industry, good, key) for each good's part of its industry's gain; a good in two industries (dye) has a second key."""
+    first = {}
+    return [(grp, g, g if first.setdefault(g, grp) == grp else f"{g}_{grp}") for grp, gs in _GROUPS.items() for g in gs]
 
 
 def level_loc(lax):
@@ -100,8 +118,7 @@ def level_loc(lax):
     out = " SPEC_LAXL_HERE: \"\\n\\n#P We are here#!\"\n"
     for i, w in enumerate(LAX_WORDS):
         # centres._trust: Sound or stricter gains, Lax nothing, Reckless loses
-        trust = ("$SPEC_LAX_TRUST$" if cuts[i + 1] <= LAX_CUTS[2] + 1e-9 else
-                 "$SPEC_LAX_NO_TRUST$" if cuts[i + 1] <= LAX_CUTS[3] + 1e-9 else "$SPEC_LAX_LOSE_TRUST$")
+        trust = f"$SPEC_LAX_TRUST_{i}$"
         out += (f' SPEC_LAXL_{i}_TT: "#header {w}#!\\n[concept_spec_lending_standards] from #v {cuts[i] * 100:g}#! to #v {cuts[i + 1] * 100:g}#!\\n$TOOLTIP_DELIMITER$\\n'
                 f'{rng(LAX_CREDIT, i, False).replace("#P", "#v").replace("#N", "#v")} credit lent each month, against #v {LAX_WORDS[2]}#!\\n'
                 f'{rng(LAX_PULL, i, True)} share of it lent into booms\\n'
@@ -112,8 +129,7 @@ def level_loc(lax):
     return out
 
 
-def values(goods, share):
-    """share: the part of the market's trade a good needs before its boom counts (the boom-end notification's)."""
+def values(goods):
     if not ON:
         return []
     out = ["spec_lax_value = {\n\tvalue = 0\n\tif = {\n\t\tlimit = { has_variable = spec_lax }\n\t\tvalue = var:spec_lax\n\t}\n}",
@@ -123,9 +139,13 @@ def values(goods, share):
     out += [f"spec_lax_{k} = {{\n\tvalue = spec_lax_swing\n\tmultiply = {n}\n\tadd = 1\n}}"
             for k, n in (("credit", LAX_CREDIT), ("pull", LAX_PULL), ("cost", LAX_COST), ("recall", LAX_RECALL), ("badstop", LAX_BADSTOP))]
     for grp, gs in _GROUPS.items():
-        out.append(f"spec_bb_{grp} = {{\n\tvalue = 0\n" + "".join(
-            f"\tif = {{\n\t\tlimit = {{ OR = {{ {' '.join(_hot(g, w, share) for g in gs)} }} }}\n\t\tvalue = {n}\n\t}}\n"
-            for n, w in ((1, 5), (2, 6))) + "}")
+        # the average of its goods by their trade, 0 to 2 steps: it reaches 2 only with every good Feverish, so it needs no limit
+        out.append(f"spec_bb_mv_{grp} = {{\n\tvalue = 0\n" + "".join(f"\tadd = spec_mv_{g}\n" for g in gs)
+                   + f"\tmin = {{\n\t\tvalue = var:spec_mv_total\n\t\tmultiply = {BB_FULL}\n\t}}\n\tmin = 1\n}}")
+        out.append(f"spec_bb_{grp} = {{\n\tvalue = 0\n" + "".join(f"\tadd = spec_bbg_{k}\n" for p, _, k in parts() if p == grp)
+                   + "\tmultiply = 200\n\tround = yes\n\tdivide = 200\n}")
+    out += [f"spec_bbg_{k} = {{\n\tvalue = 0\n\tif = {{\n\t\tlimit = {{ has_variable = spec_word_{g} var:spec_word_{g} >= 5 }}\n"
+            f"\t\tvalue = var:spec_word_{g}\n\t\tsubtract = 4\n\t\tmultiply = spec_mv_{g}\n\t\tdivide = spec_bb_mv_{grp}\n\t}}\n}}" for grp, g, k in parts()]
     for g in goods:
         # ponytail: a market grown by conquest or a customs union reads as overbuilding too
         out.append(f"spec_over_{g} = {{\n\tvalue = 0\n\tif = {{\n\t\tlimit = {{ has_variable = spec_sup_{g} var:spec_sup_{g} > 0 }}\n"
@@ -138,7 +158,9 @@ def log_values(goods):
     """The LOG line's sums, for generate.log_values: a log build only."""
     if not ON:
         return []
-    return ["spec_bb_total = {\n\tvalue = 0\n" + "".join(f"\tadd = spec_bb_{grp}\n" for grp in _GROUPS) + "}",
+    # the whole economy's boom building in steps, each industry by its trade: the tuner's boom_build
+    return ["spec_bb_total = {\n\tvalue = 0\n" + "".join(f"\tadd = {{\n\t\tvalue = spec_bb_{grp}\n\t\tmultiply = spec_bb_mv_{grp}\n\t}}\n" for grp in _GROUPS)
+            + "\tdivide = { value = var:spec_mv_total min = 1 }\n}",
             "spec_over_sum = {\n\tvalue = 0\n" + "".join(f"\tadd = spec_over_{g}\n" for g in goods) + "}"]
 
 
@@ -162,36 +184,44 @@ def monthly(t="\t\t\t"):
          # no drift to Reckless in a panic, under Tight credit or while Bad Debts last
          f"{t}if = {{\n{t}\tlimit = {{\n{t}\t\tNOT = {{ has_variable = spec_panic }}\n{t}\t\tNOT = {{ spec_stance_value = -1 }}\n"
          f"{t}\t\tNOT = {{ has_variable = spec_crunch }}\n{t}\t}}\n"
-         f"{t}\tchange_variable = {{ name = spec_lax add = {1 / (12 * LAX_QUIET_YEARS):.5f} }}\n{t}}}\n"
+         f"{t}\tchange_variable = {{ name = spec_lax add = {{ value = 1 subtract = var:spec_lax multiply = {LAX_SCALE / (12 * LAX_QUIET_YEARS):.5f} }} }}\n{t}}}\n"
          f"{t}else_if = {{\n{t}\tlimit = {{ spec_stance_value = -1 var:spec_lax > {SOUND_MID:g} "
          f"NOR = {{ has_variable = spec_panic has_variable = spec_crunch }} }}\n"
          f"{t}\tset_variable = {{ name = spec_lax value = {{ value = var:spec_lax subtract = {1 / (12 * LAX_QUIET_YEARS):.5f} min = {SOUND_MID:g} }} }}\n{t}}}\n"
+         # Bad Debts on the books make banks careful, Tight credit twice as fast
+         f"{t}else_if = {{\n{t}\tlimit = {{ has_variable = spec_crunch NOT = {{ has_variable = spec_panic }} }}\n"
+         f"{t}\tset_variable = {{ name = spec_lax value = {{ value = var:spec_lax subtract = {SOBER_STEP:.5f} min = 0 }} }}\n"
+         f"{t}\tif = {{\n{t}\t\tlimit = {{ spec_stance_value = -1 }}\n"
+         f"{t}\t\tset_variable = {{ name = spec_lax value = {{ value = var:spec_lax subtract = {SOBER_STEP:.5f} min = 0 }} }}\n{t}\t}}\n{t}}}\n"
          # spec_c_crash and spec_c_restrain are the month's loss from booms ending and wound down, negative numbers
-         f"{t}change_variable = {{ name = spec_lax add = {{ value = var:spec_c_crash add = var:spec_c_restrain multiply = {LAX_PER_CONF} }} }}\n"
+         f"{t}change_variable = {{ name = spec_lax add = {{ value = var:spec_c_crash add = var:spec_c_restrain multiply = {LAX_PER_CONF * LAX_SCALE:g} multiply = var:spec_lax }} }}\n"
          f"{t}set_variable = {{ name = spec_lax value = {{ value = var:spec_lax min = 0 max = 1 }} }}\n")
     b = "".join(
         f"{t}if = {{\n{t}\tlimit = {{ NOT = {{ has_variable = spec_bbv_{grp} }} }}\n"
         f"{t}\tset_variable = {{ name = spec_bbv_{grp} value = 0 }}\n{t}}}\n"
-        f"{t}if = {{\n{t}\tlimit = {{ NOT = {{ var:spec_bbv_{grp} = spec_bb_{grp} }} }}\n"
+        f"{t}set_local_variable = {{ name = spec_bb_now value = spec_bb_{grp} }}\n"
+        f"{t}if = {{\n{t}\tlimit = {{ NOT = {{ var:spec_bbv_{grp} = local_var:spec_bb_now }} }}\n"
         f"{t}\tif = {{\n{t}\t\tlimit = {{ has_modifier = spec_boom_build_{grp} }}\n{t}\t\tremove_modifier = spec_boom_build_{grp}\n{t}\t}}\n"
-        f"{t}\tif = {{\n{t}\t\tlimit = {{ spec_bb_{grp} > 0 }}\n"
-        f"{t}\t\tadd_modifier = {{ name = spec_boom_build_{grp} multiplier = spec_bb_{grp} }}\n{t}\t}}\n"
-        f"{t}\tset_variable = {{ name = spec_bbv_{grp} value = spec_bb_{grp} }}\n{t}}}\n" for grp in _GROUPS)
+        f"{t}\tif = {{\n{t}\t\tlimit = {{ local_var:spec_bb_now > 0 }}\n"
+        f"{t}\t\tadd_modifier = {{ name = spec_boom_build_{grp} multiplier = local_var:spec_bb_now }}\n{t}\t}}\n"
+        f"{t}\tset_variable = {{ name = spec_bbv_{grp} value = local_var:spec_bb_now }}\n{t}}}\n" for grp in _GROUPS)
     return a + b
 
 
 def rescued(tabs=1):
     """Where the government rescues the banks (spec_rescue) or buys up their bad loans (leverage.bailout_effect)."""
     t = "\t" * tabs
-    return f"{t}if = {{\n{t}\tlimit = {{ has_variable = spec_lax }}\n{_bump(LAX_RESCUE, t + chr(9))}{t}}}\n" if ON else ""
+    return f"{t}if = {{\n{t}\tlimit = {{ has_variable = spec_lax }}\n{_bump(LAX_RESCUE, t + chr(9))}{t}}}\n" if ON and LAX_RESCUE else ""
 
 
 def panic_over(t="\t"):
-    """In spec_end_panic, before spec_rescued is cleared: a panic left to run its course sobers the banks."""
+    """In spec_end_panic, before spec_rescued is cleared: a panic sobers the banks, less if we rescued them."""
     if not ON:
         return ""
+    cut = lambda k: f"{t}\tset_variable = {{ name = spec_lax value = {{ value = var:spec_lax multiply = {1 - k:g} }} }}\n"
     return (f"{t}if = {{\n{t}\tlimit = {{\n{t}\t\thas_variable = spec_lax\n{t}\t\tNOT = {{ has_variable = spec_rescued }}\n{t}\t}}\n"
-            f"{_bump(-LAX_PANIC, t + chr(9))}{t}}}\n")
+            + cut(LAX_PANIC) + f"{t}}}\n{t}else_if = {{\n{t}\tlimit = {{ has_variable = spec_lax }}\n"
+            + cut(LAX_PANIC * LAX_PANIC_RESCUED) + f"{t}}}\n")
 
 
 def over_track(g, t="\t\t\t"):
@@ -233,7 +263,7 @@ def note(g, t="\t\t\t\t\t"):
     return f"{t}set_variable = {{ name = spec_note_over_{g} value = spec_over_mult_{g} days = 28 }}\n" if ON else ""
 
 
-def ui(goods, share, t="\t\t\t"):
+def ui(goods, t="\t\t\t"):
     """For generate.monthly's tab block: each good's tile tooltip figures (GUI text can't read a script value by key)."""
     if not ON:
         return ""
@@ -243,16 +273,16 @@ def ui(goods, share, t="\t\t\t"):
         f"{t}\tset_variable = {{ name = spec_ui_overx_{g} value = spec_over_mult_{g} }}\n{t}}}\n"
         f"{t}else = {{\n{t}\tremove_variable = spec_ui_over_{g}\n{t}\tremove_variable = spec_ui_overx_{g}\n{t}}}\n" for g in goods)
     build = "".join(
-        f"{t}if = {{\n{t}\tlimit = {{ {_hot(g, 5, share)} }}\n"
-        f"{t}\tset_variable = {{ name = spec_ui_bb_{g} value = {{ value = var:spec_word_{g} subtract = 4 multiply = {BB_STEP} }} }}\n{t}}}\n"
-        f"{t}else = {{\n{t}\tremove_variable = spec_ui_bb_{g}\n{t}}}\n" for g in _boosted())
+        f"{t}if = {{\n{t}\tlimit = {{ spec_bbg_{k} > 0 }}\n"
+        f"{t}\tset_variable = {{ name = spec_ui_bb_{k} value = {{ value = spec_bbg_{k} multiply = {BB_STEP} }} }}\n{t}}}\n"
+        f"{t}else = {{\n{t}\tremove_variable = spec_ui_bb_{k}\n{t}}}\n" for _, _, k in parts())
     return over + build
 
 
 def state_vars(goods):
     if not ON:
         return []
-    return (["spec_lax"] + [f"spec_bbv_{grp}" for grp in _GROUPS] + [f"spec_ui_bb_{g}" for g in _boosted()]
+    return (["spec_lax"] + [f"spec_bbv_{grp}" for grp in _GROUPS] + [f"spec_ui_bb_{k}" for _, _, k in parts()]
             + [f"spec_{k}_{g}" for g in goods for k in ("sup", "ui_over", "ui_overx", "note_over", "note_ppl")])
 
 
@@ -267,6 +297,38 @@ def shut_down(t="\t"):
                    f"{t}\tremove_modifier = spec_boom_build_{grp}\n{t}}}\n" for grp in _GROUPS) if ON else ""
 
 
+def trust_loc():
+    """Each level's monthly trust (centres.TRUST_BY_LAX) as a sentence, in points of 100 as the trust bar shows."""
+    import centres  # imports this module
+    out = ""
+    for i, d in enumerate(centres.TRUST_BY_LAX):
+        pts = d * centres.TRUST_MONTH * 100 / centres.CALM
+        text = (f"#P Our [concept_spec_exchange] gains +{pts:.1f} trust each calm month.#!" if d > 0 else
+                "#N Our [concept_spec_exchange] stops building trust.#!" if d == 0 else
+                f"#N Our [concept_spec_exchange] loses {-pts:.1f} trust every month, more with a charter or Path to Renown that raises its trust losses.#!")
+        out += f' SPEC_LAX_TRUST_{i}: "{text}"\n'
+    return out
+
+
+def lax_terms():
+    """GUI values of monthly()'s change to spec_lax as things stand, in points of 100: the drift test, Tight Credit's
+    repair, last month's booms (spec_c_crash and spec_c_restrain, negative), and their total (the bar's chevrons)."""
+    from market_tab import IN_PANIC, P, STANCE, fx, v
+    lax = v("spec_lax", LAX_START)
+    crunch = f"{P}.Var('spec_crunch').IsSet"
+    quiet = f"And(Not({IN_PANIC}), And(Not(EqualTo_CFixedPoint({STANCE}, {fx(-1)})), Not({crunch})))"
+    repair = f"And(Not({IN_PANIC}), And(EqualTo_CFixedPoint({STANCE}, {fx(-1)}), And(Not({crunch}), GreaterThan_CFixedPoint({lax}, {fx(SOUND_MID + 0.0005)}))))"  # past 50.05: the last sliver read "-0.0"
+    drift = f"Multiply_CFixedPoint(Subtract_CFixedPoint({fx(1)}, {lax}), {fx(LAX_SCALE * 100 / (12 * LAX_QUIET_YEARS))})"
+    fix = f"Max_CFixedPoint({fx(-100 / (12 * LAX_QUIET_YEARS))}, Multiply_CFixedPoint(Subtract_CFixedPoint({fx(SOUND_MID)}, {lax}), {fx(100)}))"
+    booms = f"Multiply_CFixedPoint(Multiply_CFixedPoint(Add_CFixedPoint({v('spec_c_crash')}, {v('spec_c_restrain')}), {fx(LAX_PER_CONF * LAX_SCALE * 100)}), {lax})"
+    sober = f"And(Not({IN_PANIC}), And({crunch}, GreaterThan_CFixedPoint({lax}, {fx(0.0005)})))"
+    sober_by = (f"Max_CFixedPoint(Multiply_CFixedPoint({lax}, {fx(-100)}), "
+                f"Select_CFixedPoint(EqualTo_CFixedPoint({STANCE}, {fx(-1)}), {fx(-200 * SOBER_STEP)}, {fx(-100 * SOBER_STEP)}))")
+    total = (f"Add_CFixedPoint(Select_CFixedPoint({repair}, {fix}, Select_CFixedPoint({quiet}, {drift}, "
+             f"Select_CFixedPoint({sober}, {sober_by}, {fx(0)}))), {booms})")
+    return lax, quiet, repair, drift, fix, booms, total, sober, sober_by
+
+
 def loc():
     if not ON:
         return ""
@@ -274,12 +336,8 @@ def loc():
     from market_tab import IN_PANIC, P, STANCE, fx, good_var, sv, v
     gt = lambda a, b: f"GreaterThan_CFixedPoint({a}, {fx(b)})"
     pct = lambda name: f"#v [Subtract_CFixedPoint({sv(name)}, {fx(1)})|+%0]#!"
-    lax = v("spec_lax", LAX_START)
+    lax, quiet, repair, drift, fix, booms, total, sober, sober_by = lax_terms()
     pts = f"Multiply_CFixedPoint({lax}, {fx(100)})"  # shown 0 to 100
-    # monthly()'s drift test as things stand, and this month's change from booms ending (spec_c_crash and spec_c_restrain, negative)
-    quiet = f"And(Not({IN_PANIC}), And(Not(EqualTo_CFixedPoint({STANCE}, {fx(-1)})), Not({P}.Var('spec_crunch').IsSet)))"
-    repair = f"And(Not({IN_PANIC}), And(EqualTo_CFixedPoint({STANCE}, {fx(-1)}), And(Not({P}.Var('spec_crunch').IsSet), GreaterThan_CFixedPoint({lax}, {fx(SOUND_MID)}))))"
-    booms = f"Multiply_CFixedPoint(Add_CFixedPoint({v('spec_c_crash')}, {v('spec_c_restrain')}), {fx(LAX_PER_CONF * 100)})"
     picks = "".join(f"SelectLocalization(LessThan_CFixedPoint({lax}, {fx(c)}), 'SPEC_LAXW_{i}', " for i, c in enumerate(LAX_CUTS))
     # Each toast carries its own captured numbers, including when several goods end together.
     over, ppl = "SCOPE.GetValue('spec_note_over')", "SCOPE.GetValue('spec_note_ppl')"
@@ -287,28 +345,33 @@ def loc():
             + "".join(f' SPEC_LAXW_{i}: "{w}"\n' for i, w in enumerate(LAX_WORDS))
             + level_loc(lax)
             + f' SPEC_EFFECT_LAX: "[concept_spec_lending_standards]"\n'
-            f' SPEC_EFFECT_LAX_VALUE: "#v [{picks}\'SPEC_LAXW_{len(LAX_CUTS)}\'{")" * len(LAX_CUTS)}]#!"\n'
-            f' SPEC_EFFECT_LAX_TT: "#header [concept_spec_lending_standards]: $SPEC_EFFECT_LAX_VALUE$ (#v [{pts}|0]#!)#!\\n$TOOLTIP_DELIMITER$\\n'
-            f'[SelectLocalization({repair}, \'SPEC_LAX_REPAIR\', SelectLocalization({quiet}, \'SPEC_LAX_DRIFT\', \'SPEC_LAX_PAUSED\'))][AddLocalizationIf({calc.shows(booms)}, \'SPEC_LAX_BOOMS\')]\\n\\n'
-            f'{pct("spec_lax_credit")} credit lent each month, against #v {LAX_WORDS[2]}#!\\n{pct("spec_lax_pull")} share of it lent into booms\\n'
-            f'{pct("spec_lax_recall")} credit called back in a panic\\n'
-            f'{pct("spec_lax_cost")} cost of a Bank Rescue\\n'
-            f'[SelectLocalization(LessThan_CFixedPoint({lax}, {fx(LAX_CUTS[2])}), \'SPEC_LAX_TRUST\', SelectLocalization(LessThan_CFixedPoint({lax}, {fx(LAX_CUTS[3])}), \'SPEC_LAX_NO_TRUST\', \'SPEC_LAX_LOSE_TRUST\'))]\\n$TOOLTIP_DELIMITER$\\n'
-            f'Banks get #N {LAX_RESCUE * 100:g}#! laxer each time we rescue them or buy up their bad loans, and #P {LAX_PANIC * 100:g}#! stricter '
-            f'when a [concept_spec_financial_panic] ends without a rescue. In calm months, [Concept(\'concept_spec_credit_policy\',\'$concept_spec_credit_policy_tight$\')] gradually brings loose standards back to Sound."\n'
-            f' SPEC_LAX_REPAIR: "Up to #P −{100 / (12 * LAX_QUIET_YEARS):.1f}#! a month under Tight Credit until standards reach #v {SOUND_MID * 100:g}#! (Sound)"\n'
-            f' SPEC_LAX_DRIFT: "#N +{100 / (12 * LAX_QUIET_YEARS):.1f}#! a month in quiet months"\n'
-            f' SPEC_LAX_PAUSED: "#v 0#! this month from lending policy"\n'
-            f' SPEC_LAX_BOOMS: "{calc.line(booms, "-=1", "booms that ended or were restrained this month")}"\n'
-            f' SPEC_LAX_TRUST: "#P Our [concept_spec_exchange] builds trust in quiet months#!"\n'
-            f' SPEC_LAX_NO_TRUST: "#N Our [concept_spec_exchange] stops building trust#!"\n'
-            f' SPEC_LAX_LOSE_TRUST: "#N Our [concept_spec_exchange] loses trust every month#!"\n'
-            f' SPEC_TILE_CYCLE: "[SelectLocalization({gt(good_var("spec_ui_overx"), 1)}, \'SPEC_TILE_OVER_ON\', \'SPEC_GOODS_NONE\')]'
+            f' SPEC_EFFECT_LAX_WORD: "#v [{picks}\'SPEC_LAXW_{len(LAX_CUTS)}\'{")" * len(LAX_CUTS)}]#!"\n'
+            # 2026-11-24 the user: the number and its month's change on the row, so it is seen moving
+            f' SPEC_EFFECT_LAX_VALUE: "$SPEC_EFFECT_LAX_WORD$ #v [{pts}|1]#! ([{total}|-=2])"\n'
+            # 2026-11-22: sentences, the value out of 100 and the month's change a cause a line, as the trust tooltip
+            f' SPEC_EFFECT_LAX_TT: "#header [concept_spec_lending_standards]#!\\n$TOOLTIP_DELIMITER$\\n'
+            f'Our banks lend to $SPEC_EFFECT_LAX_WORD$ standards, #v [{pts}|1]#! out of #v 100#!. The higher it is, the laxer they lend.\\n\\n'
+            f'It moves by #v [{total}|-=2]#! a month as things stand.#indent_newline:3 '
+            f'[SelectLocalization({repair}, \'SPEC_LAX_REPAIR\', SelectLocalization({quiet}, \'SPEC_LAX_DRIFT\', SelectLocalization({sober}, \'SPEC_LAX_SOBER\', \'SPEC_LAX_PAUSED\')))][AddLocalizationIf({calc.shows(booms)}, \'SPEC_LAX_BOOMS\')]#!\\n\\n'
+            f'Against #v {LAX_WORDS[2]}#! standards, this gives#indent_newline:3 \\n{pct("spec_lax_credit")} credit lent each month\\n{pct("spec_lax_pull")} share of it lent into booms\\n'
+            f'{pct("spec_lax_recall")} credit called back in a [concept_spec_financial_panic]\\n{pct("spec_lax_cost")} cost of a Bank Rescue#!\\n\\n'
+            f'[{picks.replace("SPEC_LAXW_", "SPEC_LAX_TRUST_")}\'SPEC_LAX_TRUST_{len(LAX_CUTS)}\'{")" * len(LAX_CUTS)}]\\n$TOOLTIP_DELIMITER$\\n'
+            f'Banks loosen in quiet years and grow careful while [concept_spec_bad_debts] sit on their books, twice as fast under '
+            f'[Concept(\'concept_spec_credit_policy\',\'$concept_spec_credit_policy_tight$\')]. They lose #P {LAX_PANIC * 100:g}%#! of their laxness '
+            f'when a [concept_spec_financial_panic] ends, or #P {LAX_PANIC * LAX_PANIC_RESCUED * 100:g}%#! if we rescued them. The laxer they are, the slower they loosen and the harder each loss sobers them. In calm months, [Concept(\'concept_spec_credit_policy\',\'$concept_spec_credit_policy_tight$\')] brings them back toward #v {LAX_WORDS[2]}#!.'
+            f'\\n\\n#instruction Hover a level under the bar to see what it does.#!"\n'
+            f' SPEC_LAX_REPAIR: "\\n[{fix}|-=2] from [Concept(\'concept_spec_credit_policy\',\'$concept_spec_credit_policy_tight$\')], until they reach #v {SOUND_MID * 100:g}#!"\n'
+            f' SPEC_LAX_DRIFT: "{calc.line(drift, "-=2", "a quiet month, as banks loosen")}"\n'
+            f' SPEC_LAX_SOBER: "{calc.line(sober_by, "-=2", "the [concept_spec_bad_debts] on their books")}"\n'
+            f' SPEC_LAX_PAUSED: "\\n#v 0#! from lending, which holds still during a [concept_spec_financial_panic], or under $concept_spec_credit_policy_tight$ once they are #v {LAX_WORDS[2]}#!"\n'
+            f' SPEC_LAX_BOOMS: "{calc.line(booms, "-=2", "booms that ended or were restrained last month")}"\n'
+            + trust_loc()
+            + f' SPEC_TILE_CYCLE: "[SelectLocalization({gt(good_var("spec_ui_overx"), 1)}, \'SPEC_TILE_OVER_ON\', \'SPEC_GOODS_NONE\')]'
             f'[SelectLocalization({gt(good_var("spec_ui_bb"), 0)}, \'SPEC_TILE_BB_ON\', \'SPEC_GOODS_NONE\')]"\n'
             f' SPEC_TILE_OVER_ON: "\\n\\nSupply has grown #v [{good_var("spec_ui_over")}|%0]#! since this boom began, so if it ends, '
-            f'the hit to [concept_spec_market_confidence] is #N x[{good_var("spec_ui_overx")}|2]#! as big"\n'
-            f' SPEC_TILE_BB_ON: "\\n\\n#P +[{good_var("spec_ui_bb")}|%0]#! construction efficiency for its industry from Boom Construction, '
-            f'while investors stay this keen"\n'
+            f'the hit to [concept_spec_market_confidence] is #N x[{good_var("spec_ui_overx")}|2]#! as big."\n'
+            f' SPEC_TILE_BB_ON: "\\n\\nBoom Construction gives its industry #P +[{good_var("spec_ui_bb")}|%1]#! construction efficiency '
+            f'while investors stay this keen."\n'
             ' SPEC_NOTE_CYCLE: "'
             f'[SelectLocalization({gt(ppl, 2.5)}, \'SPEC_NOTE_PPL_3\', SelectLocalization({gt(ppl, 1.5)}, \'SPEC_NOTE_PPL_2\', '
             f'SelectLocalization({gt(ppl, 0.5)}, \'SPEC_NOTE_PPL_1\', \'SPEC_GOODS_NONE\')))]"\n'
@@ -325,18 +388,24 @@ if __name__ == "__main__":
     share = generate.TOAST_SHARE / generate.EXPOSURE_FULL
     assert "steel" in _GROUPS["heavy_industry"] and "grain" in _GROUPS["agriculture"] and "coal" in _GROUPS["extraction"], _GROUPS
     assert set(_GROUPS) <= set(BUILD_GROUPS) and "fine_art" not in _boosted()
-    assert "spec_over_sum" not in "\n".join(values(g, share)) and "spec_over_sum = {" in log_values(g)[1]
-    for name, text in (("values", "\n".join(values(g, share))), ("monthly", monthly()), ("rescued", rescued()),
-                       ("panic_over", panic_over()), ("ui", ui(g, share)), ("modifiers", modifiers()), ("shut_down", shut_down()),
+    keys = [k for _, _, k in parts()]
+    assert len(set(keys)) == len(keys) and set(_boosted()) <= set(keys), keys
+    assert "spec_over_sum" not in "\n".join(values(g)) and "spec_over_sum = {" in log_values(g)[1]
+    for name, text in (("values", "\n".join(values(g))), ("monthly", monthly()),
+                       ("panic_over", panic_over()), ("ui", ui(g)), ("modifiers", modifiers()), ("shut_down", shut_down()),
                        *((f"burn {x} {s}", burn(x, s, share)) for x in g for s in (2, 3)),
                        *((f"over_track {x}", over_track(x)) for x in g)):
         assert text and text.count("{") == text.count("}"), name + " unbalanced or empty"
     assert burn("steel", 1, share) == "" and all(k.startswith("spec_") for k in state_vars(g))
 
-    # a model of spec_lax: twenty quiet years take the banks from strict to reckless; an unrescued panic sobers them
+    # a model of spec_lax: twenty quiet years take the banks from strict to reckless, slowing as they go; an unrescued panic sobers them
     lax = 0.0
     for _ in range(12 * LAX_QUIET_YEARS):
-        lax = min(1, lax + 1 / (12 * LAX_QUIET_YEARS))
-    assert abs(lax - 1) < 1e-9
-    assert max(0, lax - LAX_PANIC) < 0.8 < min(1, 0.6 + LAX_RESCUE)
+        lax += (1 - lax) * LAX_SCALE / (12 * LAX_QUIET_YEARS)
+    assert 0.8 < lax < 1, lax
+    assert lax * (1 - LAX_PANIC) < 0.8 and LAX_RESCUE == 0 and rescued() == ""
+    # a rescued panic still sobers the banks, by less; Bad Debts and Tight bring them down during the crunch
+    assert lax * (1 - LAX_PANIC) < lax * (1 - LAX_PANIC * LAX_PANIC_RESCUED) < lax
+    m, po = monthly(), panic_over()
+    assert m.count(f"subtract = {SOBER_STEP:.5f} min = 0 }}") == 2 and po.count("multiply = ") == 2
     print("cycle ok", {k: len(v) for k, v in _GROUPS.items()})

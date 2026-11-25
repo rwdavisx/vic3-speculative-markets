@@ -133,6 +133,8 @@ HEAT_COOL_TIGHT = tuning.get("HEAT_COOL_TIGHT", 0.95)
 BURST_PER_HEAT = tuning.get("BURST_PER_HEAT", 0.2)  # no cap since 1.2: a pop takes the confidence it finds (under BURST_BELOW), the rest becomes Bad Debts (leverage.ON_BURST)
 # the Market Volatility game rule: Historical uses the values above; Heightened those of tune5 (bubbles from 72 at
 # 0.25 x heat, booms x1.25), which gave the 40 largest economies 6.1 panics per 100 country years to history's 4
+# the Market Impact rule: every leverage, panic and Bad Debts effect times this (Standard is what the tuner tunes)
+IMPACT = {"flavor": 0.4, "standard": 1, "strong": 1.6}
 VOLATILITY = {"historical": {"heat": HEAT_FROM, "per": BURST_PER_HEAT, "boom": 1},
               "heightened": {"heat": 70, "per": 0.25, "boom": 1.1}}
 CONF_BOOM_MAX = 3
@@ -153,6 +155,10 @@ UNWINDS = [(3, PEAK_FOR_CRASH, CRASH_BELOW, CONF_PER_CRASH_HYPE, 12),   # Collap
 # ponytail: 2026-10-31 full runs (FINDINGS.md, Tuning): at 2.05, 1 and 0.5 with booms 0.5 a month, the 12 largest economies
 # panicked 3 times in two 70 year games and a Mania ended in a panic 1% of the time. Replaying the logged pushes, all
 # three unwinds 2.5 times as costly, booms 1.3 times and mood 1.5 gave large economies about 1.4 panics per 100 years
+# 1.2.2 soft landing: a boom whose price is still at or above where it began (its slow average then, var:spec_start_<g>)
+# ends as a Correction at most; one under it by less than LAND_DEEP of base price as a Bust at most. Only a price that
+# falls well below where the boom began (an overbuilt glut) can Collapse, so building to meet real demand is not punished
+LAND_DEEP = tuning.get("LAND_DEEP", 0.1)
 GLUT_HYPE = 0.4             # a glut sets interest to this, Doubtful: the overbuilt industry waits out its stock
 GLUT_MONTHS = {sev: months for sev, *_, months in UNWINDS}  # for the loc
 CONF_CRASH_MAX = tuning.get("CONF_CRASH_MAX", 40)         # most a month of crashes can take, after scaling by confidence and depth
@@ -168,11 +174,16 @@ MANIA, MANIA_RESET, PANIC = tuning.get("MANIA", 80), 65, tuning.get("PANIC", 25)
 PANIC_NEAR = PANIC + 5                                 # a player is warned when confidence first falls below this
 WARY = tuning.get("WARY", 35)                   # AI loosens credit below this (40 had it Loose 43% of the time, feeding panics)
 # investment by Capitalists, Aristocrats and Shopkeepers in each confidence band (market_tab.TIERS); Steady has none
-BAND_INVEST = {"panic": -0.2, "wary": -0.1, "steady": 0, "buoyant": 0.1, "mania": 0.2}
+# each table is one step times the tier's place, so the ladder stays symmetric: Panic < Wary < Steady 0 < Buoyant < Mania
+TIER_STEPS = {"panic": -2, "wary": -1, "steady": 0, "buoyant": 1, "mania": 2}
+BAND_INVEST_STEP = tuning.get("BAND_INVEST_STEP", 0.1)
+BAND_INVEST = {t: n and round(n * BAND_INVEST_STEP, 4) for t, n in TIER_STEPS.items()}
 # the loan interest rate: dearer in fear, vanilla's otherwise (1.2: the cheaper Steady, Buoyant and Mania rates stacked
 # past -100% with the other cuts; centres.LOAN_NOTE)
-BAND_RATE = {"panic": 0.2, "wary": 0.1}
-BAND_TRADE = {"panic": -0.1, "wary": -0.05, "buoyant": 0.05, "mania": 0.1}  # trade volume: merchants ship more in a boom
+BAND_RATE_STEP = tuning.get("BAND_RATE_STEP", 0.1)
+BAND_RATE = {t: round(-TIER_STEPS[t] * BAND_RATE_STEP, 4) for t in ("panic", "wary")}
+BAND_TRADE_STEP = tuning.get("BAND_TRADE_STEP", 0.05)  # trade volume: merchants ship more in a boom
+BAND_TRADE = {t: round(TIER_STEPS[t] * BAND_TRADE_STEP, 4) for t in ("panic", "wary", "buoyant", "mania")}
 PANIC_DAYS = tuning.get("PANIC_DAYS", 195)  # 6.5 months, rounded up by law: 4 to 8 months, 7 at x1; no cap, so a reckless stack (Laissez-Faire, Classical Gold, Currency School, weak legitimacy) runs 16, and about 30 at ruinous leverage (PANIC_LEV_LEN). 180 cuts a month at x0.8 and x1, 210 adds one at x0.6 and x1.2
 PANIC_ENDS_AT = tuning.get("PANIC_ENDS_AT", 40)      # a panic ends early once confidence is back here (out of Wary), PANIC_DAYS at the latest
 PANIC_MIN_MONTHS = 2       # but never sooner than this
@@ -188,7 +199,7 @@ CREDIT_FROM = tuning.get("CREDIT_FROM", 55)            # credit flows above this
 # ponytail: credit was 0.05% of GDP a month, about 1% of the investment pool's income in a 1836-1842 run (runs/
 # 20261103_005410_credit_sev): flavour only. Now sized on the pool: at Mania (80) banks add about 15% of a month's
 # pool income, a long boom builds up about 5 months of it owed, and a panic recalls half of that at once
-VERSION = "1.2.0"
+VERSION = "1.3.0"
 CREDIT_SHARE = tuning.get("CREDIT_SHARE", 1.5)         # monthly credit at full confidence, as a share of a month's pool income
 CREDIT_FLOW_MAX = tuning.get("CREDIT_FLOW_MAX", 0.4)       # confidence's part of a month's credit is at most this share of a month's pool income
 CREDIT_CEILING = tuning.get("CREDIT_CEILING", 0.6)        # then times the lending rate (stance, laws, techs...), and never more than this share
@@ -206,7 +217,8 @@ PANIC_TAX = tuning.get("PANIC_TAX", -0.15)
 PANIC_RELIEF = tuning.get("PANIC_RELIEF", 0.04)
 # the panic's own modifier (spec_panic): the investing classes' investment and their interest groups' approval; and
 # the share of each investing class radicalized as it begins (spec_start_panic)
-PANIC_INVEST, PANIC_APPROVAL = -0.4, -2
+PANIC_INVEST, PANIC_APPROVAL = tuning.get("PANIC_INVEST", -0.4), -2
+PANIC_BUILD = tuning.get("PANIC_BUILD", 0)  # construction efficiency while it lasts; what is not built is not caught up
 PANIC_RADICALS = {"capitalists": 0.1, "aristocrats": 0.05, "shopkeepers": 0.05}
 RESCUE_MONTHS = 2
 # Banking alone: private banks club together, dearer and slower
@@ -221,6 +233,12 @@ STANCE_HYPE = {"tight": 0.5, "loose": 1.3}  # credit stance's multiplier on inve
 STANCE_CREDIT = {"tight": 0, "loose": 1.6}  # credit stance's multiplier on new lending (spec_stance_credit)
 MANIA_CAUTION = 10          # confidence the mania event's warning takes off
 MANIA_TAX, MANIA_TAX_CONF = 0.0025, 5   # the mania event's levy: share of GDP raised, confidence lost
+# the AI's ai_chance in the mania event (spec_markets.1): ride it, the warning, the levy; each with its temperament's addition
+MANIA_AI_RIDE, MANIA_AI_RIDE_BOLD = tuning.get("MANIA_AI_RIDE", 50), tuning.get("MANIA_AI_RIDE_BOLD", 30)
+MANIA_AI_WARN, MANIA_AI_WARN_CAUTIOUS = tuning.get("MANIA_AI_WARN", 30), tuning.get("MANIA_AI_WARN_CAUTIOUS", 30)
+MANIA_AI_LEVY, MANIA_AI_LEVY_CAUTIOUS = tuning.get("MANIA_AI_LEVY", 20), tuning.get("MANIA_AI_LEVY_CAUTIOUS", 20)
+MANIA_AI = {"ride": (MANIA_AI_RIDE, 1, MANIA_AI_RIDE_BOLD), "warn": (MANIA_AI_WARN, -1, MANIA_AI_WARN_CAUTIOUS),
+            "levy": (MANIA_AI_LEVY, -1, MANIA_AI_LEVY_CAUTIOUS)}
 # the events' timed interest group modifiers: key, vanilla timed modifier icon, approval, name
 EVENT_MODIFIERS = [
     ("spec_boom_riding", "modifier_coins_positive", 2, "Riding the Boom"),
@@ -470,7 +488,52 @@ def log_values():
           "spec_log_wsum = {\n\tvalue = 0\n" + "".join(f"\tadd = spec_weight_{g}\n" for g in GOODS) + "}"]
     sv += [f"spec_log_{k} = {{\n\tvalue = 0\n\tif = {{\n\t\tlimit = {{ has_variable = {v} }}\n\t\tvalue = var:{v}\n\t}}\n}}"
            for k, v in (("heat", "spec_heat"), ("burst", "spec_c_burst"))]
+    sv.append("spec_log_braw = {\n\tvalue = 0\n\tif = {\n\t\tlimit = { has_variable = spec_boom_raw }\n\t\tvalue = var:spec_boom_raw\n\t}\n}")
+    # windows.py campaign: the law codes are list positions + 1 (0 = none of them), techs a bitmask in LOG_TECHS order
+    pick = lambda name, laws, pre: f"{name} = {{\n\tvalue = 0\n" + "".join(
+        f"\tif = {{\n\t\tlimit = {{ has_law_or_variant = law_type:law_{pre}{law} }}\n\t\tvalue = {i + 1}\n\t}}\n" for i, law in enumerate(laws)) + "}"
+    sv += [pick("spec_log_econ", LOG_ECON, ""), pick("spec_log_money", __import__("monetary").LAWS, "spec_"),
+           "spec_log_techs = {\n\tvalue = 0\n" + "".join(f"\tif = {{\n\t\tlimit = {{ has_technology_researched = {t} }}\n\t\tadd = {2 ** i}\n\t}}\n"
+                                                         for i, t in enumerate(LOG_TECHS)) + "}"]
+    # windows.py: the Industrialists in government (economy.BUSINESS reads their approval, which the stance moves)
+    sv.append(flag("spec_log_igov", "ig:ig_industrialists ?= { is_in_government = yes }"))
+    # windows.py: the goods' state each month (the boom model's shape): interest multipliers, booming goods, weight that
+    # could end, and how many goods sit at each interest word (1 Fleeing to 6 Feverish)
+    sv += [f"spec_log_{k} = {{\n\tvalue = 0\n\tif = {{\n\t\tlimit = {{ has_variable = {v} }}\n\t\tvalue = var:{v}\n\t}}\n}}"
+           for k, v in (("hm", "spec_hm"), ("hmd", "spec_hmd"), ("nboom", "spec_n_boom"))]
+    sv.append("spec_log_wrisk = {\n\tvalue = 0\n" + "".join(
+        f"\tif = {{\n\t\tlimit = {{ has_variable = spec_sev_{g} var:spec_sev_{g} > 0 }}\n\t\tadd = spec_weight_{g}\n\t}}\n" for g in GOODS) + "}")
+    sv += [f"spec_log_wd{w} = {{\n\tvalue = 0\n" + "".join(
+        f"\tif = {{\n\t\tlimit = {{ var:spec_word_{g} ?= {w} }}\n\t\tadd = 1\n\t}}\n" for g in GOODS) + "}" for w in range(1, 7)]
     return sv + cycle.log_values(GOODS) + leverage.LOG_VALUES + centres.LOG_GIVEN
+
+
+def _lb_start(g):
+    """--log: the day this good's boom first counted as one that could end (spec_sev_<g> above 0)."""
+    return (f"\t\t\tif = {{ limit = {{ var:spec_sev_{g} > 0 NOT = {{ has_variable = spec_lb_start_{g} }} }} "
+            f"set_variable = {{ name = spec_lb_start_{g} value = spec_calendar_day }} }}\n")
+
+
+def _be_log(g, sev):
+    """--log: one SPECBE line per boom ending (tools/tuner/windows.py): weight, peak, raw cost, the month's scale, its days."""
+    return ("\t\t\t\tset_variable = { name = spec_log_rr value = local_var:spec_rr }\n"
+            f"\t\t\t\tdebug_log = \"SPECBE tag=[THIS.GetCountry.GetTagName] date=[TimeKeeper.GetCurrentDate.GetString] good={g} sev={sev}"
+            f" w=[THIS.ScriptValue('spec_weight_{g}')] peak=[THIS.Var('spec_peak_{g}').GetValue] rr=[THIS.Var('spec_log_rr').GetValue]"
+            f" scale=[THIS.ScriptValue('spec_crash_scale')] now=[THIS.ScriptValue('spec_calendar_day')] start=[THIS.Var('spec_lb_start_{g}').GetValue]\"\n"
+            f"\t\t\t\tremove_variable = spec_lb_start_{g}\n")
+
+
+def _bf_log(g):
+    """--log: a boom whose peak drifted back under the lowest unwind without ending (SPECBF)."""
+    return (f"\t\t\tif = {{\n\t\t\t\tlimit = {{ has_variable = spec_lb_start_{g} var:spec_sev_{g} = 0 }}\n"
+            f"\t\t\t\tdebug_log = \"SPECBF tag=[THIS.GetCountry.GetTagName] date=[TimeKeeper.GetCurrentDate.GetString] good={g}"
+            f" w=[THIS.ScriptValue('spec_weight_{g}')] now=[THIS.ScriptValue('spec_calendar_day')] start=[THIS.Var('spec_lb_start_{g}').GetValue]\"\n"
+            f"\t\t\t\tremove_variable = spec_lb_start_{g}\n\t\t\t}}\n")
+
+
+LOG_ECON = ["traditionalism", "agrarianism", "interventionism", "laissez_faire", "cooperative_ownership", "command_economy", "extraction_economy", "industry_banned"]
+LOG_TECHS = ["banking", "currency_standards", "international_trade", "stock_exchange", "joint_stock_companies", "central_banking",
+             "investment_banks", "international_exchange_standards", "mutual_funds", "modern_financial_instruments", "macroeconomics"]  # = tuner engine.TECH_YEARS
 
 
 def flag(name, trigger):
@@ -583,6 +646,8 @@ def values():
     rule = lambda name, key: (f"{name} = {{\n\tvalue = {VOLATILITY['historical'][key]:g}\n\tif = {{\n"
                               f"\t\tlimit = {{ has_game_rule = spec_volatility_heightened }}\n"
                               f"\t\tvalue = {VOLATILITY['heightened'][key]:g}\n\t}}\n}}")
+    sv.append("spec_impact = {\n\tvalue = 1\n" + "".join(f"\tif = {{\n\t\tlimit = {{ has_game_rule = spec_impact_{n} }}\n\t\tvalue = {x:g}\n\t}}\n"
+              for n, x in IMPACT.items() if x != 1) + "}")
     sv += [rule("spec_heat_from", "heat"), rule("spec_burst_per_heat", "per"), rule("spec_boom_rule", "boom"),
            f"spec_heat_cool = {{\n\tvalue = {HEAT_COOL:g}\n\tif = {{\n\t\tlimit = {{ spec_stance_value < 0 }}\n\t\tvalue = {HEAT_COOL_TIGHT:g}\n\t}}\n}}"]
     sv.append(f"spec_macro = {{\n\tvalue = 1\n{tech(MACRO[0])}\t\tvalue = {MACRO[1]:g}\n\t}}\n}}")
@@ -617,11 +682,12 @@ def values():
     sv.append("spec_mg_value = {\n\tvalue = market_goods_sell_orders\n\tmultiply = goods.base_price\n}")
     sv.append("spec_calendar_day = { value = game_date }")
     sv.append(interest_list.risk_order_value(GOODS))
+    sv.append(interest_list.trend_order_value(GOODS))
     sv.append(sectors.chart_order_value())
     sv.append("spec_market_value = {\n\tvalue = 0\n" + "".join(f"\tadd = spec_mv_{g}\n" for g in GOODS) + "\tmin = 1\n}")
     sv.extend(exposure.values(GOODS))
-    sv.extend(cycle.values(GOODS, TOAST_SHARE / EXPOSURE_FULL))
-    sv.extend(hero.values(BAND_INVEST, BAND_RATE, BAND_TRADE, PANIC_INVEST, PANIC_THROUGHPUT, RESCUE_CUT))
+    sv.extend(cycle.values(GOODS))
+    sv.extend(hero.values(BAND_INVEST, BAND_RATE, BAND_TRADE, PANIC_INVEST, PANIC_THROUGHPUT, PANIC_BUILD, RESCUE_CUT))
     sv.extend(levers.push_full())
     for g in GOODS:
         # market_goods_pricier is signed: negative when the good sits below base price
@@ -643,7 +709,7 @@ def values():
                   f"\telse = {{\n\t\tdivide = {{\n\t\t\tvalue = 1\n\t\t\tsubtract = spec_trend_{g}\n\t\t}}\n\t}}\n"
                   f"\tmin = {HYPE_MIN}\n\tmax = {HYPE_MAX}\n}}")
         # a glut sets interest to Doubtful; a lever (levers.py) then pushes it, but Encourage is not allowed in a glut
-        sv.append(investor_sentiment.factor(g))
+        sv.extend(investor_sentiment.values(g))
         sv += levers.push_values(g)
         sv.append(f"spec_hype_next_{g} = {{\n\tvalue = spec_hype_raw_{g}\n\tmultiply = spec_sentiment_factor_{g}\n"
                   f"\tif = {{\n\t\tlimit = {{ has_variable = spec_glut_{g} }}\n\t\tvalue = {GLUT_HYPE}\n\t}}\n"
@@ -660,11 +726,17 @@ def values():
         # how this boom would end now (UNWINDS), and the confidence that would cost before the cap and the scaling
         tiers = lambda body: "".join(f"\t{'if' if i == 0 else 'else_if'} = {{\n\t\tlimit = {{ var:spec_peak_{g} >= {peak} }}\n{body(sev, rate)}\t}}\n"
                                      for i, (sev, peak, _, rate, _) in enumerate(UNWINDS))
-        sv.append(f"spec_sev_next_{g} = {{\n\tvalue = 0\n{tiers(lambda sev, rate: f'{chr(9) * 2}value = {sev}{chr(10)}')}}}")
+        # soft landing (LAND_DEEP): the price against where the boom began caps the ending
+        sv.append(f"spec_land_{g} = {{\n\tvalue = var:spec_start_{g}\n\tsubtract = {LAND_DEEP:g}\n}}")
+        sv.append(f"spec_sev_next_{g} = {{\n\tvalue = 0\n{tiers(lambda sev, rate: f'{chr(9) * 2}value = {sev}{chr(10)}')}"
+                  f"\tif = {{\n\t\tlimit = {{ has_variable = spec_start_{g} spec_dev_{g} >= var:spec_start_{g} }}\n\t\tmax = 1\n\t}}\n"
+                  f"\telse_if = {{\n\t\tlimit = {{ has_variable = spec_start_{g} spec_dev_{g} > spec_land_{g} }}\n\t\tmax = 2\n\t}}\n}}")
         # the multiplications inside each tier: a good with no boom to end stays 0 without working them out
+        sev_tiers = lambda body: "".join(f"\t{'if' if i == 0 else 'else_if'} = {{\n\t\tlimit = {{ spec_sev_next_{g} = {sev} }}\n{body(sev, rate)}\t}}\n"
+                                         for i, (sev, peak, _, rate, _) in enumerate(UNWINDS))
         sv.append(f"spec_risk_raw_{g} = {{\n\tvalue = 0\n"
-                  + tiers(lambda sev, rate: f"\t\tvalue = var:spec_peak_{g}\n\t\tsubtract = 1\n\t\tmultiply = {rate:g}\n"
-                          f"\t\tmultiply = spec_weight_{g}\n\t\tmultiply = spec_exp_mult_{g}\n{cycle.over_mult(g).replace(chr(9), chr(9) * 2, 1)}")
+                  + sev_tiers(lambda sev, rate: f"\t\tvalue = var:spec_peak_{g}\n\t\tsubtract = 1\n\t\tmultiply = {rate:g}\n"
+                              f"\t\tmultiply = spec_weight_{g}\n\t\tmultiply = spec_exp_mult_{g}\n{cycle.over_mult(g).replace(chr(9), chr(9) * 2, 1)}")
                   + "}")
         sv.append(f"spec_risk_next_{g} = {{\n\tvalue = spec_risk_raw_{g}\n\tmultiply = spec_crash_scale\n\tmax = {CONF_CRASH_MAX}\n}}")
     # all of them collapsing at once, scaled and capped as a month's collapses are
@@ -694,9 +766,9 @@ def values():
 
 def state_vars():
     """Every variable the mod keeps on a country, so leaving the market economy can clear them."""
-    per_good = [f"spec_{k}_{g}" for g in GOODS for k in ("fast", "slow", "hype", "hprev", "peak")]
+    per_good = [f"spec_{k}_{g}" for g in GOODS for k in ("fast", "slow", "hype", "hprev", "peak", "start")]
     ranks = [f"spec_{k}{s}" for k in ("top1", "top2", "top3", "low1", "low2") for s in ("", "_v")]
-    return (["spec_centre_score", "spec_conf", "spec_stance", "spec_stance_cooldown", "spec_panic", "spec_panic_len", "spec_panic_elapsed", "spec_panic_cut", "spec_rescued",
+    return (["spec_centre_score", "spec_conf", "spec_conf_shown", "spec_conf_aim", "spec_conf_step", "spec_stance", "spec_stance_cooldown", "spec_panic", "spec_panic_len", "spec_panic_elapsed", "spec_panic_cut", "spec_rescued",
              "spec_panic_cooldown", "spec_mania", "spec_debt", "spec_clawed", "spec_crashed", "spec_crash_top",
              "spec_foreign_pending", "spec_foreign_src", "spec_caught", "spec_src_gdp", "spec_je_added", "spec_temper",
              "spec_calm", "spec_inquired"]
@@ -820,7 +892,7 @@ def monthly(log):
                       for w in range(1, 7)) for g in GOODS]
     # the tab's per-frame figures, worked out once a month: each band's tile rows and each tile's bar, move and badge
     shown.append(interest_board.monthly(GOODS, categories()))
-    shown.append(cycle.ui(GOODS, TOAST_SHARE / EXPOSURE_FULL))
+    shown.append(cycle.ui(GOODS))
     # D4: the country-wide interest multipliers, worked out once here instead of twice for each good
     goods = ["\t\t\tset_variable = { name = spec_hm value = spec_hype_mult }\n"
              "\t\t\tset_variable = { name = spec_hmd value = spec_hype_mult_down }\n"]
@@ -847,9 +919,15 @@ def monthly(log):
             # this good's part, before the cap and Manor Houses scale the sum (the Goods chip scales it back)
             f"\t\t\t\tset_variable = {{ name = spec_cb_{g} value = {{ value = spec_weight_{g} multiply = {CONF_PER_HOT} }} }}\n"
             f"\t\t\t\tchange_variable = {{ name = spec_n_boom add = 1 }}\n\t\t\t}}\n"
-            # the boom ends: a Correction, Bust or Collapse by how high it went (UNWINDS); the bigger the boom and
-            # the more of the market it was, the bigger the loss, and the industry is left in a glut for a while
+            # where the price stood as the boom began (its slow average), for the soft landing (LAND_DEEP)
+            f"\t\t\tif = {{\n\t\t\t\tlimit = {{ var:spec_peak_{g} >= {RISING_HYPE} NOT = {{ has_variable = spec_start_{g} }} }}\n"
+            f"\t\t\t\tset_variable = {{ name = spec_start_{g} value = var:spec_slow_{g} }}\n\t\t\t}}\n"
+            f"\t\t\telse_if = {{\n\t\t\t\tlimit = {{ var:spec_peak_{g} < {RISING_HYPE} has_variable = spec_start_{g} }}\n"
+            f"\t\t\t\tremove_variable = spec_start_{g}\n\t\t\t}}\n"
+            # the boom ends: a Correction, Bust or Collapse by how high it went (UNWINDS) and how far its price fell;
+            # the bigger the boom and the more of the market it was, the bigger the loss, and the industry is left in a glut
             f"\t\t\tset_variable = {{ name = spec_sev_{g} value = spec_sev_next_{g} }}\n"
+            + (_lb_start(g) if log else "") +
             # Encourage lifts once the good is in a boom that could end in a Bust or Collapse, so its push never feeds one
             f"\t\t\tif = {{\n\t\t\t\tlimit = {{ has_variable = spec_encourage_{g} var:spec_sev_{g} >= 2 }}\n"
             f"\t\t\t\tremove_variable = spec_encourage_{g}\n\t\t\t}}\n"
@@ -857,6 +935,7 @@ def monthly(log):
                       f"\t\t\t\t\tvar:spec_hype_{g} < {below}\n\t\t\t\t}}\n"
                       # the ending's cost, worked out once
                       f"\t\t\t\tset_local_variable = {{ name = spec_rr value = spec_risk_raw_{g} }}\n"
+                      + (_be_log(g, sev) if log else "") +
                       f"\t\t\t\tchange_variable = {{ name = spec_c_crash subtract = local_var:spec_rr }}\n"
                       f"\t\t\t\tset_variable = {{ name = spec_cc_{g} value = local_var:spec_rr days = 28 }}\n"
                       f"\t\t\t\tif = {{\n\t\t\t\t\tlimit = {{ OR = {{ NOT = {{ has_variable = spec_crash_top }} local_var:spec_rr > var:spec_crash_top }} }}\n"
@@ -870,12 +949,12 @@ def monthly(log):
                       f"\t\t\t\tif = {{\n\t\t\t\t\tlimit = {{ is_player = yes spec_weight_{g} >= {TOAST_SHARE / EXPOSURE_FULL:.3f} }}\n"
                       + market_news.alternate(f"\t\t\t\t\tg:{g} = {{ save_scope_as = spec_note_good }}\n"
                                               f"\t\t\t\t\t{exposure.note(g)}{cycle.note(g)}{notify.boom_note_scopes(g)}{notify.boom_post(sev)}",
-                                              f"{sectors.BY_GOOD[g]}_{market_news.KINDS[sev]}", "\t\t\t\t\t", urgent=sev >= 2)
+                                              "\t\t\t\t\t", g, sev)
                       + "\t\t\t\t}\n"
                       f"\t\t\t\tset_variable = {{ name = spec_peak_{g} value = 1 }}\n{exposure.ended(g)}"
                       f"\t\t\t\tset_variable = {{ name = spec_sev_{g} value = 0 }}\n\t\t\t}}\n"
                       for i, (sev, _, below, _, months) in enumerate(UNWINDS))
-            +
+            + (_bf_log(g) if log else "") +
             # the interest word of goods traded here (0 untraded, 1 Fleeing to 6 Feverish), read by the levers and
             # the AI, and what a collapse of this boom would cost
             f"{cycle.over_track(g)}\t\t\tset_local_variable = {{ name = spec_wold value = 0 }}\n"
@@ -885,7 +964,7 @@ def monthly(log):
             + f"\t\t\tif = {{\n\t\t\t\tlimit = {{\n\t\t\t\t\tis_player = yes\n\t\t\t\t\tvar:spec_word_{g} = 6\n"
             f"\t\t\t\t\tlocal_var:spec_wold > 0\n\t\t\t\t\tlocal_var:spec_wold < 6\n\t\t\t\t\tspec_weight_{g} >= {TOAST_SHARE / EXPOSURE_FULL:.3f}\n\t\t\t\t}}\n"
             + market_news.alternate(f"\t\t\t\tg:{g} = {{ save_scope_as = spec_note_good }}\n\t\t\t\tpost_notification = spec_feverish\n",
-                                    f"{sectors.BY_GOOD[g]}_hot", "\t\t\t\t") + "\t\t\t}\n"
+                                    "\t\t\t\t", g, 0) + "\t\t\t}\n"
             + f"\t\t\tset_variable = {{ name = spec_risk_{g} value = spec_risk_next_{g} }}\n"))
     goods.append(sectors.finish(sectors.GROUPS, "\t\t\t"))
     goods.append("\t\t\tset_variable = { name = spec_exposure value = spec_exposure_next }\n"
@@ -919,6 +998,7 @@ def monthly(log):
     shown.append("\t\t\tspec_refresh_sector_chart = yes\n")
     shown.append(charts.interest_script(GOODS))  # needs the word lists just built
     shown.append("\t\t\tspec_refresh_risk_list = yes\n")
+    shown.append("\t\t\tspec_refresh_trend_list = yes\n")
     # the tab's own figures: a player's country (its own market tab), or a market owner (any other market's tab shows
     # its owner's figures, for whoever opens it, observers too). Market members that are neither never show them
     goods.append("\t\t\tif = {\n\t\t\t\tlimit = {\n\t\t\t\t\tOR = {\n\t\t\t\t\t\tis_player = yes\n"
@@ -940,6 +1020,9 @@ def monthly(log):
                     " risktop=[THIS.Var('spec_risk_top').GetValue] wsum=[THIS.ScriptValue('spec_log_wsum')]"
                     " heat=[THIS.ScriptValue('spec_log_heat')] burst=[THIS.ScriptValue('spec_log_burst')]"
                     " bankbooms=[THIS.ScriptValue('spec_exp_booms')] restrain=[THIS.Var('spec_c_restrain').GetValue]" + leverage.LOG + cycle.LOG + centres.LOG +
+                    " braw=[THIS.ScriptValue('spec_log_braw')] econ=[THIS.ScriptValue('spec_log_econ')] money=[THIS.ScriptValue('spec_log_money')] techs=[THIS.ScriptValue('spec_log_techs')] iapp=[THIS.ScriptValue('spec_ind_approval')] igov=[THIS.ScriptValue('spec_log_igov')]"
+                    " hm=[THIS.ScriptValue('spec_log_hm')] hmd=[THIS.ScriptValue('spec_log_hmd')] nboom=[THIS.ScriptValue('spec_log_nboom')]"
+                    " wrisk=[THIS.ScriptValue('spec_log_wrisk')]" + "".join(f" wd{w}=[THIS.ScriptValue('spec_log_wd{w}')]" for w in range(1, 7)) + ""
                     " end1=[THIS.Var('spec_n_end_1').GetValue] end2=[THIS.Var('spec_n_end_2').GetValue] end3=[THIS.Var('spec_n_end_3').GetValue]"
                     # every pressure on confidence this month (the tab's own list), 0 when unset, for the Stats tab
                     + "".join(f" d_{n}=[THIS.ScriptValue('spec_log_d_{n}')]" for n, _ in market_tab.DRIVERS) +
@@ -948,6 +1031,11 @@ def monthly(log):
         log_line += ("\t\t\tif = {\n\t\t\t\tlimit = {\n\t\t\t\t\tc:GBR ?= this\n\t\t\t\t\tNOT = { has_variable = spec_own_year }\n\t\t\t\t}\n"
                      "\t\t\t\tset_variable = { name = spec_own_year days = 360 }\n\t\t\t\tspec_log_owned = yes\n\t\t\t}\n")
         log_line += diplomacy.war_log()
+        # windows.py: each tracked good's price deviation (market_goods_pricier, what the boom model reads) and weight,
+        # once a month per market, from its owner
+        log_line += ("\t\t\tif = {\n\t\t\t\tlimit = { market ?= { owner ?= root } }\n"
+                     "\t\t\t\tdebug_log = \"SPECPX tag=[THIS.GetCountry.GetTagName] date=[TimeKeeper.GetCurrentDate.GetString]"
+                     + "".join(f" {g}=[THIS.ScriptValue('spec_dev_{g}')]:[THIS.ScriptValue('spec_weight_{g}')]" for g in GOODS) + "\"\n\t\t\t}\n")
     counters = "".join(f"\t\t\tset_variable = {{ name = spec_{k} value = 0 }}\n" for k in
                        ("c_boom", "c_crash", "c_tight", "c_foreign", "c_world", "credit_given", "n_boom", "n_end_1", "n_end_2", "n_end_3", "c_restrain")) \
         + "\t\t\tremove_variable = spec_crash_top\n"  # this month's largest ending only: its days = 28 can outlive a 28-day February
@@ -1358,6 +1446,7 @@ def effects(log=False):
     clear = "".join(f"\tremove_variable = {v}\n" for v in state_vars())
     clear += "".join(f"\tclear_variable_list = {l}\n" for l in charts.LISTS + investor_sentiment.LISTS)
     clear += "\tclear_variable_list = spec_goods_by_risk\n" + "".join(f"\tclear_variable_list = spec_goods_by_risk_{c}\n" for c in market_tab.CATEGORIES)
+    clear += "".join(f"\tclear_variable_list = spec_goods_by_trend{d}_{c}\n" for d in ("", "_up") for c in market_tab.CATEGORIES)
     if centres.RIVAL_ON:
         import rivals
         clear += "\tclear_variable_list = spec_rv_attackers\n"
@@ -1398,7 +1487,7 @@ spec_update_band = {{
 	set_variable = {{ name = spec_panic_elapsed value = 0 }}
 	# before the clawback lowers the debt: the leverage it was taken on sets the cut
 	set_variable = {{ name = spec_panic_cut value = spec_panic_cut_if }}
-{leverage.on_panic(PANIC)}{depression.ON_PANIC}	add_modifier = {{ name = spec_panic }}
+{leverage.on_panic(PANIC)}{depression.ON_PANIC}	add_modifier = {{ name = spec_panic multiplier = spec_impact }}
 	add_modifier = {{
 		name = spec_panic_crunch
 		multiplier = spec_panic_crunch_full
@@ -1655,7 +1744,7 @@ spec_rescue = {{
 		remove_modifier = spec_panic_crunch
 		add_modifier = {{
 			name = spec_panic
-			multiplier = {RESCUE_CUT:g}
+			multiplier = {{ value = {RESCUE_CUT:g} multiply = spec_impact }}
 		}}
 		add_modifier = {{
 			name = spec_panic_crunch
@@ -1797,6 +1886,7 @@ def modifiers():
 	interest_group_ig_industrialists_approval_add = {PANIC_APPROVAL:g}
 	interest_group_ig_petty_bourgeoisie_approval_add = {PANIC_APPROVAL:g}
 	building_throughput_add = {PANIC_THROUGHPUT:g}
+	state_construction_mult = {PANIC_BUILD:g}
 	state_tax_collection_mult = {PANIC_TAX:g}
 {companies.PANIC}}}
 
@@ -1862,12 +1952,25 @@ def panic_loc(root):
             + leverage.panic_event_loc(root, [f"spec_markets.2.d_{c}{k}" for c, _ in PANIC_CAUSES for k in loans]))
 
 
-def events():
+def ai_pick_log(event, option, log):
+    """--log: a SPECEV line for an AI's choice in an event (tools/tuner/windows.py), with its credit temperament last
+    (unset ends the line)."""
+    if not log:
+        return ""
+    return (f"\t\tif = {{ limit = {{ is_ai = yes }} debug_log = \"SPECEV tag=[THIS.GetCountry.GetTagName] date=[TimeKeeper.GetCurrentDate.GetString] "
+            f"ev={event} opt={option} temper=[THIS.Var('spec_temper').GetValue]\" }}\n")
+
+
+def events(log=False):
     def ig(key, mod, days="short_modifier_time"):
         return (f"\t\tig:ig_{key} ?= {{\n\t\t\tadd_modifier = {{\n\t\t\t\tname = {mod}\n"
                 f"\t\t\t\tdays = {days}\n\t\t\t}}\n\t\t}}\n")
     def temper(t, n):
         return f"\t\t\tmodifier = {{\n\t\t\t\ttrigger = {{ var:spec_temper ?= {t} }}\n\t\t\t\tadd = {n}\n\t\t\t}}\n"
+    def mania_ai(kind):
+        base, t, add = MANIA_AI[kind]
+        return f"{ai_pick_log('spec_markets.1', kind, log)}\t\tai_chance = {{\n\t\t\tbase = {base}\n{temper(t, add)}\t\t}}\n"
+    pick = lambda opt: ai_pick_log("spec_markets.2", opt, log)
     return f"""namespace = spec_markets
 
 # mania warning
@@ -1883,20 +1986,14 @@ spec_markets.1 = {{
 	option = {{
 		name = spec_markets.1.a
 		default_option = yes
-{ig('industrialists', 'spec_boom_riding')}		ai_chance = {{
-			base = 50
-{temper(1, 30)}		}}
-	}}
+{ig('industrialists', 'spec_boom_riding')}{mania_ai('ride')}	}}
 	option = {{
 		name = spec_markets.1.b
 		custom_tooltip = {{
 			text = spec_markets.1.b.tt
 			spec_cool_conf = {{ AMOUNT = {MANIA_CAUTION} }}
 		}}
-{ig('industrialists', 'spec_boom_warning')}{ig('intelligentsia', 'spec_prudent_counsel')}		ai_chance = {{
-			base = 30
-{temper(-1, 30)}		}}
-	}}
+{ig('industrialists', 'spec_boom_warning')}{ig('intelligentsia', 'spec_prudent_counsel')}{mania_ai('warn')}	}}
 	option = {{
 		name = spec_markets.1.c
 		custom_tooltip = {{
@@ -1907,10 +2004,7 @@ spec_markets.1 = {{
 			text = spec_markets.1.c.tt
 			spec_cool_conf = {{ AMOUNT = {MANIA_TAX_CONF} }}
 		}}
-{ig('industrialists', 'spec_speculation_levy', 'normal_modifier_time')}		ai_chance = {{
-			base = 20
-{temper(-1, 20)}		}}
-	}}
+{ig('industrialists', 'spec_speculation_levy', 'normal_modifier_time')}{mania_ai('levy')}	}}
 }}
 
 # panic
@@ -1933,7 +2027,7 @@ spec_markets.2 = {{
 		trigger = {{ NOT = {{ has_variable = spec_rescued }} }}  # the pledged rescue came with the panic (centres.PLEDGE_RESCUE)
 		default_option = yes
 		custom_tooltip = spec_markets.2.a.tt
-{ig('industrialists', 'spec_market_left_alone')}		ai_chance = {{
+{ig('industrialists', 'spec_market_left_alone')}{pick('left_alone')}		ai_chance = {{
 			base = 50
 		}}
 	}}
@@ -1949,7 +2043,7 @@ spec_markets.2 = {{
 		name = spec_markets.2.c
 {ig('industrialists', 'spec_blamed_for_panic', 'normal_modifier_time')}{ig('trade_unions', 'spec_speculators_blamed')}{ig('intelligentsia', 'spec_speculators_blamed')}		# workers who feared for their jobs welcome a government that takes their side
 		add_loyalists = {{ value = 0.05 strata = lower }}
-		ai_chance = {{
+{pick('blamed')}		ai_chance = {{
 			base = 20
 		}}
 	}}
@@ -1997,7 +2091,8 @@ def unwind_loc():
         out += [f' SPEC_UNWIND_{s}: "{name[s]}"', f' SPEC_UNWIND_C_{s}: "[concept_spec_{name[s].lower()}]"',
                 f' SPEC_UNWIND_DESC_{s}: "This boom peaked at #v {peak[s]}#!. If the price trend drops below #v {trend(below)}#!, '
                 f'[concept_spec_investor_interest] turns #v {"Fleeing" if s == 3 else "Doubtful"}#! '
-                f'and {end}. Investors then stay away for #v {months}#! months.\\n\\nThe danger fades as the boom gets older."']
+                f'and {end}. Investors then stay away for #v {months}#! months.\\n\\nThe danger fades as the boom gets older. '
+                f'While the price stays above where the boom began, it can only end in a [concept_spec_correction]."']
     return "".join(line + "\n" for line in out)
 
 
@@ -2415,22 +2510,26 @@ def main(log=False):
     for rel, text in companies.script(GAME, SELLS, UPGRADES, lambda n: f"gfx/interface/icons/timed_modifier_icons/{n}.dds").items():
         write(rel, text)
     write("common/on_actions/spec_on_actions.txt", monthly(log))
-    write("common/scripted_effects/spec_effects.txt", effects(log) + "\n" + interest_list.risk_list_effect(categories()) + ranked_interest_effect() + sectors.rank_chart() + investor_sentiment.effects(GOODS))
+    write("common/scripted_effects/spec_effects.txt", effects(log) + "\n" + interest_list.risk_list_effect(categories()) + interest_list.trend_list_effect(categories()) + ranked_interest_effect() + sectors.rank_chart() + investor_sentiment.effects(GOODS))
     write("common/scripted_triggers/spec_triggers.txt", triggers())
     (MOD / "common/scripted_buttons/spec_buttons.txt").unlink(missing_ok=True)  # the journal's Credit Policy and Lend: tab only now
     write("common/scripted_guis/spec_sguis.txt", sguis() + ig_stances.SGUI)
     write("common/journal_entries/spec_journal.txt", journal.entry(STANCES))
     write("common/scripted_progress_bars/spec_bars.txt", bar())
     write("common/static_modifiers/spec_modifiers.txt", modifiers())
-    for rel, text in levers.script(GOODS, levers.industry(SELLS, UPGRADES), goods_tax_cost(), goods_cost()).items():
+    made = levers.industry(SELLS, UPGRADES)
+    for rel, text in levers.script(GOODS, made, goods_tax_cost(), goods_cost()).items():
         write(rel, text)
-    write("events/spec_markets_events.txt", events() + (test_events() if log else ""))
+    # older saves' term modifiers, empty: the term's throughput is in the good's building modifier (companies.bp_script)
+    write("common/static_modifiers/spec_term_modifiers.txt", investor_sentiment.modifiers(
+        made, "gfx/interface/icons/timed_modifier_icons/modifier_coins_positive.dds", "gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds"))
+    write("events/spec_markets_events.txt", events(log) + (test_events() if log else ""))
     k = {name: value for name, value in globals().items() if name.isupper() and isinstance(value, (int, float, dict))}
     # for the goods chart's category filters: staple, industrial, luxury or military
     k["CATEGORY"] = categories()
     k["UNWINDS"] = UNWINDS
     journal.build(write, k)
-    write("common/scripted_effects/spec_ui_effects.txt", interest_board.ui_effect(k))
+    write("common/scripted_effects/spec_ui_effects.txt", interest_board.ui_effect(k) + interest_board.glide(GOODS))
     for rel, text in {**credit_ai.script(k), **movements.script(k)}.items():
         write(rel, text)
     stories.build(write, k, log)
@@ -2457,8 +2556,11 @@ def main(log=False):
     write("localization/english/spec_markets_l_english.yml", english)
     write("localization/english/replace/spec_markets_replace_l_english.yml", pool_breakdown())
     write("common/game_rules/spec_game_rules.txt", "spec_market_volatility = {\n\tdefault = spec_volatility_historical\n\n"
-          + "".join(f"\tspec_volatility_{n} = {{\n\t}}\n" for n in VOLATILITY) + "}\n" + market_news.RULE)
+          + "".join(f"\tspec_volatility_{n} = {{\n\t}}\n" for n in VOLATILITY) + "}\n"
+          + "spec_market_impact = {\n\tdefault = spec_impact_standard\n\n" + "".join(f"\tspec_impact_{n} = {{\n\t}}\n" for n in IMPACT) + "}\n" + market_news.RULE)
     tip = lambda n, name: f"#tooltippable #tooltip:[GetPlayer.GetTooltipTag],setting_spec_volatility_{n}_desc {name}#!#!"
+    itip = lambda n, name: f"#tooltippable #tooltip:[GetPlayer.GetTooltipTag],setting_spec_impact_{n}_desc {name}#!#!"
+    ind = "[Concept('concept_spec_leverage', '$concept_spec_leverage$')]"
     # worded as vanilla's rules (game_rules_l_english.yml, rule_ai_aggression): a short setting name, the non-default
     # one in #high, and one sentence on what it does
     panics = "[Concept('concept_spec_financial_panic', '$concept_spec_financial_panics$')]"
@@ -2468,7 +2570,14 @@ def main(log=False):
           "in the 19th century\"\n"
           f" setting_spec_volatility_heightened: \"{tip('heightened', '#high High#!')}\"\n"
           " setting_spec_volatility_heightened_desc: \"Speculative booms will grow larger and end more abruptly, and "
-          f"{panics} will occur more often than they did in the 19th century\"\n")
+          f"{panics} will occur more often than they did in the 19th century\"\n"
+          + " rule_spec_market_impact: \"Market Impact\"\n"
+          f" setting_spec_impact_flavor: \"{itip('flavor', 'Flavor')}\"\n"
+          f" setting_spec_impact_flavor_desc: \"{ind} and {panics} will affect your economy less, about two fifths as much\"\n"
+          f" setting_spec_impact_standard: \"{itip('standard', 'Standard')}\"\n"
+          f" setting_spec_impact_standard_desc: \"{ind} and {panics} will affect your economy as the mod intends\"\n"
+          f" setting_spec_impact_strong: \"{itip('strong', '#high Strong#!')}\"\n"
+          f" setting_spec_impact_strong_desc: \"{ind} and {panics} will affect your economy more, about three fifths more\"\n")
     write("common/game_concepts/spec_concepts.txt", concepts.definitions())
     write("gui/spec_market_tab.gui", market_tab.tab_type(k))
     write("gui/information_panel_bar.gui", information_panel_bar(k))
@@ -2477,7 +2586,10 @@ def main(log=False):
     write("gui/journal_entry.gui", journal_entry_gui())
     write("gui/goods_panel.gui", goods_panel.patch((GAME / "gui/goods_panel.gui").read_text(encoding="utf-8-sig")))
     write("gui/spec_goods_panel.gui", goods_panel.block_type())
+    write("gui/outliner_pinnable_types.gui", goods_panel.outliner((GAME / "gui/outliner_pinnable_types.gui").read_text(encoding="utf-8-sig")))
     write("gui/interest_group_panel.gui", ig_stances.panel_patch((GAME / "gui/interest_group_panel.gui").read_text(encoding="utf-8-sig")))
+    if mod_sources.BPM:  # BPM's panel type loads first and wins over ours: the BPM patch ships it with the Goods section
+        write("gui/BPM_interest_group_panel.gui", ig_stances.panel_patch((mod_sources.BPM / "gui/BPM_interest_group_panel.gui").read_text(encoding="utf-8-sig")))
     (MOD / tech_ties.VANILLA_FILE).unlink(missing_ok=True)  # was a copy of the vanilla file
     for rel, text in tech_ties.files(GAME, tech_table(), law_table()).items():
         write(rel, text)

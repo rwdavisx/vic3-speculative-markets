@@ -15,6 +15,7 @@ PATCHES = {  # partner name -> cover path
     "CMF": ROOT / "workshop/new_items/cmf_preview.png",
     "Morgenröte": ROOT / "compatibility/morgenroete/preview.png",
     "Tech &amp; Res": ROOT / "compatibility/techres/preview.png",
+    "BPM": ROOT / "compatibility/bpm/preview.png",
 }
 
 CSS = main_cover.CSS + """

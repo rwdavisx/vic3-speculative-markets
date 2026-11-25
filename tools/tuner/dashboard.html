@@ -1,0 +1,691 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tuning Dashboard</title>
+<!--
+The tuner's front page: watch only. Every target is a card with its band and aim, the kept runs plotted across it,
+and the open run's candidates beside it. The panel at the top says what the open run is for and what came of it.
+Two more views draw the open run's full record (/api/run): its charts over the century, a median inside the middle 80% of
+countries, and its players side by side. It reads /api/config, /api/history, /api/keymap and the live events; the controls and
+the machine room that follows one country are on /room.
+
+A run's purpose rides in its note: lab.py ... --note "name | goal sentence | metric:who, metric:who"
+(the goal and the targets it is after are optional; without them the page says what the run did).
+ponytail: the goal rides in the note; give lab.py --goal and --focus flags if the note gets crowded.
+-->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&family=IM+Fell+English+SC&display=swap">
+<style>
+/* One dark look, the room's (works.css): gold-edged night panels, the mod's type. The chart colours are stepped for this ground. */
+:root {
+  color-scheme: dark;
+  --page: #0d1016; --page-hi: #1b2130; --surface: #12161e; --card: #181d27; --ink: #f6efdc; --ink2: #c9bc9c; --muted: #8d8571; --grid: #20252f; --axis: #2c3140;
+  --edge: #7a5f2c; --gold: #c9a35a; --gold-hi: #f0d28a; --base: #b88a2c; --alt: #4f8fd0; --good: #6fbf80; --crit: #e07060;
+  --band: rgba(111, 191, 128, .16); --sel: rgba(201, 163, 90, .20); --wash: rgba(246, 239, 220, .05);
+  --panic: #c64b3b; --wary: #d39a3a; --steady: #9b9a90; --buoyant: #58a062; --mania: #2f8a4c;
+  --display: "IM Fell English SC", "EB Garamond", Georgia, serif; --body: "EB Garamond", Georgia, "Times New Roman", serif;
+}
+* { box-sizing: border-box; }
+html { background: var(--page); }
+body { margin: 0; background: radial-gradient(ellipse 90% 60% at 50% 0%, var(--page-hi), var(--page) 70%) var(--page) fixed; color: var(--ink); font: 16px/1.4 var(--body); }
+h1, h2, h3, p { margin: 0; }
+h1, h2, h3 { font-family: var(--display); font-weight: 400; color: var(--gold); text-wrap: balance; }
+a { color: var(--gold-hi); }
+button, input { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 2px; }
+.muted { color: var(--muted); }
+.top { position: sticky; top: 0; z-index: 5; display: flex; flex-wrap: wrap; gap: 2px 16px; align-items: baseline; padding: 8px 20px; background: var(--surface); border-bottom: 2px solid var(--edge); box-shadow: 0 1px 0 #000; }
+.top h1 { font-size: 26px; line-height: 1.1; color: var(--ink); }
+.top .grow { flex: 1; }
+.top label { color: var(--ink2); }
+.top input { accent-color: var(--gold); }
+.state { color: var(--ink2); }
+.state.on::before { content: "● "; color: var(--gold-hi); }
+main { padding: 18px 20px 40px; }
+.panel { background: var(--surface); border: 2px solid var(--edge); outline: 1px solid #000; outline-offset: 3px; padding: 14px 16px; min-width: 0; }
+.body { display: grid; grid-template-columns: 410px minmax(0, 1fr); gap: 18px; align-items: start; }
+.side { position: sticky; top: 66px; height: calc(100vh - 86px); display: flex; flex-direction: column; gap: 18px; }
+.purpose { overflow: auto; max-height: 64%; flex: none; }
+.score { display: flex; flex-wrap: wrap; gap: 12px 22px; align-items: center; margin-bottom: 16px; }
+.score > div:nth-child(2) { flex: 1 1 240px; }  /* the map of targets takes the room left; the chart drops below when there is none */
+.loading { padding: 40px; text-align: center; color: var(--muted); font-style: italic; }
+
+/* what the open run is for */
+.eyebrow { font-family: var(--display); font-size: 15px; color: var(--muted); }
+.eyebrow b { color: var(--gold-hi); font-weight: 400; }
+.purpose h2 { font-size: 26px; line-height: 1.12; margin: 2px 0 8px; color: var(--ink); }
+.goal { font-size: 17px; color: var(--ink); border-left: 3px solid var(--gold); padding: 1px 0 1px 10px; }
+.goal.auto { color: var(--ink2); }
+.goal.auto::after { content: "No goal was written for this run; this is what it did."; display: block; font-size: 14px; color: var(--muted); }
+.prog { height: 8px; background: #0b0e13; border: 1px solid #343a48; margin: 10px 0 0; overflow: hidden; }
+.prog i { display: block; height: 100%; background: var(--gold); }
+.purpose h3 { font-size: 18px; margin: 12px 0 5px; padding-top: 8px; border-top: 1px solid var(--axis); }
+.purpose h3.sub { margin-top: 8px; padding: 0; border: 0; font-family: var(--body); font-size: 14px; color: var(--muted); }
+.chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.chip { display: inline-flex; gap: 5px; align-items: baseline; max-width: 100%; padding: 1px 8px; border-radius: 3px; background: #1a1f29; border: 1px solid var(--axis); color: var(--ink); text-decoration: none; font-size: 14px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.chip span { overflow: hidden; text-overflow: ellipsis; }
+.chip small { color: var(--muted); font-size: 13px; }
+.chip:hover { border-color: var(--gold); }
+.in > i, .pill.in { color: var(--good); }
+.out > i, .pill.out { color: var(--crit); }
+.none > i, .pill.none { color: var(--muted); }
+i { font-style: normal; }
+ul.keys { list-style: none; margin: 0; padding: 0; display: grid; gap: 3px; font-variant-numeric: tabular-nums; }
+ul.keys code { font: 12px ui-monospace, Consolas, monospace; color: var(--muted); }
+.verdict { font-size: 18px; font-weight: 600; }
+.verdict small { display: block; font-weight: 400; font-size: 14px; color: var(--ink2); }
+
+/* the score */
+.hero { font: 400 56px/1 var(--display); white-space: nowrap; color: var(--ink); }
+.hero small { font-size: 24px; color: var(--ink2); }
+.map { display: flex; flex-wrap: wrap; gap: 3px; margin: 2px 0 6px; }
+.map a { width: 19px; height: 19px; border-radius: 3px; display: grid; place-items: center; font: 700 10px system-ui, sans-serif; color: #0d1016; text-decoration: none; background: var(--muted); }
+.map a.in { background: var(--good); }
+.map a.out { background: var(--crit); }
+.cap { font-size: 14px; color: var(--ink2); margin-bottom: 2px; }
+.cap b { color: var(--ink); }
+
+/* the runs */
+.log { flex: 1; min-height: 150px; overflow: auto; padding: 10px; }
+.log h2 { font-size: 20px; padding: 2px 6px; }
+.day { font-family: var(--display); font-size: 14px; color: var(--muted); padding: 10px 6px 3px; }
+.run { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 0 8px; width: 100%; text-align: left; padding: 5px 6px; border: 0; border-bottom: 1px solid #1f2430; background: none; color: inherit; font: inherit; cursor: pointer; }
+.run:hover { background: var(--wash); }
+.run.sel { background: var(--sel); box-shadow: inset 3px 0 0 var(--gold); }
+.run .t { color: var(--muted); font-variant-numeric: tabular-nums; }
+.run .ti { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.run .o { font-variant-numeric: tabular-nums; color: var(--ink2); }
+.run .k { grid-column: 2 / 4; font-size: 14px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* the views */
+.bar { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; margin-bottom: 4px; color: var(--ink2); }
+.seg { display: inline-flex; flex-wrap: wrap; border: 1px solid #3a4152; border-radius: 3px; overflow: hidden; background: #1a1f29; vertical-align: middle; }
+.seg button { border: 0; background: none; color: var(--ink2); padding: 3px 11px; cursor: pointer; }
+.seg button:hover { color: var(--ink); }
+.seg button.on { background: linear-gradient(#3a2e14, #241c0c); color: var(--gold-hi); font-weight: 600; box-shadow: inset 0 0 0 1px var(--gold); }
+.seg.views button { font-family: var(--display); font-size: 17px; padding: 4px 14px; }
+.legend { display: flex; flex-wrap: wrap; gap: 2px 14px; color: var(--ink2); font-size: 14px; flex-basis: 100%; }
+.legend svg { display: inline-block; vertical-align: -2px; }
+.group { margin-top: 18px; }
+.group > h2 { font-size: 25px; border-bottom: 1px solid var(--axis); padding-bottom: 4px; }
+.group > h2 small { font-family: var(--body); color: var(--muted); font-size: 14px; margin-left: 8px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 12px; margin-top: 10px; }
+.card { background: var(--card); border: 1px solid var(--axis); border-left: 4px solid var(--muted); padding: 10px 14px; min-width: 0; scroll-margin-top: 80px; }
+.card.in { border-left-color: var(--good); }
+.card.out { border-left-color: var(--crit); }
+.card.focus { outline: 1px solid var(--gold); outline-offset: 2px; }
+.card.flash { animation: flash 1.2s; }
+@keyframes flash { 30% { box-shadow: 0 0 0 3px var(--gold-hi); } }
+.card header { display: flex; gap: 10px; justify-content: space-between; align-items: flex-start; }
+.card .name b { display: block; font: 400 19px/1.2 var(--display); color: var(--ink); }
+.card .name span { color: var(--gold); font-size: 14px; }
+.card .read { text-align: right; white-space: nowrap; }
+.card .big { display: block; font-size: 26px; font-weight: 700; line-height: 1.05; color: #fff; font-variant-numeric: tabular-nums; }
+.pill { font-size: 14px; font-weight: 700; }
+.card .aim { font-size: 14px; color: var(--ink2); margin: 4px 0 2px; font-variant-numeric: tabular-nums; }
+.card .why { font-size: 14px; color: var(--muted); margin-top: 4px; line-height: 1.3; }
+.card .moved { font-size: 13px; color: var(--muted); margin-top: 3px; }
+svg { display: block; }
+svg text { font: 500 12px var(--body); fill: var(--muted); font-variant-numeric: tabular-nums; }
+.bandr { fill: var(--band); }
+.edge { stroke: var(--good); stroke-width: 1; opacity: .55; }
+.aiml { stroke: var(--good); stroke-width: 1; stroke-dasharray: 4 3; }
+.gridl { stroke: var(--grid); stroke-width: 1; }
+.selr { fill: var(--sel); }
+.whisk { stroke: var(--muted); stroke-width: 2; opacity: .45; stroke-linecap: round; }
+.spread { stroke: var(--gold); stroke-width: 6; opacity: .3; stroke-linecap: round; }
+.basel { fill: none; stroke: var(--base); stroke-width: 2; stroke-linejoin: round; }
+.based { fill: var(--base); stroke: #000; stroke-width: .8; }
+.altd { fill: var(--page); stroke: var(--alt); stroke-width: 1.8; }
+.cand { fill: var(--ink2); opacity: .45; }
+.hv, .hv2 { stroke: var(--ink2); stroke-width: 1; }
+.hit, .hit2 { fill: transparent; }
+.hit { cursor: pointer; }
+
+/* the open run over the century, and its players side by side */
+.series { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(520px, 100%), 1fr)); gap: 12px; margin-top: 10px; }
+.series figure { margin: 0; border-left-color: var(--edge); }
+.series figcaption, .players header { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.series figcaption b, .players header b { font: 400 19px/1.2 var(--display); color: var(--gold); }
+.series figcaption span, .players header span { color: var(--muted); font-size: 14px; text-align: right; }
+.series svg, svg.dots { width: 100%; height: auto; }
+.series svg text.lg { font-size: 13px; fill: var(--ink2); }
+.players .card { border-left-color: var(--edge); }
+svg.dots text.rl { font-size: 14px; fill: var(--ink2); }
+svg.dots text.vl { font-weight: 700; font-size: 13px; fill: #fff; }
+#tip { position: fixed; z-index: 9; pointer-events: none; max-width: 320px; padding: 8px 10px; background: #0b0e13; border: 1px solid var(--edge); box-shadow: 0 4px 14px rgba(0, 0, 0, .5); font-size: 14px; font-variant-numeric: tabular-nums; }
+#tip b { display: block; color: var(--gold-hi); }
+@media (max-width: 1000px) {
+  .body { grid-template-columns: minmax(0, 1fr); }
+  .side { position: static; height: auto; }
+  .purpose { max-height: none; }
+  .log { max-height: 280px; }
+  .grid { grid-template-columns: minmax(0, 1fr); }
+  .series svg text { font-size: 20px; } .series svg text.lg { font-size: 22px; }
+}
+</style>
+<link rel="stylesheet" href="/panels.css">
+<style>
+/* Tuner vs Game and the Key Map (panels.js): sections like the target groups, folded by their heading */
+details.spx-sec { margin-top: 18px; }
+details.spx-sec > summary { cursor: pointer; list-style: none; font: 400 25px var(--display); color: var(--gold); border-bottom: 1px solid var(--axis); padding-bottom: 4px; margin-bottom: 10px; }
+details.spx-sec > summary::before { content: "▸ "; color: var(--edge); }
+details.spx-sec[open] > summary::before { content: "▾ "; }
+details.spx-sec > summary small { font-family: var(--body); color: var(--muted); font-size: 14px; margin-left: 8px; }
+</style></head>
+<body>
+<header class="top">
+  <h1>The Tuning Dashboard</h1>
+  <span id="state" class="state"></span>
+  <span class="grow"></span>
+  <label><input type="checkbox" id="follow" checked> Follow the newest run</label>
+  <a href="/room">The controls, and one country in the machine room</a>
+</header>
+<main class="body">
+  <aside class="side">
+    <div class="panel purpose" id="purpose"><p class="loading">Reading the kept runs…</p></div>
+    <div class="panel log"><h2>Runs, newest first</h2><div id="log"></div></div>
+  </aside>
+  <div><div class="panel score" id="score"></div>
+    <details class="spx-sec" id="vssec" open><summary>Tuner vs Game<small>how far the tuner's readings sit from a real game, and so how far to trust the targets below</small></summary><div id="vsbox"><p class="loading">Reading the game windows…</p></div></details>
+    <div class="bar" id="bar"></div><div id="cards"></div>
+    <details class="spx-sec" id="kmsec"><summary>Key Map<small>which key moves which target, one step each way</small></summary><div id="kmbox"><p class="loading">Reading the key map…</p></div></details>
+  </div>
+</main>
+<div id="tip" hidden></div>
+<script src="/panels.js"></script>
+<script>  // Tuner vs Game and the Key Map, read each time they open
+SpecPanels.vs(document.getElementById("vsbox"));  // open from the start
+for (const [id, f] of [["vssec", "vs"], ["kmsec", "km"]]) document.getElementById(id).addEventListener("toggle", e => { if (e.target.open) SpecPanels[f](e.target.querySelector("div")); });
+</script>
+<script type="module">
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const BOT = { passive: "Hands off", careful: "Careful", skilled: "Skilled", reckless: "Reckless", nobuy: "Reckless, never buys up", ai: "The AI" };
+const GROUPS = [["left", "The market left alone", "a country that never touches the levers"], ["gap", "Does skill pay?", "one way of playing against another, over a century"],
+  ["play", "How each way of playing goes", ""], ["ai", "AI countries", ""]];
+const BOTC = { passive: "#c98500", careful: "#3987e5", skilled: "#199e70", reckless: "#d95926", nobuy: "#9085e9", ai: "#d55181" };  // in this order they stay apart for every eye
+const botsOf = o => Object.keys(o).sort((a, b) => Object.keys(BOT).indexOf(a) - Object.keys(BOT).indexOf(b));
+const cssv = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+let C, T = [], H = [], KM = null, live = null;       // config, its targets, the kept runs (oldest first), the key map, the run going now
+let sel = null, follow = true, win = 50, filter = "all";  // the open run's id, and what the cards show
+let shownRuns = [], queued = false;
+let view = localStorage.tunerView || "targets", bot = "passive", showBase = false, FIGS = [];  // which view; in the full-record views, whose charts and which candidate
+const DET = new Map();  // the kept runs' full records, by id: null while one is being read, false if it could not be
+
+// ---------- a target, a value, a candidate ----------
+const group = t => t.who.includes("-") ? "gap" : t.who === "passive" ? "left" : t.who === "ai" ? "ai" : "play";
+const who = t => t.who.split("-").map(b => BOT[b] || b).join(" minus ");
+const label = t => (C.metrics[t.metric] || [t.metric])[0];
+const fmt = v => v == null ? "–" : (+v.toFixed(Math.abs(v) >= 100 ? 0 : Math.abs(v) >= 10 ? 1 : 2)).toLocaleString("en-GB");
+function val(t, v) {
+  const u = (C.metrics[t.metric] || [])[1];
+  return v == null ? "not run" : fmt(v) + (u === "%" ? "%" : u ? " " + u : "");
+}
+const inBand = (t, v) => v != null && v >= t.lo && v <= t.hi;
+function status(t, v) {
+  if (v == null) return { k: "none", g: "·", text: "Not run" };
+  if (v < t.lo) return { k: "out", g: "▼", text: `▼ ${fmt(t.lo - v)} below the band` };
+  if (v > t.hi) return { k: "out", g: "▲", text: `▲ ${fmt(v - t.hi)} above the band` };
+  return { k: "in", g: "✓", text: "✓ In the band" };
+}
+const met = c => c ? c.v.reduce((n, v, i) => n + inBand(T[i], v), 0) : null;
+const outs = c => c ? T.map((_, i) => i).filter(i => !inBand(T[i], c.v[i])) : [];
+const keyName = k => (C.spec.find(s => s.key === k) || {}).label || k;
+
+// A run as the page reads it: its name, goal and targets from the note; the numbers it started from (base) and the best
+// of what it tried (alt); how far its candidates reached on each target.
+function prep(r) {
+  const [title, goal, focus] = (r.note || "").split(" | ").map(s => s.trim());
+  r.title = title || r.label;
+  r.goal = goal || "";
+  r.focus = (focus || "").split(",").map(s => s.trim()).filter(Boolean)
+    .flatMap(f => T.map((t, i) => f === t.metric + ":" + t.who || f === t.metric ? i : -1).filter(i => i >= 0));
+  if (r.live) {  // the kept runs come with these; the run going now is read from its events
+    r.tried = {};
+    for (const c of r.cands) {
+      c.base = c.id === 0 && !Object.keys(c.changed).length;
+      for (const [k, [was, v]] of Object.entries(c.changed)) { const x = r.tried[k] || [was, v, v]; r.tried[k] = [was, Math.min(x[1], v), Math.max(x[2], v)]; }
+    }
+  }
+  r.base = r.cands.find(c => c.base) || null;
+  r.alt = r.cands.find(c => !c.base) || null;
+  r.rng = r.cands.length > 1 ? T.map((_, i) => {
+    const a = r.cands.map(c => c.v[i]).filter(v => v != null);
+    return a.length ? [Math.min(...a), Math.max(...a)] : null;
+  }) : null;
+  r.keys = Object.keys(r.tried || {});
+  const n = r.live ? r.candidates : r.cands.length;
+  r.kind = r.label.startsWith("Sweep") ? (/halving\)$/.test(r.label) ? "Sweep, by halving" : "Sweep") : n === 1 ? "Reading" : n === 2 ? "Trial of a change" : "Comparison";
+  return r;
+}
+const after = r => r.focus.length ? r.focus : outs(r.base || r.alt);  // the targets a run is after: named, or out when it began
+const open = () => (sel === "live" && live) || H.find(r => r.id === sel) || live || H.at(-1) || null;
+const newest = () => live ? "live" : H.at(-1)?.id;
+
+// ---------- one chart: runs left to right, the open run's candidates in the strip on the right ----------
+// o: W, H, n, base[], alt[], rng[] (per run), band {lo, hi, aim}, dom [lo, hi], ticks [values], days, sel, strip {vals, base, alt}, t
+function chartSvg(o) {
+  const { W, H, n } = o, L = 38, S = o.strip ? 52 : 0, R = W - S - (S ? 8 : 4), top = 8, bot = H - 16;
+  const step = (R - L) / Math.max(n, 1), X = i => L + step * (i + .5);
+  const [d0, d1] = o.dom, Y = v => bot - (Math.min(Math.max(v, d0), d1) - d0) / (d1 - d0 || 1) * (bot - top);
+  const f = x => x.toFixed(1);
+  let s = `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" data-l="${L}" data-step="${step}">`;
+  if (o.band) {
+    const b = o.band;
+    s += `<rect class="bandr" x="${L}" y="${f(Y(b.hi))}" width="${W - L}" height="${f(Y(b.lo) - Y(b.hi))}"/>`;
+    s += [b.hi, b.lo].map(v => `<line class="edge" x1="${L}" x2="${W}" y1="${f(Y(v))}" y2="${f(Y(v))}"/>`).join("");
+    s += `<line class="aiml" x1="${L}" x2="${W}" y1="${f(Y(b.aim))}" y2="${f(Y(b.aim))}"/>`;
+  }
+  const used = [];
+  for (const v of o.ticks) {  // in order of importance: a label gives way to one already placed
+    const y = Y(v);
+    if (v < d0 || v > d1 || used.some(u => Math.abs(u - y) < 13)) continue;
+    used.push(y);
+    s += `<text x="${L - 5}" y="${f(y + 3.5)}" text-anchor="end">${fmt(v)}</text>`;
+    if (!o.band) s += `<line class="gridl" x1="${L}" x2="${R}" y1="${f(y)}" y2="${f(y)}"/>`;
+  }
+  let lastLabel = -99;
+  for (const [i, text] of o.days) {
+    const x = L + step * i;
+    if (i) s += `<line class="gridl" x1="${f(x)}" x2="${f(x)}" y1="${top}" y2="${bot}"/>`;
+    if (x - lastLabel > 46 && x < R - 30) { s += `<text x="${f(x + 3)}" y="${H - 4}">${text}</text>`; lastLabel = x; }
+  }
+  if (o.sel >= 0) s += `<rect class="selr" x="${f(L + step * o.sel)}" y="${top}" width="${f(Math.max(step, 3))}" height="${bot - top}"/>`;
+  for (let i = 0; i < n; i++) if (o.rng[i]) s += `<line class="whisk" x1="${f(X(i))}" x2="${f(X(i))}" y1="${f(Y(o.rng[i][0]))}" y2="${f(Y(o.rng[i][1]))}"/>`;
+  const small = n > 70;  // a dot a run until they crowd; a lone reading between gaps keeps its dot
+  o.alt.forEach((v, i) => { if (v != null) s += `<circle class="altd" cx="${f(X(i))}" cy="${f(Y(v))}" r="${i === o.sel ? 4 : small ? 1.8 : 2.4}"/>`; });
+  let d = "", pen = false;
+  o.base.forEach((v, i) => { if (v == null) pen = false; else { d += `${pen ? "L" : "M"}${f(X(i))} ${f(Y(v))}`; pen = true; } });
+  s += `<path class="basel" d="${d}"/>`;
+  o.base.forEach((v, i) => {
+    if (v == null) return;
+    const lone = o.base[i - 1] == null && o.base[i + 1] == null;
+    if (i === o.sel) s += `<circle class="based" cx="${f(X(i))}" cy="${f(Y(v))}" r="4.5"/>`;
+    else if (!small || lone) s += `<circle class="based" cx="${f(X(i))}" cy="${f(Y(v))}" r="${small ? 2 : 2.6}"/>`;
+  });
+  s += `<line class="hv" y1="${top}" y2="${bot}" visibility="hidden"/>`;
+  if (o.strip) {
+    const mid = R + 8 + S / 2;
+    s += `<line class="gridl" x1="${R + 8}" x2="${R + 8}" y1="${top}" y2="${bot}"/><text x="${mid}" y="${H - 4}" text-anchor="middle">this run</text>`;
+    if (o.strip.spread) s += `<line class="spread" x1="${mid + (o.strip.base != null ? -7 : 7)}" x2="${mid + (o.strip.base != null ? -7 : 7)}" y1="${f(Y(o.strip.spread[0]))}" y2="${f(Y(o.strip.spread[1]))}"/>`;
+    for (const [id, v] of o.strip.vals) s += `<circle class="cand" cx="${f(mid + ((id * 2654435761 >>> 0) / 2 ** 32 - .5) * 30)}" cy="${f(Y(v))}" r="2.2"/>`;
+    if (o.strip.alt != null) s += `<circle class="altd" cx="${mid + 7}" cy="${f(Y(o.strip.alt))}" r="4.5"/>`;
+    if (o.strip.base != null) s += `<circle class="based" cx="${mid - 7}" cy="${f(Y(o.strip.base))}" r="4.5"/>`;
+  }
+  return s + `<rect class="hit" data-t="${o.t}" x="${L}" y="0" width="${f(R - L)}" height="${H}"/></svg>`;
+}
+function days(runs) {
+  const out = [];
+  runs.forEach((r, i) => {
+    const d = (r.time || "").slice(0, 10), p = i ? (runs[i - 1].time || "").slice(0, 10) : "";
+    if (d && d !== p) out.push([i, `${+d.slice(8)} ${MON[d.slice(5, 7) - 1]}`]);
+  });
+  return out;
+}
+// the band always shows; a run far outside it is drawn at the chart's edge instead of flattening the rest
+function domain(t, vals) {
+  const w = t.hi - t.lo || 1, a = vals.filter(v => v != null);
+  const lo = Math.max(Math.min(t.lo, ...a), t.lo - 2 * w), hi = Math.min(Math.max(t.hi, ...a), t.hi + 2 * w), p = (hi - lo) * .08;
+  return [lo - p, hi + p, lo, hi];
+}
+
+// ---------- the page ----------
+function chip(i, c, was) {
+  const t = T[i], s = status(t, c ? c.v[i] : null);
+  const v = c ? (was ? `${val(t, was.v[i])} → ` : "") + val(t, c.v[i]) : "";
+  return `<a class="chip ${s.k}" href="#t${i}" data-go="${i}" title="${esc(label(t))} (${esc(who(t))}): ${esc(s.text)}"><i>${s.g}</i><span>${esc(label(t))}</span><small>${esc(who(t))}</small>${v}</a>`;
+}
+const chips = (ids, c, was) => ids.length ? `<div class="chips">${ids.map(i => chip(i, c, was)).join("")}</div>` : `<p class="muted">None.</p>`;
+
+function purpose(r) {
+  if (!r) return `<p class="eyebrow">No runs kept yet</p><p class="goal">Start one and it shows here as it goes: <code>py -3 -B tools/tuner/lab.py check --note "name | goal"</code></p>`;
+  const n = r.live ? r.candidates : r.cands.length + (r.dropped || 0), past = !r.live || r.finished;
+  const eyebrow = r.live ? (r.finished ? "<b>Just finished</b>" : `<b>Running now</b> · ${r.total ? Math.round(r.done / r.total * 100) : 0}% · ${Math.round(r.secs || 0)} s`)
+    : (r === H.at(-1) ? "Newest run" : "Earlier run") + ` · ${esc(r.time)}`;
+  const size = [r.kind, n > 1 ? `${n} candidates` : "", r.economies ? `${r.economies} economies × ${r.years} years` : "",
+    r.rungs ? "rounds of " + r.rungs.map(x => `${x.candidates} at ${x.economies}`).join(", ") : "", !r.live && r.secs ? `${Math.round(r.secs)} s` : ""].filter(Boolean).join(" · ");
+  const did = { "Reading": ["Measuring", "Measured"], "Trial of a change": ["Trying", "Tried"], "Comparison": ["Comparing", "Compared"] }[r.kind] || ["Searching", "Searched"];
+  const auto = `${did[+past]} ${r.kind === "Reading" ? "the current numbers against every target" : r.kind === "Trial of a change" ? "a change against the current numbers"
+    : r.kind === "Comparison" ? `${n} settings side by side` : `${n} combinations of ${r.keys.length || "the swept"} numbers for a better fit to the targets`}.`;
+  const B = r.base, A = r.alt, focus = after(r);
+  const keys = r.keys.slice(0, 8).map(k => {
+    const [was, lo, hi] = r.tried[k];
+    return `<li>${esc(keyName(k))} <code>${esc(k)}</code><br>now ${fmt(was)}, tried ${lo === hi ? fmt(lo) : `${fmt(lo)} to ${fmt(hi)}`}</li>`;
+  }).join("") + (r.keys.length > 8 ? `<li class="muted">and ${r.keys.length - 8} more</li>` : "");
+  let result;
+  if (!B && !A) result = `<p class="muted">The first candidates are still running.</p>`;
+  else if (B && A) {
+    const fixed = outs(B).filter(i => inBand(T[i], A.v[i])), broke = outs(A).filter(i => inBand(T[i], B.v[i])), still = outs(A).filter(i => !broke.includes(i));
+    const better = A.score < B.score, adopt = Object.entries(A.changed || {}).map(([k, [o, v]]) => `<li>${esc(keyName(k))} <code>${esc(k)}</code> ${fmt(o)} → ${fmt(v)}</li>`).join("");
+    result = `<p class="verdict">${met(B)} → ${met(A)} of ${T.length} targets in the band<small>${better ? "The best candidate beats the current numbers" : "Nothing tried beat the current numbers"}: distance from the aims ${fmt(B.score)} → ${fmt(A.score)} (lower is closer).</small></p>
+      ${fixed.length ? `<h3 class="sub">Brought into the band</h3>${chips(fixed, A, B)}` : ""}${broke.length ? `<h3 class="sub">Pushed out of the band</h3>${chips(broke, A, B)}` : ""}
+      ${still.length ? `<h3 class="sub">Still out with the best candidate</h3>${chips(still, A)}` : ""}
+      ${adopt ? `<h3 class="sub">The best candidate's numbers</h3><ul class="keys">${adopt}</ul>` : ""}`;
+  } else {
+    const c = B || A;
+    result = `<p class="verdict">${met(c)} of ${T.length} targets in the band<small>${B ? "With the current numbers" : "With the best candidate"}. Distance from the aims ${fmt(c.score)} (lower is closer).</small></p>
+      <h3 class="sub">Out of the band</h3>${chips(outs(c), c)}`;
+  }
+  return `<p class="eyebrow">${eyebrow}</p><h2>${esc(r.title)}</h2><p class="goal${r.goal ? "" : " auto"}">${esc(r.goal || auto)}</p>
+    ${r.live && !r.finished ? `<div class="prog"><i style="width:${r.total ? r.done / r.total * 100 : 0}%"></i></div>` : ""}
+    <h3>${r.focus.length ? "The targets it is after" : "Out of the band when it began"}</h3>${chips(focus, B || A)}
+    <h3>${past ? "What came of it" : "How it stands so far"}</h3>${result}
+    <h3>What it ${past ? "tried" : "is trying"}</h3><p>${esc(r.label)}</p><p class="muted">${esc(size)}</p>${keys ? `<h3 class="sub">Numbers it moved</h3><ul class="keys">${keys}</ul>` : ""}`;
+}
+
+function score(r, runs) {
+  const c = r && (r.base || r.alt);
+  if (!c) return `<p class="muted">Nothing to score yet.</p>`;
+  const W = innerWidth <= 1000 ? Math.max($("score").clientWidth - 34, 240) : 360, mb = runs.map(x => met(x.base)), ma = runs.map(x => x.base && x.alt ? met(x.alt) : null);
+  const low = Math.min(...mb.concat(ma).filter(v => v != null), T.length - 1);
+  return `<div><p class="hero">${met(c)}<small> of ${T.length}</small></p><p class="cap">targets in the band,<br>${r.base ? "with the current numbers" : "with the best candidate"}</p></div>
+    <div><p class="cap">Each target, in the order of the cards below</p>
+      <div class="map">${T.map((t, i) => { const s = status(t, c.v[i]); return `<a class="${s.k}" href="#t${i}" data-go="${i}" title="${esc(label(t))} (${esc(who(t))}): ${esc(val(t, c.v[i]))}, ${esc(s.text)}">${s.g}</a>`; }).join("")}</div>
+      ${r.base && r.alt ? `<p class="cap">This run's best candidate: ${met(r.alt)} of ${T.length} in the band.</p>` : ""}</div>
+    <div><p class="cap">Targets in the band, run by run, against today's targets</p>
+    ${chartSvg({ W, H: 110, n: runs.length, base: mb, alt: ma, rng: [], dom: [low - .5, T.length + .5], ticks: [T.length, low, Math.round((T.length + low) / 2)], days: days(runs), sel: runs.indexOf(r), t: "met" })}</div>`;
+}
+
+function movedBy(t) {  // the keys that move this target most, from the key map (lab.py map)
+  const j = KM ? KM.targets.findIndex(x => x.label === `${label(t)} (${t.who})`) : -1, w = t.hi - t.lo || 1;
+  if (j < 0) return "";
+  const top = KM.keys.map(k => [k.key, Math.max(Math.abs(k.effect_down[j] ?? 0), Math.abs(k.effect_up[j] ?? 0))])
+    .filter(([, e]) => e > Math.max(KM.noise[j] || 0, .02 * w)).sort((a, b) => b[1] - a[1]).slice(0, 3);
+  return top.length ? `<p class="moved">Moved most by ${top.map(([k]) => `<span title="${esc(k)}">${esc(keyName(k))}</span>`).join(", ")}</p>` : "";
+}
+
+function card(i, r, runs, W, cd) {  // cd: the shown candidate's full record, once read, for the spread of its countries
+  const t = T[i], c = r && (r.base || r.alt), v = c ? c.v[i] : null, s = status(t, v);
+  const m0 = cd && cd.metrics[t.who]?.[t.metric], m = m0 && Number.isFinite(m0.p10) && Number.isFinite(m0.p90) ? m0 : null;
+  const base = runs.map(x => x.base ? x.base.v[i] : null), alt = runs.map(x => x.alt ? x.alt.v[i] : null);
+  const dom = domain(t, base.concat(alt));
+  const both = r && r.base && r.alt ? ` · best candidate ${val(t, r.alt.v[i])} <span class="pill ${status(t, r.alt.v[i]).k}">${status(t, r.alt.v[i]).g}</span>` : "";
+  const svg = chartSvg({ W, H: 140, n: runs.length, base, alt, rng: runs.map(x => x.rng && x.rng[i]), band: t, dom, ticks: [t.hi, t.lo, t.aim, dom[3], dom[2]], days: days(runs),
+    sel: runs.indexOf(r), t: i, strip: { vals: r ? r.cands.filter(x => x !== r.base && x !== r.alt && x.v[i] != null).map(x => [x.id, x.v[i]]) : [],
+      base: r && r.base ? r.base.v[i] : null, alt: r && r.alt ? r.alt.v[i] : null, spread: m && [m.p10, m.p90] } });
+  return `<article class="card ${s.k}${r && after(r).includes(i) && r.focus.length ? " focus" : ""}" id="t${i}">
+    <header><div class="name"><b>${esc(label(t))}</b><span>${esc(who(t))}</span></div>
+      <div class="read"><span class="big">${v == null ? "–" : esc(val(t, v))}</span><span class="pill ${s.k}">${esc(s.text)}</span></div></header>
+    <p class="aim">Aim ${val(t, t.aim)}, band ${fmt(t.lo)} to ${fmt(t.hi)}${both}${m ? ` · middle 80% of countries ${fmt(m.p10)} to ${fmt(m.p90)}` : ""}</p>${svg}
+    <p class="why">${esc(t.why || "")}</p>${movedBy(t)}</article>`;
+}
+
+// ---------- the open run's full record: over the century, and the players compared ----------
+// A run still going keeps no charts until it ends: the newest kept run stands in for it.
+function detail(r) {
+  const src = r.live ? H.at(-1) : r;
+  if (!src) return [null, null];
+  if (!DET.has(src.id)) {
+    if (DET.size > 3) DET.clear();  // ponytail: the last few records only, a sweep's is megabytes
+    DET.set(src.id, null);
+    get(`/api/run?id=${encodeURIComponent(src.id)}`).then(d => { DET.set(src.id, d || false); draw(); });
+  }
+  return [src, DET.get(src.id)];
+}
+// the candidate these views draw (the best one, or the current numbers if asked or if it kept no charts), and the current numbers behind it
+function shown(src, D) {
+  const by = c => c && D.cands.find(x => x.id === c.id), b = by(src.base), a = by(src.alt), pair = showBase ? [b, a] : [a, b];
+  const S = pair.find(c => c && c.bands) || pair.find(Boolean) || D.cands[0];
+  return [S, S !== b && b ? b : null, S === b];
+}
+function ticks(a, b, n = 4) {
+  const raw = (b - a) / n || 1, p = 10 ** Math.floor(Math.log10(raw)), st = [1, 2, 5, 10].map(m => m * p).find(x => x >= raw);
+  const out = []; for (let v = Math.ceil(a / st) * st; v <= b + 1e-9; v += st) out.push(+v.toFixed(10)); return out;
+}
+// o: n points every `every` months from 1836, ymin, ymax, unit, zones, bands (targets), hlines, areas {lo, hi}, lines {d}, legend
+function timeSvg(o) {
+  const f = innerWidth <= 1000 ? 1.7 : 1, Wd = 660, x0 = f > 1 ? 66 : 44, x1 = 646, y0 = 12, y1 = f > 1 ? 330 : 222, n = o.n;  // a phone draws them taller, with larger type
+  const X = i => (x0 + i / Math.max(n - 1, 1) * (x1 - x0)).toFixed(1), Y = v => (y1 - (Math.min(Math.max(v, o.ymin), o.ymax) - o.ymin) / (o.ymax - o.ymin) * (y1 - y0)).toFixed(1);
+  const pts = arr => arr.map((v, i) => `${X(i)},${Y(v)}`).join(" "), good = cssv("--good");
+  let s = "";
+  for (const z of o.zones || []) s += `<rect x="${x0}" y="${Y(z.hi)}" width="${x1 - x0}" height="${Y(z.lo) - Y(z.hi)}" fill="${z.color}" opacity=".08"/>`;
+  for (const t of ticks(o.ymin, o.ymax, 5)) s += `<line class="gridl" x1="${x0}" x2="${x1}" y1="${Y(t)}" y2="${Y(t)}"/><text x="${x0 - 6}" y="${+Y(t) + 4}" text-anchor="end">${fmt(t)}${o.unit || ""}</text>`;
+  for (const b of o.bands || []) s += `<rect class="bandr" x="${x0}" y="${Y(b.hi)}" width="${x1 - x0}" height="${Math.max(Y(b.lo) - Y(b.hi), 1)}"/>` +
+    [b.hi, b.lo].map(v => `<line class="edge" x1="${x0}" x2="${x1}" y1="${Y(v)}" y2="${Y(v)}"/>`).join("") +
+    `<text class="lg" x="${x1 - 4}" y="${+Y(b.hi) - 4}" text-anchor="end" style="fill:${good}">${esc(b.label)}</text>`;
+  for (const h of o.hlines || []) s += `<line x1="${x0}" x2="${x1}" y1="${Y(h.y)}" y2="${Y(h.y)}" stroke="${h.color}" stroke-dasharray="5 4" opacity=".75"/><text class="lg" x="${x0 + 4}" y="${+Y(h.y) - 4}" style="fill:${h.color}">${esc(h.label)}</text>`;
+  for (const a of o.areas || []) s += `<polygon points="${pts(a.hi)} ${a.lo.map((v, i) => `${X(i)},${Y(v)}`).reverse().join(" ")}" fill="${a.color}" opacity=".25"/>`;
+  for (const l of o.lines || []) s += `<polyline fill="none" stroke="${l.color}" stroke-width="${l.w || 1.6}" opacity="${l.op || 1}" ${l.dash ? `stroke-dasharray="${l.dash}"` : ""} points="${pts(l.d)}"/>`;
+  for (let y = 0; y * 12 / o.every <= n - 1 + 1e-9; y += 20) s += `<text x="${X(y * 12 / o.every)}" y="${y1 + 16 * f}" text-anchor="middle">${1836 + y}</text>`;
+  const lx0 = f > 1 ? 8 : x0 + 8;
+  let lx = lx0, ly = y1 + (o.legend ? 30 : 10) * f;  // the legend wraps onto more rows when it runs out of width
+  for (const g of o.legend || []) {
+    const w = (46 + g.label.length * 6.6) * f;
+    if (lx + w > x1 + 10 && lx > lx0) { lx = lx0; ly += 18 * f; }
+    s += `<line x1="${lx}" x2="${lx + 22}" y1="${ly}" y2="${ly}" stroke="${g.color}" stroke-width="${g.w || 2.5}"/><text class="lg" x="${lx + 28}" y="${ly + 4 * f}">${esc(g.label)}</text>`;
+    lx += w;
+  }
+  o.x = X;
+  s += `<line class="hv2" y1="${y0}" y2="${y1}" visibility="hidden"/><rect class="hit2" data-fig="${FIGS.push(o) - 1}" x="${x0}" y="${y0}" width="${x1 - x0}" height="${y1 - y0}"/>`;
+  return `<svg viewBox="0 0 ${Wd} ${ly + 10 * f}" role="img">${s}</svg>`;
+}
+function century(S, G) {
+  FIGS = [];
+  const b = S.bands?.[bot];
+  if (!b) return `<p class="loading">No charts over the century were kept for this candidate.</p>`;
+  const n = b.conf[0].length, ev = b.every, K = C.consts || {}, gold = cssv("--gold"), hi = cssv("--gold-hi"), red = cssv("--crit"), good = cssv("--good"), wary = cssv("--wary");
+  const gb = G?.bands?.[bot]?.conf[0].length === n ? G.bands[bot] : null, bots = botsOf(S.bands).filter(k => S.bands[k]);
+  const tb = (metric, text) => { const t = T.find(t => t.metric === metric && t.who === bot); return t ? [{ lo: t.lo, hi: t.hi, label: text || `target, ${label(t).toLowerCase()}` }] : []; };
+  const zones = z => z.map(([nm, lo, h]) => ({ lo, hi: h, color: cssv("--" + nm) })), x100 = q => q && q.map(a => a.map(v => v * 100));
+  const bad = x => x && (x.bad80 || [x.bad[0].map(() => 0), x.bad[0], x.bad[1]]), lax = x => x && x100(x.lax80 || [x.lax, x.lax, x.lax]);
+  // a median inside the middle 80% of countries: q is [the 10% line, the median, the 90% line], gq the same with the current numbers
+  const fig = (title, hint, q, gq, o = {}) => q && [title, hint, timeSvg({ n, every: ev, ymin: 0, ymax: Math.max(4, ...q[2]) + 1, ...o,
+    areas: [{ lo: q[0], hi: q[2], color: o.color || gold, label: "Middle 80% of countries" }],
+    lines: [...(gq ? [{ d: gq[1], color: cssv("--ink2"), w: 1.4, dash: "5 4", label: "Median with the current numbers" }] : []), { d: q[1], color: o.color || hi, w: 1.8, label: "Median" }] })];
+  const figs = [
+    fig("Market Confidence", "where the market sits, coloured by mood", b.conf, gb?.conf, { ymax: 100, zones: zones(C.bands || []), bands: tb("conf_mean") }),
+    ["Countries in a Panic", "share of all countries in a panic, each player", timeSvg({ n, every: ev, ymin: 0, unit: "%",
+      ymax: Math.max(4, ...bots.flatMap(k => S.bands[k].panic.map(v => v * 100)), ...T.filter(t => t.metric === "panic_months_pct" && t.who === bot).map(t => t.hi * 1.3)),
+      bands: tb("panic_months_pct", `target, ${BOT[bot] || bot}, on average`),
+      lines: bots.map(k => ({ d: S.bands[k].panic.map(v => v * 100), color: BOTC[k] || gold, w: k === bot ? 2.4 : 1.2, op: k === bot ? 1 : .55, label: BOT[k] || k })),
+      legend: bots.map(k => ({ color: BOTC[k] || gold, label: BOT[k] || k })) })],
+    fig("Credit Leverage", "months of pool income owed", b.lev, gb?.lev, { ymax: Math.max((K.LEV_RUIN || 0) + 1, ...b.lev[2]), bands: tb("lev_mean"),
+      hlines: [{ y: K.LEV_SAFE, color: good, label: "safe line" }, { y: K.DANGER, color: wary, label: "dangerous" }, { y: K.LEV_RUIN, color: red, label: "ruin" }].filter(h => h.y != null) }),
+    fig("Bad Debts", "months of pool income gone bad", bad(b), bad(gb), { color: red, ymax: Math.max((K.LEV_BAD_STOP || 0) * 1.2, ...bad(b)[2], 1),
+      hlines: K.LEV_BAD_STOP ? [{ y: K.LEV_BAD_STOP, color: red, label: "banks stop lending (at Sound standards)" }] : [] }),
+    fig("Lending Standards", "strict at the bottom, reckless at the top", lax(b), lax(gb), { ymax: 100,
+      zones: zones([["good", 0, 40], ["steady", 40, 60], ["crit", 60, 100]]) }),
+    fig("Exchange Trust", "Distrusted, Doubted, Respected, Trusted", x100(b.trust), x100(gb?.trust), { ymax: 100,
+      zones: zones([["crit", 0, 25], ["wary", 25, 50], ["steady", 50, 75], ["good", 75, 100]]), hlines: [{ y: 50, color: good, label: "Respected" }] }),
+    fig("Booming Goods", "goods in a boom at once", b.booms, gb?.booms), fig("Favored and Shunned", "goods under a term at once", b.terms, gb?.terms),
+    fig("New Lending", "credit the banks lend, % of GDP a year", b.lent, gb?.lent)];
+  return `<div class="series">${figs.filter(Boolean).map(([t, h, svg]) => `<figure class="card"><figcaption><b>${t}</b><span>${h}</span></figcaption>${svg}</figure>`).join("")}</div>`;
+}
+// each player a row: the mean of its countries as a dot, the middle 80% of them as a bar, its target (if it has one) as a band
+function dotChart(rows) {
+  const Wd = 430, L = 152, Rm = 44, top = 4, rh = 27, y1 = top + rows.length * rh;
+  const vals = rows.flatMap(r => [r.v, r.lo, r.hi, r.ghost, r.t?.lo, r.t?.hi]).filter(Number.isFinite);
+  let a = vals.length ? Math.min(...vals) : 0, b = vals.length ? Math.max(...vals) : 1;
+  const pad = (b - a) * .1 || Math.abs(a) * .2 || 1; a -= pad; b += pad;
+  const X = v => +(L + (v - a) / (b - a) * (Wd - L - Rm)).toFixed(1);
+  let s = ticks(a, b, 5).map(t => `<line class="gridl" x1="${X(t)}" x2="${X(t)}" y1="${top}" y2="${y1}"/><text x="${X(t)}" y="${y1 + 14}" text-anchor="middle">${fmt(t)}</text>`).join("");
+  rows.forEach((r, i) => {
+    const y = top + i * rh + rh / 2, far = X(r.v) > Wd - 70;
+    s += `<g><title>${esc(r.tip)}</title><rect x="0" y="${y - rh / 2}" width="${Wd}" height="${rh}" fill="transparent"/><text class="rl" x="0" y="${y + 4}">${esc(r.label)}</text>`;
+    if (r.t) s += `<rect class="bandr" x="${X(r.t.lo)}" y="${y - rh / 2 + 2}" width="${Math.max(X(r.t.hi) - X(r.t.lo), 1)}" height="${rh - 4}"/><line class="aiml" x1="${X(r.t.aim)}" x2="${X(r.t.aim)}" y1="${y - rh / 2 + 2}" y2="${y + rh / 2 - 2}"/>`;
+    if (Number.isFinite(r.lo) && Number.isFinite(r.hi)) s += `<line x1="${X(r.lo)}" x2="${X(r.hi)}" y1="${y}" y2="${y}" stroke="${r.color}" stroke-width="3" opacity=".55" stroke-linecap="round"/>`;
+    if (Number.isFinite(r.ghost)) s += `<circle cx="${X(r.ghost)}" cy="${y}" r="5" fill="none" stroke="${cssv("--ink2")}" stroke-width="1.5" stroke-dasharray="2.5 2"/>`;
+    if (Number.isFinite(r.v)) s += `<circle cx="${X(r.v)}" cy="${y}" r="6" fill="${r.color}" stroke="#000"/><text class="vl" x="${X(r.v) + (far ? -10 : 10)}" y="${y - 6}" text-anchor="${far ? "end" : "start"}">${fmt(r.v)}</text>`;
+    s += `</g>`;
+  });
+  return `<svg class="dots" viewBox="0 0 ${Wd} ${y1 + 20}" role="img">${s}</svg>`;
+}
+function players(S, G) {
+  const bots = botsOf(S.metrics), first = T.map(t => t.metric);  // the metrics with a target lead, in the targets' order
+  const ms = [...new Set(first.concat(Object.keys(C.metrics)))].filter(k => bots.some(b => S.metrics[b][k]));
+  return `<div class="grid players">${ms.map(k => {
+    const [name, unit] = C.metrics[k] || [k, ""];
+    const rows = bots.filter(b => S.metrics[b][k]).map(b => {
+      const m = S.metrics[b][k], t = T.find(t => t.metric === k && t.who === b), g = G?.metrics[b]?.[k]?.mean;
+      return { label: BOT[b] || b, v: m.mean, lo: m.p10, hi: m.p90, ghost: g, color: BOTC[b] || cssv("--gold"), t,
+        tip: `${BOT[b] || b}: mean ${fmt(m.mean)}, the middle 80% of its countries ${fmt(m.p10)} to ${fmt(m.p90)}` + (g != null ? `; ${fmt(g)} with the current numbers` : "") + (t ? `; target ${fmt(t.lo)} to ${fmt(t.hi)}, aim ${fmt(t.aim)}` : "") };
+    });
+    return `<div class="card"><header><b>${esc(name)}</b><span>${esc(unit)}</span></header>${dotChart(rows)}</div>`;
+  }).join("")}</div>`;
+}
+function record(r, src, D, S, G, isBase) {
+  if (!src) return `<p class="loading">No kept run to draw yet.</p>`;
+  if (D == null) return `<p class="loading">Reading the run…</p>`;
+  if (!D) return `<p class="loading">This run's record could not be read.</p>`;
+  return `<p class="cap">${r.live ? "The run going now keeps its charts when it ends. Until then, the newest kept run. " : ""}<b>${esc(src.title)}</b>, ${isBase ? "the current numbers" : "its best candidate"}${G ? ", against the current numbers" : ""} · ${D.economies} countries × ${D.years} years${view === "century" ? ` · ${esc(BOT[bot] || bot)}` : ""}</p>` + (view === "century" ? century(S, G) : players(S, G));
+}
+
+function render() {
+  queued = false;
+  const r = open(), runs = shownRuns = (win ? H.slice(-win) : H).concat(live ? [live] : []);
+  $("state").className = "state" + (live && !live.finished ? " on" : "");
+  $("state").textContent = live && !live.finished ? `Running: ${live.title}, ${live.done} of ${live.total} jobs` : H.length ? `Idle. ${H.length} runs kept, the newest at ${H.at(-1).time}.` : "Idle.";
+  $("follow").checked = follow;
+  $("purpose").innerHTML = purpose(r);
+  $("score").innerHTML = score(r, runs);
+  // the runs
+  let day = "", log = "";
+  for (const x of (live ? [live] : []).concat(H.slice().reverse())) {
+    const d = x.live ? "Now" : x.time.slice(0, 10);
+    if (d !== day) log += `<div class="day">${x.live ? "Now" : `${+d.slice(8)} ${MON[d.slice(5, 7) - 1]} ${d.slice(0, 4)}`}</div>`;
+    day = d;
+    const b = met(x.base), a = met(x.alt);
+    log += `<button class="run${x === r ? " sel" : ""}" data-run="${x.live ? "live" : x.id}" title="${esc(x.goal || x.label)}"><span class="t">${x.live ? "live" : x.time.slice(11)}</span><span class="ti">${esc(x.title)}</span>
+      <span class="o">${b != null && a != null ? `${b} → ${a}` : b ?? a ?? "–"} / ${T.length}</span><span class="k">${esc(x.kind)}${x.cands.length > 1 ? `, ${x.cands.length} candidates` : ""}${x.keys.length ? ": " + esc(x.keys.join(", ")) : ""}</span></button>`;
+  }
+  $("log").innerHTML = log;
+  // the targets run by run, or the open run's full record
+  const c = r && (r.base || r.alt), out = c ? outs(c) : [], mine = r ? after(r) : [];
+  const seg = (items, on, attr, cls = "") => `<span class="seg${cls}">${items.map(([k, text]) => `<button ${attr}="${k}"${k === on ? ' class="on"' : ""}>${text}</button>`).join("")}</span>`;
+  const [src, D] = r && !(view === "targets" && r.live) ? detail(r) : [null, null], [S, G, isBase] = D ? shown(src, D) : [];
+  const bots = S ? botsOf(S.metrics) : [];
+  if (bots.length && !bots.includes(bot)) bot = bots[0];
+  const which = S && src.base && src.alt ? seg([["0", "Best candidate"], ["1", "Current numbers"]], showBase ? "1" : "0", "data-c") : "";
+  const show = filter === "out" ? out : filter === "mine" ? mine : T.map((_, i) => i);
+  const mark = body => `<svg width="22" height="12">${body}</svg>`;
+  const views = seg([["targets", "Targets, run by run"], ["century", "Over the century"], ["players", "The players compared"]], view, "data-v", " views");
+  if (view !== "targets") {
+    $("bar").innerHTML = views + (view === "century" && bots.length ? seg(bots.map(b => [b, BOT[b] || b]), bot, "data-b") : "") + which + `<span class="legend">` + (view === "century"
+      ? `<span>${mark(`<line x1="0" x2="22" y1="6" y2="6" stroke="${cssv("--gold-hi")}" stroke-width="2"/>`)} the median country</span>
+         <span>${mark(`<rect width="22" height="12" fill="${cssv("--gold")}" opacity=".3"/>`)} the middle 80% of countries</span>
+         ${G ? `<span>${mark(`<line x1="0" x2="22" y1="6" y2="6" stroke="${cssv("--ink2")}" stroke-dasharray="5 4"/>`)} the median with the current numbers</span>` : ""}`
+      : `<span>${mark(`<circle cx="11" cy="6" r="5" fill="${cssv("--gold")}" stroke="#000"/>`)} the mean of a player's countries</span>
+         <span>${mark(`<line x1="1" x2="21" y1="6" y2="6" stroke="${cssv("--gold")}" stroke-width="3" opacity=".55" stroke-linecap="round"/>`)} the middle 80% of them</span>
+         ${G ? `<span>${mark(`<circle cx="11" cy="6" r="4.5" fill="none" stroke="${cssv("--ink2")}" stroke-width="1.5" stroke-dasharray="2.5 2"/>`)} the mean with the current numbers</span>` : ""}`) +
+      `<span>${mark('<rect class="bandr" width="22" height="12"/><line class="edge" x1="0" x2="22" y1="1" y2="1"/><line class="edge" x1="0" x2="22" y1="11" y2="11"/>')} the target</span></span>`;
+    $("cards").innerHTML = record(r, src, D, S, G, isBase);
+    return;
+  }
+  const cd = D && src === r && c ? D.cands.find(x => x.id === c.id) : null;
+  $("bar").innerHTML = views + seg([["all", `All ${T.length} targets`], ["out", `Out of the band (${out.length})`], ["mine", `This run's targets (${mine.length})`]], filter, "data-f") +
+    `<span>Runs shown ` + seg([[25, "25"], [50, "50"], [100, "100"], [0, "All"]], win, "data-w") + `</span>
+    <span class="legend"><span>${mark('<rect class="bandr" width="22" height="12"/><line class="aiml" x1="0" x2="22" y1="6" y2="6"/>')} target band and aim</span>
+      <span>${mark('<line class="basel" x1="0" x2="22" y1="6" y2="6"/><circle class="based" cx="11" cy="6" r="3.5"/>')} the current numbers, run by run</span>
+      <span>${mark('<circle class="altd" cx="11" cy="6" r="4"/>')} a run's best candidate</span>
+      <span>${mark('<line class="whisk" x1="11" x2="11" y1="1" y2="11"/>')} how far its candidates reached</span>
+      <span>${mark('<circle class="cand" cx="6" cy="4" r="2.2"/><circle class="cand" cx="12" cy="8" r="2.2"/><circle class="cand" cx="17" cy="5" r="2.2"/>')} the open run's other candidates</span>
+      <span>${mark('<line class="spread" x1="3" x2="19" y1="6" y2="6"/>')} the middle 80% of its countries</span></span>`;
+  const box = $("cards"), gap = 12, cols = innerWidth <= 1000 ? 1 : Math.max(1, Math.floor((box.clientWidth + gap) / (400 + gap)));
+  const W = Math.max(Math.floor((box.clientWidth - gap * (cols - 1)) / cols) - 34, 240);
+  box.innerHTML = GROUPS.map(([g, name, hint]) => {
+    const ids = show.filter(i => group(T[i]) === g), all = T.map((_, i) => i).filter(i => group(T[i]) === g);
+    return ids.length ? `<section class="group"><h2>${name}<small>${hint}${hint && c ? " · " : ""}${c ? `${all.filter(i => !out.includes(i)).length} of ${all.length} in the band` : ""}</small></h2>
+      <div class="grid">${ids.map(i => card(i, r, runs, W, cd)).join("")}</div></section>` : "";
+  }).join("") || `<p class="loading">${filter === "out" ? "Every target is in the band." : "No targets to show."}</p>`;
+}
+const draw = () => { if (!queued) { queued = true; requestAnimationFrame(render); } };
+
+function pick(id) {
+  sel = id;
+  follow = id === newest();
+  draw();
+}
+
+// ---------- hover and clicks ----------
+function tipFor(t, x) {
+  let s = `<b>${esc(x.title)}</b><span class="muted">${x.live ? "running now" : esc(x.time)} · ${esc(x.kind)}</span>`;
+  if (t === "met") return s + (x.base ? `<div>Current numbers: ${met(x.base)} of ${T.length} in the band</div>` : "") + (x.alt ? `<div>Best candidate: ${met(x.alt)} of ${T.length}</div>` : "");
+  const tg = T[t], line = (name, c) => c && c.v[t] != null ? `<div>${name}: ${esc(val(tg, c.v[t]))} <span class="pill ${status(tg, c.v[t]).k}">${esc(status(tg, c.v[t]).text)}</span></div>` : "";
+  return s + line("Current numbers", x.base) + line("Best candidate", x.alt) + (x.rng && x.rng[t] ? `<div>Candidates reached ${fmt(x.rng[t][0])} to ${fmt(x.rng[t][1])}</div>` : "") +
+    (!x.base && !x.alt ? `<div class="muted">No result yet.</div>` : "");
+}
+const runAt = e => { const b = e.target.getBoundingClientRect(); return Math.min(shownRuns.length - 1, Math.max(0, Math.floor((e.clientX - b.left) / b.width * shownRuns.length))); };
+document.addEventListener("mousemove", e => {
+  const tip = $("tip"), hit = e.target.closest && e.target.closest(".hit, .hit2"), F = hit && FIGS[hit.dataset.fig];
+  tip.hidden = !hit || !(F || shownRuns.length);
+  for (const l of document.querySelectorAll(".hv, .hv2")) l.setAttribute("visibility", "hidden");
+  if (tip.hidden) return;
+  const place = () => { tip.style.left = Math.min(e.clientX + 14, innerWidth - tip.offsetWidth - 8) + "px"; tip.style.top = Math.min(e.clientY + 14, innerHeight - tip.offsetHeight - 8) + "px"; };
+  if (F) {  // a chart over the century: the same month marked on every one
+    const b = hit.getBoundingClientRect(), i = Math.min(F.n - 1, Math.max(0, Math.round((e.clientX - b.left) / b.width * (F.n - 1)))), m = i * F.every;
+    for (const l of document.querySelectorAll(".hv2")) { l.setAttribute("x1", F.x(i)); l.setAttribute("x2", F.x(i)); l.setAttribute("visibility", "visible"); }
+    tip.innerHTML = `<b>${MON[m % 12]} ${1836 + Math.floor(m / 12)}</b>` + (F.lines || []).slice().reverse().map(l => `<div><i style="color:${l.color}">━</i> ${esc(l.label)} ${fmt(l.d[i])}${F.unit || ""}</div>`).join("") +
+      (F.areas || []).map(a => `<div><i style="color:${a.color}">█</i> ${esc(a.label)} ${fmt(a.lo[i])} to ${fmt(a.hi[i])}${F.unit || ""}</div>`).join("");
+    return place();
+  }
+  const i = runAt(e), t = hit.dataset.t;
+  for (const l of document.querySelectorAll(".hv")) {  // the same run marked on every chart
+    const d = l.ownerSVGElement.dataset, x = +d.l + d.step * (i + .5);
+    l.setAttribute("x1", x); l.setAttribute("x2", x); l.setAttribute("visibility", "visible");
+  }
+  tip.innerHTML = tipFor(t === "met" ? t : +t, shownRuns[i]) + `<div class="muted">Click to open this run.</div>`;
+  place();
+});
+document.addEventListener("click", e => {
+  const el = e.target.closest("[data-run], [data-f], [data-w], [data-v], [data-b], [data-c], [data-go], .hit");
+  if (!el) return;
+  $("tip").hidden = true;  // what it described is about to be redrawn
+  if (el.dataset.run) return pick(el.dataset.run);
+  if (el.dataset.f) { filter = el.dataset.f; return render(); }
+  if (el.dataset.w) { win = +el.dataset.w; return render(); }
+  if (el.dataset.v) { view = localStorage.tunerView = el.dataset.v; return render(); }
+  if (el.dataset.b) { bot = el.dataset.b; return render(); }
+  if (el.dataset.c) { showBase = el.dataset.c === "1"; return render(); }
+  if (el.classList.contains("hit")) { const x = shownRuns[runAt(e)]; return pick(x.live ? "live" : x.id); }
+  e.preventDefault();  // a target's chip: its card, shown even if the filter hid it
+  if (!$("t" + el.dataset.go)) { filter = "all"; view = "targets"; render(); }
+  const c = $("t" + el.dataset.go);
+  c.scrollIntoView({ block: "center", behavior: "smooth" });
+  c.classList.add("flash");
+  setTimeout(() => c.classList.remove("flash"), 1300);
+});
+$("follow").onchange = e => { follow = e.target.checked; if (follow) sel = newest(); draw(); };
+addEventListener("resize", draw);
+
+// ---------- data: the kept runs, and the run going now ----------
+const get = u => fetch(u).then(r => r.ok ? r.json() : null).catch(() => null);
+async function load() {
+  [C, KM] = await Promise.all([get("/api/config"), get("/api/keymap")]);
+  T = C.targets;
+  H = ((await get("/api/history")) || []).map(prep);
+  if (live) prep(live);
+  if (follow || !open()) sel = newest();
+  draw();
+}
+function liveEvent(e) {
+  if (e.type === "start") {
+    live = prep({ live: true, rid: e.run, label: e.label, note: e.note, candidates: e.candidates, total: e.total, done: 0, secs: 0, cands: [] });
+    if (follow) sel = "live";
+  } else if (e.type === "error") { $("state").textContent = "The run failed: " + e.msg; return; }
+  else if (e.type === "runs" || e.type === "latest") {  // a run was kept, or the targets changed: read again
+    if (live && live.finished) live = null;
+    return load();
+  } else if (!live || (e.run && e.run !== live.rid)) return;
+  else if (e.type === "candidate") {
+    live.cands.push({ id: e.id, score: e.score, changed: e.changed || {}, v: T.map(t => (e.parts.find(p => p.metric === t.metric && p.who === t.who) || {}).value ?? null) });
+    live.cands.sort((a, b) => a.score - b.score);
+    prep(live);
+  } else if (e.type === "progress") Object.assign(live, { done: e.done, total: e.total, secs: e.secs });
+  else if (e.type === "done") live.finished = true;
+  else if (e.type === "stopped") { live = null; if (sel === "live") sel = newest(); }
+  draw();
+}
+(async () => {
+  await load();
+  for (const e of (await get("/api/live")) || []) if (e.type !== "runs" && e.type !== "latest") liveEvent(e);  // a run already going
+  if (live && live.finished) { live = null; sel = follow ? newest() : sel; }
+  draw();
+  new EventSource("/api/events").onmessage = m => liveEvent(JSON.parse(m.data));
+})();
+</script>
+</body>
+</html>

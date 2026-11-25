@@ -1,6 +1,6 @@
 ﻿l_turkish:
  INVESTMENT_POOL_CHANGE: "[GetPlayer.GetInvestmentPoolChangeFromConstructionDesc]\n[GetPlayer.GetInvestmentPoolChangeFromInvestmentDesc][SelectLocalization(GreaterThan_CFixedPoint(GetPlayer.MakeScope.Var('spec_credit_given').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0'), 'SPEC_POOL_CREDIT', 'SPEC_POOL_NONE')][SelectLocalization(And(GreaterThan_CFixedPoint(GetPlayer.MakeScope.ScriptValue('spec_in_panic'), '(CFixedPoint)0'), GreaterThan_CFixedPoint(GetPlayer.MakeScope.Var('spec_clawed').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)0')), 'SPEC_POOL_RECALL', 'SPEC_POOL_NONE')][SelectLocalization(GetPlayer.MakeScope.Var('spec_crunch').IsSet, 'SPEC_POOL_BAD', 'SPEC_POOL_NONE')]"
- SPEC_POOL_CREDIT: "\n#bold Verilen Kredi:#! bu ay #v @money![GetPlayer.MakeScope.Var('spec_credit_given').GetValueWithDefault('(CFixedPoint)0')|+D]#!"
- SPEC_POOL_RECALL: "\n#bold [concept_spec_financial_panic] sırasında çekilen:#! #N @money!-[GetPlayer.MakeScope.Var('spec_clawed').GetValueWithDefault('(CFixedPoint)0')|D]#!"
- SPEC_POOL_BAD: "\n#bold @spec_bad_debts! [concept_spec_bad_debts]:#! #N -[GetPlayer.MakeScope.ScriptValue('spec_crunch_invest_pct')|0]%#! yatırım, #v [GetPlayer.MakeScope.ScriptValue('spec_crunch_months')|0]#! ayda azalarak biter"
+ SPEC_POOL_CREDIT: "\nBu ayki banka kredisinden #v @money![GetPlayer.MakeScope.Var('spec_credit_given').GetValueWithDefault('(CFixedPoint)0')|+D]#!"
+ SPEC_POOL_RECALL: "\n[concept_spec_financial_panic] sırasında geri çağrılan kredilerden #N @money!-[GetPlayer.MakeScope.Var('spec_clawed').GetValueWithDefault('(CFixedPoint)0')|D]#!"
+ SPEC_POOL_BAD: "\n[concept_spec_bad_debts] etkisinden #N -%[GetPlayer.MakeScope.ScriptValue('spec_crunch_invest_pct')|0]#! yatırım, #v [GetPlayer.MakeScope.ScriptValue('spec_crunch_months')|0]#! ay içinde azalarak"
  SPEC_POOL_NONE: ""

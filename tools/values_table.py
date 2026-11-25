@@ -49,6 +49,7 @@ GROUPS = [
         ("Panic line rise", f"+{l.PANIC_SPAN} points", f"At full danger the panic line moves from {g.PANIC} up to {g.PANIC + l.PANIC_SPAN}.", "l.PANIC_SPAN"),
         ("Worst Bad Debts", f"{l.CRUNCH_MAX} points", "Size of a crash at full danger. It grows in a straight line with the danger.", "l.CRUNCH_MAX"),
         ("Bad Debts on investment", signed(-l.CRUNCH_INVEST), f"Investment lost per point. Each point also costs {l.CRUNCH_THROUGHPUT:.1%} throughput.", "l.CRUNCH_INVEST"),
+        ("Bad Debts on construction", signed(-l.CRUNCH_BUILD), "Construction efficiency lost per point: buildings put off are not caught up.", "l.CRUNCH_BUILD"),
         ("Bad Debts fade", f"{l.CRUNCH_FADE} a month", f"Once felt in full, after {l.CRUNCH_RAMP} a month build-up. So the worst crash takes about {round((l.CRUNCH_MAX / l.CRUNCH_RAMP + l.CRUNCH_MAX / l.CRUNCH_FADE) / 12)} years to clear.", "l.CRUNCH_FADE"),
         ("Bad Debts fade, Tight credit", f"{l.CRUNCH_FADE_TIGHT} a month", f"The worst crash clears in about {round((l.CRUNCH_MAX / l.CRUNCH_RAMP + l.CRUNCH_MAX / l.CRUNCH_FADE_TIGHT) / 12)} years.", "l.CRUNCH_FADE_TIGHT"),
         ("Income average", pct(l.INCOME_SMOOTH), "What a new month counts for in the year-long income average that leverage is measured against.", "l.INCOME_SMOOTH"),
@@ -130,7 +131,7 @@ GROUPS = [
          "Set as it starts. No cap on the length.", "g.PANIC_LEV_LEN"),
         ("Private construction cut", f"{pct(g.CRUNCH_FLOOR)} to all, by leverage {g.leverage.SAFE} to {g.leverage.DANGER} months",
          "Of the economic law's private share. A rescue halves it.", "g.CRUNCH_FLOOR"),
-        ("Financial District pay", f"{c.FD_MANIA:+g} in mania, {c.FD_PANIC:+g} in a panic", "Standard of Living of its workers. A rescue halves the panic's.", "c.FD_PANIC"),
+        ("Financial District pay", ", ".join(f"{v:+g} {t}" for t, v in c.FD_BANDS.items()) + f", {c.FD_PANIC:+g} more in a panic", "Standard of Living of its workers by confidence band. A rescue halves the panic's.", "c.FD_PANIC"),
         ("Company bonus in a panic", f"{c.PANIC_COMPANY:+g}", "Company throughput bonus while it lasts.", "c.PANIC_COMPANY"),
     ]),
     ("Panics spreading", "How a panic reaches other countries.", [

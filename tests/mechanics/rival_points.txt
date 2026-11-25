@@ -1,0 +1,44 @@
+namespace = spec_mechanics_rival_points
+spec_mechanics_rival_points.1 = { type = country_event hidden = yes immediate = {
+set_global_variable = { name = spec_rival_year days = 3650 }
+every_country = { clear_variable_list = spec_rv_chosen clear_variable_map = spec_rv_pts clear_variable_list = spec_rv_ticked clear_variable_list = spec_rv_age_0 }
+every_country = { limit = { OR = { this = c:GBR this = c:FRA } }
+remove_variable = spec_bc_n remove_variable = spec_rv_focus
+clear_variable_list = spec_rv_push_1 clear_variable_list = spec_rv_ramp_raid_6
+set_variable = { name = spec_exch_stand value = 1 } set_variable = { name = spec_centre_trust value = 60 }
+}
+c:GBR = { set_variable = { name = spec_centre_score value = 200 } add_to_variable_list = { name = spec_rv_chosen target = c:FRA } add_to_variable_list = { name = spec_rv_age_0 target = c:FRA } }
+c:FRA = { set_variable = { name = spec_centre_score value = 100 } }
+c:GBR = { spec_rv_forget = { WITH = c:FRA } }
+c:GBR = { save_scope_as = spec_rival_me }
+c:FRA = { set_variable = { name = spec_test_a value = spec_rv_rope } set_variable = { name = spec_test_p value = spec_rv_proj } }
+if = { limit = { c:FRA = { var:spec_test_a = 0 var:spec_test_p > 0.49 var:spec_test_p < 0.51 } } debug_log = "HOTFIX PASS contest_starts_even_heading_for_the_lead" }
+else = { debug_log = "HOTFIX FAIL contest_starts_even_heading_for_the_lead" }
+spec_rv_accrue = yes
+spec_rv_accrue = yes
+c:GBR = { save_scope_as = spec_rival_me }
+c:FRA = { set_variable = { name = spec_test_a value = spec_rv_acc } }
+if = { limit = { c:FRA = { var:spec_test_a > 0.8 var:spec_test_a < 0.86 } } debug_log = "HOTFIX PASS two_months_move_the_contest" }
+else = { debug_log = "HOTFIX FAIL two_months_move_the_contest" }
+c:FRA = { save_scope_as = spec_rival_me }
+c:GBR = { set_variable = { name = spec_test_a value = spec_rv_acc } }
+if = { limit = { c:GBR = { var:spec_test_a < -0.8 var:spec_test_a > -0.86 } } debug_log = "HOTFIX PASS the_other_side_sees_the_mirror" }
+else = { debug_log = "HOTFIX FAIL the_other_side_sees_the_mirror" }
+c:FRA = { add_to_variable_list = { name = spec_rv_chosen target = c:GBR } add_to_variable_list = { name = spec_rv_age_0 target = c:GBR } }
+spec_rv_accrue = yes
+c:GBR = { save_scope_as = spec_rival_me }
+c:FRA = { set_variable = { name = spec_test_a value = spec_rv_acc } }
+if = { limit = { c:FRA = { var:spec_test_a > 1.2 var:spec_test_a < 1.3 } } debug_log = "HOTFIX PASS a_mutual_pair_moves_once" }
+else = { debug_log = "HOTFIX FAIL a_mutual_pair_moves_once" }
+c:GBR = { add_to_variable_list = { name = spec_rv_push_1 target = c:FRA } add_to_variable_list = { name = spec_rv_ramp_raid_6 target = c:FRA } }
+c:FRA = { set_variable = { name = spec_test_a value = spec_rv_in_me } }
+if = { limit = { c:FRA = { var:spec_test_a > 0.82 var:spec_test_a < 0.84 } } debug_log = "HOTFIX PASS a_running_raid_adds_its_month" }
+else = { debug_log = "HOTFIX FAIL a_running_raid_adds_its_month" }
+c:GBR = { spec_rv_forget = { WITH = c:FRA } }
+c:FRA = { set_variable = { name = spec_test_a value = spec_rv_acc } }
+if = { limit = { c:FRA = { var:spec_test_a = 0 } } debug_log = "HOTFIX PASS an_ended_contest_is_forgotten" }
+else = { debug_log = "HOTFIX FAIL an_ended_contest_is_forgotten" }
+
+c:GBR = { remove_list_variable = { name = spec_rv_push_1 target = c:FRA } remove_list_variable = { name = spec_rv_ramp_raid_6 target = c:FRA } }
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

@@ -101,6 +101,43 @@
 		}
 	}
 
+	# the shown confidence glides to each month's figure in GLIDE weekly steps (market_tab.SHOWN)
+	# as do a player's Investor Interest bars and contest bars (interest_board.glide, rivals' spec_rv_glide)
+	on_weekly_pulse = {
+		effect = {
+			root = {
+				if = {
+					limit = { has_variable = spec_conf }
+					if = {
+						limit = { OR = { NOT = { has_variable = spec_conf_shown } has_variable = spec_panic var:spec_conf >= 80 } }
+						set_variable = { name = spec_conf_shown value = var:spec_conf }
+						set_variable = { name = spec_conf_aim value = var:spec_conf }
+						set_variable = { name = spec_conf_step value = 0 }
+					}
+					else = {
+						if = {
+							limit = { NOT = { var:spec_conf_aim = var:spec_conf } }
+							set_variable = { name = spec_conf_aim value = var:spec_conf }
+							set_variable = { name = spec_conf_step value = { value = var:spec_conf subtract = var:spec_conf_shown divide = 4 } }
+						}
+						change_variable = { name = spec_conf_shown add = var:spec_conf_step }
+						if = {
+							limit = { OR = { AND = { var:spec_conf_step > 0 var:spec_conf_shown > var:spec_conf } AND = { var:spec_conf_step < 0 var:spec_conf_shown < var:spec_conf } } }
+							set_variable = { name = spec_conf_shown value = var:spec_conf }
+						}
+					}
+				}
+			}
+			root = {
+				if = {
+					limit = { is_player = yes }
+					spec_ui_glide_all = yes
+					spec_rv_glide = yes
+				}
+			}
+		}
+	}
+
 	# after the bars' periodic progress, which only itemizes the month for their tooltips
 	on_monthly_pulse = {
 		effect = {

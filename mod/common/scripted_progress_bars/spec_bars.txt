@@ -1,7 +1,7 @@
 ﻿spec_confidence_bar = {
 	name = "spec_confidence_bar"
 	desc = "spec_confidence_bar_desc"
-	start_value = 55
+	start_value = 50
 	min_value = 0
 	max_value = 100
 	progress_texture = "gfx/interface/progressbar/progressbar_gold.dds"

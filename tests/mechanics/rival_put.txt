@@ -1,0 +1,26 @@
+namespace = spec_mechanics_rival_put
+spec_mechanics_rival_put.1 = { type = country_event hidden = yes immediate = {
+c:FRA = { save_scope_as = target }
+set_local_variable = { name = spec_test_v value = 1.5 }
+spec_rv_put = { MAP = spec_rv_raid_rate VALUE = local_var:spec_test_v }
+set_variable = { name = spec_test_a value = spec_rv_raid_rate_now }
+if = { limit = { var:spec_test_a = 1.5 } debug_log = "HOTFIX PASS first_raid_saved" }
+else = { debug_log = "HOTFIX FAIL first_raid_saved" }
+set_local_variable = { name = spec_test_v value = 2.5 }
+spec_rv_put = { MAP = spec_rv_raid_rate VALUE = local_var:spec_test_v }
+set_variable = { name = spec_test_a value = spec_rv_raid_rate_now }
+if = { limit = { var:spec_test_a = 2.5 } debug_log = "HOTFIX PASS second_raid_replaces_first" }
+else = { debug_log = "HOTFIX FAIL second_raid_replaces_first" }
+spec_rv_put = { MAP = spec_rv_raid_rate VALUE = 0 }
+set_variable = { name = spec_test_a value = spec_rv_raid_rate_now }
+if = { limit = { var:spec_test_a = 0 } debug_log = "HOTFIX PASS failed_raid_clears_it" }
+else = { debug_log = "HOTFIX FAIL failed_raid_clears_it" }
+set_local_variable = { name = spec_test_v value = { value = game_date add = 100 } }
+spec_rv_put = { MAP = spec_rv_protected_until VALUE = local_var:spec_test_v }
+set_local_variable = { name = spec_test_w value = { value = game_date add = 200 } }
+spec_rv_put = { MAP = spec_rv_protected_until VALUE = local_var:spec_test_w }
+if = { limit = { spec_rv_protected_until_date > local_var:spec_test_v } debug_log = "HOTFIX PASS second_shore_up_moves_its_date" }
+else = { debug_log = "HOTFIX FAIL second_shore_up_moves_its_date" }
+
+debug_log = "HOTFIX SUITE COMPLETE"
+} }

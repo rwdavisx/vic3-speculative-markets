@@ -1,0 +1,29 @@
+{
+  "id": "speculative_markets_bpm_compat",
+  "version": "1.1.0",
+  "source": "G:\\GameDev\\speculative-markets\\runs\\bpm\\v130\\mod",
+  "built_against": "1.15.2",
+  "packaged_utc": "2026-11-24T20:16:26.999302+00:00",
+  "archive": "Speculative_Markets_BPM_Compatibility_1.1.0.zip",
+  "archive_sha256": "395278e5dbcb6e68f78e1e46f83a7a55d3c0872968f0ec98615513eb1c40548e",
+  "file_count": 17,
+  "files_sha256": {
+    ".metadata/metadata.json": "ca4f8f9812bdcff0169add5d1bd2f11aac058b4cb25e6f5c57633758e9563afd",
+    "common/on_actions/spec_igs_on_actions.txt": "2f07d98808bac6b9ddfb8377acf25de72d5eccf9f4c65864010f76ee9ec583f2",
+    "common/script_values/spec_igs_values.txt": "029467650b1f622f8e2be7b7abf9ea917070f9fb7a97cfd42ac7b8412069f2b5",
+    "common/scripted_effects/spec_igs_effects.txt": "34af323b98072c9abe6fccea786f2307bb0d13b72c61b7a5d0961c25f1c10205",
+    "gui/BPM_interest_group_panel.gui": "e2073531d9085a1835987d2cd14984c03bbbffd8fcc51ca9b5ac8e2d0272c49a",
+    "gui/spec_market_tab.gui": "15785eca0f4abb132f58ff8f19beeaa108faf64f4963a1a9091791e9fb1319d4",
+    "localization/braz_por/spec_markets_l_braz_por.yml": "5a21aa1b5f3585c0b658a962b8cc76343e92ad7dba8c52bf118a8e9d4c7844d2",
+    "localization/english/spec_markets_l_english.yml": "ea0bb6430cd4a24bd29be617d235e7ee97ce84721b83858c8d042f92bdc10686",
+    "localization/french/spec_markets_l_french.yml": "fa65de6c2dc3a7fb82cdbce954ee95838ff951979144acd787cbae545976bf62",
+    "localization/german/spec_markets_l_german.yml": "3654851a6efe75ce9f191859b301cea41b1bcd5611b54b5c46f9c5303ec4bbe8",
+    "localization/japanese/spec_markets_l_japanese.yml": "9b7a02cc8ae7685bac77a99cdb145fb298f9c96bea00bc0eb144d707044c3462",
+    "localization/korean/spec_markets_l_korean.yml": "f79937fc85a3e1030b0e29961323f4378b8441f9e2eebdf4f5d14be34c195a83",
+    "localization/polish/spec_markets_l_polish.yml": "224367b6f760c2e2384592a2dafc8bfc913d81ac8e33f54a444168a31a2feddd",
+    "localization/russian/spec_markets_l_russian.yml": "c8bb5e10128d56d03257497b239921fac1baba246d4a575b12318d76601f9457",
+    "localization/simp_chinese/spec_markets_l_simp_chinese.yml": "d66fa4e885d5b862bb0331d050671aedb8ba376c6ae01e6914f9c2364a458f8e",
+    "localization/spanish/spec_markets_l_spanish.yml": "5e62ac74344c5c1c0c5021602d49c539c8a88ed60b788c0f18dc7e63c3f0009e",
+    "localization/turkish/spec_markets_l_turkish.yml": "47d5ef1cf40731022fa52d18f44bab91b897be00128e844742ecccf917a08544"
+  }
+}

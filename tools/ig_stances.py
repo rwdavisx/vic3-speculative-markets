@@ -18,6 +18,7 @@ interest_list.row() places slot() in its Interest Groups column; levers.loc() pl
 import sys
 from functools import reduce
 import market_news
+import mod_sources
 
 P = "Country.MakeScope"  # as market_tab.P; not imported, market_tab imports levers, which imports this
 DEAL = 0.1              # spec_weight: a share of the market's trade of 0.1 x generate.EXPOSURE_FULL (0.3%) counts as dealing in it
@@ -59,6 +60,38 @@ POOLS = {
     "trade_unions": ("trade_unions", {"groceries": 3, "clothes": 3, "coal": 1, "steel": 1, "furniture": 1, "fabric": 1},
                      {"liquor": 2, "opium": 1}),  # temperance ran deep in the labour movement
 }
+# Better Politics Mod's political groups, only in the BPM patch's build (SPEC_BPM): without BPM their types don't exist
+BPM_POOLS = {
+    "conservatives": ("conservatives", {"grain": 3, "wine": 2, "meat": 1, "wood": 1, "sugar": 1, "tobacco": 1},
+                      {"fabric": 1}),  # the Corn Laws' defenders against the mill towns
+    "liberals": ("liberals", {"fabric": 3, "steel": 2, "tools": 2, "coal": 2, "steamers": 1, "paper": 1,
+                              "merchant_marine": 1, "clippers": 1}, {"grain": 2}),  # Manchester free trade: cheap bread
+    "market_liberals": ("market_liberals", {"engines": 2, "oil": 2, "merchant_marine": 2, "steel": 2, "electricity": 1,
+                                            "telephones": 1, "automobiles": 1}, {"grain": 1}),
+    "national_liberals": ("national_liberals", {"steel": 3, "engines": 2, "coal": 2, "small_arms": 1, "artillery": 1,
+                                                "steamers": 1}, {"opium": 1}),  # industry, unification and a navy
+    "radicals": ("radicals", {"grain": 3, "groceries": 2, "clothes": 2, "paper": 2, "fabric": 1},
+                 {"liquor": 2, "opium": 1}),  # cheap bread, a free press; nonconformist temperance
+    "reactionaries": ("reactionaries", {"grain": 3, "wine": 2, "small_arms": 1, "artillery": 1, "wood": 1, "meat": 1},
+                      {"paper": 2, "engines": 1}),  # the press and the machine
+    "christian_democrats": ("christian_democrats", {"grain": 2, "clothes": 2, "groceries": 2, "furniture": 1,
+                                                    "fine_art": 1, "paper": 1}, {"opium": 3, "liquor": 2}),
+    "fascists": ("fascists", {"steel": 3, "small_arms": 3, "artillery": 3, "ammunition": 2, "tanks": 2, "aeroplanes": 2,
+                              "oil": 2, "automobiles": 1}, {"opium": 2, "luxury_clothes": 1}),
+    "socialists": ("socialists", {"groceries": 3, "clothes": 3, "grain": 2, "coal": 1, "steel": 1, "electricity": 1},
+                   {"luxury_clothes": 2, "luxury_furniture": 1, "opium": 1}),
+    "reformist_socialists": ("reformists", {"groceries": 3, "clothes": 2, "electricity": 2, "furniture": 1, "paper": 1,
+                                            "telephones": 1}, {"liquor": 2, "opium": 1}),
+    "revolutionist_socialists": ("revolutionists", {"steel": 2, "coal": 2, "grain": 2, "tools": 2, "engines": 1,
+                                                    "electricity": 1}, {"luxury_clothes": 2, "fine_art": 1,
+                                                                        "luxury_furniture": 1, "opium": 1}),
+    "anarchists": ("anarchists", {"grain": 3, "tools": 2, "paper": 2, "fabric": 1, "groceries": 1},
+                   {"artillery": 2, "opium": 1}),  # the pamphlet and the workshop, against the standing army
+    "agrarian_populists": ("agrarian_populists", {"grain": 3, "meat": 2, "fertilizer": 2, "fruit": 1, "wood": 1},
+                           {"steel": 1, "oil": 1}),  # the Grangers against the trusts
+}
+if mod_sources.BPM:
+    POOLS.update(BPM_POOLS)
 _POOLS = {}  # POOLS filtered to the tracked goods, by build()
 
 MONTHLY = ("\t\t\t# interest group stances on goods: rolled once, also for old saves (ig_stances.py)\n"
@@ -111,9 +144,9 @@ def _ind(text, n):
 NOTE_GROUP = "spec_igs_notification_group"
 _IG, _GOOD = "[SCOPE.gsInterestGroup('spec_note_ig').GetName]", "[SCOPE.sGoods('spec_note_good').GetName]"
 # the good first, so a group's name reads as singular or plural alike ("Catholic Church", "Landowners"); no body
-NOTES = {f"spec_igs_{k}": (NOTE_GROUP, "goods", "neutral", f"{_GOOD} {what} by {_IG}", "") for k, what in (
-    ("fav_new", "now favored"), ("fav_lost", "no longer favored"),
-    ("dis_new", "now opposed"), ("dis_lost", "no longer opposed"))}
+STANCES = (("fav_new", "now supported"), ("fav_lost", "no longer supported"),
+           ("dis_new", "now opposed"), ("dis_lost", "no longer opposed"))  # market_news names them in this order
+NOTES = {f"spec_igs_{k}": (NOTE_GROUP, "goods", "neutral", f"{_GOOD} {what} by {_IG}", "") for k, what in STANCES}
 NOTE_GROUPS = {NOTE_GROUP: "Interest Group Stances"}
 
 
@@ -123,7 +156,7 @@ def _note(ig, g, kind, t):
     detailed = (f"{t}\tig:ig_{ig} = {{ save_scope_as = spec_note_ig }}\n{t}\tg:{g} = {{ save_scope_as = spec_note_good }}\n"
                 f"{t}\tpost_notification = spec_igs_{kind}\n")
     return (f"{t}if = {{\n{t}\tlimit = {{ is_player = yes has_variable = spec_igs_rolled }}\n"
-            + market_news.alternate(detailed, 'opinions', t + "\t") + f"{t}}}\n")
+            + market_news.alternate(detailed, t + "\t", g, [k for k, _ in STANCES].index(kind) + 1, ig=ig) + f"{t}}}\n")
 
 
 def _pick(ig, pool, value):
@@ -509,22 +542,22 @@ def loc():
     fav_issue = (f"\\n• {amt('spec_igs_issue')} {iss}, and twice the loss from a [concept_spec_bust] or "
                  "[concept_spec_collapse] while it runs") if levers.ISSUE_ON else ""
     dis_issue = f"\\n• {amt('spec_igs_issue_against')} {iss}" if levers.ISSUE_ON else ""
-    out = (f' SPEC_IGS_FAV_TT: "@approves! #bold Favors [Goods.GetNameNoFormatting]#!\\n{scaled}'
+    out = (f' SPEC_IGS_FAV_TT: "@approves! #bold Supports [Goods.GetNameNoFormatting]#!\\n{scaled}'
            f"\\n• {amt('spec_igs_boom')} when [concept_spec_investor_interest] in it rises to #v Eager#!"
            f"\\n• {amt('spec_igs_bust')} when its boom ends in a [concept_spec_bust] or [concept_spec_collapse], "
-           f"and they may stop favoring it\\n• {both('spec_igs_backed', enc, 'spec_igs_crossed', res)}{fav_issue}\"\n"
+           f"and they may stop supporting it\\n• {both('spec_igs_backed', enc, 'spec_igs_crossed', res)}{fav_issue}\"\n"
            f' SPEC_IGS_DIS_TT: "@disapproves! #bold Opposes [Goods.GetNameNoFormatting]#!\\n{scaled}'
            f"\\n• {both('spec_igs_backed', res, 'spec_igs_crossed', enc)}{dis_issue}\"\n"
            # the column's header
            ' SPEC_IL_COL_IGS_TT: "#header [concept_interest_group] Stances#!\\n$TOOLTIP_DELIMITER$\\nEach '
-           "$concept_interest_group$ @approves! favors a few of the [Concept('concept_good','$concept_goods$')] our "
+           "$concept_interest_group$ @approves! supports a few of the [Concept('concept_good','$concept_goods$')] our "
            "[concept_market] trades, and some @disapproves! oppose one.\\n\\nTheir [concept_approval] rises and falls "
            "with the booms and busts of these goods and with our interventions in them, twice as much while "
            "[concept_powerful] and not at all while [concept_marginalized]. A new leader may change one of the group's stances.\"\n"
            # the interest group panel's section (panel_patch), headed as its Ideologies (IDEOLOGY_HEADER)
            " SPEC_IGS_PANEL_HEAD: \"[Concept('concept_good','$concept_goods$')]\"\n"
            ' SPEC_IGS_PANEL_TT: "#header Stances on Goods#!\\n$TOOLTIP_DELIMITER$\\nThe [InterestGroup.GetName] '
-           "@approves! favor a few of the goods their country trades, and may @disapproves! oppose one. Their "
+           "@approves! support a few of the goods their country trades, and may @disapproves! oppose one. Their "
            "[concept_approval] rises and falls with the booms and busts of these goods and with the government's "
            "interventions in them, twice as much while [concept_powerful] and not at all while [concept_marginalized]."
            "\\n\\nA new leader may change one of "
@@ -535,7 +568,7 @@ def loc():
     # the strongest group's icon: every group holding the stance, strongest or not (context Goods, from the row)
     for op, key, _ in SIDES:
         has = _has(_stance, op)
-        word, mark = ("Favored", "approves") if key == "FAV" else ("Opposed", "disapproves")
+        word, mark = ("Supported", "approves") if key == "FAV" else ("Opposed", "disapproves")
         out += (f' SPEC_IGS_ROW_{key}_ALL_TT: "#header {word} by#!\\n$TOOLTIP_DELIMITER$'
                 + "".join(f"[AddLocalizationIf({has(ig)}, 'SPEC_IGS_WHO_{key}_{ig}')]" for ig in POOLS) + '"\n')
         out += "".join(f' SPEC_IGS_WHO_{key}_{ig}: "\\n@{mark}! [{_ig(ig)}.GetName] ([{_ig(ig)}.GetClout|v%1] '
@@ -545,8 +578,8 @@ def loc():
         for k, up, down in (("", "spec_igs_backed", "spec_igs_crossed"), ("ISSUE_", "spec_igs_issue", "spec_igs_issue_against")):
             out += (f' SPEC_IGS_{k}UP_{ig}: "\\n@approves! {who}: [{_amount(up, _ig(ig))}|+=0] for {_years(up)}"\n'
                     f' SPEC_IGS_{k}DOWN_{ig}: "\\n@disapproves! {who}: [{_amount(down, _ig(ig))}|+=0] for {_years(down)}"\n')
-    names = {"spec_igs_boom": ("Favored Trade Booming", "Investors are pouring money into a trade this group holds dear."),
-             "spec_igs_bust": ("Favored Trade Bust", "A trade this group holds dear has gone bust, and they blame the government that let it happen."),
+    names = {"spec_igs_boom": ("Supported Trade Booming", "Investors are pouring money into a trade this group holds dear."),
+             "spec_igs_bust": ("Supported Trade Bust", "A trade this group holds dear has gone bust, and they blame the government that let it happen."),
              "spec_igs_backed": ("Government Backs Their Trade", "The government has stepped into a market this group cares about, as they wished."),
              "spec_igs_crossed": ("Government Crosses Their Trade", "The government has stepped into a market this group cares about, against their wishes."),
              "spec_igs_issue": ("Shares in Their Trade", "The government has floated a Great Issue in a trade this group holds dear, and they have bought in."),

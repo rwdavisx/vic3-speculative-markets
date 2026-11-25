@@ -1,6 +1,6 @@
 namespace = spec_mechanics_capital_flight
 spec_mechanics_capital_flight.1 = { type = country_event hidden = yes immediate = {
-every_country = { limit = { OR = { this = c:GBR this = c:FRA } } save_scope_as = spec_t clear_variable_list = spec_rv_chosen every_rival_country = { save_temporary_scope_as = spec_tx scope:spec_t = { remove_diplomatic_pact = { country = scope:spec_tx type = rivalry } } } every_rivaling_country = { remove_diplomatic_pact = { country = scope:spec_t type = rivalry } } set_variable = { name = spec_exch_stand value = 1 } }
+every_country = { limit = { OR = { this = c:GBR this = c:FRA } } save_scope_as = spec_t clear_variable_list = spec_rv_chosen clear_variable_map = spec_rv_pts every_rival_country = { save_temporary_scope_as = spec_tx scope:spec_t = { remove_diplomatic_pact = { country = scope:spec_tx type = rivalry } } } every_rivaling_country = { remove_diplomatic_pact = { country = scope:spec_t type = rivalry } } set_variable = { name = spec_exch_stand value = 1 } }
 remove_variable = spec_flight_pending
 set_variable = { name = spec_conf value = 55 }
 set_variable = { name = spec_src_gdp value = c:FRA.gdp }

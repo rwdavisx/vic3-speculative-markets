@@ -43,13 +43,18 @@ LIVE = Path(os.environ.get("SPEC_TUNER_LIVE") or REPO / "build_scratch" / "rival
 for p in (STAGE, LIVE):  # never the stable release
     assert not p.is_relative_to((REPO / "mod").resolve()), f"{p} is inside mod/"
 KEYS = lab.KEYS
-FILES = {"/": ("command.html", "text/html"), "/works.css": ("works.css", "text/css"), "/works.json": ("works.json", "application/json")}
+FILES = {"/": ("command.html", "text/html"), "/works.css": ("works.css", "text/css"), "/works.json": ("works.json", "application/json"),
+         "/panels.css": ("panels.css", "text/css"), "/panels.js": ("panels.js", "text/javascript")}
+# data files the page reads when they exist; SPEC_TUNER_WINDOWS points the Tuner vs Game view at another file
+DATA = {"/api/keymap": HERE / "keymap.json", "/api/windows": Path(os.environ.get("SPEC_TUNER_WINDOWS") or HERE / "windows.json")}
 
 LOCK = threading.Condition()
 EVENTS = []  # every event since the server started; the page's EventSource resumes by index
 STOP = threading.Event()
 CURRENT = lab.current()
 POOL = None
+# the dashboard (watch only) is the front page; the room with the controls moves to /room
+FILES |= {"/room": FILES["/"], "/": ("dashboard.html", "text/html")}
 
 
 def dumps(o):
@@ -218,7 +223,7 @@ class H(BaseHTTPRequestHandler):
             return
         if path in FILES:
             name, ctype = FILES[path]
-            if path == "/" and not self.keyed():  # this PC's own page gets the key for its changes
+            if ctype == "text/html" and not self.keyed():  # this PC's own page gets the key for its changes
                 return self.send((HERE / name).read_bytes(), ctype, cookie=True)
             return self.send((HERE / name).read_bytes(), ctype)
         if path == "/api/config":
@@ -237,6 +242,9 @@ class H(BaseHTTPRequestHandler):
                         except ValueError:
                             pass
             return self.send(dumps(out))
+        if path in DATA:
+            p = DATA[path]
+            return self.send(p.read_bytes() if p.exists() else "null")
         if path == "/api/runs":
             return self.send(dumps(lab.saved_runs()))
         if path == "/api/run":
@@ -244,6 +252,8 @@ class H(BaseHTTPRequestHandler):
             return self.send(dumps(r)) if r else self.send("no such run", "text/plain", 404)
         if path == "/api/events":
             return self.events()
+        if path == "/api/history":
+            return self.send(dumps(lab.history()))
         self.send("not found", "text/plain", 404)
 
     def events(self):

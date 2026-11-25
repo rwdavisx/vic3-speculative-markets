@@ -83,15 +83,15 @@ spec_can_rv_shore = {
 		NOT = { is_target_in_variable_list = { name = spec_rv_shield target = scope:target } }
 	}
 	custom_tooltip = {
-		text = spec_rv_gold_tt
-		gold_reserves >= spec_rv_cost
+		text = spec_rv_gold_month_tt
+		gold_reserves >= spec_rv_month_shore
 	}
 }
 
 spec_rv_pay_raid = {
 	custom_tooltip = {
-		text = spec_rv_gold_tt
-		gold_reserves >= spec_rv_cost
+		text = spec_rv_gold_month_tt
+		gold_reserves >= spec_rv_month_raid
 	}
 }
 
