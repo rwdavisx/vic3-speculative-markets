@@ -55,7 +55,7 @@ GROUPS = [
         ("Income average", pct(l.INCOME_SMOOTH), "What a new month counts for in the year-long income average that leverage is measured against.", "l.INCOME_SMOOTH"),
         ("Land loss that counts", pct(l.LAND_LOST), "Losing this much population stops the loss itself from inflating leverage.", "l.LAND_LOST"),
         ("Land loss relief", f"{l.RELIEF_MONTHS} months", "How long that protection fades over.", "l.RELIEF_MONTHS"),
-        ("AI turns Tight at", f"{l.AI_LIMIT['-1']} / {l.AI_LIMIT['0']} / {l.AI_LIMIT['1']} months", "Cautious, ordinary and bold AI. It stays Tight until half that.", "l.AI_LIMIT"),
+        ("AI turns Tight at", f"{l.AI_LIMIT['-1']} / {l.AI_LIMIT['0']} / {l.AI_LIMIT['1']} months", "Cautious, ordinary and bold AI. However far off a panic is.", "l.AI_LIMIT"),
         ("Carried away by a Mania", f"{l.FEVER.get(0, 0)}% ordinary, {l.FEVER.get(1, 0)}% bold", "Chance in each Mania that an AI stops tightening until the Mania passes or a panic comes.", "l.FEVER"),
     ]),
     ("Bank credit", "How much banks lend, and how it is repaid.", [
@@ -156,7 +156,7 @@ GROUPS = [
         ("Rescue price scale", f"x{g.RESCUE_SCALE[0]} to x{g.RESCUE_SCALE[1]}, set at {g.RESCUE_REF_MONTHS} months left", "The cost scales with how much panic is left to cut short.", "g.RESCUE_SCALE"),
         ("Stance cooldown", f"{g.STANCE_COOLDOWN} months", "Before Credit Policy can change again.", "g.STANCE_COOLDOWN"),
         ("Tight pull", f"{pct(g.TIGHT_PULL)} above {g.TIGHT_FROM}", "How Tight credit pulls down high confidence.", "g.TIGHT_PULL"),
-        ("AI cools at", f"{a.AI_TIGHT} confidence", "The AI turns Tight above this.", "a.AI_TIGHT"),
+        ("AI turns Tight within", f"{a.AI_MARGIN} of a panic", f"Confidence over the Panic Threshold, from {a.AI_MARGIN_FROM} months of leverage. Back from {a.AI_MARGIN_BACK}, Loose over {a.AI_MARGIN_LOOSE}.", "a.AI_MARGIN"),
         ("Temperament shift", f"±{a.TEMPER_SHIFT}", "Confidence a bold or cautious AI moves its lines.", "a.TEMPER_SHIFT"),
         ("Temperament odds", f"{a.TEMPERS[-1][0]} / {a.TEMPERS[0][0]} / {a.TEMPERS[1][0]}", "Base weights for cautious, ordinary and bold. Rulers, heirs and laws shift them.", "a.TEMPERS"),
         ("Interest group shift", f"±{a.IG_SHIFT}", "Each interest group in government with a view.", "a.IG_SHIFT"),

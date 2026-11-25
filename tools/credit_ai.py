@@ -8,9 +8,11 @@ import tuning
 IG_APPROVAL = 2        # vanilla's strong law stance; under the opposite stance the same modifier applies at -1
 PREFS = {"industrialists": 1, "intelligentsia": -1}   # interest group -> preferred stance
 TEMPER_SHIFT = tuning.get("TEMPER_SHIFT", 8)       # confidence points a Bold (+) or Cautious (-) AI moves its thresholds by
-# a Balanced AI tightens above this, at the Mania line: it answers a mania rather than heading it off, as the
-# century's banks did. 76 (before the line) had the AI Tight 11 to 12% of months by the 1890s and Mania under 2%
-AI_TIGHT = tuning.get("AI_TIGHT", 80)
+# the AI's credit rule (1.3.1) watches its margin: confidence over the Panic Threshold, plus AI_MARGIN_LEAN of its lean.
+# From AI_MARGIN_FROM months of leverage it goes Tight under AI_MARGIN and stays so until AI_MARGIN_BACK. It goes Loose
+# over AI_MARGIN_LOOSE, while it is AI_LOOSE_ROOM months or more short of its leverage limit (leverage.AI_LIMIT)
+AI_MARGIN, AI_MARGIN_BACK, AI_MARGIN_LOOSE = tuning.get("AI_MARGIN", 10), tuning.get("AI_MARGIN_BACK", 16), tuning.get("AI_MARGIN_LOOSE", 15)
+AI_MARGIN_FROM, AI_MARGIN_LEAN, AI_LOOSE_ROOM = tuning.get("AI_MARGIN_FROM", 4), tuning.get("AI_MARGIN_LEAN", 0.6), tuning.get("AI_LOOSE_ROOM", 0.5)
 IG_SHIFT = tuning.get("IG_SHIFT", 4)           # and each preferring interest group in government
 RESCUE_BASE = tuning.get("RESCUE_CHANCE", {-1: 15, 0: 30, 1: 50})   # percent a month, once the panic has more than the rescue's months left
 RESCUE_SCALE = tuning.get("RESCUE_SCALE", 1.0)  # the three chances moved as one (tuning.scaled)
@@ -44,15 +46,14 @@ def script(k):
             f"\t\tadd = {{\n\t\t\tvalue = var:spec_temper\n\t\t\tmultiply = {TEMPER_SHIFT}\n\t\t}}\n\t}}\n"
             + "".join(f"\tif = {{\n\t\tlimit = {{ ig:ig_{ig} ?= {{ is_in_government = yes }} }}\n\t\tadd = {pref * IG_SHIFT}\n\t}}\n"
                       for ig, pref in PREFS.items()) + "}")
-    # a positive lean means the AI tightens later, loosens sooner and stays loose longer
-    at = {"tight": AI_TIGHT, "untight": AI_TIGHT - 1, "loose": tuning.get("AI_LOOSE", k["WARY"]), "unloose": k["CREDIT_FROM"]}
-    # confidence drifts to CONF_START, so the way back to Normal must lie on its far side or a stance can stick:
-    # leave Tight below at least CONF_START + 3, leave Loose from at most CONF_START - 1 (still above the highest
-    # loosen point, WARY + TEMPER_SHIFT + IG_SHIFT = 52, so the AI does not flip back and forth)
-    clamp = {"untight": f"\tmin = {k['CONF_START'] + 3}\n", "unloose": f"\tmax = {k['CONF_START'] - 1}\n"}
-    # the lowest tighten point stays above the untight floor, so a Cautious AI cannot tighten and loosen in turn
-    assert AI_TIGHT - TEMPER_SHIFT - IG_SHIFT > k["CONF_START"] + 3, "the lowest tighten point must stay above the untight floor"
+    # when the AI starts and stops encouraging Calm goods (levers.py): it stops from at most CONF_START - 1, above the
+    # highest starting point, WARY + TEMPER_SHIFT + IG_SHIFT
+    at = {"loose": tuning.get("AI_LOOSE", k["WARY"]), "unloose": k["CREDIT_FROM"]}
+    clamp = {"unloose": f"\tmax = {k['CONF_START'] - 1}\n"}
+    assert AI_MARGIN < AI_MARGIN_BACK, "the AI would tighten and loosen in turn"
     values = [lean] + [f"spec_ai_{n}_at = {{\n\tvalue = {v}\n\tadd = spec_ai_lean\n{clamp.get(n, '')}}}" for n, v in at.items()]
+    values += [f"spec_ai_margin = {{\n\tvalue = spec_ai_lean\n\tmultiply = {AI_MARGIN_LEAN}\n\tadd = var:spec_conf\n\tsubtract = spec_panic_at\n}}",
+               f"spec_ai_loose_lev = {{\n\tvalue = spec_ai_lev_limit\n\tsubtract = {AI_LOOSE_ROOM}\n}}"]
 
     picks = "".join(_weight(base, adds) + f"\t\t\tset_variable = {{ name = spec_temper value = {t} }}\n\t\t}}\n"
                     for t, (base, adds) in TEMPERS.items())
@@ -116,6 +117,54 @@ spec_refresh_credit_igs = {{
             "common/scripted_effects/spec_credit_ai_effects.txt": effects}
 
 
+# the AI's monthly choice of Credit Policy, for generate.monthly. A Mania fever (leverage.FEVER) keeps it from tightening
+_EXIT = f"""spec_stance_value = -1
+spec_lev < spec_ai_lev_limit
+NOT = {{ has_variable = spec_crunch }}
+OR = {{
+	spec_lev < {AI_MARGIN_FROM}
+	spec_ai_margin >= {AI_MARGIN_BACK}
+}}"""
+_LOOSE = f"""spec_ai_margin > {AI_MARGIN_LOOSE}
+spec_lev < spec_ai_loose_lev
+NOT = {{ has_variable = spec_panic }}"""
+
+
+def _tabs(text, n):
+    return "\n".join("\t" * n + line for line in text.split("\n"))
+
+
+def _choice(word, limit, stance):
+    return f"\t\t\t\t{word} = {{\n\t\t\t\t\tlimit = {{\n{_tabs(limit, 6)}\n\t\t\t\t\t\tspec_can_stance_{stance} = yes\n\t\t\t\t\t}}\n\t\t\t\t\tspec_stance_to_{stance} = yes\n\t\t\t\t}}\n"
+
+
+STANCE = (
+    _choice("if", f"""OR = {{
+	spec_lev >= spec_ai_lev_limit
+	has_variable = spec_crunch
+	AND = {{
+		spec_lev >= {AI_MARGIN_FROM}
+		spec_ai_margin < {AI_MARGIN}
+	}}
+}}
+NOT = {{ has_variable = spec_ai_fever }}
+NOT = {{ spec_stance_value = -1 }}""", "tight")
+    + _choice("else_if", f"""OR = {{
+	spec_stance_value = 0
+	AND = {{
+{_tabs(_EXIT, 2)}
+	}}
+}}
+{_LOOSE}""", "loose")
+    + _choice("else_if", _EXIT, "normal")
+    + _choice("else_if", f"""spec_stance_value = 1
+NOT = {{
+	AND = {{
+{_tabs(_LOOSE, 2)}
+	}}
+}}""", "normal"))
+
+
 def ig_lines(stance):
     """Tooltip lines for a stance's button: who approves, who disapproves, like a law's supporters."""
     n = {"loose": 1, "tight": -1}[stance]
@@ -131,8 +180,8 @@ if __name__ == "__main__":
     fx = out["common/scripted_effects/spec_credit_ai_effects.txt"]
     assert fx.count("{") == fx.count("}"), "unbalanced effects"
     v = out["common/script_values/spec_credit_ai_values.txt"]
-    assert f"spec_ai_untight_at = {{\n\tvalue = {AI_TIGHT - 1}\n\tadd = spec_ai_lean\n\tmin = 58\n}}" in v and "\tmax = 54\n" in v
-    assert f"spec_ai_tight_at = {{\n\tvalue = {AI_TIGHT}\n\tadd = spec_ai_lean\n}}" in v
+    assert "\tmax = 54\n" in v and "spec_ai_margin = {" in v
+    assert STANCE.count("{") == STANCE.count("}") and "{{" not in STANCE, "unbalanced STANCE"
     assert k["WARY"] + TEMPER_SHIFT + IG_SHIFT < k["CONF_START"] - 1, "the highest loosen point must stay below the unloose cap"
     assert "ig:ig_intelligentsia ?= { is_in_government = no has_modifier = spec_tight_credit }" in fx
     assert "spec_tight_credit multiplier = -1" in fx and "spec_loose_credit multiplier = -1" in fx

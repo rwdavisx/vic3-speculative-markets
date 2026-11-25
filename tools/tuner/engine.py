@@ -62,6 +62,7 @@ SPEC = [
     ("CREDIT_FLOW_MAX", g, "CREDIT_FLOW_MAX", "Credit", "Confidence's part at most"),
     ("CREDIT_CEILING", g, "CREDIT_CEILING", "Credit", "Ceiling, share of a month's income"),
     ("CREDIT_RUNOFF", g, "CREDIT_RUNOFF", "Credit", "Runoff a month"),
+    ("CREDIT_RUNOFF_TIGHT", g, "CREDIT_RUNOFF_TIGHT", "Credit", "Runoff a month, Tight"),
     ("CLAWBACK", g, "CLAWBACK", "Panic", "Share of credit recalled"),
     ("CLAW_FLOOR", g, "CLAW_FLOOR", "Panic", "Pool share taken at low leverage"),
     ("PANIC", g, "PANIC", "Panic", "Panic line"),
@@ -88,6 +89,7 @@ SPEC = [
     ("LEV_BONUS_FADE", lv, "BONUS_FADE", "Leverage", "Bonus months lost a month"),
     ("LEV_RECORD_BUILD", lv, "RECORD_BUILD", "Leverage", "Sound Credit: construction per month of leverage it grows toward (0 off)"),
     ("LEV_RECORD_GAIN", lv, "RECORD_GAIN", "Leverage", "Sound Credit: share of the way closed a calm month"),
+    ("LEV_RECORD_PAST", lv, "RECORD_PAST", "Leverage", "Sound Credit: how much more each month of leverage past 6 counts"),
     ("LEV_RECORD_LOSS", lv, "RECORD_LOSS", "Leverage", "Sound Credit: share lost a panic or Bad Debts month, x (1 + stress)"),
     ("LEV_CRUNCH_RAMP", lv, "CRUNCH_RAMP", "Bad Debts", "Felt a month"),
     ("LEV_CRUNCH_MAX", lv, "CRUNCH_MAX", "Bad Debts", "Bad Debts at ruin"),
@@ -116,11 +118,15 @@ SPEC = [
     ("EXP_PER_MONTH", exposure, "PER_MONTH", "Booms", "Ending harder per month lent"),
     ("EXP_MULT_MAX", exposure, "MULT_MAX", "Booms", "Ending multiplier at most"),
     ("TEMPER_SHIFT", credit_ai, "TEMPER_SHIFT", "AI", "Temperament shift"),
-    ("AI_TIGHT", credit_ai, "AI_TIGHT", "AI", "AI tightens above"),
+    ("AI_MARGIN", credit_ai, "AI_MARGIN", "AI", "AI tightens this close to a panic"),
+    ("AI_MARGIN_BACK", credit_ai, "AI_MARGIN_BACK", "AI", "AI leaves Tight this far from a panic"),
+    ("AI_MARGIN_LOOSE", credit_ai, "AI_MARGIN_LOOSE", "AI", "AI goes Loose this far from a panic"),
+    ("AI_MARGIN_FROM", credit_ai, "AI_MARGIN_FROM", "AI", "Margin counts from this leverage"),
+    ("AI_MARGIN_LEAN", credit_ai, "AI_MARGIN_LEAN", "AI", "Margin moved by this share of the lean"),
+    ("AI_LOOSE_ROOM", credit_ai, "AI_LOOSE_ROOM", "AI", "AI goes Loose this far under its limit"),
     ("IG_SHIFT", credit_ai, "IG_SHIFT", "AI", "Interest group shift"),
     # the AI's per-temperament tables, each moved as one (tuning.scaled), and its other levers
     ("AI_LEV_SCALE", lv, "AI_LEV_SCALE", "AI", "AI leverage limits, scale"),
-    ("AI_LEV_BACK", lv, "AI_LEV_BACK", "AI", "AI loosens below this share of its limit"),
     ("AI_FEVER_SCALE", lv, "FEVER_SCALE", "AI", "AI carried away by a Mania, scale"),
     ("RESCUE_SCALE", credit_ai, "RESCUE_SCALE", "AI", "AI rescue chances, scale"),
     ("AI_BAILOUT_CHANCE", lv, "AI_BAILOUT_CHANCE", "AI", "AI buys up bad loans, chance a month"),
@@ -240,8 +246,10 @@ GOODS_MAX = 48  # goods an economy can have
 # logs' autocorrelation of the price (0.56 at 3 months, 0.24 at 12), of the averages' gap and of the monthly change (-0.22)
 # at 14 months. In markets of 25 goods or more, 6.5% of a good's price movement is the market's own (mean pairwise
 # correlation 0.06-0.07). The game starts out of balance: in 1836-37 prices move 1 + 0.9 e^(-month / 6) times as much.
-SHARE_SD, PRICE_W_EXP, PRICE_GDP_EXP, PRICE_GDP_AT, PRICE_SPREAD = 1.1, 0.192, 0.168, 1e7, 0.55
-PRICE_NOISE, PRICE_COMMON, PRICE_START, PRICE_START_MONTHS = 0.25, 0.065, 0.9, 6
+# 2026-11-25: PRICE_SPREAD 0.55 -> 0.75 and PRICE_COMMON 0.065 -> 0.4, refit with price_sd and the roughness to two games'
+# confidence and boom endings (beta.3 and 1.2.2, 1836-66): endings fall together and harder than the measured prices give.
+SHARE_SD, PRICE_W_EXP, PRICE_GDP_EXP, PRICE_GDP_AT, PRICE_SPREAD = 1.1, 0.192, 0.168, 1e7, 0.75
+PRICE_NOISE, PRICE_COMMON, PRICE_START, PRICE_START_MONTHS = 0.25, 0.4, 0.9, 6
 INPUTS = {
     "years": (100, 10, 150, "Years run"),
     "pool_share": ((0.012, 0.035), 0.001, 0.06, "Pool income a month, share of GDP"),  # the logs' 10% is 0.25%: 0.005 clipped the fit
@@ -452,6 +460,18 @@ BOTS = {
     # reckless, but never buys up Bad Debts: is buying up worth it?
     "nobuy": dict(tight_conf=INF, tight_lev=INF, untight_conf=-INF, untight_lev=INF, loose_conf=INF, loose_lev=INF,
                   unloose_conf=INF, rescue=1, bailout=0, bailout_from=0, mania=(1, 0, 0), afford=False),
+    # the risk ladder: one technique (Loose while the margin over the Panic Threshold allows, Tight on danger and while Bad Debts
+    # last, rescue, buy up large Bad Debts), so only the leverage they let run differs (Economies.plan)
+    "cut4": dict(plan=dict(hi=4, lo=3, c_in=72, c_out=60), rescue=1, bailout=1, bailout_from=10, mania=(1, 0, 0), afford=False),
+    "hold6": dict(plan=dict(hi=6, lo=5, m_in=10, m_out=14, loose_lev=5.5, loose_m=13), rescue=1, bailout=1, bailout_from=10, mania=(1, 0, 0), afford=False),
+    # up to 10 months, then Tight all the way down to 4; out early as the Panic Threshold nears
+    "run10": dict(plan=dict(hi=10, lo=4, m_in=8, m_out=12, loose_lev=9.5, loose_m=11), rescue=1, bailout=1, bailout_from=10, mania=(1, 0, 0), afford=False),
+    # up to 12 months, the ruin line (11.8: lending stops at 12), as the user asked for on 2026-11-25; the limit reaches 12 only
+    # with the last LADDER_TECHS, so early run-ups stop at 8 or 10
+    "run12": dict(plan=dict(hi=11.8, lo=4, m_in=8, m_out=12, loose_lev=11.5, loose_m=11), rescue=1, bailout=1, bailout_from=10, mania=(1, 0, 0), afford=False),
+    "blind12": dict(plan=dict(hi=11.8, lo=4, loose_lev=11.5, loose_m=-99), rescue=1, bailout=1, bailout_from=10, mania=(1, 0, 0), afford=False),
+    # the same run, watching nothing but leverage
+    "blind10": dict(plan=dict(hi=10, lo=4, loose_lev=9.5, loose_m=-99), rescue=1, bailout=1, bailout_from=10, mania=(1, 0, 0), afford=False),
     # borrows as the Balanced AI does, but goes Tight while the Panic Risk alert shows (the Risks bar's floor under the
     # panic line, journal.alerts) and back once it clears; rescues and buys up as skilled does
     "skilled_timing": dict(like_ai=True, rescue=1, bailout=1, bailout_from=10, mania=(0, 1, 0), afford=False),
@@ -466,9 +486,7 @@ def ai_policy(K, temper, lean):
     """The AI's thresholds (credit_ai.script) for each economy: temper -1/0/1, lean = its temper and IG shift."""
     lim = per_temper(lv.AI_LIMIT_BASE, K["AI_LEV_SCALE"], temper)
     loose = K["WARY"] if K.get("AI_LOOSE") is None else K["AI_LOOSE"]
-    return dict(tight_conf=K["AI_TIGHT"] + lean, tight_lev=lim,
-                untight_conf=np.maximum(K["AI_TIGHT"] - 1 + lean, K["CONF_START"] + 3), untight_lev=lim,
-                loose_conf=loose + lean, loose_lev=lim * K["AI_LEV_BACK"],
+    return dict(limit=lim, lean=lean, loose_conf=loose + lean,  # loose_conf and unloose_conf: the levers' (ai_levers)
                 unloose_conf=np.minimum(K["CREDIT_FROM"] + lean, K["CONF_START"] - 1),
                 rescue=per_temper(credit_ai.RESCUE_BASE, K["RESCUE_SCALE"], temper, True) / 100, bailout=K["AI_BAILOUT_CHANCE"] / 100, bailout_from=0,
                 mania=None, afford=True)
@@ -789,7 +807,9 @@ class Economies:
                                            "bailout_cost", "restrains", "restrain_months", "reforms", "tight_months", "loose_months", "lev_sum", "lev_max", "gdp_gap_sum",
                                            "pool_gap_sum", "conf_sum", "lent_sum", "debt_sum", "panic_loss_sum", "inv_panic_sum", "inv_calm_sum",
                                            "boom_gap_sum", "boom_months", "steady_gap_sum", "steady_months", "low_months", "up_months", "reckless_months",
-                                           "late_panic_months", "pledge_months", "pledge_rescues", "distrust_late_months", "gap_end")}
+                                           "late_panic_months", "pledge_months", "pledge_rescues", "distrust_late_months", "gap_end",
+                                           "growth_ln", "lev8_months", "runs10", "runs10_out", "runs10_burnt")}
+        self.paying, self.run10, self.lev_prev = f.copy(), f.copy(), z.copy()  # plan's Tight, a run-up past 9.5 months not yet over, last month's leverage
         self.was_bad = f.copy()
         # lending frozen (spec_crunch_lend 0): each finished spell's length, as frozen_spells.py reads the game's logs
         self.stats["frz_hist"] = np.zeros((n, FRZ_BINS), int)
@@ -1129,7 +1149,7 @@ class Economies:
         self.tp = self.bonus_tp + self.panic_tp + self.bad_tp + self.lever_tp
         self.inv = band + pm * K["PANIC_INVEST"] + self.bad_inv + self.bonus_inv
         # construction: spec_panic, Bad Debts and Sound Credit (spec_lev_record)
-        self.build = pm * K["PANIC_BUILD"] - self.bite * K["LEV_CRUNCH_BUILD"] + self.record_held * lv.RECORD_STEP
+        self.build = np.maximum(pm * K["PANIC_BUILD"] - self.bite * K["LEV_CRUNCH_BUILD"] + self.record_held * lv.RECORD_STEP, -1)  # construction cannot go below none
         # each industry by its goods' trade (cycle.values' spec_bb_<grp>): taken over the economy, the goods' average by trade
         self.boom_build = np.clip(self.word - 4, 0, 2) * self.share
         self.boom_build = self.boom_build.sum(1) * K["BB_STEP"]
@@ -1330,6 +1350,7 @@ class Economies:
 
         # credit (generate.monthly): runoff and repayment, then this month's lending
         runoff = np.maximum(self.debt * K["CREDIT_RUNOFF"], 0)
+        runoff = np.where(self.stance == -1, np.maximum(runoff, np.minimum(self.debt * K["CREDIT_RUNOFF_TIGHT"], self.pool)), runoff)
         repaid = np.clip(runoff, 0, np.maximum(self.pool, 0))
         self.pool -= repaid
         self.debt -= runoff
@@ -1399,7 +1420,8 @@ class Economies:
         # its modifier in whole RECORD_STEPs (spec_lev_record_now)
         bad = self.in_panic | (self.crunch > 0)
         keep = np.maximum(1 - K["LEV_RECORD_LOSS"] * (1 + self.stress(lev2)), 0)
-        built = self.record + (lev2 * (K["LEV_RECORD_BUILD"] / lv.RECORD_STEP) - self.record) * K["LEV_RECORD_GAIN"]  # in RECORD_STEPs
+        gap = (lev2 + np.maximum(lev2 - lv.RECORD_FROM, 0) * K["LEV_RECORD_PAST"]) * (K["LEV_RECORD_BUILD"] / lv.RECORD_STEP) - self.record  # in RECORD_STEPs (spec_lev_record_gap)
+        built = self.record + gap * K["LEV_RECORD_GAIN"]
         self.record = np.where(bad, self.record * keep, built)
         self.record_held = np.maximum(np.floor(self.record + 1e-9), 0)
 
@@ -1544,6 +1566,19 @@ class Economies:
         lev4 = self.lev(pm)
         s["lev_sum"] += lev4
         s["lev_max"] = np.maximum(s["lev_max"], lev4)
+        # a run-up: leverage crosses 9.5 months (run12: 11.3); burnt if a panic starts before it is back under 5, out if not
+        s["lev8_months"] += lev4 >= 8
+        run_at = self.pol["plan"]["hi"] - 0.5 if self.pol.get("plan", {}).get("hi", 0) > 10 else 9.5
+        up = ~self.run10 & (self.lev_prev < run_at) & (lev4 >= run_at) & ~start
+        burnt, off = (self.run10 | up) & start, (self.run10 | up) & ~start & (lev4 < 5)
+        s["runs10"] += up
+        s["runs10_burnt"] += burnt
+        s["runs10_out"] += off
+        self.run10, self.lev_prev = (self.run10 | up) & ~burnt & ~off, lev4
+        # log growth against no market, the bonus averaged over the run, less what a panic costs the treasury (growth_core)
+        cost = self.in_panic * (PANIC_RELIEF + np.where(self.funded_rescue, K["RESCUE_CUT"], 1.0) * PANIC_TAX)
+        s["growth_ln"] += (self.I["inv_growth"] / 12 * self.pool_share * self.pool_base_x * (self.pool_inv - 1) + self.I["con_growth"] / 12 * self.build
+                           + np.log(np.maximum(1 + self.I["e_gdp"] * self.tp, 0.05)) / self.months - MONEY_GROWTH * cost / 12)
         gap = self.gdp / self.gdp_base - 1
         s["gdp_gap_sum"] += gap
         s["gap_end"] += np.where(self.m >= self.months - 60, gap / 60, 0)  # the last five years' average: how far ahead or behind the run ends (growth_edge)
@@ -1695,6 +1730,15 @@ class Economies:
         m = min(self.m, len(self.hist_rows) - 1)
         return H["stand"][self.hist_rows[m], m] >= 1
 
+    def plan(self, p, lev):
+        """The risk ladder's players: the stance they want, from what a player sees (confidence, Panic Threshold, leverage, Bad Debts)."""
+        margin, on = self.conf - self.panic_at(lev), lev >= 4
+        go = (lev >= p["hi"]) | (on & (margin < p.get("m_in", -INF))) | ((self.conf > p.get("c_in", INF)) & (lev >= 2)) | (self.crunch > 0)
+        back = (lev <= p["lo"]) & ((margin >= p.get("m_out", -INF)) | ~on) & (self.conf < p.get("c_out", INF)) & ~go
+        self.paying = np.where(go, True, np.where(back, False, self.paying))
+        loose = (lev < p.get("loose_lev", -INF)) & (margin > p.get("loose_m", INF)) & (self.conf >= (25 if "m_in" in p else 0)) & ~self.in_panic
+        return np.where(self.paying, -1, np.where(loose, 1, 0))
+
     def decide(self):
         """After the pulse: credit policy, Lend to the Banks, Buy Up Bad Loans, then the Mania event's choice."""
         K, P, n = self.K, self.pol, self.n
@@ -1707,19 +1751,30 @@ class Economies:
             c_caution += self.pledge_month()
         can = self.has("central_banking") & (self.stance_cd <= 0)  # generate.triggers: spec_can_stance_*
         fever = self.fever if is_ai else np.zeros(n, bool)
-        to_tight = can & (self.stance != -1) & ((self.conf > P["tight_conf"]) | (lev > P["tight_lev"])) & ~fever
-        to_normal_t = can & (self.stance == -1) & (self.conf < P["untight_conf"]) & (lev < P["untight_lev"])
-        to_loose = can & (self.stance == 0) & (self.conf < P["loose_conf"]) & (lev < P["loose_lev"]) & ~self.in_panic
-        to_normal_l = can & (self.stance == 1) & ((self.conf >= P["unloose_conf"]) | self.in_panic)
+        want = self.desired_credit
+        if "limit" in P:  # the AI's rule (credit_ai.STANCE)
+            margin, bad = self.conf - self.panic_at(lev) + K["AI_MARGIN_LEAN"] * P["lean"], self.crunch > 0
+            near = (lev >= K["AI_MARGIN_FROM"]) & (margin < K["AI_MARGIN"])
+            to_tight = can & (self.stance != -1) & ((lev >= P["limit"]) | bad | near) & ~fever
+            out = (self.stance == -1) & (lev < P["limit"]) & ~bad & ((lev < K["AI_MARGIN_FROM"]) | (margin >= K["AI_MARGIN_BACK"]))
+            loose = (margin > K["AI_MARGIN_LOOSE"]) & (lev < P["limit"] - K["AI_LOOSE_ROOM"]) & ~self.in_panic
+            to_loose = can & ((self.stance == 0) | out) & loose
+            to_normal_t, to_normal_l = can & out & ~loose, can & (self.stance == 1) & ~loose
+        elif "plan" in P:
+            want = self.plan(P["plan"], lev)
+        else:
+            to_tight = can & (self.stance != -1) & ((self.conf > P["tight_conf"]) | (lev > P["tight_lev"])) & ~fever
+            to_normal_t = can & (self.stance == -1) & (self.conf < P["untight_conf"]) & (lev < P["untight_lev"])
+            to_loose = can & (self.stance == 0) & (self.conf < P["loose_conf"]) & (lev < P["loose_lev"]) & ~self.in_panic
+            to_normal_l = can & (self.stance == 1) & ((self.conf >= P["unloose_conf"]) | self.in_panic)
         if P.get("timing"):  # the Panic Risk alert's condition (journal.alerts: spec_after_risks < spec_panic_at)
             risky = self.after_risks() < self.panic_at(lev)
             to_tight |= can & (self.stance != -1) & risky
             to_normal_t &= ~risky
-        elif not is_ai:  # a player's loosening: "loose_conf" INF means Loose whenever Normal and calm
+            to_loose &= ~risky
+        elif not is_ai and "plan" not in P:  # a player's loosening: "loose_conf" INF means Loose whenever Normal and calm
             to_tight &= self.stance == 0 if P["tight_conf"] < INF or P["tight_lev"] < INF else to_tight
-        new = _first([to_tight, to_normal_t, to_loose, to_normal_l], [-1, 0, 1, 0], self.stance)
-        if self.desired_credit is not None:
-            new = np.where(can, self.desired_credit, self.stance)
+        new = np.where(can, want, self.stance) if want is not None else _first([to_tight, to_normal_t, to_loose, to_normal_l], [-1, 0, 1, 0], self.stance)
         changed = new != self.stance
         self.stance, self.stance_cd = new, np.where(changed, K["STANCE_COOLDOWN"], self.stance_cd)
         self.did_stance = np.where(changed, new + 10, 0)  # +10 so Normal reads as a change
@@ -1906,7 +1961,13 @@ METRICS = {  # name: (label, unit)
     "rescue_share": ("Panics rescued", "%"),
     "frozen_spell_p90": ("Lending frozen, longest spells (90th percentile)", "months"),
     "distrust_late_pct": ("Months with the Exchange Distrusted, 1866 on", "%"),
+    "growth_core": ("GDP growth a year against no market, averaged over the century", "points"),
+    "lev8_pct": ("Months with leverage of 8 or more", "%"), "runs10_per_century": ("Run-ups to 10 months a century", ""),
+    "runs10_out_pct": ("Run-ups to 10 months that get out", "%"), "beaten_pct": ("Worlds where careful play does better", "%"),
 }
+# growth_core: treasury money spent costs growth too. MONEY_GROWTH: growth per unit of GDP spent; a panic year's relief and lost taxes,
+# shares of GDP (both not in the engine's growth path)
+MONEY_GROWTH, PANIC_RELIEF, PANIC_TAX = 0.35, 0.04, 0.15 * 0.15
 DISTRUST_FROM = 30 * 12  # months from 1836 to 1866
 FRZ_BINS = 241  # spell lengths 0 to 240 months; longer ones count as 240
 
@@ -1927,6 +1988,8 @@ def summarize(e):
         "tight_pct": s["tight_months"] / T * 100, "loose_pct": s["loose_months"] / T * 100,
         "rescues_per_century": s["rescues"] * cent, "spend_pct_gdp": spend,
         "trust_top_pct": s["trust_top_months"] / T * 100,
+        "growth_core": (np.exp((s["growth_ln"] - MONEY_GROWTH * spend / 100) / (T / 12)) - 1) * 100,
+        "lev8_pct": s["lev8_months"] / T * 100, "runs10_per_century": s["runs10"] * cent,
         "low_pct": s["low_months"] / T * 100, "up_pct": s["up_months"] / T * 100, "reckless_pct": s["reckless_months"] / T * 100,
         "late_panic_pct": s["late_panic_months"] / (T - int(T * 0.7)) * 100,
         "distrust_late_pct": s["distrust_late_months"] / max(T - DISTRUST_FROM, 1) * 100,
@@ -1935,6 +1998,8 @@ def summarize(e):
     # pooled ratios: the panic length and manias ending in a panic over every economy at once
     out["panic_length"] = {"mean": float(s["panic_len_sum"].sum() / max(s["panics"].sum(), 1))}
     out["mania_to_panic_pct"] = {"mean": float(s["mania_panics"].sum() / max(s["manias"].sum(), 1) * 100)}
+    out["runs10_out_pct"] = {"mean": float(s["runs10_out"].sum() / max((s["runs10_out"] + s["runs10_burnt"]).sum(), 1) * 100)}
+    out["_core"] = per["growth_core"]
     out["frozen_pct"] = {"mean": float(s["frozen"].sum() / max(s["panics"].sum(), 1) * 100)}
     h = s["frz_hist"].sum(0)  # pooled over the economies: 90% of frozen spells are this long or shorter
     out["frozen_spell_p90"] = {"mean": float(np.searchsorted(np.cumsum(h), 0.9 * h.sum()) if h.sum() else 0.0), "spells": int(h.sum())}
@@ -1947,6 +2012,14 @@ def summarize(e):
                                              - s["steady_gap_sum"].sum() / max(s["steady_months"].sum(), 1)) * 100)}
     out["_hist"] = np.histogram(per["panics_per_century"], bins=np.arange(0, 16))[0].tolist()  # panics a century, 0 to 15
     return out
+
+
+def beaten(res):
+    """Across one candidate's players: the share of worlds where careful play does better, on the same draws (beaten_pct)."""
+    core = {b: r.pop("_core", None) for b, r in res.items()}
+    for b, r in res.items():
+        if core.get("careful") is not None and core[b] is not None and b != "careful":
+            r["beaten_pct"] = {"mean": float((core[b] < core["careful"]).mean() * 100)}
 
 
 SNAP = 6  # months between the snapshots the charts draw
@@ -2106,7 +2179,8 @@ if __name__ == "__main__":
         "spec_credit": [f"subtract = {K['CREDIT_FROM']}", f"multiply = {K['CREDIT_SHARE']}", f"max = {K['CREDIT_FLOW_MAX']}",
                         "multiply = spec_credit_rate", "max = spec_credit_ceiling", "max = spec_credit_room"],
         "spec_credit_ceiling": [f"multiply = {K['CREDIT_CEILING']}"],
-        "spec_credit_runoff": [f"multiply = {K['CREDIT_RUNOFF']}"],
+        "spec_credit_runoff": [f"multiply = {K['CREDIT_RUNOFF']}", "min = spec_credit_payoff"],
+        "spec_credit_payoff": [f"multiply = {K['CREDIT_RUNOFF_TIGHT']}", "max = investment_pool"],
         "spec_clawback": [f"multiply = {K['CLAWBACK']}", "multiply = spec_lax_recall", "max = investment_pool"],
         "spec_claw_share": [f"divide = {K['DANGER']}", f"min = {K['CLAW_FLOOR']}"],
         "spec_tight_pull": [f"value = {K['TIGHT_FROM']}", f"multiply = {K['TIGHT_PULL']:g}", "max = 0"],

@@ -132,11 +132,12 @@ HEAT_COOL = tuning.get("HEAT_COOL", 0.98)
 HEAT_COOL_TIGHT = tuning.get("HEAT_COOL_TIGHT", 0.95)
 BURST_PER_HEAT = tuning.get("BURST_PER_HEAT", 0.2)  # no cap since 1.2: a pop takes the confidence it finds (under BURST_BELOW), the rest becomes Bad Debts (leverage.ON_BURST)
 # the Market Volatility game rule: Historical uses the values above; Heightened those of tune5 (bubbles from 72 at
-# 0.25 x heat, booms x1.25), which gave the 40 largest economies 6.1 panics per 100 country years to history's 4
+# 0.25 x heat, booms x1.25), which gave the 40 largest economies 6.1 panics per 100 country years to history's 4.
+# 1.3.1: heat 70 -> 78, booms 1.1 -> 1, as the base boom size grew
 # the Market Impact rule: every leverage, panic and Bad Debts effect times this (Standard is what the tuner tunes)
 IMPACT = {"flavor": 0.4, "standard": 1, "strong": 1.6}
 VOLATILITY = {"historical": {"heat": HEAT_FROM, "per": BURST_PER_HEAT, "boom": 1},
-              "heightened": {"heat": 70, "per": 0.25, "boom": 1.1}}
+              "heightened": {"heat": 78, "per": 0.25, "boom": 1}}
 CONF_BOOM_MAX = 3
 PEAK_FOR_CRASH = tuning.get("PEAK_FOR_CRASH", 6)          # a good that peaked this high and falls below CRASH_BELOW has crashed
 CRASH_BELOW = round(1 / PEAK_FOR_CRASH, 3)  # Fleeing, the mirror of Feverish
@@ -199,7 +200,7 @@ CREDIT_FROM = tuning.get("CREDIT_FROM", 55)            # credit flows above this
 # ponytail: credit was 0.05% of GDP a month, about 1% of the investment pool's income in a 1836-1842 run (runs/
 # 20261103_005410_credit_sev): flavour only. Now sized on the pool: at Mania (80) banks add about 15% of a month's
 # pool income, a long boom builds up about 5 months of it owed, and a panic recalls half of that at once
-VERSION = "1.3.0"
+VERSION = "1.3.1"
 CREDIT_SHARE = tuning.get("CREDIT_SHARE", 1.5)         # monthly credit at full confidence, as a share of a month's pool income
 CREDIT_FLOW_MAX = tuning.get("CREDIT_FLOW_MAX", 0.4)       # confidence's part of a month's credit is at most this share of a month's pool income
 CREDIT_CEILING = tuning.get("CREDIT_CEILING", 0.6)        # then times the lending rate (stance, laws, techs...), and never more than this share
@@ -207,6 +208,7 @@ CREDIT_CAP_MONTHS = 12      # banks stop lending once outstanding credit reaches
 WEEKS_PER_MONTH = 4.3       # investment_pool_gross_income is weekly
 CREDIT_RUNOFF = tuning.get("CREDIT_RUNOFF", 0.02)        # share of outstanding credit repaid each month: loans of about four years (was 0.03, tune12)
 CLAW_FLOOR = tuning.get("CLAW_FLOOR", 0.25)  # the most of the pool a panic takes at low leverage; all of it from leverage.DANGER
+CREDIT_RUNOFF_TIGHT = tuning.get("CREDIT_RUNOFF_TIGHT", CREDIT_RUNOFF)  # and under Tight credit, as far as the pool can pay it
 CLAWBACK = tuning.get("CLAWBACK", 0.5)              # share of outstanding credit a panic pulls back out of the investment pool
 RESCUE_COST = 0.042         # share of GDP, with Central Banking: -30% of the private 6% (was 0.02: with the discounts it fell to 0.4%)
 RESCUE_FLOOR = 0.015        # the share after every discount (reform, Lending Standards, pledge) never falls below this
@@ -230,7 +232,7 @@ RESCUE_REF_MONTHS, RESCUE_SCALE = 6, (1, 2)
 RESCUE_CONF = 20
 RESCUE_CUT = 0.5            # a rescued panic's ongoing penalties, as a share of an unrescued one's
 STANCE_HYPE = {"tight": 0.5, "loose": 1.3}  # credit stance's multiplier on investor reaction (loose: to rising prices only)
-STANCE_CREDIT = {"tight": 0, "loose": 1.6}  # credit stance's multiplier on new lending (spec_stance_credit)
+STANCE_CREDIT = {"tight": 0, "loose": tuning.get("LOOSE_CREDIT", 1.6)}  # credit stance's multiplier on new lending (spec_stance_credit)
 MANIA_CAUTION = 10          # confidence the mania event's warning takes off
 MANIA_TAX, MANIA_TAX_CONF = 0.0025, 5   # the mania event's levy: share of GDP raised, confidence lost
 # the AI's ai_chance in the mania event (spec_markets.1): ride it, the warning, the levy; each with its temperament's addition
@@ -630,7 +632,11 @@ def values():
     if leverage.ON:
         sv.append(f"spec_claw_share = {{\n\tvalue = spec_lev\n\tdivide = {leverage.DANGER}\n\tmin = {CLAW_FLOOR}\n\tmax = 1\n}}")
     # this month's runoff of outstanding credit, and what the investment pool repays of it: never more than the pool holds
-    sv.append(f"spec_credit_runoff = {{\n\tvalue = 0\n\tif = {{\n\t\tlimit = {{ has_variable = spec_debt }}\n\t\tvalue = var:spec_debt\n\t\tmultiply = {CREDIT_RUNOFF}\n\t\tmin = 0\n\t}}\n}}")
+    sv.append(f"spec_credit_runoff = {{\n\tvalue = 0\n\tif = {{\n\t\tlimit = {{ has_variable = spec_debt }}\n\t\tvalue = var:spec_debt\n\t\tmultiply = {CREDIT_RUNOFF}\n\t\tmin = 0\n\t\tif = {{\n\t\t\tlimit = {{ spec_stance_value = -1 }}\n\t\t\tmin = spec_credit_payoff\n\t\t}}\n\t}}\n}}")
+    # Tight credit pays loans off faster, but only out of what the pool holds: it never writes a loan off
+    sv.append(f"spec_credit_payoff = {{\n\tvalue = var:spec_debt\n\tmultiply = {CREDIT_RUNOFF_TIGHT}\n\tmax = investment_pool\n}}")
+    # the share of the loans that is, in percent
+    sv.append("spec_credit_runoff_pct = {\n\tvalue = 0\n\tif = {\n\t\tlimit = { has_variable = spec_debt var:spec_debt > 0 }\n\t\tvalue = spec_credit_runoff\n\t\tdivide = var:spec_debt\n\t\tmultiply = 100\n\t}\n}")
     sv.append("spec_credit_repay = {\n\tvalue = spec_credit_runoff\n\tmax = investment_pool\n\tmin = 0\n}")
     # to the nearest 1,000, as spec_speculator_tax: event tooltips show it whole
     sv.append(f"spec_rescue_share = {{\n\tvalue = {RESCUE_COST_PRIVATE}\n\tif = {{\n\t\tlimit = {{ has_technology_researched = central_banking }}\n"
@@ -1350,48 +1356,12 @@ spec_monthly = {{
 					add_journal_entry = {{ type = je_spec_markets }}
 				}}
 			}}
-{leverage.FEVER_END}			# AI countries use the same tools by rule: cool a mania, stop cooling once it has passed,
-			# loosen when wary, and stop loosening once confidence is back
+{leverage.FEVER_END}			# AI countries use the same tools by rule: borrow while a panic is far off, and pay loans off as it nears
 			if = {{
 				limit = {{ is_player = no }}
 				# thresholds move with temperament and the interest groups in government (credit_ai.py)
 				spec_ai_temper = yes
-				if = {{
-					limit = {{
-						{leverage.ai_tight("var:spec_conf > spec_ai_tight_at")}
-						spec_can_stance_tight = yes
-					}}
-					spec_stance_to_tight = yes
-				}}
-				else_if = {{
-					limit = {{
-						spec_stance_value = -1
-						var:spec_conf < spec_ai_untight_at
-{leverage.AI_EXIT_TIGHT}						spec_can_stance_normal = yes
-					}}
-					spec_stance_to_normal = yes
-				}}
-				else_if = {{
-					limit = {{
-						spec_stance_value = 0
-						var:spec_conf < spec_ai_loose_at
-{leverage.AI_BACK}						NOT = {{ has_variable = spec_panic }}
-						spec_can_stance_loose = yes
-					}}
-					spec_stance_to_loose = yes
-				}}
-				else_if = {{
-					limit = {{
-						spec_stance_value = 1
-						OR = {{
-							var:spec_conf >= spec_ai_unloose_at
-							has_variable = spec_panic
-						}}
-						spec_can_stance_normal = yes
-					}}
-					spec_stance_to_normal = yes
-				}}
-				if = {{
+{credit_ai.STANCE}				if = {{
 					limit = {{
 						spec_can_rescue = yes
 						# the AI pays only from money it has, never by borrowing
@@ -2115,7 +2085,7 @@ def loc():
  spec_credit_tight_fx: "[concept_spec_credit_policy] becomes #v Tight#!"
  spec_credit_normal_fx: "[concept_spec_credit_policy] becomes #v Normal#!"
  spec_credit_loose_fx: "[concept_spec_credit_policy] becomes #v Loose#!"
- spec_credit_tight_desc: "#N Banks stop lending#! into the [concept_investment_pool]\\nInvestors react #N {1 - STANCE_HYPE['tight']:.0%}#! less to price moves\\n#P Smaller booms#!, gentler endings and milder panics{f"\\n[concept_spec_bad_debts] clear #P {leverage.CRUNCH_FADE_TIGHT / leverage.CRUNCH_FADE - 1:.0%}#! faster" if leverage.ON else ""}\\nEach month, #N {TIGHT_PULL:.0%}#! of any [concept_spec_market_confidence] above #v {TIGHT_FROM}#! wears off\\n\\n{requires}\\n\\n{credit_ai.ig_lines('tight')}"
+ spec_credit_tight_desc: "#N Banks stop lending#! into the [concept_investment_pool]\\n#P {CREDIT_RUNOFF_TIGHT:.0%}#! of our [concept_spec_outstanding_credit] is paid back each month, instead of #v {CREDIT_RUNOFF * 100:.2g}%#!\\nInvestors react #N {1 - STANCE_HYPE['tight']:.0%}#! less to price moves\\n#P Smaller booms#!, gentler endings and milder panics{f"\\n[concept_spec_bad_debts] clear #P {leverage.CRUNCH_FADE_TIGHT / leverage.CRUNCH_FADE - 1:.0%}#! faster" if leverage.ON else ""}\\nEach month, #N {TIGHT_PULL:.0%}#! of any [concept_spec_market_confidence] above #v {TIGHT_FROM}#! wears off\\n\\n{requires}\\n\\n{credit_ai.ig_lines('tight')}"
  spec_credit_normal: "Normal Credit"
  spec_credit_normal_desc: "Banks lend into the [concept_investment_pool] while [concept_spec_market_confidence] is above #v {CREDIT_FROM}#!\\n\\n{requires}"
  spec_credit_loose: "Loose Credit"
@@ -2569,7 +2539,7 @@ def main(log=False):
           f" setting_spec_volatility_historical_desc: \"Speculative booms and {panics} will occur about as often as they did "
           "in the 19th century\"\n"
           f" setting_spec_volatility_heightened: \"{tip('heightened', '#high High#!')}\"\n"
-          " setting_spec_volatility_heightened_desc: \"Speculative booms will grow larger and end more abruptly, and "
+          " setting_spec_volatility_heightened_desc: \"Speculative booms will overheat sooner and end more abruptly, and "
           f"{panics} will occur more often than they did in the 19th century\"\n"
           + " rule_spec_market_impact: \"Market Impact\"\n"
           f" setting_spec_impact_flavor: \"{itip('flavor', 'Flavor')}\"\n"

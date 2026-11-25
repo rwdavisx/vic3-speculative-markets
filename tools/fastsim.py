@@ -44,7 +44,7 @@ BASE = dict(lev_on=True, avg_income=True, reward=lv.REWARD, reward_max=lv.REWARD
             burst_per=g.BURST_PER_HEAT, burst_max=g.BURST_BELOW,  # ponytail: no cap since 1.2; Tight cooling (HEAT_COOL_TIGHT) not modelled
             panic_back=0, cooldown=g.PANIC_COOLDOWN, rescue_conf=g.RESCUE_CONF, rescue_months=g.RESCUE_MONTHS,
             rescue_months_private=g.RESCUE_MONTHS_PRIVATE, rescue_chance=dict(credit_ai.RESCUE_CHANCE), rescue_able=1.0, stance_cooldown=g.STANCE_COOLDOWN, tight_pull=g.TIGHT_PULL,
-            tight_from=g.TIGHT_FROM, easy=0.2, ai_tight=credit_ai.AI_TIGHT, ai_loose=g.WARY, temper_shift=credit_ai.TEMPER_SHIFT, boom_scale=g.CONF_PER_HOT / .72, crash_scale=1.0, crash_max=g.CONF_CRASH_MAX,
+            tight_from=g.TIGHT_FROM, easy=0.2, ai_tight=80, ai_loose=g.WARY, temper_shift=credit_ai.TEMPER_SHIFT, boom_scale=g.CONF_PER_HOT / .72, crash_scale=1.0, crash_max=g.CONF_CRASH_MAX,
             stance_moves_hype=True, ladder=lv.LADDER, fever=lv.FEVER, flow_top=None, played_share=g.CREDIT_SHARE, foreign_scale=1.0, tight_cap=None, scale={}, logged_stance=False, warning=g.MANIA_CAUTION, levy=g.MANIA_TAX_CONF)
 # history's readings for the 40 largest economies (FINDINGS.md, Benchmarks): centre, low, high
 TARGETS = {"panics": (4, 2.5, 5.5), "in_panic": (1.5, 0.8, 2.5), "length": (4.5, 3, 6), "mania": (4, 2, 8), "mania_panic": (20, 10, 35)}

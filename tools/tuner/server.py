@@ -304,7 +304,7 @@ class H(BaseHTTPRequestHandler):
         if path == "/api/watch":
             values = CURRENT | {k: v for k, v in (b.get("values") or {}).items() if k in KEYS}
             e = engine.run(values, b.get("cfg") or engine.defaults(), b.get("bot", "passive"), 1, int(b.get("seed", 1)), trace=True)
-            return self.send(dumps({"frames": e.hist, "summary": engine.summarize(e), "money": str(e.money[0]), "econ": str(e.econ[0]),
+            return self.send(dumps({"frames": e.hist, "summary": {k: v for k, v in engine.summarize(e).items() if k != "_core"}, "money": str(e.money[0]), "econ": str(e.econ[0]),
                                     "temper": int(e.temper[0])}))
         if path == "/api/apply":
             ok, log = apply(b.get("values") or {})

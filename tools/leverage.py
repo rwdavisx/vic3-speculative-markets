@@ -84,6 +84,8 @@ CRUNCH_RAMP, BONUS_FADE = tuning.get("LEV_CRUNCH_RAMP", 3), tuning.get("LEV_BONU
 # (A first try added a fixed step per bonus month up to a cap: careful play reached the cap as fast as skilled play.)
 RECORD_BUILD, RECORD_GAIN, RECORD_LOSS = (tuning.get("LEV_RECORD_BUILD", 0), tuning.get("LEV_RECORD_GAIN", 0.02),
                                        tuning.get("LEV_RECORD_LOSS", 0.1))
+# each month past RECORD_FROM counts 1 + RECORD_PAST times: the far end of a run-up is worth its risk
+RECORD_FROM, RECORD_PAST = tuning.get("LEV_RECORD_FROM", 6), tuning.get("LEV_RECORD_PAST", 0)
 RECORD = bool(ON and RECORD_BUILD > 0)
 RECORD_STEP = 0.001  # the modifier moves in tenths of a percent, so it changes a few times a year, not every month. Construction,
 # not throughput: faster building stays built and compounds, so years of sound credit pay and a crash costs (November 24 games)
@@ -161,17 +163,15 @@ INCOME_SMOOTH = tuning.get("LEV_INCOME_SMOOTH", 0.15)
 # income counts as at least this share of GDP a month. Only countries under about 3k GDP ever sit below it: with next to no
 # pool income their leverage froze at 18 months or more while the debt ran off, and every panic took the worst Bad Debts
 INCOME_FLOOR = tuning.get("LEV_INCOME_FLOOR", 0.01)
-# months of leverage at which the AI turns Tight, by temperament; it stays Tight until half that. A limit below this means only
-# falling income can set it off
-AI_LIMIT_BASE = tuning.get("AI_LEV_LIMIT", {"-1": 5, "0": 8, "1": 9.5})  # Cautious was 3: a third of the AI never passed the safe line (tune12); Bold was 12, the ruin line
+# months of leverage at which the AI turns Tight, by temperament, however far off a panic is (credit_ai.STANCE)
+AI_LIMIT_BASE = tuning.get("AI_LEV_LIMIT", {"-1": 6.5, "0": 8, "1": 9.5})  # Cautious was 5 before 1.3.1; Bold was 12, the ruin line (tune12)
 # percent chance, by temperament, that a Mania carries an AI away: it won't tighten for debt or confidence until the Mania passes or a
 # panic comes. Rolled once per Mania. Bold's confidence rule alone would otherwise stop it long before the top of the credit limit
 FEVER_BASE = tuning.get("AI_FEVER", {"0": 10, "1": 50})
-# the AI's tables, each moved as one by its scale (tuning.scaled), and the share of its limit it loosens back below
+# the AI's tables, each moved as one by its scale (tuning.scaled)
 AI_LEV_SCALE, FEVER_SCALE = tuning.get("AI_LEV_SCALE", 1.0), tuning.get("AI_FEVER_SCALE", 1.0)
 AI_LIMIT = tuning.scaled(AI_LIMIT_BASE, AI_LEV_SCALE)
 FEVER = {int(k): v for k, v in tuning.scaled(FEVER_BASE, FEVER_SCALE, whole=True).items()}
-AI_LEV_BACK = tuning.get("AI_LEV_BACK", 0.5)
 # the credit limit at each tech, never past LEV_RUIN. Central Banking comes first, then the others in either order, so their steps match. A crash
 # needs about 6.4 months to be Severe (8.5 when Bad Debts grew with stress squared), and at the old 6 it left under 5 Bad Debts: one Severe crash in 56 years of the early game, against history's 1837, 1857 and 1873
 LADDER = tuple(tuning.get("LEV_LADDER", (SAFE, 8, 10, 12)))
@@ -222,7 +222,6 @@ def values(panic, near):
         f"spec_lev_bonus_min = {{\n\tvalue = 0\n\tif = {{\n\t\tlimit = {{ has_variable = spec_lev_held }}\n\t\tvalue = var:spec_lev_held\n\t\tsubtract = {BONUS_FADE}\n\t}}\n}}",
         debt_value("spec_crunch_bite"),
         f"spec_ai_lev_limit = {{\n\tvalue = {AI_LIMIT['0']}\n{limit}}}",
-        f"spec_ai_lev_back = {{\n\tvalue = spec_ai_lev_limit\n\tmultiply = {AI_LEV_BACK}\n}}",
         *([shape_value()] + [f"spec_lev_boom_{n} = {{\n\tvalue = spec_lev_boom_mult\n\tmultiply = {full * 100:g}\n\tmultiply = spec_impact\n}}" for n, full in (("pct", TP_FULL), ("inv_pct", INV_FULL)) if full or n == "pct"]
           if SMOOTH else
           [taper_value(), f"spec_lev_boom_pct = {{\n\tvalue = spec_lev_boom_mult\n\tmultiply = {REWARD * 100:g}\n}}"]
@@ -250,9 +249,10 @@ def values(panic, near):
         # throughput lost in percent, for the texts: now, once fully bitten in, and if a panic began now
         *(f"{name} = {{\n\tvalue = {src}\n\tmultiply = {CRUNCH_THROUGHPUT * 100:g}\n\tmultiply = spec_impact\n}}" for name, src in
           (("spec_crunch_tp_pct", "spec_crunch_bite_sv"), ("spec_crunch_tp_full_pct", "spec_crunch_sv"), ("spec_crunch_tp_if_pct", "spec_crunch_if"))),
-    ] + ([f"spec_lev_record_keep = {{\n\tvalue = spec_lev_stress\n\tadd = 1\n\tmultiply = {-RECORD_LOSS:g}\n\tadd = 1\n\tmin = 0\n}}",
+    ] + ([f"spec_lev_record_gap = {{\n\tvalue = spec_lev_adj\n" + (f"\tadd = {{\n\t\tvalue = spec_lev_adj\n\t\tsubtract = {RECORD_FROM:g}\n\t\tmin = 0\n\t\tmultiply = {RECORD_PAST:g}\n\t}}\n" if RECORD_PAST else "") + f"\tmultiply = {round(RECORD_BUILD / RECORD_STEP, 4):g}\n\tsubtract = var:spec_lev_record\n}}",
+          f"spec_lev_record_keep = {{\n\tvalue = spec_lev_stress\n\tadd = 1\n\tmultiply = {-RECORD_LOSS:g}\n\tadd = 1\n\tmin = 0\n}}",
           # kept in RECORD_STEPs (tenths of a percent), so a month's small gain is not lost to the engine's rounding
-          f"spec_lev_record_to = {{\n\tvalue = spec_lev_adj\n\tmultiply = {round(RECORD_BUILD / RECORD_STEP, 4):g}\n\tsubtract = var:spec_lev_record\n\tmultiply = {RECORD_GAIN:g}\n}}",
+          f"spec_lev_record_to = {{\n\tvalue = spec_lev_record_gap\n\tmultiply = {RECORD_GAIN:g}\n}}",
           "spec_lev_record_now = {\n\tvalue = var:spec_lev_record\n\tfloor = yes\n\tmin = 0\n}",
           f"spec_lev_record_pct = {{\n\tvalue = 0\n\tif = {{\n\t\tlimit = {{ has_variable = spec_lev_record_held }}\n"
           f"\t\tvalue = var:spec_lev_record_held\n\t\tmultiply = {RECORD_STEP * 100:g}\n\t\tmultiply = spec_impact\n\t}}\n}}"] if RECORD else [])
@@ -548,11 +548,6 @@ ON_REPAY = "" if not ON else ("\t\t\tif = {\n\t\t\t\tlimit = {\n\t\t\t\t\thas_va
                               "\t\t\t\tset_variable = { name = spec_lev_old value = { value = var:spec_debt subtract = local_var:spec_runoff divide = var:spec_debt multiply = var:spec_lev_old } }\n\t\t\t}\n")
 
 
-# The AI tightens above its leverage limit and can return to Normal below it. Loose still requires half the limit.
-def ai_tight(test):
-    return test if not ON else f"OR = {{\n\t\t\t\t\t\t\t{test}\n\t\t\t\t\t\t\tspec_lev > spec_ai_lev_limit\n\t\t\t\t\t\t}}\n\t\t\t\t\t\tNOT = {{ has_variable = spec_ai_fever }}"
-
-
 # when a Mania fires, and each month in the AI's rules
 FEVER_ROLL = "" if not ON else "\t\t\t\tif = {\n\t\t\t\t\tlimit = { is_player = no }\n\t\t\t\t\tspec_ai_temper = yes\n" + "".join(
     f"\t\t\t\t\tif = {{\n\t\t\t\t\t\tlimit = {{ var:spec_temper = {t} }}\n\t\t\t\t\t\trandom = {{\n\t\t\t\t\t\t\tchance = {v}\n\t\t\t\t\t\t\tset_variable = spec_ai_fever\n\t\t\t\t\t\t}}\n\t\t\t\t\t}}\n"
@@ -660,7 +655,8 @@ ROOT = "ROOT.GetCountry.MakeScope"
 RECORD_LOC = "" if not RECORD else (
     ' spec_lev_record: "Sound Credit"\n'
     f' spec_lev_record_desc: "Years of well-run borrowing have built lasting faith in the country\'s credit, so builders finish sooner. In calm years it grows'
-    f' slowly toward #P {RECORD_BUILD * 100:+g}%#! construction efficiency for each month of [concept_spec_leverage].'
+    f' slowly toward #P {RECORD_BUILD * 100:+.2g}%#! construction efficiency for each month of [concept_spec_leverage]'
+    + (f', and #P {RECORD_BUILD * (1 + RECORD_PAST) * 100:+.2g}%#! for each month past #v {RECORD_FROM:g}#!.' if RECORD_PAST else '.') +
     ' Panics and [concept_spec_bad_debts] wear it away, and the deeper the [concept_spec_leverage], the faster it goes."\n')
 FULL_TEXT = " and ".join(t for t in ((f"#P {TP_FULL * 100:+g}%#! [concept_throughput]" if TP_FULL else ""),
                                       (f"#P {INV_FULL * 100:+g}%#! investment" if INV_FULL else "")) if t)
@@ -698,8 +694,6 @@ AI_BAILOUT = "" if not ON else """				if = {
 					}
 				}
 """
-AI_EXIT_TIGHT = "" if not ON else "\t\t\t\t\t\tspec_lev < spec_ai_lev_limit\n"
-AI_BACK = "" if not ON else "\t\t\t\t\t\tspec_lev < spec_ai_lev_back\n"
 # the LOG line's own values, for generate.log_values: a log build only
 LOG_VALUES = [] if not ON else ["spec_log_fever = {\n\tvalue = 0\n\tif = {\n\t\tlimit = { has_variable = spec_ai_fever }\n\t\tvalue = 1\n\t}\n}",
                                 "spec_log_pop = {\n\tvalue = total_population\n}"]

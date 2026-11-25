@@ -166,6 +166,7 @@ def sweep(spec, pool, cur=None, emit=lambda e: None, stop=None):
                 tell({"type": "progress", "run": rid, "done": done, "total": total, "secs": round(time.time() - t0, 1)})
             if len(got[cid]) == len(bots):
                 res = {b: s for b, (s, _) in got[cid].items()}
+                engine.beaten(res)
                 score, parts = engine.score(res, tr)
                 c = {"id": cid, "score": round(score, 4), "parts": parts, "metrics": res, "bands": {b: bd for b, (_, bd) in got[cid].items()},
                      "values": cands[cid], "credit_tier_note": credit_tier_note(cands[cid]),

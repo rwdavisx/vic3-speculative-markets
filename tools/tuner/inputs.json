@@ -199,6 +199,30 @@
     ],
     "rough_skew": 0
    }
+  },
+  "game_refit_20261125": {
+   "logs": [
+    "runs/sweep_beta3/beta3_01",
+    "runs/sweep_rc122/rc122_01"
+   ],
+   "was": {
+    "rough_sd": [
+     2.5,
+     2.5
+    ],
+    "rough_months": [
+     1,
+     1
+    ],
+    "rough_skew": 1,
+    "price_sd": [
+     0.0316,
+     0.0316
+    ],
+    "PRICE_SPREAD": 0.55,
+    "PRICE_COMMON": 0.065
+   },
+   "why": "the recentred falls-only roughness pushed confidence up to +2 a month, so simulated Mania was 3x the game's"
   }
  },
  "inputs": {
@@ -263,12 +287,12 @@
    0.06002
   ],
   "rough_sd": [
-   2.5,
-   2.5
+   0.5,
+   0.5
   ],
   "rough_months": [
-   1,
-   1
+   6,
+   6
   ],
   "flight_share": [
    0.95098,
@@ -295,8 +319,8 @@
    2.45375
   ],
   "price_sd": [
-   0.0316,
-   0.0316
+   0.032,
+   0.032
   ],
   "price_months": [
    7.55606,
@@ -306,7 +330,7 @@
    17,
    17
   ],
-  "rough_skew": 1
+  "rough_skew": 0
  },
  "was": {
   "pool_share": [
